@@ -1,62 +1,28 @@
 <template>
     <main>
         <slot></slot>
+        <vue-editor
+    v-model="content"
+    @focus="onEditorFocus"
+    @blur="onEditorBlur"
+    @selection-change="onSelectionChange"
+  />
         <div class="row main-habit-builder">
-            <div class="col-md-8">
-                <h2>{{trans('Create new Habit Builder')}}</h2>
-                <p class="text-gray">{{trans('Select if you want to use previous Habit Builder as a template or create a new Habit Builder')}}
-                </p>
-            </div>
             <div class="col-md-6">
-                <div class="card h-card" @click="notImplemented">
+                <div class="card h-card" @click="viewPost">
                     <div class="card-header">
 
                         <div class="row">
-                            <div class="col-md-2">
-                                <div class="icon-left">
-                                    <i class="fa fa-paper-plane"></i>
-                                </div>
-
-                            </div>
-
-                            <div class="col-md-10">
-                                <h3> {{trans('Use Previous Habit Builder as Template')}} </h3>
-                                <p class="text-opacity-50">
-                                    {{trans('Pre-populated inputs from either previous Habit Builder or system template.')}}
-                                </p>
-                            </div>
-
+                            <h3>Post Description</h3>
+                            <p>post content</p>
 
                         </div>
                     </div>
                 </div>
-                <div class="card h-card" @click="redirect('/habit-builder-wizard/new/')">
-                    <div class="card-header">
-
-                        <div class="row">
-                            <div class="col-md-2">
-                                <div class="icon-left">
-                                    <i class="fa fa-pencil-alt"></i>
-
-                                </div>
-
-                            </div>
-
-                            <div class="col-md-10">
-                                <h3> {{trans('Create Habit Builder From Scratch')}} </h3>
-                                <p class="text-opacity-50">{{trans('All input field will be blank')}} </p>
-                            </div>
-
-
-                        </div>
-                    </div>
-                </div>
-
-                <button class="btn-default">Cancel</button>
-
+                
             </div>
         </div>
-
+        <post-view-modal ref="postViewModal"></post-view-modal>
 
     </main>
 </template>
@@ -102,15 +68,25 @@
 </style>
 
 <script>
+import { VueEditor } from "vue2-editor";
+import PostViewModal from './../post/post-view-modal'
     export default {
         name: 'HabitBuilderModal',
+        components:{
+            PostViewModal,VueEditor
+        },
         data() {
-            return {}
+            return {
+                content:''
+            }
         },
         methods: {
             trans: function (string, defaultString) {
-                return this.$trans('conversation', string, defaultString);
+                return this.$trans('home', string, defaultString);
             },
+            viewPost(){
+                this.$refs.postViewModal.openModal();
+            }
         },
     }
 </script>

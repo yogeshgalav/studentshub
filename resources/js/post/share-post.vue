@@ -1,19 +1,19 @@
 <template>
-  <editor :content="content"></editor>
+<main>
+     
+</main>
 </template>
-
 <script>
-// Import the editor
 import Editor from './editor'
 
 export default {
-  components: {
-    Editor,
-  },
-  data() {
+     data() {
     return {
       content:'',
     }
   },
+    methods:{
+        
+    }
 }
 </script>

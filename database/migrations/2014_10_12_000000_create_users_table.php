@@ -20,13 +20,12 @@ class CreateUsersTable extends Migration
             $table->string('full_name', 101)->nullable();
             $table->string('email')->unique();
             $table->string('phone')->unique();
-            $table->char('timezone_code',9);
+            $table->char('timezone_code',9)->nullable();
             $table->dateTime('email_verified_at');
             $table->char('country_code',2);
             $table->char('locale_code',2);
             $table->string('password');
             $table->boolean('is_knowledge_seeker')->default(true);
-            $table->boolean('is_blocked')->default(false);
             $table->date('onboarded_at')->nullable();
             $table->string('avatar_url')->nullable();
             $table->softDeletes();

@@ -56,9 +56,10 @@ import store from './store'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import Swal from './components/swal'
-
+import VModal from 'vue-js-modal'
+ 
+Vue.use(VModal, { dynamic: true, injectModalsContainer: true })
 Vue.use(VueAxios, axios, Swal);
-
 Vue.mixin({
     methods: {
         '$trans':function(file,string,defaultString){

@@ -28,6 +28,7 @@ class CreatePrivateClassroomsTable extends Migration
             $table->string('last_contract_signed_date')->nullable();
             $table->string('next_contract_renewal_date')->nullable();
             $table->char('currency_code',3)->nullable();
+            $table->date('retired_at')->nullable();
             $table->timestamps();
         });
 
