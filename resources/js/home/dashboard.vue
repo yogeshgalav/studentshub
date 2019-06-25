@@ -1,12 +1,8 @@
 <template>
     <main>
         <slot></slot>
-        <vue-editor
-    v-model="content"
-    @focus="onEditorFocus"
-    @blur="onEditorBlur"
-    @selection-change="onSelectionChange"
-  />
+        <button type="button" @click="sharePost">share</button>
+        
         <div class="row main-habit-builder">
             <div class="col-md-6">
                 <div class="card h-card" @click="viewPost">
@@ -23,7 +19,14 @@
             </div>
         </div>
         <post-view-modal ref="postViewModal"></post-view-modal>
-
+            <modal name="artical-modal">
+            <vue-editor
+                v-model="content"
+                @focus="onEditorFocus"
+                @blur="onEditorBlur"
+                @selection-change="onSelectionChange"
+            />
+        </modal>
     </main>
 </template>
 <style scoped>
@@ -86,6 +89,9 @@ import PostViewModal from './../post/post-view-modal'
             },
             viewPost(){
                 this.$refs.postViewModal.openModal();
+            },
+            sharePost(){
+                 this.$modal.show('artical-modal');
             }
         },
     }

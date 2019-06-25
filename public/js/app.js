@@ -2870,6 +2870,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2889,6 +2892,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     viewPost: function viewPost() {
       this.$refs.postViewModal.openModal();
+    },
+    sharePost: function sharePost() {
+      this.$modal.show('artical-modal');
     }
   }
 });
@@ -65461,20 +65467,11 @@ var render = function() {
     [
       _vm._t("default"),
       _vm._v(" "),
-      _c("vue-editor", {
-        on: {
-          focus: _vm.onEditorFocus,
-          blur: _vm.onEditorBlur,
-          "selection-change": _vm.onSelectionChange
-        },
-        model: {
-          value: _vm.content,
-          callback: function($$v) {
-            _vm.content = $$v
-          },
-          expression: "content"
-        }
-      }),
+      _c(
+        "button",
+        { attrs: { type: "button" }, on: { click: _vm.sharePost } },
+        [_vm._v("share")]
+      ),
       _vm._v(" "),
       _c("div", { staticClass: "row main-habit-builder" }, [
         _c("div", { staticClass: "col-md-6" }, [
@@ -65486,7 +65483,29 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("post-view-modal", { ref: "postViewModal" })
+      _c("post-view-modal", { ref: "postViewModal" }),
+      _vm._v(" "),
+      _c(
+        "modal",
+        { attrs: { name: "artical-modal" } },
+        [
+          _c("vue-editor", {
+            on: {
+              focus: _vm.onEditorFocus,
+              blur: _vm.onEditorBlur,
+              "selection-change": _vm.onSelectionChange
+            },
+            model: {
+              value: _vm.content,
+              callback: function($$v) {
+                _vm.content = $$v
+              },
+              expression: "content"
+            }
+          })
+        ],
+        1
+      )
     ],
     2
   )
