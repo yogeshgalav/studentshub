@@ -16,9 +16,12 @@ class CreateViewPostsTable extends Migration
         Schema::create('view_posts', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('post_id')->unsigned();
+            $table->integer('post_content_id')->unsigned();
+            $table->enum('post_type',['article','notice','document']);
             $table->integer('shared_by')->unsigned();
             $table->integer('classroom_id')->nullable();
             $table->integer('college_id')->nullable();
+            $table->text('image_url')->nullable();
             $table->timestamps();
         });
     }

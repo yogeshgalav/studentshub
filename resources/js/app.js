@@ -41,13 +41,12 @@ Vue.component('LoginComponent', require('./auth/components/login.vue').default);
 Vue.component('ExploreComponent', require('./guest/explore.vue').default);
 
 Vue.component('DashboardComponent', require('./home/dashboard.vue').default);
-Vue.component('SharePostComponent', require('./post/share-post.vue').default);
+Vue.component('SharePostComponent', require('./post/components/share-post.vue').default);
 Vue.component('CheckinComponent', require('./user/checkin.vue').default);
 Vue.component('EulaComponent', require('./user/eula.vue').default);
 Vue.component('ProfileComponent', require('./user/profile.vue').default);
 Vue.component('ClassroomListComponent', require('./student/classroom-list.vue').default);
 Vue.component('ClassroomComponent', require('./student/classroom.vue').default);
-Vue.component('ResetPasswordComponent', require('./auth/components/reset-password.vue').default);
 Vue.component('ResetPasswordComponent', require('./auth/components/reset-password.vue').default);
 
 
@@ -57,9 +56,11 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import Swal from './components/swal'
 import VModal from 'vue-js-modal'
- 
+import router from './router';
+
 Vue.use(VModal, { dynamic: true, injectModalsContainer: true })
 Vue.use(VueAxios, axios, Swal);
+
 Vue.mixin({
     methods: {
         '$trans':function(file,string,defaultString){
@@ -144,4 +145,5 @@ Vue.mixin({
 const app = new Vue({
     el: '#app',
     store,
+    router,
 });

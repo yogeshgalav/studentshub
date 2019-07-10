@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use Laravel\Passport\ClientRepository;
 use App\Models\User;
+use Carbon\Carbon;
 
 class UserTableSeeder extends Seeder
 {
@@ -27,6 +28,7 @@ class UserTableSeeder extends Seeder
             'full_name' => 'Yogeh Galav',
             'email' => 'yogesh@gmail.com',
             'phone' => '8003345821',
+            'email_verified_at' => Carbon::now(),
             // 'timezone' => 'UTC+0',
             'country_code' => 'IN',
             'locale_code' => 'EN',

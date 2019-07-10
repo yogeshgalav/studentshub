@@ -1,11 +1,11 @@
 <template>
     <main>
         <slot></slot>
-        <button type="button" @click="sharePost">share</button>
+        <button type="button">share</button>
         
         <div class="row main-habit-builder">
             <div class="col-md-6">
-                <div class="card h-card" @click="viewPost">
+                <div class="card h-card" @click="openViewPostModal">
                     <div class="card-header">
 
                         <div class="row">
@@ -18,19 +18,9 @@
                 
             </div>
         </div>
-        <post-view-modal ref="postViewModal"></post-view-modal>
-            <modal name="artical-modal">
-            <vue-editor
-                v-model="content"
-                @focus="onEditorFocus"
-                @blur="onEditorBlur"
-                @selection-change="onSelectionChange"
-            />
-        </modal>
     </main>
 </template>
 <style scoped>
-
     .main-habit-builder {
         margin: auto;
     }
@@ -71,28 +61,15 @@
 </style>
 
 <script>
-import { VueEditor } from "vue2-editor";
-import PostViewModal from './../post/post-view-modal'
     export default {
-        name: 'HabitBuilderModal',
-        components:{
-            PostViewModal,VueEditor
-        },
         data() {
             return {
-                content:''
             }
         },
         methods: {
             trans: function (string, defaultString) {
                 return this.$trans('home', string, defaultString);
             },
-            viewPost(){
-                this.$refs.postViewModal.openModal();
-            },
-            sharePost(){
-                 this.$modal.show('artical-modal');
-            }
         },
     }
 </script>

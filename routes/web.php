@@ -21,7 +21,8 @@ Route::get('/reset-password/{token}','PagesController@resetPassword');
 Route::get('/logout',['uses'=>'PagesController@logout','as'=>'Logout']);
 
 Route::get('/', 'PagesController@welcome');
-
+Route::get('/post/{ViewPostId}', 'PagesController@viewPost');
+Route::get('/explore', 'PagesController@explore');
 
 // Localization
 Route::get('/js/lang.js', function () {

@@ -5,10 +5,10 @@ use Illuminate\Support\Facades\Route;
 
     Route::get('/dashboard','PagesController@dashboard');
     Route::get('/checkin', 'PagesController@checkin');
-    Route::get('/post/{post_id}','PagesController@getPost');
-    
-    Route::get('/explore', 'PagesController@explore');
-    
+    //post routes
+    Route::get('/create-post','PagesController@createPost');
+    Route::get('/edit-post','PagesController@editPost');
+        
     Route::get('/profile', 'PagesController@profile');
     
     Route::get('/classrooms', 'PagesController@classroomList');

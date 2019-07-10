@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateNoticesTable extends Migration
+class CreateImagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateNoticesTable extends Migration
      */
     public function up()
     {
-        Schema::create('notices', function (Blueprint $table) {
-            $table->increments('id');
-            $table->text('content');
-            $table->boolean('live')->default(0);
-            $table->timestamp('expiry_date')->nullable();
+        Schema::create('images', function (Blueprint $table) {
+            $table->uuid('id');
+            $table->string('path');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreateNoticesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('notices');
+        Schema::dropIfExists('images');
     }
 }

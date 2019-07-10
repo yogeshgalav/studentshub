@@ -23,3 +23,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/login','AuthController@login');
 Route::post('/forgot-password','AuthController@processForgotPassword');
 Route::post('/reset-password','AuthController@resetPassword');
+Route::get('/get-view-post/{ViewPostId}', 'PostController@viewPost');

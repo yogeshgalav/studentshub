@@ -19,9 +19,8 @@ class CreatePostsTable extends Migration
             $table->integer('subject_id')->unsigned();
             $table->string('post_type')->comment('Article,Quora,Youtube,MCQ,News,Image');
             $table->text('post_heading');
-            $table->text('total_views');
-            $table->integer('post_content_id')->unsigned();
-            $table->integer('rating')->default(5);
+            $table->integer('total_views')->default(1);
+            $table->integer('rating')->default(3);
             $table->string('tags')->nullable();
             $table->timestamps();
         });

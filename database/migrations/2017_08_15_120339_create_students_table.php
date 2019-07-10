@@ -17,7 +17,7 @@ class CreateStudentsTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->string('college_registration_id')->nullable();
-            $table->integer('classe_id');
+            $table->integer('batch_id');
             $table->timestamps();
         });
     }

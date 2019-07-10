@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePostContentTable extends Migration
+class CreateArticlesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreatePostContentTable extends Migration
      */
     public function up()
     {
-        Schema::create('post_content', function (Blueprint $table) {
+        Schema::create('articles', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('post_id')->unsigned();
-            $table->text('text_content')->nullable();
-            $table->text('url_content')->nullable();
-            $table->text('html_content')->nullable();
-            $table->string('image_url')->nullable();
+            $table->text('content')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ class CreatePostContentTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('post_content');
+        Schema::dropIfExists('articles');
     }
 }
