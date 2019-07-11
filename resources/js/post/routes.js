@@ -3,8 +3,9 @@ import EditPost from './components/edit-post.vue'
 import SharePost from './components/share-post.vue'
 const postRoutes = [
     {
-        path: '/post',
+        path: '/post/:id',
         component: ViewPost,
+        name: 'ViewPost',
         meta: {
           title: 'Post',
         }

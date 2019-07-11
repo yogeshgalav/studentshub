@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
     Route::get('/dashboard','PagesController@dashboard');
     Route::get('/checkin', 'PagesController@checkin');
     //post routes
+    Route::get('/share-your-knowledge','PagesController@sharePost');
     Route::get('/create-post','PagesController@createPost');
     Route::get('/edit-post','PagesController@editPost');
         

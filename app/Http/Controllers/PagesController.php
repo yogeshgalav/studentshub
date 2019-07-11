@@ -45,4 +45,7 @@ class PagesController extends Controller
     public function loginPage(){
         return view('auth.login');
     }
+    public function sharePost(){
+        return view('post.share-post');
+    }
 }

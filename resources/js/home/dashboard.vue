@@ -1,11 +1,11 @@
 <template>
     <main>
         <slot></slot>
-        <button type="button">share</button>
+        <router-link type="button" :to="'/share-your-knowledge'">share</router-link>
         
         <div class="row main-habit-builder">
             <div class="col-md-6">
-                <div class="card h-card" @click="openViewPostModal">
+                <div class="card h-card" @click="redirectPostView(1)">
                     <div class="card-header">
 
                         <div class="row">
@@ -70,6 +70,10 @@
             trans: function (string, defaultString) {
                 return this.$trans('home', string, defaultString);
             },
+            redirectPostView(post_id){
+                console.log(post_id);
+                this.$router.push({path:'/post/1'})
+            }
         },
     }
 </script>
