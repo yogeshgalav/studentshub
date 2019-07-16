@@ -3,8 +3,7 @@ import ExploreComponent from './explore.vue'
 
 const guestRoutes = [
     { path: '/', name:'welcome', component: WelcomeComponent },
-    { path: '/', name:'explore', component: ExploreComponent },
-    { path: '*', redirect: '/' },
+    { path: '/explore', name:'explore', component: ExploreComponent },
 ];
 
 export default guestRoutes;

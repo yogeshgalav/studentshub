@@ -1,7 +1,7 @@
 <template>
     <main>
         <slot></slot>
-        <router-link type="button" :to="'/share-your-knowledge'">share</router-link>
+        <router-link type="button" :to="'/share-your-knowledge'">share your knowledge</router-link>
         
         <div class="row main-habit-builder">
             <div class="col-md-6">

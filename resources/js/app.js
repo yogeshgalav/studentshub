@@ -14,49 +14,12 @@ require('../atlantis/js/atlantis');
 // window.Vue = require('vue').default;
 import Vue from 'vue';
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
-Vue.component(
-    'passport-authorized-clients',
-    require('./components/passport/AuthorizedClients.vue')
-);
-
-Vue.component(
-    'passport-clients',
-    require('./components/passport/Clients.vue')
-);
-
-Vue.component(
-    'PassportPersonalAccessTokens',
-    require('./components/passport/PersonalAccessTokens.vue').default
-);
-Vue.component('LoginComponent', require('./auth/components/login.vue').default);
-// Vue.component('register-component', require('./user/components/register.vue'));
-
-Vue.component('ExploreComponent', require('./guest/explore.vue').default);
-
-Vue.component('DashboardComponent', require('./home/dashboard.vue').default);
-Vue.component('SharePostComponent', require('./post/components/share-post.vue').default);
-Vue.component('CheckinComponent', require('./user/checkin.vue').default);
-Vue.component('EulaComponent', require('./user/eula.vue').default);
-Vue.component('ProfileComponent', require('./user/profile.vue').default);
-Vue.component('ClassroomListComponent', require('./student/classroom-list.vue').default);
-Vue.component('ClassroomComponent', require('./student/classroom.vue').default);
-Vue.component('ResetPasswordComponent', require('./auth/components/reset-password.vue').default);
-
 
 //Dependencies
-import store from './store'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import Swal from './components/swal'
 import VModal from 'vue-js-modal'
-import router from './router';
 
 Vue.use(VModal, { dynamic: true, injectModalsContainer: true })
 Vue.use(VueAxios, axios, Swal);
@@ -142,8 +105,15 @@ Vue.mixin({
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-const app = new Vue({
-    el: '#app',
-    store,
-    router,
-});
+import VueRouter from 'vue-router'
+Vue.use(VueRouter)
+import GuestRouter from './routers/guest-router';
+var options = {
+  el: '#app',
+}
+switch(window.App.AuthUserType){
+    case 'guest':
+            options['router'] = GuestRouter
+        break;
+}
+const app = new Vue(options)
