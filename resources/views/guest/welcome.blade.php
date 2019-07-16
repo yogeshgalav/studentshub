@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.blank')
 @section('content')    
-<login-component forgot_password_route="{{ route('forgot-password') }}"></login-component>
+<router-view></router-view>
 @endsection

@@ -152,4 +152,9 @@ class AuthController extends Controller
 
         return response()->json(['success'=>'Password Changed.'], 200);
     }
+
+    public function logout(){
+        Auth::logout();
+        return redirect('/');
+    }
 }

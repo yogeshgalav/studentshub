@@ -1,3 +1,6 @@
+@extends('layouts.app')
+@section('content')
+
 <div class="wrapper">
     <div class="main-header">
         @include('includes.logo-header')
@@ -38,6 +41,10 @@
                     @yield('content')
                 </div>
             </div>
-            </div>
-            </div>
-            </div>
+        </div>
+    </div>
+</div>
+@endsection
+@push('scripts')
+<script defer src="{{ mix('teacherApp.js') }}">
+@endpush

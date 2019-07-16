@@ -15,13 +15,11 @@ class CreateDocumentsTable extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('Fileowner');
-            $table->integer('subject_id');
-            $table->integer('topic_id')->nullable;
-            $table->integer('classe_id');
-            $table->boolean('access')->default(0);
-            $table->integer('views')->default(1);
-            $table->enum('Rating',['1','2','3','4','5']);
+            $table->string('ext');
+            $table->integer('total_files');
+            $table->string('size');
+            $table->integer('branchc_id');
+            $table->integer('college_id');
             $table->timestamps();
         });
     }

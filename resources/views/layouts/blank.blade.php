@@ -1,2 +1,4 @@
-<div class="wrapper">
+@extends('layouts.app')
+@section('content')
     @yield('content')
+@endsection
