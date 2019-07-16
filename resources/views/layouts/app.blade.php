@@ -37,22 +37,22 @@
         <main class="flex-center position-ref full-height">
         @switch($AuthUserType)
             @case('guest')
-                @yield('wrapper')
+                @include('layouts.guest')
             @break
             @case('staff')
-                @yield('wrapper')
+                @include('layouts.staff')
             @break
             @case('student')
-                @yield('wrapper')
+                @include('layouts.student')
             @break
             @case('teacher')
-                @yield('wrapper')
+                @include('layouts.teacher')
             @break
             @case('college')
-                @yield('wrapper')
+                @include('layouts.college')
                 @break
             @default
-                @yield('wrapper')
+                @include('layouts.blank')
                 @break
         @endswitch
         </main>

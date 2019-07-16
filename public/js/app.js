@@ -90225,11 +90225,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var AuthRoutes = [{
-  path: '/',
+  path: '/login',
   name: 'login',
   component: _components_login_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
 }, {
-  path: '/',
+  path: '/register',
   name: 'register',
   component: _components_register_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
 }];
@@ -91414,13 +91414,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _post_routes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./post/routes */ "./resources/js/post/routes.js");
 /* harmony import */ var _home_routes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./home/routes */ "./resources/js/home/routes.js");
 /* harmony import */ var _guest_routes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./guest/routes */ "./resources/js/guest/routes.js");
-/* harmony import */ var _auth_routes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./auth/routes */ "./resources/js/auth/routes.js");
+/* harmony import */ var _auth_routes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./auth/routes */ "./resources/js/auth/routes.js");
 
 
 
 
 var exRoutes = [];
-var routes = exRoutes.concat(_auth_routes__WEBPACK_IMPORTED_MODULE_4__["default"], _guest_routes__WEBPACK_IMPORTED_MODULE_2__["default"], _home_routes__WEBPACK_IMPORTED_MODULE_1__["default"], _post_routes__WEBPACK_IMPORTED_MODULE_0__["default"]);
+var routes = exRoutes.concat(_auth_routes__WEBPACK_IMPORTED_MODULE_3__["default"], _guest_routes__WEBPACK_IMPORTED_MODULE_2__["default"], _home_routes__WEBPACK_IMPORTED_MODULE_1__["default"], _post_routes__WEBPACK_IMPORTED_MODULE_0__["default"]);
 /* harmony default export */ __webpack_exports__["default"] = (routes);
 
 /***/ }),

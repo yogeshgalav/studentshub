@@ -1,5 +1,3 @@
-@extends('layouts.app')
-@section('content')
 
 <div class="wrapper">
     <div class="main-header">
@@ -44,7 +42,3 @@
         </div>
     </div>
 </div>
-@endsection
-@push('scripts')
-<script defer src="{{ mix('main.js') }}">
-@endpush
