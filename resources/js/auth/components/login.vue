@@ -48,7 +48,7 @@
                                         {{ trans('Login') }}
                                     </button>
 
-                                    <a class="btn btn-link" :href="forgot_password_route">
+                                    <a class="btn btn-link" href="/forgot-password">
                                         {{ trans('Forgot Your Password') }}
                                     </a>
 
@@ -74,9 +74,6 @@
 
     export default {
         mixins: [FormMixin],
-        props: {
-            forgot_password_route: { type: String, required: true },
-        },
         data(){
             return{
                 email:'',

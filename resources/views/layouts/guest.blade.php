@@ -1,5 +1,10 @@
 
-    
+ 
+@include('includes.head')
+
+<body>
+    <div id="app">
+        <main class="flex-center position-ref full-height">   
 <div class="main-header">
     <div class="container-fluid">
    <div class="col-md-12">
@@ -21,3 +26,17 @@
 <div class="container">
 @yield('content')  
 </div>      
+</main>
+</div>
+<script>
+    window.App ={!! json_encode([
+        'AuthUserType' => 'guest',
+        'csrfToken' => csrf_token(),
+        'baseUrl' => URL::to('/'),
+        'fileUrl' => config('url.file_storage_url'),
+        ]) !!}
+</script>
+@stack('scripts')
+
+</body>
+</html>

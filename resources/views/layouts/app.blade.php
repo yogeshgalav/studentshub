@@ -12,17 +12,6 @@
     <link href="{{ asset('css/app.css') }}" type="text/css" rel="stylesheet">
     <script src="/js/lang.js"></script>
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('favicon.ico')}}" />
-
-    <script src="{{ asset('js/webfont/webfont.min.js') }}"></script>
-    <script>
-        WebFont.load({
-            google: {"families":["Lato:300,400,700,900"]},
-            custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['{{ asset('css/fonts.min.css')}}']},
-            active: function() {
-                sessionStorage.fonts = true;
-            }
-        });
-    </script>
 <style>
     body
         {

@@ -10,4 +10,8 @@ class Teacher extends Model
     {
         return $this->belongsTo('App\Models\User');
     }
+    public function student()
+    {
+        return $this->belongsTo('App\Models\Student');
+    }
 }

@@ -22,7 +22,7 @@ class PostController extends Controller
         $post->save();
         switch('article'){
             case 'article':
-                Article::create(['post_id'=>$post->id,'content'=>$content]);
+            $post_content_id=Article::create(['post_id'=>$post->id,'content'=>$content]);
             break;
             case 'notice':
             break;
@@ -36,5 +36,13 @@ class PostController extends Controller
                         'shared_by'=>Auth::user()->id,
         ]);
         return response()->json('success');
+    }
+
+    public function getDashboardPost(){
+        $poosts=ViewPost::where('college_id',Auth::user()->college_id)->orWhere('batch_id',Auth::user()->batch_id)->get();
+    }
+
+    public function getExplorePost(){
+        $poosts=ViewPost::whereIn('type',['article','fact','video'])->get();
     }
 }

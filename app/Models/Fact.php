@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ViewPost extends Model
+class Fact extends Model
 {
     //
 }

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PostContent extends Model
+class PostSubject extends Model
 {
     //
 }

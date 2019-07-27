@@ -1,5 +1,11 @@
 
-<div class="wrapper">
+
+@include('includes.head')
+
+<body>
+    <div id="app">
+        <main class="flex-center position-ref full-height">
+            <div class="wrapper">
     <div class="main-header">
         @include('includes.logo-header')
         
@@ -42,3 +48,19 @@
         </div>
     </div>
 </div>
+</main>
+</div>
+<script>
+    window.App ={!! json_encode([
+        'AuthUser' => $AuthUser,
+        'AuthUserType' => 'student',
+        'signedIn' => is_null($AuthUser),
+        'csrfToken' => csrf_token(),
+        'baseUrl' => URL::to('/'),
+        'fileUrl' => config('url.file_storage_url'),
+        ]) !!}
+</script>
+@stack('scripts')
+
+</body>
+</html>

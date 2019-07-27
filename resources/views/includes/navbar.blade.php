@@ -84,7 +84,7 @@
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">{{__('app.Account Settings')}}</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{route('Logout')}}">{{__('app.logout')}}</a>
+                        <a class="dropdown-item" href="/logout">{{__('app.logout')}}</a>
                     </li>
                 </div>
             </ul>
