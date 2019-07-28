@@ -1,4 +1,4 @@
-import DashboardComponent from './dashboard.vue'
+import DashboardComponent from './home/dashboard.vue'
 
 const HomeRoutes = [
     {

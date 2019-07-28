@@ -6,60 +6,23 @@
  */
 
 require('./bootstrap');
-require('../atlantis/js/core/jquery.3.2.1.min');
-require( '../atlantis/js/plugin/jquery-scrollbar/jquery.scrollbar.min' );
-require( '../atlantis/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min' );
-require('../atlantis/js/atlantis');
+require('../../atlantis/js/core/jquery.3.2.1.min');
+require( '../../atlantis/js/plugin/jquery-scrollbar/jquery.scrollbar.min' );
+require( '../../atlantis/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min' );
+require('../../atlantis/js/atlantis');
 
 // window.Vue = require('vue').default;
 import Vue from 'vue';
-
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
-Vue.component(
-    'passport-authorized-clients',
-    require('./components/passport/AuthorizedClients.vue')
-);
-
-Vue.component(
-    'passport-clients',
-    require('./components/passport/Clients.vue')
-);
-
-Vue.component(
-    'PassportPersonalAccessTokens',
-    require('./components/passport/PersonalAccessTokens.vue').default
-);
-Vue.component('LoginComponent', require('./auth/components/login.vue').default);
-// Vue.component('register-component', require('./user/components/register.vue'));
-
-Vue.component('ExploreComponent', require('./guest/explore.vue').default);
-
-Vue.component('DashboardComponent', require('./home/dashboard.vue').default);
-Vue.component('SharePostComponent', require('./post/components/share-post.vue').default);
-Vue.component('CheckinComponent', require('./user/checkin.vue').default);
-Vue.component('EulaComponent', require('./user/eula.vue').default);
-Vue.component('ProfileComponent', require('./user/profile.vue').default);
-Vue.component('ClassroomListComponent', require('./student/classroom-list.vue').default);
-Vue.component('ClassroomComponent', require('./student/classroom.vue').default);
-Vue.component('ResetPasswordComponent', require('./auth/components/reset-password.vue').default);
-
 
 //Dependencies
 import store from './store'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
-import Swal from './components/swal'
 import VModal from 'vue-js-modal'
 import router from './router';
 
 Vue.use(VModal, { dynamic: true, injectModalsContainer: true })
-Vue.use(VueAxios, axios, Swal);
+Vue.use(VueAxios, axios);
 
 Vue.mixin({
     methods: {
@@ -100,9 +63,6 @@ Vue.mixin({
                 break;
             }
         },
-        notImplemented(){
-            Swal.errorDialog('Not Implemented','This feature has not been implemented yet');
-        }
     },
     computed: {
         baseUrl() {
@@ -143,7 +103,7 @@ Vue.mixin({
  */
 
 const app = new Vue({
-    el: '#app',
+    el: '#studentApp',
     store,
     router,
 });

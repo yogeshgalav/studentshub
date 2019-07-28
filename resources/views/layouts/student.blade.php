@@ -1,9 +1,26 @@
 
 
-@include('includes.head')
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
 
+@include('includes.meta')
+@include('includes.title')
+<script src="{{ asset('js/studentApp.js') }}" defer></script>
+<link href="{{ asset('css/app.css') }}" type="text/css" rel="stylesheet">
+<script src="/js/lang.js"></script>
+<link rel="shortcut icon" type="image/x-icon" href="{{asset('favicon.ico')}}" />
+<style>
+        body
+            {
+                background-color:#fff
+    
+            }
+        
+        </style>
+    </head>
 <body>
-    <div id="app">
+    <div id="studentApp">
         <main class="flex-center position-ref full-height">
             <div class="wrapper">
     <div class="main-header">
@@ -60,7 +77,5 @@
         'fileUrl' => config('url.file_storage_url'),
         ]) !!}
 </script>
-@stack('scripts')
-
 </body>
 </html>
