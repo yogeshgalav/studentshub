@@ -3,11 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
 
 class PagesController extends Controller
 {
-    public function  welcome(){
-        return view('guest.welcome');
+    public function  root(){
+        if(Auth::check()){
+            return view('home.dashboard');
+        }else{
+            return view('guest.welcome');
+        }
     }
 
     public function dashboard(){

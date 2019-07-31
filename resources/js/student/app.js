@@ -19,10 +19,13 @@ import store from './store'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VModal from 'vue-js-modal'
-import router from './router';
+import StudentRoutes from './routes';
+import VueRouter from 'vue-router';
 
 Vue.use(VModal, { dynamic: true, injectModalsContainer: true })
 Vue.use(VueAxios, axios);
+Vue.use(VueRouter);
+
 
 Vue.mixin({
     methods: {
@@ -96,12 +99,13 @@ Vue.mixin({
     }
 });
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+//Vue Router Initialisation
+const router = new VueRouter({
+    routes:StudentRoutes,
+    mode:'history'
+});
 
+//Vue App Initialisation
 const app = new Vue({
     el: '#studentApp',
     store,

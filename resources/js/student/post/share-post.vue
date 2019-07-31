@@ -28,7 +28,15 @@ export default {
     components: {
   FormWizard,
   TabContent,
+  SelectPostType,
   CreatePostContent,
+  SelectSubject,
+  SelectHeading
+},
+methods: {
+    selectPostType(){
+      
+    }
 }
 }
 </script>

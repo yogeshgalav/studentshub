@@ -1,23 +1,40 @@
 import DashboardComponent from './home/dashboard.vue'
+import ViewPost from './post/view-post.vue'
+import EditPost from './post/edit-post.vue'
+import SharePost from './post/share-post.vue'
 
-const HomeRoutes = [
-    {
-        path: '/dashboard',
+const StudentRoutes = [
+      {
+        path: '/',
         component: DashboardComponent,
+      },
+      //Post Routes
+      {
+        path: '/post/:id',
+        component: ViewPost,
+        name: 'ViewPost',
         meta: {
-          title: 'Knowledge is Immortal',
+          title: 'Post',
+        }
+      },
+    {
+        path: '/share-your-knowledge',
+        component: SharePost,
+        meta: {
+          title: 'Share your knowledge',
           metaTags: [
             {
               name: 'description',
-              content: 'Invest your time wisely on the Internet.'
+              content: 'Share knowledge related to your stream of education or of personal interest.'
             },
             {
               property: 'og:description',
-              content: 'Invest your time wisely on the Internet.'
+              content: 'Share knowledge related to your stream of education or of personal interest.'
             }
           ]
         }
       },
+      { path: '/edit-post', name:'EditPost', component: EditPost },
       // {
       //   path: '/about',
       //   // I'm kind of cheating by reusing the main app component here.
@@ -48,4 +65,4 @@ const HomeRoutes = [
       // },
 ];
 
-export default HomeRoutes;
+export default StudentRoutes;

@@ -20,7 +20,7 @@ Route::get('/forgot-password','PagesController@forgotPassword')->name('forgot-pa
 Route::get('/reset-password/{token}','PagesController@resetPassword');
 Route::get('/logout','AuthController@logout');
 
-Route::get('/', 'PagesController@welcome');
+Route::get('/', 'PagesController@root');
 Route::get('/post/{ViewPostId}', 'PagesController@viewPost');
 Route::get('/explore', 'PagesController@explore');
 

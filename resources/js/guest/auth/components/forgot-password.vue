@@ -40,8 +40,8 @@
     }
 </style>
 <script>
-import swal from '../../components/swal';
-import FormMixin from '../../components/mixins/form-mixin.js' ;
+import swal from '../../../components/swal';
+import FormMixin from '../../../components/mixins/form-mixin.js' ;
 
 export default {
     mixins: [FormMixin],
