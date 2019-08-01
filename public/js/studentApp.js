@@ -1859,6 +1859,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -1868,6 +1870,13 @@ __webpack_require__.r(__webpack_exports__);
     return {
       content: ''
     };
+  },
+  methods: {
+    editContent: function editContent() {
+      this.$store.dispatch('createPost', {
+        post_content: this.content
+      });
+    }
   }
 });
 
@@ -1893,10 +1902,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      heading: ''
-    };
+  methods: {
+    editHeading: function editHeading(event) {
+      this.$store.dispatch('createPost', {
+        post_heading: event.target.value
+      });
+    }
   }
 });
 
@@ -1936,7 +1947,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     selectPostType: function selectPostType(type) {
-      this.$emit('selectPostType', type);
+      this.$store.dispatch('createPost', {
+        post_type: type
+      });
     }
   }
 });
@@ -1963,10 +1976,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      subject: ''
-    };
+  methods: {
+    editSubject: function editSubject(event) {
+      this.$store.dispatch('createPost', {
+        post_subject: event.target.value
+      });
+    }
   }
 });
 
@@ -2038,8 +2053,13 @@ __webpack_require__.r(__webpack_exports__);
     SelectSubject: _create_post_select_subject__WEBPACK_IMPORTED_MODULE_4__["default"],
     SelectHeading: _create_post_select_heading__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
+  data: function data() {
+    return {};
+  },
   methods: {
-    selectPostType: function selectPostType() {}
+    onComplete: function onComplete() {
+      this.$store.commit('submitPost');
+    }
   }
 });
 
@@ -51775,22 +51795,27 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "main",
-    [
-      _c("vue-editor", {
-        attrs: { height: "100%" },
-        model: {
-          value: _vm.content,
-          callback: function($$v) {
-            _vm.content = $$v
-          },
-          expression: "content"
-        }
-      })
-    ],
-    1
-  )
+  return _c("main", [
+    _vm.$store.state.new_post.post_type.toLowerCase() === "article"
+      ? _c(
+          "div",
+          [
+            _c("vue-editor", {
+              attrs: { height: "100%" },
+              on: { input: _vm.editContent },
+              model: {
+                value: _vm.content,
+                callback: function($$v) {
+                  _vm.content = $$v
+                },
+                expression: "content"
+              }
+            })
+          ],
+          1
+        )
+      : _vm._e()
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -51818,22 +51843,10 @@ var render = function() {
     _c("div", { staticClass: "card-header" }, [
       _c("div", { staticClass: "row" }, [
         _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.heading,
-              expression: "heading"
-            }
-          ],
           attrs: { type: "text" },
-          domProps: { value: _vm.heading },
           on: {
             input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.heading = $event.target.value
+              return _vm.editHeading($event)
             }
           }
         })
@@ -51913,22 +51926,10 @@ var render = function() {
     _c("div", { staticClass: "card-header" }, [
       _c("div", { staticClass: "row" }, [
         _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.subject,
-              expression: "subject"
-            }
-          ],
           attrs: { type: "text" },
-          domProps: { value: _vm.subject },
           on: {
             input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.subject = $event.target.value
+              return _vm.editSubject($event)
             }
           }
         })
@@ -51984,13 +51985,12 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "form-wizard",
+    { on: { "on-complete": _vm.onComplete } },
     [
       _c(
         "tab-content",
         { attrs: { title: "Post Type" } },
-        [
-          _c("select-post-type", { on: { selectPostType: _vm.selectPostType } })
-        ],
+        [_c("select-post-type")],
         1
       ),
       _vm._v(" "),
@@ -76179,15 +76179,16 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./store */ "./resources/js/Student/store.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var vue_axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-axios */ "./node_modules/vue-axios/dist/vue-axios.min.js");
-/* harmony import */ var vue_axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue_axios__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var vue_js_modal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-js-modal */ "./node_modules/vue-js-modal/dist/index.js");
-/* harmony import */ var vue_js_modal__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vue_js_modal__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vue_axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-axios */ "./node_modules/vue-axios/dist/vue-axios.min.js");
+/* harmony import */ var vue_axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vue_js_modal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-js-modal */ "./node_modules/vue-js-modal/dist/index.js");
+/* harmony import */ var vue_js_modal__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue_js_modal__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _store_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./store/index */ "./resources/js/Student/store/index.js");
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./routes */ "./resources/js/Student/routes.js");
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
@@ -76220,11 +76221,13 @@ __webpack_require__(/*! ../../atlantis/js/atlantis */ "./resources/atlantis/js/a
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_js_modal__WEBPACK_IMPORTED_MODULE_4___default.a, {
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_7__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_js_modal__WEBPACK_IMPORTED_MODULE_3___default.a, {
   dynamic: true,
   injectModalsContainer: true
 });
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_axios__WEBPACK_IMPORTED_MODULE_3___default.a, axios__WEBPACK_IMPORTED_MODULE_2___default.a);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_axios__WEBPACK_IMPORTED_MODULE_2___default.a, axios__WEBPACK_IMPORTED_MODULE_1___default.a);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_6__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
   methods: {
@@ -76305,11 +76308,13 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_6__["default"]({
   routes: _routes__WEBPACK_IMPORTED_MODULE_5__["default"],
   mode: 'history'
-}); //Vue App Initialisation
+}); //Vue Router Initialisation
+
+var store = new vuex__WEBPACK_IMPORTED_MODULE_7__["default"].Store(_store_index__WEBPACK_IMPORTED_MODULE_4__["default"]); //Vue App Initialisation
 
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#studentApp',
-  store: _store__WEBPACK_IMPORTED_MODULE_1__["default"],
+  store: store,
   router: router
 });
 
@@ -77011,27 +77016,97 @@ var StudentRoutes = [{
 
 /***/ }),
 
-/***/ "./resources/js/Student/store.js":
-/*!***************************************!*\
-  !*** ./resources/js/Student/store.js ***!
-  \***************************************/
+/***/ "./resources/js/Student/store/actions.js":
+/*!***********************************************!*\
+  !*** ./resources/js/Student/store/actions.js ***!
+  \***********************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
- // const productStore = require('./product/store').default
-// const userStore = require('./user/store').default
-
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
-var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
-  modules: {}
+/* harmony default export */ __webpack_exports__["default"] = ({
+  createPost: function createPost(_ref, post) {
+    var commit = _ref.commit;
+    return new Promise(function () {
+      commit('create_post', post);
+    });
+  }
 });
-/* harmony default export */ __webpack_exports__["default"] = (store);
+
+/***/ }),
+
+/***/ "./resources/js/Student/store/index.js":
+/*!*********************************************!*\
+  !*** ./resources/js/Student/store/index.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _state__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./state */ "./resources/js/Student/store/state.js");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./actions */ "./resources/js/Student/store/actions.js");
+/* harmony import */ var _mutations__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./mutations */ "./resources/js/Student/store/mutations.js");
+
+
+
+var StudentStore = {
+  namespaced: true,
+  state: _state__WEBPACK_IMPORTED_MODULE_0__["default"],
+  actions: _actions__WEBPACK_IMPORTED_MODULE_1__["default"],
+  mutations: _mutations__WEBPACK_IMPORTED_MODULE_2__["default"]
+};
+/* harmony default export */ __webpack_exports__["default"] = (StudentStore);
+
+/***/ }),
+
+/***/ "./resources/js/Student/store/mutations.js":
+/*!*************************************************!*\
+  !*** ./resources/js/Student/store/mutations.js ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  create_post: function create_post(state, post) {
+    state.new_post = Object.assign(state.new_post, post);
+  },
+  submitPost: function submitPost(state) {
+    axios({
+      url: window.App.baseUrl + '/api/submit-post',
+      data: state.new_post,
+      method: 'POST'
+    }).then(function () {})["catch"](function () {});
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/Student/store/state.js":
+/*!*********************************************!*\
+  !*** ./resources/js/Student/store/state.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var state = {
+  new_post: {
+    post_type: 'article',
+    post_content: '',
+    post_subject: '',
+    post_heading: ''
+  },
+  posts: []
+};
+/* harmony default export */ __webpack_exports__["default"] = (state);
 
 /***/ }),
 

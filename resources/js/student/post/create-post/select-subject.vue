@@ -3,16 +3,16 @@
                     <div class="card-header">
 
                         <div class="row">
-                            <input type="text" v-model="subject">
+                            <input type="text" @input="editSubject($event)">
                         </div>
                     </div>
                 </div>
 </template>
 <script>
 export default {
-    data(){
-        return{
-            subject:'',
+    methods:{
+        editSubject(event){
+            this.$store.dispatch('createPost',{post_subject:event.target.value});
         }
     }
 }

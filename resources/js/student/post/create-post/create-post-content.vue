@@ -1,6 +1,8 @@
 <template>
     <main>
-        <vue-editor v-model="content" :height="'100%'"/>
+        <div v-if="$store.state.new_post.post_type.toLowerCase()==='article'">
+        <vue-editor v-model="content" @input="editContent" :height="'100%'"/>
+        </div>
     </main>
 </template>
 <script>
@@ -12,6 +14,11 @@ export default {
     data(){
         return{
             content:'',
+        }
+    },
+    methods:{
+        editContent(){
+            this.$store.dispatch('createPost',{post_content:this.content});
         }
     }
 }

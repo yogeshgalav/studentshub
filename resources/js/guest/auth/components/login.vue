@@ -70,7 +70,7 @@
 </style>
 <script>
     import { mapState } from 'vuex';
-    import FormMixin from '../../components/mixins/form-mixin.js' ;
+    import FormMixin from '../../../components/mixins/form-mixin.js' ;
 
     export default {
         mixins: [FormMixin],

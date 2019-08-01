@@ -32,7 +32,7 @@ export default {
     },
     methods:{
         selectPostType(type){
-            this.$emit('selectPostType',type);
+           this.$store.dispatch('createPost',{post_type:type});
         }
     }
 }

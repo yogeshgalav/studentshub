@@ -64,7 +64,8 @@
 }
 
 .main-header {
-    background-color:rgb(16, 6, 159);
+	background-color:rgb(255, 255, 255);
+	padding: 10px 0px;
 	.navbar-header{
 		&[data-background-color="dark"], &[data-background-color="dark2"] {
 			.nav-search {

@@ -1,8 +1,8 @@
 
 <template>
-    <form-wizard>
+    <form-wizard @on-complete="onComplete">
   <tab-content title="Post Type">
-    <select-post-type @selectPostType="selectPostType"></select-post-type>
+    <select-post-type></select-post-type>
   </tab-content>
   <tab-content title="Create">
     <create-post-content></create-post-content>
@@ -33,10 +33,14 @@ export default {
   SelectSubject,
   SelectHeading
 },
+data(){
+  return{
+  }
+},
 methods: {
-    selectPostType(){
-      
-    }
+  onComplete(){
+    this.$store.commit('submitPost');
+  }
 }
 }
 </script>

@@ -15,13 +15,15 @@ require('../../atlantis/js/atlantis');
 import Vue from 'vue';
 
 //Dependencies
-import store from './store'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VModal from 'vue-js-modal'
+import StudentStore from './store/index';
 import StudentRoutes from './routes';
 import VueRouter from 'vue-router';
+import Vuex from 'vuex';
 
+Vue.use(Vuex);
 Vue.use(VModal, { dynamic: true, injectModalsContainer: true })
 Vue.use(VueAxios, axios);
 Vue.use(VueRouter);
@@ -104,6 +106,9 @@ const router = new VueRouter({
     routes:StudentRoutes,
     mode:'history'
 });
+
+//Vue Router Initialisation
+const store = new Vuex.Store(StudentStore);
 
 //Vue App Initialisation
 const app = new Vue({

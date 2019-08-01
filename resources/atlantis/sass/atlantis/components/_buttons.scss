@@ -112,6 +112,7 @@
 
 .btn-primary {
   background: $primary-color !important;
+  color: #fff !important;
   border-color: $primary-color !important;
   &:hover, &:focus, &:disabled {
     background: $primary-color !important;
