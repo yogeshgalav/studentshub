@@ -14,8 +14,8 @@ class CreateFactsTable extends Migration
     public function up()
     {
         Schema::create('facts', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('image_id')->unsigned();
+            $table->increments('id');
+            $table->integer('image_id')->unsigned();
             $table->string('content');
             $table->timestamps();
         });

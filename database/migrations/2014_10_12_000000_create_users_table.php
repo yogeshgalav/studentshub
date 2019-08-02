@@ -19,11 +19,11 @@ class CreateUsersTable extends Migration
             $table->string('last_name', 50)->nullable();
             $table->string('full_name', 101)->nullable();
             $table->string('email')->unique();
-            $table->string('phone')->unique();
+            $table->string('phone')->unique()->nullable();
             $table->char('timezone_code',9)->nullable();
-            $table->dateTime('email_verified_at');
-            $table->char('country_code',2);
-            $table->char('locale_code',2);
+            $table->dateTime('email_verified_at')->nullable();
+            $table->char('country_code',2)->default('IN');
+            $table->char('locale_code',2)->default('EN');
             $table->string('password');
             $table->boolean('is_knowledge_seeker')->default(true);
             $table->date('onboarded_at')->nullable();

@@ -73201,7 +73201,7 @@ var routes = [{
   name: 'login',
   component: _auth_components_login_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
 }, {
-  path: '/register',
+  path: '/get-started',
   name: 'register',
   component: _auth_components_register_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
 }, {

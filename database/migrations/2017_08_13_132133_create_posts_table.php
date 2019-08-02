@@ -21,7 +21,6 @@ class CreatePostsTable extends Migration
             $table->text('post_heading');
             $table->integer('total_views')->default(1);
             $table->integer('rating')->default(3);
-            $table->integer('shared_by')->unsigned();
             $table->integer('branchc_id')->unsigned()->nullable();
             $table->integer('batch_id')->unsigned()->nullable();
             $table->integer('college_id')->unsigned()->nullable();

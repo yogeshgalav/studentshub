@@ -7,7 +7,7 @@ const routes = [
     { path: '/', name:'welcome', component: WelcomeComponent },
     { path: '/explore', name:'explore', component: ExploreComponent },
     { path: '/login', name:'login', component: LoginComponent },
-    { path: '/register', name:'register', component: RegisterComponent },
+    { path: '/get-started', name:'register', component: RegisterComponent },
     { path: '*', redirect: '/' },
 ];
 

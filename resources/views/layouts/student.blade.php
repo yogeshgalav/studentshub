@@ -19,7 +19,7 @@
     <div class="main-header">
         @include('includes.logo-header')
         
-        @include('includes.navbar')
+        @include('includes.auth-navbar')
     </div>
 
     @include('includes.sidebar')

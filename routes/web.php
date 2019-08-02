@@ -16,6 +16,7 @@ Route::group(['middleware'=>['auth',]],function(){
 });
 
 Route::get('/login','PagesController@loginPage');
+Route::get('/get-started','PagesController@registerPage');
 Route::get('/forgot-password','PagesController@forgotPassword')->name('forgot-password');
 Route::get('/reset-password/{token}','PagesController@resetPassword');
 Route::get('/logout','AuthController@logout');

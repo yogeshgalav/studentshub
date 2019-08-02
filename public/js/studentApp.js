@@ -1901,6 +1901,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   methods: {
     editHeading: function editHeading(event) {
@@ -51736,7 +51737,10 @@ var render = function() {
       _vm._v(" "),
       _c(
         "router-link",
-        { attrs: { type: "button", to: "/share-your-knowledge" } },
+        {
+          staticClass: "btn btn-primary",
+          attrs: { to: "/share-your-knowledge" }
+        },
         [_vm._v("share")]
       ),
       _vm._v(" "),
@@ -51842,6 +51846,8 @@ var render = function() {
   return _c("div", { staticClass: "card h-card" }, [
     _c("div", { staticClass: "card-header" }, [
       _c("div", { staticClass: "row" }, [
+        _c("label", [_vm._v("Heading")]),
+        _vm._v(" "),
         _c("input", {
           attrs: { type: "text" },
           on: {

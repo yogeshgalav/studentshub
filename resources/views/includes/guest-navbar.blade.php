@@ -17,8 +17,8 @@
                     </div>
             </div>
             <div class="col-md-3 text-right">
-                    <button class="btn btn-link">Login</button>
-                            <button class="btn btn-primary">Get Strted </button>
+                    <router-link class="btn btn-link" :to="'/login'">Login</router-link>
+                    <router-link class="btn btn-primary" :to="'/get-started'">Get Started</router-link>
                 </div>
     </div>
 </div>
