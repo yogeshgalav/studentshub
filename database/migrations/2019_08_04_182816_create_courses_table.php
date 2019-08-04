@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBranchcSubjectsTable extends Migration
+class CreateCoursesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateBranchcSubjectsTable extends Migration
      */
     public function up()
     {
-        Schema::create('branchc_subjects', function (Blueprint $table) {
+        Schema::create('courses', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('branch_id')->unsigned();
-            $table->integer('subject_id')->unsigned();
+            $table->string('course_name');
+            $table->string('course_type');
+            $table->char('country_id',2);
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateBranchcSubjectsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('branchc_subjects');
+        Schema::dropIfExists('courses');
     }
 }

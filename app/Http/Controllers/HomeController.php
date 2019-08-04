@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\ViewPost;
 use App\Models\PostContent;
 use App\Models\Article;
 use Auth;
 
-class PostController extends Controller
+class HomeController extends Controller
 {
-    public function submitPost(Request $request){
+    public function create(Request $request){
         $post_type=$request->input('post_type');
         $subject=$request->input('post_subject');
         $heading=$request->input('post_heading');
@@ -35,11 +36,16 @@ class PostController extends Controller
         return response()->json('success');
     }
 
-    public function getDashboardPost(){
-        $poosts=ViewPost::where('college_id',Auth::user()->college_id)->orWhere('batch_id',Auth::user()->batch_id)->get();
+    public function index(){
+        $posts=ViewPost::where('college_id',Auth::user()->college_id)
+        // ->orWhere('classroom_id',Auth::user()->classroom_id)
+        // ->orWhere('branch_id	',Auth::user()->branch_id	)
+        // ->orWhere('course_id',Auth::user()->course_id)
+        // ->orWhere('batch_id',Auth::user()->batch_id)
+        ->get();
+        return response()->json(['success'=>[
+            'posts'=>$posts
+        ]]);
     }
 
-    public function getExplorePost(){
-        $poosts=ViewPost::whereIn('type',['article','fact','video'])->get();
-    }
 }

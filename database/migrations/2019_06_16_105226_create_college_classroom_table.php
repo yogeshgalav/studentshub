@@ -16,7 +16,7 @@ class CreateCollegeClassroomTable extends Migration
         Schema::create('college_classroom', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('college_id');
-            $table->integer('branchc_id');
+            $table->integer('branch_id');
             $table->integer('subject_id');
             $table->timestamps();
         });

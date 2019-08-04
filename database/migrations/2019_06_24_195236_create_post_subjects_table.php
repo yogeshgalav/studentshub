@@ -17,7 +17,7 @@ class CreatePostSubjectsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('post_id')->unsigned();
             $table->integer('subject_id')->unsigned();
-            $table->enum('type',['category','branchc_subject','tag']);
+            $table->enum('type',['category','branch_subject','tag']);
             $table->timestamps();
         });
     }

@@ -15,11 +15,10 @@ class CreateDocumentsTable extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('post_id')->unsigned();
             $table->string('ext');
             $table->integer('total_files');
             $table->string('size');
-            $table->integer('branchc_id');
-            $table->integer('college_id');
             $table->timestamps();
         });
     }

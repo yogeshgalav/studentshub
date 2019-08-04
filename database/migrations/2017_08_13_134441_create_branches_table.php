@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBranchcsTable extends Migration
+class CreateBranchesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateBranchcsTable extends Migration
      */
     public function up()
     {
-        Schema::create('branchcs', function (Blueprint $table) {
+        Schema::create('branches', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('course_name');
+            $table->integer('course_id')->unsigned();
             $table->string('branch_name');
             $table->integer('course_time')->comment('duration of course in years');
             $table->enum('type',['graduation','post-graduation','php']);
@@ -29,6 +29,6 @@ class CreateBranchcsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('branchcs');
+        Schema::dropIfExists('branches');
     }
 }

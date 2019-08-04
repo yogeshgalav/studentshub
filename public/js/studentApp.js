@@ -1829,12 +1829,17 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {};
   },
+  mounted: function mounted() {
+    this.getDashboardPosts();
+  },
   methods: {
     trans: function trans(string, defaultString) {
       return this.$trans('home', string, defaultString);
     },
+    getDashboardPosts: function getDashboardPosts() {
+      this.$store.dispatch('getPosts');
+    },
     redirectPostView: function redirectPostView(post_id) {
-      console.log(post_id);
       this.$router.push({
         path: '/post/1'
       });
@@ -1966,6 +1971,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -51931,6 +51937,8 @@ var render = function() {
   return _c("div", { staticClass: "card h-card" }, [
     _c("div", { staticClass: "card-header" }, [
       _c("div", { staticClass: "row" }, [
+        _c("label", [_vm._v("Subject")]),
+        _vm._v(" "),
         _c("input", {
           attrs: { type: "text" },
           on: {
@@ -76992,6 +77000,9 @@ __webpack_require__.r(__webpack_exports__);
 var StudentRoutes = [{
   path: '/',
   component: _home_dashboard_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+}, {
+  path: '*',
+  redirect: '/'
 }, //Post Routes
 {
   path: '/post/:id',
@@ -77040,6 +77051,21 @@ __webpack_require__.r(__webpack_exports__);
     return new Promise(function () {
       commit('create_post', post);
     });
+  },
+  getPosts: function getPosts(_ref2) {
+    var commit = _ref2.commit;
+    return new Promise(function (resolve, reject) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default()({
+        url: window.App.baseUrl + '/api/get-posts',
+        method: 'GET'
+      }).then(function (resp) {
+        var posts = resp.data.success.posts;
+        commit('get_posts', posts);
+        resolve(resp);
+      })["catch"](function (err) {
+        reject(err);
+      });
+    });
   }
 });
 
@@ -77082,6 +77108,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   create_post: function create_post(state, post) {
     state.new_post = Object.assign(state.new_post, post);
+  },
+  get_posts: function get_posts(state, posts) {
+    state.posts = posts;
   },
   submitPost: function submitPost(state) {
     axios({

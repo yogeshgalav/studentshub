@@ -3,6 +3,7 @@
                     <div class="card-header">
 
                         <div class="row">
+                            <label>Subject</label>
                             <input type="text" @input="editSubject($event)">
                         </div>
                     </div>

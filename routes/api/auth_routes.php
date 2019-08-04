@@ -1,4 +1,5 @@
 
 <?php
 
-Route::post('/submit-post','PostController@submitPost');
+Route::post('/submit-post','HomeController@create');
+Route::get('/get-posts','HomeController@index');

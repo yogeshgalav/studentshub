@@ -8,6 +8,7 @@ const StudentRoutes = [
         path: '/',
         component: DashboardComponent,
       },
+      { path: '*', redirect: '/' },
       //Post Routes
       {
         path: '/post/:id',
