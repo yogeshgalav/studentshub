@@ -5,12 +5,11 @@
         
         <div class="row main-habit-builder">
             <div class="col-md-6">
-                <div class="card h-card" @click="redirectPostView(1)">
+                <div class="card h-card" @click="redirectPostView(1)" v-for="post in $store.state.dashboardPosts" :key="post.id">
                     <div class="card-header">
 
                         <div class="row">
-                            <h3>Post Description</h3>
-                            <p>post content</p>
+                            {{post.post.post_content.content}}
 
                         </div>
                     </div>
@@ -61,6 +60,8 @@
 </style>
 
 <script>
+import { mapGetters } from 'vuex'
+
     export default {
         data() {
             return {

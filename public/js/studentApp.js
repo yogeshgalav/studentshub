@@ -1763,6 +1763,7 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 //
 //
 //
@@ -1824,7 +1825,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {};
@@ -51751,39 +51752,42 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("div", { staticClass: "row main-habit-builder" }, [
-        _c("div", { staticClass: "col-md-6" }, [
-          _c(
-            "div",
-            {
-              staticClass: "card h-card",
-              on: {
-                click: function($event) {
-                  return _vm.redirectPostView(1)
+        _c(
+          "div",
+          { staticClass: "col-md-6" },
+          _vm._l(_vm.$store.state.dashboardPosts, function(post) {
+            return _c(
+              "div",
+              {
+                key: post.id,
+                staticClass: "card h-card",
+                on: {
+                  click: function($event) {
+                    return _vm.redirectPostView(1)
+                  }
                 }
-              }
-            },
-            [_vm._m(0)]
-          )
-        ])
+              },
+              [
+                _c("div", { staticClass: "card-header" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(post.post.post_content.content) +
+                        "\n\n                    "
+                    )
+                  ])
+                ])
+              ]
+            )
+          }),
+          0
+        )
       ])
     ],
     2
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("h3", [_vm._v("Post Description")]),
-        _vm._v(" "),
-        _c("p", [_vm._v("post content")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -77110,7 +77114,7 @@ __webpack_require__.r(__webpack_exports__);
     state.new_post = Object.assign(state.new_post, post);
   },
   get_posts: function get_posts(state, posts) {
-    state.posts = posts;
+    state.dashboardPosts = posts;
   },
   submitPost: function submitPost(state) {
     axios({
@@ -77139,7 +77143,7 @@ var state = {
     post_subject: '',
     post_heading: ''
   },
-  posts: []
+  dashboardPosts: []
 };
 /* harmony default export */ __webpack_exports__["default"] = (state);
 

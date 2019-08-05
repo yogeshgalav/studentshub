@@ -5,6 +5,6 @@ const state = {
       post_subject:'',
       post_heading:'',
     },
-    posts: [],
+    dashboardPosts: [],
   }
   export default state;
