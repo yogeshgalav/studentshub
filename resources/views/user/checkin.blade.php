@@ -1,4 +1,4 @@
 @extends('layouts.app')
 @section('content')
-<checkin-component></checkin-component>
+<router-view></router-view> 
 @endsection

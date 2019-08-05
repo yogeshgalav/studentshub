@@ -19,20 +19,24 @@ class HomeController extends Controller
 
         $post=new Post;
         $post->user_id=Auth::user()->id;
-        $post->subject_id=1;
         $post->post_type=$post_type;
         $post->post_heading=$heading;
         $post->save();
 
         switch('article'){
             case 'article':
-            $post_content_id=Article::create(['post_id'=>$post->id,'content'=>$content]);
+            $post_content_id=Article::create(['post_id'=>$post->id,'content'=>$content])->id;
             break;
             case 'notice':
             break;
             case 'document':
             break;
         }
+        ViewPost::create([
+            'post_id'=>$post->id,
+            // 'post_content_id'=>$post_content_id,
+            'shared_by'=>Auth::user()->id,
+        ]);
         return response()->json('success');
     }
 

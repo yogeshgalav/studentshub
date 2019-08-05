@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     //
-    protected $appends=['postContent'];
+    protected $with=['postContent'];
 
     public function article(){
         return $this->hasOne('App\Models\Article');
@@ -30,23 +30,26 @@ class Post extends Model
     
     public function postContent(){
         switch($this->post_type){
-            case 'article':
-                return $this->article;
+            default:
+            return $this->article();
                 break;
-            case 'notice':
-                return $this->notice;
+            case 'Article':
+                return $this->article();
                 break;
-            case 'document':
-                return $this->document;
+            case 'Notice':
+                return $this->notice();
                 break;
-            case 'fact':
-                return $this->fact;
+            case 'Document':
+                return $this->document();
+                break;
+            case 'Fact':
+                return $this->fact();
                 break;
             case 'MCQ':
-                return $this->MCQ;
+                return $this->MCQ();
                 break;
-            case 'video':
-                return $this->video;
+            case 'Video':
+                return $this->video();
                 break;
         }
     }
