@@ -10,6 +10,6 @@ class ViewPost extends Model
     protected $with=['post'];
     public function post()
     {
-        return $this->belongsTo('App\Models\Post');
+        return $this->belongsTo('App\Models\Post')->with('postContent');
     }
 }

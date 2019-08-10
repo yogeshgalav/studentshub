@@ -115,7 +115,7 @@ button[disabled="disabled"] {
 .btn-warning,
 .btn-disabled, .btn-white {
     font-family: $font-family-inter !important;
-    text-transform: $btn-text-transform;
+    text-transform: capitalize;
     font-size: $font-12;
     letter-spacing: $letter-spacing-01;
     
@@ -192,9 +192,9 @@ button[disabled="disabled"] {
 .btn-white
 {
     background-color: #fff;
-    font-weight: $btn-font-weight;
+    font-weight:600;
     border:1px solid #BDBDBD;
-    color: #BDBDBD !important;
+    color: #333 !important;
 }.btn-primary-accent
 {
     background-color: #10069F;
@@ -258,6 +258,10 @@ button[disabled="disabled"] {
 .font-size-12 {
     font-size: 12px !important;
 }
+.border-bottom
+{
+    border-bottom: 1px solid #ccc;
+}
 
 .font-size-14 {
     font-size: 14px !important;
@@ -294,6 +298,9 @@ button[disabled="disabled"] {
 // font weight
 .weight-800 {
     font-weight: 800
+}
+.weight-600 {
+    font-weight: 600
 }
 
 .weight-400 {
@@ -917,6 +924,37 @@ i {
     .width-60 {
         max-width: 100%;
     }
+}
+// category filter
+.ptb-50
+{
+    padding: 50px 0 50px 0;
+}
+.divider
+{
+    height:1px ;
+    border:1px solid #eee;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.ptb-20
+{
+    padding: 20px 0 20px 0;
+}
+.bg-gray
+{
+    background: #eee;
+}
+// explore top post
+.card-img-top {
+    width: 100%;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.exolpre-bottom-post .card-img-top {
+    width: 100%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 
 @media only screen and (max-width: 600px) {

@@ -10805,8 +10805,8 @@ h6,
 }
 
 p {
-  font-size: 14px;
-  line-height: 1.82;
+  font-size: 12px;
+  line-height: 20px;
   margin-bottom: 1rem;
   word-break: break-word;
 }
@@ -24785,7 +24785,7 @@ button[disabled=disabled] {
 .btn-disabled,
 .btn-white {
   font-family: "Inter", sans-serif !important;
-  text-transform: uppercase;
+  text-transform: capitalize;
   font-size: 12px;
   letter-spacing: 0.1em;
 }
@@ -24858,9 +24858,9 @@ button[disabled=disabled] {
 
 .btn-white {
   background-color: #fff;
-  font-weight: 800;
+  font-weight: 600;
   border: 1px solid #BDBDBD;
-  color: #BDBDBD !important;
+  color: #333 !important;
 }
 
 .btn-primary-accent {
@@ -24923,6 +24923,10 @@ button[disabled=disabled] {
   font-size: 12px !important;
 }
 
+.border-bottom {
+  border-bottom: 1px solid #ccc;
+}
+
 .font-size-14 {
   font-size: 14px !important;
 }
@@ -24957,6 +24961,10 @@ button[disabled=disabled] {
 
 .weight-800 {
   font-weight: 800;
+}
+
+.weight-600 {
+  font-weight: 600;
 }
 
 .weight-400 {
@@ -25566,6 +25574,37 @@ i {
   .width-60 {
     max-width: 100%;
   }
+}
+
+.ptb-50 {
+  padding: 50px 0 50px 0;
+}
+
+.divider {
+  height: 1px;
+  border: 1px solid #eee;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.ptb-20 {
+  padding: 20px 0 20px 0;
+}
+
+.bg-gray {
+  background: #eee;
+}
+
+.card-img-top {
+  width: 100%;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.exolpre-bottom-post .card-img-top {
+  width: 100%;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 
 @media only screen and (max-width: 600px) {

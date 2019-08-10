@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     //
-    protected $with=['postContent'];
 
     public function article(){
         return $this->hasOne('App\Models\Article');
