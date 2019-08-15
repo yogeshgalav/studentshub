@@ -1,6 +1,6 @@
 <template>
     <main>
-<carousel :per-page="1"  :mouse-drag="true" :center-mode="true" :pagination-position="'bottom-overlay'">
+<carousel :per-page="1"  :mouse-drag="false" :center-mode="true" :pagination-position="'bottom-overlay'">
     <slide>
         <img src="/images/4.jpg"/>
     </slide>
@@ -60,6 +60,14 @@ export default {
     ExploreSidebar,
     ExploreBottomPost,
     SiteFooter
+  },
+  methods:{
+    getData(){
+      this.$store.dispatch('explore/getExplorePageContent');
+    }
+  },
+  mounted(){
+    this.getData();
   }
 }
 </script>

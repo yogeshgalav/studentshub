@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     //
-
+    protected $appends=['user_name','total_views','total_likes'];
     public function article(){
         return $this->hasOne('App\Models\Article');
     }
@@ -51,6 +51,24 @@ class Post extends Model
                 return $this->video();
                 break;
         }
+    }
+    public function user(){
+        return $this->belongsTo('App\Models\User');
+    }
+    public function getUserNameAttribute(){
+        return $this->user()->first()->full_name;
+    }       
+    public function category(){
+        return $this->hasOne('App\Models\PostSubject')->where('type','category');
+    }
+    public function subject(){
+        return $this->hasOne('App\Models\PostSubject')->where('type','branch_subject');
+    }           
+    public function getTotalViewsAttribute(){
+        return $this->hasMany('App\Models\View')->count();
+    }
+    public function getTotalLikesAttribute(){
+        return $this->hasMany('App\Models\Like')->count();
     }
     
 }
