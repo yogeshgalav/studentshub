@@ -1,6 +1,11 @@
 
 <template>
-    <form-wizard @on-complete="onComplete">
+<div class="container">
+<div class="row">
+<div class="col-md-8 center-col">
+<div class="card mt-5">
+<div class="card-body">
+  <form-wizard @on-complete="onComplete">
   <tab-content title="Post Type">
     <select-post-type></select-post-type>
   </tab-content>
@@ -14,8 +19,15 @@
     <select-heading></select-heading>
    </tab-content>
 </form-wizard>
+</div>
+</div>
+</div>
+</div>
+</div>
 </template>
+<style scoped>
 
+</style>
 <script>
 import {FormWizard, TabContent} from 'vue-form-wizard'
 import 'vue-form-wizard/dist/vue-form-wizard.min.css'

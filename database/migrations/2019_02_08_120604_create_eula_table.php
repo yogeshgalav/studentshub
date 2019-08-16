@@ -14,7 +14,7 @@ class CreateEulaTable extends Migration
     public function up()
     {
         Schema::create('eula', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->date('effective_date')->comment('The date this version of the EULA takes effect');
             $table->timestamps();
         });

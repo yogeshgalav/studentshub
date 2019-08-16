@@ -902,6 +902,22 @@ i {
 .search-query:focus + button {
     z-index: 3;   
 }
+// form-wizard
+.vue-form-wizard.md .wizard-icon-circle {
+    width: 50px !important;
+    height: 50px !important;
+    font-size: 20px !important;
+}
+.vue-form-wizard.md .wizard-nav-pills>li.active>a .wizard-icon {
+    font-size: 20px !important;
+}
+.form-group label, .form-check label {
+    margin-bottom: 0.5rem;
+    color: #495057;
+    font-weight: 400;
+    font-size: 1rem;
+    white-space: nowrap;
+}
 // Responsive CSS Start Here 
 // mobile view custom tabs 
 @media (min-width: 768px) and (max-width: 1024px) {
@@ -957,6 +973,26 @@ i {
     border-top-right-radius: 5px;
 }
 
+// custom form controls
+
+.custom-select {
+    display: inline-block;
+    width: 100%;
+    height: calc(1.9em + 0.75rem + 2px);
+    padding: 0.700rem 1.75rem 0.700rem 0.75rem !important;
+    font-size: 0.9rem;
+    font-weight: 500;
+    line-height: 1.6;
+    color: #000;
+    vertical-align: middle;
+    background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat right 0.75rem center/8px 10px;
+    background-color: #eee;
+    border: 1px solid #eee;
+    border-radius: 0.0;
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+  }
 @media only screen and (max-width: 600px) {
 
     // Habit Builder 

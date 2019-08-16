@@ -10,6 +10,9 @@ class ViewPost extends Model
     protected $with=['post'];
     public function post()
     {
-        return $this->belongsTo('App\Models\Post')->with('postContent');
+        return $this->belongsTo('App\Models\Post')->with(['postContent','category.subject','subject.subject']);
+    }
+    public function scopeGetExplorePagePosts($query){
+        return $query->where('post_type','article')->get();
     }
 }

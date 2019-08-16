@@ -14,19 +14,19 @@ class CreateEulaTextTable extends Migration
     public function up()
     {
         Schema::create('eula_text', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->integer('eula_id')->unsigned();
             $table->string('locale_code')->comment('Which locale is this text in?');
             $table->text('eula_text')->comment('The actual text of the EULA (will be stored in markdown format)');
             $table->timestamps();
         });
 
-        Schema::table('eula_text', function(Blueprint $table)
-        {
-            $table->foreign('eula_id')->references('id')->on('eula')->onDelete('cascade');
-            //composite key
-            $table->index(['eula_id', 'locale_code']);
-        });
+        // Schema::table('eula_text', function(Blueprint $table)
+        // {
+        //     $table->foreign('eula_id')->references('id')->on('eula')->onDelete('cascade');
+        //     //composite key
+        //     $table->index(['eula_id', 'locale_code']);
+        // });
     }
 
     /**

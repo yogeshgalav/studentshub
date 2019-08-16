@@ -14,9 +14,10 @@ class CreateViewPostsTable extends Migration
     public function up()
     {
         Schema::create('view_posts', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->integer('post_id')->unsigned();
             $table->integer('shared_by')->unsigned();
+            $table->string('post_type');
             $table->integer('classroom_id')->unsigned()->nullable();
             $table->integer('batch_id')->unsigned()->nullable();
             $table->integer('branch_id')->unsigned()->nullable();
