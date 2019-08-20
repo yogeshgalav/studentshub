@@ -1,13 +1,27 @@
 <template>
-    <div class="card h-card">
-                    <div class="card-header">
-
-                        <div class="row">
-                            <label>Subject</label>
-                            <input type="text" @input="editSubject($event)">
-                        </div>
-                    </div>
+<div class="row">
+            <div class="col-md-8 offset-2">
+                
+                <div class="form-group">
+                   <div class="text-center"> <p class="title weight-600 font-size-16 text-black">Choose Category</p></div>
+                    <label class="weight-500">Choose Category</label>
+                    <select class="form-control custom-select" @input="selectPostType($event)">
+                        <option v-for="type in postTypes" :key="type">
+                             {{type}}
+                            
+                        </option>
+                    </select>
                 </div>
+                <div class="form-group">
+ <label class="weight-500">Select Subject</label>
+<select class="form-control custom-select" @input="editSubject($event)">
+    <option>Select Subject</option>
+</select>
+                </div>
+               
+            </div>
+        </div>
+   
 </template>
 <script>
 export default {

@@ -1,13 +1,20 @@
 <template>
-    <main>
-        <div class="row">
-            <div class="col-3" v-for="type in postTypes" :key="type">
-                <div class="post-type" @click="selectPostType(type)">
-                    {{type}}
+    <div class="row">
+            <div class="col-md-8 offset-2">
+                
+                <div class="form-group">
+                   <div class="text-center"> <p class="title weight-600 font-size-16 text-black">Select Post Type</p></div>
+                    <label class="weight-500">Choose type</label>
+                    <select class="form-control custom-select" @input="selectPostType($event)">
+                        <option v-for="type in postTypes" :key="type">
+                             {{type}}
+                            
+                        </option>
+                    </select>
                 </div>
+               
             </div>
         </div>
-    </main>
 </template>
 <style scoped>
 .post-type{
@@ -31,8 +38,8 @@ export default {
         }
     },
     methods:{
-        selectPostType(type){
-           this.$store.dispatch('createPost',{post_type:type});
+        selectPostType(event){
+           this.$store.dispatch('createPost',{post_type:event.target.value});
         }
     }
 }

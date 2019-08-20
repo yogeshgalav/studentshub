@@ -1908,6 +1908,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   methods: {
     editHeading: function editHeading(event) {
@@ -1946,6 +1950,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1953,9 +1964,9 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    selectPostType: function selectPostType(type) {
+    selectPostType: function selectPostType(event) {
       this.$store.dispatch('createPost', {
-        post_type: type
+        post_type: event.target.value
       });
     }
   }
@@ -1972,6 +1983,20 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2054,6 +2079,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+<<<<<<< HEAD
+=======
+//
+//
+//
+//
+>>>>>>> 1990a898039afb8fe62175e25d75495f410dd367
 
 
 
@@ -51861,12 +51893,15 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card h-card" }, [
-    _c("div", { staticClass: "card-header" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("label", [_vm._v("Heading")]),
+  return _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "col-md-8 offset-2" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("label", { staticClass: "weight-500" }, [_vm._v("Heading")]),
         _vm._v(" "),
         _c("input", {
+          staticClass: "form-control",
           attrs: { type: "text" },
           on: {
             input: function($event) {
@@ -51878,7 +51913,18 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "text-center" }, [
+      _c("p", { staticClass: "title weight-600 font-size-16 text-black" }, [
+        _vm._v("Enter Heading")
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -51900,31 +51946,50 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("main", [
-    _c(
-      "div",
-      { staticClass: "row" },
-      _vm._l(_vm.postTypes, function(type) {
-        return _c("div", { key: type, staticClass: "col-3" }, [
-          _c(
-            "div",
-            {
-              staticClass: "post-type",
-              on: {
-                click: function($event) {
-                  return _vm.selectPostType(type)
-                }
+  return _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "col-md-8 offset-2" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("label", { staticClass: "weight-500" }, [_vm._v("Choose type")]),
+        _vm._v(" "),
+        _c(
+          "select",
+          {
+            staticClass: "form-control custom-select",
+            on: {
+              input: function($event) {
+                return _vm.selectPostType($event)
               }
-            },
-            [_vm._v("\n                " + _vm._s(type) + "\n            ")]
-          )
-        ])
-      }),
-      0
-    )
+            }
+          },
+          _vm._l(_vm.postTypes, function(type) {
+            return _c("option", { key: type }, [
+              _vm._v(
+                "\n                         " +
+                  _vm._s(type) +
+                  "\n                        \n                    "
+              )
+            ])
+          }),
+          0
+        )
+      ])
+    ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "text-center" }, [
+      _c("p", { staticClass: "title weight-600 font-size-16 text-black" }, [
+        _vm._v("Select Post Type")
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -51946,24 +52011,67 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card h-card" }, [
-    _c("div", { staticClass: "card-header" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("label", [_vm._v("Subject")]),
+  return _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "col-md-8 offset-2" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _vm._m(0),
         _vm._v(" "),
-        _c("input", {
-          attrs: { type: "text" },
-          on: {
-            input: function($event) {
-              return _vm.editSubject($event)
+        _c("label", { staticClass: "weight-500" }, [_vm._v("Choose Category")]),
+        _vm._v(" "),
+        _c(
+          "select",
+          {
+            staticClass: "form-control custom-select",
+            on: {
+              input: function($event) {
+                return _vm.selectPostType($event)
+              }
             }
-          }
-        })
+          },
+          _vm._l(_vm.postTypes, function(type) {
+            return _c("option", { key: type }, [
+              _vm._v(
+                "\r\n                             " +
+                  _vm._s(type) +
+                  "\r\n                            \r\n                        "
+              )
+            ])
+          }),
+          0
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group" }, [
+        _c("label", { staticClass: "weight-500" }, [_vm._v("Select Subject")]),
+        _vm._v(" "),
+        _c(
+          "select",
+          {
+            staticClass: "form-control custom-select",
+            on: {
+              input: function($event) {
+                return _vm.editSubject($event)
+              }
+            }
+          },
+          [_c("option", [_vm._v("Select Subject")])]
+        )
       ])
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "text-center" }, [
+      _c("p", { staticClass: "title weight-600 font-size-16 text-black" }, [
+        _vm._v("Choose Category")
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -51994,10 +52102,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Student/post/share-post.vue?vue&type=template&id=4489f81b&":
-/*!***************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Student/post/share-post.vue?vue&type=template&id=4489f81b& ***!
-  \***************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Student/post/share-post.vue?vue&type=template&id=4489f81b&scoped=true&":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Student/post/share-post.vue?vue&type=template&id=4489f81b&scoped=true& ***!
+  \***************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -52009,6 +52117,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+<<<<<<< HEAD
   return _c(
     "form-wizard",
     {
@@ -52068,6 +52177,57 @@ var render = function() {
     ],
     1
   )
+=======
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-8 center-col" }, [
+        _c("div", { staticClass: "card mt-5" }, [
+          _c(
+            "div",
+            { staticClass: "card-body" },
+            [
+              _c(
+                "form-wizard",
+                { on: { "on-complete": _vm.onComplete } },
+                [
+                  _c(
+                    "tab-content",
+                    { attrs: { title: "Post Type" } },
+                    [_c("select-post-type")],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "tab-content",
+                    { attrs: { title: "Create" } },
+                    [_c("create-post-content")],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "tab-content",
+                    { attrs: { title: "Subject" } },
+                    [_c("select-subject")],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "tab-content",
+                    { attrs: { title: "Heading" } },
+                    [_c("select-heading")],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ])
+      ])
+    ])
+  ])
+>>>>>>> 1990a898039afb8fe62175e25d75495f410dd367
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -76888,7 +77048,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _share_post_vue_vue_type_template_id_4489f81b___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./share-post.vue?vue&type=template&id=4489f81b& */ "./resources/js/Student/post/share-post.vue?vue&type=template&id=4489f81b&");
+/* harmony import */ var _share_post_vue_vue_type_template_id_4489f81b_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./share-post.vue?vue&type=template&id=4489f81b&scoped=true& */ "./resources/js/Student/post/share-post.vue?vue&type=template&id=4489f81b&scoped=true&");
 /* harmony import */ var _share_post_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./share-post.vue?vue&type=script&lang=js& */ "./resources/js/Student/post/share-post.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
@@ -76900,11 +77060,11 @@ __webpack_require__.r(__webpack_exports__);
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
   _share_post_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _share_post_vue_vue_type_template_id_4489f81b___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _share_post_vue_vue_type_template_id_4489f81b___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _share_post_vue_vue_type_template_id_4489f81b_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _share_post_vue_vue_type_template_id_4489f81b_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
-  null,
+  "4489f81b",
   null
   
 )
@@ -76930,19 +77090,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/Student/post/share-post.vue?vue&type=template&id=4489f81b&":
-/*!*********************************************************************************!*\
-  !*** ./resources/js/Student/post/share-post.vue?vue&type=template&id=4489f81b& ***!
-  \*********************************************************************************/
+/***/ "./resources/js/Student/post/share-post.vue?vue&type=template&id=4489f81b&scoped=true&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/js/Student/post/share-post.vue?vue&type=template&id=4489f81b&scoped=true& ***!
+  \*********************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_share_post_vue_vue_type_template_id_4489f81b___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./share-post.vue?vue&type=template&id=4489f81b& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Student/post/share-post.vue?vue&type=template&id=4489f81b&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_share_post_vue_vue_type_template_id_4489f81b___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_share_post_vue_vue_type_template_id_4489f81b_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./share-post.vue?vue&type=template&id=4489f81b&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Student/post/share-post.vue?vue&type=template&id=4489f81b&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_share_post_vue_vue_type_template_id_4489f81b_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_share_post_vue_vue_type_template_id_4489f81b___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_share_post_vue_vue_type_template_id_4489f81b_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -77189,7 +77349,7 @@ var state = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\StudentsHUB\resources\js\Student\app.js */"./resources/js/Student/app.js");
+module.exports = __webpack_require__(/*! E:\xampp\htdocs\StudentsHUB\resources\js\Student\app.js */"./resources/js/Student/app.js");
 
 
 /***/ })
