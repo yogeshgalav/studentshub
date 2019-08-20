@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ExplorePagePosts extends Model
+class ExplorePagePost extends Model
 {
     //
     

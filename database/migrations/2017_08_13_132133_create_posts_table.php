@@ -16,7 +16,7 @@ class CreatePostsTable extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('user_id')->unsigned();
-            $table->string('post_type')->comment('Article,Quora,Youtube,MCQ,News,Image');
+            $table->string('post_type')->comment('Article,Fact,Video,Link,Notice,Document,MCQ,News,Image');
             $table->text('post_heading');
             $table->integer('rating')->default(3);
             $table->timestamps();

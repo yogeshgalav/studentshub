@@ -10,15 +10,15 @@
 </div>
 
     <div  class="row">
-        <div class="col-md-12 mt-2 mb-2">
+        <div class="col-md-12 mt-2 mb-2" v-for="post in posts" :key="post.id">
 							<div class="card-post">
 							<div class="d-flex">
 										<div class="avatar">
 											<img src="/images/4.jpg" alt="..." class="avatar-img rounded-circle">
 										</div>
 										<div class="info-post ml-2">
-											<p class="username">Joko Subianto</p>
-											<p class="date text-muted">20 Jan 18</p>
+											<p class="username">{{post.post.user_name}}</p>
+											<p class="date text-muted">{{post.post.created_at}}</p>
                                             <h3 class="card-title  font-size-12">
 										<a href="#" class="text-black">
 											Best Design Resources This Week
@@ -28,64 +28,7 @@
 										</div>
 									</div>
 							</div>
-						</div>
-                           <div class="col-md-12 mt-2 mb-2">
-							<div class="card-post">
-							<div class="d-flex">
-										<div class="avatar">
-											<img src="/images/4.jpg" alt="..." class="avatar-img rounded-circle">
-										</div>
-										<div class="info-post ml-2">
-											<p class="username">Joko Subianto</p>
-											<p class="date text-muted">20 Jan 18</p>
-                                            <h3 class="card-title  font-size-12">
-										<a href="#" class="text-black">
-											Best Design Resources This Week
-										</a>
-									</h3>
-                                
-										</div>
-									</div>
-							</div>
-						</div>
-                           <div class="col-md-12 mt-2 mb-2">
-							<div class="card-post">
-							<div class="d-flex">
-										<div class="avatar">
-											<img src="/images/4.jpg" alt="..." class="avatar-img rounded-circle">
-										</div>
-										<div class="info-post ml-2">
-											<p class="username">Joko Subianto</p>
-											<p class="date text-muted">20 Jan 18</p>
-                                            <h3 class="card-title  font-size-12">
-										<a href="#" class="text-black">
-											Best Design Resources This Week
-										</a>
-									</h3>
-                                
-										</div>
-									</div>
-							</div>
-						</div>
-                           <div class="col-md-12 mt-2 mb-2">
-							<div class="card-post">
-							<div class="d-flex">
-										<div class="avatar">
-											<img src="/images/4.jpg" alt="..." class="avatar-img rounded-circle">
-										</div>
-										<div class="info-post ml-2">
-											<p class="username">Joko Subianto</p>
-											<p class="date text-muted">20 Jan 18</p>
-                                            <h3 class="card-title  font-size-12">
-										<a href="#" class="text-black">
-											Best Design Resources This Week
-										</a>
-									</h3>
-                                
-										</div>
-									</div>
-							</div>
-						</div>
+						</div>         
                       
     </div>
     
@@ -100,15 +43,15 @@
 </div>
 
     <div  class="row">
-        <div class="col-md-12 mt-2 mb-2">
+        <div class="col-md-12 mt-2 mb-2" v-for="post in posts" :key="post.id">
 							<div class="card-post">
 							<div class="d-flex">
 										<div class="avatar">
 											<img src="/images/4.jpg" alt="..." class="avatar-img rounded-circle">
 										</div>
 										<div class="info-post ml-2">
-											<p class="username">Joko Subianto</p>
-											<p class="date text-muted">20 Jan 18</p>
+											<p class="username">{{post.post.user_name}}</p>
+											<p class="date text-muted">{{post.post.created_at}}</p>
                                             <h3 class="card-title  font-size-12">
 										<a href="#" class="text-black">
 											Best Design Resources This Week
@@ -119,66 +62,21 @@
 									</div>
 							</div>
 						</div>
-                           <div class="col-md-12 mt-2 mb-2">
-							<div class="card-post">
-							<div class="d-flex">
-										<div class="avatar">
-											<img src="/images/4.jpg" alt="..." class="avatar-img rounded-circle">
-										</div>
-										<div class="info-post ml-2">
-											<p class="username">Joko Subianto</p>
-											<p class="date text-muted">20 Jan 18</p>
-                                            <h3 class="card-title  font-size-12">
-										<a href="#" class="text-black">
-											Best Design Resources This Week
-										</a>
-									</h3>
-                                
-										</div>
-									</div>
-							</div>
-						</div>
-                           <div class="col-md-12 mt-2 mb-2">
-							<div class="card-post">
-							<div class="d-flex">
-										<div class="avatar">
-											<img src="/images/4.jpg" alt="..." class="avatar-img rounded-circle">
-										</div>
-										<div class="info-post ml-2">
-											<p class="username">Joko Subianto</p>
-											<p class="date text-muted">20 Jan 18</p>
-                                            <h3 class="card-title  font-size-12">
-										<a href="#" class="text-black">
-											Best Design Resources This Week
-										</a>
-									</h3>
-                                
-										</div>
-									</div>
-							</div>
-						</div>
-                           <div class="col-md-12 mt-2 mb-2">
-							<div class="card-post">
-							<div class="d-flex">
-										<div class="avatar">
-											<img src="/images/4.jpg" alt="..." class="avatar-img rounded-circle">
-										</div>
-										<div class="info-post ml-2">
-											<p class="username">Joko Subianto</p>
-											<p class="date text-muted">20 Jan 18</p>
-                                            <h3 class="card-title  font-size-12">
-										<a href="#" class="text-black">
-											Best Design Resources This Week
-										</a>
-									</h3>
-                                
-										</div>
-									</div>
-							</div>
-						</div>
-                      
+                           
     </div>
     
     </div>
     </div>
 </template>
+<script>
+import {mapState} from 'vuex';
+
+export default {
+	computed:{
+		...mapState({
+			'posts': state=>state.explore.posts.ExploreSidebar,
+		}),
+	}
+}
+</script>
+

@@ -1,12 +1,9 @@
 <template>
     <main>
-<carousel :per-page="1"  :mouse-drag="false" :center-mode="true" :pagination-position="'bottom-overlay'">
-    <slide>
-        <img src="/images/4.jpg"/>
-    </slide>
-    <slide>
-      <img src="/images/4.jpg"/>
-    </slide>
+  <carousel  :slides="[{img_url:'/images/4.jpg'},{img_url:'/images/4.jpg'}]">
+    <template slot-scope="props">
+      <img :src="props.slide.img_url"/>
+    </template>
   </carousel>
   <category-filter></category-filter>
   <div class="container">
@@ -42,7 +39,8 @@
     </main>
 </template>
 <script>
-import { Carousel, Slide } from 'vue-carousel';
+// import { Carousel, Slide } from 'vue-carousel';
+import Carousel from './../../components/Carousel';
 import CategoryFilter from './../../components/CategoryFilter';
 import ExploreTopPost from './../../components/ExploreTopPost';
 import HomePostContainer from './../../components/HomePostContainer';
@@ -53,7 +51,7 @@ import SiteFooter from './../../components/SiteFooter';
 export default {
     components: {
     Carousel,
-    Slide,
+    // Slide,
     CategoryFilter,
     ExploreTopPost,
     HomePostContainer,

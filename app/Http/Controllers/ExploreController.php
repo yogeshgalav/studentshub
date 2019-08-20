@@ -12,7 +12,7 @@ use Auth;
 class ExploreController extends Controller
 {
     public function index(){
-        $posts=ViewPost::whereIn('post_type',['article','fact','video'])->get();
+        $posts=ViewPost::whereIn('post_type',['article','fact','video'])->limit(3)->get();
         $categories=Subject::getAllCategories();
         return response()->json(['success'=>[
             'categories'=>$categories,

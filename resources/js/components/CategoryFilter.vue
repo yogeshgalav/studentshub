@@ -3,23 +3,11 @@
    <div class="container ptb-20">
         <div class="row">
         <div class="col-md-12">
-            <carousel 
-            :per-page="8"  
-            :navigationEnabled="true"
-        :paginationEnabled="false"
-       
-        :loop="false"
-            :mouse-drag="true" 
-            :center-mode="true" 
-            :navigate-to="navPosition"
-            navigation-next-label="<button class='rightnav'>Right</button>"
-            navigation-prev-label="<button class='rightnav'>Left</button>">
-    <slide v-for="i in 40" :key="i">
-                    <a href="#" class="btn btn-white"> Art & Design {{i}}</a>
-
-    </slide>
+            <carousel :per-page="8" :step-jump="2" :slides="$store.state.explore.categories">
+    <template slot-scope="props">
+                    <a href="#" class="btn btn-white">{{props.slide.Subject_name}}</a>
+   </template>
   </carousel>
-  <button class='rightnav' @click="rightnav">Right</button>
         </div>
     </div>
    </div>
@@ -36,22 +24,20 @@
 </style>
 
 <script>
-import { Carousel, Slide } from 'vue-carousel';
+import Carousel from './Carousel';
+
 
 export default {
     components: {
     Carousel,
-    Slide,
     }  ,  
     data(){
         return {
-            navPosition:1,
+            
         }
     },
     methods:{
-        rightnav(){
-            this.navPosition++;
-        }
-    }
+        
+    },
 }
 </script>

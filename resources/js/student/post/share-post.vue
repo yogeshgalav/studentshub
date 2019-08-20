@@ -1,6 +1,14 @@
 
 <template>
     <form-wizard @on-complete="onComplete">
+      <wizard-step 
+    slot-scope="props"
+    slot="step"
+    :tab="props.tab"
+    :transition="props.transition"
+    :index="props.index">
+      <a class="btn btn-primary">{{props.index}}</a>
+</wizard-step>
   <tab-content title="Post Type">
     <select-post-type></select-post-type>
   </tab-content>

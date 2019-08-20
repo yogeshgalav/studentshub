@@ -11,8 +11,9 @@ class ExplorePostSeeder extends Seeder
      */
     public function run()
     {
-        for($i=0;$i<20;$i++){
-            factory(\App\Models\ViewPost::class)->create();
-        }
+            factory(\App\Models\ExplorePagePost::class,3)->create(['page_section'=>'ExploreTopPost']);
+            factory(\App\Models\ExplorePagePost::class,6)->create(['page_section'=>'HomePostContainer']);
+            factory(\App\Models\ExplorePagePost::class,3)->create(['page_section'=>'ExploreSidebar']);
+            factory(\App\Models\ExplorePagePost::class,3)->create(['page_section'=>'ExploreBottomPost']);
     }
 }
