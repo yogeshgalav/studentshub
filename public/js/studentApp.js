@@ -2079,13 +2079,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-<<<<<<< HEAD
-=======
 //
 //
 //
 //
->>>>>>> 1990a898039afb8fe62175e25d75495f410dd367
 
 
 
@@ -52117,67 +52114,6 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-<<<<<<< HEAD
-  return _c(
-    "form-wizard",
-    {
-      on: { "on-complete": _vm.onComplete },
-      scopedSlots: _vm._u([
-        {
-          key: "step",
-          fn: function(props) {
-            return _c(
-              "wizard-step",
-              {
-                attrs: {
-                  tab: props.tab,
-                  transition: props.transition,
-                  index: props.index
-                }
-              },
-              [
-                _c("a", { staticClass: "btn btn-primary" }, [
-                  _vm._v(_vm._s(props.index))
-                ])
-              ]
-            )
-          }
-        }
-      ])
-    },
-    [
-      _vm._v(" "),
-      _c(
-        "tab-content",
-        { attrs: { title: "Post Type" } },
-        [_c("select-post-type")],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "tab-content",
-        { attrs: { title: "Create" } },
-        [_c("create-post-content")],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "tab-content",
-        { attrs: { title: "Subject" } },
-        [_c("select-subject")],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "tab-content",
-        { attrs: { title: "Heading" } },
-        [_c("select-heading")],
-        1
-      )
-    ],
-    1
-  )
-=======
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-8 center-col" }, [
@@ -52227,7 +52163,6 @@ var render = function() {
       ])
     ])
   ])
->>>>>>> 1990a898039afb8fe62175e25d75495f410dd367
 }
 var staticRenderFns = []
 render._withStripped = true
