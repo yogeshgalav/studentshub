@@ -3,11 +3,11 @@
    <div class="container ptb-20">
         <div class="row">
         <div class="col-md-12 text-center">
-            <carousel :per-page="8" :step-jump="2" :slides="$store.state.explore.categories">
-    <template slot-scope="props">
-                    <a href="#" class="btn btn-white">{{props.slide.Subject_name}}</a>
-   </template>
-  </carousel>
+            <slick :options="slickOptions" ref="slick" >
+    
+                    <a href="#" class="btn btn-white" v-for="(category,index) in categories" :key="index">{{category.Subject_name}}</a>
+  </slick>
+
         </div>
     </div>
    </div>
@@ -25,12 +25,10 @@
 
 <script>
 import {mapState} from 'vuex';
-import Carousel from './Carousel';
 import Slick from 'vue-slick';
 
 export default {
     components: {
-    Carousel,
     Slick,
     },
     computed:{
@@ -41,7 +39,7 @@ export default {
     data(){
         return {
             slickOptions: {
-                 dots: true,
+                 dots: false,
         arrows: false,
         mobileFirst: true,
         infinite: false,
@@ -50,7 +48,8 @@ export default {
             breakpoint: 768,
             settings: {            
               arrows: true,
-              slidesToShow: 3
+              slidesToShow: 8,
+              slidesToScroll: 3,
             }
           }
         ]
@@ -58,7 +57,7 @@ export default {
         }
     },
     mounted(){
-          this.initSlider();
+        //   this.initSlider();
         // this.$refs.slick.slick({
         //     infinite: true,
         //     slidesToShow: 3,
@@ -67,20 +66,17 @@ export default {
     },
     watch: {
     categories() {
-      this.destroySlider();
-      this.$nextTick( () => {
-        this.initSlider();  
-      });      
+        this.reInit(); 
     }
   },
     methods:{
-          initSlider() {
-      $(this.$el).slick( this.sliderOptions );
-    },
-    destroySlider() {
-      $(this.$el).slick('unslick');
-    }
-        
+    
+    reInit() {
+            // Helpful if you have to deal with v-for to update dynamic lists
+            this.$nextTick(() => {
+                this.$refs.slick.reSlick();
+            });
+        },   
     },
 }
 </script>
