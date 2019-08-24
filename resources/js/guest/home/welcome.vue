@@ -1,10 +1,11 @@
 <template>
     <main>
-  <carousel  :slides="[{img_url:'/images/4.jpg'},{img_url:'/images/4.jpg'}]">
+  <carousel  :slides="[{img_url:'/images/4.jpg'},{img_url:'/images/5.jpg'}]">
     <template slot-scope="props">
       <img :src="props.slide.img_url"/>
     </template>
   </carousel>
+  
   <category-filter></category-filter>
   <div class="container">
  <div class="row">

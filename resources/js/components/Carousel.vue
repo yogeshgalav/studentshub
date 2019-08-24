@@ -1,20 +1,20 @@
 <template>
     <div>
   <div class="slides">
-    <transition-group 
-      name="slide"
-      mode="out-in"
-      enter-class="slide-in"
-      leave-class="slide-out"
-      enter-active-class="animated slide-in-active"
-      leave-active-class="animated slide-out-active"
+  
+    <transition-group tag="ul"
+     name="fade" class="slides-group"
     >
-      <div
-      v-for="slide in carouselSlides"
-      :key="slide.index">
-        <slot :slide="slide" v-if="slide.isActive===true">Slide {{slide}}</slot>
-      </div>
-    </transition-group>
+     
+      <li v-for="slide in carouselSlides"
+      :key="slide.index"
+      v-if="slide.isActive===true"
+      
+      >
+      <slot :slide="slide" >Slide {{slide}}</slot>
+      </li>
+     </transition-group>
+  
   </div>
   <button
     class="prev"
@@ -39,6 +39,89 @@
   </ul> -->
 </div>
 </template>
+<style scoped>
+
+/* FADE IN */
+.fade-enter-active {
+  transition: opacity 1s;
+}
+.fade-enter {
+  opacity: 0;
+}
+
+/* GO TO NEXT SLIDE */
+.slide-next-enter-active,
+.slide-next-leave-active {
+  transition: transform 0.5s ease-in-out;
+}
+.slide-next-enter {
+  transform: translate(100%);
+}
+.slide-next-leave-to {
+  transform: translate(-100%);
+}
+
+/* GO TO PREVIOUS SLIDE */
+.slide-prev-enter-active,
+.slide-prev-leave-active {
+  transition: transform 0.5s ease-in-out;
+}
+.slide-prev-enter {
+  transform: translate(-100%);
+}
+.slide-prev-leave-to {
+  transform: translate(100%);
+}
+
+.slide {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn {
+  z-index: 10;
+  cursor: pointer;
+  border: 3px solid #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 70px;
+  height: 70px;
+  position: absolute;
+  top: calc(50% - 35px);
+  left: 1%;
+  transition: transform 0.3s ease-in-out;
+  user-select: none;
+}
+
+.btn-next {
+  left: auto;
+  right: 1%;
+}
+
+.btn:hover {
+  transform: scale(1.1);
+}
+
+.slides ul 
+{
+  list-style: none;
+  padding:0px;
+}
+.slides ul
+{
+  display:flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+</style>
+
 <script>
 export default {
   props:{
@@ -78,7 +161,7 @@ export default {
       let i=0
       while(i<this.slides.length)
       {
-        data.push([i,i+this.stepJump]);
+        data.push([i,i+this.perPage]);
         i=i+this.stepJump;
       }
       return data;
