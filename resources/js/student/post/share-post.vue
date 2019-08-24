@@ -49,6 +49,9 @@ data(){
   return{
   }
 },
+mounted(){
+  this.$store.dispatch('getCategories');
+},
 methods: {
   onComplete(){
     this.$store.commit('submitPost');

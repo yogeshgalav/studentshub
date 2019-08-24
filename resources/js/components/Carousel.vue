@@ -35,6 +35,7 @@
       :class="{ active: ++index === active }"
       @click="jump(index)"
     ></li>
+
   </ul> -->
 </div>
 </template>
@@ -77,8 +78,8 @@ export default {
       let i=0
       while(i<this.slides.length)
       {
-        data.push([i,i+this.perPage]);
-        i=i+this.perPage;
+        data.push([i,i+this.stepJump]);
+        i=i+this.stepJump;
       }
       return data;
     },
@@ -120,7 +121,7 @@ export default {
       }      
     },
     prevIndexExists(){
-      if((this.active-1)<0)
+      if((this.active-1)>=0)
        return true;
        else
        return false;
