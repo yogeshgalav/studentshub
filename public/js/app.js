@@ -1972,8 +1972,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 // import { Carousel, Slide } from 'vue-carousel';
 
 
@@ -2014,6 +2012,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
 //
 //
 //
@@ -2268,8 +2270,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2293,7 +2293,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           settings: {
             arrows: true,
             slidesToShow: 8,
-            slidesToScroll: 3
+            slidesToScroll: 3,
+            width: 200
           }
         }]
       }
@@ -7207,7 +7208,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n\r\n/* FADE IN */\n.fade-enter-active[data-v-fe98726a] {\r\n  transition: opacity 1s;\n}\n.fade-enter[data-v-fe98726a] {\r\n  opacity: 0;\n}\r\n\r\n/* GO TO NEXT SLIDE */\n.slide-next-enter-active[data-v-fe98726a],\r\n.slide-next-leave-active[data-v-fe98726a] {\r\n  transition: transform 0.5s ease-in-out;\n}\n.slide-next-enter[data-v-fe98726a] {\r\n  transform: translate(100%);\n}\n.slide-next-leave-to[data-v-fe98726a] {\r\n  transform: translate(-100%);\n}\r\n\r\n/* GO TO PREVIOUS SLIDE */\n.slide-prev-enter-active[data-v-fe98726a],\r\n.slide-prev-leave-active[data-v-fe98726a] {\r\n  transition: transform 0.5s ease-in-out;\n}\n.slide-prev-enter[data-v-fe98726a] {\r\n  transform: translate(-100%);\n}\n.slide-prev-leave-to[data-v-fe98726a] {\r\n  transform: translate(100%);\n}\n.slide[data-v-fe98726a] {\r\n  width: 100%;\r\n  height: 100vh;\r\n  position: absolute;\r\n  top: 0;\r\n  left: 0;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\n}\n.btn[data-v-fe98726a] {\r\n  z-index: 10;\r\n  cursor: pointer;\r\n  border: 3px solid #fff;\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  width: 70px;\r\n  height: 70px;\r\n  position: absolute;\r\n  top: calc(50% - 35px);\r\n  left: 1%;\r\n  transition: transform 0.3s ease-in-out;\r\n  -webkit-user-select: none;\r\n     -moz-user-select: none;\r\n      -ms-user-select: none;\r\n          user-select: none;\n}\n.btn-next[data-v-fe98726a] {\r\n  left: auto;\r\n  right: 1%;\n}\n.btn[data-v-fe98726a]:hover {\r\n  transform: scale(1.1);\n}\n.slides ul[data-v-fe98726a] \r\n{\r\n  list-style: none;\r\n  padding:0px;\n}\n.slides ul[data-v-fe98726a]\r\n{\r\n  display:flex;\r\n  flex-wrap: wrap;\r\n  align-items: center;\n}\r\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n\r\n/* FADE IN */\n.slides ul[data-v-fe98726a]\r\n{\r\n  margin-bottom:0px;\n}\n.fade-enter-active[data-v-fe98726a] {\r\n  transition: opacity 1s;\n}\n.fade-enter[data-v-fe98726a] {\r\n  opacity: 0;\n}\r\n\r\n/* GO TO NEXT SLIDE */\n.slide-next-enter-active[data-v-fe98726a],\r\n.slide-next-leave-active[data-v-fe98726a] {\r\n  transition: transform 0.5s ease-in-out;\n}\n.slide-next-enter[data-v-fe98726a] {\r\n  transform: translate(100%);\n}\n.slide-next-leave-to[data-v-fe98726a] {\r\n  transform: translate(-100%);\n}\r\n\r\n/* GO TO PREVIOUS SLIDE */\n.slide-prev-enter-active[data-v-fe98726a],\r\n.slide-prev-leave-active[data-v-fe98726a] {\r\n  transition: transform 0.5s ease-in-out;\n}\n.slide-prev-enter[data-v-fe98726a] {\r\n  transform: translate(-100%);\n}\n.slide-prev-leave-to[data-v-fe98726a] {\r\n  transform: translate(100%);\n}\n.slide[data-v-fe98726a] {\r\n  width: 100%;\r\n  height: 100vh;\r\n  position: absolute;\r\n  top: 0;\r\n  left: 0;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\n}\n.btn[data-v-fe98726a] {\r\n  z-index: 10;\r\n  cursor: pointer;\r\n  border: 3px solid #fff;\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  width: 70px;\r\n  height: 70px;\r\n  position: absolute;\r\n  top: calc(50% - 35px);\r\n  left: 1%;\r\n  transition: transform 0.3s ease-in-out;\r\n  -webkit-user-select: none;\r\n     -moz-user-select: none;\r\n      -ms-user-select: none;\r\n          user-select: none;\n}\n.btn-next[data-v-fe98726a] {\r\n  left: auto;\r\n  right: 1%;\n}\n.btn[data-v-fe98726a]:hover {\r\n  transform: scale(1.1);\n}\n.slides ul[data-v-fe98726a] \r\n{\r\n  list-style: none;\r\n  padding:0px;\n}\n.slides ul[data-v-fe98726a]\r\n{\r\n  display:flex;\r\n  flex-wrap: wrap;\r\n  align-items: center;\n}\r\n", ""]);
 
 // exports
 
@@ -50220,8 +50221,12 @@ var render = function() {
     "main",
     [
       _c("carousel", {
+        staticStyle: { width: "100" },
         attrs: {
-          slides: [{ img_url: "/images/4.jpg" }, { img_url: "/images/5.jpg" }]
+          slides: [
+            { img_url: "/images/slider.jpg" },
+            { img_url: "/images/5.jpg" }
+          ]
         },
         scopedSlots: _vm._u([
           {
@@ -50318,44 +50323,6 @@ var render = function() {
         )
       ],
       1
-    ),
-    _vm._v(" "),
-    _c(
-      "button",
-      {
-        staticClass: "prev",
-        on: {
-          click: function($event) {
-            return _vm.prev()
-          }
-        }
-      },
-      [
-        _vm._v("Left\n    "),
-        _c("i", {
-          staticClass: "fa fa-chevron-left",
-          attrs: { "aria-hidden": "true" }
-        })
-      ]
-    ),
-    _vm._v(" "),
-    _c(
-      "button",
-      {
-        staticClass: "next",
-        on: {
-          click: function($event) {
-            return _vm.next()
-          }
-        }
-      },
-      [
-        _vm._v("Right\n    "),
-        _c("i", {
-          staticClass: "fa fa-chevron-right",
-          attrs: { "aria-hidden": "true" }
-        })
-      ]
     )
   ])
 }
@@ -79722,8 +79689,8 @@ var FormMixin = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\StudentsHUB\resources\js\Guest\app.js */"./resources/js/Guest/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\StudentsHUB\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\xampp\htdocs\StudentsHUB\resources\js\Guest\app.js */"./resources/js/Guest/app.js");
+module.exports = __webpack_require__(/*! E:\xampp\htdocs\StudentsHUB\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
