@@ -2270,6 +2270,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -7227,7 +7242,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.leftnav[data-v-d0dca37e] {\r\n    transform: translateY(0%) translateX(130%);\n}\n.rightnav[data-v-d0dca37e] {\r\n    transform: translateY(0%) translateX(-130%);\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.leftnav[data-v-d0dca37e] {\r\n    transform: translateY(0%) translateX(130%);\n}\n.rightnav[data-v-d0dca37e] {\r\n    transform: translateY(0%) translateX(-130%);\n}\n.slick-slider .slick-prev[data-v-d0dca37e]\r\n{\r\n    -webkit-appearance: none;\r\n    outline: 0;\r\n    background: #fff;\r\n    border: 0;\r\n    width: 38px;\r\n    height: 38px;\r\n    padding: 10px;\r\n    border-radius: 50%;\r\n    position: absolute;\r\n    z-index: 3000;\r\n    left: -30px;\r\n    box-shadow: 3px 2px 3px #eee;\n}\r\n\r\n", ""]);
 
 // exports
 
