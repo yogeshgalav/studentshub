@@ -18,21 +18,7 @@
 .rightnav {
     transform: translateY(0%) translateX(-130%);
 }
-.slick-slider .slick-prev
-{
-    -webkit-appearance: none;
-    outline: 0;
-    background: #fff;
-    border: 0;
-    width: 38px;
-    height: 38px;
-    padding: 10px;
-    border-radius: 50%;
-    position: absolute;
-    z-index: 3000;
-    left: -30px;
-    box-shadow: 3px 2px 3px #eee;
-}
+
 
 </style>
 

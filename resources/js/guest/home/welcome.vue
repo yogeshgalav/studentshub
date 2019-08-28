@@ -15,10 +15,17 @@
    </div>
  </div>
  <div class="row">
-   <div class="col-md-9">
+   <div class="container">
+     <div class=" divider mb-5">
+
+       </div>
+     </div>
+   </div>
+ <div class="row">
+   <div class="col-md-8">
     <home-post-container></home-post-container>
    </div>
-   <div class="col-md-3">
+   <div class="col-md-4">
       <explore-sidebar></explore-sidebar>
    </div>
  </div>
@@ -37,6 +44,7 @@
         <site-footer></site-footer>
     </main>
 </template>
+
 <script>
 // import { Carousel, Slide } from 'vue-carousel';
 import Carousel from './../../components/Carousel';
