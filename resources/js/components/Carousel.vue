@@ -16,7 +16,7 @@
      </transition-group>
   
   </div>
-  <button
+  <!-- <button
     class="prev"
     @click="prev()"
   >Left
@@ -27,7 +27,7 @@
     @click="next()"
   >Right
     <i class="fa fa-chevron-right" aria-hidden="true"></i>
-  </button>
+  </button> -->
   <!-- <ul class="dots">
     <li 
       v-for="(dot, index) in slides"
@@ -41,7 +41,11 @@
 </template>
 <style scoped>
 
-/* FADE IN */
+/* FADE IN */ 
+.slides ul
+{
+  margin-bottom:0px;
+}
 .fade-enter-active {
   transition: opacity 1s;
 }

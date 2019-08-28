@@ -873,24 +873,27 @@ i {
 #custom-search-input .search-query {
     padding-right: 3px;
     padding-right: 4px \9;
-    padding-left: 3px;
+    padding-left: 8px;
     padding-left: 4px \9;
     /* IE7-8 doesn't have border-radius, so don't indent the padding */
 
     margin-bottom: 0;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
 }
 
 #custom-search-input button {
     border: 0;
     background: none;
     /** belows styles are working good */
-    padding: 2px 5px;
-    margin-top: 2px;
+    padding: 9px 5px;
+    margin-top: 0px;
     position: relative;
-    left: -28px;
+    left: -40px;
+    margin-bottom: 0;
+    border-radius: 3px;
+       font-size: 18px;
     /* IE7-8 doesn't have border-radius, so don't indent the padding */
     margin-bottom: 0;
     -webkit-border-radius: 3px;
@@ -917,6 +920,14 @@ i {
     font-weight: 400;
     font-size: 1rem;
     white-space: nowrap;
+}
+.slides ul li
+{
+  width: 100%;
+}
+.slides-group li  img
+{
+width:100% !important;
 }
 // Responsive CSS Start Here 
 // mobile view custom tabs 

@@ -24574,6 +24574,7 @@ readers do not read off random characters that represent icons */
 
 .slick-slide img {
   display: block;
+  width: 100%;
 }
 
 .slick-slide.slick-loading img {
@@ -24600,6 +24601,37 @@ readers do not read off random characters that represent icons */
 
 .slick-arrow.slick-hidden {
   display: none;
+}
+
+.slick-slider .slick-prev {
+  -webkit-appearance: none;
+  outline: 0;
+  background: #fff;
+  border: 0;
+  width: 38px;
+  height: 38px;
+  padding: 10px;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 3000;
+  left: -30px;
+  box-shadow: 3px 2px 3px #eee;
+}
+
+.slick-slider .slick-next {
+  -webkit-appearance: none;
+  outline: 0;
+  background: #fff;
+  border: 0;
+  width: 38px;
+  height: 38px;
+  padding: 10px;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 3000;
+  right: -30px;
+  box-shadow: 3px 2px 3px #eee;
+  top: 2px;
 }
 
 /*      jQuery Ui     */
@@ -30495,21 +30527,24 @@ i {
 #custom-search-input .search-query {
   padding-right: 3px;
   padding-right: 4px \9;
-  padding-left: 3px;
+  padding-left: 8px;
   padding-left: 4px \9;
   /* IE7-8 doesn't have border-radius, so don't indent the padding */
   margin-bottom: 0;
-  border-radius: 3px;
+  border-radius: 0px;
 }
 
 #custom-search-input button {
   border: 0;
   background: none;
   /** belows styles are working good */
-  padding: 2px 5px;
-  margin-top: 2px;
+  padding: 9px 5px;
+  margin-top: 0px;
   position: relative;
-  left: -28px;
+  left: -40px;
+  margin-bottom: 0;
+  border-radius: 3px;
+  font-size: 18px;
   /* IE7-8 doesn't have border-radius, so don't indent the padding */
   margin-bottom: 0;
   border-radius: 3px;
@@ -30537,6 +30572,14 @@ i {
   font-weight: 400;
   font-size: 1rem;
   white-space: nowrap;
+}
+
+.slides ul li {
+  width: 100%;
+}
+
+.slides-group li img {
+  width: 100% !important;
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {

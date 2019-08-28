@@ -1,12 +1,13 @@
 <template>
     <main>
-  <carousel  :slides="[{img_url:'/images/4.jpg'},{img_url:'/images/5.jpg'}]">
+
+    <carousel  :slides="[{img_url:'/images/slider.jpg'},{img_url:'/images/5.jpg'}]" style="width:100">
     <template slot-scope="props">
       <img :src="props.slide.img_url"/>
     </template>
   </carousel>
-  
-  <category-filter></category-filter>
+
+    <category-filter></category-filter>
   <div class="container">
  <div class="row">
    <div class="col-md-12">
@@ -14,10 +15,17 @@
    </div>
  </div>
  <div class="row">
-   <div class="col-md-9">
+   <div class="container">
+     <div class=" divider mb-5">
+
+       </div>
+     </div>
+   </div>
+ <div class="row">
+   <div class="col-md-8">
     <home-post-container></home-post-container>
    </div>
-   <div class="col-md-3">
+   <div class="col-md-4">
       <explore-sidebar></explore-sidebar>
    </div>
  </div>
@@ -32,13 +40,11 @@
           </div>
         </div>
         </div>  
-      
-      
      
-        
         <site-footer></site-footer>
     </main>
 </template>
+
 <script>
 // import { Carousel, Slide } from 'vue-carousel';
 import Carousel from './../../components/Carousel';
