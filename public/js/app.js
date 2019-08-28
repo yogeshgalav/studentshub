@@ -2279,6 +2279,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2294,8 +2295,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       slickOptions: {
         dots: false,
-        arrows: false,
+        arrows: true,
         mobileFirst: true,
+        centerPadding: '60px',
+        prevArrow: '<button type="button" class="slick-prev">Previous</button>',
+        nextArrow: '<button type="button" class="slick-next">Next</button>',
+        variableWidth: true,
         infinite: false,
         responsive: [{
           breakpoint: 768,
@@ -7348,7 +7353,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.leftnav[data-v-d0dca37e] {\r\n    transform: translateY(0%) translateX(130%);\n}\n.rightnav[data-v-d0dca37e] {\r\n    transform: translateY(0%) translateX(-130%);\n}\r\n\r\n\r\n", ""]);
+exports.push([module.i, "\n.slick-slide[data-v-d0dca37e] {\n  margin: 0 5px;\n}\n/* the parent */\n.slick-list[data-v-d0dca37e] {\n  margin: 0 -5px;\n}\n\n\n", ""]);
 
 // exports
 
@@ -79904,8 +79909,8 @@ var FormMixin = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\xampp\htdocs\StudentsHUB\resources\js\Guest\app.js */"./resources/js/Guest/app.js");
-module.exports = __webpack_require__(/*! E:\xampp\htdocs\StudentsHUB\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\StudentsHUB\resources\js\Guest\app.js */"./resources/js/Guest/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\StudentsHUB\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

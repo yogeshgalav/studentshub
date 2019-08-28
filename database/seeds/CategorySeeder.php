@@ -47,12 +47,13 @@ class CategorySeeder extends Seeder
         (32, 'Regional', 0),
         (33, 'Religion', 0),
         (34, 'Science', 0),
-        (35, 'Shopping', 0),
+        (35, 'Startup', 0),
         (36, 'Social Science', 0),
         (37, 'Sports', 0),
         (38, 'Transportation', 0),
         (39, 'Travel', 0),
-        (40, 'Weather', 0);
+        (40, 'Weather', 0),
+        (41, 'Anatomy', 0);
         ";
         DB::unprepared($sql);
     }
