@@ -1,7 +1,7 @@
-import DashboardComponent from './home/dashboard.vue'
-import ViewPost from './post/view-post.vue'
-import EditPost from './post/edit-post.vue'
-import SharePost from './post/share-post.vue'
+import DashboardComponent from './components/dashboard.vue'
+import ViewPost from './components/post/view-post.vue'
+import EditPost from './components/post/edit-post.vue'
+import SharePost from './components/post/share-post.vue'
 
 const StudentRoutes = [
       {

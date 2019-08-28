@@ -5,7 +5,7 @@
                 <div class="form-group">
                    <div class="text-center"> <p class="title weight-600 font-size-16 text-black">Choose Category</p></div>
                     <label class="weight-500">Choose Category</label>
-                    <autocomplete class="form-control custom-select" :items="categories" value="Subject_name" @input="selectPostType($event)" />
+                    <auto-complete class="form-control custom-select" :items="categories" value="Subject_name" @input="selectPostType($event)" />
                         
                 </div>
                 <div class="form-group">
@@ -19,7 +19,7 @@
 </template>
 <script>
 import {mapState} from 'vuex';
-import AutoComplete from './../../../components/AutoComplete';
+import AutoComplete from './../../../../components/AutoComplete';
 
 export default {
     components:{
