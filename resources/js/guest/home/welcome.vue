@@ -1,11 +1,7 @@
 <template>
     <main>
 
-    <carousel  :slides="[{img_url:'/images/slider.jpg'},{img_url:'/images/5.jpg'}]" style="width:100">
-    <template slot-scope="props">
-      <img :src="props.slide.img_url"/>
-    </template>
-  </carousel>
+    <explore-carousal-post></explore-carousal-post>
 
     <category-filter></category-filter>
   <div class="container">
@@ -49,6 +45,7 @@
 // import { Carousel, Slide } from 'vue-carousel';
 import Carousel from './../../components/Carousel';
 import CategoryFilter from './../../components/CategoryFilter';
+import ExploreCarousalPost from './../../components/ExploreCarousalPost';
 import ExploreTopPost from './../../components/ExploreTopPost';
 import HomePostContainer from './../../components/HomePostContainer';
 import ExploreSidebar from './../../components/ExploreSidebar';
@@ -60,6 +57,7 @@ export default {
     Carousel,
     // Slide,
     CategoryFilter,
+    ExploreCarousalPost,
     ExploreTopPost,
     HomePostContainer,
     ExploreSidebar,
