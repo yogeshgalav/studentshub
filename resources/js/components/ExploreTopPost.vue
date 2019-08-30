@@ -15,7 +15,7 @@
 										</div>
 									</div>
 									<div class="separator-solid"></div>
-									<p class="card-category text-info mb-1"><a href="#">Design</a></p>
+									<p class="card-category text-info mb-1"><a href="#">{{post.post.subject.Subject_name}}</a></p>
 									<h3 class="card-title  font-size-16">
 										<a href="#" class="weight-600 text-black">
 											Best Design Resources This Week

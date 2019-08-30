@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePostSubjectsTable extends Migration
+class CreatePostTagsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreatePostSubjectsTable extends Migration
      */
     public function up()
     {
-        Schema::create('post_subjects', function (Blueprint $table) {
+        Schema::create('post_tags', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('post_id')->unsigned();
-            $table->integer('subject_id')->unsigned();
-            $table->enum('type',['category','branch_subject','tag']);
+            $table->integer('tag_id')->unsigned();
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreatePostSubjectsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('post_subjects');
+        Schema::dropIfExists('post_tags');
     }
 }

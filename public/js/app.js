@@ -51055,9 +51055,13 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "separator-solid" }),
               _vm._v(" "),
-              _vm._m(1, true),
+              _c("p", { staticClass: "card-category text-info mb-1" }, [
+                _c("a", { attrs: { href: "#" } }, [
+                  _vm._v(_vm._s(post.post.subject.Subject_name))
+                ])
+              ]),
               _vm._v(" "),
-              _vm._m(2, true),
+              _vm._m(1, true),
               _vm._v(" "),
               _c("p", { staticClass: "card-text" }, [
                 _vm._v(
@@ -51100,14 +51104,6 @@ var staticRenderFns = [
         staticClass: "avatar-img rounded-circle",
         attrs: { src: "/images/4.jpg", alt: "..." }
       })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", { staticClass: "card-category text-info mb-1" }, [
-      _c("a", { attrs: { href: "#" } }, [_vm._v("Design")])
     ])
   },
   function() {
@@ -80186,8 +80182,8 @@ var FormMixin = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\xampp\htdocs\StudentsHUB\resources\js\Guest\app.js */"./resources/js/Guest/app.js");
-module.exports = __webpack_require__(/*! E:\xampp\htdocs\StudentsHUB\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\StudentsHUB\resources\js\Guest\app.js */"./resources/js/Guest/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\StudentsHUB\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

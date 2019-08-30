@@ -57,12 +57,12 @@ class Post extends Model
     }
     public function getUserNameAttribute(){
         return $this->user()->first()->full_name;
-    }       
-    public function category(){
-        return $this->hasOne('App\Models\PostSubject')->where('type','category');
     }
     public function subject(){
-        return $this->hasOne('App\Models\PostSubject')->where('type','branch_subject');
+        return $this->belongsTo('App\Models\Subject');
+    }           
+    public function tags(){
+        return $this->hasMany('App\Models\PostTag');
     }           
     public function getTotalViewsAttribute(){
         return $this->hasMany('App\Models\View')->count();
