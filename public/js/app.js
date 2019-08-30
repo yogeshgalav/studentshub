@@ -2297,8 +2297,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         arrows: true,
         mobileFirst: true,
         centerPadding: '60px',
-        prevArrow: '<button type="button" class="slick-prev">Previous</button>',
-        nextArrow: '<button type="button" class="slick-next">Next</button>',
+        prevArrow: '<button type="button" class="slick-prev"><i class="fa fa-arrow-left"></i></button>',
+        nextArrow: '<button type="button" class="slick-next"><i class="fa fa-arrow-right"></i></button>',
         variableWidth: true,
         infinite: false,
         responsive: [{
@@ -2461,6 +2461,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2479,7 +2486,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         infinite: true,
         dots: true,
         autoplay: true,
-        arrows: true,
+        arrows: false,
         autoplaySpeed: 2000,
         slidesToShow: 1
       }
@@ -7463,7 +7470,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.slick-slide[data-v-3834003c] {\n  margin: 0 5px;\n}\n/* the parent */\n.slick-list[data-v-3834003c] {\n  margin: 0 -5px;\n}\n\n\n", ""]);
+exports.push([module.i, "\n.slick-slide[data-v-3834003c] {\n    margin: 0 5px;\n}\n.pt-80[data-v-3834003c]\n  {\n    padding-top:80px;\n}\n  /* the parent */\n.slick-list[data-v-3834003c] {\n    margin: 0 -5px;\n}\n.slick-dots[data-v-3834003c] {\n  display:flex;\n  justify-content: center;\n}\n", ""]);
 
 // exports
 
@@ -50785,7 +50792,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "bg-gray" }, [
+  return _c("div", { staticClass: "bg-gray pt-80" }, [
     _c("div", { staticClass: "container ptb-20" }, [
       _c("div", { staticClass: "row" }, [
         _c(
@@ -51321,7 +51328,7 @@ var staticRenderFns = [
                   { staticClass: "icoRss", attrs: { href: "#", title: "Rss" } },
                   [
                     _c("i", {
-                      staticClass: "fa fa-facebook",
+                      staticClass: "fab fa-facebook",
                       attrs: { "aria-hidden": "true" }
                     })
                   ]
@@ -51335,7 +51342,7 @@ var staticRenderFns = [
                     staticClass: "icoFacebook",
                     attrs: { href: "#", title: "Facebook" }
                   },
-                  [_c("i", { staticClass: "fa fa-facebook" })]
+                  [_c("i", { staticClass: "fab fa-facebook" })]
                 )
               ]),
               _vm._v(" "),
@@ -51346,7 +51353,7 @@ var staticRenderFns = [
                     staticClass: "icoTwitter",
                     attrs: { href: "#", title: "Twitter" }
                   },
-                  [_c("i", { staticClass: "fas fa-twitter" })]
+                  [_c("i", { staticClass: "fab fa-twitter" })]
                 )
               ]),
               _vm._v(" "),
@@ -51357,7 +51364,7 @@ var staticRenderFns = [
                     staticClass: "icoGoogle",
                     attrs: { href: "#", title: "Google +" }
                   },
-                  [_c("i", { staticClass: "fa fa-google-plus" })]
+                  [_c("i", { staticClass: "fab fa-google-plus" })]
                 )
               ]),
               _vm._v(" "),
@@ -51368,7 +51375,7 @@ var staticRenderFns = [
                     staticClass: "icoLinkedin",
                     attrs: { href: "#", title: "Linkedin" }
                   },
-                  [_c("i", { staticClass: "fa fa-linkedin" })]
+                  [_c("i", { staticClass: "fab fa-linkedin" })]
                 )
               ])
             ])
@@ -80179,8 +80186,8 @@ var FormMixin = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\StudentsHUB\resources\js\Guest\app.js */"./resources/js/Guest/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\StudentsHUB\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\xampp\htdocs\StudentsHUB\resources\js\Guest\app.js */"./resources/js/Guest/app.js");
+module.exports = __webpack_require__(/*! E:\xampp\htdocs\StudentsHUB\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

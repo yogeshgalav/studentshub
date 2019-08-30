@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-gray">
+    <div class="bg-gray pt-80">
    <div class="container ptb-20">
         <div class="row">
         <div class="col-md-12 text-center">
@@ -17,12 +17,19 @@
   .slick-slide {
     margin: 0 5px;
   }
+  .pt-80
+  {
+    padding-top:80px;
+  }
   /* the parent */
   .slick-list {
     margin: 0 -5px;
   }
 
-
+.slick-dots {
+  display:flex;
+  justify-content: center;
+}
 </style>
 
 <script>
@@ -45,7 +52,7 @@ export default {
 			infinite: true,
 			dots: true,
 			autoplay: true,
-			arrows: true,
+			arrows: false,
 			autoplaySpeed: 2000,
 			slidesToShow: 1,
 			},

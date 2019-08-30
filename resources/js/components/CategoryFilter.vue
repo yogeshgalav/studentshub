@@ -43,8 +43,8 @@ export default {
         arrows: true,
         mobileFirst: true,
           centerPadding: '60px',
-          prevArrow: '<button type="button" class="slick-prev">Previous</button>',
-          nextArrow: '<button type="button" class="slick-next">Next</button>',
+          prevArrow: '<button type="button" class="slick-prev"><i class="fa fa-arrow-left"></i></button>',
+          nextArrow: '<button type="button" class="slick-next"><i class="fa fa-arrow-right"></i></button>',
         variableWidth: true,
         infinite: false,
         responsive: [
