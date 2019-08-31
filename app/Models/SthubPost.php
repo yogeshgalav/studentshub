@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ViewPost extends Model
+class SthubPost extends Model
 {
     protected  $guarded = ['id', 'created_at', 'updated_at'];
     protected $with=['post'];

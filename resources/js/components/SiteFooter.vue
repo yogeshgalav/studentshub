@@ -3,15 +3,17 @@
 <div class="container">
 <div class="row">
 <div class="col-sm-12">
-	<div class="single">
+	<form class="single" @submit.prevent="subscribe">
 		<h2>Subscribe to our Newsletter</h2>
 	<div class="input-group">
-         <input type="email" class="form-control" placeholder="Enter your email">
+         <input type="email" class="form-control" placeholder="Enter your email" 
+		 v-model="subscribe_email"
+		 v-validate="'email|required'">
          <span class="input-group-btn">
          <button class="btn btn-theme" type="submit">Subscribe</button>
          </span>
           </div>
-	</div>
+	</form>
 </div>
 </div>
 <div class="row">
@@ -171,7 +173,16 @@ a.socialIcon:hover, .socialHoverClass {
 
 <script>
 export default {
-    
+	data(){
+		return{
+			subscribe_email:'',
+		}
+	},
+    methods:{
+		subscribe(){
+			 this.$store.dispatch('explore/subscribe',this.subscribe_email);
+		}
+	}
 }
 </script>
 

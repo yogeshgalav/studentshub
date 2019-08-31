@@ -18,7 +18,7 @@ class PagesController extends Controller
     public function dashboard(){
         return view('home.dashboard');
     }
-    public function viewPost(){
+    public function SthubPost(){
         return view('post.view-post');
     }
     public function createPost(){

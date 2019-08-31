@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateViewPostsTable extends Migration
+class CreateSthubPostsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateViewPostsTable extends Migration
      */
     public function up()
     {
-        Schema::create('view_posts', function (Blueprint $table) {
+        Schema::create('sthub_posts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('post_id')->unsigned();
             $table->integer('shared_by')->unsigned();

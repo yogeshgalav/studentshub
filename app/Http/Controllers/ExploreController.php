@@ -4,23 +4,26 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
-use App\Models\ViewPost;
+use App\Models\SthubPost;
+use App\Models\ExplorePagePost;
 use App\Models\Article;
 use App\Models\Subject;
+use App\Models\Guest;
 use Auth;
 
 class ExploreController extends Controller
 {
-    public function index(){
-        $posts=ViewPost::whereIn('post_type',['article','fact','video'])->limit(3)->get();
-        $categories=Subject::getAllCategories();
+    public function index(Request $request){
+        $guest=new Guest();
+        $guest->add($request);
+
         return response()->json(['success'=>[
-            'categories'=>$categories,
-            'Carousel'=>$posts,
-            'ExploreTopPost'=>$posts,
-            'HomePostContainer'=>$posts,
-            'ExploreSidebar'=>$posts,
-            'ExploreBottomPost'=>$posts,
+            'categories'=>Subject::getAllCategories(),
+            'Carousel'=>ExplorePagePost::getPostType('Carousel'),
+            'ExploreTopPost'=>ExplorePagePost::getPostType('ExploreTopPost'),
+            'HomePostContainer'=>ExplorePagePost::getPostType('HomePostContainer'),
+            'ExploreSidebar'=>ExplorePagePost::getPostType('ExploreSidebar'),
+            'ExploreBottomPost'=>ExplorePagePost::getPostType('ExploreBottomPost'),
         ]]); 
     }
 }

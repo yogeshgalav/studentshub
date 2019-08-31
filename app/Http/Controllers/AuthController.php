@@ -18,7 +18,7 @@ use App\Http\Requests\ForgotPasswordRequest;
 use Illuminate\Support\Facades\URL;
 use App\PasswordReset;
 use Carbon\Carbon;
-use Actionable;
+use Sthub;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
@@ -41,7 +41,7 @@ class AuthController extends Controller
                 //log info
                 Log::info($user->first_name." ".$user->last_name." (User ID # ".$user->id.") logged in from IP Address ".$request->ip());
 
-                $success['token'] = $user->createToken('actionable')->accessToken;
+                $success['token'] = $user->createToken('Sthub')->accessToken;
 
                 if (is_null($user->onboarded_at)) {
                     $success['redirectUrl'] = '/checkin';
@@ -58,9 +58,9 @@ class AuthController extends Controller
 
     public function checkSubdomain($subdomain, $user)
     {
-        switch (Actionable::getDomainPortal()) {
+        switch (Sthub::getDomainPortal()) {
             case 'staffPortal':
-                if (! (bool) $user->is_actionable_staff) {
+                if (! (bool) $user->is_Sthub_staff) {
                     return false;
                 }
                 break;

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
-use App\Models\ViewPost;
+use App\Models\SthubPost;
 use App\Models\PostContent;
 use App\Models\Article;
 use Auth;
@@ -32,7 +32,7 @@ class HomeController extends Controller
             case 'document':
             break;
         }
-        ViewPost::create([
+        SthubPost::create([
             'post_id'=>$post->id,
             // 'post_content_id'=>$post_content_id,
             'shared_by'=>Auth::user()->id,
@@ -41,7 +41,7 @@ class HomeController extends Controller
     }
 
     public function index(){
-        $posts=ViewPost::where('college_id',Auth::user()->college_id)
+        $posts=SthubPost::where('college_id',Auth::user()->college_id)
         // ->orWhere('classroom_id',Auth::user()->classroom_id)
         // ->orWhere('branch_id	',Auth::user()->branch_id	)
         // ->orWhere('course_id',Auth::user()->course_id)
