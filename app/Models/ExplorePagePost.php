@@ -19,6 +19,7 @@ class ExplorePagePost extends Model
         $posts= $query->where('page_section',$type)->limit(3)->get()->each(function($post){
         $sthub_post=$post->sthubPost()->first();
         // $post->sthub_post=$sthub_post;
+        $post->content=$sthub_post->post->shortContent();
         $post->heading=$sthub_post->post->post_heading;
         $post->user_name=$sthub_post->post->user_name;
         $post->subject_name=$sthub_post->post->subject->Subject_name;

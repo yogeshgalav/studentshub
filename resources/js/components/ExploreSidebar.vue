@@ -21,7 +21,7 @@
 											<p class="date text-muted">{{post.created_at}}</p>
                                             <h3 class="card-title  font-size-12">
 										<a href="#" class="text-black">
-											Best Design Resources This Week
+											{{post.heading}}
 										</a>
 									</h3>
                                 
@@ -54,7 +54,7 @@
 											<p class="date text-muted">{{post.created_at}}</p>
                                             <h3 class="card-title  font-size-12">
 										<a href="#" class="text-black">
-											Best Design Resources This Week
+											{{post.heading}}
 										</a>
 									</h3>
                                 

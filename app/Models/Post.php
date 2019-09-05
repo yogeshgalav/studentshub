@@ -27,6 +27,40 @@ class Post extends Model
         return $this->hasOne('App\Models\Video');
     }
     
+    public function shortContent(){
+        
+        switch($this->post_type){
+            default:
+            case 'Article':
+                $content=$this->postContent()->first()->content;
+                $rand=mt_rand(60,100);
+                $content=substr($content,0,$rand);
+                return $content;
+                break;
+            case 'Notice':
+                $content=$this->postContent()->first()->content;
+                $rand=mt_rand(60,100);
+                $content=substr($content,0,$rand);
+                return $content;
+                break;
+            case 'Document':
+                $content=$this->postContent()->first()->content;
+                return $content;
+                break;
+            case 'Fact':
+                $content=$this->postContent()->first()->content;
+                return $content;
+                break;
+            case 'MCQ':
+                $content=$this->postContent()->first()->content;
+                return $content;
+                break;
+            case 'Video':
+                $content=$this->postContent()->first()->content;
+                return $content;
+                break;
+        }
+    }
     public function postContent(){
         switch($this->post_type){
             default:

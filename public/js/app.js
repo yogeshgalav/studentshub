@@ -50924,14 +50924,27 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _vm._m(2, true),
+                _c("h3", { staticClass: "card-title  font-size-16" }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "weight-600 text-black",
+                      attrs: { href: "#" }
+                    },
+                    [
+                      _vm._v(
+                        "\n\t\t\t\t\t\t\t\t\t\t\t" +
+                          _vm._s(post.heading) +
+                          "\n\t\t\t\t\t\t\t\t\t\t"
+                      )
+                    ]
+                  )
+                ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "separator-solid" }),
                 _vm._v(" "),
                 _c("p", { staticClass: "card-text" }, [
-                  _vm._v(
-                    "Some quick example text to build on the card title and make up the bulk of the card's content."
-                  )
+                  _vm._v(_vm._s(post.content))
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "row" }, [
@@ -50982,18 +50995,6 @@ var staticRenderFns = [
         staticClass: "avatar-img rounded-circle",
         attrs: { src: "/images/4.jpg", alt: "..." }
       })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("h3", { staticClass: "card-title  font-size-16" }, [
-      _c("a", { staticClass: "weight-600 text-black", attrs: { href: "#" } }, [
-        _vm._v(
-          "\n\t\t\t\t\t\t\t\t\t\t\tBest Design Resources This Week\n\t\t\t\t\t\t\t\t\t\t"
-        )
-      ])
     ])
   }
 ]
@@ -51112,7 +51113,19 @@ var render = function() {
                         _vm._v(_vm._s(post.created_at))
                       ]),
                       _vm._v(" "),
-                      _vm._m(2, true)
+                      _c("h3", { staticClass: "card-title  font-size-12" }, [
+                        _c(
+                          "a",
+                          { staticClass: "text-black", attrs: { href: "#" } },
+                          [
+                            _vm._v(
+                              "\r\n\t\t\t\t\t\t\t\t\t\t\t" +
+                                _vm._s(post.heading) +
+                                "\r\n\t\t\t\t\t\t\t\t\t\t"
+                            )
+                          ]
+                        )
+                      ])
                     ])
                   ])
                 ]
@@ -51125,7 +51138,7 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "bg-gray p-2 mb-3" }, [
-      _vm._m(3),
+      _vm._m(2),
       _vm._v(" "),
       _c(
         "div",
@@ -51137,7 +51150,7 @@ var render = function() {
             [
               _c("div", { staticClass: "card-post" }, [
                 _c("div", { staticClass: "d-flex" }, [
-                  _vm._m(4, true),
+                  _vm._m(3, true),
                   _vm._v(" "),
                   _c("div", { staticClass: "info-post ml-2" }, [
                     _c("p", { staticClass: "username" }, [
@@ -51148,7 +51161,19 @@ var render = function() {
                       _vm._v(_vm._s(post.created_at))
                     ]),
                     _vm._v(" "),
-                    _vm._m(5, true)
+                    _c("h3", { staticClass: "card-title  font-size-12" }, [
+                      _c(
+                        "a",
+                        { staticClass: "text-black", attrs: { href: "#" } },
+                        [
+                          _vm._v(
+                            "\r\n\t\t\t\t\t\t\t\t\t\t\t" +
+                              _vm._s(post.heading) +
+                              "\r\n\t\t\t\t\t\t\t\t\t\t"
+                          )
+                        ]
+                      )
+                    ])
                   ])
                 ])
               ])
@@ -51193,18 +51218,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("h3", { staticClass: "card-title  font-size-12" }, [
-      _c("a", { staticClass: "text-black", attrs: { href: "#" } }, [
-        _vm._v(
-          "\r\n\t\t\t\t\t\t\t\t\t\t\tBest Design Resources This Week\r\n\t\t\t\t\t\t\t\t\t\t"
-        )
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-12 latest-post" }, [
         _c(
@@ -51227,18 +51240,6 @@ var staticRenderFns = [
         staticClass: "avatar-img rounded-circle",
         attrs: { src: "/images/4.jpg", alt: "..." }
       })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("h3", { staticClass: "card-title  font-size-12" }, [
-      _c("a", { staticClass: "text-black", attrs: { href: "#" } }, [
-        _vm._v(
-          "\r\n\t\t\t\t\t\t\t\t\t\t\tBest Design Resources This Week\r\n\t\t\t\t\t\t\t\t\t\t"
-        )
-      ])
     ])
   }
 ]
@@ -51308,12 +51309,25 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _vm._m(1, true),
+                _c("h3", { staticClass: "card-title  font-size-16" }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "weight-600 text-black",
+                      attrs: { href: "#" }
+                    },
+                    [
+                      _vm._v(
+                        "\n\t\t\t\t\t\t\t\t\t\t\t" +
+                          _vm._s(post.heading) +
+                          "\n\t\t\t\t\t\t\t\t\t\t"
+                      )
+                    ]
+                  )
+                ]),
                 _vm._v(" "),
                 _c("p", { staticClass: "card-text" }, [
-                  _vm._v(
-                    "Some quick example text to build on the card title and make up the bulk of the card's content."
-                  )
+                  _vm._v(_vm._s(post.content))
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "row" }, [
@@ -51352,18 +51366,6 @@ var staticRenderFns = [
         staticClass: "avatar-img rounded-circle",
         attrs: { src: "/images/4.jpg", alt: "..." }
       })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("h3", { staticClass: "card-title  font-size-16" }, [
-      _c("a", { staticClass: "weight-600 text-black", attrs: { href: "#" } }, [
-        _vm._v(
-          "\n\t\t\t\t\t\t\t\t\t\t\tBest Design Resources This Week\n\t\t\t\t\t\t\t\t\t\t"
-        )
-      ])
     ])
   }
 ]
@@ -51421,7 +51423,22 @@ var render = function() {
                           _vm._v(_vm._s(post.created_at))
                         ]),
                         _vm._v(" "),
-                        _vm._m(2, true),
+                        _c("h3", { staticClass: "card-title  font-size-16" }, [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "weight-600 text-black",
+                              attrs: { href: "#" }
+                            },
+                            [
+                              _vm._v(
+                                "\r\n\t\t\t\t\t\t\t\t\t\t\t" +
+                                  _vm._s(post.heading) +
+                                  "\r\n\t\t\t\t\t\t\t\t\t\t"
+                              )
+                            ]
+                          )
+                        ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "row" }, [
                           _c("div", { staticClass: "col-md-2" }, [
@@ -51447,10 +51464,10 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _vm._m(3, true)
+            _vm._m(2, true)
           ]),
           _vm._v(" "),
-          _vm._m(4, true)
+          _vm._m(3, true)
         ])
       })
     ],
@@ -51481,18 +51498,6 @@ var staticRenderFns = [
         staticClass: "avatar-img rounded-circle",
         attrs: { src: "/images/4.jpg", alt: "..." }
       })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("h3", { staticClass: "card-title  font-size-16" }, [
-      _c("a", { staticClass: "weight-600 text-black", attrs: { href: "#" } }, [
-        _vm._v(
-          "\r\n\t\t\t\t\t\t\t\t\t\t\tBest Design Resources This Week\r\n\t\t\t\t\t\t\t\t\t\t"
-        )
-      ])
     ])
   },
   function() {

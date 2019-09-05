@@ -21,7 +21,7 @@
 											<p class="date text-muted">{{post.created_at}}</p>
                                             <h3 class="card-title  font-size-16">
 										<a href="#" class="weight-600 text-black">
-											Best Design Resources This Week
+											{{post.heading}}
 										</a>
 									</h3>
                                     <div class="row">
