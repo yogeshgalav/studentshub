@@ -24,13 +24,13 @@
 									</div>
                                     <h3 class="card-title  font-size-16">
 										<a href="#" class="weight-600 text-black">
-											Best Design Resources This Week
+											{{post.heading}}
 										</a>
 									</h3>
 									<div class="separator-solid"></div>
 							
 									
-									<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+									<p class="card-text">{{post.content}}</p>
 									<div class="row">
 										<div class="col-md-2">
 											<i class="far fa-comment-alt"></i>
