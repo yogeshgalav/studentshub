@@ -6,7 +6,8 @@
 	<form class="single" @submit.prevent="subscribe">
 		<h2>Subscribe to our Newsletter</h2>
 	<div class="input-group">
-         <input type="email" class="form-control" placeholder="Enter your email" 
+         <input type="email" class="form-control" placeholder="Enter your email"
+		 name="email" 
 		 v-model="subscribe_email"
 		 v-validate="'email|required'">
          <span class="input-group-btn">
@@ -22,11 +23,10 @@
     </div>
     <div class="col-md-12 text-center mt-3 mb-3">
                     <ul class="social-network social-circle">
-                                                <li><a href="#" class="icoRss" title="Rss"><i class="fab fa-facebook" aria-hidden="true"></i></a></li>
-                        <li><a href="#" class="icoFacebook" title="Facebook"><i class="fab fa-facebook"></i></a></li>
-                        <li><a href="#" class="icoTwitter" title="Twitter"><i class="fab fa-twitter"></i></a></li>
-                        <li><a href="#" class="icoGoogle" title="Google +"><i class="fab fa-google-plus"></i></a></li>
-                        <li><a href="#" class="icoLinkedin" title="Linkedin"><i class="fab fa-linkedin"></i></a></li>
+                        <li><a href="#" @click="newWindow('https://www.facebook.com/studentshub.in')" class="icoFacebook" title="Facebook"><i class="fab fa-facebook"></i></a></li>
+                        <li><a href="#" target="_blank" class="icoTwitter" title="Twitter"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="#" target="_blank" class="icoInstagram" title="Instagram"><i class="fab fa-instagram"></i></a></li>
+                        <li><a href="#" target="_blank" class="icoLinkedin" title="Linkedin"><i class="fab fa-linkedin"></i></a></li>
                     </ul>				
 				</div>
                 <div class="col-md-12 text-center">
@@ -180,7 +180,7 @@ export default {
 	},
     methods:{
 		subscribe(){
-			 this.$store.dispatch('explore/subscribe',this.subscribe_email);
+			this.$store.dispatch('explore/subscribe',{email:this.subscribe_email});
 		}
 	}
 }
