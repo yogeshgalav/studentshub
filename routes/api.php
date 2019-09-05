@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+require_once('api/guest.php');
+
 Route::group(['middleware'=>['auth:api',]],function(){
     require_once('api/auth_routes.php');
 });

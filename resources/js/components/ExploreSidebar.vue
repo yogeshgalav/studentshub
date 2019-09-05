@@ -11,14 +11,14 @@
 
     <div  class="row">
         <div class="col-md-12 mt-2 mb-2" v-for="post in posts" :key="post.id">
-							<div class="card-post">
+							<div class="card-post" @click="redirectPostView(post.id)">
 							<div class="d-flex">
 										<div class="avatar">
 											<img src="/images/4.jpg" alt="..." class="avatar-img rounded-circle">
 										</div>
 										<div class="info-post ml-2">
-											<p class="username">{{post.post.user_name}}</p>
-											<p class="date text-muted">{{post.post.created_at}}</p>
+											<p class="username">{{post.user_name}}</p>
+											<p class="date text-muted">{{post.created_at}}</p>
                                             <h3 class="card-title  font-size-12">
 										<a href="#" class="text-black">
 											Best Design Resources This Week
@@ -50,8 +50,8 @@
 											<img src="/images/4.jpg" alt="..." class="avatar-img rounded-circle">
 										</div>
 										<div class="info-post ml-2">
-											<p class="username">{{post.post.user_name}}</p>
-											<p class="date text-muted">{{post.post.created_at}}</p>
+											<p class="username">{{post.user_name}}</p>
+											<p class="date text-muted">{{post.created_at}}</p>
                                             <h3 class="card-title  font-size-12">
 										<a href="#" class="text-black">
 											Best Design Resources This Week
@@ -76,6 +76,11 @@ export default {
 		...mapState({
 			'posts': state=>state.explore.posts.ExploreSidebar,
 		}),
+	},
+	methods:{
+		redirectPostView(post_id){
+                this.$router.push({path:'/post/1'})
+            }
 	}
 }
 </script>

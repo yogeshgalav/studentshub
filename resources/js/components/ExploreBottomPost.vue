@@ -10,7 +10,7 @@
 
   <div class="row">
         <div class="col-md-4" v-for="post in posts" :key="post.id">
-							<div class="card-post">
+							<div class="card-post" @click="redirectPostView(post.id)">
 								<img class="card-img-top" src="/images/4.jpg" alt="Card image cap">
 								<div>
 									<div class="d-flex mt-2">
@@ -18,8 +18,8 @@
 											<img src="/images/4.jpg" alt="..." class="avatar-img rounded-circle">
 										</div>
 										<div class="info-post ml-2">
-											<p class="username">{{post.post.user_name}}</p>
-											<p class="date text-muted">{{post.post.created_at}}</p>
+											<p class="username">{{post.user_name}}</p>
+											<p class="date text-muted">{{post.created_at}}</p>
 										</div>
 									</div>
                                     <h3 class="card-title  font-size-16">
@@ -34,11 +34,11 @@
 									<div class="row">
 										<div class="col-md-2">
 											<i class="far fa-comment-alt"></i>
-											<span class="badge-text">{{post.post.total_views}}</span>
+											<span class="badge-text">{{post.total_views}}</span>
 										</div>
 										<div class="col-md-6">
 											<i class="fas fa-paperclip"></i>
-											<span class="badge-text">{{post.post.total_likes}}</span>
+											<span class="badge-text">{{post.total_likes}}</span>
 										</div>
 									</div>
 
@@ -61,6 +61,11 @@ export default {
 		...mapState({
 			'posts': state=>state.explore.posts.ExploreBottomPost,
 		}),
+	},
+	methods:{
+		redirectPostView(post_id){
+                this.$router.push({path:'/post/'+post_id})
+            }
 	}
 }
 </script>

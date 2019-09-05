@@ -40,6 +40,10 @@ Vue.mixin({
         redirect(url){
             window.location.href=url;
         },
+        newWindow(url){
+            window.open(url,'newwindow','width=300,height=250'); 
+            return false;
+        },
         getUrlParameters(){
             return decodeURI(window.location.search)
             .replace('?', '')

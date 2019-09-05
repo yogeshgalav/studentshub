@@ -9,7 +9,7 @@
                     <div class="card-header">
 
                         <div class="row">
-                            {{post.post.post_content.content}}
+                            {{post.post_content.content}}
 
                         </div>
                     </div>

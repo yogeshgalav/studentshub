@@ -2414,7 +2414,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     'posts': function posts(state) {
       return state.explore.posts.ExploreBottomPost;
     }
-  }))
+  })),
+  methods: {
+    redirectPostView: function redirectPostView(post_id) {
+      this.$router.push({
+        path: '/post/' + post_id
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -2608,7 +2615,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     'posts': function posts(state) {
       return state.explore.posts.ExploreSidebar;
     }
-  }))
+  })),
+  methods: {
+    redirectPostView: function redirectPostView(post_id) {
+      this.$router.push({
+        path: '/post/1'
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -2681,7 +2695,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     'posts': function posts(state) {
       return state.explore.posts.ExploreTopPost;
     }
-  }))
+  })),
+  methods: {
+    redirectPostView: function redirectPostView(post_id) {
+      this.$router.push({
+        path: '/post/1'
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -2767,8 +2788,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     'posts': function posts(state) {
       return state.explore.posts.HomePostContainer;
     }
-  }))
+  })),
+  methods: {
+    redirectPostView: function redirectPostView(post_id) {
+      this.$router.push({
+        path: '/post/1'
+      });
+    }
+  }
 });
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PostViewPage.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PostViewPage.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
 
@@ -2952,7 +2996,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      subscribe_email: ''
+    };
+  },
+  methods: {
+    subscribe: function subscribe() {
+      this.$store.dispatch('explore/subscribe', {
+        email: this.subscribe_email
+      });
+    }
+  }
+});
 
 /***/ }),
 
@@ -50678,56 +50737,67 @@ var render = function() {
       { staticClass: "row" },
       _vm._l(_vm.posts, function(post) {
         return _c("div", { key: post.id, staticClass: "col-md-4" }, [
-          _c("div", { staticClass: "card-post" }, [
-            _c("img", {
-              staticClass: "card-img-top",
-              attrs: { src: "/images/4.jpg", alt: "Card image cap" }
-            }),
-            _vm._v(" "),
-            _c("div", [
-              _c("div", { staticClass: "d-flex mt-2" }, [
-                _vm._m(1, true),
-                _vm._v(" "),
-                _c("div", { staticClass: "info-post ml-2" }, [
-                  _c("p", { staticClass: "username" }, [
-                    _vm._v(_vm._s(post.post.user_name))
-                  ]),
+          _c(
+            "div",
+            {
+              staticClass: "card-post",
+              on: {
+                click: function($event) {
+                  return _vm.redirectPostView(post.id)
+                }
+              }
+            },
+            [
+              _c("img", {
+                staticClass: "card-img-top",
+                attrs: { src: "/images/4.jpg", alt: "Card image cap" }
+              }),
+              _vm._v(" "),
+              _c("div", [
+                _c("div", { staticClass: "d-flex mt-2" }, [
+                  _vm._m(1, true),
                   _vm._v(" "),
-                  _c("p", { staticClass: "date text-muted" }, [
-                    _vm._v(_vm._s(post.post.created_at))
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _vm._m(2, true),
-              _vm._v(" "),
-              _c("div", { staticClass: "separator-solid" }),
-              _vm._v(" "),
-              _c("p", { staticClass: "card-text" }, [
-                _vm._v(
-                  "Some quick example text to build on the card title and make up the bulk of the card's content."
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-md-2" }, [
-                  _c("i", { staticClass: "far fa-comment-alt" }),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "badge-text" }, [
-                    _vm._v(_vm._s(post.post.total_views))
+                  _c("div", { staticClass: "info-post ml-2" }, [
+                    _c("p", { staticClass: "username" }, [
+                      _vm._v(_vm._s(post.user_name))
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "date text-muted" }, [
+                      _vm._v(_vm._s(post.created_at))
+                    ])
                   ])
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-md-6" }, [
-                  _c("i", { staticClass: "fas fa-paperclip" }),
+                _vm._m(2, true),
+                _vm._v(" "),
+                _c("div", { staticClass: "separator-solid" }),
+                _vm._v(" "),
+                _c("p", { staticClass: "card-text" }, [
+                  _vm._v(
+                    "Some quick example text to build on the card title and make up the bulk of the card's content."
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-md-2" }, [
+                    _c("i", { staticClass: "far fa-comment-alt" }),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "badge-text" }, [
+                      _vm._v(_vm._s(post.total_views))
+                    ])
+                  ]),
                   _vm._v(" "),
-                  _c("span", { staticClass: "badge-text" }, [
-                    _vm._v(_vm._s(post.post.total_likes))
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c("i", { staticClass: "fas fa-paperclip" }),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "badge-text" }, [
+                      _vm._v(_vm._s(post.total_likes))
+                    ])
                   ])
                 ])
               ])
-            ])
-          ])
+            ]
+          )
         ])
       }),
       0
@@ -50863,23 +50933,34 @@ var render = function() {
             "div",
             { key: post.id, staticClass: "col-md-12 mt-2 mb-2" },
             [
-              _c("div", { staticClass: "card-post" }, [
-                _c("div", { staticClass: "d-flex" }, [
-                  _vm._m(1, true),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "info-post ml-2" }, [
-                    _c("p", { staticClass: "username" }, [
-                      _vm._v(_vm._s(post.post.user_name))
-                    ]),
+              _c(
+                "div",
+                {
+                  staticClass: "card-post",
+                  on: {
+                    click: function($event) {
+                      return _vm.redirectPostView(post.id)
+                    }
+                  }
+                },
+                [
+                  _c("div", { staticClass: "d-flex" }, [
+                    _vm._m(1, true),
                     _vm._v(" "),
-                    _c("p", { staticClass: "date text-muted" }, [
-                      _vm._v(_vm._s(post.post.created_at))
-                    ]),
-                    _vm._v(" "),
-                    _vm._m(2, true)
+                    _c("div", { staticClass: "info-post ml-2" }, [
+                      _c("p", { staticClass: "username" }, [
+                        _vm._v(_vm._s(post.user_name))
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "date text-muted" }, [
+                        _vm._v(_vm._s(post.created_at))
+                      ]),
+                      _vm._v(" "),
+                      _vm._m(2, true)
+                    ])
                   ])
-                ])
-              ])
+                ]
+              )
             ]
           )
         }),
@@ -50904,11 +50985,11 @@ var render = function() {
                   _vm._v(" "),
                   _c("div", { staticClass: "info-post ml-2" }, [
                     _c("p", { staticClass: "username" }, [
-                      _vm._v(_vm._s(post.post.user_name))
+                      _vm._v(_vm._s(post.user_name))
                     ]),
                     _vm._v(" "),
                     _c("p", { staticClass: "date text-muted" }, [
-                      _vm._v(_vm._s(post.post.created_at))
+                      _vm._v(_vm._s(post.created_at))
                     ]),
                     _vm._v(" "),
                     _vm._m(5, true)
@@ -51032,62 +51113,73 @@ var render = function() {
       { staticClass: "row" },
       _vm._l(_vm.posts, function(post) {
         return _c("div", { key: post.id, staticClass: "col-md-4" }, [
-          _c("div", { staticClass: "card-post" }, [
-            _c("img", {
-              staticClass: "card-img-top",
-              attrs: { src: "/images/4.jpg", alt: "Card image cap" }
-            }),
-            _vm._v(" "),
-            _c("div", [
-              _c("div", { staticClass: "d-flex mt-2" }, [
-                _vm._m(0, true),
-                _vm._v(" "),
-                _c("div", { staticClass: "info-post ml-2" }, [
-                  _c("p", { staticClass: "username" }, [
-                    _vm._v(_vm._s(post.post.user_name))
-                  ]),
+          _c(
+            "div",
+            {
+              staticClass: "card-post",
+              on: {
+                click: function($event) {
+                  return _vm.redirectPostView(post.id)
+                }
+              }
+            },
+            [
+              _c("img", {
+                staticClass: "card-img-top",
+                attrs: { src: "/images/4.jpg", alt: "Card image cap" }
+              }),
+              _vm._v(" "),
+              _c("div", [
+                _c("div", { staticClass: "d-flex mt-2" }, [
+                  _vm._m(0, true),
                   _vm._v(" "),
-                  _c("p", { staticClass: "date text-muted" }, [
-                    _vm._v(_vm._s(post.post.created_at))
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "separator-solid" }),
-              _vm._v(" "),
-              _c("p", { staticClass: "card-category text-info mb-1" }, [
-                _c("a", { attrs: { href: "#" } }, [
-                  _vm._v(_vm._s(post.post.subject.Subject_name))
-                ])
-              ]),
-              _vm._v(" "),
-              _vm._m(1, true),
-              _vm._v(" "),
-              _c("p", { staticClass: "card-text" }, [
-                _vm._v(
-                  "Some quick example text to build on the card title and make up the bulk of the card's content."
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-md-2" }, [
-                  _c("i", { staticClass: "far fa-comment-alt" }),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "badge-text" }, [
-                    _vm._v(_vm._s(post.post.total_views))
+                  _c("div", { staticClass: "info-post ml-2" }, [
+                    _c("p", { staticClass: "username" }, [
+                      _vm._v(_vm._s(post.user_name))
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "date text-muted" }, [
+                      _vm._v(_vm._s(post.created_at))
+                    ])
                   ])
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-md-6" }, [
-                  _c("i", { staticClass: "fas fa-paperclip" }),
+                _c("div", { staticClass: "separator-solid" }),
+                _vm._v(" "),
+                _c("p", { staticClass: "card-category text-info mb-1" }, [
+                  _c("a", { attrs: { href: "#" } }, [
+                    _vm._v(_vm._s(post.Subject_name))
+                  ])
+                ]),
+                _vm._v(" "),
+                _vm._m(1, true),
+                _vm._v(" "),
+                _c("p", { staticClass: "card-text" }, [
+                  _vm._v(
+                    "Some quick example text to build on the card title and make up the bulk of the card's content."
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-md-2" }, [
+                    _c("i", { staticClass: "far fa-comment-alt" }),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "badge-text" }, [
+                      _vm._v(_vm._s(post.total_views))
+                    ])
+                  ]),
                   _vm._v(" "),
-                  _c("span", { staticClass: "badge-text" }, [
-                    _vm._v(_vm._s(post.post.total_likes))
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c("i", { staticClass: "fas fa-paperclip" }),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "badge-text" }, [
+                      _vm._v(_vm._s(post.total_likes))
+                    ])
                   ])
                 ])
               ])
-            ])
-          ])
+            ]
+          )
         ])
       }),
       0
@@ -51149,43 +51241,54 @@ var render = function() {
         return _c("div", { key: post.id }, [
           _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "col-md-9" }, [
-              _c("div", { staticClass: "card-post" }, [
-                _c("div", [
-                  _c("div", { staticClass: "d-flex mt-2" }, [
-                    _vm._m(1, true),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "info-post ml-2" }, [
-                      _c("p", { staticClass: "username" }, [
-                        _vm._v(_vm._s(post.post.user_name))
-                      ]),
+              _c(
+                "div",
+                {
+                  staticClass: "card-post",
+                  on: {
+                    click: function($event) {
+                      return _vm.redirectPostView(post.id)
+                    }
+                  }
+                },
+                [
+                  _c("div", [
+                    _c("div", { staticClass: "d-flex mt-2" }, [
+                      _vm._m(1, true),
                       _vm._v(" "),
-                      _c("p", { staticClass: "date text-muted" }, [
-                        _vm._v(_vm._s(post.post.created_at))
-                      ]),
-                      _vm._v(" "),
-                      _vm._m(2, true),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "row" }, [
-                        _c("div", { staticClass: "col-md-2" }, [
-                          _c("i", { staticClass: "far fa-comment-alt" }),
-                          _vm._v(" "),
-                          _c("span", { staticClass: "badge-text" }, [
-                            _vm._v(_vm._s(post.post.total_views))
-                          ])
+                      _c("div", { staticClass: "info-post ml-2" }, [
+                        _c("p", { staticClass: "username" }, [
+                          _vm._v(_vm._s(post.user_name))
                         ]),
                         _vm._v(" "),
-                        _c("div", { staticClass: "col-md-6" }, [
-                          _c("i", { staticClass: "fas fa-paperclip" }),
+                        _c("p", { staticClass: "date text-muted" }, [
+                          _vm._v(_vm._s(post.created_at))
+                        ]),
+                        _vm._v(" "),
+                        _vm._m(2, true),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "row" }, [
+                          _c("div", { staticClass: "col-md-2" }, [
+                            _c("i", { staticClass: "far fa-comment-alt" }),
+                            _vm._v(" "),
+                            _c("span", { staticClass: "badge-text" }, [
+                              _vm._v(_vm._s(post.total_views))
+                            ])
+                          ]),
                           _vm._v(" "),
-                          _c("span", { staticClass: "badge-text" }, [
-                            _vm._v(_vm._s(post.post.total_likes))
+                          _c("div", { staticClass: "col-md-6" }, [
+                            _c("i", { staticClass: "fas fa-paperclip" }),
+                            _vm._v(" "),
+                            _c("span", { staticClass: "badge-text" }, [
+                              _vm._v(_vm._s(post.total_likes))
+                            ])
                           ])
                         ])
                       ])
                     ])
                   ])
-                ])
-              ])
+                ]
+              )
             ]),
             _vm._v(" "),
             _vm._m(3, true)
@@ -51264,6 +51367,30 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PostViewPage.vue?vue&type=template&id=73cdc502&":
+/*!***************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PostViewPage.vue?vue&type=template&id=73cdc502& ***!
+  \***************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div")
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SiteFooter.vue?vue&type=template&id=478ea926&scoped=true&":
 /*!*************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SiteFooter.vue?vue&type=template&id=478ea926&scoped=true& ***!
@@ -51279,124 +51406,183 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("section", { staticClass: "home-newsletter" }, [
+    _c("div", { staticClass: "container" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-sm-12" }, [
+          _c(
+            "form",
+            {
+              staticClass: "single",
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.subscribe($event)
+                }
+              }
+            },
+            [
+              _c("h2", [_vm._v("Subscribe to our Newsletter")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "input-group" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.subscribe_email,
+                      expression: "subscribe_email"
+                    },
+                    {
+                      name: "validate",
+                      rawName: "v-validate",
+                      value: "email|required",
+                      expression: "'email|required'"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "email",
+                    placeholder: "Enter your email",
+                    name: "email"
+                  },
+                  domProps: { value: _vm.subscribe_email },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.subscribe_email = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm._m(0)
+              ])
+            ]
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _vm._m(1),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-12 text-center mt-3 mb-3" }, [
+          _c("ul", { staticClass: "social-network social-circle" }, [
+            _c("li", [
+              _c(
+                "a",
+                {
+                  staticClass: "icoFacebook",
+                  attrs: { href: "#", title: "Facebook" },
+                  on: {
+                    click: function($event) {
+                      return _vm.newWindow(
+                        "https://www.facebook.com/studentshub.in"
+                      )
+                    }
+                  }
+                },
+                [_c("i", { staticClass: "fab fa-facebook" })]
+              )
+            ]),
+            _vm._v(" "),
+            _vm._m(2),
+            _vm._v(" "),
+            _vm._m(3),
+            _vm._v(" "),
+            _vm._m(4)
+          ])
+        ]),
+        _vm._v(" "),
+        _vm._m(5)
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("section", { staticClass: "home-newsletter" }, [
-      _c("div", { staticClass: "container" }, [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-sm-12" }, [
-            _c("div", { staticClass: "single" }, [
-              _c("h2", [_vm._v("Subscribe to our Newsletter")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "input-group" }, [
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: { type: "email", placeholder: "Enter your email" }
-                }),
-                _vm._v(" "),
-                _c("span", { staticClass: "input-group-btn" }, [
-                  _c(
-                    "button",
-                    { staticClass: "btn btn-theme", attrs: { type: "submit" } },
-                    [_vm._v("Subscribe")]
-                  )
-                ])
-              ])
-            ])
-          ])
-        ]),
+    return _c("span", { staticClass: "input-group-btn" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-theme", attrs: { type: "submit" } },
+        [_vm._v("Subscribe")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-12" }, [
+      _c("div", { staticClass: "divider mt-5 mb-3" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [
+      _c(
+        "a",
+        {
+          staticClass: "icoTwitter",
+          attrs: { href: "#", target: "_blank", title: "Twitter" }
+        },
+        [_c("i", { staticClass: "fab fa-twitter" })]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [
+      _c(
+        "a",
+        {
+          staticClass: "icoInstagram",
+          attrs: { href: "#", target: "_blank", title: "Instagram" }
+        },
+        [_c("i", { staticClass: "fab fa-instagram" })]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [
+      _c(
+        "a",
+        {
+          staticClass: "icoLinkedin",
+          attrs: { href: "#", target: "_blank", title: "Linkedin" }
+        },
+        [_c("i", { staticClass: "fab fa-linkedin" })]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-12 text-center" }, [
+      _c("ul", { staticClass: "foote_bottom_ul_amrc" }, [
+        _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Home")])]),
         _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-md-12" }, [
-            _c("div", { staticClass: "divider mt-5 mb-3" })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-md-12 text-center mt-3 mb-3" }, [
-            _c("ul", { staticClass: "social-network social-circle" }, [
-              _c("li", [
-                _c(
-                  "a",
-                  { staticClass: "icoRss", attrs: { href: "#", title: "Rss" } },
-                  [
-                    _c("i", {
-                      staticClass: "fab fa-facebook",
-                      attrs: { "aria-hidden": "true" }
-                    })
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c(
-                  "a",
-                  {
-                    staticClass: "icoFacebook",
-                    attrs: { href: "#", title: "Facebook" }
-                  },
-                  [_c("i", { staticClass: "fab fa-facebook" })]
-                )
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c(
-                  "a",
-                  {
-                    staticClass: "icoTwitter",
-                    attrs: { href: "#", title: "Twitter" }
-                  },
-                  [_c("i", { staticClass: "fab fa-twitter" })]
-                )
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c(
-                  "a",
-                  {
-                    staticClass: "icoGoogle",
-                    attrs: { href: "#", title: "Google +" }
-                  },
-                  [_c("i", { staticClass: "fab fa-google-plus" })]
-                )
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c(
-                  "a",
-                  {
-                    staticClass: "icoLinkedin",
-                    attrs: { href: "#", title: "Linkedin" }
-                  },
-                  [_c("i", { staticClass: "fab fa-linkedin" })]
-                )
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-md-12 text-center" }, [
-            _c("ul", { staticClass: "foote_bottom_ul_amrc" }, [
-              _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Home")])]),
-              _vm._v(" "),
-              _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("About")])]),
-              _vm._v(" "),
-              _c("li", [
-                _c("a", { attrs: { href: "#" } }, [_vm._v("Services")])
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c("a", { attrs: { href: "#" } }, [_vm._v("Pricing")])
-              ]),
-              _vm._v(" "),
-              _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Blog")])]),
-              _vm._v(" "),
-              _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Contact")])])
-            ])
-          ])
-        ])
+        _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("About")])]),
+        _vm._v(" "),
+        _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Services")])]),
+        _vm._v(" "),
+        _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Pricing")])]),
+        _vm._v(" "),
+        _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Blog")])]),
+        _vm._v(" "),
+        _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Contact")])])
       ])
     ])
   }
@@ -78731,6 +78917,10 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
     redirect: function redirect(url) {
       window.location.href = url;
     },
+    newWindow: function newWindow(url) {
+      window.open(url, 'newwindow', 'width=300,height=250');
+      return false;
+    },
     getUrlParameters: function getUrlParameters() {
       return decodeURI(window.location.search).replace('?', '').split('&').map(function (param) {
         return param.split('=');
@@ -79189,6 +79379,23 @@ __webpack_require__.r(__webpack_exports__);
         reject(err);
       });
     });
+  },
+  subscribe: function subscribe(_ref2, data) {
+    var commit = _ref2.commit;
+    console.log(data);
+    return new Promise(function (resolve, reject) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default()({
+        url: window.App.baseUrl + '/api/subscribe',
+        data: data,
+        method: 'POST'
+      }).then(function (resp) {
+        var data = resp.data.success; // commit('get_explore_page_content', data,)
+
+        resolve(resp);
+      })["catch"](function (err) {
+        reject(err);
+      });
+    });
   }
 });
 
@@ -79415,6 +79622,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _home_explore_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./home/explore.vue */ "./resources/js/Guest/home/explore.vue");
 /* harmony import */ var _auth_components_login_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./auth/components/login.vue */ "./resources/js/Guest/auth/components/login.vue");
 /* harmony import */ var _auth_components_register_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./auth/components/register.vue */ "./resources/js/Guest/auth/components/register.vue");
+/* harmony import */ var _components_PostViewPage_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/PostViewPage.vue */ "./resources/js/components/PostViewPage.vue");
+
 
 
 
@@ -79435,6 +79644,13 @@ var routes = [{
   path: '/get-started',
   name: 'register',
   component: _auth_components_register_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+}, {
+  path: '/post/:id',
+  component: _components_PostViewPage_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+  name: 'ViewPost',
+  meta: {
+    title: 'Post'
+  }
 }, {
   path: '*',
   redirect: '/'
@@ -80006,6 +80222,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HomePostContainer_vue_vue_type_template_id_23a15d72___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HomePostContainer_vue_vue_type_template_id_23a15d72___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/PostViewPage.vue":
+/*!**************************************************!*\
+  !*** ./resources/js/components/PostViewPage.vue ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _PostViewPage_vue_vue_type_template_id_73cdc502___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PostViewPage.vue?vue&type=template&id=73cdc502& */ "./resources/js/components/PostViewPage.vue?vue&type=template&id=73cdc502&");
+/* harmony import */ var _PostViewPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PostViewPage.vue?vue&type=script&lang=js& */ "./resources/js/components/PostViewPage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _PostViewPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _PostViewPage_vue_vue_type_template_id_73cdc502___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _PostViewPage_vue_vue_type_template_id_73cdc502___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/PostViewPage.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/PostViewPage.vue?vue&type=script&lang=js&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/PostViewPage.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PostViewPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./PostViewPage.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PostViewPage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PostViewPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/PostViewPage.vue?vue&type=template&id=73cdc502&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/PostViewPage.vue?vue&type=template&id=73cdc502& ***!
+  \*********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PostViewPage_vue_vue_type_template_id_73cdc502___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./PostViewPage.vue?vue&type=template&id=73cdc502& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PostViewPage.vue?vue&type=template&id=73cdc502&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PostViewPage_vue_vue_type_template_id_73cdc502___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PostViewPage_vue_vue_type_template_id_73cdc502___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
