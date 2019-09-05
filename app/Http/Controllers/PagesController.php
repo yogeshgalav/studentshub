@@ -53,4 +53,7 @@ class PagesController extends Controller
     public function sharePost(){
         return view('post.share-post');
     }
+    public function viewPost(){
+        return view('guest.view-post');
+    }
 }

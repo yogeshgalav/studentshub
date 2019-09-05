@@ -41,12 +41,7 @@ class HomeController extends Controller
     }
 
     public function index(){
-        $posts=SthubPost::where('college_id',Auth::user()->college_id)
-        // ->orWhere('classroom_id',Auth::user()->classroom_id)
-        // ->orWhere('branch_id	',Auth::user()->branch_id	)
-        // ->orWhere('course_id',Auth::user()->course_id)
-        // ->orWhere('batch_id',Auth::user()->batch_id)
-        ->get();
+        $posts=SthubPost::getDashboardPosts();
         return response()->json(['success'=>[
             'posts'=>$posts
         ]]);

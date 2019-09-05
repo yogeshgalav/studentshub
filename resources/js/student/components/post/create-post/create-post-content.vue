@@ -7,11 +7,11 @@
 </template>
 <script>
 import { VueEditor, Quill } from "vue2-editor";
-import { ImageDrop } from "quill-image-drop-module";
-import { ImageResize } from "quill-image-resize-module";
-console.log(Quill);
-Quill.register("modules/imageDrop", ImageDrop);
-Quill.register("modules/imageResize", ImageResize);
+// import { ImageDrop } from "quill-image-drop-module";
+// import { ImageResize } from "quill-image-resize-module";
+// console.log(Quill);
+// Quill.register("modules/imageDrop", ImageDrop);
+// Quill.register("modules/imageResize", ImageResize);
 
 export default {
     components:{
