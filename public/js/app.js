@@ -2811,6 +2811,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_CategoryFilter__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/CategoryFilter */ "./resources/js/components/CategoryFilter.vue");
 /* harmony import */ var _components_RecentPost__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/RecentPost */ "./resources/js/components/RecentPost.vue");
+/* harmony import */ var _components_SiteFooter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/SiteFooter */ "./resources/js/components/SiteFooter.vue");
 //
 //
 //
@@ -2858,12 +2859,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     CategoryFilter: _components_CategoryFilter__WEBPACK_IMPORTED_MODULE_0__["default"],
-    RecentPost: _components_RecentPost__WEBPACK_IMPORTED_MODULE_1__["default"]
+    RecentPost: _components_RecentPost__WEBPACK_IMPORTED_MODULE_1__["default"],
+    SiteFooter: _components_SiteFooter__WEBPACK_IMPORTED_MODULE_2__["default"]
   }
 });
 
@@ -2883,38 +2886,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -51544,19 +51515,22 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "div",
+    "section",
+    { staticClass: "pt-100" },
     [
       _vm._m(0),
       _vm._v(" "),
       _c("category-filter"),
       _vm._v(" "),
-      _c("div", { staticClass: "container" }, [
+      _c("div", { staticClass: "container ptb-50" }, [
         _c("div", { staticClass: "row" }, [
           _vm._m(1),
           _vm._v(" "),
           _c("div", { staticClass: "col-md-3" }, [_c("recent-post")], 1)
         ])
-      ])
+      ]),
+      _vm._v(" "),
+      _c("site-footer")
     ],
     1
   )
@@ -51566,14 +51540,18 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
+    return _c("div", { staticClass: "container ptb-50" }, [
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-md-12 text-center" }, [
-          _c("h5", [_vm._v("Best design resources this week")]),
+          _c("h4", { staticClass: "weight-400" }, [
+            _vm._v("Best design resources this week")
+          ]),
           _vm._v(" "),
-          _c("h2", [_vm._v("A guide for learning spanish in college")]),
+          _c("h2", { staticClass: "weight-600" }, [
+            _vm._v("A guide for learning spanish in college")
+          ]),
           _vm._v(" "),
-          _c("div", { staticClass: "avatar" }, [
+          _c("div", { staticClass: "avatar mt-3 mb-2" }, [
             _c("img", {
               staticClass: "avatar-img rounded-circle",
               attrs: { src: "/images/4.jpg", alt: "..." }
@@ -51581,30 +51559,33 @@ var staticRenderFns = [
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "info-post ml-2" }, [
-            _c("p", { staticClass: "username" }, [_vm._v("User NAme")]),
-            _vm._v(" "),
-            _c("p", { staticClass: "date text-muted" }, [
-              _vm._v("20 July 2019")
+            _c("h5", { staticClass: "username weight-600" }, [
+              _vm._v("User Name  | "),
+              _c(
+                "span",
+                { staticClass: "date text-muted weight-400 text-light-gray1" },
+                [_vm._v("20 July 2019")]
+              )
             ])
           ])
         ])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-12" }, [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-md-2" }, [
+        _c("div", { staticClass: "row justify-center" }, [
+          _c("div", { staticClass: "col-md-1" }, [
             _c("i", { staticClass: "far fa-comment-alt" }),
             _vm._v(" "),
             _c("span", { staticClass: "badge-text" }, [_vm._v("200")])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "col-md-2" }, [
+          _c("div", { staticClass: "col-md-1" }, [
             _c("i", { staticClass: "fas fa-eye" }),
             _vm._v(" "),
             _c("span", { staticClass: "badge-text" }, [_vm._v("2.3 K")])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "col-md-2" }, [
+          _c("div", { staticClass: "col-md-1" }, [
             _c("i", { staticClass: "fas fa-heart" }),
             _vm._v(" "),
             _c("span", { staticClass: "badge-text" }, [_vm._v("250")])
@@ -51651,90 +51632,61 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _vm._m(0),
-    _vm._v(" "),
-    _c("div", { staticClass: "bg-gray p-2 mb-3" }, [
-      _vm._m(1),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "row" },
-        _vm._l(_vm.posts, function(post) {
-          return _c(
-            "div",
-            { key: post.id, staticClass: "col-md-12 mt-2 mb-2" },
-            [
-              _c("div", { staticClass: "card-post" }, [
-                _c("div", { staticClass: "d-flex" }, [
-                  _vm._m(2, true),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "info-post ml-2" }, [
-                    _c("p", { staticClass: "username" }, [
-                      _vm._v(_vm._s(post.user_name))
-                    ]),
-                    _vm._v(" "),
-                    _c("p", { staticClass: "date text-muted" }, [
-                      _vm._v(_vm._s(post.created_at))
-                    ]),
-                    _vm._v(" "),
-                    _vm._m(3, true)
-                  ])
-                ])
-              ])
-            ]
-          )
-        }),
-        0
-      )
-    ])
-  ])
+  return _vm._m(0)
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "bg-gray p-2 mb-2" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-12 latest-post" }, [
-          _c(
-            "h2",
-            {
-              staticClass:
-                "card-title weight-800 text-black mb-2 border-bottom  pb-2"
-            },
-            [_vm._v("\r\n            Popular Post\r\n        ")]
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-12 mt-2 mb-2" }, [
-          _c("div", { staticClass: "card-post" }, [
-            _c("h3", [_vm._v("Rolling hills and natural beauty goes here ")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "d-flex" }, [
-              _c("div", { staticClass: "avatar" }, [
-                _c("img", {
-                  staticClass: "avatar-img rounded-circle",
-                  attrs: { src: "/images/4.jpg", alt: "..." }
-                })
+    return _c("div", [
+      _c("div", { staticClass: "bg-gray p-2 mb-2" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-md-12 latest-post" }, [
+            _c(
+              "h2",
+              {
+                staticClass:
+                  "card-title weight-800 text-black mb-2 border-bottom  pb-2"
+              },
+              [_vm._v("\r\n            Popular Post\r\n        ")]
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-md-12 mb-2" }, [
+            _c("div", { staticClass: "card-post" }, [
+              _c("h4", { staticClass: "weight-600" }, [
+                _vm._v("Rolling hills and natural beauty goes here ")
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "info-post ml-2" }, [
-                _c("p", { staticClass: "username" }, [
-                  _vm._v("Dowyan Jhonson")
+              _c("div", { staticClass: "d-flex" }, [
+                _c("div", { staticClass: "avatar" }, [
+                  _c("img", {
+                    staticClass: "avatar-img rounded-circle",
+                    attrs: { src: "/images/4.jpg", alt: "..." }
+                  })
                 ]),
                 _vm._v(" "),
-                _c("p", { staticClass: "date text-muted" }, [
-                  _vm._v("5th july 2019")
-                ]),
-                _vm._v(" "),
-                _c("h3", { staticClass: "card-title  font-size-12" }, [
-                  _c("a", { staticClass: "text-black", attrs: { href: "#" } }, [
-                    _vm._v(
-                      "\r\n\t\t\t\t\t\t\t\t\t\t\tTag1 \r\n\t\t\t\t\t\t\t\t\t\t"
+                _c("div", { staticClass: "info-post ml-2" }, [
+                  _c("p", { staticClass: "username" }, [
+                    _vm._v("Dowyan Jhonson")
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "date text-muted" }, [
+                    _vm._v("5th july 2019")
+                  ]),
+                  _vm._v(" "),
+                  _c("h3", { staticClass: "card-title  font-size-12" }, [
+                    _c(
+                      "a",
+                      { staticClass: "text-black", attrs: { href: "#" } },
+                      [
+                        _vm._v(
+                          "\r\n\t\t\t\t\t\t\t\t\t\t\tTag1 \r\n\t\t\t\t\t\t\t\t\t\t"
+                        )
+                      ]
                     )
                   ])
                 ])
@@ -51742,46 +51694,6 @@ var staticRenderFns = [
             ])
           ])
         ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-12 latest-post" }, [
-        _c(
-          "h2",
-          {
-            staticClass:
-              "card-title weight-800 text-black mb-2 border-bottom  pb-2"
-          },
-          [_vm._v("\r\n            Recent Post\r\n        ")]
-        )
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "avatar" }, [
-      _c("img", {
-        staticClass: "avatar-img rounded-circle",
-        attrs: { src: "/images/4.jpg", alt: "..." }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("h3", { staticClass: "card-title  font-size-12" }, [
-      _c("a", { staticClass: "text-black", attrs: { href: "#" } }, [
-        _vm._v(
-          "\r\n\t\t\t\t\t\t\t\t\t\t\tBest Design Resources This Week\r\n\t\t\t\t\t\t\t\t\t\t"
-        )
       ])
     ])
   }
