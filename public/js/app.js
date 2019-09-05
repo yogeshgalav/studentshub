@@ -2952,7 +2952,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      subscribe_email: ''
+    };
+  },
+  methods: {
+    subscribe: function subscribe() {
+      this.$store.dispatch('explore/subscribe', this.subscribe_email);
+    }
+  }
+});
 
 /***/ }),
 
@@ -51279,123 +51292,160 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("section", { staticClass: "home-newsletter" }, [
+    _c("div", { staticClass: "container" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-sm-12" }, [
+          _c(
+            "form",
+            {
+              staticClass: "single",
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.subscribe($event)
+                }
+              }
+            },
+            [
+              _c("h2", [_vm._v("Subscribe to our Newsletter")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "input-group" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.subscribe_email,
+                      expression: "subscribe_email"
+                    },
+                    {
+                      name: "validate",
+                      rawName: "v-validate",
+                      value: "email|required",
+                      expression: "'email|required'"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "email", placeholder: "Enter your email" },
+                  domProps: { value: _vm.subscribe_email },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.subscribe_email = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm._m(0)
+              ])
+            ]
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _vm._m(1)
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("section", { staticClass: "home-newsletter" }, [
-      _c("div", { staticClass: "container" }, [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-sm-12" }, [
-            _c("div", { staticClass: "single" }, [
-              _c("h2", [_vm._v("Subscribe to our Newsletter")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "input-group" }, [
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: { type: "email", placeholder: "Enter your email" }
-                }),
-                _vm._v(" "),
-                _c("span", { staticClass: "input-group-btn" }, [
-                  _c(
-                    "button",
-                    { staticClass: "btn btn-theme", attrs: { type: "submit" } },
-                    [_vm._v("Subscribe")]
-                  )
-                ])
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-md-12" }, [
-            _c("div", { staticClass: "divider mt-5 mb-3" })
+    return _c("span", { staticClass: "input-group-btn" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-theme", attrs: { type: "submit" } },
+        [_vm._v("Subscribe")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("div", { staticClass: "divider mt-5 mb-3" })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-12 text-center mt-3 mb-3" }, [
+        _c("ul", { staticClass: "social-network social-circle" }, [
+          _c("li", [
+            _c(
+              "a",
+              { staticClass: "icoRss", attrs: { href: "#", title: "Rss" } },
+              [
+                _c("i", {
+                  staticClass: "fab fa-facebook",
+                  attrs: { "aria-hidden": "true" }
+                })
+              ]
+            )
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "col-md-12 text-center mt-3 mb-3" }, [
-            _c("ul", { staticClass: "social-network social-circle" }, [
-              _c("li", [
-                _c(
-                  "a",
-                  { staticClass: "icoRss", attrs: { href: "#", title: "Rss" } },
-                  [
-                    _c("i", {
-                      staticClass: "fab fa-facebook",
-                      attrs: { "aria-hidden": "true" }
-                    })
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c(
-                  "a",
-                  {
-                    staticClass: "icoFacebook",
-                    attrs: { href: "#", title: "Facebook" }
-                  },
-                  [_c("i", { staticClass: "fab fa-facebook" })]
-                )
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c(
-                  "a",
-                  {
-                    staticClass: "icoTwitter",
-                    attrs: { href: "#", title: "Twitter" }
-                  },
-                  [_c("i", { staticClass: "fab fa-twitter" })]
-                )
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c(
-                  "a",
-                  {
-                    staticClass: "icoGoogle",
-                    attrs: { href: "#", title: "Google +" }
-                  },
-                  [_c("i", { staticClass: "fab fa-google-plus" })]
-                )
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c(
-                  "a",
-                  {
-                    staticClass: "icoLinkedin",
-                    attrs: { href: "#", title: "Linkedin" }
-                  },
-                  [_c("i", { staticClass: "fab fa-linkedin" })]
-                )
-              ])
-            ])
+          _c("li", [
+            _c(
+              "a",
+              {
+                staticClass: "icoFacebook",
+                attrs: { href: "#", title: "Facebook" }
+              },
+              [_c("i", { staticClass: "fab fa-facebook" })]
+            )
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "col-md-12 text-center" }, [
-            _c("ul", { staticClass: "foote_bottom_ul_amrc" }, [
-              _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Home")])]),
-              _vm._v(" "),
-              _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("About")])]),
-              _vm._v(" "),
-              _c("li", [
-                _c("a", { attrs: { href: "#" } }, [_vm._v("Services")])
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c("a", { attrs: { href: "#" } }, [_vm._v("Pricing")])
-              ]),
-              _vm._v(" "),
-              _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Blog")])]),
-              _vm._v(" "),
-              _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Contact")])])
-            ])
+          _c("li", [
+            _c(
+              "a",
+              {
+                staticClass: "icoTwitter",
+                attrs: { href: "#", title: "Twitter" }
+              },
+              [_c("i", { staticClass: "fab fa-twitter" })]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", [
+            _c(
+              "a",
+              {
+                staticClass: "icoGoogle",
+                attrs: { href: "#", title: "Google +" }
+              },
+              [_c("i", { staticClass: "fab fa-google-plus" })]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", [
+            _c(
+              "a",
+              {
+                staticClass: "icoLinkedin",
+                attrs: { href: "#", title: "Linkedin" }
+              },
+              [_c("i", { staticClass: "fab fa-linkedin" })]
+            )
           ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-12 text-center" }, [
+        _c("ul", { staticClass: "foote_bottom_ul_amrc" }, [
+          _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Home")])]),
+          _vm._v(" "),
+          _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("About")])]),
+          _vm._v(" "),
+          _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Services")])]),
+          _vm._v(" "),
+          _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Pricing")])]),
+          _vm._v(" "),
+          _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Blog")])]),
+          _vm._v(" "),
+          _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Contact")])])
         ])
       ])
     ])
@@ -79189,6 +79239,23 @@ __webpack_require__.r(__webpack_exports__);
         reject(err);
       });
     });
+  },
+  subscribe: function subscribe(_ref2) {
+    var commit = _ref2.commit,
+        email = _ref2.email;
+    return new Promise(function (resolve, reject) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default()({
+        url: window.App.baseUrl + '/api/subscribe',
+        method: 'POST',
+        data: email
+      }).then(function (resp) {
+        var data = resp.data.success; // commit('get_explore_page_content', data,)
+
+        resolve(resp);
+      })["catch"](function (err) {
+        reject(err);
+      });
+    });
   }
 });
 
@@ -80182,8 +80249,8 @@ var FormMixin = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\StudentsHUB\resources\js\Guest\app.js */"./resources/js/Guest/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\StudentsHUB\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\xampp\htdocs\StudentsHUB\resources\js\Guest\app.js */"./resources/js/Guest/app.js");
+module.exports = __webpack_require__(/*! E:\xampp\htdocs\StudentsHUB\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
