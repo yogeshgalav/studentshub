@@ -1,5 +1,14 @@
 <template>
 <section class="pt-100">
+    <div class="container-fluid">
+        <div class="row">
+        <div class="col-md-6 ">
+            <button class="btn btn-white btn-rounded btn-lg fixed-back"><i class="fa fa-arrow-left"></i> Back </button>
+            </div>
+            <div class="col-md-6 text-right">
+            <button class="btn btn-white btn-rounded btn-lg"><i class="fa fa-share-alt"></i>  </button>
+            </div>
+        </div></div>
 <div class="container ptb-50">
     <div class="row">
         <div class="col-md-12 text-center">
@@ -45,6 +54,13 @@
 <site-footer></site-footer>
 </section> 
 </template>
+<style scoped>
+.fixed-back
+{
+    top:13.6%;
+    position: fixed;
+}
+</style>
 <script>
 import CategoryFilter from '../components/CategoryFilter';
 import RecentPost from '../components/RecentPost';
