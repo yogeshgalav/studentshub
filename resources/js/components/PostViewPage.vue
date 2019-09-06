@@ -12,13 +12,13 @@
 <div class="container ptb-50">
     <div class="row">
         <div class="col-md-12 text-center">
-            <h4 class="weight-400">Best design resources this week</h4>
-            <h2 class="weight-600">A guide for learning spanish in college</h2>
+            <h4 class="weight-400">{{postContent.subject_name}}</h4>
+            <h2 class="weight-600">{{postContent.heading}}</h2>
             <div class="avatar mt-3 mb-2">
 											<img src="/images/4.jpg" alt="..." class="avatar-img rounded-circle">
 										</div>
 										<div class="info-post ml-2">
-											<h5 class="username weight-600">User Name  | <span class="date text-muted weight-400 text-light-gray1">20 July 2019</span> </h5>
+											<h5 class="username weight-600">{{postContent.user_name}}  | <span class="date text-muted weight-400 text-light-gray1">{{postContent.created_at}}</span> </h5>
 										</div>
         </div>
         </div>
@@ -30,21 +30,21 @@
     </div>
     <div class="col-md-1">
         <i class="fas fa-eye"></i>
-        <span class="badge-text">2.3 K</span>
+        <span class="badge-text">{{postContent.total_views}}</span>
     </div>
     <div class="col-md-1">
         <i class="fas fa-heart"></i>
-        <span class="badge-text">250</span>
+        <span class="badge-text">{{postContent.total_likes}}</span>
     </div>
 </div>
         </div>
     </div>
-<category-filter></category-filter>
+<category-filter :categories="categories"></category-filter>
 <div class="container ptb-50">
     <div class="row">
         <div class="col-md-9">
-            <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h3>
-            <p>Vestibulum feugiat turpis nec leo pellentesque.Vestibulum feugiat turpis nec leo pellentesque.Vestibulum feugiat turpis nec leo pellentesque.Vestibulum feugiat turpis nec leo pellentesque.Vestibulum feugiat turpis nec leo pellentesque.Vestibulum feugiat turpis nec leo pellentesque.Vestibulum feugiat turpis nec leo pellentesque.Vestibulum feugiat turpis nec leo pellentesque.Vestibulum feugiat turpis nec leo pellentesque.Vestibulum feugiat turpis nec leo pellentesque.Vestibulum feugiat turpis nec leo pellentesque.Vestibulum feugiat turpis nec leo pellentesque.Vestibulum feugiat turpis nec leo pellentesque.Vestibulum feugiat turpis nec leo pellentesque.Vestibulum feugiat turpis nec leo pellentesque.Vestibulum feugiat turpis nec leo pellentesque.Vestibulum feugiat turpis nec leo pellentesque.Vestibulum feugiat turpis nec leo pellentesque.Vestibulum feugiat turpis nec leo pellentesque.Vestibulum feugiat turpis nec leo pellentesque.Vestibulum feugiat turpis nec leo pellentesque.Vestibulum feugiat turpis nec leo pellentesque.Vestibulum feugiat turpis nec leo pellentesque.Vestibulum feugiat turpis nec leo pellentesque.Vestibulum feugiat turpis nec leo pellentesque.Vestibulum feugiat turpis nec leo pellentesque.Vestibulum feugiat turpis nec leo pellentesque.</p>
+            <h3>{{postContent.heading}}</h3>
+            <p>{{postContent.content}}</p>
             </div>
             <div class="col-md-3">
                 <recent-post></recent-post>
@@ -62,6 +62,8 @@
 }
 </style>
 <script>
+import {mapState} from 'vuex';
+
 import CategoryFilter from '../components/CategoryFilter';
 import RecentPost from '../components/RecentPost';
 import SiteFooter from '../components/SiteFooter';
@@ -70,6 +72,13 @@ export default {
     {
         CategoryFilter, RecentPost, SiteFooter
     },
+    computed:{
+		...mapState({
+			'categories': state=>state.explore.postView.categories,
+			'postContent': state=>state.explore.postView.post_content,
+			'relatedPost': state=>state.explore.postView.related_posts,
+		}),
+	},
     mounted(){
         this.$store.dispatch('explore/getPostContent',this.$route.params.id);
     }

@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+Route::group(['middleware'=>['auth',]],function(){
 
 
     Route::get('/','PagesController@dashboard');
@@ -15,3 +15,4 @@ use Illuminate\Support\Facades\Route;
     Route::get('/classrooms', 'PagesController@classroomList');
     
     Route::get('/classroom/{classroom_id}','PagesController@classroom');
+});

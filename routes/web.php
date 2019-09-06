@@ -12,10 +12,9 @@
 */
 
 require_once('web/guest.php');
+require_once('web/student.php');
+Route::get('/', 'PagesController@root');
 
-Route::group(['middleware'=>['auth',]],function(){
-    require_once('web/student.php');
-});
 
 
 // Localization

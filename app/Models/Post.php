@@ -107,6 +107,15 @@ class Post extends Model
     
     public function scopeGetViewContent()
     {
+        $post_content=[
+            'content'=>$this->postContent->content,
+            'heading'=>$this->post_heading,
+            'user_name'=>$this->user_name,
+            'subject_name'=>$this->subject->Subject_name,
+            'created_at'=>$this->created_at,
+            'total_views'=>$this->total_views,
+            'total_likes'=>$this->total_likes,
+        ];
         $parent_subject_id=$this->subject->parent_subject_id;
         $subjects=Subject::where('parent_subject_id',$parent_subject_id)
         ->where('id','!=',$this->subject_id)
@@ -116,6 +125,6 @@ class Post extends Model
             $post=$subject->posts()->first();
             is_null($post)?'':$related_posts[]=$post;
         }
-        return ['categories'=>$subjects,'content'=>$this->postContent,'related_posts'=>$related_posts];
+        return ['categories'=>$subjects,'post_content'=>$post_content,'related_posts'=>$related_posts];
     }
 }

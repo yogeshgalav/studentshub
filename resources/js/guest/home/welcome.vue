@@ -3,7 +3,7 @@
 
     <explore-carousal-post></explore-carousal-post>
 
-    <category-filter></category-filter>
+    <category-filter :categories="categories"></category-filter>
   <div class="container">
  <div class="row">
    <div class="col-md-12">
@@ -42,6 +42,8 @@
 </template>
 
 <script>
+import {mapState} from 'vuex';
+
 // import { Carousel, Slide } from 'vue-carousel';
 import Carousel from './../../components/Carousel';
 import CategoryFilter from './../../components/CategoryFilter';
@@ -69,6 +71,11 @@ export default {
       this.$store.dispatch('explore/getExplorePageContent');
     }
   },
+  computed:{
+		...mapState({
+			'categories': state=>state.explore.categories,
+		}),
+	},
   mounted(){
     this.getData();
   }

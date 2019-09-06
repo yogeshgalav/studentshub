@@ -24,18 +24,14 @@
 </style>
 
 <script>
-import {mapState} from 'vuex';
 import Slick from 'vue-slick';
 
 export default {
     components: {
     Slick,
     },
-    computed:{
-		...mapState({
-			'categories': state=>state.explore.categories,
-		}),
-	},
+    props:['categories'],
+    
     data(){
         return {
             slickOptions: {

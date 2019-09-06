@@ -11,7 +11,7 @@ class PostViewController extends Controller
         $post=Post::findOrFail($post_id)->getViewContent();
         return response()->json(['success'=>[
             'categories'=>$post['categories'],
-            'content'=>$post['content'],
+            'post_content'=>$post['post_content'],
             'related_posts'=>$post['related_posts'],
         ]]);        
     }
