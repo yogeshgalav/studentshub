@@ -13,10 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 require_once('api/guest.php');
-
-Route::group(['middleware'=>['auth:api',]],function(){
-    require_once('api/auth_routes.php');
-});
+require_once('api/student.php');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

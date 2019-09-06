@@ -105,4 +105,17 @@ class Post extends Model
         return $this->hasMany('App\Models\Like')->count();
     }
     
+    public function scopeGetViewContent()
+    {
+        $parent_subject_id=$this->subject->parent_subject_id;
+        $subjects=Subject::where('parent_subject_id',$parent_subject_id)
+        ->where('id','!=',$this->subject_id)
+        ->limit(6)->get();
+        $related_posts=[];
+        foreach($subjects as $subject){
+            $post=$subject->posts()->first();
+            is_null($post)?'':$related_posts[]=$post;
+        }
+        return ['categories'=>$subjects,'content'=>$this->postContent,'related_posts'=>$related_posts];
+    }
 }

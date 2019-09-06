@@ -2812,7 +2812,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  mounted: function mounted() {
+    this.$store.dispatch('explore/getPostContent', this.$route.params.id);
+  }
+});
 
 /***/ }),
 
@@ -79385,8 +79389,23 @@ __webpack_require__.r(__webpack_exports__);
       });
     });
   },
-  subscribe: function subscribe(_ref2, data) {
+  getPostContent: function getPostContent(_ref2, post_id) {
     var commit = _ref2.commit;
+    return new Promise(function (resolve, reject) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default()({
+        url: window.App.baseUrl + '/api/get-post-content/' + post_id,
+        method: 'GET'
+      }).then(function (resp) {
+        var data = resp.data.success;
+        commit('get_post_content', data);
+        resolve(resp);
+      })["catch"](function (err) {
+        reject(err);
+      });
+    });
+  },
+  subscribe: function subscribe(_ref3, data) {
+    var commit = _ref3.commit;
     console.log(data);
     return new Promise(function (resolve, reject) {
       axios__WEBPACK_IMPORTED_MODULE_0___default()({
@@ -79449,6 +79468,11 @@ __webpack_require__.r(__webpack_exports__);
     state.posts.ExploreSidebar = data.ExploreSidebar;
     state.posts.ExploreBottomPost = data.ExploreBottomPost;
   },
+  get_post_content: function get_post_content(state, data) {
+    state.postView.categories = data.categories;
+    state.postView.related_posts = data.related_posts;
+    state.postView.post_content = data.post_content;
+  },
   submitPost: function submitPost(state) {
     axios({
       url: window.App.baseUrl + '/api/submit-post',
@@ -79477,6 +79501,11 @@ var state = {
     'HomePostContainer': [],
     'ExploreSidebar': [],
     'ExploreBottomPost': []
+  },
+  postView: {
+    'categories': [],
+    'related_posts': [],
+    'post_content': []
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = (state);

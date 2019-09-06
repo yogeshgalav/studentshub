@@ -14,6 +14,19 @@ export default {
     })
   })
 },
+getPostContent({commit},post_id){
+  return new Promise((resolve, reject) => {
+    axios({url: window.App.baseUrl+'/api/get-post-content/'+post_id, method: 'GET' })
+    .then(resp => {
+     const data = resp.data.success
+      commit('get_post_content', data,)
+      resolve(resp)
+    })
+    .catch(err => {
+      reject(err)
+    })
+  })
+},
 subscribe({commit},data){
   console.log(data);
   return new Promise((resolve, reject) => {
