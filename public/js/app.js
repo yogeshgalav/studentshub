@@ -2989,6 +2989,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _mixins_form_mixin_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./mixins/form-mixin.js */ "./resources/js/components/mixins/form-mixin.js");
 //
 //
 //
@@ -3162,7 +3163,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+  mixins: ['formMixin'],
   data: function data() {
     return {
       subscribe_email: ''
