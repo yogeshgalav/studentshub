@@ -1,22 +1,27 @@
 <template>
     <main>
+        <div class="container pt-100">
+            <div class="col-md-8 center-col">
+ <div class="row">
+     <div class="col-md-12">
         <slot></slot>
-        <router-link class="btn btn-primary" :to="'/share-your-knowledge'">share</router-link>
-        
-        <div class="row main-habit-builder">
-            <div class="col-md-6">
-                <div class="card h-card" @click="redirectPostView(1)" v-for="post in $store.state.dashboardPosts" :key="post.id">
-                    <div class="card-header">
-
-                        <div class="row">
-                            {{post.content}}
-
-                        </div>
+        <router-link class="btn btn-outline-primary mb-3" :to="'/share-your-knowledge'"><i class="fa fa-share-alt"></i> Share </router-link>
+         </div>
+     </div>    
+     
+        <div class="row">
+            <div class="col-md-12">
+             <div class="card h-card" @click="redirectPostView(1)" v-for="post in $store.state.dashboardPosts" :key="post.id">
+                    <div class="card-body">
+                        {{post.content}}
                     </div>
                 </div>
                 
-            </div>
+            </div>   
         </div>
+                </div>
+            </div>
+       
     </main>
 </template>
 <style scoped>

@@ -1825,6 +1825,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -52028,55 +52033,62 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "main",
-    [
-      _vm._t("default"),
-      _vm._v(" "),
-      _c(
-        "router-link",
-        {
-          staticClass: "btn btn-primary",
-          attrs: { to: "/share-your-knowledge" }
-        },
-        [_vm._v("share")]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "row main-habit-builder" }, [
-        _c(
-          "div",
-          { staticClass: "col-md-6" },
-          _vm._l(_vm.$store.state.dashboardPosts, function(post) {
-            return _c(
-              "div",
-              {
-                key: post.id,
-                staticClass: "card h-card",
-                on: {
-                  click: function($event) {
-                    return _vm.redirectPostView(1)
+  return _c("main", [
+    _c("div", { staticClass: "container pt-100" }, [
+      _c("div", { staticClass: "col-md-8 center-col" }, [
+        _c("div", { staticClass: "row" }, [
+          _c(
+            "div",
+            { staticClass: "col-md-12" },
+            [
+              _vm._t("default"),
+              _vm._v(" "),
+              _c(
+                "router-link",
+                {
+                  staticClass: "btn btn-outline-primary mb-3",
+                  attrs: { to: "/share-your-knowledge" }
+                },
+                [_c("i", { staticClass: "fa fa-share-alt" }), _vm._v(" Share ")]
+              )
+            ],
+            2
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c(
+            "div",
+            { staticClass: "col-md-12" },
+            _vm._l(_vm.$store.state.dashboardPosts, function(post) {
+              return _c(
+                "div",
+                {
+                  key: post.id,
+                  staticClass: "card h-card",
+                  on: {
+                    click: function($event) {
+                      return _vm.redirectPostView(1)
+                    }
                   }
-                }
-              },
-              [
-                _c("div", { staticClass: "card-header" }, [
-                  _c("div", { staticClass: "row" }, [
+                },
+                [
+                  _c("div", { staticClass: "card-body" }, [
                     _vm._v(
-                      "\n                        " +
+                      "\n                       " +
                         _vm._s(post.content) +
-                        "\n\n                    "
+                        "\n                   "
                     )
                   ])
-                ])
-              ]
-            )
-          }),
-          0
-        )
+                ]
+              )
+            }),
+            0
+          )
+        ])
       ])
-    ],
-    2
-  )
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

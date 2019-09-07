@@ -17,9 +17,7 @@
         <main class="flex-center position-ref full-height">
             <div class="wrapper">
     <div class="main-header">
-        @include('includes.logo-header')
-        
-        @include('includes.auth-navbar')
+    @include('includes.guest-navbar')
     </div>
 
     @include('includes.sidebar')
