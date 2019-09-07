@@ -172,7 +172,9 @@ a.socialIcon:hover, .socialHoverClass {
 
 
 <script>
+import formMixin from './mixins/form-mixin.js'
 export default {
+	mixins:['formMixin'],
 	data(){
 		return{
 			subscribe_email:'',

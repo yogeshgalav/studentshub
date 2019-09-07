@@ -20,4 +20,9 @@ export default {
         
       })
   },
+  get_post_content(state,data){
+    state.postView.categories = data.categories;
+    state.postView.related_posts = data.related_posts;
+    state.postView.post_content = data.post_content;
+    },
   }
