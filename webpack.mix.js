@@ -13,10 +13,12 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/Guest/app.js', 'public/js/app.js')
 .js('resources/js/Student/app.js', 'public/js/studentApp.js')
-    .sass('resources/sass/app.scss', 'public/css')  
-    // .webpackConfig({
-    //     plugins: {
-    //         "window.Quill": "quill/dist/quill.js",
-    //         Quill: "quill/dist/quill.js"
-    //     },
-    //   });    
+    .sass('resources/sass/app.scss', 'public/css') ;
+    // mix.extend('foo',new class{
+    //     webpackPlugins(){
+    //         return new webpack.ProvidePlugin({
+    //             "window.Quill": "quill/dist/quill.js",
+    //             Quill: "quill/dist/quill.js"
+    //     });
+    //     }
+    // });    

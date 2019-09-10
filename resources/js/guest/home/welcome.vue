@@ -19,7 +19,14 @@
    </div>
  <div class="row">
    <div class="col-md-8">
-    <home-post-container></home-post-container>
+     <div class="row">
+    <div class="col-md-12">
+        <h3 class="card-title weight-800 text-black mt-3 mb-3">
+            Latest Post
+        </h3>
+    </div>
+</div>
+    <home-post-container :posts="home_posts"></home-post-container>
    </div>
    <div class="col-md-4">
       <explore-sidebar></explore-sidebar>
@@ -74,6 +81,7 @@ export default {
   computed:{
 		...mapState({
 			'categories': state=>state.explore.categories,
+			'home_posts': state=>state.explore.HomePostContainer,
 		}),
 	},
   mounted(){

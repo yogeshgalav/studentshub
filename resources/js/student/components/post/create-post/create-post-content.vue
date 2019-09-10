@@ -6,25 +6,28 @@
     </main>
 </template>
 <script>
-import { VueEditor, Quill } from "vue2-editor";
+import { VueEditor } from "vue2-editor";
+// import { Quill } from "quill";
 // import { ImageDrop } from "quill-image-drop-module";
 // import { ImageResize } from "quill-image-resize-module";
-// console.log(Quill);
 // Quill.register("modules/imageDrop", ImageDrop);
 // Quill.register("modules/imageResize", ImageResize);
 
 export default {
     components:{
-        VueEditor
+        VueEditor,
+        // Quill
     },
     data(){
         return{
             content:'',
             editorSettings: {
-        modules: {
-          imageDrop: true,
-          imageResize: {}
-        }
+        // modules: {
+        //   imageDrop: true,
+        //   imageResize: {
+        //     displaySize: true
+        //   }
+        // }
       }
         }
     },

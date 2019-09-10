@@ -10,7 +10,7 @@
                 </div>
                 <div class="form-group">
  <label class="weight-500">Select Subject</label>
-<autocomplete class="form-control custom-select" @input="editSubject($event)" />
+<auto-complete class="form-control custom-select" @input="editSubject($event)" />
                 </div>
                
             </div>

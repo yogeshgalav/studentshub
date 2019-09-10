@@ -1982,6 +1982,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
  // import { Carousel, Slide } from 'vue-carousel';
 
 
@@ -2012,6 +2019,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
     'categories': function categories(state) {
       return state.explore.categories;
+    },
+    'home_posts': function home_posts(state) {
+      return state.explore.HomePostContainer;
     }
   })),
   mounted: function mounted() {
@@ -2717,11 +2727,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -2777,19 +2782,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
-    'posts': function posts(state) {
-      return state.explore.posts.HomePostContainer;
-    }
-  })),
+  props: ['posts'],
   methods: {
     redirectPostView: function redirectPostView(post_id) {
       this.$router.push({
@@ -50783,7 +50777,11 @@ var render = function() {
           _c(
             "div",
             { staticClass: "col-md-8" },
-            [_c("home-post-container")],
+            [
+              _vm._m(1),
+              _vm._v(" "),
+              _c("home-post-container", { attrs: { posts: _vm.home_posts } })
+            ],
             1
           ),
           _vm._v(" "),
@@ -50817,6 +50815,20 @@ var staticRenderFns = [
     return _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "container" }, [
         _c("div", { staticClass: " divider mb-5" })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c(
+          "h3",
+          { staticClass: "card-title weight-800 text-black mt-3 mb-3" },
+          [_vm._v("\n            Latest Post\n        ")]
+        )
       ])
     ])
   }
@@ -51452,103 +51464,85 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    [
-      _vm._m(0),
-      _vm._v(" "),
-      _vm._l(_vm.posts, function(post) {
-        return _c("div", { key: post.id }, [
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-md-9" }, [
-              _c(
-                "div",
-                {
-                  staticClass: "card-post",
-                  on: {
-                    click: function($event) {
-                      return _vm.redirectPostView(post.id)
-                    }
+    _vm._l(_vm.posts, function(post) {
+      return _c("div", { key: post.id }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-md-9" }, [
+            _c(
+              "div",
+              {
+                staticClass: "card-post",
+                on: {
+                  click: function($event) {
+                    return _vm.redirectPostView(post.id)
                   }
-                },
-                [
-                  _c("div", [
-                    _c("div", { staticClass: "d-flex mt-2" }, [
-                      _vm._m(1, true),
+                }
+              },
+              [
+                _c("div", [
+                  _c("div", { staticClass: "d-flex mt-2" }, [
+                    _vm._m(0, true),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "info-post ml-2" }, [
+                      _c("p", { staticClass: "username" }, [
+                        _vm._v(_vm._s(post.user_name))
+                      ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "info-post ml-2" }, [
-                        _c("p", { staticClass: "username" }, [
-                          _vm._v(_vm._s(post.user_name))
-                        ]),
-                        _vm._v(" "),
-                        _c("p", { staticClass: "date text-muted" }, [
-                          _vm._v(_vm._s(post.created_at))
-                        ]),
-                        _vm._v(" "),
-                        _c("h3", { staticClass: "card-title  font-size-16" }, [
-                          _c(
-                            "a",
-                            {
-                              staticClass: "weight-600 text-black",
-                              attrs: { href: "#" }
-                            },
-                            [
-                              _vm._v(
-                                "\r\n\t\t\t\t\t\t\t\t\t\t\t" +
-                                  _vm._s(post.heading) +
-                                  "\r\n\t\t\t\t\t\t\t\t\t\t"
-                              )
-                            ]
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "row" }, [
-                          _c("div", { staticClass: "col-md-2" }, [
-                            _c("i", { staticClass: "far fa-comment-alt" }),
-                            _vm._v(" "),
-                            _c("span", { staticClass: "badge-text" }, [
-                              _vm._v(_vm._s(post.total_views))
-                            ])
-                          ]),
+                      _c("p", { staticClass: "date text-muted" }, [
+                        _vm._v(_vm._s(post.created_at))
+                      ]),
+                      _vm._v(" "),
+                      _c("h3", { staticClass: "card-title  font-size-16" }, [
+                        _c(
+                          "a",
+                          {
+                            staticClass: "weight-600 text-black",
+                            attrs: { href: "#" }
+                          },
+                          [
+                            _vm._v(
+                              "\r\n\t\t\t\t\t\t\t\t\t\t\t" +
+                                _vm._s(post.heading) +
+                                "\r\n\t\t\t\t\t\t\t\t\t\t"
+                            )
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-md-2" }, [
+                          _c("i", { staticClass: "far fa-comment-alt" }),
                           _vm._v(" "),
-                          _c("div", { staticClass: "col-md-6" }, [
-                            _c("i", { staticClass: "fas fa-paperclip" }),
-                            _vm._v(" "),
-                            _c("span", { staticClass: "badge-text" }, [
-                              _vm._v(_vm._s(post.total_likes))
-                            ])
+                          _c("span", { staticClass: "badge-text" }, [
+                            _vm._v(_vm._s(post.total_views))
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-6" }, [
+                          _c("i", { staticClass: "fas fa-paperclip" }),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "badge-text" }, [
+                            _vm._v(_vm._s(post.total_likes))
                           ])
                         ])
                       ])
                     ])
                   ])
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _vm._m(2, true)
+                ])
+              ]
+            )
           ]),
           _vm._v(" "),
-          _vm._m(3, true)
-        ])
-      })
-    ],
-    2
+          _vm._m(1, true)
+        ]),
+        _vm._v(" "),
+        _vm._m(2, true)
+      ])
+    }),
+    0
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-12" }, [
-        _c(
-          "h3",
-          { staticClass: "card-title weight-800 text-black mt-3 mb-3" },
-          [_vm._v("\r\n            Latest Post\r\n        ")]
-        )
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -81005,8 +80999,8 @@ var FormMixin = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\xampp\htdocs\StudentsHUB\resources\js\Guest\app.js */"./resources/js/Guest/app.js");
-module.exports = __webpack_require__(/*! E:\xampp\htdocs\StudentsHUB\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\StudentsHUB\resources\js\Guest\app.js */"./resources/js/Guest/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\StudentsHUB\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

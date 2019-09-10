@@ -5,18 +5,15 @@
  <div class="row">
      <div class="col-md-12">
         <slot></slot>
-        <router-link class="btn btn-outline-primary mb-3" :to="'/share-your-knowledge'"><i class="fa fa-share-alt"></i> Share </router-link>
+        <router-link class="card h-card share" :to="'/share-your-knowledge'"><div class="card-body">
+                        Share Your Knowledge
+                    </div>  </router-link>
          </div>
      </div>    
      
         <div class="row">
             <div class="col-md-12">
-             <div class="card h-card" @click="redirectPostView(1)" v-for="post in $store.state.dashboardPosts" :key="post.id">
-                    <div class="card-body">
-                        {{post.content}}
-                    </div>
-                </div>
-                
+                 <home-post-container :posts="posts"></home-post-container>   
             </div>   
         </div>
                 </div>
@@ -40,7 +37,10 @@
         margin-right: 20px;
         margin-bottom: 5px;
     }
-
+    .share{
+        position:fixed;
+        z-index: 999;
+    }
     .main-habit-builder input {
         color: #bbbbcc;
     }
@@ -65,9 +65,19 @@
 </style>
 
 <script>
-import { mapGetters } from 'vuex'
+import HomePostContainer from './../../components/HomePostContainer';
 
-    export default {
+
+import {mapState} from 'vuex';
+
+export default {
+	computed:{
+		...mapState({
+			'posts': state=>state.dashboardPosts,
+		}),
+	},        components:{
+            HomePostContainer
+        },
         data() {
             return {
             }

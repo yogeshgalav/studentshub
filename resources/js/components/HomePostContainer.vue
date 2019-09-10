@@ -1,12 +1,6 @@
 <template>
 <div>
-<div class="row">
-    <div class="col-md-12">
-        <h3 class="card-title weight-800 text-black mt-3 mb-3">
-            Latest Post
-        </h3>
-    </div>
-</div>
+
 <div v-for="post in posts" :key="post.id">
     <div  class="row">
         <div class="col-md-9">
@@ -60,14 +54,8 @@
    
 </template>
 <script>
-import {mapState} from 'vuex';
-
 export default {
-	computed:{
-		...mapState({
-			'posts': state=>state.explore.posts.HomePostContainer,
-		}),
-	},
+	props:['posts'],
 	methods:{
 		redirectPostView(post_id){
                 this.$router.push({path:'/post/1'})

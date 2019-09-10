@@ -14,6 +14,8 @@ require('../../atlantis/js/atlantis');
 // window.Vue = require('vue').default;
 import Vue from 'vue';
 
+Vue.component('SidebarComponent', require('./../components/SidebarComponent').default);
+
 //Dependencies
 import axios from 'axios'
 import VueAxios from 'vue-axios'

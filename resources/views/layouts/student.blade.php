@@ -19,9 +19,9 @@
     <div class="main-header">
     @include('includes.guest-navbar')
     </div>
-
+    <div class="main-sidebar">
     @include('includes.sidebar')
-
+    </div>
 
     <div class="main-panel">
         <div class="content">
@@ -41,5 +41,10 @@
         'fileUrl' => config('url.file_storage_url'),
         ]) !!}
 </script>
+<style>
+.main-sidebar{
+    padding-top:20px;
+}
+</style>
 </body>
 </html>
