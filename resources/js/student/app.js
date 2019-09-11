@@ -24,7 +24,16 @@ import StudentStore from './store/index';
 import StudentRoutes from './routes';
 import VueRouter from 'vue-router';
 import Vuex from 'vuex';
+import VueLazyload from 'vue-lazyload'
 
+Vue.use(VueLazyload)
+
+Vue.use(VueLazyload, {
+  preLoad: 1.3,
+  error: 'dist/error.png',
+  loading: 'dist/loading.gif',
+  attempt: 1
+})
 Vue.use(Vuex);
 Vue.use(VModal, { dynamic: true, injectModalsContainer: true })
 Vue.use(VueAxios, axios);

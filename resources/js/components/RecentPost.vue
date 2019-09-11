@@ -15,7 +15,7 @@
                                 <h4 class="weight-600">Rolling hills and natural beauty goes here </h4>
 							<div class="d-flex">
 										<div class="avatar">
-											<img src="/images/4.jpg" alt="..." class="avatar-img rounded-circle">
+											<img v-lazy="'/images/4.jpg'" alt="..." class="avatar-img rounded-circle">
 										</div>
 										<div class="info-post ml-2">
 											<p class="username">Dowyan Jhonson</p>

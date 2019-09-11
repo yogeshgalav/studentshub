@@ -7,7 +7,7 @@
 								<div>
 									<div class="d-flex mt-2">
 										<div class="avatar">
-											<img src="/images/4.jpg" alt="..." class="avatar-img rounded-circle">
+											<img v-lazy="'/images/4.jpg'" alt="..." class="avatar-img rounded-circle">
 										</div>
 										<div class="info-post ml-2">
 											<p class="username">{{post.user_name}}</p>

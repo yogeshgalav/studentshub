@@ -15,7 +15,7 @@
             <h4 class="weight-400">{{postContent.subject_name}}</h4>
             <h2 class="weight-600">{{postContent.heading}}</h2>
             <div class="avatar mt-3 mb-2">
-											<img src="/images/4.jpg" alt="..." class="avatar-img rounded-circle">
+											<img v-lazy="'/images/4.jpg'" alt="..." class="avatar-img rounded-circle">
 										</div>
 										<div class="info-post ml-2">
 											<h5 class="username weight-600">{{postContent.user_name}}  | <span class="date text-muted weight-400 text-light-gray1">{{postContent.created_at}}</span> </h5>

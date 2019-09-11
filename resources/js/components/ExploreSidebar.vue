@@ -14,7 +14,7 @@
 							<div class="card-post" @click="redirectPostView(post.id)">
 							<div class="d-flex">
 										<div class="avatar">
-											<img src="/images/4.jpg" alt="..." class="avatar-img rounded-circle">
+											<img v-lazy="'/images/4.jpg'" alt="..." class="avatar-img rounded-circle">
 										</div>
 										<div class="info-post ml-2">
 											<p class="username">{{post.user_name}}</p>
@@ -47,7 +47,7 @@
 							<div class="card-post">
 							<div class="d-flex">
 										<div class="avatar">
-											<img src="/images/4.jpg" alt="..." class="avatar-img rounded-circle">
+											<img v-lazy="'/images/4.jpg'" alt="..." class="avatar-img rounded-circle">
 										</div>
 										<div class="info-post ml-2">
 											<p class="username">{{post.user_name}}</p>

@@ -4,9 +4,9 @@
         <div class="row">
         <div class="col-md-12 text-center">
             <slick :options="slickOptions" ref="slick" >
-                    <a href="#" class="btn btn-white"><img src='/images/slider.jpg' /></a>
-                    <a href="#" class="btn btn-white"><img src='/images/5.jpg' /></a>
-                    <a href="#" class="btn btn-white"><img src='/images/slider.jpg' /></a>
+                    <a href="#" class="btn btn-white"><img v-lazy="'/images/slider.jpg'" /></a>
+                    <a href="#" class="btn btn-white"><img v-lazy="'/images/5.jpg'"/></a>
+                    <a href="#" class="btn btn-white"><img v-lazy="'/images/slider.jpg'" /></a>
   </slick>
         </div>
     </div>

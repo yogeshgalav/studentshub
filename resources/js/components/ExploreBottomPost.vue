@@ -11,11 +11,11 @@
   <div class="row">
         <div class="col-md-4" v-for="post in posts" :key="post.id">
 							<div class="card-post" @click="redirectPostView(post.id)">
-								<img class="card-img-top" src="/images/4.jpg" alt="Card image cap">
+								<img v-lazy="'/images/4.jpg'" class="card-img-top" alt="Card image cap">
 								<div>
 									<div class="d-flex mt-2">
 										<div class="avatar">
-											<img src="/images/4.jpg" alt="..." class="avatar-img rounded-circle">
+											<img v-lazy="'/images/4.jpg'" alt="..." class="avatar-img rounded-circle">
 										</div>
 										<div class="info-post ml-2">
 											<p class="username">{{post.user_name}}</p>
