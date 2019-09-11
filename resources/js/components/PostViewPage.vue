@@ -49,8 +49,11 @@
             <div class="col-md-3">
                 <recent-post></recent-post>
                 </div>
+        </div><div class="row">
+                 <post-interaction></post-interaction>
         </div>
     </div>
+    
 <site-footer></site-footer>
 </section> 
 </template>
@@ -67,10 +70,12 @@ import {mapState} from 'vuex';
 import CategoryFilter from '../components/CategoryFilter';
 import RecentPost from '../components/RecentPost';
 import SiteFooter from '../components/SiteFooter';
+import PostInteraction from '../components/PostInteraction';
+
 export default {
     components: 
     {
-        CategoryFilter, RecentPost, SiteFooter
+        CategoryFilter, RecentPost, SiteFooter,PostInteraction
     },
     computed:{
 		...mapState({
