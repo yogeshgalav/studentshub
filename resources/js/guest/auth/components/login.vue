@@ -6,12 +6,17 @@
                     <div class="card-header">{{ trans('Login') }}</div>
 
                     <div class="card-body">
-                        <form @submit.prevent="handleSubmit">
+                        <form @submit="handleSubmit($event)" method="POST" action="/api/login">
                             <div class="form-group row alert alert-danger" v-if="srvError401">
                                 <span>{{ trans('Invalid login credentials. Please try again.') }}</span>
                             </div>
                             <div class="form-group row alert alert-danger" v-if="srvErrorUnknown">
                                 <span>{{ trans('An unknown error has occurred.') }}</span>
+                            </div>
+                            <div class="form-group row">
+
+                                    <input id="token" type="hidden" class="form-control" name="_token" :value="csrfToken">
+                                    <span class="error">{{ formErrors('_token') }}</span>
                             </div>
                             <div class="form-group row">
                                 <label for="email" class="col-md-4 col-form-label text-md-right">{{ trans('E-Mail Address') }}</label>
@@ -89,11 +94,11 @@
              },
              handleSubmit: function (e) {
                 this.$validator.validate().then(valid => {
-                    if (valid) {
-                        this.form_errors=[];
-                        this.login();
-                    }
-                });
+                     if (!valid) {
+                    e.preventDefault();
+                }
+            });
+            return true;
             },
             login: function () {
                 let email = this.email;

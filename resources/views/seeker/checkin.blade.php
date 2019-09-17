@@ -1,4 +1,4 @@
-@extends('layouts.student')
+@extends('seeker.app')
 @section('content')
 <router-view></router-view> 
 @endsection

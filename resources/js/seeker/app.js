@@ -6,8 +6,6 @@
  */
 
 require('./../bootstrap');
-// require('../../atlantis/js/slick');
-require('../../atlantis/js/slick.min');
 require('../../atlantis/js/core/jquery.3.2.1.min');
 require( '../../atlantis/js/plugin/jquery-scrollbar/jquery.scrollbar.min' );
 require( '../../atlantis/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min' );
@@ -16,25 +14,31 @@ require('../../atlantis/js/atlantis');
 // window.Vue = require('vue').default;
 import Vue from 'vue';
 
+Vue.component('SidebarComponent', require('./../components/SidebarComponent').default);
+
 //Dependencies
-import store from './store'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VModal from 'vue-js-modal'
-import router from './router';
+import StudentStore from './store/index';
+import StudentRoutes from './routes';
+import VueRouter from 'vue-router';
+import Vuex from 'vuex';
 import VueLazyload from 'vue-lazyload'
 
 Vue.use(VueLazyload)
 
-// or with options
 Vue.use(VueLazyload, {
   preLoad: 1.3,
   error: 'dist/error.png',
   loading: 'dist/loading.gif',
   attempt: 1
 })
+Vue.use(Vuex);
 Vue.use(VModal, { dynamic: true, injectModalsContainer: true })
 Vue.use(VueAxios, axios);
+Vue.use(VueRouter);
+
 
 Vue.mixin({
     methods: {
@@ -49,10 +53,6 @@ Vue.mixin({
         },
         redirect(url){
             window.location.href=url;
-        },
-        newWindow(url){
-            window.open(url,'newwindow','width=300,height=250'); 
-            return false;
         },
         getUrlParameters(){
             return decodeURI(window.location.search)
@@ -112,14 +112,18 @@ Vue.mixin({
     }
 });
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+//Vue Router Initialisation
+const router = new VueRouter({
+    routes:StudentRoutes,
+    mode:'history'
+});
 
+//Vue Router Initialisation
+const store = new Vuex.Store(StudentStore);
+
+//Vue App Initialisation
 const app = new Vue({
-    el: '#app',
+    el: '#seekerApp',
     store,
     router,
 });

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('student.app')
 @section('content')
 <welcome-component></welcome-component>
 @endsection

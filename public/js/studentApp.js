@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -2040,6 +2040,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2047,14 +2053,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     AutoComplete: _components_AutoComplete__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
-    'categories': function categories(state) {
-      return state.categories;
+    'primary_subject_list': function primary_subject_list(state) {
+      return state.new_post.primary_subject_list;
+    },
+    'subject_list': function subject_list(state) {
+      return state.new_post.subject_list;
+    },
+    'selected_subject': function selected_subject(state) {
+      return state.new_post.selected_subject;
     }
   })),
   methods: {
     editSubject: function editSubject(event) {
       this.$store.dispatch('createPost', {
         post_subject: event.target.value
+      });
+    },
+    getSubject: function getSubject(subject_id) {
+      this.$store.dispatch('getSubjectList', {
+        subject_id: subject_id
       });
     }
   }
@@ -2125,6 +2142,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2135,6 +2162,7 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     FormWizard: vue_form_wizard__WEBPACK_IMPORTED_MODULE_0__["FormWizard"],
     TabContent: vue_form_wizard__WEBPACK_IMPORTED_MODULE_0__["TabContent"],
+    WizardStep: vue_form_wizard__WEBPACK_IMPORTED_MODULE_0__["WizardStep"],
     SelectPostType: _create_post_select_post_type__WEBPACK_IMPORTED_MODULE_2__["default"],
     CreatePostContent: _create_post_create_post_content__WEBPACK_IMPORTED_MODULE_3__["default"],
     SelectSubject: _create_post_select_subject__WEBPACK_IMPORTED_MODULE_4__["default"],
@@ -9474,6 +9502,25 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../node_module
 
 // module
 exports.push([module.i, "\n.post-type[data-v-6f1a7708]{\r\n    margin: 50%;\n}\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Student/components/post/share-post.vue?vue&type=style&index=1&id=97b9bdd4&scoped=true&lang=css&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Student/components/post/share-post.vue?vue&type=style&index=1&id=97b9bdd4&scoped=true&lang=css& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.label[data-v-97b9bdd4]{\r\n  display: flex;\r\n    flex-direction: row;\r\n    align-items: center;\n}\n.index[data-v-97b9bdd4]{\r\n  width: 3.5rem;\r\n    height: 3.5rem;\r\n    display: flex;\r\n    flex-shrink: 0;\r\n    font-size: 1.5rem;\r\n    border-radius: 50%;\r\n    margin-right: 0.5rem;\r\n        align-items: center;\r\n    justify-content: center;\r\n    box-shadow:0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.25);\n}\n.divider[data-v-97b9bdd4]{\r\n      width: 100%;\r\n    margin-left: 0.5rem;\r\n    border-bottom: 1px solid #ffffff;\r\n    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);\r\n        height: 1px;\r\n    border: 1px solid #eee;\r\n    margin-top: 15px;\r\n    margin-bottom: 15px;\n}\r\n", ""]);
 
 // exports
 
@@ -52092,6 +52139,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Student/components/post/share-post.vue?vue&type=style&index=1&id=97b9bdd4&scoped=true&lang=css&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Student/components/post/share-post.vue?vue&type=style&index=1&id=97b9bdd4&scoped=true&lang=css& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../../node_modules/css-loader??ref--6-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--6-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./share-post.vue?vue&type=style&index=1&id=97b9bdd4&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Student/components/post/share-post.vue?vue&type=style&index=1&id=97b9bdd4&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Student/components/post/view-post.vue?vue&type=style&index=0&id=7c9d2fb0&scoped=true&lang=css&":
 /*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Student/components/post/view-post.vue?vue&type=style&index=0&id=7c9d2fb0&scoped=true&lang=css& ***!
@@ -66058,63 +66135,60 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "row" }, [
     _c("div", { staticClass: "col-md-8 offset-2" }, [
-      _c(
-        "div",
-        { staticClass: "form-group" },
-        [
-          _vm._m(0),
-          _vm._v(" "),
-          _c("label", { staticClass: "weight-500" }, [
-            _vm._v("Choose Category")
-          ]),
-          _vm._v(" "),
-          _c("auto-complete", {
-            staticClass: "form-control custom-select",
-            attrs: { items: _vm.categories, value: "Subject_name" },
-            on: {
-              input: function($event) {
-                return _vm.selectPostType($event)
-              }
-            }
+      _c("div", { staticClass: "form-group" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("input", {
+            staticClass: "form-control",
+            attrs: { type: "text" },
+            domProps: { value: _vm.selected_subject.Subject_name }
           })
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "form-group" },
-        [
-          _c("label", { staticClass: "weight-500" }, [
-            _vm._v("Select Subject")
-          ]),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c(
+            "div",
+            { staticClass: "col-md-4" },
+            _vm._l(_vm.primary_subject_list, function(subject) {
+              return _c("div", { key: subject.id, staticClass: "card" }, [
+                _vm._v(_vm._s(subject.Subject_name))
+              ])
+            }),
+            0
+          ),
           _vm._v(" "),
-          _c("auto-complete", {
-            staticClass: "form-control custom-select",
-            on: {
-              input: function($event) {
-                return _vm.editSubject($event)
-              }
-            }
-          })
-        ],
-        1
-      )
+          _c(
+            "div",
+            { staticClass: "col-md-8" },
+            _vm._l(_vm.subject_list, function(subject) {
+              return _c("div", { key: subject.id, staticClass: "card" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "card-body",
+                    on: {
+                      click: function($event) {
+                        return _vm.getSubject(subject.id)
+                      }
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\r\n                                " +
+                        _vm._s(subject.Subject_name) +
+                        "\r\n                                "
+                    )
+                  ]
+                )
+              ])
+            }),
+            0
+          )
+        ])
+      ])
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "text-center" }, [
-      _c("p", { staticClass: "title weight-600 font-size-16 text-black" }, [
-        _vm._v("Choose Category")
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -66607,7 +66681,19 @@ var render = function() {
               [
                 _c("div", [
                   _c("div", { staticClass: "d-flex mt-2" }, [
-                    _c("div", { staticClass: "avatar" }),
+                    _c("div", { staticClass: "avatar" }, [
+                      _c("img", {
+                        directives: [
+                          {
+                            name: "lazy",
+                            rawName: "v-lazy",
+                            value: "/images/4.jpg",
+                            expression: "'/images/4.jpg'"
+                          }
+                        ],
+                        staticClass: "avatar-img rounded-circle"
+                      })
+                    ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "info-post ml-2" }, [
                       _c("p", { staticClass: "username" }, [
@@ -94551,7 +94637,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-__webpack_require__(/*! ./bootstrap */ "./resources/js/Student/bootstrap.js");
+__webpack_require__(/*! ./../bootstrap */ "./resources/js/bootstrap.js");
 
 __webpack_require__(/*! ../../atlantis/js/core/jquery.3.2.1.min */ "./resources/atlantis/js/core/jquery.3.2.1.min.js");
 
@@ -94675,64 +94761,6 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   store: store,
   router: router
 });
-
-/***/ }),
-
-/***/ "./resources/js/Student/bootstrap.js":
-/*!*******************************************!*\
-  !*** ./resources/js/Student/bootstrap.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/**
- * We'll load jQuery and the Bootstrap jQuery plugin which provides support
- * for JavaScript based Bootstrap features such as modals and tabs. This
- * code may be modified to fit the specific needs of your application.
- */
-
-try {
-  window.Popper = __webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js")["default"];
-  window.$ = window.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
-
-  __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.js");
-} catch (e) {}
-/**
- * We'll load the axios HTTP library which allows us to easily issue requests
- * to our Laravel back-end. This library automatically handles sending the
- * CSRF token as a header based on the value of the "XSRF" token cookie.
- */
-
-
-window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-/**
- * Next we will register the CSRF Token as a common header with Axios so that
- * all outgoing HTTP requests automatically have it attached. This is just
- * a simple convenience so we don't have to attach every token manually.
- */
-
-var token = document.head.querySelector('meta[name="csrf-token"]');
-
-if (token) {
-  window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
-} else {
-  console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
-}
-/**
- * Echo exposes an expressive API for subscribing to channels and listening
- * for events that are broadcast by Laravel. Echo and event broadcasting
- * allows your team to easily build robust real-time web applications.
- */
-// import Echo from 'laravel-echo'
-// window.Pusher = require('pusher-js');
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: process.env.MIX_PUSHER_APP_KEY,
-//     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-//     encrypted: true
-// });
 
 /***/ }),
 
@@ -95197,7 +95225,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _share_post_vue_vue_type_template_id_97b9bdd4_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./share-post.vue?vue&type=template&id=97b9bdd4&scoped=true& */ "./resources/js/Student/components/post/share-post.vue?vue&type=template&id=97b9bdd4&scoped=true&");
 /* harmony import */ var _share_post_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./share-post.vue?vue&type=script&lang=js& */ "./resources/js/Student/components/post/share-post.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _share_post_vue_vue_type_style_index_1_id_97b9bdd4_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./share-post.vue?vue&type=style&index=1&id=97b9bdd4&scoped=true&lang=css& */ "./resources/js/Student/components/post/share-post.vue?vue&type=style&index=1&id=97b9bdd4&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -95205,7 +95235,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _share_post_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _share_post_vue_vue_type_template_id_97b9bdd4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
   _share_post_vue_vue_type_template_id_97b9bdd4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
@@ -95234,6 +95264,22 @@ component.options.__file = "resources/js/Student/components/post/share-post.vue"
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_share_post_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./share-post.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Student/components/post/share-post.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_share_post_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/Student/components/post/share-post.vue?vue&type=style&index=1&id=97b9bdd4&scoped=true&lang=css&":
+/*!**********************************************************************************************************************!*\
+  !*** ./resources/js/Student/components/post/share-post.vue?vue&type=style&index=1&id=97b9bdd4&scoped=true&lang=css& ***!
+  \**********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_share_post_vue_vue_type_style_index_1_id_97b9bdd4_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader!../../../../../node_modules/css-loader??ref--6-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--6-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./share-post.vue?vue&type=style&index=1&id=97b9bdd4&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Student/components/post/share-post.vue?vue&type=style&index=1&id=97b9bdd4&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_share_post_vue_vue_type_style_index_1_id_97b9bdd4_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_share_post_vue_vue_type_style_index_1_id_97b9bdd4_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_share_post_vue_vue_type_style_index_1_id_97b9bdd4_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_share_post_vue_vue_type_style_index_1_id_97b9bdd4_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_share_post_vue_vue_type_style_index_1_id_97b9bdd4_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
@@ -95474,6 +95520,22 @@ __webpack_require__.r(__webpack_exports__);
         reject(err);
       });
     });
+  },
+  getSubjectList: function getSubjectList(_ref6, data) {
+    var commit = _ref6.commit;
+    commit('set_subject', data.subject_id);
+    return new Promise(function (resolve, reject) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default()({
+        url: window.App.baseUrl + '/api/get-subject-list/' + data.subject_id,
+        method: 'GET'
+      }).then(function (resp) {
+        var subject_data = resp.data.success;
+        commit('get_subject_list', subject_data);
+        resolve(resp);
+      })["catch"](function (err) {
+        reject(err);
+      });
+    });
   }
 });
 
@@ -95522,6 +95584,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   get_categories: function get_categories(state, categories) {
     state.categories = categories;
+    state.new_post.subject_list = categories;
   },
   get_subjects: function get_subjects(state, subjects) {
     state.subjects = subjects;
@@ -95537,6 +95600,18 @@ __webpack_require__.r(__webpack_exports__);
     state.postView.categories = data.categories;
     state.postView.related_posts = data.related_posts;
     state.postView.post_content = data.post_content;
+  },
+  set_subject: function set_subject(state, data) {
+    state.new_post.selected_primary_subject_id = data;
+    state.new_post.selected_subject = state.new_post.subject_list.find(function (node) {
+      return node.id === data;
+    });
+  },
+  get_subject_list: function get_subject_list(state, data) {
+    state.new_post.primary_subject_list = [];
+    state.new_post.primary_subject_list = state.new_post.subject_list;
+    state.new_post.subject_list = [];
+    state.new_post.subject_list = data.subject_list;
   }
 });
 
@@ -95556,7 +95631,13 @@ var state = {
     post_type: 'article',
     post_content: '',
     post_subject: '',
-    post_heading: ''
+    post_heading: '',
+    selected_subject_id: '',
+    selected_subject: '',
+    selected_primary_subject_id: '',
+    parent_subject_id: '',
+    subject_list: [],
+    primary_subject_list: []
   },
   categories: [],
   subjects: [],
@@ -95568,6 +95649,64 @@ var state = {
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = (state);
+
+/***/ }),
+
+/***/ "./resources/js/bootstrap.js":
+/*!***********************************!*\
+  !*** ./resources/js/bootstrap.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/**
+ * We'll load jQuery and the Bootstrap jQuery plugin which provides support
+ * for JavaScript based Bootstrap features such as modals and tabs. This
+ * code may be modified to fit the specific needs of your application.
+ */
+
+try {
+  window.Popper = __webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js")["default"];
+  window.$ = window.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+
+  __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.js");
+} catch (e) {}
+/**
+ * We'll load the axios HTTP library which allows us to easily issue requests
+ * to our Laravel back-end. This library automatically handles sending the
+ * CSRF token as a header based on the value of the "XSRF" token cookie.
+ */
+
+
+window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+/**
+ * Next we will register the CSRF Token as a common header with Axios so that
+ * all outgoing HTTP requests automatically have it attached. This is just
+ * a simple convenience so we don't have to attach every token manually.
+ */
+
+var token = document.head.querySelector('meta[name="csrf-token"]');
+
+if (token) {
+  window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+} else {
+  console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+}
+/**
+ * Echo exposes an expressive API for subscribing to channels and listening
+ * for events that are broadcast by Laravel. Echo and event broadcasting
+ * allows your team to easily build robust real-time web applications.
+ */
+// import Echo from 'laravel-echo'
+// window.Pusher = require('pusher-js');
+// window.Echo = new Echo({
+//     broadcaster: 'pusher',
+//     key: process.env.MIX_PUSHER_APP_KEY,
+//     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
+//     encrypted: true
+// });
 
 /***/ }),
 
@@ -96192,7 +96331,7 @@ var FormMixin = {
 
 /***/ }),
 
-/***/ 1:
+/***/ 2:
 /*!*******************************************!*\
   !*** multi ./resources/js/Student/app.js ***!
   \*******************************************/

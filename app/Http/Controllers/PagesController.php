@@ -7,53 +7,65 @@ use Auth;
 
 class PagesController extends Controller
 {
+    public $AuthUserType='guest';
+    public function __construct()
+    {
+        $AuthUser=Auth::user();
+            if($AuthUser==null){
+                $this->AuthUserType='guest';   
+            }else if($AuthUser->student()->count()>0){
+                $this->AuthUserType='student';   
+            }else{
+                $this->AuthUserType='seeker';   
+            }
+    }
     public function  root(){
         if(Auth::check()){
-            return view('home.dashboard');
+            return view($this->AuthUserType.'.home');
         }else{
             return view('guest.welcome');
         }
     }
 
     public function dashboard(){
-        return view('home.dashboard');
-    }
-    public function SthubPost(){
-        return view('post.view-post');
+        return view($this->AuthUserType.'.home');
     }
     public function createPost(){
-        return view('post.create-post');
+        return view('student.create-post');
     }
     public function editPost(){
-        return view('post.edit-post');
+        return view('student.edit-post');
     }
 
     public function explore(){
-        return view('explore');
+        return view('guest.explore');
     }
 
     public function profile(){
-        return view('profile');
+        return view('student.profile');
     }
 
     public function checkin(){
-        return view('user.checkin');
+        return view('seeker.checkin');
     }
 
     public function classroomList(){
-        return view('classroomList');
+        return view('student.classroomList');
     }
 
     public function classroom(){
-        return view('classroom');
+        return view('student.classroom');
     }
     public function loginPage(){
-        return view('auth.login');
+        return view('guest.auth.login');
+    }
+    public function registerPage(){
+        return view('guest.auth.register');
     }
     public function sharePost(){
-        return view('post.share-post');
+        return view('student.share-post');
     }
     public function viewPost(){
-        return view('post.view-post');
+        return view($this->AuthUserType.'.view-post');
     }
 }

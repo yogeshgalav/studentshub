@@ -42,18 +42,12 @@ class AuthController extends Controller
                 Log::info($user->first_name." ".$user->last_name." (User ID # ".$user->id.") logged in from IP Address ".$request->ip());
 
                 $success['token'] = $user->createToken('Sthub')->accessToken;
-
-                if (is_null($user->onboarded_at)) {
-                    $success['redirectUrl'] = '/checkin';
-                } else {
-                    $success['redirectUrl'] = '/dashboard';
-                }
                 
-                return response()->json(['success' => $success]);
+                return redirect('/');
             }
         }
         Log::warning("An invalid attempt to login was made for user ".$request->email." from IP Address ".$request->ip());
-        return response()->json(['error'=>'Unauthorised'], 401);
+        return redirect('/login?error=unauthorised');
     }
 
     public function checkSubdomain($subdomain, $user)
@@ -93,10 +87,14 @@ class AuthController extends Controller
     {
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
-        $user = User::create($input);
-        $success['token'] =  $user->createToken('MyApp')->accessToken;
-        $success['name'] =  $user->name;
-        return response()->json(['success'=>$success], $this->successStatus);
+        $user = User::create([
+            'first_name'=>$input['first_name'],
+            'last_name'=>$input['last_name'],
+            'full_name'=>$input['full_name'],
+            'password'=>$input['password'],
+        ]);
+        Auth::login($user);
+        return redirect('/');
     }
 
     /**

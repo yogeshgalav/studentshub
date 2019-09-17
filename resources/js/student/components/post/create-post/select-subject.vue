@@ -3,16 +3,22 @@
             <div class="col-md-8 offset-2">
                 
                 <div class="form-group">
-                   <div class="text-center"> <p class="title weight-600 font-size-16 text-black">Choose Category</p></div>
-                    <label class="weight-500">Choose Category</label>
-                    <auto-complete class="form-control custom-select" :items="categories" value="Subject_name" @input="selectPostType($event)" />
-                        
+                    <div class="row">
+                        <input type="text" :value="selected_subject.Subject_name" class="form-control">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card" v-for="subject in primary_subject_list" :key="subject.id">{{subject.Subject_name}}</div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card" v-for="subject in subject_list" :key="subject.id">
+                                <div class="card-body" @click="getSubject(subject.id)">
+                                {{subject.Subject_name}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>      
                 </div>
-                <div class="form-group">
- <label class="weight-500">Select Subject</label>
-<auto-complete class="form-control custom-select" @input="editSubject($event)" />
-                </div>
-               
             </div>
         </div>
    
@@ -27,12 +33,17 @@ export default {
     },
     computed:{
 		...mapState({
-			'categories': state=>state.categories,
+			'primary_subject_list': state=>state.new_post.primary_subject_list,
+			'subject_list': state=>state.new_post.subject_list,
+			'selected_subject': state=>state.new_post.selected_subject,
 		}),
 	},
     methods:{
         editSubject(event){
             this.$store.dispatch('createPost',{post_subject:event.target.value});
+        },
+        getSubject(subject_id){
+            this.$store.dispatch('getSubjectList',{subject_id:subject_id});
         }
     }
 }

@@ -3,7 +3,7 @@
     <div class="container-fluid">
         <div class="row">
         <div class="col-md-6 ">
-            <a class="btn btn-white btn-rounded btn-lg fixed-back" @click="$router.go(-1)"><i class="fa fa-arrow-left"></i> Back </a>
+            <button class="btn btn-white btn-rounded btn-lg fixed-back"><i class="fa fa-arrow-left"></i> Back </button>
             </div>
             <div class="col-md-6 text-right">
             <button class="btn btn-white btn-rounded btn-lg"><i class="fa fa-share-alt"></i>  </button>
@@ -49,12 +49,16 @@
             <div class="col-md-3">
                 <recent-post></recent-post>
                 </div>
-        </div><div class="row">
-                 <post-interaction></post-interaction>
         </div>
     </div>
-    
-<site-footer></site-footer>
+    <div class="container ptb-50">
+    <div class="row">
+        <div class="col-md-9">
+           
+            </div>
+        </div>
+    </div>
+     <post-interaction></post-interaction>
 </section> 
 </template>
 <style scoped>
@@ -67,11 +71,10 @@
 <script>
 import {mapState} from 'vuex';
 
-import CategoryFilter from '../components/CategoryFilter';
-import RecentPost from '../components/RecentPost';
-import SiteFooter from '../components/SiteFooter';
-import PostInteraction from '../components/PostInteraction';
-
+import CategoryFilter from '../../../components/CategoryFilter';
+import RecentPost from '../../../components/RecentPost';
+import SiteFooter from '../../../components/SiteFooter';
+import PostInteraction from '../../../components/PostInteraction';
 export default {
     components: 
     {
@@ -79,13 +82,13 @@ export default {
     },
     computed:{
 		...mapState({
-			'categories': state=>state.explore.postView.categories,
-			'postContent': state=>state.explore.postView.post_content,
-			'relatedPost': state=>state.explore.postView.related_posts,
+			'categories': state=>state.postView.categories,
+			'postContent': state=>state.postView.post_content,
+			'relatedPost': state=>state.postView.related_posts,
 		}),
 	},
     mounted(){
-        this.$store.dispatch('explore/getPostContent',this.$route.params.id);
+        this.$store.dispatch('getPostContent',this.$route.params.id);
     }
 }
 </script>
