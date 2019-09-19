@@ -4,16 +4,21 @@
         <div class="col-md-6 ">
             <a class="btn btn-white btn-rounded btn-lg fixed-back" @click="$router.go(-1)"><i class="fa fa-arrow-left"></i> Back </a>
             </div>
-            <div class="col-md-6 text-right">
-                                    <ul class="social-network social-circle">
-                       				
-
-        <button class="btn btn-white btn-rounded btn-lg fixed-back icoFacebook"><i class="fa fa-share-alt"></i>  </button>
-        <button class="btn btn-white btn-rounded btn-lg fixed-back icoTwitter"><i class="fa fa-share-alt"></i>  </button>
-        <button class="btn btn-white btn-rounded btn-lg fixed-back icoInstagram"><i class="fa fa-share-alt"></i>  </button>
-        <button class="btn btn-white btn-rounded btn-lg fixed-back"><i class="fa fa-share-alt"></i>  </button>
-             </ul>
-            </div>
+            <div class="col-md-6">
+				<div class="row">
+					<div class="col-md-10 text-right">
+						 <ul class="social-network social-circle" v-if="sharetoggle">
+                        <li><a href="#" @click="newWindow('https://www.facebook.com/studentshub.in')" class="icoFacebook" title="Facebook"><i class="fab fa-facebook"></i></a></li>
+                        <li><a href="#" @click="newWindow('https://www.twitter.com/studentshub_in')" target="_blank" class="icoTwitter" title="Twitter"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="#" @click="newWindow('https://www.instagram.com/studentshub.in')" target="_blank" class="icoInstagram" title="Instagram"><i class="fab fa-instagram"></i></a></li>
+                        <li><a href="#" target="_blank" class="icoLinkedin" title="Linkedin"><i class="fab fa-linkedin"></i></a></li>
+                    </ul>	
+					</div>
+									<div class="col-md-2 text-right">
+				<button class="btn btn-white btn-rounded btn-lg" @click="sharetoggle=!sharetoggle"><i class="fa fa-share-alt"></i>  </button>
+				</div>
+				</div>
+				</div>
         </div></div>
 </template>
 
@@ -97,6 +102,12 @@ a.socialIcon:hover, .socialHoverClass {
 
 <script>
 export default {
+	data()
+	{
+		return{
+sharetoggle:''
+		};
+	},
     
 }
 </script>

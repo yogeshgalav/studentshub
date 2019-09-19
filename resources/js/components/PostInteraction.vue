@@ -32,7 +32,10 @@
     width: 100%;
 	clear: both;
     bottom: 0;
-	padding: 15px 0px 10px 0px;
+    z-index: 999;
+    padding: 15px 0px 10px 0px;
+    left: 0;
+    right: 0;
     margin: 0;
     /* ATTENTION! The following elements below 
     can be set to whatever your heart desires */

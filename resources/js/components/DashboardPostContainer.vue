@@ -1,0 +1,99 @@
+<template>
+<div>
+
+<div v-for="post in posts" :key="post.id">
+	<div class="card">
+		<div  class="row">
+			   <div class="col-md-3">
+				   <div class="item">
+					   <span class="badge">Food & Drink
+
+					   </span>
+					   <span class="badge_like p-1 font-size-12">
+						   <i class="fa fa-thumbs-up text-black">
+					   </i> 10 |  <i class="fa fa-thumbs-down text-black">
+					   </i>  20
+					   </span>
+                            <img class="card-img-top img-responsive" src="/images/blogpost.jpg" alt="Card image cap">
+							</div>
+                        </div>
+        <div class="col-md-9">
+							<div class="card-post" @click="redirectPostView(post.id)">
+						<div>
+									<div class="d-flex mt-2">
+										<div class="info-post">
+											<h3 class="card-title pl-0 font-size-16">
+										<a href="#" class="weight-600 text-black">
+											{{post.heading}}
+										</a>
+									</h3>
+										<div class="ml-1">
+												<span class="username font-size-12">{{post.user_name}}</span> / 
+											<span class="date text-muted font-size-12">{{post.created_at}}</span>
+                    <p class="mb-0">fdsgsgh gfjgf</p>
+					<a href="#" class="btn p-0 btn-link font-size-12">Read Continue <i class="fa fa-arrow-right"></i></a>
+										</div>
+										</div>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+                     
+    </div>
+		</div>
+</div>
+      
+    </div>
+   
+</template>
+<style scoped>
+.mb-0 
+{
+	margin-bottom: 0 !important;
+}
+.item
+{
+	position:relative;
+}
+.badge
+{
+	 position: absolute;
+    left:0px;
+    top:0px;
+	background: rgba(0, 0, 0, 0.6);
+  color:#fff;
+  border:0px;
+  margin-top:2px;
+  margin-left:1px;
+
+}
+.badge_like
+{
+	 position: absolute;
+    right:0px;
+    bottom:0px;
+	background: rgba(255, 255, 255, 0.8);
+  border:0px;
+
+}
+.btn-link i
+{
+	color: #090355;
+}
+.btn-link 
+{
+	text-transform: uppercase !important;
+}
+</style>
+
+<script>
+export default {
+	props:['posts'],
+	methods:{
+		redirectPostView(post_id){
+                this.$router.push({path:'/post/1'})
+            }
+	}
+}
+</script>

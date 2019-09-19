@@ -2992,6 +2992,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['like', 'total_likes', 'total_dislikes', 'total_views']
 });
@@ -3104,7 +3107,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      sharetoggle: ''
+    };
+  }
+});
 
 /***/ }),
 
@@ -3127,6 +3141,10 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
 //
 //
 //
@@ -8019,7 +8037,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.circle_box[data-v-45996692]\r\n{\r\n\r\n    border-radius:50%;\r\n    margin: 2px 2px 0px 2px;\r\n    padding: 8px 10px;\r\n    background:#fff;\r\n    border:1px solid #ccc;\n}\n.interaction[data-v-45996692]{\r\n    position: fixed;\r\n    width: 100%;\r\n\tclear: both;\r\n    bottom: 0;\r\n\tpadding: 15px 0px 10px 0px;\r\n    margin: 0;\r\n    /* ATTENTION! The following elements below \r\n    can be set to whatever your heart desires */\r\n     /* REMEMBER height = padding-bottom */\r\n    background: #fff;\r\n    border-top:1px solid #ccc;\n}\r\n", ""]);
+exports.push([module.i, "\n.circle_box[data-v-45996692]\r\n{\r\n\r\n    border-radius:50%;\r\n    margin: 2px 2px 0px 2px;\r\n    padding: 8px 10px;\r\n    background:#fff;\r\n    border:1px solid #ccc;\n}\n.interaction[data-v-45996692]{\r\n    position: fixed;\r\n    width: 100%;\r\n\tclear: both;\r\n    bottom: 0;\r\n    z-index: 999;\r\n    padding: 15px 0px 10px 0px;\r\n    left: 0;\r\n    right: 0;\r\n    margin: 0;\r\n    /* ATTENTION! The following elements below \r\n    can be set to whatever your heart desires */\r\n     /* REMEMBER height = padding-bottom */\r\n    background: #fff;\r\n    border-top:1px solid #ccc;\n}\r\n", ""]);
 
 // exports
 
@@ -8038,7 +8056,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n\r\n/* footer social icons */\n.social-network a.icoRss:hover {\r\n\tbackground-color: #F56505;\n}\n.social-network a.icoFacebook:hover {\r\n\tbackground-color:#3B5998;\n}\n.social-network a.icoTwitter:hover {\r\n\tbackground-color:#33ccff;\n}\n.social-network a.icoGoogle:hover {\r\n\tbackground-color:#BD3518;\n}\n.social-network a.icoVimeo:hover {\r\n\tbackground-color:#0590B8;\n}\n.social-network a.icoLinkedin:hover {\r\n\tbackground-color:#007bb7;\n}\n.social-network a.icoRss:hover i, .social-network a.icoFacebook:hover i, .social-network a.icoTwitter:hover i,\r\n.social-network a.icoGoogle:hover i, .social-network a.icoVimeo:hover i, .social-network a.icoLinkedin:hover i {\r\n\tcolor:#fff;\n}\na.socialIcon:hover, .socialHoverClass {\r\n\tcolor:#44BCDD;\n}\n.social-circle li a {\r\n\tdisplay:inline-block;\r\n\tposition:relative;\r\n\tmargin:0 auto 0 auto;\r\n\tborder-radius:50%;\r\n\ttext-align:center;\r\n\twidth: 50px;\r\n\theight: 50px;\r\n\tfont-size:20px;\n}\n.social-circle li i {\r\n\tmargin:0;\r\n\tline-height:50px;\r\n\ttext-align: center;\n}\n.social-circle li a:hover i, .triggeredHover {\r\n\t-moz-transform: rotate(360deg);\r\n\t-webkit-transform: rotate(360deg);\r\n\t-ms--transform: rotate(360deg);\r\n\ttransform: rotate(360deg);\r\n\ttransition: all 0.2s;\n}\n.social-circle i {\r\n\tcolor: #fff;\r\n\ttransition: all 0.8s;\n}\n.social-circle a {\r\n background-color: #333;\n}\n.fixed-back\r\n{\r\n    top:13.6%;\r\n    position: fixed;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n\r\n/* footer social icons */\n.social-network a.icoRss:hover {\r\n\tbackground-color: #F56505;\n}\n.social-network a.icoFacebook:hover {\r\n\tbackground-color:#3B5998;\n}\n.social-network a.icoTwitter:hover {\r\n\tbackground-color:#33ccff;\n}\n.social-network a.icoGoogle:hover {\r\n\tbackground-color:#BD3518;\n}\n.social-network a.icoVimeo:hover {\r\n\tbackground-color:#0590B8;\n}\n.social-network a.icoLinkedin:hover {\r\n\tbackground-color:#007bb7;\n}\n.social-network a.icoRss:hover i, .social-network a.icoFacebook:hover i, .social-network a.icoTwitter:hover i,\r\n.social-network a.icoGoogle:hover i, .social-network a.icoVimeo:hover i, .social-network a.icoLinkedin:hover i {\r\n\tcolor:#fff;\n}\na.socialIcon:hover, .socialHoverClass {\r\n\tcolor:#44BCDD;\n}\n.social-circle li a {\r\n\tdisplay:inline-block;\r\n\tposition:relative;\r\n\tmargin:0 auto 0 auto;\r\n\tborder-radius:50%;\r\n\ttext-align:center;\r\n\twidth: 50px;\r\n\theight: 50px;\r\n\tfont-size:20px;\n}\n.social-circle li i {\r\n\tmargin:0;\r\n\tline-height:50px;\r\n\ttext-align: center;\n}\n.social-circle li a:hover i, .triggeredHover {\r\n\t-moz-transform: rotate(360deg);\r\n\t-webkit-transform: rotate(360deg);\r\n\t-ms--transform: rotate(360deg);\r\n\ttransform: rotate(360deg);\r\n\ttransition: all 0.2s;\n}\n.social-circle i {\r\n\tcolor: #fff;\r\n\ttransition: all 0.8s;\n}\n.social-circle a {\r\n background-color: #333;\n}\n.fixed-back\r\n{\r\n    top:13.6%;\r\n    position: fixed;\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -53320,18 +53338,18 @@ var render = function() {
           "transition-group",
           { staticClass: "slides-group", attrs: { tag: "ul", name: "fade" } },
           _vm._l(_vm.carouselSlides, function(slide) {
-            return slide.isActive === true
-              ? _c(
-                  "li",
-                  { key: slide.index },
-                  [
-                    _vm._t("default", [_vm._v("Slide " + _vm._s(slide))], {
+            return _c(
+              "li",
+              { key: slide.index },
+              [
+                slide.isActive === true
+                  ? _vm._t("default", [_vm._v("Slide " + _vm._s(slide))], {
                       slide: slide
                     })
-                  ],
-                  2
-                )
-              : _vm._e()
+                  : _vm._e()
+              ],
+              2
+            )
           }),
           0
         )
@@ -53597,23 +53615,6 @@ var render = function() {
                           rawName: "v-lazy",
                           value: "/images/5.jpg",
                           expression: "'/images/5.jpg'"
-                        }
-                      ]
-                    })
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  { staticClass: "btn btn-white", attrs: { href: "#" } },
-                  [
-                    _c("img", {
-                      directives: [
-                        {
-                          name: "lazy",
-                          rawName: "v-lazy",
-                          value: "/images/slider.jpg",
-                          expression: "'/images/slider.jpg'"
                         }
                       ]
                     })
@@ -54217,7 +54218,94 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _vm._m(0)
+      _c("div", { staticClass: "col-md-6" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-md-10 text-right" }, [
+            _vm.sharetoggle
+              ? _c("ul", { staticClass: "social-network social-circle" }, [
+                  _c("li", [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "icoFacebook",
+                        attrs: { href: "#", title: "Facebook" },
+                        on: {
+                          click: function($event) {
+                            return _vm.newWindow(
+                              "https://www.facebook.com/studentshub.in"
+                            )
+                          }
+                        }
+                      },
+                      [_c("i", { staticClass: "fab fa-facebook" })]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "icoTwitter",
+                        attrs: {
+                          href: "#",
+                          target: "_blank",
+                          title: "Twitter"
+                        },
+                        on: {
+                          click: function($event) {
+                            return _vm.newWindow(
+                              "https://www.twitter.com/studentshub_in"
+                            )
+                          }
+                        }
+                      },
+                      [_c("i", { staticClass: "fab fa-twitter" })]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "icoInstagram",
+                        attrs: {
+                          href: "#",
+                          target: "_blank",
+                          title: "Instagram"
+                        },
+                        on: {
+                          click: function($event) {
+                            return _vm.newWindow(
+                              "https://www.instagram.com/studentshub.in"
+                            )
+                          }
+                        }
+                      },
+                      [_c("i", { staticClass: "fab fa-instagram" })]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(0)
+                ])
+              : _vm._e()
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-2 text-right" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-white btn-rounded btn-lg",
+                on: {
+                  click: function($event) {
+                    _vm.sharetoggle = !_vm.sharetoggle
+                  }
+                }
+              },
+              [_c("i", { staticClass: "fa fa-share-alt" })]
+            )
+          ])
+        ])
+      ])
     ])
   ])
 }
@@ -54226,41 +54314,15 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-6 text-right" }, [
-      _c("ul", { staticClass: "social-network social-circle" }, [
-        _c(
-          "button",
-          {
-            staticClass:
-              "btn btn-white btn-rounded btn-lg fixed-back icoFacebook"
-          },
-          [_c("i", { staticClass: "fa fa-share-alt" })]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass:
-              "btn btn-white btn-rounded btn-lg fixed-back icoTwitter"
-          },
-          [_c("i", { staticClass: "fa fa-share-alt" })]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass:
-              "btn btn-white btn-rounded btn-lg fixed-back icoInstagram"
-          },
-          [_c("i", { staticClass: "fa fa-share-alt" })]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          { staticClass: "btn btn-white btn-rounded btn-lg fixed-back" },
-          [_c("i", { staticClass: "fa fa-share-alt" })]
-        )
-      ])
+    return _c("li", [
+      _c(
+        "a",
+        {
+          staticClass: "icoLinkedin",
+          attrs: { href: "#", target: "_blank", title: "Linkedin" }
+        },
+        [_c("i", { staticClass: "fab fa-linkedin" })]
+      )
     ])
   }
 ]
@@ -54358,16 +54420,18 @@ var render = function() {
       _c("category-filter", { attrs: { categories: _vm.categories } }),
       _vm._v(" "),
       _c("div", { staticClass: "container ptb-50" }, [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-md-9" }, [
-            _c("h3", [_vm._v(_vm._s(_vm.postContent.heading))]),
+        _c("div", { staticClass: "col-md-10 col-10 center-col" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-md-9" }, [
+              _c("h3", [_vm._v(_vm._s(_vm.postContent.heading))]),
+              _vm._v(" "),
+              _c("p", [_vm._v(_vm._s(_vm.postContent.content))])
+            ]),
             _vm._v(" "),
-            _c("p", [_vm._v(_vm._s(_vm.postContent.content))])
+            _c("div", { staticClass: "col-md-3" }, [_c("recent-post")], 1)
           ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-md-3" }, [_c("recent-post")], 1)
-        ]),
-        _c("div", { staticClass: "row" }, [_c("post-interaction")], 1)
+          _c("div", { staticClass: "row" }, [_c("post-interaction")], 1)
+        ])
       ]),
       _vm._v(" "),
       _c("site-footer")

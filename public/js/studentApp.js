@@ -2701,6 +2701,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['like', 'total_likes', 'total_dislikes', 'total_views']
 });
@@ -9596,7 +9599,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.circle_box[data-v-45996692]\r\n{\r\n\r\n    border-radius:50%;\r\n    margin: 2px 2px 0px 2px;\r\n    padding: 8px 10px;\r\n    background:#fff;\r\n    border:1px solid #ccc;\n}\n.interaction[data-v-45996692]{\r\n    position: fixed;\r\n    width: 100%;\r\n\tclear: both;\r\n    bottom: 0;\r\n\tpadding: 15px 0px 10px 0px;\r\n    margin: 0;\r\n    /* ATTENTION! The following elements below \r\n    can be set to whatever your heart desires */\r\n     /* REMEMBER height = padding-bottom */\r\n    background: #fff;\r\n    border-top:1px solid #ccc;\n}\r\n", ""]);
+exports.push([module.i, "\n.circle_box[data-v-45996692]\r\n{\r\n\r\n    border-radius:50%;\r\n    margin: 2px 2px 0px 2px;\r\n    padding: 8px 10px;\r\n    background:#fff;\r\n    border:1px solid #ccc;\n}\n.interaction[data-v-45996692]{\r\n    position: fixed;\r\n    width: 100%;\r\n\tclear: both;\r\n    bottom: 0;\r\n    z-index: 999;\r\n    padding: 15px 0px 10px 0px;\r\n    left: 0;\r\n    right: 0;\r\n    margin: 0;\r\n    /* ATTENTION! The following elements below \r\n    can be set to whatever your heart desires */\r\n     /* REMEMBER height = padding-bottom */\r\n    background: #fff;\r\n    border-top:1px solid #ccc;\n}\r\n", ""]);
 
 // exports
 
