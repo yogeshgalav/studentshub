@@ -1,14 +1,6 @@
 <template>
 <section class="pt-100">
-    <div class="container-fluid">
-        <div class="row">
-        <div class="col-md-6 ">
-            <a class="btn btn-white btn-rounded btn-lg fixed-back" @click="$router.go(-1)"><i class="fa fa-arrow-left"></i> Back </a>
-            </div>
-            <div class="col-md-6 text-right">
-            <button class="btn btn-white btn-rounded btn-lg"><i class="fa fa-share-alt"></i>  </button>
-            </div>
-        </div></div>
+   <post-view-header></post-view-header>
 <div class="container ptb-50">
     <div class="row">
         <div class="col-md-12 text-center">
@@ -58,11 +50,7 @@
 </section> 
 </template>
 <style scoped>
-.fixed-back
-{
-    top:13.6%;
-    position: fixed;
-}
+
 </style>
 <script>
 import {mapState} from 'vuex';
@@ -71,11 +59,13 @@ import CategoryFilter from '../components/CategoryFilter';
 import RecentPost from '../components/RecentPost';
 import SiteFooter from '../components/SiteFooter';
 import PostInteraction from '../components/PostInteraction';
+import PostViewHeader from '../components/PostViewHeader';
 
 export default {
     components: 
     {
-        CategoryFilter, RecentPost, SiteFooter,PostInteraction
+        CategoryFilter, RecentPost, SiteFooter,PostInteraction,
+        PostViewHeader
     },
     computed:{
 		...mapState({

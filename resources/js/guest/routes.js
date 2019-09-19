@@ -10,6 +10,12 @@ const routes = [
     { path: '/login', name:'login', component: LoginComponent },
     { path: '/get-started', name:'register', component: RegisterComponent },
     {
+      path: '/auth/:provider/callback',
+      component: {
+        template: '<div class="auth-component"></div>'
+      }
+    },
+    {
         path: '/post/:id',
         component: ViewPost,
         name: 'ViewPost',

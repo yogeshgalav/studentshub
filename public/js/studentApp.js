@@ -67091,15 +67091,47 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _vm._m(2),
+            _c("li", [
+              _c(
+                "a",
+                {
+                  staticClass: "icoTwitter",
+                  attrs: { href: "#", target: "_blank", title: "Twitter" },
+                  on: {
+                    click: function($event) {
+                      return _vm.newWindow(
+                        "https://www.twitter.com/studentshub_in"
+                      )
+                    }
+                  }
+                },
+                [_c("i", { staticClass: "fab fa-twitter" })]
+              )
+            ]),
             _vm._v(" "),
-            _vm._m(3),
+            _c("li", [
+              _c(
+                "a",
+                {
+                  staticClass: "icoInstagram",
+                  attrs: { href: "#", target: "_blank", title: "Instagram" },
+                  on: {
+                    click: function($event) {
+                      return _vm.newWindow(
+                        "https://www.instagram.com/studentshub.in"
+                      )
+                    }
+                  }
+                },
+                [_c("i", { staticClass: "fab fa-instagram" })]
+              )
+            ]),
             _vm._v(" "),
-            _vm._m(4)
+            _vm._m(2)
           ])
         ]),
         _vm._v(" "),
-        _vm._m(5)
+        _vm._m(3)
       ])
     ])
   ])
@@ -67123,36 +67155,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-md-12" }, [
       _c("div", { staticClass: "divider mt-5 mb-3" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c(
-        "a",
-        {
-          staticClass: "icoTwitter",
-          attrs: { href: "#", target: "_blank", title: "Twitter" }
-        },
-        [_c("i", { staticClass: "fab fa-twitter" })]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c(
-        "a",
-        {
-          staticClass: "icoInstagram",
-          attrs: { href: "#", target: "_blank", title: "Instagram" }
-        },
-        [_c("i", { staticClass: "fab fa-instagram" })]
-      )
     ])
   },
   function() {

@@ -23,6 +23,7 @@ import VueAxios from 'vue-axios'
 import VModal from 'vue-js-modal'
 import router from './router';
 import VueLazyload from 'vue-lazyload'
+import VueSocialauth from 'vue-social-auth'
 
 Vue.use(VueLazyload)
 
@@ -34,8 +35,13 @@ Vue.use(VueLazyload, {
   attempt: 1
 })
 Vue.use(VModal, { dynamic: true, injectModalsContainer: true })
-Vue.use(VueAxios, axios);
-
+Vue.use(VueSocialauth, {  providers: {
+    github: {
+      clientId: '',
+      redirectUri: '/auth/github/callback' // Your client app URL
+    }
+  }
+})
 Vue.mixin({
     methods: {
         '$trans':function(file,string,defaultString){

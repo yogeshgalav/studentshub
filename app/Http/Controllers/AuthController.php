@@ -21,7 +21,7 @@ use Carbon\Carbon;
 use Sthub;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
-
+use Socialite;
 class AuthController extends Controller
 {
     /**
@@ -106,6 +106,11 @@ class AuthController extends Controller
     {
         $user = Auth::user();
         return response()->json(['success' => $user], $this->successStatus);
+    }
+    public function SocialSignup($provider)
+    {
+        // Socialite will pick response data automatic 
+        $user = Socialite::driver($provider)->stateless()->user();        return response()->json($user);
     }
 
     // Handling the forgot password email request
