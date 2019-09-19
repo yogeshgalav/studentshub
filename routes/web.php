@@ -12,6 +12,7 @@
 */
 
 require_once('web/guest.php');
+require_once('web/seeker.php');
 require_once('web/student.php');
 Route::get('/', 'PagesController@root');
 
