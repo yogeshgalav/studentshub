@@ -88,9 +88,10 @@ class AuthController extends Controller
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         $user = User::create([
-            'first_name'=>$input['first_name'],
-            'last_name'=>$input['last_name'],
+            'first_name'=>explode(' ',$input['full_name'])[0],
+            'last_name'=>explode(' ',$input['full_name'])[1] ?? null,
             'full_name'=>$input['full_name'],
+            'email'=>$input['email'],
             'password'=>$input['password'],
         ]);
         Auth::login($user);

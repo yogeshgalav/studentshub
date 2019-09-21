@@ -1,16 +1,10 @@
 <template>
     <div class="bg-gray pt-80">
-   <div class="container ptb-20">
-        <div class="row">
-        <div class="col-md-12 text-center">
-            <slick :options="slickOptions" ref="slick" >
+            <slick :options="slickOptions">
                     <a href="#" class="btn btn-white"><img v-lazy="'/images/slider.jpg'" /></a>
                     <a href="#" class="btn btn-white"><img v-lazy="'/images/5.jpg'"/></a>
                     
   </slick>
-        </div>
-    </div>
-   </div>
     </div>
 </template>
 <style scoped>
@@ -47,15 +41,15 @@ export default {
 	},
     data(){
         return {
-            slickOptions: {
-			 accessibility: true,
-			infinite: true,
-			dots: true,
-			autoplay: true,
-			arrows: false,
-			autoplaySpeed: 2000,
-			slidesToShow: 1,
-			},
+            slickOptions:{
+                adaptiveHeight:true,
+                dots: true,
+                arrows: false,
+                infinite: true,
+                speed: 500,
+                fade: true,
+                cssEase: 'linear'
+            }
         }
     },
     mounted(){

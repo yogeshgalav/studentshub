@@ -66726,7 +66726,7 @@ var render = function() {
                       _vm._v(" "),
                       _c("div", { staticClass: "row" }, [
                         _c("div", { staticClass: "col-md-2" }, [
-                          _c("i", { staticClass: "far fa-comment-alt" }),
+                          _c("i", { staticClass: "fa fa-eye" }),
                           _vm._v(" "),
                           _c("span", { staticClass: "badge-text" }, [
                             _vm._v(_vm._s(post.total_views))
@@ -66734,7 +66734,7 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "col-md-6" }, [
-                          _c("i", { staticClass: "fas fa-paperclip" }),
+                          _c("i", { staticClass: "fa fa-thumbup" }),
                           _vm._v(" "),
                           _c("span", { staticClass: "badge-text" }, [
                             _vm._v(_vm._s(post.total_likes))
@@ -96343,7 +96343,7 @@ var FormMixin = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! E:\xampp\htdocs\StudentsHUB\resources\js\Student\app.js */"./resources/js/Student/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\studentshub\resources\js\Student\app.js */"./resources/js/Student/app.js");
 
 
 /***/ })

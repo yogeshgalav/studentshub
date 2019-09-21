@@ -42,8 +42,6 @@
             <div class="col-md-3">
                 <recent-post></recent-post>
                 </div>
-        </div><div class="row">
-                 <post-interaction></post-interaction>
         </div>
   
     </div>

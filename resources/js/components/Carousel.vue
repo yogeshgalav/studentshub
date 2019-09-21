@@ -10,7 +10,6 @@
       :key="slide.index"
       >
       <slot :slide="slide"       
-      v-if="slide.isActive===true"
 >Slide {{slide}}</slot>
       </li>
      </transition-group>
