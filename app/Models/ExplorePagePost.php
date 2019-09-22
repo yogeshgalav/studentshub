@@ -24,6 +24,7 @@ class ExplorePagePost extends Model
         $post->user_name=$sthub_post->post->user_name;
         $post->subject_name=$sthub_post->post->subject->Subject_name;
         $post->created_at=$sthub_post->post->created_at;
+        // $post->created_at=\Carbon\Carbon::createFromTimeStamp(strtotime($sthub_post->post->created_at))->diffForHumans();
         $post->total_views=$sthub_post->post->total_views;
         $post->total_likes=$sthub_post->post->total_likes;
         });

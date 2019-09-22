@@ -2,6 +2,22 @@ export default {
     create_post(state,post){
       state.new_post = Object.assign(state.new_post,post)
     },
+    add_post_like(state,post_id){
+      state.dashboardPosts.map(node=>{
+        if(node.id===post_id){
+          node.total_likes=node.total_likes+1
+        };
+        return node;
+      });
+    },
+    add_post_dislike(state,post_id){
+      state.dashboardPosts.map(node=>{
+        if(node.id===post_id){
+          node.total_likes=node.total_likes+1
+        };
+        return node;
+      });
+    },
     get_posts(state,posts){
       state.dashboardPosts = posts;
     },

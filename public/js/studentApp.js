@@ -2658,6 +2658,11 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2704,8 +2709,40 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['like', 'total_likes', 'total_dislikes', 'total_views']
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
+    'post': function post(state) {
+      return state.postView.post_content;
+    }
+  }), {
+    isLiked: function isLiked() {
+      return this.post.like === 1 ? true : false;
+    },
+    isDisiked: function isDisiked() {
+      return this.post.like === 0 ? true : false;
+    }
+  }),
+  methods: {
+    likefunction: function likefunction() {
+      var data = {
+        'post_id': this.post.id,
+        'method': this.isLiked === true ? 'delete' : 'add',
+        'type': 'like'
+      };
+      this.$store.dispatch('addPostLike', data);
+    },
+    dislikefunction: function dislikefunction() {
+      var data = {
+        'post_id': this.post.id,
+        'method': this.isDisliked === true ? 'delete' : 'add',
+        'type': 'dislike'
+      };
+      this.$store.dispatch('addPostDislike', data);
+    }
+  }
 });
 
 /***/ }),
@@ -66806,16 +66843,18 @@ var render = function() {
       _c(
         "a",
         {
-          class: _vm.like === 1 ? "like-active" : "like",
-          attrs: { href: "#" }
+          class: _vm.post.like === 1 ? "like-active" : "like",
+          attrs: { href: "#" },
+          on: { click: _vm.likefunction }
         },
         [_vm._m(0), _vm._v(" Liked ")]
       ),
-      _vm._v(" |\n            "),
+      _vm._v(" |\n                "),
+      _vm._v(" "),
       _c(
         "a",
         {
-          class: _vm.like === 0 ? "like-active" : "like",
+          class: _vm.post.like === 0 ? "like-active" : "like",
           attrs: { href: "#" }
         },
         [_vm._m(1), _vm._v(" Dislike ")]

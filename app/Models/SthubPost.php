@@ -26,6 +26,7 @@ class SthubPost extends Model
             $sthub_post->user_name=$post->user_name;
             $sthub_post->subject_name=$post->subject->Subject_name;
             $sthub_post->created_at=$post->created_at;
+            // $sthub_post->created_at=\Carbon\Carbon::createFromTimeStamp(strtotime($post->created_at))->diffForHumans();
             $sthub_post->total_views=$post->total_views;
             $sthub_post->total_likes=$post->total_likes;
             });
