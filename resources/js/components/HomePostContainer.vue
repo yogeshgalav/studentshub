@@ -20,11 +20,11 @@
 									</h3>
                                     <div class="row">
 										<div class="col-md-2">
-											<i class="far fa-comment-alt"></i>
+											<i class="fa fa-eye"></i>
 											<span class="badge-text">{{post.total_views}}</span>
 										</div>
 										<div class="col-md-6">
-											<i class="fas fa-paperclip"></i>
+											<i class="fa fa-thumbup"></i>
 											<span class="badge-text">{{post.total_likes}}</span>
 										</div>
 									</div>

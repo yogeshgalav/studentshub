@@ -1,8 +1,10 @@
 <template>
     <div class="interaction">
                 <div class="container">
-                    <a href="#" :class="like===1 ?'like-active' : 'like'"><span class="circle_box"> <i class="fas fa-thumbs-up"></i> </span> Liked </a> |
-                <a href="#" :class="like===0 ?'like-active' : 'like'"><span class="circle_box"> <i class="fas fa-thumbs-down"></i> </span> Dislike </a>
+                    <a href="#" :class="post.like===1 ?'like-active' : 'like'" @click="likefunction"><span class="circle_box"> <i class="fas fa-thumbs-up"></i> </span> Liked </a> |
+                    <!-- <span>{{post.total_likes}}</span> -->
+                <a href="#" :class="post.like===0 ?'like-active' : 'like'"><span class="circle_box"> <i class="fas fa-thumbs-down"></i> </span> Dislike </a>
+                    <!-- <span>{{post.total_dislikes}}</span> -->
                 <a href="#" class="like"><span class="circle_box"> <i class="fas fa-comment"></i> </span> Reviews </a>
         <div class="btn-group pull-right">
                     <button type="button" class="btn btn-link" data-toggle="dropdown"> 
@@ -32,7 +34,10 @@
     width: 100%;
 	clear: both;
     bottom: 0;
-	padding: 15px 0px 10px 0px;
+    z-index: 999;
+    padding: 15px 0px 10px 0px;
+    left: 0;
+    right: 0;
     margin: 0;
     /* ATTENTION! The following elements below 
     can be set to whatever your heart desires */
@@ -42,7 +47,37 @@
 }
 </style>
 <script>
+import {mapState} from 'vuex';
+
 export default {
-    props:['like','total_likes','total_dislikes','total_views']
+    computed:{
+		...mapState({
+			'post': state=>state.postView.post_content,
+        }),
+        isLiked(){
+            return this.post.like===1 ? true : false
+        },
+        isDisiked(){
+            return this.post.like===0 ? true : false
+        },
+	},
+    methods:{
+        likefunction(){
+            let data={
+                'post_id':this.post.id,
+                'method':this.isLiked===true? 'delete' :'add', 
+                'type':'like'
+            };
+                    this.$store.dispatch('addPostLike',data);
+        },
+        dislikefunction(){
+            let data={
+                'post_id':this.post.id,
+                'method':this.isDisliked===true? 'delete' :'add', 
+                'type':'dislike'
+            };
+                    this.$store.dispatch('addPostDislike',data);
+        }
+    }
 }
 </script>

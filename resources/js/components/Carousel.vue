@@ -8,10 +8,9 @@
      
       <li v-for="slide in carouselSlides"
       :key="slide.index"
-      v-if="slide.isActive===true"
-      
       >
-      <slot :slide="slide" >Slide {{slide}}</slot>
+      <slot :slide="slide"       
+>Slide {{slide}}</slot>
       </li>
      </transition-group>
   

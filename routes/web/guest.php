@@ -9,3 +9,5 @@ Route::get('/logout','AuthController@logout');
 Route::get('/post/{ViewPostId}', 'PagesController@viewPost');
 Route::get('/explore', 'PagesController@explore');
 Route::post('/register','AuthController@register');
+Route::post('sociallogin/{provider}', 'AuthController@SocialSignup');
+Route::get('auth/{provider}/callback', 'OutController@index')->where('provider', '.*');

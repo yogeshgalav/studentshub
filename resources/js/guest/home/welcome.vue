@@ -50,7 +50,6 @@
 
 <script>
 import {mapState} from 'vuex';
-
 // import { Carousel, Slide } from 'vue-carousel';
 import Carousel from './../../components/Carousel';
 import CategoryFilter from './../../components/CategoryFilter';

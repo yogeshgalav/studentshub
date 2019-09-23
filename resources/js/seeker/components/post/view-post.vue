@@ -1,14 +1,6 @@
 <template>
 <section class="pt-100">
-    <div class="container-fluid">
-        <div class="row">
-        <div class="col-md-6 ">
-            <button class="btn btn-white btn-rounded btn-lg fixed-back"><i class="fa fa-arrow-left"></i> Back </button>
-            </div>
-            <div class="col-md-6 text-right">
-            <button class="btn btn-white btn-rounded btn-lg"><i class="fa fa-share-alt"></i>  </button>
-            </div>
-        </div></div>
+   <post-view-header></post-view-header>
 <div class="container ptb-50">
     <div class="row">
         <div class="col-md-12 text-center">
@@ -39,9 +31,10 @@
 </div>
         </div>
     </div>
-<category-filter :categories="categories"></category-filter>
+    <category-filter :categories="categories"></category-filter>
 <div class="container ptb-50">
-    <div class="row">
+    <div class="col-md-10 col-10 center-col">
+        <div class="row">
         <div class="col-md-9">
             <h3>{{postContent.heading}}</h3>
             <p>{{postContent.content}}</p>
@@ -49,25 +42,16 @@
             <div class="col-md-3">
                 <recent-post></recent-post>
                 </div>
+        </div><div class="row">
+                 <post-interaction></post-interaction>
         </div>
+  
     </div>
-    <div class="container ptb-50">
-    <div class="row">
-        <div class="col-md-9">
-           
-            </div>
-        </div>
-    </div>
-     <post-interaction></post-interaction>
+
+      </div>
+    
 </section> 
 </template>
-<style scoped>
-.fixed-back
-{
-    top:13.6%;
-    position: fixed;
-}
-</style>
 <script>
 import {mapState} from 'vuex';
 
@@ -75,10 +59,12 @@ import CategoryFilter from '../../../components/CategoryFilter';
 import RecentPost from '../../../components/RecentPost';
 import SiteFooter from '../../../components/SiteFooter';
 import PostInteraction from '../../../components/PostInteraction';
+import PostViewHeader from '../../../components/PostViewHeader';
+
 export default {
     components: 
     {
-        CategoryFilter, RecentPost, SiteFooter,PostInteraction
+        CategoryFilter, RecentPost, SiteFooter,PostInteraction, PostViewHeader
     },
     computed:{
 		...mapState({

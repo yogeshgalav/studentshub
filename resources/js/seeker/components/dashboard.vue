@@ -3,17 +3,21 @@
         <div class="container pt-100">
             <div class="col-md-8 center-col">
  <div class="row">
-     <div class="col-md-12">
-        <slot></slot>
-        <router-link class="card h-card share" :to="'/share-your-knowledge'"><div class="card-body">
+     <div class="col-md-12">  
+         <div class="card">
+        <div class="card-body">
+            <slot></slot>
+            <router-link  :to="'/share-your-knowledge'">
                         Share Your Knowledge
-                    </div>  </router-link>
+                        </router-link>
+                    </div>  
+         </div>
          </div>
      </div>    
      
         <div class="row">
             <div class="col-md-12">
-                 <home-post-container :posts="posts"></home-post-container>   
+                 <dashboard-post-container :posts="posts"></dashboard-post-container>   
             </div>   
         </div>
                 </div>
@@ -65,7 +69,7 @@
 </style>
 
 <script>
-import HomePostContainer from './../../components/HomePostContainer';
+import DashboardPostContainer from './../../components/DashboardPostContainer';
 
 
 import {mapState} from 'vuex';
@@ -76,7 +80,7 @@ export default {
 			'posts': state=>state.dashboardPosts,
 		}),
 	},        components:{
-            HomePostContainer
+            DashboardPostContainer
         },
         data() {
             return {

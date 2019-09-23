@@ -31,9 +31,10 @@
 </div>
         </div>
     </div>
-<category-filter :categories="categories"></category-filter>
+    <category-filter :categories="categories"></category-filter>
 <div class="container ptb-50">
-    <div class="row">
+    <div class="col-md-10 col-10 center-col">
+        <div class="row">
         <div class="col-md-9">
             <h3>{{postContent.heading}}</h3>
             <p>{{postContent.content}}</p>
@@ -41,10 +42,11 @@
             <div class="col-md-3">
                 <recent-post></recent-post>
                 </div>
-        </div><div class="row">
-                 <post-interaction></post-interaction>
         </div>
+  
     </div>
+
+      </div>
     
 <site-footer></site-footer>
 </section> 
