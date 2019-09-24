@@ -1,7 +1,7 @@
 const state = {
     categories:[],
     posts: {
-      'Carousel':[],
+      'ExploreCarousalPost':[],
       'ExploreTopPost':[],
       'HomePostContainer':[],
       'ExploreSidebar':[],

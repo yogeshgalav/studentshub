@@ -1,6 +1,6 @@
 <template>
     <div class="bg-gray pt-80">
-            <slick :options="slickOptions">
+            <slick :options="slickOptions" ref="slick">
                     <a href="#" class="btn btn-white"><img v-lazy="'/images/slider.jpg'" /></a>
                     <a href="#" class="btn btn-white"><img v-lazy="'/images/5.jpg'"/></a>
                     
@@ -36,7 +36,7 @@ export default {
     },
     computed:{
 		...mapState({
-			'categories': state=>state.explore.categories,
+			'posts': state=>state.explore.posts.ExploreCarousalPost,
 		}),
 	},
     data(){
@@ -61,7 +61,7 @@ export default {
         // });
     },
     watch: {
-    categories() {
+    ExploreCarousalPost() {
         this.reInit(); 
     }
   },

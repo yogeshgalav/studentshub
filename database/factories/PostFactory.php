@@ -10,6 +10,7 @@ $factory->define(App\Models\ExplorePagePost::class, function (Faker $faker) {
     $sthub_post=factory(App\Models\SthubPost::class)->create(['post_id'=>$post->id,'shared_by'=>$user_id,'post_type'=>$post->post_type]);
     factory(App\Models\Like::class)->create(['post_id'=>$post->id,'user_id'=>$user_id]);
     factory(App\Models\View::class)->create(['post_id'=>$post->id,'user_id'=>$user_id]);
+    factory(App\Models\PostImage::class)->create(['post_id'=>$post->id,'user_id'=>$user_id]);
 
     $article=factory(App\Models\Article::class)->create(['post_id'=>$post->id]);
     return [
@@ -61,5 +62,13 @@ $factory->define(App\Models\Like::class, function (Faker $faker) {
 $factory->define(App\Models\View::class, function (Faker $faker) {
     return [        
         'user_id' => rand(1,40),
+    ];
+});
+
+$factory->define(App\Models\PostImage::class, function (Faker $faker) {
+    return [        
+        'uuid' => uniqid(),
+        'user_id' => rand(1,40),
+        'path' => (rand(1,10)%2)==0?'/images/slider.jpg':'/images/5.jpg',
     ];
 });

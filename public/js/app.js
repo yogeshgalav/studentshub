@@ -2166,7 +2166,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return state.explore.categories;
     },
     'home_posts': function home_posts(state) {
-      return state.explore.HomePostContainer;
+      return state.explore.posts.HomePostContainer;
     }
   })),
   mounted: function mounted() {
@@ -2631,8 +2631,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     Slick: vue_slick__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
-    'categories': function categories(state) {
-      return state.explore.categories;
+    'posts': function posts(state) {
+      return state.explore.posts.ExploreCarousalPost;
     }
   })),
   data: function data() {
@@ -2656,7 +2656,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     // });
   },
   watch: {
-    categories: function categories() {
+    ExploreCarousalPost: function ExploreCarousalPost() {
       this.reInit();
     }
   },
@@ -53606,7 +53606,7 @@ var render = function() {
     "div",
     { staticClass: "bg-gray pt-80" },
     [
-      _c("slick", { attrs: { options: _vm.slickOptions } }, [
+      _c("slick", { ref: "slick", attrs: { options: _vm.slickOptions } }, [
         _c("a", { staticClass: "btn btn-white", attrs: { href: "#" } }, [
           _c("img", {
             directives: [
@@ -54036,7 +54036,7 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "row" }, [
-                        _c("div", { staticClass: "col-md-2" }, [
+                        _c("div", { staticClass: "col-md-4" }, [
                           _c("i", { staticClass: "fa fa-eye" }),
                           _vm._v(" "),
                           _c("span", { staticClass: "badge-text" }, [
@@ -54045,7 +54045,7 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "col-md-6" }, [
-                          _c("i", { staticClass: "fa fa-thumbup" }),
+                          _c("i", { staticClass: "fa fa-thumbs-up" }),
                           _vm._v(" "),
                           _c("span", { staticClass: "badge-text" }, [
                             _vm._v(_vm._s(post.total_likes))
@@ -83999,7 +83999,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   get_explore_page_content: function get_explore_page_content(state, data) {
     state.categories = data.categories;
-    state.posts.Carousel = data.Carousel;
+    state.posts.ExploreCarousalPost = data.ExploreCarousalPost;
     state.posts.ExploreTopPost = data.ExploreTopPost;
     state.posts.HomePostContainer = data.HomePostContainer;
     state.posts.ExploreSidebar = data.ExploreSidebar;
@@ -84033,7 +84033,7 @@ __webpack_require__.r(__webpack_exports__);
 var state = {
   categories: [],
   posts: {
-    'Carousel': [],
+    'ExploreCarousalPost': [],
     'ExploreTopPost': [],
     'HomePostContainer': [],
     'ExploreSidebar': [],
@@ -84053,15 +84053,14 @@ var state = {
 /*!*********************************************!*\
   !*** ./resources/js/Guest/home/welcome.vue ***!
   \*********************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _welcome_vue_vue_type_template_id_0fbb58b2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./welcome.vue?vue&type=template&id=0fbb58b2& */ "./resources/js/Guest/home/welcome.vue?vue&type=template&id=0fbb58b2&");
 /* harmony import */ var _welcome_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./welcome.vue?vue&type=script&lang=js& */ "./resources/js/Guest/home/welcome.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _welcome_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _welcome_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -84091,7 +84090,7 @@ component.options.__file = "resources/js/Guest/home/welcome.vue"
 /*!**********************************************************************!*\
   !*** ./resources/js/Guest/home/welcome.vue?vue&type=script&lang=js& ***!
   \**********************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

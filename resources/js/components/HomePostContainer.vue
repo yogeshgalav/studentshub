@@ -19,12 +19,12 @@
 										</a>
 									</h3>
                                     <div class="row">
-										<div class="col-md-2">
+										<div class="col-md-4">
 											<i class="fa fa-eye"></i>
 											<span class="badge-text">{{post.total_views}}</span>
 										</div>
 										<div class="col-md-6">
-											<i class="fa fa-thumbup"></i>
+											<i class="fa fa-thumbs-up"></i>
 											<span class="badge-text">{{post.total_likes}}</span>
 										</div>
 									</div>
