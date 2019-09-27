@@ -4,7 +4,7 @@
         <div class="row">
         <div class="col-md-12 text-center">
             <slick :options="slickOptions" ref="slick" >
-                    <a href="#" class="btn btn-white" v-for="(category,index) in categories" :key="index">{{category.Subject_name}}</a>
+                    <a :href="'/explore/'+category.Subject_name" class="btn btn-white" v-for="(category,index) in categories" :key="index">{{category.Subject_name}}</a>
   </slick>
         </div>
     </div>

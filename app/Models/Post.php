@@ -154,4 +154,5 @@ class Post extends Model
         }
         return ['categories'=>$subjects,'post_content'=>$post_content,'related_posts'=>$related_posts];
     }
+    
 }
