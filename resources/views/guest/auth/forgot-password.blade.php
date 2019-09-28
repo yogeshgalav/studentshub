@@ -1,4 +1,4 @@
 @extends('guest.app')
 @section('content')
-<forgot-password-component></forgot-password-component>
+<router-view></router-view>
 @endsection

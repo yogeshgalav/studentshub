@@ -59,6 +59,9 @@ class PagesController extends Controller
     public function loginPage(){
         return view('guest.auth.login');
     }
+    public function forgotPasswordPage(){
+        return view('guest.auth.forgot-password');
+    }
     public function registerPage(){
         return view('guest.auth.register');
     }
