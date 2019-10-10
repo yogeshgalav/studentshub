@@ -19,7 +19,7 @@ class ExploreController extends Controller
 
         return response()->json(['success'=>[
             'categories'=>Subject::getAllCategories(),
-            'Carousel'=>ExplorePagePost::getPostType('Carousel'),
+            'ExploreCarousalPost'=>ExplorePagePost::getPostType('ExploreCarousalPost'),
             'ExploreTopPost'=>ExplorePagePost::getPostType('ExploreTopPost'),
             'HomePostContainer'=>ExplorePagePost::getPostType('HomePostContainer'),
             'ExploreSidebar'=>ExplorePagePost::getPostType('ExploreSidebar'),

@@ -53,9 +53,9 @@
                                         {{ trans('Login') }}
                                     </button>
 
-                                    <a class="btn btn-link" href="/forgot-password">
+                                    <router-link class="btn btn-link" :to="'/forgot-password'">
                                         {{ trans('Forgot Your Password') }}
-                                    </a>
+                                    </router-link>
 
                                 </div>
                             </div>

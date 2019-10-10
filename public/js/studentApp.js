@@ -66666,7 +66666,7 @@ var render = function() {
                   {
                     key: index,
                     staticClass: "btn btn-white",
-                    attrs: { href: "#" }
+                    attrs: { href: "/explore/" + category.Subject_name }
                   },
                   [_vm._v(_vm._s(category.Subject_name))]
                 )
@@ -66762,7 +66762,7 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "row" }, [
-                        _c("div", { staticClass: "col-md-2" }, [
+                        _c("div", { staticClass: "col-md-4" }, [
                           _c("i", { staticClass: "fa fa-eye" }),
                           _vm._v(" "),
                           _c("span", { staticClass: "badge-text" }, [
@@ -66771,7 +66771,7 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "col-md-6" }, [
-                          _c("i", { staticClass: "fa fa-thumbup" }),
+                          _c("i", { staticClass: "fa fa-thumbs-up" }),
                           _vm._v(" "),
                           _c("span", { staticClass: "badge-text" }, [
                             _vm._v(_vm._s(post.total_likes))

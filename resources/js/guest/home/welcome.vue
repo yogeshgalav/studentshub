@@ -80,7 +80,7 @@ export default {
   computed:{
 		...mapState({
 			'categories': state=>state.explore.categories,
-			'home_posts': state=>state.explore.HomePostContainer,
+			'home_posts': state=>state.explore.posts.HomePostContainer,
 		}),
 	},
   mounted(){

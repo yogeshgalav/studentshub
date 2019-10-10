@@ -17,6 +17,7 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\ForgotPasswordRequest;
 use Illuminate\Support\Facades\URL;
 use App\PasswordReset;
+use App\Http\Requests\RegisterRequest;
 use Carbon\Carbon;
 use Sthub;
 use Illuminate\Support\Facades\Mail;
@@ -83,7 +84,7 @@ class AuthController extends Controller
      *
      * @return Response
      */
-    public function register(Request $request)
+    public function register(RegisterRequest $request)
     {
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);

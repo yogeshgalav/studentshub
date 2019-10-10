@@ -53,7 +53,7 @@
 
                                     <div class="col-md-6">
                                         <input id="password-confirm" type="password" class="form-control"
-                                            name="password_confirmation" v-validate="'required|confirmation:password'">
+                                            name="password_confirmation" v-validate="'required|confirmed:password'">
                                         <span class="error">{{errors.first('password_confirmation')}}</span>
                                     </div>
                                 </div>
