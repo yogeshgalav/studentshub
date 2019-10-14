@@ -77,7 +77,9 @@ export default {
 		}),
 	},
     mounted(){
-        this.$store.dispatch('explore/getPostContent',this.$route.params.id);
+        this.$store.dispatch('explore/getPostContent',this.$route.params.id).then(resp=>
+            document.title = resp.data.success.post_content.heading
+            );
     }
 }
 </script>

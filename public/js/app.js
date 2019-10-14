@@ -2907,13 +2907,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return state.explore.posts.ExploreBottomPost;
     }
   })),
-  methods: {
-    redirectPostView: function redirectPostView(post_id) {
-      this.$router.push({
-        path: '/post/' + post_id
-      });
-    }
-  }
+  methods: {}
 });
 
 /***/ }),
@@ -3102,13 +3096,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return state.explore.posts.ExploreSidebar;
     }
   })),
-  methods: {
-    redirectPostView: function redirectPostView(post_id) {
-      this.$router.push({
-        path: '/post/1'
-      });
-    }
-  }
+  methods: {}
 });
 
 /***/ }),
@@ -3182,13 +3170,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return state.explore.posts.ExploreTopPost;
     }
   })),
-  methods: {
-    redirectPostView: function redirectPostView(post_id) {
-      this.$router.push({
-        path: '/post/1'
-      });
-    }
-  }
+  methods: {}
 });
 
 /***/ }),
@@ -3259,13 +3241,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['posts'],
-  methods: {
-    redirectPostView: function redirectPostView(post_id) {
-      this.$router.push({
-        path: '/post/1'
-      });
-    }
-  }
+  methods: {}
 });
 
 /***/ }),
@@ -3590,7 +3566,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   })),
   mounted: function mounted() {
-    this.$store.dispatch('explore/getPostContent', this.$route.params.id);
+    this.$store.dispatch('explore/getPostContent', this.$route.params.id).then(function (resp) {
+      return document.title = resp.data.success.post_content.heading;
+    });
   }
 });
 
@@ -3656,13 +3634,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return state.explore.posts.ExploreSidebar;
     }
   })),
-  methods: {
-    redirectPostView: function redirectPostView(post_id) {
-      this.$router.push({
-        path: '/post/1'
-      });
-    }
-  }
+  methods: {}
 });
 
 /***/ }),
@@ -84555,6 +84527,11 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
     redirect: function redirect(url) {
       window.location.href = url;
     },
+    redirectPostView: function redirectPostView(post_id) {
+      this.$router.push({
+        path: '/post/' + post_id
+      });
+    },
     newWindow: function newWindow(url) {
       window.open(url, 'newwindow', 'width=300,height=250');
       return false;
@@ -85285,8 +85262,14 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
 }); // This callback runs before every route change, including on page load.
 
 router.beforeEach(function (to, from, next) {
-  // This goes through the matched routes from last to first, finding the closest route with a title.
+  if (to.meta.title) {
+    document.title = to.meta.title;
+  } else {
+    document.title = "Student'sHUB";
+  } // This goes through the matched routes from last to first, finding the closest route with a title.
   // eg. if we have /some/deep/nested/route and /some, /deep, and /nested have titles, nested's will be chosen.
+
+
   var nearestWithTitle = to.matched.slice().reverse().find(function (r) {
     return r.meta && r.meta.title;
   }); // Find the nearest route element with meta tags.
@@ -85297,8 +85280,7 @@ router.beforeEach(function (to, from, next) {
   var previousNearestWithMeta = from.matched.slice().reverse().find(function (r) {
     return r.meta && r.meta.metaTags;
   }); // If a route with a title was found, set the document (page) title to that value.
-
-  if (nearestWithTitle) document.title = nearestWithTitle.meta.title; // Remove any stale meta tags from the document using the key attribute we set below.
+  // Remove any stale meta tags from the document using the key attribute we set below.
 
   Array.from(document.querySelectorAll('[data-vue-router-controlled]')).map(function (el) {
     return el.parentNode.removeChild(el);
@@ -85348,7 +85330,10 @@ __webpack_require__.r(__webpack_exports__);
 var routes = [{
   path: '/',
   name: 'welcome',
-  component: _home_welcome_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  component: _home_welcome_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+  meta: {
+    title: "Student'sHUB"
+  }
 }, {
   path: '/explore/:subject',
   component: _components_explore_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
@@ -85375,10 +85360,7 @@ var routes = [{
 }, {
   path: '/post/:id',
   component: _components_PostViewPage_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
-  name: 'ViewPost',
-  meta: {
-    title: 'Post'
-  }
+  name: 'ViewPost'
 }, {
   path: '*',
   redirect: '/'
@@ -86744,8 +86726,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_sweetalert2__WEBPACK_IMPORTED
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\xampp\htdocs\studentshub\resources\js\Guest\app.js */"./resources/js/Guest/app.js");
-module.exports = __webpack_require__(/*! E:\xampp\htdocs\studentshub\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\studentshub\resources\js\Guest\app.js */"./resources/js/Guest/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\studentshub\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

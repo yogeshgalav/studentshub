@@ -63,9 +63,6 @@ export default {
 		}),
 	},
 	methods:{
-		redirectPostView(post_id){
-                this.$router.push({path:'/post/'+post_id})
-            }
 	}
 }
 </script>

@@ -57,9 +57,7 @@
 export default {
 	props:['posts'],
 	methods:{
-		redirectPostView(post_id){
-                this.$router.push({path:'/post/1'})
-            }
+		
 	}
 }
 </script>

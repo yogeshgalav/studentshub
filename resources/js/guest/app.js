@@ -58,6 +58,9 @@ Vue.mixin({
         redirect(url){
             window.location.href=url;
         },
+        redirectPostView(post_id){
+            this.$router.push({path:'/post/'+post_id})
+        },
         newWindow(url){
             window.open(url,'newwindow','width=300,height=250'); 
             return false;

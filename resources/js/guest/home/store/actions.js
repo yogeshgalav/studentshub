@@ -19,7 +19,7 @@ getPostContent({commit},post_id){
     axios({url: window.App.baseUrl+'/api/get-post-content/'+post_id, method: 'GET' })
     .then(resp => {
      const data = resp.data.success
-      commit('get_post_content', data,)
+      commit('get_post_content', data);
       resolve(resp)
     })
     .catch(err => {

@@ -6,7 +6,13 @@ import ViewPost from '../components/PostViewPage.vue'
 import ForgotPasswordComponent from './auth/components/forgot-password.vue';
 
 const routes = [
-    { path: '/', name:'welcome', component: WelcomeComponent },
+    { 
+      path: '/', name:'welcome', 
+      component: WelcomeComponent, 
+      meta: {
+        title: "Student'sHUB",
+      }
+    },
     { path: '/explore/:subject', component: ExploreComponent },
     { path: '/explore', component: ExploreComponent },
     { path: '/login', name:'login', component: LoginComponent },
@@ -22,9 +28,6 @@ const routes = [
         path: '/post/:id',
         component: ViewPost,
         name: 'ViewPost',
-        meta: {
-          title: 'Post',
-        }
       },
     { path: '*', redirect: '/' },
 ];

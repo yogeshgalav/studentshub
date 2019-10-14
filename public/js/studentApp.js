@@ -2638,13 +2638,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['posts'],
-  methods: {
-    redirectPostView: function redirectPostView(post_id) {
-      this.$router.push({
-        path: '/post/1'
-      });
-    }
-  }
+  methods: {}
 });
 
 /***/ }),
@@ -2807,13 +2801,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return state.explore.posts.ExploreSidebar;
     }
   })),
-  methods: {
-    redirectPostView: function redirectPostView(post_id) {
-      this.$router.push({
-        path: '/post/1'
-      });
-    }
-  }
+  methods: {}
 });
 
 /***/ }),
@@ -96382,7 +96370,7 @@ var FormMixin = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! E:\xampp\htdocs\studentshub\resources\js\Student\app.js */"./resources/js/Student/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\studentshub\resources\js\Student\app.js */"./resources/js/Student/app.js");
 
 
 /***/ })
