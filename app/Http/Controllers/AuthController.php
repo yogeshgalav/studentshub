@@ -23,6 +23,7 @@ use Sthub;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Socialite;
+
 class AuthController extends Controller
 {
     /**
@@ -44,7 +45,7 @@ class AuthController extends Controller
 
                 $success['token'] = $user->createToken('Sthub')->accessToken;
                 
-                return redirect('/');
+                return redirect('/')->with('loginStatus','1');
             }
         }
         Log::warning("An invalid attempt to login was made for user ".$request->email." from IP Address ".$request->ip());
@@ -96,7 +97,7 @@ class AuthController extends Controller
             'password'=>$input['password'],
         ]);
         Auth::login($user);
-        return redirect('/');
+        return redirect('/')->with('loginStatus','0');
     }
 
     /**

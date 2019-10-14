@@ -31,7 +31,9 @@
 </div>
 <script>
     window.App ={!! json_encode([
-        'AuthUserType' => 'guest',
+        'AuthUser' => $AuthUser,
+        'AuthUserType' => 'student',
+        'signedIn' => is_null($AuthUser),
         'csrfToken' => csrf_token(),
         'baseUrl' => URL::to('/'),
         'fileUrl' => config('url.file_storage_url'),

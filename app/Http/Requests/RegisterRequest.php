@@ -25,9 +25,16 @@ class RegisterRequest extends FormRequest
     {
         return [
             'full_name'=>'required',
-            'email'=>'required|email',
+            'email'=>'required|email|unique:users,email',
             'password'=>'required|min:6',
             // 'confirm_password'=>'required|min:6',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'email.unique'=>'You are already registered, Please Login.'
         ];
     }
 }

@@ -22,7 +22,7 @@
             <div class="col-md-2  mt-1">
                     <div class="dropdown">
                         <button class="btn btn-sm btn-default border-radius-12 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                         <i class="fa fa-user"></i> Yogesh Galav
+                         <i class="fa fa-user"></i> {{$AuthUser->full_name}}
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <div class="d-flex p-2">
@@ -30,7 +30,7 @@
 											<img src="/images/4.jpg" class="avatar-img rounded-circle">
 										</div>
 										<div class="info-post ml-2 mt-2">
-                                            <p class="username">Yogesh Galav</p>
+                                        <p class="username">{{$AuthUser->full_name}}</p>
                                         </div>
                                 </div>
                                 <div class="dropdown-divider"></div>

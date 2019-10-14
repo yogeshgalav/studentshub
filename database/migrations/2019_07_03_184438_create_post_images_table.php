@@ -14,7 +14,7 @@ class CreatePostImagesTable extends Migration
     public function up()
     {
         Schema::create('post_images', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->bigIncrements('id');
             $table->string('name')->nullable();
             $table->integer('user_id');
             $table->string('path');

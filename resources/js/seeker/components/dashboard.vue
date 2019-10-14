@@ -70,11 +70,13 @@
 
 <script>
 import DashboardPostContainer from './../../components/DashboardPostContainer';
-
-
+import Toasted from 'vue-toasted';
+import Vue from 'vue';
+Vue.use(Toasted);
 import {mapState} from 'vuex';
 
 export default {
+    props:['loginStatus'],
 	computed:{
 		...mapState({
 			'posts': state=>state.dashboardPosts,
@@ -88,6 +90,9 @@ export default {
         },
         mounted(){
             this.getDashboardPosts();
+            if(this.loginStatus!==null){
+                this.$toasted.success(this.loginStatus,{position:'top-center',fullWidth:true,duration:2000});
+            }
         },
         methods: {
             trans: function (string, defaultString) {
