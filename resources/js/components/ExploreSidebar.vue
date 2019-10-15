@@ -53,9 +53,9 @@
 											<p class="username">{{post.user_name}}</p>
 											<p class="date text-muted">{{post.created_at}}</p>
                                             <h3 class="card-title  font-size-12">
-										<a href="#" class="text-black">
+										<router-link :to="'/post/'+post.id"  class="text-black">
 											{{post.heading}}
-										</a>
+										</router-link>
 									</h3>
                                 
 										</div>

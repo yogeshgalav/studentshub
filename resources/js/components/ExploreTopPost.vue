@@ -2,7 +2,7 @@
     <div class="container ptb-50">
         <div class="row">
         <div class="col-md-4" v-for="post in posts" :key="post.id">
-							<div class="card-post" @click="redirectPostView(post.id)">
+							<div class="card-post">
 								<img class="card-img-top" src="/images/4.jpg" alt="Card image cap">
 								<div>
 									<div class="d-flex mt-2">
@@ -17,9 +17,9 @@
 									<div class="separator-solid"></div>
 									<p class="card-category text-info mb-1"><a href="#">{{post.Subject_name}}</a></p>
 									<h3 class="card-title  font-size-16">
-										<a href="#" class="weight-600 text-black">
+										<router-link :to="'/post/'+post.id"  class="weight-600 text-black">
 											{{post.heading}}
-										</a>
+										</router-link>
 									</h3>
 									<p class="card-text">{{post.content}}</p>
 									<div class="row">

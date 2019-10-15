@@ -18,14 +18,14 @@
 							</div>
                         </div>
         <div class="col-md-9">
-							<div class="card-post" @click="redirectPostView(post.id)">
+							<div class="card-post">
 						<div>
 									<div class="d-flex mt-2">
 										<div class="info-post">
 											<h3 class="card-title pl-0 font-size-16">
-										<a href="#" class="weight-600 text-black">
+										<router-link :to="'/post/'+post.id"  class="weight-600 text-black">
 											{{post.heading}}
-										</a>
+										</router-link>
 									</h3>
 										<div class="ml-1">
 												<span class="username font-size-12">{{post.user_name}}</span> / 
@@ -91,9 +91,6 @@
 export default {
 	props:['posts'],
 	methods:{
-		redirectPostView(post_id){
-                this.$router.push({path:'/post/1'})
-            }
 	}
 }
 </script>

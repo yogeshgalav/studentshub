@@ -10,7 +10,7 @@
 
   <div class="row">
         <div class="col-md-4" v-for="post in posts" :key="post.id">
-							<div class="card-post" @click="redirectPostView(post.id)">
+							<div class="card-post">
 								<img v-lazy="'/images/4.jpg'" class="card-img-top" alt="Card image cap">
 								<div>
 									<div class="d-flex mt-2">
@@ -23,9 +23,9 @@
 										</div>
 									</div>
                                     <h3 class="card-title  font-size-16">
-										<a href="#" class="weight-600 text-black">
+										<router-link :to="'/post/'+post.id"  class="weight-600 text-black">
 											{{post.heading}}
-										</a>
+										</router-link>
 									</h3>
 									<div class="separator-solid"></div>
 							

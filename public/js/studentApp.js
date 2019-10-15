@@ -66732,22 +66732,27 @@ var render = function() {
                         _vm._v(_vm._s(post.created_at))
                       ]),
                       _vm._v(" "),
-                      _c("h3", { staticClass: "card-title  font-size-16" }, [
-                        _c(
-                          "a",
-                          {
-                            staticClass: "weight-600 text-black",
-                            attrs: { href: "#" }
-                          },
-                          [
-                            _vm._v(
-                              "\r\n\t\t\t\t\t\t\t\t\t\t\t" +
-                                _vm._s(post.heading) +
-                                "\r\n\t\t\t\t\t\t\t\t\t\t"
-                            )
-                          ]
-                        )
-                      ]),
+                      _c(
+                        "h3",
+                        { staticClass: "card-title  font-size-16" },
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "weight-600 text-black",
+                              attrs: { to: "/post/" + post.id }
+                            },
+                            [
+                              _vm._v(
+                                "\r\n\t\t\t\t\t\t\t\t\t\t\t" +
+                                  _vm._s(post.heading) +
+                                  "\r\n\t\t\t\t\t\t\t\t\t\t"
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      ),
                       _vm._v(" "),
                       _c("div", { staticClass: "row" }, [
                         _c("div", { staticClass: "col-md-4" }, [

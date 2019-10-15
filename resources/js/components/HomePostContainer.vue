@@ -14,9 +14,9 @@
 											<p class="username">{{post.user_name}}</p>
 											<p class="date text-muted">{{post.created_at}}</p>
                                             <h3 class="card-title  font-size-16">
-										<a href="#" class="weight-600 text-black">
+										<router-link :to="'/post/'+post.id"  class="weight-600 text-black">
 											{{post.heading}}
-										</a>
+										</router-link>
 									</h3>
                                     <div class="row">
 										<div class="col-md-4">
