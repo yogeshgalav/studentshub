@@ -54189,7 +54189,7 @@ var render = function() {
                   {
                     key: index,
                     staticClass: "btn btn-white",
-                    attrs: { href: "/explore/" + category.Subject_name }
+                    attrs: { href: "/explore/" + category.subject_url }
                   },
                   [_vm._v(_vm._s(category.Subject_name))]
                 )

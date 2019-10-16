@@ -13,7 +13,7 @@ class Search extends Model
         return $this;
     }
     public function subjectResult($subject_name){
-        $subject=Subject::where('Subject_name',$subject_name)->first();
+        $subject=Subject::where('subject_url',$subject_name)->first();
         $subjects=Subject::where('parent_subject_id',$subject->id)->get();
         
         $posts= SthubPost::whereHas('post',function($query)use($subject){
