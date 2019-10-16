@@ -17,7 +17,7 @@
         <main class="flex-center position-ref full-height">
             <div class="wrapper">
     <div class="main-header">
-    @include('includes.guest-navbar')
+    @include('includes.student-navbar')
     </div>
     <div class="main-sidebar">
     @include('includes.sidebar')

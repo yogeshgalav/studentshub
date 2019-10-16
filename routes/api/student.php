@@ -6,5 +6,6 @@ Route::group(['middleware'=>['auth:api',]],function(){
     Route::get('/get-categories','CategoryController@index');
     Route::get('/get-subjects/{category_id}','SubjectController@index');
     Route::get('/get-subject-list/{category_id}','SubjectController@subjectList');
+    Route::post('/submit-post','PostController@create');
     
 });

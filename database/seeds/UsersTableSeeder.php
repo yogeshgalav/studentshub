@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use DB;
 
 class UsersTableSeeder extends Seeder
 {
@@ -73,5 +74,8 @@ class UsersTableSeeder extends Seeder
 (59, 'AgniPrashun',  'agniprashun@icloud.com', '$2y$10\$O92TvzjASYc/ZuBkw88w3emyStARclW6oe5HXF6YWH.iVwtGNtSk.', 'QRroHDS6ZgJHuVbXaDAOC2N49XN9YKC9XhVEiWtF9csuQ8DDsXBFi0b4O1Zr', '2018-06-17 13:36:16', '2018-06-17 14:56:52');
 ;";
         DB::unprepared($sql);
+        DB::table('students')->insert(['user_id' => '1']);
     }
+
+    
 }
