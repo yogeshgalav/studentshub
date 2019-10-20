@@ -7,7 +7,7 @@
                         <h3 class="weight-800 text-black font-size-18">{{ trans('Login') }}</h3>
                     </div>
                     <div class="card-body">
-                        <form @submit="handleSubmit($event)" method="POST" action="/api/login">
+                        <form @submit.prevent="handleSubmit">
                             <div class="form-group row alert alert-danger" v-if="srvError401">
                                 <span>{{ trans('Invalid login credentials. Please try again.') }}</span>
                             </div>
@@ -48,7 +48,7 @@
                             <div class="form-group row mb-0">
                                 <div class="col-md-8 center-col">
                                     <button type="submit" class="btn btn-primary">
-                                        {{ trans('Login') }} <i class="fa fa-arrow-right text-white "></i>
+                                        {{ trans('Login') }} <i class="fa fa-arrow-right text-white" v-if="login_status"></i>
                                     </button>
 
                                     <div class="text-center center-col pt-2">
@@ -116,6 +116,7 @@
                 email:'',
                 password:'',
                 remember:false,
+                login_status:1,
                 srvError401:'',
                 srvErrorUnknown:'',
             }
@@ -126,13 +127,15 @@
              },
              handleSubmit: function (e) {
                 this.$validator.validate().then(valid => {
-                     if (!valid) {
-                    e.preventDefault();
-                }
+                 if (valid) {
+                        this.form_errors=[];
+                        this.login();
+                    }
             });
             return true;
             },
             login: function () {
+                this.login_status=0;
                 let email = this.email;
                 let password = this.password;
                 let remember = this.remember;

@@ -26,8 +26,7 @@ register({commit}, user){
     .then(resp => {
       const token = resp.data.token
       const user = resp.data.user
-      localStorage.setItem('token', token)
-      axios.defaults.headers.common['Authorization'] = token
+      localStorage.setItem('access_token', token)
       commit('auth_success', token, user)
       resolve(resp)
     })
@@ -45,7 +44,7 @@ logout({commit}){
     .then(resp => {
       window.App.signedIn=false;
       window.App.AuthUser=null;
-    localStorage.removeItem('token')
+    localStorage.removeItem('access_token')
     delete axios.defaults.headers.common['Authorization']
     resolve()
     });

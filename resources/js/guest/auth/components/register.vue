@@ -11,7 +11,7 @@
             <div class="card-body">
                 <div class="row justify-content-center">
             <div class="col-md-8">
-                  <form @submit="handleSubmit($event)" method="POST" action="/register">
+                  <form @submit.prevent="handleSubmit">
                 <div class="form-group">
                   <input
                     id="token"
@@ -159,6 +159,7 @@ export default {
   mixins: [FormMixin],
   data() {
     return {
+      register_status:1,
       dict: {
         custom: {
           password_confirmation: {
@@ -175,13 +176,35 @@ export default {
     handleSubmit(e) {
       this.$validator.localize("en", this.dict);
       this.$validator.validate().then(valid => {
-        if (!valid) {
-          e.preventDefault();
+        if (valid) {
+          this.form_errors=[];
+          this.register();
         }
       });
       return true;
     },
-
+    register: function () {
+                this.register_status=0;
+                let email = this.email;
+                let password = this.password;
+                let remember = this.remember;
+                this.$store.dispatch('auth/register', { email, password, remember})
+                    .then((resp) => {
+                        ({redirectUrl: window.location.href} = resp.data.success);
+                    })
+                        .catch(err => {
+                            if( 401 === err.response.status){
+                                this.srvError401=true;
+                                this.srvErrorUnknown=false;
+                                this.form_errors=[];
+                            } else {
+                                this.srvErrorUnknown=true;
+                                this.srvError401 = false;
+                                this.form_errors=err.response.data.errors;
+                            }
+                        })
+                    },
+            
     AuthProvider(provider) {
       var self = this;
 

@@ -1,7 +1,7 @@
 
 <?php
 
-Route::group(['middleware'=>['auth:api',]],function(){
+Route::group(['middleware'=>['auth:api']],function(){
 
     Route::get('/get-categories','CategoryController@index');
     Route::get('/get-subjects/{category_id}','SubjectController@index');

@@ -2006,6 +2006,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       email: '',
       password: '',
       remember: false,
+      login_status: 1,
       srvError401: '',
       srvErrorUnknown: ''
     };
@@ -2015,16 +2016,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return this.$trans('auth', string, defaultString);
     },
     handleSubmit: function handleSubmit(e) {
+      var _this = this;
+
       this.$validator.validate().then(function (valid) {
-        if (!valid) {
-          e.preventDefault();
+        if (valid) {
+          _this.form_errors = [];
+
+          _this.login();
         }
       });
       return true;
     },
     login: function login() {
-      var _this = this;
+      var _this2 = this;
 
+      this.login_status = 0;
       var email = this.email;
       var password = this.password;
       var remember = this.remember;
@@ -2036,13 +2042,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         window.location.href = resp.data.success.redirectUrl;
       })["catch"](function (err) {
         if (401 === err.response.status) {
-          _this.srvError401 = true;
-          _this.srvErrorUnknown = false;
-          _this.form_errors = [];
+          _this2.srvError401 = true;
+          _this2.srvErrorUnknown = false;
+          _this2.form_errors = [];
         } else {
-          _this.srvErrorUnknown = true;
-          _this.srvError401 = false;
-          _this.form_errors = err.response.data.errors;
+          _this2.srvErrorUnknown = true;
+          _this2.srvError401 = false;
+          _this2.form_errors = err.response.data.errors;
         }
       });
     }
@@ -2241,6 +2247,7 @@ __webpack_require__.r(__webpack_exports__);
   mixins: [_components_mixins_form_mixin_js__WEBPACK_IMPORTED_MODULE_0__["default"]],
   data: function data() {
     return {
+      register_status: 1,
       dict: {
         custom: {
           password_confirmation: {
@@ -2255,13 +2262,42 @@ __webpack_require__.r(__webpack_exports__);
       return this.$trans("auth", string, defaultString);
     },
     handleSubmit: function handleSubmit(e) {
+      var _this = this;
+
       this.$validator.localize("en", this.dict);
       this.$validator.validate().then(function (valid) {
-        if (!valid) {
-          e.preventDefault();
+        if (valid) {
+          _this.form_errors = [];
+
+          _this.register();
         }
       });
       return true;
+    },
+    register: function register() {
+      var _this2 = this;
+
+      this.register_status = 0;
+      var email = this.email;
+      var password = this.password;
+      var remember = this.remember;
+      this.$store.dispatch('auth/register', {
+        email: email,
+        password: password,
+        remember: remember
+      }).then(function (resp) {
+        window.location.href = resp.data.success.redirectUrl;
+      })["catch"](function (err) {
+        if (401 === err.response.status) {
+          _this2.srvError401 = true;
+          _this2.srvErrorUnknown = false;
+          _this2.form_errors = [];
+        } else {
+          _this2.srvErrorUnknown = true;
+          _this2.srvError401 = false;
+          _this2.form_errors = err.response.data.errors;
+        }
+      });
     },
     AuthProvider: function AuthProvider(provider) {
       var self = this;
@@ -53490,9 +53526,9 @@ var render = function() {
             _c(
               "form",
               {
-                attrs: { method: "POST", action: "/api/login" },
                 on: {
                   submit: function($event) {
+                    $event.preventDefault()
                     return _vm.handleSubmit($event)
                   }
                 }
@@ -53701,9 +53737,11 @@ var render = function() {
                             _vm._s(_vm.trans("Login")) +
                             " "
                         ),
-                        _c("i", {
-                          staticClass: "fa fa-arrow-right text-white "
-                        })
+                        _vm.login_status
+                          ? _c("i", {
+                              staticClass: "fa fa-arrow-right text-white"
+                            })
+                          : _vm._e()
                       ]
                     ),
                     _vm._v(" "),
@@ -53780,9 +53818,9 @@ var render = function() {
                   _c(
                     "form",
                     {
-                      attrs: { method: "POST", action: "/register" },
                       on: {
                         submit: function($event) {
+                          $event.preventDefault()
                           return _vm.handleSubmit($event)
                         }
                       }
@@ -84902,8 +84940,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (resp) {
         var token = resp.data.token;
         var user = resp.data.user;
-        localStorage.setItem('token', token);
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.headers.common['Authorization'] = token;
+        localStorage.setItem('access_token', token);
         commit('auth_success', token, user);
         resolve(resp);
       })["catch"](function (err) {
@@ -84923,7 +84960,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (resp) {
         window.App.signedIn = false;
         window.App.AuthUser = null;
-        localStorage.removeItem('token');
+        localStorage.removeItem('access_token');
         delete axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.headers.common['Authorization'];
         resolve();
       });
