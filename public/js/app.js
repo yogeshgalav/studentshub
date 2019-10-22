@@ -2242,14 +2242,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: [_components_mixins_form_mixin_js__WEBPACK_IMPORTED_MODULE_0__["default"]],
   data: function data() {
     return {
       register_status: 1,
+      full_name: '',
+      email: '',
+      password: '',
       dict: {
         custom: {
+          full_name: {
+            required: "You must provide your Full Name to continue."
+          },
+          email: {
+            required: "You must provide your Email Address to continue.",
+            email: "Seems like you have entered an incorrect Email."
+          },
+          password: {
+            required: "You must create new Password to continue."
+          },
           password_confirmation: {
             required: "The confirm password field is required"
           }
@@ -2280,11 +2296,11 @@ __webpack_require__.r(__webpack_exports__);
       this.register_status = 0;
       var email = this.email;
       var password = this.password;
-      var remember = this.remember;
+      var full_name = this.full_name;
       this.$store.dispatch('auth/register', {
+        full_name: full_name,
         email: email,
-        password: password,
-        remember: remember
+        password: password
       }).then(function (resp) {
         window.location.href = resp.data.success.redirectUrl;
       })["catch"](function (err) {
@@ -3383,7 +3399,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
 //
 //
 //
@@ -8606,7 +8621,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n\r\n/* footer social icons */\n.social-network a.icoRss:hover {\r\n\tbackground-color: #F56505;\n}\n.social-network a.icoFacebook:hover {\r\n\tbackground-color:#3B5998;\n}\n.social-network a.icoTwitter:hover {\r\n\tbackground-color:#33ccff;\n}\n.social-network a.icoGoogle:hover {\r\n\tbackground-color:#BD3518;\n}\n.social-network a.icoVimeo:hover {\r\n\tbackground-color:#0590B8;\n}\n.social-network a.icoLinkedin:hover {\r\n\tbackground-color:#007bb7;\n}\n.social-network a.icoRss:hover i, .social-network a.icoFacebook:hover i, .social-network a.icoTwitter:hover i,\r\n.social-network a.icoGoogle:hover i, .social-network a.icoVimeo:hover i, .social-network a.icoLinkedin:hover i {\r\n\tcolor:#fff;\n}\na.socialIcon:hover, .socialHoverClass {\r\n\tcolor:#44BCDD;\n}\n.social-circle li a {\r\n\tdisplay:inline-block;\r\n\tposition:relative;\r\n\tmargin:0 auto 0 auto;\r\n\tborder-radius:50%;\r\n\ttext-align:center;\r\n\twidth: 50px;\r\n\theight: 50px;\r\n\tfont-size:20px;\n}\n.social-circle li i {\r\n\tmargin:0;\r\n\tline-height:50px;\r\n\ttext-align: center;\n}\n.social-circle li a:hover i, .triggeredHover {\r\n\t-moz-transform: rotate(360deg);\r\n\t-webkit-transform: rotate(360deg);\r\n\t-ms--transform: rotate(360deg);\r\n\ttransform: rotate(360deg);\r\n\ttransition: all 0.2s;\n}\n.social-circle i {\r\n\tcolor: #fff;\r\n\ttransition: all 0.8s;\n}\n.social-circle a {\r\n background-color: #333;\n}\n.fixed-back\r\n{\r\n    top:13.6%;\r\n    position: fixed;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n\r\n/* footer social icons */\n.social-network a.icoRss:hover {\r\n\tbackground-color: #F56505;\n}\n.social-network a.icoFacebook:hover {\r\n\tbackground-color:#3B5998;\n}\n.social-network a.icoTwitter:hover {\r\n\tbackground-color:#33ccff;\n}\n.social-network a.icoGoogle:hover {\r\n\tbackground-color:#BD3518;\n}\n.social-network a.icoVimeo:hover {\r\n\tbackground-color:#0590B8;\n}\n.social-network a.icoLinkedin:hover {\r\n\tbackground-color:#007bb7;\n}\n.social-network a.icoRss:hover i, .social-network a.icoFacebook:hover i, .social-network a.icoTwitter:hover i,\r\n.social-network a.icoGoogle:hover i, .social-network a.icoVimeo:hover i, .social-network a.icoLinkedin:hover i {\r\n\tcolor:#fff;\n}\na.socialIcon:hover, .socialHoverClass {\r\n\tcolor:#44BCDD;\n}\n.social-circle li a {\r\n\tdisplay:inline-block;\r\n\tposition:relative;\r\n\tmargin:0 auto 0 auto;\r\n\tborder-radius:50%;\r\n\ttext-align:center;\r\n\twidth: 50px;\r\n\theight: 50px;\r\n\tfont-size:20px;\n}\n.social-circle li i {\r\n\tmargin:0;\r\n\tline-height:50px;\r\n\ttext-align: center;\n}\n.social-circle li a:hover i, .triggeredHover {\r\n\t-moz-transform: rotate(360deg);\r\n\t-webkit-transform: rotate(360deg);\r\n\t-ms--transform: rotate(360deg);\r\n\ttransform: rotate(360deg);\r\n\ttransition: all 0.2s;\n}\n.social-circle i {\r\n\tcolor: #fff;\r\n\ttransition: all 0.8s;\n}\n.social-circle a {\r\n background-color: #333;\n}\n.fixed-back\r\n{\r\n    position: fixed;\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -53857,6 +53872,12 @@ var render = function() {
                                 rawName: "v-validate",
                                 value: "required",
                                 expression: "'required'"
+                              },
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.full_name,
+                                expression: "full_name"
                               }
                             ],
                             staticClass: "form-control",
@@ -53866,6 +53887,15 @@ var render = function() {
                               name: "full_name",
                               placeholder: "Enter Full Name",
                               autofocus: ""
+                            },
+                            domProps: { value: _vm.full_name },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.full_name = $event.target.value
+                              }
                             }
                           }),
                           _vm._v(" "),
@@ -53890,6 +53920,12 @@ var render = function() {
                                 rawName: "v-validate",
                                 value: "required|email",
                                 expression: "'required|email'"
+                              },
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.email,
+                                expression: "email"
                               }
                             ],
                             staticClass: "form-control",
@@ -53898,6 +53934,15 @@ var render = function() {
                               type: "email",
                               name: "email",
                               placeholder: "Email address"
+                            },
+                            domProps: { value: _vm.email },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.email = $event.target.value
+                              }
                             }
                           }),
                           _vm._v(" "),
@@ -53922,6 +53967,12 @@ var render = function() {
                                 rawName: "v-validate",
                                 value: "required",
                                 expression: "'required'"
+                              },
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.password,
+                                expression: "password"
                               }
                             ],
                             ref: "password",
@@ -53931,6 +53982,15 @@ var render = function() {
                               type: "password",
                               name: "password",
                               placeholder: "Password"
+                            },
+                            domProps: { value: _vm.password },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.password = $event.target.value
+                              }
                             }
                           }),
                           _vm._v(" "),
@@ -53993,18 +54053,6 @@ var render = function() {
                       {
                         on: {
                           click: function($event) {
-                            return _vm.AuthProvider("github")
-                          }
-                        }
-                      },
-                      [_vm._v("auth Github")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        on: {
-                          click: function($event) {
                             return _vm.AuthProvider("facebook")
                           }
                         }
@@ -54022,18 +54070,6 @@ var render = function() {
                         }
                       },
                       [_vm._v("auth Google")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        on: {
-                          click: function($event) {
-                            return _vm.AuthProvider("twitter")
-                          }
-                        }
-                      },
-                      [_vm._v("auth Twitter")]
                     )
                   ])
                 ])
@@ -55362,7 +55398,9 @@ var render = function() {
             _c("div", { staticClass: "col-md-9" }, [
               _c("h3", [_vm._v(_vm._s(_vm.postContent.heading))]),
               _vm._v(" "),
-              _c("p", [_vm._v(_vm._s(_vm.postContent.content))])
+              _c("div", {
+                domProps: { innerHTML: _vm._s(_vm.postContent.content) }
+              })
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "col-md-3" }, [_c("recent-post")], 1)

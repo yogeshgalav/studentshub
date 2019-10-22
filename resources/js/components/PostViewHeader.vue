@@ -94,7 +94,6 @@ a.socialIcon:hover, .socialHoverClass {
 }
 .fixed-back
 {
-    top:13.6%;
     position: fixed;
 }
 

@@ -34,6 +34,7 @@
                       placeholder="Enter Full Name"
                       autofocus
                       v-validate="'required'"
+                      v-model="full_name"
                     />
                     <span class="error">{{errors.first('full_name')}}</span>
                   </div>
@@ -51,7 +52,9 @@
                       type="email"
                       class="form-control"
                       name="email"
-                      v-validate="'required|email'" placeholder="Email address"
+                      v-validate="'required|email'" 
+                      placeholder="Email address"
+                      v-model="email"
                     />
                     <span class="error">{{errors.first('email')}}</span>
                   </div>
@@ -70,7 +73,9 @@
                       type="password"
                       class="form-control"
                       name="password"
-                      v-validate="'required'" placeholder="Password"
+                      v-validate="'required'" 
+                      placeholder="Password"
+                      v-model="password"
                     />
                     <span class="error">{{errors.first('password')}}</span>
                   </div>
@@ -99,10 +104,8 @@
                 </div>
               </form>
               <form>
-                <button @click="AuthProvider('github')">auth Github</button>
                 <button @click="AuthProvider('facebook')">auth Facebook</button>
                 <button @click="AuthProvider('google')">auth Google</button>
-                <button @click="AuthProvider('twitter')">auth Twitter</button>
               </form>
                 </div>
                 </div>
@@ -160,8 +163,21 @@ export default {
   data() {
     return {
       register_status:1,
+      full_name:'',
+      email:'',
+      password:'',
       dict: {
         custom: {
+          full_name: {
+            required: "You must provide your Full Name to continue."
+          },
+          email: {
+            required: "You must provide your Email Address to continue.",
+            email: "Seems like you have entered an incorrect Email."
+          },
+          password: {
+            required: "You must create new Password to continue.",
+          },
           password_confirmation: {
             required: "The confirm password field is required"
           }
@@ -187,8 +203,8 @@ export default {
                 this.register_status=0;
                 let email = this.email;
                 let password = this.password;
-                let remember = this.remember;
-                this.$store.dispatch('auth/register', { email, password, remember})
+                let full_name = this.full_name;
+                this.$store.dispatch('auth/register', { full_name, email, password})
                     .then((resp) => {
                         ({redirectUrl: window.location.href} = resp.data.success);
                     })
