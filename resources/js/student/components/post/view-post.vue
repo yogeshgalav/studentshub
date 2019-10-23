@@ -44,7 +44,7 @@
     <div class="row">
         <div class="col-md-9">
             <h3>{{postContent.heading}}</h3>
-            <p>{{postContent.content}}</p>
+            <div v-html="postContent.content"></div>
             </div>
             <div class="col-md-3">
                 <recent-post></recent-post>

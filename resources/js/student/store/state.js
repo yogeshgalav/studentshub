@@ -7,7 +7,6 @@ const state = {
       selected_subject_id:'',
       selected_subject:'',
       selected_primary_subject_id:'',
-      parent_subject_id:'',
       subject_list:[],
       primary_subject_list:[],
     },

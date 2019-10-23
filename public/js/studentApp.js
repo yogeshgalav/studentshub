@@ -1850,6 +1850,25 @@ __webpack_require__.r(__webpack_exports__);
       this.$store.dispatch('createPost', {
         post_content: this.content
       });
+    },
+    handleImageAdded: function handleImageAdded(file, Editor, cursorLocation, resetUploader) {
+      // An example of using FormData
+      // NOTE: Your key could be different such as:
+      // formData.append('file', file)
+      var formData = new FormData();
+      formData.append("image", file);
+      this.$axios({
+        url: "/api/save-post-image",
+        method: "POST",
+        data: formData
+      }).then(function (result) {
+        var url = result.data.url; // Get url from response
+
+        Editor.insertEmbed(cursorLocation, "image", url);
+        resetUploader();
+      })["catch"](function (err) {
+        console.log(err);
+      });
     }
   }
 });
@@ -2114,7 +2133,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     onComplete: function onComplete() {
-      this.$store.commit('submitPost');
+      this.$store.dispatch('submitPost', this.$store.state.new_post);
     }
   }
 });
@@ -65997,8 +66016,15 @@ var render = function() {
           "div",
           [
             _c("vue-editor", {
-              attrs: { editorOptions: _vm.editorSettings, height: "100%" },
-              on: { input: _vm.editContent },
+              attrs: {
+                editorOptions: _vm.editorSettings,
+                useCustomImageHandler: "",
+                height: "100%"
+              },
+              on: {
+                input: _vm.editContent,
+                "image-added": _vm.handleImageAdded
+              },
               model: {
                 value: _vm.content,
                 callback: function($$v) {
@@ -66403,7 +66429,9 @@ var render = function() {
           _c("div", { staticClass: "col-md-9" }, [
             _c("h3", [_vm._v(_vm._s(_vm.postContent.heading))]),
             _vm._v(" "),
-            _c("p", [_vm._v(_vm._s(_vm.postContent.content))])
+            _c("div", {
+              domProps: { innerHTML: _vm._s(_vm.postContent.content) }
+            })
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-md-3" }, [_c("recent-post")], 1)
@@ -95788,6 +95816,20 @@ __webpack_require__.r(__webpack_exports__);
         reject(err);
       });
     });
+  },
+  submitPost: function submitPost(_ref7, data) {
+    var commit = _ref7.commit;
+    return new Promise(function (resolve, reject) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default()({
+        url: window.App.baseUrl + '/api/submit-post',
+        data: data,
+        method: 'POST'
+      }).then(function (resp) {
+        resolve(resp);
+      })["catch"](function (err) {
+        reject(err);
+      });
+    });
   }
 });
 
@@ -95841,13 +95883,7 @@ __webpack_require__.r(__webpack_exports__);
   get_subjects: function get_subjects(state, subjects) {
     state.subjects = subjects;
   },
-  submitPost: function submitPost(state) {
-    axios({
-      url: window.App.baseUrl + '/api/submit-post',
-      data: state.new_post,
-      method: 'POST'
-    }).then(function () {})["catch"](function () {});
-  },
+  submitPost: function submitPost(state) {},
   get_post_content: function get_post_content(state, data) {
     state.postView.categories = data.categories;
     state.postView.related_posts = data.related_posts;
@@ -95858,6 +95894,7 @@ __webpack_require__.r(__webpack_exports__);
     state.new_post.selected_subject = state.new_post.subject_list.find(function (node) {
       return node.id === data;
     });
+    state.new_post.selected_subject_id = state.new_post.selected_subject.id;
   },
   get_subject_list: function get_subject_list(state, data) {
     state.new_post.primary_subject_list = [];
@@ -95887,7 +95924,6 @@ var state = {
     selected_subject_id: '',
     selected_subject: '',
     selected_primary_subject_id: '',
-    parent_subject_id: '',
     subject_list: [],
     primary_subject_list: []
   },

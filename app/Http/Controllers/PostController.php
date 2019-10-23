@@ -7,22 +7,24 @@ use App\Models\Post;
 use App\Models\SthubPost;
 use App\Models\PostContent;
 use App\Models\Article;
+use App\Models\Subject;
 use Auth;
 
 class PostController extends Controller
 {
     //
     public function create(Request $request){
-        dd(Auth::check());
         $post_type=$request->input('post_type');
-        $subject=$request->input('post_subject');
+        $post_subject_id=$request->input('selected_subject_id');
         $heading=$request->input('post_heading');
         $content=$request->input('post_content');
 
+        $subject=Subject::findOrFail($post_subject_id);
         $post=new Post;
         $post->user_id=Auth::user()->id;
         $post->post_type=$post_type;
         $post->post_heading=$heading;
+        $post->subject_id=$subject->id;
         $post->save();
 
         switch('article'){
@@ -36,6 +38,7 @@ class PostController extends Controller
         }
         SthubPost::create([
             'post_id'=>$post->id,
+            'post_type'=>$post_type,
             // 'post_content_id'=>$post_content_id,
             'shared_by'=>Auth::user()->id,
         ]);

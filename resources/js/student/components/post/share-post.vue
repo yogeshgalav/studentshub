@@ -65,7 +65,7 @@ mounted(){
 },
 methods: {
   onComplete(){
-    this.$store.commit('submitPost');
+    this.$store.dispatch('submitPost',this.$store.state.new_post);
   }
 }
 }

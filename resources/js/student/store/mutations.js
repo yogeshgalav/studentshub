@@ -13,13 +13,7 @@ export default {
       state.subjects = subjects;
     },
     submitPost(state){
-      axios({url: window.App.baseUrl+'/api/submit-post', data: state.new_post, method: 'POST' })
-      .then(() => {
-
-      })
-      .catch(() => {
-        
-      })
+      
   },
   get_post_content(state,data){
     state.postView.categories = data.categories;
@@ -29,6 +23,7 @@ export default {
     set_subject(state,data){
       state.new_post.selected_primary_subject_id=data;
       state.new_post.selected_subject=state.new_post.subject_list.find(node=>node.id===data);
+      state.new_post.selected_subject_id=state.new_post.selected_subject.id;
     },
     get_subject_list(state,data){
       state.new_post.primary_subject_list=[];

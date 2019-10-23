@@ -72,4 +72,15 @@ getSubjectList({commit},data){
     })
   })
 },
+submitPost({commit},data){
+  return new Promise((resolve, reject) => {
+    axios({url: window.App.baseUrl+'/api/submit-post', data: data, method: 'POST' })
+      .then((resp) => {
+        resolve(resp)
+      })
+      .catch((err) => {
+        reject(err)
+      })
+  })
+},
 } 
