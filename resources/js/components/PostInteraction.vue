@@ -2,13 +2,13 @@
     <div class="interaction">
                 <div class="container">
                     <div class="display_flex" >
-                        <a href="#" :class="post.like===1 ?'like-active' : 'like'" @click="likefunction"><div class="circle_box"> 
+                        <a href="#" :class="isLiked ?'like-active' : 'like'" @click="likefunction"><div class="circle_box"> 
                             <i class="fas fa-thumbs-up"></i>
-                            <h4>345</h4>
+                            <h4>{{post.total_likes}}</h4>
                          </div>  </a>
-                        <a href="#" :class="post.like===0 ?'like-active' : 'like'">
+                        <a href="#" :class="isDisliked ?'like-active' : 'like'">
                             <div class="circle_box"> <i class="fas fa-thumbs-down"></i> 
-                        <h4>215</h4>
+                        <h4>{{post.total_dislikes}}</h4>
                     
                         </div>
                          </a>
@@ -57,7 +57,6 @@ circle_box i, h4
 .circle_box:hover i, .circle_box:hover h4, .circle_box:focus h4, .circle_box:focus i
 {
     color: #3746c5;
-   
 }
 .display_flex
 {
@@ -66,7 +65,9 @@ circle_box i, h4
     margin-top:30px;
 
 }
-
+.like-active i,h4{
+color: #3746c5;
+}
 </style>
 <script>
 import {mapState} from 'vuex';
@@ -79,7 +80,7 @@ export default {
         isLiked(){
             return this.post.like===1 ? true : false
         },
-        isDisiked(){
+        isDisliked(){
             return this.post.like===0 ? true : false
         },
 	},

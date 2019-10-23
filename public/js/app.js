@@ -3331,6 +3331,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
@@ -3341,7 +3342,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     isLiked: function isLiked() {
       return this.post.like === 1 ? true : false;
     },
-    isDisiked: function isDisiked() {
+    isDisliked: function isDisliked() {
       return this.post.like === 0 ? true : false;
     }
   }),
@@ -3508,7 +3509,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
 //
 //
 //
@@ -8602,7 +8602,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.circle_box[data-v-45996692]\r\n{\r\n\r\n    border-radius:50%;\r\n    margin: 2px 20px 0px 2px;\r\n    padding: 20px;\r\n    background:#eee;\r\n    width: 100px;\r\n    height: 100px;\r\n    text-align:center;\n}\n.circle_box i[data-v-45996692]\r\n{\r\n    \r\n    font-size:30px;\n}\ncircle_box i[data-v-45996692], h4[data-v-45996692]\r\n{\r\n    color: #333;\n}\n.circle_box:hover i[data-v-45996692], .circle_box:hover h4[data-v-45996692], .circle_box:focus h4[data-v-45996692], .circle_box:focus i[data-v-45996692]\r\n{\r\n    color: #3746c5;\n}\n.display_flex[data-v-45996692]\r\n{\r\n    display:-webkit-box;\r\n    display:flex;\r\n    -webkit-box-pack: center;\r\n            justify-content: center;\r\n    margin-top:30px;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.circle_box[data-v-45996692]\r\n{\r\n\r\n    border-radius:50%;\r\n    margin: 2px 20px 0px 2px;\r\n    padding: 20px;\r\n    background:#eee;\r\n    width: 100px;\r\n    height: 100px;\r\n    text-align:center;\n}\n.circle_box i[data-v-45996692]\r\n{\r\n    \r\n    font-size:30px;\n}\ncircle_box i[data-v-45996692], h4[data-v-45996692]\r\n{\r\n    color: #333;\n}\n.circle_box:hover i[data-v-45996692], .circle_box:hover h4[data-v-45996692], .circle_box:focus h4[data-v-45996692], .circle_box:focus i[data-v-45996692]\r\n{\r\n    color: #3746c5;\n}\n.display_flex[data-v-45996692]\r\n{\r\n    display:-webkit-box;\r\n    display:flex;\r\n    -webkit-box-pack: center;\r\n            justify-content: center;\r\n    margin-top:30px;\n}\n.like-active i[data-v-45996692],h4[data-v-45996692]{\r\ncolor: #3746c5;\n}\r\n", ""]);
 
 // exports
 
@@ -55125,47 +55125,38 @@ var render = function() {
         _c(
           "a",
           {
-            class: _vm.post.like === 1 ? "like-active" : "like",
+            class: _vm.isLiked ? "like-active" : "like",
             attrs: { href: "#" },
             on: { click: _vm.likefunction }
           },
-          [_vm._m(0)]
+          [
+            _c("div", { staticClass: "circle_box" }, [
+              _c("i", { staticClass: "fas fa-thumbs-up" }),
+              _vm._v(" "),
+              _c("h4", [_vm._v(_vm._s(_vm.post.total_likes))])
+            ])
+          ]
         ),
         _vm._v(" "),
         _c(
           "a",
           {
-            class: _vm.post.like === 0 ? "like-active" : "like",
+            class: _vm.isDisliked ? "like-active" : "like",
             attrs: { href: "#" }
           },
-          [_vm._m(1)]
+          [
+            _c("div", { staticClass: "circle_box" }, [
+              _c("i", { staticClass: "fas fa-thumbs-down" }),
+              _vm._v(" "),
+              _c("h4", [_vm._v(_vm._s(_vm.post.total_dislikes))])
+            ])
+          ]
         )
       ])
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "circle_box" }, [
-      _c("i", { staticClass: "fas fa-thumbs-up" }),
-      _vm._v(" "),
-      _c("h4", [_vm._v("345")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "circle_box" }, [
-      _c("i", { staticClass: "fas fa-thumbs-down" }),
-      _vm._v(" "),
-      _c("h4", [_vm._v("215")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
