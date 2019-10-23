@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container">
+    <div class="container pb-100">
       <div class="row justify-content-center register">
         <div class="col-md-8">
           <div class="card">
@@ -104,8 +104,12 @@
                 </div>
               </form>
               <form>
-                <button @click="AuthProvider('facebook')">auth Facebook</button>
-                <button @click="AuthProvider('google')">auth Google</button>
+                <p class="text-center">OR</p>
+                <p class="text-center">Sign up with your social network</p>
+                <div class="display-flex">
+                  <button class="btn btn-white mr-3" @click="AuthProvider('google')"><i><img src="/icons/search.png" /></i> Sign up with Google</button>
+                <button class="btn btn-white"  @click="AuthProvider('facebook')"><i><img src="/icons/facebook.png" /></i> Sign up with Facebook</button>
+                </div>
               </form>
                 </div>
                 </div>
@@ -119,7 +123,7 @@
 <style scoped>
 .register .card {
   position: relative;
-  top: 20%;
+  top: 15%;
 }
 .register .btn {
   width: 100%;
@@ -153,6 +157,10 @@
 /* add padding  */
 .left-addon input {
   padding-left: 35px;
+}
+
+.display-flex{
+  display:flex;
 }
 </style>
 <script>

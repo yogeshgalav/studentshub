@@ -2181,6 +2181,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: [_components_mixins_form_mixin_js__WEBPACK_IMPORTED_MODULE_0__["default"]],
@@ -8488,7 +8496,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.register .card[data-v-f6a9f9ec] {\r\n  position: relative;\r\n  top: 20%;\n}\n.register .btn[data-v-f6a9f9ec] {\r\n  width: 100%;\r\n  border-radius: 0;\n}\r\n/* enable absolute positioning */\n.inner-addon[data-v-f6a9f9ec] {\r\n  position: relative;\n}\n.register .form-control[data-v-f6a9f9ec] {\r\n  height: 48px !important;\r\n  color: #000;\r\n  background: #eee;\r\n  border-radius: 0;\n}\r\n/* style glyph */\n.inner-addon .fa[data-v-f6a9f9ec] {\r\n  position: absolute;\r\n  padding: 18px;\r\n  pointer-events: none;\n}\r\n\r\n/* align glyph */\n.left-addon .fa[data-v-f6a9f9ec] {\r\n  left: 0px;\n}\n.right-addon .fa[data-v-f6a9f9ec] {\r\n  right: 0px;\n}\r\n\r\n/* add padding  */\n.left-addon input[data-v-f6a9f9ec] {\r\n  padding-left: 35px;\n}\r\n", ""]);
+exports.push([module.i, "\n.register .card[data-v-f6a9f9ec] {\r\n  position: relative;\r\n  top: 15%;\n}\n.register .btn[data-v-f6a9f9ec] {\r\n  width: 100%;\r\n  border-radius: 0;\n}\r\n/* enable absolute positioning */\n.inner-addon[data-v-f6a9f9ec] {\r\n  position: relative;\n}\n.register .form-control[data-v-f6a9f9ec] {\r\n  height: 48px !important;\r\n  color: #000;\r\n  background: #eee;\r\n  border-radius: 0;\n}\r\n/* style glyph */\n.inner-addon .fa[data-v-f6a9f9ec] {\r\n  position: absolute;\r\n  padding: 18px;\r\n  pointer-events: none;\n}\r\n\r\n/* align glyph */\n.left-addon .fa[data-v-f6a9f9ec] {\r\n  left: 0px;\n}\n.right-addon .fa[data-v-f6a9f9ec] {\r\n  right: 0px;\n}\r\n\r\n/* add padding  */\n.left-addon input[data-v-f6a9f9ec] {\r\n  padding-left: 35px;\n}\n.display-flex[data-v-f6a9f9ec]{\r\n  display:-webkit-box;\r\n  display:flex;\n}\r\n", ""]);
 
 // exports
 
@@ -53861,7 +53869,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "container pb-100" }, [
       _c("div", { staticClass: "row justify-content-center register" }, [
         _c("div", { staticClass: "col-md-8" }, [
           _c("div", { staticClass: "card" }, [
@@ -54092,29 +54100,39 @@ var render = function() {
                   ),
                   _vm._v(" "),
                   _c("form", [
-                    _c(
-                      "button",
-                      {
-                        on: {
-                          click: function($event) {
-                            return _vm.AuthProvider("facebook")
-                          }
-                        }
-                      },
-                      [_vm._v("auth Facebook")]
-                    ),
+                    _c("p", { staticClass: "text-center" }, [_vm._v("OR")]),
                     _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        on: {
-                          click: function($event) {
-                            return _vm.AuthProvider("google")
+                    _c("p", { staticClass: "text-center" }, [
+                      _vm._v("Sign up with your social network")
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "display-flex" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-white mr-3",
+                          on: {
+                            click: function($event) {
+                              return _vm.AuthProvider("google")
+                            }
                           }
-                        }
-                      },
-                      [_vm._v("auth Google")]
-                    )
+                        },
+                        [_vm._m(0), _vm._v(" Sign up with Google")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-white",
+                          on: {
+                            click: function($event) {
+                              return _vm.AuthProvider("facebook")
+                            }
+                          }
+                        },
+                        [_vm._m(1), _vm._v(" Sign up with Facebook")]
+                      )
+                    ])
                   ])
                 ])
               ])
@@ -54125,7 +54143,20 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("i", [_c("img", { attrs: { src: "/icons/search.png" } })])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("i", [_c("img", { attrs: { src: "/icons/facebook.png" } })])
+  }
+]
 render._withStripped = true
 
 
