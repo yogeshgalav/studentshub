@@ -38,12 +38,13 @@
         <div class="col-md-9">
             <h3>{{postContent.heading}}</h3>
             <p>{{postContent.content}}</p>
+            <post-interaction></post-interaction>
             </div>
             <div class="col-md-3">
                 <recent-post></recent-post>
                 </div>
         </div><div class="row">
-                 <post-interaction></post-interaction>
+                 
         </div>
   
     </div>

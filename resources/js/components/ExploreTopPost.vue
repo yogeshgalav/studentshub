@@ -1,5 +1,5 @@
 <template>
-    <div class="container ptb-50">
+    <div class="ptb-50">
         <div class="row">
         <div class="col-md-4" v-for="post in posts" :key="post.id">
 							<div class="card-post">
@@ -41,6 +41,13 @@
     </div>
      </div>
 </template>
+<style scoped>
+.card-post
+{
+	box-shadow: 1px 1px 5px 2px #ccc;
+    padding: 10px;
+}
+</style>
 <script>
 export default {
     
