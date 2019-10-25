@@ -56,10 +56,7 @@ class Post extends Model
                 return $content;
                 break;
             case 'Video':
-                $content=[
-                    'video_link'=>$this->postContent()->first()->link,
-                    'video_descripton'=>$this->postContent()->first()->description,
-                ];
+                $content=$this->postContent()->first()->description;
                 return $content;
                 break;
         }

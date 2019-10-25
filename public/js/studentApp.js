@@ -2756,6 +2756,29 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
@@ -2766,7 +2789,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     isLiked: function isLiked() {
       return this.post.like === 1 ? true : false;
     },
-    isDisiked: function isDisiked() {
+    isDisliked: function isDisliked() {
       return this.post.like === 0 ? true : false;
     }
   }),
@@ -9675,7 +9698,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.circle_box[data-v-45996692]\r\n{\r\n\r\n    border-radius:50%;\r\n    margin: 2px 2px 0px 2px;\r\n    padding: 8px 10px;\r\n    background:#fff;\r\n    border:1px solid #ccc;\n}\n.interaction[data-v-45996692]{\r\n    position: fixed;\r\n    width: 100%;\r\n\tclear: both;\r\n    bottom: 0;\r\n    z-index: 999;\r\n    padding: 15px 0px 10px 0px;\r\n    left: 0;\r\n    right: 0;\r\n    margin: 0;\r\n    /* ATTENTION! The following elements below \r\n    can be set to whatever your heart desires */\r\n     /* REMEMBER height = padding-bottom */\r\n    background: #fff;\r\n    border-top:1px solid #ccc;\n}\r\n", ""]);
+exports.push([module.i, "\n.circle_box[data-v-45996692]\r\n{\r\n\r\n    border-radius:50%;\r\n    margin: 2px 20px 0px 2px;\r\n    padding: 20px;\r\n    background:#eee;\r\n    width: 100px;\r\n    height: 100px;\r\n    text-align:center;\n}\n.circle_box i[data-v-45996692]\r\n{\r\n    \r\n    font-size:30px;\n}\ncircle_box i[data-v-45996692], h4[data-v-45996692]\r\n{\r\n    color: #333;\n}\n.circle_box:hover i[data-v-45996692], .circle_box:hover h4[data-v-45996692], .circle_box:focus h4[data-v-45996692], .circle_box:focus i[data-v-45996692]\r\n{\r\n    color: #3746c5;\n}\n.display_flex[data-v-45996692]\r\n{\r\n    display:flex;\r\n    justify-content: center;\r\n    margin-top:30px;\n}\n.like-active i[data-v-45996692],h4[data-v-45996692]{\r\ncolor: #3746c5;\n}\r\n", ""]);
 
 // exports
 
@@ -66965,82 +66988,42 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "interaction" }, [
     _c("div", { staticClass: "container" }, [
-      _c(
-        "a",
-        {
-          class: _vm.post.like === 1 ? "like-active" : "like",
-          attrs: { href: "#" },
-          on: { click: _vm.likefunction }
-        },
-        [_vm._m(0), _vm._v(" Liked ")]
-      ),
-      _vm._v(" |\n                "),
-      _vm._v(" "),
-      _c(
-        "a",
-        {
-          class: _vm.post.like === 0 ? "like-active" : "like",
-          attrs: { href: "#" }
-        },
-        [_vm._m(1), _vm._v(" Dislike ")]
-      ),
-      _vm._v(" "),
-      _vm._m(2),
-      _vm._v(" "),
-      _vm._m(3)
+      _c("div", { staticClass: "display_flex" }, [
+        _c(
+          "a",
+          {
+            class: _vm.isLiked ? "like-active" : "like",
+            attrs: { href: "#" },
+            on: { click: _vm.likefunction }
+          },
+          [
+            _c("div", { staticClass: "circle_box" }, [
+              _c("i", { staticClass: "fas fa-thumbs-up" }),
+              _vm._v(" "),
+              _c("h4", [_vm._v(_vm._s(_vm.post.total_likes))])
+            ])
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "a",
+          {
+            class: _vm.isDisliked ? "like-active" : "like",
+            attrs: { href: "#" }
+          },
+          [
+            _c("div", { staticClass: "circle_box" }, [
+              _c("i", { staticClass: "fas fa-thumbs-down" }),
+              _vm._v(" "),
+              _c("h4", [_vm._v(_vm._s(_vm.post.total_dislikes))])
+            ])
+          ]
+        )
+      ])
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "circle_box" }, [
-      _c("i", { staticClass: "fas fa-thumbs-up" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "circle_box" }, [
-      _c("i", { staticClass: "fas fa-thumbs-down" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "like", attrs: { href: "#" } }, [
-      _c("span", { staticClass: "circle_box" }, [
-        _c("i", { staticClass: "fas fa-comment" })
-      ]),
-      _vm._v(" Reviews ")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "btn-group pull-right" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-link",
-          attrs: { type: "button", "data-toggle": "dropdown" }
-        },
-        [_c("i", { staticClass: "fas fa-ellipsis-h font-size-18 text-black" })]
-      ),
-      _vm._v(" "),
-      _c("ul", { staticClass: "dropdown-menu p-2" }, [
-        _c("li", [_vm._v("Share")]),
-        _vm._v(" "),
-        _c("li", [_vm._v("Report")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

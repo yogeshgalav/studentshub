@@ -50,7 +50,6 @@
                 <recent-post></recent-post>
                 </div>
         </div>
-  
     </div>
 
       </div>

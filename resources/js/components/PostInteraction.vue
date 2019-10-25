@@ -1,11 +1,21 @@
 <template>
     <div class="interaction">
                 <div class="container">
-                    <a href="#" :class="post.like===1 ?'like-active' : 'like'" @click="likefunction"><span class="circle_box"> <i class="fas fa-thumbs-up"></i> </span> Liked </a> |
+                    <div class="display_flex" >
+                        <a href="#" :class="isLiked ?'like-active' : 'like'" @click="likefunction"><div class="circle_box"> 
+                            <i class="fas fa-thumbs-up"></i>
+                            <h4>{{post.total_likes}}</h4>
+                         </div>  </a>
+                        <a href="#" :class="isDisliked ?'like-active' : 'like'">
+                            <div class="circle_box"> <i class="fas fa-thumbs-down"></i> 
+                        <h4>{{post.total_dislikes}}</h4>
+                    
+                        </div>
+                         </a>
                     <!-- <span>{{post.total_likes}}</span> -->
-                <a href="#" :class="post.like===0 ?'like-active' : 'like'"><span class="circle_box"> <i class="fas fa-thumbs-down"></i> </span> Dislike </a>
+                
                     <!-- <span>{{post.total_dislikes}}</span> -->
-                <a href="#" class="like"><span class="circle_box"> <i class="fas fa-comment"></i> </span> Reviews </a>
+                <!-- <a href="#" class="like"><span class="circle_box"> <i class="fas fa-comment"></i> </span> Reviews </a>
         <div class="btn-group pull-right">
                     <button type="button" class="btn btn-link" data-toggle="dropdown"> 
                       <i class="fas fa-ellipsis-h font-size-18 text-black"></i>
@@ -14,9 +24,10 @@
                     <ul class="dropdown-menu p-2">
                         <li>Share</li>
                         <li>Report</li> 
-                    </ul>
-                </div>
+                    </ul> 
+                </div>-->
         </div>
+         </div>
     </div>
 </template>
 <style scoped>
@@ -24,26 +35,38 @@
 {
 
     border-radius:50%;
-    margin: 2px 2px 0px 2px;
-    padding: 8px 10px;
-    background:#fff;
-    border:1px solid #ccc;
+    margin: 2px 20px 0px 2px;
+    padding: 20px;
+    background:#eee;
+    width: 100px;
+    height: 100px;
+    text-align:center;
 }
-.interaction{
-    position: fixed;
-    width: 100%;
-	clear: both;
-    bottom: 0;
-    z-index: 999;
-    padding: 15px 0px 10px 0px;
-    left: 0;
-    right: 0;
-    margin: 0;
-    /* ATTENTION! The following elements below 
-    can be set to whatever your heart desires */
-     /* REMEMBER height = padding-bottom */
-    background: #fff;
-    border-top:1px solid #ccc;
+.circle_box i
+{
+    
+    font-size:30px;
+
+}
+circle_box i, h4
+{
+    color: #333;
+   
+
+}
+.circle_box:hover i, .circle_box:hover h4, .circle_box:focus h4, .circle_box:focus i
+{
+    color: #3746c5;
+}
+.display_flex
+{
+    display:flex;
+    justify-content: center;
+    margin-top:30px;
+
+}
+.like-active i,h4{
+color: #3746c5;
 }
 </style>
 <script>
@@ -57,7 +80,7 @@ export default {
         isLiked(){
             return this.post.like===1 ? true : false
         },
-        isDisiked(){
+        isDisliked(){
             return this.post.like===0 ? true : false
         },
 	},

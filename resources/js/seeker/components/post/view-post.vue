@@ -50,7 +50,9 @@
                 <recent-post></recent-post>
                 </div>
         </div><div class="row">
+                    <div class="col-md-12 text-center">
                  <post-interaction></post-interaction>
+                    </div>
         </div>
   
     </div>
