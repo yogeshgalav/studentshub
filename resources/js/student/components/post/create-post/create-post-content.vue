@@ -1,7 +1,11 @@
 <template>
     <main>
-        <div v-if="$store.state.new_post.post_type.toLowerCase()==='article'">
+        <div v-if="postType==='article'">
         <vue-editor v-model="content" :editorOptions="editorSettings" @input="editContent" useCustomImageHandler @image-added="handleImageAdded" :height="'100%'"/>
+        </div>
+        <div v-if="postType==='video'">
+        <input type="text" v-model="video_link" @input="editConent">
+        <input type="text" v-model="video_description" @input="editConent">
         </div>
     </main>
 </template>
@@ -21,6 +25,8 @@ export default {
     data(){
         return{
             content:'',
+            video_link:'',
+            video_description:'',
             editorSettings: {
         // modules: {
         //   imageDrop: true,
@@ -31,9 +37,22 @@ export default {
       }
         }
     },
+    computed:{
+        postType(){
+            return this.$store.state.new_post.post_type.toLowerCase();
+        }
+    },
     methods:{
         editContent(){
-            this.$store.dispatch('createPost',{post_content:this.content});
+            this.$store.dispatch('createPost',{postContent:{content:this.content}});
+        },
+        addVideo(){
+            this.$store.dispatch('createPost',{
+                postContent:{
+                    video_link:this.video_link,
+                    video_description:this.video_description
+                    }
+                });
         },
          handleImageAdded: function(file, Editor, cursorLocation, resetUploader) {
         // An example of using FormData

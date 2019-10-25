@@ -30,7 +30,7 @@ export default {
                 'Article',
                 'Fact',
                 'Notice',
-                'Youtube Video',
+                'Video',
                 'Quora',
                 'Link',
                 'MCQ',

@@ -1886,6 +1886,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
  // import { Quill } from "quill";
 // import { ImageDrop } from "quill-image-drop-module";
 // import { ImageResize } from "quill-image-resize-module";
@@ -1900,6 +1904,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       content: '',
+      video_link: '',
+      video_description: '',
       editorSettings: {// modules: {
         //   imageDrop: true,
         //   imageResize: {
@@ -1909,10 +1915,25 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
+  computed: {
+    postType: function postType() {
+      return this.$store.state.new_post.post_type.toLowerCase();
+    }
+  },
   methods: {
     editContent: function editContent() {
       this.$store.dispatch('createPost', {
-        post_content: this.content
+        postContent: {
+          content: this.content
+        }
+      });
+    },
+    addVideo: function addVideo() {
+      this.$store.dispatch('createPost', {
+        postContent: {
+          video_link: this.video_link,
+          video_description: this.video_description
+        }
       });
     },
     handleImageAdded: function handleImageAdded(file, Editor, cursorLocation, resetUploader) {
@@ -2011,7 +2032,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      postTypes: ['Article', 'Fact', 'Notice', 'Youtube Video', 'Quora', 'Link', 'MCQ']
+      postTypes: ['Article', 'Fact', 'Notice', 'Video', 'Quora', 'Link', 'MCQ']
     };
   },
   methods: {
@@ -2290,6 +2311,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2312,7 +2340,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     'relatedPost': function relatedPost(state) {
       return state.postView.related_posts;
     }
-  })),
+  }), {
+    postType: function postType() {
+      return this.postContent.post_type ? this.postContent.post_type.toLowerCase() : '';
+    }
+  }),
   mounted: function mounted() {
     this.$store.dispatch('getPostContent', this.$route.params.id);
   }
@@ -66019,7 +66051,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("main", [
-    _vm.$store.state.new_post.post_type.toLowerCase() === "article"
+    _vm.postType === "article"
       ? _c(
           "div",
           [
@@ -66044,6 +66076,58 @@ var render = function() {
           ],
           1
         )
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.postType === "video"
+      ? _c("div", [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.video_link,
+                expression: "video_link"
+              }
+            ],
+            attrs: { type: "text" },
+            domProps: { value: _vm.video_link },
+            on: {
+              input: [
+                function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.video_link = $event.target.value
+                },
+                _vm.editConent
+              ]
+            }
+          }),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.video_description,
+                expression: "video_description"
+              }
+            ],
+            attrs: { type: "text" },
+            domProps: { value: _vm.video_description },
+            on: {
+              input: [
+                function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.video_description = $event.target.value
+                },
+                _vm.editConent
+              ]
+            }
+          })
+        ])
       : _vm._e()
   ])
 }
@@ -66437,9 +66521,29 @@ var render = function() {
           _c("div", { staticClass: "col-md-9" }, [
             _c("h3", [_vm._v(_vm._s(_vm.postContent.heading))]),
             _vm._v(" "),
-            _c("div", {
-              domProps: { innerHTML: _vm._s(_vm.postContent.content) }
-            })
+            _vm.postType === "article"
+              ? _c("div", [
+                  _c("div", {
+                    domProps: { innerHTML: _vm._s(_vm.postContent.content) }
+                  })
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.postType === "video"
+              ? _c("div", [
+                  _c("iframe", {
+                    attrs: {
+                      width: "620",
+                      height: "315",
+                      src: _vm.postContent.content.video_link
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("div", [
+                    _vm._v(_vm._s(_vm.postContent.content.video_description))
+                  ])
+                ])
+              : _vm._e()
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-md-3" }, [_c("recent-post")], 1)
@@ -95703,7 +95807,7 @@ __webpack_require__.r(__webpack_exports__);
 var state = {
   new_post: {
     post_type: 'article',
-    post_content: '',
+    postContent: '',
     post_subject: '',
     post_heading: '',
     selected_subject_id: '',

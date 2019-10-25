@@ -37,7 +37,14 @@
         <div class="row">
         <div class="col-md-9">
             <h3>{{postContent.heading}}</h3>
-            <div v-html="postContent.content"></div>
+            <div v-if="postType==='article'">
+                <div v-html="postContent.content"></div>
+            </div>
+            <div v-if="postType==='video'">
+                <iframe width="620" height="315"
+                    :src="postContent.content.video_link"></iframe>
+                    <div>{{postContent.content.video_description}}</div>
+            </div>
             </div>
             <div class="col-md-3">
                 <recent-post></recent-post>
@@ -74,7 +81,10 @@ export default {
 			'categories': state=>state.explore.postView.categories,
 			'postContent': state=>state.explore.postView.post_content,
 			'relatedPost': state=>state.explore.postView.related_posts,
-		}),
+        }),
+        postType(){
+            return this.postContent.post_type ? this.postContent.post_type.toLowerCase() : '';
+        }
 	},
     mounted(){
         this.$store.dispatch('explore/getPostContent',this.$route.params.id).then(resp=>

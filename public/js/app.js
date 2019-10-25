@@ -3585,6 +3585,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3609,7 +3616,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     'relatedPost': function relatedPost(state) {
       return state.explore.postView.related_posts;
     }
-  })),
+  }), {
+    postType: function postType() {
+      return this.postContent.post_type ? this.postContent.post_type.toLowerCase() : '';
+    }
+  }),
   mounted: function mounted() {
     this.$store.dispatch('explore/getPostContent', this.$route.params.id).then(function (resp) {
       return document.title = resp.data.success.post_content.heading;
@@ -55398,9 +55409,29 @@ var render = function() {
             _c("div", { staticClass: "col-md-9" }, [
               _c("h3", [_vm._v(_vm._s(_vm.postContent.heading))]),
               _vm._v(" "),
-              _c("div", {
-                domProps: { innerHTML: _vm._s(_vm.postContent.content) }
-              })
+              _vm.postType === "article"
+                ? _c("div", [
+                    _c("div", {
+                      domProps: { innerHTML: _vm._s(_vm.postContent.content) }
+                    })
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.postType === "video"
+                ? _c("div", [
+                    _c("iframe", {
+                      attrs: {
+                        width: "620",
+                        height: "315",
+                        src: _vm.postContent.content.video_link
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("div", [
+                      _vm._v(_vm._s(_vm.postContent.content.video_description))
+                    ])
+                  ])
+                : _vm._e()
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "col-md-3" }, [_c("recent-post")], 1)

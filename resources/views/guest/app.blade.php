@@ -9,7 +9,7 @@
 <script src="{{ asset('js/app.js') }}" defer></script>
 <link href="{{ asset('css/app.css') }}" type="text/css" rel="stylesheet">
 <script src="/js/lang.js"></script>
-<link rel="shortcut icon" type="image/x-icon" href="{{asset('favicon.ico')}}" />
+<link rel="shortcut icon" type="image/png" href="{{asset('favicon.png')}}" />
 <style>
         body
             {

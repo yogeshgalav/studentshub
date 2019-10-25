@@ -56,7 +56,43 @@ class Post extends Model
                 return $content;
                 break;
             case 'Video':
+                $content=[
+                    'video_link'=>$this->postContent()->first()->link,
+                    'video_descripton'=>$this->postContent()->first()->description,
+                ];
+                return $content;
+                break;
+        }
+    }
+    public function postFullContent(){
+        
+        switch($this->post_type){
+            default:
+            case 'Article':
                 $content=$this->postContent()->first()->content;
+                return $content;
+                break;
+            case 'Notice':
+                $content=$this->postContent()->first()->content;
+                return $content;
+                break;
+            case 'Document':
+                $content=$this->postContent()->first()->content;
+                return $content;
+                break;
+            case 'Fact':
+                $content=$this->postContent()->first()->content;
+                return $content;
+                break;
+            case 'MCQ':
+                $content=$this->postContent()->first()->content;
+                return $content;
+                break;
+            case 'Video':
+                $content=[
+                    'video_link'=>$this->postContent()->first()->link,
+                    'video_descripton'=>$this->postContent()->first()->description,
+                ];
                 return $content;
                 break;
         }
@@ -114,7 +150,8 @@ class Post extends Model
         
         return [
             'id'=>$this->id,
-            'content'=>$this->postContent->content,
+            'content'=>$this->postFullContent(),
+            'post_type'=>$this->post_type,
             'heading'=>$this->post_heading,
             'user_name'=>$this->user_name,
             'subject_name'=>$this->subject->Subject_name,
@@ -129,7 +166,8 @@ class Post extends Model
         $post_like=$this->like->where('user_id',Auth::user()->id)->first();
         return [
             'id'=>$this->id,
-            'content'=>$this->postContent->content,
+            'content'=>$this->postFullContent(),
+            'post_type'=>$this->post_type,
             'heading'=>$this->post_heading,
             'user_name'=>$this->user_name,
             'like'=>$post_like ? $post_like->like : null,
