@@ -11,9 +11,9 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/Guest/app.js', 'public/js/app.js')
-.js('resources/js/Seeker/app.js', 'public/js/seekerApp.js')
-.js('resources/js/Student/app.js', 'public/js/studentApp.js')
+mix.js('resources/js/guest/app.js', 'public/js/app.js')
+.js('resources/js/seeker/app.js', 'public/js/seekerApp.js')
+.js('resources/js/student/app.js', 'public/js/studentApp.js')
     .sass('resources/sass/app.scss', 'public/css') ;
     // mix.extend('foo',new class{
     //     webpackPlugins(){
