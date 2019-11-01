@@ -49,8 +49,8 @@
             </div>
             <div v-if="postType==='video'">
                 <iframe width="620" height="315"
-                    :src="postContent.content.video_link"></iframe>
-                    <div>{{postContent.content.video_description}}</div>
+                    :src="postContent.content.link"></iframe>
+                    <div>{{postContent.content.description}}</div>
             </div>
             </div>
             <div class="col-md-3">

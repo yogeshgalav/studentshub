@@ -51,7 +51,7 @@ export default {
         },
         addVideo(){
             console.log(this.video_link,);
-            this.$store.dispatch('createPost',{
+            this.$store.dispatch('setPostContent',{
                 postContent:{
                     video_link:this.video_link,
                     video_description:this.video_description

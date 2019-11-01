@@ -56,6 +56,8 @@ class Post extends Model
                 return $content;
                 break;
             case 'Video':
+            !$this->postContent()->first() ?
+            dd($this->id) :
                 $content=$this->postContent()->first()->description;
                 return $content;
                 break;
@@ -147,7 +149,7 @@ class Post extends Model
         
         return [
             'id'=>$this->id,
-            'content'=>$this->postFullContent(),
+            'content'=>$this->postContent()->first(),
             'post_type'=>$this->post_type,
             'heading'=>$this->post_heading,
             'user_name'=>$this->user_name,
@@ -163,7 +165,7 @@ class Post extends Model
         $post_like=$this->like->where('user_id',Auth::user()->id)->first();
         return [
             'id'=>$this->id,
-            'content'=>$this->postFullContent(),
+            'content'=>$this->postContent()->first(),
             'post_type'=>$this->post_type,
             'heading'=>$this->post_heading,
             'user_name'=>$this->user_name,
@@ -187,6 +189,7 @@ class Post extends Model
             $post=$subject->posts()->first();
             is_null($post)?'':$related_posts[]=$post;
         }
+        
         return ['categories'=>$subjects,'post_content'=>$post_content,'related_posts'=>$related_posts];
     }
     

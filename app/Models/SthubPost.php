@@ -13,6 +13,7 @@ class SthubPost extends Model
     {
         return $this->belongsTo('App\Models\Post')->with(['postContent','subject','tags']);
     }
+    //get post for seeker or student dashboard page
     public function scopeGetDashboardPosts($query){
         return $query->where('college_id',Auth::user()->college_id)
         // ->orWhere('classroom_id',Auth::user()->classroom_id)
@@ -21,7 +22,7 @@ class SthubPost extends Model
         // ->orWhere('batch_id',Auth::user()->batch_id)
         ->get()->each(function($sthub_post){
             $post=$sthub_post->post;
-            $sthub_post->content=$post->shortContent();
+            $sthub_post->content=$post->postContent()->first();
             $sthub_post->heading=$post->post_heading;
             $sthub_post->user_name=$post->user_name;
             $sthub_post->subject_name=$post->subject->Subject_name;

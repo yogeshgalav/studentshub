@@ -2705,7 +2705,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     addVideo: function addVideo() {
       console.log(this.video_link);
-      this.$store.dispatch('createPost', {
+      this.$store.dispatch('setPostContent', {
         postContent: {
           video_link: this.video_link,
           video_description: this.video_description
@@ -96310,6 +96310,7 @@ __webpack_require__.r(__webpack_exports__);
         url: window.App.baseUrl + '/api/get-posts',
         method: 'GET'
       }).then(function (resp) {
+        console.log(resp.data);
         var posts = resp.data.success.posts;
         commit('get_posts', posts);
         resolve(resp);
