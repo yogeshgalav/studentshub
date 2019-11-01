@@ -8,7 +8,9 @@ use App\Models\SthubPost;
 use App\Models\PostContent;
 use App\Models\Article;
 use App\Models\Subject;
+use App\Models\Video;
 use Auth;
+use DB;
 
 class PostController extends Controller
 {
@@ -18,7 +20,8 @@ class PostController extends Controller
         $post_subject_id=$request->input('selected_subject_id');
         $heading=$request->input('post_heading');
         $postContent=$request->input('postContent');
-try{
+        DB::beginTransaction();
+        try{
         $subject=Subject::findOrFail($post_subject_id);
         $post=new Post;
         $post->user_id=Auth::user()->id;
@@ -27,7 +30,7 @@ try{
         $post->subject_id=$subject->id;
         $post->save();
 
-        switch('article'){
+        switch(strToLower($request->post_type)){
             case 'article':
             $post_content_id=Article::create(['post_id'=>$post->id,'content'=>$postContent['content']])->id;
             break;
@@ -37,15 +40,15 @@ try{
             break;
             case 'video':
             $str=$postContent['video_link'];
-            if ($pos=strpos($str, 'watch?v=') !== false) {
-                $link='https://www.youtube.com/embed/'.substr($str, $pos);
-            }else if ($pos=strpos($str, 'youtu.be/') !== false) {
-                $link='https://www.youtube.com/embed/'.substr($str, $pos);
+            if ($pos=strpos($str, 'watch?v=') == true) {
+                $link='https://www.youtube.com/embed/'.str_replace('https://www.youtube.com/watch?v=','',$str);
+            }else if ($pos=strpos($str, 'youtu.be/') == true) {
+                $link='https://www.youtube.com/embed/'.str_replace('https://www.youtu.be/','',$str);
             }
-            $post_content_id=Video::create(['post_id'=>$post->id,
+            $post_content_id=Video::insertGetId(['post_id'=>$post->id,
             'link'=>$link,
             'description'=>$postContent['video_description'] ?? null
-            ])->id;
+            ]);
             break;
         }
         SthubPost::create([
@@ -54,9 +57,12 @@ try{
             // 'post_content_id'=>$post_content_id,
             'shared_by'=>Auth::user()->id,
         ]);
-}catch(\Exception $e){
-    Log::error('Error while creating post- '.$e->getMessage());
-}
+        DB::commit();
+    } catch (\Exception $e) {
+        DB::rollback();
+        dd($e->getMessage());
+        return response()->$e;
+    }
         return response()->json('success');
     }
 }

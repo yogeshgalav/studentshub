@@ -4,8 +4,11 @@
         <vue-editor v-model="content" :editorOptions="editorSettings" @input="editContent" useCustomImageHandler @image-added="handleImageAdded" :height="'100%'"/>
         </div>
         <div v-if="postType==='video'">
-        <input type="text" v-model="video_link" @input="editConent">
-        <input type="text" v-model="video_description" @input="editConent">
+        <label for="videoLink">Youtube Video Link</label>
+
+        <input type="text" id="videoLink" v-model="video_link" @input="addVideo">
+        <label for="videoDescription">A little Description</label>
+        <input type="text" id="videoDescription" v-model="video_description" @input="addVideo">
         </div>
     </main>
 </template>
@@ -47,6 +50,7 @@ export default {
             this.$store.dispatch('createPost',{postContent:{content:this.content}});
         },
         addVideo(){
+            console.log(this.video_link,);
             this.$store.dispatch('createPost',{
                 postContent:{
                     video_link:this.video_link,

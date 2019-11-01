@@ -28,15 +28,15 @@ export default {
     get_subjects(state,subjects){
       state.subjects = subjects;
     },
-    submitPost(state){
-      axios({url: window.App.baseUrl+'/api/submit-post', data: state.new_post, method: 'POST' })
-      .then(() => {
+  //   submitPost(state){
+  //     axios({url: window.App.baseUrl+'/api/submit-post', data: state.new_post, method: 'POST' })
+  //     .then(() => {
 
-      })
-      .catch(() => {
+  //     })
+  //     .catch(() => {
         
-      })
-  },
+  //     })
+  // },
   get_post_content(state,data){
     state.postView.categories = data.categories;
     state.postView.related_posts = data.related_posts;
