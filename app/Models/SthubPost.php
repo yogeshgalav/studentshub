@@ -20,7 +20,7 @@ class SthubPost extends Model
         // ->orWhere('branch_id	',Auth::user()->branch_id	)
         // ->orWhere('course_id',Auth::user()->course_id)
         // ->orWhere('batch_id',Auth::user()->batch_id)
-        ->get()->each(function($sthub_post){
+        ->orderBy('id', 'DESC')->get()->each(function($sthub_post){
             $post=$sthub_post->post;
             $sthub_post->id=$post->id;
             $sthub_post->content=$post->postContent()->first();
