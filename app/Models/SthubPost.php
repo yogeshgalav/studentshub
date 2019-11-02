@@ -22,7 +22,10 @@ class SthubPost extends Model
         // ->orWhere('batch_id',Auth::user()->batch_id)
         ->get()->each(function($sthub_post){
             $post=$sthub_post->post;
+            $sthub_post->id=$post->id;
             $sthub_post->content=$post->postContent()->first();
+            $primary_image=$post->image->where('is_primary',true)->first(); 
+            $sthub_post->image_path=$primary_image ? $primary_image->path : '/images/blogpost.jpg';
             $sthub_post->heading=$post->post_heading;
             $sthub_post->user_name=$post->user_name;
             $sthub_post->subject_name=$post->subject->Subject_name;

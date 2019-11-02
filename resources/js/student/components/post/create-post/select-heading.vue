@@ -17,7 +17,7 @@
 export default {
     methods:{
         editHeading(event){
-            this.$store.dispatch('createPost',{post_heading:event.target.value});
+            this.$store.dispatch('createPost',{field:'post_heading',post_heading:event.target.value});
         }
     }
 }

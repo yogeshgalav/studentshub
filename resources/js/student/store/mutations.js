@@ -1,6 +1,27 @@
 export default {
-    create_post(state,post){
-      state.new_post = Object.assign(state.new_post,post)
+    create_post(state,data){
+      switch(data.field){
+        case 'post_type':
+        state.new_post.post_type=data.post_type.toLowerCase();
+        break
+        case 'post_heading':
+        state.new_post.post_heading=data.post_heading;
+        break
+        case 'post_subject':
+        state.new_post.post_subject=data.post_subject;
+        break
+        case 'postContent':
+        console.log(data,state.new_post.post_type)
+          switch(state.new_post.post_type){
+            case 'article':  
+          state.new_post.postContent = {'content':data.content};
+          break;
+            case 'video':  
+          state.new_post.postContent = {'link':data.link,'description':data.description};
+          break;
+          }
+        break;
+      }
     },
     get_posts(state,posts){
       state.dashboardPosts = posts;

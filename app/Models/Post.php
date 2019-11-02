@@ -7,6 +7,8 @@ use Auth;
 class Post extends Model
 {
     //
+    protected  $guarded = ['id', 'created_at', 'updated_at'];
+
     protected $appends=['user_name','total_views','total_likes'];
     public function article(){
         return $this->hasOne('App\Models\Article');
@@ -27,75 +29,7 @@ class Post extends Model
         return $this->hasOne('App\Models\Video');
     }
     
-    public function shortContent(){
-        
-        switch($this->post_type){
-            default:
-            case 'Article':
-                $content=$this->postContent()->first()->content;
-                $rand=mt_rand(60,100);
-                $content=substr($content,0,$rand);
-                return $content;
-                break;
-            case 'Notice':
-                $content=$this->postContent()->first()->content;
-                $rand=mt_rand(60,100);
-                $content=substr($content,0,$rand);
-                return $content;
-                break;
-            case 'Document':
-                $content=$this->postContent()->first()->content;
-                return $content;
-                break;
-            case 'Fact':
-                $content=$this->postContent()->first()->content;
-                return $content;
-                break;
-            case 'MCQ':
-                $content=$this->postContent()->first()->content;
-                return $content;
-                break;
-            case 'Video':
-            !$this->postContent()->first() ?
-            dd($this->id) :
-                $content=$this->postContent()->first()->description;
-                return $content;
-                break;
-        }
-    }
-    public function postFullContent(){
-        
-        switch($this->post_type){
-            default:
-            case 'Article':
-                $content=$this->postContent()->first()->content;
-                return $content;
-                break;
-            case 'Notice':
-                $content=$this->postContent()->first()->content;
-                return $content;
-                break;
-            case 'Document':
-                $content=$this->postContent()->first()->content;
-                return $content;
-                break;
-            case 'Fact':
-                $content=$this->postContent()->first()->content;
-                return $content;
-                break;
-            case 'MCQ':
-                $content=$this->postContent()->first()->content;
-                return $content;
-                break;
-            case 'Video':
-                $content=[
-                    'video_link'=>$this->postContent()->first()->link,
-                    'video_descripton'=>$this->postContent()->first()->description,
-                ];
-                return $content;
-                break;
-        }
-    }
+   
     public function postContent(){
         switch($this->post_type){
             default:
@@ -129,6 +63,12 @@ class Post extends Model
     }
     public function subject(){
         return $this->belongsTo('App\Models\Subject');
+    }           
+    public function image(){
+        return $this->hasMany('App\Models\PostImage');
+    }           
+    public function primary_image(){
+        return $this->image()->where('is_primary',true)->first();
     }           
     public function tags(){
         return $this->hasMany('App\Models\PostTag');

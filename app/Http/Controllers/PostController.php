@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\SthubPost;
 use App\Models\PostContent;
+use App\Models\PostImage;
 use App\Models\Article;
 use App\Models\Subject;
 use App\Models\Video;
@@ -17,6 +18,7 @@ class PostController extends Controller
     //
     public function create(Request $request){
         $post_type=$request->input('post_type');
+        $post_subject=$request->input('post_subject');
         $post_subject_id=$request->input('selected_subject_id');
         $heading=$request->input('post_heading');
         $postContent=$request->input('postContent');
@@ -39,15 +41,19 @@ class PostController extends Controller
             case 'document':
             break;
             case 'video':
-            $str=$postContent['video_link'];
+            $str=$postContent['link'];
             if ($pos=strpos($str, 'watch?v=') == true) {
-                $link='https://www.youtube.com/embed/'.str_replace('https://www.youtube.com/watch?v=','',$str);
+                $video_id=str_replace('https://www.youtube.com/watch?v=','',$str);
             }else if ($pos=strpos($str, 'youtu.be/') == true) {
-                $link='https://www.youtube.com/embed/'.str_replace('https://www.youtu.be/','',$str);
+                $video_id=str_replace('https://www.youtu.be/','',$str);
             }
             $post_content_id=Video::insertGetId(['post_id'=>$post->id,
-            'link'=>$link,
-            'description'=>$postContent['video_description'] ?? null
+            'link'=>'https://www.youtube.com/embed/'.$video_id,
+            'description'=>$postContent['description'] ?? null
+            ]);
+            $post_image=PostImage::create(['post_id'=>$post->id,
+            'user_id'=>Auth::user()->id,
+            'path'=>'https://img.youtube.com/vi/'.$video_id.'/0.jpg'
             ]);
             break;
         }

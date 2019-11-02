@@ -6,9 +6,9 @@
         <div v-if="postType==='video'">
         <label for="videoLink">Youtube Video Link</label>
 
-        <input type="text" id="videoLink" v-model="video_link" @input="addVideo">
+        <input type="text" id="videoLink" v-model="video_link" @blur="addVideo">
         <label for="videoDescription">A little Description</label>
-        <input type="text" id="videoDescription" v-model="video_description" @input="addVideo">
+        <input type="text" id="videoDescription" v-model="video_description" @blur="addVideo">
         </div>
     </main>
 </template>
@@ -47,16 +47,14 @@ export default {
     },
     methods:{
         editContent(){
-            this.$store.dispatch('createPost',{postContent:{content:this.content}});
+            this.$store.dispatch('createPost',{field:'postContent',postContent:{content:this.content}});
         },
         addVideo(){
-            console.log(this.video_link,);
-            this.$store.dispatch('setPostContent',{
-                postContent:{
-                    video_link:this.video_link,
-                    video_description:this.video_description
-                    }
-                });
+            let data={};
+        data.link=this.video_link;
+        data.description=this.video_description;
+        data.field='postContent';
+            this.$store.dispatch('createPost',data);
         },
          handleImageAdded: function(file, Editor, cursorLocation, resetUploader) {
         // An example of using FormData

@@ -1,9 +1,9 @@
 import axios from 'axios';
 
 export default {
-  createPost({commit}, post){
+  createPost({commit}, data){
     return new Promise(() => {
-      commit('create_post',post)
+      commit('create_post',data)
     })
 },
 getPosts({commit}){

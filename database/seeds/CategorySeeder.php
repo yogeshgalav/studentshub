@@ -54,6 +54,7 @@ class CategorySeeder extends Seeder
         (39, 'Travel', 'travel', 0),
         (40, 'Weather', 'weather', 0),
         (41, 'Anatomy', 'anatomy', 0);
+        (41, 'History', 'history', 0);
         ";
         DB::unprepared($sql);
     }

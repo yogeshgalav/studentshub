@@ -2698,19 +2698,18 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     editContent: function editContent() {
       this.$store.dispatch('createPost', {
+        field: 'postContent',
         postContent: {
           content: this.content
         }
       });
     },
     addVideo: function addVideo() {
-      console.log(this.video_link);
-      this.$store.dispatch('setPostContent', {
-        postContent: {
-          video_link: this.video_link,
-          video_description: this.video_description
-        }
-      });
+      var data = {};
+      data.link = this.video_link;
+      data.description = this.video_description;
+      data.field = 'postContent';
+      this.$store.dispatch('createPost', data);
     },
     handleImageAdded: function handleImageAdded(file, Editor, cursorLocation, resetUploader) {
       // An example of using FormData
@@ -2764,6 +2763,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     editHeading: function editHeading(event) {
       this.$store.dispatch('createPost', {
+        field: 'post_heading',
         post_heading: event.target.value
       });
     }
@@ -2814,6 +2814,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     selectPostType: function selectPostType(event) {
       this.$store.dispatch('createPost', {
+        field: 'post_type',
         post_type: event.target.value
       });
     }
@@ -2882,6 +2883,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   methods: {
     editSubject: function editSubject(event) {
       this.$store.dispatch('createPost', {
+        field: 'post_subject',
         post_subject: event.target.value
       });
     },
@@ -66302,27 +66304,21 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _vm._m(0, true)
+          _c("div", { staticClass: "col-md-3" }, [
+            _c("img", {
+              staticClass: "card-img-top",
+              attrs: { src: post.image_path, alt: "Card image cap" }
+            })
+          ])
         ]),
         _vm._v(" "),
-        _vm._m(1, true)
+        _vm._m(0, true)
       ])
     }),
     0
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-3" }, [
-      _c("img", {
-        staticClass: "card-img-top",
-        attrs: { src: "/images/blogpost.jpg", alt: "Card image cap" }
-      })
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -66842,15 +66838,13 @@ var render = function() {
             attrs: { type: "text", id: "videoLink" },
             domProps: { value: _vm.video_link },
             on: {
-              input: [
-                function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.video_link = $event.target.value
-                },
-                _vm.addVideo
-              ]
+              blur: _vm.addVideo,
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.video_link = $event.target.value
+              }
             }
           }),
           _vm._v(" "),
@@ -66870,15 +66864,13 @@ var render = function() {
             attrs: { type: "text", id: "videoDescription" },
             domProps: { value: _vm.video_description },
             on: {
-              input: [
-                function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.video_description = $event.target.value
-                },
-                _vm.addVideo
-              ]
+              blur: _vm.addVideo,
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.video_description = $event.target.value
+              }
             }
           })
         ])
@@ -96297,10 +96289,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  createPost: function createPost(_ref, post) {
+  createPost: function createPost(_ref, data) {
     var commit = _ref.commit;
     return new Promise(function () {
-      commit('create_post', post);
+      commit('create_post', data);
     });
   },
   getPosts: function getPosts(_ref2) {
@@ -96435,8 +96427,40 @@ var StudentStore = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  create_post: function create_post(state, post) {
-    state.new_post = Object.assign(state.new_post, post);
+  create_post: function create_post(state, data) {
+    switch (data.field) {
+      case 'post_type':
+        state.new_post.post_type = data.post_type.toLowerCase();
+        break;
+
+      case 'post_heading':
+        state.new_post.post_heading = data.post_heading;
+        break;
+
+      case 'post_subject':
+        state.new_post.post_subject = data.post_subject;
+        break;
+
+      case 'postContent':
+        console.log(data, state.new_post.post_type);
+
+        switch (state.new_post.post_type) {
+          case 'article':
+            state.new_post.postContent = {
+              'content': data.content
+            };
+            break;
+
+          case 'video':
+            state.new_post.postContent = {
+              'link': data.link,
+              'description': data.description
+            };
+            break;
+        }
+
+        break;
+    }
   },
   get_posts: function get_posts(state, posts) {
     state.dashboardPosts = posts;
@@ -96483,7 +96507,7 @@ __webpack_require__.r(__webpack_exports__);
 var state = {
   new_post: {
     post_type: 'article',
-    postContent: '',
+    postContent: {},
     post_subject: '',
     post_heading: '',
     selected_subject_id: '',

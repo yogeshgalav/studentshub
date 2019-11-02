@@ -40,7 +40,7 @@
 							</div>
 						</div>
                         <div class="col-md-3">
-                            <img class="card-img-top" src="/images/blogpost.jpg" alt="Card image cap">
+                            <img class="card-img-top" :src="post.image_path" alt="Card image cap">
                         </div>
     </div>
     <div class="row">

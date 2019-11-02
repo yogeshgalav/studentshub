@@ -39,7 +39,7 @@ export default {
     },
     methods:{
         selectPostType(event){
-           this.$store.dispatch('createPost',{post_type:event.target.value});
+           this.$store.dispatch('createPost',{field:'post_type',post_type:event.target.value});
         }
     }
 }
