@@ -66306,8 +66306,16 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "col-md-3" }, [
             _c("img", {
+              directives: [
+                {
+                  name: "lazy",
+                  rawName: "v-lazy",
+                  value: post.image_path,
+                  expression: "post.image_path"
+                }
+              ],
               staticClass: "card-img-top",
-              attrs: { src: post.image_path, alt: "Card image cap" }
+              attrs: { alt: "Card image cap" }
             })
           ])
         ]),

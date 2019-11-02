@@ -2246,6 +2246,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
@@ -53728,8 +53729,8 @@ var render = function() {
                 {
                   name: "lazy",
                   rawName: "v-lazy",
-                  value: "/images/4.jpg",
-                  expression: "'/images/4.jpg'"
+                  value: post.image_path,
+                  expression: "post.image_path"
                 }
               ],
               staticClass: "card-img-top",
@@ -54115,8 +54116,16 @@ var render = function() {
         return _c("div", { key: post.id, staticClass: "col-md-4" }, [
           _c("div", { staticClass: "card-post" }, [
             _c("img", {
+              directives: [
+                {
+                  name: "lazy",
+                  rawName: "v-lazy",
+                  value: post.image_path,
+                  expression: "post.image_path"
+                }
+              ],
               staticClass: "card-img-top",
-              attrs: { src: "/images/4.jpg", alt: "Card image cap" }
+              attrs: { alt: "Card image cap" }
             }),
             _vm._v(" "),
             _c("div", [
@@ -54318,8 +54327,16 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "col-md-3" }, [
             _c("img", {
+              directives: [
+                {
+                  name: "lazy",
+                  rawName: "v-lazy",
+                  value: post.image_path,
+                  expression: "post.image_path"
+                }
+              ],
               staticClass: "card-img-top",
-              attrs: { src: post.image_path, alt: "Card image cap" }
+              attrs: { alt: "Card image cap" }
             })
           ])
         ]),

@@ -3,7 +3,7 @@
         <div class="row">
         <div class="col-md-4" v-for="post in posts" :key="post.id">
 							<div class="card-post">
-								<img class="card-img-top" src="/images/4.jpg" alt="Card image cap">
+								<img class="card-img-top" v-lazy="post.image_path" alt="Card image cap">
 								<div>
 									<div class="d-flex mt-2">
 										<div class="avatar">
