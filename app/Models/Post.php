@@ -35,22 +35,22 @@ class Post extends Model
             default:
             return $this->article();
                 break;
-            case 'Article':
+            case 'article':
                 return $this->article();
                 break;
-            case 'Notice':
+            case 'notice':
                 return $this->notice();
                 break;
-            case 'Document':
+            case 'document':
                 return $this->document();
                 break;
-            case 'Fact':
+            case 'fact':
                 return $this->fact();
                 break;
-            case 'MCQ':
+            case 'mcq':
                 return $this->MCQ();
                 break;
-            case 'Video':
+            case 'video':
                 return $this->video();
                 break;
         }

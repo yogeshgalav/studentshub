@@ -23,9 +23,12 @@ class SthubPost extends Model
         ->orderBy('id', 'DESC')->get()->each(function($sthub_post){
             $post=$sthub_post->post;
             $sthub_post->id=$post->id;
+
+            $post_content= $post->postContent()->first();
             $rand=mt_rand(60,100);
-            $content=$post_content? substr($post_content->content,0,$rand): null;
-            $sthub_post->content= $content;
+            $discription=$post_content? substr($post_content->content,0,$rand): null;
+            $sthub_post->content=$discription;
+
             $primary_image=$post->image->where('is_primary',true)->first(); 
             $sthub_post->image_path=$primary_image ? $primary_image->path : '/images/blogpost.jpg';
             $sthub_post->heading=$post->post_heading;

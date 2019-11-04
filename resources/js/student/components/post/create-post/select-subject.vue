@@ -4,9 +4,9 @@
                 
                 <div class="form-group">
                     <div class="row">
-                        <input type="text" :value="selected_subject.Subject_name" class="form-control">
+                        <input type="text" :value="selected_subject.Subject_name" @input="editSubject" class="form-control">
                     </div>
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-md-4">
                             <div class="card" v-for="subject in primary_subject_list" :key="subject.id">{{subject.Subject_name}}</div>
                         </div>
@@ -17,7 +17,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>      
+                    </div>       -->
                 </div>
             </div>
         </div>
@@ -40,7 +40,8 @@ export default {
 	},
     methods:{
         editSubject(event){
-            this.$store.dispatch('createPost',{field:'post_subject',post_subject:event.target.value});
+            console.log('1',event.target.value)
+            this.$store.dispatch('createPost',{field:'post_subject',subject_name:event.target.value});
         },
         getSubject(subject_id){
             this.$store.dispatch('getSubjectList',{subject_id:subject_id});

@@ -2665,6 +2665,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
  // import { Quill } from "quill";
 // import { ImageDrop } from "quill-image-drop-module";
 // import { ImageResize } from "quill-image-resize-module";
@@ -2882,9 +2889,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   })),
   methods: {
     editSubject: function editSubject(event) {
+      console.log('1', event.target.value);
       this.$store.dispatch('createPost', {
         field: 'post_subject',
-        post_subject: event.target.value
+        subject_name: event.target.value
       });
     },
     getSubject: function getSubject(subject_id) {
@@ -2994,7 +3002,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     onComplete: function onComplete() {
-      this.$store.dispatch('submitPost', this.$store.state.new_post);
+      this.$store.dispatch('submitPost', this.$store.state.new_post).then(this.$router.push('/'));
     }
   }
 });
@@ -66830,57 +66838,63 @@ var render = function() {
     _vm._v(" "),
     _vm.postType === "video"
       ? _c("div", [
-          _c("label", { attrs: { for: "videoLink" } }, [
-            _vm._v("Youtube Video Link")
-          ]),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.video_link,
-                expression: "video_link"
-              }
-            ],
-            attrs: { type: "text", id: "videoLink" },
-            domProps: { value: _vm.video_link },
-            on: {
-              blur: _vm.addVideo,
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-md-8" }, [
+              _c("label", { attrs: { for: "videoLink" } }, [
+                _vm._v("Youtube Video Link")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.video_link,
+                    expression: "video_link"
+                  }
+                ],
+                attrs: { type: "text", id: "videoLink" },
+                domProps: { value: _vm.video_link },
+                on: {
+                  blur: _vm.addVideo,
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.video_link = $event.target.value
+                  }
                 }
-                _vm.video_link = $event.target.value
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c("label", { attrs: { for: "videoDescription" } }, [
-            _vm._v("A little Description")
-          ]),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.video_description,
-                expression: "video_description"
-              }
-            ],
-            attrs: { type: "text", id: "videoDescription" },
-            domProps: { value: _vm.video_description },
-            on: {
-              blur: _vm.addVideo,
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-8 mt-2" }, [
+              _c("label", { attrs: { for: "videoDescription" } }, [
+                _vm._v("A little Description")
+              ]),
+              _vm._v(" "),
+              _c("textarea", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.video_description,
+                    expression: "video_description"
+                  }
+                ],
+                attrs: { id: "videoDescription" },
+                domProps: { value: _vm.video_description },
+                on: {
+                  blur: _vm.addVideo,
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.video_description = $event.target.value
+                  }
                 }
-                _vm.video_description = $event.target.value
-              }
-            }
-          })
+              })
+            ])
+          ])
         ])
       : _vm._e()
   ])
@@ -67032,49 +67046,9 @@ var render = function() {
           _c("input", {
             staticClass: "form-control",
             attrs: { type: "text" },
-            domProps: { value: _vm.selected_subject.Subject_name }
+            domProps: { value: _vm.selected_subject.Subject_name },
+            on: { input: _vm.editSubject }
           })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c(
-            "div",
-            { staticClass: "col-md-4" },
-            _vm._l(_vm.primary_subject_list, function(subject) {
-              return _c("div", { key: subject.id, staticClass: "card" }, [
-                _vm._v(_vm._s(subject.Subject_name))
-              ])
-            }),
-            0
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "col-md-8" },
-            _vm._l(_vm.subject_list, function(subject) {
-              return _c("div", { key: subject.id, staticClass: "card" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass: "card-body",
-                    on: {
-                      click: function($event) {
-                        return _vm.getSubject(subject.id)
-                      }
-                    }
-                  },
-                  [
-                    _vm._v(
-                      "\r\n                                " +
-                        _vm._s(subject.Subject_name) +
-                        "\r\n                                "
-                    )
-                  ]
-                )
-              ])
-            }),
-            0
-          )
         ])
       ])
     ])
@@ -96384,7 +96358,6 @@ __webpack_require__.r(__webpack_exports__);
   submitPost: function submitPost(_ref7, data) {
     var commit = _ref7.commit;
     return new Promise(function (resolve, reject) {
-      console.log(data, 'hre');
       axios__WEBPACK_IMPORTED_MODULE_0___default()({
         url: window.App.baseUrl + '/api/submit-post',
         data: data,
@@ -96436,6 +96409,8 @@ var StudentStore = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   create_post: function create_post(state, data) {
+    console.log('2', data);
+
     switch (data.field) {
       case 'post_type':
         state.new_post.post_type = data.post_type.toLowerCase();
@@ -96446,7 +96421,8 @@ __webpack_require__.r(__webpack_exports__);
         break;
 
       case 'post_subject':
-        state.new_post.post_subject = data.post_subject;
+        state.new_post.selected_subject.id = data.subject_id ? data.subject_id : null;
+        state.new_post.selected_subject.subject_name = data.subject_name;
         break;
 
       case 'postContent':
@@ -96487,11 +96463,10 @@ __webpack_require__.r(__webpack_exports__);
     state.postView.post_content = data.post_content;
   },
   set_subject: function set_subject(state, data) {
-    state.new_post.selected_primary_subject_id = data;
+    state.new_post.selected_primary_subject_id = data.subject_id;
     state.new_post.selected_subject = state.new_post.subject_list.find(function (node) {
-      return node.id === data;
+      return node.id === data.subject_id;
     });
-    state.new_post.selected_subject_id = state.new_post.selected_subject.id;
   },
   get_subject_list: function get_subject_list(state, data) {
     state.new_post.primary_subject_list = [];
@@ -96516,10 +96491,12 @@ var state = {
   new_post: {
     post_type: 'article',
     postContent: {},
-    post_subject: '',
     post_heading: '',
     selected_subject_id: '',
-    selected_subject: '',
+    selected_subject: {
+      'id': null,
+      'subject_name': ''
+    },
     selected_primary_subject_id: '',
     subject_list: [],
     primary_subject_list: []

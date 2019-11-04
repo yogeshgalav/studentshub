@@ -65,7 +65,7 @@ mounted(){
 },
 methods: {
   onComplete(){
-    this.$store.dispatch('submitPost',this.$store.state.new_post);
+    this.$store.dispatch('submitPost',this.$store.state.new_post).then(this.$router.push('/'));
   }
 }
 }

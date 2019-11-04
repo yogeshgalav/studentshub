@@ -75,7 +75,6 @@ getSubjectList({commit},data){
 },
 submitPost({commit},data){
   return new Promise((resolve, reject) => {
-    console.log(data,'hre');
     axios({url: window.App.baseUrl+'/api/submit-post', data: data, method: 'POST' })
       .then((resp) => {
         resolve(resp)

@@ -17,14 +17,24 @@ class PostController extends Controller
 {
     //
     public function create(Request $request){
-        $post_type=$request->input('post_type');
-        $post_subject=$request->input('post_subject');
-        $post_subject_id=$request->input('selected_subject_id');
-        $heading=$request->input('post_heading');
-        $postContent=$request->input('postContent');
+        $data=$request->all();
+        $post_type=$data['post_type'];
+        $selected_subject=$data['selected_subject'];
+        $heading=$data['post_heading'];
+        $postContent=$data['postContent'];
+
         DB::beginTransaction();
         try{
-        $subject=Subject::findOrFail($post_subject_id);
+            if(is_null($selected_subject['id'])){
+                $subject_name=strtolower($selected_subject['subject_name']);
+                $subject=Subject::firstOrCreate([
+                    'Subject_name'=>$subject_name,
+                    'subject_url'=>urlencode($subject_name)
+                    ]);   
+            }else{
+                $subject=Subject::findOrFail($selected_subject['id']);
+            }
+        
         $post=new Post;
         $post->user_id=Auth::user()->id;
         $post->post_type=$post_type;
@@ -41,12 +51,18 @@ class PostController extends Controller
             case 'document':
             break;
             case 'video':
-            $str=$postContent['link'];
-            if ($pos=strpos($str, 'watch?v=') == true) {
-                $video_id=str_replace('https://www.youtube.com/watch?v=','',$str);
-            }else if ($pos=strpos($str, 'youtu.be/') == true) {
-                $video_id=str_replace('https://www.youtu.be/','',$str);
+            $str=$postContent['link'].'&';
+            
+            if (preg_match('/(?<=watch\?v\=).*?(?=\&)/', $str, $m)) {
+                $video_id = $m[0]; 
+            }else if (preg_match('/(?<=www\.youtu\.be\/).*?(?=\&)/', $str, $m)) {
+                $video_id = $m[0]; 
             }
+            // if ($pos=strpos($str, 'watch?v=') == true) {
+            //     $video_id=str_replace('https://www.youtube.com/watch?v=','',$str);
+            // }else if ($pos=strpos($str, 'youtu.be/') == true) {
+            //     $video_id=str_replace('https://www.youtu.be/','',$str);
+            // }
             $post_content_id=Video::insertGetId(['post_id'=>$post->id,
             'link'=>'https://www.youtube.com/embed/'.$video_id,
             'description'=>$postContent['description'] ?? null
@@ -63,10 +79,11 @@ class PostController extends Controller
             // 'post_content_id'=>$post_content_id,
             'shared_by'=>Auth::user()->id,
         ]);
+        
         DB::commit();
     } catch (\Exception $e) {
         DB::rollback();
-        dd($e->getMessage());
+        dd($e->getMessage(),$e->getLine());
         return response()->$e;
     }
         return response()->json('success');

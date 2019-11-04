@@ -18,6 +18,7 @@ class CreateTopicsTable extends Migration
             $table->string('Topic_name');
             $table->integer('subject_id')->nullable();
             $table->string('tags')->nullable();
+            $table->timestamps();
         });
     }
 

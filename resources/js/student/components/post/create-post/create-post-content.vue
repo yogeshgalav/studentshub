@@ -4,11 +4,18 @@
         <vue-editor v-model="content" :editorOptions="editorSettings" @input="editContent" useCustomImageHandler @image-added="handleImageAdded" :height="'100%'"/>
         </div>
         <div v-if="postType==='video'">
-        <label for="videoLink">Youtube Video Link</label>
+            <div class="row">
+                <div class="col-md-8">
+                    <label for="videoLink">Youtube Video Link</label>
 
-        <input type="text" id="videoLink" v-model="video_link" @blur="addVideo">
-        <label for="videoDescription">A little Description</label>
-        <input type="text" id="videoDescription" v-model="video_description" @blur="addVideo">
+                    <input type="text" id="videoLink" v-model="video_link" @blur="addVideo">
+                    
+                </div>
+                <div class="col-md-8 mt-2">
+                    <label for="videoDescription">A little Description</label>
+                    <textarea id="videoDescription" v-model="video_description" @blur="addVideo" />
+                </div>
+            </div>
         </div>
     </main>
 </template>
