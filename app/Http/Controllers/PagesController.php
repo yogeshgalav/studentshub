@@ -71,4 +71,14 @@ class PagesController extends Controller
     public function viewPost(){
         return view($this->AuthUserType.'.view-post');
     }
+    public function report(){
+        $total_users=\App\Models\User::count();
+        $total_guests=\App\Models\Guest::count();
+        $total_posts=\App\Models\Post::count();
+        return view('admin.report')
+        ->with('total_users',$total_users)
+        ->with('total_guests',$total_guests)
+        ->with('total_posts',$total_posts)
+        ;
+    }
 }
