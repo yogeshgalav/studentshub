@@ -15,4 +15,5 @@ Route::group(['middleware'=>['auth']],function(){
     Route::get('/classrooms', 'PagesController@classroomList');
     
     Route::get('/classroom/{classroom_id}','PagesController@classroom');
+    Route::get('/ask-question','PagesController@askQuestion');
 });

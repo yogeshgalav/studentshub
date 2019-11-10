@@ -2,11 +2,16 @@ import DashboardComponent from './components/dashboard.vue'
 import ViewPost from './components/post/view-post.vue'
 import EditPost from './components/post/edit-post.vue'
 import SharePost from './components/post/share-post.vue'
+import AskQuestion from './components/ask-question.vue'
 
 const StudentRoutes = [
       {
         path: '/',
         component: DashboardComponent,
+      },
+      {
+        path: '/ask-question',
+        component: AskQuestion,
       },
       { path: '*', redirect: '/' },
       //Post Routes

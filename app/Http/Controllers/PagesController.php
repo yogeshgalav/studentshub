@@ -65,6 +65,9 @@ class PagesController extends Controller
     public function registerPage(){
         return view('guest.auth.register');
     }
+    public function askQuestion(){
+        return view('student.ask-question');
+    }
     public function sharePost(){
         return view('student.share-post');
     }
