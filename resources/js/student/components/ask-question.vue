@@ -34,6 +34,7 @@ export default {
         {
         this.axios.post(window.App.baseUrl+'/api/add-question/', {question: 'questionghg'})
     .then(resp => {
+        
      
     })
     .catch(err => {

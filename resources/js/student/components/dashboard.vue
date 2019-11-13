@@ -1,15 +1,18 @@
 <template>
     <main>
-        <div class="container pt-100">
-            <div class="col-md-8 center-col">
- <div class="row">
-     <div class="col-md-12">
+         <div class="row">
+     <div class="col-md-10 center-col">
         <slot></slot>
-        <router-link class="card h-card share" :to="'/share-your-knowledge'"><div class="card-body">
+        <router-link class="card h-card share" :to="'/share-your-knowledge'">
+        <div class="card-body">
                         Share Your Knowledge
-                    </div>  </router-link>
+                    </div>  
+                    </router-link>
          </div>
-     </div>    
+     </div> 
+        <div class="container pt-100">
+            <div class="col-md-10 center-col">
+   
      
         <div class="row">
             <div class="col-md-12">
@@ -24,6 +27,10 @@
 <style scoped>
     .main-habit-builder {
         margin: auto;
+    }
+    .pt-50
+    {
+        padding-top: 50px;
     }
 
     .main-habit-builder .btn-default {

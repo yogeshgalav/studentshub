@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 class QuestionController extends Controller
 {
     
-    public function addQuestion(Request $request)
+    public function add
+    Question(Request $request)
     {
    $question=new Question;
    $question->id=2;
