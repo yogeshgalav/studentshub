@@ -83,7 +83,7 @@ class ExplorePostSeeder extends Seeder
             (19, 19, 'https://www.youtube.com/embed/1L7EI0vKVuU', 'How An Igloo Keeps You Warm?', NULL, NULL),
             (20, 20, 'https://www.youtube.com/embed/dbHj-Q1FTj8', 'Why Are We The Only Humans Left?', NULL, NULL);");
 
-            DB::statement("INSERT INTO `sthub_posts` (`id`, `post_id`, `shared_by`, `post_type`, `classroom_id`, `batch_id`, `branch_id`, `course_id`, `college_id`, `post_image_id`, `created_at`, `updated_at`) VALUES
+            DB::statement("INSERT INTO `sthub_posts` (`id`, `post_id`, `shared_by`, `post_type`, `classroom_id`, `batch_id`, `branch_id`, `course_id`, `institute_id`, `post_image_id`, `created_at`, `updated_at`) VALUES
             (1, 1, 1, 'video', NULL, NULL, NULL, NULL, NULL, NULL, '2019-11-03 20:01:25', '2019-11-03 20:01:25'),
             (2, 2, 1, 'video', NULL, NULL, NULL, NULL, NULL, NULL, '2019-11-03 20:25:21', '2019-11-03 20:25:21'),
             (3, 3, 1, 'video', NULL, NULL, NULL, NULL, NULL, NULL, '2019-11-03 20:27:29', '2019-11-03 20:27:29'),

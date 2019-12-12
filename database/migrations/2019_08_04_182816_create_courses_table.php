@@ -17,7 +17,8 @@ class CreateCoursesTable extends Migration
             $table->bigIncrements('id');
             $table->string('course_name');
             $table->string('course_type');
-            $table->char('country_id',2);
+            $table->string('course_level');
+            $table->char('country_id',2)->default('IN');
             $table->timestamps();
         });
     }

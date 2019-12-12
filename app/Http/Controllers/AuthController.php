@@ -91,26 +91,16 @@ class AuthController extends Controller
      *
      * @return Response
      */
-    public function register(RegisterRequest $request)
+    public function studentRegister(RegisterRequest $request)
     {
         $input = $request->all();
-        $input['password'] = bcrypt($input['password']);
-        $user = User::create([
-            'first_name'=>explode(' ',$input['full_name'])[0],
-            'last_name'=>explode(' ',$input['full_name'])[1] ?? null,
-            'full_name'=>$input['full_name'],
-            'email'=>$input['email'],
-            'password'=>$input['password'],
-        ]);
-        Auth::login($user);
+        //create or get course id
+            //if new course insert course_type and course_level
+        //create or get institute id
+        //create or get branch id
+        //create or get batch id
         
-        $success['token'] = $user->createToken('Sthub')->accessToken;
-                
-        // if (is_null($user->onboarded_at)) {
-        //     $success['redirectUrl'] = '/checkin';
-        // } else {
-        //     $success['redirectUrl'] = '/';
-        // }
+        $success['token'] = $user->createToken('student')->accessToken;
         $success['redirectUrl'] = '/';
         return response()->json(['success' => $success]);
     }

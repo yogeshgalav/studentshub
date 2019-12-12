@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCollegesTable extends Migration
+class CreateInstitutesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateCollegesTable extends Migration
      */
     public function up()
     {
-        Schema::create('colleges', function (Blueprint $table) {
+        Schema::create('institutes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('College_code')->unique();
-            $table->string('College_name');
-            $table->string('College_city');
-            $table->string('College_state');
+            $table->string('institute_type');
+            $table->string('institute_name');
+            $table->string('institute_city');
+            $table->string('institute_state');
             $table->string('subdomain');
             $table->char('country_code',2);
             $table->string('email_prefix')->nullable();
@@ -38,7 +38,7 @@ class CreateCollegesTable extends Migration
             $table->softDeletes();
         });
         
-        // Schema::table('colleges', function(Blueprint $table)
+        // Schema::table('institutes', function(Blueprint $table)
         // {
         //     $table->foreign('country_code')->references('country_code')->on('country')->onDelete('cascade');
         // });
@@ -51,6 +51,6 @@ class CreateCollegesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('colleges');
+        Schema::dropIfExists('institutes');
     }
 }
