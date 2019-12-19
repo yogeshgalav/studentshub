@@ -98243,7 +98243,7 @@ var state = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! E:\xampp\htdocs\studentshub\resources\js\student\app.js */"./resources/js/student/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\studentshub\resources\js\student\app.js */"./resources/js/student/app.js");
 
 
 /***/ })

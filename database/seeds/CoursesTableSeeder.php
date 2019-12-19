@@ -12,7 +12,7 @@ class CoursesTableSeeder extends Seeder
     public function run()
     {
         //
-        $sql = "INSERT INTO `courses` (`id`, `course_name`, `course_type`, `country_id`) VALUES
+        $sql = "INSERT INTO `courses` (`id`, `course_name`, `course_level`, `country_id`) VALUES
 (1, 'Bachelor of Arts (B.A)', 'Under Graduation', 'IN'),
 (2, 'Bachelor of Arts Bachelor of Education (B.A. B.Ed)', 'Under Graduation', 'IN'),
 (3, 'Bachelor of Arts Bachelor of Law (B.A.B.L)', 'Under Graduation', 'IN'),

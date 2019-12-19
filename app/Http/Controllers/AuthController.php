@@ -58,31 +58,31 @@ class AuthController extends Controller
         return response()->json(['error'=>'Unauthorised'], 401);
     }
 
-    public function checkSubdomain($subdomain, $user)
-    {
-        switch (Sthub::getDomainPortal()) {
-            case 'staffPortal':
-                if (! (bool) $user->is_Sthub_staff) {
-                    return false;
-                }
-                break;
-            case 'consultantPortal':
-                if (!ConsultantFirmUser::where('user_id', $user->id)->first()) {
-                    return false;
-                }
-                break;
-            case 'tenantPortal':
-                if ($client = Client::where('subdomain', $subdomain)->first()) {
-                    if (!$client_user=ClientUser::where('client_id', $client->id)->where('user_id', $user->id)->first()) {
-                        return false;
-                    }
-                } else {
-                    return false;
-                }
-                break;
-        }
-        return true;
-    }
+    // public function checkSubdomain($subdomain, $user)
+    // {
+    //     switch (Sthub::getDomainPortal()) {
+    //         case 'staffPortal':
+    //             if (! (bool) $user->is_Sthub_staff) {
+    //                 return false;
+    //             }
+    //             break;
+    //         case 'consultantPortal':
+    //             if (!ConsultantFirmUser::where('user_id', $user->id)->first()) {
+    //                 return false;
+    //             }
+    //             break;
+    //         case 'tenantPortal':
+    //             if ($client = Client::where('subdomain', $subdomain)->first()) {
+    //                 if (!$client_user=ClientUser::where('client_id', $client->id)->where('user_id', $user->id)->first()) {
+    //                     return false;
+    //                 }
+    //             } else {
+    //                 return false;
+    //             }
+    //             break;
+    //     }
+    //     return true;
+    // }
 
     /**
      * Register api
@@ -91,6 +91,31 @@ class AuthController extends Controller
      *
      * @return Response
      */
+    public function register(RegisterRequest $request)
+    {
+        $input = $request->all();
+        $input['password'] = bcrypt($input['password']);
+        $user = User::create([
+            'first_name'=>explode(' ',$input['full_name'])[0],
+            'last_name'=>explode(' ',$input['full_name'])[1] ?? null,
+            'full_name'=>$input['full_name'],
+            'email'=>$input['email'],
+            'password'=>$input['password'],
+        ]);
+        Auth::login($user);
+        
+        $success['token'] = $user->createToken('Sthub')->accessToken;
+                
+        // if (is_null($user->onboarded_at)) {
+        //     $success['redirectUrl'] = '/checkin';
+        // } else {
+        //     $success['redirectUrl'] = '/';
+        // }
+        $success['redirectUrl'] = '/';
+        return response()->json(['success' => $success]);
+    }
+
+    
     public function studentRegister(RegisterRequest $request)
     {
         $input = $request->all();
