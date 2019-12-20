@@ -80,13 +80,81 @@
                     <label> {{ trans('Branch Name') }} </label>
                   <div class="inner-addon left-addon">
                     <i class="fa fa-user"></i>
-                    <select v-model="selected_branch" @change="select_course">
-                        <branch-template></branch-template>
+                    <select v-model="selected_branch">
+                        <option v-for="branch in branches" :key="branch.id">{{branch.branch_name}}</option>
                     </select>
                     <span class="error">{{errors.first('institute_name')}}</span>
                   </div>
                 </div>
 
+              <div class="row">
+            <div class="col-md-6 ">
+              <label
+                class="text-black"
+                for="event_date_input"
+              >
+                {{ trans('Date') }}
+              </label>
+              <div class="input-group-prepend ">
+                <div
+                  class="input-group-prepend date"
+                  data-provide="datepicker"
+                >
+                  <span
+                    id="basic-addon1"
+                    class="input-group-text"
+                  ><i
+                    class="fa fa-calendar"
+                  /></span>
+                </div>
+                <date-picker
+                  id="event_date"
+                  ref="event_date"
+                  v-validate="'required'"
+                  name="form_data.event_date"
+                  value-type="format"
+                  v-model="start_year"
+                  :typeable="true"
+                  :type="'date'"
+                  :format="'YYYY'"
+                  :lang="'en'"
+                  :input-attr="{id: 'event_date_input'}"
+                  placeholder=""
+                />
+              </div>
+              <span class="error">{{ formErrors('form_data.event_date') }}</span>
+            </div>
+            <div class="col-md-6 ">
+              <div class="input-group-prepend ">
+                <div
+                  class="input-group-prepend date"
+                  data-provide="datepicker"
+                >
+                  <span
+                    id="basic-addon1"
+                    class="input-group-text"
+                  ><i
+                    class="fa fa-calendar"
+                  /></span>
+                </div>
+                <date-picker
+                  id="event_date"
+                  ref="event_date"
+                  v-validate="'required'"
+                  name="form_data.event_date"
+                  value-type="format"
+                  v-model="end_year"
+                  :typeable="true"
+                  :type="'date'"
+                  :format="'YYYY'"
+                  :lang="'en'"
+                  :input-attr="{id: 'event_date_input'}"
+                  placeholder=""
+                />
+              </div>
+              <span class="error">{{ formErrors('form_data.event_date') }}</span>
+            </div>
+            </div>
             
                 <div class="form-group mb-0">
                  <button type="submit" class="btn btn-primary">{{ trans('Register') }}</button>
@@ -146,20 +214,21 @@
 </style>
 <script>
 import FormMixin from "./../components/mixins/form-mixin.js";
-
-import BranchTemplate from './BranchTemplate';
 import swal from '../components/swal';
+import DatePicker from 'vue2-datepicker';
 
 export default {
   mixins: [FormMixin],
   components:{
-    BranchTemplate
+    DatePicker
   },
   data() {
     return {
       institute_name:'',
       selected_course:'',
       selected_branch:'',
+      end_year:'',
+      start_year:'',
       course_level_select:false,
       course_type_select:false,
       dict: {
@@ -198,6 +267,8 @@ export default {
         branch:this.selected_branch,
         course:this.selected_course,
         institute:this.institute_name,
+        start_year:this.start_year,
+        end_year:this.end_year,
       });
     }
   },

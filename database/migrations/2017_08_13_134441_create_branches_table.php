@@ -15,10 +15,8 @@ class CreateBranchesTable extends Migration
     {
         Schema::create('branches', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('course_id')->unsigned();
+            $table->integer('course_id')->unsigned()->nullable();
             $table->string('branch_name');
-            $table->integer('course_time')->comment('duration of course in years');
-            $table->enum('type',['graduation','post-graduation','php']);
         });
     }
 
