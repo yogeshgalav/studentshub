@@ -3414,6 +3414,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _components_mixins_form_mixin_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../components/mixins/form-mixin.js */ "./resources/js/components/mixins/form-mixin.js");
+/* harmony import */ var _components_swal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../components/swal */ "./resources/js/components/swal.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -3529,6 +3530,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: [_components_mixins_form_mixin_js__WEBPACK_IMPORTED_MODULE_1__["default"]],
   data: function data() {
@@ -3618,6 +3620,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_mixins_form_mixin_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../components/mixins/form-mixin.js */ "./resources/js/components/mixins/form-mixin.js");
+/* harmony import */ var _components_swal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../components/swal */ "./resources/js/components/swal.js");
 //
 //
 //
@@ -3783,6 +3786,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: [_components_mixins_form_mixin_js__WEBPACK_IMPORTED_MODULE_0__["default"]],
@@ -53883,66 +53887,62 @@ var render = function() {
       _c(
         "div",
         { staticClass: "row" },
-        _vm._l(_vm.posts, function(post) {
-          return _c(
-            "div",
-            { key: post.id, staticClass: "col-md-12 mt-2 mb-2" },
-            [
-              _c(
-                "div",
-                {
-                  staticClass: "card-post",
-                  on: {
-                    click: function($event) {
-                      return _vm.redirectPostView(post.id)
-                    }
+        _vm._l(_vm.posts, function(post, index) {
+          return _c("div", { key: index, staticClass: "col-md-12 mt-2 mb-2" }, [
+            _c(
+              "div",
+              {
+                staticClass: "card-post",
+                on: {
+                  click: function($event) {
+                    return _vm.redirectPostView(post.id)
                   }
-                },
-                [
-                  _c("div", { staticClass: "d-flex" }, [
-                    _c("div", { staticClass: "avatar" }, [
-                      _c("img", {
-                        directives: [
-                          {
-                            name: "lazy",
-                            rawName: "v-lazy",
-                            value: "/images/4.jpg",
-                            expression: "'/images/4.jpg'"
-                          }
-                        ],
-                        staticClass: "avatar-img rounded-circle",
-                        attrs: { alt: "..." }
-                      })
+                }
+              },
+              [
+                _c("div", { staticClass: "d-flex" }, [
+                  _c("div", { staticClass: "avatar" }, [
+                    _c("img", {
+                      directives: [
+                        {
+                          name: "lazy",
+                          rawName: "v-lazy",
+                          value: "/images/4.jpg",
+                          expression: "'/images/4.jpg'"
+                        }
+                      ],
+                      staticClass: "avatar-img rounded-circle",
+                      attrs: { alt: "..." }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "info-post ml-2" }, [
+                    _c("p", { staticClass: "username" }, [
+                      _vm._v(_vm._s(post.user_name))
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "info-post ml-2" }, [
-                      _c("p", { staticClass: "username" }, [
-                        _vm._v(_vm._s(post.user_name))
-                      ]),
-                      _vm._v(" "),
-                      _c("p", { staticClass: "date text-muted" }, [
-                        _vm._v(_vm._s(post.created_at))
-                      ]),
-                      _vm._v(" "),
-                      _c("h3", { staticClass: "card-title  font-size-12" }, [
-                        _c(
-                          "a",
-                          { staticClass: "text-black", attrs: { href: "#" } },
-                          [
-                            _vm._v(
-                              "\r\n\t\t\t\t\t\t\t\t\t\t\t" +
-                                _vm._s(post.heading) +
-                                "\r\n\t\t\t\t\t\t\t\t\t\t"
-                            )
-                          ]
-                        )
-                      ])
+                    _c("p", { staticClass: "date text-muted" }, [
+                      _vm._v(_vm._s(post.created_at))
+                    ]),
+                    _vm._v(" "),
+                    _c("h3", { staticClass: "card-title  font-size-12" }, [
+                      _c(
+                        "a",
+                        { staticClass: "text-black", attrs: { href: "#" } },
+                        [
+                          _vm._v(
+                            "\r\n\t\t\t\t\t\t\t\t\t\t\t" +
+                              _vm._s(post.heading) +
+                              "\r\n\t\t\t\t\t\t\t\t\t\t"
+                          )
+                        ]
+                      )
                     ])
                   ])
-                ]
-              )
-            ]
-          )
+                ])
+              ]
+            )
+          ])
         }),
         0
       )
@@ -54205,8 +54205,8 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    _vm._l(_vm.posts, function(post) {
-      return _c("div", { key: post.id }, [
+    _vm._l(_vm.posts, function(post, index) {
+      return _c("div", { key: index }, [
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-md-9" }, [
             _c(

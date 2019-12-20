@@ -15,14 +15,14 @@ class CreateInstitutesTable extends Migration
     {
         Schema::create('institutes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('institute_type');
+            $table->string('institute_type')->nullable();
             $table->string('institute_name');
-            $table->string('institute_city');
-            $table->string('institute_state');
-            $table->string('subdomain');
-            $table->char('country_code',2);
-            $table->string('email_prefix')->nullable();
-            $table->string('regno_prefix')->nullable();
+            $table->string('institute_city')->nullable();
+            $table->string('institute_state')->nullable();
+            $table->string('subdomain')->nullable();
+            $table->char('country_code',2)->default('IN');
+            $table->string('email_slug')->nullable();
+            $table->string('regno_slug')->nullable();
             $table->string('logo_url')->nullable();
             $table->integer('added_by_user_id')->unsigned();
             $table->boolean('is_verfied')->default(false);

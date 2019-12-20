@@ -66708,8 +66708,8 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    _vm._l(_vm.posts, function(post) {
-      return _c("div", { key: post.id }, [
+    _vm._l(_vm.posts, function(post, index) {
+      return _c("div", { key: index }, [
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-md-9" }, [
             _c(

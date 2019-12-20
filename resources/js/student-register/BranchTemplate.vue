@@ -1,11 +1,7 @@
 <template>
-<div class="row">
-            <form>
-                
-                <div class="col-md-2 col-sm-4 col-xs-12">
-                    <div class="form-group institutesDropdown_slider">
-                        <label for="sel1" class="white_text">Branch/Subjects</label>
-                        <select class="form-control" id="drpBranch" name="CourseOfStudy" required=""><option value="">All</option>
+<optgroup
+    :label="'select branch/subject'">
+    <option value="">All</option>
 <option value="1194"> Astronomy, Astrophysics and Space Engineering</option>
 <option value="1196"> Economics, Psychology, English, Philosophy, Sociology, History</option>
 <option value="1193"> Electrical Engineering with specialisation in Communication &amp; Signal Processing</option>
@@ -850,9 +846,10 @@
 <option value="1058">Wood Science and Technology</option>
 <option value="1059">Yoga Therapy</option>
 <option value="1060">Zoology</option>
-</select>
-                    </div>
-                </div>
-            </form>
-        </div>
+</optgroup>
 </template>
+<script>
+export default {
+    name:'BranchTemplate'
+}
+</script>

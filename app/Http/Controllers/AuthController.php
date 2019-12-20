@@ -116,19 +116,7 @@ class AuthController extends Controller
     }
 
     
-    public function studentRegister(RegisterRequest $request)
-    {
-        $input = $request->all();
-        //create or get course id
-            //if new course insert course_type and course_level
-        //create or get institute id
-        //create or get branch id
-        //create or get batch id
-        
-        $success['token'] = $user->createToken('student')->accessToken;
-        $success['redirectUrl'] = '/';
-        return response()->json(['success' => $success]);
-    }
+    
 
     /**
      * details api

@@ -7,9 +7,9 @@
          <div class="card">
         <div class="card-body">
             <slot></slot>
-            <router-link  :to="'/share-your-knowledge'">
+            <a  :href="'/check-in'">
                         Share Your Knowledge
-                        </router-link>
+                        </a>
                     </div>  
          </div>
          </div>

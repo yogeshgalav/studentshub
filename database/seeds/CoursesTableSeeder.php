@@ -210,7 +210,6 @@ class CoursesTableSeeder extends Seeder
 (196, 'PGPX IN -VISIONARY LEADERSHIP IN MANUFACTURING (PGPEX-VLM)', 'Post Graduation', 'IN'),
 (197, 'POST GRADUATE PROGRAME IN MANAGEMENT (PGPM)', 'Post Graduation', 'IN'),
 (198, 'MANAGEMENT FOR EXECUTIVES (PGPX)', 'Post Graduation', 'IN'),
-(199, 'Doctor of Philosophy (Ph. D)', 'Post Graduation', 'IN'),
 (200, 'Doctor of Philosophy (Ph.D)', 'Post Graduation', 'IN'),
 (201, 'Visual Information Processing (Visual Information Processing)', 'Post Graduation', 'IN'),
 (202, 'Advanced Diploma (Advanced Diploma)', 'Diploma', 'IN'),

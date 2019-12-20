@@ -165,6 +165,7 @@
 </style>
 <script>
 import FormMixin from "../../../components/mixins/form-mixin.js";
+import swal from '../../../components/swal';
 
 export default {
   mixins: [FormMixin],
