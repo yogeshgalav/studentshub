@@ -489,7 +489,7 @@ class BranchesTableSeeder extends Seeder
 ('Integrated M.Phil.-Ph.D. Programme in Public Health'),
 ('Integrated M.Phil.-Ph.D. Programme in Rural Development'),
 ('Integrated M.Phil.-Ph.D. Programme in Social Work'),
-('Integrated M.Phil.-Ph.D. Programme in Women's Studies'),
+('Integrated M.Phil.-Ph.D. Programme in Womens Studies'),
 ('Integrated Power System'),
 ('Intellectual Property Rights'),
 ('Intellectual Property Rights and Cyber Law'),

@@ -115,8 +115,7 @@
                   value-type="format"
                   v-model="start_year"
                   :typeable="true"
-                  :type="'date'"
-                  :format="'YYYY'"
+                  :type="'year'"
                   :lang="'en'"
                   :input-attr="{id: 'event_date_input'}"
                   placeholder=""
@@ -145,11 +144,10 @@
                   value-type="format"
                   v-model="end_year"
                   :typeable="true"
-                  :type="'date'"
-                  :format="'YYYY'"
+                  :type="'year'"
                   :lang="'en'"
                   :input-attr="{id: 'event_date_input'}"
-                  placeholder=""
+                  placeholder="Start Year"
                 />
               </div>
               <span class="error">{{ formErrors('form_data.event_date') }}</span>
@@ -216,6 +214,7 @@
 import FormMixin from "./../components/mixins/form-mixin.js";
 import swal from '../components/swal';
 import DatePicker from 'vue2-datepicker';
+import 'vue2-datepicker/index.css';
 
 export default {
   mixins: [FormMixin],
