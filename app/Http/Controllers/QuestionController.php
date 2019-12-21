@@ -7,13 +7,21 @@ use Illuminate\Http\Request;
 class QuestionController extends Controller
 {
     
-    public function add
-    Question(Request $request)
+    public function addQuestion (Request $request)
     {
-   $question=new Question;
-   $question->id=2;
-   $question->save();
+   $q = new Question();
+   $q->question = $request->question;
+   $q->save();
    return 'success';
+    }
+    public function getQuestion (Request $request)
+    {
+        $questions=Question::get();
+        return response()->json([
+            'success'=>[
+                'questions'=>$questions
+            ]
+        ]);
     }
 
 }

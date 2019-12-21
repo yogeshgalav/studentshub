@@ -3,7 +3,7 @@ import ViewPost from './components/post/view-post.vue'
 import EditPost from './components/post/edit-post.vue'
 import SharePost from './components/post/share-post.vue'
 import AskQuestion from './components/ask-question.vue'
-
+import GetQuestion from './components/view-questions.vue'
 const StudentRoutes = [
       {
         path: '/',
@@ -12,6 +12,10 @@ const StudentRoutes = [
       {
         path: '/ask-question',
         component: AskQuestion,
+      },
+      {
+        path: '/get-question',
+        component: GetQuestion,
       },
       { path: '*', redirect: '/' },
       //Post Routes
