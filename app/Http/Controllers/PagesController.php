@@ -46,7 +46,9 @@ class PagesController extends Controller
     }
 
     public function checkin(){
-        return view('seeker.checkin');
+        $courses=\App\Models\Course::all();
+        $branches=\App\Models\Branch::all();
+        return view('student-register.student-register')->with('branches',$branches)->with('courses',$courses);
     }
 
     public function classroomList(){

@@ -12,7 +12,7 @@ class CoursesTableSeeder extends Seeder
     public function run()
     {
         //
-        $sql = "INSERT INTO `courses` (`id`, `course_name`, `course_type`, `country_id`) VALUES
+        $sql = "INSERT INTO `courses` (`id`, `course_name`, `course_level`, `country_id`) VALUES
 (1, 'Bachelor of Arts (B.A)', 'Under Graduation', 'IN'),
 (2, 'Bachelor of Arts Bachelor of Education (B.A. B.Ed)', 'Under Graduation', 'IN'),
 (3, 'Bachelor of Arts Bachelor of Law (B.A.B.L)', 'Under Graduation', 'IN'),
@@ -210,7 +210,6 @@ class CoursesTableSeeder extends Seeder
 (196, 'PGPX IN -VISIONARY LEADERSHIP IN MANUFACTURING (PGPEX-VLM)', 'Post Graduation', 'IN'),
 (197, 'POST GRADUATE PROGRAME IN MANAGEMENT (PGPM)', 'Post Graduation', 'IN'),
 (198, 'MANAGEMENT FOR EXECUTIVES (PGPX)', 'Post Graduation', 'IN'),
-(199, 'Doctor of Philosophy (Ph. D)', 'Post Graduation', 'IN'),
 (200, 'Doctor of Philosophy (Ph.D)', 'Post Graduation', 'IN'),
 (201, 'Visual Information Processing (Visual Information Processing)', 'Post Graduation', 'IN'),
 (202, 'Advanced Diploma (Advanced Diploma)', 'Diploma', 'IN'),

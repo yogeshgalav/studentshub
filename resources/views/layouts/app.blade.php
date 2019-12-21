@@ -37,8 +37,8 @@
             @case('teacher')
                 @include('layouts.teacher')
             @break
-            @case('college')
-                @include('layouts.college')
+            @case('institute')
+                @include('layouts.institute')
                 @break
             @default
                 @include('layouts.blank')

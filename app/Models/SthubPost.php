@@ -15,7 +15,7 @@ class SthubPost extends Model
     }
     //get post for seeker or student dashboard page
     public function scopeGetDashboardPosts($query){
-        return $query->where('college_id',Auth::user()->college_id)
+        return $query->where('institute_id',Auth::user()->institute_id)
         // ->orWhere('classroom_id',Auth::user()->classroom_id)
         // ->orWhere('branch_id	',Auth::user()->branch_id	)
         // ->orWhere('course_id',Auth::user()->course_id)

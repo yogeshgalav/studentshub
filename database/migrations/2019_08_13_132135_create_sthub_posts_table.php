@@ -22,7 +22,7 @@ class CreateSthubPostsTable extends Migration
             $table->integer('batch_id')->unsigned()->nullable();
             $table->integer('branch_id')->unsigned()->nullable();
             $table->integer('course_id')->unsigned()->nullable();
-            $table->integer('college_id')->unsigned()->nullable();
+            $table->integer('institute_id')->unsigned()->nullable();
             $table->integer('post_image_id')->unsigned()->nullable();
             $table->timestamps();
         });

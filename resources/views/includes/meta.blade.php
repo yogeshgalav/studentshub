@@ -7,6 +7,6 @@
 <meta name="application-name" content="StudentsHUB"/>
 <meta name="author" content="Yogesh Galav"/>
 <meta name="description" content="Best plateform to explore knowledge of any course or stream.Do you know what is your field of interest?Explore now - StudentsHUB"/>
-<meta name="keywords" content="studenthub, studentshub, student, hub, education,knowledge,curiosity,college information"/>
+<meta name="keywords" content="studenthub, studentshub, student, hub, education,knowledge,curiosity,institute information"/>
 {{-- 
 <title>@yield('title')</title> --}}
