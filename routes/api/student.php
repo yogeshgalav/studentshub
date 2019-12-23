@@ -9,5 +9,6 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::post('/submit-post','PostController@create');
     Route::post('/save-post-image','PostController@createImage');
     Route::post('/add-question','QuestionController@addQuestion');
+    Route::get('/get-question','QuestionController@getQuestion');
     
 });

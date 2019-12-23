@@ -2,9 +2,9 @@
    <main>
        <div class="container">
            <div class="col-md-6 justify-content-center">
-               <form @submit.prevent="addQuestion" >
+               <form @submit.prevent="addQuestion"  >
                    <div class="form-group">
-                       <input type="text" name="ask-question" class="form-control" placeholder="Ask Question">
+                       <input type="text"  name="question" v-model="question" class="form-control" placeholder="Ask Question">
 
                    </div>
                    <div class="form-group">
@@ -24,6 +24,8 @@ export default {
     data()
     {
         return {
+         question:''
+           
 
         };
 
@@ -31,8 +33,8 @@ export default {
     methods:
     {
         addQuestion()
-        {
-        this.axios.post(window.App.baseUrl+'/api/add-question/', {question: 'questionghg'})
+        {     
+        this.axios.post(window.App.baseUrl+'/api/add-question/',{question:this.question} )
     .then(resp => {
         
      
