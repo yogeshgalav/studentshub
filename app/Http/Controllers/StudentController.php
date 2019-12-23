@@ -3,12 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\RegisterRequest;
+use Auth;
+use App\Models\Course;
+use App\Models\Category;
+use App\Models\Institute;
+use App\Models\Branch;
+use App\Models\Batch;
 
 class StudentController extends Controller
 {
     //
-    public function create(RegisterRequest $request)
+    public function create(Request $request)
     {
         $input = $request->all();
         //create or get course id
@@ -24,8 +29,10 @@ class StudentController extends Controller
             ]);
         }
         //create or get institute id
-        $institute=Institute::createOrFirst([
+        $institute=Institute::firstOrCreate([
             'institute_name'=>$input['institute'],
+        ],[
+            'added_by_user_id'=>Auth::user()->id
         ]);
         //create or get branch id
         if($input['branch']['id']){
@@ -37,7 +44,7 @@ class StudentController extends Controller
             ]);
         }
         //create or get batch id
-        $batch=Batch::createOrFirst([
+        $batch=Batch::firstOrCreate([
             'start_year'=>$input['start_year'],
             'end_year'=>$input['end_year'],
             'institute_id'=>$institute->id,

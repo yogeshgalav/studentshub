@@ -4,7 +4,6 @@ Route::group(['middleware'=>['auth']],function(){
 
 
     Route::get('/','PagesController@dashboard')->name('Home');
-    Route::get('/checkin', 'PagesController@checkin');
     //post routes
     Route::get('/share-your-knowledge','PagesController@sharePost');
     Route::get('/create-post','PagesController@createPost');

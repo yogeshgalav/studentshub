@@ -33,8 +33,8 @@
                     <label> {{ trans('Course Name') }} </label>
                   <div class="inner-addon left-addon">
                     <i class="fa fa-user"></i>
-                    <select v-model="selected_course">
-                        <option v-for="course in courses" :key='course.id'>{{course.course_name}}</option>
+                    <select v-model="course_id">
+                        <option v-for="course in courses" :key='course.id' :value="course.id">{{course.course_name}}</option>
                     </select>
                     <span class="error">{{errors.first('institute_name')}}</span>
                   </div>
@@ -80,8 +80,8 @@
                     <label> {{ trans('Branch Name') }} </label>
                   <div class="inner-addon left-addon">
                     <i class="fa fa-user"></i>
-                    <select v-model="selected_branch">
-                        <option v-for="branch in branches" :key="branch.id">{{branch.branch_name}}</option>
+                    <select v-model="branch_id">
+                        <option v-for="branch in branches" :key="branch.id" :value="branch.id">{{branch.branch_name}}</option>
                     </select>
                     <span class="error">{{errors.first('institute_name')}}</span>
                   </div>
@@ -225,7 +225,9 @@ export default {
     return {
       institute_name:'',
       selected_course:'',
+      course_id:'',
       selected_branch:'',
+      branch_id:'',
       end_year:'',
       start_year:'',
       course_level_select:false,
@@ -238,6 +240,14 @@ export default {
         }
       }
     };
+  },
+  watch:{
+    course_id(val){
+      this.selected_course=this.courses.find(node=>node.id===val);
+    },
+    branch_id(val){
+      this.selected_branch=this.branches.find(node=>node.id===val);
+    }
   },
   methods: {
     trans: function(string, defaultString) {
