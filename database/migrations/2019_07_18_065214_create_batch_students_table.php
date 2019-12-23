@@ -17,7 +17,7 @@ class CreateBatchStudentsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('batch_id')->unsigned();
             $table->integer('student_id')->unsigned();
-            $table->boolean('is_current');
+            $table->boolean('is_preffered');
             $table->timestamps();
         });
     }

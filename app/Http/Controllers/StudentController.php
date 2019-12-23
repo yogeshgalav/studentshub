@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use DB;
+use App\Models\Student;
 use App\Models\Course;
 use App\Models\Category;
 use App\Models\Institute;
 use App\Models\Branch;
 use App\Models\Batch;
+use App\Models\BatchStudent;
 
 class StudentController extends Controller
 {
@@ -16,6 +19,9 @@ class StudentController extends Controller
     public function create(Request $request)
     {
         $input = $request->all();
+    DB::beginTransaction();
+    try{
+        $student=Student::create(['user_id'=>Auth::user()->id]);
         //create or get course id
         if($input['course']['id']){
             $course=Course::findOrFail($input['course']['id']);
@@ -51,8 +57,19 @@ class StudentController extends Controller
             'course_id'=>$course->id,
             'branch_id'=>$branch->id,
         ]);
-        
-        $success['token'] = $user->createToken('student')->accessToken;
+
+        BatchStudent::create([
+            'batch_id'=>$batch->id,
+            'student_id'=>$student->id,
+            'is_preffered'=>true,
+        ]);
+
+    DB::commit();
+    } catch (\Exception $e) {
+        DB::rollback();
+        dd($e->getMessage(),$e->getLine());
+        return response()->$e;
+    }        
         $success['redirectUrl'] = '/';
         return response()->json(['success' => $success]);
     }

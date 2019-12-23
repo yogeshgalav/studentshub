@@ -278,6 +278,10 @@ export default {
         institute:this.institute_name,
         start_year:this.start_year,
         end_year:this.end_year,
+      }).then((resp)=>{
+        if(resp.data.success){
+          window.location.href=resp.data.success.redirectUrl;
+        }
       });
     }
   },

@@ -20,7 +20,7 @@ class CreateBatchesTable extends Migration
             $table->integer('course_id')->unsigned();
             $table->integer('start_year');
             $table->integer('end_year');
-            $table->timestamp('created_at');
+            $table->timestamps();
         });
     }
 
