@@ -2985,8 +2985,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      question: ''
+      question: '',
+      questionlist: ''
     };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get("api/get-question/").then(function (response) {
+      _this.questionlist = response.data.questions;
+    });
   },
   methods: {
     addQuestion: function addQuestion() {
@@ -98398,7 +98406,7 @@ var state = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\studentshub\resources\js\student\app.js */"./resources/js/student/app.js");
+module.exports = __webpack_require__(/*! E:\xampp\htdocs\studentshub\resources\js\student\app.js */"./resources/js/student/app.js");
 
 
 /***/ })

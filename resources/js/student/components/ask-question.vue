@@ -24,12 +24,18 @@ export default {
     data()
     {
         return {
-         question:''
+         question:'',
+         questionlist: ''
            
 
         };
 
     },
+    mounted() {
+    axios.get("api/get-question/")
+    .then(response => {this.questionlist = response.data.questions})
+
+},
     methods:
     {
         addQuestion()
