@@ -20,17 +20,18 @@
     </main>
 </template>
 <script>
-import { VueEditor } from "vue2-editor";
-// import { Quill } from "quill";
-// import { ImageDrop } from "quill-image-drop-module";
-// import { ImageResize } from "quill-image-resize-module";
-// Quill.register("modules/imageDrop", ImageDrop);
-// Quill.register("modules/imageResize", ImageResize);
+import { VueEditor,Quill } from 'vue2-editor'
+
+import ImageResize from 'quill-image-resize-vue';
+import { ImageDrop } from 'quill-image-drop-module';
+
+Quill.register("modules/imageDrop", ImageDrop);
+Quill.register("modules/imageResize", ImageResize);
+
 
 export default {
     components:{
         VueEditor,
-        // Quill
     },
     data(){
         return{
@@ -38,13 +39,11 @@ export default {
             video_link:'',
             video_description:'',
             editorSettings: {
-        // modules: {
-        //   imageDrop: true,
-        //   imageResize: {
-        //     displaySize: true
-        //   }
-        // }
-      }
+            modules: {
+                imageDrop: true,
+                imageResize: {},
+              }
+            } 
         }
     },
     computed:{
