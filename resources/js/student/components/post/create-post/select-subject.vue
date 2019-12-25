@@ -26,8 +26,10 @@
 <script>
 import {mapState} from 'vuex';
 import AutoComplete from './../../../../components/AutoComplete';
-
+import FormMixin from '../../../../components/mixins/form-mixin.js';
+import EventBus from '../event-bus';
 export default {
+    mixins: [FormMixin],
     components:{
         AutoComplete
     },
@@ -37,7 +39,18 @@ export default {
 			'subject_list': state=>state.new_post.subject_list,
 			'selected_subject': state=>state.new_post.selected_subject,
 		}),
-	},
+    },
+    mounted(){
+        EventBus.$on('validateStep3',()=>{
+			this.$validator.validate().then(valid => {
+				if(valid){
+					EventBus.$emit('validateWizard',3,true);
+				}else{
+					EventBus.$emit('validateWizard',3,false);
+				}
+			});
+		});
+    },
     methods:{
         editSubject(event){
             console.log('1',event.target.value)

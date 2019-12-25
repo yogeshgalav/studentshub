@@ -14,7 +14,21 @@
   
 </template>
 <script>
+import FormMixin from '../../../../components/mixins/form-mixin.js';
+import EventBus from '../event-bus';
 export default {
+    mixins: [FormMixin],
+    mounted(){
+        EventBus.$on('validateStep4',()=>{
+			this.$validator.validate().then(valid => {
+				if(valid){
+					EventBus.$emit('validateWizard',4,true);
+				}else{
+					EventBus.$emit('validateWizard',4,false);
+				}
+			});
+		});
+    },
     methods:{
         editHeading(event){
             this.$store.dispatch('createPost',{field:'post_heading',post_heading:event.target.value});

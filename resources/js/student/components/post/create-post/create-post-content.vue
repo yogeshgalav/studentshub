@@ -28,11 +28,13 @@ import { ImageDrop } from 'quill-image-drop-module';
 Quill.register("modules/imageDrop", ImageDrop);
 Quill.register("modules/imageResize", ImageResize);
 
-
+import FormMixin from '../../../../components/mixins/form-mixin.js';
+import EventBus from '../event-bus';
 export default {
     components:{
         VueEditor,
     },
+	mixins: [FormMixin],
     data(){
         return{
             content:'',
@@ -50,6 +52,17 @@ export default {
         postType(){
             return this.$store.state.new_post.post_type.toLowerCase();
         }
+    },
+    mounted(){
+        EventBus.$on('validateStep2',()=>{
+			this.$validator.validate().then(valid => {
+				if(valid){
+					EventBus.$emit('validateWizard',2,true);
+				}else{
+					EventBus.$emit('validateWizard',2,false);
+				}
+			});
+		});
     },
     methods:{
         editContent(){
