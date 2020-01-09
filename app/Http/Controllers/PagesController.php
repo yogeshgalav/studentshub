@@ -94,10 +94,10 @@ class PagesController extends Controller
     //         }
     //         if (preg_match('/ of (.*?) \(/', $course->course_name, $match) == 1) {
     //             $course_type=\App\Models\Category::create(['name'=>$match[1]]);
-    //             $course->category_id=$course_type->id;
+                // $course->category_id=$course_type->id;
     //             $course->save();
     //             echo $course->id.' '.$match[1].'<br/>';
-    //         }else if (preg_match('/ of (.*?) \(/', $course->course_name, $match) == 1) {
+    //         }else if (preg_match('/ in (.*?) \(/', $course->course_name, $match) == 1) {
     //             $course_type=\App\Models\Category::create(['name'=>$match[1]]);
     //             $course->category_id=$course_type->id;
     //             $course->save();

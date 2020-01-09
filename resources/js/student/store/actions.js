@@ -10,7 +10,6 @@ getPosts({commit}){
   return new Promise((resolve, reject) => {
     axios({url: window.App.baseUrl+'/api/get-posts', method: 'GET' })
     .then(resp => {
-      console.log(resp.data)
      const posts = resp.data.success.posts
       commit('get_posts', posts,)
       resolve(resp)
@@ -82,6 +81,11 @@ submitPost({commit},data){
       .catch((err) => {
         reject(err)
       })
+  })
+},
+storeContentImage({commit},data){
+  return new Promise((resolve, reject) => {
+    console.log('fuck',data)
   })
 },
 } 

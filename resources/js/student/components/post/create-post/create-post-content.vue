@@ -1,7 +1,8 @@
 <template>
     <main>
         <div v-if="postType==='article'">
-        <vue-editor v-model="content" :editorOptions="editorSettings" @input="editContent" useCustomImageHandler @image-added="handleImageAdded" :height="'100%'"/>
+        <vue-editor v-model="content" :editorOptions="editorSettings" @input="editContent" 
+        :useCustomImageHandler="true" @image-added="handleImageAdded" :height="'100%'"/>
         </div>
         <div v-if="postType==='video'">
             <div class="row">
@@ -76,26 +77,20 @@ export default {
             this.$store.dispatch('createPost',data);
         },
          handleImageAdded: function(file, Editor, cursorLocation, resetUploader) {
+             console.log('here')
         // An example of using FormData
         // NOTE: Your key could be different such as:
         // formData.append('file', file)
-
+        let url = '1234'; // Get url from response
+        Editor.insertEmbed(cursorLocation, "image", url);
         var formData = new FormData();
         formData.append("image", file);
-
-        this.$axios({
-            url: "/api/save-post-image",
-            method: "POST",
-            data: formData
-        })
-            .then(result => {
-            let url = result.data.url; // Get url from response
-            Editor.insertEmbed(cursorLocation, "image", url);
-            resetUploader();
-            })
-            .catch(err => {
-            console.log(err);
-            });
+         let imageData={
+             'cursorLocation':cursorLocation,
+             'formData':formData,
+             'url':url
+         }
+            this.$store.dispatch('storeContentImage',imageData);
         }
     }
 }

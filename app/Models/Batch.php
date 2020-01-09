@@ -8,4 +8,8 @@ class Batch extends Model
 {
     //
     protected  $guarded = ['id', 'created_at', 'updated_at'];
+
+    public function students(){
+        return $this->hasManyThrough('App\Models\BatchStudent','App\Models\BatchStudent');
+    }
 }

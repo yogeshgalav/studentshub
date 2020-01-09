@@ -3391,6 +3391,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -3451,23 +3452,21 @@ vue2_editor__WEBPACK_IMPORTED_MODULE_0__["Quill"].register("modules/imageResize"
       this.$store.dispatch('createPost', data);
     },
     handleImageAdded: function handleImageAdded(file, Editor, cursorLocation, resetUploader) {
-      // An example of using FormData
+      console.log('here'); // An example of using FormData
       // NOTE: Your key could be different such as:
       // formData.append('file', file)
+
+      var url = '1234'; // Get url from response
+
+      Editor.insertEmbed(cursorLocation, "image", url);
       var formData = new FormData();
       formData.append("image", file);
-      this.$axios({
-        url: "/api/save-post-image",
-        method: "POST",
-        data: formData
-      }).then(function (result) {
-        var url = result.data.url; // Get url from response
-
-        Editor.insertEmbed(cursorLocation, "image", url);
-        resetUploader();
-      })["catch"](function (err) {
-        console.log(err);
-      });
+      var imageData = {
+        'cursorLocation': cursorLocation,
+        'formData': formData,
+        'url': url
+      };
+      this.$store.dispatch('storeContentImage', imageData);
     }
   }
 });
@@ -72261,7 +72260,7 @@ util.inherits = __webpack_require__(/*! inherits */ "./node_modules/inherits/inh
 /*</replacement>*/
 
 /*<replacement>*/
-var debugUtil = __webpack_require__(/*! util */ 4);
+var debugUtil = __webpack_require__(/*! util */ 3);
 var debug = void 0;
 if (debugUtil && debugUtil.debuglog) {
   debug = debugUtil.debuglog('stream');
@@ -74150,7 +74149,7 @@ Writable.prototype._destroy = function (err, cb) {
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Buffer = __webpack_require__(/*! safe-buffer */ "./node_modules/safe-buffer/index.js").Buffer;
-var util = __webpack_require__(/*! util */ 5);
+var util = __webpack_require__(/*! util */ 4);
 
 function copyBuffer(src, target, offset) {
   src.copy(target, offset);
@@ -91619,7 +91618,7 @@ var render = function() {
             _c("vue-editor", {
               attrs: {
                 editorOptions: _vm.editorSettings,
-                useCustomImageHandler: "",
+                useCustomImageHandler: true,
                 height: "100%"
               },
               on: {
@@ -121714,7 +121713,6 @@ __webpack_require__.r(__webpack_exports__);
         url: window.App.baseUrl + '/api/get-posts',
         method: 'GET'
       }).then(function (resp) {
-        console.log(resp.data);
         var posts = resp.data.success.posts;
         commit('get_posts', posts);
         resolve(resp);
@@ -121797,6 +121795,12 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (err) {
         reject(err);
       });
+    });
+  },
+  storeContentImage: function storeContentImage(_ref8, data) {
+    var commit = _ref8.commit;
+    return new Promise(function (resolve, reject) {
+      console.log('fuck', data);
     });
   }
 });
@@ -121956,7 +121960,7 @@ module.exports = __webpack_require__(/*! C:\xampp\htdocs\studentshub\resources\j
 
 /***/ }),
 
-/***/ 4:
+/***/ 3:
 /*!**********************!*\
   !*** util (ignored) ***!
   \**********************/
@@ -121967,7 +121971,7 @@ module.exports = __webpack_require__(/*! C:\xampp\htdocs\studentshub\resources\j
 
 /***/ }),
 
-/***/ 5:
+/***/ 4:
 /*!**********************!*\
   !*** util (ignored) ***!
   \**********************/

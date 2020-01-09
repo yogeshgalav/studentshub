@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Notification;
 use Auth;
 use DB;
 use App\Models\Student;
@@ -27,7 +28,7 @@ class StudentController extends Controller
             $course=Course::findOrFail($input['course']['id']);
         }else{
             //if new course insert course_type and course_level
-            $category=Category::where('name',$input['course']['course_type']);
+            $category=Category::where('name',$input['course']['course_type'])->first();
             $course=Course::create([
                 'course_name'=>$input['course']['course_name'],
                 'category_id'=>$category->id,
@@ -63,11 +64,14 @@ class StudentController extends Controller
             'student_id'=>$student->id,
             'is_preffered'=>true,
         ]);
-
+        foreach($batch->students() as $student){
+            Notification::send($student->user(), new BatchNewUserNotification($batch));
+        }
+        
     DB::commit();
     } catch (\Exception $e) {
         DB::rollback();
-        dd($e->getMessage(),$e->getLine());
+        // dd($e->getMessage(),$e->getLine());
         return response()->$e;
     }        
         $success['redirectUrl'] = '/';
