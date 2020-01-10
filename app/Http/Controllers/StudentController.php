@@ -13,6 +13,7 @@ use App\Models\Institute;
 use App\Models\Branch;
 use App\Models\Batch;
 use App\Models\BatchStudent;
+use App\Notifications\BatchNewUserNotification;
 
 class StudentController extends Controller
 {
@@ -20,6 +21,7 @@ class StudentController extends Controller
     public function create(Request $request)
     {
         $input = $request->all();
+        $user=Auth::user();
     DB::beginTransaction();
     try{
         $student=Student::create(['user_id'=>Auth::user()->id]);
@@ -39,7 +41,7 @@ class StudentController extends Controller
         $institute=Institute::firstOrCreate([
             'institute_name'=>$input['institute'],
         ],[
-            'added_by_user_id'=>Auth::user()->id
+            'added_by_user_id'=>$user->id
         ]);
         //create or get branch id
         if($input['branch']['id']){
@@ -64,14 +66,17 @@ class StudentController extends Controller
             'student_id'=>$student->id,
             'is_preffered'=>true,
         ]);
-        foreach($batch->students() as $student){
-            Notification::send($student->user(), new BatchNewUserNotification($batch));
-        }
+
+        $user->student_activated_at=date('Y-m-d');
+        $user->save();
+
+        Notification::send($batch->users(), new BatchNewUserNotification($batch));
+            
         
     DB::commit();
     } catch (\Exception $e) {
         DB::rollback();
-        // dd($e->getMessage(),$e->getLine());
+        dd($e->getMessage(),$e->getLine());
         return response()->$e;
     }        
         $success['redirectUrl'] = '/';

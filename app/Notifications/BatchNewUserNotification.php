@@ -6,7 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-
+use Log;
 class BatchNewUserNotification extends Notification
 {
     use Queueable;
@@ -28,7 +28,7 @@ class BatchNewUserNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail','database'];
+        return ['database'];
     }
 
     /**
@@ -38,7 +38,7 @@ class BatchNewUserNotification extends Notification
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
-    {
+    {Log::debug('tomail');
         return (new MailMessage)
                     ->line('The introduction to the notification.')
                     ->action('Notification Action', url('/'))
@@ -52,7 +52,7 @@ class BatchNewUserNotification extends Notification
      * @return array
      */
     public function toDatabase($notifiable)
-    {
+    {Log::debug('todatabase');
         return [
             'batch_id'=>1
         ];

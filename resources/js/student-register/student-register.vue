@@ -33,7 +33,7 @@
                     <label> {{ trans('Course Name') }} </label>
                   <div class="inner-addon left-addon">
                     <i class="fa fa-user"></i>
-                    <select v-model="course_id">
+                    <select v-model="course_id" class="form-control">
                         <option v-for="course in courses" :key='course.id' :value="course.id">{{course.course_name}}</option>
                     </select>
                     <span class="error">{{errors.first('institute_name')}}</span>
@@ -80,7 +80,7 @@
                     <label> {{ trans('Branch Name') }} </label>
                   <div class="inner-addon left-addon">
                     <i class="fa fa-user"></i>
-                    <select v-model="branch_id">
+                    <select v-model="branch_id" class="form-control">
                         <option v-for="branch in branches" :key="branch.id" :value="branch.id">{{branch.branch_name}}</option>
                     </select>
                     <span class="error">{{errors.first('institute_name')}}</span>

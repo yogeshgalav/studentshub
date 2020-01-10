@@ -25,7 +25,7 @@ import { VueEditor,Quill } from 'vue2-editor'
 
 import ImageResize from 'quill-image-resize-vue';
 import { ImageDrop } from 'quill-image-drop-module';
-
+console.log(Quill);
 Quill.register("modules/imageDrop", ImageDrop);
 Quill.register("modules/imageResize", ImageResize);
 
