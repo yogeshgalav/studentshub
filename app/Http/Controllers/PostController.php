@@ -12,6 +12,7 @@ use App\Models\Subject;
 use App\Models\Video;
 use Auth;
 use DB;
+use Illuminate\Support\Arr;
 
 class PostController extends Controller
 {
@@ -83,6 +84,7 @@ class PostController extends Controller
         DB::commit();
     } catch (\Exception $e) {
         DB::rollback();
+        Log::critical('Post Creation failure: for user id#'.Auth::user()->id.' with data '.implode(', ',Arr::flatten($data)));
         // dd($e->getMessage(),$e->getLine());
         return response()->$e;
     }

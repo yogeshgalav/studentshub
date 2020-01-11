@@ -17,7 +17,7 @@
       >
           <li
               class="autocomplete-result"
-              @click="getEmit({'id':0,'name':search[value]})"
+              @click="getEmit({'id':0,value:search[value]})"
           >
               Create        </li>
         <!--              <li-->

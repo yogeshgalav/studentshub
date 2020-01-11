@@ -90485,7 +90485,7 @@ var render = function() {
                 staticClass: "autocomplete-result",
                 on: {
                   click: function($event) {
-                    return _vm.getEmit({ id: 0, name: _vm.search[_vm.value] })
+                    return _vm.getEmit({ id: 0, value: _vm.search[_vm.value] })
                   }
                 }
               },
