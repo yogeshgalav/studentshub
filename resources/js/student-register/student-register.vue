@@ -33,9 +33,10 @@
                     <label> {{ trans('Course Name') }} </label>
                   <div class="inner-addon left-addon">
                     <i class="fa fa-user"></i>
-                    <select v-model="course_id" class="form-control">
+                    <auto-complete :is-async="false" value="course_name" :selected="selectCourse" :items="courses"></auto-complete>
+                    <!-- <select v-model="course_id" class="form-control">
                         <option v-for="course in courses" :key='course.id' :value="course.id">{{course.course_name}}</option>
-                    </select>
+                    </select> -->
                     <span class="error">{{errors.first('institute_name')}}</span>
                   </div>
                 </div>
@@ -80,9 +81,10 @@
                     <label> {{ trans('Branch Name') }} </label>
                   <div class="inner-addon left-addon">
                     <i class="fa fa-user"></i>
-                    <select v-model="branch_id" class="form-control">
+                  <auto-complete :is-async="false" value="branch_name" :selected="selectBranch" :items="branches"></auto-complete>
+                    <!-- <select v-model="branch_id" class="form-control">
                         <option v-for="branch in branches" :key="branch.id" :value="branch.id">{{branch.branch_name}}</option>
-                    </select>
+                    </select> -->
                     <span class="error">{{errors.first('institute_name')}}</span>
                   </div>
                 </div>
@@ -212,14 +214,15 @@
 </style>
 <script>
 import FormMixin from "./../components/mixins/form-mixin.js";
-import swal from '../components/swal';
+import swal from './../components/swal';
 import DatePicker from 'vue2-datepicker';
+import AutoComplete from './../components/AutoComplete';
 import 'vue2-datepicker/index.css';
 
 export default {
   mixins: [FormMixin],
   components:{
-    DatePicker
+    DatePicker,AutoComplete
   },
   data() {
     return {
@@ -253,14 +256,6 @@ export default {
     trans: function(string, defaultString) {
       return this.$trans("auth", string, defaultString);
     },
-    select_course(){
-        if(this.selected_course.course_level===null){
-            this.course_level_select=true;
-        }
-        if(this.selected_course.course_type===null){
-            this.course_type_select=true;
-        }
-    },
     handleSubmit(e) {
       this.$validator.localize("en", this.dict);
       this.$validator.validate().then(valid => {
@@ -283,6 +278,18 @@ export default {
           window.location.href=resp.data.success.redirectUrl;
         }
       });
+    },
+    selectCourse(selectedCourse){
+      if(selected_course.course_level===null){
+            this.course_level_select=true;
+        }
+        if(selected_course.course_type===null){
+            this.course_type_select=true;
+        }
+      this.course_id=selected_course.id;
+    },
+    selectBranch(selectedBranch){
+      this.branch_id=selected_branch.id;
     }
   },
   props: ['courses','branches']

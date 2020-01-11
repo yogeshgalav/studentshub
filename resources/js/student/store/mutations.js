@@ -14,7 +14,7 @@ export default {
         state.new_post.selected_subject.subject_name=data.subject_name;
         break
         case 'postContent':
-        console.log(data,state.new_post.post_type)
+        console.log(data.content)
           switch(state.new_post.post_type){
             case 'article':  
           state.new_post.postContent = {'content':data.content};

@@ -1765,65 +1765,57 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'autocomplete',
-  props: {
-    value: {
-      type: String,
-      required: false,
-      "default": function _default() {
-        return 'name';
-      }
-    },
-    items: {
-      type: Array,
-      required: false,
-      "default": function _default() {
-        return [];
-      }
-    },
-    isAsync: {
-      type: Boolean,
-      required: false,
-      "default": false
-    }
-  },
+  name: 'Autocomplete',
+  props: ['items', 'value', 'isAsync'],
   data: function data() {
     return {
       isOpen: false,
       results: [],
-      result: {},
-      search: '',
-      isLoading: false,
+      search: {},
       arrowCounter: 0
     };
   },
+  watch: {
+    items: function items(val) {
+      this.results = val;
+    }
+  },
   methods: {
-    onChange: function onChange() {
-      // Let's warn the parent that a change was made
-      this.$emit('input', this.search); // Is the data given by an outside ajax request?
+    getEmit: function getEmit(currentResult) {
+      this.$emit('selected', currentResult);
+      this.search = currentResult;
+      this.isOpen = false;
+    },
+    showResult: function showResult(event) {
+      this.search[this.value] = event.target.value;
 
       if (this.isAsync) {
-        this.isLoading = true;
+        this.$emit('setValue', this.search[this.value]);
       } else {
-        // Let's  our flat array
         this.filterResults();
-        this.isOpen = true;
       }
+
+      this.isOpen = true;
     },
     filterResults: function filterResults() {
       var _this = this;
 
-      // first uncapitalize all the things
       this.results = this.items.filter(function (item) {
-        return item.toLowerCase().indexOf(_this.search.toLowerCase()) > -1;
+        if (item[_this.value].toLowerCase().indexOf(_this.search[_this.value].toLowerCase()) > -1) {
+          return true;
+        }
+
+        return false;
       });
     },
-    setResult: function setResult(result) {
-      this.search = result;
-      this.isOpen = false;
-    },
-    onArrowDown: function onArrowDown(evt) {
+    onArrowDown: function onArrowDown() {
       if (this.arrowCounter < this.results.length) {
         this.arrowCounter = this.arrowCounter + 1;
       }
@@ -1837,33 +1829,7 @@ __webpack_require__.r(__webpack_exports__);
       this.search = this.results[this.arrowCounter];
       this.isOpen = false;
       this.arrowCounter = -1;
-    },
-    handleClickOutside: function handleClickOutside(evt) {
-      if (!this.$el.contains(evt.target)) {
-        this.isOpen = false;
-        this.arrowCounter = -1;
-      }
     }
-  },
-  watch: {
-    items: function items(val, oldValue) {
-      // actually compare them
-      if (val.length !== oldValue.length) {
-        this.results = val;
-        this.isLoading = false;
-      }
-    },
-    search: function search(val, oldValue) {
-      if (val !== '') {
-        this.$emit('selected', val);
-      }
-    }
-  },
-  mounted: function mounted() {
-    document.addEventListener('click', this.handleClickOutside);
-  },
-  destroyed: function destroyed() {
-    document.removeEventListener('click', this.handleClickOutside);
   }
 });
 
@@ -10649,7 +10615,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.autocomplete {\n  position: relative;\n}\n.autocomplete-results {\n  padding: 0;\n  margin: 0;\n  border: 1px solid #eeeeee;\n  overflow: auto;\n  width: 100%;\n}\n.autocomplete-result {\n  list-style: none;\n  text-align: left;\n  padding: 4px 2px;\n  cursor: pointer;\n}\n.autocomplete-result.is-active,\n.autocomplete-result:hover {\n  background-color: #4AAE9B;\n  color: white;\n}\n\n", ""]);
+exports.push([module.i, "\n.autocomplete {\n    position: relative;\n}\n.autocomplete-results {\n    padding: 0;\n    margin: 0;\n    border: 1px solid #eeeeee;\n    overflow: auto;\n    width: 100%;\n}\n.autocomplete-result {\n    list-style: none;\n    text-align: left;\n    padding: 4px 2px;\n    cursor: pointer;\n}\n.autocomplete-result.is-active,\n.autocomplete-result:hover {\n    background-color: #4AAE9B;\n    color: white;\n}\n\n", ""]);
 
 // exports
 
@@ -90455,27 +90421,13 @@ var render = function() {
     { staticClass: "autocomplete" },
     [
       _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.search,
-            expression: "search"
-          }
-        ],
         staticClass: "form-control",
         attrs: { type: "text" },
-        domProps: { value: _vm.search },
+        domProps: { value: _vm.search[_vm.value] },
         on: {
-          input: [
-            function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.search = $event.target.value
-            },
-            _vm.onChange
-          ],
+          input: function($event) {
+            return _vm.showResult($event)
+          },
           keydown: [
             function($event) {
               if (
@@ -90533,41 +90485,43 @@ var render = function() {
                 staticClass: "autocomplete-result",
                 on: {
                   click: function($event) {
-                    return _vm.$emit("selected", { id: 0, name: _vm.search })
+                    return _vm.getEmit({ id: 0, name: _vm.search[_vm.value] })
                   }
                 }
               },
-              [_vm._v("\n      Create new client\n    ")]
+              [_vm._v("\n            Create        ")]
             ),
             _vm._v(" "),
-            _vm.isLoading
-              ? _c("li", { staticClass: "loading" }, [
-                  _vm._v("\n      Loading results...\n    ")
-                ])
-              : _vm._l(_vm.results, function(result, i) {
-                  return _c(
-                    "li",
-                    {
-                      key: i,
-                      staticClass: "autocomplete-result",
-                      class: { "is-active": i === _vm.arrowCounter },
-                      on: {
-                        click: function($event) {
-                          return _vm.setResult(result)
-                        }
-                      }
-                    },
+            _vm._l(_vm.results, function(result, i) {
+              return _c(
+                "li",
+                {
+                  key: i,
+                  staticClass: "autocomplete-result",
+                  class: { "is-active": i === _vm.arrowCounter },
+                  on: {
+                    click: function($event) {
+                      return _vm.getEmit(result)
+                    }
+                  }
+                },
+                [
+                  _vm._t(
+                    "list",
                     [
-                      _vm._t(
-                        "list",
-                        [_vm._v(_vm._s(result.name))],
-                        null,
-                        result
+                      _vm._v(
+                        "\n          " +
+                          _vm._s(result[_vm.value]) +
+                          "\n        "
                       )
                     ],
-                    2
+                    null,
+                    result
                   )
-                })
+                ],
+                2
+              )
+            })
           ],
           2
         )
@@ -114526,7 +114480,7 @@ __webpack_require__.r(__webpack_exports__);
         break;
 
       case 'postContent':
-        console.log(data, state.new_post.post_type);
+        console.log(data.content);
 
         switch (state.new_post.post_type) {
           case 'article':

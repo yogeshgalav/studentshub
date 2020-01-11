@@ -83,7 +83,7 @@ class PostController extends Controller
         DB::commit();
     } catch (\Exception $e) {
         DB::rollback();
-        dd($e->getMessage(),$e->getLine());
+        // dd($e->getMessage(),$e->getLine());
         return response()->$e;
     }
         return response()->json('success');
