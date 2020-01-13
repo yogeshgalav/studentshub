@@ -33,9 +33,10 @@
                     <label> {{ trans('Course Name') }} </label>
                   <div class="inner-addon left-addon">
                     <i class="fa fa-user"></i>
-                    <select v-model="selected_course">
-                        <option v-for="course in courses" :key='course.id'>{{course.course_name}}</option>
-                    </select>
+                    <auto-complete :is-async="false" value="course_name" :selected="selectCourse" :items="courses"></auto-complete>
+                    <!-- <select v-model="course_id" class="form-control">
+                        <option v-for="course in courses" :key='course.id' :value="course.id">{{course.course_name}}</option>
+                    </select> -->
                     <span class="error">{{errors.first('institute_name')}}</span>
                   </div>
                 </div>
@@ -80,9 +81,10 @@
                     <label> {{ trans('Branch Name') }} </label>
                   <div class="inner-addon left-addon">
                     <i class="fa fa-user"></i>
-                    <select v-model="selected_branch">
-                        <option v-for="branch in branches" :key="branch.id">{{branch.branch_name}}</option>
-                    </select>
+                  <auto-complete :is-async="false" value="branch_name" :selected="selectBranch" :items="branches"></auto-complete>
+                    <!-- <select v-model="branch_id" class="form-control">
+                        <option v-for="branch in branches" :key="branch.id" :value="branch.id">{{branch.branch_name}}</option>
+                    </select> -->
                     <span class="error">{{errors.first('institute_name')}}</span>
                   </div>
                 </div>
@@ -212,20 +214,23 @@
 </style>
 <script>
 import FormMixin from "./../components/mixins/form-mixin.js";
-import swal from '../components/swal';
+import swal from './../components/swal';
 import DatePicker from 'vue2-datepicker';
+import AutoComplete from './../components/AutoComplete';
 import 'vue2-datepicker/index.css';
 
 export default {
   mixins: [FormMixin],
   components:{
-    DatePicker
+    DatePicker,AutoComplete
   },
   data() {
     return {
       institute_name:'',
       selected_course:'',
+      course_id:'',
       selected_branch:'',
+      branch_id:'',
       end_year:'',
       start_year:'',
       course_level_select:false,
@@ -239,17 +244,17 @@ export default {
       }
     };
   },
+  watch:{
+    course_id(val){
+      this.selected_course=this.courses.find(node=>node.id===val);
+    },
+    branch_id(val){
+      this.selected_branch=this.branches.find(node=>node.id===val);
+    }
+  },
   methods: {
     trans: function(string, defaultString) {
       return this.$trans("auth", string, defaultString);
-    },
-    select_course(){
-        if(this.selected_course.course_level===null){
-            this.course_level_select=true;
-        }
-        if(this.selected_course.course_type===null){
-            this.course_type_select=true;
-        }
     },
     handleSubmit(e) {
       this.$validator.localize("en", this.dict);
@@ -268,7 +273,23 @@ export default {
         institute:this.institute_name,
         start_year:this.start_year,
         end_year:this.end_year,
+      }).then((resp)=>{
+        if(resp.data.success){
+          window.location.href=resp.data.success.redirectUrl;
+        }
       });
+    },
+    selectCourse(selectedCourse){
+      if(selected_course.course_level===null){
+            this.course_level_select=true;
+        }
+        if(selected_course.course_type===null){
+            this.course_type_select=true;
+        }
+      this.course_id=selected_course.id;
+    },
+    selectBranch(selectedBranch){
+      this.branch_id=selected_branch.id;
     }
   },
   props: ['courses','branches']

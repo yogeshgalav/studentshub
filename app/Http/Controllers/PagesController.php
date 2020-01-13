@@ -46,7 +46,7 @@ class PagesController extends Controller
     }
 
     public function checkin(){
-        $courses=\App\Models\Course::all();
+        $courses=\App\Models\Course::with('category')->get();
         $branches=\App\Models\Branch::all();
         return view('student-register.student-register')->with('branches',$branches)->with('courses',$courses);
     }
@@ -86,4 +86,29 @@ class PagesController extends Controller
         ->with('total_posts',$total_posts)
         ;
     }
+    // public function test(){
+    //     $courses=\App\Models\Course::all();
+    //     foreach($courses as $course){
+    //         if(!is_null($course->category_id)){
+    //             continue;
+    //         }
+    //         if (preg_match('/ of (.*?) \(/', $course->course_name, $match) == 1) {
+    //             $course_type=\App\Models\Category::create(['name'=>$match[1]]);
+                // $course->category_id=$course_type->id;
+    //             $course->save();
+    //             echo $course->id.' '.$match[1].'<br/>';
+    //         }else if (preg_match('/ in (.*?) \(/', $course->course_name, $match) == 1) {
+    //             $course_type=\App\Models\Category::create(['name'=>$match[1]]);
+    //             $course->category_id=$course_type->id;
+    //             $course->save();
+    //             echo $course->id.' '.$match[1].'<br/>';
+    //         }else{
+    //             $course_type=\App\Models\Category::create(['name'=>$course->course_name]);
+    //             $course->category_id=$course_type->id;
+    //             $course->save();
+    //             echo 'fuck'.$course->id.' '.$course->course_name.'<br/>';
+    //         }
+    //     }
+    // }
+
 }

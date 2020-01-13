@@ -9,9 +9,6 @@ require('./../bootstrap');
 // require('../../atlantis/js/slick');
 require('../../atlantis/js/slick.min');
 require('../../atlantis/js/core/jquery.3.2.1.min');
-require( '../../atlantis/js/plugin/jquery-scrollbar/jquery.scrollbar.min' );
-require( '../../atlantis/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min' );
-require('../../atlantis/js/atlantis');
 
 // window.Vue = require('vue').default;
 import Vue from 'vue';

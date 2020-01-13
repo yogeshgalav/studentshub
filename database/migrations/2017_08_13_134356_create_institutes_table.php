@@ -33,7 +33,7 @@ class CreateInstitutesTable extends Migration
             $table->string('next_contract_renewal_date')->nullable();
             $table->char('currency_code',3)->nullable();
             $table->date('retired_at')->nullable();
-            $table->boolean('is_demo_account');
+            $table->boolean('is_demo_account')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });

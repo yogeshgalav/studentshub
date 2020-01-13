@@ -23,7 +23,7 @@ use Sthub;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Socialite;
-
+use DB;
 class AuthController extends Controller
 {
     /**
@@ -95,6 +95,8 @@ class AuthController extends Controller
     {
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
+        DB::beginTransaction();
+    try{
         $user = User::create([
             'first_name'=>explode(' ',$input['full_name'])[0],
             'last_name'=>explode(' ',$input['full_name'])[1] ?? null,
@@ -106,12 +108,18 @@ class AuthController extends Controller
         
         $success['token'] = $user->createToken('Sthub')->accessToken;
                 
-        // if (is_null($user->onboarded_at)) {
-        //     $success['redirectUrl'] = '/checkin';
-        // } else {
-        //     $success['redirectUrl'] = '/';
-        // }
-        $success['redirectUrl'] = '/';
+        if (is_null($user->student_activated_at)) {
+            $success['redirectUrl'] = '/check-in';
+        } else {
+            $success['redirectUrl'] = '/';
+        }
+        
+    DB::commit();
+    } catch (\Exception $e) {
+        DB::rollback();
+        Log::critical('user Registeration failure: with data '.implode(',',$input));
+        return response()->$e;
+    }        
         return response()->json(['success' => $success]);
     }
 

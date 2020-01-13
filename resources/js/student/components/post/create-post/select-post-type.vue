@@ -23,6 +23,7 @@
 </style>
 
 <script>
+import EventBus from '../event-bus';
 export default {
     data(){
         return{
@@ -36,6 +37,17 @@ export default {
                 'MCQ',
                 ],
         }
+    },
+    mounted(){
+        EventBus.$on('validateStep1',()=>{
+			// this.$validator.validate().then(valid => {
+			// 	if(valid){
+					EventBus.$emit('validateWizard',1,true);
+				// }else{
+				// 	EventBus.$emit('validateWizard',1,false);
+				// }
+			// });
+		});
     },
     methods:{
         selectPostType(event){

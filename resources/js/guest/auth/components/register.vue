@@ -13,6 +13,7 @@
             <div class="col-md-8">
                   <form @submit.prevent="handleSubmit">
                 <div class="form-group">
+                
                   <input
                     id="token"
                     type="hidden"
@@ -24,6 +25,18 @@
                 </div>
                 <div class="form-group">
                     <label> {{ trans('Full Name') }} </label>
+                    <base-input
+                  :invalid="formErrors('full_name')?true:false"
+                  v-model="full_name"
+                  focus
+                  type="text"
+                  name="full_name"
+                  tab-index="1"
+                  icon="user"
+                  align-icon="left"
+                
+                 
+                />
                   <div class="inner-addon left-addon">
                     <i class="fa fa-user"></i>
                     <input
@@ -166,9 +179,13 @@
 <script>
 import FormMixin from "../../../components/mixins/form-mixin.js";
 import swal from '../../../components/swal';
+import BaseInput from '../../../components/BaseInput';
 
 export default {
   mixins: [FormMixin],
+  components: {
+BaseInput
+  },
   data() {
     return {
       register_status:1,

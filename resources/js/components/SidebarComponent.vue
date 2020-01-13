@@ -2,99 +2,67 @@
      <div class="sidebar sidebar-style-2">			
 			<div class="sidebar-wrapper scrollbar scrollbar-inner">
 				<div class="sidebar-content">
-					<div class="user">
-						<div class="avatar-sm float-left mr-2">
-							<!-- <img src="../assets/img/profile.jpg" alt="..." class="avatar-img rounded-circle"> -->
-						</div>
-						<div class="info">
-							<a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
-								<span>
-									Hizrian
-									<span class="user-level">Administrator</span>
-									<span class="caret"></span>
-								</span>
-							</a>
-							<div class="clearfix"></div>
-
-							<div class="collapse in" id="collapseExample">
-								<ul class="nav">
-									<li>
-										<a href="#profile">
-											<span class="link-collapse">My Profile</span>
-										</a>
-									</li>
-									<li>
-										<a href="#edit">
-											<span class="link-collapse">Edit Profile</span>
-										</a>
-									</li>
-									<li>
-										<a href="#settings">
-											<span class="link-collapse">Settings</span>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
 					<ul class="nav nav-primary">
+						<li class="nav-item">
+							<router-link :to="'/ask-question'">
+								<i class="far fa-question-circle"></i>
+								<p>Ask Question</p>
+								<span class="badge badge-count">6</span>
+							</router-link>
+						</li>
 						<li class="nav-item active">
 							<a data-toggle="collapse" href="#dashboard" class="collapsed" aria-expanded="false">
 								<i class="fas fa-home"></i>
-								<p>Dashboard</p>
+								<p>Home</p>
 								<span class="caret"></span>
 							</a>
 							<div class="collapse" id="dashboard">
 								<ul class="nav nav-collapse">
 									<li>
 										<a href="../demo1/index.html">
-											<span class="sub-item">Dashboard 1</span>
+											<span class="sub-item">All</span>
 										</a>
 									</li>
 									<li>
 										<a href="../demo2/index.html">
-											<span class="sub-item">Dashboard 2</span>
+											<span class="sub-item">Notice Board</span>
 										</a>
 									</li>
 									<li>
 										<a href="../demo3/index.html">
-											<span class="sub-item">Dashboard 3</span>
+											<span class="sub-item">Article</span>
 										</a>
 									</li>
 									<li>
 										<a href="../demo4/index.html">
-											<span class="sub-item">Dashboard 4</span>
+											<span class="sub-item">Video</span>
 										</a>
 									</li>
 									<li>
 										<a href="../demo5/index.html">
-											<span class="sub-item">Dashboard 5</span>
+											<span class="sub-item">Facts</span>
 										</a>
 									</li>
 									<li>
 										<a href="../demo6/index.html">
-											<span class="sub-item">Dashboard 6</span>
+											<span class="sub-item">Documents</span>
 										</a>
 									</li>
 									<li>
 										<a href="../demo7/index.html">
-											<span class="sub-item">Dashboard 7</span>
-										</a>
-									</li>
-									<li>
-										<a href="../demo8/index.html">
-											<span class="sub-item">Dashboard 8</span>
-										</a>
-									</li>
-									<li>
-										<a href="../demo9/index.html">
-											<span class="sub-item">Dashboard 9</span>
+											<span class="sub-item">Multiple choice</span>
 										</a>
 									</li>
 								</ul>
 							</div>
 						</li>
 						<li class="nav-section">
+							<span class="sidebar-mini-icon">
+								<i class="fa fa-ellipsis-h"></i>
+							</span>
+							<h4 class="text-section">Classrooms</h4>
+						</li>
+						<!-- <li class="nav-section">
 							<span class="sidebar-mini-icon">
 								<i class="fa fa-ellipsis-h"></i>
 							</span>
@@ -509,7 +477,7 @@
 									</li>
 								</ul>
 							</div>
-						</li>
+						</li> -->
 					</ul>
 				</div>
 			</div>

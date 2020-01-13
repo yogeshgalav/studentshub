@@ -18,8 +18,9 @@ class CreateBatchesTable extends Migration
             $table->integer('institute_id')->unsigned();
             $table->integer('branch_id')->unsigned();
             $table->integer('course_id')->unsigned();
-            $table->string('session')->comment('startYear-endYear');
-            $table->timestamp('created_at');
+            $table->integer('start_year');
+            $table->integer('end_year');
+            $table->timestamps();
         });
     }
 
