@@ -1,10 +1,10 @@
 <template>
     <div class="bg-gray pt-80">
-            <slick :options="slickOptions" ref="slick">
+            <VueSlickCarousel  v-bind="slickOptions" ref="slick">
                     <a href="#" class="btn btn-white"><img v-lazy="'/images/slider.jpg'" /></a>
                     <a href="#" class="btn btn-white"><img v-lazy="'/images/5.jpg'"/></a>
                     
-  </slick>
+  </VueSlickCarousel>
     </div>
 </template>
 <style scoped>
@@ -28,11 +28,13 @@
 
 <script>
 import {mapState} from 'vuex';
-import Slick from 'vue-slick';
 
+import VueSlickCarousel from 'vue-slick-carousel'
+// optional style for arrows & dots
+import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
 export default {
     components: {
-    Slick,
+    VueSlickCarousel,
     },
     computed:{
 		...mapState({
@@ -42,7 +44,7 @@ export default {
     data(){
         return {
             slickOptions:{
-                adaptiveHeight:true,
+                adaptiveHeight:false,
                 dots: true,
                 arrows: false,
                 infinite: true,
