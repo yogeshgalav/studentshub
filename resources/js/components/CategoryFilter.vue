@@ -4,7 +4,7 @@
         <div class="row">
         <div class="col-md-12 text-center" v-if="categories.length">
             <VueSlickCarousel  :arrows="true" v-bind="slickOptions" ref="slick" >
-                    <a :href="'/explore/'+category.subject_url" class="btn btn-white" v-for="(category,index) in categories" :key="index">{{category.Subject_name}}</a>
+                    <a :href="'/category/'+category.category_url" class="btn btn-white" v-for="(category,index) in categories" :key="index">{{category.name}}</a>
   </VueSlickCarousel >
         </div>
     </div>
