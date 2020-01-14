@@ -1903,28 +1903,6 @@ __webpack_require__.r(__webpack_exports__);
         }]
       }
     };
-  },
-  mounted: function mounted() {//   this.initSlider();
-    // this.$refs.slick.slick({
-    //     infinite: true,
-    //     slidesToShow: 3,
-    //     slidesToScroll: 3
-    // });
-  },
-  watch: {
-    categories: function categories() {
-      this.reInit();
-    }
-  },
-  methods: {
-    reInit: function reInit() {
-      var _this = this;
-
-      // Helpful if you have to deal with v-for to update dynamic lists
-      this.$nextTick(function () {
-        _this.$refs.slick.reSlick();
-      });
-    }
   }
 });
 
@@ -90527,34 +90505,36 @@ var render = function() {
   return _c("div", { staticClass: "bg-gray" }, [
     _c("div", { staticClass: "container ptb-20" }, [
       _c("div", { staticClass: "row" }, [
-        _c(
-          "div",
-          { staticClass: "col-md-12 text-center" },
-          [
-            _c(
-              "VueSlickCarousel",
-              _vm._b(
-                { ref: "slick", attrs: { arrows: true } },
-                "VueSlickCarousel",
-                _vm.slickOptions,
-                false
-              ),
-              _vm._l(_vm.categories, function(category, index) {
-                return _c(
-                  "a",
-                  {
-                    key: index,
-                    staticClass: "btn btn-white",
-                    attrs: { href: "/explore/" + category.subject_url }
-                  },
-                  [_vm._v(_vm._s(category.Subject_name))]
+        _vm.categories.length
+          ? _c(
+              "div",
+              { staticClass: "col-md-12 text-center" },
+              [
+                _c(
+                  "VueSlickCarousel",
+                  _vm._b(
+                    { ref: "slick", attrs: { arrows: true } },
+                    "VueSlickCarousel",
+                    _vm.slickOptions,
+                    false
+                  ),
+                  _vm._l(_vm.categories, function(category, index) {
+                    return _c(
+                      "a",
+                      {
+                        key: index,
+                        staticClass: "btn btn-white",
+                        attrs: { href: "/explore/" + category.subject_url }
+                      },
+                      [_vm._v(_vm._s(category.Subject_name))]
+                    )
+                  }),
+                  0
                 )
-              }),
-              0
+              ],
+              1
             )
-          ],
-          1
-        )
+          : _vm._e()
       ])
     ])
   ])
@@ -91067,71 +91047,7 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _vm._m(1),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-12 text-center mt-3 mb-3" }, [
-          _c("ul", { staticClass: "social-network social-circle" }, [
-            _c("li", [
-              _c(
-                "a",
-                {
-                  staticClass: "icoFacebook",
-                  attrs: { href: "#", title: "Facebook" },
-                  on: {
-                    click: function($event) {
-                      return _vm.newWindow(
-                        "https://www.facebook.com/studentshub.in"
-                      )
-                    }
-                  }
-                },
-                [_c("i", { staticClass: "fab fa-facebook" })]
-              )
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c(
-                "a",
-                {
-                  staticClass: "icoTwitter",
-                  attrs: { href: "#", target: "_blank", title: "Twitter" },
-                  on: {
-                    click: function($event) {
-                      return _vm.newWindow(
-                        "https://www.twitter.com/studentshub_in"
-                      )
-                    }
-                  }
-                },
-                [_c("i", { staticClass: "fab fa-twitter" })]
-              )
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c(
-                "a",
-                {
-                  staticClass: "icoInstagram",
-                  attrs: { href: "#", target: "_blank", title: "Instagram" },
-                  on: {
-                    click: function($event) {
-                      return _vm.newWindow(
-                        "https://www.instagram.com/studentshub.in"
-                      )
-                    }
-                  }
-                },
-                [_c("i", { staticClass: "fab fa-instagram" })]
-              )
-            ]),
-            _vm._v(" "),
-            _vm._m(2)
-          ])
-        ]),
-        _vm._v(" "),
-        _vm._m(3)
-      ])
+      _vm._m(1)
     ])
   ])
 }
@@ -91152,42 +91068,85 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-12" }, [
-      _c("div", { staticClass: "divider mt-5 mb-3" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c(
-        "a",
-        {
-          staticClass: "icoLinkedin",
-          attrs: { href: "#", target: "_blank", title: "Linkedin" }
-        },
-        [_c("i", { staticClass: "fab fa-linkedin" })]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-12 text-center" }, [
-      _c("ul", { staticClass: "foote_bottom_ul_amrc" }, [
-        _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Home")])]),
-        _vm._v(" "),
-        _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("About")])]),
-        _vm._v(" "),
-        _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Services")])]),
-        _vm._v(" "),
-        _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Pricing")])]),
-        _vm._v(" "),
-        _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Blog")])]),
-        _vm._v(" "),
-        _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Contact")])])
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("div", { staticClass: "divider mt-5 mb-3" })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-12 text-center mt-3 mb-3" }, [
+        _c("ul", { staticClass: "social-network social-circle" }, [
+          _c("li", [
+            _c(
+              "a",
+              {
+                staticClass: "icoFacebook",
+                attrs: {
+                  target: "_blank",
+                  href: "https://www.facebook.com/studentshub.in",
+                  title: "Facebook"
+                }
+              },
+              [_c("i", { staticClass: "fab fa-facebook" })]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", [
+            _c(
+              "a",
+              {
+                staticClass: "icoTwitter",
+                attrs: {
+                  target: "_blank",
+                  href: "https://www.twitter.com/studentshub_in",
+                  title: "Twitter"
+                }
+              },
+              [_c("i", { staticClass: "fab fa-twitter" })]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", [
+            _c(
+              "a",
+              {
+                staticClass: "icoInstagram",
+                attrs: {
+                  target: "_blank",
+                  href: "https://www.instagram.com/studentshub.in",
+                  title: "Instagram"
+                }
+              },
+              [_c("i", { staticClass: "fab fa-instagram" })]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", [
+            _c(
+              "a",
+              {
+                staticClass: "icoLinkedin",
+                attrs: { href: "#", target: "_blank", title: "Linkedin" }
+              },
+              [_c("i", { staticClass: "fab fa-linkedin" })]
+            )
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-12 text-center" }, [
+        _c("ul", { staticClass: "foote_bottom_ul_amrc" }, [
+          _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Home")])]),
+          _vm._v(" "),
+          _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("About")])]),
+          _vm._v(" "),
+          _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Services")])]),
+          _vm._v(" "),
+          _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Pricing")])]),
+          _vm._v(" "),
+          _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Blog")])]),
+          _vm._v(" "),
+          _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Contact")])])
+        ])
       ])
     ])
   }

@@ -2,7 +2,7 @@
     <div class="bg-gray">
    <div class="container ptb-20">
         <div class="row">
-        <div class="col-md-12 text-center">
+        <div class="col-md-12 text-center" v-if="categories.length">
             <VueSlickCarousel  :arrows="true" v-bind="slickOptions" ref="slick" >
                     <a :href="'/explore/'+category.subject_url" class="btn btn-white" v-for="(category,index) in categories" :key="index">{{category.Subject_name}}</a>
   </VueSlickCarousel >
@@ -57,28 +57,6 @@ export default {
         ]
         },
         }
-    },
-    mounted(){
-        //   this.initSlider();
-        // this.$refs.slick.slick({
-        //     infinite: true,
-        //     slidesToShow: 3,
-        //     slidesToScroll: 3
-        // });
-    },
-    watch: {
-    categories() {
-        this.reInit(); 
-    }
-  },
-    methods:{
-    
-    reInit() {
-            // Helpful if you have to deal with v-for to update dynamic lists
-            this.$nextTick(() => {
-                this.$refs.slick.reSlick();
-            });
-        },   
     },
 }
 </script>

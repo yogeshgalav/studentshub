@@ -1984,28 +1984,6 @@ __webpack_require__.r(__webpack_exports__);
         }]
       }
     };
-  },
-  mounted: function mounted() {//   this.initSlider();
-    // this.$refs.slick.slick({
-    //     infinite: true,
-    //     slidesToShow: 3,
-    //     slidesToScroll: 3
-    // });
-  },
-  watch: {
-    categories: function categories() {
-      this.reInit();
-    }
-  },
-  methods: {
-    reInit: function reInit() {
-      var _this = this;
-
-      // Helpful if you have to deal with v-for to update dynamic lists
-      this.$nextTick(function () {
-        _this.$refs.slick.reSlick();
-      });
-    }
   }
 });
 
@@ -2805,11 +2783,13 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _components_CategoryFilter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/CategoryFilter */ "./resources/js/components/CategoryFilter.vue");
-/* harmony import */ var _components_RecentPost__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/RecentPost */ "./resources/js/components/RecentPost.vue");
-/* harmony import */ var _components_SiteFooter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/SiteFooter */ "./resources/js/components/SiteFooter.vue");
-/* harmony import */ var _components_PostInteraction__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/PostInteraction */ "./resources/js/components/PostInteraction.vue");
-/* harmony import */ var _components_PostViewHeader__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/PostViewHeader */ "./resources/js/components/PostViewHeader.vue");
+/* harmony import */ var vue_social_sharing__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-social-sharing */ "./node_modules/vue-social-sharing/dist/vue-social-sharing.common.js");
+/* harmony import */ var vue_social_sharing__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_social_sharing__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _components_CategoryFilter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/CategoryFilter */ "./resources/js/components/CategoryFilter.vue");
+/* harmony import */ var _components_RecentPost__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/RecentPost */ "./resources/js/components/RecentPost.vue");
+/* harmony import */ var _components_SiteFooter__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/SiteFooter */ "./resources/js/components/SiteFooter.vue");
+/* harmony import */ var _components_PostInteraction__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/PostInteraction */ "./resources/js/components/PostInteraction.vue");
+/* harmony import */ var _components_PostViewHeader__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/PostViewHeader */ "./resources/js/components/PostViewHeader.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -2878,6 +2858,62 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -2886,11 +2922,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    CategoryFilter: _components_CategoryFilter__WEBPACK_IMPORTED_MODULE_1__["default"],
-    RecentPost: _components_RecentPost__WEBPACK_IMPORTED_MODULE_2__["default"],
-    SiteFooter: _components_SiteFooter__WEBPACK_IMPORTED_MODULE_3__["default"],
-    PostInteraction: _components_PostInteraction__WEBPACK_IMPORTED_MODULE_4__["default"],
-    PostViewHeader: _components_PostViewHeader__WEBPACK_IMPORTED_MODULE_5__["default"]
+    CategoryFilter: _components_CategoryFilter__WEBPACK_IMPORTED_MODULE_2__["default"],
+    RecentPost: _components_RecentPost__WEBPACK_IMPORTED_MODULE_3__["default"],
+    SiteFooter: _components_SiteFooter__WEBPACK_IMPORTED_MODULE_4__["default"],
+    PostInteraction: _components_PostInteraction__WEBPACK_IMPORTED_MODULE_5__["default"],
+    PostViewHeader: _components_PostViewHeader__WEBPACK_IMPORTED_MODULE_6__["default"],
+    SocialSharing: vue_social_sharing__WEBPACK_IMPORTED_MODULE_1___default.a
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
     'categories': function categories(state) {
@@ -3871,25 +3908,6 @@ __webpack_require__.r(__webpack_exports__);
           _this2.srvError401 = false;
           _this2.form_errors = err.response.data.errors;
         }
-      });
-    },
-    AuthProvider: function AuthProvider(provider) {
-      var self = this;
-      this.$auth.authenticate(provider).then(function (response) {
-        self.SocialLogin(provider, response);
-      })["catch"](function (err) {
-        console.log({
-          err: err
-        });
-      });
-    },
-    SocialLogin: function SocialLogin(provider, response) {
-      this.$http.post("/sociallogin/" + provider, response).then(function (response) {
-        console.log(response.data);
-      })["catch"](function (err) {
-        console.log({
-          err: err
-        });
       });
     }
   },
@@ -53550,34 +53568,36 @@ var render = function() {
   return _c("div", { staticClass: "bg-gray" }, [
     _c("div", { staticClass: "container ptb-20" }, [
       _c("div", { staticClass: "row" }, [
-        _c(
-          "div",
-          { staticClass: "col-md-12 text-center" },
-          [
-            _c(
-              "VueSlickCarousel",
-              _vm._b(
-                { ref: "slick", attrs: { arrows: true } },
-                "VueSlickCarousel",
-                _vm.slickOptions,
-                false
-              ),
-              _vm._l(_vm.categories, function(category, index) {
-                return _c(
-                  "a",
-                  {
-                    key: index,
-                    staticClass: "btn btn-white",
-                    attrs: { href: "/explore/" + category.subject_url }
-                  },
-                  [_vm._v(_vm._s(category.Subject_name))]
+        _vm.categories.length
+          ? _c(
+              "div",
+              { staticClass: "col-md-12 text-center" },
+              [
+                _c(
+                  "VueSlickCarousel",
+                  _vm._b(
+                    { ref: "slick", attrs: { arrows: true } },
+                    "VueSlickCarousel",
+                    _vm.slickOptions,
+                    false
+                  ),
+                  _vm._l(_vm.categories, function(category, index) {
+                    return _c(
+                      "a",
+                      {
+                        key: index,
+                        staticClass: "btn btn-white",
+                        attrs: { href: "/explore/" + category.subject_url }
+                      },
+                      [_vm._v(_vm._s(category.Subject_name))]
+                    )
+                  }),
+                  0
                 )
-              }),
-              0
+              ],
+              1
             )
-          ],
-          1
-        )
+          : _vm._e()
       ])
     ])
   ])
@@ -54670,33 +54690,143 @@ var render = function() {
       _c("div", { staticClass: "container ptb-50" }, [
         _c("div", { staticClass: "col-md-10 col-10 center-col" }, [
           _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-md-9" }, [
-              _c("h3", [_vm._v(_vm._s(_vm.postContent.heading))]),
-              _vm._v(" "),
-              _vm.postType === "article"
-                ? _c("div", [
-                    _c("div", {
-                      domProps: { innerHTML: _vm._s(_vm.postContent.content) }
-                    })
-                  ])
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.postType === "video"
-                ? _c("div", [
-                    _c("iframe", {
-                      attrs: {
-                        width: "620",
-                        height: "315",
-                        src: _vm.postContent.content.link
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("div", [
-                      _vm._v(_vm._s(_vm.postContent.content.description))
+            _c(
+              "div",
+              { staticClass: "col-md-9" },
+              [
+                _c("h3", [_vm._v(_vm._s(_vm.postContent.heading))]),
+                _vm._v(" "),
+                _vm.postType === "article"
+                  ? _c("div", [
+                      _c("div", {
+                        domProps: { innerHTML: _vm._s(_vm.postContent.content) }
+                      })
                     ])
-                  ])
-                : _vm._e()
-            ]),
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.postType === "video"
+                  ? _c("div", [
+                      _c("iframe", {
+                        attrs: {
+                          width: "620",
+                          height: "315",
+                          src: _vm.postContent.content.link
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("div", [
+                        _vm._v(_vm._s(_vm.postContent.content.description))
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("social-sharing", {
+                  attrs: {
+                    url: "https://vuejs.org/",
+                    title: "The Progressive JavaScript Framework",
+                    description:
+                      "Intuitive, Fast and Composable MVVM for building interactive interfaces.",
+                    quote:
+                      "Vue is a progressive framework for building user interfaces.",
+                    hashtags: "vuejs,javascript,framework",
+                    "twitter-user": "vuejs"
+                  },
+                  inlineTemplate: {
+                    render: function() {
+                      var _vm = this
+                      var _h = _vm.$createElement
+                      var _c = _vm._self._c || _h
+                      return _c(
+                        "div",
+                        [
+                          _c("network", { attrs: { network: "email" } }, [
+                            _c("i", { staticClass: "fa fa-envelope" }),
+                            _vm._v(" Email\r\n      ")
+                          ]),
+                          _vm._v(" "),
+                          _c("network", { attrs: { network: "facebook" } }, [
+                            _c("i", { staticClass: "fa fa-facebook" }),
+                            _vm._v(" Facebook\r\n      ")
+                          ]),
+                          _vm._v(" "),
+                          _c("network", { attrs: { network: "googleplus" } }, [
+                            _c("i", { staticClass: "fa fa-google-plus" }),
+                            _vm._v(" Google +\r\n      ")
+                          ]),
+                          _vm._v(" "),
+                          _c("network", { attrs: { network: "line" } }, [
+                            _c("i", { staticClass: "fa fa-line" }),
+                            _vm._v(" Line\r\n      ")
+                          ]),
+                          _vm._v(" "),
+                          _c("network", { attrs: { network: "linkedin" } }, [
+                            _c("i", { staticClass: "fa fa-linkedin" }),
+                            _vm._v(" LinkedIn\r\n      ")
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "network",
+                            { attrs: { network: "odnoklassniki" } },
+                            [
+                              _c("i", { staticClass: "fa fa-odnoklassniki" }),
+                              _vm._v(" Odnoklassniki\r\n      ")
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("network", { attrs: { network: "pinterest" } }, [
+                            _c("i", { staticClass: "fa fa-pinterest" }),
+                            _vm._v(" Pinterest\r\n      ")
+                          ]),
+                          _vm._v(" "),
+                          _c("network", { attrs: { network: "reddit" } }, [
+                            _c("i", { staticClass: "fa fa-reddit" }),
+                            _vm._v(" Reddit\r\n      ")
+                          ]),
+                          _vm._v(" "),
+                          _c("network", { attrs: { network: "skype" } }, [
+                            _c("i", { staticClass: "fa fa-skype" }),
+                            _vm._v(" Skype\r\n      ")
+                          ]),
+                          _vm._v(" "),
+                          _c("network", { attrs: { network: "sms" } }, [
+                            _c("i", { staticClass: "fa fa-commenting-o" }),
+                            _vm._v(" SMS\r\n      ")
+                          ]),
+                          _vm._v(" "),
+                          _c("network", { attrs: { network: "telegram" } }, [
+                            _c("i", { staticClass: "fa fa-telegram" }),
+                            _vm._v(" Telegram\r\n      ")
+                          ]),
+                          _vm._v(" "),
+                          _c("network", { attrs: { network: "twitter" } }, [
+                            _c("i", { staticClass: "fa fa-twitter" }),
+                            _vm._v(" Twitter\r\n      ")
+                          ]),
+                          _vm._v(" "),
+                          _c("network", { attrs: { network: "vk" } }, [
+                            _c("i", { staticClass: "fa fa-vk" }),
+                            _vm._v(" VKontakte\r\n      ")
+                          ]),
+                          _vm._v(" "),
+                          _c("network", { attrs: { network: "weibo" } }, [
+                            _c("i", { staticClass: "fa fa-weibo" }),
+                            _vm._v(" Weibo\r\n      ")
+                          ]),
+                          _vm._v(" "),
+                          _c("network", { attrs: { network: "whatsapp" } }, [
+                            _c("i", { staticClass: "fa fa-whatsapp" }),
+                            _vm._v(" Whatsapp\r\n      ")
+                          ])
+                        ],
+                        1
+                      )
+                    },
+                    staticRenderFns: []
+                  }
+                })
+              ],
+              1
+            ),
             _vm._v(" "),
             _c("div", { staticClass: "col-md-3" }, [_c("recent-post")], 1)
           ])
@@ -54890,71 +55020,7 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _vm._m(1),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-12 text-center mt-3 mb-3" }, [
-          _c("ul", { staticClass: "social-network social-circle" }, [
-            _c("li", [
-              _c(
-                "a",
-                {
-                  staticClass: "icoFacebook",
-                  attrs: { href: "#", title: "Facebook" },
-                  on: {
-                    click: function($event) {
-                      return _vm.newWindow(
-                        "https://www.facebook.com/studentshub.in"
-                      )
-                    }
-                  }
-                },
-                [_c("i", { staticClass: "fab fa-facebook" })]
-              )
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c(
-                "a",
-                {
-                  staticClass: "icoTwitter",
-                  attrs: { href: "#", target: "_blank", title: "Twitter" },
-                  on: {
-                    click: function($event) {
-                      return _vm.newWindow(
-                        "https://www.twitter.com/studentshub_in"
-                      )
-                    }
-                  }
-                },
-                [_c("i", { staticClass: "fab fa-twitter" })]
-              )
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c(
-                "a",
-                {
-                  staticClass: "icoInstagram",
-                  attrs: { href: "#", target: "_blank", title: "Instagram" },
-                  on: {
-                    click: function($event) {
-                      return _vm.newWindow(
-                        "https://www.instagram.com/studentshub.in"
-                      )
-                    }
-                  }
-                },
-                [_c("i", { staticClass: "fab fa-instagram" })]
-              )
-            ]),
-            _vm._v(" "),
-            _vm._m(2)
-          ])
-        ]),
-        _vm._v(" "),
-        _vm._m(3)
-      ])
+      _vm._m(1)
     ])
   ])
 }
@@ -54975,42 +55041,85 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-12" }, [
-      _c("div", { staticClass: "divider mt-5 mb-3" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c(
-        "a",
-        {
-          staticClass: "icoLinkedin",
-          attrs: { href: "#", target: "_blank", title: "Linkedin" }
-        },
-        [_c("i", { staticClass: "fab fa-linkedin" })]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-12 text-center" }, [
-      _c("ul", { staticClass: "foote_bottom_ul_amrc" }, [
-        _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Home")])]),
-        _vm._v(" "),
-        _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("About")])]),
-        _vm._v(" "),
-        _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Services")])]),
-        _vm._v(" "),
-        _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Pricing")])]),
-        _vm._v(" "),
-        _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Blog")])]),
-        _vm._v(" "),
-        _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Contact")])])
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("div", { staticClass: "divider mt-5 mb-3" })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-12 text-center mt-3 mb-3" }, [
+        _c("ul", { staticClass: "social-network social-circle" }, [
+          _c("li", [
+            _c(
+              "a",
+              {
+                staticClass: "icoFacebook",
+                attrs: {
+                  target: "_blank",
+                  href: "https://www.facebook.com/studentshub.in",
+                  title: "Facebook"
+                }
+              },
+              [_c("i", { staticClass: "fab fa-facebook" })]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", [
+            _c(
+              "a",
+              {
+                staticClass: "icoTwitter",
+                attrs: {
+                  target: "_blank",
+                  href: "https://www.twitter.com/studentshub_in",
+                  title: "Twitter"
+                }
+              },
+              [_c("i", { staticClass: "fab fa-twitter" })]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", [
+            _c(
+              "a",
+              {
+                staticClass: "icoInstagram",
+                attrs: {
+                  target: "_blank",
+                  href: "https://www.instagram.com/studentshub.in",
+                  title: "Instagram"
+                }
+              },
+              [_c("i", { staticClass: "fab fa-instagram" })]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", [
+            _c(
+              "a",
+              {
+                staticClass: "icoLinkedin",
+                attrs: { href: "#", target: "_blank", title: "Linkedin" }
+              },
+              [_c("i", { staticClass: "fab fa-linkedin" })]
+            )
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-12 text-center" }, [
+        _c("ul", { staticClass: "foote_bottom_ul_amrc" }, [
+          _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Home")])]),
+          _vm._v(" "),
+          _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("About")])]),
+          _vm._v(" "),
+          _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Services")])]),
+          _vm._v(" "),
+          _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Pricing")])]),
+          _vm._v(" "),
+          _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Blog")])]),
+          _vm._v(" "),
+          _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Contact")])])
+        ])
       ])
     ])
   }
@@ -55732,41 +55841,7 @@ var render = function() {
                     ]
                   ),
                   _vm._v(" "),
-                  _c("form", [
-                    _c("p", { staticClass: "text-center" }, [_vm._v("OR")]),
-                    _vm._v(" "),
-                    _c("p", { staticClass: "text-center" }, [
-                      _vm._v("Sign up with your social network")
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "display-flex" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-white mr-3",
-                          on: {
-                            click: function($event) {
-                              return _vm.AuthProvider("google")
-                            }
-                          }
-                        },
-                        [_vm._m(0), _vm._v(" Sign up with Google")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-white",
-                          on: {
-                            click: function($event) {
-                              return _vm.AuthProvider("facebook")
-                            }
-                          }
-                        },
-                        [_vm._m(1), _vm._v(" Sign up with Facebook")]
-                      )
-                    ])
-                  ])
+                  _vm._m(0)
                 ])
               ])
             ])
@@ -55781,13 +55856,39 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("i", [_c("img", { attrs: { src: "/icons/search.png" } })])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("i", [_c("img", { attrs: { src: "/icons/facebook.png" } })])
+    return _c("form", [
+      _c("p", { staticClass: "text-center" }, [_vm._v("OR")]),
+      _vm._v(" "),
+      _c("p", { staticClass: "text-center" }, [
+        _vm._v("Sign up with your social network")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "display-flex" }, [
+        _c(
+          "a",
+          {
+            staticClass: "btn btn-white mr-3",
+            attrs: { href: "/social-auth/google" }
+          },
+          [
+            _c("i", [_c("img", { attrs: { src: "/icons/search.png" } })]),
+            _vm._v(" Sign up with Google")
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "a",
+          {
+            staticClass: "btn btn-white mr-3",
+            attrs: { href: "/social-auth/facebook" }
+          },
+          [
+            _c("i", [_c("img", { attrs: { src: "/icons/facebook.png" } })]),
+            _vm._v(" Sign up with Facebook")
+          ]
+        )
+      ])
+    ])
   }
 ]
 render._withStripped = true
@@ -69869,1367 +69970,416 @@ module.exports = isSymbol;
 
 /***/ }),
 
-/***/ "./node_modules/vue-social-auth/dist/vue-social-auth.es2017.js":
-/*!*********************************************************************!*\
-  !*** ./node_modules/vue-social-auth/dist/vue-social-auth.es2017.js ***!
-  \*********************************************************************/
-/*! exports provided: default, VueSocialauth */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ "./node_modules/vue-social-sharing/dist/vue-social-sharing.common.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/vue-social-sharing/dist/vue-social-sharing.common.js ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(setImmediate) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VueSocialauth", function() { return VueSocialauth; });
 /*!
- * vue-social-auth v1.4.0
- * https://github.com/diadal/vue-social-auth
+ * vue-social-sharing v2.4.6 
+ * (c) 2019 nicolasbeauvais
  * Released under the MIT License.
  */
 
-if (typeof Object.assign != 'function') {
-  Object.assign = function(target, varArgs) {
-    'use strict';
-    var arguments$1 = arguments;
 
-    if (target == null) {
-      throw new TypeError('Cannot convert undefined or null to object');
+function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
+
+var Vue = _interopDefault(__webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js"));
+
+var SocialSharingNetwork = {
+  functional: true,
+
+  props: {
+    network: {
+      type: String,
+      default: ''
     }
-
-    var to = Object(target);
-
-    for (var index = 1; index < arguments.length; index++) {
-      var nextSource = arguments$1[index];
-
-      if (nextSource != null) { // Skip over if undefined or null
-        for (var nextKey in nextSource) {
-          // Avoid bugs when hasOwnProperty is shadowed
-          if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
-            to[nextKey] = nextSource[nextKey];
-          }
-        }
-      }
-    }
-    return to;
-  };
-}
-
-function camelCase(name) {
-  return name.replace(/([\:\-\_]+(.))/g, function (_, separator, letter, offset) {
-    return offset ? letter.toUpperCase() : letter;
-  });
-}
-
-function isUndefined(value) {
-  return typeof value === 'undefined'
-}
-
-
-
-
-
-function isString(value) {
-  return typeof value === 'string'
-}
-
-
-
-function isFunction(value) {
-  return typeof value === 'function'
-}
-
-function objectExtend(a, b) {
-
-  // Don't touch 'null' or 'undefined' objects.
-  if (a == null || b == null) {
-    return a;
-  }
-
-  Object.keys(b).forEach(function (key) {
-    if (Object.prototype.toString.call(b[key]) == '[object Object]') {
-      if (Object.prototype.toString.call(a[key]) != '[object Object]') {
-        a[key] = b[key];
-      } else {
-        a[key] = objectExtend(a[key], b[key]);
-      }
-    } else {
-      a[key] = b[key];
-    }
-  });
-
-  return a;
-}
-
-/**
- * Assemble url from two segments
- * 
- * @author Sahat Yalkabov <https://github.com/sahat>
- * @copyright Method taken from https://github.com/sahat/satellizer
- * 
- * @param  {String} baseUrl Base url
- * @param  {String} url     URI
- * @return {String}
- */
-function joinUrl(baseUrl, url) {
-  if (/^(?:[a-z]+:)?\/\//i.test(url)) {
-    return url;
-  }
-  var joined = [baseUrl, url].join('/');
-  var normalize = function (str) {
-    return str
-      .replace(/[\/]+/g, '/')
-      .replace(/\/\?/g, '?')
-      .replace(/\/\#/g, '#')
-      .replace(/\:\//g, '://');
-  };
-  return normalize(joined);
-}
-
-/**
- * Get full path based on current location
- * 
- * @author Sahat Yalkabov <https://github.com/sahat>
- * @copyright Method taken from https://github.com/sahat/satellizer
- * 
- * @param  {Location} location
- * @return {String}
- */
-function getFullUrlPath(location) {
-  var isHttps = location.protocol === 'https:';
-  return location.protocol + '//' + location.hostname +
-    ':' + (location.port || (isHttps ? '443' : '80')) +
-    (/^\//.test(location.pathname) ? location.pathname : '/' + location.pathname);
-}
-
-/**
- * Parse query string variables
- * 
- * @author Sahat Yalkabov <https://github.com/sahat>
- * @copyright Method taken from https://github.com/sahat/satellizer
- * 
- * @param  {String} Query string
- * @return {String}
- */
-function parseQueryString(str) {
-  var obj = {};
-  var key;
-  var value;
-  (str || '').split('&').forEach(function (keyValue) {
-    if (keyValue) {
-      value = keyValue.split('=');
-      key = decodeURIComponent(value[0]);
-      obj[key] = (!!value[1]) ? decodeURIComponent(value[1]) : true;
-    }
-  });
-  return obj;
-}
-
-/**
- * Decode base64 string
- * @author Sahat Yalkabov <https://github.com/sahat>
- * @copyright Method taken from https://github.com/sahat/satellizer
- * 
- * @param  {String} str base64 encoded string
- * @return {Object}
- */
-
-
-function parseCookies(str) {
-  if (str.length === 0) { return {}; }
-  var parsed = {};
-  var pattern = new RegExp('\\s*;\\s*');
-  str.split(pattern).forEach(function (i) {
-    var ref = i.split('=');
-    var encodedKey = ref[0];
-    var encodedValue = ref[1];
-    var key = decodeURIComponent(encodedKey);
-    var value = decodeURIComponent(encodedValue);
-    parsed[key] = value;
-  });
-  return parsed;
-}
-
-function formatOptions(options) {
-  var path = options.path;
-  var domain = options.domain;
-  var expires = options.expires;
-  var secure = options.secure;
-  return [
-    typeof path === 'undefined' || path === null
-      ? '' : ';path=' + path,
-    typeof domain === 'undefined' || domain === null
-      ? '' : ';domain=' + domain,
-    typeof expires === 'undefined' || expires === null
-      ? '' : ';expires=' + expires.toUTCString(),
-    typeof secure === 'undefined' || secure === null || secure === false
-      ? '' : ';secure'
-  ].join('');
-}
-
-function formatCookie(key, value, options) {
-  return [
-    encodeURIComponent(key),
-    '=',
-    encodeURIComponent(value),
-    formatOptions(options)
-  ].join('');
-}
-
-// Store setTimeout reference so promise-polyfill will be unaffected by
-// other code modifying setTimeout (like sinon.useFakeTimers())
-var setTimeoutFunc = setTimeout;
-
-function noop() {}
-
-// Polyfill for Function.prototype.bind
-function bind(fn, thisArg) {
-  return function () {
-    fn.apply(thisArg, arguments);
-  };
-}
-
-function Promise$1(fn) {
-  if (typeof this !== 'object') { throw new TypeError('Promises must be constructed via new'); }
-  if (typeof fn !== 'function') { throw new TypeError('not a function'); }
-  this._state = 0;
-  this._handled = false;
-  this._value = undefined;
-  this._deferreds = [];
-
-  doResolve(fn, this);
-}
-
-function handle(self, deferred) {
-  while (self._state === 3) {
-    self = self._value;
-  }
-  if (self._state === 0) {
-    self._deferreds.push(deferred);
-    return;
-  }
-  self._handled = true;
-  Promise$1._immediateFn(function () {
-    var cb = self._state === 1 ? deferred.onFulfilled : deferred.onRejected;
-    if (cb === null) {
-      (self._state === 1 ? resolve : reject)(deferred.promise, self._value);
-      return;
-    }
-    var ret;
-    try {
-      ret = cb(self._value);
-    } catch (e) {
-      reject(deferred.promise, e);
-      return;
-    }
-    resolve(deferred.promise, ret);
-  });
-}
-
-function resolve(self, newValue) {
-  try {
-    // Promise Resolution Procedure: https://github.com/promises-aplus/promises-spec#the-promise-resolution-procedure
-    if (newValue === self) { throw new TypeError('A promise cannot be resolved with itself.'); }
-    if (newValue && (typeof newValue === 'object' || typeof newValue === 'function')) {
-      var then = newValue.then;
-      if (newValue instanceof Promise$1) {
-        self._state = 3;
-        self._value = newValue;
-        finale(self);
-        return;
-      } else if (typeof then === 'function') {
-        doResolve(bind(then, newValue), self);
-        return;
-      }
-    }
-    self._state = 1;
-    self._value = newValue;
-    finale(self);
-  } catch (e) {
-    reject(self, e);
-  }
-}
-
-function reject(self, newValue) {
-  self._state = 2;
-  self._value = newValue;
-  finale(self);
-}
-
-function finale(self) {
-  if (self._state === 2 && self._deferreds.length === 0) {
-    Promise$1._immediateFn(function() {
-      if (!self._handled) {
-        Promise$1._unhandledRejectionFn(self._value);
-      }
-    });
-  }
-
-  for (var i = 0, len = self._deferreds.length; i < len; i++) {
-    handle(self, self._deferreds[i]);
-  }
-  self._deferreds = null;
-}
-
-function Handler(onFulfilled, onRejected, promise) {
-  this.onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : null;
-  this.onRejected = typeof onRejected === 'function' ? onRejected : null;
-  this.promise = promise;
-}
-
-/**
- * Take a potentially misbehaving resolver function and make sure
- * onFulfilled and onRejected are only called once.
- *
- * Makes no guarantees about asynchrony.
- */
-function doResolve(fn, self) {
-  var done = false;
-  try {
-    fn(function (value) {
-      if (done) { return; }
-      done = true;
-      resolve(self, value);
-    }, function (reason) {
-      if (done) { return; }
-      done = true;
-      reject(self, reason);
-    });
-  } catch (ex) {
-    if (done) { return; }
-    done = true;
-    reject(self, ex);
-  }
-}
-
-Promise$1.prototype['catch'] = function (onRejected) {
-  return this.then(null, onRejected);
-};
-
-Promise$1.prototype.then = function (onFulfilled, onRejected) {
-  var prom = new (this.constructor)(noop);
-
-  handle(this, new Handler(onFulfilled, onRejected, prom));
-  return prom;
-};
-
-Promise$1.all = function (arr) {
-  var args = Array.prototype.slice.call(arr);
-
-  return new Promise$1(function (resolve, reject) {
-    if (args.length === 0) { return resolve([]); }
-    var remaining = args.length;
-
-    function res(i, val) {
-      try {
-        if (val && (typeof val === 'object' || typeof val === 'function')) {
-          var then = val.then;
-          if (typeof then === 'function') {
-            then.call(val, function (val) {
-              res(i, val);
-            }, reject);
-            return;
-          }
-        }
-        args[i] = val;
-        if (--remaining === 0) {
-          resolve(args);
-        }
-      } catch (ex) {
-        reject(ex);
-      }
-    }
-
-    for (var i = 0; i < args.length; i++) {
-      res(i, args[i]);
-    }
-  });
-};
-
-Promise$1.resolve = function (value) {
-  if (value && typeof value === 'object' && value.constructor === Promise$1) {
-    return value;
-  }
-
-  return new Promise$1(function (resolve) {
-    resolve(value);
-  });
-};
-
-Promise$1.reject = function (value) {
-  return new Promise$1(function (resolve, reject) {
-    reject(value);
-  });
-};
-
-Promise$1.race = function (values) {
-  return new Promise$1(function (resolve, reject) {
-    for (var i = 0, len = values.length; i < len; i++) {
-      values[i].then(resolve, reject);
-    }
-  });
-};
-
-// Use polyfill for setImmediate for performance gains
-Promise$1._immediateFn = (typeof setImmediate === 'function' && function (fn) { setImmediate(fn); }) ||
-  function (fn) {
-    setTimeoutFunc(fn, 0);
-  };
-
-Promise$1._unhandledRejectionFn = function _unhandledRejectionFn(err) {
-  if (typeof console !== 'undefined' && console) {
-    console.warn('Possible Unhandled Promise Rejection:', err); // eslint-disable-line no-console
-  }
-};
-
-/**
- * Set the immediate function to execute callbacks
- * @param fn {function} Function to execute
- * @deprecated
- */
-Promise$1._setImmediateFn = function _setImmediateFn(fn) {
-  Promise$1._immediateFn = fn;
-};
-
-/**
- * Change the function to execute on unhandled rejection
- * @param {function} fn Function to execute on unhandled rejection
- * @deprecated
- */
-Promise$1._setUnhandledRejectionFn = function _setUnhandledRejectionFn(fn) {
-  Promise$1._unhandledRejectionFn = fn;
-};
-
-/**
- * Default configuration
- */
-var defaultOptions = {
-  baseUrl: null,
-  tokenName: 'token',
-  tokenPrefix: 'vueauth',
-  tokenHeader: 'Authorization',
-  tokenType: 'Bearer',
-  loginUrl: '/auth/login',
-  registerUrl: '/auth/register',
-  logoutUrl: null,
-  storageType: 'localStorage',
-  storageNamespace: 'vue-social-auth',
-  cookieStorage: {
-    domain: window.location.hostname,
-    path: '/',
-    secure: false
   },
-  requestDataKey: 'data',
-  responseDataKey: 'data',
 
-  /**
-   * Default request interceptor for Axios library
-   * @context {VueSocialauth}
-   */
-  bindRequestInterceptor: function ($auth) {
+  render: function (createElement, context) {
+    var network = context.parent._data.baseNetworks[context.props.network];
 
-    var tokenHeader = $auth.options.tokenHeader;
+    if (!network) {
+      return console.warn(("Network " + (context.props.network) + " does not exist"));
+    }
 
-    $auth.$http.interceptors.request.use(function (config) {
-      delete config.headers[tokenHeader];
-      return config
-    });
-    
-    
+    return createElement(context.parent.networkTag, {
+      staticClass: context.data.staticClass || null,
+      staticStyle: context.data.staticStyle || null,
+      class: context.data.class || null,
+      style: context.data.style || null,
+      attrs: {
+        id: context.data.attrs.id || null,
+        tabindex: context.data.attrs.tabindex || 0,
+        'data-link': network.type === 'popup'
+          ? '#share-' + context.props.network
+          : context.parent.createSharingUrl(context.props.network),
+        'data-action': network.type === 'popup' ? null : network.action
+      },
+      on: {
+        click: network.type === 'popup' ? function () {
+          context.parent.share(context.props.network);
+        } : function () {
+          context.parent.touch(context.props.network);
+        }
+      }
+    }, context.children);
+  }
+};
+
+var email = {"sharer":"mailto:?subject=@title&body=@url%0D%0A%0D%0A@description","type":"direct"};
+var facebook = {"sharer":"https://www.facebook.com/sharer/sharer.php?u=@url&title=@title&description=@description&quote=@quote&hashtag=@hashtags","type":"popup"};
+var googleplus = {"sharer":"https://plus.google.com/share?url=@url","type":"popup"};
+var line = {"sharer":"http://line.me/R/msg/text/?@description%0D%0A@url","type":"popup"};
+var linkedin = {"sharer":"https://www.linkedin.com/shareArticle?mini=true&url=@url&title=@title&summary=@description","type":"popup"};
+var odnoklassniki = {"sharer":"https://connect.ok.ru/dk?st.cmd=WidgetSharePreview&st.shareUrl=@url&st.comments=@description","type":"popup"};
+var pinterest = {"sharer":"https://pinterest.com/pin/create/button/?url=@url&media=@media&description=@title","type":"popup"};
+var reddit = {"sharer":"https://www.reddit.com/submit?url=@url&title=@title","type":"popup"};
+var skype = {"sharer":"https://web.skype.com/share?url=@description%0D%0A@url","type":"popup"};
+var telegram = {"sharer":"https://t.me/share/url?url=@url&text=@description","type":"popup"};
+var twitter = {"sharer":"https://twitter.com/intent/tweet?text=@title&url=@url&hashtags=@hashtags@twitteruser","type":"popup"};
+var viber = {"sharer":"viber://forward?text=@url @description","type":"direct"};
+var vk = {"sharer":"https://vk.com/share.php?url=@url&title=@title&description=@description&image=@media&noparse=true","type":"popup"};
+var weibo = {"sharer":"http://service.weibo.com/share/share.php?url=@url&title=@title","type":"popup"};
+var whatsapp = {"sharer":"https://api.whatsapp.com/send?text=@description%0D%0A@url","type":"popup","action":"share/whatsapp/share"};
+var sms = {"sharer":"sms:?body=@url%20@description","type":"direct"};
+var sms_ios = {"sharer":"sms:;body=@url%20@description","type":"direct"};
+var BaseNetworks = {
+	email: email,
+	facebook: facebook,
+	googleplus: googleplus,
+	line: line,
+	linkedin: linkedin,
+	odnoklassniki: odnoklassniki,
+	pinterest: pinterest,
+	reddit: reddit,
+	skype: skype,
+	telegram: telegram,
+	twitter: twitter,
+	viber: viber,
+	vk: vk,
+	weibo: weibo,
+	whatsapp: whatsapp,
+	sms: sms,
+	sms_ios: sms_ios
+};
+
+var inBrowser = typeof window !== 'undefined';
+var $window = inBrowser ? window : null;
+
+var SocialSharing = {
+  props: {
+    /**
+     * URL to share.
+     * @var string
+     */
+    url: {
+      type: String,
+      default: inBrowser ? window.location.href : ''
+    },
+
+    /**
+     * Sharing title, if available by network.
+     * @var string
+     */
+    title: {
+      type: String,
+      default: ''
+    },
+
+    /**
+     * Sharing description, if available by network.
+     * @var string
+     */
+    description: {
+      type: String,
+      default: ''
+    },
+
+    /**
+     * Facebook quote
+     * @var string
+     */
+    quote: {
+      type: String,
+      default: ''
+    },
+
+    /**
+     * Twitter hashtags
+     * @var string
+     */
+    hashtags: {
+      type: String,
+      default: ''
+    },
+
+    /**
+     * Twitter user.
+     * @var string
+     */
+    twitterUser: {
+      type: String,
+      default: ''
+    },
+
+    /**
+     * Flag that indicates if counts should be retrieved.
+     * - NOT WORKING IN CURRENT VERSION
+     * @var mixed
+     */
+    withCounts: {
+      type: [String, Boolean],
+      default: false
+    },
+
+    /**
+     * Google plus key.
+     * @var string
+     */
+    googleKey: {
+      type: String,
+      default: undefined
+    },
+
+    /**
+     * Pinterest Media URL.
+     * Specifies the image/media to be used.
+     */
+    media: {
+      type: String,
+      default: ''
+    },
+
+    /**
+     * Network sub component tag.
+     * Default to span tag
+     */
+    networkTag: {
+      type: String,
+      default: 'span'
+    },
+
+    /**
+     * Additional or overridden networks.
+     * Default to BaseNetworks
+     */
+    networks: {
+      type: Object,
+      default: function () {
+        return {};
+      }
+    }
+  },
+
+  data: function data () {
+    return {
+      /**
+       * Available sharing networks.
+       * @param object
+       */
+      baseNetworks: BaseNetworks,
+
+      /**
+       * Popup settings.
+       * @param object
+       */
+      popup: {
+        status: false,
+        resizable: true,
+        toolbar: false,
+        menubar: false,
+        scrollbars: false,
+        location: false,
+        directories: false,
+        width: 626,
+        height: 436,
+        top: 0,
+        left: 0,
+        window: undefined,
+        interval: null
+      }
+    };
+  },
+
+  methods: {
+    /**
+     * Returns generated sharer url.
+     *
+     * @param network Social network key.
+     */
+    createSharingUrl: function createSharingUrl (network) {
+      var ua = navigator.userAgent.toLowerCase();
+
+      /**
+       * On IOS, SMS sharing link need a special formating
+       * Source: https://weblog.west-wind.com/posts/2013/Oct/09/Prefilling-an-SMS-on-Mobile-Devices-with-the-sms-Uri-Scheme#Body-only
+        */
+      if (network === 'sms' && (ua.indexOf('iphone') > -1 || ua.indexOf('ipad') > -1)) {
+        network += '_ios';
+      }
+
+      var url = this.baseNetworks[network].sharer;
+
+      /**
+       * On IOS, Twitter sharing shouldn't include a hashtag parameter if the hashtag value is empty
+       * Source: https://github.com/nicolasbeauvais/vue-social-sharing/issues/143
+        */
+      if (network === 'twitter' && this.hashtags.length === 0) {
+        url = url.replace('&hashtags=@hashtags', '');
+      }
+
+      return url
+        .replace(/@url/g, encodeURIComponent(this.url))
+        .replace(/@title/g, encodeURIComponent(this.title))
+        .replace(/@description/g, encodeURIComponent(this.description))
+        .replace(/@quote/g, encodeURIComponent(this.quote))
+        .replace(/@hashtags/g, this.generateHashtags(network, this.hashtags))
+        .replace(/@media/g, this.media)
+        .replace(/@twitteruser/g, this.twitterUser ? '&via=' + this.twitterUser : '');
+    },
+    /**
+     * Encode hashtags for the specified social network.
+     *
+     * @param  network Social network key
+     * @param  hashtags All hashtags specified
+     */
+    generateHashtags: function generateHashtags (network, hashtags) {
+      if (network === 'facebook' && hashtags.length > 0) {
+        return '%23' + hashtags.split(',')[0];
+      }
+
+      return hashtags;
+    },
+    /**
+     * Shares URL in specified network.
+     *
+     * @param network Social network key.
+     */
+    share: function share (network) {
+      this.openSharer(network, this.createSharingUrl(network));
+
+      this.$root.$emit('social_shares_open', network, this.url);
+      this.$emit('open', network, this.url);
+    },
+
+    /**
+     * Touches network and emits click event.
+     *
+     * @param network Social network key.
+     */
+    touch: function touch (network) {
+      window.open(this.createSharingUrl(network), '_self');
+
+      this.$root.$emit('social_shares_open', network, this.url);
+      this.$emit('open', network, this.url);
+    },
+
+    /**
+     * Opens sharer popup.
+     *
+     * @param network Social network key
+     * @param url Url to share.
+     */
+    openSharer: function openSharer (network, url) {
+      var this$1 = this;
+
+      // If a popup window already exist it will be replaced, trigger a close event.
+      var popupWindow = null;
+      if (popupWindow && this.popup.interval) {
+        clearInterval(this.popup.interval);
+
+        popupWindow.close();// Force close (for Facebook)
+
+        this.$root.$emit('social_shares_change', network, this.url);
+        this.$emit('change', network, this.url);
+      }
+
+      popupWindow = window.open(
+        url,
+        'sharer',
+        'status=' + (this.popup.status ? 'yes' : 'no') +
+        ',height=' + this.popup.height +
+        ',width=' + this.popup.width +
+        ',resizable=' + (this.popup.resizable ? 'yes' : 'no') +
+        ',left=' + this.popup.left +
+        ',top=' + this.popup.top +
+        ',screenX=' + this.popup.left +
+        ',screenY=' + this.popup.top +
+        ',toolbar=' + (this.popup.toolbar ? 'yes' : 'no') +
+        ',menubar=' + (this.popup.menubar ? 'yes' : 'no') +
+        ',scrollbars=' + (this.popup.scrollbars ? 'yes' : 'no') +
+        ',location=' + (this.popup.location ? 'yes' : 'no') +
+        ',directories=' + (this.popup.directories ? 'yes' : 'no')
+      );
+
+      popupWindow.focus();
+
+      // Create an interval to detect popup closing event
+      this.popup.interval = setInterval(function () {
+        if (popupWindow.closed) {
+          clearInterval(this$1.popup.interval);
+
+          popupWindow = undefined;
+
+          this$1.$root.$emit('social_shares_close', network, this$1.url);
+          this$1.$emit('close', network, this$1.url);
+        }
+      }, 500);
+    }
   },
 
   /**
-   * Default response interceptor for Axios library
-   * @contect {VueSocialauth}
+   * Merge base networks list with user's list
    */
-  bindResponseInterceptor: function ($auth) {
-    $auth.$http.interceptors.response.use(function (response) {
-      return response
-    });
+  beforeMount: function beforeMount () {
+    this.baseNetworks = Vue.util.extend(this.baseNetworks, this.networks);
   },
 
-  providers: {
-    facebook: {
-      name: 'facebook',
-      url: '/auth/facebook',
-      authorizationEndpoint: 'https://www.facebook.com/v2.5/dialog/oauth',
-      redirectUri: window.location.origin + '/',
-      requiredUrlParams: ['display', 'scope'],
-      scope: ['email'],
-      scopeDelimiter: ',',
-      display: 'popup',
-      oauthType: '2.0',
-      popupOptions: { width: 580, height: 400 }
-    },
-
-    google: {
-      name: 'google',
-      url: '/auth/google',
-      authorizationEndpoint: 'https://accounts.google.com/o/oauth2/auth',
-      redirectUri: window.location.origin,
-      requiredUrlParams: ['scope'],
-      optionalUrlParams: ['display'],
-      scope: ['profile', 'email'],
-      scopePrefix: 'openid',
-      scopeDelimiter: ' ',
-      display: 'popup',
-      oauthType: '2.0',
-      popupOptions: { width: 452, height: 633 }
-    },
-
-    github: {
-      name: 'github',
-      url: '/auth/github',
-      authorizationEndpoint: 'https://github.com/login/oauth/authorize',
-      redirectUri: window.location.origin,
-      optionalUrlParams: ['scope'],
-      scope: ['user:email'],
-      scopeDelimiter: ' ',
-      oauthType: '2.0',
-      popupOptions: { width: 1020, height: 618 }
-    },
-
-    instagram: {
-      name: 'instagram',
-      url: '/auth/instagram',
-      authorizationEndpoint: 'https://api.instagram.com/oauth/authorize',
-      redirectUri: window.location.origin,
-      requiredUrlParams: ['scope'],
-      scope: ['basic'],
-      scopeDelimiter: '+',
-      oauthType: '2.0',
-      popupOptions: { width: null, height: null }
-    },
-
-    twitter: {
-      name: 'twitter',
-      url: '/auth/twitter',
-      authorizationEndpoint: 'https://api.twitter.com/oauth/authenticate',
-      redirectUri: window.location.origin,
-      oauthType: '1.0',
-      popupOptions: { width: 495, height: 645 }
-    },
-
-    bitbucket: {
-      name: 'bitbucket',
-      url: '/auth/bitbucket',
-      authorizationEndpoint: 'https://bitbucket.org/site/oauth2/authorize',
-      redirectUri: window.location.origin + '/',
-      optionalUrlParams: ['scope'],
-      scope: ['email'],
-      scopeDelimiter: ' ',
-      oauthType: '2.0',
-      popupOptions: { width: 1020, height: 618 }
-    },
-
-    linkedin: {
-      name: 'linkedin',
-      url: '/auth/linkedin',
-      authorizationEndpoint: 'https://www.linkedin.com/oauth/v2/authorization',
-      redirectUri: window.location.origin,
-      requiredUrlParams: ['state'],
-      scope: ['r_emailaddress'],
-      scopeDelimiter: ' ',
-      state: 'STATE',
-      oauthType: '2.0',
-      popupOptions: { width: 527, height: 582 }
-    },
-
-    live: {
-      name: 'live',
-      url: '/auth/live',
-      authorizationEndpoint: 'https://login.live.com/oauth20_authorize.srf',
-      redirectUri: window.location.origin,
-      requiredUrlParams: ['display', 'scope'],
-      scope: ['wl.emails'],
-      scopeDelimiter: ' ',
-      display: 'popup',
-      oauthType: '2.0',
-      popupOptions: { width: 500, height: 560 }
-    },
-
-    oauth1: {
-      name: null,
-      url: '/auth/oauth1',
-      authorizationEndpoint: null,
-      redirectUri: window.location.origin,
-      oauthType: '1.0',
-      popupOptions: null
-    },
-
-    oauth2: {
-      name: null,
-      url: '/auth/oauth2',
-      clientId: null,
-      redirectUri: window.location.origin,
-      authorizationEndpoint: null,
-      defaultUrlParams: ['response_type', 'client_id', 'redirect_uri'],
-      requiredUrlParams: null,
-      optionalUrlParams: null,
-      scope: null,
-      scopePrefix: null,
-      scopeDelimiter: null,
-      state: null,
-      oauthType: '2.0',
-      popupOptions: null,
-      responseType: 'code',
-      responseParams: {
-        code: 'code',
-        clientId: 'clientId',
-        redirectUri: 'redirectUri'
-      }
-    }
-  }
-};
-
-var CookieStorage = function CookieStorage(defaultOptions) {
-  this._defaultOptions = objectExtend({
-    domain: window.location.hostname,
-    expires: null,
-    path: '/',
-    secure: false
-  }, defaultOptions);
-};
-
-CookieStorage.prototype.setItem = function setItem (key, value) {
-  var options = objectExtend({}, this._defaultOptions);
-  var cookie = formatCookie(key, value, options);
-  this._setCookie(cookie);
-};
-
-CookieStorage.prototype.getItem = function getItem (key) {
-  var cookies = parseCookies(this._getCookie());
-  return cookies.hasOwnProperty(key) ? cookies[key] : null;
-};
-
-CookieStorage.prototype.removeItem = function removeItem (key) {
-  var value = '';
-  var defaultOptions = objectExtend({}, this._defaultOptions);
-  var options = objectExtend(defaultOptions, {
-    expires: new Date(0)
-  });
-  var cookie = formatCookie(key, value, options);
-  this._setCookie(cookie);
-};
-
-CookieStorage.prototype._getCookie = function _getCookie () {
-  return typeof document === 'undefined'
-    ? '' : typeof document.cookie === 'undefined'
-      ? '' : document.cookie;
-};
-
-CookieStorage.prototype._setCookie = function _setCookie (cookie) {
-  document.cookie = cookie;
-};
-
-var LocalStorage = function LocalStorage(namespace) {
-  this.namespace = namespace || null;
-};
-
-LocalStorage.prototype.setItem = function setItem (key, value) {
-  window.localStorage.setItem(this._getStorageKey(key), value);
-};
-
-LocalStorage.prototype.getItem = function getItem (key) {
-  return window.localStorage.getItem(this._getStorageKey(key))
-};
-
-LocalStorage.prototype.removeItem = function removeItem (key) {
-  window.localStorage.removeItem(this._getStorageKey(key));
-};
-
-LocalStorage.prototype._getStorageKey = function _getStorageKey (key) {
-  if (this.namespace) {
-    return [this.namespace, key].join('.')
-  }
-  return key;
-};
-
-var MemoryStorage = function MemoryStorage(namespace) {
-  this.namespace = namespace || null;
-  this._storage = {};
-};
-
-MemoryStorage.prototype.setItem = function setItem (key, value) {
-  this._storage[this._getStorageKey(key)] = value;
-};
-
-MemoryStorage.prototype.getItem = function getItem (key) {
-  return this._storage[this._getStorageKey(key)]
-};
-
-MemoryStorage.prototype.removeItem = function removeItem (key) {
-  delete this._storage[this._getStorageKey(key)];
-};
-
-MemoryStorage.prototype._getStorageKey = function _getStorageKey (key) {
-  if (this.namespace) {
-    return [this.namespace, key].join('.')
-  }
-  return key;
-};
-
-var LocalStorage$2 = function LocalStorage(namespace) {
-  this.namespace = namespace || null;
-};
-
-LocalStorage$2.prototype.setItem = function setItem (key, value) {
-  window.sessionStorage.setItem(this._getStorageKey(key), value);
-};
-
-LocalStorage$2.prototype.getItem = function getItem (key) {
-  return window.sessionStorage.getItem(this._getStorageKey(key))
-};
-
-LocalStorage$2.prototype.removeItem = function removeItem (key) {
-  window.sessionStorage.removeItem(this._getStorageKey(key));
-};
-
-LocalStorage$2.prototype._getStorageKey = function _getStorageKey (key) {
-  if (this.namespace) {
-    return [this.namespace, key].join('.')
-  }
-  return key;
-};
-
-function StorageFactory(options) {
-  switch (options.storageType) {
-    case 'localStorage':
-      try {
-        window.localStorage.setItem('testKey', 'test');
-        window.localStorage.removeItem('testKey');
-        return new LocalStorage(options.storageNamespace)
-      } catch(e) {}
-
-    case 'sessionStorage':
-      try {
-        window.sessionStorage.setItem('testKey', 'test');
-        window.sessionStorage.removeItem('testKey');
-        return new LocalStorage$2(options.storageNamespace)
-      } catch (e) {}
-      
-    case 'cookieStorage':
-      return new CookieStorage(options.cookieStorage);
-
-    case 'memoryStorage': 
-    default:
-      return new MemoryStorage(options.storageNamespace)
-      break;
-  }
-}
-
-/**
- * OAuth2 popup management class
- * 
- * @author Sahat Yalkabov <https://github.com/sahat>
- * @copyright Class mostly taken from https://github.com/sahat/satellizer 
- * and adjusted to fit vue-social-auth library
- */
-var OAuthPopup = function OAuthPopup(url, name, popupOptions) {
-  this.popup = null;
-  this.url = url;
-  this.name = name;
-  this.popupOptions = popupOptions;
-};
-
-OAuthPopup.prototype.open = function open (redirectUri, skipPooling) {
-  try {
-    this.popup = window.open(this.url, this.name, this._stringifyOptions());
-    if (this.popup && this.popup.focus) {
-      this.popup.focus();
+  /**
+   * Sets popup default dimensions.
+   */
+  mounted: function mounted () {
+    if (!inBrowser) {
+      return;
     }
 
-    if (skipPooling) {
-      return Promise$1.resolve()
-    } else {
-      return this.pooling(redirectUri)
-    }
-  } catch(e) {
-    return Promise$1.reject(new Error('OAuth popup error occurred'))
-  }
-};
+    /**
+     * Center the popup on dual screens
+     * http://stackoverflow.com/questions/4068373/center-a-popup-window-on-screen/32261263
+     */
+    var dualScreenLeft = $window.screenLeft !== undefined ? $window.screenLeft : screen.left;
+    var dualScreenTop = $window.screenTop !== undefined ? $window.screenTop : screen.top;
 
-OAuthPopup.prototype.pooling = function pooling (redirectUri) {
-    var this$1 = this;
+    var width = $window.innerWidth ? $window.innerWidth : (document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width);
+    var height = $window.innerHeight ? $window.innerHeight : (document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height);
 
-  return new Promise$1(function (resolve, reject) {
-    var redirectUriParser = document.createElement('a');
-    redirectUriParser.href = redirectUri;
-    var redirectUriPath = getFullUrlPath(redirectUriParser);
-
-    var poolingInterval = setInterval(function () {
-      if (!this$1.popup || this$1.popup.closed || this$1.popup.closed === undefined) {
-        clearInterval(poolingInterval);
-        poolingInterval = null;
-        reject(new Error('Auth popup window closed'));
-      }
-
-      try {
-        var popupWindowPath = getFullUrlPath(this$1.popup.location);
-
-        if (popupWindowPath === redirectUriPath) {
-          if (this$1.popup.location.search || this$1.popup.location.hash) {
-            var query = parseQueryString(this$1.popup.location.search.substring(1).replace(/\/$/, ''));
-            var hash = parseQueryString(this$1.popup.location.hash.substring(1).replace(/[\/$]/, ''));
-            var params = objectExtend({}, query);
-            params = objectExtend(params, hash);
-
-            if (params.error) {
-              reject(new Error(params.error));
-            } else {
-              resolve(params);
-            }
-          } else {
-            reject(new Error('OAuth redirect has occurred but no query or hash parameters were found.'));
-          }
-
-          clearInterval(poolingInterval);
-          poolingInterval = null;
-          this$1.popup.close();
-        }
-      } catch(e) {
-        // Ignore DOMException: Blocked a frame with origin from accessing a cross-origin frame.
-      }
-    }, 250);
-  })
-};
-
-OAuthPopup.prototype._stringifyOptions = function _stringifyOptions () {
-    var this$1 = this;
-
-  var options = [];
-  for (var optionKey in this$1.popupOptions) {
-    if (!isUndefined(this$1.popupOptions[optionKey])) {
-      options.push((optionKey + "=" + (this$1.popupOptions[optionKey])));
-    }
-  }
-  return options.join(',')
-};
-
-var defaultProviderConfig = {
-  name: null,
-  url: null,
-  authorizationEndpoint: null,
-  scope: null,
-  scopePrefix: null,
-  scopeDelimiter: null,
-  redirectUri: null,
-  requiredUrlParams: null,
-  defaultUrlParams: null,
-  oauthType: '1.0',
-  popupOptions: {}
-};
-
-var OAuth = function OAuth($http, storage, providerConfig, options) {
-  this.$http = $http;
-  this.storage = storage;
-  this.providerConfig = objectExtend({}, defaultProviderConfig);
-  this.providerConfig = objectExtend(this.providerConfig, providerConfig);
-  this.options = options;
-};
-
-/**
- * Initialize OAuth1 process 
- * @param{Object} userData User data
- * @return {Promise}
- */
-OAuth.prototype.init = function init (userData) {
-    var this$1 = this;
-
-  this.oauthPopup = new OAuthPopup('about:blank', this.providerConfig.name, this.providerConfig.popupOptions);
-
-  if (window && !window['cordova']) {
-    this.oauthPopup.open(this.providerConfig.redirectUri, true);
-  }
-
-  return this.getRequestToken().then(function (response) {
-    return this$1.openPopup(response).then(function (popupResponse) {
-      return this$1.exchangeForToken(popupResponse, userData)
-    })
-  })
-};
-
-/**
- * Get OAuth1 request token
- * @return {Promise}
- */
-OAuth.prototype.getRequestToken = function getRequestToken () {
-  var requestOptions = {};
-  requestOptions.method = 'POST';
-  requestOptions[this.options.requestDataKey] = objectExtend({}, this.providerConfig);
-  requestOptions.withCredentials = this.options.withCredentials;
-  if (this.options.baseUrl) {
-    requestOptions.url = joinUrl(this.options.baseUrl, this.providerConfig.url);
-  } else {
-    requestOptions.url = this.providerConfig.url;
-  }
-
-  return this.$http(requestOptions)
-};
-
-/**
- * Open OAuth1 popup
- * @param{Object} response Response object containing request token
- * @return {Promise}
- */
-OAuth.prototype.openPopup = function openPopup (response) {
-  var url = [this.providerConfig.authorizationEndpoint, this.buildQueryString(response[this.options.responseDataKey])].join('?');
-
-  this.oauthPopup.popup.location = url;
-  if (window && window['cordova']) {
-    return this.oauthPopup.open(this.providerConfig.redirectUri)
-  } else {
-    return this.oauthPopup.pooling(this.providerConfig.redirectUri)
-  }
-};
-
-/**
- * Exchange token and token verifier for access token
- * @param{Object} oauth  OAuth data containing token and token verifier
- * @param{Object} userData User data
- * @return {Promise}
- */
-OAuth.prototype.exchangeForToken = function exchangeForToken (oauth, userData) {
-  var payload = objectExtend({}, userData);
-  payload = objectExtend(payload, oauth);
-  var requestOptions = {};
-  requestOptions.method = 'POST';
-  requestOptions[this.options.requestDataKey] = payload;
-  requestOptions.withCredentials = this.options.withCredentials;
-  if (this.options.baseUrl) {
-    requestOptions.url = joinUrl(this.options.baseUrl, this.providerConfig.url);
-  } else {
-    requestOptions.url = this.providerConfig.url;
-  }
-  return this.$http(requestOptions)
-};
-
-OAuth.prototype.buildQueryString = function buildQueryString (params) {
-  var parsedParams = [];
-  for (var key in params) {
-    var value = params[key];
-    parsedParams.push(encodeURIComponent(key) + '=' + encodeURIComponent(value));
-  }
-  return parsedParams.join('&');
-};
-
-/**
- * Default provider configuration
- * @type {Object}
- */
-var defaultProviderConfig$1 = {
-  name: null,
-  url: null,
-  clientId: null,
-  authorizationEndpoint: null,
-  redirectUri: null,
-  scope: null,
-  scopePrefix: null,
-  scopeDelimiter: null,
-  state: null,
-  requiredUrlParams: null,
-  defaultUrlParams: ['response_type', 'client_id', 'redirect_uri'],
-  responseType: 'code',
-  responseParams: {
-    code: 'code',
-    clientId: 'clientId',
-    redirectUri: 'redirectUri'
+    this.popup.left = ((width / 2) - (this.popup.width / 2)) + dualScreenLeft;
+    this.popup.top = ((height / 2) - (this.popup.height / 2)) + dualScreenTop;
   },
-  oauthType: '2.0',
-  popupOptions: {}
-};
 
-var OAuth2 = function OAuth2($http, storage, providerConfig, options) {
-  this.$http = $http;
-  this.storage = storage;
-  this.providerConfig = objectExtend({}, defaultProviderConfig$1);
-  this.providerConfig = objectExtend(this.providerConfig, providerConfig);
-  this.options = options;
-};
-
-OAuth2.prototype.init = function init (userData) {
-    var this$1 = this;
-
-  var stateName = this.providerConfig.name + '_state';
-  if (isFunction(this.providerConfig.state)) {
-    this.storage.setItem(stateName, this.providerConfig.state());
-  } else if (isString(this.providerConfig.state)) {
-    this.storage.setItem(stateName, this.providerConfig.state);
-  }
-
-  var url = [this.providerConfig.authorizationEndpoint, this._stringifyRequestParams()].join('?');
-
-  this.oauthPopup = new OAuthPopup(url, this.providerConfig.name, this.providerConfig.popupOptions);
-    
-  return new Promise(function (resolve, reject) {
-    this$1.oauthPopup.open(this$1.providerConfig.redirectUri).then(function (response) {
-      if (this$1.providerConfig.responseType === 'code' || !this$1.providerConfig.url) {
-        return resolve(response)
-      }
-
-      if (response.state && response.state !== this$1.storage.getItem(stateName)) {
-        return reject(new Error('State parameter value does not match original OAuth request state value'))
-      }
-
-      resolve(this$1.exchangeForToken(response, userData));
-    }).catch(function (err) {
-      reject(err);
-    });
-  })
-};
-
-/**
- * Exchange temporary oauth data for access token
- * @author Sahat Yalkabov <https://github.com/sahat>
- * @copyright Method taken from https://github.com/sahat/satellizer
- * 
- * @param{[type]} oauth  [description]
- * @param{[type]} userData [description]
- * @return {[type]}        [description]
- */
-OAuth2.prototype.exchangeForToken = function exchangeForToken (oauth, userData) {
-    var this$1 = this;
-
-  var payload = objectExtend({}, userData);
-
-  for (var key in defaultProviderConfig$1.responseParams) {
-    var value = defaultProviderConfig$1[key];
-
-    switch(key) {
-      case 'code':
-        payload[key] = oauth.code;
-        break
-      case 'clientId':
-        payload[key] = this$1.providerConfig.clientId;
-        break
-      case 'redirectUri':
-        payload[key] = this$1.providerConfig.redirectUri;
-        break
-      default:
-        payload[key] = oauth[key];
-    }
-  }
-
-  if (oauth.state) {
-    payload.state = oauth.state;
-  }
-
-  var exchangeTokenUrl;
-  if (this.options.baseUrl) {
-    exchangeTokenUrl = joinUrl(this.options.baseUrl, this.providerConfig.url);
-  } else {
-    exchangeTokenUrl = this.providerConfig.url;
-  }
-
-  return this.$http.post(exchangeTokenUrl, payload, {
-    withCredentials: this.options.withCredentials
-  })
-};
-
-/**
- * Stringify oauth params
- * @author Sahat Yalkabov <https://github.com/sahat>
- * @copyright Method taken from https://github.com/sahat/satellizer
- * 
- * @return {String}
- */
-OAuth2.prototype._stringifyRequestParams = function _stringifyRequestParams () {
-    var this$1 = this;
-
-  var keyValuePairs = [];
-  var paramCategories = ['defaultUrlParams', 'requiredUrlParams', 'optionalUrlParams'];
-
-  paramCategories.forEach(function (categoryName) {
-    if (!this$1.providerConfig[categoryName]) { return }
-    if (!Array.isArray(this$1.providerConfig[categoryName])) { return }
-
-    this$1.providerConfig[categoryName].forEach(function (paramName) {
-      var camelCaseParamName = camelCase(paramName);
-      var paramValue = isFunction(this$1.providerConfig[paramName]) ? this$1.providerConfig[paramName]() : this$1.providerConfig[camelCaseParamName];
-
-      if (paramName === 'redirect_uri' && !paramValue) { return }
-
-      if (paramName === 'state') {
-        var stateName = this$1.providerConfig.name + '_state';
-        paramValue = encodeURIComponent(this$1.storage.getItem(stateName));
-      }
-      if (paramName === 'scope' && Array.isArray(paramValue)) {
-        paramValue = paramValue.join(this$1.providerConfig.scopeDelimiter);
-        if (this$1.providerConfig.scopePrefix) {
-          paramValue = [this$1.providerConfig.scopePrefix, paramValue].join(this$1.providerConfig.scopeDelimiter);
-        }
-      }
-
-      keyValuePairs.push([paramName, paramValue]);
-    });
-  });
-
-  return keyValuePairs.map(function (param) {
-    return param.join('=')
-  }).join('&')
-};
-
-var VueSocialauth = function VueSocialauth($http, overrideOptions) {
-  var options = objectExtend({}, defaultOptions);
-  options = objectExtend(options, overrideOptions);
-  var storage = StorageFactory(options);
-
-  Object.defineProperties(this, {
-    $http: {
-      get: function get() {
-        return $http
-      }
-    },
-
-    options: {
-      get: function get() {
-        return options
-      }
-    },
-
-    storage: {
-      get: function get() {
-        return storage
-      }
-    },
-
-    tokenName: {
-      get: function get() {
-        if (this.options.tokenPrefix) {
-          return [this.options.tokenPrefix, this.options.tokenName].join('_')
-        } else {
-          return this.options.tokenName
-        }
-      }
-    }
-  });
-
-  // Setup request interceptors
-  if (this.options.bindRequestInterceptor && isFunction(this.options.bindRequestInterceptor) &&
-      this.options.bindResponseInterceptor && isFunction(this.options.bindResponseInterceptor)) {
-
-    this.options.bindRequestInterceptor.call(this, this);
-    this.options.bindResponseInterceptor.call(this, this);
-  } else {
-    throw new Error('Both request and response interceptors must be functions')
+  /**
+   * Set component aliases for buttons and links.
+   */
+  components: {
+    'network': SocialSharingNetwork
   }
 };
 
-/**
- * Check if user is authenticated
- * @author Sahat Yalkabov <https://github.com/sahat>
- * @copyright Method taken from https://github.com/sahat/satellizer
- * @return {Boolean}
- */
-// isAuthenticated() {
-// let token = this.storage.getItem(this.tokenName)
+SocialSharing.version = '2.4.6';
 
-// if (token) {// Token is present
-//   if (token.split('.').length === 3) {// Token with a valid JWT format XXX.YYY.ZZZ
-//     try { // Could be a valid JWT or an access token with the same format
-//       const base64Url = token.split('.')[1];
-//       const base64 = base64Url.replace('-', '+').replace('_', '/');
-//       const exp = JSON.parse(window.atob(base64)).exp;
-//       if (typeof exp === 'number') {// JWT with an optonal expiration claims
-//         return Math.round(new Date().getTime() / 1000) < exp;
-//       }
-//     } catch (e) {
-//       return true;// Pass: Non-JWT token that looks like JWT
-//     }
-//   }
-//   return true;// Pass: All other tokens
-// }
-// return false
-// }
-
-/**
- * Get token if user is authenticated
- * @return {String} Authentication token
- */
-VueSocialauth.prototype.getToken = function getToken () {
-  return this.storage.getItem(this.tokenName)
+SocialSharing.install = function (Vue) {
+  Vue.component('social-sharing', SocialSharing);
 };
 
-/**
- * Set new authentication token
- * @param {String|Object} token
- */
-// setToken(response) {
-// if (response[this.options.responseDataKey]) {
-//   response = response[this.options.responseDataKey];
-// }
-    
-// let token;
-// if (response.access_token) {
-//   if (isObject(response.access_token) && isObject(response.access_token[this.options.responseDataKey])) {
-//     response = response.access_token
-//   } else if (isString(response.access_token)) {
-//     token = response.access_token
-//   }
-// }
-
-// if (!token && response) {
-//   token = response[this.options.tokenName]
-// }
-
-// if (token) {
-//   this.storage.setItem(this.tokenName, token)
-// }
-// }
-
-// getPayload() {
-// const token = this.storage.getItem(this.tokenName);
-
-// if (token && token.split('.').length === 3) {
-//   try {
-//     const base64Url = token.split('.')[1];
-//     const base64 = base64Url.replace('-', '+').replace('_', '/');
-//     return JSON.parse(decodeBase64(base64));
-//   } catch (e) {}
-// }
-// }
-  
-/**
- * Login user using email and password
- * @param{Object} user         User data
- * @param{Object} requestOptions Request options
- * @return {Promise}             Request promise
- */
-// login(user, requestOptions) {
-// requestOptions = requestOptions || {}
-// requestOptions.url = requestOptions.url ? requestOptions.url : joinUrl(this.options.baseUrl, this.options.loginUrl)
-// requestOptions[this.options.requestDataKey] = user || requestOptions[this.options.requestDataKey]
-// requestOptions.method = requestOptions.method || 'POST'
-// requestOptions.withCredentials = requestOptions.withCredentials || this.options.withCredentials
-
-// return this.$http(requestOptions).then((response) => {
-//   this.setToken(response)
-//   return response
-// })
-// }
-
-/**
- * Register new user
- * @param{Object} user         User data
- * @param{Object} requestOptions Request options
- * @return {Promise}             Request promise
- */
-// register(user, requestOptions) {
-// requestOptions = requestOptions || {}
-// requestOptions.url = requestOptions.url ? requestOptions.url : joinUrl(this.options.baseUrl, this.options.registerUrl)
-// requestOptions[this.options.requestDataKey] = user || requestOptions[this.options.requestDataKey]
-// requestOptions.method = requestOptions.method || 'POST'
-// requestOptions.withCredentials = requestOptions.withCredentials || this.options.withCredentials
-
-// return this.$http(requestOptions).then((response) => {
-//   this.setToken(response)
-//   return response
-// })
-// }
-
-/**
- * Logout current user
- * @param{Object} requestOptionsLogout request options object
- * @return {Promise}              Request promise
- */
-// logout(requestOptions) {
-// if (!this.isAuthenticated()) {
-//   return Promise.reject(new Error('There is no currently authenticated user'))
-// }
-
-// requestOptions = requestOptions || {}
-// requestOptions.url = requestOptions.logoutUrl || this.options.logoutUrl
-
-// if (requestOptions.url) {
-//   requestOptions.method = requestOptions.method || 'POST'
-//   requestOptions.withCredentials = requestOptions.withCredentials || this.options.withCredentials
-
-//   return this.$http(requestOptions).then((response) => {
-//     this.storage.removeItem(this.tokenName)
-//   })
-// } else {
-//   this.storage.removeItem(this.tokenName)
-//   return Promise.resolve();
-// }
-// }
-
-/**
- * Authenticate user using authentication provider
- * 
- * @param{String} provider     Provider name
- * @param{Object} userData     User data
- * @param{Object} requestOptions Request options
- * @return {Promise}             Request promise
- */
-VueSocialauth.prototype.authenticate = function authenticate (provider, userData, requestOptions) {
-    var this$1 = this;
-
-  return new Promise$1(function (resolve, reject) {
-    var providerConfig = this$1.options.providers[provider];
-    if (!providerConfig) {
-      return reject(new Error('Unknown provider'))
-    }
-
-    var providerInstance;
-    switch (providerConfig.oauthType) {
-      case '1.0':
-        providerInstance = new OAuth(this$1.$http, this$1.storage, providerConfig, this$1.options);
-        break
-      case '2.0':
-        providerInstance = new OAuth2(this$1.$http, this$1.storage, providerConfig, this$1.options);
-        break
-      default:
-        return reject(new Error('Invalid OAuth type'))
-        break
-    }
-
-    return providerInstance.init(userData).then(function (response) {
-      return resolve(response)
-
-    }).catch(function (err) { return reject(err); })
-  })
-};
-
-/**
- * VueSocialauth plugin
- * @param {Object} Vue
- * @param {Object} options
- */
-function plugin(Vue, options) {
-  if (plugin.installed) {
-    return
-  }
-  plugin.installed = true;
-
-  var vueAuthInstance = null;
-  Object.defineProperties(Vue.prototype, {
-    $auth: {
-      get: function get() {
-        if (!vueAuthInstance) {
-          // Request handler library not found, throw error
-          if (!this.$http) {
-            throw new Error('Request handler instance not found')
-          }
-
-          vueAuthInstance = new VueSocialauth(this.$http, options);
-        }
-        return vueAuthInstance
-      }
-    }
-  });
+if (typeof window !== 'undefined') {
+  window.SocialSharing = SocialSharing;
 }
 
-/**
- * External factory helper for ES5 and CommonJS
- * @param  {Object} $http     Instance of request handling library
- * @param  {Object} options   Configuration object
- * @return {VueSocialauth}  VueSocialauth instance
- */
-plugin.factory = function ($http, options) {
-  return new VueSocialauth($http, options)
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (plugin);
-
-
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../timers-browserify/main.js */ "./node_modules/timers-browserify/main.js").setImmediate))
+module.exports = SocialSharing;
 
 /***/ }),
 
@@ -85744,7 +84894,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_js_modal__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vue_js_modal__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./router */ "./resources/js/guest/router.js");
 /* harmony import */ var vue_lazyload__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue-lazyload */ "./node_modules/vue-lazyload/vue-lazyload.esm.js");
-/* harmony import */ var vue_social_auth__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue-social-auth */ "./node_modules/vue-social-auth/dist/vue-social-auth.es2017.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
@@ -85769,7 +84918,6 @@ __webpack_require__(/*! ./../bootstrap */ "./resources/js/bootstrap.js"); // win
 
 
 
-
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_lazyload__WEBPACK_IMPORTED_MODULE_6__["default"]); // or with options
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_lazyload__WEBPACK_IMPORTED_MODULE_6__["default"], {
@@ -85781,15 +84929,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_lazyload__WEBPACK_IMPORTED_MO
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_js_modal__WEBPACK_IMPORTED_MODULE_4___default.a, {
   dynamic: true,
   injectModalsContainer: true
-});
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_social_auth__WEBPACK_IMPORTED_MODULE_7__["default"], {
-  providers: {
-    github: {
-      clientId: '',
-      redirectUri: '/auth/github/callback' // Your client app URL
-
-    }
-  }
 });
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
   methods: {
@@ -85809,10 +84948,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
       this.$router.push({
         path: '/post/' + post_id
       });
-    },
-    newWindow: function newWindow(url) {
-      window.open(url, 'newwindow', 'width=300,height=250');
-      return false;
     },
     getUrlParameters: function getUrlParameters() {
       return decodeURI(window.location.search).replace('?', '').split('&').map(function (param) {
