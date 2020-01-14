@@ -215,6 +215,7 @@ export default {
                 let full_name = this.full_name;
                 this.$store.dispatch('auth/register', { full_name, email, password})
                     .then((resp) => {
+                        swal.successDialog('Register','Success!','success')
                         ({redirectUrl: window.location.href} = resp.data.success);
                     })
                         .catch(err => {

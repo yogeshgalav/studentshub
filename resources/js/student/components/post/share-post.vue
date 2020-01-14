@@ -90,7 +90,6 @@
 </style>
 <script>
     import FormWizard from './VueNiceWizard';
-    import 'vue-form-wizard/dist/vue-form-wizard.min.css'
     import SelectPostType from './create-post/select-post-type'
     import CreatePostContent from './create-post/create-post-content'
     import SelectSubject from './create-post/select-subject'

@@ -21,8 +21,6 @@ import VModal from 'vue-js-modal'
 import router from './router';
 import VueLazyload from 'vue-lazyload'
 import VueSocialauth from 'vue-social-auth'
-import Toasted from 'vue-toasted';
-Vue.use(Toasted)
 
 Vue.use(VueLazyload)
 

@@ -275,6 +275,7 @@ export default {
         end_year:this.end_year,
       }).then((resp)=>{
         if(resp.data.success){
+          swal.successDialog('Check-In','Success!','success')
           window.location.href=resp.data.success.redirectUrl;
         }
       });
