@@ -81,6 +81,7 @@
                     <label> {{ trans('Branch Name') }} </label>
                   <div class="inner-addon left-addon">
                     <i class="fa fa-user"></i>
+<<<<<<< HEAD
                     <base-select
                     ref="baseSelect"
                     v-model="selected_branch"
@@ -92,6 +93,8 @@
                     label="branch_name"
                     class="multi-select-item"
                     />
+=======
+>>>>>>> 75927919d6348c0ac26c47b4f93a3be14b98b508
                   <auto-complete :is-async="false" value="branch_name" :selected="selectBranch" :items="branches"></auto-complete>
                     <!-- <select v-model="branch_id" class="form-control">
                         <option v-for="branch in branches" :key="branch.id" :value="branch.id">{{branch.branch_name}}</option>
@@ -228,13 +231,20 @@ import FormMixin from "./../components/mixins/form-mixin.js";
 import swal from './../components/swal';
 import DatePicker from 'vue2-datepicker';
 import AutoComplete from './../components/AutoComplete';
+<<<<<<< HEAD
 import BaseSelect from './../components2/base/base-select';
+=======
+>>>>>>> 75927919d6348c0ac26c47b4f93a3be14b98b508
 import 'vue2-datepicker/index.css';
 
 export default {
   mixins: [FormMixin],
   components:{
+<<<<<<< HEAD
     DatePicker,BaseSelect
+=======
+    DatePicker,AutoComplete
+>>>>>>> 75927919d6348c0ac26c47b4f93a3be14b98b508
   },
   data() {
     return {
@@ -255,6 +265,14 @@ export default {
         }
       }
     };
+  },
+  watch:{
+    course_id(val){
+      this.selected_course=this.courses.find(node=>node.id===val);
+    },
+    branch_id(val){
+      this.selected_branch=this.branches.find(node=>node.id===val);
+    }
   },
   methods: {
     trans: function(string, defaultString) {
@@ -279,7 +297,10 @@ export default {
         end_year:this.end_year,
       }).then((resp)=>{
         if(resp.data.success){
+<<<<<<< HEAD
           swal.successDialog('Check-In','Success!','success')
+=======
+>>>>>>> 75927919d6348c0ac26c47b4f93a3be14b98b508
           window.location.href=resp.data.success.redirectUrl;
         }
       });
