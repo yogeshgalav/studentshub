@@ -81,6 +81,17 @@
                     <label> {{ trans('Branch Name') }} </label>
                   <div class="inner-addon left-addon">
                     <i class="fa fa-user"></i>
+                    <base-select
+                    ref="baseSelect"
+                    v-model="selected_branch"
+                    :options="branches"
+                    :limit="10"
+                    :show-labels="false"
+                    :preserve-search="false"
+                    :placeholder="trans('type orclick')"
+                    label="branch_name"
+                    class="multi-select-item"
+                    />
                   <auto-complete :is-async="false" value="branch_name" :selected="selectBranch" :items="branches"></auto-complete>
                     <!-- <select v-model="branch_id" class="form-control">
                         <option v-for="branch in branches" :key="branch.id" :value="branch.id">{{branch.branch_name}}</option>
@@ -217,12 +228,13 @@ import FormMixin from "./../components/mixins/form-mixin.js";
 import swal from './../components/swal';
 import DatePicker from 'vue2-datepicker';
 import AutoComplete from './../components/AutoComplete';
+import BaseSelect from './../components2/base/base-select';
 import 'vue2-datepicker/index.css';
 
 export default {
   mixins: [FormMixin],
   components:{
-    DatePicker,AutoComplete
+    DatePicker,BaseSelect
   },
   data() {
     return {
@@ -243,14 +255,6 @@ export default {
         }
       }
     };
-  },
-  watch:{
-    course_id(val){
-      this.selected_course=this.courses.find(node=>node.id===val);
-    },
-    branch_id(val){
-      this.selected_branch=this.branches.find(node=>node.id===val);
-    }
   },
   methods: {
     trans: function(string, defaultString) {
