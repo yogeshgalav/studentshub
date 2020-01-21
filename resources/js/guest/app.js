@@ -6,12 +6,6 @@
  */
 
 require('./../bootstrap');
-<<<<<<< HEAD
-=======
-// require('../../atlantis/js/slick');
-require('../../atlantis/js/slick.min');
-require('../../atlantis/js/core/jquery.3.2.1.min');
->>>>>>> 75927919d6348c0ac26c47b4f93a3be14b98b508
 
 // window.Vue = require('vue').default;
 import Vue from 'vue';
