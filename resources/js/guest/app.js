@@ -6,9 +6,12 @@
  */
 
 require('./../bootstrap');
+<<<<<<< HEAD
+=======
 // require('../../atlantis/js/slick');
 require('../../atlantis/js/slick.min');
 require('../../atlantis/js/core/jquery.3.2.1.min');
+>>>>>>> 75927919d6348c0ac26c47b4f93a3be14b98b508
 
 // window.Vue = require('vue').default;
 import Vue from 'vue';
@@ -20,10 +23,7 @@ import VueAxios from 'vue-axios'
 import VModal from 'vue-js-modal'
 import router from './router';
 import VueLazyload from 'vue-lazyload'
-import VueSocialauth from 'vue-social-auth'
-import Toasted from 'vue-toasted';
-Vue.use(Toasted)
-
+ 
 Vue.use(VueLazyload)
 
 // or with options
@@ -34,13 +34,6 @@ Vue.use(VueLazyload, {
   attempt: 1
 })
 Vue.use(VModal, { dynamic: true, injectModalsContainer: true })
-Vue.use(VueSocialauth, {  providers: {
-    github: {
-      clientId: '',
-      redirectUri: '/auth/github/callback' // Your client app URL
-    }
-  }
-})
 Vue.mixin({
     methods: {
         '$trans':function(file,string,defaultString){
@@ -57,10 +50,6 @@ Vue.mixin({
         },
         redirectPostView(post_id){
             this.$router.push({path:'/post/'+post_id})
-        },
-        newWindow(url){
-            window.open(url,'newwindow','width=300,height=250'); 
-            return false;
         },
         getUrlParameters(){
             return decodeURI(window.location.search)

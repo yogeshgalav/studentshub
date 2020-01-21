@@ -142,9 +142,11 @@
                 let remember = this.remember;
                 this.$store.dispatch('auth/login', { email, password, remember})
                     .then((resp) => {
+                        swal.successDialog('Login','Success!','success')
                         ({redirectUrl: window.location.href} = resp.data.success);
                     })
                         .catch(err => {
+                            console.log();
                             if( 401 === err.response.status){
                                 this.srvError401=true;
                                 this.srvErrorUnknown=false;

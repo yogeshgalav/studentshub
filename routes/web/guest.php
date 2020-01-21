@@ -10,5 +10,5 @@ Route::get('/post/{ViewPostId}', 'PagesController@viewPost');
 Route::get('/explore/{subject}', 'SearchController@create');
 Route::get('/explore', 'SearchController@create2');
 Route::post('/register','AuthController@register');
-Route::post('sociallogin/{provider}', 'AuthController@SocialSignup');
-Route::get('auth/{provider}/callback', 'OutController@index')->where('provider', '.*');
+Route::get('/social-auth/{provider}', 'AuthController@redirectToProvider');
+Route::get('/callback/{provider}', 'AuthController@handleProviderCallback');

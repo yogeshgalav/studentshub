@@ -17,6 +17,8 @@ require_once('web/student.php');
 Route::get('/', 'PagesController@root');
 Route::get('/test', 'PagesController@test');
 Route::get('/report', 'PagesController@report');
+Route::get('/privacy-policy', 'PagesController@report');
+Route::get('/terms-of-service', 'PagesController@report');
 
 
 
