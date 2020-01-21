@@ -12,15 +12,11 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::group(['middleware'=>['auth:api',]],function(){
-    require_once('api/auth_routes.php');
-});
+require_once('api/guest.php');
+require_once('api/seeker.php');
+require_once('api/student.php');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/login','AuthController@login');
-Route::post('/forgot-password','AuthController@processForgotPassword');
-Route::post('/reset-password','AuthController@resetPassword');
-Route::get('/get-view-post/{ViewPostId}', 'PostController@viewPost');

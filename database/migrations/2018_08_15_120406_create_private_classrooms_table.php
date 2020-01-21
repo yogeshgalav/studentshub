@@ -14,7 +14,7 @@ class CreatePrivateClassroomsTable extends Migration
     public function up()
     {
         Schema::create('private_classrooms', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->integer('classroom_id');
             $table->integer('teacher_id');
             $table->string('classroom_legal_name');

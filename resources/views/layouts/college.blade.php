@@ -1,3 +1,4 @@
+
 <div class="wrapper">
     <div class="main-header">
         @include('includes.logo-header')
@@ -38,6 +39,6 @@
                     @yield('content')
                 </div>
             </div>
-            </div>
-            </div>
-            </div>
+        </div>
+    </div>
+</div>

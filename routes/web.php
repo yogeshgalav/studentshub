@@ -11,18 +11,16 @@
 |
 */
 
-Route::group(['middleware'=>['auth',]],function(){
-    require_once('web/auth_routes.php');
-});
+require_once('web/guest.php');
+require_once('web/seeker.php');
+require_once('web/student.php');
+Route::get('/', 'PagesController@root');
+Route::get('/test', 'PagesController@test');
+Route::get('/report', 'PagesController@report');
+Route::get('/privacy-policy', 'PagesController@report');
+Route::get('/terms-of-service', 'PagesController@report');
 
-Route::get('/login','PagesController@loginPage');
-Route::get('/forgot-password','PagesController@forgotPassword')->name('forgot-password');
-Route::get('/reset-password/{token}','PagesController@resetPassword');
-Route::get('/logout',['uses'=>'PagesController@logout','as'=>'Logout']);
 
-Route::get('/', 'PagesController@welcome');
-Route::get('/post/{ViewPostId}', 'PagesController@viewPost');
-Route::get('/explore', 'PagesController@explore');
 
 // Localization
 Route::get('/js/lang.js', function () {

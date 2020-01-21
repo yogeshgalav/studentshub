@@ -17,11 +17,13 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\ForgotPasswordRequest;
 use Illuminate\Support\Facades\URL;
 use App\PasswordReset;
+use App\Http\Requests\RegisterRequest;
 use Carbon\Carbon;
-use Actionable;
+use Sthub;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
-
+use Socialite;
+use DB;
 class AuthController extends Controller
 {
     /**
@@ -41,14 +43,14 @@ class AuthController extends Controller
                 //log info
                 Log::info($user->first_name." ".$user->last_name." (User ID # ".$user->id.") logged in from IP Address ".$request->ip());
 
-                $success['token'] = $user->createToken('actionable')->accessToken;
-
-                if (is_null($user->onboarded_at)) {
-                    $success['redirectUrl'] = '/checkin';
-                } else {
-                    $success['redirectUrl'] = '/dashboard';
-                }
+                $success['token'] = $user->createToken('Sthub')->accessToken;
                 
+                // if (is_null($user->onboarded_at)) {
+                //     $success['redirectUrl'] = '/checkin';
+                // } else {
+                //     $success['redirectUrl'] = '/';
+                // }
+                $success['redirectUrl'] = '/';
                 return response()->json(['success' => $success]);
             }
         }
@@ -56,31 +58,31 @@ class AuthController extends Controller
         return response()->json(['error'=>'Unauthorised'], 401);
     }
 
-    public function checkSubdomain($subdomain, $user)
-    {
-        switch (Actionable::getDomainPortal()) {
-            case 'staffPortal':
-                if (! (bool) $user->is_actionable_staff) {
-                    return false;
-                }
-                break;
-            case 'consultantPortal':
-                if (!ConsultantFirmUser::where('user_id', $user->id)->first()) {
-                    return false;
-                }
-                break;
-            case 'tenantPortal':
-                if ($client = Client::where('subdomain', $subdomain)->first()) {
-                    if (!$client_user=ClientUser::where('client_id', $client->id)->where('user_id', $user->id)->first()) {
-                        return false;
-                    }
-                } else {
-                    return false;
-                }
-                break;
-        }
-        return true;
-    }
+    // public function checkSubdomain($subdomain, $user)
+    // {
+    //     switch (Sthub::getDomainPortal()) {
+    //         case 'staffPortal':
+    //             if (! (bool) $user->is_Sthub_staff) {
+    //                 return false;
+    //             }
+    //             break;
+    //         case 'consultantPortal':
+    //             if (!ConsultantFirmUser::where('user_id', $user->id)->first()) {
+    //                 return false;
+    //             }
+    //             break;
+    //         case 'tenantPortal':
+    //             if ($client = Client::where('subdomain', $subdomain)->first()) {
+    //                 if (!$client_user=ClientUser::where('client_id', $client->id)->where('user_id', $user->id)->first()) {
+    //                     return false;
+    //                 }
+    //             } else {
+    //                 return false;
+    //             }
+    //             break;
+    //     }
+    //     return true;
+    // }
 
     /**
      * Register api
@@ -89,15 +91,40 @@ class AuthController extends Controller
      *
      * @return Response
      */
-    public function register(Request $request)
+    public function register(RegisterRequest $request)
     {
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
-        $user = User::create($input);
-        $success['token'] =  $user->createToken('MyApp')->accessToken;
-        $success['name'] =  $user->name;
-        return response()->json(['success'=>$success], $this->successStatus);
+        DB::beginTransaction();
+    try{
+        $user = User::create([
+            'first_name'=>explode(' ',$input['full_name'])[0],
+            'last_name'=>explode(' ',$input['full_name'])[1] ?? null,
+            'full_name'=>$input['full_name'],
+            'email'=>$input['email'],
+            'password'=>$input['password'],
+        ]);
+        Auth::login($user);
+        
+        $success['token'] = $user->createToken('Sthub')->accessToken;
+                
+        if (is_null($user->student_activated_at)) {
+            $success['redirectUrl'] = '/check-in';
+        } else {
+            $success['redirectUrl'] = '/';
+        }
+        
+    DB::commit();
+    } catch (\Exception $e) {
+        DB::rollback();
+        Log::critical('user Registeration failure: with data '.implode(',',$input));
+        return response()->$e;
+    }        
+        return response()->json(['success' => $success]);
     }
+
+    
+    
 
     /**
      * details api
@@ -109,7 +136,46 @@ class AuthController extends Controller
         $user = Auth::user();
         return response()->json(['success' => $user], $this->successStatus);
     }
-
+    /**
+     * Redirect the user to the Google authentication page.
+    *
+    * @return \Illuminate\Http\Response
+    */
+    public function redirectToProvider($provider)
+    {
+        return Socialite::driver($provider)->redirect();
+    }
+   /**
+     * Obtain the user information from Google.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function handleProviderCallback($provider)
+    {
+        try {
+            $user = Socialite::driver($provider)->user();
+        } catch (\Exception $e) {
+            return redirect('/login');
+        }
+        // check if they're an existing user
+        $existingUser = User::where('email', $user->email)->first();
+        if($existingUser){
+            // log them in
+            auth()->login($existingUser, true);
+        } else {
+            // create a new user
+            $newUser                  = new User;
+            $newUser->name            = $user->name;
+            $newUser->email           = $user->email;
+            $newUser->login_provider_id       = $user->id;
+            $newUser->login_provider_type       = $provider;
+            $newUser->avatar          = $user->avatar;
+            $newUser->avatar_original = $user->avatar_original;
+            $newUser->save();
+            auth()->login($newUser, true);
+        }
+        return redirect()->to('/');
+    }
     // Handling the forgot password email request
     public function processForgotPassword(ForgotPasswordRequest $request)
     {
@@ -151,5 +217,10 @@ class AuthController extends Controller
         $user->update(['password'=>Hash::make($request->input('password'))]);
 
         return response()->json(['success'=>'Password Changed.'], 200);
+    }
+
+    public function logout(){
+        Auth::logout();
+        return redirect('/');
     }
 }

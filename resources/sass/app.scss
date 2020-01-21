@@ -115,10 +115,10 @@ button[disabled="disabled"] {
 .btn-warning,
 .btn-disabled, .btn-white {
     font-family: $font-family-inter !important;
-    text-transform: $btn-text-transform;
+    text-transform: capitalize;
     font-size: $font-12;
     letter-spacing: $letter-spacing-01;
-    padding: $pd-lr-40;
+    
 
 }
 
@@ -192,9 +192,9 @@ button[disabled="disabled"] {
 .btn-white
 {
     background-color: #fff;
-    font-weight: $btn-font-weight;
+    font-weight:600;
     border:1px solid #BDBDBD;
-    color: #BDBDBD !important;
+    color: #333 !important;
 }.btn-primary-accent
 {
     background-color: #10069F;
@@ -258,6 +258,10 @@ button[disabled="disabled"] {
 .font-size-12 {
     font-size: 12px !important;
 }
+.border-bottom
+{
+    border-bottom: 1px solid #ccc;
+}
 
 .font-size-14 {
     font-size: 14px !important;
@@ -295,7 +299,26 @@ button[disabled="disabled"] {
 .weight-800 {
     font-weight: 800
 }
-
+// margin
+.mt-3
+{
+    margin-top:30px !important;
+}
+ .mb-3
+ {
+     margin-bottom:30px !important;
+ }
+ .mb-2
+ {
+     margin-bottom:20px !important;
+ }
+.weight-600 {
+    font-weight: 600
+}
+.justify-center
+{
+    justify-content: center;
+}
 .weight-400 {
     font-weight: 400 !important
 }
@@ -364,7 +387,88 @@ button[disabled="disabled"] {
 .border-radius-4 {
     border-radius: 4px !important;
 }
+// social icon
+/* social media icons  */
+ul.social-network {
+	list-style: none;
+	display: inline;
+	margin-left:0 !important;
+	padding: 0;
+}
+ul.social-network li {
+	display: inline;
+	margin: 0 5px;
+}
 
+
+/* footer social icons */
+.social-network a.icoRss:hover {
+	background-color: #F56505;
+}
+.social-network a.icoFacebook:hover {
+	background-color:#3B5998;
+}
+.social-network a.icoTwitter:hover {
+	background-color:#33ccff;
+}
+.social-network a.icoGoogle:hover {
+	background-color:#BD3518;
+}
+.social-network a.icoVimeo:hover {
+	background-color:#0590B8;
+}
+.social-network a.icoLinkedin:hover {
+	background-color:#007bb7;
+}
+.social-network a.icoRss:hover i, .social-network a.icoFacebook:hover i, .social-network a.icoTwitter:hover i,
+.social-network a.icoGoogle:hover i, .social-network a.icoVimeo:hover i, .social-network a.icoLinkedin:hover i {
+	color:#fff;
+}
+a.socialIcon:hover, .socialHoverClass {
+	color:#44BCDD;
+}
+
+.social-circle li a {
+	display:inline-block;
+	position:relative;
+	margin:0 auto 0 auto;
+	-moz-border-radius:50%;
+	-webkit-border-radius:50%;
+	border-radius:50%;
+	text-align:center;
+	width: 50px;
+	height: 50px;
+	font-size:20px;
+}
+.social-circle li i {
+	margin:0;
+	line-height:50px;
+	text-align: center;
+}
+
+.social-circle li a:hover i, .triggeredHover {
+	-moz-transform: rotate(360deg);
+	-webkit-transform: rotate(360deg);
+	-ms--transform: rotate(360deg);
+	transform: rotate(360deg);
+	-webkit-transition: all 0.2s;
+	-moz-transition: all 0.2s;
+	-o-transition: all 0.2s;
+	-ms-transition: all 0.2s;
+	transition: all 0.2s;
+}
+.social-circle i {
+	color: #fff;
+	-webkit-transition: all 0.8s;
+	-moz-transition: all 0.8s;
+	-o-transition: all 0.8s;
+	-ms-transition: all 0.8s;
+	transition: all 0.8s;
+}
+
+.social-circle a {
+ background-color: #333;   
+}
 // border-radius
 .border-radius-10 {
     border-radius: 10px;
@@ -857,6 +961,102 @@ i {
     padding: 20px 0px 0px 10px;
    
 }
+// guest header 
+#custom-search-input {
+    margin:0;
+    padding: 0;
+}
+
+#custom-search-input .search-query {
+    padding-right: 3px;
+    padding-right: 4px \9;
+    padding-left: 8px;
+    padding-left: 4px \9;
+    /* IE7-8 doesn't have border-radius, so don't indent the padding */
+
+    margin-bottom: 0;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+}
+
+#custom-search-input button {
+    border: 0;
+    background: none;
+    /** belows styles are working good */
+    padding: 9px 5px;
+    margin-top: 0px;
+    position: relative;
+    left: -40px;
+    margin-bottom: 0;
+    border-radius: 3px;
+       font-size: 18px;
+    /* IE7-8 doesn't have border-radius, so don't indent the padding */
+    margin-bottom: 0;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    color:#D9230F;
+}
+
+.search-query:focus + button {
+    z-index: 3;   
+}
+// form-wizard
+.vue-form-wizard.md .wizard-icon-circle {
+    width: 50px !important;
+    height: 50px !important;
+    font-size: 20px !important;
+}
+.vue-form-wizard.md .wizard-nav-pills>li.active>a .wizard-icon {
+    font-size: 20px !important;
+}
+.form-group label, .form-check label {
+    margin-bottom: 0.5rem;
+    color: #495057;
+    font-weight: 400;
+    font-size: 1rem;
+    white-space: nowrap;
+}
+.slides ul li
+{
+  width: 100%;
+}
+.slides-group li  img
+{
+width:100% !important;
+}
+.slick-dots {
+	display: flex;
+	justify-content: center;
+	
+	margin: 0;
+	padding: 1rem 0;
+	
+	list-style-type: none;
+	
+		li {
+			margin: 0 0.25rem;
+		}
+	
+		button {
+			display: block;
+			width: 1rem;
+			height: 1rem;
+			padding: 0;
+			
+			border: none;
+			border-radius: 100%;
+			background-color: #10069F ;
+			
+			text-indent: -9999px;
+		}
+	
+		li.slick-active button {
+			background-color:#ccc;
+		}
+	
+}
 
 // Responsive CSS Start Here 
 // mobile view custom tabs 
@@ -881,7 +1081,62 @@ i {
         max-width: 100%;
     }
 }
+// category filter
+.ptb-50
+{
+    padding: 50px 0 50px 0;
+}
+.pt-100
+{
+    padding: 100px 0 0px 0;
+}
+.divider
+{
+    height:1px ;
+    border:1px solid #eee;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.ptb-20
+{
+    padding: 20px 0 20px 0;
+}
+.bg-gray
+{
+    background: #eee;
+}
+// explore top post
+.card-img-top {
+    width: 100%;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.exolpre-bottom-post .card-img-top {
+    width: 100%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
 
+// custom form controls
+
+.custom-select {
+    display: inline-block;
+    width: 100%;
+    height: calc(1.9em + 0.75rem + 2px);
+    padding: 0.700rem 1.75rem 0.700rem 0.75rem !important;
+    font-size: 0.9rem;
+    font-weight: 500;
+    line-height: 1.6;
+    color: #000;
+    vertical-align: middle;
+    background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat right 0.75rem center/8px 10px;
+    background-color: #eee;
+    border: 1px solid #eee;
+    border-radius: 0.0;
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+  }
 @media only screen and (max-width: 600px) {
 
     // Habit Builder 

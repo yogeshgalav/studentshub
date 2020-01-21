@@ -14,10 +14,8 @@ class CreateStudentsTable extends Migration
     public function up()
     {
         Schema::create('students', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id');
-            $table->string('college_registration_id')->nullable();
-            $table->integer('batch_id');
+            $table->bigIncrements('id');
+            $table->integer('user_id')->unsigned();
             $table->timestamps();
         });
     }
