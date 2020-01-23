@@ -25,7 +25,96 @@
     <font-awesome-icon v-if="icon && !isAlignLeftIcon" :icon="icon" class="right-icon" />
   </div>
 </template>
+<style lang="scss" scoped>
+.base-input {
+    width: 100%;
+    position: relative;
 
+    .left-icon {
+        position: absolute;
+        width: 13px;
+        height: 18px;
+        min-width: 40px;
+    
+        font-style: normal;
+        font-weight: 900;
+        font-size: 14px;
+        line-height: 16px;
+        top: 50%;
+        left: 20px;
+        z-index: 1;
+        transform: translate(-50%,-50%);
+    }
+
+    .right-icon {
+        position: absolute;
+        width: 13px;
+        height: 18px;
+        min-width: 18px;
+      
+        font-style: normal;
+        font-weight: 900;
+        font-size: 14px;
+        line-height: 16px;
+        top: 50%;
+        right: 0px;
+        z-index: 1;
+        transform: translate(-50%, -50%);
+    }
+
+    .small-input {
+        max-width: 100px;
+    }
+
+    .input-field {
+        width: 100%;
+        height: 40px;
+        padding: 8px 13px;
+        text-align: left;
+        background: #FFFFFF;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+        border-radius: 5px;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 21px;
+
+        &.v-money {
+            font-family: Arial, Helvetica, sans-serif !important;
+        }
+
+        &::placeholder {
+            font-family: Poppins;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 21px
+        }
+
+        &:focus {
+            border: 1px solid #817AE3;
+        }
+
+        &.invalid {
+            border: 1px solid #FB7178 !important;
+        }
+
+        &.disabled {
+            
+        }
+
+        &-left-icon {
+            padding-left: 35px;
+        }
+
+        &-right-icon {
+            padding-right: 35px;
+        }
+    }
+}
+
+</style>
 <script>
 export default {
   props: {
