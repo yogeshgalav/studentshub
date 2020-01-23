@@ -1,9 +1,16 @@
 <template>
     <main>
         <div v-if="postType==='article'">
-        <vue-editor v-model="content" :editorOptions="editorSettings" @input="editContent" 
+        <vue-editor id="ArticleEditor" v-model="content" :editorOptions="editorSettings" @input="editContent" 
         :useCustomImageHandler="true" @image-added="handleImageAdded" :height="'100%'"/>
         </div>
+        <div v-if="postType==='notice'">
+        <vue-editor id="NoticeEditor" v-model="content" :editorOptions="editorSettings" @input="editContent" 
+        :useCustomImageHandler="true" @image-added="handleImageAdded" :height="'100%'"/>
+        </div>
+        <div v-if="postType==='document'">
+            <document/>
+</div>
         <div v-if="postType==='video'">
             <div class="row">
                 <div class="col-md-8">
@@ -25,20 +32,20 @@ import { VueEditor,Quill } from 'vue2-editor'
 
 import ImageResize from 'quill-image-resize-vue';
 import { ImageDrop } from 'quill-image-drop-module';
-console.log(Quill);
 Quill.register("modules/imageDrop", ImageDrop);
 Quill.register("modules/imageResize", ImageResize);
-
+import Document from './post-type/document';
 import FormMixin from '../../../../components/mixins/form-mixin.js';
 import EventBus from '../event-bus';
 export default {
     components:{
-        VueEditor,
+        VueEditor,Document
     },
 	mixins: [FormMixin],
     data(){
         return{
             content:'',
+            files:[],
             video_link:'',
             video_description:'',
             editorSettings: {
@@ -91,7 +98,45 @@ export default {
              'url':url
          }
             this.$store.dispatch('storeContentImage',imageData);
+        },
+        /**
+     * Has changed
+     * @param  Object|undefined   newFile   Read only
+     * @param  Object|undefined   oldFile   Read only
+     * @return undefined
+     */
+    inputFile: function (newFile, oldFile) {
+      if (newFile && oldFile && !newFile.active && oldFile.active) {
+        // Get response data
+        console.log('response', newFile.response)
+        if (newFile.xhr) {
+          //  Get the response status code
+          console.log('status', newFile.xhr.status)
         }
+      }
+    },
+    /**
+     * Pretreatment
+     * @param  Object|undefined   newFile   Read and write
+     * @param  Object|undefined   oldFile   Read only
+     * @param  Function           prevent   Prevent changing
+     * @return undefined
+     */
+    inputFilter: function (newFile, oldFile, prevent) {
+      if (newFile && !oldFile) {
+        // Filter non-image file
+        if (!/\.(jpeg|jpe|jpg|gif|png|webp)$/i.test(newFile.name)) {
+          return prevent()
+        }
+      }
+
+      // Create a blob field
+      newFile.blob = ''
+      let URL = window.URL || window.webkitURL
+      if (URL && URL.createObjectURL) {
+        newFile.blob = URL.createObjectURL(newFile.file)
+      }
+    }
     }
 }
 </script>

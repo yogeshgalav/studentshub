@@ -50,6 +50,14 @@
                     <span class="error">{{errors.first('institute_name')}}</span>
                   </div>
                 </div>
+                <div class="form-group">
+                    <label> {{ trans('Category/Course Type') }} </label>
+                  <div class="inner-addon left-addon">
+                    <i class="fa fa-user"></i>
+                    <input :value="selected_course.category.name" disabled/>
+                    <span class="error">{{errors.first('institute_name')}}</span>
+                  </div>
+                </div>
                 <div class="col-md-2 col-sm-4 col-xs-12" v-if="course_type_select">
             <div class="form-group institutesDropdown_slider">
                 <label for="sel1" class="white_text">Discipline</label>

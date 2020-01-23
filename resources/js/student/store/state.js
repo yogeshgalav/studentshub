@@ -14,6 +14,7 @@ const state = {
     },
     categories: [],
     subjects: [],
+    files: [],
     dashboardPosts: [],
     postView:{
       'categories':[],
