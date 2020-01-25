@@ -72,7 +72,11 @@ class StudentController extends Controller
         $user->student_activated_at=date('Y-m-d');
         $user->save();
 
-        Notification::send($batch->users(), new BatchNewUserNotification($batch));
+        $student->prefferred_batch=$batch->id;
+        $student->prefferred_category=$course->category_id;
+        $student->save();
+
+        // Notification::send($batch->users(), new BatchNewUserNotification($batch));
             
         
     DB::commit();

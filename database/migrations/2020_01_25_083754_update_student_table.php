@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateCategory extends Migration
+class UpdateStudentTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class UpdateCategory extends Migration
      */
     public function up()
     {
-        Schema::table('categories', function (Blueprint $table) {
-            $table->string('category_url');
+        Schema::table('students', function (Blueprint $table) {
+            $table->integer('prefferred_batch')->unsigned()->nullable();
+            $table->integer('prefferred_category')->unsigned()->nullable();
         });
-        Schema::table('posts', function (Blueprint $table) {
-            $table->integer('post_url')->nullable();
-            $table->integer('category_id')->default(1);
-        });
+        
     }
 
     /**

@@ -50,7 +50,7 @@
                     <span class="error">{{errors.first('institute_name')}}</span>
                   </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" v-if="selected_course">
                     <label> {{ trans('Category/Course Type') }} </label>
                   <div class="inner-addon left-addon">
                     <i class="fa fa-user"></i>
