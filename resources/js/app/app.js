@@ -5,6 +5,21 @@ Vue.prototype.$utils = utils
 //Dependencies
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import VModal from 'vue-js-modal'
+
+import VueLazyload from 'vue-lazyload';
+Vue.use(VueLazyload);
+
+// or with options
+Vue.use(VueLazyload, {
+  preLoad: 1.3,
+  error: 'dist/error.png',
+  loading: 'dist/loading.gif',
+  attempt: 1
+})
+Vue.use(VModal, { dynamic: true, injectModalsContainer: true })
+Vue.use(VueAxios, axios);
+
 Vue.mixin({
     methods: {
         '$trans':function(file,string,defaultString){

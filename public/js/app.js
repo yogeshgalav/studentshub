@@ -98425,53 +98425,36 @@ module.exports = function(module) {
 
 /***/ }),
 
-/***/ "./resources/js/app/guest/app.js":
-/*!***************************************!*\
-  !*** ./resources/js/app/guest/app.js ***!
-  \***************************************/
-/*! no exports provided */
+/***/ "./resources/js/app/app.js":
+/*!*********************************!*\
+  !*** ./resources/js/app/app.js ***!
+  \*********************************/
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./store */ "./resources/js/app/guest/store.js");
+/* harmony import */ var _helpers_utilities__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helpers/utilities */ "./resources/js/helpers/utilities.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var vue_axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-axios */ "./node_modules/vue-axios/dist/vue-axios.min.js");
 /* harmony import */ var vue_axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue_axios__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var vue_js_modal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-js-modal */ "./node_modules/vue-js-modal/dist/index.js");
 /* harmony import */ var vue_js_modal__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vue_js_modal__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./router */ "./resources/js/app/guest/router.js");
-/* harmony import */ var vue_lazyload__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue-lazyload */ "./node_modules/vue-lazyload/vue-lazyload.esm.js");
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
-
-function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-__webpack_require__(/*! ../../bootstrap */ "./resources/js/bootstrap.js"); // window.Vue = require('vue').default;
+/* harmony import */ var vue_lazyload__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-lazyload */ "./node_modules/vue-lazyload/vue-lazyload.esm.js");
 
 
- //Dependencies
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$utils = _helpers_utilities__WEBPACK_IMPORTED_MODULE_1__["default"]; //Dependencies
 
 
 
 
 
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_lazyload__WEBPACK_IMPORTED_MODULE_5__["default"]); // or with options
 
-
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_lazyload__WEBPACK_IMPORTED_MODULE_6__["default"]); // or with options
-
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_lazyload__WEBPACK_IMPORTED_MODULE_6__["default"], {
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_lazyload__WEBPACK_IMPORTED_MODULE_5__["default"], {
   preLoad: 1.3,
   error: 'dist/error.png',
   loading: 'dist/loading.gif',
@@ -98481,53 +98464,11 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_js_modal__WEBPACK_IMPORTED_MO
   dynamic: true,
   injectModalsContainer: true
 });
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_axios__WEBPACK_IMPORTED_MODULE_3___default.a, axios__WEBPACK_IMPORTED_MODULE_2___default.a);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
   methods: {
     '$trans': function $trans(file, string, defaultString) {
       return window.lang[file][string] ? window.lang[file][string] : defaultString ? defaultString : string;
-    },
-    getIdFromUrl: function getIdFromUrl() {
-      var url = window.location.href;
-      var url_segments = url.split('/');
-      var id = url_segments[url_segments.length - 1].split('?')[0];
-      return Number(id);
-    },
-    redirect: function redirect(url) {
-      window.location.href = url;
-    },
-    redirectPostView: function redirectPostView(post_id) {
-      this.$router.push({
-        path: '/post/' + post_id
-      });
-    },
-    getUrlParameters: function getUrlParameters() {
-      return decodeURI(window.location.search).replace('?', '').split('&').map(function (param) {
-        return param.split('=');
-      }).reduce(function (values, _ref) {
-        var _ref2 = _slicedToArray(_ref, 2),
-            key = _ref2[0],
-            value = _ref2[1];
-
-        values[key] = value;
-        return values;
-      }, {});
-    },
-    catchResponse: function catchResponse(err) {
-      switch (err.response.status) {
-        case 401:
-          localStorage.removeItem('access_token');
-          this.redirect('/login');
-          break;
-
-        case 422:
-          this.form_errors = err.response.data.errors;
-          break;
-
-        default:
-          console.log("Error code:" + err.response.status);
-          console.log(err.response.data);
-          break;
-      }
     }
   },
   computed: {
@@ -98561,16 +98502,44 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
     };
   }
 });
+/* harmony default export */ __webpack_exports__["default"] = (vue__WEBPACK_IMPORTED_MODULE_0___default.a);
+
+/***/ }),
+
+/***/ "./resources/js/app/guest/app.js":
+/*!***************************************!*\
+  !*** ./resources/js/app/guest/app.js ***!
+  \***************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../app */ "./resources/js/app/app.js");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./store */ "./resources/js/app/guest/store.js");
+/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./router */ "./resources/js/app/guest/router.js");
+/**
+ * First we will load all of this project's JavaScript dependencies which
+ * includes Vue and other libraries. It is a great starting point when
+ * building robust, powerful web applications using Vue and Laravel.
+ */
+__webpack_require__(/*! ../../bootstrap */ "./resources/js/bootstrap.js"); // window.Vue = require('vue').default;
+
+
+ //Dependencies
+
+
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
+var app = new _app__WEBPACK_IMPORTED_MODULE_0__["default"]({
   el: '#app',
   store: _store__WEBPACK_IMPORTED_MODULE_1__["default"],
-  router: _router__WEBPACK_IMPORTED_MODULE_5__["default"]
+  router: _router__WEBPACK_IMPORTED_MODULE_2__["default"]
 });
 
 /***/ }),
@@ -100844,6 +100813,119 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.directive('autoresize', {
     }
 
     el.addEventListener('input', OnInput, false);
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/helpers/utilities.js":
+/*!*******************************************!*\
+  !*** ./resources/js/helpers/utilities.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  toggleSidebar: function toggleSidebar() {
+    var icon = document.getElementsByClassName('hamburger')[0];
+    document.body.classList.toggle('sidebar-open');
+    icon.classList.toggle('is-active');
+  },
+  addClass: function addClass(el, className) {
+    if (el.classList) el.classList.add(className);else el.className += ' ' + className;
+  },
+  hasClass: function hasClass(el, className) {
+    var hasClass = el.classList ? el.classList.contains(className) : new RegExp('(^| )' + className + '( |$)', 'gi').test(el.className);
+    return hasClass;
+  },
+  reset: function reset(prefix) {
+    var regx = new RegExp('\\b' + prefix + '(.*)?\\b', 'g');
+    document.body.className = document.body.className.replace(regx, '');
+  },
+  setLayout: function setLayout(layoutName) {
+    this.reset('layout-');
+    document.body.classList.add('layout-' + layoutName);
+  },
+  setSkin: function setSkin(skinName) {
+    this.reset('skin-');
+    document.body.classList.add('skin-' + skinName);
+  },
+  setLogo: function setLogo(logoSrc) {
+    document.getElementById('logo-desk').src = logoSrc;
+  },
+  formatMoney: function formatMoney(amount) {
+    var currency = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+
+    if (!currency) {
+      currency = {
+        precision: 2,
+        thousand_separator: ',',
+        decimal_separator: '.',
+        symbol: '$'
+      };
+    }
+
+    amount = amount / 100;
+    var _currency = currency,
+        precision = _currency.precision,
+        decimal_separator = _currency.decimal_separator,
+        thousand_separator = _currency.thousand_separator,
+        symbol = _currency.symbol;
+
+    try {
+      precision = Math.abs(precision);
+      precision = isNaN(precision) ? 2 : precision;
+      var negativeSign = amount < 0 ? '-' : '';
+      var i = parseInt(amount = Math.abs(Number(amount) || 0).toFixed(precision)).toString();
+      var j = i.length > 3 ? i.length % 3 : 0;
+      var moneySymbol = "<span style=\"font-family: sans-serif\">".concat(symbol, "</span>");
+      return moneySymbol + ' ' + negativeSign + (j ? i.substr(0, j) + thousand_separator : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, '$1' + thousand_separator) + (precision ? decimal_separator + Math.abs(amount - i).toFixed(precision).slice(2) : '');
+    } catch (e) {
+      console.log(e);
+    }
+  },
+  formatGraphMoney: function formatGraphMoney(amount) {
+    var currency = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+
+    if (!currency) {
+      currency = {
+        precision: 2,
+        thousand_separator: ',',
+        decimal_separator: '.',
+        symbol: '$'
+      };
+    }
+
+    amount = amount / 100;
+    var _currency2 = currency,
+        precision = _currency2.precision,
+        decimal_separator = _currency2.decimal_separator,
+        thousand_separator = _currency2.thousand_separator,
+        symbol = _currency2.symbol;
+
+    try {
+      precision = Math.abs(precision);
+      precision = isNaN(precision) ? 2 : precision;
+      var negativeSign = amount < 0 ? '-' : '';
+      var i = parseInt(amount = Math.abs(Number(amount) || 0).toFixed(precision)).toString();
+      var j = i.length > 3 ? i.length % 3 : 0;
+      var moneySymbol = "".concat(symbol);
+      return moneySymbol + ' ' + negativeSign + (j ? i.substr(0, j) + thousand_separator : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, '$1' + thousand_separator) + (precision ? decimal_separator + Math.abs(amount - i).toFixed(precision).slice(2) : '');
+    } catch (e) {
+      console.log(e);
+    }
+  },
+  checkValidUrl: function checkValidUrl(url) {
+    var pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
+    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+    '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+    '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+    '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
+
+    return !!pattern.test(url);
   }
 });
 
