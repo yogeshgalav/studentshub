@@ -12652,9 +12652,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     name: {
@@ -14711,6 +14708,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_mixins_form_mixin_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../components/mixins/form-mixin.js */ "./resources/js/components/mixins/form-mixin.js");
 /* harmony import */ var _components_swal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../components/swal */ "./resources/js/components/swal.js");
 /* harmony import */ var _components_BaseInput__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../components/BaseInput */ "./resources/js/components/BaseInput.vue");
+//
 //
 //
 //
@@ -19562,7 +19560,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".base-input[data-v-f1cd7dc4] {\n  width: 100%;\n  position: relative;\n}\n.base-input .left-icon[data-v-f1cd7dc4] {\n  position: absolute;\n  width: 13px;\n  height: 18px;\n  min-width: 40px;\n  font-style: normal;\n  font-weight: 900;\n  font-size: 14px;\n  line-height: 16px;\n  top: 50%;\n  left: 20px;\n  z-index: 1;\n  -webkit-transform: translate(-50%, -50%);\n          transform: translate(-50%, -50%);\n}\n.base-input .right-icon[data-v-f1cd7dc4] {\n  position: absolute;\n  width: 13px;\n  height: 18px;\n  min-width: 18px;\n  font-style: normal;\n  font-weight: 900;\n  font-size: 14px;\n  line-height: 16px;\n  top: 50%;\n  right: 0px;\n  z-index: 1;\n  -webkit-transform: translate(-50%, -50%);\n          transform: translate(-50%, -50%);\n}\n.base-input .small-input[data-v-f1cd7dc4] {\n  max-width: 100px;\n}\n.base-input .input-field[data-v-f1cd7dc4] {\n  width: 100%;\n  height: 40px;\n  padding: 8px 13px;\n  text-align: left;\n  background: #FFFFFF;\n  border: 1px solid #ccc;\n  box-sizing: border-box;\n  border-radius: 5px;\n  font-style: normal;\n  font-weight: 400;\n  font-size: 14px;\n  line-height: 21px;\n}\n.base-input .input-field.v-money[data-v-f1cd7dc4] {\n  font-family: Arial, Helvetica, sans-serif !important;\n}\n.base-input .input-field[data-v-f1cd7dc4]::-webkit-input-placeholder {\n  font-family: Poppins;\n  font-style: normal;\n  font-weight: 500;\n  font-size: 14px;\n  line-height: 21px;\n}\n.base-input .input-field[data-v-f1cd7dc4]::-moz-placeholder {\n  font-family: Poppins;\n  font-style: normal;\n  font-weight: 500;\n  font-size: 14px;\n  line-height: 21px;\n}\n.base-input .input-field[data-v-f1cd7dc4]:-ms-input-placeholder {\n  font-family: Poppins;\n  font-style: normal;\n  font-weight: 500;\n  font-size: 14px;\n  line-height: 21px;\n}\n.base-input .input-field[data-v-f1cd7dc4]::-ms-input-placeholder {\n  font-family: Poppins;\n  font-style: normal;\n  font-weight: 500;\n  font-size: 14px;\n  line-height: 21px;\n}\n.base-input .input-field[data-v-f1cd7dc4]::placeholder {\n  font-family: Poppins;\n  font-style: normal;\n  font-weight: 500;\n  font-size: 14px;\n  line-height: 21px;\n}\n.base-input .input-field[data-v-f1cd7dc4]:focus {\n  border: 1px solid #817AE3;\n}\n.base-input .input-field.invalid[data-v-f1cd7dc4] {\n  border: 1px solid #FB7178 !important;\n}\n.base-input .input-field-left-icon[data-v-f1cd7dc4] {\n  padding-left: 35px;\n}\n.base-input .input-field-right-icon[data-v-f1cd7dc4] {\n  padding-right: 35px;\n}", ""]);
+exports.push([module.i, ".base-input[data-v-f1cd7dc4] {\n  width: 100%;\n  position: relative;\n}\n.base-input .left-icon[data-v-f1cd7dc4] {\n  position: absolute;\n  width: 13px;\n  height: 18px;\n  min-width: 40px;\n  font-style: normal;\n  font-weight: 900;\n  font-size: 14px;\n  line-height: 16px;\n  top: 50%;\n  left: 20px;\n  z-index: 1;\n  -webkit-transform: translate(-50%, -50%);\n          transform: translate(-50%, -50%);\n}\n.base-input .right-icon[data-v-f1cd7dc4] {\n  position: absolute;\n  width: 13px;\n  height: 18px;\n  min-width: 18px;\n  font-style: normal;\n  font-weight: 900;\n  font-size: 14px;\n  line-height: 16px;\n  top: 50%;\n  right: 0px;\n  z-index: 1;\n  -webkit-transform: translate(-50%, -50%);\n          transform: translate(-50%, -50%);\n}\n.base-input .small-input[data-v-f1cd7dc4] {\n  max-width: 100px;\n}\n.base-input .input-field[data-v-f1cd7dc4] {\n  width: 100%;\n  height: 40px;\n  padding: 12px 13px;\n  text-align: left;\n  background: #eee;\n  border: 1px solid #ccc;\n  box-sizing: border-box;\n  border-radius: 0px;\n  font-style: normal;\n  font-weight: 400;\n  font-size: 14px;\n  line-height: 21px;\n}\n.base-input .input-field.v-money[data-v-f1cd7dc4] {\n  font-family: Arial, Helvetica, sans-serif !important;\n}\n.base-input .input-field[data-v-f1cd7dc4]::-webkit-input-placeholder {\n  font-family: Poppins;\n  font-style: normal;\n  font-weight: 500;\n  font-size: 14px;\n  line-height: 21px;\n}\n.base-input .input-field[data-v-f1cd7dc4]::-moz-placeholder {\n  font-family: Poppins;\n  font-style: normal;\n  font-weight: 500;\n  font-size: 14px;\n  line-height: 21px;\n}\n.base-input .input-field[data-v-f1cd7dc4]:-ms-input-placeholder {\n  font-family: Poppins;\n  font-style: normal;\n  font-weight: 500;\n  font-size: 14px;\n  line-height: 21px;\n}\n.base-input .input-field[data-v-f1cd7dc4]::-ms-input-placeholder {\n  font-family: Poppins;\n  font-style: normal;\n  font-weight: 500;\n  font-size: 14px;\n  line-height: 21px;\n}\n.base-input .input-field[data-v-f1cd7dc4]::placeholder {\n  font-family: Poppins;\n  font-style: normal;\n  font-weight: 500;\n  font-size: 14px;\n  line-height: 21px;\n}\n.base-input .input-field[data-v-f1cd7dc4]:focus {\n  border: 1px solid #817AE3;\n}\n.base-input .input-field.invalid[data-v-f1cd7dc4] {\n  border: 1px solid #FB7178 !important;\n}\n.base-input .input-field-left-icon[data-v-f1cd7dc4] {\n  padding-left: 35px;\n}\n.base-input .input-field-right-icon[data-v-f1cd7dc4] {\n  padding-right: 35px;\n}", ""]);
 
 // exports
 
@@ -64641,7 +64639,7 @@ var render = function() {
               }
             ],
             ref: "baseInput",
-            staticClass: "form-control",
+            staticClass: "form-control input-field",
             class: [
               {
                 "input-field-left-icon": _vm.icon && _vm.isAlignLeftIcon,
@@ -64706,7 +64704,7 @@ var render = function() {
               }
             ],
             ref: "baseInput",
-            staticClass: "form-control",
+            staticClass: "form-control input-field",
             class: [
               {
                 "input-field-left-icon": _vm.icon && _vm.isAlignLeftIcon,
@@ -64750,7 +64748,7 @@ var render = function() {
               }
             ],
             ref: "baseInput",
-            staticClass: "form-control",
+            staticClass: "form-control input-field",
             class: [
               {
                 "input-field-left-icon": _vm.icon && _vm.isAlignLeftIcon,

@@ -37,6 +37,7 @@
                 
                  
                 />
+                
                   <div class="inner-addon left-addon">
                     <i class="fa fa-user"></i>
                     <input

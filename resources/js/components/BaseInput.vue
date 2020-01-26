@@ -12,7 +12,7 @@
       :class="[{'input-field-left-icon': icon && isAlignLeftIcon ,'input-field-right-icon': icon && !isAlignLeftIcon ,'invalid': isFieldValid, 'disabled': disabled, 'small-input': small}, inputClass]"
       :placeholder="placeholder"
       :autocomplete="autocomplete"
-      class="form-control"
+      class="form-control input-field"
       @input="handleInput"
       @change="handleChange"
       @keyup="handleKeyupEnter"
@@ -69,12 +69,12 @@
     .input-field {
         width: 100%;
         height: 40px;
-        padding: 8px 13px;
+        padding: 12px 13px;
         text-align: left;
-        background: #FFFFFF;
+        background: #eee;
         border: 1px solid #ccc;
         box-sizing: border-box;
-        border-radius: 5px;
+        border-radius: 0px;
         font-style: normal;
         font-weight: 400;
         font-size: 14px;
@@ -100,9 +100,6 @@
             border: 1px solid #FB7178 !important;
         }
 
-        &.disabled {
-            
-        }
 
         &-left-icon {
             padding-left: 35px;
