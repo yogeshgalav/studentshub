@@ -3,21 +3,11 @@
             <div class="col-md-8 offset-2">
                 
                 <div class="form-group">
+                    <div class="text-center"> <p class="title weight-600 font-size-16 text-black">What is the subject of your Post.</p></div>
+                    <label class="weight-500">Subject</label>
                     <div class="row">
                         <input type="text" :value="selected_subject.Subject_name" @input="editSubject" class="form-control">
                     </div>
-                    <!-- <div class="row">
-                        <div class="col-md-4">
-                            <div class="card" v-for="subject in primary_subject_list" :key="subject.id">{{subject.Subject_name}}</div>
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card" v-for="subject in subject_list" :key="subject.id">
-                                <div class="card-body" @click="getSubject(subject.id)">
-                                {{subject.Subject_name}}
-                                </div>
-                            </div>
-                        </div>
-                    </div>       -->
                 </div>
             </div>
         </div>

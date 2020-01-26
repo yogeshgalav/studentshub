@@ -3,7 +3,7 @@
      <div class="col-md-8 offset-2">
                 
                 <div class="form-group">
-                   <div class="text-center"> <p class="title weight-600 font-size-16 text-black">Enter Heading</p></div>
+                   <div class="text-center"> <p class="title weight-600 font-size-16 text-black">Give an attractive Heading to your Post.</p></div>
                     <label class="weight-500">Heading</label>
                     <input type="text" class="form-control" @input="editHeading($event)">
                 </div>

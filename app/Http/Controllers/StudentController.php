@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Notification;
 use Auth;
 use DB;
+use Log;
 use App\Models\Student;
 use App\Models\Course;
 use App\Models\Category;
@@ -71,14 +72,18 @@ class StudentController extends Controller
         $user->student_activated_at=date('Y-m-d');
         $user->save();
 
-        Notification::send($batch->users(), new BatchNewUserNotification($batch));
+        $student->prefferred_batch=$batch->id;
+        $student->prefferred_category=$course->category_id;
+        $student->save();
+
+        // Notification::send($batch->users(), new BatchNewUserNotification($batch));
             
         
     DB::commit();
     } catch (\Exception $e) {
         DB::rollback();
         Log::critical('Student Registeration failure: for user id#'.$user->id.' with data '.implode(', ',Arr::flatten($data)));
-        dd($e->getMessage(),$e->getLine());
+        // dd($e->getMessage(),$e->getLine());
         return response()->$e;
     }        
         $success['redirectUrl'] = '/';

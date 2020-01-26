@@ -23,9 +23,9 @@
     </div>
     <div class="col-md-12 text-center mt-3 mb-3">
                     <ul class="social-network social-circle">
-                        <li><a href="#" @click="newWindow('https://www.facebook.com/studentshub.in')" class="icoFacebook" title="Facebook"><i class="fab fa-facebook"></i></a></li>
-                        <li><a href="#" @click="newWindow('https://www.twitter.com/studentshub_in')" target="_blank" class="icoTwitter" title="Twitter"><i class="fab fa-twitter"></i></a></li>
-                        <li><a href="#" @click="newWindow('https://www.instagram.com/studentshub.in')" target="_blank" class="icoInstagram" title="Instagram"><i class="fab fa-instagram"></i></a></li>
+                        <li><a target="_blank" href='https://www.facebook.com/studentshub.in' class="icoFacebook" title="Facebook"><i class="fab fa-facebook"></i></a></li>
+                        <li><a target="_blank" href='https://www.twitter.com/studentshub_in'  class="icoTwitter" title="Twitter"><i class="fab fa-twitter"></i></a></li>
+                        <li><a  target="_blank" href='https://www.instagram.com/studentshub.in' class="icoInstagram" title="Instagram"><i class="fab fa-instagram"></i></a></li>
                         <li><a href="#" target="_blank" class="icoLinkedin" title="Linkedin"><i class="fab fa-linkedin"></i></a></li>
                     </ul>				
 				</div>

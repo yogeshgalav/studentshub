@@ -32,7 +32,7 @@ export default {
                 'Fact',
                 'Notice',
                 'Video',
-                'Quora',
+                'Document',
                 'Link',
                 'MCQ',
                 ],

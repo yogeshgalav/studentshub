@@ -121,8 +121,8 @@
                 <p class="text-center">OR</p>
                 <p class="text-center">Sign up with your social network</p>
                 <div class="display-flex">
-                  <button class="btn btn-white mr-3" @click="AuthProvider('google')"><i><img src="/icons/search.png" /></i> Sign up with Google</button>
-                <button class="btn btn-white"  @click="AuthProvider('facebook')"><i><img src="/icons/facebook.png" /></i> Sign up with Facebook</button>
+                  <a class="btn btn-white mr-3" href='/social-auth/google'><i><img src="/icons/search.png" /></i> Sign up with Google</a>
+                <a class="btn btn-white mr-3" href='/social-auth/facebook'><i><img src="/icons/facebook.png" /></i> Sign up with Facebook</a>
                 </div>
               </form>
                 </div>
@@ -233,6 +233,7 @@ BaseInput
                 let full_name = this.full_name;
                 this.$store.dispatch('auth/register', { full_name, email, password})
                     .then((resp) => {
+                        swal.successDialog('Register','Success!','success')
                         ({redirectUrl: window.location.href} = resp.data.success);
                     })
                         .catch(err => {
@@ -247,34 +248,6 @@ BaseInput
                             }
                         })
                     },
-            
-    AuthProvider(provider) {
-      var self = this;
-
-      this.$auth
-        .authenticate(provider)
-        .then(response => {
-          self.SocialLogin(provider, response);
-        })
-        .catch(err => {
-          console.log({
-            err: err
-          });
-        });
-    },
-
-    SocialLogin(provider, response) {
-      this.$http
-        .post("/sociallogin/" + provider, response)
-        .then(response => {
-          console.log(response.data);
-        })
-        .catch(err => {
-          console.log({
-            err: err
-          });
-        });
-    }
   },
   props: {}
 };

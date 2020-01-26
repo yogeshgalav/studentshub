@@ -136,12 +136,46 @@ class AuthController extends Controller
         $user = Auth::user();
         return response()->json(['success' => $user], $this->successStatus);
     }
-    public function SocialSignup($provider)
+    /**
+     * Redirect the user to the Google authentication page.
+    *
+    * @return \Illuminate\Http\Response
+    */
+    public function redirectToProvider($provider)
     {
-        // Socialite will pick response data automatic 
-        $user = Socialite::driver($provider)->stateless()->user();        return response()->json($user);
+        return Socialite::driver($provider)->redirect();
     }
-
+   /**
+     * Obtain the user information from Google.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function handleProviderCallback($provider)
+    {
+        try {
+            $user = Socialite::driver($provider)->user();
+        } catch (\Exception $e) {
+            return redirect('/login');
+        }
+        // check if they're an existing user
+        $existingUser = User::where('email', $user->email)->first();
+        if($existingUser){
+            // log them in
+            auth()->login($existingUser, true);
+        } else {
+            // create a new user
+            $newUser                  = new User;
+            $newUser->name            = $user->name;
+            $newUser->email           = $user->email;
+            $newUser->login_provider_id       = $user->id;
+            $newUser->login_provider_type       = $provider;
+            $newUser->avatar          = $user->avatar;
+            $newUser->avatar_original = $user->avatar_original;
+            $newUser->save();
+            auth()->login($newUser, true);
+        }
+        return redirect()->to('/');
+    }
     // Handling the forgot password email request
     public function processForgotPassword(ForgotPasswordRequest $request)
     {

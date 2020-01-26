@@ -7,7 +7,7 @@ use App\Models\Post;
 use App\Models\SthubPost;
 use App\Models\ExplorePagePost;
 use App\Models\Article;
-use App\Models\Subject;
+use App\Models\Category;
 use App\Models\Guest;
 use Auth;
 
@@ -18,7 +18,7 @@ class ExploreController extends Controller
         $guest->add($request);
 
         return response()->json(['success'=>[
-            'categories'=>Subject::getAllCategories(),
+            'categories'=>Category::all(),
             'ExploreCarousalPost'=>ExplorePagePost::getPostType('ExploreCarousalPost'),
             'ExploreTopPost'=>ExplorePagePost::getPostType('ExploreTopPost'),
             'HomePostContainer'=>ExplorePagePost::getPostType('HomePostContainer'),

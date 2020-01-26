@@ -70,9 +70,7 @@
 
 <script>
 import DashboardPostContainer from './../../components/DashboardPostContainer';
-import Toasted from 'vue-toasted';
 import Vue from 'vue';
-Vue.use(Toasted);
 import {mapState} from 'vuex';
 
 export default {

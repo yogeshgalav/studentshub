@@ -10,6 +10,8 @@ require('./../bootstrap');
 // window.Vue = require('vue').default;
 import Vue from 'vue';
 Vue.component('StudentRegister', require('./student-register').default);
+import utils from '../helpers/utilities'
+Vue.prototype.$utils = utils
 
 //Dependencies
 import axios from 'axios'

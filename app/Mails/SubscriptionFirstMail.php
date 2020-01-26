@@ -40,7 +40,7 @@ class SubscriptionFirstMail extends Mailable
     {
         // $log = new Log();
         // $url = parse_url(URL::current());
-        return $this->from('notifications@actionable.co')
+        return $this
          ->view('mails.subscription.first-mail');
         //  ->with('token', $this->token)
         //  ->with('host', $url['scheme'] . '://' . $url['host'])

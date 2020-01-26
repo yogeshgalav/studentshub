@@ -9,6 +9,16 @@ export default {
             text: text,
         });
     },
+    successDialog: function(title,text,type){
+        const swalWithBootstrapButtons = Vue.swal.mixin({});
+        return new swalWithBootstrapButtons({
+            title: title,
+            text: text,
+            type: type,
+            showCancelButton: false,
+            showConfirmButton: false,
+        });
+    },
     confirmDialog: function(title="Are you sure?",text="You wont be able to revert this change",type="warning"){
         const swalWithBootstrapButtons = Vue.swal.mixin({
             confirmButtonClass: 'btn btn-success float-right',

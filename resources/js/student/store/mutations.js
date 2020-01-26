@@ -36,6 +36,9 @@ export default {
     get_subjects(state,subjects){
       state.subjects = subjects;
     },
+    updateFiles(state,data){
+     state.new_post.files=data;
+    },
     submitPost(state){
       
   },

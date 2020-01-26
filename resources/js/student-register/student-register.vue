@@ -33,10 +33,28 @@
                     <label> {{ trans('Course Name') }} </label>
                   <div class="inner-addon left-addon">
                     <i class="fa fa-user"></i>
-                    <auto-complete :is-async="false" value="course_name" :selected="selectCourse" :items="courses"></auto-complete>
+                    <base-select
+                    ref="baseSelect"
+                    v-model="selected_course"
+                    :options="courses"
+                    :options-limit="10"
+                    :show-labels="false"
+                    :preserve-search="false"
+                    :placeholder="trans('type or click')"
+                    label="course_name"
+                    class="multi-select-item"
+                    />
                     <!-- <select v-model="course_id" class="form-control">
                         <option v-for="course in courses" :key='course.id' :value="course.id">{{course.course_name}}</option>
                     </select> -->
+                    <span class="error">{{errors.first('institute_name')}}</span>
+                  </div>
+                </div>
+                <div class="form-group" v-if="selected_course">
+                    <label> {{ trans('Category/Course Type') }} </label>
+                  <div class="inner-addon left-addon">
+                    <i class="fa fa-user"></i>
+                    <input :value="selected_course.category.name" disabled/>
                     <span class="error">{{errors.first('institute_name')}}</span>
                   </div>
                 </div>
@@ -81,7 +99,17 @@
                     <label> {{ trans('Branch Name') }} </label>
                   <div class="inner-addon left-addon">
                     <i class="fa fa-user"></i>
-                  <auto-complete :is-async="false" value="branch_name" :selected="selectBranch" :items="branches"></auto-complete>
+                    <base-select
+                    ref="baseSelect"
+                    v-model="selected_branch"
+                    :options="branches"
+                    :options-limit="10"
+                    :show-labels="false"
+                    :preserve-search="false"
+                    :placeholder="trans('type or click')"
+                    label="branch_name"
+                    class="multi-select-item"
+                    />
                     <!-- <select v-model="branch_id" class="form-control">
                         <option v-for="branch in branches" :key="branch.id" :value="branch.id">{{branch.branch_name}}</option>
                     </select> -->
@@ -217,12 +245,13 @@ import FormMixin from "./../components/mixins/form-mixin.js";
 import swal from './../components/swal';
 import DatePicker from 'vue2-datepicker';
 import AutoComplete from './../components/AutoComplete';
+import BaseSelect from './../components2/base/base-select';
 import 'vue2-datepicker/index.css';
 
 export default {
   mixins: [FormMixin],
   components:{
-    DatePicker,AutoComplete
+    DatePicker,BaseSelect
   },
   data() {
     return {
@@ -275,6 +304,7 @@ export default {
         end_year:this.end_year,
       }).then((resp)=>{
         if(resp.data.success){
+          swal.successDialog('Check-In','Success!','success')
           window.location.href=resp.data.success.redirectUrl;
         }
       });
