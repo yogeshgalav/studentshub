@@ -12894,93 +12894,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-<<<<<<< HEAD
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-=======
->>>>>>> 66344dba7e15b8419a1f42e6508668e59c98dca5
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     name: {
@@ -14477,6 +14390,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_mixins_form_mixin_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../components/mixins/form-mixin.js */ "./resources/js/components/mixins/form-mixin.js");
 /* harmony import */ var _components_swal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/swal */ "./resources/js/components/swal.js");
+//
 //
 //
 //
@@ -16391,47 +16305,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-<<<<<<< HEAD
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-<<<<<<< HEAD
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-=======
->>>>>>> 814c1c857be62b152edbae31af2e3a88669cfc25
-=======
->>>>>>> 66344dba7e15b8419a1f42e6508668e59c98dca5
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     CategoryFilter: _category_CategoryFilter__WEBPACK_IMPORTED_MODULE_2__["default"],
@@ -16540,14 +16413,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
-  * Bootstrap v4.4.1 (https://getbootstrap.com/)
+  * Bootstrap v4.3.1 (https://getbootstrap.com/)
   * Copyright 2011-2019 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
   */
 (function (global, factory) {
    true ? factory(exports, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js"), __webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js")) :
   undefined;
-}(this, (function (exports, $, Popper) { 'use strict';
+}(this, function (exports, $, Popper) { 'use strict';
 
   $ = $ && $.hasOwnProperty('default') ? $['default'] : $;
   Popper = Popper && Popper.hasOwnProperty('default') ? Popper['default'] : Popper;
@@ -16583,165 +16456,34 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return obj;
   }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-=======
-/*!
-  * Bootstrap v4.4.1 (https://getbootstrap.com/)
-  * Copyright 2011-2019 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
-  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
-  */
-(function (global, factory) {
-   true ? factory(exports, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js"), __webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js")) :
-  undefined;
-}(this, (function (exports, $, Popper) { 'use strict';
->>>>>>> f1bbf31558d7b36abd29c7323f8131051620381b
-=======
-  function ownKeys(object, enumerableOnly) {
-    var keys = Object.keys(object);
->>>>>>> 66344dba7e15b8419a1f42e6508668e59c98dca5
-
-    if (Object.getOwnPropertySymbols) {
-      var symbols = Object.getOwnPropertySymbols(object);
-      if (enumerableOnly) symbols = symbols.filter(function (sym) {
-        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-      });
-      keys.push.apply(keys, symbols);
-    }
-
-    return keys;
-  }
-
-  function _objectSpread2(target) {
+  function _objectSpread(target) {
     for (var i = 1; i < arguments.length; i++) {
       var source = arguments[i] != null ? arguments[i] : {};
+      var ownKeys = Object.keys(source);
 
-<<<<<<< HEAD
-/* harmony default export */ __webpack_exports__["default"] = ({
-  props: {
-    taxes: {
-      type: Array,
-      required: false,
-      "default": null
-    }
-<<<<<<< HEAD
-  },
-  data: function data() {
-    return {
-      textSearch: null
-    };
-  },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('taxType', ['taxTypes']), {
-    filteredTaxType: function filteredTaxType() {
-      if (this.textSearch) {
-        var textSearch = this.textSearch;
-        return this.taxTypes.filter(function (el) {
-          return el.name.toLowerCase().indexOf(textSearch.toLowerCase()) !== -1;
-=======
-      if (i % 2) {
-        ownKeys(Object(source), true).forEach(function (key) {
-          _defineProperty(target, key, source[key]);
->>>>>>> 66344dba7e15b8419a1f42e6508668e59c98dca5
-        });
-      } else if (Object.getOwnPropertyDescriptors) {
-        Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
-      } else {
-        ownKeys(Object(source)).forEach(function (key) {
-          Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-        });
+      if (typeof Object.getOwnPropertySymbols === 'function') {
+        ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {
+          return Object.getOwnPropertyDescriptor(source, sym).enumerable;
+        }));
       }
-    }
-<<<<<<< HEAD
-  }),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('modal', ['openModal']), {
-    selectTaxType: function selectTaxType(index) {
-      this.$emit('select', _objectSpread({}, this.taxTypes[index]));
-    },
-    openTaxModal: function openTaxModal() {
-      this.openModal({
-        'title': this.$t('settings.tax_types.add_tax'),
-        'componentName': 'TaxTypeModal'
+
+      ownKeys.forEach(function (key) {
+        _defineProperty(target, key, source[key]);
       });
-=======
-
-    return obj;
-  }
-
-  function ownKeys(object, enumerableOnly) {
-    var keys = Object.keys(object);
-
-    if (Object.getOwnPropertySymbols) {
-      var symbols = Object.getOwnPropertySymbols(object);
-      if (enumerableOnly) symbols = symbols.filter(function (sym) {
-        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-      });
-      keys.push.apply(keys, symbols);
     }
-
-    return keys;
-  }
-
-  function _objectSpread2(target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i] != null ? arguments[i] : {};
-
-      if (i % 2) {
-        ownKeys(Object(source), true).forEach(function (key) {
-          _defineProperty(target, key, source[key]);
-        });
-      } else if (Object.getOwnPropertyDescriptors) {
-        Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
-      } else {
-        ownKeys(Object(source)).forEach(function (key) {
-          Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-        });
-      }
->>>>>>> f1bbf31558d7b36abd29c7323f8131051620381b
-    }
-  })
-});
-=======
->>>>>>> 66344dba7e15b8419a1f42e6508668e59c98dca5
 
     return target;
   }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/guest/auth/components/forgot-password.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/guest/auth/components/forgot-password.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-=======
-  /**
-   * --------------------------------------------------------------------------
-   * Bootstrap (v4.4.1): util.js
-   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
-   * --------------------------------------------------------------------------
-   */
-  /**
-   * ------------------------------------------------------------------------
-   * Private TransitionEnd Helpers
-   * ------------------------------------------------------------------------
-   */
->>>>>>> f1bbf31558d7b36abd29c7323f8131051620381b
-=======
   function _inheritsLoose(subClass, superClass) {
     subClass.prototype = Object.create(superClass.prototype);
     subClass.prototype.constructor = subClass;
     subClass.__proto__ = superClass;
   }
->>>>>>> 66344dba7e15b8419a1f42e6508668e59c98dca5
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v4.4.1): util.js
+   * Bootstrap (v4.3.1): util.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -16817,173 +16559,6 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
         selector = hrefAttr && hrefAttr !== '#' ? hrefAttr.trim() : '';
       }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-=======
-      transitionDuration = transitionDuration.split(',')[0];
-      transitionDelay = transitionDelay.split(',')[0];
-      return (parseFloat(transitionDuration) + parseFloat(transitionDelay)) * MILLISECONDS_MULTIPLIER;
-    },
-    reflow: function reflow(element) {
-      return element.offsetHeight;
-    },
-    triggerTransitionEnd: function triggerTransitionEnd(element) {
-      $(element).trigger(TRANSITION_END);
-    },
-    // TODO: Remove in v5
-    supportsTransitionEnd: function supportsTransitionEnd() {
-      return Boolean(TRANSITION_END);
-    },
-    isElement: function isElement(obj) {
-      return (obj[0] || obj).nodeType;
-    },
-    typeCheckConfig: function typeCheckConfig(componentName, config, configTypes) {
-      for (var property in configTypes) {
-        if (Object.prototype.hasOwnProperty.call(configTypes, property)) {
-          var expectedTypes = configTypes[property];
-          var value = config[property];
-          var valueType = value && Util.isElement(value) ? 'element' : toType(value);
-
-          if (!new RegExp(expectedTypes).test(valueType)) {
-            throw new Error(componentName.toUpperCase() + ": " + ("Option \"" + property + "\" provided type \"" + valueType + "\" ") + ("but expected type \"" + expectedTypes + "\"."));
-          }
-        }
-      }
-    },
-    findShadowRoot: function findShadowRoot(element) {
-      if (!document.documentElement.attachShadow) {
-        return null;
-      } // Can find the shadow root otherwise it'll return the document
-
-
-      if (typeof element.getRootNode === 'function') {
-        var root = element.getRootNode();
-        return root instanceof ShadowRoot ? root : null;
-      }
-
-      if (element instanceof ShadowRoot) {
-        return element;
-      } // when we don't find a shadow root
-
-
-      if (!element.parentNode) {
-        return null;
-      }
-
-      return Util.findShadowRoot(element.parentNode);
-    },
-    jQueryDetection: function jQueryDetection() {
-      if (typeof $ === 'undefined') {
-        throw new TypeError('Bootstrap\'s JavaScript requires jQuery. jQuery must be included before Bootstrap\'s JavaScript.');
-      }
-=======
       try {
         return document.querySelector(selector) ? selector : null;
       } catch (err) {
@@ -16994,73 +16569,8 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
       if (!element) {
         return 0;
       } // Get transition-duration of the element
->>>>>>> 66344dba7e15b8419a1f42e6508668e59c98dca5
-
-      var version = $.fn.jquery.split(' ')[0].split('.');
-      var minMajor = 1;
-      var ltMajor = 2;
-      var minMinor = 9;
-      var minPatch = 1;
-      var maxMajor = 4;
-
-<<<<<<< HEAD
-      if (version[0] < ltMajor && version[1] < minMinor || version[0] === minMajor && version[1] === minMinor && version[2] < minPatch || version[0] >= maxMajor) {
-        throw new Error('Bootstrap\'s JavaScript requires at least jQuery v1.9.1 but less than v4.0.0');
-      }
-    }
-  };
-  Util.jQueryDetection();
-  setTransitionEndSupport();
->>>>>>> f1bbf31558d7b36abd29c7323f8131051620381b
 
 
-<<<<<<< HEAD
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [_components_mixins_form_mixin_js__WEBPACK_IMPORTED_MODULE_1__["default"]],
-  data: function data() {
-    return {
-      email: '',
-      password: '',
-      remember: false,
-      login_status: 1,
-      srvError401: '',
-      srvErrorUnknown: ''
-    };
-  },
-  methods: {
-    trans: function trans(string, defaultString) {
-      return this.$trans('auth', string, defaultString);
-    },
-    handleSubmit: function handleSubmit(e) {
-      var _this = this;
-=======
-  var NAME = 'alert';
-  var VERSION = '4.4.1';
-  var DATA_KEY = 'bs.alert';
-  var EVENT_KEY = "." + DATA_KEY;
-  var DATA_API_KEY = '.data-api';
-  var JQUERY_NO_CONFLICT = $.fn[NAME];
-  var Selector = {
-    DISMISS: '[data-dismiss="alert"]'
-  };
-  var Event = {
-    CLOSE: "close" + EVENT_KEY,
-    CLOSED: "closed" + EVENT_KEY,
-    CLICK_DATA_API: "click" + EVENT_KEY + DATA_API_KEY
-  };
-  var ClassName = {
-    ALERT: 'alert',
-    FADE: 'fade',
-    SHOW: 'show'
-  };
-  /**
-   * ------------------------------------------------------------------------
-   * Class Definition
-   * ------------------------------------------------------------------------
-   */
->>>>>>> f1bbf31558d7b36abd29c7323f8131051620381b
-=======
       var transitionDuration = $(element).css('transition-duration');
       var transitionDelay = $(element).css('transition-delay');
       var floatTransitionDuration = parseFloat(transitionDuration);
@@ -17069,7 +16579,6 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
       if (!floatTransitionDuration && !floatTransitionDelay) {
         return 0;
       } // If multiple durations are defined, take the first
->>>>>>> 66344dba7e15b8419a1f42e6508668e59c98dca5
 
 
       transitionDuration = transitionDuration.split(',')[0];
@@ -17123,25 +16632,8 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
       }
 
       return Util.findShadowRoot(element.parentNode);
-    },
-    jQueryDetection: function jQueryDetection() {
-      if (typeof $ === 'undefined') {
-        throw new TypeError('Bootstrap\'s JavaScript requires jQuery. jQuery must be included before Bootstrap\'s JavaScript.');
-      }
-
-      var version = $.fn.jquery.split(' ')[0].split('.');
-      var minMajor = 1;
-      var ltMajor = 2;
-      var minMinor = 9;
-      var minPatch = 1;
-      var maxMajor = 4;
-
-      if (version[0] < ltMajor && version[1] < minMinor || version[0] === minMajor && version[1] === minMinor && version[2] < minPatch || version[0] >= maxMajor) {
-        throw new Error('Bootstrap\'s JavaScript requires at least jQuery v1.9.1 but less than v4.0.0');
-      }
     }
   };
-  Util.jQueryDetection();
   setTransitionEndSupport();
 
   /**
@@ -17151,7 +16643,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
    */
 
   var NAME = 'alert';
-  var VERSION = '4.4.1';
+  var VERSION = '4.3.1';
   var DATA_KEY = 'bs.alert';
   var EVENT_KEY = "." + DATA_KEY;
   var DATA_API_KEY = '.data-api';
@@ -17168,12 +16660,13 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
     ALERT: 'alert',
     FADE: 'fade',
     SHOW: 'show'
+    /**
+     * ------------------------------------------------------------------------
+     * Class Definition
+     * ------------------------------------------------------------------------
+     */
+
   };
-  /**
-   * ------------------------------------------------------------------------
-   * Class Definition
-   * ------------------------------------------------------------------------
-   */
 
   var Alert =
   /*#__PURE__*/
@@ -17315,7 +16808,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
    */
 
   var NAME$1 = 'button';
-  var VERSION$1 = '4.4.1';
+  var VERSION$1 = '4.3.1';
   var DATA_KEY$1 = 'bs.button';
   var EVENT_KEY$1 = "." + DATA_KEY$1;
   var DATA_API_KEY$1 = '.data-api';
@@ -17327,23 +16820,21 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
   };
   var Selector$1 = {
     DATA_TOGGLE_CARROT: '[data-toggle^="button"]',
-    DATA_TOGGLES: '[data-toggle="buttons"]',
-    DATA_TOGGLE: '[data-toggle="button"]',
-    DATA_TOGGLES_BUTTONS: '[data-toggle="buttons"] .btn',
+    DATA_TOGGLE: '[data-toggle="buttons"]',
     INPUT: 'input:not([type="hidden"])',
     ACTIVE: '.active',
     BUTTON: '.btn'
   };
   var Event$1 = {
     CLICK_DATA_API: "click" + EVENT_KEY$1 + DATA_API_KEY$1,
-    FOCUS_BLUR_DATA_API: "focus" + EVENT_KEY$1 + DATA_API_KEY$1 + " " + ("blur" + EVENT_KEY$1 + DATA_API_KEY$1),
-    LOAD_DATA_API: "load" + EVENT_KEY$1 + DATA_API_KEY$1
+    FOCUS_BLUR_DATA_API: "focus" + EVENT_KEY$1 + DATA_API_KEY$1 + " " + ("blur" + EVENT_KEY$1 + DATA_API_KEY$1)
+    /**
+     * ------------------------------------------------------------------------
+     * Class Definition
+     * ------------------------------------------------------------------------
+     */
+
   };
-  /**
-   * ------------------------------------------------------------------------
-   * Class Definition
-   * ------------------------------------------------------------------------
-   */
 
   var Button =
   /*#__PURE__*/
@@ -17359,7 +16850,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
     _proto.toggle = function toggle() {
       var triggerChangeEvent = true;
       var addAriaPressed = true;
-      var rootElement = $(this._element).closest(Selector$1.DATA_TOGGLES)[0];
+      var rootElement = $(this._element).closest(Selector$1.DATA_TOGGLE)[0];
 
       if (rootElement) {
         var input = this._element.querySelector(Selector$1.INPUT);
@@ -17375,16 +16866,13 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
                 $(activeElement).removeClass(ClassName$1.ACTIVE);
               }
             }
-          } else if (input.type === 'checkbox') {
-            if (this._element.tagName === 'LABEL' && input.checked === this._element.classList.contains(ClassName$1.ACTIVE)) {
-              triggerChangeEvent = false;
-            }
-          } else {
-            // if it's not a radio button or checkbox don't add a pointless/invalid checked property to the input
-            triggerChangeEvent = false;
           }
 
           if (triggerChangeEvent) {
+            if (input.hasAttribute('disabled') || rootElement.hasAttribute('disabled') || input.classList.contains('disabled') || rootElement.classList.contains('disabled')) {
+              return;
+            }
+
             input.checked = !this._element.classList.contains(ClassName$1.ACTIVE);
             $(input).trigger('change');
           }
@@ -17394,14 +16882,12 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
         }
       }
 
-      if (!(this._element.hasAttribute('disabled') || this._element.classList.contains('disabled'))) {
-        if (addAriaPressed) {
-          this._element.setAttribute('aria-pressed', !this._element.classList.contains(ClassName$1.ACTIVE));
-        }
+      if (addAriaPressed) {
+        this._element.setAttribute('aria-pressed', !this._element.classList.contains(ClassName$1.ACTIVE));
+      }
 
-        if (triggerChangeEvent) {
-          $(this._element).toggleClass(ClassName$1.ACTIVE);
-        }
+      if (triggerChangeEvent) {
+        $(this._element).toggleClass(ClassName$1.ACTIVE);
       }
     };
 
@@ -17443,90 +16929,17 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 
 
   $(document).on(Event$1.CLICK_DATA_API, Selector$1.DATA_TOGGLE_CARROT, function (event) {
+    event.preventDefault();
     var button = event.target;
 
     if (!$(button).hasClass(ClassName$1.BUTTON)) {
-      button = $(button).closest(Selector$1.BUTTON)[0];
+      button = $(button).closest(Selector$1.BUTTON);
     }
 
-    if (!button || button.hasAttribute('disabled') || button.classList.contains('disabled')) {
-      event.preventDefault(); // work around Firefox bug #1540995
-    } else {
-      var inputBtn = button.querySelector(Selector$1.INPUT);
-
-      if (inputBtn && (inputBtn.hasAttribute('disabled') || inputBtn.classList.contains('disabled'))) {
-        event.preventDefault(); // work around Firefox bug #1540995
-
-        return;
-      }
-
-      Button._jQueryInterface.call($(button), 'toggle');
-    }
+    Button._jQueryInterface.call($(button), 'toggle');
   }).on(Event$1.FOCUS_BLUR_DATA_API, Selector$1.DATA_TOGGLE_CARROT, function (event) {
     var button = $(event.target).closest(Selector$1.BUTTON)[0];
     $(button).toggleClass(ClassName$1.FOCUS, /^focus(in)?$/.test(event.type));
-  });
-  $(window).on(Event$1.LOAD_DATA_API, function () {
-    // ensure correct active class is set to match the controls' actual values/states
-    // find all checkboxes/readio buttons inside data-toggle groups
-    var buttons = [].slice.call(document.querySelectorAll(Selector$1.DATA_TOGGLES_BUTTONS));
-<<<<<<< HEAD
-=======
-
-    for (var i = 0, len = buttons.length; i < len; i++) {
-      var button = buttons[i];
-      var input = button.querySelector(Selector$1.INPUT);
-
-      if (input.checked || input.hasAttribute('checked')) {
-        button.classList.add(ClassName$1.ACTIVE);
-      } else {
-        button.classList.remove(ClassName$1.ACTIVE);
-      }
-    } // find all button toggles
-
-
-    buttons = [].slice.call(document.querySelectorAll(Selector$1.DATA_TOGGLE));
-
-    for (var _i = 0, _len = buttons.length; _i < _len; _i++) {
-      var _button = buttons[_i];
-
-      if (_button.getAttribute('aria-pressed') === 'true') {
-        _button.classList.add(ClassName$1.ACTIVE);
-      } else {
-        _button.classList.remove(ClassName$1.ACTIVE);
-      }
-    }
-  });
-  /**
-   * ------------------------------------------------------------------------
-   * jQuery
-   * ------------------------------------------------------------------------
-   */
->>>>>>> f1bbf31558d7b36abd29c7323f8131051620381b
-
-    for (var i = 0, len = buttons.length; i < len; i++) {
-      var button = buttons[i];
-      var input = button.querySelector(Selector$1.INPUT);
-
-      if (input.checked || input.hasAttribute('checked')) {
-        button.classList.add(ClassName$1.ACTIVE);
-      } else {
-        button.classList.remove(ClassName$1.ACTIVE);
-      }
-    } // find all button toggles
-
-
-    buttons = [].slice.call(document.querySelectorAll(Selector$1.DATA_TOGGLE));
-
-    for (var _i = 0, _len = buttons.length; _i < _len; _i++) {
-      var _button = buttons[_i];
-
-      if (_button.getAttribute('aria-pressed') === 'true') {
-        _button.classList.add(ClassName$1.ACTIVE);
-      } else {
-        _button.classList.remove(ClassName$1.ACTIVE);
-      }
-    }
   });
   /**
    * ------------------------------------------------------------------------
@@ -17549,7 +16962,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
    */
 
   var NAME$2 = 'carousel';
-  var VERSION$2 = '4.4.1';
+  var VERSION$2 = '4.3.1';
   var DATA_KEY$2 = 'bs.carousel';
   var EVENT_KEY$2 = "." + DATA_KEY$2;
   var DATA_API_KEY$2 = '.data-api';
@@ -17622,12 +17035,13 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
   var PointerType = {
     TOUCH: 'touch',
     PEN: 'pen'
+    /**
+     * ------------------------------------------------------------------------
+     * Class Definition
+     * ------------------------------------------------------------------------
+     */
+
   };
-  /**
-   * ------------------------------------------------------------------------
-   * Class Definition
-   * ------------------------------------------------------------------------
-   */
 
   var Carousel =
   /*#__PURE__*/
@@ -17747,7 +17161,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
     ;
 
     _proto._getConfig = function _getConfig(config) {
-      config = _objectSpread2({}, Default, {}, config);
+      config = _objectSpread({}, Default, config);
       Util.typeCheckConfig(NAME$2, config, DefaultType);
       return config;
     };
@@ -17759,8 +17173,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
         return;
       }
 
-      var direction = absDeltax / this.touchDeltaX;
-      this.touchDeltaX = 0; // swipe left
+      var direction = absDeltax / this.touchDeltaX; // swipe left
 
       if (direction > 0) {
         this.prev();
@@ -17886,6 +17299,8 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
           event.preventDefault();
           this.next();
           break;
+
+        default:
       }
     };
 
@@ -18037,10 +17452,10 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
       return this.each(function () {
         var data = $(this).data(DATA_KEY$2);
 
-        var _config = _objectSpread2({}, Default, {}, $(this).data());
+        var _config = _objectSpread({}, Default, $(this).data());
 
         if (typeof config === 'object') {
-          _config = _objectSpread2({}, _config, {}, config);
+          _config = _objectSpread({}, _config, config);
         }
 
         var action = typeof config === 'string' ? config : _config.slide;
@@ -18078,7 +17493,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
         return;
       }
 
-      var config = _objectSpread2({}, $(target).data(), {}, $(this).data());
+      var config = _objectSpread({}, $(target).data(), $(this).data());
 
       var slideIndex = this.getAttribute('data-slide-to');
 
@@ -18147,7 +17562,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
    */
 
   var NAME$3 = 'collapse';
-  var VERSION$3 = '4.4.1';
+  var VERSION$3 = '4.3.1';
   var DATA_KEY$3 = 'bs.collapse';
   var EVENT_KEY$3 = "." + DATA_KEY$3;
   var DATA_API_KEY$3 = '.data-api';
@@ -18180,12 +17595,13 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
   var Selector$3 = {
     ACTIVES: '.show, .collapsing',
     DATA_TOGGLE: '[data-toggle="collapse"]'
+    /**
+     * ------------------------------------------------------------------------
+     * Class Definition
+     * ------------------------------------------------------------------------
+     */
+
   };
-  /**
-   * ------------------------------------------------------------------------
-   * Class Definition
-   * ------------------------------------------------------------------------
-   */
 
   var Collapse =
   /*#__PURE__*/
@@ -18372,7 +17788,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
     ;
 
     _proto._getConfig = function _getConfig(config) {
-      config = _objectSpread2({}, Default$1, {}, config);
+      config = _objectSpread({}, Default$1, config);
       config.toggle = Boolean(config.toggle); // Coerce string values
 
       Util.typeCheckConfig(NAME$3, config, DefaultType$1);
@@ -18426,7 +17842,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
         var $this = $(this);
         var data = $this.data(DATA_KEY$3);
 
-        var _config = _objectSpread2({}, Default$1, {}, $this.data(), {}, typeof config === 'object' && config ? config : {});
+        var _config = _objectSpread({}, Default$1, $this.data(), typeof config === 'object' && config ? config : {});
 
         if (!data && _config.toggle && /show|hide/.test(config)) {
           _config.toggle = false;
@@ -18506,7 +17922,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
    */
 
   var NAME$4 = 'dropdown';
-  var VERSION$4 = '4.4.1';
+  var VERSION$4 = '4.3.1';
   var DATA_KEY$4 = 'bs.dropdown';
   var EVENT_KEY$4 = "." + DATA_KEY$4;
   var DATA_API_KEY$4 = '.data-api';
@@ -18566,22 +17982,21 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
     flip: true,
     boundary: 'scrollParent',
     reference: 'toggle',
-    display: 'dynamic',
-    popperConfig: null
+    display: 'dynamic'
   };
   var DefaultType$2 = {
     offset: '(number|string|function)',
     flip: 'boolean',
     boundary: '(string|element)',
     reference: '(string|element)',
-    display: 'string',
-    popperConfig: '(null|object)'
+    display: 'string'
+    /**
+     * ------------------------------------------------------------------------
+     * Class Definition
+     * ------------------------------------------------------------------------
+     */
+
   };
-  /**
-   * ------------------------------------------------------------------------
-   * Class Definition
-   * ------------------------------------------------------------------------
-   */
 
   var Dropdown =
   /*#__PURE__*/
@@ -18605,6 +18020,8 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
         return;
       }
 
+      var parent = Dropdown._getParentFromElement(this._element);
+
       var isActive = $(this._menu).hasClass(ClassName$4.SHOW);
 
       Dropdown._clearMenus();
@@ -18613,25 +18030,10 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
         return;
       }
 
-      this.show(true);
-    };
-
-    _proto.show = function show(usePopper) {
-      if (usePopper === void 0) {
-        usePopper = false;
-      }
-
-      if (this._element.disabled || $(this._element).hasClass(ClassName$4.DISABLED) || $(this._menu).hasClass(ClassName$4.SHOW)) {
-        return;
-      }
-
       var relatedTarget = {
         relatedTarget: this._element
       };
       var showEvent = $.Event(Event$4.SHOW, relatedTarget);
-
-      var parent = Dropdown._getParentFromElement(this._element);
-
       $(parent).trigger(showEvent);
 
       if (showEvent.isDefaultPrevented()) {
@@ -18639,7 +18041,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
       } // Disable totally Popper.js for Dropdown in Navbar
 
 
-      if (!this._inNavbar && usePopper) {
+      if (!this._inNavbar) {
         /**
          * Check for Popper dependency
          * Popper - https://popper.js.org
@@ -18686,6 +18088,28 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
       $(parent).toggleClass(ClassName$4.SHOW).trigger($.Event(Event$4.SHOWN, relatedTarget));
     };
 
+    _proto.show = function show() {
+      if (this._element.disabled || $(this._element).hasClass(ClassName$4.DISABLED) || $(this._menu).hasClass(ClassName$4.SHOW)) {
+        return;
+      }
+
+      var relatedTarget = {
+        relatedTarget: this._element
+      };
+      var showEvent = $.Event(Event$4.SHOW, relatedTarget);
+
+      var parent = Dropdown._getParentFromElement(this._element);
+
+      $(parent).trigger(showEvent);
+
+      if (showEvent.isDefaultPrevented()) {
+        return;
+      }
+
+      $(this._menu).toggleClass(ClassName$4.SHOW);
+      $(parent).toggleClass(ClassName$4.SHOW).trigger($.Event(Event$4.SHOWN, relatedTarget));
+    };
+
     _proto.hide = function hide() {
       if (this._element.disabled || $(this._element).hasClass(ClassName$4.DISABLED) || !$(this._menu).hasClass(ClassName$4.SHOW)) {
         return;
@@ -18702,10 +18126,6 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 
       if (hideEvent.isDefaultPrevented()) {
         return;
-      }
-
-      if (this._popper) {
-        this._popper.destroy();
       }
 
       $(this._menu).toggleClass(ClassName$4.SHOW);
@@ -18746,7 +18166,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
     };
 
     _proto._getConfig = function _getConfig(config) {
-      config = _objectSpread2({}, this.constructor.Default, {}, $(this._element).data(), {}, config);
+      config = _objectSpread({}, this.constructor.Default, $(this._element).data(), config);
       Util.typeCheckConfig(NAME$4, config, this.constructor.DefaultType);
       return config;
     };
@@ -18795,7 +18215,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 
       if (typeof this._config.offset === 'function') {
         offset.fn = function (data) {
-          data.offsets = _objectSpread2({}, data.offsets, {}, _this2._config.offset(data.offsets, _this2._element) || {});
+          data.offsets = _objectSpread({}, data.offsets, _this2._config.offset(data.offsets, _this2._element) || {});
           return data;
         };
       } else {
@@ -18816,8 +18236,9 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
           preventOverflow: {
             boundariesElement: this._config.boundary
           }
-        }
-      }; // Disable Popper.js if we have a static display
+        } // Disable Popper.js if we have a static display
+
+      };
 
       if (this._config.display === 'static') {
         popperConfig.modifiers.applyStyle = {
@@ -18825,7 +18246,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
         };
       }
 
-      return _objectSpread2({}, popperConfig, {}, this._config.popperConfig);
+      return popperConfig;
     } // Static
     ;
 
@@ -18897,11 +18318,6 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
         }
 
         toggles[i].setAttribute('aria-expanded', 'false');
-
-        if (context._popper) {
-          context._popper.destroy();
-        }
-
         $(dropdownMenu).removeClass(ClassName$4.SHOW);
         $(parent).removeClass(ClassName$4.SHOW).trigger($.Event(Event$4.HIDDEN, relatedTarget));
       }
@@ -18942,10 +18358,6 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 
       var isActive = $(parent).hasClass(ClassName$4.SHOW);
 
-      if (!isActive && event.which === ESCAPE_KEYCODE) {
-        return;
-      }
-
       if (!isActive || isActive && (event.which === ESCAPE_KEYCODE || event.which === SPACE_KEYCODE)) {
         if (event.which === ESCAPE_KEYCODE) {
           var toggle = parent.querySelector(Selector$4.DATA_TOGGLE);
@@ -18956,9 +18368,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
         return;
       }
 
-      var items = [].slice.call(parent.querySelectorAll(Selector$4.VISIBLE_ITEMS)).filter(function (item) {
-        return $(item).is(':visible');
-      });
+      var items = [].slice.call(parent.querySelectorAll(Selector$4.VISIBLE_ITEMS));
 
       if (items.length === 0) {
         return;
@@ -19038,7 +18448,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
    */
 
   var NAME$5 = 'modal';
-  var VERSION$5 = '4.4.1';
+  var VERSION$5 = '4.3.1';
   var DATA_KEY$5 = 'bs.modal';
   var EVENT_KEY$5 = "." + DATA_KEY$5;
   var DATA_API_KEY$5 = '.data-api';
@@ -19059,7 +18469,6 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
   };
   var Event$5 = {
     HIDE: "hide" + EVENT_KEY$5,
-    HIDE_PREVENTED: "hidePrevented" + EVENT_KEY$5,
     HIDDEN: "hidden" + EVENT_KEY$5,
     SHOW: "show" + EVENT_KEY$5,
     SHOWN: "shown" + EVENT_KEY$5,
@@ -19077,8 +18486,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
     BACKDROP: 'modal-backdrop',
     OPEN: 'modal-open',
     FADE: 'fade',
-    SHOW: 'show',
-    STATIC: 'modal-static'
+    SHOW: 'show'
   };
   var Selector$5 = {
     DIALOG: '.modal-dialog',
@@ -19087,12 +18495,13 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
     DATA_DISMISS: '[data-dismiss="modal"]',
     FIXED_CONTENT: '.fixed-top, .fixed-bottom, .is-fixed, .sticky-top',
     STICKY_CONTENT: '.sticky-top'
+    /**
+     * ------------------------------------------------------------------------
+     * Class Definition
+     * ------------------------------------------------------------------------
+     */
+
   };
-  /**
-   * ------------------------------------------------------------------------
-   * Class Definition
-   * ------------------------------------------------------------------------
-   */
 
   var Modal =
   /*#__PURE__*/
@@ -19238,40 +18647,15 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
     ;
 
     _proto._getConfig = function _getConfig(config) {
-      config = _objectSpread2({}, Default$3, {}, config);
+      config = _objectSpread({}, Default$3, config);
       Util.typeCheckConfig(NAME$5, config, DefaultType$3);
       return config;
     };
 
-    _proto._triggerBackdropTransition = function _triggerBackdropTransition() {
+    _proto._showElement = function _showElement(relatedTarget) {
       var _this3 = this;
 
-      if (this._config.backdrop === 'static') {
-        var hideEventPrevented = $.Event(Event$5.HIDE_PREVENTED);
-        $(this._element).trigger(hideEventPrevented);
-
-        if (hideEventPrevented.defaultPrevented) {
-          return;
-        }
-
-        this._element.classList.add(ClassName$5.STATIC);
-
-        var modalTransitionDuration = Util.getTransitionDurationFromElement(this._element);
-        $(this._element).one(Util.TRANSITION_END, function () {
-          _this3._element.classList.remove(ClassName$5.STATIC);
-        }).emulateTransitionEnd(modalTransitionDuration);
-
-        this._element.focus();
-      } else {
-        this.hide();
-      }
-    };
-
-    _proto._showElement = function _showElement(relatedTarget) {
-      var _this4 = this;
-
       var transition = $(this._element).hasClass(ClassName$5.FADE);
-      var modalBody = this._dialog ? this._dialog.querySelector(Selector$5.MODAL_BODY) : null;
 
       if (!this._element.parentNode || this._element.parentNode.nodeType !== Node.ELEMENT_NODE) {
         // Don't move modal's DOM position
@@ -19284,8 +18668,8 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 
       this._element.setAttribute('aria-modal', true);
 
-      if ($(this._dialog).hasClass(ClassName$5.SCROLLABLE) && modalBody) {
-        modalBody.scrollTop = 0;
+      if ($(this._dialog).hasClass(ClassName$5.SCROLLABLE)) {
+        this._dialog.querySelector(Selector$5.MODAL_BODY).scrollTop = 0;
       } else {
         this._element.scrollTop = 0;
       }
@@ -19305,12 +18689,12 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
       });
 
       var transitionComplete = function transitionComplete() {
-        if (_this4._config.focus) {
-          _this4._element.focus();
+        if (_this3._config.focus) {
+          _this3._element.focus();
         }
 
-        _this4._isTransitioning = false;
-        $(_this4._element).trigger(shownEvent);
+        _this3._isTransitioning = false;
+        $(_this3._element).trigger(shownEvent);
       };
 
       if (transition) {
@@ -19322,23 +18706,25 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
     };
 
     _proto._enforceFocus = function _enforceFocus() {
-      var _this5 = this;
+      var _this4 = this;
 
       $(document).off(Event$5.FOCUSIN) // Guard against infinite focus loop
       .on(Event$5.FOCUSIN, function (event) {
-        if (document !== event.target && _this5._element !== event.target && $(_this5._element).has(event.target).length === 0) {
-          _this5._element.focus();
+        if (document !== event.target && _this4._element !== event.target && $(_this4._element).has(event.target).length === 0) {
+          _this4._element.focus();
         }
       });
     };
 
     _proto._setEscapeEvent = function _setEscapeEvent() {
-      var _this6 = this;
+      var _this5 = this;
 
       if (this._isShown && this._config.keyboard) {
         $(this._element).on(Event$5.KEYDOWN_DISMISS, function (event) {
           if (event.which === ESCAPE_KEYCODE$1) {
-            _this6._triggerBackdropTransition();
+            event.preventDefault();
+
+            _this5.hide();
           }
         });
       } else if (!this._isShown) {
@@ -19347,11 +18733,11 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
     };
 
     _proto._setResizeEvent = function _setResizeEvent() {
-      var _this7 = this;
+      var _this6 = this;
 
       if (this._isShown) {
         $(window).on(Event$5.RESIZE, function (event) {
-          return _this7.handleUpdate(event);
+          return _this6.handleUpdate(event);
         });
       } else {
         $(window).off(Event$5.RESIZE);
@@ -19359,7 +18745,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
     };
 
     _proto._hideModal = function _hideModal() {
-      var _this8 = this;
+      var _this7 = this;
 
       this._element.style.display = 'none';
 
@@ -19372,11 +18758,11 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
       this._showBackdrop(function () {
         $(document.body).removeClass(ClassName$5.OPEN);
 
-        _this8._resetAdjustments();
+        _this7._resetAdjustments();
 
-        _this8._resetScrollbar();
+        _this7._resetScrollbar();
 
-        $(_this8._element).trigger(Event$5.HIDDEN);
+        $(_this7._element).trigger(Event$5.HIDDEN);
       });
     };
 
@@ -19388,7 +18774,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
     };
 
     _proto._showBackdrop = function _showBackdrop(callback) {
-      var _this9 = this;
+      var _this8 = this;
 
       var animate = $(this._element).hasClass(ClassName$5.FADE) ? ClassName$5.FADE : '';
 
@@ -19402,8 +18788,8 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 
         $(this._backdrop).appendTo(document.body);
         $(this._element).on(Event$5.CLICK_DISMISS, function (event) {
-          if (_this9._ignoreBackdropClick) {
-            _this9._ignoreBackdropClick = false;
+          if (_this8._ignoreBackdropClick) {
+            _this8._ignoreBackdropClick = false;
             return;
           }
 
@@ -19411,7 +18797,11 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
             return;
           }
 
-          _this9._triggerBackdropTransition();
+          if (_this8._config.backdrop === 'static') {
+            _this8._element.focus();
+          } else {
+            _this8.hide();
+          }
         });
 
         if (animate) {
@@ -19435,7 +18825,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
         $(this._backdrop).removeClass(ClassName$5.SHOW);
 
         var callbackRemove = function callbackRemove() {
-          _this9._removeBackdrop();
+          _this8._removeBackdrop();
 
           if (callback) {
             callback();
@@ -19482,7 +18872,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
     };
 
     _proto._setScrollbar = function _setScrollbar() {
-      var _this10 = this;
+      var _this9 = this;
 
       if (this._isBodyOverflowing) {
         // Note: DOMNode.style.paddingRight returns the actual value or '' if not set
@@ -19493,13 +18883,13 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
         $(fixedContent).each(function (index, element) {
           var actualPadding = element.style.paddingRight;
           var calculatedPadding = $(element).css('padding-right');
-          $(element).data('padding-right', actualPadding).css('padding-right', parseFloat(calculatedPadding) + _this10._scrollbarWidth + "px");
+          $(element).data('padding-right', actualPadding).css('padding-right', parseFloat(calculatedPadding) + _this9._scrollbarWidth + "px");
         }); // Adjust sticky content margin
 
         $(stickyContent).each(function (index, element) {
           var actualMargin = element.style.marginRight;
           var calculatedMargin = $(element).css('margin-right');
-          $(element).data('margin-right', actualMargin).css('margin-right', parseFloat(calculatedMargin) - _this10._scrollbarWidth + "px");
+          $(element).data('margin-right', actualMargin).css('margin-right', parseFloat(calculatedMargin) - _this9._scrollbarWidth + "px");
         }); // Adjust body padding
 
         var actualPadding = document.body.style.paddingRight;
@@ -19548,7 +18938,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
       return this.each(function () {
         var data = $(this).data(DATA_KEY$5);
 
-        var _config = _objectSpread2({}, Default$3, {}, $(this).data(), {}, typeof config === 'object' && config ? config : {});
+        var _config = _objectSpread({}, Default$3, $(this).data(), typeof config === 'object' && config ? config : {});
 
         if (!data) {
           data = new Modal(this, _config);
@@ -19589,7 +18979,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 
 
   $(document).on(Event$5.CLICK_DATA_API, Selector$5.DATA_TOGGLE, function (event) {
-    var _this11 = this;
+    var _this10 = this;
 
     var target;
     var selector = Util.getSelectorFromElement(this);
@@ -19598,7 +18988,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
       target = document.querySelector(selector);
     }
 
-    var config = $(target).data(DATA_KEY$5) ? 'toggle' : _objectSpread2({}, $(target).data(), {}, $(this).data());
+    var config = $(target).data(DATA_KEY$5) ? 'toggle' : _objectSpread({}, $(target).data(), $(this).data());
 
     if (this.tagName === 'A' || this.tagName === 'AREA') {
       event.preventDefault();
@@ -19611,8 +19001,8 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
       }
 
       $target.one(Event$5.HIDDEN, function () {
-        if ($(_this11).is(':visible')) {
-          _this11.focus();
+        if ($(_this10).is(':visible')) {
+          _this10.focus();
         }
       });
     });
@@ -19635,7 +19025,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v4.4.1): tools/sanitizer.js
+   * Bootstrap (v4.3.1): tools/sanitizer.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -19673,13 +19063,13 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
     strong: [],
     u: [],
     ul: []
-  };
-  /**
-   * A pattern that recognizes a commonly useful subset of URLs that are safe.
-   *
-   * Shoutout to Angular 7 https://github.com/angular/angular/blob/7.2.4/packages/core/src/sanitization/url_sanitizer.ts
-   */
+    /**
+     * A pattern that recognizes a commonly useful subset of URLs that are safe.
+     *
+     * Shoutout to Angular 7 https://github.com/angular/angular/blob/7.2.4/packages/core/src/sanitization/url_sanitizer.ts
+     */
 
+  };
   var SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp|tel|file):|[^&:/?#]*(?:[/?#]|$))/gi;
   /**
    * A pattern that matches safe data URLs. Only matches image, video and audio types.
@@ -19746,7 +19136,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
     };
 
     for (var i = 0, len = elements.length; i < len; i++) {
-      var _ret = _loop(i);
+      var _ret = _loop(i, len);
 
       if (_ret === "continue") continue;
     }
@@ -19761,7 +19151,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
    */
 
   var NAME$6 = 'tooltip';
-  var VERSION$6 = '4.4.1';
+  var VERSION$6 = '4.3.1';
   var DATA_KEY$6 = 'bs.tooltip';
   var EVENT_KEY$6 = "." + DATA_KEY$6;
   var JQUERY_NO_CONFLICT$6 = $.fn[NAME$6];
@@ -19783,8 +19173,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
     boundary: '(string|element)',
     sanitize: 'boolean',
     sanitizeFn: '(null|function)',
-    whiteList: 'object',
-    popperConfig: '(null|object)'
+    whiteList: 'object'
   };
   var AttachmentMap$1 = {
     AUTO: 'auto',
@@ -19808,8 +19197,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
     boundary: 'scrollParent',
     sanitize: true,
     sanitizeFn: null,
-    whiteList: DefaultWhitelist,
-    popperConfig: null
+    whiteList: DefaultWhitelist
   };
   var HoverState = {
     SHOW: 'show',
@@ -19841,17 +19229,22 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
     FOCUS: 'focus',
     CLICK: 'click',
     MANUAL: 'manual'
+    /**
+     * ------------------------------------------------------------------------
+     * Class Definition
+     * ------------------------------------------------------------------------
+     */
+
   };
-  /**
-   * ------------------------------------------------------------------------
-   * Class Definition
-   * ------------------------------------------------------------------------
-   */
 
   var Tooltip =
   /*#__PURE__*/
   function () {
     function Tooltip(element, config) {
+      /**
+       * Check for Popper dependency
+       * Popper - https://popper.js.org
+       */
       if (typeof Popper === 'undefined') {
         throw new TypeError('Bootstrap\'s tooltips require Popper.js (https://popper.js.org/)');
       } // private
@@ -19922,7 +19315,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
       clearTimeout(this._timeout);
       $.removeData(this.element, this.constructor.DATA_KEY);
       $(this.element).off(this.constructor.EVENT_KEY);
-      $(this.element).closest('.modal').off('hide.bs.modal', this._hideModalHandler);
+      $(this.element).closest('.modal').off('hide.bs.modal');
 
       if (this.tip) {
         $(this.tip).remove();
@@ -19933,7 +19326,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
       this._hoverState = null;
       this._activeTrigger = null;
 
-      if (this._popper) {
+      if (this._popper !== null) {
         this._popper.destroy();
       }
 
@@ -19986,7 +19379,29 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
         }
 
         $(this.element).trigger(this.constructor.Event.INSERTED);
-        this._popper = new Popper(this.element, tip, this._getPopperConfig(attachment));
+        this._popper = new Popper(this.element, tip, {
+          placement: attachment,
+          modifiers: {
+            offset: this._getOffset(),
+            flip: {
+              behavior: this.config.fallbackPlacement
+            },
+            arrow: {
+              element: Selector$6.ARROW
+            },
+            preventOverflow: {
+              boundariesElement: this.config.boundary
+            }
+          },
+          onCreate: function onCreate(data) {
+            if (data.originalPlacement !== data.placement) {
+              _this._handlePopperPlacementChange(data);
+            }
+          },
+          onUpdate: function onUpdate(data) {
+            return _this._handlePopperPlacementChange(data);
+          }
+        });
         $(tip).addClass(ClassName$6.SHOW); // If this is a touch-enabled device we add extra
         // empty mouseover listeners to the body's immediate children;
         // only needed because of broken event delegation on iOS
@@ -20134,43 +19549,14 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
     } // Private
     ;
 
-    _proto._getPopperConfig = function _getPopperConfig(attachment) {
-      var _this3 = this;
-
-      var defaultBsConfig = {
-        placement: attachment,
-        modifiers: {
-          offset: this._getOffset(),
-          flip: {
-            behavior: this.config.fallbackPlacement
-          },
-          arrow: {
-            element: Selector$6.ARROW
-          },
-          preventOverflow: {
-            boundariesElement: this.config.boundary
-          }
-        },
-        onCreate: function onCreate(data) {
-          if (data.originalPlacement !== data.placement) {
-            _this3._handlePopperPlacementChange(data);
-          }
-        },
-        onUpdate: function onUpdate(data) {
-          return _this3._handlePopperPlacementChange(data);
-        }
-      };
-      return _objectSpread2({}, defaultBsConfig, {}, this.config.popperConfig);
-    };
-
     _proto._getOffset = function _getOffset() {
-      var _this4 = this;
+      var _this3 = this;
 
       var offset = {};
 
       if (typeof this.config.offset === 'function') {
         offset.fn = function (data) {
-          data.offsets = _objectSpread2({}, data.offsets, {}, _this4.config.offset(data.offsets, _this4.element) || {});
+          data.offsets = _objectSpread({}, data.offsets, _this3.config.offset(data.offsets, _this3.element) || {});
           return data;
         };
       } else {
@@ -20197,35 +19583,32 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
     };
 
     _proto._setListeners = function _setListeners() {
-      var _this5 = this;
+      var _this4 = this;
 
       var triggers = this.config.trigger.split(' ');
       triggers.forEach(function (trigger) {
         if (trigger === 'click') {
-          $(_this5.element).on(_this5.constructor.Event.CLICK, _this5.config.selector, function (event) {
-            return _this5.toggle(event);
+          $(_this4.element).on(_this4.constructor.Event.CLICK, _this4.config.selector, function (event) {
+            return _this4.toggle(event);
           });
         } else if (trigger !== Trigger.MANUAL) {
-          var eventIn = trigger === Trigger.HOVER ? _this5.constructor.Event.MOUSEENTER : _this5.constructor.Event.FOCUSIN;
-          var eventOut = trigger === Trigger.HOVER ? _this5.constructor.Event.MOUSELEAVE : _this5.constructor.Event.FOCUSOUT;
-          $(_this5.element).on(eventIn, _this5.config.selector, function (event) {
-            return _this5._enter(event);
-          }).on(eventOut, _this5.config.selector, function (event) {
-            return _this5._leave(event);
+          var eventIn = trigger === Trigger.HOVER ? _this4.constructor.Event.MOUSEENTER : _this4.constructor.Event.FOCUSIN;
+          var eventOut = trigger === Trigger.HOVER ? _this4.constructor.Event.MOUSELEAVE : _this4.constructor.Event.FOCUSOUT;
+          $(_this4.element).on(eventIn, _this4.config.selector, function (event) {
+            return _this4._enter(event);
+          }).on(eventOut, _this4.config.selector, function (event) {
+            return _this4._leave(event);
           });
         }
       });
-
-      this._hideModalHandler = function () {
-        if (_this5.element) {
-          _this5.hide();
+      $(this.element).closest('.modal').on('hide.bs.modal', function () {
+        if (_this4.element) {
+          _this4.hide();
         }
-      };
-
-      $(this.element).closest('.modal').on('hide.bs.modal', this._hideModalHandler);
+      });
 
       if (this.config.selector) {
-        this.config = _objectSpread2({}, this.config, {
+        this.config = _objectSpread({}, this.config, {
           trigger: 'manual',
           selector: ''
         });
@@ -20325,7 +19708,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
           delete dataAttributes[dataAttr];
         }
       });
-      config = _objectSpread2({}, this.constructor.Default, {}, dataAttributes, {}, typeof config === 'object' && config ? config : {});
+      config = _objectSpread({}, this.constructor.Default, dataAttributes, typeof config === 'object' && config ? config : {});
 
       if (typeof config.delay === 'number') {
         config.delay = {
@@ -20485,21 +19868,21 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
    */
 
   var NAME$7 = 'popover';
-  var VERSION$7 = '4.4.1';
+  var VERSION$7 = '4.3.1';
   var DATA_KEY$7 = 'bs.popover';
   var EVENT_KEY$7 = "." + DATA_KEY$7;
   var JQUERY_NO_CONFLICT$7 = $.fn[NAME$7];
   var CLASS_PREFIX$1 = 'bs-popover';
   var BSCLS_PREFIX_REGEX$1 = new RegExp("(^|\\s)" + CLASS_PREFIX$1 + "\\S+", 'g');
 
-  var Default$5 = _objectSpread2({}, Tooltip.Default, {
+  var Default$5 = _objectSpread({}, Tooltip.Default, {
     placement: 'right',
     trigger: 'click',
     content: '',
     template: '<div class="popover" role="tooltip">' + '<div class="arrow"></div>' + '<h3 class="popover-header"></h3>' + '<div class="popover-body"></div></div>'
   });
 
-  var DefaultType$5 = _objectSpread2({}, Tooltip.DefaultType, {
+  var DefaultType$5 = _objectSpread({}, Tooltip.DefaultType, {
     content: '(string|element|function)'
   });
 
@@ -20522,12 +19905,13 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
     FOCUSOUT: "focusout" + EVENT_KEY$7,
     MOUSEENTER: "mouseenter" + EVENT_KEY$7,
     MOUSELEAVE: "mouseleave" + EVENT_KEY$7
+    /**
+     * ------------------------------------------------------------------------
+     * Class Definition
+     * ------------------------------------------------------------------------
+     */
+
   };
-  /**
-   * ------------------------------------------------------------------------
-   * Class Definition
-   * ------------------------------------------------------------------------
-   */
 
   var Popover =
   /*#__PURE__*/
@@ -20671,7 +20055,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
    */
 
   var NAME$8 = 'scrollspy';
-  var VERSION$8 = '4.4.1';
+  var VERSION$8 = '4.3.1';
   var DATA_KEY$8 = 'bs.scrollspy';
   var EVENT_KEY$8 = "." + DATA_KEY$8;
   var DATA_API_KEY$6 = '.data-api';
@@ -20710,12 +20094,13 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
   var OffsetMethod = {
     OFFSET: 'offset',
     POSITION: 'position'
+    /**
+     * ------------------------------------------------------------------------
+     * Class Definition
+     * ------------------------------------------------------------------------
+     */
+
   };
-  /**
-   * ------------------------------------------------------------------------
-   * Class Definition
-   * ------------------------------------------------------------------------
-   */
 
   var ScrollSpy =
   /*#__PURE__*/
@@ -20797,7 +20182,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
     ;
 
     _proto._getConfig = function _getConfig(config) {
-      config = _objectSpread2({}, Default$6, {}, typeof config === 'object' && config ? config : {});
+      config = _objectSpread({}, Default$6, typeof config === 'object' && config ? config : {});
 
       if (typeof config.target !== 'string') {
         var id = $(config.target).attr('id');
@@ -20977,7 +20362,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
    */
 
   var NAME$9 = 'tab';
-  var VERSION$9 = '4.4.1';
+  var VERSION$9 = '4.3.1';
   var DATA_KEY$9 = 'bs.tab';
   var EVENT_KEY$9 = "." + DATA_KEY$9;
   var DATA_API_KEY$7 = '.data-api';
@@ -21004,12 +20389,13 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
     DATA_TOGGLE: '[data-toggle="tab"], [data-toggle="pill"], [data-toggle="list"]',
     DROPDOWN_TOGGLE: '.dropdown-toggle',
     DROPDOWN_ACTIVE_CHILD: '> .dropdown-menu .active'
+    /**
+     * ------------------------------------------------------------------------
+     * Class Definition
+     * ------------------------------------------------------------------------
+     */
+
   };
-  /**
-   * ------------------------------------------------------------------------
-   * Class Definition
-   * ------------------------------------------------------------------------
-   */
 
   var Tab =
   /*#__PURE__*/
@@ -21211,7 +20597,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
    */
 
   var NAME$a = 'toast';
-  var VERSION$a = '4.4.1';
+  var VERSION$a = '4.3.1';
   var DATA_KEY$a = 'bs.toast';
   var EVENT_KEY$a = "." + DATA_KEY$a;
   var JQUERY_NO_CONFLICT$a = $.fn[NAME$a];
@@ -21240,12 +20626,13 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
   };
   var Selector$a = {
     DATA_DISMISS: '[data-dismiss="toast"]'
+    /**
+     * ------------------------------------------------------------------------
+     * Class Definition
+     * ------------------------------------------------------------------------
+     */
+
   };
-  /**
-   * ------------------------------------------------------------------------
-   * Class Definition
-   * ------------------------------------------------------------------------
-   */
 
   var Toast =
   /*#__PURE__*/
@@ -21265,12 +20652,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
     _proto.show = function show() {
       var _this = this;
 
-      var showEvent = $.Event(Event$a.SHOW);
-      $(this._element).trigger(showEvent);
-
-      if (showEvent.isDefaultPrevented()) {
-        return;
-      }
+      $(this._element).trigger(Event$a.SHOW);
 
       if (this._config.animation) {
         this._element.classList.add(ClassName$a.FADE);
@@ -21284,15 +20666,11 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
         $(_this._element).trigger(Event$a.SHOWN);
 
         if (_this._config.autohide) {
-          _this._timeout = setTimeout(function () {
-            _this.hide();
-          }, _this._config.delay);
+          _this.hide();
         }
       };
 
       this._element.classList.remove(ClassName$a.HIDE);
-
-      Util.reflow(this._element);
 
       this._element.classList.add(ClassName$a.SHOWING);
 
@@ -21304,19 +20682,22 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
       }
     };
 
-    _proto.hide = function hide() {
+    _proto.hide = function hide(withoutTimeout) {
+      var _this2 = this;
+
       if (!this._element.classList.contains(ClassName$a.SHOW)) {
         return;
       }
 
-      var hideEvent = $.Event(Event$a.HIDE);
-      $(this._element).trigger(hideEvent);
+      $(this._element).trigger(Event$a.HIDE);
 
-      if (hideEvent.isDefaultPrevented()) {
-        return;
+      if (withoutTimeout) {
+        this._close();
+      } else {
+        this._timeout = setTimeout(function () {
+          _this2._close();
+        }, this._config.delay);
       }
-
-      this._close();
     };
 
     _proto.dispose = function dispose() {
@@ -21335,26 +20716,26 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
     ;
 
     _proto._getConfig = function _getConfig(config) {
-      config = _objectSpread2({}, Default$7, {}, $(this._element).data(), {}, typeof config === 'object' && config ? config : {});
+      config = _objectSpread({}, Default$7, $(this._element).data(), typeof config === 'object' && config ? config : {});
       Util.typeCheckConfig(NAME$a, config, this.constructor.DefaultType);
       return config;
     };
 
     _proto._setListeners = function _setListeners() {
-      var _this2 = this;
+      var _this3 = this;
 
       $(this._element).on(Event$a.CLICK_DISMISS, Selector$a.DATA_DISMISS, function () {
-        return _this2.hide();
+        return _this3.hide(true);
       });
     };
 
     _proto._close = function _close() {
-      var _this3 = this;
+      var _this4 = this;
 
       var complete = function complete() {
-        _this3._element.classList.add(ClassName$a.HIDE);
+        _this4._element.classList.add(ClassName$a.HIDE);
 
-        $(_this3._element).trigger(Event$a.HIDDEN);
+        $(_this4._element).trigger(Event$a.HIDDEN);
       };
 
       this._element.classList.remove(ClassName$a.SHOW);
@@ -21424,6 +20805,31 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
     return Toast._jQueryInterface;
   };
 
+  /**
+   * --------------------------------------------------------------------------
+   * Bootstrap (v4.3.1): index.js
+   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+   * --------------------------------------------------------------------------
+   */
+
+  (function () {
+    if (typeof $ === 'undefined') {
+      throw new TypeError('Bootstrap\'s JavaScript requires jQuery. jQuery must be included before Bootstrap\'s JavaScript.');
+    }
+
+    var version = $.fn.jquery.split(' ')[0].split('.');
+    var minMajor = 1;
+    var ltMajor = 2;
+    var minMinor = 9;
+    var minPatch = 1;
+    var maxMajor = 4;
+
+    if (version[0] < ltMajor && version[1] < minMinor || version[0] === minMajor && version[1] === minMinor && version[2] < minPatch || version[0] >= maxMajor) {
+      throw new Error('Bootstrap\'s JavaScript requires at least jQuery v1.9.1 but less than v4.0.0');
+    }
+  })();
+
+  exports.Util = Util;
   exports.Alert = Alert;
   exports.Button = Button;
   exports.Carousel = Carousel;
@@ -21435,26 +20841,15 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
   exports.Tab = Tab;
   exports.Toast = Toast;
   exports.Tooltip = Tooltip;
-  exports.Util = Util;
 
   Object.defineProperty(exports, '__esModule', { value: true });
 
-})));
+}));
 //# sourceMappingURL=bootstrap.js.map
 
 
 /***/ }),
 
-<<<<<<< HEAD
-/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/BaseInput.vue?vue&type=style&index=0&id=f1cd7dc4&lang=scss&scoped=true&":
-/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/BaseInput.vue?vue&type=style&index=0&id=f1cd7dc4&lang=scss&scoped=true& ***!
-  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
-=======
 /***/ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-slick-carousel/dist/vue-slick-carousel-theme.css":
 /*!***********************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader??ref--6-1!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-slick-carousel/dist/vue-slick-carousel-theme.css ***!
@@ -21463,16 +20858,11 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(/*! ../../css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
->>>>>>> 814c1c857be62b152edbae31af2e3a88669cfc25
 // imports
 
 
 // module
-<<<<<<< HEAD
-exports.push([module.i, ".base-input[data-v-f1cd7dc4] {\n  width: 100%;\n  position: relative;\n}\n.base-input .left-icon[data-v-f1cd7dc4] {\n  position: absolute;\n  width: 13px;\n  height: 18px;\n  min-width: 40px;\n  font-style: normal;\n  font-weight: 900;\n  font-size: 14px;\n  line-height: 16px;\n  top: 50%;\n  left: 20px;\n  z-index: 1;\n  -webkit-transform: translate(-50%, -50%);\n          transform: translate(-50%, -50%);\n}\n.base-input .right-icon[data-v-f1cd7dc4] {\n  position: absolute;\n  width: 13px;\n  height: 18px;\n  min-width: 18px;\n  font-style: normal;\n  font-weight: 900;\n  font-size: 14px;\n  line-height: 16px;\n  top: 50%;\n  right: 0px;\n  z-index: 1;\n  -webkit-transform: translate(-50%, -50%);\n          transform: translate(-50%, -50%);\n}\n.base-input .small-input[data-v-f1cd7dc4] {\n  max-width: 100px;\n}\n.base-input .input-field[data-v-f1cd7dc4] {\n  width: 100%;\n  height: 40px;\n  padding: 12px 13px;\n  text-align: left;\n  background: #eee;\n  border: 1px solid #ccc;\n  box-sizing: border-box;\n  border-radius: 0px;\n  font-style: normal;\n  font-weight: 400;\n  font-size: 14px;\n  line-height: 21px;\n}\n.base-input .input-field.v-money[data-v-f1cd7dc4] {\n  font-family: Arial, Helvetica, sans-serif !important;\n}\n.base-input .input-field[data-v-f1cd7dc4]::-webkit-input-placeholder {\n  font-family: Poppins;\n  font-style: normal;\n  font-weight: 500;\n  font-size: 14px;\n  line-height: 21px;\n}\n.base-input .input-field[data-v-f1cd7dc4]::-moz-placeholder {\n  font-family: Poppins;\n  font-style: normal;\n  font-weight: 500;\n  font-size: 14px;\n  line-height: 21px;\n}\n.base-input .input-field[data-v-f1cd7dc4]:-ms-input-placeholder {\n  font-family: Poppins;\n  font-style: normal;\n  font-weight: 500;\n  font-size: 14px;\n  line-height: 21px;\n}\n.base-input .input-field[data-v-f1cd7dc4]::-ms-input-placeholder {\n  font-family: Poppins;\n  font-style: normal;\n  font-weight: 500;\n  font-size: 14px;\n  line-height: 21px;\n}\n.base-input .input-field[data-v-f1cd7dc4]::placeholder {\n  font-family: Poppins;\n  font-style: normal;\n  font-weight: 500;\n  font-size: 14px;\n  line-height: 21px;\n}\n.base-input .input-field[data-v-f1cd7dc4]:focus {\n  border: 1px solid #817AE3;\n}\n.base-input .input-field.invalid[data-v-f1cd7dc4] {\n  border: 1px solid #FB7178 !important;\n}\n.base-input .input-field-left-icon[data-v-f1cd7dc4] {\n  padding-left: 35px;\n}\n.base-input .input-field-right-icon[data-v-f1cd7dc4] {\n  padding-right: 35px;\n}", ""]);
-=======
 exports.push([module.i, "@charset 'UTF-8';\n/* Icons */\n@font-face {\n  font-family: 'slick';\n  src: url(data:application/font-woff;charset=utf-8;base64,d09GRgABAAAAAATsAA0AAAAAB2wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGRlRNAAAE0AAAABoAAAAcdIcYB0dERUYAAAS0AAAAHAAAAB4AJwANT1MvMgAAAZwAAABRAAAAYFAQ/45jbWFwAAACAAAAAFcAAAFiIhFFt2dhc3AAAASsAAAACAAAAAj//wADZ2x5ZgAAAmgAAAE1AAACLD+btmBoZWFkAAABMAAAAC8AAAA2AAEx+2hoZWEAAAFgAAAAHAAAACQD5QIFaG10eAAAAfAAAAAQAAAAFgZKAEpsb2NhAAACWAAAABAAAAAQATYBoG1heHAAAAF8AAAAHQAAACAASwBHbmFtZQAAA6AAAADcAAABbgUngcJwb3N0AAAEfAAAAC4AAABFOXjBpHjaY2BkYGAA4vMGfuHx/DZfGbiZGEDgfGFFPZxWZVBlvM14G8jlYABLAwAT1QnNAHjaY2BkYGC8zcDAoMfEAAJANiMDKmABADBkAe942mNgZGBgYGdwYWBiAAEQycgAEnMA8xkACcgAkwAAAHjaY2BmYmCcwMDKwMDow5jGwMDgDqW/MkgytDAwMDGwcjKAQQNQCZBSYICCgDTXFAYHhkTFSYwP/j9g0GO8/f82A0QNA+NtsBIFBkYANHMN4wAAAHjaY2KAACYIVoVAAALCAJt42mNgYGBmgGAZBkYGEIgB8hjBfBYGByDNw8DBwARkMzAkKigpTlCc9P8/WB0S7/+i+4/uld4rgZoAB4xsDHAhRiYgwcSApoCBcsBMBTNYGGgGAEdEDyUAAAAAAAAAAAAAZgCKANABFnjadZBdToNAEMd3CrtAl5TQLtS0LCoN0A8SGkBI+mAfPET75B1896HppfQcvnII4w3cLYpW6k4ymdn9z8xvBwEKUQg11OgBIXAYWUEQR1uIZoFGpLGxKy3PqrIq8+waXIfJ+5mQSSvkvXwRqqocu1D39QMl2JgvN9zzhsyk1GRDz+OBfzMioCqx0rtdLYo0SiZTZttsOkmidBkveKibFF4Oep9SI46bqk3Twhp4iihUemrMWFPy2NRbthfqKkHi/PxlJLITZdAiSj6ouZ+tn9eZz78DuD9LZYB6bZ8rlCAUVuVdkULjxV4sIEysIc/KSyPmnJDdjhCOdQ0fCTliTX/tjH3ysWao+71qaNjHQjcQwrcuyl+WLZQthCMotJP/h+Xjazz+hfTeRWmG4zOiSyif/q1OtAAAAHjabY49asNAEIU/2ZJDfkiRIvXapUFCEqpcptABUrg3ZhEiQoKVfY9UqVLlGDlADpAT5e16IUWysMz3hjfzBrjjjQT/EjKpCy+4YhN5yZoxcirPe+SMWz4jr6S+5UzSa3VuwpTnBfc8RF7yxDZyKs9r5IxHPiKv1P9iZqDnyAvMQ39UecbScVb/gJO03Xk4CFom3XYK1clhMdQUlKo7/d9NF13RkIdfy+MV7TSe2sl11tRFaXYmJKpWTd7kdVnJ8veevZKc+n3I93t9Jnvr5n4aTVWU/0z9AI2qMkV42mNgYkAGjAzogB0sysTgwtDOyMTIzJlYVJRfnpOaVsIFZhVlpmeUAABuKQkSAAAAAAAB//8AAnjaY2BkYGDgAWIxIGZiYARCNiBmAfMYAAPgADV42mNgYGBkAIKrS9Q5QPT5wop6GA0APf8GGAAA)\n    format('woff');\n}\n/* Arrows */\n.slick-prev,\n.slick-next {\n  font-size: 0;\n  line-height: 0;\n\n  position: absolute;\n  top: 50%;\n\n  display: block;\n\n  width: 20px;\n  height: 20px;\n  padding: 0;\n  -webkit-transform: translate(0, -50%);\n  transform: translate(0, -50%);\n\n  cursor: pointer;\n\n  color: transparent;\n  border: none;\n  outline: none;\n  background: transparent;\n}\n.slick-prev:hover,\n.slick-prev:focus,\n.slick-next:hover,\n.slick-next:focus {\n  color: transparent;\n  outline: none;\n  background: transparent;\n}\n.slick-prev:hover:before,\n.slick-prev:focus:before,\n.slick-next:hover:before,\n.slick-next:focus:before {\n  opacity: 1;\n}\n.slick-prev.slick-disabled:before,\n.slick-next.slick-disabled:before {\n  opacity: 0.25;\n}\n\n.slick-prev:before,\n.slick-next:before {\n  font-family: 'slick';\n  font-size: 20px;\n  line-height: 1;\n\n  opacity: 0.75;\n  color: white;\n\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n\n.slick-prev {\n  left: -25px;\n}\n[dir='rtl'] .slick-prev {\n  right: -25px;\n  left: auto;\n}\n.slick-prev:before {\n  content: '\\2190';\n}\n[dir='rtl'] .slick-prev:before {\n  content: '\\2192';\n}\n\n.slick-next {\n  right: -25px;\n}\n[dir='rtl'] .slick-next {\n  right: auto;\n  left: -25px;\n}\n.slick-next:before {\n  content: '\\2192';\n}\n[dir='rtl'] .slick-next:before {\n  content: '\\2190';\n}\n\n/* Dots */\n.slick-dotted.slick-slider {\n  margin-bottom: 30px;\n}\n\n.slick-dots {\n  position: absolute;\n  bottom: -25px;\n\n  display: block;\n\n  width: 100%;\n  padding: 0;\n  margin: 0;\n\n  list-style: none;\n\n  text-align: center;\n}\n.slick-dots li {\n  position: relative;\n\n  display: inline-block;\n\n  width: 20px;\n  height: 20px;\n  margin: 0 5px;\n  padding: 0;\n\n  cursor: pointer;\n}\n.slick-dots li button {\n  font-size: 0;\n  line-height: 0;\n\n  display: block;\n\n  width: 20px;\n  height: 20px;\n  padding: 5px;\n\n  cursor: pointer;\n\n  color: transparent;\n  border: 0;\n  outline: none;\n  background: transparent;\n}\n.slick-dots li button:hover,\n.slick-dots li button:focus {\n  outline: none;\n}\n.slick-dots li button:hover:before,\n.slick-dots li button:focus:before {\n  opacity: 1;\n}\n.slick-dots li button:before {\n  font-family: 'slick';\n  font-size: 6px;\n  line-height: 20px;\n\n  position: absolute;\n  top: 0;\n  left: 0;\n\n  width: 20px;\n  height: 20px;\n\n  content: '\\2022';\n  text-align: center;\n\n  opacity: 0.25;\n  color: black;\n\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n.slick-dots li.slick-active button:before {\n  opacity: 0.75;\n  color: black;\n}\n", ""]);
->>>>>>> 814c1c857be62b152edbae31af2e3a88669cfc25
 
 // exports
 
@@ -21510,7 +20900,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.overlay[data-v-28d285a1] {\n    height: 100%;\n    width: 100%;\n    background: rgba(255,255,255,0.4);\n    position: absolute;\n    top: 7%;\n    left: 13%;\n}\n", ""]);
+exports.push([module.i, "\n.overlay[data-v-28d285a1] {\r\n    height: 100%;\r\n    width: 100%;\r\n    background: rgba(255,255,255,0.4);\r\n    position: absolute;\r\n    top: 7%;\r\n    left: 13%;\n}\r\n", ""]);
 
 // exports
 
@@ -21529,7 +20919,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* .switch-label {\n  margin-bottom: 3px !important\n} */\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* .switch-label {\r\n  margin-bottom: 3px !important\r\n} */\r\n", ""]);
 
 // exports
 
@@ -21548,7 +20938,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.fade-enter-active, .fade-leave-active {\n  -webkit-transition: opacity .5s;\n  transition: opacity .5s;\n}\n.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {\n  opacity: 0;\n}\n", ""]);
+exports.push([module.i, "\n.fade-enter-active, .fade-leave-active {\r\n  -webkit-transition: opacity .5s;\r\n  transition: opacity .5s;\n}\n.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {\r\n  opacity: 0;\n}\r\n", ""]);
 
 // exports
 
@@ -53378,107 +52768,10 @@ try {
 
 /***/ }),
 
-<<<<<<< HEAD
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/BaseInput.vue?vue&type=style&index=0&id=f1cd7dc4&lang=scss&scoped=true&":
-/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/BaseInput.vue?vue&type=style&index=0&id=f1cd7dc4&lang=scss&scoped=true& ***!
-  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-var content = __webpack_require__(/*! !../../../node_modules/css-loader!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--7-2!../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../node_modules/vue-loader/lib??vue-loader-options!./BaseInput.vue?vue&type=style&index=0&id=f1cd7dc4&lang=scss&scoped=true& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/BaseInput.vue?vue&type=style&index=0&id=f1cd7dc4&lang=scss&scoped=true&");
-
-if(typeof content === 'string') content = [[module.i, content, '']];
-
-var transform;
-var insertInto;
-
-
-
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {}
-
-/***/ }),
-
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Carousel.vue?vue&type=style&index=0&id=fe98726a&scoped=true&lang=css&":
-/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Carousel.vue?vue&type=style&index=0&id=fe98726a&scoped=true&lang=css& ***!
-  \******************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./Carousel.vue?vue&type=style&index=0&id=fe98726a&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Carousel.vue?vue&type=style&index=0&id=fe98726a&scoped=true&lang=css&");
-
-if(typeof content === 'string') content = [[module.i, content, '']];
-
-var transform;
-var insertInto;
-
-
-
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {}
-
-/***/ }),
-
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CategoryFilter.vue?vue&type=style&index=0&id=d0dca37e&scoped=true&lang=css&":
-/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CategoryFilter.vue?vue&type=style&index=0&id=d0dca37e&scoped=true&lang=css& ***!
-  \************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./CategoryFilter.vue?vue&type=style&index=0&id=d0dca37e&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CategoryFilter.vue?vue&type=style&index=0&id=d0dca37e&scoped=true&lang=css&");
-
-if(typeof content === 'string') content = [[module.i, content, '']];
-
-var transform;
-var insertInto;
-
-
-
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {}
-
-/***/ }),
-
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DashboardPostContainer.vue?vue&type=style&index=0&id=509b9190&scoped=true&lang=css&":
-/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/DashboardPostContainer.vue?vue&type=style&index=0&id=509b9190&scoped=true&lang=css& ***!
-  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-=======
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components2/base/BaseLoader.vue?vue&type=style&index=0&id=28d285a1&scoped=true&lang=css&":
 /*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components2/base/BaseLoader.vue?vue&type=style&index=0&id=28d285a1&scoped=true&lang=css& ***!
   \**************************************************************************************************************************************************************************************************************************************************************************************************************************************/
->>>>>>> 66344dba7e15b8419a1f42e6508668e59c98dca5
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -67465,12 +66758,6 @@ var index = {
 
 /***/ }),
 
-<<<<<<< HEAD
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/BaseInput.vue?vue&type=template&id=f1cd7dc4&scoped=true&":
-/*!************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/BaseInput.vue?vue&type=template&id=f1cd7dc4&scoped=true& ***!
-  \************************************************************************************************************************************************************************************************************************/
-=======
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components2/base/BaseButton.vue?vue&type=template&id=2c80d540&":
 /*!*******************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components2/base/BaseButton.vue?vue&type=template&id=2c80d540& ***!
@@ -67590,7 +66877,6 @@ render._withStripped = true
 /*!******************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components2/base/BaseInput.vue?vue&type=template&id=76f0ca2c& ***!
   \******************************************************************************************************************************************************************************************************************/
->>>>>>> 66344dba7e15b8419a1f42e6508668e59c98dca5
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -67624,11 +66910,7 @@ var render = function() {
               }
             ],
             ref: "baseInput",
-<<<<<<< HEAD
-            staticClass: "form-control input-field",
-=======
             staticClass: "input-field",
->>>>>>> 66344dba7e15b8419a1f42e6508668e59c98dca5
             class: [
               {
                 "input-field-left-icon": _vm.icon && _vm.isAlignLeftIcon,
@@ -67695,11 +66977,7 @@ var render = function() {
               }
             ],
             ref: "baseInput",
-<<<<<<< HEAD
-            staticClass: "form-control input-field",
-=======
             staticClass: "input-field",
->>>>>>> 66344dba7e15b8419a1f42e6508668e59c98dca5
             class: [
               {
                 "input-field-left-icon": _vm.icon && _vm.isAlignLeftIcon,
@@ -67745,11 +67023,7 @@ var render = function() {
               }
             ],
             ref: "baseInput",
-<<<<<<< HEAD
-            staticClass: "form-control input-field",
-=======
             staticClass: "input-field",
->>>>>>> 66344dba7e15b8419a1f42e6508668e59c98dca5
             class: [
               {
                 "input-field-left-icon": _vm.icon && _vm.isAlignLeftIcon,
@@ -100511,21 +99785,6 @@ var flow = function flow() {
       type: String
     },
 
-<<<<<<< HEAD
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-<<<<<<< HEAD
-/* harmony import */ var _BaseInput_vue_vue_type_template_id_f1cd7dc4_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BaseInput.vue?vue&type=template&id=f1cd7dc4&scoped=true& */ "./resources/js/components/BaseInput.vue?vue&type=template&id=f1cd7dc4&scoped=true&");
-/* harmony import */ var _BaseInput_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BaseInput.vue?vue&type=script&lang=js& */ "./resources/js/components/BaseInput.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _BaseInput_vue_vue_type_style_index_0_id_f1cd7dc4_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./BaseInput.vue?vue&type=style&index=0&id=f1cd7dc4&lang=scss&scoped=true& */ "./resources/js/components/BaseInput.vue?vue&type=style&index=0&id=f1cd7dc4&lang=scss&scoped=true&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-=======
-/* harmony import */ var _RecentPost_vue_vue_type_template_id_498f14c6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RecentPost.vue?vue&type=template&id=498f14c6& */ "./resources/js/components/RecentPost.vue?vue&type=template&id=498f14c6&");
-/* harmony import */ var _RecentPost_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RecentPost.vue?vue&type=script&lang=js& */ "./resources/js/components/RecentPost.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
->>>>>>> 814c1c857be62b152edbae31af2e3a88669cfc25
-=======
     /**
      * Name of the property containing
      * the group label
@@ -100535,7 +99794,6 @@ __webpack_require__.r(__webpack_exports__);
     groupLabel: {
       type: String
     },
->>>>>>> 66344dba7e15b8419a1f42e6508668e59c98dca5
 
     /**
      * Allow to select all group values
@@ -100591,25 +99849,6 @@ __webpack_require__.r(__webpack_exports__);
       this.select(this.filteredOptions[0]);
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _BaseInput_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _BaseInput_vue_vue_type_template_id_f1cd7dc4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _BaseInput_vue_vue_type_template_id_f1cd7dc4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-=======
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _RecentPost_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _RecentPost_vue_vue_type_template_id_498f14c6___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _RecentPost_vue_vue_type_template_id_498f14c6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
->>>>>>> 814c1c857be62b152edbae31af2e3a88669cfc25
-  false,
-  null,
-  "f1cd7dc4",
-  null
-  
-)
-=======
     if (this.initialSearch) {
       this.search = this.initialSearch;
     }
@@ -100623,7 +99862,6 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
       var normalizedSearch = search.toLowerCase().trim();
       var options = this.options.concat();
       /* istanbul ignore else */
->>>>>>> 66344dba7e15b8419a1f42e6508668e59c98dca5
 
       if (this.internalSearch) {
         options = this.groupValues ? this.filterAndFlat(options, normalizedSearch, this.label) : filterOptions(options, normalizedSearch, this.label, this.customLabel);
@@ -100664,51 +99902,6 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
     optionKeys: function optionKeys() {
       var _this2 = this;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-/***/ "./resources/js/components/BaseInput.vue?vue&type=style&index=0&id=f1cd7dc4&lang=scss&scoped=true&":
-/*!*********************************************************************************************************!*\
-  !*** ./resources/js/components/BaseInput.vue?vue&type=style&index=0&id=f1cd7dc4&lang=scss&scoped=true& ***!
-  \*********************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_BaseInput_vue_vue_type_style_index_0_id_f1cd7dc4_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--7-2!../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../node_modules/vue-loader/lib??vue-loader-options!./BaseInput.vue?vue&type=style&index=0&id=f1cd7dc4&lang=scss&scoped=true& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/BaseInput.vue?vue&type=style&index=0&id=f1cd7dc4&lang=scss&scoped=true&");
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_BaseInput_vue_vue_type_style_index_0_id_f1cd7dc4_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_BaseInput_vue_vue_type_style_index_0_id_f1cd7dc4_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_BaseInput_vue_vue_type_style_index_0_id_f1cd7dc4_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_BaseInput_vue_vue_type_style_index_0_id_f1cd7dc4_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_BaseInput_vue_vue_type_style_index_0_id_f1cd7dc4_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0___default.a); 
-
-/***/ }),
-
-/***/ "./resources/js/components/BaseInput.vue?vue&type=template&id=f1cd7dc4&scoped=true&":
-/*!******************************************************************************************!*\
-  !*** ./resources/js/components/BaseInput.vue?vue&type=template&id=f1cd7dc4&scoped=true& ***!
-  \******************************************************************************************/
-=======
-/***/ "./resources/js/components/RecentPost.vue?vue&type=template&id=498f14c6&":
-/*!*******************************************************************************!*\
-  !*** ./resources/js/components/RecentPost.vue?vue&type=template&id=498f14c6& ***!
-  \*******************************************************************************/
->>>>>>> 814c1c857be62b152edbae31af2e3a88669cfc25
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-<<<<<<< HEAD
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BaseInput_vue_vue_type_template_id_f1cd7dc4_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./BaseInput.vue?vue&type=template&id=f1cd7dc4&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/BaseInput.vue?vue&type=template&id=f1cd7dc4&scoped=true&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BaseInput_vue_vue_type_template_id_f1cd7dc4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BaseInput_vue_vue_type_template_id_f1cd7dc4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-=======
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RecentPost_vue_vue_type_template_id_498f14c6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./RecentPost.vue?vue&type=template&id=498f14c6& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/RecentPost.vue?vue&type=template&id=498f14c6&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RecentPost_vue_vue_type_template_id_498f14c6___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RecentPost_vue_vue_type_template_id_498f14c6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
->>>>>>> 814c1c857be62b152edbae31af2e3a88669cfc25
-=======
       var options = this.groupValues ? this.flatAndStrip(this.options) : this.options;
       return options.map(function (element) {
         return _this2.customLabel(element, _this2.label).toString().toLowerCase();
@@ -100756,7 +99949,6 @@ __webpack_require__.r(__webpack_exports__);
     flatAndStrip: function flatAndStrip(options) {
       return flow(flattenOptions(this.groupValues, this.groupLabel), stripGroups)(options);
     },
->>>>>>> 66344dba7e15b8419a1f42e6508668e59c98dca5
 
     /**
      * Updates the search value
@@ -103427,8 +102619,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\studentshub\resources\js\app\guest\app.js */"./resources/js/app/guest/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\studentshub\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\xampp\htdocs\studentshub\resources\js\app\guest\app.js */"./resources/js/app/guest/app.js");
+module.exports = __webpack_require__(/*! E:\xampp\htdocs\studentshub\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
