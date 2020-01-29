@@ -72,8 +72,8 @@ class StudentController extends Controller
         $user->student_activated_at=date('Y-m-d');
         $user->save();
 
-        $student->prefferred_batch=$batch->id;
-        $student->prefferred_category=$course->category_id;
+        // $student->prefferred_batch=$batch->id;
+        // $student->prefferred_category=$course->category_id;
         $student->save();
 
         // Notification::send($batch->users(), new BatchNewUserNotification($batch));
@@ -82,6 +82,7 @@ class StudentController extends Controller
     DB::commit();
     } catch (\Exception $e) {
         DB::rollback();
+        dd($e->getMessage());
         Log::critical('Student Registeration failure: for user id#'.$user->id.' with data '.implode(', ',Arr::flatten($data)));
         // dd($e->getMessage(),$e->getLine());
         return response()->$e;

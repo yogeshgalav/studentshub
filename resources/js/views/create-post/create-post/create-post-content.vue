@@ -11,6 +11,12 @@
         <div v-if="postType==='document'">
             <document/>
 </div>
+        <div v-if="postType==='fact'">
+            <fact/>
+</div>
+        <div v-if="postType==='mcq'">
+            <mcq/>
+</div>
         <div v-if="postType==='video'">
             <div class="row">
                 <div class="col-md-8">
@@ -35,10 +41,12 @@ import { ImageDrop } from 'quill-image-drop-module';
 Quill.register("modules/imageDrop", ImageDrop);
 Quill.register("modules/imageResize", ImageResize);
 import Document from './post-type/document';
+import Fact from './post-type/fact';
+import MCQ from './post-type/mcq';
 import EventBus from '../event-bus';
 export default {
     components:{
-        VueEditor,Document
+        VueEditor,Document,Fact,MCQ
     },
     data(){
         return{

@@ -50,19 +50,25 @@ class PostController extends Controller
             case 'notice':
             break;
             case 'document':
-                foreach($request->files as $file){
+                $document=Document::create([
+                    'post_id'=>$post->id,
+                    'total_files'=>1,
+                ]);
+                $newPost=$request->newPost;
+                foreach($newPost->files as $file){
                     if($file->fileObject===true){
-                        Document::create([
-                            'post_id'=>$post->id,
-                            'ext'=>$file->type,
-                            'total_files'=>1,
-                            'size'=>$file->size,
-                        ]);
+                        $newFile= new File();
+                // $filename = Str::slug($conversationInstance->title).'-commitment-instruction-'.Carbon::now()->toDateString().'.pdf';
+                // $file = Storage::disk('local')->put($filename);
+                        $newFile->fileable_id=$document->id;
+                        $newFile->fileable_type='App\Document';
+                        $newFile->file_ext=$file->type;
+                        $newFile->file_size=$file->size;
+                        $newFile->file_name=$file->name;
+                        $newFile->user_id=Auth::user()->id;
                     }
                 
                 }
-                // $filename = Str::slug($conversationInstance->title).'-commitment-instruction-'.Carbon::now()->toDateString().'.pdf';
-                // $file = Storage::disk('local')->put($filename);
             break;
             case 'video':
             $str=$postContent['link'].'&';
