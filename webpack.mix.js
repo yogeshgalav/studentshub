@@ -11,8 +11,8 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/guest/app.js', 'public/js/app.js')
-.js('resources/js/seeker/app.js', 'public/js/seekerApp.js')
-.js('resources/js/student/app.js', 'public/js/studentApp.js')
-.js('resources/js/student-register/app.js', 'public/js/studentRegisterApp.js')
+mix.js('resources/js/app/guest/app.js', 'public/js/app.js')
+.js('resources/js/app/seeker/app.js', 'public/js/seekerApp.js')
+.js('resources/js/app/student/app.js', 'public/js/studentApp.js')
+.js('resources/js/app/student-register/app.js', 'public/js/studentRegisterApp.js')
     .sass('resources/sass/app.scss', 'public/css') ;
