@@ -306,9 +306,12 @@
                                         </div>
                                 </div>
                                 <div class="dropdown-divider"></div>
-                          {{-- <a class="dropdown-item" href="#">Action</a>
-                          <a class="dropdown-item" href="#">Another action</a>
-                          <a class="dropdown-item" href="#">Something else here</a> --}}
+                        <a class="dropdown-item" href="#">Profile</a>
+                          <a class="dropdown-item" href="#">Account Settings</a>
+						  @foreach($notifications as $notification)
+                          <a class="dropdown-item" href="#">{{ trans($notification->text)}}</a>
+						  @endforeach
+						  {{--  <a class="dropdown-item" href="#">Something else here</a> --}}
                           <a href="/logout" class="center-block ml-5 mt-1 btn btn-sm btn-default">Logout</a>
                         </div>
                       </div>

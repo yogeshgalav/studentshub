@@ -4,24 +4,29 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use App\Models\NotificationText;
 
 class PagesController extends Controller
 {
     public $AuthUserType='guest';
+    public $notifications;
     public function __construct()
     {
         $AuthUser=Auth::user();
             if($AuthUser==null){
                 $this->AuthUserType='guest';   
             }else if($AuthUser->student()->count()>0){
-                $this->AuthUserType='student';   
+                $this->AuthUserType='student';
+                $this->notifications=$AuthUser->notifications()->get()->each(function($notification){
+                    $notification->text=NotificationText::where('notification_type',$notification->type)->first()->notification_text;
+                });   
             }else{
                 $this->AuthUserType='seeker';   
             }
     }
     public function  root(){
         if(Auth::check()){
-            return view($this->AuthUserType.'.home');
+            return view($this->AuthUserType.'.home')->with('notifications',$this->notifications);
         }else{
             return view('guest.welcome');
         }
