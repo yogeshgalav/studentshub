@@ -14556,18 +14556,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -68839,79 +68827,53 @@ var render = function() {
                         ])
                       ]),
                       _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "form-group" },
-                        [
-                          _c("label", [
-                            _vm._v(" " + _vm._s(_vm.trans("Full Name")) + " ")
-                          ]),
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", [
+                          _vm._v(" " + _vm._s(_vm.trans("Full Name")) + " ")
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "inner-addon left-addon" }, [
+                          _c("i", { staticClass: "fa fa-user" }),
                           _vm._v(" "),
-                          _c("base-input", {
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "validate",
+                                rawName: "v-validate",
+                                value: "required",
+                                expression: "'required'"
+                              },
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.full_name,
+                                expression: "full_name"
+                              }
+                            ],
+                            staticClass: "form-control",
                             attrs: {
-                              invalid: _vm.formErrors("full_name")
-                                ? true
-                                : false,
-                              focus: "",
+                              id: "full_name",
                               type: "text",
                               name: "full_name",
-                              "tab-index": "1",
-                              icon: "user",
-                              "align-icon": "left"
+                              placeholder: "Enter Full Name",
+                              autofocus: ""
                             },
-                            model: {
-                              value: _vm.full_name,
-                              callback: function($$v) {
-                                _vm.full_name = $$v
-                              },
-                              expression: "full_name"
+                            domProps: { value: _vm.full_name },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.full_name = $event.target.value
+                              }
                             }
                           }),
                           _vm._v(" "),
-                          _c("div", { staticClass: "inner-addon left-addon" }, [
-                            _c("i", { staticClass: "fa fa-user" }),
-                            _vm._v(" "),
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "validate",
-                                  rawName: "v-validate",
-                                  value: "required",
-                                  expression: "'required'"
-                                },
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.full_name,
-                                  expression: "full_name"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              attrs: {
-                                id: "full_name",
-                                type: "text",
-                                name: "full_name",
-                                placeholder: "Enter Full Name",
-                                autofocus: ""
-                              },
-                              domProps: { value: _vm.full_name },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.full_name = $event.target.value
-                                }
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("span", { staticClass: "error" }, [
-                              _vm._v(_vm._s(_vm.errors.first("full_name")))
-                            ])
+                          _c("span", { staticClass: "error" }, [
+                            _vm._v(_vm._s(_vm.errors.first("full_name")))
                           ])
-                        ],
-                        1
-                      ),
+                        ])
+                      ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group" }, [
                         _c("label", { attrs: { for: "email" } }, [

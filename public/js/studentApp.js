@@ -15279,20 +15279,44 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
-    'primary_subject_list': function primary_subject_list(state) {
-      return state.new_post.primary_subject_list;
+    'categories': function categories(state) {
+      return state.categories;
     },
-    'subject_list': function subject_list(state) {
-      return state.new_post.subject_list;
+    'AuthUserCategory': function AuthUserCategory(state) {
+      return state.AuthUserCategory;
     },
     'selected_subject': function selected_subject(state) {
       return state.new_post.selected_subject;
     }
   })),
+  data: function data() {
+    return {
+      selected_category: ''
+    };
+  },
   mounted: function mounted() {
     var _this = this;
 
@@ -105454,9 +105478,7 @@ var render = function() {
                       attrs: { "aria-hidden": "true" }
                     }),
                     _vm._v(
-                      "\n          " +
-                        _vm._s(_vm.trans("common-buttons.back")) +
-                        "\n        "
+                      "\n          " + _vm._s(_vm.trans("back")) + "\n        "
                     )
                   ]
                 )
@@ -105962,7 +105984,47 @@ var render = function() {
             on: { input: _vm.editSubject }
           })
         ])
-      ])
+      ]),
+      _vm._v(" "),
+      _vm.AuthUserCategory
+        ? _c("div", { staticClass: "form-group" }, [
+            _c("label", [_vm._v(" " + _vm._s("Category/Course Type") + " ")]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "inner-addon left-addon" },
+              [
+                _c("i", { staticClass: "fa fa-user" }),
+                _vm._v(" "),
+                _c("base-select", {
+                  ref: "baseSelect",
+                  staticClass: "multi-select-item",
+                  attrs: {
+                    value: "AuthUserCategory",
+                    options: _vm.categories,
+                    "options-limit": 10,
+                    "show-labels": false,
+                    "preserve-search": false,
+                    placeholder: "select category",
+                    label: "name"
+                  },
+                  model: {
+                    value: _vm.selected_category,
+                    callback: function($$v) {
+                      _vm.selected_category = $$v
+                    },
+                    expression: "selected_category"
+                  }
+                }),
+                _vm._v(" "),
+                _c("span", { staticClass: "error" }, [
+                  _vm._v(_vm._s(_vm.errors.first("institute_name")))
+                ])
+              ],
+              1
+            )
+          ])
+        : _vm._e()
     ])
   ])
 }
@@ -139526,8 +139588,10 @@ __webpack_require__.r(__webpack_exports__);
         url: window.App.baseUrl + '/api/get-categories',
         method: 'GET'
       }).then(function (resp) {
-        var categories = resp.data.success.categories;
-        commit('get_categories', categories);
+        var data = {};
+        data['categories'] = resp.data.success.categories;
+        data['AuthUserCategory'] = resp.data.success.AuthUserCategory;
+        commit('get_categories', data);
         resolve(resp);
       })["catch"](function (err) {
         reject(err);
@@ -139681,9 +139745,10 @@ __webpack_require__.r(__webpack_exports__);
   get_posts: function get_posts(state, posts) {
     state.dashboardPosts = posts;
   },
-  get_categories: function get_categories(state, categories) {
-    state.categories = categories;
-    state.new_post.subject_list = categories;
+  get_categories: function get_categories(state, data) {
+    state.categories = data.categories;
+    state.AuthUserCategory = data.AuthUserCategory;
+    state.new_post.subject_list = data.categories;
   },
   get_subjects: function get_subjects(state, subjects) {
     state.subjects = subjects;
@@ -139737,6 +139802,7 @@ var state = {
     primary_subject_list: []
   },
   categories: [],
+  AuthUserCategory: 0,
   subjects: [],
   files: [],
   dashboardPosts: [],

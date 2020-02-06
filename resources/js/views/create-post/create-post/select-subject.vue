@@ -9,6 +9,25 @@
                         <input type="text" :value="selected_subject.Subject_name" @input="editSubject" class="form-control">
                     </div>
                 </div>
+                <div class="form-group" v-if="AuthUserCategory">
+                    <label> {{ 'Category/Course Type' }} </label>
+                  <div class="inner-addon left-addon">
+                    <i class="fa fa-user"></i>
+                    <base-select
+                    ref="baseSelect"
+                    v-model="selected_category"
+                    value="AuthUserCategory"
+                    :options="categories"
+                    :options-limit="10"
+                    :show-labels="false"
+                    :preserve-search="false"
+                    :placeholder="'select category'"
+                    label="name"
+                    class="multi-select-item"
+                    />
+                    <span class="error">{{errors.first('institute_name')}}</span>
+                  </div>
+                </div>
             </div>
         </div>
    
@@ -19,10 +38,15 @@ import EventBus from '../event-bus';
 export default {
     computed:{
 		...mapState({
-			'primary_subject_list': state=>state.new_post.primary_subject_list,
-			'subject_list': state=>state.new_post.subject_list,
+			'categories': state=>state.categories,
+			'AuthUserCategory': state=>state.AuthUserCategory,
 			'selected_subject': state=>state.new_post.selected_subject,
-		}),
+        }),
+    },
+    data(){
+        return {
+            selected_category:'',
+        };
     },
     mounted(){
         EventBus.$on('validateStep3',()=>{

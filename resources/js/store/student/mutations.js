@@ -29,9 +29,10 @@ export default {
     get_posts(state,posts){
       state.dashboardPosts = posts;
     },
-    get_categories(state,categories){
-      state.categories = categories;
-      state.new_post.subject_list=categories;
+    get_categories(state,data){
+      state.categories = data.categories;
+      state.AuthUserCategory = data.AuthUserCategory;
+      state.new_post.subject_list=data.categories;
     },
     get_subjects(state,subjects){
       state.subjects = subjects;

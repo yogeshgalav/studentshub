@@ -13,6 +13,7 @@ const state = {
       primary_subject_list:[],
     },
     categories: [],
+    AuthUserCategory: 0,
     subjects: [],
     files: [],
     dashboardPosts: [],
