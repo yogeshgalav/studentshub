@@ -15068,6 +15068,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
  // optional style for arrows & dots
 
@@ -15086,6 +15096,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       slickOptions: {
         adaptiveHeight: false,
         dots: true,
+        dotsClass: "slick-dots",
         arrows: false,
         infinite: true,
         speed: 500,
@@ -21125,7 +21136,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.slick-slide[data-v-1232bc8c] {\n    margin: 0 5px;\n}\n.pt-80[data-v-1232bc8c]\n  {\n    padding-top:80px;\n}\n  /* the parent */\n.slick-list[data-v-1232bc8c] {\n    margin: 0 -5px;\n}\n.slick-dots[data-v-1232bc8c] {\n  display:-webkit-box;\n  display:flex;\n  -webkit-box-pack: center;\n          justify-content: center;\n}\n", ""]);
+exports.push([module.i, "\n.slick-slide[data-v-1232bc8c] {\n    margin: 0 5px;\n}\n.pt-80[data-v-1232bc8c]\n  {\n    padding-top:80px;\n}\n  /* the parent */\n.slick-list[data-v-1232bc8c] {\n    margin: 0 -5px;\n}\n.slick-dots[data-v-1232bc8c] {\n  display:-webkit-box;\n  display:flex;\n  -webkit-box-pack: left;\n          justify-content: left;\n}\n", ""]);
 
 // exports
 
@@ -69340,7 +69351,42 @@ var render = function() {
     [
       _c(
         "VueSlickCarousel",
-        _vm._b({ ref: "slick" }, "VueSlickCarousel", _vm.slickOptions, false),
+        _vm._b(
+          {
+            ref: "slick",
+            scopedSlots: _vm._u([
+              {
+                key: "prevArrow",
+                fn: function(arrowOption) {
+                  return [
+                    _c("div", { staticClass: "custom-arrow" }, [
+                      _vm._v(
+                        "\n      " +
+                          _vm._s(arrowOption.currentSlide) +
+                          "/" +
+                          _vm._s(arrowOption.slideCount) +
+                          "\n    "
+                      )
+                    ])
+                  ]
+                }
+              },
+              {
+                key: "customPaging",
+                fn: function(page) {
+                  return [
+                    _c("div", { staticClass: "text-left" }, [
+                      _vm._v("\n      " + _vm._s(page) + "\n    ")
+                    ])
+                  ]
+                }
+              }
+            ])
+          },
+          "VueSlickCarousel",
+          _vm.slickOptions,
+          false
+        ),
         [
           _c("a", { staticClass: "btn btn-white", attrs: { href: "#" } }, [
             _c("img", {
@@ -69949,6 +69995,8 @@ var render = function() {
     "main",
     [
       _c("explore-carousal-post"),
+      _vm._v(" "),
+      _c("br"),
       _vm._v(" "),
       _c("category-filter", { attrs: { categories: _vm.categories } }),
       _vm._v(" "),
