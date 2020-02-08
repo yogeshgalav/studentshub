@@ -16005,24 +16005,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      question: '',
-      questionlist: ''
+      new_doubt: '',
+      new_doubt_type: 'batch',
+      doubtList: []
     };
   },
   mounted: function mounted() {
     var _this = this;
 
-    axios.get("api/get-question/").then(function (response) {
-      _this.questionlist = response.data.questions;
+    axios.get("api/get-doubts/").then(function (response) {
+      _this.doubtList = response.data.doubtList;
     });
   },
   methods: {
-    addQuestion: function addQuestion() {
-      this.axios.post(window.App.baseUrl + '/api/add-question/', {
-        question: this.question
+    addDoubt: function addDoubt() {
+      this.axios.post(window.App.baseUrl + '/api/add-doubt/', {
+        doubt: this.new_doubt,
+        doubt_type: this.new_doubt_type
       }).then(function (resp) {})["catch"](function (err) {
         reject(err);
       });
@@ -106644,41 +106651,41 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("main", [
     _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "col-md-6 justify-content-center" }, [
+      _c("div", { staticClass: "row" }, [
         _c(
           "form",
           {
             on: {
               submit: function($event) {
                 $event.preventDefault()
-                return _vm.addQuestion($event)
+                return _vm.addDoubt($event)
               }
             }
           },
           [
-            _c("div", { staticClass: "form-group" }, [
+            _c("div", { staticClass: "col-md-8 form-group" }, [
               _c("input", {
                 directives: [
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.question,
-                    expression: "question"
+                    value: _vm.new_doubt,
+                    expression: "new_doubt"
                   }
                 ],
                 staticClass: "form-control",
                 attrs: {
                   type: "text",
-                  name: "question",
+                  name: "doubt",
                   placeholder: "Ask Question"
                 },
-                domProps: { value: _vm.question },
+                domProps: { value: _vm.new_doubt },
                 on: {
                   input: function($event) {
                     if ($event.target.composing) {
                       return
                     }
-                    _vm.question = $event.target.value
+                    _vm.new_doubt = $event.target.value
                   }
                 }
               })
@@ -106687,7 +106694,18 @@ var render = function() {
             _vm._m(0)
           ]
         )
-      ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "row" },
+        _vm._l(_vm.doubtList, function(doubt, index) {
+          return _c("div", { key: index }, [
+            _vm._v("\n                " + _vm._s(doubt) + "\n            ")
+          ])
+        }),
+        0
+      )
     ])
   ])
 }
@@ -106696,11 +106714,11 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
+    return _c("div", { staticClass: " col-md-2 form-group" }, [
       _c(
         "button",
         { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-        [_vm._v("Add Question")]
+        [_vm._v("Clear your Doubt")]
       )
     ])
   }

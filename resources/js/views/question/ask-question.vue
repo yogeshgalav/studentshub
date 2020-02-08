@@ -1,16 +1,21 @@
 <template>
    <main>
        <div class="container">
-           <div class="col-md-6 justify-content-center">
-               <form @submit.prevent="addQuestion"  >
-                   <div class="form-group">
-                       <input type="text"  name="question" v-model="question" class="form-control" placeholder="Ask Question">
+           <div class="row">
+               <form @submit.prevent="addDoubt"  >
+                   <div class="col-md-8 form-group">
+                       <input type="text"  name="doubt" v-model="new_doubt" class="form-control" placeholder="Ask Question">
 
                    </div>
-                   <div class="form-group">
-                       <button type="submit" class="btn btn-primary">Add Question</button>
+                   <div class=" col-md-2 form-group">
+                       <button type="submit" class="btn btn-primary">Clear your Doubt</button>
                    </div>
                </form>
+           </div>
+           <div class="row">
+               <div v-for="(doubt,index) in doubtList" :key="index">
+                   {{ doubt }}
+               </div>
            </div>
        </div>
    </main>
@@ -20,27 +25,25 @@
 </style>
 <script>
 export default {
-    
     data()
     {
         return {
-         question:'',
-         questionlist: ''
-           
-
+         new_doubt:'',
+         new_doubt_type:'batch',           
+            doubtList:[],
         };
 
     },
     mounted() {
-    axios.get("api/get-question/")
-    .then(response => {this.questionlist = response.data.questions})
+    axios.get("api/get-doubts/")
+    .then(response => {this.doubtList = response.data.doubtList})
 
 },
     methods:
     {
-        addQuestion()
+        addDoubt()
         {     
-        this.axios.post(window.App.baseUrl+'/api/add-question/',{question:this.question} )
+        this.axios.post(window.App.baseUrl+'/api/add-doubt/',{doubt:this.new_doubt,doubt_type:this.new_doubt_type} )
     .then(resp => {
         
      
