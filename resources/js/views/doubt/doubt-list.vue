@@ -57,6 +57,11 @@
         </div>
     </div>
 </div>
+<modal name="select_doubt_type">
+  <p @click="new_doubt_type='branch'">branch</p>
+  <br/>
+  <p @click="new_doubt_type='category'">category</p>
+</modal>
        </div>
    </main>
 </template>
@@ -64,7 +69,11 @@
  
 </style>
 <script>
+import VModal from 'vue-js-modal'
 export default {
+    components:{
+        VModal
+    },
     data()
     {
         return {
@@ -83,6 +92,7 @@ export default {
     {
         addDoubt()
         {     
+            this.$modal.show('select_doubt_type');
         this.axios.post('/api/add-doubt/',{doubt:this.new_doubt,doubt_type:this.new_doubt_type} )
     .then(resp => {
         

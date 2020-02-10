@@ -15620,6 +15620,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue_js_modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-js-modal */ "./node_modules/vue-js-modal/dist/index.js");
+/* harmony import */ var vue_js_modal__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_js_modal__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -15685,7 +15687,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    VModal: vue_js_modal__WEBPACK_IMPORTED_MODULE_0___default.a
+  },
   data: function data() {
     return {
       new_doubt: '',
@@ -15702,6 +15713,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     addDoubt: function addDoubt() {
+      this.$modal.show('select_doubt_type');
       this.axios.post('/api/add-doubt/', {
         doubt: this.new_doubt,
         doubt_type: this.new_doubt_type
@@ -106571,7 +106583,35 @@ var render = function() {
             _vm._v(" "),
             _vm._m(1, true)
           ])
-        })
+        }),
+        _vm._v(" "),
+        _c("modal", { attrs: { name: "select_doubt_type" } }, [
+          _c(
+            "p",
+            {
+              on: {
+                click: function($event) {
+                  _vm.new_doubt_type = "branch"
+                }
+              }
+            },
+            [_vm._v("branch")]
+          ),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v(" "),
+          _c(
+            "p",
+            {
+              on: {
+                click: function($event) {
+                  _vm.new_doubt_type = "category"
+                }
+              }
+            },
+            [_vm._v("category")]
+          )
+        ])
       ],
       2
     )
