@@ -48,12 +48,24 @@ class DoubtController extends Controller
         return 'success';
     }
 
-    public function getDoubt (Request $request)
+    public function getDoubts(Request $request)
     {
-        $Doubts=Doubt::get();
+        $Doubts=\DB::table('doubts')
+        ->leftJoin('doubt_requests as dr','dr.doubt_id','=','doubts.id')
+        ->where(function($query){
+            $query->where('dr.doubtable_type','batch')->where('dr.doubtable_id',1);
+        })
+        // ->orWhere(function($query){
+        //     $query->where('doubtable_type','classroom')->whereIn('doubtable_id',Auth::student()->classrooms()->pluck('id'));
+        // })
+        // ->orWhere(function($query){
+        //     $query->where('dr.doubtable_type','category')->where('dr.doubtable_id',Auth::student()->preffered_category);
+        // })
+        ->get();
+
         return response()->json([
             'success'=>[
-                'Doubts'=>$Doubts
+                'doubtList'=>$Doubts
             ]
         ]);
     }
