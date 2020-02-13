@@ -8,9 +8,8 @@
 @include('includes.title')
 @yield('compiledJs')
 <link href="{{ asset('css/app.css') }}" type="text/css" rel="stylesheet">
-
 <script src="/js/lang.js"></script>
-<link rel="shortcut icon" type="image/png" href="{{asset('favicon.png')}}" />
+<link rel="shortcut icon" type="image/x-icon" href="{{asset('favicon.ico')}}" />
 <style>
         body
             {
@@ -21,10 +20,10 @@
         </style>
     </head>
 <body>
-    <div id="app">
+    <div id="seekerApp">
         <main class="flex-center position-ref full-height">   
 <div class="main-header">
-     @include('includes.guest-navbar')
+     @include('includes.seeker-navbar')
 </div>
 
 @yield('content')  
@@ -32,7 +31,9 @@
 </div>
 <script>
     window.App ={!! json_encode([
-        'AuthUserType' => 'guest',
+        'AuthUser' => $AuthUser,
+        'AuthUserType' => 'student',
+        'signedIn' => is_null($AuthUser),
         'csrfToken' => csrf_token(),
         'baseUrl' => URL::to('/'),
         'fileUrl' => config('url.file_storage_url'),

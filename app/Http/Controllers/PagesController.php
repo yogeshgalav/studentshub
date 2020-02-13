@@ -30,9 +30,6 @@ class PagesController extends Controller
     public function dashboard(){
         return view($this->AuthUserType.'.home');
     }
-    public function createPost(){
-        return view('student.create-post');
-    }
     public function editPost(){
         return view('student.edit-post');
     }
@@ -71,7 +68,7 @@ class PagesController extends Controller
         return view('student.ask-question');
     }
     public function sharePost(){
-        return view('student.share-post');
+        return view('create-post.share-post');
     }
     public function viewPost(){
         return view($this->AuthUserType.'.view-post');
