@@ -15,7 +15,7 @@
               class="fa fa-angle-left"
               aria-hidden="true"
             />
-            {{ trans('common-buttons.back') }}
+            {{ trans('back') }}
           </button>
         </div>
       </div>

@@ -40,7 +40,7 @@ export default {
     {
         addQuestion()
         {     
-        this.axios.post(window.App.baseUrl+'/api/add-question/',{question:this.question} )
+        this.axios.post('api/add-question/',{question:this.question} )
     .then(resp => {
         
      

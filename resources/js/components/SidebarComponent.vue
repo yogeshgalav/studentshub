@@ -4,9 +4,9 @@
 				<div class="sidebar-content">
 					<ul class="nav nav-primary">
 						<li class="nav-item">
-							<router-link :to="'/ask-question'">
+							<router-link :to="'/doubts'">
 								<i class="far fa-question-circle"></i>
-								<p>Ask Question</p>
+								<p>Doubts</p>
 								<span class="badge badge-count">6</span>
 							</router-link>
 						</li>

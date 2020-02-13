@@ -14556,6 +14556,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+<<<<<<< HEAD
 //
 //
 //
@@ -14569,6 +14570,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+=======
+>>>>>>> 76223e4efe79043443ddb4c767f00122c14c14a4
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -15081,6 +15084,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
  // optional style for arrows & dots
 
@@ -15099,6 +15112,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       slickOptions: {
         adaptiveHeight: false,
         dots: true,
+        dotsClass: "slick-dots",
         arrows: false,
         infinite: true,
         speed: 500,
@@ -21138,7 +21152,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.slick-slide[data-v-1232bc8c] {\n    margin: 0 5px;\n}\n.pt-80[data-v-1232bc8c]\n  {\n    padding-top:80px;\n}\n  /* the parent */\n.slick-list[data-v-1232bc8c] {\n    margin: 0 -5px;\n}\n.slick-dots[data-v-1232bc8c] {\n  display:-webkit-box;\n  display:flex;\n  -webkit-box-pack: center;\n          justify-content: center;\n}\n", ""]);
+exports.push([module.i, "\n.slick-slide[data-v-1232bc8c] {\n    margin: 0 5px;\n}\n.pt-80[data-v-1232bc8c]\n  {\n    padding-top:80px;\n}\n  /* the parent */\n.slick-list[data-v-1232bc8c] {\n    margin: 0 -5px;\n}\n.slick-dots[data-v-1232bc8c] {\n  display:-webkit-box;\n  display:flex;\n  -webkit-box-pack: left;\n          justify-content: left;\n}\n", ""]);
 
 // exports
 
@@ -68840,79 +68854,53 @@ var render = function() {
                         ])
                       ]),
                       _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "form-group" },
-                        [
-                          _c("label", [
-                            _vm._v(" " + _vm._s(_vm.trans("Full Name")) + " ")
-                          ]),
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", [
+                          _vm._v(" " + _vm._s(_vm.trans("Full Name")) + " ")
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "inner-addon left-addon" }, [
+                          _c("i", { staticClass: "fa fa-user" }),
                           _vm._v(" "),
-                          _c("base-input", {
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "validate",
+                                rawName: "v-validate",
+                                value: "required",
+                                expression: "'required'"
+                              },
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.full_name,
+                                expression: "full_name"
+                              }
+                            ],
+                            staticClass: "form-control",
                             attrs: {
-                              invalid: _vm.formErrors("full_name")
-                                ? true
-                                : false,
-                              focus: "",
+                              id: "full_name",
                               type: "text",
                               name: "full_name",
-                              "tab-index": "1",
-                              icon: "user",
-                              "align-icon": "left"
+                              placeholder: "Enter Full Name",
+                              autofocus: ""
                             },
-                            model: {
-                              value: _vm.full_name,
-                              callback: function($$v) {
-                                _vm.full_name = $$v
-                              },
-                              expression: "full_name"
+                            domProps: { value: _vm.full_name },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.full_name = $event.target.value
+                              }
                             }
                           }),
                           _vm._v(" "),
-                          _c("div", { staticClass: "inner-addon left-addon" }, [
-                            _c("i", { staticClass: "fa fa-user" }),
-                            _vm._v(" "),
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "validate",
-                                  rawName: "v-validate",
-                                  value: "required",
-                                  expression: "'required'"
-                                },
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.full_name,
-                                  expression: "full_name"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              attrs: {
-                                id: "full_name",
-                                type: "text",
-                                name: "full_name",
-                                placeholder: "Enter Full Name",
-                                autofocus: ""
-                              },
-                              domProps: { value: _vm.full_name },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.full_name = $event.target.value
-                                }
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("span", { staticClass: "error" }, [
-                              _vm._v(_vm._s(_vm.errors.first("full_name")))
-                            ])
+                          _c("span", { staticClass: "error" }, [
+                            _vm._v(_vm._s(_vm.errors.first("full_name")))
                           ])
-                        ],
-                        1
-                      ),
+                        ])
+                      ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group" }, [
                         _c("label", { attrs: { for: "email" } }, [
@@ -69379,7 +69367,42 @@ var render = function() {
     [
       _c(
         "VueSlickCarousel",
-        _vm._b({ ref: "slick" }, "VueSlickCarousel", _vm.slickOptions, false),
+        _vm._b(
+          {
+            ref: "slick",
+            scopedSlots: _vm._u([
+              {
+                key: "prevArrow",
+                fn: function(arrowOption) {
+                  return [
+                    _c("div", { staticClass: "custom-arrow" }, [
+                      _vm._v(
+                        "\n      " +
+                          _vm._s(arrowOption.currentSlide) +
+                          "/" +
+                          _vm._s(arrowOption.slideCount) +
+                          "\n    "
+                      )
+                    ])
+                  ]
+                }
+              },
+              {
+                key: "customPaging",
+                fn: function(page) {
+                  return [
+                    _c("div", { staticClass: "text-left" }, [
+                      _vm._v("\n      " + _vm._s(page) + "\n    ")
+                    ])
+                  ]
+                }
+              }
+            ])
+          },
+          "VueSlickCarousel",
+          _vm.slickOptions,
+          false
+        ),
         [
           _c("a", { staticClass: "btn btn-white", attrs: { href: "#" } }, [
             _c("img", {
@@ -69988,6 +70011,8 @@ var render = function() {
     "main",
     [
       _c("explore-carousal-post"),
+      _vm._v(" "),
+      _c("br"),
       _vm._v(" "),
       _c("category-filter", { attrs: { categories: _vm.categories } }),
       _vm._v(" "),

@@ -25,19 +25,6 @@
                 </div>
                 <div class="form-group">
                     <label> {{ trans('Full Name') }} </label>
-                    <base-input
-                  :invalid="formErrors('full_name')?true:false"
-                  v-model="full_name"
-                  focus
-                  type="text"
-                  name="full_name"
-                  tab-index="1"
-                  icon="user"
-                  align-icon="left"
-                
-                 
-                />
-                
                   <div class="inner-addon left-addon">
                     <i class="fa fa-user"></i>
                     <input

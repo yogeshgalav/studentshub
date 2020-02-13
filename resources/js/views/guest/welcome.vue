@@ -2,7 +2,7 @@
     <main>
 
     <explore-carousal-post></explore-carousal-post>
-
+<br/>
     <category-filter :categories="categories"></category-filter>
   <div class="container">
  <div class="row">

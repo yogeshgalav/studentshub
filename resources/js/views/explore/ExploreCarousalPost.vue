@@ -3,7 +3,17 @@
             <VueSlickCarousel  v-bind="slickOptions" ref="slick">
                     <a href="#" class="btn btn-white"><img v-lazy="'/images/slider.jpg'" /></a>
                     <a href="#" class="btn btn-white"><img v-lazy="'/images/5.jpg'"/></a>
-                    
+                     <template #prevArrow="arrowOption">
+      <div class="custom-arrow">
+        {{ arrowOption.currentSlide }}/{{ arrowOption.slideCount }}
+      </div>
+    </template>
+
+    <template #customPaging="page">
+      <div class="text-left">
+        {{ page }}
+      </div>
+    </template>
   </VueSlickCarousel>
     </div>
 </template>
@@ -22,7 +32,7 @@
 
 .slick-dots {
   display:flex;
-  justify-content: center;
+  justify-content: left;
 }
 </style>
 
@@ -46,6 +56,7 @@ export default {
             slickOptions:{
                 adaptiveHeight:false,
                 dots: true,
+                dotsClass:"slick-dots",
                 arrows: false,
                 infinite: true,
                 speed: 500,

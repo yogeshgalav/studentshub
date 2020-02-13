@@ -23,8 +23,10 @@ getCategories({commit}){
   return new Promise((resolve, reject) => {
     axios({url: window.App.baseUrl+'/api/get-categories', method: 'GET' })
     .then(resp => {
-     const categories = resp.data.success.categories
-      commit('get_categories', categories,)
+      let data={};
+     data['categories'] = resp.data.success.categories
+     data['AuthUserCategory'] = resp.data.success.AuthUserCategory
+      commit('get_categories', data);
       resolve(resp)
     })
     .catch(err => {
