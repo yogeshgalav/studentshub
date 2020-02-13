@@ -14556,22 +14556,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-<<<<<<< HEAD
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-=======
->>>>>>> 76223e4efe79043443ddb4c767f00122c14c14a4
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
