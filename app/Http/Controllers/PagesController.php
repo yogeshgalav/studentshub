@@ -73,7 +73,7 @@ class PagesController extends Controller
         return view('student.ask-question');
     }
     public function sharePost(){
-        return view('create-post.share-post');
+        return view('create-post.share-post')->with('notifications',$this->notifications);
     }
     public function viewPost(){
         return view($this->AuthUserType.'.view-post');
