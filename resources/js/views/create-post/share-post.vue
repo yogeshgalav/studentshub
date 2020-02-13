@@ -89,6 +89,7 @@
 
 </style>
 <script>
+import FormMixin from "../../components/mixins/form-mixin.js";
     import FormWizard from './VueNiceWizard';
     import SelectPostType from './create-post/select-post-type'
     import CreatePostContent from './create-post/create-post-content'
@@ -127,7 +128,9 @@
         },
         methods: {
             onComplete() {
-                this.$store.dispatch('submitPost', this.$store.state.new_post).then(this.$router.push('/'));
+                this.$store.dispatch('submitPost', this.$store.state.new_post).then(()=>{
+                    window.location.reload='/';
+                });
             }
         }
     }

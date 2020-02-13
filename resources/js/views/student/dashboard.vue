@@ -3,11 +3,11 @@
          <div class="row">
      <div class="col-md-10 center-col">
         <slot></slot>
-        <router-link class="card h-card share" :to="'/share-your-knowledge'">
+        <a class="card h-card share" :href="'/share-your-knowledge'">
         <div class="card-body">
                         Share Your Knowledge
                     </div>  
-                    </router-link>
+                    </a>
          </div>
      </div> 
         <div class="container pt-100">
