@@ -82,7 +82,8 @@ class StudentController extends Controller
     DB::commit();
     } catch (\Exception $e) {
         DB::rollback();
-        // Log::critical('Student Registeration failure: for user id#'.$user->id.' with data '.implode(', ',Arr::flatten($input)));
+        // dd($e->getMessage());
+        \Log::critical('Student Registeration failure: for user id#'.$user->id.' with data '.implode(', ',Arr::flatten($data)));
         // dd($e->getMessage(),$e->getLine());
         return response()->$e;
     }        
