@@ -1,4 +1,4 @@
-@extends('layouts.student')
+@extends('layouts.seeker')
 @section('compiledJs')
 <script src="{{ asset('js/seekerApp.js') }}" defer></script>
 @endsection

@@ -21,6 +21,9 @@ class PagesController extends Controller
                     $notification->text=NotificationText::where('notification_type',$notification->type)->first()->notification_text;
                 });   
             }else{
+                $this->notifications=$AuthUser->notifications()->get()->each(function($notification){
+                    $notification->text=NotificationText::where('notification_type',$notification->type)->first()->notification_text;
+                });
                 $this->AuthUserType='seeker';   
             }
     }
@@ -87,6 +90,12 @@ class PagesController extends Controller
         ->with('total_guests',$total_guests)
         ->with('total_posts',$total_posts)
         ;
+    }
+    public function addNotification(){
+        \App\Models\Notification::create([
+            'id'=>'2',
+            'type'=>'BatchNewUser'
+            ]);
     }
     // public function test(){
     //     $courses=\App\Models\Course::all();
