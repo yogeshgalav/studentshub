@@ -14,7 +14,7 @@ class UpdateCategory extends Migration
     public function up()
     {
         Schema::table('categories', function (Blueprint $table) {
-            $table->string('category_url');
+            $table->string('category_url')->nullable();
         });
         Schema::table('posts', function (Blueprint $table) {
             $table->integer('post_url')->nullable();

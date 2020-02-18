@@ -286,5 +286,12 @@ class CategorySeeder extends Seeder
         (271, 'Senior Diploma (Sr.Diploma)', '2019-12-22 17:31:05', '2019-12-22 17:31:05'),
         (272, 'Under Graduate Diploma in Physical Education (U.G.D.P.Ed)', '2019-12-22 17:31:05', '2019-12-22 17:31:05')";
         DB::unprepared($sql);
+        $categories=\App\Models\Category::get();
+        foreach($categories as $category){
+            if(strpos($category->name, ' ') === false){
+                $category->category_url=$category->name;
+                $category->save();
+            }
+        }
     }
 }

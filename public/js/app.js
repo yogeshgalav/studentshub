@@ -68761,7 +68761,9 @@ var render = function() {
                           _vm._v("Not a member? ")
                         ]),
                         _vm._v(" "),
-                        _c("a", { attrs: { href: "#" } }, [_vm._v("Sign Up")])
+                        _c("router", { attrs: { to: "/get-started" } }, [
+                          _vm._v("Sign Up")
+                        ])
                       ],
                       1
                     )
