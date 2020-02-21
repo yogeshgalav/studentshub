@@ -6,15 +6,15 @@
 		<div  class="row">
 			   <div class="col-md-3">
 				   <div class="item">
-					   <span class="badge">Food & Drink
+					   <span class="badge">{{post.subject_name}}
 
 					   </span>
 					   <span class="badge_like p-1 font-size-12">
 						   <i class="fa fa-thumbs-up text-black">
-					   </i> 10 |  <i class="fa fa-thumbs-down text-black">
-					   </i>  20
+					   </i> {{post.total_views}} |  <i class="fa fa-thumbs-down text-black">
+					   </i>  {{post.total_likes}}
 					   </span>
-                            <img class="card-img-top img-responsive" src="/images/blogpost.jpg" alt="Card image cap">
+                            <img class="card-img-top img-responsive" v-lazy="post.image_path" alt="Card image cap">
 							</div>
                         </div>
         <div class="col-md-9">

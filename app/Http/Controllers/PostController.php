@@ -13,6 +13,7 @@ use App\Models\Video;
 use Auth;
 use DB;
 use Illuminate\Support\Arr;
+use Illuminate\Pagination\LengthAwarePaginator as Paginator;
 
 class PostController extends Controller
 {
@@ -108,5 +109,59 @@ class PostController extends Controller
         return response()->$e;
     }
         return response()->json('success');
+    }
+
+    public function getStudentPosts(){
+        // $posts=DB::table('sthub_posts as sp')
+        // ->leftJoin('posts as po','po.id','=','sp.post_id')
+        // ->leftJoin('articles as ar','po.id','=','ar.post_id')
+        // ->leftJoin('documents as do','po.id','=','do.post_id')
+        // ->leftJoin('videos as vd','po.id','=','vd.post_id')
+        // ->leftJoin('notices as no','po.id','=','no.post_id')
+        // ->leftJoin('facts as fa','po.id','=','fa.post_id')
+        // ->leftJoin('mcqs as mc','po.id','=','mc.post_id')
+        // ->leftJoin('likes as li','po.id','=','li.post_id')
+        // ->leftJoin('views as vw','po.id','=','vw.post_id')
+        // ->select(['po.id as id','ar.*','do.*','vd.*','fa.*','no.*','mc.*',DB::raw('COUNT(li.id) as total_likes'),DB::raw('COUNT(vw.id) as total_views')])->paginate();
+        
+        // use Illuminate\Pagination\LengthAwarePaginator as Paginator;
+
+// $page       = ($request->input('page') != null) ? $request->input('page') : 1;
+// $perPage    = 1;
+
+// $sliced     = array_slice($data, 0, 5); //you can these values as per your requirement 
+
+// $paginator  = new Paginator($sliced, count($data), $perPage, $page,['path'  => url()->current(),'query' => $request->query()]);
+
+// return $paginator;
+        $posts=SthubPost::getDashboardPosts();
+        return response()->json(['success'=>[
+            'posts'=>$posts
+        ]]);
+    }
+
+    public function getSeekerDashboard(Request $request){
+        $data=DB::table('sthub_posts as sp')
+        ->join('posts as po','po.id','=','sp.post_id')
+        ->join('videos as vd',function($join){
+            $join->on('po.postable_id','=','vd.id')->where('postable_type','=','App\Models\Video');
+        })
+        // ->leftJoin('videos as vd','po.id','=','vd.post_id')
+        // ->leftJoin('facts as fa','po.id','=','fa.post_id')
+        ->leftJoin('likes as li','po.id','=','li.post_id')
+        ->leftJoin('views as vw','po.id','=','vw.post_id')
+        ->select(['po.id as id','vd.*',DB::raw('COUNT(distinct li.user_id) as total_likes'),DB::raw('COUNT(distinct vw.user_id) as total_views')])->groupBy('sp.post_id','vd.*')->get();
+        // ,'do.*','vd.*','fa.*','no.*','mc.*'
+
+$page       = ($request->input('page') != null) ? $request->input('page') : 1;
+$perPage    = 1;
+
+$sliced     = array_slice($data, 0, 5); //you can these values as per your requirement 
+
+$paginator  = new Paginator($sliced, count($data), $perPage, $page,['path'  => url()->current(),'query' => $request->query()]);
+
+        return response()->json(['success'=>[
+            'posts'=>$paginator
+        ]]);
     }
 }

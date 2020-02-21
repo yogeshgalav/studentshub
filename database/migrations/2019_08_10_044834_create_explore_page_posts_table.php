@@ -15,7 +15,7 @@ class CreateExplorePagePostsTable extends Migration
     {
         Schema::create('explore_page_posts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('sthub_post_id')->unsigned();
+            $table->integer('post_id')->unsigned();
             $table->string('page_section');
             $table->integer('added_by')->unsigned();
             $table->timestamps();

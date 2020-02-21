@@ -16,7 +16,7 @@
      
         <div class="row">
             <div class="col-md-12">
-                 <home-post-container :posts="posts"></home-post-container>   
+                 <home-post-container :posts="posts" @loadPosts="getDashboardPosts"></home-post-container>   
             </div>   
         </div>
                 </div>
@@ -97,7 +97,7 @@ export default {
                 return this.$trans('home', string, defaultString);
             },
             getDashboardPosts(){
-                this.$store.dispatch('getPosts');
+                this.$store.dispatch('getStudentPosts');
             },
             redirectPostView(post_id){
                 this.$router.push({path:'/post/1'})

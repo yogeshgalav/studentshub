@@ -1,10 +1,10 @@
 <template>
 <div>
 
-<div v-for="(post,index) in posts" :key="index">
+<div v-for="(post,index) in posts" :key="index" v-scroll="scrollFn">
     <div  class="row">
         <div class="col-md-9">
-							<div class="card-post" @click="redirectPostView(post.id)">
+							<div class="card-post" @click="redirectPostView(post)">
 						<div>
 									<div class="d-flex mt-2">
 										<div class="avatar">
@@ -54,10 +54,15 @@
    
 </template>
 <script>
+import vuescroll from 'vue-scroll'
+
 export default {
+	components:{vuescroll},
 	props:['posts'],
 	methods:{
-		
+		scrollFn(){
+			this.$emit('loadPosts');
+		}
 	}
 }
 </script>

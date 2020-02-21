@@ -92,11 +92,14 @@ class PagesController extends Controller
         ;
     }
     public function addNotification(){
-        \App\Models\Notification::create([
-            'id'=>'2',
-            'type'=>'BatchNewUser'
-            ]);
-    }
+        $posts=\App\Models\Post::get();
+        foreach($posts as $post){
+            $post_image=\App\Models\PostImage::where('post_id',$post->id)->first();
+            $post->primary_image_path=$post_image->path;
+            $post->save();
+        }
+        return 'success';
+    } 
     // public function test(){
     //     $courses=\App\Models\Course::all();
     //     foreach($courses as $course){

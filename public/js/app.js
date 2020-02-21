@@ -15851,6 +15851,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue_scroll__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-scroll */ "./node_modules/vue-scroll/dist/vue-scroll.esm.js");
 //
 //
 //
@@ -15906,9 +15907,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    vuescroll: vue_scroll__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
   props: ['posts'],
-  methods: {}
+  methods: {
+    scrollFn: function scrollFn() {
+      this.$emit('loadPosts');
+    }
+  }
 });
 
 /***/ }),
@@ -70214,109 +70223,123 @@ var render = function() {
   return _c(
     "div",
     _vm._l(_vm.posts, function(post, index) {
-      return _c("div", { key: index }, [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-md-9" }, [
-            _c(
-              "div",
-              {
-                staticClass: "card-post",
-                on: {
-                  click: function($event) {
-                    return _vm.redirectPostView(post.id)
+      return _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "scroll",
+              rawName: "v-scroll",
+              value: _vm.scrollFn,
+              expression: "scrollFn"
+            }
+          ],
+          key: index
+        },
+        [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-md-9" }, [
+              _c(
+                "div",
+                {
+                  staticClass: "card-post",
+                  on: {
+                    click: function($event) {
+                      return _vm.redirectPostView(post)
+                    }
                   }
-                }
-              },
-              [
-                _c("div", [
-                  _c("div", { staticClass: "d-flex mt-2" }, [
-                    _c("div", { staticClass: "avatar" }, [
-                      _c("img", {
-                        directives: [
-                          {
-                            name: "lazy",
-                            rawName: "v-lazy",
-                            value: "/images/4.jpg",
-                            expression: "'/images/4.jpg'"
-                          }
-                        ],
-                        staticClass: "avatar-img rounded-circle"
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "info-post ml-2" }, [
-                      _c("p", { staticClass: "username" }, [
-                        _vm._v(_vm._s(post.user_name))
-                      ]),
-                      _vm._v(" "),
-                      _c("p", { staticClass: "date text-muted" }, [
-                        _vm._v(_vm._s(post.created_at))
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "h3",
-                        { staticClass: "card-title  font-size-16" },
-                        [
-                          _c(
-                            "router-link",
+                },
+                [
+                  _c("div", [
+                    _c("div", { staticClass: "d-flex mt-2" }, [
+                      _c("div", { staticClass: "avatar" }, [
+                        _c("img", {
+                          directives: [
                             {
-                              staticClass: "weight-600 text-black",
-                              attrs: { to: "/post/" + post.id }
-                            },
-                            [
-                              _vm._v(
-                                "\r\n\t\t\t\t\t\t\t\t\t\t\t" +
-                                  _vm._s(post.heading) +
-                                  "\r\n\t\t\t\t\t\t\t\t\t\t"
-                              )
-                            ]
-                          )
-                        ],
-                        1
-                      ),
+                              name: "lazy",
+                              rawName: "v-lazy",
+                              value: "/images/4.jpg",
+                              expression: "'/images/4.jpg'"
+                            }
+                          ],
+                          staticClass: "avatar-img rounded-circle"
+                        })
+                      ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "row" }, [
-                        _c("div", { staticClass: "col-md-4" }, [
-                          _c("i", { staticClass: "fa fa-eye" }),
-                          _vm._v(" "),
-                          _c("span", { staticClass: "badge-text" }, [
-                            _vm._v(_vm._s(post.total_views))
-                          ])
+                      _c("div", { staticClass: "info-post ml-2" }, [
+                        _c("p", { staticClass: "username" }, [
+                          _vm._v(_vm._s(post.user_name))
                         ]),
                         _vm._v(" "),
-                        _c("div", { staticClass: "col-md-6" }, [
-                          _c("i", { staticClass: "fa fa-thumbs-up" }),
+                        _c("p", { staticClass: "date text-muted" }, [
+                          _vm._v(_vm._s(post.created_at))
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "h3",
+                          { staticClass: "card-title  font-size-16" },
+                          [
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "weight-600 text-black",
+                                attrs: { to: "/post/" + post.id }
+                              },
+                              [
+                                _vm._v(
+                                  "\r\n\t\t\t\t\t\t\t\t\t\t\t" +
+                                    _vm._s(post.heading) +
+                                    "\r\n\t\t\t\t\t\t\t\t\t\t"
+                                )
+                              ]
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "row" }, [
+                          _c("div", { staticClass: "col-md-4" }, [
+                            _c("i", { staticClass: "fa fa-eye" }),
+                            _vm._v(" "),
+                            _c("span", { staticClass: "badge-text" }, [
+                              _vm._v(_vm._s(post.total_views))
+                            ])
+                          ]),
                           _vm._v(" "),
-                          _c("span", { staticClass: "badge-text" }, [
-                            _vm._v(_vm._s(post.total_likes))
+                          _c("div", { staticClass: "col-md-6" }, [
+                            _c("i", { staticClass: "fa fa-thumbs-up" }),
+                            _vm._v(" "),
+                            _c("span", { staticClass: "badge-text" }, [
+                              _vm._v(_vm._s(post.total_likes))
+                            ])
                           ])
                         ])
                       ])
                     ])
                   ])
-                ])
-              ]
-            )
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-3" }, [
+              _c("img", {
+                directives: [
+                  {
+                    name: "lazy",
+                    rawName: "v-lazy",
+                    value: post.image_path,
+                    expression: "post.image_path"
+                  }
+                ],
+                staticClass: "card-img-top",
+                attrs: { alt: "Card image cap" }
+              })
+            ])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "col-md-3" }, [
-            _c("img", {
-              directives: [
-                {
-                  name: "lazy",
-                  rawName: "v-lazy",
-                  value: post.image_path,
-                  expression: "post.image_path"
-                }
-              ],
-              staticClass: "card-img-top",
-              attrs: { alt: "Card image cap" }
-            })
-          ])
-        ]),
-        _vm._v(" "),
-        _vm._m(0, true)
-      ])
+          _vm._m(0, true)
+        ]
+      )
     }),
     0
   )
@@ -73889,6 +73912,213 @@ if (inBrowser && window.Vue) {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (VueRouter);
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-scroll/dist/vue-scroll.esm.js":
+/*!********************************************************!*\
+  !*** ./node_modules/vue-scroll/dist/vue-scroll.esm.js ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/**
+  * vue-scroll vundefined
+  * (c) 2019 Wang Pin
+  * @license MIT
+  */
+var debounce = function (func, delay) {
+  var inDebounce;
+  return function() {
+    var context = this;
+    var args = arguments;
+    clearTimeout(inDebounce);
+    inDebounce = setTimeout(function () { return func.apply(context, args); }, delay);
+  }
+};
+var throttle = function (func, limit) {
+  var lastFunc;
+  var lastRan;
+  return function() {
+    var context = this;
+    var args = arguments;
+    if (!lastRan) {
+      func.apply(context, args);
+      lastRan = Date.now();
+    } else {
+      clearTimeout(lastFunc);
+      lastFunc = setTimeout(function() {
+        if (Date.now() - lastRan >= limit) {
+          func.apply(context, args);
+          lastRan = Date.now();
+        }
+      }, limit - (Date.now() - lastRan));
+    }
+  }
+};
+var isNumber = function(arg) {
+  return typeof arg === 'number' && arg !== NaN
+};
+var isFunction = function(arg) {
+  return typeof arg === 'function'
+};
+var isObject = function(arg) {
+  return Object.prototype.toString.call(arg) === '[object Object]'
+};
+var isInteger = function(arg) {
+  return isNumber(arg) && Math.round(arg) === arg
+};
+var get = function(arg, path, def) {
+  try {
+    return eval(("arg." + path))
+  } catch (err) {
+    return def
+  }
+};
+
+var dom = (function () {
+  var listeners = new Map();
+  var SCROLL = 'scroll';
+  function addEventListener (element, event, funcs, opt) {
+    function fn (e) {
+      var data;
+      var target = e.target || e.srcElement;
+      e = e || window.e;
+      if (e.type === SCROLL) {
+        if (target === document) {
+          data = { scrollTop: get(document, 'body.scrollTop', 0), scrollLeft: get(document, 'body.scrollLeft', 0) };
+        } else {
+          data = { scrollTop: get(target, 'scrollTop', 0), scrollLeft: get(target, 'scrollLeft', 0) };
+        }
+      }
+      funcs.forEach(function (f) {
+        f(e, data);
+      });
+    }
+    if (isObject(opt)) {
+      if (isInteger(opt.throttle) && isFinite(opt.throttle) && opt.throttle > -1) {
+        fn = throttle(fn, opt.throttle);
+      }
+      if (isInteger(opt.debounce) && isFinite(opt.debounce) && opt.debounce > -1) {
+        fn = debounce(fn, opt.debounce);
+      }
+    }
+    if (event === SCROLL) {
+      if(element === document.body || element === document || element === window) {
+        document.onscroll = fn;
+      } else {
+        if (element.addEventListener) {
+          element.addEventListener(event, fn);
+        } else {
+          element.attachEvent('on' + event, fn);
+        }
+      }
+    }
+  }
+  function bind (element, event, fn, opt) {
+    var funcs, eventFuncs;
+    if (!isFunction(fn)) {
+      throw new Error('Scroll handler is not a function');
+    }
+    if (!listeners.has(element)) {
+      listeners.set(element, new Map());
+    }
+    funcs = listeners.get(element);
+    if (!funcs.has(event)) {
+      funcs.set(event, []);
+    }
+    eventFuncs = funcs.get(event);
+    if (!eventFuncs.length) {
+      addEventListener(element, event, eventFuncs, opt);
+    }
+    eventFuncs.push(fn);
+  }
+  function unbind (element, event, fn) {
+    var funcs, eventFuncs;
+    if (!isFunction(fn)) {
+      return;
+    }
+    if (!listeners.has(element)) {
+      listeners.set(element, new Map());
+    }
+    funcs = listeners.get(element);
+    if (!funcs.has(event)) {
+      funcs.set(event, []);
+    }
+    eventFuncs = funcs.get(event);
+    if (eventFuncs.indexOf(fn) > -1) {
+      eventFuncs.splice(eventFuncs.indexOf(fn), 1);
+      return true;
+    }
+    return false;
+  }
+  return {
+    bind: bind,
+    unbind: unbind
+  }
+})();
+
+var vuescroll = new Object;
+vuescroll.install = function (Vue, options) {
+  options = options || {};
+  var SCROLL = 'scroll';
+  var THROTTLE = 'throttle';
+  var DEBOUNCE = 'debounce';
+  var VALID_ARGS = [THROTTLE, DEBOUNCE];
+  function bindValue (el, value, arg) {
+    var fn, opt = Object.assign({}, options);
+    if (isObject(value) || isFunction(value)) {
+      fn = value;
+      if (VALID_ARGS.indexOf(arg) > -1) {
+        fn = value.fn;
+        if (arg === THROTTLE) {
+          opt = { throttle: value.throttle};
+        } else if(arg === DEBOUNCE) {
+          opt = { debounce: value.debounce};
+        }
+      }
+      try {
+        dom.bind(el, SCROLL, fn, opt);
+      } catch(err) {
+        console.warn('Unexpected error happened when binding listener');
+      }
+    } else {
+      console.warn('Unexpected scroll properties');
+    }
+  }
+  function unbindValue (el, value, arg) {
+    var fn;
+    if (isObject(value) || isFunction(value)) {
+      fn = value;
+      if (VALID_ARGS.indexOf(arg) > -1)  {
+        fn = value.fn;
+      }
+      dom.unbind(el, SCROLL, fn);
+    }
+  }
+  Vue.directive(SCROLL, {
+    bind: function(el, binding, vnode, oldVnode) {
+      bindValue(el, binding.value, binding.arg);
+    },
+    inserted: function(el, binding) {
+    },
+    update: function(el, binding) {
+      if (binding.value === binding.oldValue) {
+        return;
+      }
+      bindValue(el, binding.value, binding.arg);
+      unbindValue(el, binding.oldValue, binding.arg);
+    },
+    unbind: function(el, binding) {
+      unbindValue(el, binding.value, binding.arg);
+    }
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (vuescroll);
 
 
 /***/ }),

@@ -17,13 +17,12 @@ class CreateSthubPostsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('post_id')->unsigned();
             $table->integer('shared_by')->unsigned();
-            $table->string('post_type');
+            $table->integer('category_id')->unsigned()->nullable();
             $table->integer('classroom_id')->unsigned()->nullable();
             $table->integer('batch_id')->unsigned()->nullable();
             $table->integer('branch_id')->unsigned()->nullable();
             $table->integer('course_id')->unsigned()->nullable();
             $table->integer('institute_id')->unsigned()->nullable();
-            $table->integer('post_image_id')->unsigned()->nullable();
             $table->timestamps();
         });
     }

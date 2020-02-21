@@ -30,30 +30,8 @@ class Post extends Model
     }
     
    
-    public function postContent(){
-        switch($this->post_type){
-            default:
-            return $this->article();
-                break;
-            case 'article':
-                return $this->article();
-                break;
-            case 'notice':
-                return $this->notice();
-                break;
-            case 'document':
-                return $this->document();
-                break;
-            case 'fact':
-                return $this->fact();
-                break;
-            case 'mcq':
-                return $this->MCQ();
-                break;
-            case 'video':
-                return $this->video();
-                break;
-        }
+    public function postable(){
+        return $this->morphTo();
     }
     public function user(){
         return $this->belongsTo('App\Models\User');
@@ -66,9 +44,6 @@ class Post extends Model
     }           
     public function image(){
         return $this->hasMany('App\Models\PostImage');
-    }           
-    public function primary_image(){
-        return $this->image()->where('is_primary',true)->first();
     }           
     public function tags(){
         return $this->hasMany('App\Models\PostTag');
@@ -89,7 +64,7 @@ class Post extends Model
         
         return [
             'id'=>$this->id,
-            'content'=>$this->postContent()->first(),
+            'content'=>$this->postable()->first(),
             'post_type'=>$this->post_type,
             'heading'=>$this->post_heading,
             'user_name'=>$this->user_name,
@@ -105,7 +80,7 @@ class Post extends Model
         $post_like=$this->like->where('user_id',Auth::user()->id)->first();
         return [
             'id'=>$this->id,
-            'content'=>$this->postContent()->first(),
+            'content'=>$this->postable()->first(),
             'post_type'=>$this->post_type,
             'heading'=>$this->post_heading,
             'user_name'=>$this->user_name,

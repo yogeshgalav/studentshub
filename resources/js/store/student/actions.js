@@ -1,9 +1,9 @@
 import axios from 'axios';
 
 export default {
-getPosts({commit}){
+getStudentPosts({commit}){
   return new Promise((resolve, reject) => {
-    axios({url: window.App.baseUrl+'/api/get-posts', method: 'GET' })
+    axios({url: window.App.baseUrl+'/api/get-student-posts', method: 'GET' })
     .then(resp => {
      const posts = resp.data.success.posts
       commit('get_posts', posts,)

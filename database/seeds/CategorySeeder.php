@@ -289,7 +289,7 @@ class CategorySeeder extends Seeder
         $categories=\App\Models\Category::get();
         foreach($categories as $category){
             if(strpos($category->name, ' ') === false){
-                $category->category_url=$category->name;
+                $category->category_url=strtolower($category->name);
                 $category->save();
             }
         }
