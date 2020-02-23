@@ -16333,7 +16333,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }), {
     postType: function postType() {
-      return this.postContent.post_type ? this.postContent.post_type.toLowerCase() : '';
+      return this.postContent.post_type ? this.postContent.post_type.toLowerCase() : ''; // return 'video';
     }
   }),
   mounted: function mounted() {
@@ -70105,7 +70105,33 @@ var render = function() {
       return _c("div", { key: post.id }, [
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "row" }, [
-            _vm._m(0, true),
+            _c("div", { staticClass: "col-md-3" }, [
+              _c("div", { staticClass: "item" }, [
+                _c("span", { staticClass: "badge" }, [
+                  _vm._v(_vm._s(post.subject_name) + "\r\n\r\n\t\t\t\t\t   ")
+                ]),
+                _vm._v(" "),
+                _c("span", { staticClass: "badge_like p-1 font-size-12" }, [
+                  _c("i", { staticClass: "fa fa-thumbs-up text-black" }),
+                  _vm._v(" " + _vm._s(post.total_views) + " |  "),
+                  _c("i", { staticClass: "fa fa-thumbs-down text-black" }),
+                  _vm._v("  " + _vm._s(post.total_likes) + "\r\n\t\t\t\t\t   ")
+                ]),
+                _vm._v(" "),
+                _c("img", {
+                  directives: [
+                    {
+                      name: "lazy",
+                      rawName: "v-lazy",
+                      value: post.image_path,
+                      expression: "post.image_path"
+                    }
+                  ],
+                  staticClass: "card-img-top img-responsive",
+                  attrs: { alt: "Card image cap" }
+                })
+              ])
+            ]),
             _vm._v(" "),
             _c("div", { staticClass: "col-md-9" }, [
               _c("div", { staticClass: "card-post" }, [
@@ -70149,7 +70175,7 @@ var render = function() {
                           _vm._v("fdsgsgh gfjgf")
                         ]),
                         _vm._v(" "),
-                        _vm._m(1, true)
+                        _vm._m(0, true)
                       ])
                     ])
                   ])
@@ -70164,30 +70190,6 @@ var render = function() {
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-3" }, [
-      _c("div", { staticClass: "item" }, [
-        _c("span", { staticClass: "badge" }, [
-          _vm._v("Food & Drink\r\n\r\n\t\t\t\t\t   ")
-        ]),
-        _vm._v(" "),
-        _c("span", { staticClass: "badge_like p-1 font-size-12" }, [
-          _c("i", { staticClass: "fa fa-thumbs-up text-black" }),
-          _vm._v(" 10 |  "),
-          _c("i", { staticClass: "fa fa-thumbs-down text-black" }),
-          _vm._v("  20\r\n\t\t\t\t\t   ")
-        ]),
-        _vm._v(" "),
-        _c("img", {
-          staticClass: "card-img-top img-responsive",
-          attrs: { src: "/images/blogpost.jpg", alt: "Card image cap" }
-        })
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -70666,7 +70668,9 @@ var render = function() {
                 _vm.postType === "article"
                   ? _c("div", [
                       _c("div", {
-                        domProps: { innerHTML: _vm._s(_vm.postContent.content) }
+                        domProps: {
+                          innerHTML: _vm._s(_vm.postContent.content.content)
+                        }
                       })
                     ])
                   : _vm._e(),
@@ -70682,7 +70686,7 @@ var render = function() {
                       }),
                       _vm._v(" "),
                       _c("div", [
-                        _vm._v(_vm._s(_vm.postContent.content.description))
+                        _vm._v(_vm._s(_vm.postContent.content.content))
                       ])
                     ])
                   : _vm._e(),

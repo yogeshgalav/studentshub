@@ -68408,7 +68408,9 @@ var render = function() {
             _vm.postType === "article"
               ? _c("div", [
                   _c("div", {
-                    domProps: { innerHTML: _vm._s(_vm.postContent.content) }
+                    domProps: {
+                      innerHTML: _vm._s(_vm.postContent.content.content)
+                    }
                   })
                 ])
               : _vm._e(),

@@ -27,6 +27,23 @@ class PagesController extends Controller
                 $this->AuthUserType='seeker';   
             }
     }
+
+    public function postImage( $filename){
+        $path = storage_path('app/post-images/' . $filename);
+
+        if (!\File::exists($path)) {
+            abort(404);
+        }
+
+        $file = \File::get($path);
+        $type = \File::mimeType($path);
+
+        $response = \Response::make($file, 200);
+        $response->header("Content-Type", $type);
+
+        return $response;
+    }
+
     public function  root(){
         if(Auth::check()){
             return view($this->AuthUserType.'.home')->with('notifications',$this->notifications);
@@ -79,7 +96,7 @@ class PagesController extends Controller
         return view('create-post.share-post')->with('notifications',$this->notifications);
     }
     public function viewPost(){
-        return view($this->AuthUserType.'.view-post');
+        return view($this->AuthUserType.'.view-post')->with('notifications',$this->notifications);
     }
     public function report(){
         $total_users=\App\Models\User::count();

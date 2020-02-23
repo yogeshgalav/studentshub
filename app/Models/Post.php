@@ -75,6 +75,14 @@ class Post extends Model
             'total_dislikes'=>$this->total_dislikes,
         ];
     }
+    public function getPostTypeAttribute(){
+        switch($this->postable_type){
+            case 'App\Models\Article':
+                return 'article';
+            case 'App\Models\Video':
+                return 'video';
+        }
+    }
     public function scopeGetSeekerPostContent(){
 
         $post_like=$this->like->where('user_id',Auth::user()->id)->first();

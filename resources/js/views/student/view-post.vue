@@ -45,7 +45,7 @@
         <div class="col-md-9">
             <h3>{{postContent.heading}}</h3>
             <div v-if="postType==='article'">
-                <div v-html="postContent.content"></div>
+                <div v-html="postContent.content.content"></div>
             </div>
             <div v-if="postType==='video'">
                 <iframe width="620" height="315"

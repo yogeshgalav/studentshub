@@ -22,7 +22,7 @@ Route::get('/terms-of-service', 'PagesController@report');
 Route::get('/addNotification', 'PagesController@addNotification');
 
 
-
+Route::get('/post-images/{filename}','PagesController@postImage');
 // Localization
 Route::get('/js/lang.js', function () {
     $strings = Cache::remember('lang.js',1, function () {

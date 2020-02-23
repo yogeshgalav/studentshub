@@ -1,7 +1,5 @@
 export default {
     create_post(state,data){
-      console.log('2',data)
-
       switch(data.field){
         case 'post_type':
         state.new_post.post_type=data.post_type.toLowerCase();
@@ -14,10 +12,10 @@ export default {
         state.new_post.selected_subject.subject_name=data.subject_name;
         break
         case 'postContent':
-        console.log(data.content)
+        console.log(data.postContent)
           switch(state.new_post.post_type){
             case 'article':  
-          state.new_post.postContent = {'content':data.content};
+            state.new_post.postContent = data.postContent;
           break;
             case 'video':  
           state.new_post.postContent = {'link':data.link,'description':data.description};
