@@ -14814,6 +14814,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -14834,12 +14835,18 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
-    addDoubt: function addDoubt() {
+    selectDoubtType: function selectDoubtType() {
       this.$modal.show('select_doubt_type');
+    },
+    addDoubt: function addDoubt() {
+      var _this2 = this;
+
       this.axios.post('/api/add-doubt/', {
         doubt: this.new_doubt,
         doubt_type: this.new_doubt_type
-      }).then(function (resp) {})["catch"](function (err) {
+      }).then(function (resp) {
+        _this2.$modal.hide('select_doubt_type');
+      })["catch"](function (err) {
         reject(err);
       });
     }
@@ -20137,7 +20144,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.overlay[data-v-28d285a1] {\n    height: 100%;\n    width: 100%;\n    background: rgba(255,255,255,0.4);\n    position: absolute;\n    top: 7%;\n    left: 13%;\n}\n", ""]);
+exports.push([module.i, "\n.overlay[data-v-28d285a1] {\r\n    height: 100%;\r\n    width: 100%;\r\n    background: rgba(255,255,255,0.4);\r\n    position: absolute;\r\n    top: 7%;\r\n    left: 13%;\n}\r\n", ""]);
 
 // exports
 
@@ -20156,7 +20163,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* .switch-label {\n  margin-bottom: 3px !important\n} */\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* .switch-label {\r\n  margin-bottom: 3px !important\r\n} */\r\n", ""]);
 
 // exports
 
@@ -20175,7 +20182,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.fade-enter-active, .fade-leave-active {\n  -webkit-transition: opacity .5s;\n  transition: opacity .5s;\n}\n.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {\n  opacity: 0;\n}\n", ""]);
+exports.push([module.i, "\n.fade-enter-active, .fade-leave-active {\r\n  -webkit-transition: opacity .5s;\r\n  transition: opacity .5s;\n}\n.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {\r\n  opacity: 0;\n}\r\n", ""]);
 
 // exports
 
@@ -67575,7 +67582,7 @@ var render = function() {
               on: {
                 submit: function($event) {
                   $event.preventDefault()
-                  return _vm.addDoubt($event)
+                  return _vm.selectDoubtType($event)
                 }
               }
             },
@@ -67718,7 +67725,9 @@ var render = function() {
               }
             },
             [_vm._v("category")]
-          )
+          ),
+          _vm._v(" "),
+          _c("button", { on: { click: _vm.addDoubt } }, [_vm._v("submit")])
         ])
       ],
       2
@@ -99054,7 +99063,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\studentshub\resources\js\app\student\app.js */"./resources/js/app/student/app.js");
+module.exports = __webpack_require__(/*! E:\xampp\htdocs\studentshub\resources\js\app\student\app.js */"./resources/js/app/student/app.js");
 
 
 /***/ })

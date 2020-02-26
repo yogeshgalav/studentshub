@@ -2,7 +2,7 @@
    <main>
        <div class="container">
            <div class="row">
-               <form @submit.prevent="addDoubt"  >
+               <form @submit.prevent="selectDoubtType"  >
                    <div class="col-md-8 form-group">
                        <input type="text"  name="doubt" v-model="new_doubt" class="form-control" placeholder="Ask Question">
 
@@ -61,6 +61,7 @@
   <p @click="new_doubt_type='branch'">branch</p>
   <br/>
   <p @click="new_doubt_type='category'">category</p>
+  <button @click="addDoubt">submit</button>
 </modal>
        </div>
    </main>
@@ -90,13 +91,16 @@ export default {
 },
     methods:
     {
+        selectDoubtType(){
+            this.$modal.show('select_doubt_type');
+        },
         addDoubt()
         {     
-            this.$modal.show('select_doubt_type');
+            
         this.axios.post('/api/add-doubt/',{doubt:this.new_doubt,doubt_type:this.new_doubt_type} )
     .then(resp => {
         
-     
+            this.$modal.hide('select_doubt_type');
     })
     .catch(err => {
       reject(err)

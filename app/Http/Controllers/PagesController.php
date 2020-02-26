@@ -90,7 +90,7 @@ class PagesController extends Controller
         return view('guest.auth.register');
     }
     public function askQuestion(){
-        return view('student.ask-question');
+        return view('student.ask-question')->with('notifications',$this->notifications);
     }
     public function sharePost(){
         return view('create-post.share-post')->with('notifications',$this->notifications);
