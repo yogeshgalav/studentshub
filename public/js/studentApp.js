@@ -15115,6 +15115,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -67991,11 +67995,12 @@ var render = function() {
                             {
                               name: "lazy",
                               rawName: "v-lazy",
-                              value: "/images/4.jpg",
-                              expression: "'/images/4.jpg'"
+                              value: post.image_path,
+                              expression: "post.image_path"
                             }
                           ],
-                          staticClass: "avatar-img rounded-circle"
+                          staticClass: "card-img-top img-responsive",
+                          attrs: { alt: "Card image cap" }
                         })
                       ]),
                       _vm._v(" "),
@@ -68005,8 +68010,14 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("p", { staticClass: "date text-muted" }, [
-                          _vm._v(_vm._s(post.created_at))
+                          _vm._v(_vm._s(post.institute_name))
                         ]),
+                        _vm._v(" "),
+                        _c("h5", [_vm._v(_vm._s(post.category_name))]),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("h5", [_vm._v(_vm._s(post.subject_name))]),
+                        _c("br"),
                         _vm._v(" "),
                         _c(
                           "h3",
@@ -68030,6 +68041,14 @@ var render = function() {
                           1
                         ),
                         _vm._v(" "),
+                        post.article_content
+                          ? _c("p", [_vm._v(_vm._s(_vm.article_content))])
+                          : _vm._e(),
+                        _c("p"),
+                        post.article_content
+                          ? _c("p", [_vm._v(_vm._s(_vm.article_content))])
+                          : _vm._e(),
+                        _c("p"),
                         _c("div", { staticClass: "row" }, [
                           _c("div", { staticClass: "col-md-4" }, [
                             _c("i", { staticClass: "fa fa-eye" }),
@@ -95805,7 +95824,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
     },
     accessToken: function accessToken() {
       return localStorage.getItem('access_token');
-    }
+    },
+    redirectPostView: function redirectPostView() {}
   },
   mounted: function mounted() {
     window.axios.defaults.headers.common = {
@@ -98141,13 +98161,17 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _state__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./state */ "./resources/js/store/student/state.js");
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   getStudentPosts: function getStudentPosts(_ref) {
-    var commit = _ref.commit;
+    var commit = _ref.commit,
+        state = _ref.state;
     return new Promise(function (resolve, reject) {
+      var pageIndex = state.currrent_page + 1;
       axios__WEBPACK_IMPORTED_MODULE_0___default()({
-        url: window.App.baseUrl + '/api/get-student-posts',
+        url: window.App.baseUrl + '/api/get-student-posts?page=' + pageIndex,
         method: 'GET'
       }).then(function (resp) {
         var posts = resp.data.success.posts;
@@ -98230,7 +98254,8 @@ var StudentStore = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   get_posts: function get_posts(state, posts) {
-    state.dashboardPosts = posts;
+    state.dashboardPosts = posts.data;
+    state.currrent_page = posts.currrent_page;
   },
   get_categories: function get_categories(state, data) {
     state.categories = data.categories;
@@ -98257,6 +98282,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 var state = {
   dashboardPosts: [],
+  currrent_page: 0,
   postView: {
     'categories': [],
     'related_posts': [],

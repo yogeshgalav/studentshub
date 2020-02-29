@@ -15,10 +15,10 @@ class CreateInstitutesTable extends Migration
     {
         Schema::create('institutes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('institute_type')->nullable();
-            $table->string('institute_name');
-            $table->string('institute_city')->nullable();
-            $table->string('institute_state')->nullable();
+            $table->string('type')->nullable();
+            $table->string('name');
+            $table->string('city')->nullable();
+            $table->string('state')->nullable();
             $table->string('subdomain')->nullable();
             $table->char('country_code',2)->default('IN');
             $table->string('email_slug')->nullable();
@@ -26,14 +26,6 @@ class CreateInstitutesTable extends Migration
             $table->string('logo_url')->nullable();
             $table->integer('added_by_user_id')->unsigned();
             $table->boolean('is_verfied')->default(false);
-            $table->char('color_foreground',7)->nullable();
-            $table->char('color_background',7)->nullable();
-            
-            $table->string('last_contract_signed_date')->nullable();
-            $table->string('next_contract_renewal_date')->nullable();
-            $table->char('currency_code',3)->nullable();
-            $table->date('retired_at')->nullable();
-            $table->boolean('is_demo_account')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });

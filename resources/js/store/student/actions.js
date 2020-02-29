@@ -1,12 +1,14 @@
 import axios from 'axios';
+import state from './state';
 
 export default {
-getStudentPosts({commit}){
+getStudentPosts({commit,state}){
   return new Promise((resolve, reject) => {
-    axios({url: window.App.baseUrl+'/api/get-student-posts', method: 'GET' })
+    let pageIndex= state.currrent_page +1;
+    axios({url: window.App.baseUrl+'/api/get-student-posts?page='+pageIndex, method: 'GET' })
     .then(resp => {
      const posts = resp.data.success.posts
-      commit('get_posts', posts,)
+      commit('get_posts', posts)
       resolve(resp)
     })
     .catch(err => {

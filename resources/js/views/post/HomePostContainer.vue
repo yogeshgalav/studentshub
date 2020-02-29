@@ -8,16 +8,20 @@
 						<div>
 									<div class="d-flex mt-2">
 										<div class="avatar">
-											<img v-lazy="'/images/4.jpg'" class="avatar-img rounded-circle">
+                            <img class="card-img-top img-responsive" v-lazy="post.image_path" alt="Card image cap">
 										</div>
 										<div class="info-post ml-2">
 											<p class="username">{{post.user_name}}</p>
-											<p class="date text-muted">{{post.created_at}}</p>
+											<p class="date text-muted">{{post.institute_name}}</p>
+											<h5>{{post.category_name}}</h5><br/>
+											<h5>{{post.subject_name}}</h5><br/>
                                             <h3 class="card-title  font-size-16">
 										<router-link :to="'/post/'+post.id"  class="weight-600 text-black">
 											{{post.heading}}
 										</router-link>
 									</h3>
+									<p v-if="post.article_content">{{article_content}}<p>
+									<p v-if="post.article_content">{{article_content}}<p>
                                     <div class="row">
 										<div class="col-md-4">
 											<i class="fa fa-eye"></i>

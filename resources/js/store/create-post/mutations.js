@@ -25,6 +25,7 @@ export default {
       }
     },
     updateFiles(state,data){
+      console.log('bhsdk')
      state.new_post.files=data;
     },
     submitPost(state){

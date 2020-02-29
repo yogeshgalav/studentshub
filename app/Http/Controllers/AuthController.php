@@ -108,11 +108,7 @@ class AuthController extends Controller
         
         $success['token'] = $user->createToken('Sthub')->accessToken;
                 
-        if (is_null($user->student_activated_at)) {
-            $success['redirectUrl'] = '/check-in';
-        } else {
-            $success['redirectUrl'] = '/';
-        }
+        $success['redirectUrl'] = '/check-in';
         
     DB::commit();
     } catch (\Exception $e) {

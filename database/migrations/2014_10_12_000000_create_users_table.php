@@ -27,7 +27,6 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->boolean('is_knowledge_seeker')->default(true);
             $table->date('onboarded_at')->nullable();
-            $table->date('student_activated_at')->nullable();
             $table->string('avatar_url')->nullable();
             $table->softDeletes();
             $table->rememberToken();

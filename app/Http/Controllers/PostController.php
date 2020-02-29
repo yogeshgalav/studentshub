@@ -13,6 +13,7 @@ use App\Models\Subject;
 use App\Models\Video;
 use Auth;
 use DB;
+use Storage;
 use Illuminate\Support\Arr;
 use Illuminate\Pagination\LengthAwarePaginator as Paginator;
 
@@ -57,12 +58,14 @@ class PostController extends Controller
                 $base64_image=$element->src;
                 if (preg_match('/^data:image\/(\w+);base64,/', $base64_image)) {
                     $data = substr($base64_image, strpos($base64_image, ',') + 1);
-                
+                    $pos  = strpos($base64_image, ';');
+                    $file_type = explode(':', substr($base64_image, 0, $pos))[1];
+                    
                     $data = base64_decode($data);
-                    $file_name=uniqid();
-                    \Storage::disk('local')->put("post-images/".$file_name, $data);
+                    $file_name=uniqid().'.'.$file_type;
+                    Storage::disk('local')->put("post-images/".$file_name, $data);
 
-                    $files[]=$file_name;
+                    $files[]=['file_name'=>$file_name,'file_type'=>$file_type];
                     $element->src="/post-images/".$file_name;
                 }
             }
@@ -74,9 +77,9 @@ class PostController extends Controller
                 $newFile= new SthubFile();
                     $newFile->fileable_id=$post_content_id;
                     $newFile->fileable_type='App\Models\Article';
-                    $newFile->file_ext='png';
-                    $newFile->file_size=20;
-                    $newFile->file_name=$file;
+                    $newFile->file_ext=Storage::disk('local')->getMimeType($file_path);
+                    $newFile->file_size=Storage::disk('local')->size($file_path);
+                    $newFile->file_name=$file['file_name'];
                     $newFile->user_id=Auth::user()->id;
                     $newFile->save();
             }
@@ -88,17 +91,22 @@ class PostController extends Controller
                     'total_files'=>1,
                 ]);
                 $newPost=$request->newPost;
-                foreach($newPost->files as $file){
-                    if($file->fileObject===true){
-                        $newFile= new File();
-                        $newFile->fileable_id=$document->id;
-                        $newFile->fileable_type='App\Models\Document';
-                        $newFile->file_ext=$file->type;
-                        $newFile->file_size=$file->size;
-                        $newFile->file_name=$file->name;
-                        $newFile->user_id=Auth::user()->id;
-                    }
-                }
+                $post->postable_type="App\Models\Document";
+            $post->postable_id=$post_content_id;
+            foreach($files as $file){
+                $file_name=uniqid();
+                $file_path="documents/".$file_name;
+                Storage::disk('local')->put($file_path, $file);
+
+                $newFile= new SthubFile();
+                    $newFile->fileable_id=$document->id;
+                    $newFile->fileable_type='App\Models\Document';
+                    $newFile->file_ext=Storage::disk('local')->getMimeType($file_path);
+                    $newFile->file_size=Storage::disk('local')->size($file_path);
+                    $newFile->file_name=$file_name;
+                    $newFile->user_id=Auth::user()->id;
+                    $newFile->save();
+            }
             break;
             case 'video':
             $str=$postContent['link'].'&';
@@ -138,33 +146,42 @@ class PostController extends Controller
     }
 
     public function getStudentPosts(){
-        // $posts=DB::table('sthub_posts as sp')
-        // ->leftJoin('posts as po','po.id','=','sp.post_id')
-        // // ->leftJoin('articles as ar','po.id','=','ar.post_id')
-        // // ->leftJoin('documents as do','po.id','=','do.post_id')
-        // ->join('videos as vd',function($join){
-        //     $join->on('po.postable_id','=','vd.id')->where('po.postable_type','=','App\Models\Video');
-        // })
-        // // ->leftJoin('notices as no','po.id','=','no.post_id')
-        // // ->leftJoin('facts as fa','po.id','=','fa.post_id')
-        // // ->leftJoin('mcqs as mc','po.id','=','mc.post_id')
-        // ->leftJoin('likes as li','po.id','=','li.post_id')
-        // ->leftJoin('views as vw','po.id','=','vw.post_id')
-        // ->select(['po.id as id','vd.*',DB::raw('COUNT(distinct li.user_id) as total_likes'),DB::raw('COUNT(distinct vw.user_id) as total_views')])
-        // ->groupBy(['sp.post_id','vd.id','vd.link','vd.content'])
-        // ->paginate();
+        $posts=DB::table('sthub_posts as sp')
+        ->join('posts as po','po.id','=','sp.post_id')
+        ->leftJoin('articles as ar',function($join){
+            $join->on('po.postable_id','=','ar.id')->where('po.postable_type','=','App\Models\Article');
+        })
+        ->leftJoin('documents as do',function($join){
+            $join->on('po.postable_id','=','do.id')->where('po.postable_type','=','App\Models\Document');
+        })
+        ->leftJoin('videos as vd',function($join){
+            $join->on('po.postable_id','=','vd.id')->where('po.postable_type','=','App\Models\Video');
+        })
+        ->leftJoin('subjects as sub','sub.id','=','po.subject_id')
+        ->leftJoin('categories as cat','cat.id','=','sub.category_id')
+        ->leftJoin('users as us','us.id','=','po.user_id')
+        ->leftJoin('students as st','st.user_id','=','us.id')
+        ->leftJoin('batches as pbt','pbt.id','=','st.prefferred_batch')
+        ->leftJoin('institutes as inst','inst.id','=','pbt.institute_id')
+        // ->leftJoin('notices as no','po.id','=','no.post_id')
+        // ->leftJoin('facts as fa','po.id','=','fa.post_id')
+        // ->leftJoin('mcqs as mc','po.id','=','mc.post_id')
+        ->select(['po.id as id','po.post_heading as heading','cat.name as category_name','sub.Subject_name as subject_name','po.primary_image_path as image_path','us.full_name as user_name','inst.institute_name as institute_name','ar.content as article_content','vd.content as video_content',
+        'vd.link as video_link'])
+        ->paginate();
+
+        //get groupBy fields
+        foreach($posts as $post){
+            $postData=DB::table('posts as po')->where('po.id',$post->id)
+            ->leftJoin('likes as li','po.id','=','li.post_id')
+            ->leftJoin('views as vw','po.id','=','vw.post_id')
+            ->select([DB::raw('COUNT(distinct li.user_id) as total_likes'),DB::raw('COUNT(distinct vw.user_id) as total_views')])
+            ->groupBy(['po.id'])
+            ->first();
+            $post->total_likes=$postData->total_likes;
+            $post->total_views=$postData->total_views;
+        }
         
-        // use Illuminate\Pagination\LengthAwarePaginator as Paginator;
-
-// $page       = ($request->input('page') != null) ? $request->input('page') : 1;
-// $perPage    = 1;
-
-// $sliced     = array_slice($data, 0, 5); //you can these values as per your requirement 
-
-// $paginator  = new Paginator($sliced, count($data), $perPage, $page,['path'  => url()->current(),'query' => $request->query()]);
-
-// return $paginator;
-        $posts=SthubPost::getDashboardPosts();
         return response()->json(['success'=>[
             'posts'=>$posts
         ]]);

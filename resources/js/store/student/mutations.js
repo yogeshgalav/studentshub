@@ -1,6 +1,7 @@
 export default {
     get_posts(state,posts){
-      state.dashboardPosts = posts;
+      state.dashboardPosts = posts.data;
+      state.currrent_page = posts.currrent_page;
     },
     get_categories(state,data){
       state.categories = data.categories;

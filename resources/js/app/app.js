@@ -48,6 +48,9 @@ Vue.mixin({
         accessToken() {
             return localStorage.getItem('access_token');
         },
+        redirectPostView(){
+            
+        }
     },
     mounted(){
         window.axios.defaults.headers.common = {

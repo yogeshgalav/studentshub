@@ -15907,6 +15907,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -70260,11 +70264,12 @@ var render = function() {
                             {
                               name: "lazy",
                               rawName: "v-lazy",
-                              value: "/images/4.jpg",
-                              expression: "'/images/4.jpg'"
+                              value: post.image_path,
+                              expression: "post.image_path"
                             }
                           ],
-                          staticClass: "avatar-img rounded-circle"
+                          staticClass: "card-img-top img-responsive",
+                          attrs: { alt: "Card image cap" }
                         })
                       ]),
                       _vm._v(" "),
@@ -70274,8 +70279,14 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("p", { staticClass: "date text-muted" }, [
-                          _vm._v(_vm._s(post.created_at))
+                          _vm._v(_vm._s(post.institute_name))
                         ]),
+                        _vm._v(" "),
+                        _c("h5", [_vm._v(_vm._s(post.category_name))]),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("h5", [_vm._v(_vm._s(post.subject_name))]),
+                        _c("br"),
                         _vm._v(" "),
                         _c(
                           "h3",
@@ -70299,6 +70310,14 @@ var render = function() {
                           1
                         ),
                         _vm._v(" "),
+                        post.article_content
+                          ? _c("p", [_vm._v(_vm._s(_vm.article_content))])
+                          : _vm._e(),
+                        _c("p"),
+                        post.article_content
+                          ? _c("p", [_vm._v(_vm._s(_vm.article_content))])
+                          : _vm._e(),
+                        _c("p"),
                         _c("div", { staticClass: "row" }, [
                           _c("div", { staticClass: "col-md-4" }, [
                             _c("i", { staticClass: "fa fa-eye" }),
@@ -98738,7 +98757,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
     },
     accessToken: function accessToken() {
       return localStorage.getItem('access_token');
-    }
+    },
+    redirectPostView: function redirectPostView() {}
   },
   mounted: function mounted() {
     window.axios.defaults.headers.common = {

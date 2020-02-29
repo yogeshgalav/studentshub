@@ -72,6 +72,7 @@ export default {
   },
   methods: {
     inputUpdate(files) {
+      console.log('gfrt');
       this.$store.commit('updateFiles', files)
     },
   }

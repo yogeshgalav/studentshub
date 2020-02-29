@@ -24,6 +24,9 @@ class StudentController extends Controller
     {
         $input = $request->all();
         $user=Auth::user();
+        if($user->student()->exists()){
+            return response()->json(['error'=>['Already checked-in as student']],403);
+        }
     DB::beginTransaction();
     try{
         $student=Student::create(['user_id'=>Auth::user()->id]);
@@ -41,7 +44,7 @@ class StudentController extends Controller
         }
         //create or get institute id
         $institute=Institute::firstOrCreate([
-            'institute_name'=>$input['institute'],
+            'name'=>$input['institute'],
         ],[
             'added_by_user_id'=>$user->id
         ]);
@@ -69,11 +72,8 @@ class StudentController extends Controller
             'is_preffered'=>true,
         ]);
 
-        $user->student_activated_at=date('Y-m-d');
-        $user->save();
-
-        // $student->prefferred_batch=$batch->id;
-        // $student->prefferred_category=$course->category_id;
+        $student->prefferred_batch=$batch->id;
+        $student->prefferred_category=$course->category_id;
         $student->save();
 
         Notification::send($batch->users(), new BatchNewUserNotification($user,$batch));
