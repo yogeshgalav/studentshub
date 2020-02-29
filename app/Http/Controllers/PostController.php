@@ -166,7 +166,8 @@ class PostController extends Controller
         // ->leftJoin('notices as no','po.id','=','no.post_id')
         // ->leftJoin('facts as fa','po.id','=','fa.post_id')
         // ->leftJoin('mcqs as mc','po.id','=','mc.post_id')
-        ->select(['po.id as id','po.post_heading as heading','cat.name as category_name','sub.Subject_name as subject_name','po.primary_image_path as image_path','us.full_name as user_name','inst.institute_name as institute_name','ar.content as article_content','vd.content as video_content',
+        ->select(['po.id as id','po.post_heading as heading','cat.name as category_name','sub.Subject_name as subject_name','po.primary_image_path as image_path',
+        'us.avatar_url as profile_image','us.full_name as user_name','inst.institute_name as institute_name','ar.content as article_content','vd.content as video_content',
         'vd.link as video_link'])
         ->paginate();
 

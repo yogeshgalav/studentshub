@@ -8,7 +8,7 @@
 						<div>
 									<div class="d-flex mt-2">
 										<div class="avatar">
-                            <img class="card-img-top img-responsive" v-lazy="post.image_path" alt="Card image cap">
+                            <img class="card-img-top img-responsive" v-lazy="post.profile_image" alt="Card image cap">
 										</div>
 										<div class="info-post ml-2">
 											<p class="username">{{post.user_name}}</p>
@@ -20,8 +20,8 @@
 											{{post.heading}}
 										</router-link>
 									</h3>
-									<p v-if="post.article_content">{{article_content}}<p>
-									<p v-if="post.article_content">{{article_content}}<p>
+									<p v-if="post.article_content">{{post.article_content}}<p>
+									<p v-if="post.video_content">{{post.video_content}}<p>
                                     <div class="row">
 										<div class="col-md-4">
 											<i class="fa fa-eye"></i>

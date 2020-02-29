@@ -14,7 +14,7 @@
 					   </i> {{post.total_views}} |  <i class="fa fa-thumbs-down text-black">
 					   </i>  {{post.total_likes}}
 					   </span>
-                            <img class="card-img-top img-responsive" v-lazy="post.image_path" alt="Card image cap">
+                            <img class="card-img-top img-responsive" v-lazy="post.profile_image" alt="Card image cap">
 							</div>
                         </div>
         <div class="col-md-9">

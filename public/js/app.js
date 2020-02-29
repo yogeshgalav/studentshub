@@ -70127,8 +70127,8 @@ var render = function() {
                     {
                       name: "lazy",
                       rawName: "v-lazy",
-                      value: post.image_path,
-                      expression: "post.image_path"
+                      value: post.profile_image,
+                      expression: "post.profile_image"
                     }
                   ],
                   staticClass: "card-img-top img-responsive",
@@ -70264,8 +70264,8 @@ var render = function() {
                             {
                               name: "lazy",
                               rawName: "v-lazy",
-                              value: post.image_path,
-                              expression: "post.image_path"
+                              value: post.profile_image,
+                              expression: "post.profile_image"
                             }
                           ],
                           staticClass: "card-img-top img-responsive",
@@ -70311,11 +70311,11 @@ var render = function() {
                         ),
                         _vm._v(" "),
                         post.article_content
-                          ? _c("p", [_vm._v(_vm._s(_vm.article_content))])
+                          ? _c("p", [_vm._v(_vm._s(post.article_content))])
                           : _vm._e(),
                         _c("p"),
-                        post.article_content
-                          ? _c("p", [_vm._v(_vm._s(_vm.article_content))])
+                        post.video_content
+                          ? _c("p", [_vm._v(_vm._s(post.video_content))])
                           : _vm._e(),
                         _c("p"),
                         _c("div", { staticClass: "row" }, [
