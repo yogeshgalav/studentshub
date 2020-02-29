@@ -31,4 +31,12 @@ class GuestController extends Controller
         }
         return 'success';
     }
+    public function checkinApi(){
+        $courses=\App\Models\Course::with('category')->get();
+        $branches=\App\Models\Branch::all();
+        return response()->json(['success'=>[
+            'courses'=>$courses,
+            'branches'=>$branches
+        ]]);
+    }
 }
