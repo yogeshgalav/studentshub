@@ -1,7 +1,7 @@
 <template>
-<div>
+<div v-scroll:throttle="{fn: onScroll, throttle: 500 }">
 
-<div v-for="(post,index) in posts" :key="index" v-scroll="scrollFn">
+<div v-for="(post,index) in posts" :key="index">
     <div  class="row">
         <div class="col-md-9">
 							<div class="card-post" @click="redirectPostView(post)">
@@ -58,14 +58,11 @@
    
 </template>
 <script>
-import vuescroll from 'vue-scroll'
-
 export default {
-	components:{vuescroll},
 	props:['posts'],
 	methods:{
 		scrollFn(){
-			this.$emit('loadPosts');
+                this.$store.dispatch('getStudentPosts');
 		}
 	}
 }

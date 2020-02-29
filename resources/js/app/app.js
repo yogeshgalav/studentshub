@@ -7,6 +7,9 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VModal from 'vue-js-modal'
 
+import vuescroll from 'vue-scroll'
+Vue.use(vuescroll)
+
 import VueLazyload from 'vue-lazyload';
 Vue.use(VueLazyload);
 
@@ -25,6 +28,9 @@ Vue.mixin({
         '$trans':function(file,string,defaultString){
             return window.lang[file][string] ? window.lang[file][string] : (defaultString ? defaultString : string);
         },
+        redirectPostView(post){
+            console.log();
+        }
     },
     computed: {
         baseUrl() {
@@ -48,9 +54,6 @@ Vue.mixin({
         accessToken() {
             return localStorage.getItem('access_token');
         },
-        redirectPostView(){
-            
-        }
     },
     mounted(){
         window.axios.defaults.headers.common = {

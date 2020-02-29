@@ -15851,7 +15851,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue_scroll__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-scroll */ "./node_modules/vue-scroll/dist/vue-scroll.esm.js");
 //
 //
 //
@@ -15911,15 +15910,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-  components: {
-    vuescroll: vue_scroll__WEBPACK_IMPORTED_MODULE_0__["default"]
-  },
   props: ['posts'],
   methods: {
     scrollFn: function scrollFn() {
-      this.$emit('loadPosts');
+      this.$store.dispatch('getStudentPosts');
     }
   }
 });
@@ -20997,7 +20992,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.overlay[data-v-28d285a1] {\r\n    height: 100%;\r\n    width: 100%;\r\n    background: rgba(255,255,255,0.4);\r\n    position: absolute;\r\n    top: 7%;\r\n    left: 13%;\n}\r\n", ""]);
+exports.push([module.i, "\n.overlay[data-v-28d285a1] {\n    height: 100%;\n    width: 100%;\n    background: rgba(255,255,255,0.4);\n    position: absolute;\n    top: 7%;\n    left: 13%;\n}\n", ""]);
 
 // exports
 
@@ -21016,7 +21011,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* .switch-label {\r\n  margin-bottom: 3px !important\r\n} */\r\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* .switch-label {\n  margin-bottom: 3px !important\n} */\n", ""]);
 
 // exports
 
@@ -21035,7 +21030,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.fade-enter-active, .fade-leave-active {\r\n  -webkit-transition: opacity .5s;\r\n  transition: opacity .5s;\n}\n.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {\r\n  opacity: 0;\n}\r\n", ""]);
+exports.push([module.i, "\n.fade-enter-active, .fade-leave-active {\n  -webkit-transition: opacity .5s;\n  transition: opacity .5s;\n}\n.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {\n  opacity: 0;\n}\n", ""]);
 
 // exports
 
@@ -70228,139 +70223,136 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    _vm._l(_vm.posts, function(post, index) {
-      return _c(
-        "div",
+    {
+      directives: [
         {
-          directives: [
-            {
-              name: "scroll",
-              rawName: "v-scroll",
-              value: _vm.scrollFn,
-              expression: "scrollFn"
-            }
-          ],
-          key: index
-        },
-        [
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-md-9" }, [
-              _c(
-                "div",
-                {
-                  staticClass: "card-post",
-                  on: {
-                    click: function($event) {
-                      return _vm.redirectPostView(post)
-                    }
+          name: "scroll",
+          rawName: "v-scroll:throttle",
+          value: { fn: _vm.onScroll, throttle: 500 },
+          expression: "{fn: onScroll, throttle: 500 }",
+          arg: "throttle"
+        }
+      ]
+    },
+    _vm._l(_vm.posts, function(post, index) {
+      return _c("div", { key: index }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-md-9" }, [
+            _c(
+              "div",
+              {
+                staticClass: "card-post",
+                on: {
+                  click: function($event) {
+                    return _vm.redirectPostView(post)
                   }
-                },
-                [
-                  _c("div", [
-                    _c("div", { staticClass: "d-flex mt-2" }, [
-                      _c("div", { staticClass: "avatar" }, [
-                        _c("img", {
-                          directives: [
-                            {
-                              name: "lazy",
-                              rawName: "v-lazy",
-                              value: post.profile_image,
-                              expression: "post.profile_image"
-                            }
-                          ],
-                          staticClass: "card-img-top img-responsive",
-                          attrs: { alt: "Card image cap" }
-                        })
+                }
+              },
+              [
+                _c("div", [
+                  _c("div", { staticClass: "d-flex mt-2" }, [
+                    _c("div", { staticClass: "avatar" }, [
+                      _c("img", {
+                        directives: [
+                          {
+                            name: "lazy",
+                            rawName: "v-lazy",
+                            value: post.profile_image,
+                            expression: "post.profile_image"
+                          }
+                        ],
+                        staticClass: "card-img-top img-responsive",
+                        attrs: { alt: "Card image cap" }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "info-post ml-2" }, [
+                      _c("p", { staticClass: "username" }, [
+                        _vm._v(_vm._s(post.user_name))
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "info-post ml-2" }, [
-                        _c("p", { staticClass: "username" }, [
-                          _vm._v(_vm._s(post.user_name))
-                        ]),
-                        _vm._v(" "),
-                        _c("p", { staticClass: "date text-muted" }, [
-                          _vm._v(_vm._s(post.institute_name))
-                        ]),
-                        _vm._v(" "),
-                        _c("h5", [_vm._v(_vm._s(post.category_name))]),
-                        _c("br"),
-                        _vm._v(" "),
-                        _c("h5", [_vm._v(_vm._s(post.subject_name))]),
-                        _c("br"),
-                        _vm._v(" "),
-                        _c(
-                          "h3",
-                          { staticClass: "card-title  font-size-16" },
-                          [
-                            _c(
-                              "router-link",
-                              {
-                                staticClass: "weight-600 text-black",
-                                attrs: { to: "/post/" + post.id }
-                              },
-                              [
-                                _vm._v(
-                                  "\r\n\t\t\t\t\t\t\t\t\t\t\t" +
-                                    _vm._s(post.heading) +
-                                    "\r\n\t\t\t\t\t\t\t\t\t\t"
-                                )
-                              ]
-                            )
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        post.article_content
-                          ? _c("p", [_vm._v(_vm._s(post.article_content))])
-                          : _vm._e(),
-                        _c("p"),
-                        post.video_content
-                          ? _c("p", [_vm._v(_vm._s(post.video_content))])
-                          : _vm._e(),
-                        _c("p"),
-                        _c("div", { staticClass: "row" }, [
-                          _c("div", { staticClass: "col-md-4" }, [
-                            _c("i", { staticClass: "fa fa-eye" }),
-                            _vm._v(" "),
-                            _c("span", { staticClass: "badge-text" }, [
-                              _vm._v(_vm._s(post.total_views))
-                            ])
-                          ]),
+                      _c("p", { staticClass: "date text-muted" }, [
+                        _vm._v(_vm._s(post.institute_name))
+                      ]),
+                      _vm._v(" "),
+                      _c("h5", [_vm._v(_vm._s(post.category_name))]),
+                      _c("br"),
+                      _vm._v(" "),
+                      _c("h5", [_vm._v(_vm._s(post.subject_name))]),
+                      _c("br"),
+                      _vm._v(" "),
+                      _c(
+                        "h3",
+                        { staticClass: "card-title  font-size-16" },
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "weight-600 text-black",
+                              attrs: { to: "/post/" + post.id }
+                            },
+                            [
+                              _vm._v(
+                                "\r\n\t\t\t\t\t\t\t\t\t\t\t" +
+                                  _vm._s(post.heading) +
+                                  "\r\n\t\t\t\t\t\t\t\t\t\t"
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      post.article_content
+                        ? _c("p", [_vm._v(_vm._s(post.article_content))])
+                        : _vm._e(),
+                      _c("p"),
+                      post.video_content
+                        ? _c("p", [_vm._v(_vm._s(post.video_content))])
+                        : _vm._e(),
+                      _c("p"),
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-md-4" }, [
+                          _c("i", { staticClass: "fa fa-eye" }),
                           _vm._v(" "),
-                          _c("div", { staticClass: "col-md-6" }, [
-                            _c("i", { staticClass: "fa fa-thumbs-up" }),
-                            _vm._v(" "),
-                            _c("span", { staticClass: "badge-text" }, [
-                              _vm._v(_vm._s(post.total_likes))
-                            ])
+                          _c("span", { staticClass: "badge-text" }, [
+                            _vm._v(_vm._s(post.total_views))
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-6" }, [
+                          _c("i", { staticClass: "fa fa-thumbs-up" }),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "badge-text" }, [
+                            _vm._v(_vm._s(post.total_likes))
                           ])
                         ])
                       ])
                     ])
                   ])
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-3" }, [
-              _c("img", {
-                directives: [
-                  {
-                    name: "lazy",
-                    rawName: "v-lazy",
-                    value: post.image_path,
-                    expression: "post.image_path"
-                  }
-                ],
-                staticClass: "card-img-top",
-                attrs: { alt: "Card image cap" }
-              })
-            ])
+                ])
+              ]
+            )
           ]),
           _vm._v(" "),
-          _vm._m(0, true)
-        ]
-      )
+          _c("div", { staticClass: "col-md-3" }, [
+            _c("img", {
+              directives: [
+                {
+                  name: "lazy",
+                  rawName: "v-lazy",
+                  value: post.image_path,
+                  expression: "post.image_path"
+                }
+              ],
+              staticClass: "card-img-top",
+              attrs: { alt: "Card image cap" }
+            })
+          ])
+        ]),
+        _vm._v(" "),
+        _vm._m(0, true)
+      ])
     }),
     0
   )
@@ -98708,7 +98700,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue_axios__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var vue_js_modal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-js-modal */ "./node_modules/vue-js-modal/dist/index.js");
 /* harmony import */ var vue_js_modal__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vue_js_modal__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var vue_lazyload__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-lazyload */ "./node_modules/vue-lazyload/vue-lazyload.esm.js");
+/* harmony import */ var vue_scroll__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-scroll */ "./node_modules/vue-scroll/dist/vue-scroll.esm.js");
+/* harmony import */ var vue_lazyload__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue-lazyload */ "./node_modules/vue-lazyload/vue-lazyload.esm.js");
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$utils = _helpers_utilities__WEBPACK_IMPORTED_MODULE_1__["default"]; //Dependencies
@@ -98717,9 +98710,11 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$utils = _helpers_utilities
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_lazyload__WEBPACK_IMPORTED_MODULE_5__["default"]); // or with options
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_scroll__WEBPACK_IMPORTED_MODULE_5__["default"]);
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_lazyload__WEBPACK_IMPORTED_MODULE_5__["default"], {
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_lazyload__WEBPACK_IMPORTED_MODULE_6__["default"]); // or with options
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_lazyload__WEBPACK_IMPORTED_MODULE_6__["default"], {
   preLoad: 1.3,
   error: 'dist/error.png',
   loading: 'dist/loading.gif',
@@ -98734,6 +98729,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
   methods: {
     '$trans': function $trans(file, string, defaultString) {
       return window.lang[file][string] ? window.lang[file][string] : defaultString ? defaultString : string;
+    },
+    redirectPostView: function redirectPostView(post) {
+      console.log();
     }
   },
   computed: {
@@ -98757,8 +98755,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
     },
     accessToken: function accessToken() {
       return localStorage.getItem('access_token');
-    },
-    redirectPostView: function redirectPostView() {}
+    }
   },
   mounted: function mounted() {
     window.axios.defaults.headers.common = {
@@ -102970,8 +102967,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\xampp\htdocs\studentshub\resources\js\app\guest\app.js */"./resources/js/app/guest/app.js");
-module.exports = __webpack_require__(/*! E:\xampp\htdocs\studentshub\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\studentshub\resources\js\app\guest\app.js */"./resources/js/app/guest/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\studentshub\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
