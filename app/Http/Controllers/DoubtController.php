@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Doubt;
 use App\Models\DoubtRequest;
+use App\Models\Subject;
 use Illuminate\Http\Request;
 use Auth;
 use Arr;
@@ -16,27 +17,35 @@ class DoubtController extends Controller
         $input = $request->all();
         DB::beginTransaction();
     try{
+
+        $subject_id=Subject::firstOrCreate([
+            'subject_name'=>$request->subject
+        ])->id;
+        $batch_id=Auth::user()->student()->prefferred_batch;
+
         $q = new Doubt();
         $q->user_id = Auth::user()->id;
         $q->question = $request->doubt;
+        $q->subject_id = $subject_id;
+        $q->batch_id = $batch_id;
         $q->save();
 
-        switch($request->doubt_type){
-            case 'batch':
-                DoubtRequest::create([
-                    'doubt_id'=>$q->id,
-                    'doubtable_id'=>Auth::student()->prefferred_batch,
-                    'doubtable_type'=>'batch',
-                ]);
-            break;
-            case 'category':
-                DoubtRequest::create([
-                    'doubt_id'=>$q->id,
-                    'doubtable_id'=>Auth::student()->prefferred_category,
-                    'doubtable_type'=>'category',
-                ]);
-            break;
-        }
+        // switch($request->doubt_type){
+        //     case 'batch':
+        //         DoubtRequest::create([
+        //             'doubt_id'=>$q->id,
+        //             'doubtable_id'=>Auth::student()->prefferred_batch,
+        //             'doubtable_type'=>'App\Models\Batch',
+        //         ]);
+        //     break;
+        //     case 'branch':
+        //         DoubtRequest::create([
+        //             'doubt_id'=>$q->id,
+        //             'doubtable_id'=>Auth::student()->prefferred_category,
+        //             'doubtable_type'=>'App\Models\Branch',
+        //         ]);
+        //     break;
+        // }
         
     DB::commit();
         } catch (\Exception $e) {

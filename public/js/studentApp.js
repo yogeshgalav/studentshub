@@ -14815,6 +14815,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -14822,7 +14833,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      new_doubt: '',
+      search_doubt: '',
+      question: '',
+      subject: '',
       new_doubt_type: 'batch',
       doubtList: []
     };
@@ -14835,17 +14848,17 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
-    selectDoubtType: function selectDoubtType() {
-      this.$modal.show('select_doubt_type');
+    addDoubtModal: function addDoubtModal() {
+      this.$modal.show('add_doubt_modal');
     },
     addDoubt: function addDoubt() {
       var _this2 = this;
 
       this.axios.post('/api/add-doubt/', {
-        doubt: this.new_doubt,
-        doubt_type: this.new_doubt_type
+        doubt: this.question,
+        subject: this.subject
       }).then(function (resp) {
-        _this2.$modal.hide('select_doubt_type');
+        _this2.$modal.hide('add_doubt_modal');
       })["catch"](function (err) {
         reject(err);
       });
@@ -67581,7 +67594,7 @@ var render = function() {
               on: {
                 submit: function($event) {
                   $event.preventDefault()
-                  return _vm.selectDoubtType($event)
+                  return _vm.addDoubtModal($event)
                 }
               }
             },
@@ -67592,8 +67605,8 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.new_doubt,
-                      expression: "new_doubt"
+                      value: _vm.search_doubt,
+                      expression: "search_doubt"
                     }
                   ],
                   staticClass: "form-control",
@@ -67602,13 +67615,13 @@ var render = function() {
                     name: "doubt",
                     placeholder: "Ask Question"
                   },
-                  domProps: { value: _vm.new_doubt },
+                  domProps: { value: _vm.search_doubt },
                   on: {
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.new_doubt = $event.target.value
+                      _vm.search_doubt = $event.target.value
                     }
                   }
                 })
@@ -67699,34 +67712,84 @@ var render = function() {
           ])
         }),
         _vm._v(" "),
-        _c("modal", { attrs: { name: "select_doubt_type" } }, [
-          _c(
-            "p",
-            {
-              on: {
-                click: function($event) {
-                  _vm.new_doubt_type = "branch"
+        _c("modal", { attrs: { name: "add_doubt_modal" } }, [
+          _c("div", { staticClass: "row" }, [
+            _c(
+              "form",
+              {
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.addDoubt($event)
+                  }
                 }
-              }
-            },
-            [_vm._v("branch")]
-          ),
-          _vm._v(" "),
-          _c("br"),
-          _vm._v(" "),
-          _c(
-            "p",
-            {
-              on: {
-                click: function($event) {
-                  _vm.new_doubt_type = "category"
-                }
-              }
-            },
-            [_vm._v("category")]
-          ),
-          _vm._v(" "),
-          _c("button", { on: { click: _vm.addDoubt } }, [_vm._v("submit")])
+              },
+              [
+                _c("div", { staticClass: "col-md-12" }, [
+                  _c("label", [_vm._v("Doubt")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.question,
+                        expression: "question"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text" },
+                    domProps: { value: _vm.question },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.question = $event.target.value
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-12" }, [
+                  _c("label", [_vm._v("Subject")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.subject,
+                        expression: "subject"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text" },
+                    domProps: { value: _vm.subject },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.subject = $event.target.value
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-12" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      attrs: { type: "submit" }
+                    },
+                    [_vm._v("submit")]
+                  )
+                ])
+              ]
+            )
+          ])
         ])
       ],
       2

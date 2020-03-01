@@ -2,9 +2,9 @@
    <main>
        <div class="container">
            <div class="row">
-               <form @submit.prevent="selectDoubtType"  >
+               <form @submit.prevent="addDoubtModal"  >
                    <div class="col-md-8 form-group">
-                       <input type="text"  name="doubt" v-model="new_doubt" class="form-control" placeholder="Ask Question">
+                       <input type="text"  name="doubt" v-model="search_doubt" class="form-control" placeholder="Ask Question">
 
                    </div>
                    <div class=" col-md-2 form-group">
@@ -57,11 +57,22 @@
         </div>
     </div>
 </div>
-<modal name="select_doubt_type">
-  <p @click="new_doubt_type='branch'">branch</p>
-  <br/>
-  <p @click="new_doubt_type='category'">category</p>
-  <button @click="addDoubt">submit</button>
+<modal name="add_doubt_modal">
+    <div class="row">
+        <form @submit.prevent="addDoubt">
+            <div class="col-md-12">
+                <label>Doubt</label>
+                <input class="form-control" type="text" v-model="question">
+            </div>
+            <div class="col-md-12">
+                <label>Subject</label>
+                <input class="form-control" type="text" v-model="subject">
+            </div>
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-primary">submit</button>
+            </div>
+        </form>
+    </div>
 </modal>
        </div>
    </main>
@@ -78,7 +89,9 @@ export default {
     data()
     {
         return {
-         new_doubt:'',
+         search_doubt:'',
+         question:'',
+         subject:'',
          new_doubt_type:'batch',           
             doubtList:[],
         };
@@ -91,16 +104,16 @@ export default {
 },
     methods:
     {
-        selectDoubtType(){
-            this.$modal.show('select_doubt_type');
+        addDoubtModal(){
+            this.$modal.show('add_doubt_modal');
         },
         addDoubt()
         {     
             
-        this.axios.post('/api/add-doubt/',{doubt:this.new_doubt,doubt_type:this.new_doubt_type} )
+        this.axios.post('/api/add-doubt/',{doubt:this.question,subject:this.subject} )
     .then(resp => {
         
-            this.$modal.hide('select_doubt_type');
+            this.$modal.hide('add_doubt_modal');
     })
     .catch(err => {
       reject(err)
