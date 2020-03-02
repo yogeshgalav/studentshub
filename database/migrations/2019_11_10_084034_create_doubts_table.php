@@ -17,6 +17,8 @@ class CreateDoubtsTable extends Migration
             $table->bigIncrements('id');
             $table->string('question');
             $table->integer('user_id')->unsigned();
+            $table->integer('batch_id')->unsigned();
+            $table->integer('subject_id')->unsigned();
             $table->timestamps();
         });
     }

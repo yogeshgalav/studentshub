@@ -12,4 +12,8 @@ class Student extends Model
     {
         return $this->belongsTo('App\Models\User');
     }
+
+    public function getPrefferredBranchAttribute(){
+        return Batch::where('id',$this->prefferred_batch)->first()->branch_id;
+    }
 }

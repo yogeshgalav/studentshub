@@ -59,17 +59,12 @@ class DoubtController extends Controller
 
     public function getDoubts(Request $request)
     {
-        $Doubts=\DB::table('doubts')
-        ->leftJoin('doubt_requests as dr','dr.doubt_id','=','doubts.id')
-        ->where(function($query){
-            $query->where('dr.doubtable_type','batch')->where('dr.doubtable_id',1);
+        $student=Auth::user()->student()->first();
+        $branch=$student->prefferred_branch;
+        $Doubts=Doubt::whereHas('subject.branch_subjects',function($query)use($branch){
+            $query->where('bs.branch_id','=',$branch);
         })
-        // ->orWhere(function($query){
-        //     $query->where('doubtable_type','classroom')->whereIn('doubtable_id',Auth::student()->classrooms()->pluck('id'));
-        // })
-        // ->orWhere(function($query){
-        //     $query->where('dr.doubtable_type','category')->where('dr.doubtable_id',Auth::student()->preffered_category);
-        // })
+        ->orWhere('doubts.batch_id',$student->prefferred_batch)
         ->get();
 
         return response()->json([
