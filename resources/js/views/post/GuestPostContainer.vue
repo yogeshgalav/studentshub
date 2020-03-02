@@ -1,5 +1,5 @@
 <template>
-<div v-scroll:throttle="{fn: scrollFn, throttle: 500 }">
+<div>
 
 <div v-for="(post,index) in posts" :key="index">
     <div  class="row">
@@ -21,7 +21,7 @@
 										</router-link>
 									</h3>
 									<p>{{post.content}}<p>
-                                    <div class="row">
+										 <div class="row">
 										<div class="col-md-4">
 											<i class="fa fa-eye"></i>
 											<span class="badge-text">{{post.total_views}}</span>
@@ -60,8 +60,8 @@
 export default {
 	props:['posts'],
 	methods:{
-		scrollFn(){
-                this.$store.dispatch('getStudentPosts');
+		loadPosts(){
+                this.$store.dispatch('getGuestPosts');
 		}
 	}
 }

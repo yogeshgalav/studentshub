@@ -6,17 +6,17 @@
                     <div class="text-center"> <p class="title weight-600 font-size-16 text-black">What is the subject of your Post.</p></div>
                     <label class="weight-500">Subject</label>
                     <div class="row">
-                        <input type="text" :value="selected_subject.Subject_name" @input="editSubject" class="form-control">
+                        <input type="text" @input="editSubject" class="form-control">
                     </div>
                 </div>
-                <div class="form-group" v-if="AuthUserCategory">
+                <div class="form-group">
                     <label> {{ 'Category/Course Type' }} </label>
                   <div class="inner-addon left-addon">
                     <i class="fa fa-user"></i>
                     <base-select
                     ref="baseSelect"
                     v-model="selected_category"
-                    value="AuthUserCategory"
+                    :initialSearch="initial_category"
                     :options="categories"
                     :options-limit="10"
                     :show-labels="false"
@@ -42,6 +42,10 @@ export default {
 			'AuthUserCategory': state=>state.AuthUserCategory,
 			'selected_subject': state=>state.new_post.selected_subject,
         }),
+        initial_category(){
+            let category = this.categories.find(node=>node.id===this.AuthUserCategory);
+            return category ? category.name : 'Technology';
+        }
     },
     data(){
         return {
@@ -61,7 +65,6 @@ export default {
     },
     methods:{
         editSubject(event){
-            console.log('1',event.target.value)
             this.$store.dispatch('createPost',{field:'post_subject',subject_name:event.target.value});
         },
         getSubject(subject_id){

@@ -43,7 +43,7 @@
 </div>
 
     <div  class="row">
-        <div class="col-md-12 mt-2 mb-2" v-for="post in posts" :key="post.id">
+        <div class="col-md-12 mt-2 mb-2" v-for="(post,index) in posts" :key="index">
 							<div class="card-post">
 							<div class="d-flex">
 										<div class="avatar">

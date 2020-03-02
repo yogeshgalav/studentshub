@@ -166,19 +166,31 @@ class PostController extends Controller
         // ->leftJoin('notices as no','po.id','=','no.post_id')
         // ->leftJoin('facts as fa','po.id','=','fa.post_id')
         // ->leftJoin('mcqs as mc','po.id','=','mc.post_id')
-        ->select(['po.id as id','po.post_heading as heading','cat.name as category_name','sub.Subject_name as subject_name','po.primary_image_path as image_path',
+        ->select(['po.id as id','po.post_heading as heading','po.postable_type as postable_type','cat.name as category_name','sub.Subject_name as subject_name','po.primary_image_path as image_path',
         'us.avatar_url as profile_image','us.full_name as user_name','inst.institute_name as institute_name','ar.content as article_content','vd.content as video_content',
         'vd.link as video_link'])
+        ->orderBy('po.created_at','DESC')
         ->paginate();
 
         //get groupBy fields
         foreach($posts as $post){
+            $rand=rand(60,100);
             $postData=DB::table('posts as po')->where('po.id',$post->id)
             ->leftJoin('likes as li','po.id','=','li.post_id')
             ->leftJoin('views as vw','po.id','=','vw.post_id')
             ->select([DB::raw('COUNT(distinct li.user_id) as total_likes'),DB::raw('COUNT(distinct vw.user_id) as total_views')])
             ->groupBy(['po.id'])
             ->first();
+
+            $post->post_type=$this->getPostType($post->postable_type);
+            switch($post->post_type){
+                case 'article':
+                    $post->content=substr($post->article_content,$rand).'...';        
+                break;
+                case 'video':
+                    $post->content=substr($post->video_content,$rand).'...';        
+                break;
+            }
             $post->total_likes=$postData->total_likes;
             $post->total_views=$postData->total_views;
         }
@@ -211,5 +223,20 @@ $paginator  = new Paginator($sliced, count($data), $perPage, $page,['path'  => u
         return response()->json(['success'=>[
             'posts'=>$paginator
         ]]);
+    }
+
+    public function getPostType($post_type){
+        switch($post_type){
+            case 'App\Models\Article':
+                return 'article';
+            case 'App\Models\Video':
+                return 'video';
+            case 'App\Models\Fact':
+                return 'fact';
+            case 'App\Models\Document':
+                return 'document';
+            case 'App\Models\Notice':
+                return 'notice';
+        }
     }
 }

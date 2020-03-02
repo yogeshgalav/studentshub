@@ -48,7 +48,6 @@ submitPost({commit},data){
 },
 updateFiles({commit},data){
   return new Promise((resolve, reject) => {
-    console.log('fuck',data)
   })
 },
 } 

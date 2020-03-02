@@ -15137,7 +15137,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['posts'],
   methods: {
@@ -68031,8 +68030,8 @@ var render = function() {
         {
           name: "scroll",
           rawName: "v-scroll:throttle",
-          value: { fn: _vm.onScroll, throttle: 500 },
-          expression: "{fn: onScroll, throttle: 500 }",
+          value: { fn: _vm.scrollFn, throttle: 500 },
+          expression: "{fn: scrollFn, throttle: 500 }",
           arg: "throttle"
         }
       ]
@@ -68106,13 +68105,7 @@ var render = function() {
                         1
                       ),
                       _vm._v(" "),
-                      post.article_content
-                        ? _c("p", [_vm._v(_vm._s(post.article_content))])
-                        : _vm._e(),
-                      _c("p"),
-                      post.video_content
-                        ? _c("p", [_vm._v(_vm._s(post.video_content))])
-                        : _vm._e(),
+                      _c("p", [_vm._v(_vm._s(post.content))]),
                       _c("p"),
                       _c("div", { staticClass: "row" }, [
                         _c("div", { staticClass: "col-md-4" }, [

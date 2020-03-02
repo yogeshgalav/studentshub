@@ -12,7 +12,6 @@ export default {
         state.new_post.selected_subject.subject_name=data.subject_name;
         break
         case 'postContent':
-        console.log(data.postContent)
           switch(state.new_post.post_type){
             case 'article':  
             state.new_post.postContent = data.postContent;
@@ -25,7 +24,6 @@ export default {
       }
     },
     updateFiles(state,data){
-      console.log('bhsdk')
      state.new_post.files=data;
     },
     submitPost(state){
