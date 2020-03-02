@@ -2,40 +2,22 @@
     <div>
   <div class="slides">
   
-    <transition-group tag="ul"
+    <transition
      name="fade" class="slides-group"
     >
+        <slot :name="'step'+currentStep" />
      
-      <li v-for="slide in carouselSlides"
-      :key="slide.index"
-      >
-      <slot :slide="slide"       
->Slide {{slide}}</slot>
-      </li>
-     </transition-group>
+     </transition>
+     
   
   </div>
-  <!-- <button
-    class="prev"
-    @click="prev()"
-  >Left
-    <i class="fa fa-chevron-left" aria-hidden="true"></i>
-  </button>
-  <button
-    class="next"
-    @click="next()"
-  >Right
-    <i class="fa fa-chevron-right" aria-hidden="true"></i>
-  </button> -->
-  <!-- <ul class="dots">
-    <li 
-      v-for="(dot, index) in slides"
-      :key="index"
-      :class="{ active: ++index === active }"
-      @click="jump(index)"
-    ></li>
-
-  </ul> -->
+  <div class="row">
+    <div class="col-md-3">123</div>
+    <div class="col-md-offset-8">
+    <button type="button" @click="nextSlide" v-if="!lastStep">Next</button>  
+    <button type="button" @click="getStarted" v-if="lastStep">Get Started</button>  
+    </div>
+  </div>
 </div>
 </template>
 <style scoped>
@@ -128,90 +110,28 @@
 <script>
 export default {
   props:{
-    'stepJump':{
-      type:Number,
-      default:1
-    },
-    'perPage':{
-      type:Number,
-      default:1
-    },
-    'slides':{
-      type:Array,
-      default:()=>[]
-    },'loop':{
-      type:Boolean,
-      default:false
-    }
   },
   data() {
     return {
-      active:0,
+      currentStep:1,
+      total_steps:3,
     }
   },
   computed:{
-    pageFirstIndex(){
-      return this.activeIndexes[this.active][0];
-    },
-    pageLastIndex(){
-      return this.activeIndexes[this.active][1];
-    },
-    slideLastIndex(){
-      return this.slides.length-1;
-    },
-    activeIndexes(){
-      let data=[];
-      let i=0
-      while(i<this.slides.length)
-      {
-        data.push([i,i+this.perPage]);
-        i=i+this.stepJump;
+    lastStep(){
+      if(this.currentStep===this.total_steps){
+        return true;
       }
-      return data;
-    },
-    carouselSlides(){
-      return this.slides.map((node,index)=>{
-        if(index>=this.pageFirstIndex && index<this.pageLastIndex){
-          node.isActive=true;
-        }else{
-          node.isActive=false;
-        }
-        node.index=index;
-        return node;
-      });
+      return false;
     }
   },
   methods: {
-    next(){
-      if(this.indexExists()){
-        this.active++;
-      }else if(this.loop===true && !this.indexExists()){
-        this.active=0;
-      }else{
-        return false;
-      }
+    nextSlide(){
+      this.currentStep=this.currentStep+1;
     },
-    indexExists(){
-       if((this.active+1)<this.activeIndexes.length)
-       return true;
-       else
-       return false;
-    },
-    prev(){
-      if(this.prevIndexExists()){
-        this.active--;  
-      }else if(this.loop===true && !this.prevIndexExists()){
-        this.active=this.activeIndexes[this.activeIndexes.length-1];
-      }else{
-        return false;
-      }      
-    },
-    prevIndexExists(){
-      if((this.active-1)>=0)
-       return true;
-       else
-       return false;
-    },
-  }
+    getStarted(){
+
+    }
+}
 }
 </script>

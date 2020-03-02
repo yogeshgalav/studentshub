@@ -14826,111 +14826,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: {
-    'stepJump': {
-      type: Number,
-      "default": 1
-    },
-    'perPage': {
-      type: Number,
-      "default": 1
-    },
-    'slides': {
-      type: Array,
-      "default": function _default() {
-        return [];
-      }
-    },
-    'loop': {
-      type: Boolean,
-      "default": false
-    }
-  },
+  props: {},
   data: function data() {
     return {
-      active: 0
+      currentStep: 1,
+      total_steps: 3
     };
   },
   computed: {
-    pageFirstIndex: function pageFirstIndex() {
-      return this.activeIndexes[this.active][0];
-    },
-    pageLastIndex: function pageLastIndex() {
-      return this.activeIndexes[this.active][1];
-    },
-    slideLastIndex: function slideLastIndex() {
-      return this.slides.length - 1;
-    },
-    activeIndexes: function activeIndexes() {
-      var data = [];
-      var i = 0;
-
-      while (i < this.slides.length) {
-        data.push([i, i + this.perPage]);
-        i = i + this.stepJump;
+    lastStep: function lastStep() {
+      if (this.currentStep === this.total_steps) {
+        return true;
       }
 
-      return data;
-    },
-    carouselSlides: function carouselSlides() {
-      var _this = this;
-
-      return this.slides.map(function (node, index) {
-        if (index >= _this.pageFirstIndex && index < _this.pageLastIndex) {
-          node.isActive = true;
-        } else {
-          node.isActive = false;
-        }
-
-        node.index = index;
-        return node;
-      });
+      return false;
     }
   },
   methods: {
-    next: function next() {
-      if (this.indexExists()) {
-        this.active++;
-      } else if (this.loop === true && !this.indexExists()) {
-        this.active = 0;
-      } else {
-        return false;
-      }
+    nextSlide: function nextSlide() {
+      this.currentStep = this.currentStep + 1;
     },
-    indexExists: function indexExists() {
-      if (this.active + 1 < this.activeIndexes.length) return true;else return false;
-    },
-    prev: function prev() {
-      if (this.prevIndexExists()) {
-        this.active--;
-      } else if (this.loop === true && !this.prevIndexExists()) {
-        this.active = this.activeIndexes[this.activeIndexes.length - 1];
-      } else {
-        return false;
-      }
-    },
-    prevIndexExists: function prevIndexExists() {
-      if (this.active - 1 >= 0) return true;else return false;
-    }
+    getStarted: function getStarted() {}
   }
 });
 
@@ -15030,16 +14947,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var vue_slick_carousel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-slick-carousel */ "./node_modules/vue-slick-carousel/dist/vue-slick-carousel.umd.js");
-/* harmony import */ var vue_slick_carousel__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_slick_carousel__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var vue_slick_carousel_dist_vue_slick_carousel_theme_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-slick-carousel/dist/vue-slick-carousel-theme.css */ "./node_modules/vue-slick-carousel/dist/vue-slick-carousel-theme.css");
-/* harmony import */ var vue_slick_carousel_dist_vue_slick_carousel_theme_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_slick_carousel_dist_vue_slick_carousel_theme_css__WEBPACK_IMPORTED_MODULE_2__);
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+/* harmony import */ var _Carousel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Carousel */ "./resources/js/views/explore/Carousel.vue");
 //
 //
 //
@@ -15078,54 +14986,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-
- // optional style for arrows & dots
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    VueSlickCarousel: vue_slick_carousel__WEBPACK_IMPORTED_MODULE_1___default.a
-  },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
-    'posts': function posts(state) {
-      return state.explore.posts.ExploreCarousalPost;
-    }
-  })),
-  data: function data() {
-    return {
-      slickOptions: {
-        adaptiveHeight: false,
-        dots: true,
-        dotsClass: "slick-dots",
-        arrows: false,
-        infinite: true,
-        speed: 500,
-        fade: true,
-        cssEase: 'linear'
-      }
-    };
-  },
-  mounted: function mounted() {//   this.initSlider();
-    // this.$refs.slick.slick({
-    //     infinite: true,
-    //     slidesToShow: 3,
-    //     slidesToScroll: 3
-    // });
-  },
-  watch: {
-    ExploreCarousalPost: function ExploreCarousalPost() {
-      this.reInit();
-    }
-  },
-  methods: {
-    reInit: function reInit() {
-      var _this = this;
-
-      // Helpful if you have to deal with v-for to update dynamic lists
-      this.$nextTick(function () {
-        _this.$refs.slick.reSlick();
-      });
-    }
+    Carousel: _Carousel__WEBPACK_IMPORTED_MODULE_1__["default"]
   }
 });
 
@@ -21125,7 +20990,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n\r\n/* FADE IN */\n.slides ul[data-v-4ee0c70a]\r\n{\r\n  margin-bottom:0px;\n}\n.fade-enter-active[data-v-4ee0c70a] {\r\n  -webkit-transition: opacity 1s;\r\n  transition: opacity 1s;\n}\n.fade-enter[data-v-4ee0c70a] {\r\n  opacity: 0;\n}\r\n\r\n/* GO TO NEXT SLIDE */\n.slide-next-enter-active[data-v-4ee0c70a],\r\n.slide-next-leave-active[data-v-4ee0c70a] {\r\n  -webkit-transition: -webkit-transform 0.5s ease-in-out;\r\n  transition: -webkit-transform 0.5s ease-in-out;\r\n  transition: transform 0.5s ease-in-out;\r\n  transition: transform 0.5s ease-in-out, -webkit-transform 0.5s ease-in-out;\n}\n.slide-next-enter[data-v-4ee0c70a] {\r\n  -webkit-transform: translate(100%);\r\n          transform: translate(100%);\n}\n.slide-next-leave-to[data-v-4ee0c70a] {\r\n  -webkit-transform: translate(-100%);\r\n          transform: translate(-100%);\n}\r\n\r\n/* GO TO PREVIOUS SLIDE */\n.slide-prev-enter-active[data-v-4ee0c70a],\r\n.slide-prev-leave-active[data-v-4ee0c70a] {\r\n  -webkit-transition: -webkit-transform 0.5s ease-in-out;\r\n  transition: -webkit-transform 0.5s ease-in-out;\r\n  transition: transform 0.5s ease-in-out;\r\n  transition: transform 0.5s ease-in-out, -webkit-transform 0.5s ease-in-out;\n}\n.slide-prev-enter[data-v-4ee0c70a] {\r\n  -webkit-transform: translate(-100%);\r\n          transform: translate(-100%);\n}\n.slide-prev-leave-to[data-v-4ee0c70a] {\r\n  -webkit-transform: translate(100%);\r\n          transform: translate(100%);\n}\n.slide[data-v-4ee0c70a] {\r\n  width: 100%;\r\n  height: 100vh;\r\n  position: absolute;\r\n  top: 0;\r\n  left: 0;\r\n  display: -webkit-box;\r\n  display: flex;\r\n  -webkit-box-align: center;\r\n          align-items: center;\r\n  -webkit-box-pack: center;\r\n          justify-content: center;\n}\n.btn[data-v-4ee0c70a] {\r\n  z-index: 10;\r\n  cursor: pointer;\r\n  border: 3px solid #fff;\r\n  display: -webkit-box;\r\n  display: flex;\r\n  -webkit-box-pack: center;\r\n          justify-content: center;\r\n  -webkit-box-align: center;\r\n          align-items: center;\r\n  width: 70px;\r\n  height: 70px;\r\n  position: absolute;\r\n  top: calc(50% - 35px);\r\n  left: 1%;\r\n  -webkit-transition: -webkit-transform 0.3s ease-in-out;\r\n  transition: -webkit-transform 0.3s ease-in-out;\r\n  transition: transform 0.3s ease-in-out;\r\n  transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;\r\n  -webkit-user-select: none;\r\n     -moz-user-select: none;\r\n      -ms-user-select: none;\r\n          user-select: none;\n}\n.btn-next[data-v-4ee0c70a] {\r\n  left: auto;\r\n  right: 1%;\n}\n.btn[data-v-4ee0c70a]:hover {\r\n  -webkit-transform: scale(1.1);\r\n          transform: scale(1.1);\n}\n.slides ul[data-v-4ee0c70a] \r\n{\r\n  list-style: none;\r\n  padding:0px;\n}\n.slides ul[data-v-4ee0c70a]\r\n{\r\n  display:-webkit-box;\r\n  display:flex;\r\n  flex-wrap: wrap;\r\n  -webkit-box-align: center;\r\n          align-items: center;\n}\r\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n\r\n/* FADE IN */\n.slides ul[data-v-4ee0c70a]\r\n{\r\n  margin-bottom:0px;\n}\n.fade-enter-active[data-v-4ee0c70a] {\r\n  -webkit-transition: opacity 1s;\r\n  transition: opacity 1s;\n}\n.fade-enter[data-v-4ee0c70a] {\r\n  opacity: 0;\n}\r\n\r\n/* GO TO NEXT SLIDE */\n.slide-next-enter-active[data-v-4ee0c70a],\r\n.slide-next-leave-active[data-v-4ee0c70a] {\r\n  -webkit-transition: -webkit-transform 0.5s ease-in-out;\r\n  transition: -webkit-transform 0.5s ease-in-out;\r\n  transition: transform 0.5s ease-in-out;\r\n  transition: transform 0.5s ease-in-out, -webkit-transform 0.5s ease-in-out;\n}\n.slide-next-enter[data-v-4ee0c70a] {\r\n  -webkit-transform: translate(100%);\r\n          transform: translate(100%);\n}\n.slide-next-leave-to[data-v-4ee0c70a] {\r\n  -webkit-transform: translate(-100%);\r\n          transform: translate(-100%);\n}\r\n\r\n/* GO TO PREVIOUS SLIDE */\n.slide-prev-enter-active[data-v-4ee0c70a],\r\n.slide-prev-leave-active[data-v-4ee0c70a] {\r\n  -webkit-transition: -webkit-transform 0.5s ease-in-out;\r\n  transition: -webkit-transform 0.5s ease-in-out;\r\n  transition: transform 0.5s ease-in-out;\r\n  transition: transform 0.5s ease-in-out, -webkit-transform 0.5s ease-in-out;\n}\n.slide-prev-enter[data-v-4ee0c70a] {\r\n  -webkit-transform: translate(-100%);\r\n          transform: translate(-100%);\n}\n.slide-prev-leave-to[data-v-4ee0c70a] {\r\n  -webkit-transform: translate(100%);\r\n          transform: translate(100%);\n}\n.slide[data-v-4ee0c70a] {\r\n  width: 100%;\r\n  height: 100vh;\r\n  position: absolute;\r\n  top: 0;\r\n  left: 0;\r\n  display: -webkit-box;\r\n  display: flex;\r\n  -webkit-box-align: center;\r\n          align-items: center;\r\n  -webkit-box-pack: center;\r\n          justify-content: center;\n}\n.btn[data-v-4ee0c70a] {\r\n  z-index: 10;\r\n  cursor: pointer;\r\n  border: 3px solid #fff;\r\n  display: -webkit-box;\r\n  display: flex;\r\n  -webkit-box-pack: center;\r\n          justify-content: center;\r\n  -webkit-box-align: center;\r\n          align-items: center;\r\n  width: 70px;\r\n  height: 70px;\r\n  position: absolute;\r\n  top: calc(50% - 35px);\r\n  left: 1%;\r\n  -webkit-transition: -webkit-transform 0.3s ease-in-out;\r\n  transition: -webkit-transform 0.3s ease-in-out;\r\n  transition: transform 0.3s ease-in-out;\r\n  transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;\r\n  -webkit-user-select: none;\r\n     -moz-user-select: none;\r\n      -ms-user-select: none;\r\n          user-select: none;\n}\n.btn-next[data-v-4ee0c70a] {\r\n  left: auto;\r\n  right: 1%;\n}\n.btn[data-v-4ee0c70a]:hover {\r\n  -webkit-transform: scale(1.1);\r\n          transform: scale(1.1);\n}\n.slides ul[data-v-4ee0c70a] \r\n{\r\n  list-style: none;\r\n  padding:0px;\n}\n.slides ul[data-v-4ee0c70a]\r\n{\r\n  display:-webkit-box;\r\n  display:flex;\r\n  flex-wrap: wrap;\r\n  -webkit-box-align: center;\r\n          align-items: center;\n}\r\n", ""]);
 
 // exports
 
@@ -69174,25 +69039,36 @@ var render = function() {
       { staticClass: "slides" },
       [
         _c(
-          "transition-group",
-          { staticClass: "slides-group", attrs: { tag: "ul", name: "fade" } },
-          _vm._l(_vm.carouselSlides, function(slide) {
-            return _c(
-              "li",
-              { key: slide.index },
-              [
-                _vm._t("default", [_vm._v("Slide " + _vm._s(slide))], {
-                  slide: slide
-                })
-              ],
-              2
-            )
-          }),
-          0
+          "transition",
+          { staticClass: "slides-group", attrs: { name: "fade" } },
+          [_vm._t("step" + _vm.currentStep)],
+          2
         )
       ],
       1
-    )
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-3" }, [_vm._v("123")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-offset-8" }, [
+        !_vm.lastStep
+          ? _c(
+              "button",
+              { attrs: { type: "button" }, on: { click: _vm.nextSlide } },
+              [_vm._v("Next")]
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.lastStep
+          ? _c(
+              "button",
+              { attrs: { type: "button" }, on: { click: _vm.getStarted } },
+              [_vm._v("Get Started")]
+            )
+          : _vm._e()
+      ])
+    ])
   ])
 }
 var staticRenderFns = []
@@ -69360,70 +69236,43 @@ var render = function() {
     { staticClass: "bg-gray pt-80" },
     [
       _c(
-        "VueSlickCarousel",
-        _vm._b(
-          {
-            ref: "slick",
-            scopedSlots: _vm._u([
-              {
-                key: "prevArrow",
-                fn: function(arrowOption) {
-                  return [
-                    _c("div", { staticClass: "custom-arrow" }, [
-                      _vm._v(
-                        "\n      " +
-                          _vm._s(arrowOption.currentSlide) +
-                          "/" +
-                          _vm._s(arrowOption.slideCount) +
-                          "\n    "
-                      )
-                    ])
-                  ]
-                }
-              },
-              {
-                key: "customPaging",
-                fn: function(page) {
-                  return [
-                    _c("div", { staticClass: "text-left" }, [
-                      _vm._v("\n      " + _vm._s(page) + "\n    ")
-                    ])
-                  ]
-                }
-              }
-            ])
-          },
-          "VueSlickCarousel",
-          _vm.slickOptions,
-          false
-        ),
+        "carousel",
         [
-          _c("a", { staticClass: "btn btn-white", attrs: { href: "#" } }, [
-            _c("img", {
-              directives: [
-                {
-                  name: "lazy",
-                  rawName: "v-lazy",
-                  value: "/images/slider.jpg",
-                  expression: "'/images/slider.jpg'"
-                }
-              ]
-            })
+          _c("template", { slot: "step1" }, [
+            _c("div", [
+              _c("img", {
+                directives: [
+                  {
+                    name: "lazy",
+                    rawName: "v-lazy",
+                    value: "/images/slider.jpg",
+                    expression: "'/images/slider.jpg'"
+                  }
+                ]
+              })
+            ])
           ]),
           _vm._v(" "),
-          _c("a", { staticClass: "btn btn-white", attrs: { href: "#" } }, [
-            _c("img", {
-              directives: [
-                {
-                  name: "lazy",
-                  rawName: "v-lazy",
-                  value: "/images/5.jpg",
-                  expression: "'/images/5.jpg'"
-                }
-              ]
-            })
+          _c("template", { slot: "step2" }, [
+            _c("div", [
+              _c("img", {
+                directives: [
+                  {
+                    name: "lazy",
+                    rawName: "v-lazy",
+                    value: "/images/5.jpg",
+                    expression: "'/images/5.jpg'"
+                  }
+                ]
+              })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("template", { slot: "step3" }, [
+            _vm._v("\n              step3\n            ")
           ])
-        ]
+        ],
+        2
       )
     ],
     1
