@@ -50,63 +50,23 @@ class PostController extends Controller
 
         switch(strToLower($request->post_type)){
             case 'article':
-                
-            // Create DOM from URL or file
-            $html = str_get_html($postContent['content']);
-            $files=[];
-            foreach($html->find('img') as $element){
-                $base64_image=$element->src;
-                if (preg_match('/^data:image\/(\w+);base64,/', $base64_image)) {
-                    $data = substr($base64_image, strpos($base64_image, ',') + 1);
-                    $pos  = strpos($base64_image, ';');
-                    $file_type = explode(':', substr($base64_image, 0, $pos))[1];
-                    
-                    $data = base64_decode($data);
-                    $file_name=uniqid().'.'.$file_type;
-                    Storage::disk('local')->put("post-images/".$file_name, $data);
-
-                    $files[]=['file_name'=>$file_name,'file_type'=>$file_type];
-                    $element->src="/post-images/".$file_name;
-                }
-            }
-            
-            $post_content_id=Article::create(['content'=>$html])->id;
-            $post->postable_type="App\Models\Article";
-            $post->postable_id=$post_content_id;
-            foreach($files as $file){
-                $newFile= new SthubFile();
-                    $newFile->fileable_id=$post_content_id;
-                    $newFile->fileable_type='App\Models\Article';
-                    $newFile->file_ext=Storage::disk('local')->getMimeType($file_path);
-                    $newFile->file_size=Storage::disk('local')->size($file_path);
-                    $newFile->file_name=$file['file_name'];
-                    $newFile->user_id=Auth::user()->id;
-                    $newFile->save();
-            }
+                $article=new Article;
+                $post_content_id=$article->createFromContent($postContent['content']);
+                $post->postable_type="App\Models\Article";
+                $post->postable_id=$post_content_id;
+              
             break;
             case 'notice':
+                $notice=new Notice;
+                $post_content_id=$notice->createFromContent($postContent['content']);
+                $post->postable_type="App\Models\Notice";
+                $post->postable_id=$post_content_id;
             break;
             case 'document':
-                $document=Document::create([
-                    'total_files'=>1,
-                ]);
-                $newPost=$request->newPost;
-                $post->postable_type="App\Models\Document";
-            $post->postable_id=$post_content_id;
-            foreach($files as $file){
-                $file_name=uniqid();
-                $file_path="documents/".$file_name;
-                Storage::disk('local')->put($file_path, $file);
-
-                $newFile= new SthubFile();
-                    $newFile->fileable_id=$document->id;
-                    $newFile->fileable_type='App\Models\Document';
-                    $newFile->file_ext=Storage::disk('local')->getMimeType($file_path);
-                    $newFile->file_size=Storage::disk('local')->size($file_path);
-                    $newFile->file_name=$file_name;
-                    $newFile->user_id=Auth::user()->id;
-                    $newFile->save();
-            }
+             $document=new Document;
+             $post_content_id=$document->createNewDocument($request->newPost);
+             $post->postable_type="App\Models\Document";
+             $post->postable_id=$post_content_id;
             break;
             case 'video':
             $str=$postContent['link'].'&';
@@ -122,9 +82,13 @@ class PostController extends Controller
             ]);
 
             $post->primary_image_path='https://img.youtube.com/vi/'.$video_id.'/0.jpg';
-            $post->postable_type="App\Models\Article";
+            $post->postable_type="App\Models\Video";
             $post->postable_id=$post_content_id;
             break;
+            case 'mcq':
+            break;    
+            case 'fact':
+            break;    
         }
 
         
