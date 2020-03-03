@@ -11,16 +11,16 @@
                             <img class="card-img-top img-responsive" v-lazy="post.profile_image" alt="Card image cap">
 										</div>
 										<div class="info-post ml-2">
-											<p class="username">{{post.user_name}}</p>
-											<p class="date text-muted">{{post.institute_name}}</p>
-											<h5>{{post.category_name}}</h5><br/>
-											<h5>{{post.subject_name}}</h5><br/>
+											<p class="username mb-1">{{post.user_name}}</p>
+											<p class="date text-muted mb-1">{{post.institute_name}}</p>
+											<p class="mb-1">{{post.category_name}}</p>
+											<p class="mb-1">{{post.subject_name}}</p>
                                             <h3 class="card-title  font-size-16">
 										<router-link :to="'/post/'+post.id"  class="weight-600 text-black">
 											{{post.heading}}
 										</router-link>
 									</h3>
-									<p>{{post.content}}<p>
+									<h5 class="mb-1">{{post.content}}</h5>
 										 <div class="row">
 										<div class="col-md-4">
 											<i class="fa fa-eye"></i>
@@ -56,6 +56,14 @@
     </div>
    
 </template>
+<style scoped>
+.card-post h3,h5,p, h6 {
+	font-family: 'Open Sans'  !important;
+}
+.card-post h5 {
+	font-size:14px !important;
+}
+</style>
 <script>
 export default {
 	props:['posts'],

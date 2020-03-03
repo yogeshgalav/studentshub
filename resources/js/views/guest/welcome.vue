@@ -47,7 +47,11 @@
         <site-footer></site-footer>
     </main>
 </template>
-
+<style scoped>
+.card-title {
+  font-family: 'Open Sans'  !important;
+}
+</style>
 <script>
 import {mapState} from 'vuex';
 // import { Carousel, Slide } from 'vue-carousel';

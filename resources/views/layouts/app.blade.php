@@ -8,13 +8,14 @@
 @include('includes.title')
 @yield('compiledJs')
 <link href="{{ asset('css/app.css') }}" type="text/css" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
 <script src="/js/lang.js"></script>
 <link rel="shortcut icon" type="image/png" href="{{asset('favicon.png')}}" />
 <style>
         body
             {
-                background-color:#fff
+                background-color:#fff;
+                font-family: 'Open Sans', ;
     
             }
         
