@@ -1,6 +1,6 @@
 const state = {
     dashboardPosts: [],
-    currrent_page: 0,
+    current_page: 0,
     postView:{
       'categories':[],
       'related_posts':[],

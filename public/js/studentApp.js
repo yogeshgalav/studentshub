@@ -15139,11 +15139,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['posts'],
-  methods: {
-    scrollFn: function scrollFn() {
-      this.$store.dispatch('getStudentPosts');
-    }
-  }
+  mounted: function mounted() {
+    var _this = this;
+
+    window.addEventListener('scroll', function () {
+      if (_this.bottomVisible()) {
+        _this.$store.dispatch('getStudentPosts');
+      }
+    });
+  },
+  methods: {}
 });
 
 /***/ }),
@@ -68025,17 +68030,6 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    {
-      directives: [
-        {
-          name: "scroll",
-          rawName: "v-scroll:throttle",
-          value: { fn: _vm.scrollFn, throttle: 500 },
-          expression: "{fn: scrollFn, throttle: 500 }",
-          arg: "throttle"
-        }
-      ]
-    },
     _vm._l(_vm.posts, function(post, index) {
       return _c("div", { key: index }, [
         _c("div", { staticClass: "row" }, [
@@ -71567,213 +71561,6 @@ if (inBrowser && window.Vue) {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (VueRouter);
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-scroll/dist/vue-scroll.esm.js":
-/*!********************************************************!*\
-  !*** ./node_modules/vue-scroll/dist/vue-scroll.esm.js ***!
-  \********************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/**
-  * vue-scroll vundefined
-  * (c) 2019 Wang Pin
-  * @license MIT
-  */
-var debounce = function (func, delay) {
-  var inDebounce;
-  return function() {
-    var context = this;
-    var args = arguments;
-    clearTimeout(inDebounce);
-    inDebounce = setTimeout(function () { return func.apply(context, args); }, delay);
-  }
-};
-var throttle = function (func, limit) {
-  var lastFunc;
-  var lastRan;
-  return function() {
-    var context = this;
-    var args = arguments;
-    if (!lastRan) {
-      func.apply(context, args);
-      lastRan = Date.now();
-    } else {
-      clearTimeout(lastFunc);
-      lastFunc = setTimeout(function() {
-        if (Date.now() - lastRan >= limit) {
-          func.apply(context, args);
-          lastRan = Date.now();
-        }
-      }, limit - (Date.now() - lastRan));
-    }
-  }
-};
-var isNumber = function(arg) {
-  return typeof arg === 'number' && arg !== NaN
-};
-var isFunction = function(arg) {
-  return typeof arg === 'function'
-};
-var isObject = function(arg) {
-  return Object.prototype.toString.call(arg) === '[object Object]'
-};
-var isInteger = function(arg) {
-  return isNumber(arg) && Math.round(arg) === arg
-};
-var get = function(arg, path, def) {
-  try {
-    return eval(("arg." + path))
-  } catch (err) {
-    return def
-  }
-};
-
-var dom = (function () {
-  var listeners = new Map();
-  var SCROLL = 'scroll';
-  function addEventListener (element, event, funcs, opt) {
-    function fn (e) {
-      var data;
-      var target = e.target || e.srcElement;
-      e = e || window.e;
-      if (e.type === SCROLL) {
-        if (target === document) {
-          data = { scrollTop: get(document, 'body.scrollTop', 0), scrollLeft: get(document, 'body.scrollLeft', 0) };
-        } else {
-          data = { scrollTop: get(target, 'scrollTop', 0), scrollLeft: get(target, 'scrollLeft', 0) };
-        }
-      }
-      funcs.forEach(function (f) {
-        f(e, data);
-      });
-    }
-    if (isObject(opt)) {
-      if (isInteger(opt.throttle) && isFinite(opt.throttle) && opt.throttle > -1) {
-        fn = throttle(fn, opt.throttle);
-      }
-      if (isInteger(opt.debounce) && isFinite(opt.debounce) && opt.debounce > -1) {
-        fn = debounce(fn, opt.debounce);
-      }
-    }
-    if (event === SCROLL) {
-      if(element === document.body || element === document || element === window) {
-        document.onscroll = fn;
-      } else {
-        if (element.addEventListener) {
-          element.addEventListener(event, fn);
-        } else {
-          element.attachEvent('on' + event, fn);
-        }
-      }
-    }
-  }
-  function bind (element, event, fn, opt) {
-    var funcs, eventFuncs;
-    if (!isFunction(fn)) {
-      throw new Error('Scroll handler is not a function');
-    }
-    if (!listeners.has(element)) {
-      listeners.set(element, new Map());
-    }
-    funcs = listeners.get(element);
-    if (!funcs.has(event)) {
-      funcs.set(event, []);
-    }
-    eventFuncs = funcs.get(event);
-    if (!eventFuncs.length) {
-      addEventListener(element, event, eventFuncs, opt);
-    }
-    eventFuncs.push(fn);
-  }
-  function unbind (element, event, fn) {
-    var funcs, eventFuncs;
-    if (!isFunction(fn)) {
-      return;
-    }
-    if (!listeners.has(element)) {
-      listeners.set(element, new Map());
-    }
-    funcs = listeners.get(element);
-    if (!funcs.has(event)) {
-      funcs.set(event, []);
-    }
-    eventFuncs = funcs.get(event);
-    if (eventFuncs.indexOf(fn) > -1) {
-      eventFuncs.splice(eventFuncs.indexOf(fn), 1);
-      return true;
-    }
-    return false;
-  }
-  return {
-    bind: bind,
-    unbind: unbind
-  }
-})();
-
-var vuescroll = new Object;
-vuescroll.install = function (Vue, options) {
-  options = options || {};
-  var SCROLL = 'scroll';
-  var THROTTLE = 'throttle';
-  var DEBOUNCE = 'debounce';
-  var VALID_ARGS = [THROTTLE, DEBOUNCE];
-  function bindValue (el, value, arg) {
-    var fn, opt = Object.assign({}, options);
-    if (isObject(value) || isFunction(value)) {
-      fn = value;
-      if (VALID_ARGS.indexOf(arg) > -1) {
-        fn = value.fn;
-        if (arg === THROTTLE) {
-          opt = { throttle: value.throttle};
-        } else if(arg === DEBOUNCE) {
-          opt = { debounce: value.debounce};
-        }
-      }
-      try {
-        dom.bind(el, SCROLL, fn, opt);
-      } catch(err) {
-        console.warn('Unexpected error happened when binding listener');
-      }
-    } else {
-      console.warn('Unexpected scroll properties');
-    }
-  }
-  function unbindValue (el, value, arg) {
-    var fn;
-    if (isObject(value) || isFunction(value)) {
-      fn = value;
-      if (VALID_ARGS.indexOf(arg) > -1)  {
-        fn = value.fn;
-      }
-      dom.unbind(el, SCROLL, fn);
-    }
-  }
-  Vue.directive(SCROLL, {
-    bind: function(el, binding, vnode, oldVnode) {
-      bindValue(el, binding.value, binding.arg);
-    },
-    inserted: function(el, binding) {
-    },
-    update: function(el, binding) {
-      if (binding.value === binding.oldValue) {
-        return;
-      }
-      bindValue(el, binding.value, binding.arg);
-      unbindValue(el, binding.oldValue, binding.arg);
-    },
-    unbind: function(el, binding) {
-      unbindValue(el, binding.value, binding.arg);
-    }
-  });
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (vuescroll);
 
 
 /***/ }),
@@ -95832,8 +95619,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue_axios__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var vue_js_modal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-js-modal */ "./node_modules/vue-js-modal/dist/index.js");
 /* harmony import */ var vue_js_modal__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vue_js_modal__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var vue_scroll__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-scroll */ "./node_modules/vue-scroll/dist/vue-scroll.esm.js");
-/* harmony import */ var vue_lazyload__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue-lazyload */ "./node_modules/vue-lazyload/vue-lazyload.esm.js");
+/* harmony import */ var vue_lazyload__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-lazyload */ "./node_modules/vue-lazyload/vue-lazyload.esm.js");
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$utils = _helpers_utilities__WEBPACK_IMPORTED_MODULE_1__["default"]; //Dependencies
@@ -95842,11 +95628,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$utils = _helpers_utilities
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_scroll__WEBPACK_IMPORTED_MODULE_5__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_lazyload__WEBPACK_IMPORTED_MODULE_5__["default"]); // or with options
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_lazyload__WEBPACK_IMPORTED_MODULE_6__["default"]); // or with options
-
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_lazyload__WEBPACK_IMPORTED_MODULE_6__["default"], {
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_lazyload__WEBPACK_IMPORTED_MODULE_5__["default"], {
   preLoad: 1.3,
   error: 'dist/error.png',
   loading: 'dist/loading.gif',
@@ -95864,6 +95648,13 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
     },
     redirectPostView: function redirectPostView(post) {
       console.log();
+    },
+    bottomVisible: function bottomVisible() {
+      var scrollY = window.scrollY;
+      var visible = document.documentElement.clientHeight;
+      var pageHeight = document.documentElement.scrollHeight;
+      var bottomOfPage = visible + scrollY >= pageHeight;
+      return bottomOfPage || pageHeight < visible;
     }
   },
   computed: {
@@ -98223,17 +98014,15 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _state__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./state */ "./resources/js/store/student/state.js");
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   getStudentPosts: function getStudentPosts(_ref) {
     var commit = _ref.commit,
         state = _ref.state;
     return new Promise(function (resolve, reject) {
-      var pageIndex = state.currrent_page + 1;
+      commit('increase_post_paginate_count');
       axios__WEBPACK_IMPORTED_MODULE_0___default()({
-        url: window.App.baseUrl + '/api/get-student-posts?page=' + pageIndex,
+        url: window.App.baseUrl + '/api/get-student-posts?page=' + state.current_page,
         method: 'GET'
       }).then(function (resp) {
         var posts = resp.data.success.posts;
@@ -98314,10 +98103,15 @@ var StudentStore = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _state__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./state */ "./resources/js/store/student/state.js");
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   get_posts: function get_posts(state, posts) {
-    state.dashboardPosts = posts.data;
+    state.dashboardPosts = state.dashboardPosts.concat(posts.data);
     state.currrent_page = posts.currrent_page;
+  },
+  increase_post_paginate_count: function increase_post_paginate_count() {
+    _state__WEBPACK_IMPORTED_MODULE_0__["default"].current_page = _state__WEBPACK_IMPORTED_MODULE_0__["default"].current_page + 1;
   },
   get_categories: function get_categories(state, data) {
     state.categories = data.categories;
@@ -98344,7 +98138,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 var state = {
   dashboardPosts: [],
-  currrent_page: 0,
+  current_page: 0,
   postView: {
     'categories': [],
     'related_posts': [],

@@ -7,9 +7,6 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VModal from 'vue-js-modal'
 
-import vuescroll from 'vue-scroll'
-Vue.use(vuescroll)
-
 import VueLazyload from 'vue-lazyload';
 Vue.use(VueLazyload);
 
@@ -30,7 +27,14 @@ Vue.mixin({
         },
         redirectPostView(post){
             console.log();
-        }
+        },
+        bottomVisible() {
+            const scrollY = window.scrollY
+            const visible = document.documentElement.clientHeight
+            const pageHeight = document.documentElement.scrollHeight
+            const bottomOfPage = visible + scrollY >= pageHeight
+            return bottomOfPage || pageHeight < visible
+          },
     },
     computed: {
         baseUrl() {

@@ -1,5 +1,5 @@
 <template>
-<div v-scroll:throttle="{fn: scrollFn, throttle: 500 }">
+<div>
 
 <div v-for="(post,index) in posts" :key="index">
     <div  class="row">
@@ -59,10 +59,14 @@
 <script>
 export default {
 	props:['posts'],
+	mounted(){
+		window.addEventListener('scroll', () => {
+      		if(this.bottomVisible()){
+				  this.$store.dispatch('getStudentPosts');
+			  }
+    	});
+	},
 	methods:{
-		scrollFn(){
-                this.$store.dispatch('getStudentPosts');
-		}
 	}
 }
 </script>
