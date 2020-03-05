@@ -12,7 +12,7 @@
   
   </div>
   <div class="row">
-    <div class="col-md-3">123</div>
+    <div class="col-md-12 text-center"><span> <img src="/images/rectangle2.svg"> </span><span class="ml-1 mr-1"> <img src="/images/circle.svg"> </span></div>
     <div class="col-md-offset-8">
     <button type="button" @click="nextSlide" v-if="!lastStep">Next</button>  
     <button type="button" @click="getStarted" v-if="lastStep">Get Started</button>  
@@ -27,6 +27,15 @@
 {
   margin-bottom:0px;
 }
+.circle-active {
+  width: 36px;
+height: 12px;
+left: 60px;
+top: 669.5px;
+background: #0297E8;
+border-radius: 11111px;
+}
+
 .fade-enter-active {
   transition: opacity 1s;
 }
