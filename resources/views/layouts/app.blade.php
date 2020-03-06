@@ -11,6 +11,7 @@
 <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
 <script src="/js/lang.js"></script>
 <link rel="shortcut icon" type="image/png" href="{{asset('favicon.png')}}" />
+<script src="{{ asset('js/all.min.js') }}"></script>
 <style>
         body
             {
