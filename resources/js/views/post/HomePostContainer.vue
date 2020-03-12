@@ -57,8 +57,14 @@
    
 </template>
 <script>
+
+import {mapState} from 'vuex';
 export default {
-	props:['posts'],
+	computed:{
+		...mapState({
+			'posts': state=>state.dashboardPosts,
+		}),
+	},
 	mounted(){
 		window.addEventListener('scroll', () => {
       		if(this.bottomVisible()){

@@ -19,7 +19,7 @@ export default {
       });
     },
     get_posts(state,posts){
-      state.dashboardPosts = posts;
+      state.dashboardPosts = posts.data;
     },
     get_categories(state,categories){
       state.categories = categories;

@@ -16,7 +16,7 @@
      
         <div class="row">
             <div class="col-md-12">
-                 <home-post-container :posts="posts" @loadPosts="getDashboardPosts"></home-post-container>   
+                 <home-post-container></home-post-container>   
             </div>   
         </div>
                 </div>
@@ -78,26 +78,17 @@ import HomePostContainer from '../post/HomePostContainer';
 import {mapState} from 'vuex';
 
 export default {
-	computed:{
-		...mapState({
-			'posts': state=>state.dashboardPosts,
-		}),
-	},        components:{
+    
+    components:{
             HomePostContainer
         },
         data() {
             return {
             }
         },
-        mounted(){
-            this.getDashboardPosts();
-        },
         methods: {
             trans: function (string, defaultString) {
                 return this.$trans('home', string, defaultString);
-            },
-            getDashboardPosts(){
-                this.$store.dispatch('getStudentPosts');
             },
             redirectPostView(post_id){
                 this.$router.push({path:'/post/1'})

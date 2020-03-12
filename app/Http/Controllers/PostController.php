@@ -136,8 +136,57 @@ class PostController extends Controller
         ->orderBy('po.created_at','DESC')
         ->paginate();
 
-        //get groupBy fields
-        foreach($posts as $post){
+     $this->formatPostData($posts);
+        
+        return response()->json(['success'=>[
+            'posts'=>$posts
+        ]]);
+    }
+
+    public function getSeekerPosts(Request $request){
+        $posts=DB::table('sthub_posts as sp')
+        ->join('posts as po','po.id','=','sp.post_id')
+        ->leftJoin('articles as ar',function($join){
+            $join->on('po.postable_id','=','ar.id')->where('po.postable_type','=','App\Models\Article');
+        })
+        ->leftJoin('videos as vd',function($join){
+            $join->on('po.postable_id','=','vd.id')->where('po.postable_type','=','App\Models\Video');
+        })
+        ->leftJoin('subjects as sub','sub.id','=','po.subject_id')
+        ->leftJoin('categories as cat','cat.id','=','sub.category_id')
+        ->leftJoin('users as us','us.id','=','po.user_id')
+        // ->leftJoin('facts as fa','po.id','=','fa.post_id')
+        ->select(['po.id as id','po.post_heading as heading','po.postable_type as postable_type','cat.name as category_name','sub.Subject_name as subject_name','po.primary_image_path as image_path',
+        'us.avatar_url as profile_image','us.full_name as user_name','ar.content as article_content','vd.content as video_content',
+        'vd.link as video_link'])
+        ->orderBy('po.created_at','DESC')
+        ->paginate();
+
+        $this->formatPostData($posts);
+        
+        return response()->json(['success'=>[
+            'posts'=>$posts
+        ]]);
+    }
+
+    public function getPostType($post_type){
+        switch($post_type){
+            case 'App\Models\Article':
+                return 'article';
+            case 'App\Models\Video':
+                return 'video';
+            case 'App\Models\Fact':
+                return 'fact';
+            case 'App\Models\Document':
+                return 'document';
+            case 'App\Models\Notice':
+                return 'notice';
+        }
+    }
+
+    public function formatPostData($posts){
+           //get groupBy fields
+           foreach($posts as $post){
             $rand=rand(60,100);
             $postData=DB::table('posts as po')->where('po.id',$post->id)
             ->leftJoin('likes as li','po.id','=','li.post_id')
@@ -158,49 +207,7 @@ class PostController extends Controller
             $post->total_likes=$postData->total_likes;
             $post->total_views=$postData->total_views;
         }
-        
-        return response()->json(['success'=>[
-            'posts'=>$posts
-        ]]);
-    }
 
-    public function getSeekerDashboard(Request $request){
-        $data=DB::table('sthub_posts as sp')
-        ->join('posts as po','po.id','=','sp.post_id')
-        ->join('videos as vd',function($join){
-            $join->on('po.postable_id','=','vd.id')->where('postable_type','=','App\Models\Video');
-        })
-        // ->leftJoin('videos as vd','po.id','=','vd.post_id')
-        // ->leftJoin('facts as fa','po.id','=','fa.post_id')
-        ->leftJoin('likes as li','po.id','=','li.post_id')
-        ->leftJoin('views as vw','po.id','=','vw.post_id')
-        ->select(['po.id as id','vd.*',DB::raw('COUNT(distinct li.user_id) as total_likes'),DB::raw('COUNT(distinct vw.user_id) as total_views')])->groupBy('sp.post_id','vd.*')->get();
-        // ,'do.*','vd.*','fa.*','no.*','mc.*'
-
-$page       = ($request->input('page') != null) ? $request->input('page') : 1;
-$perPage    = 1;
-
-$sliced     = array_slice($data, 0, 5); //you can these values as per your requirement 
-
-$paginator  = new Paginator($sliced, count($data), $perPage, $page,['path'  => url()->current(),'query' => $request->query()]);
-
-        return response()->json(['success'=>[
-            'posts'=>$paginator
-        ]]);
-    }
-
-    public function getPostType($post_type){
-        switch($post_type){
-            case 'App\Models\Article':
-                return 'article';
-            case 'App\Models\Video':
-                return 'video';
-            case 'App\Models\Fact':
-                return 'fact';
-            case 'App\Models\Document':
-                return 'document';
-            case 'App\Models\Notice':
-                return 'notice';
-        }
+        return $posts;
     }
 }
