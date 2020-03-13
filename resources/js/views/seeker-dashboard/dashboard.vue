@@ -17,7 +17,7 @@
      
         <div class="row">
             <div class="col-md-12">
-                 <dashboard-post-container :posts="posts"></dashboard-post-container>   
+                 <dashboard-post-container ></dashboard-post-container>   
             </div>   
         </div>
                 </div>
@@ -71,15 +71,10 @@
 <script>
 import DashboardPostContainer from '../post/DashboardPostContainer';
 import Vue from 'vue';
-import {mapState} from 'vuex';
 
 export default {
     props:['loginStatus'],
-	computed:{
-		...mapState({
-			'posts': state=>state.dashboardPosts,
-		}),
-	},        components:{
+	   components:{
             DashboardPostContainer
         },
         data() {
@@ -88,9 +83,6 @@ export default {
         },
         mounted(){
             this.getDashboardPosts();
-            if(this.loginStatus!==null){
-                this.$toasted.success(this.loginStatus,{position:'top-center',fullWidth:true,duration:2000});
-            }
         },
         methods: {
             trans: function (string, defaultString) {

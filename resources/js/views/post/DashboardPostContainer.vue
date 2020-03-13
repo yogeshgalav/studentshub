@@ -88,8 +88,21 @@
 </style>
 
 <script>
+
+import {mapState} from 'vuex';
 export default {
-	props:['posts'],
+	mounted(){
+		window.addEventListener('scroll', () => {
+      		if(this.bottomVisible()){
+				  this.$store.dispatch('getStudentPosts');
+			  }
+    	});
+	},
+	computed:{
+		...mapState({
+			'posts': state=>state.dashboardPosts,
+		}),
+	},     
 	methods:{
 	}
 }

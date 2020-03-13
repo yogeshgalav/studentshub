@@ -13,15 +13,15 @@
                             <input type="text" class="search-query form-control" name="search" placeholder="What do you want to learn ?" />
                             <span class="input-group-btn">
                                 <button class="btn btn-link" type="submit">
-                                    <i class=" fa fa-search"></i>
+                                    <i class=" fa fa-search text-black weight-400"></i>
                                 </button>
                             </span>
                         </div>
                     </div>
             </div>
             <div class="col-md-3 text-right">
-                    <router-link class="btn btn-link" :to="'/login'">Login</router-link>
-                    <router-link class="btn btn-primary weight-500" :to="'/get-started'">Get Started <i class="fas fa-arrow-right text-white"></i> </router-link>
+                    <router-link class="btn btn-link text-black" :to="'/login'">Login</router-link>
+                    <router-link class="btn btn-primary weight-400" :to="'/get-started'">Get Started <i class="fas fa-arrow-right text-white"></i> </router-link>
                 </div>
     </div>
 </div>

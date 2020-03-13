@@ -16,4 +16,4 @@ mix.js('resources/js/app/guest/app.js', 'public/js/app.js')
 .js('resources/js/app/student/app.js', 'public/js/studentApp.js')
 .js('resources/js/app/create-post/app.js', 'public/js/createPostApp.js')
 .js('resources/js/app/student-register/app.js', 'public/js/studentRegisterApp.js')
-    .sass('resources/sass/app.scss', 'public/css') ;
+    .sass('resources/sass1/app2.scss', 'public/css') ;

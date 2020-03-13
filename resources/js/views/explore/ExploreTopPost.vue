@@ -42,10 +42,9 @@
      </div>
 </template>
 <style scoped>
-.card-post
+.card-text, .card-title, .card-post p
 {
-	box-shadow: 1px 1px 5px 2px #ccc;
-    padding: 10px;
+	font-family: 'Open Sans'  !important;
 }
 </style>
 <script>
