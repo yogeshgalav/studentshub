@@ -1,10 +1,10 @@
 <template>
   <div class="autocomplete">
     <input
-      :value="search[value]"
+      v-model="search"
       type="text"
       class="form-control"
-      @input="showResult($event)"
+      @input="onChange"
       @keydown.down="onArrowDown"
       @keydown.up="onArrowUp"
       @keydown.enter="onEnter"
@@ -15,29 +15,31 @@
         id="autocomplete-results"
         class="autocomplete-results"
       >
-          <li
-              class="autocomplete-result"
-              @click="getEmit({'id':0,value:search[value]})"
-          >
-              Create        </li>
-        <!--              <li-->
-        <!--                  v-if="isLoading"-->
-        <!--                  class="loading"-->
-        <!--              >-->
-        <!--                  {{ $t('vue-auto-complete.loading') }}-->
-        <!--              </li>-->
         <li
-          v-for="(result, i) in results"
+          class="autocomplete-result"
+          @click="$emit('selected', {'id':0,'name':search})"
+        >
+          {{ trans('vue-auto-complete.create-new-client') }}
+        </li>
+        <li
+          v-if="isLoading"
+          class="loading"
+        >
+          {{ trans('vue-auto-complete.loading') }}
+        </li>
+        <li
+          v-for="(currentResult, i) in results"
+          v-else
           :key="i"
           class="autocomplete-result"
           :class="{ 'is-active': i === arrowCounter }"
-          @click="getEmit(result)"
+          @click="setResult(currentResult)"
         >
           <slot
             name="list"
-            v-bind="result"
+            v-bind="currentResult"
           >
-            {{ result[value] }}
+            {{ currentResult[value] }}
           </slot>
         </li>
       </ul>
@@ -46,93 +48,137 @@
 </template>
 
 <style>
-    .autocomplete {
-        position: relative;
-    }
+  .autocomplete {
+    position: relative;
+  }
 
-    .autocomplete-results {
-        padding: 0;
-        margin: 0;
-        border: 1px solid #eeeeee;
-        overflow: auto;
-        width: 100%;
-    }
+  .autocomplete-results {
+    padding: 0;
+    margin: 0;
+    border: 1px solid #eeeeee;
+    overflow: auto;
+    width: 100%;
+  }
 
-    .autocomplete-result {
-        list-style: none;
-        text-align: left;
-        padding: 4px 2px;
-        cursor: pointer;
-    }
+  .autocomplete-result {
+    list-style: none;
+    text-align: left;
+    padding: 4px 2px;
+    cursor: pointer;
+  }
 
-    .autocomplete-result.is-active,
-    .autocomplete-result:hover {
-        background-color: #4AAE9B;
-        color: white;
-    }
+  .autocomplete-result.is-active,
+  .autocomplete-result:hover {
+    background-color: #4AAE9B;
+    color: white;
+  }
 
 </style>
 <script>
 export default {
 	name: 'Autocomplete',
 
-	props: ['items','value','isAsync',],
+	props: {
+		value: {
+			type: String,
+			required: true,
+			default: () => 'name',
+		},
+		items: {
+			type: Array,
+			required: true,
+			default: () => [],
+		},
+		isAsync: {
+			type: Boolean,
+			required: false,
+			default: false,
+		},
+	},
 
 	data() {
 		return {
-			isOpen:false,
+			isOpen: false,
 			results: [],
-            search:{},
-            arrowCounter: 0,
+			result:{},
+			search: '',
+			isLoading: false,
+			arrowCounter: 0,
 		};
 	},
-	watch : {
-         items: function (val) {
-             this.results= val;
-
-         }
-  },
-	methods: {
-	    getEmit: function (currentResult) {
-			this.$emit('selected', currentResult );
-			this.search = currentResult;
-			this.isOpen=false;
-		},
-		showResult(event){
-      this.search[this.value]= event.target.value;
-			if(this.isAsync){
-				this.$emit('setValue', this.search[this.value]);
-			}else {
-				this.filterResults();
+	watch: {
+		items: function (val, oldValue) {
+			// actually compare them
+			if (val.length) {
+				this.results = val;
+        this.isLoading = false;
+        this.isOpen = true;
 			}
-      this.isOpen = true;
 		},
-		filterResults() {
-      this.results = this.items.filter((item) => {
-				if (item[this.value].toLowerCase().indexOf(this.search[this.value].toLowerCase())>-1) {
-					return true;
-        }
-        return false;
-      });
+		search: function (val) {
+			if (val !== '') {
+				this.$emit('selected', {'id':0,'name':val});
+			}
+		},
+	},
+	mounted() {
+		document.addEventListener('click', this.handleClickOutside);
+	},
+	destroyed() {
+		document.removeEventListener('click', this.handleClickOutside);
+	},
+
+	methods: {
+    trans: function(string, defaultString) {
+      return this.$trans("auth", string, defaultString);
     },
-        onArrowDown() {
-            if (this.arrowCounter < this.results.length) {
-                this.arrowCounter = this.arrowCounter + 1;
-            }
-        },
-        onArrowUp() {
-            if (this.arrowCounter > 0) {
-                this.arrowCounter = this.arrowCounter -1;
-            }
-        },
-        onEnter() {
-            this.search = this.results[this.arrowCounter];
-            this.isOpen = false;
-            this.arrowCounter = -1;
-        },
+		onChange() {
+			// Let's warn the parent that a change was made
+			this.$emit('input', this.search);
+			// Is the data given by an outside ajax request?
+			if (this.isAsync) {
+        if(this.items.length){
+          return false;
+        }
+				this.isLoading = true;
+			} else {
+				// Let's  our flat array
+				this.filterResults();
+				this.isOpen = true;
+			}
+		},
 
-
+		filterResults() {
+			// first uncapitalize all the things
+			this.results = this.items.filter((item) => {
+				return item.toLowerCase().indexOf(this.search.toLowerCase()) > -1;
+			});
+		},
+		setResult(result) {
+			this.search = result[this.value];
+			this.isOpen = false;
+		},
+		onArrowDown() {
+			if (this.arrowCounter < this.results.length) {
+				this.arrowCounter = this.arrowCounter + 1;
+			}
+		},
+		onArrowUp() {
+			if (this.arrowCounter > 0) {
+				this.arrowCounter = this.arrowCounter -1;
+			}
+		},
+		onEnter() {
+			this.search = this.results[this.arrowCounter];
+			this.isOpen = false;
+			this.arrowCounter = -1;
+		},
+		handleClickOutside(evt) {
+			if (!this.$el.contains(evt.target)) {
+				this.isOpen = false;
+				this.arrowCounter = -1;
+			}
+		}
 	}
-
 };
 </script>

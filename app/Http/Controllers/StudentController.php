@@ -90,4 +90,17 @@ class StudentController extends Controller
         $success['redirectUrl'] = '/';
         return response()->json(['success' => $success]);
     }
+
+    public function courseList(Request $request){
+        $courses=Course::where('course_name','LIKE','%'.$request->searchTerm.'%')->limit(10)->get();
+        return response()->json(['success'=>[
+            'courses'=>$courses
+        ]]);
+    }
+    public function branchList(Request $request){
+        $branches=Branch::where('branch_name','LIKE','%'.$request->searchTerm.'%')->limit(10)->get();
+        return response()->json(['success'=>[
+            'branches'=>$branches
+        ]]);
+    }
 }
