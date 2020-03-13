@@ -248,13 +248,13 @@ export default {
     return {
       institute_name:'',
       course_list:[],
+      course_id:'',
       course_name:'',
       branch_list:[],
+      branch_id:'',
       branch_name:'',
       selected_course:'',
-      course_id:'',
       selected_branch:'',
-      branch_id:'',
       end_year:'',
       start_year:'',
       course_level_select:false,
@@ -267,14 +267,6 @@ export default {
         }
       }
     };
-  },
-  watch:{
-    course_id(val){
-      this.selected_course=this.course_list.find(node=>node.id===val);
-    },
-    branch_id(val){
-      this.selected_branch=this.branches.find(node=>node.id===val);
-    }
   },
   methods: {
     trans: function(string, defaultString) {
@@ -298,6 +290,7 @@ export default {
     setCourse(result){
       this.course_id = result.id;
 			this.course_name = result.name;
+      this.selected_course=this.course_list.find(node=>node.course_name===this.course_name);
     },
     getBranches(search){
       // loading(true);
@@ -316,7 +309,8 @@ export default {
     },
     setBranch(result){
       this.branch_id = result.id;
-			this.branch_name = result.name;
+      this.branch_name = result.name;
+      this.selected_branch=this.branch_list.find(node=>node.branch_name===this.branch_name);
     },
     	
     handleSubmit(e) {
@@ -352,9 +346,6 @@ export default {
         }
       this.course_id=selected_course.id;
     },
-    selectBranch(selectedBranch){
-      this.branch_id=selected_branch.id;
-    }
   },
   props: [,'branches']
 };

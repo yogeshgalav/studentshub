@@ -92,7 +92,7 @@ class StudentController extends Controller
     }
 
     public function courseList(Request $request){
-        $courses=Course::where('course_name','LIKE','%'.$request->searchTerm.'%')->limit(10)->get();
+        $courses=Course::where('course_name','LIKE','%'.$request->searchTerm.'%')->with('category')->limit(10)->get();
         return response()->json(['success'=>[
             'courses'=>$courses
         ]]);

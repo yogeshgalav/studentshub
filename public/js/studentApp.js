@@ -15154,6 +15154,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   mounted: function mounted() {
     var _this = this;
 
+    this.$store.dispatch('getStudentPosts');
     window.addEventListener('scroll', function () {
       if (_this.bottomVisible()) {
         _this.$store.dispatch('getStudentPosts');
