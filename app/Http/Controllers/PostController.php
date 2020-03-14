@@ -109,7 +109,7 @@ class PostController extends Controller
         return response()->json('success');
     }
 
-    public function getStudentPosts(){
+    public function getStudentPosts(){dd('heer');
         $posts=DB::table('sthub_posts as sp')
         ->join('posts as po','po.id','=','sp.post_id')
         ->leftJoin('articles as ar',function($join){

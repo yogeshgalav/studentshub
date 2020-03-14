@@ -66,6 +66,7 @@ export default {
 		}),
 	},
 	mounted(){
+		this.$store.dispatch('getStudentPosts');
 		window.addEventListener('scroll', () => {
       		if(this.bottomVisible()){
 				  this.$store.dispatch('getStudentPosts');

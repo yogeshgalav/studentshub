@@ -92,6 +92,10 @@
 import {mapState} from 'vuex';
 export default {
 	mounted(){
+<<<<<<< HEAD
+=======
+		this.$store.dispatch('getStudentPosts');
+>>>>>>> f7e0c3403301472490746cc016fe63581e6d065c
 		window.addEventListener('scroll', () => {
       		if(this.bottomVisible()){
 				  this.$store.dispatch('getStudentPosts');

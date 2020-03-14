@@ -33,16 +33,12 @@
                     <label> {{ trans('Course Name') }} </label>
                   <div class="inner-addon left-addon">
                     <i class="fa fa-user"></i>
-                    <base-select
-                    ref="baseSelect"
-                    v-model="selected_course"
-                    :options="courses"
-                    :options-limit="10"
-                    :show-labels="false"
-                    :preserve-search="false"
-                    :placeholder="trans('type or click')"
-                    label="course_name"
-                    class="multi-select-item"
+                    <auto-complete
+                    :items="course_list"
+                    :value="'course_name'"
+                    :is-async="true"
+                    @input="getCourses"
+                    @selected="setCourse"
                     />
                     <!-- <select v-model="course_id" class="form-control">
                         <option v-for="course in courses" :key='course.id' :value="course.id">{{course.course_name}}</option>
@@ -99,16 +95,12 @@
                     <label> {{ trans('Branch Name') }} </label>
                   <div class="inner-addon left-addon">
                     <i class="fa fa-user"></i>
-                    <base-select
-                    ref="baseSelect"
-                    v-model="selected_branch"
-                    :options="branches"
-                    :options-limit="10"
-                    :show-labels="false"
-                    :preserve-search="false"
-                    :placeholder="trans('type or click')"
-                    label="branch_name"
-                    class="multi-select-item"
+                    <auto-complete
+                    :items="branch_list"
+                    :value="'branch_name'"
+                    :is-async="true"
+                    @input="getBranches"
+                    @selected="setBranch"
                     />
                     <!-- <select v-model="branch_id" class="form-control">
                         <option v-for="branch in branches" :key="branch.id" :value="branch.id">{{branch.branch_name}}</option>
@@ -242,6 +234,7 @@
 </style>
 <script>
 import FormMixin from "../../components/mixins/form-mixin.js";
+import AutoComplete from "../../components/AutoComplete.vue";
 import swal from '../../components/swal';
 import DatePicker from 'vue2-datepicker';
 import 'vue2-datepicker/index.css';
@@ -249,15 +242,19 @@ import 'vue2-datepicker/index.css';
 export default {
   mixins: [FormMixin],
   components:{
-    DatePicker
+    DatePicker,AutoComplete
   },
   data() {
     return {
       institute_name:'',
-      selected_course:'',
+      course_list:[],
       course_id:'',
-      selected_branch:'',
+      course_name:'',
+      branch_list:[],
       branch_id:'',
+      branch_name:'',
+      selected_course:'',
+      selected_branch:'',
       end_year:'',
       start_year:'',
       course_level_select:false,
@@ -271,18 +268,51 @@ export default {
       }
     };
   },
-  watch:{
-    course_id(val){
-      this.selected_course=this.courses.find(node=>node.id===val);
-    },
-    branch_id(val){
-      this.selected_branch=this.branches.find(node=>node.id===val);
-    }
-  },
   methods: {
     trans: function(string, defaultString) {
       return this.$trans("auth", string, defaultString);
     },
+    getCourses(search){
+      // loading(true);
+				this.axios
+					.post(this.baseUrl + '/api/search-course', {searchTerm: search})
+					.then(resp => {
+						this.course_list = resp.data.success.courses;
+						this.course_list.find(node => {
+							if (node.course_name.toLowerCase() === this.course_name.toLowerCase()) {
+								this.course_id = node.id;
+								return true;
+							}
+						});
+					});
+	
+    },
+    setCourse(result){
+      this.course_id = result.id;
+			this.course_name = result.name;
+      this.selected_course=this.course_list.find(node=>node.course_name===this.course_name);
+    },
+    getBranches(search){
+      // loading(true);
+				this.axios
+					.post(this.baseUrl + '/api/search-branch', {searchTerm: search})
+					.then(resp => {
+						this.branch_list = resp.data.success.branches;
+						this.branch_list.find(node => {
+							if (node.branch_name.toLowerCase() === this.branch_name.toLowerCase()) {
+								this.branch_id = node.id;
+								return true;
+							}
+						});
+					});
+	
+    },
+    setBranch(result){
+      this.branch_id = result.id;
+      this.branch_name = result.name;
+      this.selected_branch=this.branch_list.find(node=>node.branch_name===this.branch_name);
+    },
+    	
     handleSubmit(e) {
       this.$validator.localize("en", this.dict);
       this.$validator.validate().then(valid => {
@@ -316,10 +346,7 @@ export default {
         }
       this.course_id=selected_course.id;
     },
-    selectBranch(selectedBranch){
-      this.branch_id=selected_branch.id;
-    }
   },
-  props: ['courses','branches']
+  props: [,'branches']
 };
 </script>
