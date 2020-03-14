@@ -14835,6 +14835,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {},
   data: function data() {
@@ -14856,7 +14861,10 @@ __webpack_require__.r(__webpack_exports__);
     nextSlide: function nextSlide() {
       this.currentStep = this.currentStep + 1;
     },
-    getStarted: function getStarted() {}
+    getStarted: function getStarted() {},
+    changeSlide: function changeSlide(step) {
+      this.currentStep = step;
+    }
   }
 });
 
@@ -21042,7 +21050,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n\r\n/* FADE IN */\n.slides ul[data-v-4ee0c70a]\r\n{\r\n  margin-bottom:0px;\n}\n.circle-active[data-v-4ee0c70a] {\r\n  width: 36px;\r\nheight: 12px;\r\nleft: 60px;\r\ntop: 669.5px;\r\nbackground: #0297E8;\r\nborder-radius: 11111px;\n}\n.fade-enter-active[data-v-4ee0c70a] {\r\n  -webkit-transition: opacity 1s;\r\n  transition: opacity 1s;\n}\n.fade-enter[data-v-4ee0c70a] {\r\n  opacity: 0;\n}\r\n\r\n/* GO TO NEXT SLIDE */\n.slide-next-enter-active[data-v-4ee0c70a],\r\n.slide-next-leave-active[data-v-4ee0c70a] {\r\n  -webkit-transition: -webkit-transform 0.5s ease-in-out;\r\n  transition: -webkit-transform 0.5s ease-in-out;\r\n  transition: transform 0.5s ease-in-out;\r\n  transition: transform 0.5s ease-in-out, -webkit-transform 0.5s ease-in-out;\n}\n.slide-next-enter[data-v-4ee0c70a] {\r\n  -webkit-transform: translate(100%);\r\n          transform: translate(100%);\n}\n.slide-next-leave-to[data-v-4ee0c70a] {\r\n  -webkit-transform: translate(-100%);\r\n          transform: translate(-100%);\n}\r\n\r\n/* GO TO PREVIOUS SLIDE */\n.slide-prev-enter-active[data-v-4ee0c70a],\r\n.slide-prev-leave-active[data-v-4ee0c70a] {\r\n  -webkit-transition: -webkit-transform 0.5s ease-in-out;\r\n  transition: -webkit-transform 0.5s ease-in-out;\r\n  transition: transform 0.5s ease-in-out;\r\n  transition: transform 0.5s ease-in-out, -webkit-transform 0.5s ease-in-out;\n}\n.slide-prev-enter[data-v-4ee0c70a] {\r\n  -webkit-transform: translate(-100%);\r\n          transform: translate(-100%);\n}\n.slide-prev-leave-to[data-v-4ee0c70a] {\r\n  -webkit-transform: translate(100%);\r\n          transform: translate(100%);\n}\n.slide[data-v-4ee0c70a] {\r\n  width: 100%;\r\n  height: 100vh;\r\n  position: absolute;\r\n  top: 0;\r\n  left: 0;\r\n  display: -webkit-box;\r\n  display: flex;\r\n  -webkit-box-align: center;\r\n          align-items: center;\r\n  -webkit-box-pack: center;\r\n          justify-content: center;\n}\n.btn[data-v-4ee0c70a] {\r\n  z-index: 10;\r\n  cursor: pointer;\r\n  border: 3px solid #fff;\r\n  display: -webkit-box;\r\n  display: flex;\r\n  -webkit-box-pack: center;\r\n          justify-content: center;\r\n  -webkit-box-align: center;\r\n          align-items: center;\r\n  width: 70px;\r\n  height: 70px;\r\n  position: absolute;\r\n  top: calc(50% - 35px);\r\n  left: 1%;\r\n  -webkit-transition: -webkit-transform 0.3s ease-in-out;\r\n  transition: -webkit-transform 0.3s ease-in-out;\r\n  transition: transform 0.3s ease-in-out;\r\n  transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;\r\n  -webkit-user-select: none;\r\n     -moz-user-select: none;\r\n      -ms-user-select: none;\r\n          user-select: none;\n}\n.btn-next[data-v-4ee0c70a] {\r\n  left: auto;\r\n  right: 1%;\n}\n.btn[data-v-4ee0c70a]:hover {\r\n  -webkit-transform: scale(1.1);\r\n          transform: scale(1.1);\n}\n.slides ul[data-v-4ee0c70a] \r\n{\r\n  list-style: none;\r\n  padding:0px;\n}\n.slides ul[data-v-4ee0c70a]\r\n{\r\n  display:-webkit-box;\r\n  display:flex;\r\n  flex-wrap: wrap;\r\n  -webkit-box-align: center;\r\n          align-items: center;\n}\r\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n\r\n/* FADE IN */\n.slides ul[data-v-4ee0c70a]\r\n{\r\n  margin-bottom:0px;\n}\n.circle-active[data-v-4ee0c70a] {\r\n  width: 36px;\r\nheight: 12px;\r\nleft: 60px;\r\ntop: 669.5px;\r\nbackground: #0297E8;\r\nborder-radius: 11111px;\n}\n.fade-enter-active[data-v-4ee0c70a] {\r\n  -webkit-transition: opacity 1s;\r\n  transition: opacity 1s;\n}\n.fade-enter[data-v-4ee0c70a] {\r\n  opacity: 0;\n}\r\n\r\n/* GO TO NEXT SLIDE */\n.slide-next-enter-active[data-v-4ee0c70a],\r\n.slide-next-leave-active[data-v-4ee0c70a] {\r\n  -webkit-transition: -webkit-transform 0.5s ease-in-out;\r\n  transition: -webkit-transform 0.5s ease-in-out;\r\n  transition: transform 0.5s ease-in-out;\r\n  transition: transform 0.5s ease-in-out, -webkit-transform 0.5s ease-in-out;\n}\n.slide-next-enter[data-v-4ee0c70a] {\r\n  -webkit-transform: translate(100%);\r\n          transform: translate(100%);\n}\n.slide-next-leave-to[data-v-4ee0c70a] {\r\n  -webkit-transform: translate(-100%);\r\n          transform: translate(-100%);\n}\r\n\r\n/* GO TO PREVIOUS SLIDE */\n.slide-prev-enter-active[data-v-4ee0c70a],\r\n.slide-prev-leave-active[data-v-4ee0c70a] {\r\n  -webkit-transition: -webkit-transform 0.5s ease-in-out;\r\n  transition: -webkit-transform 0.5s ease-in-out;\r\n  transition: transform 0.5s ease-in-out;\r\n  transition: transform 0.5s ease-in-out, -webkit-transform 0.5s ease-in-out;\n}\n.slide-prev-enter[data-v-4ee0c70a] {\r\n  -webkit-transform: translate(-100%);\r\n          transform: translate(-100%);\n}\n.slide-prev-leave-to[data-v-4ee0c70a] {\r\n  -webkit-transform: translate(100%);\r\n          transform: translate(100%);\n}\n.slide[data-v-4ee0c70a] {\r\n  width: 100%;\r\n  height: 100vh;\r\n  position: absolute;\r\n  top: 0;\r\n  left: 0;\r\n  display: -webkit-box;\r\n  display: flex;\r\n  -webkit-box-align: center;\r\n          align-items: center;\r\n  -webkit-box-pack: center;\r\n          justify-content: center;\n}\n.btn[data-v-4ee0c70a] {\r\n  z-index: 10;\r\n  cursor: pointer;\r\n  border: 3px solid #fff;\r\n  display: -webkit-box;\r\n  display: flex;\r\n  -webkit-box-pack: center;\r\n          justify-content: center;\r\n  -webkit-box-align: center;\r\n          align-items: center;\r\n  width: 70px;\r\n  height: 70px;\r\n  position: absolute;\r\n  top: calc(50% - 35px);\r\n  left: 1%;\r\n  -webkit-transition: -webkit-transform 0.3s ease-in-out;\r\n  transition: -webkit-transform 0.3s ease-in-out;\r\n  transition: transform 0.3s ease-in-out;\r\n  transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;\r\n  -webkit-user-select: none;\r\n     -moz-user-select: none;\r\n      -ms-user-select: none;\r\n          user-select: none;\n}\n.btn-next[data-v-4ee0c70a] {\r\n  left: auto;\r\n  right: 1%;\n}\n.btn[data-v-4ee0c70a]:hover {\r\n  -webkit-transform: scale(1.1);\r\n          transform: scale(1.1);\n}\n.slides ul[data-v-4ee0c70a] \r\n{\r\n  list-style: none;\r\n  padding:0px;\n}\n.slides ul[data-v-4ee0c70a]\r\n{\r\n  display:-webkit-box;\r\n  display:flex;\r\n  flex-wrap: wrap;\r\n  -webkit-box-align: center;\r\n          align-items: center;\n}\r\n", ""]);
 
 // exports
 
@@ -69199,9 +69207,37 @@ var render = function() {
     ),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
-      _vm._m(0),
+      _c(
+        "div",
+        { staticClass: "col-md-8 text-left" },
+        _vm._l(_vm.total_steps, function(step) {
+          return _c("span", { key: step }, [
+            _vm.currentStep === step
+              ? _c("span", [
+                  _c("img", { attrs: { src: "/images/rectangle2.svg" } })
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.currentStep !== step
+              ? _c(
+                  "span",
+                  {
+                    staticClass: "ml-1 mr-1",
+                    on: {
+                      click: function($event) {
+                        return _vm.changeSlide(step)
+                      }
+                    }
+                  },
+                  [_c("img", { attrs: { src: "/images/circle.svg" } })]
+                )
+              : _vm._e()
+          ])
+        }),
+        0
+      ),
       _vm._v(" "),
-      _c("div", { staticClass: "col-md-offset-8" }, [
+      _c("div", { staticClass: "col-md-4 text-right" }, [
         !_vm.lastStep
           ? _c(
               "button",
@@ -69221,19 +69257,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-12 text-center" }, [
-      _c("span", [_c("img", { attrs: { src: "/images/rectangle2.svg" } })]),
-      _c("span", { staticClass: "ml-1 mr-1" }, [
-        _c("img", { attrs: { src: "/images/circle.svg" } })
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
