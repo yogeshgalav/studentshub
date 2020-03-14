@@ -1,6 +1,6 @@
 <template>
     <div class="bg-gray">
-   <div class="container ptb-20">
+   <div class="container category-filter ptb-20">
         <div class="row">
         <div class="col-md-12 text-center" v-if="categories.length">
             <VueSlickCarousel  :arrows="true" v-bind="slickOptions" ref="slick" >
@@ -12,6 +12,11 @@
     </div>
 </template>
 <style scoped>
+.category-filter .btn {
+  font-weight: 400;
+  font-size:14px;
+  margin: 0 5px;
+}
   .slick-slide {
     margin: 0 5px;
   }
@@ -19,9 +24,30 @@
   .slick-list {
     margin: 0 -5px;
   }
-
-
-</style>
+.slick-slider .slick-next
+{
+    -webkit-appearance: none;
+    outline: 0;
+    background: transparent;
+    border: 0;
+    width: 38px;
+    height: 38px;
+    padding: 10px;
+    border-radius: 50%;
+    position: absolute;
+    z-index: 3000;
+    right: -25px;
+    box-shadow: 3px 2px 3px #eee;
+    top: 12px;
+}
+.slick-prev:before, .slick-next:before {
+  font-family: 'slick';
+    font-size: 30px !important;
+    line-height: 1;
+    opacity: 0.75;
+    color: #171717 !important;
+}
+</style> 
 
 <script>
 import VueSlickCarousel from 'vue-slick-carousel'

@@ -1,6 +1,5 @@
 <template>
     <main>
-
     <explore-carousal-post></explore-carousal-post>
 <br/>
     <category-filter :categories="categories"></category-filter>

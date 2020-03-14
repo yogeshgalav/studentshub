@@ -12,16 +12,16 @@
   
   </div>
   <div class="row">
-    <div class="col-md-8 text-left">
+    <div class="col-md-12  text-center">
       <span v-for="step in total_steps" :key="step">
         <span v-if="currentStep===step"> <img src="/images/rectangle2.svg"> </span>
         <span v-if="currentStep!==step" class="ml-1 mr-1" @click="changeSlide(step)"> <img src="/images/circle.svg"> </span>
       </span>
     </div>
-    <div class="col-md-4 text-right">
+    <!-- <div class="col-md-4 text-right">
     <button type="button" @click="nextSlide" v-if="!lastStep">Next</button>  
     <button type="button" @click="getStarted" v-if="lastStep">Get Started</button>  
-    </div>
+    </div> -->
   </div>
 </div>
 </template>

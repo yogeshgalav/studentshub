@@ -10,12 +10,12 @@
                   </div>
                 </template>
                 <template slot="step2">
-                  <div>
-                  <img v-lazy="'/images/5.jpg'" />
+                  <div class="text-center slider-caption">
+                  <img v-lazy="'/images/student.svg'" />
+                  <h5 class="mt-3 mb-1">Student </h5>
+                  <p>Contrary to popular belief, Lorem Ipsum is not simply random text. <br/>
+                     It has roots in a piece of classical Latin making it over 2000 years old.</p>
                   </div>
-                </template>
-                <template slot="step3">
-                  step3
                 </template>
             </carousel>
     </div>
@@ -42,7 +42,7 @@
 
 .slick-dots {
   display:flex;
-  justify-content: left;
+  justify-content: center;
 }
 </style>
 

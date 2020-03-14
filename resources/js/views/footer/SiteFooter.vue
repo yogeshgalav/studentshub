@@ -126,6 +126,8 @@ a.socialIcon:hover, .socialHoverClass {
 	width: 50px;
 	height: 50px;
 	font-size:20px;
+	line-height: 50px;
+    color: #fff;
 }
 .social-circle li i {
 	margin:0;
