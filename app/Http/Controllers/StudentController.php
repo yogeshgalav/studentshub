@@ -92,13 +92,24 @@ class StudentController extends Controller
     }
 
     public function courseList(Request $request){
-        $courses=Course::where('course_name','LIKE','%'.$request->searchTerm.'%')->with('category')->limit(10)->get();
+        $courses=DB::table('courses as cor')->where('cor.course_name','LIKE','%'.$request->searchTerm.'%')
+        ->leftJoin('categories as cat','cat.id','=','cor.category_id')
+        ->leftJoin('batches as bat','cor.id','=','bat.course_id')
+        ->select('cor.id','cor.course_name','cat.name as category',DB::raw("COUNT('bat.id') as totalBatch"))
+        ->groupBy('cor.id','cor.course_name','cat.name')
+        ->orderBy('totalBatch','DESC')->limit(10)->get();
+
         return response()->json(['success'=>[
             'courses'=>$courses
         ]]);
     }
     public function branchList(Request $request){
-        $branches=Branch::where('branch_name','LIKE','%'.$request->searchTerm.'%')->limit(10)->get();
+        $branches=DB::table('branches as bra')->where('bra.branch_name','LIKE','%'.$request->searchTerm.'%')
+        ->leftJoin('batches as bat','bra.id','=','bat.branch_id')
+        ->select('bra.id','bra.branch_name',DB::raw("COUNT('bat.id') as totalBatch"))
+        ->groupBy('bra.id','bra.branch_name')
+        ->orderBy('totalBatch','DESC')->limit(10)->get();
+        
         return response()->json(['success'=>[
             'branches'=>$branches
         ]]);

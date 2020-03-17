@@ -3,11 +3,14 @@ import ViewPost from '../../views/student/view-post.vue'
 import EditPost from '../../views/create-post/edit-post.vue'
 import DoubtList from '../../views/doubt/doubt-list.vue'
 import DoubtAnswer from '../../views/doubt/doubt-answers.vue'
+import ExploreComponent from '../../views/explore/explore.vue'
 const StudentRoutes = [
       {
         path: '/',
         component: DashboardComponent,
       },
+      { path: '/explore/:subject', component: ExploreComponent },
+      { path: '/explore', component: ExploreComponent },
       {
         path: '/doubts',
         component: DoubtList,

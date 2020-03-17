@@ -16,16 +16,10 @@
         class="autocomplete-results"
       >
         <li
-          class="autocomplete-result"
-          @click="$emit('selected', {'id':0,'name':search})"
-        >
-          {{ trans('vue-auto-complete.create-new-client') }}
-        </li>
-        <li
           v-if="isLoading"
           class="loading"
         >
-          {{ trans('vue-auto-complete.loading') }}
+          {{ trans('loading...') }}
         </li>
         <li
           v-for="(currentResult, i) in results"
@@ -41,6 +35,13 @@
           >
             {{ currentResult[value] }}
           </slot>
+        </li>
+		<li
+		v-if="results.length===0"
+		class="autocomplete-result"
+		@click="$emit('selected', {'id':0,'name':search})"
+        >
+          {{ trans('Create New') }}
         </li>
       </ul>
     </transition>
@@ -94,6 +95,11 @@ export default {
 			required: false,
 			default: false,
 		},
+		isLoading: {
+			type: Boolean,
+			required: false,
+			default: false,
+		},
 	},
 
 	data() {
@@ -102,7 +108,6 @@ export default {
 			results: [],
 			result:{},
 			search: '',
-			isLoading: false,
 			arrowCounter: 0,
 		};
 	},
@@ -111,8 +116,7 @@ export default {
 			// actually compare them
 			if (val.length) {
 				this.results = val;
-        this.isLoading = false;
-        this.isOpen = true;
+        		this.isOpen = true;
 			}
 		},
 		search: function (val) {
@@ -140,7 +144,6 @@ export default {
         if(this.items.length){
           return false;
         }
-				this.isLoading = true;
 			} else {
 				// Let's  our flat array
 				this.filterResults();

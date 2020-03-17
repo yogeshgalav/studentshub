@@ -11,6 +11,7 @@ const state = {
       'categories':[],
       'related_posts':[],
       'post_content':[],
-    }
+    },
+    dashboardPosts:[]
   }
   export default state;

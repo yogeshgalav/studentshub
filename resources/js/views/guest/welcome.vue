@@ -77,7 +77,7 @@ export default {
   },
   methods:{
     getData(){
-      this.$store.dispatch('explore/getExplorePageContent');
+      this.$store.dispatch('explore/getWelcomePageContent');
     }
   },
   computed:{

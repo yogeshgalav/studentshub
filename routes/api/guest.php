@@ -11,3 +11,5 @@ Route::post('/forgot-password','AuthController@processForgotPassword');
 Route::post('/reset-password','AuthController@resetPassword');
 // Route::get('/get-view-post/{ViewPostId}', 'PostController@viewPost');
 Route::get('/get-explore-posts', 'ExploreController@index');
+
+Route::get('/explore', 'PostController@searchPosts');

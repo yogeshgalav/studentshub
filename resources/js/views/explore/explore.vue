@@ -1,13 +1,10 @@
 <template>
     <main>
         <div class="container pt-100">
-            <div class="col-md-12">
-                    <category-filter :categories="categories"></category-filter>
-            </div>
             <div class="col-md-8 center-col">
         <div class="row">
             <div class="col-md-12">
-                 <dashboard-post-container :posts="posts"></dashboard-post-container>   
+                 <explore-post-container></explore-post-container>   
             </div>   
         </div>
                 </div>
@@ -59,37 +56,22 @@
 </style>
 
 <script>
-import DashboardPostContainer from '../post/DashboardPostContainer';
+import ExplorePostContainer from '../post/ExplorePostContainer';
 import CategoryFilter from '../category/CategoryFilter';
 
 import {mapState} from 'vuex';
 
 export default {
-    props:['posts','categories'],
-	computed:{
-		// ...mapState({
-		// 	'posts': state=>state.dashboardPosts,
-		// }),
-	},        components:{
-            DashboardPostContainer,CategoryFilter
+        components:{
+        ExplorePostContainer,CategoryFilter
+    },
+    mounted(){
+        this.$store.dispatch('explore/getExplorePageContent',this.$route.query.search);
+    },
+    methods: {
+        trans: function (string, defaultString) {
+            return this.$trans('home', string, defaultString);
         },
-        data() {
-            return {
-            }
-        },
-        mounted(){
-            // this.getDashboardPosts();
-        },
-        methods: {
-            trans: function (string, defaultString) {
-                return this.$trans('home', string, defaultString);
-            },
-            getDashboardPosts(){
-                this.$store.dispatch('getPosts');
-            },
-            redirectPostView(post_id){
-                this.$router.push({path:'/post/1'})
-            }
-        },
-    }
+    },
+}
 </script>

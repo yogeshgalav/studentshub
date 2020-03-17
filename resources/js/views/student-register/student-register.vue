@@ -39,6 +39,7 @@
                     :is-async="true"
                     @input="getCourses"
                     @selected="setCourse"
+                    :is-loading="courseLoading"
                     />
                     <!-- <select v-model="course_id" class="form-control">
                         <option v-for="course in courses" :key='course.id' :value="course.id">{{course.course_name}}</option>
@@ -50,7 +51,7 @@
                     <label> {{ trans('Category/Course Type') }} </label>
                   <div class="inner-addon left-addon">
                     <i class="fa fa-user"></i>
-                    <input :value="selected_course.category.name" disabled/>
+                    <input :value="selected_course.category" disabled/>
                     <span class="error">{{errors.first('institute_name')}}</span>
                   </div>
                 </div>
@@ -101,6 +102,7 @@
                     :is-async="true"
                     @input="getBranches"
                     @selected="setBranch"
+                    :is-loading="batchLoading"
                     />
                     <!-- <select v-model="branch_id" class="form-control">
                         <option v-for="branch in branches" :key="branch.id" :value="branch.id">{{branch.branch_name}}</option>
@@ -250,9 +252,11 @@ export default {
       course_list:[],
       course_id:'',
       course_name:'',
+      courseLoading:false,
       branch_list:[],
       branch_id:'',
       branch_name:'',
+      batchLoading:false,
       selected_course:'',
       selected_branch:'',
       end_year:'',
@@ -273,7 +277,7 @@ export default {
       return this.$trans("auth", string, defaultString);
     },
     getCourses(search){
-      // loading(true);
+      this.courseLoading=true;
 				this.axios
 					.post(this.baseUrl + '/api/search-course', {searchTerm: search})
 					.then(resp => {
@@ -283,8 +287,11 @@ export default {
 								this.course_id = node.id;
 								return true;
 							}
-						});
-					});
+            });
+            this.courseLoading=false;
+					}).catch(()=>{
+            this.courseLoading=false;
+          });
 	
     },
     setCourse(result){
@@ -293,7 +300,7 @@ export default {
       this.selected_course=this.course_list.find(node=>node.course_name===this.course_name);
     },
     getBranches(search){
-      // loading(true);
+      this.batchLoading=true;
 				this.axios
 					.post(this.baseUrl + '/api/search-branch', {searchTerm: search})
 					.then(resp => {
@@ -304,7 +311,10 @@ export default {
 								return true;
 							}
 						});
-					});
+					  this.batchLoading=false;
+					}).catch(()=>{
+            this.batchLoading=false;
+          });
 	
     },
     setBranch(result){

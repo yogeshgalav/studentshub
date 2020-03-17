@@ -70,12 +70,11 @@ import {mapState} from 'vuex';
 export default {
 	computed:{
 		...mapState({
-			'posts': state=>state.dashboardPosts,
+			'posts': state=>state.explore.dashboardPosts,
 		}),
 	},
 	methods:{
 		loadPosts(){
-            this.$store.dispatch('getGuestPosts');
 		}
 	}
 }

@@ -7,16 +7,7 @@
             </router-link>
         </div>
         <div class="col-md-6">
-                <div id="custom-search-input">
-                        <div class="input-group col-md-12">
-                            <input type="text" class="search-query form-control " placeholder="What do you want to learn ?" />
-                            <span class="input-group-btn">
-                                <button class="btn btn-link" type="button">
-                                    <i class=" fa fa-search"></i>
-                                </button>
-                            </span>
-                        </div>
-                    </div>
+        @include('includes.search-form')
             </div>
             <div class="col-md-1 text-right mt-2">
                     <i class="fa fa-bell"></i>

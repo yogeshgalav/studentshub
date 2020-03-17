@@ -21,6 +21,11 @@ Vue.use(VModal, { dynamic: true, injectModalsContainer: true })
 Vue.use(VueAxios, axios);
 
 Vue.mixin({
+    data(){
+        return {
+            explore_search:'',
+        };
+    },
     methods: {
         '$trans':function(file,string,defaultString){
             return window.lang[file][string] ? window.lang[file][string] : (defaultString ? defaultString : string);
@@ -35,6 +40,12 @@ Vue.mixin({
             const bottomOfPage = visible + scrollY >= pageHeight
             return bottomOfPage || pageHeight < visible
           },
+          exploreSearch(){
+            if(!this.explore_search){
+                return false;
+            }
+            this.$router.replace({ path: '/explore', 'query':{'search':this.explore_search}});
+          }
     },
     computed: {
         baseUrl() {

@@ -109,7 +109,11 @@ class PostController extends Controller
         return response()->json('success');
     }
 
-    public function getStudentPosts(){dd('heer');
+    public function searchPosts(Request $request){
+        return $this->getSeekerPosts($request);
+    }
+
+    public function getStudentPosts(){
         $posts=DB::table('sthub_posts as sp')
         ->join('posts as po','po.id','=','sp.post_id')
         ->leftJoin('articles as ar',function($join){
@@ -144,7 +148,7 @@ class PostController extends Controller
     }
 
     public function getSeekerPosts(Request $request){
-        $posts=DB::table('sthub_posts as sp')
+        $post_query=DB::table('sthub_posts as sp')
         ->join('posts as po','po.id','=','sp.post_id')
         ->leftJoin('articles as ar',function($join){
             $join->on('po.postable_id','=','ar.id')->where('po.postable_type','=','App\Models\Article');
@@ -154,9 +158,16 @@ class PostController extends Controller
         })
         ->leftJoin('subjects as sub','sub.id','=','po.subject_id')
         ->leftJoin('categories as cat','cat.id','=','sub.category_id')
-        ->leftJoin('users as us','us.id','=','po.user_id')
+        ->leftJoin('users as us','us.id','=','po.user_id');
         // ->leftJoin('facts as fa','po.id','=','fa.post_id')
-        ->select(['po.id as id','po.post_heading as heading','po.postable_type as postable_type','cat.name as category_name','sub.Subject_name as subject_name','po.primary_image_path as image_path',
+
+        if($request->search){
+            $post_query=$post_query->where('sub.Subject_name','LIKE','%'.$request->search.'%')
+            ->orWhere('cat.name','LIKE','%'.$request->search.'%')
+            ->orWhere('po.post_heading','LIKE','%'.$request->search.'%');
+        }
+
+        $posts=$post_query->select(['po.id as id','po.post_heading as heading','po.postable_type as postable_type','cat.name as category_name','sub.Subject_name as subject_name','po.primary_image_path as image_path',
         'us.avatar_url as profile_image','us.full_name as user_name','ar.content as article_content','vd.content as video_content',
         'vd.link as video_link'])
         ->orderBy('po.created_at','DESC')
