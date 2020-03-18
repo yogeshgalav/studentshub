@@ -25,6 +25,7 @@ class ExplorePagePost extends Model
         $content=$post_content->content ? substr($post_content->content,0,$rand): null;
         $post->content= $content;
         
+        $post->heading=$post->post_heading;
         $post->user_name=$post->user_name;
         $post->subject_name=$post->subject->Subject_name;
         // $post->created_at=\Carbon\Carbon::createFromTimeStamp(strtotime($sthub_post->post->created_at))->diffForHumans();

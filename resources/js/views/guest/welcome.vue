@@ -25,7 +25,7 @@
         </h3>
     </div>
 </div>
-    <guest-post-container :posts="home_posts"></guest-post-container>
+    <welcome-post-container ></welcome-post-container>
    </div>
    <div class="col-md-4">
       <explore-sidebar></explore-sidebar>
@@ -58,7 +58,7 @@ import Carousel from '../explore/Carousel';
 import CategoryFilter from '../category/CategoryFilter';
 import ExploreCarousalPost from '../explore/ExploreCarousalPost';
 import ExploreTopPost from '../explore/ExploreTopPost';
-import GuestPostContainer from '../post/GuestPostContainer';
+import WelcomePostContainer from '../post/WelcomePostContainer';
 import ExploreSidebar from '../explore/ExploreSidebar';
 import ExploreBottomPost from '../explore/ExploreBottomPost';
 import SiteFooter from '../footer/SiteFooter';
@@ -70,7 +70,7 @@ export default {
     CategoryFilter,
     ExploreCarousalPost,
     ExploreTopPost,
-    GuestPostContainer,
+    WelcomePostContainer,
     ExploreSidebar,
     ExploreBottomPost,
     SiteFooter
@@ -83,7 +83,6 @@ export default {
   computed:{
 		...mapState({
 			'categories': state=>state.explore.categories,
-			'home_posts': state=>state.explore.posts.HomePostContainer,
 		}),
 	},
   mounted(){
