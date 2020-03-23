@@ -15,6 +15,8 @@ class CreateSearchesTable extends Migration
     {
         Schema::create('searches', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('query');
+            $table->boolean('success');
             $table->timestamps();
         });
     }

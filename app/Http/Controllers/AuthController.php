@@ -35,7 +35,7 @@ class AuthController extends Controller
      */
     public function login(LoginRequest $request)
     {        
-        if ($user=User::where('email',$request->email)->orWhere('phone',$request->email)->first()) {
+        if ($user=User::where('email',$request->email)->first()) {
             //condition for email verify
             if (Hash::check($request->password, $user->password)) {
 
@@ -58,32 +58,6 @@ class AuthController extends Controller
         return response()->json(['error'=>'Unauthorised'], 401);
     }
 
-    // public function checkSubdomain($subdomain, $user)
-    // {
-    //     switch (Sthub::getDomainPortal()) {
-    //         case 'staffPortal':
-    //             if (! (bool) $user->is_Sthub_staff) {
-    //                 return false;
-    //             }
-    //             break;
-    //         case 'consultantPortal':
-    //             if (!ConsultantFirmUser::where('user_id', $user->id)->first()) {
-    //                 return false;
-    //             }
-    //             break;
-    //         case 'tenantPortal':
-    //             if ($client = Client::where('subdomain', $subdomain)->first()) {
-    //                 if (!$client_user=ClientUser::where('client_id', $client->id)->where('user_id', $user->id)->first()) {
-    //                     return false;
-    //                 }
-    //             } else {
-    //                 return false;
-    //             }
-    //             break;
-    //     }
-    //     return true;
-    // }
-
     /**
      * Register api
      *
@@ -94,12 +68,26 @@ class AuthController extends Controller
     public function register(RegisterRequest $request)
     {
         $input = $request->all();
+        //set firstname lastname
+        $input['full_name']=trim($input['full_name']);
+        $parts = explode(" ", $input['full_name']);
+        if(count($parts) > 1) {
+            $lastname = array_pop($parts);
+            $firstname = implode(" ", $parts);
+        }
+        else
+        {
+            $firstname = $input['full_name'];
+            $lastname = " ";
+        }
+        //hash password
         $input['password'] = bcrypt($input['password']);
+
         DB::beginTransaction();
     try{
         $user = User::create([
-            'first_name'=>explode(' ',$input['full_name'])[0],
-            'last_name'=>explode(' ',$input['full_name'])[1] ?? null,
+            'first_name'=>$firstname,
+            'last_name'=>$lastname,
             'full_name'=>$input['full_name'],
             'email'=>$input['email'],
             'password'=>$input['password'],
