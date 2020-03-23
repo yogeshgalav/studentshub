@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Guest;
 use App\Mails\SubscriptionFirstMail;
 use Mail;
+use DB;
 use Log;
 
 class GuestController extends Controller

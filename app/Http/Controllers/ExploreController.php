@@ -18,7 +18,7 @@ class ExploreController extends Controller
         $guest->add($request);
 
         return response()->json(['success'=>[
-            'categories'=>Category::all(),
+            'categories'=>Category::whereNotNull('category_url')->get(),
             'ExploreCarousalPost'=>ExplorePagePost::getPostType('ExploreCarousalPost'),
             'ExploreTopPost'=>ExplorePagePost::getPostType('ExploreTopPost'),
             'HomePostContainer'=>ExplorePagePost::getPostType('HomePostContainer'),
