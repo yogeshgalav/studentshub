@@ -42,6 +42,15 @@
                      
     </div>
 		</div>
+		<div class="card" v-if="showLoader">
+			<loading 
+				:active.sync="showLoader"
+				:color="'#10069F'"
+				:loader="'bars'"
+				:width="250"
+				:is-full-page="false"
+			/>
+		</div>
 </div>
       
     </div>
@@ -94,10 +103,16 @@ import ProfileImage from './ProfileImage.vue';
 
 export default {
 	mounted(){
-		this.$store.dispatch('getStudentPosts');
+		this.showLoader=true;
+		this.$store.dispatch('getStudentPosts').then(()=>{
+			this.showLoader=true;
+		});
 		window.addEventListener('scroll', () => {
       		if(this.bottomVisible()){
-				  this.$store.dispatch('getStudentPosts');
+				  this.showLoader=true;
+					this.$store.dispatch('getStudentPosts').then(()=>{
+						this.showLoader=true;
+					});
 			  }
     	});
 	},
@@ -108,7 +123,12 @@ export default {
 		...mapState({
 			'posts': state=>state.dashboardPosts,
 		}),
-	},     
+	}, 
+	data(){
+		return {
+			showLoader:false,
+		};
+	},
 	methods:{
 	}
 }

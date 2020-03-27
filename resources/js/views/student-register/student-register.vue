@@ -1,5 +1,11 @@
 <template>
   <div>
+    <loading 
+      :active.sync="showLoader"
+      :color="'#10069F'"
+      :width="250"
+      :is-full-page="true"
+    />
     <div class="container pb-100">
       <div class="row justify-content-center register">
         <div class="col-md-8">
@@ -248,6 +254,7 @@ export default {
   },
   data() {
     return {
+      showLoader:false,
       institute_name:'',
       course_list:[],
       course_id:'',
@@ -328,6 +335,7 @@ export default {
       this.$validator.validate().then(valid => {
         if (valid) {
           this.form_errors=[];
+          this.showLoader=true;
           this.register();
         }
       });
@@ -341,10 +349,13 @@ export default {
         start_year:this.start_year,
         end_year:this.end_year,
       }).then((resp)=>{
+        this.showLoader=false;
         if(resp.data.success){
           swal.successDialog('Check-In','Success!','success')
           window.location.href=resp.data.success.redirectUrl;
         }
+      }).catch(()=>{
+        this.showLoader=false;
       });
     },
     selectCourse(selectedCourse){

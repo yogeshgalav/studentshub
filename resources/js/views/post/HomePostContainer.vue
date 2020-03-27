@@ -2,7 +2,8 @@
 <div>
 
 <div v-for="(post,index) in posts" :key="index">
-    <div  class="row">
+    <div class="card">
+		<div  class="row">
         <div class="col-md-9">
 							<div class="card-post" @click="redirectPostView(post)">
 						<div>
@@ -46,11 +47,17 @@
                             <img class="card-img-top" v-lazy="post.image_path" alt="Card image cap">
                         </div>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-<div class="divider"></div>
-        </div>
-    </div>
+	<div class="card" v-if="showLoader">
+			<loading 
+				:active.sync="showLoader"
+				:color="'#10069F'"
+				:loader="'bars'"
+				:width="250"
+				:is-full-page="false"
+			/>
+		</div>
+	</div>
+    
 </div>
       
     </div>
@@ -71,12 +78,23 @@ export default {
 		ProfileImage
 	},
 	mounted(){
-		this.$store.dispatch('getStudentPosts');
+		this.showLoader=true;
+		this.$store.dispatch('getStudentPosts').then(()=>{
+			this.showLoader=true;
+		});
 		window.addEventListener('scroll', () => {
       		if(this.bottomVisible()){
-				  this.$store.dispatch('getStudentPosts');
+				  this.showLoader=true;
+					this.$store.dispatch('getStudentPosts').then(()=>{
+						this.showLoader=true;
+					});
 			  }
     	});
+	},
+	data(){
+		return {
+			showLoader:false,
+		};
 	},
 	methods:{
 	}
