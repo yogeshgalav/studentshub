@@ -47,7 +47,7 @@
                             <img class="card-img-top" v-lazy="post.image_path" alt="Card image cap">
                         </div>
     </div>
-	<div class="card" v-if="showLoader">
+	<div class="card">
 			<loading 
 				:active.sync="showLoader"
 				:color="'#10069F'"

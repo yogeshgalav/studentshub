@@ -42,7 +42,7 @@
                      
     </div>
 		</div>
-		<div class="card" v-if="showLoader">
+		<div class="card">
 			<loading 
 				:active.sync="showLoader"
 				:color="'#10069F'"
