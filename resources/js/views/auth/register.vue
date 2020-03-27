@@ -1,5 +1,11 @@
 <template>
   <div>
+    <loading 
+      :active.sync="showLoader"
+      :color="'#10069F'"
+      :width="250"
+      :is-full-page="true"
+    />
     <div class="container pb-100">
       <div class="row justify-content-center register">
         <div class="col-md-8">
@@ -172,7 +178,7 @@ export default {
   mixins: [FormMixin],
   data() {
     return {
-      register_status:1,
+      showLoader:false,
       full_name:'',
       email:'',
       password:'',
@@ -204,22 +210,24 @@ export default {
       this.$validator.validate().then(valid => {
         if (valid) {
           this.form_errors=[];
+          this.showLoader=true;
           this.register();
         }
       });
       return true;
     },
     register: function () {
-                this.register_status=0;
                 let email = this.email;
                 let password = this.password;
                 let full_name = this.full_name;
                 this.$store.dispatch('auth/register', { full_name, email, password})
                     .then((resp) => {
+                      this.showLoader=false;
                         swal.successDialog('Register','Success!','success')
                         ({redirectUrl: window.location.href} = resp.data.success);
                     })
                         .catch(err => {
+                          this.showLoader=false;
                             if( 401 === err.response.status){
                                 this.srvError401=true;
                                 this.srvErrorUnknown=false;
@@ -232,6 +240,5 @@ export default {
                         })
                     },
   },
-  props: {}
 };
 </script>

@@ -1,5 +1,11 @@
 <template>
     <div class="container">
+        <loading 
+      :active.sync="showLoader"
+      :color="'#10069F'"
+      :width="250"
+      :is-full-page="true"
+    />
         <div class="row justify-content-center login">
             <div class="col-md-8 ">
                 <div class="card">
@@ -48,7 +54,7 @@
                             <div class="form-group row mb-0">
                                 <div class="col-md-8 center-col">
                                     <button type="submit" class="btn btn-primary">
-                                        {{ trans('Login') }} <i class="fa fa-arrow-right text-white" v-if="login_status"></i>
+                                        {{ trans('Login') }} <i class="fa fa-arrow-right text-white"></i>
                                     </button>
 
                                     <div class="text-center center-col pt-2">
@@ -114,10 +120,10 @@
         mixins: [FormMixin],
         data(){
             return{
+                showLoader:false,
                 email:'',
                 password:'',
                 remember:false,
-                login_status:1,
                 srvError401:'',
                 srvErrorUnknown:'',
             }
@@ -130,23 +136,24 @@
                 this.$validator.validate().then(valid => {
                  if (valid) {
                         this.form_errors=[];
+                        this.showLoader=true;
                         this.login();
                     }
             });
             return true;
             },
             login: function () {
-                this.login_status=0;
                 let email = this.email;
                 let password = this.password;
                 let remember = this.remember;
                 this.$store.dispatch('auth/login', { email, password, remember})
                     .then((resp) => {
+                        this.showLoader=false;
                         swal.successDialog('Login','Success!','success')
                         ({redirectUrl: window.location.href} = resp.data.success);
                     })
                         .catch(err => {
-                            console.log();
+                            this.showLoader=false;
                             if( 401 === err.response.status){
                                 this.srvError401=true;
                                 this.srvErrorUnknown=false;
