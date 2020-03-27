@@ -6,9 +6,7 @@
 								<img class="card-img-top" v-lazy="post.image_path" alt="Card image cap">
 								<div>
 									<div class="d-flex mt-2">
-										<div class="avatar">
-											<img v-lazy="'/images/4.jpg'" alt="..." class="avatar-img rounded-circle">
-										</div>
+										<profile-image :post="post"/>
 										<div class="info-post ml-2">
 											<p class="username">{{post.user_name}}</p>
 											<p class="date text-muted">{{post.created_at}}</p>
@@ -54,8 +52,12 @@ export default {
 </script>
 <script>
 import {mapState} from 'vuex';
+import ProfileImage from '../post/ProfileImage.vue';
 
 export default {
+	components:{
+		ProfileImage
+	},
 	computed:{
 		...mapState({
 			'posts': state=>state.explore.posts.ExploreTopPost,

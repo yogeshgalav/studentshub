@@ -13,9 +13,9 @@
         <div class="col-md-12 mt-2 mb-2" v-for="(post,index) in posts" :key="index">
 							<div class="card-post" @click="redirectPostView(post.id)">
 							<div class="d-flex">
-										<div class="avatar">
-											<img v-lazy="'/images/4.jpg'" alt="..." class="avatar-img rounded-circle">
-										</div>
+										
+										<profile-image :post="post"/>
+										
 										<div class="info-post ml-2">
 											<p class="username">{{post.user_name}}</p>
 											<p class="date text-muted">{{post.created_at}}</p>
@@ -46,9 +46,7 @@
         <div class="col-md-12 mt-2 mb-2" v-for="(post,index) in posts" :key="index">
 							<div class="card-post">
 							<div class="d-flex">
-										<div class="avatar">
-											<img v-lazy="'/images/4.jpg'" alt="..." class="avatar-img rounded-circle">
-										</div>
+										<profile-image :post="post"/>
 										<div class="info-post ml-2">
 											<p class="username">{{post.user_name}}</p>
 											<p class="date text-muted">{{post.created_at}}</p>
@@ -78,8 +76,12 @@
 </style>
 <script>
 import {mapState} from 'vuex';
+import ProfileImage from '../post/ProfileImage.vue';
 
 export default {
+	components:{
+		ProfileImage
+	},
 	computed:{
 		...mapState({
 			'posts': state=>state.explore.posts.ExploreSidebar,

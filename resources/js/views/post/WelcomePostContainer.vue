@@ -7,9 +7,7 @@
 							<div class="card-post" @click="redirectPostView(post)">
 						<div>
 									<div class="d-flex mt-2">
-										<div class="avatar">
-                            <img class="card-img-top img-responsive" v-lazy="post.profile_image" alt="Card image cap">
-										</div>
+										<profile-image :post="post"/>
 										<div class="info-post ml-2">
 											<p class="username mb-1">{{post.user_name}}</p>
 											<p class="date text-muted mb-1">{{post.institute_name}}</p>
@@ -66,8 +64,12 @@
 </style>
 <script>
 import {mapState} from 'vuex';
+import ProfileImage from './ProfileImage.vue';
 
 export default {
+	components:{
+		ProfileImage
+	},
 	computed:{
 		...mapState({
 			'posts': state=>state.explore.posts.HomePostContainer,

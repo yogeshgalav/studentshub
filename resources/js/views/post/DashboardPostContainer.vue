@@ -14,7 +14,7 @@
 					   </i> {{post.total_views}} |  <i class="fa fa-thumbs-down text-black">
 					   </i>  {{post.total_likes}}
 					   </span>
-                            <img class="card-img-top img-responsive" v-lazy="post.profile_image" alt="Card image cap">
+                            <profile-image :post="post"/>
 							</div>
                         </div>
         <div class="col-md-9">
@@ -90,6 +90,8 @@
 <script>
 
 import {mapState} from 'vuex';
+import ProfileImage from './ProfileImage.vue';
+
 export default {
 	mounted(){
 		this.$store.dispatch('getStudentPosts');
@@ -98,6 +100,9 @@ export default {
 				  this.$store.dispatch('getStudentPosts');
 			  }
     	});
+	},
+	components:{
+		ProfileImage
 	},
 	computed:{
 		...mapState({

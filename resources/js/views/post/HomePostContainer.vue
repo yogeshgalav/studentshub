@@ -8,7 +8,7 @@
 						<div>
 									<div class="d-flex mt-2">
 										<div class="avatar">
-                            <img class="card-img-top img-responsive" v-lazy="post.profile_image" alt="Card image cap">
+										<profile-image :post="post"/>
 										</div>
 										<div class="info-post ml-2">
 											<p class="username">{{post.user_name}}</p>
@@ -59,11 +59,16 @@
 <script>
 
 import {mapState} from 'vuex';
+import ProfileImage from './ProfileImage.vue';
+
 export default {
 	computed:{
 		...mapState({
 			'posts': state=>state.dashboardPosts,
 		}),
+	},
+	components:{
+		ProfileImage
 	},
 	mounted(){
 		this.$store.dispatch('getStudentPosts');

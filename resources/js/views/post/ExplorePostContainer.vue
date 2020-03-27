@@ -7,11 +7,8 @@
 							<div class="card-post" @click="redirectPostView(post)">
 						<div>
 									<div class="d-flex mt-2">
-										<div class="avatar" v-if="post.profile_image">
-                            			<img class="card-img-top img-responsive" v-lazy="post.profile_image" alt="Card image cap">
-										</div>
-										<div id="profileImage" v-if="!post.profile_image">{{post.user_name.charAt(0)}}</div>
-
+										<profile-image :post="post"/>
+										
 										<div class="info-post ml-2">
 											<p class="username mb-1">{{post.user_name}}</p>
 											<p class="date text-muted mb-1">{{post.institute_name}}</p>
@@ -65,26 +62,19 @@
 .card-post h5 {
 	font-size:14px !important;
 }
-#profileImage {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  background: #512DA8;
-  font-size: 35px;
-  color: #fff;
-  text-align: center;
-  line-height: 150px;
-  margin: 20px 0;
-}
 </style>
 <script>
 import {mapState} from 'vuex';
+import ProfileImage from './ProfileImage.vue';
 
 export default {
 	computed:{
 		...mapState({
 			'posts': state=>state.explore.dashboardPosts,
 		}),
+	},
+	components:{
+		ProfileImage
 	},
 	methods:{
 		loadPosts(){

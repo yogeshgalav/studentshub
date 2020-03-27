@@ -54,7 +54,7 @@
                                     <div class="text-center center-col pt-2">
                                         <router-link  :to="'/forgot-password'">
                                         {{ trans('Forgot Your Password') }} 
-                                    </router-link>     | <span class="text-black">Not a member? </span> <router :to="'/get-started'" >Sign Up</router> 
+                                    </router-link>     | <span class="text-black">Not a member? </span> <router-link :to="'/get-started'" >Sign Up</router-link> 
                                     
                                         </div>
 
