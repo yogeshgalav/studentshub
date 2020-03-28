@@ -69,7 +69,7 @@
 </style>
 
 <script>
-import DashboardPostContainer from '../post-containers/GuestPostContainer';
+import DashboardPostContainer from '../post-containers/SeekerPostContainer';
 
 export default {
     props:['loginStatus'],
