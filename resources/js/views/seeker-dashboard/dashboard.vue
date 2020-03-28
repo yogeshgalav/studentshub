@@ -69,8 +69,7 @@
 </style>
 
 <script>
-import DashboardPostContainer from '../post/DashboardPostContainer';
-import Vue from 'vue';
+import DashboardPostContainer from '../post-containers/GuestPostContainer';
 
 export default {
     props:['loginStatus'],

@@ -5,7 +5,7 @@
     <div class="card">
 		<div  class="row">
         <div class="col-md-9">
-							<div class="card-post" @click="redirectPostView(post)">
+							<div class="card-post">
 						<div>
 									<div class="d-flex mt-2">
 										<div class="avatar">
@@ -17,11 +17,11 @@
 											<h5>{{post.category_name}}</h5><br/>
 											<h5>{{post.subject_name}}</h5><br/>
                                             <h3 class="card-title  font-size-16">
-										<router-link :to="'/post/'+post.id"  class="weight-600 text-black">
+										<p  class="weight-600 text-black">
 											{{post.heading}}
-										</router-link>
+										</p>
 									</h3>
-									<p>{{post.content}}<p>
+									<p>{{post.content}}<p><router-link :to="'/post/'+post.id" class="btn p-0 btn-link font-size-12">Read Continue <i class="fa fa-arrow-right"></i></router-link>
                                     <div class="row">
 										<div class="col-md-4">
 											<i class="fa fa-eye"></i>
@@ -66,7 +66,7 @@
 <script>
 
 import {mapState} from 'vuex';
-import ProfileImage from './ProfileImage.vue';
+import ProfileImage from '../post/ProfileImage.vue';
 
 export default {
 	computed:{

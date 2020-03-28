@@ -72,7 +72,7 @@
 </style>
 
 <script>
-import HomePostContainer from '../post/HomePostContainer';
+import HomePostContainer from '../post-containers/StudentPostContainer';
 
 
 import {mapState} from 'vuex';

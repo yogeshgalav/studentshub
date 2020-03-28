@@ -64,7 +64,7 @@
 </style>
 <script>
 import {mapState} from 'vuex';
-import ProfileImage from './ProfileImage.vue';
+import ProfileImage from '../post/ProfileImage.vue';
 
 export default {
 	components:{

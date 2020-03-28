@@ -56,7 +56,7 @@
 </style>
 
 <script>
-import ExplorePostContainer from '../post/ExplorePostContainer';
+import ExplorePostContainer from '../post-containers/GuestPostContainer';
 import CategoryFilter from '../category/CategoryFilter';
 
 import {mapState} from 'vuex';

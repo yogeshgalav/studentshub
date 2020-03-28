@@ -53,20 +53,16 @@
 </style>
 <script>
 import {mapState} from 'vuex';
-// import { Carousel, Slide } from 'vue-carousel';
-import Carousel from '../explore/Carousel';
 import CategoryFilter from '../category/CategoryFilter';
-import ExploreCarousalPost from '../explore/ExploreCarousalPost';
-import ExploreTopPost from '../explore/ExploreTopPost';
-import WelcomePostContainer from '../post/WelcomePostContainer';
-import ExploreSidebar from '../explore/ExploreSidebar';
-import ExploreBottomPost from '../explore/ExploreBottomPost';
+import ExploreCarousalPost from '../post-containers/ExploreCarousalPost';
+import ExploreTopPost from '../post-containers/ExploreTopPost';
+import WelcomePostContainer from '../post-containers/WelcomePostContainer';
+import ExploreSidebar from '../post-containers/ExploreSidebar';
+import ExploreBottomPost from '../post-containers/ExploreBottomPost';
 import SiteFooter from '../footer/SiteFooter';
  
 export default {
     components: {
-    Carousel,
-    // Slide,
     CategoryFilter,
     ExploreCarousalPost,
     ExploreTopPost,
