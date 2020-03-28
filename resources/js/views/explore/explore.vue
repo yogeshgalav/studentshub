@@ -3,8 +3,11 @@
         <div class="container pt-100">
             <div class="col-md-8 center-col">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12" v-if="posts.length">
                  <explore-post-container></explore-post-container>   
+            </div>   
+            <div class="col-md-12" v-else>
+                 <h3>Oops! we couldn't found any posts related to your search.</h3>   
             </div>   
         </div>
                 </div>
@@ -68,6 +71,11 @@ export default {
     mounted(){
         this.$store.dispatch('explore/getExplorePageContent',this.$route.query.search);
     },
+    computed:{
+		...mapState({
+			'posts': state=>state.dashboardPosts,
+		}),
+	},
     methods: {
         trans: function (string, defaultString) {
             return this.$trans('home', string, defaultString);

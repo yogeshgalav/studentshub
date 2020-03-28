@@ -2547,6 +2547,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _post_containers_GuestPostContainer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../post-containers/GuestPostContainer */ "./resources/js/views/post-containers/GuestPostContainer.vue");
 /* harmony import */ var _category_CategoryFilter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../category/CategoryFilter */ "./resources/js/views/category/CategoryFilter.vue");
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
 //
 //
 //
@@ -2615,6 +2624,11 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     this.$store.dispatch('explore/getExplorePageContent', this.$route.query.search);
   },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapState"])({
+    'posts': function posts(state) {
+      return state.dashboardPosts;
+    }
+  })),
   methods: {
     trans: function trans(string, defaultString) {
       return this.$trans('home', string, defaultString);
@@ -53502,12 +53516,20 @@ var render = function() {
     _c("div", { staticClass: "container pt-100" }, [
       _c("div", { staticClass: "col-md-8 center-col" }, [
         _c("div", { staticClass: "row" }, [
-          _c(
-            "div",
-            { staticClass: "col-md-12" },
-            [_c("explore-post-container")],
-            1
-          )
+          _vm.posts.length
+            ? _c(
+                "div",
+                { staticClass: "col-md-12" },
+                [_c("explore-post-container")],
+                1
+              )
+            : _c("div", { staticClass: "col-md-12" }, [
+                _c("h3", [
+                  _vm._v(
+                    "Oops! we couldn't found any posts related to your search."
+                  )
+                ])
+              ])
         ])
       ])
     ])
