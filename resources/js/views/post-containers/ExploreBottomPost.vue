@@ -11,13 +11,11 @@
   <div class="row">
         <div class="col-md-4" v-for="post in posts" :key="post.id">
 							<div class="card-post">
-								<profile-image :post="post"/>
+								
 								<div>
 
 									<div class="d-flex mt-2">
-										<div class="avatar">
-											<img v-lazy="'/images/4.jpg'" alt="..." class="avatar-img rounded-circle">
-										</div>
+										<profile-image :post="post"/>
 										<div class="info-post ml-2">
 											<p class="username">{{post.user_name}}</p>
 											<p class="date text-muted">{{post.created_at}}</p>

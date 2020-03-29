@@ -8178,7 +8178,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n#profileImage[data-v-218b82f2] {\r\n  width: 150px;\r\n  height: 150px;\r\n  border-radius: 50%;\r\n  background: #512DA8;\r\n  font-size: 35px;\r\n  color: #fff;\r\n  text-align: center;\r\n  line-height: 150px;\r\n  margin: 20px 0;\n}\r\n", ""]);
+exports.push([module.i, "\n#profileImage[data-v-218b82f2] {\r\n  width: 40px;\r\n  height: 40px;\r\n  border-radius: 50%;\r\n  background: #512DA8;\r\n  font-size: 22px;\r\n  color: #fff;\r\n  text-align: center;\r\n  line-height: 40px;\r\n  margin: 5px 0;\n}\r\n", ""]);
 
 // exports
 

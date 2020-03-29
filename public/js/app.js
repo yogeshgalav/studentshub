@@ -3020,8 +3020,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -8898,7 +8896,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n#profileImage[data-v-218b82f2] {\r\n  width: 150px;\r\n  height: 150px;\r\n  border-radius: 50%;\r\n  background: #512DA8;\r\n  font-size: 35px;\r\n  color: #fff;\r\n  text-align: center;\r\n  line-height: 150px;\r\n  margin: 20px 0;\n}\r\n", ""]);
+exports.push([module.i, "\n#profileImage[data-v-218b82f2] {\r\n  width: 40px;\r\n  height: 40px;\r\n  border-radius: 50%;\r\n  background: #512DA8;\r\n  font-size: 22px;\r\n  color: #fff;\r\n  text-align: center;\r\n  line-height: 40px;\r\n  margin: 5px 0;\n}\r\n", ""]);
 
 // exports
 
@@ -54984,28 +54982,13 @@ var render = function() {
       { staticClass: "row" },
       _vm._l(_vm.posts, function(post) {
         return _c("div", { key: post.id, staticClass: "col-md-4" }, [
-          _c(
-            "div",
-            { staticClass: "card-post" },
-            [
-              _c("profile-image", { attrs: { post: post } }),
-              _vm._v(" "),
-              _c("div", [
-                _c("div", { staticClass: "d-flex mt-2" }, [
-                  _c("div", { staticClass: "avatar" }, [
-                    _c("img", {
-                      directives: [
-                        {
-                          name: "lazy",
-                          rawName: "v-lazy",
-                          value: "/images/4.jpg",
-                          expression: "'/images/4.jpg'"
-                        }
-                      ],
-                      staticClass: "avatar-img rounded-circle",
-                      attrs: { alt: "..." }
-                    })
-                  ]),
+          _c("div", { staticClass: "card-post" }, [
+            _c("div", [
+              _c(
+                "div",
+                { staticClass: "d-flex mt-2" },
+                [
+                  _c("profile-image", { attrs: { post: post } }),
                   _vm._v(" "),
                   _c("div", { staticClass: "info-post ml-2" }, [
                     _c("p", { staticClass: "username" }, [
@@ -55016,57 +54999,57 @@ var render = function() {
                       _vm._v(_vm._s(post.created_at))
                     ])
                   ])
-                ]),
-                _vm._v(" "),
-                _c(
-                  "h3",
-                  { staticClass: "card-title  font-size-16" },
-                  [
-                    _c(
-                      "router-link",
-                      {
-                        staticClass: "weight-600 text-black",
-                        attrs: { to: "/post/" + post.id }
-                      },
-                      [
-                        _vm._v(
-                          "\n\t\t\t\t\t\t\t\t\t\t\t" +
-                            _vm._s(post.heading) +
-                            "\n\t\t\t\t\t\t\t\t\t\t"
-                        )
-                      ]
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "separator-solid" }),
-                _vm._v(" "),
-                _c("p", { staticClass: "card-text" }, [
-                  _vm._v(_vm._s(post.content))
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-md-2" }, [
-                    _c("i", { staticClass: "fa fa-eye" }),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "badge-text" }, [
-                      _vm._v(_vm._s(post.total_views))
-                    ])
-                  ]),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "h3",
+                { staticClass: "card-title  font-size-16" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "weight-600 text-black",
+                      attrs: { to: "/post/" + post.id }
+                    },
+                    [
+                      _vm._v(
+                        "\n\t\t\t\t\t\t\t\t\t\t\t" +
+                          _vm._s(post.heading) +
+                          "\n\t\t\t\t\t\t\t\t\t\t"
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "separator-solid" }),
+              _vm._v(" "),
+              _c("p", { staticClass: "card-text" }, [
+                _vm._v(_vm._s(post.content))
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-md-2" }, [
+                  _c("i", { staticClass: "fa fa-eye" }),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col-md-6" }, [
-                    _c("i", { staticClass: "fa fa-thumbs-up" }),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "badge-text" }, [
-                      _vm._v(_vm._s(post.total_likes))
-                    ])
+                  _c("span", { staticClass: "badge-text" }, [
+                    _vm._v(_vm._s(post.total_views))
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("i", { staticClass: "fa fa-thumbs-up" }),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "badge-text" }, [
+                    _vm._v(_vm._s(post.total_likes))
                   ])
                 ])
               ])
-            ],
-            1
-          )
+            ])
+          ])
         ])
       }),
       0
