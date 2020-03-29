@@ -8,15 +8,15 @@
 </template>
 <style scoped>
 #profileImage {
-  width: 150px;
-  height: 150px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background: #512DA8;
-  font-size: 35px;
+  font-size: 22px;
   color: #fff;
   text-align: center;
-  line-height: 150px;
-  margin: 20px 0;
+  line-height: 40px;
+  margin: 5px 0;
 }
 </style>
 <script>
