@@ -74,7 +74,7 @@ import ProfileImage from '../post/ProfileImage.vue';
 export default {
 	computed:{
 		...mapState({
-			'posts': state=>state.explore.dashboardPosts,
+			'posts': state=>state.common.search_posts,
 		}),
 	},
 	components:{

@@ -66,7 +66,7 @@ export default {
         SearchPostContainer,CategoryFilter
     },
     mounted(){
-        this.$store.dispatch('explore/getExplorePageContent',this.$route.query.search);
+        this.$store.dispatch('common/getSearchPageContent',this.$route.query.search);
     },
     methods: {
         trans: function (string, defaultString) {

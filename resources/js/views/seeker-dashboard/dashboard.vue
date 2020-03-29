@@ -80,19 +80,10 @@ export default {
             return {
             }
         },
-        mounted(){
-            this.getDashboardPosts();
-        },
         methods: {
             trans: function (string, defaultString) {
                 return this.$trans('home', string, defaultString);
             },
-            getDashboardPosts(){
-                this.$store.dispatch('getPosts');
-            },
-            redirectPostView(post_id){
-                this.$router.push({path:'/post/1'})
-            }
         },
     }
 </script>

@@ -84,7 +84,7 @@ export default {
 	},
 	computed:{
 		...mapState({
-			'posts': state=>state.explore.posts.ExploreSidebar,
+			'posts': state=>state.guest.posts.ExploreSidebar,
 		}),
 	},
 	methods:{

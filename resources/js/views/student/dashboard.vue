@@ -74,9 +74,6 @@
 <script>
 import HomePostContainer from '../post-containers/StudentPostContainer';
 
-
-import {mapState} from 'vuex';
-
 export default {
     
     components:{

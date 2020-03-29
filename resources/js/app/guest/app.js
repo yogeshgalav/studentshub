@@ -11,8 +11,21 @@ require('../../bootstrap');
 import Vue from '../app';
 
 //Dependencies
-import store from './store'
 import router from './router';
+import Vuex from 'vuex';
+import AuthStore from '../../store/auth';
+import GuestStore from '../../store/guest';
+import CommonStore from '../../store/common-store';
+
+Vue.use(Vuex);
+const store = new Vuex.Store({
+    modules: {
+        auth: AuthStore,
+        guest:GuestStore,
+        common: CommonStore,
+      }
+});
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

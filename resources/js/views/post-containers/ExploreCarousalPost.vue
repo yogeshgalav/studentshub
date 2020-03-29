@@ -47,8 +47,6 @@
 </style>
 
 <script>
-import {mapState} from 'vuex';
-
 import Carousel from '../../components/Carousel.vue';
 
 export default {

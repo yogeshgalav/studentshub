@@ -7,11 +7,5 @@ const state = {
       'ExploreSidebar':[],
       'ExploreBottomPost':[],
     },
-    postView:{
-      'categories':[],
-      'related_posts':[],
-      'post_content':[],
-    },
-    dashboardPosts:[]
   }
   export default state;

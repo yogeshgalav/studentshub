@@ -60,7 +60,7 @@ export default {
 	},
 	computed:{
 		...mapState({
-			'posts': state=>state.explore.posts.ExploreTopPost,
+			'posts': state=>state.guest.posts.ExploreTopPost,
 		}),
 	},
 	methods:{

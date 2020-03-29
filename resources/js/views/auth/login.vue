@@ -166,12 +166,6 @@
                         })
                     },
             },
-            computed: {
-                ...mapState([
-                    'user',
-                    'isLoggedIn',
-                ]),
-            },
             mounted(){
                 var self=this;
                 this.$validator.localize('en', {custom: {

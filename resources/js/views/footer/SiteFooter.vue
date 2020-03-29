@@ -184,7 +184,7 @@ export default {
 	},
     methods:{
 		subscribe(){
-			this.$store.dispatch('explore/subscribe',{email:this.subscribe_email});
+			this.$store.dispatch('common/subscribe',{email:this.subscribe_email});
 		}
 	}
 }

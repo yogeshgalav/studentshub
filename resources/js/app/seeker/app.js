@@ -13,12 +13,8 @@ import Vue from '../app';
 Vue.component('SidebarComponent', require('../../components/SidebarComponent').default);
 
 //Dependencies
-import StudentStore from '../../store/seeker-dashboard';
-import StudentRoutes from './routes';
-import Vuex from 'vuex';
-Vue.use(Vuex);
 import VueRouter from 'vue-router';
-
+import StudentRoutes from './routes';
 Vue.use(VueRouter);
 
 //Vue Router Initialisation
@@ -27,8 +23,17 @@ const router = new VueRouter({
     mode:'history'
 });
 
+import SeekerStore from '../../store/seeker';
+import CommonStore from '../../store/common-store';
+import Vuex from 'vuex';
+Vue.use(Vuex);
 //Vue Router Initialisation
-const store = new Vuex.Store(StudentStore);
+const store = new Vuex.Store({
+    modules: {
+        seeker: SeekerStore,
+        common: CommonStore,
+      }
+});
 
 //Vue App Initialisation
 const app = new Vue({

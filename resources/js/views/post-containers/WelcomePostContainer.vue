@@ -72,7 +72,7 @@ export default {
 	},
 	computed:{
 		...mapState({
-			'posts': state=>state.explore.posts.HomePostContainer,
+			'posts': state=>state.guest.posts.HomePostContainer,
 		}),
 	},
 }

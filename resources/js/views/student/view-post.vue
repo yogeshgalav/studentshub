@@ -89,16 +89,16 @@ export default {
     },
     computed:{
 		...mapState({
-			'categories': state=>state.postView.categories,
-			'postContent': state=>state.postView.post_content,
-			'relatedPost': state=>state.postView.related_posts,
+			'categories': state=>state.common.postView.categories,
+			'postContent': state=>state.common.postView.post_content,
+			'relatedPost': state=>state.common.postView.related_posts,
         }),
         postType(){
             return this.postContent.post_type ? this.postContent.post_type.toLowerCase() : '';
         }
 	},
     mounted(){
-        this.$store.dispatch('getPostContent',this.$route.params.id);
+        this.$store.dispatch('common/getPostContent',this.$route.params.id);
     }
 }
 </script>

@@ -133,9 +133,9 @@ export default {
     },
     computed:{
 		...mapState({
-			'categories': state=>state.explore.postView.categories,
-			'postContent': state=>state.explore.postView.post_content,
-			'relatedPost': state=>state.explore.postView.related_posts,
+			'categories': state=>state.common.postView.categories,
+			'postContent': state=>state.common.postView.post_content,
+			'relatedPost': state=>state.common.postView.related_posts,
         }),
         postType(){
             return this.postContent.post_type ? this.postContent.post_type.toLowerCase() : '';
@@ -143,7 +143,7 @@ export default {
         }
 	},
     mounted(){
-        this.$store.dispatch('explore/getPostContent',this.$route.params.id).then(resp=>
+        this.$store.dispatch('common/getPostContent',this.$route.params.id).then(resp=>
             document.title = resp.data.success.post_content.heading
             );
     }

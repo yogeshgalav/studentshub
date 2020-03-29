@@ -73,12 +73,12 @@ export default {
   },
   methods:{
     getData(){
-      this.$store.dispatch('explore/getWelcomePageContent');
+      this.$store.dispatch('guest/getWelcomePageContent');
     }
   },
   computed:{
 		...mapState({
-			'categories': state=>state.explore.categories,
+			'categories': state=>state.guest.categories,
 		}),
 	},
   mounted(){

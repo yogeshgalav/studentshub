@@ -1,12 +1,12 @@
 import axios from 'axios';
 
 export default {
-  getWelcomePageContent({commit}){
+getSearchPageContent({commit},data){
   return new Promise((resolve, reject) => {
-    axios({url: window.App.baseUrl+'/api/get-explore-posts', method: 'GET' })
+    axios({url: window.App.baseUrl+'/api/explore?search='+data, method: 'GET' })
     .then(resp => {
      const data = resp.data.success
-      commit('get_welcome_page_content', data,)
+      commit('get_search_page_content', data,)
       resolve(resp)
     })
     .catch(err => {
@@ -14,12 +14,13 @@ export default {
     })
   })
 },
-getExplorePageContent({commit},data){
+getDashboardPosts({commit,state}){
   return new Promise((resolve, reject) => {
-    axios({url: window.App.baseUrl+'/api/explore?search='+data, method: 'GET' })
+    commit('increase_post_paginate_count')
+    axios({url: window.App.baseUrl+'/api/get-posts?page='+state.current_page, method: 'GET' })
     .then(resp => {
-     const data = resp.data.success
-      commit('get_explore_page_content', data,)
+     const posts = resp.data.success.posts
+      commit('get_posts', posts)
       resolve(resp)
     })
     .catch(err => {

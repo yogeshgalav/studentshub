@@ -71,7 +71,7 @@ import ProfileImage from '../post/ProfileImage.vue';
 export default {
 	computed:{
 		...mapState({
-			'posts': state=>state.dashboardPosts,
+			'posts': state=>state.common.dashboardPosts,
 		}),
 	},
 	components:{
@@ -79,13 +79,13 @@ export default {
 	},
 	mounted(){
 		this.showLoader=true;
-		this.$store.dispatch('getStudentPosts').then(()=>{
+		this.$store.dispatch('common/getDashboardPosts').then(()=>{
 			this.showLoader=true;
 		});
 		window.addEventListener('scroll', () => {
       		if(this.bottomVisible()){
 				  this.showLoader=true;
-					this.$store.dispatch('getStudentPosts').then(()=>{
+					this.$store.dispatch('common/getDashboardPosts').then(()=>{
 						this.showLoader=true;
 					});
 			  }

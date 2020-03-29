@@ -84,65 +84,11 @@ export default {
         },
         addVideo(){
             let data={};
-        data.link=this.video_link;
-        data.description=this.video_description;
-        data.field='postContent';
+            data.link=this.video_link;
+            data.description=this.video_description;
+            data.field='postContent';
             this.$store.dispatch('createPost',data);
-        },
-         handleImageAdded: function(file, Editor, cursorLocation, resetUploader) {
-             console.log('here')
-        // An example of using FormData
-        // NOTE: Your key could be different such as:
-        // formData.append('file', file)
-        let url = '1234'; // Get url from response
-        Editor.insertEmbed(cursorLocation, "image", url);
-        var formData = new FormData();
-        formData.append("image", file);
-         let imageData={
-             'cursorLocation':cursorLocation,
-             'formData':formData,
-             'url':url
-         }
-            this.$store.dispatch('storeContentImage',imageData);
-        },
-        /**
-     * Has changed
-     * @param  Object|undefined   newFile   Read only
-     * @param  Object|undefined   oldFile   Read only
-     * @return undefined
-     */
-    inputFile: function (newFile, oldFile) {
-      if (newFile && oldFile && !newFile.active && oldFile.active) {
-        // Get response data
-        console.log('response', newFile.response)
-        if (newFile.xhr) {
-          //  Get the response status code
-          console.log('status', newFile.xhr.status)
         }
-      }
-    },
-    /**
-     * Pretreatment
-     * @param  Object|undefined   newFile   Read and write
-     * @param  Object|undefined   oldFile   Read only
-     * @param  Function           prevent   Prevent changing
-     * @return undefined
-     */
-    inputFilter: function (newFile, oldFile, prevent) {
-      if (newFile && !oldFile) {
-        // Filter non-image file
-        if (!/\.(jpeg|jpe|jpg|gif|png|webp)$/i.test(newFile.name)) {
-          return prevent()
-        }
-      }
-
-      // Create a blob field
-      newFile.blob = ''
-      let URL = window.URL || window.webkitURL
-      if (URL && URL.createObjectURL) {
-        newFile.blob = URL.createObjectURL(newFile.file)
-      }
-    }
     }
 }
 </script>

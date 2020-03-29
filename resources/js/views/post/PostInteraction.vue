@@ -75,7 +75,7 @@ import {mapState} from 'vuex';
 export default {
     computed:{
 		...mapState({
-			'post': state=>state.postView.post_content,
+			'post': state=>state.common.postView.post_content,
         }),
         isLiked(){
             return this.post.like===1 ? true : false
@@ -91,7 +91,7 @@ export default {
                 'method':this.isLiked===true? 'delete' :'add', 
                 'type':'like'
             };
-                    this.$store.dispatch('addPostLike',data);
+                    this.$store.dispatch('seeker/addPostLike',data);
         },
         dislikefunction(){
             let data={
@@ -99,7 +99,7 @@ export default {
                 'method':this.isDisliked===true? 'delete' :'add', 
                 'type':'dislike'
             };
-                    this.$store.dispatch('addPostDislike',data);
+                    this.$store.dispatch('seeker/addPostDislike',data);
         }
     }
 }
