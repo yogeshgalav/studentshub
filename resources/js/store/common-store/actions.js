@@ -6,7 +6,7 @@ getSearchPageContent({commit},data){
     axios({url: window.App.baseUrl+'/api/explore?search='+data, method: 'GET' })
     .then(resp => {
      const data = resp.data.success
-      commit('get_search_page_content', data,)
+      commit('get_search_page_content', data)
       resolve(resp)
     })
     .catch(err => {

@@ -47,10 +47,14 @@ Vue.mixin({
             return bottomOfPage || pageHeight < visible
           },
           exploreSearch(){
+            let path=`/explore`;
             if(!this.explore_search){
                 return false;
+            }else if(this.$route.path !== path){
+                this.$router.replace({ path: '/explore', 'query':{'search':this.explore_search}});
+            }else{
+                this.$store.dispatch('common/getSearchPageContent',this.explore_search);
             }
-            this.$router.replace({ path: '/explore', 'query':{'search':this.explore_search}});
           }
     },
     computed: {

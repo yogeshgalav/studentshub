@@ -1,12 +1,13 @@
 <template>
 <div>
-
+<div  class="row">
+        <div class="col-md-9" v-if="posts.length===0">
+			<h3>Oops! we couldn't found any posts related to your search.</h3> 
+        </div>
+</div>
 <div v-for="(post,index) in posts" :key="index">
     <div class="card">
 		<div  class="row">
-        <div class="col-md-9" v-if="post.length===0">
-			<h3>Oops! we couldn't found any posts related to your search.</h3> 
-        </div>
         <div class="col-md-9">
 							<div class="card-post" @click="redirectPostView(post)">
 						<div>

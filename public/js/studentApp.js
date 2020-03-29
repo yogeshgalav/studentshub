@@ -2913,6 +2913,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -53704,149 +53705,161 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    _vm._l(_vm.posts, function(post, index) {
-      return _c("div", { key: index }, [
-        _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "row" }, [
-            post.length === 0
-              ? _c("div", { staticClass: "col-md-9" }, [
-                  _c("h3", [
-                    _vm._v(
-                      "Oops! we couldn't found any posts related to your search."
-                    )
-                  ])
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-9" }, [
-              _c(
-                "div",
-                {
-                  staticClass: "card-post",
-                  on: {
-                    click: function($event) {
-                      return _vm.redirectPostView(post)
+    [
+      _c("div", { staticClass: "row" }, [
+        _vm.posts.length === 0
+          ? _c("div", { staticClass: "col-md-9" }, [
+              _c("h3", [
+                _vm._v(
+                  "Oops! we couldn't found any posts related to your search."
+                )
+              ])
+            ])
+          : _vm._e()
+      ]),
+      _vm._v(" "),
+      _vm._l(_vm.posts, function(post, index) {
+        return _c("div", { key: index }, [
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-md-9" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "card-post",
+                    on: {
+                      click: function($event) {
+                        return _vm.redirectPostView(post)
+                      }
                     }
-                  }
-                },
-                [
-                  _c("div", [
-                    _c("div", { staticClass: "d-flex mt-2" }, [
-                      _c(
-                        "div",
-                        { staticClass: "avatar" },
-                        [_c("profile-image", { attrs: { post: post } })],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "info-post ml-2" }, [
-                        _c("p", { staticClass: "username" }, [
-                          _vm._v(_vm._s(post.user_name))
-                        ]),
-                        _vm._v(" "),
-                        _c("p", { staticClass: "date text-muted" }, [
-                          _vm._v(_vm._s(post.institute_name))
-                        ]),
-                        _vm._v(" "),
-                        _c("h5", [_vm._v(_vm._s(post.category_name))]),
-                        _c("br"),
-                        _vm._v(" "),
-                        _c("h5", [_vm._v(_vm._s(post.subject_name))]),
-                        _c("br"),
-                        _vm._v(" "),
-                        _c("h3", { staticClass: "card-title  font-size-16" }, [
-                          _c("p", { staticClass: "weight-600 text-black" }, [
-                            _vm._v(
-                              "\r\n\t\t\t\t\t\t\t\t\t\t\t" +
-                                _vm._s(post.heading) +
-                                "\r\n\t\t\t\t\t\t\t\t\t\t"
-                            )
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("p", [_vm._v(_vm._s(post.content))]),
+                  },
+                  [
+                    _c("div", [
+                      _c("div", { staticClass: "d-flex mt-2" }, [
                         _c(
-                          "p",
-                          [
-                            _c(
-                              "router-link",
-                              {
-                                staticClass: "btn p-0 btn-link font-size-12",
-                                attrs: { to: "/post/" + post.id }
-                              },
-                              [
-                                _vm._v("Read Continue "),
-                                _c("i", { staticClass: "fa fa-arrow-right" })
-                              ]
-                            )
-                          ],
+                          "div",
+                          { staticClass: "avatar" },
+                          [_c("profile-image", { attrs: { post: post } })],
                           1
                         ),
-                        _c("div", { staticClass: "row" }, [
-                          _c("div", { staticClass: "col-md-4" }, [
-                            _c("i", { staticClass: "fa fa-eye" }),
-                            _vm._v(" "),
-                            _c("span", { staticClass: "badge-text" }, [
-                              _vm._v(_vm._s(post.total_views))
-                            ])
+                        _vm._v(" "),
+                        _c("div", { staticClass: "info-post ml-2" }, [
+                          _c("p", { staticClass: "username" }, [
+                            _vm._v(_vm._s(post.user_name))
                           ]),
                           _vm._v(" "),
-                          _c("div", { staticClass: "col-md-6" }, [
-                            _c("i", { staticClass: "fa fa-thumbs-up" }),
+                          _c("p", { staticClass: "date text-muted" }, [
+                            _vm._v(_vm._s(post.institute_name))
+                          ]),
+                          _vm._v(" "),
+                          _c("h5", [_vm._v(_vm._s(post.category_name))]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("h5", [_vm._v(_vm._s(post.subject_name))]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c(
+                            "h3",
+                            { staticClass: "card-title  font-size-16" },
+                            [
+                              _c(
+                                "p",
+                                { staticClass: "weight-600 text-black" },
+                                [
+                                  _vm._v(
+                                    "\r\n\t\t\t\t\t\t\t\t\t\t\t" +
+                                      _vm._s(post.heading) +
+                                      "\r\n\t\t\t\t\t\t\t\t\t\t"
+                                  )
+                                ]
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("p", [_vm._v(_vm._s(post.content))]),
+                          _c(
+                            "p",
+                            [
+                              _c(
+                                "router-link",
+                                {
+                                  staticClass: "btn p-0 btn-link font-size-12",
+                                  attrs: { to: "/post/" + post.id }
+                                },
+                                [
+                                  _vm._v("Read Continue "),
+                                  _c("i", { staticClass: "fa fa-arrow-right" })
+                                ]
+                              )
+                            ],
+                            1
+                          ),
+                          _c("div", { staticClass: "row" }, [
+                            _c("div", { staticClass: "col-md-4" }, [
+                              _c("i", { staticClass: "fa fa-eye" }),
+                              _vm._v(" "),
+                              _c("span", { staticClass: "badge-text" }, [
+                                _vm._v(_vm._s(post.total_views))
+                              ])
+                            ]),
                             _vm._v(" "),
-                            _c("span", { staticClass: "badge-text" }, [
-                              _vm._v(_vm._s(post.total_likes))
+                            _c("div", { staticClass: "col-md-6" }, [
+                              _c("i", { staticClass: "fa fa-thumbs-up" }),
+                              _vm._v(" "),
+                              _c("span", { staticClass: "badge-text" }, [
+                                _vm._v(_vm._s(post.total_likes))
+                              ])
                             ])
                           ])
                         ])
                       ])
                     ])
-                  ])
-                ]
-              )
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-3" }, [
+                _c("img", {
+                  directives: [
+                    {
+                      name: "lazy",
+                      rawName: "v-lazy",
+                      value: post.image_path,
+                      expression: "post.image_path"
+                    }
+                  ],
+                  staticClass: "card-img-top",
+                  attrs: { alt: "Card image cap" }
+                })
+              ])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "col-md-3" }, [
-              _c("img", {
-                directives: [
-                  {
-                    name: "lazy",
-                    rawName: "v-lazy",
-                    value: post.image_path,
-                    expression: "post.image_path"
+            _c(
+              "div",
+              { staticClass: "card" },
+              [
+                _c("loading", {
+                  attrs: {
+                    active: _vm.showLoader,
+                    color: "#10069F",
+                    loader: "bars",
+                    width: 250,
+                    "is-full-page": false
+                  },
+                  on: {
+                    "update:active": function($event) {
+                      _vm.showLoader = $event
+                    }
                   }
-                ],
-                staticClass: "card-img-top",
-                attrs: { alt: "Card image cap" }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "card" },
-            [
-              _c("loading", {
-                attrs: {
-                  active: _vm.showLoader,
-                  color: "#10069F",
-                  loader: "bars",
-                  width: 250,
-                  "is-full-page": false
-                },
-                on: {
-                  "update:active": function($event) {
-                    _vm.showLoader = $event
-                  }
-                }
-              })
-            ],
-            1
-          )
+                })
+              ],
+              1
+            )
+          ])
         ])
-      ])
-    }),
-    0
+      })
+    ],
+    2
   )
 }
 var staticRenderFns = []
@@ -81593,16 +81606,20 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
       return bottomOfPage || pageHeight < visible;
     },
     exploreSearch: function exploreSearch() {
+      var path = "/explore";
+
       if (!this.explore_search) {
         return false;
+      } else if (this.$route.path !== path) {
+        this.$router.replace({
+          path: '/explore',
+          'query': {
+            'search': this.explore_search
+          }
+        });
+      } else {
+        this.$store.dispatch('common/getSearchPageContent', this.explore_search);
       }
-
-      this.$router.replace({
-        path: '/explore',
-        'query': {
-          'search': this.explore_search
-        }
-      });
     }
   },
   computed: {
