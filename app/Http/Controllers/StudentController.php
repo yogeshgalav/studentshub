@@ -99,6 +99,17 @@ class StudentController extends Controller
         ->groupBy('cor.id','cor.course_name','cat.name')
         ->orderBy('totalBatch','DESC')->limit(10)->get();
 
+        if(count($courses)==0 && empty($request->recursive)){
+            $request->request->add(['recursive'=>true]);
+            $terms=explode(' ',$request->searchTerm);
+            $new_terms=[];
+            foreach($terms as $term){
+                $new_terms[]=substr($term,0,1).'%'.substr($term,-1);
+            }
+            $request->searchTerm=implode(' ',$new_terms);
+            return $this->courseList($request);
+        }
+
         return response()->json(['success'=>[
             'courses'=>$courses
         ]]);
@@ -110,6 +121,17 @@ class StudentController extends Controller
         ->groupBy('bra.id','bra.branch_name')
         ->orderBy('totalBatch','DESC')->limit(10)->get();
         
+        if(count($branches)==0 && empty($request->recursive)){
+            $request->request->add(['recursive'=>true]);
+            $terms=explode(' ',$request->searchTerm);
+            $new_terms=[];
+            foreach($terms as $term){
+                $new_terms[]=substr($term,0,1).'%'.substr($term,-1);
+            }
+            $request->searchTerm=implode(' ',$new_terms);
+            return $this->branchList($request);
+        }
+
         return response()->json(['success'=>[
             'branches'=>$branches
         ]]);

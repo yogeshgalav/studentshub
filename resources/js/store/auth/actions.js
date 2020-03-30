@@ -24,8 +24,8 @@ register({commit}, user){
     commit('auth_request')
     axios({url: window.App.baseUrl+'/register', data: user, method: 'POST' })
     .then(resp => {
-      const token = resp.data.token
-      const user = resp.data.user
+      const token = resp.data.success.token
+      const user = resp.data.success.user
       localStorage.setItem('access_token', token)
       commit('auth_success', token, user)
       resolve(resp)
