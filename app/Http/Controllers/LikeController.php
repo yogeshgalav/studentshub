@@ -10,15 +10,17 @@ class LikeController extends Controller
 {
     //
     public function index($post_id,Request $request){
-        
+            $like=Like::where('post_id','=',$post_id)->where('user_id','=',Auth::user()->id)->first();
             switch($request->input('method')){
                 case 'add':
                     switch($request->input('type')){
                         case 'like':
-                        $like=Like::updateOrCreate(['post_id'=>$post_id,'user_id'=>Auth::user()->id],['like'=>1]);
+                            $like->like=1;
+                            $like->save();
                         break;        
                         case 'dislike':
-                        $like=Like::updateOrCreate(['post_id'=>$post_id,'user_id'=>Auth::user()->id],['like'=>0]);
+                            $like->like=0;
+                            $like->save();
                         break;
                     }
                 break;

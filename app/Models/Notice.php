@@ -11,7 +11,7 @@ class Notice extends Model
     //
     public function createFromContent($postContent){
         // Create DOM from URL or file
-        $html = str_get_html($postContent);
+        $html = \HtmlDomParser::str_get_html($postContent);
         $files=[];
         foreach($html->find('img') as $element){
             $base64_image=$element->src;

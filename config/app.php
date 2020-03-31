@@ -175,7 +175,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\BladeServiceProvider::class,
-
+        Ammadeuss\LaravelHtmlDomParser\ServiceProvider::class,
     ],
 
     /*
@@ -227,6 +227,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        'HtmlDomParser'=>Ammadeuss\LaravelHtmlDomParser\ServiceProvider::class
     ],
 
 ];

@@ -8,26 +8,35 @@ use App\Models\Subject;
 
 class SearchController extends Controller
 {
-    //
-    public function create($subject,Request $request)
-    {
-      $search=new Search();
-      $result=$search->add($request)->subjectResult($subject);
+    public function searchPosts(Request $request){
+      $post=new \App\Post;
+      $response = $post->getSearchPosts($request);
+      
+      $search=new \App\Models\Search;
+      $search->query=trim($request->search);
+      if($response){
+        $search->success=true;
+      }else{
+        $search->success=false;
+      }
+      $search->save();
 
-      return view('guest.explore')
-        ->with('categories',$result['subjects'])
-        ->with('posts',$result['posts']);
-
+      return $response;
     }
 
-    public function create2(Request $request)
-    {
-      $search=new Search();
-      $posts=$search->add($request)->queryResult($request->search);
-        
-      return view('guest.explore')
-        ->with('categories',Subject::getAllCategories())
-        ->with('posts',$posts);
+    public function searchSubjectPosts(Request $request){
+      $post=new \App\Post;
+      $response = $post->getSearchPosts($request);
+      
+      $search=new \App\Models\Search;
+      $search->query=trim($request->search);
+      if($resonse){
+        $search->success=true;
+      }else{
+        $search->success=false;
+      }
+      $search->save();
 
+      return $response;
     }
 }

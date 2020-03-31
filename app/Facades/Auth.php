@@ -8,6 +8,10 @@ use DB;
 class Auth extends AuthUser
 {
     public static function student(){
+        if(!self::check()){
+            return null;
+        }
+        
         return DB::table('students as st')->where('st.user_id','=',self::user()->id)
         ->leftJoin('batches as pbt','pbt.id','=','st.prefferred_batch')
         ->leftJoin('institutes as inst','inst.id','=','pbt.institute_id')

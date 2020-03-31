@@ -59,7 +59,7 @@ class PagesController extends Controller
         return view('student.edit-post');
     }
 
-    public function explore(){
+    public function searchPage(){
         return view('guest.explore');
     }
 
