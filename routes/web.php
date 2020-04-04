@@ -19,7 +19,6 @@ Route::get('/test', 'PagesController@test');
 Route::get('/report', 'PagesController@report');
 Route::get('/privacy-policy', 'PagesController@report');
 Route::get('/terms-of-service', 'PagesController@report');
-Route::get('/addNotification', 'PagesController@addNotification');
 
 
 Route::get('/post-images/{filename}','PagesController@postImage');

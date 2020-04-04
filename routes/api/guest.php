@@ -6,6 +6,7 @@ Route::post('/subscribe','GuestController@update');
 Route::get('/get-post-content/{post_id}','PostViewController@index');
 Route::get('/checkin','GuestController@checkinApi');
 Route::post('/login','AuthController@login');
+Route::post('/register','AuthController@register');
 
 Route::post('/forgot-password','AuthController@processForgotPassword');
 Route::post('/reset-password','AuthController@resetPassword');

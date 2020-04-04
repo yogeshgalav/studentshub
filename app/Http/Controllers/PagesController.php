@@ -108,38 +108,14 @@ class PagesController extends Controller
         ->with('total_posts',$total_posts)
         ;
     }
-    public function addNotification(){
-        $posts=\App\Models\Post::get();
-        foreach($posts as $post){
-            $post_image=\App\Models\PostImage::where('post_id',$post->id)->first();
-            $post->primary_image_path=$post_image->path;
-            $post->save();
-        }
-        return 'success';
-    } 
-    // public function test(){
-    //     $courses=\App\Models\Course::all();
-    //     foreach($courses as $course){
-    //         if(!is_null($course->category_id)){
-    //             continue;
-    //         }
-    //         if (preg_match('/ of (.*?) \(/', $course->course_name, $match) == 1) {
-    //             $course_type=\App\Models\Category::create(['name'=>$match[1]]);
-                // $course->category_id=$course_type->id;
-    //             $course->save();
-    //             echo $course->id.' '.$match[1].'<br/>';
-    //         }else if (preg_match('/ in (.*?) \(/', $course->course_name, $match) == 1) {
-    //             $course_type=\App\Models\Category::create(['name'=>$match[1]]);
-    //             $course->category_id=$course_type->id;
-    //             $course->save();
-    //             echo $course->id.' '.$match[1].'<br/>';
-    //         }else{
-    //             $course_type=\App\Models\Category::create(['name'=>$course->course_name]);
-    //             $course->category_id=$course_type->id;
-    //             $course->save();
-    //             echo 'fuck'.$course->id.' '.$course->course_name.'<br/>';
-    //         }
-    //     }
-    // }
+    
+//     {
+//         var list= document.getElementsByClassName("index")[0].getElementsByTagName("A");
+// var newList=[];
+// for(let item of list){
+//     newList.push(item.innerText);
+// }
+// console.log(newList);
+//     }
 
 }

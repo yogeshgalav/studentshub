@@ -81,23 +81,7 @@
                 </select>
             </div>
         </div>
-        
-        <div class="col-md-2 col-sm-4 col-xs-12" v-if="course_level_select">
-            <div class="form-group institutesDropdown_slider">
-                <label for="sel1" class="white_text">Program Level</label>
-                <select class="form-control" id="drpProgramLevel" name="course_level" required="">
-                    <option >Diploma</option>
-                    <option >Dual Bachelors And Masters Degree</option>
-                    <option >Dual Bachelors Degree</option>
-                    <option >Dual Masters</option>
-                    <option >Integrated PhD</option>
-                    <option >PhD</option>
-                    <option >Post Graduate (PG)</option>
-                    <option >Post Graduate Diplomas</option>
-                    <option >Under Graduate (UG)</option>
-                </select>
-            </div>
-        </div>
+  
                 <div class="form-group">
                     <label> {{ trans('Branch Name') }} </label>
                   <div class="inner-addon left-addon">

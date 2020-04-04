@@ -16,21 +16,24 @@ class Post extends PostModel
 
     public function getSearchPosts($request){
         if($this->student){
-            $posts=$this->getStudentPostTables()
-            ->where('sub.Subject_name','LIKE','%'.$request->search.'%')
-            ->orWhere('cat.name','LIKE','%'.$request->search.'%')
-            ->orWhere('po.post_heading','LIKE','%'.$request->search.'%')
-            ->orderBy('po.created_at','DESC')
-            ->paginate();
+            $post_query=$this->getStudentPostTables();
         }else{
-            $posts=$this->getSeekerPostTabels()
-            ->where('sub.Subject_name','LIKE','%'.$request->search.'%')
-            ->orWhere('cat.name','LIKE','%'.$request->search.'%')
-            ->orWhere('po.post_heading','LIKE','%'.$request->search.'%')
-            ->orderBy('po.created_at','DESC')
-            ->paginate();    
+            $post_query=$this->getSeekerPostTabels();     
         }
-        
+
+        if(!empty($request->bId)){
+            $post_query->where('sp.branch_id','=',$request->bId);    
+        }
+
+        if(!empty($request->sId)){
+            $post_query->where('po.subject_id','=',$request->sId);
+        }
+        $posts=$post_query->where('sub.Subject_name','LIKE','%'.$request->search.'%')
+        ->orWhere('cat.name','LIKE','%'.$request->search.'%')
+        ->orWhere('po.post_heading','LIKE','%'.$request->search.'%')
+        ->orderBy('po.created_at','DESC')
+        ->paginate();
+
         $this->formatPostData($posts);
         
         return response()->json(['success'=>[

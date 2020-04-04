@@ -9,6 +9,5 @@ Route::get('/logout','AuthController@logout');
 Route::get('/post/{ViewPostId}', 'PagesController@viewPost');
 Route::get('/explore/{subject}', 'SearchController@create');
 Route::get('/explore', 'PagesController@searchPage');
-Route::post('/register','AuthController@register');
 Route::get('/social-auth/{provider}', 'AuthController@redirectToProvider');
 Route::get('/callback/{provider}', 'AuthController@handleProviderCallback');
