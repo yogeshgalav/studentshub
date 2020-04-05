@@ -10,8 +10,10 @@ class Notice extends Model
 {
     //
     public function createFromContent($postContent){
+        $path =  (dirname(__FILE__) .'/../Services/simple_html_dom.php');
+            require($path);
         // Create DOM from URL or file
-        $html = \HtmlDomParser::str_get_html($postContent);
+        $html = str_get_html($postContent);
         $files=[];
         foreach($html->find('img') as $element){
             $base64_image=$element->src;
