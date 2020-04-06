@@ -1,5 +1,11 @@
 <template>
     <div class="container">
+        <loading 
+            :active.sync="showLoader"
+            :color="'#10069F'"
+            :width="250"
+            :is-full-page="true"
+        />
         <div class="row">
             <div class="col-md-8 center-col">
                 <div class="card mt-5">
@@ -110,6 +116,7 @@ import FormMixin from "../../components/mixins/form-mixin.js";
             return {
                 step_data: [],
                 total_steps: 4,
+                showLoader:false,
             }
         },
         mounted() {
@@ -128,9 +135,11 @@ import FormMixin from "../../components/mixins/form-mixin.js";
         },
         methods: {
             onComplete() {
+                this.showLoader=true;
                 this.$store.dispatch('submitPost', this.$store.state.new_post).then(()=>{
-                    window.location.reload='/';
-                });
+                    this.showLoader=false;
+                    this.redirect('/');
+                }).catch(()=>{this.showLoader=false;});
             }
         }
     }

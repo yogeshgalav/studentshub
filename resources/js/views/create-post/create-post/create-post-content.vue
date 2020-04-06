@@ -2,11 +2,11 @@
     <main>
         <div v-if="postType==='article'">
         <vue-editor id="ArticleEditor" v-model="content" :editorOptions="editorSettings" @input="editContent" 
-        :useCustomImageHandler="true" @image-added="handleImageAdded" :height="'100%'"/>
+        :height="'100%'"/>
         </div>
         <div v-if="postType==='notice'">
         <vue-editor id="NoticeEditor" v-model="content" :editorOptions="editorSettings" @input="editContent" 
-        :useCustomImageHandler="true" @image-added="handleImageAdded" :height="'100%'"/>
+        :height="'100%'"/>
         </div>
         <div v-if="postType==='document'">
             <document/>

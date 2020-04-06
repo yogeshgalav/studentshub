@@ -9,22 +9,23 @@
                         <input type="text" @input="editSubject" class="form-control">
                     </div>
                 </div>
-                <div class="form-group">
-                    <label> {{ 'Category/Course Type' }} </label>
+                <div class="text-black mt-2" v-show="!enableCategorySelect">
+                    Category :
+                    <span>{{ selected_category }}</span>
+                    <button
+                        class="btn-link p-0 text-underline"
+                        @click="enableCategorySelect=!enableCategorySelect"
+                    >
+                        Change Category
+                    </button>
+                </div>
+                <div class="form-group" v-show="enableCategorySelect">
+                    <label> {{ 'Category' }} </label>
                   <div class="inner-addon left-addon">
                     <i class="fa fa-user"></i>
-                    <base-select
-                    ref="baseSelect"
-                    v-model="selected_category"
-                    :initialSearch="initial_category"
-                    :options="categories"
-                    :options-limit="10"
-                    :show-labels="false"
-                    :preserve-search="false"
-                    :placeholder="'select category'"
-                    label="name"
-                    class="multi-select-item"
-                    />
+                    <select class="form-control" v-model="selected_category">
+                        <option v-for="category in categories" :key="category.id">{{category.name}}</option>
+                    </select>
                     <span class="error">{{errors.first('institute_name')}}</span>
                   </div>
                 </div>
@@ -42,13 +43,10 @@ export default {
 			'AuthUserCategory': state=>state.AuthUserCategory,
 			'selected_subject': state=>state.new_post.selected_subject,
         }),
-        initial_category(){
-            let category = this.categories.find(node=>node.id===this.AuthUserCategory);
-            return category ? category.name : 'Technology';
-        }
     },
     data(){
         return {
+            enableCategorySelect:false,
             selected_category:'',
         };
     },
@@ -61,7 +59,9 @@ export default {
 					EventBus.$emit('validateWizard',3,false);
 				}
 			});
-		});
+        });
+        let category = this.categories.find(node=>node.id===this.AuthUserCategory);
+        this.selected_category= category ? category.name : 'Technology';
     },
     methods:{
         editSubject(event){

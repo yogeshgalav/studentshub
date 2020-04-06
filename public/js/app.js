@@ -86831,8 +86831,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\xampp\htdocs\studentshub\resources\js\app\guest\app.js */"./resources/js/app/guest/app.js");
-module.exports = __webpack_require__(/*! E:\xampp\htdocs\studentshub\resources\sass1\app2.scss */"./resources/sass1/app2.scss");
+__webpack_require__(/*! C:\xampp\htdocs\studentshub\resources\js\app\guest\app.js */"./resources/js/app/guest/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\studentshub\resources\sass1\app2.scss */"./resources/sass1/app2.scss");
 
 
 /***/ })

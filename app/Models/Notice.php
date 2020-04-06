@@ -24,10 +24,10 @@ class Notice extends Model
                 
                 $data = base64_decode($data);
                 $file_name=uniqid().'.'.$file_type;
-                Storage::disk('local')->put("post-images/".$file_name, $data);
-
-                $files[]=['file_name'=>$file_name,'file_type'=>$file_type];
-                $element->src="/post-images/".$file_name;
+                $file_path="post-images/".$file_name;
+                Storage::disk('local')->put($file_path, $data);
+                $files[]=['file_name'=>$file_name,'file_type'=>$file_type,'file_path'=>$file_path];
+                $element->src="/".$file_path;
             }
         }
         
@@ -36,8 +36,8 @@ class Notice extends Model
             $newFile= new SthubFile();
                 $newFile->fileable_id=$post_content_id;
                 $newFile->fileable_type='App\Models\Notice';
-                $newFile->file_ext=Storage::disk('local')->getMimeType($file_path);
-                $newFile->file_size=Storage::disk('local')->size($file_path);
+                $newFile->file_ext=Storage::disk('local')->getMimeType($file['file_path']);
+                $newFile->file_size=Storage::disk('local')->size($file['file_path']);
                 $newFile->file_name=$file['file_name'];
                 $newFile->user_id=Auth::user()->id;
                 $newFile->save();

@@ -54,7 +54,7 @@ class Post extends Model
     public function getTotalLikesAttribute(){
         return $this->like->where('like',1)->count();
     }
-    public function getTotalDisikesAttribute(){
+    public function getTotalDislikesAttribute(){
         return $this->like->where('like',0)->count();
     }
     public function like(){

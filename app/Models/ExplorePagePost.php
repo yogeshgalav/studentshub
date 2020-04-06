@@ -31,6 +31,7 @@ class ExplorePagePost extends Model
         // $post->created_at=\Carbon\Carbon::createFromTimeStamp(strtotime($sthub_post->post->created_at))->diffForHumans();
         $post->total_views=$post->total_views;
         $post->total_likes=$post->total_likes;
+        $post->total_dislikes=$post->total_dislikes;
         $posts[]=$post;
         }
         return $posts;
