@@ -25,8 +25,7 @@ class CreateUsersTable extends Migration
             $table->char('country_code',2)->default('IN');
             $table->char('locale_code',2)->default('EN');
             $table->string('password');
-            $table->boolean('is_knowledge_seeker')->default(true);
-            $table->date('onboarded_at')->nullable();
+            $table->boolean('block_status')->default(false);
             $table->string('avatar_url')->nullable();
             $table->softDeletes();
             $table->rememberToken();

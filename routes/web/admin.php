@@ -1,6 +1,6 @@
 <?php 
 
-Route::prefix('admin')->group(function () {
+Route::group(['prefix'=>'admin','middleware'=>'admin'],function () {
 	Route::get('/dashboard','AdminController@index');
 	Route::get('/students','AdminController@show');
 	Route::get('/show_post/{id}','AdminController@getPost');
