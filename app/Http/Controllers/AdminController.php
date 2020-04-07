@@ -24,34 +24,26 @@ class AdminController extends Controller
     	$Posts =  Post::count();	
     	$Batches = Batch::count();
     	$Institutes = Institute::count();
-    	//$Colleges = College::count();
-    	//dd($Students->toArray());
     	return view('admin.index')->with(compact('Users','Posts','Batches','Institutes'));
     }
 
     public function show()
     {
-    	/*$batches = Post::with('user')->get();
-    	dd($batches);*/
-    	$students = Student::with('User')->with('batches')->with('institutes')->with('courses')->with('branches')->get();
-    	// $t = BatchStudent::with('')->get();
-    	//$t = BatchStudent::with('batch_students')->get();
-    	//dd($students);
+		$students = Student::with('User')
+		->with(['batches.institute','batches.course','batches.branch'])
+		->get();
     	return view('admin.students')->with(compact('students'));
     }
 
     public function getPost($id)
-    {	
-    	/*select('id','post_heading')->*/
-
+    {
     	$posts = Post::where('user_id','=',$id)->get();
     	return view('admin.posts')->with(compact('posts'));
     }
 
     public function blockUpdate(Request $request)
     {
-    	/*dd($request->id);*/
-    	$id = $request->id;
+		$id = $request->id;
         $raj = Student::where('user_id','=',$id)->update(array('block_status' => '1'));
   		return 'success';
     }
@@ -63,29 +55,9 @@ class AdminController extends Controller
 		return 'success';
     }
 
-   /* public function topPost($value)
-    {
-    	if($value=="top")
-    		$postType="ExploreTopPost";
-    	else if($value=="bottom")
-    		$postType="ExploreBottomPost";
-    	else if($value=="side")
-    		$postType="ExploreSideBar";
-    	else if($value=="main")
-    		$postType="HomePostContainer";
-
-    	$topPost = ExplorePagePost::where('page_section','=',$postType)->select('post_id')->get();
-    	$fetchTopPost = Post::whereIn('id', $topPost)->get();
-    	return view('admin.posts.topPost')->with(compact('fetchTopPost','value'));
-    	dd($fetchTopPost);	
-    }*/
-
     public function explorePost()
     {
-    	//$explorePost = ExplorePagePost::select('post_id')->get();
-    	/*$pageSection = Post::select('page_section')->get();*/
-    	$fetchTopPost = ExplorePagePost::join('posts', 'posts.id', '=', 'explore_page_posts.post_id')->get();
-    	//dd($fetchTopPost);
+    	$fetchTopPost = ExplorePagePost::join('posts', 'posts.id', '=', 'explore_page_posts.post_id')->paginate(8);
     	return view('admin.posts.topPost')->with(compact('fetchTopPost'));
     }
 
@@ -93,15 +65,13 @@ class AdminController extends Controller
     {
     	$current_post_id = $id;
 		$explorePost = ExplorePagePost::select('post_id')->get();
-    	$fetchTopPost = Post::whereNotIn('id', $explorePost)->get();
+    	$fetchTopPost = Post::whereNotIn('id', $explorePost)->paginate(8);
     	return view('admin.posts.replacePost')->with(compact('fetchTopPost','current_post_id'));
-    	//dd($fetchTopPost);
-    }
+	}
 
     public function updatePost($newPostId,$oldPostId)
     {
-    	/*echo $newPostId;dd($oldPostId);*/
-    	$updatePost = ExplorePagePost::where('post_id','=',$oldPostId)
+		$updatePost = ExplorePagePost::where('post_id','=',$oldPostId)
     	->update(array('post_id' => $newPostId));
 		return redirect('/explorePost');
     }

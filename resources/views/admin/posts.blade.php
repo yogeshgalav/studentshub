@@ -23,7 +23,7 @@
                         @foreach($posts as $hero) 
                             <tr>
                                 <td>{{ $hero->post_heading }}</td>
-                                <td><a href="/show_details_post/<?= $hero->id; ?>"><button class="btn btn-danger">Show Post</button></a></td>
+                                <td><a href="/admin/show_details_post/<?= $hero->id; ?>"><button class="btn btn-danger">Show Post</button></a></td>
                                 <!-- <td><a href="#"><button class="btn btn-danger">Block</button></a></td> -->
                             </tr>
                           @endforeach 

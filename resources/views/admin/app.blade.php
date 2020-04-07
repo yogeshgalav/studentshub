@@ -31,18 +31,9 @@
 </head>
 <body>
     <div class="container-scroller">
-            @include('admin.header')
+            @include('admin/header')
             @yield('content')
-            
-        <!-- partial -->
-      </div>
-      <!-- main-panel ends -->
-    </div>
-    <!-- page-body-wrapper ends -->
-  </div>
-  <!-- container-scroller -->
-
-            @include('admin.footer')
+            @include('admin/footer')
        
     </div>
 </body>

@@ -142,7 +142,7 @@
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link" href="{{ url('/admin') }}">
+            <a class="nav-link" href="{{ url('/admin/dashboard') }}">
               <i class="mdi mdi-home menu-icon"></i>
               <span class="menu-title">Dashboard</span>
             </a>
@@ -161,13 +161,13 @@
             </div>
           </li> -->
           <li class="nav-item">
-           <a class="nav-link" href="{{ url('/students') }}">
+           <a class="nav-link" href="{{ url('/admin/students') }}">
              <i class="mdi mdi-view-headline menu-icon"></i>
              <span class="menu-title">Students</span>
            </a>
          </li>
          <li class="nav-item">
-           <a class="nav-link" href="{{ url('/explorePost') }}">
+           <a class="nav-link" href="{{ url('/admin/explorePost') }}">
              <i class="mdi mdi-view-headline menu-icon"></i>
              <span class="menu-title">Explore Page Post</span>
            </a>

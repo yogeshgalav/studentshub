@@ -23,12 +23,13 @@
                         @foreach($fetchTopPost as $hero) 
                             <tr>
                                 <td>{{ $hero->post_heading }}</td>
-                                <td><a href="/new_post_id/<?= $hero->id; ?>/old_post_id/<?= $current_post_id; ?>"><button class="btn btn-success">Replace with</button></a></td>
+                                <td><a href="/admin/new_post_id/<?= $hero->id; ?>/old_post_id/<?= $current_post_id; ?>"><button class="btn btn-success">Replace with</button></a></td>
                                 <!-- <td><a href="#"><button class="btn btn-danger">Block</button></a></td> -->
                             </tr>
                           @endforeach 
                       </tbody>
                     </table>
+                    {{ $fetchTopPost->links() }}
                   </div>
                 </div>
               </div>

@@ -26,12 +26,14 @@
                             <td><img src="<?php echo $hero->primary_image_path; ?>"/></td>
                                 <td>{{ $hero->post_heading }}</td>
                                 <td>{{ $hero->page_section }}</td>
-                                <td><a href="/replace_post/<?= $hero->id; ?>"><button class="btn btn-danger">Replace To</button></a></td>
+                                <td><a href="/admin/replace_post/<?= $hero->id; ?>"><button class="btn btn-danger">Replace To</button></a></td>
                                 <!-- <td><a href="#"><button class="btn btn-danger">Block</button></a></td> -->
                             </tr>
                           @endforeach 
                       </tbody>
+
                     </table>
+                    {{ $fetchTopPost->links() }}
                   </div>
                 </div>
               </div>
