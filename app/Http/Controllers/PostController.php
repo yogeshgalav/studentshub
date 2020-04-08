@@ -113,12 +113,12 @@ class PostController extends Controller
         return response()->json('success');
     }
 
-    public function getPosts(){
+    public function getPosts(Request $request){
         $post=new \App\Post;
         if(Auth::student()){
-            return $post->getStudentPosts();
+            return $post->getStudentPosts($request);
         }else{
-            return $post->getSeekerPosts();
+            return $post->getSeekerPosts($request);
         }
     }
 }

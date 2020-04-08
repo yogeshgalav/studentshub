@@ -68,6 +68,14 @@
                                 
                             </div>
                         </form>
+                        <form>
+                            <p class="text-center">OR</p>
+                            <p class="text-center">Sign up with your social network</p>
+                            <div class="display-flex">
+                            <a class="btn btn-white mr-3" href='/social-auth/google'><i><img src="/icons/search.png" /></i> Sign up with Google</a>
+                            <a class="btn btn-white mr-3" href='/social-auth/facebook'><i><img src="/icons/facebook.png" /></i> Sign up with Facebook</a>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

@@ -2096,6 +2096,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2193,14 +2201,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_mixins_form_mixin_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../components/mixins/form-mixin.js */ "./resources/js/components/mixins/form-mixin.js");
 /* harmony import */ var _components_swal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/swal */ "./resources/js/components/swal.js");
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -54379,7 +54379,9 @@ var render = function() {
                     ])
                   ])
                 ]
-              )
+              ),
+              _vm._v(" "),
+              _vm._m(0)
             ])
           ])
         ])
@@ -54388,7 +54390,46 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("form", [
+      _c("p", { staticClass: "text-center" }, [_vm._v("OR")]),
+      _vm._v(" "),
+      _c("p", { staticClass: "text-center" }, [
+        _vm._v("Sign up with your social network")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "display-flex" }, [
+        _c(
+          "a",
+          {
+            staticClass: "btn btn-white mr-3",
+            attrs: { href: "/social-auth/google" }
+          },
+          [
+            _c("i", [_c("img", { attrs: { src: "/icons/search.png" } })]),
+            _vm._v(" Sign up with Google")
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "a",
+          {
+            staticClass: "btn btn-white mr-3",
+            attrs: { href: "/social-auth/facebook" }
+          },
+          [
+            _c("i", [_c("img", { attrs: { src: "/icons/facebook.png" } })]),
+            _vm._v(" Sign up with Facebook")
+          ]
+        )
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -54659,9 +54700,7 @@ var render = function() {
                           )
                         ])
                       ]
-                    ),
-                    _vm._v(" "),
-                    _vm._m(0)
+                    )
                   ])
                 ])
               ])
@@ -54673,46 +54712,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("form", [
-      _c("p", { staticClass: "text-center" }, [_vm._v("OR")]),
-      _vm._v(" "),
-      _c("p", { staticClass: "text-center" }, [
-        _vm._v("Sign up with your social network")
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "display-flex" }, [
-        _c(
-          "a",
-          {
-            staticClass: "btn btn-white mr-3",
-            attrs: { href: "/social-auth/google" }
-          },
-          [
-            _c("i", [_c("img", { attrs: { src: "/icons/search.png" } })]),
-            _vm._v(" Sign up with Google")
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "a",
-          {
-            staticClass: "btn btn-white mr-3",
-            attrs: { href: "/social-auth/facebook" }
-          },
-          [
-            _c("i", [_c("img", { attrs: { src: "/icons/facebook.png" } })]),
-            _vm._v(" Sign up with Facebook")
-          ]
-        )
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -84916,7 +84916,7 @@ __webpack_require__.r(__webpack_exports__);
     return new Promise(function (resolve, reject) {
       commit('auth_request');
       axios__WEBPACK_IMPORTED_MODULE_0___default()({
-        url: window.App.baseUrl + '/register',
+        url: window.App.baseUrl + '/api/register',
         data: user,
         method: 'POST'
       }).then(function (resp) {

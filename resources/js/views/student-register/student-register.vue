@@ -11,11 +11,14 @@
         <div class="col-md-8">
           <div class="card">
             <div class="card-header text-center">
-              <h3 class="weight-800 text-black font-size-18">{{ trans('Register') }}</h3>
+              <h3 class="weight-800 text-black font-size-18">{{ trans('Check-In') }}</h3>
             </div>
 
             <div class="card-body">
                 <div class="row justify-content-center">
+            <div class="col-md-8">
+              <p>Please Authenticate yourself for Sharing Knowledge</p>
+            </div>
             <div class="col-md-8">
                   <form @submit.prevent="handleSubmit">
                 <div class="form-group">
@@ -102,12 +105,12 @@
                 </div>
 
               <div class="row">
-            <div class="col-md-6 ">
+            <div class="col-md-5">
               <label
                 class="text-black"
                 for="event_date_input"
               >
-                {{ trans('Date') }}
+                {{ trans('Session') }}
               </label>
               <div class="input-group-prepend ">
                 <div
@@ -137,7 +140,10 @@
               </div>
               <span class="error">{{ formErrors('form_data.event_date') }}</span>
             </div>
-            <div class="col-md-6 ">
+            <div class="col-md-2">
+              To
+            </div>
+            <div class="col-md-5">
               <div class="input-group-prepend ">
                 <div
                   class="input-group-prepend date"
@@ -175,6 +181,7 @@
                 </div>
                 </div>
                 </div>
+                <a href="/" class="btn btn-primary">{{ trans('Skip') }}</a>
           </div>
         </div>
       </div>

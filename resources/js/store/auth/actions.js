@@ -22,7 +22,7 @@ export default {
 register({commit}, user){
   return new Promise((resolve, reject) => {
     commit('auth_request')
-    axios({url: window.App.baseUrl+'/register', data: user, method: 'POST' })
+    axios({url: window.App.baseUrl+'/api/register', data: user, method: 'POST' })
     .then(resp => {
       const token = resp.data.success.token
       const user = resp.data.success.user
