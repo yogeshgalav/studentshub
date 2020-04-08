@@ -82385,7 +82385,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   get_posts: function get_posts(state, posts) {
     state.dashboardPosts = state.dashboardPosts.concat(posts.data);
-    state.currrent_page = posts.currrent_page;
+    state.current_page = posts.current_page;
   },
   increase_post_paginate_count: function increase_post_paginate_count(state) {
     state.current_page = state.current_page + 1;
