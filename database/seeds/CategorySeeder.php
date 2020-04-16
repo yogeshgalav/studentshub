@@ -22,7 +22,7 @@ class CategorySeeder extends Seeder
         (7, 'Education', 'education'),
         (8, 'Pharmacy', 'pharmacy'),
         (9, 'Journalism', 'journalism'),
-        (10, 'Law', 'law'),
+        (10, 'Humanity', 'humanity'),
         (11, 'Hospitality', 'hospitality');";
     }
 }

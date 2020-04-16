@@ -3,17 +3,18 @@ import axios from 'axios';
 export default {
   login({commit}, user){
     return new Promise((resolve, reject) => {
-      commit('auth_request')
+      // commit('auth_request')
       axios({url: window.App.baseUrl+'/api/login', data: user, method: 'POST' })
       .then(resp => {
-        const token = resp.data.success.token
-        const user = resp.data.success.user
-        localStorage.setItem('access_token', token);
-        commit('auth_success', token, user)
+        const access_token = resp.data.success.access_token
+        const refresh_token = resp.data.success.refresh_token
+        localStorage.setItem('access_token', access_token);
+        localStorage.setItem('refresh_token', refresh_token);
+        // commit('auth_success', token, user)
         resolve(resp)
       })
       .catch(err => {
-        commit('auth_error')
+        // commit('auth_error')
         localStorage.removeItem('token')
         reject(err)
       })
@@ -21,17 +22,18 @@ export default {
 },
 register({commit}, user){
   return new Promise((resolve, reject) => {
-    commit('auth_request')
+    // commit('auth_request')
     axios({url: window.App.baseUrl+'/api/register', data: user, method: 'POST' })
     .then(resp => {
-      const token = resp.data.success.token
-      const user = resp.data.success.user
-      localStorage.setItem('access_token', token)
-      commit('auth_success', token, user)
+      const access_token = resp.data.success.access_token
+      const refresh_token = resp.data.success.refresh_token
+      localStorage.setItem('access_token', access_token);
+      localStorage.setItem('refresh_token', refresh_token);
+      // commit('auth_success', token, user)
       resolve(resp)
     })
     .catch(err => {
-      commit('auth_error', err)
+      // commit('auth_error')
       localStorage.removeItem('token')
       reject(err)
     })
@@ -45,6 +47,7 @@ logout({commit}){
       window.App.signedIn=false;
       window.App.AuthUser=null;
     localStorage.removeItem('access_token')
+    localStorage.removeItem('refresh_token')
     delete axios.defaults.headers.common['Authorization']
     resolve()
     });

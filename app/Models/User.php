@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'full_name','first_name','last_name', 'email', 'password',
+        'full_name', 'email', 'password',
     ];
 
     /**
@@ -58,5 +58,15 @@ class User extends Authenticatable
     public static function notificationCount()
     {
         return 0;
+    }
+
+    public function getFirstNameAttribute(){
+        $full_name=$this->full_name;
+        $parts = explode(" ", $full_name);
+        if(count($parts) > 1) {
+            $lastname = array_pop($parts);
+            return implode(" ", $parts);
+        }
+        return $full_name;
     }
 }

@@ -35,27 +35,41 @@ class AuthController extends Controller
      */
     public function login(LoginRequest $request)
     {        
-        if ($user=User::where('email',$request->email)->first()) {
-            //condition for email verify
-            if (Hash::check($request->password, $user->password)) {
 
-                Auth::login($user, $request->remember);
-                //log info
-                Log::info($user->first_name." ".$user->last_name." (User ID # ".$user->id.") logged in from IP Address ".$request->ip());
+        try{
+            $client = DB::table('oauth_clients')
+                ->where('password_client', true)
+                ->first();
 
-                $success['token'] = $user->createToken('Sthub')->accessToken;
-                
-                // if (is_null($user->onboarded_at)) {
-                //     $success['redirectUrl'] = '/checkin';
-                // } else {
-                //     $success['redirectUrl'] = '/';
-                // }
-                $success['redirectUrl'] = '/';
-                return response()->json(['success' => $success]);
+            $data = [
+                'grant_type' => 'password',
+                'client_id' => $client->id,
+                'client_secret' => $client->secret,
+                'username' => $request->email,
+                'password' => $request->password,
+                'scope' => '*'
+            ];
+
+            $request = Request::create('/oauth/token', 'POST', $data);
+            $content = json_decode(app()->handle($request)->getContent());
+            
+            if(!empty($content->error)){
+                throw new \Exception;
             }
+            $user=User::where('email',$request->email)->first();
+            Auth::login($user, $request->remember);
+            //log info
+            Log::info($user->full_name." (User ID # ".$user->id.") logged in from IP Address ".$request->ip());
+
+            $success['redirectUrl'] = '/';
+            $success['access_token'] = $content->access_token;
+            $success['refresh_token'] = $content->refresh_token;
+            
+        }catch(\Exception $e){
+            Log::warning("An invalid attempt to login was made for user ".$request->email." from IP Address ".$request->ip());
+            return response()->json(['error'=>'Unauthorised'], 401);
         }
-        Log::warning("An invalid attempt to login was made for user ".$request->email." from IP Address ".$request->ip());
-        return response()->json(['error'=>'Unauthorised'], 401);
+        return response()->json(['success' => $success]);
     }
 
     /**
@@ -68,33 +82,45 @@ class AuthController extends Controller
     public function register(RegisterRequest $request)
     {
         $input = $request->all();
-        //set firstname lastname
+        
         $input['full_name']=trim($input['full_name']);
-        $parts = explode(" ", $input['full_name']);
-        if(count($parts) > 1) {
-            $lastname = array_pop($parts);
-            $firstname = implode(" ", $parts);
-        }
-        else
-        {
-            $firstname = $input['full_name'];
-            $lastname = " ";
-        }
         //hash password
         $input['password'] = bcrypt($input['password']);
 
         DB::beginTransaction();
     try{
         $user = User::create([
-            'first_name'=>$firstname,
-            'last_name'=>$lastname,
             'full_name'=>$input['full_name'],
             'email'=>$input['email'],
             'password'=>$input['password'],
         ]);
-        Auth::login($user);
+
+        $client = DB::table('oauth_clients')
+            ->where('password_client', true)
+            ->first();
+
+        $data = [
+            'grant_type' => 'password',
+            'client_id' => $client->id,
+            'client_secret' => $client->secret,
+            'username' => $request->email,
+            'password' => $request->password,
+            'scope' => '*'
+        ];
+
+        $request = Request::create('/oauth/token', 'POST', $data);
+        $content = json_decode(app()->handle($request)->getContent());
         
-        $success['token'] = $user->createToken('Sthub')->accessToken;
+        if(!empty($content->error)){
+            throw new \Exception;
+        }
+
+        Auth::login($user);
+        //log info
+        Log::info('new User '.$user->full_name." (User ID # ".$user->id.") registered and logged in from IP Address ".$request->ip());
+
+        $success['access_token'] = $content->access_token;
+        $success['refresh_token'] = $content->refresh_token;
                 
         $success['redirectUrl'] = '/check-in';
         
@@ -106,9 +132,6 @@ class AuthController extends Controller
     }        
         return response()->json(['success' => $success]);
     }
-
-    
-    
 
     /**
      * details api
@@ -204,6 +227,14 @@ class AuthController extends Controller
     }
 
     public function logout(){
+        $access_token=Auth::user()->token();
+
+        $refreshToken=DB::table('oauth_refresh_tokens')
+        ->where('access_token_id',$access_token->id)
+        ->update(['revoked'=>true]);
+
+        $access_token->revoke();
+
         Auth::logout();
         return redirect('/');
     }
