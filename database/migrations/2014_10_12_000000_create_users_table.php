@@ -23,7 +23,8 @@ class CreateUsersTable extends Migration
             $table->char('country_code',2)->default('IN');
             $table->char('locale_code',2)->default('EN');
             $table->string('password');
-            $table->boolean('is_knowledge_seeker')->default(true);
+            $table->string('login_provider_id')->nullable();
+            $table->string('login_provider_type')->nullable();
             $table->date('onboarded_at')->nullable();
             $table->string('avatar_url')->nullable();
             $table->softDeletes();

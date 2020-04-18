@@ -44,6 +44,22 @@ class PagesController extends Controller
         return $response;
     }
 
+    public function profileImage( $filename){
+        $path = storage_path('app/uploads/profile/' . $filename);
+
+        if (!\File::exists($path)) {
+            abort(404);
+        }
+
+        $file = \File::get($path);
+        $type = \File::mimeType($path);
+
+        $response = \Response::make($file, 200);
+        $response->header("Content-Type", $type);
+
+        return $response;
+    }
+
     public function  root(){
         if(Auth::check()){
             return view($this->AuthUserType.'.home')->with('notifications',$this->notifications);

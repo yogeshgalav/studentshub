@@ -37,25 +37,19 @@ class AuthController extends Controller
     {        
 
         try{
-            $client = DB::table('oauth_clients')
-                ->where('password_client', true)
-                ->first();
-
-            $data = [
-                'grant_type' => 'password',
-                'client_id' => $client->id,
-                'client_secret' => $client->secret,
-                'username' => $request->email,
-                'password' => $request->password,
-                'scope' => '*'
-            ];
-
-            $request = Request::create('/oauth/token', 'POST', $data);
-            $content = json_decode(app()->handle($request)->getContent());
-            
-            if(!empty($content->error)){
-                throw new \Exception;
+            if ($request->remember) {
+                Passport::tokensExpireIn(now()->addDay(30));
+                // Passport::refreshTokensExpireIn(now()->addDay(30));
+            }else{
+                Passport::tokensExpireIn(now()->addHour());
+                // Passport::refreshTokensExpireIn(now()->addHour());
             }
+
+            $content=$this->getPassportTokens($request);
+            if(empty($content->access_token) || empty($content->refresh_token)){
+                throw new \Illuminate\Auth\AuthenticationException;
+            }
+
             $user=User::where('email',$request->email)->first();
             Auth::login($user, $request->remember);
             //log info
@@ -95,24 +89,9 @@ class AuthController extends Controller
             'password'=>$input['password'],
         ]);
 
-        $client = DB::table('oauth_clients')
-            ->where('password_client', true)
-            ->first();
-
-        $data = [
-            'grant_type' => 'password',
-            'client_id' => $client->id,
-            'client_secret' => $client->secret,
-            'username' => $request->email,
-            'password' => $request->password,
-            'scope' => '*'
-        ];
-
-        $request = Request::create('/oauth/token', 'POST', $data);
-        $content = json_decode(app()->handle($request)->getContent());
-        
-        if(!empty($content->error)){
-            throw new \Exception;
+        $content=$this->getPassportTokens($request);
+        if(empty($content->access_token) || empty($content->refresh_token)){
+            throw new \Illuminate\Auth\AuthenticationException;
         }
 
         Auth::login($user);
@@ -172,15 +151,34 @@ class AuthController extends Controller
         } else {
             // create a new user
             $newUser                  = new User;
-            $newUser->name            = $user->name;
-            $newUser->email           = $user->email;
+            $newUser->name            = $user->getName();
+            $newUser->email           = $user->getEmail();
             $newUser->login_provider_id       = $user->id;
             $newUser->login_provider_type       = $provider;
-            $newUser->avatar          = $user->avatar;
-            $newUser->avatar_original = $user->avatar_original;
-            $newUser->save();
-            auth()->login($newUser, true);
+            $avatar_url=$user->getAvatar();
+            if(filter_var($avatar_url, FILTER_VALIDATE_URL)){
+                $fileContents = file_get_contents($user->getAvatar());
+                $file['file_name']=$user->getId() . ".jpg";
+                $file['file_path']='/uploads/profile/' . $file['file_name'];
+                storage()->put($file['file_path'], $fileContents);
+                $newUser->avatar_url       = $file['file_path'];
+            }
+            $newUser->save(); 
+            
+            if($newUser && $file){
+                $newFile= new \App\Models\SthubFile();
+                $newFile->fileable_id=$user->id;
+                $newFile->fileable_type='App\Models\User';
+                $newFile->file_ext=storage()->getMimeType($file['file_path']);
+                $newFile->file_size=storage()->size($file['file_path']);
+                $newFile->file_name=$file['file_name'];
+                $newFile->user_id=$user->id;
+                $newFile->save();
+            }
+
+            Auth::login($newUser);
         }
+
         return redirect()->to('/');
     }
     // Handling the forgot password email request
@@ -237,5 +235,50 @@ class AuthController extends Controller
 
         Auth::logout();
         return redirect('/');
+    }
+
+    public function refresh(Request $request){
+        $client = \DB::table('oauth_clients')
+            ->where('password_client', true)
+            ->first();
+
+        $data = [
+            'grant_type' => 'refresh_token',
+            'refresh_token' => $request->refresh_token,
+            'client_id' => $client->id,
+            'client_secret' => $client->secret,
+            'scope' => ''
+        ];
+
+        $request = Request::create('/oauth/token', 'POST', $data);
+        $content= json_decode(app()->handle($request)->getContent());
+        if(empty($content->access_token) || empty($content->refresh_token)){
+            return response()->json(['error' => 'Unauthorised'], 401);
+        }
+        Auth::login($user);
+        
+        $success['token'] = $content->access_token;
+        $success['refresh_token'] = $content->refresh_token;
+        $success['redirectUrl']= $this->loginRedirectUrl;
+        return response()->json(['success'=>$success]);
+    }
+
+    
+    public function getPassportTokens($request){
+        $client = \DB::table('oauth_clients')
+            ->where('password_client', true)
+            ->first();
+
+        $data = [
+            'grant_type' => 'password',
+            'client_id' => $client->id,
+            'client_secret' => $client->secret,
+            'username' => $request->contact,
+            'password' => $request->password,
+            'scope' => '*'
+        ];
+
+        $request = Request::create('/oauth/token', 'POST', $data);
+        return json_decode(app()->handle($request)->getContent());
     }
 }
