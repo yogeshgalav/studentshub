@@ -25,15 +25,13 @@
                     <label> {{ trans('Institute Name') }} </label>
                   <div class="inner-addon left-addon">
                     <i class="fa fa-user"></i>
-                    <input
-                      id="institute_name"
-                      type="text"
-                      class="form-control"
-                      name="institute_name"
-                      placeholder="Enter Institue Name"
-                      autofocus
-                      v-validate="'required'"
-                      v-model="institute_name"
+                    <auto-complete
+                    :items="institute_list"
+                    :value="'name'"
+                    :is-async="true"
+                    @input="getInstitutes"
+                    @selected="setInstitutes"
+                    :is-loading="instituteLoading"
                     />
                     <span class="error">{{errors.first('institute_name')}}</span>
                   </div>
@@ -50,24 +48,15 @@
                     @selected="setCourse"
                     :is-loading="courseLoading"
                     />
-                    <!-- <select v-model="course_id" class="form-control">
-                        <option v-for="course in courses" :key='course.id' :value="course.id">{{course.course_name}}</option>
-                    </select> -->
                     <span class="error">{{errors.first('institute_name')}}</span>
                   </div>
                 </div>
-                <div class="form-group" v-if="selected_course">
-                    <label> {{ trans('Category/Course Type') }} </label>
-                  <div class="inner-addon left-addon">
-                    <i class="fa fa-user"></i>
-                    <input :value="selected_course.category" disabled/>
-                    <span class="error">{{errors.first('institute_name')}}</span>
-                  </div>
-                </div>
-                <div class="col-md-2 col-sm-4 col-xs-12" v-if="course_type_select">
-            <div class="form-group institutesDropdown_slider">
-                <label for="sel1" class="white_text">Discipline</label>
-                <select class="form-control" id="drpDiscipline" name="course_type" required="">
+                <div class="col-md-2 col-sm-4 col-xs-12" v-if="course_name!==''">
+              <div class="form-group institutesDropdown_slider">
+                <label for="sel1" class="white_text">Category of selected Course:</label>
+                <select class="form-control" name="course_type" 
+                  v-bind:value="selected_course['category']"
+                  :disabled="selected_course.id!==0">
                     <option >Architecture</option>
                     <option >Arts</option>
                     <option >Commerce</option>
@@ -85,22 +74,21 @@
             </div>
         </div>
   
-                <div class="form-group">
+                <div class="form-group" v-if="selected_course.id==0">
                     <label> {{ trans('Branch Name') }} </label>
                   <div class="inner-addon left-addon">
                     <i class="fa fa-user"></i>
-                    <auto-complete
-                    :items="branch_list"
-                    :value="'branch_name'"
-                    :is-async="true"
-                    @input="getBranches"
-                    @selected="setBranch"
-                    :is-loading="batchLoading"
+                    <input
+                      id="branch_name"
+                      type="text"
+                      class="form-control"
+                      name="branch_name"
+                      placeholder="Enter Branch Name"
+                      autofocus
+                      v-validate="'required'"
+                      v-model="branch_name"
                     />
-                    <!-- <select v-model="branch_id" class="form-control">
-                        <option v-for="branch in branches" :key="branch.id" :value="branch.id">{{branch.branch_name}}</option>
-                    </select> -->
-                    <span class="error">{{errors.first('institute_name')}}</span>
+                    <span class="error">{{errors.first('branch_name')}}</span>
                   </div>
                 </div>
 
@@ -246,20 +234,19 @@ export default {
   data() {
     return {
       showLoader:false,
-      institute_name:'',
       course_list:[],
       course_id:'',
       course_name:'',
       courseLoading:false,
-      branch_list:[],
-      branch_id:'',
+      institute_list:[],
+      institute_id:'',
+      institute_name:'',
+      instituteLoading:false,
       branch_name:'',
-      batchLoading:false,
       selected_course:'',
-      selected_branch:'',
+      selected_institute:'',
       end_year:'',
       start_year:'',
-      course_level_select:false,
       course_type_select:false,
       dict: {
         custom: {
@@ -297,28 +284,28 @@ export default {
 			this.course_name = result.name;
       this.selected_course=this.course_list.find(node=>node.course_name===this.course_name);
     },
-    getBranches(search){
-      this.batchLoading=true;
+    getInstitutes(search){
+      this.instituteLoading=true;
 				this.axios
-					.post(this.baseUrl + '/api/search-branch', {searchTerm: search})
+					.post(this.baseUrl + '/api/search-institute', {searchTerm: search})
 					.then(resp => {
-						this.branch_list = resp.data.success.branches;
-						this.branch_list.find(node => {
-							if (node.branch_name.toLowerCase() === this.branch_name.toLowerCase()) {
-								this.branch_id = node.id;
+						this.institute_list = resp.data.success.institutes;
+						this.institute_list.find(node => {
+							if (node.name.toLowerCase() === this.institute_name.toLowerCase()) {
+								this.institute_id = node.id;
 								return true;
 							}
-						});
-					  this.batchLoading=false;
+            });
+            this.instituteLoading=false;
 					}).catch(()=>{
-            this.batchLoading=false;
+            this.instituteLoading=false;
           });
 	
     },
-    setBranch(result){
-      this.branch_id = result.id;
-      this.branch_name = result.name;
-      this.selected_branch=this.branch_list.find(node=>node.branch_name===this.branch_name);
+    setInstitutes(result){
+      this.institute_id = result.id;
+			this.institute_name = result.name;
+      this.selected_institute=this.institute_list.find(node=>node.name===this.institute_name);
     },
     	
     handleSubmit(e) {
@@ -336,7 +323,7 @@ export default {
     axios.post('/api/checkin',{
         branch:this.selected_branch,
         course:this.selected_course,
-        institute:this.institute_name,
+        institute:this.selected_institute,
         start_year:this.start_year,
         end_year:this.end_year,
       }).then((resp)=>{
@@ -349,16 +336,6 @@ export default {
         this.showLoader=false;
       });
     },
-    selectCourse(selectedCourse){
-      if(selected_course.course_level===null){
-            this.course_level_select=true;
-        }
-        if(selected_course.course_type===null){
-            this.course_type_select=true;
-        }
-      this.course_id=selected_course.id;
-    },
   },
-  props: [,'branches']
 };
 </script>

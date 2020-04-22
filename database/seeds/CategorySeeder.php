@@ -24,5 +24,7 @@ class CategorySeeder extends Seeder
         (9, 'Journalism', 'journalism'),
         (10, 'Humanity', 'humanity'),
         (11, 'Hospitality', 'hospitality');";
+
+        DB::unprepared($sql);
     }
 }

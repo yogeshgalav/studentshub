@@ -10,9 +10,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
-use App\ConsultantFirmUser;
-use App\Client;
-use App\ClientUser;
+use Laravel\Passport\Passport;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\ForgotPasswordRequest;
 use Illuminate\Support\Facades\URL;
@@ -273,7 +271,7 @@ class AuthController extends Controller
             'grant_type' => 'password',
             'client_id' => $client->id,
             'client_secret' => $client->secret,
-            'username' => $request->contact,
+            'username' => $request->email,
             'password' => $request->password,
             'scope' => '*'
         ];

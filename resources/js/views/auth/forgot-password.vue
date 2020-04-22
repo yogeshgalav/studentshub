@@ -1,12 +1,19 @@
 <template>
-<main>
-<div class="row justify-content-center">
-        <div class="col-md-8 forgot-password">
-            <div class="card">
-                <div class="card-header">Forgot Password</div>
-
-                <div class="card-body">
-                    <form @submit.prevent="handleSubmit">
+    <div class="container">
+        <loading 
+      :active.sync="showLoader"
+      :color="'#10069F'"
+      :width="250"
+      :is-full-page="true"
+    />
+        <div class="row justify-content-center login">
+            <div class="col-md-8 ">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h3 class="weight-800 text-black font-size-18">{{ trans('Forgot Password') }}</h3>
+                    </div>
+                    <div class="card-body">
+                        <form @submit.prevent="handleSubmit">
                         <div class="form-group row alert alert-danger" v-if="srvError">
                             <span>{{ trans('An unknown error has occurred.') }}</span>
                         </div>
@@ -26,11 +33,11 @@
                             </div>
                         </div>
                     </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</main>
 </template>
 <style scoped>
     .forgot-password .card

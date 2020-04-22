@@ -16,6 +16,7 @@ use App\Models\Batch;
 use App\Models\BatchStudent;
 use App\Notifications\BatchNewUserNotification;
 use Illuminate\Support\Arr;
+use SKAgarwal\GoogleApi\PlacesApi;
 
 class StudentController extends Controller
 {
@@ -114,26 +115,23 @@ class StudentController extends Controller
             'courses'=>$courses
         ]]);
     }
-    public function branchList(Request $request){
-        $branches=DB::table('branches as bra')->where('bra.branch_name','LIKE','%'.$request->searchTerm.'%')
-        ->leftJoin('batches as bat','bra.id','=','bat.branch_id')
-        ->select('bra.id','bra.branch_name',DB::raw("COUNT('bat.id') as totalBatch"))
-        ->groupBy('bra.id','bra.branch_name')
+    
+    public function instituteList(Request $request){
+        $input=$request->searchTerm;
+        $institutes=DB::table('institutes as ins')->where('ins.name','LIKE',$input.'%')
+        ->leftJoin('batches as bat','ins.id','=','bat.institute_id')
+        ->select('ins.id','ins.name',DB::raw("COUNT('bat.id') as totalBatch"))
+        ->groupBy('ins.id','ins.name')
         ->orderBy('totalBatch','DESC')->limit(10)->get();
         
-        if(count($branches)==0 && empty($request->recursive)){
-            $request->request->add(['recursive'=>true]);
-            $terms=explode(' ',$request->searchTerm);
-            $new_terms=[];
-            foreach($terms as $term){
-                $new_terms[]=substr($term,0,1).'%'.substr($term,-1);
-            }
-            $request->searchTerm=implode(' ',$new_terms);
-            return $this->branchList($request);
+        if(count($institutes)==0){
+            $googlePlaces = new PlacesApi(config('keys.google_place_api'));
+            $response = $googlePlaces->findPlace($input, 'institute');
+            dd($response);
         }
 
         return response()->json(['success'=>[
-            'branches'=>$branches
+            'institutes'=>$institutes
         ]]);
     }
 }

@@ -1902,6 +1902,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -53968,96 +53975,119 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("main", [
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-md-8 forgot-password" }, [
-        _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-header" }, [
-            _vm._v("Forgot Password")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _c(
-              "form",
-              {
-                on: {
-                  submit: function($event) {
-                    $event.preventDefault()
-                    return _vm.handleSubmit($event)
+  return _c(
+    "div",
+    { staticClass: "container" },
+    [
+      _c("loading", {
+        attrs: {
+          active: _vm.showLoader,
+          color: "#10069F",
+          width: 250,
+          "is-full-page": true
+        },
+        on: {
+          "update:active": function($event) {
+            _vm.showLoader = $event
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "row justify-content-center login" }, [
+        _c("div", { staticClass: "col-md-8 " }, [
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "card-header text-center" }, [
+              _c("h3", { staticClass: "weight-800 text-black font-size-18" }, [
+                _vm._v(_vm._s(_vm.trans("Forgot Password")))
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-body" }, [
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.handleSubmit($event)
+                    }
                   }
-                }
-              },
-              [
-                _vm.srvError
-                  ? _c(
-                      "div",
-                      { staticClass: "form-group row alert alert-danger" },
-                      [
-                        _c("span", [
-                          _vm._v(
-                            _vm._s(_vm.trans("An unknown error has occurred."))
-                          )
-                        ])
-                      ]
-                    )
-                  : _vm._e(),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group row" }, [
-                  _c(
-                    "label",
-                    {
-                      staticClass: "col-md-4 col-form-label text-md-right",
-                      attrs: { for: "email" }
-                    },
-                    [_vm._v(_vm._s(_vm.trans("E-Mail Address")))]
-                  ),
+                },
+                [
+                  _vm.srvError
+                    ? _c(
+                        "div",
+                        { staticClass: "form-group row alert alert-danger" },
+                        [
+                          _c("span", [
+                            _vm._v(
+                              _vm._s(
+                                _vm.trans("An unknown error has occurred.")
+                              )
+                            )
+                          ])
+                        ]
+                      )
+                    : _vm._e(),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col-md-6" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.email,
-                          expression: "email"
-                        },
-                        {
-                          name: "validate",
-                          rawName: "v-validate",
-                          value: "required|email",
-                          expression: "'required|email'"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        id: "email",
-                        type: "email",
-                        name: "email",
-                        autofocus: ""
+                  _c("div", { staticClass: "form-group row" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-md-4 col-form-label text-md-right",
+                        attrs: { for: "email" }
                       },
-                      domProps: { value: _vm.email },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.email = $event.target.value
-                        }
-                      }
-                    }),
+                      [_vm._v(_vm._s(_vm.trans("E-Mail Address")))]
+                    ),
                     _vm._v(" "),
-                    _c("span", [_vm._v(_vm._s(_vm.formErrors("email")))])
-                  ])
-                ]),
-                _vm._v(" "),
-                _vm._m(0)
-              ]
-            )
+                    _c("div", { staticClass: "col-md-6" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.email,
+                            expression: "email"
+                          },
+                          {
+                            name: "validate",
+                            rawName: "v-validate",
+                            value: "required|email",
+                            expression: "'required|email'"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          id: "email",
+                          type: "email",
+                          name: "email",
+                          autofocus: ""
+                        },
+                        domProps: { value: _vm.email },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.email = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("span", [_vm._v(_vm._s(_vm.formErrors("email")))])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(0)
+                ]
+              )
+            ])
           ])
         ])
       ])
-    ])
-  ])
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
@@ -54071,7 +54101,7 @@ var staticRenderFns = [
           { staticClass: "btn btn-primary", attrs: { type: "submit" } },
           [
             _vm._v(
-              "\r\n                                    Submit\r\n                                "
+              "\n                                Submit\n                            "
             )
           ]
         )
@@ -84893,19 +84923,20 @@ __webpack_require__.r(__webpack_exports__);
   login: function login(_ref, user) {
     var commit = _ref.commit;
     return new Promise(function (resolve, reject) {
-      commit('auth_request');
+      // commit('auth_request')
       axios__WEBPACK_IMPORTED_MODULE_0___default()({
         url: window.App.baseUrl + '/api/login',
         data: user,
         method: 'POST'
       }).then(function (resp) {
-        var token = resp.data.success.token;
-        var user = resp.data.success.user;
-        localStorage.setItem('access_token', token);
-        commit('auth_success', token, user);
+        var access_token = resp.data.success.access_token;
+        var refresh_token = resp.data.success.refresh_token;
+        localStorage.setItem('access_token', access_token);
+        localStorage.setItem('refresh_token', refresh_token); // commit('auth_success', token, user)
+
         resolve(resp);
       })["catch"](function (err) {
-        commit('auth_error');
+        // commit('auth_error')
         localStorage.removeItem('token');
         reject(err);
       });
@@ -84914,19 +84945,20 @@ __webpack_require__.r(__webpack_exports__);
   register: function register(_ref2, user) {
     var commit = _ref2.commit;
     return new Promise(function (resolve, reject) {
-      commit('auth_request');
+      // commit('auth_request')
       axios__WEBPACK_IMPORTED_MODULE_0___default()({
         url: window.App.baseUrl + '/api/register',
         data: user,
         method: 'POST'
       }).then(function (resp) {
-        var token = resp.data.success.token;
-        var user = resp.data.success.user;
-        localStorage.setItem('access_token', token);
-        commit('auth_success', token, user);
+        var access_token = resp.data.success.access_token;
+        var refresh_token = resp.data.success.refresh_token;
+        localStorage.setItem('access_token', access_token);
+        localStorage.setItem('refresh_token', refresh_token); // commit('auth_success', token, user)
+
         resolve(resp);
       })["catch"](function (err) {
-        commit('auth_error', err);
+        // commit('auth_error')
         localStorage.removeItem('token');
         reject(err);
       });
@@ -84943,6 +84975,7 @@ __webpack_require__.r(__webpack_exports__);
         window.App.signedIn = false;
         window.App.AuthUser = null;
         localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
         delete axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.headers.common['Authorization'];
         resolve();
       });

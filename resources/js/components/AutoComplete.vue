@@ -115,13 +115,11 @@ export default {
 		items: function (val, oldValue) {
 			// actually compare them
 			if (val.length) {
-				this.results = val;
+				//filter results
+				this.results = val.filter((item) => {
+					return item[this.value].toLowerCase().indexOf(this.search.toLowerCase()) > -1;
+				});
         		this.isOpen = true;
-			}
-		},
-		search: function (val) {
-			if (val !== '') {
-				this.$emit('selected', {'id':0,'name':val});
 			}
 		},
 	},
@@ -133,31 +131,18 @@ export default {
 	},
 
 	methods: {
-    trans: function(string, defaultString) {
-      return this.$trans("auth", string, defaultString);
-    },
+		trans: function(string, defaultString) {
+			return this.$trans("auth", string, defaultString);
+		},
 		onChange() {
 			// Let's warn the parent that a change was made
 			this.$emit('input', this.search);
-			// Is the data given by an outside ajax request?
-			if (this.isAsync) {
-        if(this.items.length){
-          return false;
-        }
-			} else {
-				// Let's  our flat array
-				this.filterResults();
-				this.isOpen = true;
-			}
-		},
-
-		filterResults() {
-			// first uncapitalize all the things
-			this.results = this.items.filter((item) => {
-				return item.toLowerCase().indexOf(this.search.toLowerCase()) > -1;
-			});
 		},
 		setResult(result) {
+			this.$emit('selected', {
+				'id':result['id'],
+				'name':result[this.value]
+			});
 			this.search = result[this.value];
 			this.isOpen = false;
 		},

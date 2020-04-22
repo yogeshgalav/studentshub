@@ -99,7 +99,4 @@ return [
             'expire' => 60,
         ],
     ],
-
-    'passport_client_id'=>"2",
-    'passport_client_secret'=>'ApI2igbTZ0wHrIzqlxdD2J0VO6DiVx2BQBW6JVGU'
 ];
