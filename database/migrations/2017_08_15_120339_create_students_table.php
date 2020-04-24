@@ -16,8 +16,9 @@ class CreateStudentsTable extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('user_id')->unsigned();
-            $table->integer('prefferred_batch')->unsigned()->nullable();
-            $table->integer('prefferred_category')->unsigned()->nullable();
+            $table->integer('prefferred_batch')->unsigned();
+            $table->integer('prefferred_category')->unsigned();
+            $table->integer('unique_college_id')->nullable();
             $table->timestamps();
         });
     }

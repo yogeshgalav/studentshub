@@ -17,7 +17,7 @@ class Subject extends Model
         return $this->hasMany('App\Models\Post');
     }
     
-    public function branch_subjects(){
-        return $this->hasMany('App\Models\BranchSubject');
+    public function courses(){
+        return $this->belongsToMany('App\Models\Course','course_subjects');
     }
 }

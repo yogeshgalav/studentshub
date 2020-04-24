@@ -17,13 +17,11 @@ class CreateInstitutesTable extends Migration
             $table->bigIncrements('id');
             $table->string('type')->nullable();
             $table->string('name');
-            $table->string('city')->nullable();
-            $table->string('state')->nullable();
-            $table->string('subdomain')->nullable();
+            $table->string('address')->nullable();
             $table->char('country_code',2)->default('IN');
             $table->string('email_slug')->nullable();
             $table->string('regno_slug')->nullable();
-            $table->string('logo_url')->nullable();
+            $table->string('icon_url')->nullable();
             $table->integer('added_by_user_id')->unsigned();
             $table->boolean('is_verfied')->default(false);
             $table->timestamps();

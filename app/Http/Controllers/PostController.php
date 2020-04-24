@@ -99,7 +99,7 @@ class PostController extends Controller
         SthubPost::create([
             'post_id'=>$post->id,
             'institute_id'=>$student->instituteId,
-            'branch_id'=>$student->branchId,
+            'course_id'=>$student->courseId,
             'shared_by'=>Auth::user()->id,
         ]);
         

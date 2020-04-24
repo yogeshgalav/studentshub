@@ -17,7 +17,7 @@
             <div class="card-body">
                 <div class="row justify-content-center">
             <div class="col-md-8">
-              <p>Please Authenticate yourself for Sharing Knowledge</p>
+              <p>Please Enter your Education details to avail full benifits of our platform.</p>
             </div>
             <div class="col-md-8">
                   <form @submit.prevent="handleSubmit">
@@ -37,7 +37,7 @@
                   </div>
                 </div>
                 <div class="form-group">
-                    <label> {{ trans('Course Name') }} </label>
+                    <label> {{ trans('Course/Branch Name') }} </label>
                   <div class="inner-addon left-addon">
                     <i class="fa fa-user"></i>
                     <auto-complete
@@ -56,7 +56,7 @@
               <div class="form-group institutesDropdown_slider">
                 <label for="sel1" class="white_text">Category of selected Course:</label>
                 <select class="form-control" name="course_type" 
-                  v-bind:value="selected_course['category']"
+                  v-model="selected_course['category']"
                   :disabled="selected_course.id!==0">
                     <option >Architecture</option>
                     <option >Arts</option>
@@ -99,7 +99,7 @@
                 class="text-black"
                 for="event_date_input"
               >
-                {{ trans('Session') }}
+                {{ trans('Session of this Batch') }}
               </label>
               <div class="input-group-prepend ">
                 <div
@@ -162,7 +162,18 @@
               <span class="error">{{ formErrors('form_data.event_date') }}</span>
             </div>
             </div>
-            
+            <!-- <div class="row">
+            <div class="col-md-5">
+              <input type="checkbox" v-model="is_prefferred">
+              <label>Is this your prefferred Batch and category</label>
+            </div>
+            </div> -->
+            <div class="row">
+            <div class="col-md-5">
+              <input type="text" v-model="college_id">
+              <label>Unique College Id/Registation no.</label>
+            </div>
+            </div>
                 <div class="form-group mb-0">
                  <button type="submit" class="btn btn-primary">{{ trans('Register') }}</button>
                 </div>
@@ -246,7 +257,8 @@ export default {
       selected_institute:'',
       end_year:'',
       start_year:'',
-      course_type_select:false,
+      is_prefferred:true,
+      college_id:'',
       dict: {
         custom: {
           institute_name: {
@@ -322,9 +334,10 @@ export default {
     },
     register(){
     axios.post('/api/checkin',{
-        branch:this.selected_branch,
         course:this.selected_course,
         institute:this.selected_institute,
+        is_prefferred:this.is_prefferred,
+        college_id:this.college_id,
         start_year:this.start_year,
         end_year:this.end_year,
       }).then((resp)=>{

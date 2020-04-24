@@ -18,7 +18,6 @@ class SthubPost extends Model
 
         $dashboard_posts=$query->where('institute_id',Auth::user()->institute_id)
         // ->orWhere('classroom_id',Auth::user()->classroom_id)
-        // ->orWhere('branch_id	',Auth::user()->branch_id	)
         // ->orWhere('course_id',Auth::user()->course_id)
         // ->orWhere('batch_id',Auth::user()->batch_id)
         ->orderBy('id', 'DESC')->get();

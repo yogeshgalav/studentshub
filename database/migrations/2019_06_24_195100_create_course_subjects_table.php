@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBranchSubjectsTable extends Migration
+class CreateCourseSubjectsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateBranchSubjectsTable extends Migration
      */
     public function up()
     {
-        Schema::create('branch_subjects', function (Blueprint $table) {
+        Schema::create('course_subjects', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('branch_id')->unsigned();
+            $table->integer('course_id')->unsigned();
             $table->integer('subject_id')->unsigned();
             $table->timestamps();
         });

@@ -15,37 +15,26 @@ class DoubtController extends Controller
     public function addDoubt (Request $request)
     {
         $input = $request->all();
+        $student=Auth::student();
+        
+        if(is_null($student)){
+            abort(403);
+        }
+
         DB::beginTransaction();
     try{
 
         $subject_id=Subject::firstOrCreate([
             'subject_name'=>$request->subject
         ])->id;
-        $batch_id=Auth::user()->student()->prefferred_batch;
 
         $q = new Doubt();
         $q->user_id = Auth::user()->id;
         $q->question = $request->doubt;
         $q->subject_id = $subject_id;
-        $q->batch_id = $batch_id;
+        $q->batch_id = $student->batchId;
         $q->save();
 
-        // switch($request->doubt_type){
-        //     case 'batch':
-        //         DoubtRequest::create([
-        //             'doubt_id'=>$q->id,
-        //             'doubtable_id'=>Auth::student()->prefferred_batch,
-        //             'doubtable_type'=>'App\Models\Batch',
-        //         ]);
-        //     break;
-        //     case 'branch':
-        //         DoubtRequest::create([
-        //             'doubt_id'=>$q->id,
-        //             'doubtable_id'=>Auth::student()->prefferred_category,
-        //             'doubtable_type'=>'App\Models\Branch',
-        //         ]);
-        //     break;
-        // }
         
     DB::commit();
         } catch (\Exception $e) {
@@ -59,12 +48,11 @@ class DoubtController extends Controller
 
     public function getDoubts(Request $request)
     {
-        $student=Auth::user()->student()->first();
-        $branch=$student->prefferred_branch;
-        $Doubts=Doubt::whereHas('subject.branch_subjects',function($query)use($branch){
-            $query->where('bs.branch_id','=',$branch);
+        $student=Auth::student();
+        $Doubts=Doubt::whereHas('subject.course_subjects',function($query)use($student){
+            $query->where('course_id','=',$student->courseId);
         })
-        ->orWhere('doubts.batch_id',$student->prefferred_batch)
+        ->orWhere('batch_id',$student->batchId)
         ->get();
 
         return response()->json([

@@ -22,8 +22,8 @@ class Post extends PostModel
             $post_query=$this->getSeekerPostTabels();     
         }
 
-        if(!empty($request->bId)){
-            $post_query->where('sp.branch_id','=',$request->bId);    
+        if(!empty($request->cId)){
+            $post_query->where('sp.course_id','=',$request->cId);    
         }
 
         if(!empty($request->sId)){
@@ -57,7 +57,7 @@ class Post extends PostModel
 
     public function getStudentPostTables(){
         $myInstituteId=$this->student->instituteId;
-        $myBranchId=$this->student->branchId;
+        $myCourseId=$this->student->courseId;
 
         return DB::table('sthub_posts as sp')
         ->join('posts as po','po.id','=','sp.post_id')
@@ -71,11 +71,11 @@ class Post extends PostModel
         ->leftJoin('categories as cat','cat.id','=','sub.category_id')
         ->leftJoin('users as us','us.id','=','po.user_id')
         ->leftJoin('institutes as inst','inst.id','=','sp.institute_id')
-        ->leftJoin('branches as brnch','brnch.id','=','sp.branch_id')
+        ->leftJoin('courses as course','course.id','=','sp.course_id')
         
-        ->leftJoin('documents as do',function($join)use($myInstituteId,$myBranchId){
+        ->leftJoin('documents as do',function($join)use($myInstituteId,$myCourseId){
             $join->on('po.postable_id','=','do.id')->where('po.postable_type','=','App\Models\Document')
-            ->where('inst.id','=',$myInstituteId)->where('brnch.id','=',$myBranchId);
+            ->where('inst.id','=',$myInstituteId)->where('course.id','=',$myCourseId);
         })
         ->leftJoin('notices as no',function($join)use($myInstituteId){
             $join->on('po.postable_id','=','no.id')->where('po.postable_type','=','App\Models\Notice')

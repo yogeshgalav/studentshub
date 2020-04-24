@@ -11,7 +11,6 @@ use App\Models\Student;
 use App\Models\Course;
 use App\Models\Category;
 use App\Models\Institute;
-use App\Models\Branch;
 use App\Models\Batch;
 use App\Models\BatchStudent;
 use App\Notifications\BatchNewUserNotification;
@@ -25,18 +24,15 @@ class StudentController extends Controller
     {
         $input = $request->all();
         $user=Auth::user();
-        if($user->student()->exists()){
-            return response()->json(['error'=>['Already checked-in as student']],403);
-        }
+        
     DB::beginTransaction();
     try{
-        $student=Student::create(['user_id'=>Auth::user()->id]);
         //create or get course id
         if($input['course']['id']){
             $course=Course::findOrFail($input['course']['id']);
         }else{
             //if new course insert course_type and course_level
-            $category=Category::where('name',$input['course']['course_type'])->first();
+            $category=Category::where('name',$input['course']['category'])->first();
             $course=Course::create([
                 'course_name'=>$input['course']['course_name'],
                 'category_id'=>$category->id,
@@ -49,35 +45,33 @@ class StudentController extends Controller
         ],[
             'added_by_user_id'=>$user->id
         ]);
-        //create or get branch id
-        if($input['branch']['id']){
-            $branch=Branch::findOrFail($input['branch']['id']);
-        }else{
-            $branch=Branch::create([
-                'branch_name'=>$input['branch']['branch_name'],
-                'course_id'=>$course->id,
-            ]);
-        }
+        
         //create or get batch id
         $batch=Batch::firstOrCreate([
-            'start_year'=>$input['start_year'],
             'end_year'=>$input['end_year'],
             'institute_id'=>$institute->id,
             'course_id'=>$course->id,
-            'branch_id'=>$branch->id,
+        ],[
+            'start_year'=>$input['start_year'],
         ]);
 
+        $student=Student::firstOrCreate([
+            'user_id'=>Auth::user()->id
+        ],[
+            'prefferred_batch'=>$batch->id,
+            'prefferred_category'=>$course->category_id,
+            'unique_college_id'=>$request->college_id,
+        ]);
+        
         BatchStudent::create([
             'batch_id'=>$batch->id,
             'student_id'=>$student->id,
             'is_preffered'=>true,
         ]);
 
-        $student->prefferred_batch=$batch->id;
-        $student->prefferred_category=$course->category_id;
-        $student->save();
-
-        Notification::send($batch->users(), new BatchNewUserNotification($user,$batch));
+        $batch_users=$batch->users()->whereNotIn('id',[$user->id]);
+        Notification::send($batch_users, new BatchNewUserNotification($user,$batch));
+        // Notification::send($user, new StudentOnboardingNotification($batch));
             
         
     DB::commit();
