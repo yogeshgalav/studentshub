@@ -1,6 +1,6 @@
 <?php
 
 Route::group(['middleware'=>['auth']],function(){
-    Route::get('/check-in', 'PagesController@checkin');
+    Route::get('/education-details', 'PagesController@checkin');
     //post routes
 });

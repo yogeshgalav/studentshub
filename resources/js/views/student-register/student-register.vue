@@ -46,12 +46,13 @@
                     :is-async="true"
                     @input="getCourses"
                     @selected="setCourse"
+                    @selectNew="setNewCourse"
                     :is-loading="courseLoading"
                     />
                     <span class="error">{{errors.first('institute_name')}}</span>
                   </div>
                 </div>
-                <div class="col-md-2 col-sm-4 col-xs-12" v-if="course_name!==''">
+                <div class="col-md-2 col-sm-4 col-xs-12" v-if="selected_course.course_name!==''">
               <div class="form-group institutesDropdown_slider">
                 <label for="sel1" class="white_text">Category of selected Course:</label>
                 <select class="form-control" name="course_type" 
@@ -235,8 +236,6 @@ export default {
     return {
       showLoader:false,
       course_list:[],
-      course_id:'',
-      course_name:'',
       courseLoading:false,
       institute_list:[],
       institute_id:'',
@@ -262,14 +261,15 @@ export default {
       return this.$trans("auth", string, defaultString);
     },
     getCourses(search){
+      this.selected_course={'id':0,'course_name':search};
       this.courseLoading=true;
 				this.axios
 					.post(this.baseUrl + '/api/search-course', {searchTerm: search})
 					.then(resp => {
 						this.course_list = resp.data.success.courses;
 						this.course_list.find(node => {
-							if (node.course_name.toLowerCase() === this.course_name.toLowerCase()) {
-								this.course_id = node.id;
+							if (node.course_name.toLowerCase() === this.selected_course.course_name.toLowerCase()) {
+								this.selected_course = node;
 								return true;
 							}
             });
@@ -280,9 +280,10 @@ export default {
 	
     },
     setCourse(result){
-      this.course_id = result.id;
-			this.course_name = result.name;
-      this.selected_course=this.course_list.find(node=>node.course_name===this.course_name);
+      this.selected_course=result;
+    },
+    setNewCourse(name){
+      this.selected_course={'id':0,'course_name':name};
     },
     getInstitutes(search){
       this.instituteLoading=true;

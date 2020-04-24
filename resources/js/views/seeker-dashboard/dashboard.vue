@@ -7,7 +7,7 @@
          <div class="card">
         <div class="card-body">
             <slot></slot>
-            <a  :href="'/check-in'">
+            <a  :href="'/education-details'">
                         Share Your Knowledge
                         </a>
                     </div>  

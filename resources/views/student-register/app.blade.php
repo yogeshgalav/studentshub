@@ -23,7 +23,7 @@
     <div id="studentRegisterApp">
         <main class="flex-center position-ref full-height">   
 <div class="main-header">
-     @include('includes.seeker-navbar')
+     @include('includes.logo-navbar')
 </div>
 
 @yield('content')  

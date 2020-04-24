@@ -118,6 +118,7 @@ class StudentController extends Controller
     
     public function instituteList(Request $request){
         $input=$request->searchTerm;
+    try{
         $institutes=DB::table('institutes as ins')->where('ins.name','LIKE',$input.'%')
         ->leftJoin('batches as bat','ins.id','=','bat.institute_id')
         ->select('ins.id','ins.name',DB::raw("COUNT('bat.id') as totalBatch"))
@@ -125,11 +126,26 @@ class StudentController extends Controller
         ->orderBy('totalBatch','DESC')->limit(10)->get();
         
         if(count($institutes)==0){
-            $googlePlaces = new PlacesApi(config('keys.google_place_api'));
-            $response = $googlePlaces->findPlace($input, 'institute');
-            dd($response);
-        }
+            $institutes=[];
+            $api_key=config('keys.google_place_api');
+            $googlePlaces = new PlacesApi($api_key);
+            $response = $googlePlaces->placeAutocomplete($input,['types'=>'establishment']);
 
+            foreach($response->items->predictions as $value){
+                if($value->structured_formatting){
+                    $institutes[]=[
+                        'name'=>$value->structured_formatting->main_text,
+                        'address'=>$value->structured_formatting->secondary_text
+                    ];
+                }
+            }
+        }
+        
+    }catch(\Exception $e){
+        return response()->json(['success'=>[
+            'institutes'=>[]
+        ]]);
+    }
         return response()->json(['success'=>[
             'institutes'=>$institutes
         ]]);

@@ -39,7 +39,7 @@
 		<li
 		v-if="results.length===0"
 		class="autocomplete-result"
-		@click="$emit('selected', {'id':0,'name':search})"
+		@click="$emit('selectNew', search)"
         >
           {{ trans('Create New') }}
         </li>
@@ -109,19 +109,20 @@ export default {
 			result:{},
 			search: '',
 			arrowCounter: 0,
+			initialLength: 0
 		};
 	},
 	watch: {
 		items: function (val, oldValue) {
-			// actually compare them
-			if (val.length) {
-				//filter results
-				this.results = val.filter((item) => {
-					return item[this.value].toLowerCase().indexOf(this.search.toLowerCase()) > -1;
-				});
-        		this.isOpen = true;
-			}
+			this.results = val;
+			this.initialLength = val.length;
+			this.isOpen = true;
 		},
+		search(val){
+			this.results = this.items.filter((item) => {
+				return item[this.value].toLowerCase().indexOf(val.toLowerCase()) > -1;
+			});
+		}
 	},
 	mounted() {
 		document.addEventListener('click', this.handleClickOutside);
@@ -135,14 +136,17 @@ export default {
 			return this.$trans("auth", string, defaultString);
 		},
 		onChange() {
+			if(this.search.length<4){
+				return false;
+			}
+			if(this.results.length>Math.floor(this.initialLength/2)){
+				return true;
+			}
 			// Let's warn the parent that a change was made
 			this.$emit('input', this.search);
 		},
 		setResult(result) {
-			this.$emit('selected', {
-				'id':result['id'],
-				'name':result[this.value]
-			});
+			this.$emit('selected', result);
 			this.search = result[this.value];
 			this.isOpen = false;
 		},

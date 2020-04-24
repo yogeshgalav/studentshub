@@ -99,7 +99,7 @@ class AuthController extends Controller
         $success['access_token'] = $content->access_token;
         $success['refresh_token'] = $content->refresh_token;
                 
-        $success['redirectUrl'] = '/check-in';
+        $success['redirectUrl'] = '/education-details';
         
     DB::commit();
     } catch (\Exception $e) {
