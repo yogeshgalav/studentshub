@@ -30,7 +30,8 @@
                     :value="'name'"
                     :is-async="true"
                     @input="getInstitutes"
-                    @selected="setInstitutes"
+                    @selected="setInstitute"
+                    @selectNew="setNewInstitute"
                     :is-loading="instituteLoading"
                     />
                     <span class="error">{{errors.first('institute_name')}}</span>
@@ -249,8 +250,6 @@ export default {
       course_list:[],
       courseLoading:false,
       institute_list:[],
-      institute_id:'',
-      institute_name:'',
       instituteLoading:false,
       branch_name:'',
       selected_course:'',
@@ -298,13 +297,14 @@ export default {
       this.selected_course={'id':0,'course_name':name};
     },
     getInstitutes(search){
+      this.selected_institute={'id':0,'name':search};
       this.instituteLoading=true;
 				this.axios
 					.post(this.baseUrl + '/api/search-institute', {searchTerm: search})
 					.then(resp => {
 						this.institute_list = resp.data.success.institutes;
 						this.institute_list.find(node => {
-							if (node.name.toLowerCase() === this.institute_name.toLowerCase()) {
+							if (node.name.toLowerCase() === this.selected_institute.name.toLowerCase()) {
 								this.institute_id = node.id;
 								return true;
 							}
@@ -315,10 +315,11 @@ export default {
           });
 	
     },
-    setInstitutes(result){
-      this.institute_id = result.id;
-			this.institute_name = result.name;
-      this.selected_institute=this.institute_list.find(node=>node.name===this.institute_name);
+    setInstitute(result){
+      this.selected_institute=result;
+    },
+    setNewInstitute(name){
+      this.selected_institute={'id':0,'name':name};
     },
     	
     handleSubmit(e) {

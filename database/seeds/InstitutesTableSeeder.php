@@ -12,8 +12,8 @@ class InstitutesTableSeeder extends Seeder
     public function run()
     {
         //
-        $sql="INSERT INTO `institutes` (`id`, `name`,) VALUES
-        (1, 'Poornima College of Engineering');";
+        $sql="INSERT INTO `institutes` (`id`, `name`, `added_by_user_id`) VALUES
+        (1, 'Poornima College of Engineering',1);";
 
         DB::unprepared($sql);
     }

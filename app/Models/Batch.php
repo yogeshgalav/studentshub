@@ -14,7 +14,7 @@ class Batch extends Model
         foreach($this->students()->get() as $student){
             $users[]=$student->user()->first();
         }
-        return $users;
+        return collect($users);
     }
     public function students(){
         return $this->belongsToMany('App\Models\Student','batch_students','batch_id','student_id');

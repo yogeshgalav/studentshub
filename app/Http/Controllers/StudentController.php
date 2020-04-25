@@ -41,7 +41,7 @@ class StudentController extends Controller
         }
         //create or get institute id
         $institute=Institute::firstOrCreate([
-            'name'=>$input['institute'],
+            'name'=>$input['institute']['name'],
         ],[
             'added_by_user_id'=>$user->id
         ]);
@@ -79,7 +79,7 @@ class StudentController extends Controller
         DB::rollback();
         // dd($e->getMessage());
         \Log::critical('Student Registeration failure: for user id#'.$user->id.' with data '.implode(', ',Arr::flatten($input)));
-        // dd($e->getMessage(),$e->getLine());
+        dd($e->getMessage(),$e->getLine());
         return response()->$e;
     }        
         $success['redirectUrl'] = '/';
