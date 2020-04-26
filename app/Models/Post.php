@@ -52,13 +52,13 @@ class Post extends Model
         return $this->hasMany('App\Models\View')->count();
     }
     public function getTotalLikesAttribute(){
-        return $this->like->where('like',1)->count();
+        return $this->like->where('like_status',1)->count();
     }
     public function getTotalDislikesAttribute(){
-        return $this->like->where('like',0)->count();
+        return $this->like->where('like_status',0)->count();
     }
     public function like(){
-        return $this->hasMany('App\Models\Like');
+        return $this->morphMany('App\Models\Like', 'likable');
     }
     public function scopeGetGuestPostContent(){
         

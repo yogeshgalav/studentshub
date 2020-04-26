@@ -141,10 +141,10 @@ class Post extends PostModel
             $rand=rand(60,100);
             $postData=DB::table('posts as po')->where('po.id',$post->id)
             ->leftJoin('likes as li',function($join){
-                $join->on('po.id','=','li.post_id')->where('li.like','=',1);
+                $join->on('po.id','=','li.likable_id')->where('li.likable_type','=','App\Models\Post')->where('li.like_status','=',1);
             })
             ->leftJoin('likes as dli',function($join){
-                $join->on('po.id','=','dli.post_id')->where('dli.like','=',0);
+                $join->on('po.id','=','dli.likable_id')->where('dli.likable_type','=','App\Models\Post')->where('dli.like_status','=',0);
             })
             ->leftJoin('views as vw','po.id','=','vw.post_id')
             ->select(DB::raw('COUNT(distinct li.user_id) as total_likes'),DB::raw('COUNT(distinct dli.user_id) as total_dislikes'),DB::raw('COUNT(distinct vw.user_id) as total_views'))

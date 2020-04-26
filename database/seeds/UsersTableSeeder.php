@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Laravel\Passport\ClientRepository;
 
 class UsersTableSeeder extends Seeder
 {
@@ -11,6 +12,12 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
+        // Create Password Grant Client
+        $clientRepository = new ClientRepository();
+        $this->client = $clientRepository->createPasswordGrantClient(
+            null, 'sthub', '/'
+        );
+
         $sql = "INSERT INTO `users` (`id`, `full_name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES    
 (1, 'Yogesh  Galav',  'yogesh@gmail.com', '$2y$10\$xZQrSvgNjXC23GpIU5WD.e2ZlMhTGn4JbpL6N6xXcZ9XW3sI9mKPO', 'AlIXWxYOU5t7k50MAbYQO1sHDuUZVeEgAIHz3xddL7FkRVrB2KNO0Vmw02tK', '2018-03-26 21:45:18', '2018-03-26 21:45:18'),
 (2, 'Prateek Sharma',  '2014pcemeprateek@poornima.org', '$2y$10\$bU6Zjs5uIOAKhRQ3nn5CTOxOJQOVOCEm./MAiJeS6DrGwtIrGgqgS', NULL, '2018-03-26 21:45:18', '2018-03-26 21:45:18'),
