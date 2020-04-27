@@ -1,20 +1,29 @@
 const state = {
     new_post:{
       post_type:'article',
-      postContent:{},
-      post_heading:'',
-      selected_subject_id:'',
-      selected_subject:{
-        'id':null,
-        'subject_name':'',
+      selected_subject:{},
+      heading:'',
+      articleContent:{
+        htmlContent:''
       },
-      selected_primary_subject_id:'',
-      subject_list:[],
-      primary_subject_list:[],
+      noticeContent:{
+        htmlContent:''
+      },
+      documentContent:{
+        files:'',
+        description:''
+      },
+      factContent:{
+        image:'',
+        description:''
+      },
+      videoContent:{
+        link:'',
+        description:''
+      },
     },
     categories: [],
     AuthUserCategory: 0,
     subjects: [],
-    files: [],
   }
   export default state;

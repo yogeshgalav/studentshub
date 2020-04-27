@@ -65,7 +65,7 @@ export default {
     },
     methods:{
         editSubject(event){
-            this.$store.dispatch('createPost',{field:'post_subject',subject_name:event.target.value});
+            this.$store.commit('set_post_subject', event.target.value);
         },
         getSubject(subject_id){
             this.$store.dispatch('getSubjectList',{subject_id:subject_id});

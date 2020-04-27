@@ -5,10 +5,9 @@
                 <div class="form-group">
                    <div class="text-center"> <p class="title weight-600 font-size-16 text-black">Select Post Type</p></div>
                     <label class="weight-500">Choose type</label>
-                    <select class="form-control custom-select" @input="selectPostType($event)">
+                    <select class="form-control custom-select" v-model="selected_type">
                         <option v-for="type in postTypes" :key="type">
                              {{type}}
-                            
                         </option>
                     </select>
                 </div>
@@ -36,12 +35,14 @@ export default {
                 'Link',
                 'MCQ',
                 ],
+                selected_type:'Article',
         }
     },
     mounted(){
         EventBus.$on('validateStep1',()=>{
 			// this.$validator.validate().then(valid => {
 			// 	if(valid){
+                    this.$store.commit('set_post_type', {'post_type':this.selected_type});
 					EventBus.$emit('validateWizard',1,true);
 				// }else{
 				// 	EventBus.$emit('validateWizard',1,false);
@@ -49,10 +50,5 @@ export default {
 			// });
 		});
     },
-    methods:{
-        selectPostType(event){
-           this.$store.dispatch('createPost',{field:'post_type',post_type:event.target.value});
-        }
-    }
 }
 </script>

@@ -34,7 +34,27 @@
     </div>
 </template>
 <script>
+
+import { mapState } from 'vuex'
+import EventBus from '../../event-bus';
+
 export default {
-    
+  data(){
+    return {
+      image:''
+    };
+  },
+  mounted(){
+	  EventBus.$on('validateStep2', () => {
+      const data = {image:this.image}
+			this.$store.commit('set_post_document_content', data);
+		  EventBus.$emit('validateWizard',2,true);
+	  })
+  },
+  methods: {
+    inputUpdate(files) {
+      this.image=files[0];
+    },
+  }
 }
 </script>

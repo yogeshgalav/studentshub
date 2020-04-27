@@ -18,18 +18,7 @@
             <mcq/>
 </div>
         <div v-if="postType==='video'">
-            <div class="row">
-                <div class="col-md-8">
-                    <label for="videoLink">Youtube Video Link</label>
-
-                    <input type="text" id="videoLink" v-model="video_link" @blur="addVideo">
-                    
-                </div>
-                <div class="col-md-8 mt-2">
-                    <label for="videoDescription">A little Description</label>
-                    <textarea id="videoDescription" v-model="video_description" @blur="addVideo" />
-                </div>
-            </div>
+            <net-video />
         </div>
     </main>
 </template>
@@ -41,19 +30,18 @@ import { ImageDrop } from 'quill-image-drop-module';
 Quill.register("modules/imageDrop", ImageDrop);
 Quill.register("modules/imageResize", ImageResize);
 import Document from './post-type/document';
-import Fact from './post-type/fact';
-import MCQ from './post-type/mcq';
+import Fact from './post-type/fact.vue';
+import NetVideo from './post-type/video.vue';
+import Mcq from './post-type/mcq.vue';
 import EventBus from '../event-bus';
 export default {
     components:{
-        VueEditor,Document,Fact,MCQ
+        VueEditor,Document,Fact,Mcq,NetVideo
     },
     data(){
         return{
             content:'',
             files:[],
-            video_link:'',
-            video_description:'',
             editorSettings: {
             modules: {
                 imageDrop: true,
@@ -82,13 +70,6 @@ export default {
         editContent(){
             this.$store.dispatch('createPost',{field:'postContent',postContent:{content:this.content}});
         },
-        addVideo(){
-            let data={};
-            data.link=this.video_link;
-            data.description=this.video_description;
-            data.field='postContent';
-            this.$store.dispatch('createPost',data);
-        }
     }
 }
 </script>
