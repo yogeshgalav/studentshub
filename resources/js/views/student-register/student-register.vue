@@ -53,30 +53,30 @@
                     <span class="error">{{errors.first('institute_name')}}</span>
                   </div>
                 </div>
-                <div class="col-md-2 col-sm-4 col-xs-12" v-if="selected_course.course_name!==''">
+                <div class="col-md-2 col-sm-4 col-xs-12" v-if="selected_course.id!==null">
               <div class="form-group institutesDropdown_slider">
                 <label for="sel1" class="white_text">Category of selected Course:</label>
                 <select class="form-control" name="course_type" 
-                  v-model="selected_course['category']"
-                  :disabled="selected_course.id!==0">
-                    <option >Architecture</option>
-                    <option >Arts</option>
-                    <option >Commerce</option>
-                    <option >Dental</option>
-                    <option >Design</option>
-                    <option >Engineering</option>
-                    <option >Humanities</option>
-                    <option >Law</option>
-                    <option >Management</option>
-                    <option >Medical</option>
-                    <option >Optometry</option>
-                    <option >Pharmacy</option>
-                    <option >Science</option>
+                  v-model="selected_course.category_id"
+                  :disabled="selected_course.category_id!==0">
+                    <option value="1">Technology</option>
+                    <option value="2">Management</option>
+                    <option value="3">Healthcare</option>
+                    <option value="4">Arts</option>
+                    <option value="5">Science</option>
+                    <option value="6">Economics</option>
+                    <option value="7">Education</option>
+                    <option value="8">Pharmacy</option>
+                    <option value="9">Journalism</option>
+                    <option value="10">Humanity</option>
+                    <option value="11">Hospitality</option>
+                    <option value="12">Fashion</option>
+                    <option value="13">Computer</option>
                 </select>
             </div>
         </div>
   
-                <div class="form-group" v-if="selected_course.id==0">
+                <div class="form-group" v-if="selected_course.id===0">
                     <label> {{ trans('Branch Name') }} </label>
                   <div class="inner-addon left-addon">
                     <i class="fa fa-user"></i>
@@ -170,9 +170,9 @@
             </div>
             </div> -->
             <div class="row">
-            <div class="col-md-5">
-              <input type="text" v-model="college_id">
-              <label>Unique College Id/Registation no.</label>
+            <div class="col-md-8 form-group">
+              <label for="college_id">Unique College Id/Registation no.</label>
+              <input type="text" v-model="college_id" id="college_id">
             </div>
             </div>
                 <div class="form-group mb-0">
@@ -252,8 +252,8 @@ export default {
       institute_list:[],
       instituteLoading:false,
       branch_name:'',
-      selected_course:'',
-      selected_institute:'',
+      selected_course:{'id':null,'course_name':'','category_id':0},
+      selected_institute:{'id':null,'name':name},
       end_year:'',
       start_year:'',
       is_prefferred:true,
@@ -294,7 +294,7 @@ export default {
       this.selected_course=result;
     },
     setNewCourse(name){
-      this.selected_course={'id':0,'course_name':name};
+      this.selected_course={'id':0,'course_name':name,'category_id':0};
     },
     getInstitutes(search){
       this.selected_institute={'id':0,'name':search};

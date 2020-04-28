@@ -49,6 +49,9 @@ class AuthController extends Controller
             }
 
             $user=User::where('email',$request->email)->first();
+            $user->last_login_at=\Carbon\Carbon::now()->toDateTimeString();
+            $user->save();
+            
             Auth::login($user, $request->remember);
             //log info
             Log::info($user->full_name." (User ID # ".$user->id.") logged in from IP Address ".$request->ip());

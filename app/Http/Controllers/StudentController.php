@@ -55,17 +55,18 @@ class StudentController extends Controller
             'start_year'=>$input['start_year'],
         ]);
 
-        $student=Student::firstOrCreate([
+        $student=Student::updateOrCreate([
             'user_id'=>Auth::user()->id
         ],[
             'prefferred_batch'=>$batch->id,
             'prefferred_category'=>$course->category_id,
-            'unique_college_id'=>$request->college_id,
+            'unique_college_id'=>$request->college_id ?? null,
         ]);
         
-        BatchStudent::create([
+        BatchStudent::updateOrCreate([
             'batch_id'=>$batch->id,
             'student_id'=>$student->id,
+        ],[
             'is_preffered'=>true,
         ]);
 
@@ -88,10 +89,9 @@ class StudentController extends Controller
 
     public function courseList(Request $request){
         $courses=DB::table('courses as cor')->where('cor.course_name','LIKE','%'.$request->searchTerm.'%')
-        ->leftJoin('categories as cat','cat.id','=','cor.category_id')
         ->leftJoin('batches as bat','cor.id','=','bat.course_id')
-        ->select('cor.id','cor.course_name','cat.name as category',DB::raw("COUNT('bat.id') as totalBatch"))
-        ->groupBy('cor.id','cor.course_name','cat.name')
+        ->select('cor.id','cor.course_name','cor.category_id',DB::raw("COUNT('bat.id') as totalBatch"))
+        ->groupBy('cor.id','cor.course_name','cor.category_id')
         ->orderBy('totalBatch','DESC')->limit(10)->get();
 
         if(count($courses)==0 && empty($request->recursive)){
