@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Guest;
+use App\Models\Subscriber;
 use App\Mails\SubscriptionFirstMail;
 use Mail;
 use DB;
@@ -18,9 +19,10 @@ class GuestController extends Controller
         DB::beginTransaction();
     try{
         $guest=Guest::where('ip',$request->ip())->first();
-        $guest->email=$email;
-        $guest->is_subscribed=true;
-        $guest->save();
+        $subcriber=new Subscriber;
+        $subcriber->email=$email;
+        $subcriber->guest_id=$guest_id;
+        $subcriber->save();
 
         Mail::to($email)->send(new SubscriptionFirstMail());
         DB::commit();

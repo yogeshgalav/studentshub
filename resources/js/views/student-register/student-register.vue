@@ -57,9 +57,9 @@
               <div class="form-group institutesDropdown_slider">
                 <label for="sel1" class="white_text">Category of selected Course:</label>
                 <select class="form-control" name="course_type" 
-                  v-model="selected_course.category_id"
+                  :value="selected_course.category_id"
                   :disabled="selected_course.category_id!==0">
-                    <option value="1">Technology</option>
+                    <option value="1" :selected="selected_course.category_id===1">Technology</option>
                     <option value="2">Management</option>
                     <option value="3">Healthcare</option>
                     <option value="4">Arts</option>
