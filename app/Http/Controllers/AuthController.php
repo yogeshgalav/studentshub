@@ -57,6 +57,7 @@ class AuthController extends Controller
             Log::info($user->full_name." (User ID # ".$user->id.") logged in from IP Address ".$request->ip());
 
             $success['redirectUrl'] = '/';
+            $success['full_name'] = $user->full_name;
             $success['access_token'] = $content->access_token;
             $success['refresh_token'] = $content->refresh_token;
             
