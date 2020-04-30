@@ -57,9 +57,9 @@
               <div class="form-group institutesDropdown_slider">
                 <label for="sel1" class="white_text">Category of selected Course:</label>
                 <select class="form-control" name="course_type" 
-                  :value="selected_course.category_id"
+                  v-model="selected_category_id"
                   :disabled="selected_course.category_id!==0">
-                    <option value="1" :selected="selected_course.category_id===1">Technology</option>
+                    <option value="1">Technology</option>
                     <option value="2">Management</option>
                     <option value="3">Healthcare</option>
                     <option value="4">Arts</option>
@@ -266,6 +266,12 @@ export default {
         }
       }
     };
+  },
+  computed:{
+    selected_category_id:{
+      get(){ return this.selected_course.category_id + ''},
+      set(v){ this.selected_course.category_id = parseInt(v); }
+    }
   },
   methods: {
     trans: function(string, defaultString) {

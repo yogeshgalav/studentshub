@@ -46,6 +46,17 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if($request->expectsJson()){
+            if($exception instanceof ValidationException){
+                return response()->json(['error'=>[
+                    'message'=>'Validation Error',
+                    'errors'=>$exception->validator->errors()
+                ]],422);
+            }
+            if ($exception instanceof ModelNotFoundException) {
+                return response()->json(['error'=>['message'=>'Resouce not found']], 404);
+            }
+        }
         return parent::render($request, $exception);
     }
 }
