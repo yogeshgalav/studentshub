@@ -227,15 +227,14 @@ class AuthController extends Controller
     }
 
     public function logout(){
-        $access_token=Auth::user()->token();
+        
+        $access_token=DB::table('oauth_access_tokens')
+        ->where('user_id',Auth::user()->id)
+        ->update(['revoked'=>true]);
 
-        if($access_token){
-            $refreshToken=DB::table('oauth_refresh_tokens')
-            ->where('access_token_id',$access_token->id)
-            ->update(['revoked'=>true]);
-
-            $access_token->revoke();
-        }
+        $refreshToken=DB::table('oauth_refresh_tokens')
+        ->where('access_token_id',$access_token->id)
+        ->update(['revoked'=>true]);
 
         Auth::logout();
         return redirect('/');

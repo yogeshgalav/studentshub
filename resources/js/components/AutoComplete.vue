@@ -39,7 +39,7 @@
 		<li
 		v-if="results.length===0"
 		class="autocomplete-result"
-		@click="$emit('selectNew', search)"
+		@click="createNew"
         >
           {{ trans('Create New') }}
         </li>
@@ -148,6 +148,10 @@ export default {
 		setResult(result) {
 			this.$emit('selected', result);
 			this.search = result[this.value];
+			this.isOpen = false;
+		},
+		createNew() {
+			this.$emit('selectNew', this.search);
 			this.isOpen = false;
 		},
 		onArrowDown() {

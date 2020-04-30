@@ -53,12 +53,13 @@
                     <span class="error">{{errors.first('institute_name')}}</span>
                   </div>
                 </div>
-                <div class="col-md-2 col-sm-4 col-xs-12" v-if="selected_course.id!==null">
-              <div class="form-group institutesDropdown_slider">
-                <label for="sel1" class="white_text">Category of selected Course:</label>
-                <select class="form-control" name="course_type" 
-                  v-model="selected_category_id"
-                  :disabled="selected_course.category_id!==0">
+                <div class="col-md-2 col-sm-4 col-xs-12">
+              <div class="form-group">
+                <label for="category" >Category of selected Course:</label>
+                <select name="category" id="category" 
+                  v-model="selected_course.category_id"
+                  :disabled="categoryDisabled">
+                    <option value="">Select Category</option>
                     <option value="1">Technology</option>
                     <option value="2">Management</option>
                     <option value="3">Healthcare</option>
@@ -249,10 +250,11 @@ export default {
       showLoader:false,
       course_list:[],
       courseLoading:false,
+      categoryDisabled:true,
       institute_list:[],
       instituteLoading:false,
       branch_name:'',
-      selected_course:{'id':null,'course_name':'','category_id':0},
+      selected_course:{'id':null,'course_name':'','category_id':''},
       selected_institute:{'id':null,'name':name},
       end_year:'',
       start_year:'',
@@ -266,12 +268,6 @@ export default {
         }
       }
     };
-  },
-  computed:{
-    selected_category_id:{
-      get(){ return this.selected_course.category_id + ''},
-      set(v){ this.selected_course.category_id = parseInt(v); }
-    }
   },
   methods: {
     trans: function(string, defaultString) {
@@ -301,6 +297,7 @@ export default {
     },
     setNewCourse(name){
       this.selected_course={'id':0,'course_name':name,'category_id':0};
+      this.categoryDisabled=false;
     },
     getInstitutes(search){
       this.selected_institute={'id':0,'name':search};
