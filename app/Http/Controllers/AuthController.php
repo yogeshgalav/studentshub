@@ -227,7 +227,8 @@ class AuthController extends Controller
     }
 
     public function logout(){
-        
+        try{
+            
         $access_token=DB::table('oauth_access_tokens')
         ->where('user_id',Auth::user()->id)
         ->update(['revoked'=>true]);
@@ -236,6 +237,9 @@ class AuthController extends Controller
         ->where('access_token_id',$access_token->id)
         ->update(['revoked'=>true]);
 
+        }catch(\Exception $e){
+
+        }
         Auth::logout();
         return redirect('/');
     }

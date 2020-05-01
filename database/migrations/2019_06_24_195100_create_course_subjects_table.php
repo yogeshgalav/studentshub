@@ -17,6 +17,7 @@ class CreateCourseSubjectsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('course_id')->unsigned();
             $table->integer('subject_id')->unsigned();
+            $table->boolean('is_verfied')->default(false);
             $table->timestamps();
         });
     }

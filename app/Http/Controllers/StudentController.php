@@ -117,22 +117,23 @@ class StudentController extends Controller
         $institutes=DB::table('institutes as ins')->where('ins.name','LIKE',$input.'%')
         ->leftJoin('batches as bat','ins.id','=','bat.institute_id')
         ->select('ins.id','ins.name',DB::raw("COUNT('bat.id') as totalBatch"))
-        ->groupBy('ins.id','ins.name')
+        ->groupBy('ins.id','ins.name','ins.address','ins.place_id','ins.description')
         ->orderBy('totalBatch','DESC')->limit(10)->get();
         
         if(count($institutes)==0){
             $institutes=[];
             $api_key=config('keys.google_place_api');
             $googlePlaces = new PlacesApi($api_key);
-            $response = $googlePlaces->placeAutocomplete($input,['types'=>'establishment']);
-
-            foreach($response->items->predictions as $value){
-                if($value->structured_formatting){
-                    $institutes[]=[
-                        'name'=>$value->structured_formatting->main_text,
-                        'address'=>$value->structured_formatting->secondary_text
-                    ];
-                }
+            $response = $googlePlaces->placeAutocomplete($input,['types'=>'establishment'])->toArray();
+            
+            foreach($response['predictions'] as $value){
+                $institutes[]=[
+                    'id'=>0,
+                    'name'=>$value['structured_formatting']['main_text'],
+                    'address'=>$value['structured_formatting']['secondary_text'],
+                    'place_id'=>$value['place_id'],
+                    'description'=>$value['description']
+                ];
             }
         }
         
