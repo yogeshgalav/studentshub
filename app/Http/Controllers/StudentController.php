@@ -29,24 +29,21 @@ class StudentController extends Controller
     DB::beginTransaction();
     try{
         //create or get course id
-        if($input['course']['id']){
-            $course=Course::findOrFail($input['course']['id']);
+        if($input['course_id']){
+            $course=Course::findOrFail($input['course_id']);
         }else{
-            //if new course insert course_type and course_level
-            $category=Category::where('name',$input['course']['category'])->first();
             $course=Course::create([
-                'course_name'=>$input['course']['course_name'],
-                'category_id'=>$category->id,
-                'course_level'=>$input['course']['course_level'],
+                'course_name'=>$input['course_name'],
+                'category_id'=>$input['category_id'],
             ]);
         }
         //create or get institute id
         $institute=Institute::firstOrCreate([
-            'place_id'=>$input['institute']['place_id'],
+            'place_id'=>$input['institute_place_id'],
         ],[
-            'name'=>$input['institute']['name'],
-            'address'=>$input['institute']['address'],
-            'description'=>$input['institute']['description'],
+            'name'=>$input['institute_name'],
+            'address'=>$input['institute_address'],
+            'description'=>$input['institute_description'],
             'added_by_user_id'=>$user->id
         ]);
         

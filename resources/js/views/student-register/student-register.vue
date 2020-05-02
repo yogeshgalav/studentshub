@@ -320,8 +320,13 @@ export default {
     },
     register(){
     axios.post('/api/checkin',{
-        course:this.selected_course,
-        institute:this.selected_institute,
+        course_id:this.selected_course.id,
+        course_name:this.selected_course.course_name,
+        category_id:this.selected_course.category_id,
+        institute_name:this.selected_institute.name,
+        institute_place_id:this.selected_institute.place_id,
+        institute_address:this.selected_institute.address,
+        institute_description:this.selected_institute.description,
         is_prefferred:this.is_prefferred,
         college_id:this.college_id,
         start_year:this.start_year,
