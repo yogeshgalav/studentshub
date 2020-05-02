@@ -11,6 +11,4 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::get('/get-doubts','DoubtController@getDoubts');
     Route::post('/doubt/{doubtId}/add-answer','DoubtAnswersController@addDoubtAnswer');
     Route::get('/doubt/{doubtId}/get-answers','DoubtAnswersController@getDoubtAnswers');
-    
-    
 });

@@ -12,9 +12,8 @@ class InstitutesTableSeeder extends Seeder
     public function run()
     {
         //
-        $sql="INSERT INTO `institutes` (`id`, `name`, `added_by_user_id`) VALUES
-        (1, 'Poornima College of Engineering',1);";
-
+        $sql="INSERT INTO `institutes` (`id`, `name`,`address`,`place_id`,`description`,`added_by_user_id`) VALUES
+        (1, 'Poornima College of Engineering','ISI-6, RIICO Institutional Area, Sitapura, Jaipur, Rajasthan, India','ChIJ____j38cbDkRjbsnsfWl5X4','Poornima College of Engineering, ISI-6, RIICO Institutional Area, Sitapura, Jaipur, Rajasthan, India',1);";
         DB::unprepared($sql);
     }
 }

@@ -42,8 +42,11 @@ class StudentController extends Controller
         }
         //create or get institute id
         $institute=Institute::firstOrCreate([
-            'name'=>$input['institute']['name'],
+            'place_id'=>$input['institute']['place_id'],
         ],[
+            'name'=>$input['institute']['name'],
+            'address'=>$input['institute']['address'],
+            'description'=>$input['institute']['description'],
             'added_by_user_id'=>$user->id
         ]);
         
@@ -81,7 +84,6 @@ class StudentController extends Controller
         DB::rollback();
         // dd($e->getMessage());
         \Log::critical('Student Registeration failure: for user id#'.$user->id.' with data '.implode(', ',Arr::flatten($input)));
-        dd($e->getMessage(),$e->getLine());
         return response()->$e;
     }        
         $success['redirectUrl'] = '/';
@@ -116,7 +118,7 @@ class StudentController extends Controller
     try{
         $institutes=DB::table('institutes as ins')->where('ins.name','LIKE',$input.'%')
         ->leftJoin('batches as bat','ins.id','=','bat.institute_id')
-        ->select('ins.id','ins.name',DB::raw("COUNT('bat.id') as totalBatch"))
+        ->select('ins.id','ins.name','ins.address','ins.place_id','ins.description',DB::raw("COUNT('bat.id') as totalBatch"))
         ->groupBy('ins.id','ins.name','ins.address','ins.place_id','ins.description')
         ->orderBy('totalBatch','DESC')->limit(10)->get();
         
@@ -127,6 +129,9 @@ class StudentController extends Controller
             $response = $googlePlaces->placeAutocomplete($input,['types'=>'establishment'])->toArray();
             
             foreach($response['predictions'] as $value){
+                if(!in_array('university',$value['types'])){
+                    continue;
+                }
                 $institutes[]=[
                     'id'=>0,
                     'name'=>$value['structured_formatting']['main_text'],
@@ -137,7 +142,7 @@ class StudentController extends Controller
             }
         }
         
-    }catch(\Exception $e){
+    }catch(\Exception $e){dd($e);
         return response()->json(['success'=>[
             'institutes'=>[]
         ]]);

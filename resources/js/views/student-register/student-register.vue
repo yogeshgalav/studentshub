@@ -50,6 +50,7 @@
                     @selectNew="setNewCourse"
                     :is-loading="courseLoading"
                     />
+                    <span v-if="selected_course.id===0">Please enter your full course name appended by branch name if any.Please make the course you entered is correct.</span>
                     <span class="error">{{errors.first('institute_name')}}</span>
                   </div>
                 </div>
@@ -76,24 +77,6 @@
                 </select>
             </div>
         </div>
-  
-                <div class="form-group" v-if="selected_course.id===0">
-                    <label> {{ trans('Branch Name') }} </label>
-                  <div class="inner-addon left-addon">
-                    <i class="fa fa-user"></i>
-                    <input
-                      id="branch_name"
-                      type="text"
-                      class="form-control"
-                      name="branch_name"
-                      placeholder="Enter Branch Name"
-                      autofocus
-                      v-validate="'required'"
-                      v-model="branch_name"
-                    />
-                    <span class="error">{{errors.first('branch_name')}}</span>
-                  </div>
-                </div>
 
               <div class="row">
             <div class="col-md-5">
@@ -253,9 +236,8 @@ export default {
       categoryDisabled:true,
       institute_list:[],
       instituteLoading:false,
-      branch_name:'',
       selected_course:{'id':null,'course_name':'','category_id':''},
-      selected_institute:{'id':null,'name':name},
+      selected_institute:{'id':null,'name':name,'place_id':'','address':'','description':''},
       end_year:'',
       start_year:'',
       is_prefferred:true,
