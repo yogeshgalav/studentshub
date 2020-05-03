@@ -7,7 +7,7 @@ use App\Mail\ResetPasswordMail;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
+use App\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Passport\Passport;
@@ -57,6 +57,7 @@ class AuthController extends Controller
             Log::info($user->full_name." (User ID # ".$user->id.") logged in from IP Address ".$request->ip());
 
             $success['redirectUrl'] = '/';
+            $success['student'] = Auth::student();
             $success['full_name'] = $user->full_name;
             $success['access_token'] = $content->access_token;
             $success['refresh_token'] = $content->refresh_token;
