@@ -29,12 +29,13 @@
                     :items="institute_list"
                     :value="'name'"
                     :is-async="true"
+                    :create-new-item="false"
                     @input="getInstitutes"
                     @selected="setInstitute"
-                    @selectNew="setNewInstitute"
                     :is-loading="instituteLoading"
                     />
-                    <span></span>
+                    <span v-if="selected_institute.totalBatch">{{selected_institute.totalBatch }} batch found.</span>
+                    <span v-if="selected_institute.id===0">{{selected_institute.description}}</span>
                     <span class="error">{{errors.first('institute_name')}}</span>
                   </div>
                 </div>
@@ -51,6 +52,7 @@
                     @selectNew="setNewCourse"
                     :is-loading="courseLoading"
                     />
+                    <span v-if="selected_course.totalBatch">{{selected_course.totalBatch }} batch found.</span>
                     <span v-if="selected_course.id===0">Please enter your full course name followed by branch name(if any).Please make sure that course details you are entering is correct.</span>
                     <span class="error">{{errors.first('institute_name')}}</span>
                   </div>
@@ -291,9 +293,9 @@ export default {
 						this.institute_list = resp.data.success.institutes;
 						this.institute_list.find(node => {
 							if (node.name.toLowerCase() === this.selected_institute.name.toLowerCase()) {
-								this.institute_id = node.id;
-								return true;
-							}
+                this.selected_institute = node;
+                return true;
+              }
             });
             this.instituteLoading=false;
 					}).catch(()=>{
@@ -304,10 +306,6 @@ export default {
     setInstitute(result){
       this.selected_institute=result;
     },
-    setNewInstitute(name){
-      this.selected_institute={'id':0,'name':name};
-    },
-    	
     handleSubmit(e) {
       this.$validator.localize("en", this.dict);
       this.$validator.validate().then(valid => {

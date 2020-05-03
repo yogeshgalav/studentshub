@@ -37,7 +37,7 @@
           </slot>
         </li>
 		<li
-		v-if="results.length===0"
+		v-if="results.length===0 && createNewItem===true"
 		class="autocomplete-result"
 		@click="createNew"
         >
@@ -100,6 +100,11 @@ export default {
 			required: false,
 			default: false,
 		},
+		createNewItem: {
+			type: Boolean,
+			required: false,
+			default: true,
+		},
 	},
 
 	data() {
@@ -111,18 +116,6 @@ export default {
 			arrowCounter: 0,
 			initialLength: 0
 		};
-	},
-	watch: {
-		items: function (val, oldValue) {
-			this.results = val;
-			this.initialLength = val.length;
-			this.isOpen = true;
-		},
-		search(val){
-			this.results = this.items.filter((item) => {
-				return item[this.value].toLowerCase().indexOf(val.toLowerCase()) > -1;
-			});
-		}
 	},
 	mounted() {
 		document.addEventListener('click', this.handleClickOutside);
@@ -139,6 +132,15 @@ export default {
 			if(this.search.length<4){
 				return false;
 			}
+
+			this.results = this.items.filter((item) => {
+				return item[this.value].toLowerCase().indexOf(this.search.toLowerCase()) > -1;
+			});
+
+			if(this.results.length){
+				this.isOpen=true;
+			}
+			this.initialLength = this.items.length=== 0 ? 1 : this.items.length;
 			if(this.results.length>Math.floor(this.initialLength/2)){
 				return true;
 			}
@@ -151,6 +153,9 @@ export default {
 			this.isOpen = false;
 		},
 		createNew() {
+			if(this.createNewItem===false){
+				return false;
+			}
 			this.$emit('selectNew', this.search);
 			this.isOpen = false;
 		},
@@ -170,7 +175,11 @@ export default {
 			this.arrowCounter = -1;
 		},
 		handleClickOutside(evt) {
+			if(this.createNewItem===false || this.isOpen === false){
+				return false;
+			}
 			if (!this.$el.contains(evt.target)) {
+				this.$emit('selectNew', this.search);
 				this.isOpen = false;
 				this.arrowCounter = -1;
 			}
