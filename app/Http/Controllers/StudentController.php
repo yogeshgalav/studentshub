@@ -25,14 +25,17 @@ class StudentController extends Controller
     {
         $input = $request->all();
         $user=Auth::user();
-        
+        $input['course_id']=intval($input['course_id']);
+        $input['category_id']=intval($input['category_id']);
+
     DB::beginTransaction();
     try{
         //create or get course id
         if($input['course_id']==0){
+            $category=Category::findOrFail($input['category_id']);
             $course=Course::create([
                 'course_name'=>$input['course_name'],
-                'category_id'=>$input['category_id'],
+                'category_id'=>$category->id,
             ]);
         }else{
             $course=Course::findOrFail($input['course_id']);

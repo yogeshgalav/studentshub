@@ -26,7 +26,7 @@ class CheckinRequest extends FormRequest
         return [
             'course_id'=>'required',
             'course_name'=>'required',
-            'category_id'=>'required|exists:categories,id',
+            'category_id'=>'required',
             'institute_place_id'=>'required',
             'institute_name'=>'required',
             'institute_address'=>'required',
