@@ -34,6 +34,7 @@
                     @selectNew="setNewInstitute"
                     :is-loading="instituteLoading"
                     />
+                    <span></span>
                     <span class="error">{{errors.first('institute_name')}}</span>
                   </div>
                 </div>
@@ -50,7 +51,7 @@
                     @selectNew="setNewCourse"
                     :is-loading="courseLoading"
                     />
-                    <span v-if="selected_course.id===0">Please enter your full course name appended by branch name if any.Please make the course you entered is correct.</span>
+                    <span v-if="selected_course.id===0">Please enter your full course name followed by branch name(if any).Please make sure that course details you are entering is correct.</span>
                     <span class="error">{{errors.first('institute_name')}}</span>
                   </div>
                 </div>
@@ -256,7 +257,7 @@ export default {
       return this.$trans("auth", string, defaultString);
     },
     getCourses(search){
-      this.selected_course={'id':0,'course_name':search};
+      this.selected_course={'id':null,'course_name':search,'category_id':''};
       this.courseLoading=true;
 				this.axios
 					.post(this.baseUrl + '/api/search-course', {searchTerm: search})
@@ -282,7 +283,7 @@ export default {
       this.categoryDisabled=false;
     },
     getInstitutes(search){
-      this.selected_institute={'id':0,'name':search};
+      this.selected_institute={'id':null,'name':search,'place_id':'','address':'','description':''};
       this.instituteLoading=true;
 				this.axios
 					.post(this.baseUrl + '/api/search-institute', {searchTerm: search})

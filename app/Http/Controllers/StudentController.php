@@ -29,13 +29,13 @@ class StudentController extends Controller
     DB::beginTransaction();
     try{
         //create or get course id
-        if($input['course_id']){
-            $course=Course::findOrFail($input['course_id']);
-        }else{
+        if($input['course_id']==0){
             $course=Course::create([
                 'course_name'=>$input['course_name'],
                 'category_id'=>$input['category_id'],
             ]);
+        }else{
+            $course=Course::findOrFail($input['course_id']);
         }
         //create or get institute id
         $institute=Institute::firstOrCreate([
