@@ -7,7 +7,6 @@
 @include('includes.meta')
 @include('includes.title')
 @yield('compiledJs')
-<link href="{{ asset('css/app.css') }}" type="text/css" rel="stylesheet">
 <script src="/js/lang.js"></script>
 <link rel="shortcut icon" type="image/x-icon" href="{{asset('favicon.ico')}}" />
 <style>
