@@ -4,6 +4,7 @@ namespace App;
 
 use App\Models\Post as PostModel;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Auth;
 use DB;
 
@@ -85,7 +86,7 @@ class Post extends PostModel
         // ->leftJoin('facts as fa','po.id','=','fa.post_id')
         // ->leftJoin('mcqs as mc','po.id','=','mc.post_id')
         ->select(['po.id as id','po.post_heading as heading','po.postable_type as postable_type','cat.name as category_name','sub.Subject_name as subject_name','po.primary_image_path as image_path',
-        'us.avatar_url as profile_image','us.full_name as user_name','inst.name as institute_name','ar.content as article_content','vd.content as video_content',
+        'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','inst.name as institute_name','ar.content as article_content','vd.content as video_content',
         'vd.link as video_link']);
     }
 
@@ -116,7 +117,7 @@ class Post extends PostModel
         ->leftJoin('users as us','us.id','=','po.user_id')
         // ->leftJoin('facts as fa','po.id','=','fa.post_id')
         ->select(['po.id as id','po.post_heading as heading','po.postable_type as postable_type','cat.name as category_name','sub.Subject_name as subject_name','po.primary_image_path as image_path',
-        'us.avatar_url as profile_image','us.full_name as user_name','ar.content as article_content','vd.content as video_content',
+        'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','ar.content as article_content','vd.content as video_content',
         'vd.link as video_link']);
     }
 
@@ -154,13 +155,13 @@ class Post extends PostModel
             $post->post_type=$this->getPostType($post->postable_type);
             switch($post->post_type){
                 case 'article':
-                    if(!isset($post->article_content)){
+                    if(empty($post->article_content)){
                         continue 2;
                     }
                     $post->content=substr($post->article_content,0,$rand).'...';        
                 break;
                 case 'video':
-                    if(!isset($post->article_content)){
+                    if(empty($post->video_content)){
                         continue 2;
                     }
                     $post->content=substr($post->video_content,0,$rand).'...';        
@@ -168,7 +169,9 @@ class Post extends PostModel
             }
 
             $post->total_likes=$postData->total_likes;
+            $post->total_dislikes=$postData->total_dislikes;
             $post->total_views=$postData->total_views;
+            $post->time=Carbon::createFromTimeStamp(strtotime($post->time))->diffForHumans();
         }
 
         return $posts;
