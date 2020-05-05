@@ -16,8 +16,8 @@ mix.js('resources/js/app/guest/app.js', 'public/js/app.js')
 .js('resources/js/app/student/app.js', 'public/js/studentApp.js')
 .js('resources/js/app/create-post/app.js', 'public/js/createPostApp.js')
 .js('resources/js/app/student-register/app.js', 'public/js/studentRegisterApp.js')
-    .sass('resources/sass1/guest.scss', 'public/css/guest.css') 
-    .sass('resources/sass1/seeker.scss', 'public/css/seekerApp.css') 
-    .sass('resources/sass1/student.scss', 'public/css/studentApp.css') 
-    .sass('resources/sass1/create-post.scss', 'public/css/createPostApp.css') 
-    .sass('resources/sass1/student-register.scss', 'public/css/studentRegisterApp.css') ;
+    .sass('resources/sass/guest.scss', 'public/css/guest.css') 
+    .sass('resources/sass/seeker.scss', 'public/css/seekerApp.css') 
+    .sass('resources/sass/student.scss', 'public/css/studentApp.css') 
+    .sass('resources/sass/create-post.scss', 'public/css/createPostApp.css') 
+    .sass('resources/sass/student-register.scss', 'public/css/studentRegisterApp.css') ;
