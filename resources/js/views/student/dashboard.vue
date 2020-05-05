@@ -72,7 +72,7 @@
 </style>
 
 <script>
-import HomePostContainer from '../post-containers/StudentPostContainer';
+import HomePostContainer from '../post-containers/HomePostContainer';
 
 export default {
     

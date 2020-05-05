@@ -17,7 +17,7 @@
      
         <div class="row">
             <div class="col-md-12">
-                 <dashboard-post-container ></dashboard-post-container>   
+                 <home-post-container ></home-post-container>   
             </div>   
         </div>
                 </div>
@@ -69,12 +69,12 @@
 </style>
 
 <script>
-import DashboardPostContainer from '../post-containers/SeekerPostContainer';
+import HomePostContainer from '../post-containers/HomePostContainer';
 
 export default {
     props:['loginStatus'],
 	   components:{
-            DashboardPostContainer
+            HomePostContainer
         },
         data() {
             return {

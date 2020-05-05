@@ -86846,10 +86846,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/sass1/create-post.scss":
-/*!******************************************!*\
-  !*** ./resources/sass1/create-post.scss ***!
-  \******************************************/
+/***/ "./resources/sass/create-post.scss":
+/*!*****************************************!*\
+  !*** ./resources/sass/create-post.scss ***!
+  \*****************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -86857,9 +86857,20 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/sass1/guest.scss":
+/***/ "./resources/sass/guest.scss":
+/*!***********************************!*\
+  !*** ./resources/sass/guest.scss ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/sass/seeker.scss":
 /*!************************************!*\
-  !*** ./resources/sass1/guest.scss ***!
+  !*** ./resources/sass/seeker.scss ***!
   \************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
@@ -86868,9 +86879,20 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/sass1/seeker.scss":
+/***/ "./resources/sass/student-register.scss":
+/*!**********************************************!*\
+  !*** ./resources/sass/student-register.scss ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/sass/student.scss":
 /*!*************************************!*\
-  !*** ./resources/sass1/seeker.scss ***!
+  !*** ./resources/sass/student.scss ***!
   \*************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
@@ -86879,41 +86901,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/sass1/student-register.scss":
-/*!***********************************************!*\
-  !*** ./resources/sass1/student-register.scss ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ "./resources/sass1/student.scss":
-/*!**************************************!*\
-  !*** ./resources/sass1/student.scss ***!
-  \**************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
 /***/ 0:
-/*!******************************************************************************************************************************************************************************************************************!*\
-  !*** multi ./resources/js/app/guest/app.js ./resources/sass1/guest.scss ./resources/sass1/seeker.scss ./resources/sass1/student.scss ./resources/sass1/create-post.scss ./resources/sass1/student-register.scss ***!
-  \******************************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************************************************************************************************************!*\
+  !*** multi ./resources/js/app/guest/app.js ./resources/sass/guest.scss ./resources/sass/seeker.scss ./resources/sass/student.scss ./resources/sass/create-post.scss ./resources/sass/student-register.scss ***!
+  \*************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! C:\xampp\htdocs\studentshub\resources\js\app\guest\app.js */"./resources/js/app/guest/app.js");
-__webpack_require__(/*! C:\xampp\htdocs\studentshub\resources\sass1\guest.scss */"./resources/sass1/guest.scss");
-__webpack_require__(/*! C:\xampp\htdocs\studentshub\resources\sass1\seeker.scss */"./resources/sass1/seeker.scss");
-__webpack_require__(/*! C:\xampp\htdocs\studentshub\resources\sass1\student.scss */"./resources/sass1/student.scss");
-__webpack_require__(/*! C:\xampp\htdocs\studentshub\resources\sass1\create-post.scss */"./resources/sass1/create-post.scss");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\studentshub\resources\sass1\student-register.scss */"./resources/sass1/student-register.scss");
+__webpack_require__(/*! C:\xampp\htdocs\studentshub\resources\sass\guest.scss */"./resources/sass/guest.scss");
+__webpack_require__(/*! C:\xampp\htdocs\studentshub\resources\sass\seeker.scss */"./resources/sass/seeker.scss");
+__webpack_require__(/*! C:\xampp\htdocs\studentshub\resources\sass\student.scss */"./resources/sass/student.scss");
+__webpack_require__(/*! C:\xampp\htdocs\studentshub\resources\sass\create-post.scss */"./resources/sass/create-post.scss");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\studentshub\resources\sass\student-register.scss */"./resources/sass/student-register.scss");
 
 
 /***/ })
