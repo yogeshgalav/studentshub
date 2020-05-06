@@ -1,12 +1,12 @@
 {
     "/js/app.js": "/js/app.js",
+    "/js/createPostApp.js": "/js/createPostApp.js",
+    "/js/seekerApp.js": "/js/seekerApp.js",
+    "/js/studentApp.js": "/js/studentApp.js",
+    "/js/studentRegisterApp.js": "/js/studentRegisterApp.js",
     "/css/guest.css": "/css/guest.css",
     "/css/seekerApp.css": "/css/seekerApp.css",
     "/css/studentApp.css": "/css/studentApp.css",
     "/css/createPostApp.css": "/css/createPostApp.css",
-    "/css/studentRegisterApp.css": "/css/studentRegisterApp.css",
-    "/js/createPostApp.js": "/js/createPostApp.js",
-    "/js/seekerApp.js": "/js/seekerApp.js",
-    "/js/studentApp.js": "/js/studentApp.js",
-    "/js/studentRegisterApp.js": "/js/studentRegisterApp.js"
+    "/css/studentRegisterApp.css": "/css/studentRegisterApp.css"
 }
