@@ -9,11 +9,11 @@ use Storage;
 class Notice extends Model
 {
     //
-    public function createFromContent($postContent){
+    public function createFromContent($data){
         $path =  (dirname(__FILE__) .'/../Services/simple_html_dom.php');
             require($path);
         // Create DOM from URL or file
-        $html = str_get_html($postContent);
+        $html = str_get_html($data['htmlContent']);
         $files=[];
         foreach($html->find('img') as $element){
             $base64_image=$element->src;
@@ -31,7 +31,7 @@ class Notice extends Model
             }
         }
         
-        $post_content_id= self::create(['content'=>$html])->id;
+        $post_content_id= self::create(['content'=>$html,'expiry_date'=>$data['expiry_date']])->id;
         foreach($files as $file){
             $newFile= new SthubFile();
                 $newFile->fileable_id=$post_content_id;

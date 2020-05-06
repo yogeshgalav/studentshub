@@ -7,4 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Video extends Model
 {
     //
+    public function createNewVideo($data){
+    
+        $post_content_id=self::insertGetId([
+        'video_id'=>$data['video_id'],
+        'video_type'=>'youtube',
+        'content'=>$data['description'] ?? null
+        ]);
+        return $post_content_id;
+    }
 }

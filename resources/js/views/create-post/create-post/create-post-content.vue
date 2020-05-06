@@ -68,7 +68,7 @@ export default {
     },
     methods:{
         editContent(){
-            this.$store.dispatch('createPost',{field:'postContent',postContent:{content:this.content}});
+            this.$store.commit('set_post_article_content',{postContent:this.content});
         },
     }
 }

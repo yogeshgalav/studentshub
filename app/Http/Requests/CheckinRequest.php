@@ -24,9 +24,9 @@ class CheckinRequest extends FormRequest
     public function rules()
     {
         return [
-            'course_id'=>'required',
+            'course_id'=>'required|numeric',
             'course_name'=>'required',
-            'category_id'=>'required',
+            'category_id'=>'required|numeric',
             'institute_place_id'=>'required',
             'institute_name'=>'required',
             'institute_address'=>'required',

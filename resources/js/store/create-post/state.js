@@ -1,13 +1,14 @@
 const state = {
     new_post:{
       post_type:'article',
-      selected_subject:{},
+      subject:{},
       heading:'',
       articleContent:{
         htmlContent:''
       },
       noticeContent:{
-        htmlContent:''
+        htmlContent:'',
+        expiry_date:''
       },
       documentContent:{
         files:'',
@@ -18,8 +19,16 @@ const state = {
         description:''
       },
       videoContent:{
-        link:'',
+        video_id:'',
         description:''
+      },
+      mcqContent:{
+        question:'',
+        option1:'',
+        option2:'',
+        option3:'',
+        option4:'',
+        answer:''
       },
     },
     categories: [],
