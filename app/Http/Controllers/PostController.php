@@ -31,10 +31,11 @@ class PostController extends Controller
         DB::beginTransaction();
         try{
             if(is_null($selected_subject['id'])){
-                $subject_name=strtolower($selected_subject['subject_name']);
+                $subject_name=strtolower($selected_subject['name']);
                 $subject=Subject::firstOrCreate([
                     'Subject_name'=>$subject_name,
-                    'subject_url'=>urlencode($subject_name)
+                    'subject_url'=>urlencode($subject_name),
+                    'category_id'=>$selected_subject['category_id']
                     ]);   
             }else{
                 $subject=Subject::findOrFail($selected_subject['id']);

@@ -41,19 +41,21 @@ export default {
 		...mapState({
 			'categories': state=>state.categories,
 			'AuthUserCategory': state=>state.AuthUserCategory,
-			'selected_subject': state=>state.new_post.selected_subject,
+			'subject': state=>state.new_post.subject,
         }),
     },
     data(){
         return {
             enableCategorySelect:false,
             selected_category:'',
+            subject_name:'',
         };
     },
     mounted(){
         EventBus.$on('validateStep3',()=>{
 			this.$validator.validate().then(valid => {
 				if(valid){
+                    this.$store.commit('set_post_subject',{'subject_name':this.subject_name});
 					EventBus.$emit('validateWizard',3,true);
 				}else{
 					EventBus.$emit('validateWizard',3,false);
@@ -65,7 +67,7 @@ export default {
     },
     methods:{
         editSubject(event){
-            this.$store.commit('set_post_subject', event.target.value);
+            this.subject_name=event.target.value;
         },
         getSubject(subject_id){
             this.$store.dispatch('getSubjectList',{subject_id:subject_id});
