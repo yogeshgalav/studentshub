@@ -1,4 +1,5 @@
 <template>
+  <div class="post_header_single">
      <div class="container-fluid">
         <div class="row">
         <div class="col-md-6 ">
@@ -20,6 +21,7 @@
 				</div>
 				</div>
         </div></div>
+		</div>
 </template>
 
 <style>

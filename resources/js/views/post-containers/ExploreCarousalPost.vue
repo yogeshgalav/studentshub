@@ -1,23 +1,69 @@
 <template>
-    <div class="bg-white pt-80 pb-80">
+    <div class="banner_post pt-80 pb-80 ">
+    <div class="container">
             <carousel>
-                <template slot="step1">
-                  <div class="text-center slider-caption">
-                  <img v-lazy="'/images/student.svg'" />
-                  <h5 class="mt-3 mb-1">Student </h5>
-                  <p>Contrary to popular belief, Lorem Ipsum is not simply random text. <br/>
-                     It has roots in a piece of classical Latin making it over 2000 years old.</p>
+                <template slot="step1" class="home_slide">
+                  <div class="row">
+                    <div class="col-md-6">
+                            <div class="text-center slider-caption">
+                      
+                        <h5 class="mt-3 mb-1">Student </h5>
+                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. <br/>
+                          It has roots in a piece of classical Latin making it over 2000 years old.</p>
+                        </div>
+
+
+                    </div>
+                      <div class="col-md-6">
+                      <div class="text-center slider-caption">
+                  <img v-lazy="'/images/student.svg'"  class="slide_img_home">
                   </div>
+
+                    </div>
+                   </div> 
                 </template>
-                <template slot="step2">
-                  <div class="text-center slider-caption">
-                  <img v-lazy="'/images/student.svg'" />
-                  <h5 class="mt-3 mb-1">Student </h5>
-                  <p>Contrary to popular belief, Lorem Ipsum is not simply random text. <br/>
-                     It has roots in a piece of classical Latin making it over 2000 years old.</p>
+                <template slot="step2" class="home_slide">
+                  <div class="row">
+                    <div class="col-md-6">
+                            <div class="text-center slider-caption">
+                      
+                        <h5 class="mt-3 mb-1">Student </h5>
+                        <p>Hello how are you..Contrary to popular belief, Lorem Ipsum is not simply random text. <br/>
+                          It has roots in a piece of classical Latin making it over 2000 years old.</p>
+                        </div>
+
+
+                    </div>
+                      <div class="col-md-6">
+                      <div class="text-center slider-caption">
+                  <img v-lazy="'/images/student.svg'"  class="slide_img_home">
                   </div>
+
+                    </div>
+                   </div> 
+                </template>
+                <template slot="step3" class="home_slide">
+                  <div class="row">
+                    <div class="col-md-6">
+                            <div class="text-center slider-caption">
+                      
+                        <h5 class="mt-3 mb-1">Student </h5>
+                        <p>Hello how are you..Contrary to popular belief, Lorem Ipsum is not simply random text. <br/>
+                          It has roots in a piece of classical Latin making it over 2000 years old.</p>
+                        </div>
+
+
+                    </div>
+                      <div class="col-md-6">
+                      <div class="text-center slider-caption">
+                  <img v-lazy="'/images/student.svg'" class="slide_img_home" >
+                  </div>
+
+                    </div>
+                   </div> 
                 </template>
             </carousel>
+            </div>
     </div>
 </template>
 <style scoped>
@@ -44,6 +90,8 @@
   display:flex;
   justify-content: center;
 }
+.banner_post{background-color:#f6f6f6;}
+
 </style>
 
 <script>

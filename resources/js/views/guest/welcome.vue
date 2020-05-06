@@ -1,7 +1,6 @@
 <template>
     <main>
     <explore-carousal-post></explore-carousal-post>
-<br/>
     <category-filter :categories="categories"></category-filter>
   <div class="container">
  <div class="row">
@@ -11,7 +10,7 @@
  </div>
  <div class="row">
    <div class="container">
-     <div class=" divider mb-5">
+     <div class=" divider">
 
        </div>
      </div>
@@ -20,9 +19,9 @@
    <div class="col-md-8">
      <div class="row">
     <div class="col-md-12">
-        <h3 class="card-title weight-800 text-black mt-3 mb-3">
-            Latest Post
-        </h3>
+        <h4 class="card-title weight-800 text-black mt-3 mb-2">
+            Latest <span style="color:#ccc;">Post</span>
+        </h4>
     </div>
 </div>
     <welcome-post-container ></welcome-post-container>

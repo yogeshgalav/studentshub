@@ -16025,4 +16025,8 @@ i {
     margin-bottom: 15px !important;
   }
 }
+.slick-track
+{
+  margin: 0 5px;
+}
 

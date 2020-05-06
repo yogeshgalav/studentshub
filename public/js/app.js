@@ -2464,8 +2464,10 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_slick_carousel__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-slick-carousel */ "./node_modules/vue-slick-carousel/dist/vue-slick-carousel.umd.js");
 /* harmony import */ var vue_slick_carousel__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_slick_carousel__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vue_slick_carousel_dist_vue_slick_carousel_theme_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-slick-carousel/dist/vue-slick-carousel-theme.css */ "./node_modules/vue-slick-carousel/dist/vue-slick-carousel-theme.css");
-/* harmony import */ var vue_slick_carousel_dist_vue_slick_carousel_theme_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_slick_carousel_dist_vue_slick_carousel_theme_css__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vue_slick_carousel_dist_vue_slick_carousel_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-slick-carousel/dist/vue-slick-carousel.css */ "./node_modules/vue-slick-carousel/dist/vue-slick-carousel.css");
+/* harmony import */ var vue_slick_carousel_dist_vue_slick_carousel_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_slick_carousel_dist_vue_slick_carousel_css__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vue_slick_carousel_dist_vue_slick_carousel_theme_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-slick-carousel/dist/vue-slick-carousel-theme.css */ "./node_modules/vue-slick-carousel/dist/vue-slick-carousel-theme.css");
+/* harmony import */ var vue_slick_carousel_dist_vue_slick_carousel_theme_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_slick_carousel_dist_vue_slick_carousel_theme_css__WEBPACK_IMPORTED_MODULE_2__);
 //
 //
 //
@@ -2517,6 +2519,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//import VueSlickCarousel from 'vue-slick-carousel'
+// optional style for arrows & dots
+//import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
+
  // optional style for arrows & dots
 
 
@@ -2540,8 +2552,8 @@ __webpack_require__.r(__webpack_exports__);
           breakpoint: 768,
           settings: {
             arrows: true,
-            slidesToShow: 8,
-            slidesToScroll: 3,
+            slidesToShow: 1,
+            slidesToScroll: 1,
             width: 200
           }
         }]
@@ -2825,7 +2837,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: ['formMixin'],
@@ -2868,7 +2879,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
 //
 //
 //
@@ -3040,6 +3050,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3066,6 +3087,54 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Carousel_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../components/Carousel.vue */ "./resources/js/components/Carousel.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3216,6 +3285,142 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3249,6 +3454,11 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3455,6 +3665,12 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3773,6 +3989,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3806,6 +4024,13 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -8640,6 +8865,25 @@ exports.push([module.i, "@charset 'UTF-8';\n/* Icons */\n@font-face {\n  font-fa
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-slick-carousel/dist/vue-slick-carousel.css":
+/*!*******************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--10-1!./node_modules/postcss-loader/src??ref--10-2!./node_modules/vue-slick-carousel/dist/vue-slick-carousel.css ***!
+  \*******************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".slick-track[data-v-e4caeaf8]{position:relative;top:0;left:0;display:block;-webkit-transform:translateZ(0);transform:translateZ(0)}.slick-track.slick-center[data-v-e4caeaf8]{margin-left:auto;margin-right:auto}.slick-track[data-v-e4caeaf8]:after,.slick-track[data-v-e4caeaf8]:before{display:table;content:\"\"}.slick-track[data-v-e4caeaf8]:after{clear:both}.slick-loading .slick-track[data-v-e4caeaf8]{visibility:hidden}.slick-slide[data-v-e4caeaf8]{display:none;float:left;height:100%;min-height:1px}[dir=rtl] .slick-slide[data-v-e4caeaf8]{float:right}.slick-slide img[data-v-e4caeaf8]{display:block}.slick-slide.slick-loading img[data-v-e4caeaf8]{display:none}.slick-slide.dragging img[data-v-e4caeaf8]{pointer-events:none}.slick-initialized .slick-slide[data-v-e4caeaf8]{display:block}.slick-loading .slick-slide[data-v-e4caeaf8]{visibility:hidden}.slick-vertical .slick-slide[data-v-e4caeaf8]{display:block;height:auto;border:1px solid transparent}.slick-arrow.slick-hidden[data-v-21137603]{display:none}.slick-slider[data-v-3d1a4f76]{position:relative;display:block;box-sizing:border-box;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-touch-callout:none;-khtml-user-select:none;touch-action:pan-y;-webkit-tap-highlight-color:transparent}.slick-list[data-v-3d1a4f76]{position:relative;display:block;overflow:hidden;margin:0;padding:0;-webkit-transform:translateZ(0);transform:translateZ(0)}.slick-list[data-v-3d1a4f76]:focus{outline:none}.slick-list.dragging[data-v-3d1a4f76]{cursor:pointer;cursor:hand}", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-sweetalert2/node_modules/sweetalert2/dist/sweetalert2.min.css":
 /*!**************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader??ref--10-1!./node_modules/postcss-loader/src??ref--10-2!./node_modules/vue-sweetalert2/node_modules/sweetalert2/dist/sweetalert2.min.css ***!
@@ -8747,7 +8991,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.category-filter .btn[data-v-39a2c238] {\r\n  font-weight: 400;\r\n  font-size:14px;\r\n  margin: 0 5px;\n}\n.slick-slide[data-v-39a2c238] {\r\n    margin: 0 5px;\n}\r\n  /* the parent */\n.slick-list[data-v-39a2c238] {\r\n    margin: 0 -5px;\n}\n.slick-slider .slick-next[data-v-39a2c238]\r\n{\r\n    -webkit-appearance: none;\r\n    outline: 0;\r\n    background: transparent;\r\n    border: 0;\r\n    width: 38px;\r\n    height: 38px;\r\n    padding: 10px;\r\n    border-radius: 50%;\r\n    position: absolute;\r\n    z-index: 3000;\r\n    right: -25px;\r\n    box-shadow: 3px 2px 3px #eee;\r\n    top: 12px;\n}\n.slick-prev[data-v-39a2c238]:before, .slick-next[data-v-39a2c238]:before {\r\n  font-family: 'slick';\r\n    font-size: 30px !important;\r\n    line-height: 1;\r\n    opacity: 0.75;\r\n    color: #171717 !important;\n}\r\n", ""]);
+exports.push([module.i, "\n.category-filter .btn[data-v-39a2c238] {\r\n  font-weight: 400;\r\n  font-size:14px;\r\n  margin: 0 5px;\n}\n.cat_pad[data-v-39a2c238] {\r\n    padding: 30px 0;\n}\n.slick-slide[data-v-39a2c238] {\r\n    margin: 0 5px;\n}\r\n  /* the parent */\n.slick-list[data-v-39a2c238] {\r\n    margin: 0 -5px;\n}\n.slick-slider .slick-next[data-v-39a2c238]\r\n{\r\n    -webkit-appearance: none;\r\n    outline: 0;\r\n    background: transparent;\r\n    border: 0;\r\n    width: 38px;\r\n    height: 38px;\r\n    padding: 10px;\r\n    border-radius: 50%;\r\n    position: absolute;\r\n    z-index: 3000;\r\n    right: -25px;\r\n    box-shadow: 3px 2px 3px #eee;\r\n    top: 12px;\n}\n.slick-prev[data-v-39a2c238]:before, .slick-next[data-v-39a2c238]:before {\r\n  font-family: 'slick';\r\n    font-size: 30px !important;\r\n    line-height: 1;\r\n    opacity: 0.75;\r\n    color: #171717 !important;\n}\n.slick-slide[data-v-39a2c238] {\r\n    margin: 0 5px !important;\n}\r\n", ""]);
 
 // exports
 
@@ -8785,7 +9029,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.home-newsletter[data-v-62c226e7] {\r\npadding: 40px 0;\r\nbackground: #fff;\n}\n.home-newsletter .single[data-v-62c226e7] {\r\nmax-width: 650px;\r\nmargin: 0 auto;\r\ntext-align: center;\r\nposition: relative;\r\nz-index: 2;\n}\n.home-newsletter .single h2[data-v-62c226e7] {\r\nfont-size: 22px;\r\nmargin-bottom: 40px;\n}\n.home-newsletter .single .form-control[data-v-62c226e7] {\r\nheight: 50px;\r\nbackground: rgba(255, 255, 255, 0.6);\r\nborder-color: transparent;\r\nborder-radius: 20px 0 0 20px;\r\nborder:1px solid #eee;\n}\n.home-newsletter .single .form-control[data-v-62c226e7]:focus {\r\nbox-shadow: none;\r\nborder-color: #243c4f;\n}\n.home-newsletter .single .btn[data-v-62c226e7] {\r\nmin-height: 50px; \r\nborder-radius: 0 20px 20px 0;\r\nbackground: #10069F ;\r\ncolor: #fff;\n}\r\n\r\n/* social media icons  */\nul.social-network[data-v-62c226e7] {\r\n\tlist-style: none;\r\n\tdisplay: inline;\r\n\tmargin-left:0 !important;\r\n\tpadding: 0;\n}\nul.social-network li[data-v-62c226e7] {\r\n\tdisplay: inline;\r\n\tmargin: 0 5px;\n}\r\n\r\n\r\n/* footer social icons */\n.social-network a.icoRss[data-v-62c226e7]:hover {\r\n\tbackground-color: #F56505;\n}\n.social-network a.icoFacebook[data-v-62c226e7]:hover {\r\n\tbackground-color:#3B5998;\n}\n.social-network a.icoTwitter[data-v-62c226e7]:hover {\r\n\tbackground-color:#33ccff;\n}\n.social-network a.icoGoogle[data-v-62c226e7]:hover {\r\n\tbackground-color:#BD3518;\n}\n.social-network a.icoVimeo[data-v-62c226e7]:hover {\r\n\tbackground-color:#0590B8;\n}\n.social-network a.icoLinkedin[data-v-62c226e7]:hover {\r\n\tbackground-color:#007bb7;\n}\n.social-network a.icoRss:hover i[data-v-62c226e7], .social-network a.icoFacebook:hover i[data-v-62c226e7], .social-network a.icoTwitter:hover i[data-v-62c226e7],\r\n.social-network a.icoGoogle:hover i[data-v-62c226e7], .social-network a.icoVimeo:hover i[data-v-62c226e7], .social-network a.icoLinkedin:hover i[data-v-62c226e7] {\r\n\tcolor:#fff;\n}\na.socialIcon[data-v-62c226e7]:hover, .socialHoverClass[data-v-62c226e7] {\r\n\tcolor:#44BCDD;\n}\n.social-circle li a[data-v-62c226e7] {\r\n\tdisplay:inline-block;\r\n\tposition:relative;\r\n\tmargin:0 auto 0 auto;\r\n\tborder-radius:50%;\r\n\ttext-align:center;\r\n\twidth: 50px;\r\n\theight: 50px;\r\n\tfont-size:20px;\r\n\tline-height: 50px;\r\n    color: #fff;\n}\n.social-circle li i[data-v-62c226e7] {\r\n\tmargin:0;\r\n\tline-height:50px;\r\n\ttext-align: center;\n}\n.social-circle li a:hover i[data-v-62c226e7], .triggeredHover[data-v-62c226e7] {\r\n\t-moz-transform: rotate(360deg);\r\n\t-webkit-transform: rotate(360deg);\r\n\t-ms--transform: rotate(360deg);\r\n\ttransform: rotate(360deg);\r\n\t-webkit-transition: all 0.2s;\r\n\ttransition: all 0.2s;\n}\n.social-circle i[data-v-62c226e7] {\r\n\tcolor: #fff;\r\n\t-webkit-transition: all 0.8s;\r\n\ttransition: all 0.8s;\n}\n.social-circle a[data-v-62c226e7] {\r\n background-color: #333;\n}\n.foote_bottom_ul_amrc[data-v-62c226e7] {\r\n\tlist-style-type:none;\r\n\tpadding:0px;\r\n\tdisplay:table;\r\n\tmargin-top: 10px;\r\n\tmargin-right: auto;\r\n\tmargin-bottom: 10px;\r\n\tmargin-left: auto;\n}\n.foote_bottom_ul_amrc li[data-v-62c226e7] { display:inline;}\n.foote_bottom_ul_amrc li a[data-v-62c226e7] { color:#333; margin:0 12px;}\r\n", ""]);
+exports.push([module.i, "\n.home-newsletter[data-v-62c226e7] {\r\npadding: 40px 0;\r\nbackground: #fff;\n}\n.home-newsletter .single[data-v-62c226e7] {\r\nmax-width: 650px;\r\nmargin: 0 auto;\r\ntext-align: center;\r\nposition: relative;\r\nz-index: 2;\n}\n.home-newsletter .single h2[data-v-62c226e7] {\r\nfont-size: 22px;\r\nmargin-bottom: 40px;\n}\n.home-newsletter .single .form-control[data-v-62c226e7] {\r\nheight: 50px;\r\nbackground: rgba(255, 255, 255, 0.6);\r\nborder-color: transparent;\r\nborder-radius: 20px 0 0 20px;\r\nborder:1px solid #eee;\n}\n.home-newsletter .single .form-control[data-v-62c226e7]:focus {\r\nbox-shadow: none;\r\nborder-color: #243c4f;\n}\n.home-newsletter .single .btn[data-v-62c226e7] {\r\nmin-height: 50px; \r\nborder-radius: 0 20px 20px 0;\r\nbackground: #10069F ;\r\ncolor: #fff;\n}\r\n\r\n/* social media icons  */\nul.social-network[data-v-62c226e7] {\r\n\tlist-style: none;\r\n\tdisplay: inline;\r\n\tmargin-left:0 !important;\r\n\tpadding: 0;\n}\nul.social-network li[data-v-62c226e7] {\r\n\tdisplay: inline;\r\n\tmargin: 0 5px;\n}\r\n\r\n\r\n/* footer social icons */\n.social-network a.icoRss[data-v-62c226e7]:hover {\r\n\tbackground-color: #F56505;\n}\n.social-network a.icoFacebook[data-v-62c226e7]:hover {\r\n\tbackground-color:#3B5998;\n}\n.social-network a.icoTwitter[data-v-62c226e7]:hover {\r\n\tbackground-color:#33ccff;\n}\n.social-network a.icoGoogle[data-v-62c226e7]:hover {\r\n\tbackground-color:#BD3518;\n}\n.social-network a.icoVimeo[data-v-62c226e7]:hover {\r\n\tbackground-color:#0590B8;\n}\n.social-network a.icoLinkedin[data-v-62c226e7]:hover {\r\n\tbackground-color:#007bb7;\n}\n.social-network a.icoRss:hover i[data-v-62c226e7], .social-network a.icoFacebook:hover i[data-v-62c226e7], .social-network a.icoTwitter:hover i[data-v-62c226e7],\r\n.social-network a.icoGoogle:hover i[data-v-62c226e7], .social-network a.icoVimeo:hover i[data-v-62c226e7], .social-network a.icoLinkedin:hover i[data-v-62c226e7] {\r\n\tcolor:#fff;\n}\na.socialIcon[data-v-62c226e7]:hover, .socialHoverClass[data-v-62c226e7] {\r\n\tcolor:#44BCDD;\n}\n.social-circle li a[data-v-62c226e7] {\r\n\tdisplay:inline-block;\r\n\tposition:relative;\r\n\tmargin:0 auto 0 auto;\r\n\tborder-radius:50%;\r\n\ttext-align:center;\r\n\twidth: 50px;\r\n\theight: 50px;\r\n\tfont-size:20px;\r\n\tline-height: 50px;\r\n    color: #fff;\n}\n.social-circle li i[data-v-62c226e7] {\r\n\tmargin:0;\r\n\tline-height:50px;\r\n\ttext-align: center;\n}\n.social-circle li a:hover i[data-v-62c226e7], .triggeredHover[data-v-62c226e7] {\r\n\t-moz-transform: rotate(360deg);\r\n\t-webkit-transform: rotate(360deg);\r\n\t-ms--transform: rotate(360deg);\r\n\ttransform: rotate(360deg);\r\n\t-webkit-transition: all 0.2s;\r\n\ttransition: all 0.2s;\n}\n.social-circle i[data-v-62c226e7] {\r\n\tcolor: #fff;\r\n\t-webkit-transition: all 0.8s;\r\n\ttransition: all 0.8s;\n}\n.social-circle a[data-v-62c226e7] {\r\n background-color: #333;\n}\n.foote_bottom_ul_amrc[data-v-62c226e7] {\r\n\tlist-style-type:none;\r\n\tpadding:0px;\r\n\tmargin-top: 10px;\r\n\tmargin-right: auto;\r\n\tmargin-bottom: 10px;\r\n\tmargin-left: auto;\n}\n.foote_bottom_ul_amrc li[data-v-62c226e7] { display:inline;}\n.foote_bottom_ul_amrc li a[data-v-62c226e7] { color:#333; margin:0 12px;}\r\n", ""]);
 
 // exports
 
@@ -8823,7 +9067,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.card-post h3[data-v-31bebcc2],h5[data-v-31bebcc2],p[data-v-31bebcc2], h6[data-v-31bebcc2] {\r\n\tfont-family: 'Open Sans'  !important;\n}\n.card-post h3[data-v-31bebcc2] {\r\n\tmargin-bottom:1px;\r\n\tfont-size:14px !important;\n}\n.card-post h5[data-v-31bebcc2] {\r\n\tfont-size:12px !important;\r\n\tfont-weight: 400;\r\n\tmargin-bottom:10px !important;\n}\r\n", ""]);
+exports.push([module.i, "\n.card-post h3[data-v-31bebcc2],h5[data-v-31bebcc2],p[data-v-31bebcc2], h6[data-v-31bebcc2] {\r\n\tfont-family: 'Open Sans'  !important;\n}\n.card-post h3[data-v-31bebcc2] {\r\n\tmargin-bottom:1px;\r\n\tfont-size:14px !important;\n}\n.card-post h5[data-v-31bebcc2] {\r\n\tfont-size:12px !important;\r\n\tfont-weight: 400;\r\n\tmargin-bottom:10px !important;\n}\n.row.post_views_sec[data-v-31bebcc2]\r\n{\r\n\tbottom:-40px;\n}\r\n", ""]);
 
 // exports
 
@@ -8842,7 +9086,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.slick-slide[data-v-e4cd6f50] {\n    margin: 0 5px;\n}\n.slider-caption h5[data-v-e4cd6f50], p[data-v-e4cd6f50] {\n\n      font-family: 'Open Sans'  !important;\n}\n.pt-80[data-v-e4cd6f50]\n  {\n    padding-top:120px;\n}\n.pb-80[data-v-e4cd6f50] {\n    padding-bottom: 40px;\n}\n  /* the parent */\n.slick-list[data-v-e4cd6f50] {\n    margin: 0 -5px;\n}\n.slick-dots[data-v-e4cd6f50] {\n  display:-webkit-box;\n  display:flex;\n  -webkit-box-pack: center;\n          justify-content: center;\n}\n", ""]);
+exports.push([module.i, "\n.slick-slide[data-v-e4cd6f50] {\n    margin: 0 5px;\n}\n.slider-caption h5[data-v-e4cd6f50], p[data-v-e4cd6f50] {\n\n      font-family: 'Open Sans'  !important;\n}\n.pt-80[data-v-e4cd6f50]\n  {\n    padding-top:120px;\n}\n.pb-80[data-v-e4cd6f50] {\n    padding-bottom: 40px;\n}\n  /* the parent */\n.slick-list[data-v-e4cd6f50] {\n    margin: 0 -5px;\n}\n.slick-dots[data-v-e4cd6f50] {\n  display:-webkit-box;\n  display:flex;\n  -webkit-box-pack: center;\n          justify-content: center;\n}\n.banner_post[data-v-e4cd6f50]{background-color:#f6f6f6;}\n\n", ""]);
 
 // exports
 
@@ -8861,7 +9105,26 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.card-title[data-v-a8943b50], .username[data-v-a8943b50], .text-muted[data-v-a8943b50] {\r\n  font-family: 'Open Sans'  !important;\n}\n.bg-gray[data-v-a8943b50] {\r\n\tbackground: #F7F7F7 !important;\n}\r\n", ""]);
+exports.push([module.i, "\n.card-title[data-v-a8943b50], .username[data-v-a8943b50], .text-muted[data-v-a8943b50] {\n\tfont-family: 'Open Sans'  !important;\n}\n.bg-gray[data-v-a8943b50] {\n\tbackground: #F7F7F7 !important;\n}\n.side_bar_size[data-v-a8943b50]{padding:0;margin:0;font-size: 11px}\nimg.card-img-top.side_bar_post_img[data-v-a8943b50] {\n\twidth: 40px;\n\theight: 40px;\n\tborder-radius: 50px;\n}\n.side_bar_title[data-v-a8943b50]{    margin: 0 0 5px;\n\n\n\twhite-space: nowrap; \n\twidth: 230px; \n\toverflow: hidden;\n\ttext-overflow: ellipsis;\n}\n.post_des[data-v-a8943b50]{\n\tmargin:0;padding:0;\n\n\twhite-space: nowrap; \n\twidth: 230px; \n\toverflow: hidden;\n\ttext-overflow: ellipsis; \n\tfont-size: 12px;\n}\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/post-containers/ExploreSidebar.vue?vue&type=style&index=1&id=a8943b50&scoped=true&lang=css&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--10-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--10-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/post-containers/ExploreSidebar.vue?vue&type=style&index=1&id=a8943b50&scoped=true&lang=css& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.card-title[data-v-a8943b50], .username[data-v-a8943b50], .text-muted[data-v-a8943b50] {\n\tfont-family: 'Open Sans'  !important;\n}\n.bg-gray[data-v-a8943b50] {\n\tbackground: #F7F7F7 !important;\n}\n.side_bar_size[data-v-a8943b50]{padding:0;margin:0;font-size: 11px}\nimg.card-img-top.side_bar_post_img[data-v-a8943b50] {\n\twidth: 40px;\n\theight: 40px;\n\tborder-radius: 50px;\n}\n.side_bar_title[data-v-a8943b50]{    margin: 0 0 5px;\n\n\n\twhite-space: nowrap; \n\twidth: 230px; \n\toverflow: hidden;\n\ttext-overflow: ellipsis;\n}\n.post_des[data-v-a8943b50]{\n\tmargin:0;padding:0;\n\n\twhite-space: nowrap; \n\twidth: 230px; \n\toverflow: hidden;\n\ttext-overflow: ellipsis; \n\tfont-size: 12px;\n}\n\n", ""]);
 
 // exports
 
@@ -8918,7 +9181,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.card-post h3[data-v-735cff64],h5[data-v-735cff64],p[data-v-735cff64], h6[data-v-735cff64] {\r\n\tfont-family: 'Open Sans'  !important;\n}\n.card-post h3[data-v-735cff64] {\r\n\tmargin-bottom:1px;\r\n\tfont-size:14px !important;\n}\n.card-post h5[data-v-735cff64] {\r\n\tfont-size:12px !important;\r\n\tfont-weight: 400;\r\n\tmargin-bottom:10px !important;\n}\r\n", ""]);
+exports.push([module.i, "\n.card-post h3[data-v-735cff64],h5[data-v-735cff64],p[data-v-735cff64], h6[data-v-735cff64] {\n\tfont-family: 'Open Sans'  !important;\n}\n.card-post h3[data-v-735cff64] {\n\tmargin-bottom:1px;\n}\n.post_cat_size[data-v-735cff64]\n{\n\tfont-size:12px;\n\tcolor:#ccc;\n}\n.welcome_post_sec .row[data-v-735cff64]{-webkit-box-align: center;align-items: center;}\n.card-post h5[data-v-735cff64] {\n\tfont-size:12px !important;\n\tfont-weight: 400;\n\tmargin-bottom:10px !important;\n}\n", ""]);
 
 // exports
 
@@ -8956,7 +9219,26 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n\r\n/* footer social icons */\n.social-network a.icoRss:hover {\r\n\tbackground-color: #F56505;\n}\n.social-network a.icoFacebook:hover {\r\n\tbackground-color:#3B5998;\n}\n.social-network a.icoTwitter:hover {\r\n\tbackground-color:#33ccff;\n}\n.social-network a.icoGoogle:hover {\r\n\tbackground-color:#BD3518;\n}\n.social-network a.icoVimeo:hover {\r\n\tbackground-color:#0590B8;\n}\n.social-network a.icoLinkedin:hover {\r\n\tbackground-color:#007bb7;\n}\n.social-network a.icoRss:hover i, .social-network a.icoFacebook:hover i, .social-network a.icoTwitter:hover i,\r\n.social-network a.icoGoogle:hover i, .social-network a.icoVimeo:hover i, .social-network a.icoLinkedin:hover i {\r\n\tcolor:#fff;\n}\na.socialIcon:hover, .socialHoverClass {\r\n\tcolor:#44BCDD;\n}\n.social-circle li a {\r\n\tdisplay:inline-block;\r\n\tposition:relative;\r\n\tmargin:0 auto 0 auto;\r\n\tborder-radius:50%;\r\n\ttext-align:center;\r\n\twidth: 50px;\r\n\theight: 50px;\r\n\tfont-size:20px;\n}\n.social-circle li i {\r\n\tmargin:0;\r\n\tline-height:50px;\r\n\ttext-align: center;\n}\n.social-circle li a:hover i, .triggeredHover {\r\n\t-moz-transform: rotate(360deg);\r\n\t-webkit-transform: rotate(360deg);\r\n\t-ms--transform: rotate(360deg);\r\n\ttransform: rotate(360deg);\r\n\t-webkit-transition: all 0.2s;\r\n\ttransition: all 0.2s;\n}\n.social-circle i {\r\n\tcolor: #fff;\r\n\t-webkit-transition: all 0.8s;\r\n\ttransition: all 0.8s;\n}\n.social-circle a {\r\n background-color: #333;\n}\n.fixed-back\r\n{\r\n    position: fixed;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n\r\n/* footer social icons */\n.social-network a.icoRss:hover {\r\n\tbackground-color: #F56505;\n}\n.social-network a.icoFacebook:hover {\r\n\tbackground-color:#3B5998;\n}\n.social-network a.icoTwitter:hover {\r\n\tbackground-color:#33ccff;\n}\n.social-network a.icoGoogle:hover {\r\n\tbackground-color:#BD3518;\n}\n.social-network a.icoVimeo:hover {\r\n\tbackground-color:#0590B8;\n}\n.social-network a.icoLinkedin:hover {\r\n\tbackground-color:#007bb7;\n}\n.social-network a.icoRss:hover i, .social-network a.icoFacebook:hover i, .social-network a.icoTwitter:hover i,\r\n.social-network a.icoGoogle:hover i, .social-network a.icoVimeo:hover i, .social-network a.icoLinkedin:hover i {\r\n\tcolor:#fff;\n}\na.socialIcon:hover, .socialHoverClass {\r\n\tcolor:#44BCDD;\n}\n.social-circle li a {\r\n\tdisplay:inline-block;\r\n\tposition:relative;\r\n\tmargin:0 auto 0 auto;\r\n\tborder-radius:50%;\r\n\ttext-align:center;\r\n\twidth: 50px;\r\n\theight: 50px;\r\n\tfont-size:20px;\n}\n.social-circle li i {\r\n\tmargin:0;\r\n\tline-height:50px;\r\n\ttext-align: center;\n}\n.social-circle li a:hover i, .triggeredHover {\r\n\t-moz-transform: rotate(360deg);\r\n\t-webkit-transform: rotate(360deg);\r\n\t-ms--transform: rotate(360deg);\r\n\ttransform: rotate(360deg);\r\n\t-webkit-transition: all 0.2s;\r\n\ttransition: all 0.2s;\n}\n.social-circle i {\r\n\tcolor: #fff;\r\n\t-webkit-transition: all 0.8s;\r\n\ttransition: all 0.8s;\n}\n.social-circle a {\r\n background-color: #333;\n}\n.fixed-back\r\n{\r\n    position: fixed;\n}\r\n\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/post/PostViewPage.vue?vue&type=style&index=0&id=35874454&scoped=true&lang=css&":
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--10-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--10-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/post/PostViewPage.vue?vue&type=style&index=0&id=35874454&scoped=true&lang=css& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.post_img[data-v-35874454]{width:100%;}\n.single_post_page .row[data-v-35874454] {\n    -webkit-box-align: center;\n            align-items: center;\n}\n", ""]);
 
 // exports
 
@@ -40170,6 +40452,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/post-containers/ExploreSidebar.vue?vue&type=style&index=1&id=a8943b50&scoped=true&lang=css&":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--10-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--10-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/post-containers/ExploreSidebar.vue?vue&type=style&index=1&id=a8943b50&scoped=true&lang=css& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--10-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--10-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./ExploreSidebar.vue?vue&type=style&index=1&id=a8943b50&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/post-containers/ExploreSidebar.vue?vue&type=style&index=1&id=a8943b50&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/post-containers/ExploreTopPost.vue?vue&type=style&index=0&id=36942e11&scoped=true&lang=css&":
 /*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--10-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--10-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/post-containers/ExploreTopPost.vue?vue&type=style&index=0&id=36942e11&scoped=true&lang=css& ***!
@@ -40299,6 +40611,36 @@ if(false) {}
 
 
 var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--10-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--10-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./PostViewHeader.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/post/PostViewHeader.vue?vue&type=style&index=0&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/post/PostViewPage.vue?vue&type=style&index=0&id=35874454&scoped=true&lang=css&":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--10-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--10-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/post/PostViewPage.vue?vue&type=style&index=0&id=35874454&scoped=true&lang=css& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--10-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--10-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./PostViewPage.vue?vue&type=style&index=0&id=35874454&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/post/PostViewPage.vue?vue&type=style&index=0&id=35874454&scoped=true&lang=css&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -54765,8 +55107,8 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "bg-gray" }, [
-    _c("div", { staticClass: "container category-filter ptb-20" }, [
-      _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "container category-filter cat_pad" }, [
+      _c("div", { staticClass: "cat" }, [
         _vm.categories.length
           ? _c(
               "div",
@@ -54775,7 +55117,11 @@ var render = function() {
                 _c(
                   "VueSlickCarousel",
                   _vm._b(
-                    { ref: "slick", attrs: { arrows: true } },
+                    {
+                      ref: "slick",
+                      staticClass: "slick-p",
+                      attrs: { arrows: true }
+                    },
                     "VueSlickCarousel",
                     _vm.slickOptions,
                     false
@@ -55048,8 +55394,6 @@ var render = function() {
     [
       _c("explore-carousal-post"),
       _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
       _c("category-filter", { attrs: { categories: _vm.categories } }),
       _vm._v(" "),
       _c("div", { staticClass: "container" }, [
@@ -55096,7 +55440,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "container" }, [
-        _c("div", { staticClass: " divider mb-5" })
+        _c("div", { staticClass: " divider" })
       ])
     ])
   },
@@ -55107,9 +55451,12 @@ var staticRenderFns = [
     return _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-12" }, [
         _c(
-          "h3",
-          { staticClass: "card-title weight-800 text-black mt-3 mb-3" },
-          [_vm._v("\n            Latest Post\n        ")]
+          "h4",
+          { staticClass: "card-title weight-800 text-black mt-3 mb-2" },
+          [
+            _vm._v("\n            Latest "),
+            _c("span", { staticStyle: { color: "#ccc" } }, [_vm._v("Post")])
+          ]
         )
       ])
     ])
@@ -55145,29 +55492,46 @@ var render = function() {
       _vm._l(_vm.posts, function(post) {
         return _c("div", { key: post.id, staticClass: "col-md-4" }, [
           _c("div", { staticClass: "card-post" }, [
+            _c("img", {
+              directives: [
+                {
+                  name: "lazy",
+                  rawName: "v-lazy",
+                  value: post.image_path,
+                  expression: "post.image_path"
+                }
+              ],
+              staticClass: "card-img-top",
+              attrs: { alt: "Card image cap" }
+            }),
+            _vm._v(" "),
             _c("div", [
-              _c(
-                "div",
-                { staticClass: "d-flex mt-2" },
-                [
-                  _c("profile-image", { attrs: { post: post } }),
+              _c("div", { staticClass: " mt-2" }, [
+                _c("div", { staticClass: "post_name_date" }, [
+                  _c(
+                    "div",
+                    { staticClass: "user_name" },
+                    [
+                      _c("profile-image", { attrs: { post: post } }),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "username" }, [
+                        _vm._v(_vm._s(post.user_name))
+                      ])
+                    ],
+                    1
+                  ),
                   _vm._v(" "),
                   _c("div", { staticClass: "info-post ml-2" }, [
-                    _c("p", { staticClass: "username" }, [
-                      _vm._v(_vm._s(post.user_name))
-                    ]),
-                    _vm._v(" "),
                     _c("p", { staticClass: "date text-muted" }, [
                       _vm._v(_vm._s(post.created_at))
                     ])
                   ])
-                ],
-                1
-              ),
+                ])
+              ]),
               _vm._v(" "),
               _c(
                 "h3",
-                { staticClass: "card-title  font-size-16" },
+                { staticClass: "card-title mb-1 font-size-16" },
                 [
                   _c(
                     "router-link",
@@ -55189,12 +55553,12 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "separator-solid" }),
               _vm._v(" "),
-              _c("p", { staticClass: "card-text" }, [
+              _c("p", { staticClass: "card-text post_des" }, [
                 _vm._v(_vm._s(post.content))
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-md-2" }, [
+              _c("div", { staticClass: "row post_views_sec" }, [
+                _c("div", { staticClass: "col-md-2 col-3 post_view" }, [
                   _c("i", { staticClass: "fa fa-eye" }),
                   _vm._v(" "),
                   _c("span", { staticClass: "badge-text" }, [
@@ -55202,7 +55566,7 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-md-6" }, [
+                _c("div", { staticClass: "col-md-6 col-3 post_view" }, [
                   _c("i", { staticClass: "fa fa-thumbs-up" }),
                   _vm._v(" "),
                   _c("span", { staticClass: "badge-text" }, [
@@ -55253,72 +55617,134 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "bg-white pt-80 pb-80" },
-    [
-      _c(
-        "carousel",
-        [
-          _c("template", { slot: "step1" }, [
-            _c("div", { staticClass: "text-center slider-caption" }, [
-              _c("img", {
-                directives: [
-                  {
-                    name: "lazy",
-                    rawName: "v-lazy",
-                    value: "/images/student.svg",
-                    expression: "'/images/student.svg'"
-                  }
-                ]
-              }),
-              _vm._v(" "),
-              _c("h5", { staticClass: "mt-3 mb-1" }, [_vm._v("Student ")]),
-              _vm._v(" "),
-              _c("p", [
-                _vm._v(
-                  "Contrary to popular belief, Lorem Ipsum is not simply random text. "
-                ),
-                _c("br"),
-                _vm._v(
-                  "\n                 It has roots in a piece of classical Latin making it over 2000 years old."
-                )
+  return _c("div", { staticClass: "banner_post pt-80 pb-80 " }, [
+    _c(
+      "div",
+      { staticClass: "container" },
+      [
+        _c(
+          "carousel",
+          [
+            _c("template", { staticClass: "home_slide", slot: "step1" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "text-center slider-caption" }, [
+                    _c("h5", { staticClass: "mt-3 mb-1" }, [
+                      _vm._v("Student ")
+                    ]),
+                    _vm._v(" "),
+                    _c("p", [
+                      _vm._v(
+                        "Contrary to popular belief, Lorem Ipsum is not simply random text. "
+                      ),
+                      _c("br"),
+                      _vm._v(
+                        "\n                      It has roots in a piece of classical Latin making it over 2000 years old."
+                      )
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "text-center slider-caption" }, [
+                    _c("img", {
+                      directives: [
+                        {
+                          name: "lazy",
+                          rawName: "v-lazy",
+                          value: "/images/student.svg",
+                          expression: "'/images/student.svg'"
+                        }
+                      ],
+                      staticClass: "slide_img_home"
+                    })
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("template", { staticClass: "home_slide", slot: "step2" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "text-center slider-caption" }, [
+                    _c("h5", { staticClass: "mt-3 mb-1" }, [
+                      _vm._v("Student ")
+                    ]),
+                    _vm._v(" "),
+                    _c("p", [
+                      _vm._v(
+                        "Hello how are you..Contrary to popular belief, Lorem Ipsum is not simply random text. "
+                      ),
+                      _c("br"),
+                      _vm._v(
+                        "\n                      It has roots in a piece of classical Latin making it over 2000 years old."
+                      )
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "text-center slider-caption" }, [
+                    _c("img", {
+                      directives: [
+                        {
+                          name: "lazy",
+                          rawName: "v-lazy",
+                          value: "/images/student.svg",
+                          expression: "'/images/student.svg'"
+                        }
+                      ],
+                      staticClass: "slide_img_home"
+                    })
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("template", { staticClass: "home_slide", slot: "step3" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "text-center slider-caption" }, [
+                    _c("h5", { staticClass: "mt-3 mb-1" }, [
+                      _vm._v("Student ")
+                    ]),
+                    _vm._v(" "),
+                    _c("p", [
+                      _vm._v(
+                        "Hello how are you..Contrary to popular belief, Lorem Ipsum is not simply random text. "
+                      ),
+                      _c("br"),
+                      _vm._v(
+                        "\n                      It has roots in a piece of classical Latin making it over 2000 years old."
+                      )
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "text-center slider-caption" }, [
+                    _c("img", {
+                      directives: [
+                        {
+                          name: "lazy",
+                          rawName: "v-lazy",
+                          value: "/images/student.svg",
+                          expression: "'/images/student.svg'"
+                        }
+                      ],
+                      staticClass: "slide_img_home"
+                    })
+                  ])
+                ])
               ])
             ])
-          ]),
-          _vm._v(" "),
-          _c("template", { slot: "step2" }, [
-            _c("div", { staticClass: "text-center slider-caption" }, [
-              _c("img", {
-                directives: [
-                  {
-                    name: "lazy",
-                    rawName: "v-lazy",
-                    value: "/images/student.svg",
-                    expression: "'/images/student.svg'"
-                  }
-                ]
-              }),
-              _vm._v(" "),
-              _c("h5", { staticClass: "mt-3 mb-1" }, [_vm._v("Student ")]),
-              _vm._v(" "),
-              _c("p", [
-                _vm._v(
-                  "Contrary to popular belief, Lorem Ipsum is not simply random text. "
-                ),
-                _c("br"),
-                _vm._v(
-                  "\n                 It has roots in a piece of classical Latin making it over 2000 years old."
-                )
-              ])
-            ])
-          ])
-        ],
-        2
-      )
-    ],
-    1
-  )
+          ],
+          2
+        )
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -55362,38 +55788,42 @@ var render = function() {
                 }
               },
               [
-                _c(
-                  "div",
-                  { staticClass: "d-flex" },
-                  [
-                    _c("profile-image", { attrs: { post: post } }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "info-post ml-2" }, [
-                      _c("p", { staticClass: "username" }, [
-                        _vm._v(_vm._s(post.user_name))
-                      ]),
-                      _vm._v(" "),
-                      _c("p", { staticClass: "date text-muted" }, [
-                        _vm._v(_vm._s(post.created_at))
-                      ]),
-                      _vm._v(" "),
-                      _c("h3", { staticClass: "card-title  font-size-12" }, [
+                _c("div", { staticClass: "d-flex align-items-center" }, [
+                  _c("img", {
+                    directives: [
+                      {
+                        name: "lazy",
+                        rawName: "v-lazy",
+                        value: post.image_path,
+                        expression: "post.image_path"
+                      }
+                    ],
+                    staticClass: "card-img-top  side_bar_post_img",
+                    attrs: { alt: "Card image cap" }
+                  }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "info-post ml-3" }, [
+                    _c(
+                      "h3",
+                      { staticClass: "card-title side_bar_title font-size-12" },
+                      [
                         _c(
                           "a",
                           { staticClass: "text-black", attrs: { href: "#" } },
-                          [
-                            _vm._v(
-                              "\r\n\t\t\t\t\t\t\t\t\t\t\t" +
-                                _vm._s(post.heading) +
-                                "\r\n\t\t\t\t\t\t\t\t\t\t"
-                            )
-                          ]
+                          [_vm._v(_vm._s(post.heading))]
                         )
-                      ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "post_des" }, [
+                      _vm._v(_vm._s(post.content))
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "date text-muted side_bar_size" }, [
+                      _vm._v(_vm._s(post.created_at))
                     ])
-                  ],
-                  1
-                )
+                  ])
+                ])
               ]
             )
           ])
@@ -55411,46 +55841,42 @@ var render = function() {
         _vm._l(_vm.posts, function(post, index) {
           return _c("div", { key: index, staticClass: "col-md-12 mt-2 mb-2" }, [
             _c("div", { staticClass: "card-post" }, [
-              _c(
-                "div",
-                { staticClass: "d-flex" },
-                [
-                  _c("profile-image", { attrs: { post: post } }),
+              _c("div", { staticClass: "d-flex align-items-center" }, [
+                _c("img", {
+                  directives: [
+                    {
+                      name: "lazy",
+                      rawName: "v-lazy",
+                      value: post.image_path,
+                      expression: "post.image_path"
+                    }
+                  ],
+                  staticClass: "card-img-top  side_bar_post_img",
+                  attrs: { alt: "Card image cap" }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "info-post ml-3" }, [
+                  _c(
+                    "h3",
+                    { staticClass: "card-title side_bar_title font-size-12" },
+                    [
+                      _c(
+                        "a",
+                        { staticClass: "text-black", attrs: { href: "#" } },
+                        [_vm._v(_vm._s(post.heading))]
+                      )
+                    ]
+                  ),
                   _vm._v(" "),
-                  _c("div", { staticClass: "info-post ml-2" }, [
-                    _c("p", { staticClass: "username" }, [
-                      _vm._v(_vm._s(post.user_name))
-                    ]),
-                    _vm._v(" "),
-                    _c("p", { staticClass: "date text-muted" }, [
-                      _vm._v(_vm._s(post.created_at))
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "h3",
-                      { staticClass: "card-title  font-size-12" },
-                      [
-                        _c(
-                          "router-link",
-                          {
-                            staticClass: "text-black",
-                            attrs: { to: "/post/" + post.id }
-                          },
-                          [
-                            _vm._v(
-                              "\r\n\t\t\t\t\t\t\t\t\t\t\t" +
-                                _vm._s(post.heading) +
-                                "\r\n\t\t\t\t\t\t\t\t\t\t"
-                            )
-                          ]
-                        )
-                      ],
-                      1
-                    )
+                  _c("p", { staticClass: "post_des" }, [
+                    _vm._v(_vm._s(post.content))
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "date text-muted side_bar_size" }, [
+                    _vm._v(_vm._s(post.created_at))
                   ])
-                ],
-                1
-              )
+                ])
+              ])
             ])
           ])
         }),
@@ -55467,12 +55893,12 @@ var staticRenderFns = [
     return _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-12 latest-post" }, [
         _c(
-          "h3",
+          "h4",
           {
             staticClass:
               "card-title weight-800 text-black mb-2 border-bottom  pb-2"
           },
-          [_vm._v("\r\n            Popular Post\r\n        ")]
+          [_vm._v("\n\t\t\t\t\tPopular Post\n\t\t\t\t")]
         )
       ])
     ])
@@ -55484,12 +55910,12 @@ var staticRenderFns = [
     return _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-12 latest-post" }, [
         _c(
-          "h3",
+          "h4",
           {
             staticClass:
               "card-title weight-800 text-black mb-2 border-bottom  pb-2"
           },
-          [_vm._v("\r\n            Latest Post\r\n        ")]
+          [_vm._v("\n\t\t\t\t\tLatest Post\n\t\t\t\t")]
         )
       ])
     ])
@@ -55516,13 +55942,34 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "ptb-50" }, [
+  return _c("div", { staticClass: "ptb-50 top_post" }, [
     _c(
       "div",
       { staticClass: "row" },
       _vm._l(_vm.posts, function(post) {
         return _c("div", { key: post.id, staticClass: "col-md-4" }, [
           _c("div", { staticClass: "card-post" }, [
+            _c("div", { staticClass: "d-flex  post_name_date" }, [
+              _c(
+                "div",
+                { staticClass: "user_name" },
+                [
+                  _c("profile-image", { attrs: { post: post } }),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "username" }, [
+                    _vm._v(_vm._s(post.user_name))
+                  ])
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "info-post ml-2" }, [
+                _c("p", { staticClass: "date text-muted post_date" }, [
+                  _vm._v(_vm._s(post.created_at))
+                ])
+              ])
+            ]),
+            _vm._v(" "),
             _c("img", {
               directives: [
                 {
@@ -55537,28 +55984,9 @@ var render = function() {
             }),
             _vm._v(" "),
             _c("div", [
-              _c(
-                "div",
-                { staticClass: "d-flex mt-2" },
-                [
-                  _c("profile-image", { attrs: { post: post } }),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "info-post ml-2" }, [
-                    _c("p", { staticClass: "username" }, [
-                      _vm._v(_vm._s(post.user_name))
-                    ]),
-                    _vm._v(" "),
-                    _c("p", { staticClass: "date text-muted" }, [
-                      _vm._v(_vm._s(post.created_at))
-                    ])
-                  ])
-                ],
-                1
-              ),
-              _vm._v(" "),
               _c("div", { staticClass: "separator-solid" }),
               _vm._v(" "),
-              _c("p", { staticClass: "card-category text-info mb-1" }, [
+              _c("p", { staticClass: "card-category text-info mb-2" }, [
                 _c("a", { attrs: { href: "#" } }, [
                   _vm._v(_vm._s(post.Subject_name))
                 ])
@@ -55586,12 +56014,12 @@ var render = function() {
                 1
               ),
               _vm._v(" "),
-              _c("p", { staticClass: "card-text" }, [
+              _c("p", { staticClass: "card-text post_des" }, [
                 _vm._v(_vm._s(post.content))
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-md-2" }, [
+              _c("div", { staticClass: "row post_views_sec" }, [
+                _c("div", { staticClass: "col-md-2 col-3 post_view" }, [
                   _c("i", { staticClass: "fa fa-eye" }),
                   _vm._v(" "),
                   _c("span", { staticClass: "badge-text" }, [
@@ -55599,7 +56027,7 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-md-6" }, [
+                _c("div", { staticClass: "col-md-6 col-3 post_view" }, [
                   _c("i", { staticClass: "fa fa-thumbs-up" }),
                   _vm._v(" "),
                   _c("span", { staticClass: "badge-text" }, [
@@ -55820,6 +56248,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    { staticClass: "welcome_post_sec" },
     _vm._l(_vm.posts, function(post, index) {
       return _c("div", { key: index }, [
         _c("div", { staticClass: "row" }, [
@@ -55855,57 +56284,57 @@ var render = function() {
                           _vm._v(_vm._s(post.category_name))
                         ]),
                         _vm._v(" "),
-                        _c("p", { staticClass: "mb-1" }, [
+                        _c("p", { staticClass: "mb-1 post_cat_size" }, [
                           _vm._v(_vm._s(post.subject_name))
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "h3",
-                          { staticClass: "card-title  font-size-16" },
-                          [
-                            _c(
-                              "router-link",
-                              {
-                                staticClass: "weight-600 text-black",
-                                attrs: { to: "/post/" + post.id }
-                              },
-                              [
-                                _vm._v(
-                                  "\r\n\t\t\t\t\t\t\t\t\t\t\t" +
-                                    _vm._s(post.heading) +
-                                    "\r\n\t\t\t\t\t\t\t\t\t\t"
-                                )
-                              ]
-                            )
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c("h5", { staticClass: "mb-1" }, [
-                          _vm._v(_vm._s(post.content))
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "row" }, [
-                          _c("div", { staticClass: "col-md-4" }, [
-                            _c("i", { staticClass: "fa fa-eye" }),
-                            _vm._v(" "),
-                            _c("span", { staticClass: "badge-text" }, [
-                              _vm._v(_vm._s(post.total_views))
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "col-md-6" }, [
-                            _c("i", { staticClass: "fa fa-thumbs-up" }),
-                            _vm._v(" "),
-                            _c("span", { staticClass: "badge-text" }, [
-                              _vm._v(_vm._s(post.total_likes))
-                            ])
-                          ])
                         ])
                       ])
                     ],
                     1
-                  )
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "h3",
+                    { staticClass: "card-title mb-1  font-size-18" },
+                    [
+                      _c(
+                        "router-link",
+                        {
+                          staticClass: "weight-600 text-black",
+                          attrs: { to: "/post/" + post.id }
+                        },
+                        [
+                          _vm._v(
+                            "\n\t\t\t\t\t\t\t\t\t\t" +
+                              _vm._s(post.heading) +
+                              "\n\t\t\t\t\t\t\t\t\t"
+                          )
+                        ]
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("h5", { staticClass: "mb-1 post_des" }, [
+                    _vm._v(_vm._s(post.content))
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-md-2 col-3 post_view" }, [
+                      _c("i", { staticClass: "fa fa-eye" }),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "badge-text" }, [
+                        _vm._v(_vm._s(post.total_views))
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-2 col-3 post_view" }, [
+                      _c("i", { staticClass: "fa fa-thumbs-up" }),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "badge-text" }, [
+                        _vm._v(_vm._s(post.total_likes))
+                      ])
+                    ])
+                  ])
                 ])
               ]
             )
@@ -55921,7 +56350,7 @@ var render = function() {
                   expression: "post.image_path"
                 }
               ],
-              staticClass: "card-img-top",
+              staticClass: "card-img-top wel_post_img",
               attrs: { alt: "Card image cap" }
             })
           ])
@@ -56025,108 +56454,110 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container-fluid" }, [
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-6 " }, [
-        _c(
-          "a",
-          {
-            staticClass: "btn btn-white btn-rounded btn-lg fixed-back",
-            on: {
-              click: function($event) {
-                return _vm.$router.go(-1)
-              }
-            }
-          },
-          [_c("i", { staticClass: "fa fa-arrow-left" }), _vm._v(" Back ")]
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-6" }, [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-md-10 text-right" }, [
-            _vm.sharetoggle
-              ? _c("ul", { staticClass: "social-network social-circle" }, [
-                  _c("li", [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "icoFacebook",
-                        attrs: { href: "#", title: "Facebook" },
-                        on: {
-                          click: function($event) {
-                            return _vm.newWindow(
-                              "https://www.facebook.com/studentshub.in"
-                            )
-                          }
-                        }
-                      },
-                      [_c("i", { staticClass: "fab fa-facebook" })]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "icoTwitter",
-                        attrs: {
-                          href: "#",
-                          target: "_blank",
-                          title: "Twitter"
-                        },
-                        on: {
-                          click: function($event) {
-                            return _vm.newWindow(
-                              "https://www.twitter.com/studentshub_in"
-                            )
-                          }
-                        }
-                      },
-                      [_c("i", { staticClass: "fab fa-twitter" })]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "icoInstagram",
-                        attrs: {
-                          href: "#",
-                          target: "_blank",
-                          title: "Instagram"
-                        },
-                        on: {
-                          click: function($event) {
-                            return _vm.newWindow(
-                              "https://www.instagram.com/studentshub.in"
-                            )
-                          }
-                        }
-                      },
-                      [_c("i", { staticClass: "fab fa-instagram" })]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _vm._m(0)
-                ])
-              : _vm._e()
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-md-2 text-right" }, [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-white btn-rounded btn-lg",
-                on: {
-                  click: function($event) {
-                    _vm.sharetoggle = !_vm.sharetoggle
-                  }
+  return _c("div", { staticClass: "post_header_single" }, [
+    _c("div", { staticClass: "container-fluid" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-6 " }, [
+          _c(
+            "a",
+            {
+              staticClass: "btn btn-white btn-rounded btn-lg fixed-back",
+              on: {
+                click: function($event) {
+                  return _vm.$router.go(-1)
                 }
-              },
-              [_c("i", { staticClass: "fa fa-share-alt" })]
-            )
+              }
+            },
+            [_c("i", { staticClass: "fa fa-arrow-left" }), _vm._v(" Back ")]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-6" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-md-10 text-right" }, [
+              _vm.sharetoggle
+                ? _c("ul", { staticClass: "social-network social-circle" }, [
+                    _c("li", [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "icoFacebook",
+                          attrs: { href: "#", title: "Facebook" },
+                          on: {
+                            click: function($event) {
+                              return _vm.newWindow(
+                                "https://www.facebook.com/studentshub.in"
+                              )
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "fab fa-facebook" })]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("li", [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "icoTwitter",
+                          attrs: {
+                            href: "#",
+                            target: "_blank",
+                            title: "Twitter"
+                          },
+                          on: {
+                            click: function($event) {
+                              return _vm.newWindow(
+                                "https://www.twitter.com/studentshub_in"
+                              )
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "fab fa-twitter" })]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("li", [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "icoInstagram",
+                          attrs: {
+                            href: "#",
+                            target: "_blank",
+                            title: "Instagram"
+                          },
+                          on: {
+                            click: function($event) {
+                              return _vm.newWindow(
+                                "https://www.instagram.com/studentshub.in"
+                              )
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "fab fa-instagram" })]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _vm._m(0)
+                  ])
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-2 text-right" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-white btn-rounded btn-lg",
+                  on: {
+                    click: function($event) {
+                      _vm.sharetoggle = !_vm.sharetoggle
+                    }
+                  }
+                },
+                [_c("i", { staticClass: "fa fa-share-alt" })]
+              )
+            ])
           ])
         ])
       ])
@@ -56177,18 +56608,10 @@ var render = function() {
     [
       _c("post-view-header"),
       _vm._v(" "),
-      _c("div", { staticClass: "container ptb-50" }, [
+      _c("div", { staticClass: "contgainer single_post_page" }, [
         _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-md-12 text-center" }, [
-            _c("h4", { staticClass: "weight-400" }, [
-              _vm._v(_vm._s(_vm.postContent.subject_name))
-            ]),
-            _vm._v(" "),
-            _c("h2", { staticClass: "weight-600" }, [
-              _vm._v(_vm._s(_vm.postContent.heading))
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "avatar mt-3 mb-2" }, [
+          _c("div", { staticClass: "col-md-6" }, [
+            _c("div", { staticClass: "avatar" }, [
               _c("img", {
                 directives: [
                   {
@@ -56198,9 +56621,21 @@ var render = function() {
                     expression: "'/images/4.jpg'"
                   }
                 ],
-                staticClass: "avatar-img rounded-circle",
+                staticClass: "avatar-img post_img",
                 attrs: { alt: "..." }
               })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-6" }, [
+            _c("div", { staticClass: "single_post_head" }, [
+              _c("h4", { staticClass: "weight-400" }, [
+                _vm._v(_vm._s(_vm.postContent.subject_name))
+              ]),
+              _vm._v(" "),
+              _c("h2", { staticClass: "weight-600" }, [
+                _vm._v(_vm._s(_vm.postContent.heading))
+              ])
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "info-post ml-2" }, [
@@ -56299,27 +56734,27 @@ var render = function() {
                         [
                           _c("network", { attrs: { network: "email" } }, [
                             _c("i", { staticClass: "fa fa-envelope" }),
-                            _vm._v(" Email\r\n      ")
+                            _vm._v(" Email\n\t\t\t\t\t\t\t")
                           ]),
                           _vm._v(" "),
                           _c("network", { attrs: { network: "facebook" } }, [
                             _c("i", { staticClass: "fa fa-facebook" }),
-                            _vm._v(" Facebook\r\n      ")
+                            _vm._v(" Facebook\n\t\t\t\t\t\t\t")
                           ]),
                           _vm._v(" "),
                           _c("network", { attrs: { network: "googleplus" } }, [
                             _c("i", { staticClass: "fa fa-google-plus" }),
-                            _vm._v(" Google +\r\n      ")
+                            _vm._v(" Google +\n\t\t\t\t\t\t\t")
                           ]),
                           _vm._v(" "),
                           _c("network", { attrs: { network: "line" } }, [
                             _c("i", { staticClass: "fa fa-line" }),
-                            _vm._v(" Line\r\n      ")
+                            _vm._v(" Line\n\t\t\t\t\t\t\t")
                           ]),
                           _vm._v(" "),
                           _c("network", { attrs: { network: "linkedin" } }, [
                             _c("i", { staticClass: "fa fa-linkedin" }),
-                            _vm._v(" LinkedIn\r\n      ")
+                            _vm._v(" LinkedIn\n\t\t\t\t\t\t\t")
                           ]),
                           _vm._v(" "),
                           _c(
@@ -56327,53 +56762,53 @@ var render = function() {
                             { attrs: { network: "odnoklassniki" } },
                             [
                               _c("i", { staticClass: "fa fa-odnoklassniki" }),
-                              _vm._v(" Odnoklassniki\r\n      ")
+                              _vm._v(" Odnoklassniki\n\t\t\t\t\t\t\t")
                             ]
                           ),
                           _vm._v(" "),
                           _c("network", { attrs: { network: "pinterest" } }, [
                             _c("i", { staticClass: "fa fa-pinterest" }),
-                            _vm._v(" Pinterest\r\n      ")
+                            _vm._v(" Pinterest\n\t\t\t\t\t\t\t")
                           ]),
                           _vm._v(" "),
                           _c("network", { attrs: { network: "reddit" } }, [
                             _c("i", { staticClass: "fa fa-reddit" }),
-                            _vm._v(" Reddit\r\n      ")
+                            _vm._v(" Reddit\n\t\t\t\t\t\t\t")
                           ]),
                           _vm._v(" "),
                           _c("network", { attrs: { network: "skype" } }, [
                             _c("i", { staticClass: "fa fa-skype" }),
-                            _vm._v(" Skype\r\n      ")
+                            _vm._v(" Skype\n\t\t\t\t\t\t\t")
                           ]),
                           _vm._v(" "),
                           _c("network", { attrs: { network: "sms" } }, [
                             _c("i", { staticClass: "fa fa-commenting-o" }),
-                            _vm._v(" SMS\r\n      ")
+                            _vm._v(" SMS\n\t\t\t\t\t\t\t")
                           ]),
                           _vm._v(" "),
                           _c("network", { attrs: { network: "telegram" } }, [
                             _c("i", { staticClass: "fa fa-telegram" }),
-                            _vm._v(" Telegram\r\n      ")
+                            _vm._v(" Telegram\n\t\t\t\t\t\t\t")
                           ]),
                           _vm._v(" "),
                           _c("network", { attrs: { network: "twitter" } }, [
                             _c("i", { staticClass: "fa fa-twitter" }),
-                            _vm._v(" Twitter\r\n      ")
+                            _vm._v(" Twitter\n\t\t\t\t\t\t\t")
                           ]),
                           _vm._v(" "),
                           _c("network", { attrs: { network: "vk" } }, [
                             _c("i", { staticClass: "fa fa-vk" }),
-                            _vm._v(" VKontakte\r\n      ")
+                            _vm._v(" VKontakte\n\t\t\t\t\t\t\t")
                           ]),
                           _vm._v(" "),
                           _c("network", { attrs: { network: "weibo" } }, [
                             _c("i", { staticClass: "fa fa-weibo" }),
-                            _vm._v(" Weibo\r\n      ")
+                            _vm._v(" Weibo\n\t\t\t\t\t\t\t")
                           ]),
                           _vm._v(" "),
                           _c("network", { attrs: { network: "whatsapp" } }, [
                             _c("i", { staticClass: "fa fa-whatsapp" }),
-                            _vm._v(" Whatsapp\r\n      ")
+                            _vm._v(" Whatsapp\n\t\t\t\t\t\t\t")
                           ])
                         ],
                         1
@@ -59625,6 +60060,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/vue-slick-carousel/dist/vue-slick-carousel.css":
+/*!*********************************************************************!*\
+  !*** ./node_modules/vue-slick-carousel/dist/vue-slick-carousel.css ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../css-loader??ref--10-1!../../postcss-loader/src??ref--10-2!./vue-slick-carousel.css */ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-slick-carousel/dist/vue-slick-carousel.css");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/vue-slick-carousel/dist/vue-slick-carousel.umd.js":
 /*!************************************************************************!*\
   !*** ./node_modules/vue-slick-carousel/dist/vue-slick-carousel.umd.js ***!
@@ -59789,6 +60254,37 @@ function getRawTag(value) {
 }
 
 module.exports = getRawTag;
+
+
+/***/ }),
+
+/***/ "0366":
+/***/ (function(module, exports, __webpack_require__) {
+
+var aFunction = __webpack_require__("1c0b");
+
+// optional / simple context binding
+module.exports = function (fn, that, length) {
+  aFunction(fn);
+  if (that === undefined) return fn;
+  switch (length) {
+    case 0: return function () {
+      return fn.call(that);
+    };
+    case 1: return function (a) {
+      return fn.call(that, a);
+    };
+    case 2: return function (a, b) {
+      return fn.call(that, a, b);
+    };
+    case 3: return function (a, b, c) {
+      return fn.call(that, a, b, c);
+    };
+  }
+  return function (/* ...args */) {
+    return fn.apply(that, arguments);
+  };
+};
 
 
 /***/ }),
@@ -60108,13 +60604,6 @@ module.exports = baseRest;
 
 /***/ }),
 
-/***/ "103a":
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
 /***/ "1276":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -60315,17 +60804,6 @@ module.exports = isObjectLike;
 
 /***/ }),
 
-/***/ "134f":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_vuetify_loader_lib_loader_js_ref_19_0_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InnerSlider_vue_vue_type_style_index_0_id_6bed67a2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("802e");
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_vuetify_loader_lib_loader_js_ref_19_0_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InnerSlider_vue_vue_type_style_index_0_id_6bed67a2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_vuetify_loader_lib_loader_js_ref_19_0_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InnerSlider_vue_vue_type_style_index_0_id_6bed67a2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* unused harmony reexport * */
- /* unused harmony default export */ var _unused_webpack_default_export = (_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_vuetify_loader_lib_loader_js_ref_19_0_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InnerSlider_vue_vue_type_style_index_0_id_6bed67a2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
-
-/***/ }),
-
 /***/ "1368":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -60349,6 +60827,30 @@ function isMasked(func) {
 }
 
 module.exports = isMasked;
+
+
+/***/ }),
+
+/***/ "13d5":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $ = __webpack_require__("23e7");
+var $reduce = __webpack_require__("d58f").left;
+var arrayMethodIsStrict = __webpack_require__("a640");
+var arrayMethodUsesToLength = __webpack_require__("ae40");
+
+var STRICT_METHOD = arrayMethodIsStrict('reduce');
+var USES_TO_LENGTH = arrayMethodUsesToLength('reduce', { 1: 0 });
+
+// `Array.prototype.reduce` method
+// https://tc39.github.io/ecma262/#sec-array.prototype.reduce
+$({ target: 'Array', proto: true, forced: !STRICT_METHOD || !USES_TO_LENGTH }, {
+  reduce: function reduce(callbackfn /* , initialValue */) {
+    return $reduce(this, callbackfn, arguments.length, arguments.length > 1 ? arguments[1] : undefined);
+  }
+});
 
 
 /***/ }),
@@ -60490,11 +60992,15 @@ module.exports = basePick;
 "use strict";
 
 var $forEach = __webpack_require__("b727").forEach;
-var sloppyArrayMethod = __webpack_require__("b301");
+var arrayMethodIsStrict = __webpack_require__("a640");
+var arrayMethodUsesToLength = __webpack_require__("ae40");
+
+var STRICT_METHOD = arrayMethodIsStrict('forEach');
+var USES_TO_LENGTH = arrayMethodUsesToLength('forEach');
 
 // `Array.prototype.forEach` method implementation
 // https://tc39.github.io/ecma262/#sec-array.prototype.foreach
-module.exports = sloppyArrayMethod('forEach') ? function forEach(callbackfn /* , thisArg */) {
+module.exports = (!STRICT_METHOD || !USES_TO_LENGTH) ? function forEach(callbackfn /* , thisArg */) {
   return $forEach(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
 } : [].forEach;
 
@@ -60658,7 +61164,7 @@ module.exports = function (it) {
 
 var fails = __webpack_require__("d039");
 var wellKnownSymbol = __webpack_require__("b622");
-var V8_VERSION = __webpack_require__("60ae");
+var V8_VERSION = __webpack_require__("2d00");
 
 var SPECIES = wellKnownSymbol('species');
 
@@ -61184,6 +61690,33 @@ module.exports = root;
 
 /***/ }),
 
+/***/ "2d00":
+/***/ (function(module, exports, __webpack_require__) {
+
+var global = __webpack_require__("da84");
+var userAgent = __webpack_require__("342f");
+
+var process = global.process;
+var versions = process && process.versions;
+var v8 = versions && versions.v8;
+var match, version;
+
+if (v8) {
+  match = v8.split('.');
+  version = match[0] + match[1];
+} else if (userAgent) {
+  match = userAgent.match(/Edge\/(\d+)/);
+  if (!match || match[1] >= 74) {
+    match = userAgent.match(/Chrome\/(\d+)/);
+    if (match) version = match[1];
+  }
+}
+
+module.exports = version && +version;
+
+
+/***/ }),
+
 /***/ "2ec1":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -61299,6 +61832,16 @@ function assignValue(object, key, value) {
 }
 
 module.exports = assignValue;
+
+
+/***/ }),
+
+/***/ "342f":
+/***/ (function(module, exports, __webpack_require__) {
+
+var getBuiltIn = __webpack_require__("d066");
+
+module.exports = getBuiltIn('navigator', 'userAgent') || '';
 
 
 /***/ }),
@@ -61471,6 +62014,13 @@ module.exports = defineProperty;
 
 /***/ }),
 
+/***/ "3b81":
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
 /***/ "3bbe":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -61526,6 +62076,23 @@ defineIterator(String, 'String', function (iterated) {
 /***/ (function(module, exports) {
 
 module.exports = {};
+
+
+/***/ }),
+
+/***/ "4160":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $ = __webpack_require__("23e7");
+var forEach = __webpack_require__("17c2");
+
+// `Array.prototype.forEach` method
+// https://tc39.github.io/ecma262/#sec-array.prototype.foreach
+$({ target: 'Array', proto: true, forced: [].forEach != forEach }, {
+  forEach: forEach
+});
 
 
 /***/ }),
@@ -61590,7 +62157,7 @@ module.exports = fails(function () {
 
 var wellKnownSymbol = __webpack_require__("b622");
 var create = __webpack_require__("7c73");
-var createNonEnumerableProperty = __webpack_require__("9112");
+var definePropertyModule = __webpack_require__("9bf2");
 
 var UNSCOPABLES = wellKnownSymbol('unscopables');
 var ArrayPrototype = Array.prototype;
@@ -61598,7 +62165,10 @@ var ArrayPrototype = Array.prototype;
 // Array.prototype[@@unscopables]
 // https://tc39.github.io/ecma262/#sec-array.prototype-@@unscopables
 if (ArrayPrototype[UNSCOPABLES] == undefined) {
-  createNonEnumerableProperty(ArrayPrototype, UNSCOPABLES, create(null));
+  definePropertyModule.f(ArrayPrototype, UNSCOPABLES, {
+    configurable: true,
+    value: create(null)
+  });
 }
 
 // add a key to Array.prototype[@@unscopables]
@@ -61811,14 +62381,12 @@ module.exports = flatten;
 
 var $ = __webpack_require__("23e7");
 var $filter = __webpack_require__("b727").filter;
-var fails = __webpack_require__("d039");
 var arrayMethodHasSpeciesSupport = __webpack_require__("1dde");
+var arrayMethodUsesToLength = __webpack_require__("ae40");
 
 var HAS_SPECIES_SUPPORT = arrayMethodHasSpeciesSupport('filter');
 // Edge 14- issue
-var USES_TO_LENGTH = HAS_SPECIES_SUPPORT && !fails(function () {
-  [].filter.call({ length: -1, 0: 1 }, function (it) { throw it; });
-});
+var USES_TO_LENGTH = arrayMethodUsesToLength('filter');
 
 // `Array.prototype.filter` method
 // https://tc39.github.io/ecma262/#sec-array.prototype.filter
@@ -61837,7 +62405,7 @@ $({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT || !USES_TO_LENGT
 
 "use strict";
 
-var bind = __webpack_require__("f8c2");
+var bind = __webpack_require__("0366");
 var toObject = __webpack_require__("7b0b");
 var callWithSafeIterationClosing = __webpack_require__("9bdd");
 var isArrayIteratorMethod = __webpack_require__("e95a");
@@ -61853,9 +62421,9 @@ module.exports = function from(arrayLike /* , mapfn = undefined, thisArg = undef
   var argumentsLength = arguments.length;
   var mapfn = argumentsLength > 1 ? arguments[1] : undefined;
   var mapping = mapfn !== undefined;
-  var index = 0;
   var iteratorMethod = getIteratorMethod(O);
-  var length, result, step, iterator, next;
+  var index = 0;
+  var length, result, step, iterator, next, value;
   if (mapping) mapfn = bind(mapfn, argumentsLength > 2 ? arguments[2] : undefined, 2);
   // if the target is not iterable or it's an array with the default iterator - use a simple case
   if (iteratorMethod != undefined && !(C == Array && isArrayIteratorMethod(iteratorMethod))) {
@@ -61863,61 +62431,20 @@ module.exports = function from(arrayLike /* , mapfn = undefined, thisArg = undef
     next = iterator.next;
     result = new C();
     for (;!(step = next.call(iterator)).done; index++) {
-      createProperty(result, index, mapping
-        ? callWithSafeIterationClosing(iterator, mapfn, [step.value, index], true)
-        : step.value
-      );
+      value = mapping ? callWithSafeIterationClosing(iterator, mapfn, [step.value, index], true) : step.value;
+      createProperty(result, index, value);
     }
   } else {
     length = toLength(O.length);
     result = new C(length);
     for (;length > index; index++) {
-      createProperty(result, index, mapping ? mapfn(O[index], index) : O[index]);
+      value = mapping ? mapfn(O[index], index) : O[index];
+      createProperty(result, index, value);
     }
   }
   result.length = index;
   return result;
 };
-
-
-/***/ }),
-
-/***/ "4e82":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var $ = __webpack_require__("23e7");
-var aFunction = __webpack_require__("1c0b");
-var toObject = __webpack_require__("7b0b");
-var fails = __webpack_require__("d039");
-var sloppyArrayMethod = __webpack_require__("b301");
-
-var test = [];
-var nativeSort = test.sort;
-
-// IE8-
-var FAILS_ON_UNDEFINED = fails(function () {
-  test.sort(undefined);
-});
-// V8 bug
-var FAILS_ON_NULL = fails(function () {
-  test.sort(null);
-});
-// Old WebKit
-var SLOPPY_METHOD = sloppyArrayMethod('sort');
-
-var FORCED = FAILS_ON_UNDEFINED || !FAILS_ON_NULL || SLOPPY_METHOD;
-
-// `Array.prototype.sort` method
-// https://tc39.github.io/ecma262/#sec-array.prototype.sort
-$({ target: 'Array', proto: true, forced: FORCED }, {
-  sort: function sort(comparefn) {
-    return comparefn === undefined
-      ? nativeSort.call(toObject(this))
-      : nativeSort.call(toObject(this), aFunction(comparefn));
-  }
-});
 
 
 /***/ }),
@@ -61986,9 +62513,9 @@ var store = __webpack_require__("c6cd");
 (module.exports = function (key, value) {
   return store[key] || (store[key] = value !== undefined ? value : {});
 })('versions', []).push({
-  version: '3.5.0',
+  version: '3.6.4',
   mode: IS_PURE ? 'pure' : 'global',
-  copyright: '© 2019 Denis Pushkarev (zloirock.ru)'
+  copyright: '© 2020 Denis Pushkarev (zloirock.ru)'
 });
 
 
@@ -62190,33 +62717,6 @@ var getNative = __webpack_require__("0b07");
 var nativeCreate = getNative(Object, 'create');
 
 module.exports = nativeCreate;
-
-
-/***/ }),
-
-/***/ "60ae":
-/***/ (function(module, exports, __webpack_require__) {
-
-var global = __webpack_require__("da84");
-var userAgent = __webpack_require__("b39a");
-
-var process = global.process;
-var versions = process && process.versions;
-var v8 = versions && versions.v8;
-var match, version;
-
-if (v8) {
-  match = v8.split('.');
-  version = match[0] + match[1];
-} else if (userAgent) {
-  match = userAgent.match(/Edge\/(\d+)/);
-  if (!match || match[1] >= 74) {
-    match = userAgent.match(/Chrome\/(\d+)/);
-    if (match) version = match[1];
-  }
-}
-
-module.exports = version && +version;
 
 
 /***/ }),
@@ -62578,6 +63078,954 @@ module.exports = {
 
 /***/ }),
 
+/***/ "6dd8":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {/**
+ * A collection of shims that provide minimal functionality of the ES6 collections.
+ *
+ * These implementations are not meant to be used outside of the ResizeObserver
+ * modules as they cover only a limited range of use cases.
+ */
+/* eslint-disable require-jsdoc, valid-jsdoc */
+var MapShim = (function () {
+    if (typeof Map !== 'undefined') {
+        return Map;
+    }
+    /**
+     * Returns index in provided array that matches the specified key.
+     *
+     * @param {Array<Array>} arr
+     * @param {*} key
+     * @returns {number}
+     */
+    function getIndex(arr, key) {
+        var result = -1;
+        arr.some(function (entry, index) {
+            if (entry[0] === key) {
+                result = index;
+                return true;
+            }
+            return false;
+        });
+        return result;
+    }
+    return /** @class */ (function () {
+        function class_1() {
+            this.__entries__ = [];
+        }
+        Object.defineProperty(class_1.prototype, "size", {
+            /**
+             * @returns {boolean}
+             */
+            get: function () {
+                return this.__entries__.length;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @param {*} key
+         * @returns {*}
+         */
+        class_1.prototype.get = function (key) {
+            var index = getIndex(this.__entries__, key);
+            var entry = this.__entries__[index];
+            return entry && entry[1];
+        };
+        /**
+         * @param {*} key
+         * @param {*} value
+         * @returns {void}
+         */
+        class_1.prototype.set = function (key, value) {
+            var index = getIndex(this.__entries__, key);
+            if (~index) {
+                this.__entries__[index][1] = value;
+            }
+            else {
+                this.__entries__.push([key, value]);
+            }
+        };
+        /**
+         * @param {*} key
+         * @returns {void}
+         */
+        class_1.prototype.delete = function (key) {
+            var entries = this.__entries__;
+            var index = getIndex(entries, key);
+            if (~index) {
+                entries.splice(index, 1);
+            }
+        };
+        /**
+         * @param {*} key
+         * @returns {void}
+         */
+        class_1.prototype.has = function (key) {
+            return !!~getIndex(this.__entries__, key);
+        };
+        /**
+         * @returns {void}
+         */
+        class_1.prototype.clear = function () {
+            this.__entries__.splice(0);
+        };
+        /**
+         * @param {Function} callback
+         * @param {*} [ctx=null]
+         * @returns {void}
+         */
+        class_1.prototype.forEach = function (callback, ctx) {
+            if (ctx === void 0) { ctx = null; }
+            for (var _i = 0, _a = this.__entries__; _i < _a.length; _i++) {
+                var entry = _a[_i];
+                callback.call(ctx, entry[1], entry[0]);
+            }
+        };
+        return class_1;
+    }());
+})();
+
+/**
+ * Detects whether window and document objects are available in current environment.
+ */
+var isBrowser = typeof window !== 'undefined' && typeof document !== 'undefined' && window.document === document;
+
+// Returns global object of a current environment.
+var global$1 = (function () {
+    if (typeof global !== 'undefined' && global.Math === Math) {
+        return global;
+    }
+    if (typeof self !== 'undefined' && self.Math === Math) {
+        return self;
+    }
+    if (typeof window !== 'undefined' && window.Math === Math) {
+        return window;
+    }
+    // eslint-disable-next-line no-new-func
+    return Function('return this')();
+})();
+
+/**
+ * A shim for the requestAnimationFrame which falls back to the setTimeout if
+ * first one is not supported.
+ *
+ * @returns {number} Requests' identifier.
+ */
+var requestAnimationFrame$1 = (function () {
+    if (typeof requestAnimationFrame === 'function') {
+        // It's required to use a bounded function because IE sometimes throws
+        // an "Invalid calling object" error if rAF is invoked without the global
+        // object on the left hand side.
+        return requestAnimationFrame.bind(global$1);
+    }
+    return function (callback) { return setTimeout(function () { return callback(Date.now()); }, 1000 / 60); };
+})();
+
+// Defines minimum timeout before adding a trailing call.
+var trailingTimeout = 2;
+/**
+ * Creates a wrapper function which ensures that provided callback will be
+ * invoked only once during the specified delay period.
+ *
+ * @param {Function} callback - Function to be invoked after the delay period.
+ * @param {number} delay - Delay after which to invoke callback.
+ * @returns {Function}
+ */
+function throttle (callback, delay) {
+    var leadingCall = false, trailingCall = false, lastCallTime = 0;
+    /**
+     * Invokes the original callback function and schedules new invocation if
+     * the "proxy" was called during current request.
+     *
+     * @returns {void}
+     */
+    function resolvePending() {
+        if (leadingCall) {
+            leadingCall = false;
+            callback();
+        }
+        if (trailingCall) {
+            proxy();
+        }
+    }
+    /**
+     * Callback invoked after the specified delay. It will further postpone
+     * invocation of the original function delegating it to the
+     * requestAnimationFrame.
+     *
+     * @returns {void}
+     */
+    function timeoutCallback() {
+        requestAnimationFrame$1(resolvePending);
+    }
+    /**
+     * Schedules invocation of the original function.
+     *
+     * @returns {void}
+     */
+    function proxy() {
+        var timeStamp = Date.now();
+        if (leadingCall) {
+            // Reject immediately following calls.
+            if (timeStamp - lastCallTime < trailingTimeout) {
+                return;
+            }
+            // Schedule new call to be in invoked when the pending one is resolved.
+            // This is important for "transitions" which never actually start
+            // immediately so there is a chance that we might miss one if change
+            // happens amids the pending invocation.
+            trailingCall = true;
+        }
+        else {
+            leadingCall = true;
+            trailingCall = false;
+            setTimeout(timeoutCallback, delay);
+        }
+        lastCallTime = timeStamp;
+    }
+    return proxy;
+}
+
+// Minimum delay before invoking the update of observers.
+var REFRESH_DELAY = 20;
+// A list of substrings of CSS properties used to find transition events that
+// might affect dimensions of observed elements.
+var transitionKeys = ['top', 'right', 'bottom', 'left', 'width', 'height', 'size', 'weight'];
+// Check if MutationObserver is available.
+var mutationObserverSupported = typeof MutationObserver !== 'undefined';
+/**
+ * Singleton controller class which handles updates of ResizeObserver instances.
+ */
+var ResizeObserverController = /** @class */ (function () {
+    /**
+     * Creates a new instance of ResizeObserverController.
+     *
+     * @private
+     */
+    function ResizeObserverController() {
+        /**
+         * Indicates whether DOM listeners have been added.
+         *
+         * @private {boolean}
+         */
+        this.connected_ = false;
+        /**
+         * Tells that controller has subscribed for Mutation Events.
+         *
+         * @private {boolean}
+         */
+        this.mutationEventsAdded_ = false;
+        /**
+         * Keeps reference to the instance of MutationObserver.
+         *
+         * @private {MutationObserver}
+         */
+        this.mutationsObserver_ = null;
+        /**
+         * A list of connected observers.
+         *
+         * @private {Array<ResizeObserverSPI>}
+         */
+        this.observers_ = [];
+        this.onTransitionEnd_ = this.onTransitionEnd_.bind(this);
+        this.refresh = throttle(this.refresh.bind(this), REFRESH_DELAY);
+    }
+    /**
+     * Adds observer to observers list.
+     *
+     * @param {ResizeObserverSPI} observer - Observer to be added.
+     * @returns {void}
+     */
+    ResizeObserverController.prototype.addObserver = function (observer) {
+        if (!~this.observers_.indexOf(observer)) {
+            this.observers_.push(observer);
+        }
+        // Add listeners if they haven't been added yet.
+        if (!this.connected_) {
+            this.connect_();
+        }
+    };
+    /**
+     * Removes observer from observers list.
+     *
+     * @param {ResizeObserverSPI} observer - Observer to be removed.
+     * @returns {void}
+     */
+    ResizeObserverController.prototype.removeObserver = function (observer) {
+        var observers = this.observers_;
+        var index = observers.indexOf(observer);
+        // Remove observer if it's present in registry.
+        if (~index) {
+            observers.splice(index, 1);
+        }
+        // Remove listeners if controller has no connected observers.
+        if (!observers.length && this.connected_) {
+            this.disconnect_();
+        }
+    };
+    /**
+     * Invokes the update of observers. It will continue running updates insofar
+     * it detects changes.
+     *
+     * @returns {void}
+     */
+    ResizeObserverController.prototype.refresh = function () {
+        var changesDetected = this.updateObservers_();
+        // Continue running updates if changes have been detected as there might
+        // be future ones caused by CSS transitions.
+        if (changesDetected) {
+            this.refresh();
+        }
+    };
+    /**
+     * Updates every observer from observers list and notifies them of queued
+     * entries.
+     *
+     * @private
+     * @returns {boolean} Returns "true" if any observer has detected changes in
+     *      dimensions of it's elements.
+     */
+    ResizeObserverController.prototype.updateObservers_ = function () {
+        // Collect observers that have active observations.
+        var activeObservers = this.observers_.filter(function (observer) {
+            return observer.gatherActive(), observer.hasActive();
+        });
+        // Deliver notifications in a separate cycle in order to avoid any
+        // collisions between observers, e.g. when multiple instances of
+        // ResizeObserver are tracking the same element and the callback of one
+        // of them changes content dimensions of the observed target. Sometimes
+        // this may result in notifications being blocked for the rest of observers.
+        activeObservers.forEach(function (observer) { return observer.broadcastActive(); });
+        return activeObservers.length > 0;
+    };
+    /**
+     * Initializes DOM listeners.
+     *
+     * @private
+     * @returns {void}
+     */
+    ResizeObserverController.prototype.connect_ = function () {
+        // Do nothing if running in a non-browser environment or if listeners
+        // have been already added.
+        if (!isBrowser || this.connected_) {
+            return;
+        }
+        // Subscription to the "Transitionend" event is used as a workaround for
+        // delayed transitions. This way it's possible to capture at least the
+        // final state of an element.
+        document.addEventListener('transitionend', this.onTransitionEnd_);
+        window.addEventListener('resize', this.refresh);
+        if (mutationObserverSupported) {
+            this.mutationsObserver_ = new MutationObserver(this.refresh);
+            this.mutationsObserver_.observe(document, {
+                attributes: true,
+                childList: true,
+                characterData: true,
+                subtree: true
+            });
+        }
+        else {
+            document.addEventListener('DOMSubtreeModified', this.refresh);
+            this.mutationEventsAdded_ = true;
+        }
+        this.connected_ = true;
+    };
+    /**
+     * Removes DOM listeners.
+     *
+     * @private
+     * @returns {void}
+     */
+    ResizeObserverController.prototype.disconnect_ = function () {
+        // Do nothing if running in a non-browser environment or if listeners
+        // have been already removed.
+        if (!isBrowser || !this.connected_) {
+            return;
+        }
+        document.removeEventListener('transitionend', this.onTransitionEnd_);
+        window.removeEventListener('resize', this.refresh);
+        if (this.mutationsObserver_) {
+            this.mutationsObserver_.disconnect();
+        }
+        if (this.mutationEventsAdded_) {
+            document.removeEventListener('DOMSubtreeModified', this.refresh);
+        }
+        this.mutationsObserver_ = null;
+        this.mutationEventsAdded_ = false;
+        this.connected_ = false;
+    };
+    /**
+     * "Transitionend" event handler.
+     *
+     * @private
+     * @param {TransitionEvent} event
+     * @returns {void}
+     */
+    ResizeObserverController.prototype.onTransitionEnd_ = function (_a) {
+        var _b = _a.propertyName, propertyName = _b === void 0 ? '' : _b;
+        // Detect whether transition may affect dimensions of an element.
+        var isReflowProperty = transitionKeys.some(function (key) {
+            return !!~propertyName.indexOf(key);
+        });
+        if (isReflowProperty) {
+            this.refresh();
+        }
+    };
+    /**
+     * Returns instance of the ResizeObserverController.
+     *
+     * @returns {ResizeObserverController}
+     */
+    ResizeObserverController.getInstance = function () {
+        if (!this.instance_) {
+            this.instance_ = new ResizeObserverController();
+        }
+        return this.instance_;
+    };
+    /**
+     * Holds reference to the controller's instance.
+     *
+     * @private {ResizeObserverController}
+     */
+    ResizeObserverController.instance_ = null;
+    return ResizeObserverController;
+}());
+
+/**
+ * Defines non-writable/enumerable properties of the provided target object.
+ *
+ * @param {Object} target - Object for which to define properties.
+ * @param {Object} props - Properties to be defined.
+ * @returns {Object} Target object.
+ */
+var defineConfigurable = (function (target, props) {
+    for (var _i = 0, _a = Object.keys(props); _i < _a.length; _i++) {
+        var key = _a[_i];
+        Object.defineProperty(target, key, {
+            value: props[key],
+            enumerable: false,
+            writable: false,
+            configurable: true
+        });
+    }
+    return target;
+});
+
+/**
+ * Returns the global object associated with provided element.
+ *
+ * @param {Object} target
+ * @returns {Object}
+ */
+var getWindowOf = (function (target) {
+    // Assume that the element is an instance of Node, which means that it
+    // has the "ownerDocument" property from which we can retrieve a
+    // corresponding global object.
+    var ownerGlobal = target && target.ownerDocument && target.ownerDocument.defaultView;
+    // Return the local global object if it's not possible extract one from
+    // provided element.
+    return ownerGlobal || global$1;
+});
+
+// Placeholder of an empty content rectangle.
+var emptyRect = createRectInit(0, 0, 0, 0);
+/**
+ * Converts provided string to a number.
+ *
+ * @param {number|string} value
+ * @returns {number}
+ */
+function toFloat(value) {
+    return parseFloat(value) || 0;
+}
+/**
+ * Extracts borders size from provided styles.
+ *
+ * @param {CSSStyleDeclaration} styles
+ * @param {...string} positions - Borders positions (top, right, ...)
+ * @returns {number}
+ */
+function getBordersSize(styles) {
+    var positions = [];
+    for (var _i = 1; _i < arguments.length; _i++) {
+        positions[_i - 1] = arguments[_i];
+    }
+    return positions.reduce(function (size, position) {
+        var value = styles['border-' + position + '-width'];
+        return size + toFloat(value);
+    }, 0);
+}
+/**
+ * Extracts paddings sizes from provided styles.
+ *
+ * @param {CSSStyleDeclaration} styles
+ * @returns {Object} Paddings box.
+ */
+function getPaddings(styles) {
+    var positions = ['top', 'right', 'bottom', 'left'];
+    var paddings = {};
+    for (var _i = 0, positions_1 = positions; _i < positions_1.length; _i++) {
+        var position = positions_1[_i];
+        var value = styles['padding-' + position];
+        paddings[position] = toFloat(value);
+    }
+    return paddings;
+}
+/**
+ * Calculates content rectangle of provided SVG element.
+ *
+ * @param {SVGGraphicsElement} target - Element content rectangle of which needs
+ *      to be calculated.
+ * @returns {DOMRectInit}
+ */
+function getSVGContentRect(target) {
+    var bbox = target.getBBox();
+    return createRectInit(0, 0, bbox.width, bbox.height);
+}
+/**
+ * Calculates content rectangle of provided HTMLElement.
+ *
+ * @param {HTMLElement} target - Element for which to calculate the content rectangle.
+ * @returns {DOMRectInit}
+ */
+function getHTMLElementContentRect(target) {
+    // Client width & height properties can't be
+    // used exclusively as they provide rounded values.
+    var clientWidth = target.clientWidth, clientHeight = target.clientHeight;
+    // By this condition we can catch all non-replaced inline, hidden and
+    // detached elements. Though elements with width & height properties less
+    // than 0.5 will be discarded as well.
+    //
+    // Without it we would need to implement separate methods for each of
+    // those cases and it's not possible to perform a precise and performance
+    // effective test for hidden elements. E.g. even jQuery's ':visible' filter
+    // gives wrong results for elements with width & height less than 0.5.
+    if (!clientWidth && !clientHeight) {
+        return emptyRect;
+    }
+    var styles = getWindowOf(target).getComputedStyle(target);
+    var paddings = getPaddings(styles);
+    var horizPad = paddings.left + paddings.right;
+    var vertPad = paddings.top + paddings.bottom;
+    // Computed styles of width & height are being used because they are the
+    // only dimensions available to JS that contain non-rounded values. It could
+    // be possible to utilize the getBoundingClientRect if only it's data wasn't
+    // affected by CSS transformations let alone paddings, borders and scroll bars.
+    var width = toFloat(styles.width), height = toFloat(styles.height);
+    // Width & height include paddings and borders when the 'border-box' box
+    // model is applied (except for IE).
+    if (styles.boxSizing === 'border-box') {
+        // Following conditions are required to handle Internet Explorer which
+        // doesn't include paddings and borders to computed CSS dimensions.
+        //
+        // We can say that if CSS dimensions + paddings are equal to the "client"
+        // properties then it's either IE, and thus we don't need to subtract
+        // anything, or an element merely doesn't have paddings/borders styles.
+        if (Math.round(width + horizPad) !== clientWidth) {
+            width -= getBordersSize(styles, 'left', 'right') + horizPad;
+        }
+        if (Math.round(height + vertPad) !== clientHeight) {
+            height -= getBordersSize(styles, 'top', 'bottom') + vertPad;
+        }
+    }
+    // Following steps can't be applied to the document's root element as its
+    // client[Width/Height] properties represent viewport area of the window.
+    // Besides, it's as well not necessary as the <html> itself neither has
+    // rendered scroll bars nor it can be clipped.
+    if (!isDocumentElement(target)) {
+        // In some browsers (only in Firefox, actually) CSS width & height
+        // include scroll bars size which can be removed at this step as scroll
+        // bars are the only difference between rounded dimensions + paddings
+        // and "client" properties, though that is not always true in Chrome.
+        var vertScrollbar = Math.round(width + horizPad) - clientWidth;
+        var horizScrollbar = Math.round(height + vertPad) - clientHeight;
+        // Chrome has a rather weird rounding of "client" properties.
+        // E.g. for an element with content width of 314.2px it sometimes gives
+        // the client width of 315px and for the width of 314.7px it may give
+        // 314px. And it doesn't happen all the time. So just ignore this delta
+        // as a non-relevant.
+        if (Math.abs(vertScrollbar) !== 1) {
+            width -= vertScrollbar;
+        }
+        if (Math.abs(horizScrollbar) !== 1) {
+            height -= horizScrollbar;
+        }
+    }
+    return createRectInit(paddings.left, paddings.top, width, height);
+}
+/**
+ * Checks whether provided element is an instance of the SVGGraphicsElement.
+ *
+ * @param {Element} target - Element to be checked.
+ * @returns {boolean}
+ */
+var isSVGGraphicsElement = (function () {
+    // Some browsers, namely IE and Edge, don't have the SVGGraphicsElement
+    // interface.
+    if (typeof SVGGraphicsElement !== 'undefined') {
+        return function (target) { return target instanceof getWindowOf(target).SVGGraphicsElement; };
+    }
+    // If it's so, then check that element is at least an instance of the
+    // SVGElement and that it has the "getBBox" method.
+    // eslint-disable-next-line no-extra-parens
+    return function (target) { return (target instanceof getWindowOf(target).SVGElement &&
+        typeof target.getBBox === 'function'); };
+})();
+/**
+ * Checks whether provided element is a document element (<html>).
+ *
+ * @param {Element} target - Element to be checked.
+ * @returns {boolean}
+ */
+function isDocumentElement(target) {
+    return target === getWindowOf(target).document.documentElement;
+}
+/**
+ * Calculates an appropriate content rectangle for provided html or svg element.
+ *
+ * @param {Element} target - Element content rectangle of which needs to be calculated.
+ * @returns {DOMRectInit}
+ */
+function getContentRect(target) {
+    if (!isBrowser) {
+        return emptyRect;
+    }
+    if (isSVGGraphicsElement(target)) {
+        return getSVGContentRect(target);
+    }
+    return getHTMLElementContentRect(target);
+}
+/**
+ * Creates rectangle with an interface of the DOMRectReadOnly.
+ * Spec: https://drafts.fxtf.org/geometry/#domrectreadonly
+ *
+ * @param {DOMRectInit} rectInit - Object with rectangle's x/y coordinates and dimensions.
+ * @returns {DOMRectReadOnly}
+ */
+function createReadOnlyRect(_a) {
+    var x = _a.x, y = _a.y, width = _a.width, height = _a.height;
+    // If DOMRectReadOnly is available use it as a prototype for the rectangle.
+    var Constr = typeof DOMRectReadOnly !== 'undefined' ? DOMRectReadOnly : Object;
+    var rect = Object.create(Constr.prototype);
+    // Rectangle's properties are not writable and non-enumerable.
+    defineConfigurable(rect, {
+        x: x, y: y, width: width, height: height,
+        top: y,
+        right: x + width,
+        bottom: height + y,
+        left: x
+    });
+    return rect;
+}
+/**
+ * Creates DOMRectInit object based on the provided dimensions and the x/y coordinates.
+ * Spec: https://drafts.fxtf.org/geometry/#dictdef-domrectinit
+ *
+ * @param {number} x - X coordinate.
+ * @param {number} y - Y coordinate.
+ * @param {number} width - Rectangle's width.
+ * @param {number} height - Rectangle's height.
+ * @returns {DOMRectInit}
+ */
+function createRectInit(x, y, width, height) {
+    return { x: x, y: y, width: width, height: height };
+}
+
+/**
+ * Class that is responsible for computations of the content rectangle of
+ * provided DOM element and for keeping track of it's changes.
+ */
+var ResizeObservation = /** @class */ (function () {
+    /**
+     * Creates an instance of ResizeObservation.
+     *
+     * @param {Element} target - Element to be observed.
+     */
+    function ResizeObservation(target) {
+        /**
+         * Broadcasted width of content rectangle.
+         *
+         * @type {number}
+         */
+        this.broadcastWidth = 0;
+        /**
+         * Broadcasted height of content rectangle.
+         *
+         * @type {number}
+         */
+        this.broadcastHeight = 0;
+        /**
+         * Reference to the last observed content rectangle.
+         *
+         * @private {DOMRectInit}
+         */
+        this.contentRect_ = createRectInit(0, 0, 0, 0);
+        this.target = target;
+    }
+    /**
+     * Updates content rectangle and tells whether it's width or height properties
+     * have changed since the last broadcast.
+     *
+     * @returns {boolean}
+     */
+    ResizeObservation.prototype.isActive = function () {
+        var rect = getContentRect(this.target);
+        this.contentRect_ = rect;
+        return (rect.width !== this.broadcastWidth ||
+            rect.height !== this.broadcastHeight);
+    };
+    /**
+     * Updates 'broadcastWidth' and 'broadcastHeight' properties with a data
+     * from the corresponding properties of the last observed content rectangle.
+     *
+     * @returns {DOMRectInit} Last observed content rectangle.
+     */
+    ResizeObservation.prototype.broadcastRect = function () {
+        var rect = this.contentRect_;
+        this.broadcastWidth = rect.width;
+        this.broadcastHeight = rect.height;
+        return rect;
+    };
+    return ResizeObservation;
+}());
+
+var ResizeObserverEntry = /** @class */ (function () {
+    /**
+     * Creates an instance of ResizeObserverEntry.
+     *
+     * @param {Element} target - Element that is being observed.
+     * @param {DOMRectInit} rectInit - Data of the element's content rectangle.
+     */
+    function ResizeObserverEntry(target, rectInit) {
+        var contentRect = createReadOnlyRect(rectInit);
+        // According to the specification following properties are not writable
+        // and are also not enumerable in the native implementation.
+        //
+        // Property accessors are not being used as they'd require to define a
+        // private WeakMap storage which may cause memory leaks in browsers that
+        // don't support this type of collections.
+        defineConfigurable(this, { target: target, contentRect: contentRect });
+    }
+    return ResizeObserverEntry;
+}());
+
+var ResizeObserverSPI = /** @class */ (function () {
+    /**
+     * Creates a new instance of ResizeObserver.
+     *
+     * @param {ResizeObserverCallback} callback - Callback function that is invoked
+     *      when one of the observed elements changes it's content dimensions.
+     * @param {ResizeObserverController} controller - Controller instance which
+     *      is responsible for the updates of observer.
+     * @param {ResizeObserver} callbackCtx - Reference to the public
+     *      ResizeObserver instance which will be passed to callback function.
+     */
+    function ResizeObserverSPI(callback, controller, callbackCtx) {
+        /**
+         * Collection of resize observations that have detected changes in dimensions
+         * of elements.
+         *
+         * @private {Array<ResizeObservation>}
+         */
+        this.activeObservations_ = [];
+        /**
+         * Registry of the ResizeObservation instances.
+         *
+         * @private {Map<Element, ResizeObservation>}
+         */
+        this.observations_ = new MapShim();
+        if (typeof callback !== 'function') {
+            throw new TypeError('The callback provided as parameter 1 is not a function.');
+        }
+        this.callback_ = callback;
+        this.controller_ = controller;
+        this.callbackCtx_ = callbackCtx;
+    }
+    /**
+     * Starts observing provided element.
+     *
+     * @param {Element} target - Element to be observed.
+     * @returns {void}
+     */
+    ResizeObserverSPI.prototype.observe = function (target) {
+        if (!arguments.length) {
+            throw new TypeError('1 argument required, but only 0 present.');
+        }
+        // Do nothing if current environment doesn't have the Element interface.
+        if (typeof Element === 'undefined' || !(Element instanceof Object)) {
+            return;
+        }
+        if (!(target instanceof getWindowOf(target).Element)) {
+            throw new TypeError('parameter 1 is not of type "Element".');
+        }
+        var observations = this.observations_;
+        // Do nothing if element is already being observed.
+        if (observations.has(target)) {
+            return;
+        }
+        observations.set(target, new ResizeObservation(target));
+        this.controller_.addObserver(this);
+        // Force the update of observations.
+        this.controller_.refresh();
+    };
+    /**
+     * Stops observing provided element.
+     *
+     * @param {Element} target - Element to stop observing.
+     * @returns {void}
+     */
+    ResizeObserverSPI.prototype.unobserve = function (target) {
+        if (!arguments.length) {
+            throw new TypeError('1 argument required, but only 0 present.');
+        }
+        // Do nothing if current environment doesn't have the Element interface.
+        if (typeof Element === 'undefined' || !(Element instanceof Object)) {
+            return;
+        }
+        if (!(target instanceof getWindowOf(target).Element)) {
+            throw new TypeError('parameter 1 is not of type "Element".');
+        }
+        var observations = this.observations_;
+        // Do nothing if element is not being observed.
+        if (!observations.has(target)) {
+            return;
+        }
+        observations.delete(target);
+        if (!observations.size) {
+            this.controller_.removeObserver(this);
+        }
+    };
+    /**
+     * Stops observing all elements.
+     *
+     * @returns {void}
+     */
+    ResizeObserverSPI.prototype.disconnect = function () {
+        this.clearActive();
+        this.observations_.clear();
+        this.controller_.removeObserver(this);
+    };
+    /**
+     * Collects observation instances the associated element of which has changed
+     * it's content rectangle.
+     *
+     * @returns {void}
+     */
+    ResizeObserverSPI.prototype.gatherActive = function () {
+        var _this = this;
+        this.clearActive();
+        this.observations_.forEach(function (observation) {
+            if (observation.isActive()) {
+                _this.activeObservations_.push(observation);
+            }
+        });
+    };
+    /**
+     * Invokes initial callback function with a list of ResizeObserverEntry
+     * instances collected from active resize observations.
+     *
+     * @returns {void}
+     */
+    ResizeObserverSPI.prototype.broadcastActive = function () {
+        // Do nothing if observer doesn't have active observations.
+        if (!this.hasActive()) {
+            return;
+        }
+        var ctx = this.callbackCtx_;
+        // Create ResizeObserverEntry instance for every active observation.
+        var entries = this.activeObservations_.map(function (observation) {
+            return new ResizeObserverEntry(observation.target, observation.broadcastRect());
+        });
+        this.callback_.call(ctx, entries, ctx);
+        this.clearActive();
+    };
+    /**
+     * Clears the collection of active observations.
+     *
+     * @returns {void}
+     */
+    ResizeObserverSPI.prototype.clearActive = function () {
+        this.activeObservations_.splice(0);
+    };
+    /**
+     * Tells whether observer has active observations.
+     *
+     * @returns {boolean}
+     */
+    ResizeObserverSPI.prototype.hasActive = function () {
+        return this.activeObservations_.length > 0;
+    };
+    return ResizeObserverSPI;
+}());
+
+// Registry of internal observers. If WeakMap is not available use current shim
+// for the Map collection as it has all required methods and because WeakMap
+// can't be fully polyfilled anyway.
+var observers = typeof WeakMap !== 'undefined' ? new WeakMap() : new MapShim();
+/**
+ * ResizeObserver API. Encapsulates the ResizeObserver SPI implementation
+ * exposing only those methods and properties that are defined in the spec.
+ */
+var ResizeObserver = /** @class */ (function () {
+    /**
+     * Creates a new instance of ResizeObserver.
+     *
+     * @param {ResizeObserverCallback} callback - Callback that is invoked when
+     *      dimensions of the observed elements change.
+     */
+    function ResizeObserver(callback) {
+        if (!(this instanceof ResizeObserver)) {
+            throw new TypeError('Cannot call a class as a function.');
+        }
+        if (!arguments.length) {
+            throw new TypeError('1 argument required, but only 0 present.');
+        }
+        var controller = ResizeObserverController.getInstance();
+        var observer = new ResizeObserverSPI(callback, controller, this);
+        observers.set(this, observer);
+    }
+    return ResizeObserver;
+}());
+// Expose public methods of ResizeObserver.
+[
+    'observe',
+    'unobserve',
+    'disconnect'
+].forEach(function (method) {
+    ResizeObserver.prototype[method] = function () {
+        var _a;
+        return (_a = observers.get(this))[method].apply(_a, arguments);
+    };
+});
+
+var index = (function () {
+    // Export existing implementation if available.
+    if (typeof global$1.ResizeObserver !== 'undefined') {
+        return global$1.ResizeObserver;
+    }
+    return ResizeObserver;
+})();
+
+/* harmony default export */ __webpack_exports__["a"] = (index);
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__("c8ba")))
+
+/***/ }),
+
+/***/ "6ea2":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_vuetify_loader_lib_loader_js_ref_19_0_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SliderTrack_vue_vue_type_style_index_0_id_e4caeaf8_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("890c");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_vuetify_loader_lib_loader_js_ref_19_0_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SliderTrack_vue_vue_type_style_index_0_id_e4caeaf8_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_vuetify_loader_lib_loader_js_ref_19_0_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SliderTrack_vue_vue_type_style_index_0_id_e4caeaf8_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* unused harmony reexport * */
+ /* unused harmony default export */ var _unused_webpack_default_export = (_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_vuetify_loader_lib_loader_js_ref_19_0_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SliderTrack_vue_vue_type_style_index_0_id_e4caeaf8_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
 /***/ "6eeb":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -62813,17 +64261,6 @@ exports.f = Object.getOwnPropertySymbols;
 
 /***/ }),
 
-/***/ "7437":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_vuetify_loader_lib_loader_js_ref_19_0_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SliderArrow_vue_vue_type_style_index_0_id_93fb7842_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("d8c6");
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_vuetify_loader_lib_loader_js_ref_19_0_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SliderArrow_vue_vue_type_style_index_0_id_93fb7842_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_vuetify_loader_lib_loader_js_ref_19_0_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SliderArrow_vue_vue_type_style_index_0_id_93fb7842_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* unused harmony reexport * */
- /* unused harmony default export */ var _unused_webpack_default_export = (_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_vuetify_loader_lib_loader_js_ref_19_0_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SliderArrow_vue_vue_type_style_index_0_id_93fb7842_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
-
-/***/ }),
-
 /***/ "743f":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -62896,7 +64333,7 @@ module.exports = baseIsTypedArray;
 
 var path = __webpack_require__("428f");
 var has = __webpack_require__("5135");
-var wrappedWellKnownSymbolModule = __webpack_require__("c032");
+var wrappedWellKnownSymbolModule = __webpack_require__("e538");
 var defineProperty = __webpack_require__("9bf2").f;
 
 module.exports = function (NAME) {
@@ -63124,48 +64561,77 @@ var hiddenKeys = __webpack_require__("d012");
 var html = __webpack_require__("1be4");
 var documentCreateElement = __webpack_require__("cc12");
 var sharedKey = __webpack_require__("f772");
+
+var GT = '>';
+var LT = '<';
+var PROTOTYPE = 'prototype';
+var SCRIPT = 'script';
 var IE_PROTO = sharedKey('IE_PROTO');
 
-var PROTOTYPE = 'prototype';
-var Empty = function () { /* empty */ };
+var EmptyConstructor = function () { /* empty */ };
+
+var scriptTag = function (content) {
+  return LT + SCRIPT + GT + content + LT + '/' + SCRIPT + GT;
+};
+
+// Create object with fake `null` prototype: use ActiveX Object with cleared prototype
+var NullProtoObjectViaActiveX = function (activeXDocument) {
+  activeXDocument.write(scriptTag(''));
+  activeXDocument.close();
+  var temp = activeXDocument.parentWindow.Object;
+  activeXDocument = null; // avoid memory leak
+  return temp;
+};
 
 // Create object with fake `null` prototype: use iframe Object with cleared prototype
-var createDict = function () {
+var NullProtoObjectViaIFrame = function () {
   // Thrash, waste and sodomy: IE GC bug
   var iframe = documentCreateElement('iframe');
-  var length = enumBugKeys.length;
-  var lt = '<';
-  var script = 'script';
-  var gt = '>';
-  var js = 'java' + script + ':';
+  var JS = 'java' + SCRIPT + ':';
   var iframeDocument;
   iframe.style.display = 'none';
   html.appendChild(iframe);
-  iframe.src = String(js);
+  // https://github.com/zloirock/core-js/issues/475
+  iframe.src = String(JS);
   iframeDocument = iframe.contentWindow.document;
   iframeDocument.open();
-  iframeDocument.write(lt + script + gt + 'document.F=Object' + lt + '/' + script + gt);
+  iframeDocument.write(scriptTag('document.F=Object'));
   iframeDocument.close();
-  createDict = iframeDocument.F;
-  while (length--) delete createDict[PROTOTYPE][enumBugKeys[length]];
-  return createDict();
+  return iframeDocument.F;
 };
+
+// Check for document.domain and active x support
+// No need to use active x approach when document.domain is not set
+// see https://github.com/es-shims/es5-shim/issues/150
+// variation of https://github.com/kitcambridge/es5-shim/commit/4f738ac066346
+// avoid IE GC bug
+var activeXDocument;
+var NullProtoObject = function () {
+  try {
+    /* global ActiveXObject */
+    activeXDocument = document.domain && new ActiveXObject('htmlfile');
+  } catch (error) { /* ignore */ }
+  NullProtoObject = activeXDocument ? NullProtoObjectViaActiveX(activeXDocument) : NullProtoObjectViaIFrame();
+  var length = enumBugKeys.length;
+  while (length--) delete NullProtoObject[PROTOTYPE][enumBugKeys[length]];
+  return NullProtoObject();
+};
+
+hiddenKeys[IE_PROTO] = true;
 
 // `Object.create` method
 // https://tc39.github.io/ecma262/#sec-object.create
 module.exports = Object.create || function create(O, Properties) {
   var result;
   if (O !== null) {
-    Empty[PROTOTYPE] = anObject(O);
-    result = new Empty();
-    Empty[PROTOTYPE] = null;
+    EmptyConstructor[PROTOTYPE] = anObject(O);
+    result = new EmptyConstructor();
+    EmptyConstructor[PROTOTYPE] = null;
     // add "__proto__" for Object.getPrototypeOf polyfill
     result[IE_PROTO] = O;
-  } else result = createDict();
+  } else result = NullProtoObject();
   return Properties === undefined ? result : defineProperties(result, Properties);
 };
-
-hiddenKeys[IE_PROTO] = true;
 
 
 /***/ }),
@@ -63281,13 +64747,6 @@ module.exports = typeof WeakMap === 'function' && /native code/.test(inspectSour
 
 /***/ }),
 
-/***/ "802e":
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
 /***/ "825a":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -63309,7 +64768,7 @@ var fails = __webpack_require__("d039");
 
 // Thank's IE8 for his funny defineProperty
 module.exports = !fails(function () {
-  return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
+  return Object.defineProperty({}, 1, { get: function () { return 7; } })[1] != 7;
 });
 
 
@@ -63441,6 +64900,13 @@ function baseAssignValue(object, key, value) {
 
 module.exports = baseAssignValue;
 
+
+/***/ }),
+
+/***/ "890c":
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
 
 /***/ }),
 
@@ -63711,6 +65177,7 @@ module.exports = overArg;
 "use strict";
 
 var regexpFlags = __webpack_require__("ad6d");
+var stickyHelpers = __webpack_require__("9f7f");
 
 var nativeExec = RegExp.prototype.exec;
 // This always refers to the native implementation, because the
@@ -63728,24 +65195,56 @@ var UPDATES_LAST_INDEX_WRONG = (function () {
   return re1.lastIndex !== 0 || re2.lastIndex !== 0;
 })();
 
+var UNSUPPORTED_Y = stickyHelpers.UNSUPPORTED_Y || stickyHelpers.BROKEN_CARET;
+
 // nonparticipating capturing group, copied from es5-shim's String#split patch.
 var NPCG_INCLUDED = /()??/.exec('')[1] !== undefined;
 
-var PATCH = UPDATES_LAST_INDEX_WRONG || NPCG_INCLUDED;
+var PATCH = UPDATES_LAST_INDEX_WRONG || NPCG_INCLUDED || UNSUPPORTED_Y;
 
 if (PATCH) {
   patchedExec = function exec(str) {
     var re = this;
     var lastIndex, reCopy, match, i;
+    var sticky = UNSUPPORTED_Y && re.sticky;
+    var flags = regexpFlags.call(re);
+    var source = re.source;
+    var charsAdded = 0;
+    var strCopy = str;
+
+    if (sticky) {
+      flags = flags.replace('y', '');
+      if (flags.indexOf('g') === -1) {
+        flags += 'g';
+      }
+
+      strCopy = String(str).slice(re.lastIndex);
+      // Support anchored sticky behavior.
+      if (re.lastIndex > 0 && (!re.multiline || re.multiline && str[re.lastIndex - 1] !== '\n')) {
+        source = '(?: ' + source + ')';
+        strCopy = ' ' + strCopy;
+        charsAdded++;
+      }
+      // ^(? + rx + ) is needed, in combination with some str slicing, to
+      // simulate the 'y' flag.
+      reCopy = new RegExp('^(?:' + source + ')', flags);
+    }
 
     if (NPCG_INCLUDED) {
-      reCopy = new RegExp('^' + re.source + '$(?!\\s)', regexpFlags.call(re));
+      reCopy = new RegExp('^' + source + '$(?!\\s)', flags);
     }
     if (UPDATES_LAST_INDEX_WRONG) lastIndex = re.lastIndex;
 
-    match = nativeExec.call(re, str);
+    match = nativeExec.call(sticky ? reCopy : re, strCopy);
 
-    if (UPDATES_LAST_INDEX_WRONG && match) {
+    if (sticky) {
+      if (match) {
+        match.input = match.input.slice(charsAdded);
+        match[0] = match[0].slice(charsAdded);
+        match.index = re.lastIndex;
+        re.lastIndex += match[0].length;
+      } else re.lastIndex = 0;
+    } else if (UPDATES_LAST_INDEX_WRONG && match) {
       re.lastIndex = re.global ? match.index + match[0].length : lastIndex;
     }
     if (NPCG_INCLUDED && match && match.length > 1) {
@@ -63923,7 +65422,7 @@ var createProperty = __webpack_require__("8418");
 var arraySpeciesCreate = __webpack_require__("65f0");
 var arrayMethodHasSpeciesSupport = __webpack_require__("1dde");
 var wellKnownSymbol = __webpack_require__("b622");
-var V8_VERSION = __webpack_require__("60ae");
+var V8_VERSION = __webpack_require__("2d00");
 
 var IS_CONCAT_SPREADABLE = wellKnownSymbol('isConcatSpreadable');
 var MAX_SAFE_INTEGER = 0x1FFFFFFFFFFFFF;
@@ -64175,6 +65674,37 @@ module.exports = function (IteratorConstructor, NAME, next) {
 
 /***/ }),
 
+/***/ "9f7f":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var fails = __webpack_require__("d039");
+
+// babel-minify transpiles RegExp('a', 'y') -> /a/y and it causes SyntaxError,
+// so we use an intermediate function.
+function RE(s, f) {
+  return RegExp(s, f);
+}
+
+exports.UNSUPPORTED_Y = fails(function () {
+  // babel-minify transpiles RegExp('a', 'y') -> /a/y and it causes SyntaxError
+  var re = RE('a', 'y');
+  re.lastIndex = 2;
+  return re.exec('abcd') != null;
+});
+
+exports.BROKEN_CARET = fails(function () {
+  // https://bugzilla.mozilla.org/show_bug.cgi?id=773687
+  var re = RE('^r', 'gy');
+  re.lastIndex = 2;
+  return re.exec('str') != null;
+});
+
+
+/***/ }),
+
 /***/ "a15b":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -64183,16 +65713,16 @@ module.exports = function (IteratorConstructor, NAME, next) {
 var $ = __webpack_require__("23e7");
 var IndexedObject = __webpack_require__("44ad");
 var toIndexedObject = __webpack_require__("fc6a");
-var sloppyArrayMethod = __webpack_require__("b301");
+var arrayMethodIsStrict = __webpack_require__("a640");
 
 var nativeJoin = [].join;
 
 var ES3_STRINGS = IndexedObject != Object;
-var SLOPPY_METHOD = sloppyArrayMethod('join', ',');
+var STRICT_METHOD = arrayMethodIsStrict('join', ',');
 
 // `Array.prototype.join` method
 // https://tc39.github.io/ecma262/#sec-array.prototype.join
-$({ target: 'Array', proto: true, forced: ES3_STRINGS || SLOPPY_METHOD }, {
+$({ target: 'Array', proto: true, forced: ES3_STRINGS || !STRICT_METHOD }, {
   join: function join(separator) {
     return nativeJoin.call(toIndexedObject(this), separator === undefined ? ',' : separator);
   }
@@ -64323,7 +65853,7 @@ var sharedKey = __webpack_require__("f772");
 var hiddenKeys = __webpack_require__("d012");
 var uid = __webpack_require__("90e3");
 var wellKnownSymbol = __webpack_require__("b622");
-var wrappedWellKnownSymbolModule = __webpack_require__("c032");
+var wrappedWellKnownSymbolModule = __webpack_require__("e538");
 var defineWellKnownSymbol = __webpack_require__("746f");
 var setToStringTag = __webpack_require__("d44e");
 var InternalStateModule = __webpack_require__("69f3");
@@ -64376,7 +65906,7 @@ var wrap = function (tag, description) {
   return symbol;
 };
 
-var isSymbol = NATIVE_SYMBOL && typeof $Symbol.iterator == 'symbol' ? function (it) {
+var isSymbol = USE_SYMBOL_AS_UID ? function (it) {
   return typeof it == 'symbol';
 } : function (it) {
   return Object(it) instanceof $Symbol;
@@ -64471,11 +66001,19 @@ if (!NATIVE_SYMBOL) {
     return getInternalState(this).tag;
   });
 
+  redefine($Symbol, 'withoutSetter', function (description) {
+    return wrap(uid(description), description);
+  });
+
   propertyIsEnumerableModule.f = $propertyIsEnumerable;
   definePropertyModule.f = $defineProperty;
   getOwnPropertyDescriptorModule.f = $getOwnPropertyDescriptor;
   getOwnPropertyNamesModule.f = getOwnPropertyNamesExternal.f = $getOwnPropertyNames;
   getOwnPropertySymbolsModule.f = $getOwnPropertySymbols;
+
+  wrappedWellKnownSymbolModule.f = function (name) {
+    return wrap(wellKnownSymbol(name), name);
+  };
 
   if (DESCRIPTORS) {
     // https://github.com/tc39/proposal-Symbol-description
@@ -64489,12 +66027,6 @@ if (!NATIVE_SYMBOL) {
       redefine(ObjectPrototype, 'propertyIsEnumerable', $propertyIsEnumerable, { unsafe: true });
     }
   }
-}
-
-if (!USE_SYMBOL_AS_UID) {
-  wrappedWellKnownSymbolModule.f = function (name) {
-    return wrap(wellKnownSymbol(name), name);
-  };
 }
 
 $({ global: true, wrap: true, forced: !NATIVE_SYMBOL, sham: !NATIVE_SYMBOL }, {
@@ -64627,6 +66159,30 @@ module.exports = mapCacheHas;
 
 /***/ }),
 
+/***/ "a623":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $ = __webpack_require__("23e7");
+var $every = __webpack_require__("b727").every;
+var arrayMethodIsStrict = __webpack_require__("a640");
+var arrayMethodUsesToLength = __webpack_require__("ae40");
+
+var STRICT_METHOD = arrayMethodIsStrict('every');
+var USES_TO_LENGTH = arrayMethodUsesToLength('every');
+
+// `Array.prototype.every` method
+// https://tc39.github.io/ecma262/#sec-array.prototype.every
+$({ target: 'Array', proto: true, forced: !STRICT_METHOD || !USES_TO_LENGTH }, {
+  every: function every(callbackfn /* , thisArg */) {
+    return $every(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
+  }
+});
+
+
+/***/ }),
+
 /***/ "a630":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -64643,6 +66199,24 @@ var INCORRECT_ITERATION = !checkCorrectnessOfIteration(function (iterable) {
 $({ target: 'Array', stat: true, forced: INCORRECT_ITERATION }, {
   from: from
 });
+
+
+/***/ }),
+
+/***/ "a640":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var fails = __webpack_require__("d039");
+
+module.exports = function (METHOD_NAME, argument) {
+  var method = [][METHOD_NAME];
+  return !!method && fails(function () {
+    // eslint-disable-next-line no-useless-call,no-throw-literal
+    method.call(null, argument || function () { throw 1; }, 1);
+  });
+};
 
 
 /***/ }),
@@ -64748,6 +66322,21 @@ if (isForced(NUMBER, !NativeNumber(' 0o1') || !NativeNumber('0b1') || NativeNumb
 
 /***/ }),
 
+/***/ "ac1f":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $ = __webpack_require__("23e7");
+var exec = __webpack_require__("9263");
+
+$({ target: 'RegExp', proto: true, forced: /./.exec !== exec }, {
+  exec: exec
+});
+
+
+/***/ }),
+
 /***/ "ad6d":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -64767,6 +66356,40 @@ module.exports = function () {
   if (that.unicode) result += 'u';
   if (that.sticky) result += 'y';
   return result;
+};
+
+
+/***/ }),
+
+/***/ "ae40":
+/***/ (function(module, exports, __webpack_require__) {
+
+var DESCRIPTORS = __webpack_require__("83ab");
+var fails = __webpack_require__("d039");
+var has = __webpack_require__("5135");
+
+var defineProperty = Object.defineProperty;
+var cache = {};
+
+var thrower = function (it) { throw it; };
+
+module.exports = function (METHOD_NAME, options) {
+  if (has(cache, METHOD_NAME)) return cache[METHOD_NAME];
+  if (!options) options = {};
+  var method = [][METHOD_NAME];
+  var ACCESSORS = has(options, 'ACCESSORS') ? options.ACCESSORS : false;
+  var argument0 = has(options, 0) ? options[0] : thrower;
+  var argument1 = has(options, 1) ? options[1] : undefined;
+
+  return cache[METHOD_NAME] = !!method && !fails(function () {
+    if (ACCESSORS && !DESCRIPTORS) return true;
+    var O = { length: -1 };
+
+    if (ACCESSORS) defineProperty(O, 1, { enumerable: true, get: thrower });
+    else O[1] = 1;
+
+    method.call(O, argument0, argument1);
+  });
 };
 
 
@@ -64855,6 +66478,35 @@ module.exports = baseUnary;
 
 /***/ }),
 
+/***/ "b0c0":
+/***/ (function(module, exports, __webpack_require__) {
+
+var DESCRIPTORS = __webpack_require__("83ab");
+var defineProperty = __webpack_require__("9bf2").f;
+
+var FunctionPrototype = Function.prototype;
+var FunctionPrototypeToString = FunctionPrototype.toString;
+var nameRE = /^\s*function ([^ (]*)/;
+var NAME = 'name';
+
+// Function instances `.name` property
+// https://tc39.github.io/ecma262/#sec-function-instances-name
+if (DESCRIPTORS && !(NAME in FunctionPrototype)) {
+  defineProperty(FunctionPrototype, NAME, {
+    configurable: true,
+    get: function () {
+      try {
+        return FunctionPrototypeToString.call(this).match(nameRE)[1];
+      } catch (error) {
+        return '';
+      }
+    }
+  });
+}
+
+
+/***/ }),
+
 /***/ "b218":
 /***/ (function(module, exports) {
 
@@ -64897,34 +66549,6 @@ module.exports = isLength;
 
 /***/ }),
 
-/***/ "b301":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var fails = __webpack_require__("d039");
-
-module.exports = function (METHOD_NAME, argument) {
-  var method = [][METHOD_NAME];
-  return !method || !fails(function () {
-    // eslint-disable-next-line no-useless-call,no-throw-literal
-    method.call(null, argument || function () { throw 1; }, 1);
-  });
-};
-
-
-/***/ }),
-
-/***/ "b39a":
-/***/ (function(module, exports, __webpack_require__) {
-
-var getBuiltIn = __webpack_require__("d066");
-
-module.exports = getBuiltIn('navigator', 'userAgent') || '';
-
-
-/***/ }),
-
 /***/ "b4c0":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -64963,7 +66587,7 @@ var USE_SYMBOL_AS_UID = __webpack_require__("fdbf");
 
 var WellKnownSymbolsStore = shared('wks');
 var Symbol = global.Symbol;
-var createWellKnownSymbol = USE_SYMBOL_AS_UID ? Symbol : uid;
+var createWellKnownSymbol = USE_SYMBOL_AS_UID ? Symbol : Symbol && Symbol.withoutSetter || uid;
 
 module.exports = function (name) {
   if (!has(WellKnownSymbolsStore, name)) {
@@ -64999,7 +66623,7 @@ $({ target: 'Object', stat: true, forced: FAILS_ON_PRIMITIVES }, {
 /***/ "b727":
 /***/ (function(module, exports, __webpack_require__) {
 
-var bind = __webpack_require__("f8c2");
+var bind = __webpack_require__("0366");
 var IndexedObject = __webpack_require__("44ad");
 var toObject = __webpack_require__("7b0b");
 var toLength = __webpack_require__("50c4");
@@ -65201,16 +66825,6 @@ MediaQuery.prototype = {
 };
 
 module.exports = MediaQuery;
-
-
-/***/ }),
-
-/***/ "c032":
-/***/ (function(module, exports, __webpack_require__) {
-
-var wellKnownSymbol = __webpack_require__("b622");
-
-exports.f = wellKnownSymbol;
 
 
 /***/ }),
@@ -65472,16 +67086,18 @@ module.exports = g;
 
 var $ = __webpack_require__("23e7");
 var $indexOf = __webpack_require__("4d64").indexOf;
-var sloppyArrayMethod = __webpack_require__("b301");
+var arrayMethodIsStrict = __webpack_require__("a640");
+var arrayMethodUsesToLength = __webpack_require__("ae40");
 
 var nativeIndexOf = [].indexOf;
 
 var NEGATIVE_ZERO = !!nativeIndexOf && 1 / [1].indexOf(1, -0) < 0;
-var SLOPPY_METHOD = sloppyArrayMethod('indexOf');
+var STRICT_METHOD = arrayMethodIsStrict('indexOf');
+var USES_TO_LENGTH = arrayMethodUsesToLength('indexOf', { ACCESSORS: true, 1: 0 });
 
 // `Array.prototype.indexOf` method
 // https://tc39.github.io/ecma262/#sec-array.prototype.indexof
-$({ target: 'Array', proto: true, forced: NEGATIVE_ZERO || SLOPPY_METHOD }, {
+$({ target: 'Array', proto: true, forced: NEGATIVE_ZERO || !STRICT_METHOD || !USES_TO_LENGTH }, {
   indexOf: function indexOf(searchElement /* , fromIndex = 0 */) {
     return NEGATIVE_ZERO
       // convert -0 to +0
@@ -65727,17 +67343,6 @@ exports.f = NASHORN_BUG ? function propertyIsEnumerable(V) {
 
 /***/ }),
 
-/***/ "d240":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_vuetify_loader_lib_loader_js_ref_19_0_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SliderTrack_vue_vue_type_style_index_0_id_4dc0f449_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("103a");
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_vuetify_loader_lib_loader_js_ref_19_0_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SliderTrack_vue_vue_type_style_index_0_id_4dc0f449_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_vuetify_loader_lib_loader_js_ref_19_0_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SliderTrack_vue_vue_type_style_index_0_id_4dc0f449_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* unused harmony reexport * */
- /* unused harmony default export */ var _unused_webpack_default_export = (_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_vuetify_loader_lib_loader_js_ref_19_0_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SliderTrack_vue_vue_type_style_index_0_id_4dc0f449_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
-
-/***/ }),
-
 /***/ "d28b":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -65858,16 +67463,65 @@ module.exports = function (it, TAG, STATIC) {
 
 /***/ }),
 
+/***/ "d58f":
+/***/ (function(module, exports, __webpack_require__) {
+
+var aFunction = __webpack_require__("1c0b");
+var toObject = __webpack_require__("7b0b");
+var IndexedObject = __webpack_require__("44ad");
+var toLength = __webpack_require__("50c4");
+
+// `Array.prototype.{ reduce, reduceRight }` methods implementation
+var createMethod = function (IS_RIGHT) {
+  return function (that, callbackfn, argumentsLength, memo) {
+    aFunction(callbackfn);
+    var O = toObject(that);
+    var self = IndexedObject(O);
+    var length = toLength(O.length);
+    var index = IS_RIGHT ? length - 1 : 0;
+    var i = IS_RIGHT ? -1 : 1;
+    if (argumentsLength < 2) while (true) {
+      if (index in self) {
+        memo = self[index];
+        index += i;
+        break;
+      }
+      index += i;
+      if (IS_RIGHT ? index < 0 : length <= index) {
+        throw TypeError('Reduce of empty array with no initial value');
+      }
+    }
+    for (;IS_RIGHT ? index >= 0 : length > index; index += i) if (index in self) {
+      memo = callbackfn(memo, self[index], index, O);
+    }
+    return memo;
+  };
+};
+
+module.exports = {
+  // `Array.prototype.reduce` method
+  // https://tc39.github.io/ecma262/#sec-array.prototype.reduce
+  left: createMethod(false),
+  // `Array.prototype.reduceRight` method
+  // https://tc39.github.io/ecma262/#sec-array.prototype.reduceright
+  right: createMethod(true)
+};
+
+
+/***/ }),
+
 /***/ "d784":
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var createNonEnumerableProperty = __webpack_require__("9112");
+// TODO: Remove from `core-js@4` since it's moved to entry points
+__webpack_require__("ac1f");
 var redefine = __webpack_require__("6eeb");
 var fails = __webpack_require__("d039");
 var wellKnownSymbol = __webpack_require__("b622");
 var regexpExec = __webpack_require__("9263");
+var createNonEnumerableProperty = __webpack_require__("9112");
 
 var SPECIES = wellKnownSymbol('species');
 
@@ -65883,6 +67537,21 @@ var REPLACE_SUPPORTS_NAMED_GROUPS = !fails(function () {
   };
   return ''.replace(re, '$<a>') !== '7';
 });
+
+// IE <= 11 replaces $0 with the whole match, as if it was $&
+// https://stackoverflow.com/questions/6024666/getting-ie-to-replace-a-regex-with-the-literal-string-0
+var REPLACE_KEEPS_$0 = (function () {
+  return 'a'.replace(/./, '$0') === '$0';
+})();
+
+var REPLACE = wellKnownSymbol('replace');
+// Safari <= 13.0.3(?) substitutes nth capture where n>m with an empty string
+var REGEXP_REPLACE_SUBSTITUTES_UNDEFINED_CAPTURE = (function () {
+  if (/./[REPLACE]) {
+    return /./[REPLACE]('a', '$0') === '';
+  }
+  return false;
+})();
 
 // Chrome 51 has a buggy "split" implementation when RegExp#exec !== nativeExec
 // Weex JS has frozen built-in prototypes, so use try / catch wrapper
@@ -65931,7 +67600,11 @@ module.exports = function (KEY, length, exec, sham) {
   if (
     !DELEGATES_TO_SYMBOL ||
     !DELEGATES_TO_EXEC ||
-    (KEY === 'replace' && !REPLACE_SUPPORTS_NAMED_GROUPS) ||
+    (KEY === 'replace' && !(
+      REPLACE_SUPPORTS_NAMED_GROUPS &&
+      REPLACE_KEEPS_$0 &&
+      !REGEXP_REPLACE_SUBSTITUTES_UNDEFINED_CAPTURE
+    )) ||
     (KEY === 'split' && !SPLIT_WORKS_WITH_OVERWRITTEN_EXEC)
   ) {
     var nativeRegExpMethod = /./[SYMBOL];
@@ -65946,6 +67619,9 @@ module.exports = function (KEY, length, exec, sham) {
         return { done: true, value: nativeMethod.call(str, regexp, arg2) };
       }
       return { done: false };
+    }, {
+      REPLACE_KEEPS_$0: REPLACE_KEEPS_$0,
+      REGEXP_REPLACE_SUBSTITUTES_UNDEFINED_CAPTURE: REGEXP_REPLACE_SUBSTITUTES_UNDEFINED_CAPTURE
     });
     var stringMethod = methods[0];
     var regexMethod = methods[1];
@@ -65959,8 +67635,9 @@ module.exports = function (KEY, length, exec, sham) {
       // 21.2.5.9 RegExp.prototype[@@search](string)
       : function (string) { return regexMethod.call(string, this); }
     );
-    if (sham) createNonEnumerableProperty(RegExp.prototype[SYMBOL], 'sham', true);
   }
+
+  if (sham) createNonEnumerableProperty(RegExp.prototype[SYMBOL], 'sham', true);
 };
 
 
@@ -65973,14 +67650,12 @@ module.exports = function (KEY, length, exec, sham) {
 
 var $ = __webpack_require__("23e7");
 var $map = __webpack_require__("b727").map;
-var fails = __webpack_require__("d039");
 var arrayMethodHasSpeciesSupport = __webpack_require__("1dde");
+var arrayMethodUsesToLength = __webpack_require__("ae40");
 
 var HAS_SPECIES_SUPPORT = arrayMethodHasSpeciesSupport('map');
 // FF49- issue
-var USES_TO_LENGTH = HAS_SPECIES_SUPPORT && !fails(function () {
-  [].map.call({ length: -1, 0: 1 }, function (it) { throw it; });
-});
+var USES_TO_LENGTH = arrayMethodUsesToLength('map');
 
 // `Array.prototype.map` method
 // https://tc39.github.io/ecma262/#sec-array.prototype.map
@@ -65991,13 +67666,6 @@ $({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT || !USES_TO_LENGT
   }
 });
 
-
-/***/ }),
-
-/***/ "d8c6":
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
 
 /***/ }),
 
@@ -66354,21 +68022,6 @@ module.exports = Hash;
 
 /***/ }),
 
-/***/ "e25e":
-/***/ (function(module, exports, __webpack_require__) {
-
-var $ = __webpack_require__("23e7");
-var parseIntImplementation = __webpack_require__("e583");
-
-// `parseInt` method
-// https://tc39.github.io/ecma262/#sec-parseint-string-radix
-$({ global: true, forced: parseInt != parseIntImplementation }, {
-  parseInt: parseIntImplementation
-});
-
-
-/***/ }),
-
 /***/ "e260":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -66607,23 +68260,12 @@ $({ target: 'Object', stat: true, forced: FORCED, sham: !DESCRIPTORS }, {
 
 /***/ }),
 
-/***/ "e583":
+/***/ "e538":
 /***/ (function(module, exports, __webpack_require__) {
 
-var global = __webpack_require__("da84");
-var trim = __webpack_require__("58a8").trim;
-var whitespaces = __webpack_require__("5899");
+var wellKnownSymbol = __webpack_require__("b622");
 
-var nativeParseInt = global.parseInt;
-var hex = /^[+-]?0[Xx]/;
-var FORCED = nativeParseInt(whitespaces + '08') !== 8 || nativeParseInt(whitespaces + '0x16') !== 22;
-
-// `parseInt` method
-// https://tc39.github.io/ecma262/#sec-parseint-string-radix
-module.exports = FORCED ? function parseInt(string, radix) {
-  var S = trim(String(string));
-  return nativeParseInt(S, (radix >>> 0) || (hex.test(S) ? 16 : 10));
-} : nativeParseInt;
+exports.f = wellKnownSymbol;
 
 
 /***/ }),
@@ -66705,6 +68347,17 @@ module.exports = isPrototype;
 
 /***/ }),
 
+/***/ "eaf9":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_vuetify_loader_lib_loader_js_ref_19_0_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InnerSlider_vue_vue_type_style_index_0_id_3d1a4f76_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("3b81");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_vuetify_loader_lib_loader_js_ref_19_0_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InnerSlider_vue_vue_type_style_index_0_id_3d1a4f76_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_vuetify_loader_lib_loader_js_ref_19_0_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InnerSlider_vue_vue_type_style_index_0_id_3d1a4f76_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* unused harmony reexport * */
+ /* unused harmony default export */ var _unused_webpack_default_export = (_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_vuetify_loader_lib_loader_js_ref_19_0_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InnerSlider_vue_vue_type_style_index_0_id_3d1a4f76_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
 /***/ "ec69":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -66746,6 +68399,17 @@ function keys(object) {
 
 module.exports = keys;
 
+
+/***/ }),
+
+/***/ "f013":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_vuetify_loader_lib_loader_js_ref_19_0_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SliderArrow_vue_vue_type_style_index_0_id_21137603_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("fdb2");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_vuetify_loader_lib_loader_js_ref_19_0_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SliderArrow_vue_vue_type_style_index_0_id_21137603_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_vuetify_loader_lib_loader_js_ref_19_0_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SliderArrow_vue_vue_type_style_index_0_id_21137603_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* unused harmony reexport * */
+ /* unused harmony default export */ var _unused_webpack_default_export = (_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_vuetify_loader_lib_loader_js_ref_19_0_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SliderArrow_vue_vue_type_style_index_0_id_21137603_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
@@ -67333,41 +68997,11 @@ module.exports = debounce;
 
 /***/ }),
 
-/***/ "f8c2":
-/***/ (function(module, exports, __webpack_require__) {
-
-var aFunction = __webpack_require__("1c0b");
-
-// optional / simple context binding
-module.exports = function (fn, that, length) {
-  aFunction(fn);
-  if (that === undefined) return fn;
-  switch (length) {
-    case 0: return function () {
-      return fn.call(that);
-    };
-    case 1: return function (a) {
-      return fn.call(that, a);
-    };
-    case 2: return function (a, b) {
-      return fn.call(that, a, b);
-    };
-    case 3: return function (a, b, c) {
-      return fn.call(that, a, b, c);
-    };
-  }
-  return function (/* ...args */) {
-    return fn.apply(that, arguments);
-  };
-};
-
-
-/***/ }),
-
 /***/ "fb15":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
 // CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/setPublicPath.js
@@ -67387,11 +69021,11 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.symbol.js
-var es_symbol = __webpack_require__("a4d3");
-
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.filter.js
 var es_array_filter = __webpack_require__("4de4");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.for-each.js
+var es_array_for_each = __webpack_require__("4160");
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.join.js
 var es_array_join = __webpack_require__("a15b");
@@ -67402,8 +69036,14 @@ var es_array_map = __webpack_require__("d81d");
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.slice.js
 var es_array_slice = __webpack_require__("fb6a");
 
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.sort.js
-var es_array_sort = __webpack_require__("4e82");
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.values.js
+var es_object_values = __webpack_require__("07ac");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/web.dom-collections.for-each.js
+var web_dom_collections_for_each = __webpack_require__("159b");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.symbol.js
+var es_symbol = __webpack_require__("a4d3");
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.get-own-property-descriptor.js
 var es_object_get_own_property_descriptor = __webpack_require__("e439");
@@ -67413,12 +69053,6 @@ var es_object_get_own_property_descriptors = __webpack_require__("dbb4");
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.keys.js
 var es_object_keys = __webpack_require__("b64b");
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.values.js
-var es_object_values = __webpack_require__("07ac");
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/web.dom-collections.for-each.js
-var web_dom_collections_for_each = __webpack_require__("159b");
 
 // CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/defineProperty.js
 function _defineProperty(obj, key, value) {
@@ -67435,11 +69069,55 @@ function _defineProperty(obj, key, value) {
 
   return obj;
 }
+// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/objectSpread2.js
+
+
+
+
+
+
+
+
+
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    });
+    keys.push.apply(keys, symbols);
+  }
+
+  return keys;
+}
+
+function _objectSpread2(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+
+    if (i % 2) {
+      ownKeys(Object(source), true).forEach(function (key) {
+        _defineProperty(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys(Object(source)).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+
+  return target;
+}
 // EXTERNAL MODULE: ./node_modules/json2mq/index.js
 var json2mq = __webpack_require__("a48b");
 var json2mq_default = /*#__PURE__*/__webpack_require__.n(json2mq);
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vuetify-loader/lib/loader.js??ref--19-0!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/mixinPropsUpdated.vue?vue&type=script&lang=js&
+
 
 
 /* harmony default export */ var mixinPropsUpdatedvue_type_script_lang_js_ = ({
@@ -67540,7 +69218,7 @@ function normalizeComponent (
       // for template-only hot-reload because in that case the render fn doesn't
       // go through the normalizer
       options._injectStyles = hook
-      // register for functioal component in vue file
+      // register for functional component in vue file
       var originalRender = options.render
       options.render = function renderWithStyleInjection (h, context) {
         hook.call(context)
@@ -67599,24 +69277,13 @@ var get_default = /*#__PURE__*/__webpack_require__.n(get);
 
 
 
-
-
-
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-
-
-
-var mergeVNodeData = function mergeVNodeData(vnode, name, obj) {
+var vNodeUtils_mergeVNodeData = function mergeVNodeData(vnode, name, obj) {
   if (!vnode) {
     return;
   }
 
   vnode.data = vnode.data || {};
-  vnode.data[name] = _objectSpread({}, vnode.data[name], {}, obj);
+  vnode.data[name] = _objectSpread2({}, vnode.data[name], {}, obj);
 };
 var setVNodeData = function setVNodeData(vnode, name, value) {
   if (!vnode) {
@@ -67665,11 +69332,11 @@ var cloneVNode = function cloneVNode(vnode) {
   }) : undefined;
   return h(tag, data, childNodes);
 };
-var copyClassesFrom = function copyClassesFrom(vnode, from) {
+var vNodeUtils_copyClassesFrom = function copyClassesFrom(vnode, from) {
   var _from$data = from.data,
       data = _from$data === void 0 ? {} : _from$data;
   setVNodeData(vnode, 'staticClass', data.staticClass);
-  mergeVNodeData(vnode, 'class', _objectSpread({}, data.class, {}, from));
+  vNodeUtils_mergeVNodeData(vnode, 'class', _objectSpread2({}, data.class, {}, from));
 };
 var vNodeUtils_getData = function getData(vnode, path, defaultValue) {
   if (!vnode) {
@@ -67679,11 +69346,14 @@ var vNodeUtils_getData = function getData(vnode, path, defaultValue) {
   var data = vnode.data || {};
   return typeof path === 'undefined' ? data : get_default()(data, path, defaultValue);
 };
-var getStyle = function getStyle(vnode) {
-  return _objectSpread({}, vNodeUtils_getData(vnode, 'staticStyle', {}), {}, vNodeUtils_getData(vnode, 'style', {}));
+var vNodeUtils_getStyle = function getStyle(vnode) {
+  return _objectSpread2({}, vNodeUtils_getData(vnode, 'staticStyle', {}), {}, vNodeUtils_getData(vnode, 'style', {}));
 };
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.concat.js
 var es_array_concat = __webpack_require__("99af");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.every.js
+var es_array_every = __webpack_require__("a623");
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.from.js
 var es_array_from = __webpack_require__("a630");
@@ -67691,11 +69361,14 @@ var es_array_from = __webpack_require__("a630");
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.index-of.js
 var es_array_index_of = __webpack_require__("c975");
 
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.reduce.js
+var es_array_reduce = __webpack_require__("13d5");
+
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.number.constructor.js
 var es_number_constructor = __webpack_require__("a9e3");
 
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.parse-int.js
-var es_parse_int = __webpack_require__("e25e");
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.regexp.exec.js
+var es_regexp_exec = __webpack_require__("ac1f");
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.iterator.js
 var es_string_iterator = __webpack_require__("3ca3");
@@ -67718,11 +69391,6 @@ var es_string_match = __webpack_require__("466d");
 
 
 
-
-
-function innerSliderUtils_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function innerSliderUtils_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { innerSliderUtils_ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { innerSliderUtils_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 var canUseDOM = function canUseDOM() {
   return !!(typeof window !== 'undefined' && window.document && window.document.createElement);
@@ -67874,7 +69542,7 @@ var innerSliderUtils_changeSlide = function changeSlide(spec, options) {
     }
 
     if (infinite) {
-      var direction = siblingDirection(innerSliderUtils_objectSpread({}, spec, {
+      var direction = siblingDirection(_objectSpread2({}, spec, {
         targetSlide: targetSlide
       }));
 
@@ -67998,10 +69666,10 @@ var innerSliderUtils_swipeMove = function swipeMove(e, spec) {
     swipeLeft = curLeft + touchSwipeLength * positionOffset;
   }
 
-  state = innerSliderUtils_objectSpread({}, state, {
+  state = _objectSpread2({}, state, {
     touchObject: touchObject,
     swipeLeft: swipeLeft,
-    trackStyle: getTrackCSS(innerSliderUtils_objectSpread({}, spec, {
+    trackStyle: innerSliderUtils_getTrackCSS(_objectSpread2({}, spec, {
       left: swipeLeft
     }))
   });
@@ -68088,7 +69756,7 @@ var innerSliderUtils_swipeEnd = function swipeEnd(e, spec) {
   } else {
     // Adjust the track back to it's original position.
     var currentLeft = getTrackLeft(spec);
-    state['trackStyle'] = getTrackAnimateCSS(innerSliderUtils_objectSpread({}, spec, {
+    state['trackStyle'] = getTrackAnimateCSS(_objectSpread2({}, spec, {
       left: currentLeft
     }));
   }
@@ -68248,10 +69916,10 @@ var innerSliderUtils_slideHandler = function slideHandler(spec) {
       if (!infinite) finalSlide = slideCount - slidesToShow;else if (slideCount % slidesToScroll !== 0) finalSlide = 0;
     }
 
-    animationLeft = getTrackLeft(innerSliderUtils_objectSpread({}, spec, {
+    animationLeft = getTrackLeft(_objectSpread2({}, spec, {
       slideIndex: animationSlide
     }));
-    finalLeft = getTrackLeft(innerSliderUtils_objectSpread({}, spec, {
+    finalLeft = getTrackLeft(_objectSpread2({}, spec, {
       slideIndex: finalSlide
     }));
 
@@ -68260,14 +69928,14 @@ var innerSliderUtils_slideHandler = function slideHandler(spec) {
       animationLeft = finalLeft;
     }
 
-    lazyLoad && lazyLoadedList.concat(getOnDemandLazySlides(innerSliderUtils_objectSpread({}, spec, {
+    lazyLoad && lazyLoadedList.concat(getOnDemandLazySlides(_objectSpread2({}, spec, {
       currentSlide: animationSlide
     })));
 
     if (!useCSS) {
       state = {
         currentSlide: finalSlide,
-        trackStyle: getTrackCSS(innerSliderUtils_objectSpread({}, spec, {
+        trackStyle: innerSliderUtils_getTrackCSS(_objectSpread2({}, spec, {
           left: finalLeft
         })),
         lazyLoadedList: lazyLoadedList
@@ -68276,7 +69944,7 @@ var innerSliderUtils_slideHandler = function slideHandler(spec) {
       state = {
         animating: true,
         currentSlide: finalSlide,
-        trackStyle: getTrackAnimateCSS(innerSliderUtils_objectSpread({}, spec, {
+        trackStyle: getTrackAnimateCSS(_objectSpread2({}, spec, {
           left: animationLeft
         })),
         lazyLoadedList: lazyLoadedList
@@ -68284,7 +69952,7 @@ var innerSliderUtils_slideHandler = function slideHandler(spec) {
       nextState = {
         animating: false,
         currentSlide: finalSlide,
-        trackStyle: getTrackCSS(innerSliderUtils_objectSpread({}, spec, {
+        trackStyle: innerSliderUtils_getTrackCSS(_objectSpread2({}, spec, {
           left: finalLeft
         })),
         swipeLeft: null
@@ -68478,7 +70146,7 @@ var checkSpecKeys = function checkSpecKeys(spec, keysArray) {
   }, true) ? null : console.error('Keys Missing:', spec);
 }; // eslint-disable-line no-console
 
-var getTrackCSS = function getTrackCSS(spec) {
+var innerSliderUtils_getTrackCSS = function getTrackCSS(spec) {
   checkSpecKeys(spec, ['left', 'variableWidth', 'slideCount', 'slidesToShow', 'slideWidth']);
   var trackWidth, trackHeight;
   var trackChildren = spec.slideCount + 2 * spec.slidesToShow;
@@ -68499,7 +70167,7 @@ var getTrackCSS = function getTrackCSS(spec) {
     var WebkitTransform = !spec.vertical ? 'translate3d(' + spec.left + 'px, 0px, 0px)' : 'translate3d(0px, ' + spec.left + 'px, 0px)';
     var transform = !spec.vertical ? 'translate3d(' + spec.left + 'px, 0px, 0px)' : 'translate3d(0px, ' + spec.left + 'px, 0px)';
     var msTransform = !spec.vertical ? 'translateX(' + spec.left + 'px)' : 'translateY(' + spec.left + 'px)';
-    style = innerSliderUtils_objectSpread({}, style, {
+    style = _objectSpread2({}, style, {
       WebkitTransform: WebkitTransform,
       transform: transform,
       msTransform: msTransform
@@ -68530,7 +70198,7 @@ var getTrackCSS = function getTrackCSS(spec) {
 };
 var getTrackAnimateCSS = function getTrackAnimateCSS(spec) {
   checkSpecKeys(spec, ['left', 'variableWidth', 'slideCount', 'slidesToShow', 'slideWidth', 'speed', 'cssEase']);
-  var style = getTrackCSS(spec); // useCSS is true by default so it can be undefined
+  var style = innerSliderUtils_getTrackCSS(spec); // useCSS is true by default so it can be undefined
 
   if (spec.useTransform) {
     style.WebkitTransition = '-webkit-transform ' + spec.speed + 'ms ' + spec.cssEase;
@@ -68546,6 +70214,7 @@ var getTrackAnimateCSS = function getTrackAnimateCSS(spec) {
   return style;
 };
 // CONCATENATED MODULE: ./src/defaultProps.js
+
 
 
 var defaultProps_props = {
@@ -68771,22 +70440,24 @@ var web_dom_collections_iterator = __webpack_require__("ddb0");
 
 
 
-
-function _typeof2(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof2 = function _typeof2(obj) { return typeof obj; }; } else { _typeof2 = function _typeof2(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof2(obj); }
-
 function _typeof(obj) {
-  if (typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol") {
+  "@babel/helpers - typeof";
+
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
     _typeof = function _typeof(obj) {
-      return _typeof2(obj);
+      return typeof obj;
     };
   } else {
     _typeof = function _typeof(obj) {
-      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : _typeof2(obj);
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
     };
   }
 
   return _typeof(obj);
 }
+// EXTERNAL MODULE: ./node_modules/resize-observer-polyfill/dist/ResizeObserver.es.js
+var ResizeObserver_es = __webpack_require__("6dd8");
+
 // EXTERNAL MODULE: ./node_modules/lodash.debounce/index.js
 var lodash_debounce = __webpack_require__("f7fe");
 var lodash_debounce_default = /*#__PURE__*/__webpack_require__.n(lodash_debounce);
@@ -68796,16 +70467,6 @@ var lodash_debounce_default = /*#__PURE__*/__webpack_require__.n(lodash_debounce
 
 
 
-
-
-
-
-
-
-
-function SliderTrackvue_type_script_lang_js_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function SliderTrackvue_type_script_lang_js_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { SliderTrackvue_type_script_lang_js_ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { SliderTrackvue_type_script_lang_js_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 
 
@@ -68880,10 +70541,10 @@ var getKey = function getKey(child, fallbackKey) {
 
       var clone = cloneVNode(slide);
       clone.key = options.key;
-      mergeVNodeData(clone, 'class', options.class);
-      mergeVNodeData(clone, 'attrs', options.attrs);
-      mergeVNodeData(clone, 'style', options.style);
-      mergeVNodeData(clone, 'on', {
+      vNodeUtils_mergeVNodeData(clone, 'class', options.class);
+      vNodeUtils_mergeVNodeData(clone, 'attrs', options.attrs);
+      vNodeUtils_mergeVNodeData(clone, 'style', options.style);
+      vNodeUtils_mergeVNodeData(clone, 'on', {
         click: function click(e) {
           vNodeUtils_getData(slide, 'on.click', function () {})(e);
 
@@ -68918,17 +70579,17 @@ var getKey = function getKey(child, fallbackKey) {
           child = h("div");
         }
 
-        var childStyle = getSlideStyle(SliderTrackvue_type_script_lang_js_objectSpread({}, spec, {
+        var childStyle = getSlideStyle(_objectSpread2({}, spec, {
           index: index
         }));
-        var slideClasses = getSlideClasses(SliderTrackvue_type_script_lang_js_objectSpread({}, spec, {
+        var slideClasses = getSlideClasses(_objectSpread2({}, spec, {
           index: index
         })); // push a cloned element of the desired slide
 
         slides.push(_this2.cloneSlide(child, {
           key: 'original' + getKey(child, index),
           class: slideClasses,
-          style: SliderTrackvue_type_script_lang_js_objectSpread({
+          style: _objectSpread2({
             outline: 'none'
           }, childStyle),
           attrs: {
@@ -68939,7 +70600,7 @@ var getKey = function getKey(child, fallbackKey) {
           childOnClickOptions: childOnClickOptions
         })); // if slide needs to be precloned or postcloned
 
-        if (spec.infinite && spec.fade === false) {
+        if (spec.infinite && spec.fade === false && childrenCount > spec.slidesToShow) {
           var preCloneNo = childrenCount - index;
 
           if (preCloneNo <= getPreClones(spec) && childrenCount !== spec.slidesToShow) {
@@ -68949,7 +70610,7 @@ var getKey = function getKey(child, fallbackKey) {
               child = elem;
             }
 
-            slideClasses = getSlideClasses(SliderTrackvue_type_script_lang_js_objectSpread({}, spec, {
+            slideClasses = getSlideClasses(_objectSpread2({}, spec, {
               index: key
             }));
             preCloneSlides.push(_this2.cloneSlide(child, {
@@ -68972,7 +70633,7 @@ var getKey = function getKey(child, fallbackKey) {
               child = elem;
             }
 
-            slideClasses = getSlideClasses(SliderTrackvue_type_script_lang_js_objectSpread({}, spec, {
+            slideClasses = getSlideClasses(_objectSpread2({}, spec, {
               index: key
             }));
             postCloneSlides.push(_this2.cloneSlide(child, {
@@ -69001,15 +70662,18 @@ var getKey = function getKey(child, fallbackKey) {
     var h = arguments[0];
     var slides = this.renderSlides(this.$props, this.$slots.default);
     return h("div", {
-      "class": "slick-track",
+      "class": {
+        'slick-track': true,
+        'slick-center': this.$props.centerMode
+      },
       "style": this.trackStyle
     }, [slides]);
   }
 });
 // CONCATENATED MODULE: ./src/SliderTrack.vue?vue&type=script&lang=js&
  /* harmony default export */ var src_SliderTrackvue_type_script_lang_js_ = (SliderTrackvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./src/SliderTrack.vue?vue&type=style&index=0&id=4dc0f449&scoped=true&lang=css&
-var SliderTrackvue_type_style_index_0_id_4dc0f449_scoped_true_lang_css_ = __webpack_require__("d240");
+// EXTERNAL MODULE: ./src/SliderTrack.vue?vue&type=style&index=0&id=e4caeaf8&scoped=true&lang=css&
+var SliderTrackvue_type_style_index_0_id_e4caeaf8_scoped_true_lang_css_ = __webpack_require__("6ea2");
 
 // CONCATENATED MODULE: ./src/SliderTrack.vue
 var SliderTrack_render, SliderTrack_staticRenderFns
@@ -69026,25 +70690,27 @@ var SliderTrack_component = normalizeComponent(
   SliderTrack_staticRenderFns,
   false,
   null,
-  "4dc0f449",
+  "e4caeaf8",
   null
   
 )
 
 /* harmony default export */ var SliderTrack = (SliderTrack_component.exports);
-// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/arrayWithoutHoles.js
-function _arrayWithoutHoles(arr) {
-  if (Array.isArray(arr)) {
-    for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) {
-      arr2[i] = arr[i];
-    }
+// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
 
-    return arr2;
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
   }
-}
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.regexp.to-string.js
-var es_regexp_to_string = __webpack_require__("25f0");
 
+  return arr2;
+}
+// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/arrayWithoutHoles.js
+
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) return _arrayLikeToArray(arr);
+}
 // CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/iterableToArray.js
 
 
@@ -69054,20 +70720,42 @@ var es_regexp_to_string = __webpack_require__("25f0");
 
 
 
-
 function _iterableToArray(iter) {
-  if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);
+  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
+}
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.function.name.js
+var es_function_name = __webpack_require__("b0c0");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.regexp.to-string.js
+var es_regexp_to_string = __webpack_require__("25f0");
+
+// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/unsupportedIterableToArray.js
+
+
+
+
+
+
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(n);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
 }
 // CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/nonIterableSpread.js
 function _nonIterableSpread() {
-  throw new TypeError("Invalid attempt to spread non-iterable instance");
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
 // CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js
 
 
 
+
 function _toConsumableArray(arr) {
-  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
 }
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vuetify-loader/lib/loader.js??ref--19-0!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/SliderArrow.vue?vue&type=script&lang=js&
 
@@ -69126,8 +70814,8 @@ function _toConsumableArray(arr) {
     }
 
     setVNodeData(arrow, 'key', option.key);
-    mergeVNodeData(arrow, 'class', classes);
-    mergeVNodeData(arrow, 'on', {
+    vNodeUtils_mergeVNodeData(arrow, 'class', classes);
+    vNodeUtils_mergeVNodeData(arrow, 'on', {
       click: function click() {
         if (clickable) {
           _this.$emit('arrowClicked', {
@@ -69141,8 +70829,8 @@ function _toConsumableArray(arr) {
 });
 // CONCATENATED MODULE: ./src/SliderArrow.vue?vue&type=script&lang=js&
  /* harmony default export */ var src_SliderArrowvue_type_script_lang_js_ = (SliderArrowvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./src/SliderArrow.vue?vue&type=style&index=0&id=93fb7842&scoped=true&lang=css&
-var SliderArrowvue_type_style_index_0_id_93fb7842_scoped_true_lang_css_ = __webpack_require__("7437");
+// EXTERNAL MODULE: ./src/SliderArrow.vue?vue&type=style&index=0&id=21137603&scoped=true&lang=css&
+var SliderArrowvue_type_style_index_0_id_21137603_scoped_true_lang_css_ = __webpack_require__("f013");
 
 // CONCATENATED MODULE: ./src/SliderArrow.vue
 var SliderArrow_render, SliderArrow_staticRenderFns
@@ -69159,7 +70847,7 @@ var SliderArrow_component = normalizeComponent(
   SliderArrow_staticRenderFns,
   false,
   null,
-  "93fb7842",
+  "21137603",
   null
   
 )
@@ -69169,6 +70857,7 @@ var SliderArrow_component = normalizeComponent(
 var es_string_split = __webpack_require__("1276");
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vuetify-loader/lib/loader.js??ref--19-0!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/SliderDots.vue?vue&type=script&lang=js&
+
 
 
 
@@ -69307,12 +70996,6 @@ var SliderDots_component = normalizeComponent(
 
 
 
-function InnerSlidervue_type_script_lang_js_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function InnerSlidervue_type_script_lang_js_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { InnerSlidervue_type_script_lang_js_ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { InnerSlidervue_type_script_lang_js_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-
-
 
 
 
@@ -69329,7 +71012,7 @@ function InnerSlidervue_type_script_lang_js_objectSpread(target) { for (var i = 
   },
   mixins: [mixinPropsUpdated],
   inheritAttrs: false,
-  props: InnerSlidervue_type_script_lang_js_objectSpread({}, defaultProps_props, {
+  props: _objectSpread2({}, defaultProps_props, {
     unslick: {
       type: Boolean,
       default: false
@@ -69339,7 +71022,7 @@ function InnerSlidervue_type_script_lang_js_objectSpread(target) { for (var i = 
     customPaging: Function
   }),
   data: function data() {
-    return InnerSlidervue_type_script_lang_js_objectSpread({}, initialState, {
+    return _objectSpread2({}, initialState, {
       currentSlide: this.initialSlide
     });
   },
@@ -69348,7 +71031,7 @@ function InnerSlidervue_type_script_lang_js_objectSpread(target) { for (var i = 
       return this.$slots.default.length;
     },
     spec: function spec() {
-      return InnerSlidervue_type_script_lang_js_objectSpread({}, this.$props, {}, this.$data, {
+      return _objectSpread2({}, this.$props, {}, this.$data, {
         slideCount: this.slideCount
       });
     }
@@ -69373,7 +71056,7 @@ function InnerSlidervue_type_script_lang_js_objectSpread(target) { for (var i = 
   mounted: function mounted() {
     var _this = this;
 
-    var spec = InnerSlidervue_type_script_lang_js_objectSpread({
+    var spec = _objectSpread2({
       listRef: this.$refs.list,
       trackRef: this.$refs.track,
       children: this.$slots.default
@@ -69390,7 +71073,7 @@ function InnerSlidervue_type_script_lang_js_objectSpread(target) { for (var i = 
       this.lazyLoadTimer = setInterval(this.progressiveLazyLoad, 1000);
     }
 
-    this.ro = new ResizeObserver(function () {
+    this.ro = new ResizeObserver_es["a" /* default */](function () {
       if (_this.animating) {
         _this.onWindowResized(false); // don't set trackStyle hence don't break animation
 
@@ -69403,7 +71086,7 @@ function InnerSlidervue_type_script_lang_js_objectSpread(target) { for (var i = 
       }
     });
     this.ro.observe(this.$refs.list);
-    Array.prototype.forEach.call(document.querySelectorAll('.slick-slide'), function (slide) {
+    Array.prototype.forEach.call(this.$refs.list.querySelectorAll('.slick-slide'), function (slide) {
       slide.onfocus = _this.pauseOnFocus ? _this.onSlideFocus : null;
       slide.onblur = _this.pauseOnFocus ? _this.onSlideBlur : null;
     });
@@ -69419,7 +71102,7 @@ function InnerSlidervue_type_script_lang_js_objectSpread(target) { for (var i = 
     this.$parent.$emit('reInit');
 
     if (this.lazyLoad) {
-      var slidesToLoad = getOnDemandLazySlides(InnerSlidervue_type_script_lang_js_objectSpread({}, this.$props, {}, this.$data));
+      var slidesToLoad = getOnDemandLazySlides(_objectSpread2({}, this.$props, {}, this.$data));
 
       if (slidesToLoad.length > 0) {
         this.lazyLoadedList = this.lazyLoadedList.concat(slidesToLoad);
@@ -69461,7 +71144,7 @@ function InnerSlidervue_type_script_lang_js_objectSpread(target) { for (var i = 
     onPropsUpdated: function onPropsUpdated() {
       var nextProps = this.$props;
 
-      var spec = InnerSlidervue_type_script_lang_js_objectSpread({
+      var spec = _objectSpread2({
         listRef: this.$refs.list,
         trackRef: this.$refs.track,
         children: this.$slots.default
@@ -69505,14 +71188,14 @@ function InnerSlidervue_type_script_lang_js_objectSpread(target) { for (var i = 
     },
     updateState: function updateState(spec, setTrackStyle) {
       var updatedState = initializedState(spec);
-      spec = InnerSlidervue_type_script_lang_js_objectSpread({}, spec, {}, updatedState, {
+      spec = _objectSpread2({}, spec, {}, updatedState, {
         slideIndex: updatedState.currentSlide
       });
       var targetLeft = getTrackLeft(spec);
-      spec = InnerSlidervue_type_script_lang_js_objectSpread({}, spec, {
+      spec = _objectSpread2({}, spec, {
         left: targetLeft
       });
-      var trackStyle = getTrackCSS(spec);
+      var trackStyle = innerSliderUtils_getTrackCSS(spec);
 
       if (setTrackStyle || this.slideCount !== spec.children.length) {
         updatedState['trackStyle'] = trackStyle;
@@ -69535,7 +71218,7 @@ function InnerSlidervue_type_script_lang_js_objectSpread(target) { for (var i = 
             trackLeft = [];
         var childrenWidths = [];
         this.$slots.default.forEach(function (child) {
-          var _getStyle = getStyle(child),
+          var _getStyle = vNodeUtils_getStyle(child),
               width = _getStyle.width;
 
           childrenWidths.push(width);
@@ -69606,7 +71289,7 @@ function InnerSlidervue_type_script_lang_js_objectSpread(target) { for (var i = 
 
       var currentSlide = this.currentSlide;
 
-      var _slideHandler2 = innerSliderUtils_slideHandler(InnerSlidervue_type_script_lang_js_objectSpread({
+      var _slideHandler2 = innerSliderUtils_slideHandler(_objectSpread2({
         index: index
       }, this.$props, {}, this.$data, {
         trackRef: this.$refs.track,
@@ -69664,7 +71347,7 @@ function InnerSlidervue_type_script_lang_js_objectSpread(target) { for (var i = 
         return;
       }
 
-      var spec = InnerSlidervue_type_script_lang_js_objectSpread({
+      var spec = _objectSpread2({
         listRef: this.$refs.list,
         trackRef: this.$refs.track,
         children: this.$slots.default
@@ -69687,7 +71370,7 @@ function InnerSlidervue_type_script_lang_js_objectSpread(target) { for (var i = 
     checkImagesLoad: function checkImagesLoad() {
       var _this4 = this;
 
-      var images = document.querySelectorAll('.slick-slide img');
+      var images = this.$refs.list.querySelectorAll('.slick-slide img');
       var imagesCount = images.length,
           loadedCount = 0;
       Array.prototype.forEach.call(images, function (image) {
@@ -69730,7 +71413,7 @@ function InnerSlidervue_type_script_lang_js_objectSpread(target) { for (var i = 
     progressiveLazyLoad: function progressiveLazyLoad() {
       var slidesToLoad = [];
 
-      var spec = InnerSlidervue_type_script_lang_js_objectSpread({}, this.$props, {}, this.$data);
+      var spec = _objectSpread2({}, this.$props, {}, this.$data);
 
       for (var index = this.currentSlide; index < this.slideCount + getPostClones(spec); index++) {
         if (this.lazyLoadedList.indexOf(index) < 0) {
@@ -69775,7 +71458,7 @@ function InnerSlidervue_type_script_lang_js_objectSpread(target) { for (var i = 
     changeSlide: function changeSlide(options) {
       var dontAnimate = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
 
-      var spec = InnerSlidervue_type_script_lang_js_objectSpread({}, this.$props, {}, this.$data);
+      var spec = _objectSpread2({}, this.$props, {}, this.$data);
 
       var targetSlide = innerSliderUtils_changeSlide(spec, options);
 
@@ -69801,7 +71484,7 @@ function InnerSlidervue_type_script_lang_js_objectSpread(target) { for (var i = 
     swipeMove: function swipeMove(e) {
       var _this5 = this;
 
-      var state = innerSliderUtils_swipeMove(e, InnerSlidervue_type_script_lang_js_objectSpread({}, this.$props, {}, this.$data, {
+      var state = innerSliderUtils_swipeMove(e, _objectSpread2({}, this.$props, {}, this.$data, {
         trackRef: this.$refs.track,
         listRef: this.$refs.list,
         slideIndex: this.currentSlide,
@@ -69822,7 +71505,7 @@ function InnerSlidervue_type_script_lang_js_objectSpread(target) { for (var i = 
       Object.assign(this.$data, state);
     },
     swipeEnd: function swipeEnd(e) {
-      var state = innerSliderUtils_swipeEnd(e, InnerSlidervue_type_script_lang_js_objectSpread({}, this.$props, {}, this.$data, {
+      var state = innerSliderUtils_swipeEnd(e, _objectSpread2({}, this.$props, {}, this.$data, {
         trackRef: this.$refs.track,
         listRef: this.$refs.list,
         slideIndex: this.currentSlide
@@ -69881,7 +71564,7 @@ function InnerSlidervue_type_script_lang_js_objectSpread(target) { for (var i = 
       if (this.rtl) {
         nextIndex = this.currentSlide - this.slidesToScroll;
       } else {
-        if (canGoNext(InnerSlidervue_type_script_lang_js_objectSpread({}, this.$props, {}, this.$data))) {
+        if (canGoNext(_objectSpread2({}, this.$props, {}, this.$data))) {
           nextIndex = this.currentSlide + this.slidesToScroll;
         } else {
           return false;
@@ -69967,7 +71650,7 @@ function InnerSlidervue_type_script_lang_js_objectSpread(target) { for (var i = 
       'slick-vertical': this.vertical
     };
     var trackProps = extractObject(this.spec, PROP_KEYS.TRACK);
-    trackProps = filterUndefined(InnerSlidervue_type_script_lang_js_objectSpread({}, trackProps));
+    trackProps = filterUndefined(_objectSpread2({}, trackProps));
     var pauseOnHover = this.pauseOnHover;
     var trackNativeOn = filterUndefined({
       mouseenter: pauseOnHover ? this.onTrackOver : undefined,
@@ -69985,8 +71668,8 @@ function InnerSlidervue_type_script_lang_js_objectSpread(target) { for (var i = 
         mouseleave: pauseOnDotsHover ? this.onDotsLeave : undefined
       });
       dots = h(SliderDots, {
-        "props": InnerSlidervue_type_script_lang_js_objectSpread({}, dotProps),
-        "nativeOn": InnerSlidervue_type_script_lang_js_objectSpread({}, dotNativeOn),
+        "props": _objectSpread2({}, dotProps),
+        "nativeOn": _objectSpread2({}, dotNativeOn),
         "on": {
           "dotClicked": this.changeSlide
         }
@@ -69998,7 +71681,7 @@ function InnerSlidervue_type_script_lang_js_objectSpread(target) { for (var i = 
 
     if (this.arrows) {
       prevArrow = h(SliderArrow, {
-        "props": InnerSlidervue_type_script_lang_js_objectSpread({}, InnerSlidervue_type_script_lang_js_objectSpread({}, arrowProps, {
+        "props": _objectSpread2({}, _objectSpread2({}, arrowProps, {
           type: 'previous'
         })),
         "on": {
@@ -70006,7 +71689,7 @@ function InnerSlidervue_type_script_lang_js_objectSpread(target) { for (var i = 
         }
       });
       nextArrow = h(SliderArrow, {
-        "props": InnerSlidervue_type_script_lang_js_objectSpread({}, InnerSlidervue_type_script_lang_js_objectSpread({}, arrowProps, {
+        "props": _objectSpread2({}, _objectSpread2({}, arrowProps, {
           type: 'next'
         })),
         "on": {
@@ -70039,10 +71722,10 @@ function InnerSlidervue_type_script_lang_js_objectSpread(target) { for (var i = 
       }
     }
 
-    var listStyle = InnerSlidervue_type_script_lang_js_objectSpread({}, this.$parent.$vnode.data.style);
+    var listStyle = _objectSpread2({}, this.$parent.$vnode.data.style);
 
     if (!this.unslick) {
-      listStyle = InnerSlidervue_type_script_lang_js_objectSpread({}, listStyle, {}, filterUndefinedOrNull(verticalHeightStyle), {}, centerPaddingStyle);
+      listStyle = _objectSpread2({}, listStyle, {}, filterUndefinedOrNull(verticalHeightStyle), {}, centerPaddingStyle);
     }
 
     var accessibility = this.accessibility,
@@ -70068,12 +71751,12 @@ function InnerSlidervue_type_script_lang_js_objectSpread(target) { for (var i = 
     }, [!this.unslick ? prevArrow : '', h("div", {
       "ref": "list",
       "class": 'slick-list',
-      "on": InnerSlidervue_type_script_lang_js_objectSpread({}, listOn),
+      "on": _objectSpread2({}, listOn),
       "style": listStyle
     }, [h(SliderTrack, {
       "ref": "track",
-      "props": InnerSlidervue_type_script_lang_js_objectSpread({}, trackProps),
-      "nativeOn": InnerSlidervue_type_script_lang_js_objectSpread({}, trackNativeOn),
+      "props": _objectSpread2({}, trackProps),
+      "nativeOn": _objectSpread2({}, trackNativeOn),
       "on": {
         "childClicked": this.selectHandler
       }
@@ -70082,8 +71765,8 @@ function InnerSlidervue_type_script_lang_js_objectSpread(target) { for (var i = 
 });
 // CONCATENATED MODULE: ./src/InnerSlider.vue?vue&type=script&lang=js&
  /* harmony default export */ var src_InnerSlidervue_type_script_lang_js_ = (InnerSlidervue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./src/InnerSlider.vue?vue&type=style&index=0&id=6bed67a2&scoped=true&lang=css&
-var InnerSlidervue_type_style_index_0_id_6bed67a2_scoped_true_lang_css_ = __webpack_require__("134f");
+// EXTERNAL MODULE: ./src/InnerSlider.vue?vue&type=style&index=0&id=3d1a4f76&scoped=true&lang=css&
+var InnerSlidervue_type_style_index_0_id_3d1a4f76_scoped_true_lang_css_ = __webpack_require__("eaf9");
 
 // CONCATENATED MODULE: ./src/InnerSlider.vue
 var InnerSlider_render, InnerSlider_staticRenderFns
@@ -70100,7 +71783,7 @@ var InnerSlider_component = normalizeComponent(
   InnerSlider_staticRenderFns,
   false,
   null,
-  "6bed67a2",
+  "3d1a4f76",
   null
   
 )
@@ -70114,15 +71797,6 @@ var InnerSlider_component = normalizeComponent(
 
 
 
-
-
-
-
-
-
-function VueSlickCarouselvue_type_script_lang_js_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function VueSlickCarouselvue_type_script_lang_js_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { VueSlickCarouselvue_type_script_lang_js_ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { VueSlickCarouselvue_type_script_lang_js_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 
 
@@ -70158,9 +71832,9 @@ var enquire = canUseDOM() && __webpack_require__("8e95");
         newProps = this.responsive.filter(function (resp) {
           return resp.breakpoint === _this.breakpoint;
         });
-        settings = newProps[0].settings === 'unslick' ? 'unslick' : VueSlickCarouselvue_type_script_lang_js_objectSpread({}, defaultValues, {}, props, {}, newProps[0].settings);
+        settings = newProps[0].settings === 'unslick' ? 'unslick' : _objectSpread2({}, defaultValues, {}, props, {}, newProps[0].settings);
       } else {
-        settings = VueSlickCarouselvue_type_script_lang_js_objectSpread({}, defaultValues, {}, props);
+        settings = _objectSpread2({}, defaultValues, {}, props);
       } // force scrolling by one if centerMode is on
 
 
@@ -70284,10 +71958,17 @@ var enquire = canUseDOM() && __webpack_require__("8e95");
   render: function render() {
     var h = arguments[0];
     var settings = this.settings;
+    var children = this.$slots.default || [];
+
+    if (settings === 'unslick') {
+      return h("div", {
+        "class": "regular slider"
+      }, [children]);
+    }
+
     settings.prevArrow = this.$scopedSlots.prevArrow;
     settings.nextArrow = this.$scopedSlots.nextArrow;
     settings.customPaging = this.$scopedSlots.customPaging;
-    var children = this.$slots.default || [];
     children = children.filter(function (child) {
       return !!child.tag;
     });
@@ -70301,17 +71982,17 @@ var enquire = canUseDOM() && __webpack_require__("8e95");
         var row = [];
 
         for (var k = j; k < j + settings.slidesPerRow; k += 1) {
-          if (settings.variableWidth && getStyle(children[k])) {
-            currentWidth = getStyle(children[k]).width;
+          if (settings.variableWidth && vNodeUtils_getStyle(children[k])) {
+            currentWidth = vNodeUtils_getStyle(children[k]).width;
           }
 
           if (k >= children.length) break;
           var clonedVNode = cloneVNode(children[k]);
           setVNodeData(clonedVNode, 'key', 100 * i + 10 * j + k);
-          mergeVNodeData(clonedVNode, 'attrs', {
+          vNodeUtils_mergeVNodeData(clonedVNode, 'attrs', {
             tabIndex: -1
           });
-          mergeVNodeData(clonedVNode, 'style', {
+          vNodeUtils_mergeVNodeData(clonedVNode, 'style', {
             width: "".concat(100 / settings.slidesPerRow, "%"),
             display: 'inline-block'
           });
@@ -70337,17 +72018,13 @@ var enquire = canUseDOM() && __webpack_require__("8e95");
       }
     }
 
-    if (settings === 'unslick') {
-      return h("div", {
-        "class": "regular slider"
-      }, [newChildren]);
-    } else if (newChildren.length <= settings.slidesToShow) {
+    if (newChildren.length <= settings.slidesToShow) {
       settings.unslick = true;
     }
 
     return h(InnerSlider, {
       "ref": "innerSlider",
-      "props": VueSlickCarouselvue_type_script_lang_js_objectSpread({}, settings),
+      "props": _objectSpread2({}, settings),
       "key": Object.values(settings).join('')
     }, [newChildren]);
   }
@@ -70395,8 +72072,12 @@ var toAbsoluteIndex = __webpack_require__("23cb");
 var toLength = __webpack_require__("50c4");
 var toIndexedObject = __webpack_require__("fc6a");
 var createProperty = __webpack_require__("8418");
-var arrayMethodHasSpeciesSupport = __webpack_require__("1dde");
 var wellKnownSymbol = __webpack_require__("b622");
+var arrayMethodHasSpeciesSupport = __webpack_require__("1dde");
+var arrayMethodUsesToLength = __webpack_require__("ae40");
+
+var HAS_SPECIES_SUPPORT = arrayMethodHasSpeciesSupport('slice');
+var USES_TO_LENGTH = arrayMethodUsesToLength('slice', { ACCESSORS: true, 0: 0, 1: 2 });
 
 var SPECIES = wellKnownSymbol('species');
 var nativeSlice = [].slice;
@@ -70405,7 +72086,7 @@ var max = Math.max;
 // `Array.prototype.slice` method
 // https://tc39.github.io/ecma262/#sec-array.prototype.slice
 // fallback for not array-like ES3 strings and DOM objects
-$({ target: 'Array', proto: true, forced: !arrayMethodHasSpeciesSupport('slice') }, {
+$({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT || !USES_TO_LENGTH }, {
   slice: function slice(start, end) {
     var O = toIndexedObject(this);
     var length = toLength(O.length);
@@ -70473,6 +72154,13 @@ module.exports = function (it) {
 
 /***/ }),
 
+/***/ "fdb2":
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
 /***/ "fdbc":
 /***/ (function(module, exports) {
 
@@ -70524,7 +72212,7 @@ module.exports = NATIVE_SYMBOL
   // eslint-disable-next-line no-undef
   && !Symbol.sham
   // eslint-disable-next-line no-undef
-  && typeof Symbol() == 'symbol';
+  && typeof Symbol.iterator == 'symbol';
 
 
 /***/ }),
@@ -86111,7 +87799,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ExploreSidebar_vue_vue_type_template_id_a8943b50_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ExploreSidebar.vue?vue&type=template&id=a8943b50&scoped=true& */ "./resources/js/views/post-containers/ExploreSidebar.vue?vue&type=template&id=a8943b50&scoped=true&");
 /* harmony import */ var _ExploreSidebar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ExploreSidebar.vue?vue&type=script&lang=js& */ "./resources/js/views/post-containers/ExploreSidebar.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _ExploreSidebar_vue_vue_type_style_index_0_id_a8943b50_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ExploreSidebar.vue?vue&type=style&index=0&id=a8943b50&scoped=true&lang=css& */ "./resources/js/views/post-containers/ExploreSidebar.vue?vue&type=style&index=0&id=a8943b50&scoped=true&lang=css&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _ExploreSidebar_vue_vue_type_style_index_1_id_a8943b50_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ExploreSidebar.vue?vue&type=style&index=1&id=a8943b50&scoped=true&lang=css& */ "./resources/js/views/post-containers/ExploreSidebar.vue?vue&type=style&index=1&id=a8943b50&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -86120,7 +87810,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_4__["default"])(
   _ExploreSidebar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _ExploreSidebar_vue_vue_type_template_id_a8943b50_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
   _ExploreSidebar_vue_vue_type_template_id_a8943b50_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
@@ -86165,6 +87855,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_10_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ExploreSidebar_vue_vue_type_style_index_0_id_a8943b50_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_10_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ExploreSidebar_vue_vue_type_style_index_0_id_a8943b50_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_10_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ExploreSidebar_vue_vue_type_style_index_0_id_a8943b50_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_10_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ExploreSidebar_vue_vue_type_style_index_0_id_a8943b50_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
  /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_10_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ExploreSidebar_vue_vue_type_style_index_0_id_a8943b50_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/views/post-containers/ExploreSidebar.vue?vue&type=style&index=1&id=a8943b50&scoped=true&lang=css&":
+/*!************************************************************************************************************************!*\
+  !*** ./resources/js/views/post-containers/ExploreSidebar.vue?vue&type=style&index=1&id=a8943b50&scoped=true&lang=css& ***!
+  \************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_10_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ExploreSidebar_vue_vue_type_style_index_1_id_a8943b50_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--10-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--10-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./ExploreSidebar.vue?vue&type=style&index=1&id=a8943b50&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/post-containers/ExploreSidebar.vue?vue&type=style&index=1&id=a8943b50&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_10_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ExploreSidebar_vue_vue_type_style_index_1_id_a8943b50_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_10_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ExploreSidebar_vue_vue_type_style_index_1_id_a8943b50_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_10_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ExploreSidebar_vue_vue_type_style_index_1_id_a8943b50_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_10_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ExploreSidebar_vue_vue_type_style_index_1_id_a8943b50_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_10_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ExploreSidebar_vue_vue_type_style_index_1_id_a8943b50_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
@@ -86632,7 +88338,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _PostViewPage_vue_vue_type_template_id_35874454_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PostViewPage.vue?vue&type=template&id=35874454&scoped=true& */ "./resources/js/views/post/PostViewPage.vue?vue&type=template&id=35874454&scoped=true&");
 /* harmony import */ var _PostViewPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PostViewPage.vue?vue&type=script&lang=js& */ "./resources/js/views/post/PostViewPage.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _PostViewPage_vue_vue_type_style_index_0_id_35874454_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./PostViewPage.vue?vue&type=style&index=0&id=35874454&scoped=true&lang=css& */ "./resources/js/views/post/PostViewPage.vue?vue&type=style&index=0&id=35874454&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -86640,7 +88348,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _PostViewPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _PostViewPage_vue_vue_type_template_id_35874454_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
   _PostViewPage_vue_vue_type_template_id_35874454_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
@@ -86669,6 +88377,22 @@ component.options.__file = "resources/js/views/post/PostViewPage.vue"
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PostViewPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./PostViewPage.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/post/PostViewPage.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PostViewPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/post/PostViewPage.vue?vue&type=style&index=0&id=35874454&scoped=true&lang=css&":
+/*!***********************************************************************************************************!*\
+  !*** ./resources/js/views/post/PostViewPage.vue?vue&type=style&index=0&id=35874454&scoped=true&lang=css& ***!
+  \***********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_10_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PostViewPage_vue_vue_type_style_index_0_id_35874454_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--10-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--10-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./PostViewPage.vue?vue&type=style&index=0&id=35874454&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/post/PostViewPage.vue?vue&type=style&index=0&id=35874454&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_10_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PostViewPage_vue_vue_type_style_index_0_id_35874454_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_10_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PostViewPage_vue_vue_type_style_index_0_id_35874454_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_10_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PostViewPage_vue_vue_type_style_index_0_id_35874454_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_10_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PostViewPage_vue_vue_type_style_index_0_id_35874454_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_10_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PostViewPage_vue_vue_type_style_index_0_id_35874454_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 

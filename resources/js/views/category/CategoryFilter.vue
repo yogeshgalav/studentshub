@@ -1,9 +1,9 @@
 <template>
     <div class="bg-gray">
-   <div class="container category-filter ptb-20">
-        <div class="row">
+   <div class="container category-filter cat_pad">
+        <div class="cat">
         <div class="col-md-12 text-center" v-if="categories.length">
-            <VueSlickCarousel  :arrows="true" v-bind="slickOptions" ref="slick" >
+            <VueSlickCarousel  :arrows="true" v-bind="slickOptions" ref="slick" class="slick-p" >
                     <a :href="'/category/'+category.category_url" class="btn btn-white" v-for="(category,index) in categories" :key="index">{{category.name}}</a>
   </VueSlickCarousel >
         </div>
@@ -16,6 +16,9 @@
   font-weight: 400;
   font-size:14px;
   margin: 0 5px;
+}
+.cat_pad {
+    padding: 30px 0;
 }
   .slick-slide {
     margin: 0 5px;
@@ -47,12 +50,21 @@
     opacity: 0.75;
     color: #171717 !important;
 }
+.slick-slide {
+    margin: 0 5px !important;
+}
 </style> 
 
 <script>
-import VueSlickCarousel from 'vue-slick-carousel'
+//import VueSlickCarousel from 'vue-slick-carousel'
 // optional style for arrows & dots
-import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
+//import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
+
+ import VueSlickCarousel from 'vue-slick-carousel'
+  import 'vue-slick-carousel/dist/vue-slick-carousel.css'
+  // optional style for arrows & dots
+  import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
+
 export default {
     components: {
     VueSlickCarousel,
@@ -75,8 +87,8 @@ export default {
             breakpoint: 768,
             settings: {            
               arrows: true,
-              slidesToShow: 8,
-              slidesToScroll: 3,
+              slidesToShow: 1,
+              slidesToScroll: 1,
               width:200,
             }
           }

@@ -11,17 +11,24 @@
   <div class="row">
         <div class="col-md-4" v-for="post in posts" :key="post.id">
 							<div class="card-post">
-								
+								<img class="card-img-top" v-lazy="post.image_path" alt="Card image cap">
 								<div>
 
-									<div class="d-flex mt-2">
+									<div class=" mt-2">
+									<div class="post_name_date">
+										<div  class="user_name">
+
 										<profile-image :post="post"/>
-										<div class="info-post ml-2">
 											<p class="username">{{post.user_name}}</p>
+									</div>
+									<div class="info-post ml-2">
+											
 											<p class="date text-muted">{{post.created_at}}</p>
 										</div>
+									</div>	
+										
 									</div>
-                                    <h3 class="card-title  font-size-16">
+                                    <h3 class="card-title mb-1 font-size-16">
 										<router-link :to="'/post/'+post.id"  class="weight-600 text-black">
 											{{post.heading}}
 										</router-link>
@@ -29,13 +36,13 @@
 									<div class="separator-solid"></div>
 							
 									
-									<p class="card-text">{{post.content}}</p>
-									<div class="row">
-										<div class="col-md-2">
+									<p class="card-text post_des">{{post.content}}</p>
+									<div class="row post_views_sec">
+										<div class="col-md-2 col-3 post_view">
 											<i class="fa fa-eye"></i>
 											<span class="badge-text">{{post.total_views}}</span>
 										</div>
-										<div class="col-md-6">
+										<div class="col-md-6 col-3 post_view">
 											<i class="fa fa-thumbs-up"></i>
 											<span class="badge-text">{{post.total_likes}}</span>
 										</div>
@@ -63,6 +70,10 @@
 	font-size:12px !important;
 	font-weight: 400;
 	margin-bottom:10px !important;
+}
+.row.post_views_sec
+{
+	bottom:-40px;
 }
 </style>
 <script>
