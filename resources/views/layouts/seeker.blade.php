@@ -7,6 +7,7 @@
 @include('includes.meta')
 @include('includes.title')
 @yield('compiledJs')
+<link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
 <script src="/js/lang.js"></script>
 <link rel="shortcut icon" type="image/x-icon" href="{{asset('favicon.ico')}}" />
 <style>

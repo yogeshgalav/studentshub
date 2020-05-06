@@ -10,8 +10,6 @@ require('../../bootstrap');
 // window.Vue = require('vue').default;
 import Vue from '../app';
 
-Vue.component('SidebarComponent', require('../../components/SidebarComponent').default);
-
 //Dependencies
 import StudentRoutes from './routes';
 import VueRouter from 'vue-router';

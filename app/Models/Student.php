@@ -16,4 +16,8 @@ class Student extends Model
     public function getPrefferredCourseAttribute(){
         return Batch::where('id',$this->prefferred_batch)->first()->course_id;
     }
+
+    public function batches(){
+        return $this->belongsToMany('App\Models\Batch','batch_students','batch_id');
+    }
 }

@@ -27,6 +27,8 @@ class CreateUsersTable extends Migration
             $table->string('login_provider_type')->nullable();
             $table->date('onboarded_at')->nullable();
             $table->dateTime('last_login_at')->nullable();
+            $table->integer('block_status')->default(0);
+            $table->string('role_intended')->default('student');
             $table->string('avatar_url')->nullable();
             $table->softDeletes();
             $table->rememberToken();

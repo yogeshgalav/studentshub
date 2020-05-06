@@ -14,6 +14,7 @@
 require_once('web/guest.php');
 require_once('web/seeker.php');
 require_once('web/student.php');
+require_once('web/admin.php');
 Route::get('/', 'PagesController@root');
 Route::get('/test', 'PagesController@test');
 Route::get('/report', 'PagesController@report');
