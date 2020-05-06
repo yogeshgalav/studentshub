@@ -84,24 +84,24 @@ class ExplorePostSeeder extends Seeder
             (20, 20, 1,  NULL, NULL, NULL, NULL, 1, '2019-11-03 23:48:39', '2019-11-03 23:48:39');");
 
 
-        DB::statement("INSERT INTO `subjects` (`id`, `Subject_name`, `subject_url`, `parent_subject_id`, `created_at`, `updated_at`) VALUES
+        DB::statement("INSERT INTO `subjects` (`id`, `Subject_name`, `subject_url`, `created_at`, `updated_at`) VALUES
         (42, 'Iphone', 'iphone', NULL, NULL, NULL),
-        (43, 'Atheist', 'atheist', NULL, NULL, NULL),
-        (44, 'Evolution', 'evolution', NULL, NULL, NULL),
-        (45, 'Startup', 'startup', NULL, NULL, NULL),
-        (47, 'Pitch Deck', 'pitch-deck', NULL, NULL, NULL),
-        (46, 'Seed funding', 'seed-funding', NULL, NULL, NULL),
-        (48, 'Sex', 'sex', NULL, NULL, NULL),
-        (49, 'Weed', 'weed', NULL, NULL, NULL),
-        (50, 'Disease', 'disease', NULL, NULL, NULL),
-        (51, 'Human Body', 'human-body', NULL, NULL, NULL),
-        (52, 'Consciousness', 'consciousness', NULL, NULL, NULL),
-        (53, 'Psychology', 'psychology', NULL, NULL, NULL),
-        (54, 'Human Brain', 'Human Brain', NULL, NULL, NULL),
-        (56, 'Masturbation', 'Masturbation', NULL, NULL, NULL),
-        (57, 'Sleep', 'sleep', NULL, NULL, NULL),
-        (58, 'Universe', 'universe', NULL, NULL, NULL),
-        (59, 'Igloo', 'igloo', NULL, NULL, NULL);
+        (43, 'Atheist', 'atheist', NULL, NULL),
+        (44, 'Evolution', 'evolution', NULL, NULL),
+        (45, 'Startup', 'startup', NULL, NULL),
+        (47, 'Pitch Deck', 'pitch-deck', NULL, NULL),
+        (46, 'Seed funding', 'seed-funding', NULL, NULL),
+        (48, 'Sex', 'sex', NULL, NULL),
+        (49, 'Weed', 'weed', NULL, NULL),
+        (50, 'Disease', 'disease', NULL, NULL),
+        (51, 'Human Body', 'human-body', NULL, NULL),
+        (52, 'Consciousness', 'consciousness', NULL, NULL),
+        (53, 'Psychology', 'psychology', NULL, NULL),
+        (54, 'Human Brain', 'Human Brain', NULL, NULL),
+        (56, 'Masturbation', 'Masturbation', NULL, NULL),
+        (57, 'Sleep', 'sleep', NULL, NULL),
+        (58, 'Universe', 'universe', NULL, NULL),
+        (59, 'Igloo', 'igloo', NULL, NULL);
         ");
 
         factory(\App\Models\ExplorePagePost::class,3)->create(['page_section'=>'ExploreTopPost']);
