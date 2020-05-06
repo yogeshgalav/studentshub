@@ -85,7 +85,7 @@ class ExplorePostSeeder extends Seeder
 
 
         DB::statement("INSERT INTO `subjects` (`id`, `Subject_name`, `subject_url`, `created_at`, `updated_at`) VALUES
-        (42, 'Iphone', 'iphone', NULL, NULL, NULL),
+        (42, 'Iphone', 'iphone', NULL, NULL),
         (43, 'Atheist', 'atheist', NULL, NULL),
         (44, 'Evolution', 'evolution', NULL, NULL),
         (45, 'Startup', 'startup', NULL, NULL),
