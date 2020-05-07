@@ -140,7 +140,7 @@ class StudentController extends Controller
             }
         }
         
-    }catch(\Exception $e){dd($e);
+    }catch(\Exception $e){
         return response()->json(['success'=>[
             'institutes'=>[]
         ]]);
