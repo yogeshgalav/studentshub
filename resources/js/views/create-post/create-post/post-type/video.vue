@@ -31,6 +31,7 @@ import EventBus from '../../event-bus';
 export default {
   data(){
     return {
+        video_id:'',
         video_url:'',
         video_error:'',
         video_description:'',
@@ -39,7 +40,7 @@ export default {
   },
   mounted(){
 	  EventBus.$on('validateStep2', () => {
-        const data = {link:this.video_url,description:this.video_description}
+        const data = {video_id:this.video_id,description:this.video_description}
         this.$store.commit('set_post_video_content', data);
 		  EventBus.$emit('validateWizard',2,true);
 	  })
@@ -50,14 +51,20 @@ export default {
         this.video_error='';
         this.is_video_embeded=false;
 
-        if(url.indexOf('youtube.com')!==-1){
-            url = url.replace('https://www.youtube.com/watch?v=','https://www.youtube.com/embed/');
+        var regex1 = /(?<=watch\?v\=).*?(?=\&)/gi;
+        var regex2 = /(?<=www\.youtu\.be\/).*?(?=\&)/gi;
+        var v_id='';
+        if(v_id=regex1.exec(url)[0]){
+            this.video_id=v_id;
+        }else if(v_id=regex2.exec(url)[0]){
+            this.video_id=v_id;
         }else{
             this.video_error='This video link is not supported';
             return false;
         }
 
-        this.video_url=url;
+        
+        this.video_url='https://www.youtube.com/embed/'+v_id;
         this.is_video_embeded=true;
     }
   }

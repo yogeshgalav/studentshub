@@ -19,6 +19,7 @@ class CreateDocumentsTable extends Migration
             $table->string('path');
             $table->integer('total_files');
             $table->string('size');
+            $table->text('description');
             $table->timestamps();
         });
     }

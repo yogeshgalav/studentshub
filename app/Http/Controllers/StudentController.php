@@ -21,12 +21,10 @@ use SKAgarwal\GoogleApi\PlacesApi;
 class StudentController extends Controller
 {
     //
-    public function create(CheckinRequest $request)
+    public function create(Request $request)
     {
         $input = $request->all();
         $user=Auth::user();
-        $input['course_id']=intval($input['course_id']);
-        $input['category_id']=intval($input['category_id']);
 
     DB::beginTransaction();
     try{
@@ -82,7 +80,7 @@ class StudentController extends Controller
     DB::commit();
     } catch (\Exception $e) {
         DB::rollback();
-        // dd($e->getMessage());
+        // dd($e->getLine(),$e->getMessage());
         \Log::critical('Student Registeration failure: for user id#'.$user->id.' with data '.implode(', ',Arr::flatten($input)));
         return response()->$e;
     }        

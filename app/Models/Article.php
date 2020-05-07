@@ -14,11 +14,11 @@ class Article extends Model
         return $this->content;
     }
 
-    public function createFromContent($postContent){
+    public function createFromContent($data){
         $path =  (dirname(__FILE__) .'/../Services/simple_html_dom.php');
             require($path);
         // Create DOM from URL or file
-        $html = str_get_html($postContent);
+        $html = str_get_html($data['htmlContent']);
         $files=[];
         foreach($html->find('img') as $element){
             $base64_image=$element->src;

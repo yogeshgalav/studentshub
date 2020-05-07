@@ -48,21 +48,13 @@
 
           <div class="col-md-4 col-2 text-right">
             <button
-              v-if="!isLastStep && show_next_button"
+              v-if="show_next_button"
               type="submit"
               class="btn btn-primary wizard-btn"
               @click="nextTab()"
             >
-              {{ trans('Next') }}
-            </button>
-
-            <button
-              v-if="isLastStep"
-              type="submit"
-              class="finish-button wizard-btn"
-              @click="$emit('onComplete')"
-            >
-              {{ trans('Done') }}
+              <span v-if="isLastStep">{{ trans('Done') }}</span>
+              <span v-else >{{ trans('Next') }}</span>
             </button>
           </div>
         </div>
@@ -123,7 +115,11 @@ export default {
 	mounted(){
 		EventBus.$on('validateWizard', (step,valid) => {
 			if(step===this.activeStep && valid===true){
-				this.nextStep();
+        if(this.isLastStep){
+          this.$emit('onComplete');
+        }else{
+          this.nextStep();
+        }
 				window.scrollTo(0, 0);
 			}
 			let emit_function=this.stepData[this.stepIndex].emit;

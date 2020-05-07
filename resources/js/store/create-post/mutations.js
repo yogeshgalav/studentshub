@@ -22,8 +22,8 @@ export default {
       state.new_post.videoContent.description = data.description;
     },
     set_post_subject(state,data){
-      state.new_post.selected_subject.id=data.subject_id ? data.subject_id : null;
-      state.new_post.selected_subject.subject_name=data.subject_name;
+      state.new_post.subject.id=data.subject_id ? data.subject_id : null;
+      state.new_post.subject.name=data.subject_name;
     },
     set_post_heading(state,data){
       state.new_post.heading=data.post_heading;
