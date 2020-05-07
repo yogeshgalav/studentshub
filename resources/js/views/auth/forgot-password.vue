@@ -6,10 +6,16 @@
       :width="250"
       :is-full-page="true"
     />
-        <div class="row justify-content-center login">
-            <div class="col-md-8 ">
-                <div class="card">
-                    <div class="card-header text-center">
+      <div class="login_card">
+        <div class="row justify-content-center align-items-center login">
+            <div class="col-md-6">
+                <div class="login_img">
+                    <img src="/images/Forgot-pass.svg" alt="">
+                </div>   
+            </div>
+            <div class="col-md-6 ">
+                <div class="logn_right">
+                    <div class="card_title text-center">
                         <h3 class="weight-800 text-black font-size-18">{{ trans('Forgot Password') }}</h3>
                     </div>
                     <div class="card-body">
@@ -17,18 +23,18 @@
                         <div class="form-group row alert alert-danger" v-if="srvError">
                             <span>{{ trans('An unknown error has occurred.') }}</span>
                         </div>
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ trans('E-Mail Address') }}</label>
+                        <div class="form-group">
+                            <label for="email" class="text-md-right"><span><i class="fa fa-envelope"></i></span> {{ trans('E-Mail Address') }}</label>
 
-                            <div class="col-md-6">
+                            <div class="inner-addon left-addon">
                                 <input id="email" type="email" class="form-control" name="email" v-model="email" autofocus v-validate="'required|email'">
                                 <span>{{ formErrors('email') }}</span>
                             </div>
                         </div>
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Submit
+                        <div class="form-group  mb-0">
+                            <div class="login_btn_part">
+                                <button type="submit" class="login_btn">
+                                    Submit<i class="fa fa-arrow-right text-white"></i>
                                 </button>
                             </div>
                         </div>
@@ -37,6 +43,7 @@
                 </div>
             </div>
         </div>
+      </div>
     </div>
 </template>
 <style scoped>

@@ -7,16 +7,22 @@
       :is-full-page="true"
     />
     <div class="container pb-100">
+      <div class="login_card">
       <div class="row justify-content-center register">
-        <div class="col-md-8">
-          <div class="card">
-            <div class="card-header text-center">
+        <div class="col-md-6">
+                <div class="login_img">
+                    <img src="/images/register.svg" alt="">
+                </div>   
+            </div>
+        <div class="col-md-6">
+          <div class="logn_right">
+            <div class="card_title text-center">
               <h3 class="weight-800 text-black font-size-18">{{ trans('Register') }}</h3>
             </div>
 
-            <div class="card-body">
+            <div class="card_body">
                 <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
                   <form @submit.prevent="handleSubmit">
                 <div class="form-group">
                 
@@ -30,9 +36,9 @@
                   <span class="error">{{ formErrors('_token') }}</span>
                 </div>
                 <div class="form-group">
-                    <label> {{ trans('Full Name') }} </label>
+                    <label><span><i class="fa fa-user"></i></span> {{ trans('Full Name') }} </label>
                   <div class="inner-addon left-addon">
-                    <i class="fa fa-user"></i>
+                    
                     <input
                       id="full_name"
                       type="text"
@@ -50,10 +56,10 @@
                 <div class="form-group">
                   <label
                     for="email"
-                  >{{ trans('E-Mail Address') }}</label>
+                  > <span><i class="fa fa-envelope"></i></span> {{ trans('E-Mail Address') }}</label>
 
                  <div class="inner-addon left-addon">
-                    <i class="fa fa-envelope"></i>
+                    
                     <input
                       id="email"
                       type="email"
@@ -70,10 +76,10 @@
                 <div class="form-group">
                   <label
                     for="password"
-                  >{{ trans('Password') }}</label>
+                  ><span><i class="fa fa-lock"></i></span> {{ trans('Password') }}</label>
 
                     <div class="inner-addon left-addon">
-                    <i class="fa fa-lock"></i>
+                    
                     <input
                       id="password"
                       ref="password"
@@ -91,10 +97,10 @@
                 <div class="form-group">
                   <label
                     for="password-confirm"
-                  >{{ trans('Confirm Password') }}</label>
+                  ><span><i class="fa fa-lock"></i></span> {{ trans('Confirm Password') }}</label>
 
                    <div class="inner-addon left-addon">
-                    <i class="fa fa-lock"></i>
+                    
                     <input
                       id="password-confirm"
                       type="password"
@@ -107,7 +113,9 @@
                 </div>
 
                 <div class="form-group mb-0">
-                 <button type="submit" class="btn btn-primary">{{ trans('Register') }}</button>
+                    <div class="login_btn_part">
+                 <button type="submit" class="login_btn">{{ trans('Register') }} <i class="fa fa-arrow-right text-white"></i></button>
+                </div>
                 </div>
               </form>
                 </div>
@@ -115,6 +123,7 @@
                 </div>
           </div>
         </div>
+      </div>
       </div>
     </div>
   </div>
@@ -135,7 +144,6 @@
 .register .form-control {
   height: 48px !important;
   color: #000;
-  background: #eee;
   border-radius: 0;
 }
 /* style glyph */

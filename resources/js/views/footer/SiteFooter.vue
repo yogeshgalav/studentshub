@@ -11,8 +11,12 @@
 		 v-model="subscribe_email"
 		 v-validate="'email|required'">
          <span class="input-group-btn">
-         <button class="btn btn-theme" type="submit">Subscribe</button>
+         <button class="btn btn-theme" type="submit"><span><i class="fas fa-caret-right"></i></span></button>
          </span>
+		 <div class="sub_text">
+			 <input type="checkbox" value="">
+			 <span>By Checking this box, you confrim that you have read and are agreeing to our  terms of use regarding  the storage of the data submitting  through  this form</span>
+          </div>
           </div>
 	</form>
 </div>
@@ -21,7 +25,7 @@
     <div class="col-md-12">
         <div class="divider mt-5"></div>
     </div>
-    <div class="col-md-12 text-center">
+    <div class="col-md-12 text-center mb-2 mt-2">
                     <ul class="social-network social-circle">
                         <li><a target="_blank" href='https://www.facebook.com/studentshub.in' class="icoFacebook" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
                         <li><a target="_blank" href='https://www.twitter.com/studentshub_in'  class="icoTwitter" title="Twitter"><i class="fab fa-twitter"></i></a></li>
@@ -39,6 +43,13 @@
 <li><a href="#">Contact</a></li>
 </ul>
                     </div>
+					<div class="col-md-12">
+        <div class="divider mt-5"></div>
+    </div>
+
+					<div class="col-md-12 text-center copy_right">
+						<p>Copyright&copy;studentshub-2019-All Rights Reserved </p>
+					</div>	
 </div>
 </div>
 </section>
@@ -50,7 +61,7 @@ background: #fff;
 }
 
 .home-newsletter .single {
-max-width: 650px;
+max-width: 500px;
 margin: 0 auto;
 text-align: center;
 position: relative;
@@ -60,19 +71,20 @@ font-size: 22px;
 margin-bottom: 40px; }
 .home-newsletter .single .form-control {
 height: 50px;
-background: rgba(255, 255, 255, 0.6);
+    background: #f7f7f7;
 border-color: transparent;
-border-radius: 20px 0 0 20px;
 border:1px solid #eee;
  }
 .home-newsletter .single .form-control:focus {
 box-shadow: none;
 border-color: #243c4f; }
 .home-newsletter .single .btn {
-min-height: 50px; 
-border-radius: 0 20px 20px 0;
-background: #10069F ;
+    border-radius: 0;
+    background: #3746c5;
 color: #fff;
+padding: 1px 25px;
+    font-size: 25px;
+
 }
 
 /* social media icons  */
@@ -169,6 +181,19 @@ a.socialIcon:hover, .socialHoverClass {
 }
 .foote_bottom_ul_amrc li { display:inline;}
 .foote_bottom_ul_amrc li a { color:#333; margin:0 12px;}
+
+.sub_text {
+    /* display: flex; */
+    /* align-items: center; */
+    margin-top: 20px;
+    font-size: 14px;
+    text-align: inherit;
+    color: #868686;
+}
+.col-md-12.text-center.copy_right p {
+    color: #868686;
+    font-size: 12px;
+}
 </style>
 
 

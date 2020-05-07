@@ -2316,6 +2316,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: ['formMixin'],
@@ -7689,7 +7714,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.home-newsletter[data-v-62c226e7] {\r\npadding: 40px 0 0;\r\nbackground: #fff;\n}\n.home-newsletter .single[data-v-62c226e7] {\r\nmax-width: 650px;\r\nmargin: 0 auto;\r\ntext-align: center;\r\nposition: relative;\r\nz-index: 2;\n}\n.home-newsletter .single h2[data-v-62c226e7] {\r\nfont-size: 22px;\r\nmargin-bottom: 40px;\n}\n.home-newsletter .single .form-control[data-v-62c226e7] {\r\nheight: 50px;\r\nbackground: rgba(255, 255, 255, 0.6);\r\nborder-color: transparent;\r\nborder-radius: 20px 0 0 20px;\r\nborder:1px solid #eee;\n}\n.home-newsletter .single .form-control[data-v-62c226e7]:focus {\r\nbox-shadow: none;\r\nborder-color: #243c4f;\n}\n.home-newsletter .single .btn[data-v-62c226e7] {\r\nmin-height: 50px; \r\nborder-radius: 0 20px 20px 0;\r\nbackground: #10069F ;\r\ncolor: #fff;\n}\r\n\r\n/* social media icons  */\nul.social-network[data-v-62c226e7] {\r\n\tlist-style: none;\r\n\tdisplay: inline;\r\n\tmargin-left:0 !important;\r\n\tpadding: 0;\n}\nul.social-network li[data-v-62c226e7] {\r\n\tdisplay: inline;\r\n\tmargin: 0 5px;\n}\r\n\r\n\r\n/* footer social icons */\n.social-network a.icoRss[data-v-62c226e7]:hover {\r\n\tbackground-color: #F56505;\n}\n.social-network a.icoFacebook[data-v-62c226e7]:hover {\r\n\tbackground-color:#3B5998;\n}\n.social-network a.icoTwitter[data-v-62c226e7]:hover {\r\n\tbackground-color:#33ccff;\n}\n.social-network a.icoGoogle[data-v-62c226e7]:hover {\r\n\tbackground-color:#BD3518;\n}\n.social-network a.icoVimeo[data-v-62c226e7]:hover {\r\n\tbackground-color:#0590B8;\n}\n.social-network a.icoLinkedin[data-v-62c226e7]:hover {\r\n\tbackground-color:#007bb7;\n}\n.social-network a.icoRss:hover i[data-v-62c226e7], .social-network a.icoFacebook:hover i[data-v-62c226e7], .social-network a.icoTwitter:hover i[data-v-62c226e7],\r\n.social-network a.icoGoogle:hover i[data-v-62c226e7], .social-network a.icoVimeo:hover i[data-v-62c226e7], .social-network a.icoLinkedin:hover i[data-v-62c226e7] {\r\n\tcolor:#fff;\n}\na.socialIcon[data-v-62c226e7]:hover, .socialHoverClass[data-v-62c226e7] {\r\n\tcolor:#44BCDD;\n}\n.social-circle li a[data-v-62c226e7] {\r\n\tdisplay:inline-block;\r\n\tposition:relative;\r\n\tmargin:0 auto 0 auto;\r\n\tborder-radius:50%;\r\n\ttext-align:center;\r\n\twidth: 50px;\r\n\theight: 50px;\r\n\tfont-size:20px;\r\n\tline-height: 50px;\r\n    color: #fff;\n}\n.social-circle li i[data-v-62c226e7] {\r\n\tmargin:0;\r\n\tline-height:50px;\r\n\ttext-align: center;\n}\n.social-circle li a:hover i[data-v-62c226e7], .triggeredHover[data-v-62c226e7] {\r\n\t-moz-transform: rotate(360deg);\r\n\t-webkit-transform: rotate(360deg);\r\n\t-ms--transform: rotate(360deg);\r\n\ttransform: rotate(360deg);\r\n\t-webkit-transition: all 0.2s;\r\n\ttransition: all 0.2s;\n}\n.social-circle i[data-v-62c226e7] {\r\n\tcolor: #fff;\r\n\t-webkit-transition: all 0.8s;\r\n\ttransition: all 0.8s;\n}\n.social-circle a[data-v-62c226e7] {\r\n background-color: #333;\n}\n.foote_bottom_ul_amrc[data-v-62c226e7] {\r\n\tlist-style-type:none;\r\n\tpadding:0px;\r\n\tmargin-top: 10px;\r\n\tmargin-right: auto;\r\n\tmargin-bottom: 10px;\r\n\tmargin-left: auto;\n}\n.foote_bottom_ul_amrc li[data-v-62c226e7] { display:inline;}\n.foote_bottom_ul_amrc li a[data-v-62c226e7] { color:#333; margin:0 12px;}\r\n", ""]);
+exports.push([module.i, "\n.home-newsletter[data-v-62c226e7] {\r\npadding: 40px 0 0;\r\nbackground: #fff;\n}\n.home-newsletter .single[data-v-62c226e7] {\r\nmax-width: 500px;\r\nmargin: 0 auto;\r\ntext-align: center;\r\nposition: relative;\r\nz-index: 2;\n}\n.home-newsletter .single h2[data-v-62c226e7] {\r\nfont-size: 22px;\r\nmargin-bottom: 40px;\n}\n.home-newsletter .single .form-control[data-v-62c226e7] {\r\nheight: 50px;\r\n    background: #f7f7f7;\r\nborder-color: transparent;\r\nborder:1px solid #eee;\n}\n.home-newsletter .single .form-control[data-v-62c226e7]:focus {\r\nbox-shadow: none;\r\nborder-color: #243c4f;\n}\n.home-newsletter .single .btn[data-v-62c226e7] {\r\n    border-radius: 0;\r\n    background: #3746c5;\r\ncolor: #fff;\r\npadding: 1px 25px;\r\n    font-size: 25px;\n}\r\n\r\n/* social media icons  */\nul.social-network[data-v-62c226e7] {\r\n\tlist-style: none;\r\n\tdisplay: inline;\r\n\tmargin-left:0 !important;\r\n\tpadding: 0;\n}\nul.social-network li[data-v-62c226e7] {\r\n\tdisplay: inline;\r\n\tmargin: 0 5px;\n}\r\n\r\n\r\n/* footer social icons */\n.social-network a.icoRss[data-v-62c226e7]:hover {\r\n\tbackground-color: #F56505;\n}\n.social-network a.icoFacebook[data-v-62c226e7]:hover {\r\n\tbackground-color:#3B5998;\n}\n.social-network a.icoTwitter[data-v-62c226e7]:hover {\r\n\tbackground-color:#33ccff;\n}\n.social-network a.icoGoogle[data-v-62c226e7]:hover {\r\n\tbackground-color:#BD3518;\n}\n.social-network a.icoVimeo[data-v-62c226e7]:hover {\r\n\tbackground-color:#0590B8;\n}\n.social-network a.icoLinkedin[data-v-62c226e7]:hover {\r\n\tbackground-color:#007bb7;\n}\n.social-network a.icoRss:hover i[data-v-62c226e7], .social-network a.icoFacebook:hover i[data-v-62c226e7], .social-network a.icoTwitter:hover i[data-v-62c226e7],\r\n.social-network a.icoGoogle:hover i[data-v-62c226e7], .social-network a.icoVimeo:hover i[data-v-62c226e7], .social-network a.icoLinkedin:hover i[data-v-62c226e7] {\r\n\tcolor:#fff;\n}\na.socialIcon[data-v-62c226e7]:hover, .socialHoverClass[data-v-62c226e7] {\r\n\tcolor:#44BCDD;\n}\n.social-circle li a[data-v-62c226e7] {\r\n\tdisplay:inline-block;\r\n\tposition:relative;\r\n\tmargin:0 auto 0 auto;\r\n\tborder-radius:50%;\r\n\ttext-align:center;\r\n\twidth: 50px;\r\n\theight: 50px;\r\n\tfont-size:20px;\r\n\tline-height: 50px;\r\n    color: #fff;\n}\n.social-circle li i[data-v-62c226e7] {\r\n\tmargin:0;\r\n\tline-height:50px;\r\n\ttext-align: center;\n}\n.social-circle li a:hover i[data-v-62c226e7], .triggeredHover[data-v-62c226e7] {\r\n\t-moz-transform: rotate(360deg);\r\n\t-webkit-transform: rotate(360deg);\r\n\t-ms--transform: rotate(360deg);\r\n\ttransform: rotate(360deg);\r\n\t-webkit-transition: all 0.2s;\r\n\ttransition: all 0.2s;\n}\n.social-circle i[data-v-62c226e7] {\r\n\tcolor: #fff;\r\n\t-webkit-transition: all 0.8s;\r\n\ttransition: all 0.8s;\n}\n.social-circle a[data-v-62c226e7] {\r\n background-color: #333;\n}\n.foote_bottom_ul_amrc[data-v-62c226e7] {\r\n\tlist-style-type:none;\r\n\tpadding:0px;\r\n\tmargin-top: 10px;\r\n\tmargin-right: auto;\r\n\tmargin-bottom: 10px;\r\n\tmargin-left: auto;\n}\n.foote_bottom_ul_amrc li[data-v-62c226e7] { display:inline;}\n.foote_bottom_ul_amrc li a[data-v-62c226e7] { color:#333; margin:0 12px;}\n.sub_text[data-v-62c226e7] {\r\n    /* display: flex; */\r\n    /* align-items: center; */\r\n    margin-top: 20px;\r\n    font-size: 14px;\r\n    text-align: inherit;\r\n    color: #868686;\n}\n.col-md-12.text-center.copy_right p[data-v-62c226e7] {\r\n    color: #868686;\r\n    font-size: 12px;\n}\r\n", ""]);
 
 // exports
 
@@ -53037,14 +53062,16 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                _vm._m(0)
+                _vm._m(0),
+                _vm._v(" "),
+                _vm._m(1)
               ])
             ]
           )
         ])
       ]),
       _vm._v(" "),
-      _vm._m(1)
+      _vm._m(2)
     ])
   ])
 }
@@ -53057,8 +53084,22 @@ var staticRenderFns = [
       _c(
         "button",
         { staticClass: "btn btn-theme", attrs: { type: "submit" } },
-        [_vm._v("Subscribe")]
+        [_c("span", [_c("i", { staticClass: "fas fa-caret-right" })])]
       )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "sub_text" }, [
+      _c("input", { attrs: { type: "checkbox", value: "" } }),
+      _vm._v(" "),
+      _c("span", [
+        _vm._v(
+          "By Checking this box, you confrim that you have read and are agreeing to our  terms of use regarding  the storage of the data submitting  through  this form"
+        )
+      ])
     ])
   },
   function() {
@@ -53070,7 +53111,7 @@ var staticRenderFns = [
         _c("div", { staticClass: "divider mt-5" })
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-md-12 text-center" }, [
+      _c("div", { staticClass: "col-md-12 text-center mb-2 mt-2" }, [
         _c("ul", { staticClass: "social-network social-circle" }, [
           _c("li", [
             _c(
@@ -53144,6 +53185,14 @@ var staticRenderFns = [
           _vm._v(" "),
           _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Contact")])])
         ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("div", { staticClass: "divider mt-5" })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-12 text-center copy_right" }, [
+        _c("p", [_vm._v("Copyright©studentshub-2019-All Rights Reserved ")])
       ])
     ])
   }
