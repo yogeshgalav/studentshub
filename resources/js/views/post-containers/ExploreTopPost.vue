@@ -10,7 +10,7 @@
 
 									</div>	
 										<div class="info-post ml-2">
-											<p class="date text-muted post_date">{{post.created_at}}</p>
+											<p class="date text-muted post_date">{{post.time}}</p>
 										</div>
 									</div>
 

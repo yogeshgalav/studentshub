@@ -18,10 +18,18 @@
         <span v-if="currentStep!==step" class="ml-1 mr-1" @click="changeSlide(step)"> <img src="/images/circle.svg"> </span>
       </span>
     </div>
-    <!-- <div class="col-md-4 text-right">
-    <button type="button" @click="nextSlide" v-if="!lastStep">Next</button>  
-    <button type="button" @click="getStarted" v-if="lastStep">Get Started</button>  
-    </div> -->
+    <div  class="home_arrow">
+          <!-- <div class="arrow_right">
+          <span><i class="fas fa-arrow-left"></i></span>
+          </div>-->
+          <div class="arrow_right" v-if="!lastStep" @click="nextSlide">
+          <span><i class="fas fa-arrow-right"></i></span>
+          </div>
+          <router-link class="arrow_right" v-if="lastStep" :to="'/get-started'">
+          <span>Get Started<i class="fas fa-arrow-right"></i></span>
+          </router-link>
+
+      </div>
   </div>
 </div>
 </template>

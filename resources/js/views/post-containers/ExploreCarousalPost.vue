@@ -1,132 +1,135 @@
 <template>
     <div class="banner_post pt-80 pb-80 ">
-    <div class="container">
+        <div class="container">
             <carousel>
                 <template slot="step1" class="home_slide">
-                  <div class="row">
-                    <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-6">
                             <div class="slider-caption">
-                      
-                        <h2 class="banner_title">Are you a Student?</h2>
-                        <p>Meet Students from Your Batch, Course and Institute. Learn and Share from People Around You. Ask Your Doubts,Share Your Knowledge in posts,
-                        and Above All Find Your Interest Field.</p>
+
+                                <h2 class="banner_title">Are you a Student?</h2>
+                                <p>Meet Students from Your Batch, Course and Institute.
+                                   Learn and Share from People Around You. 
+                                   Ask Your Doubts,Share Your Knowledge in posts 
+                                   and Above All Find Your Interest Field.</p>
+                            </div>
+
+
                         </div>
-                      
+                        <div class="col-md-6">
+                            <div class="slider-caption">
+                                <img v-lazy="'/images/student.svg'" class="slide_img_home">
+                            </div>
 
+                        </div>
                     </div>
-                      <div class="col-md-6">
-                      <div class="slider-caption">
-                  <img v-lazy="'/images/student.svg'"  class="slide_img_home">
-                  </div>
-
-                    </div>
-                   </div> 
                 </template>
                 <template slot="step2" class="home_slide">
-                  <div class="row">
-                    <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-6">
                             <div class="slider-caption">
-                      
-                        <h2 class="banner_title">Teacher?</h2>
-                        <p>Get More Clear Insights about Your Students. Make Your Classrooms, Create Your Lessons, Notify your Students, 
-                        and Earn from Your Educational Article.</p>
+
+                                <h2 class="banner_title">Teacher?</h2>
+                                <p>Get More Clear Insights about Your Students. Make Your Classrooms, Create Your
+                                    Lessons, Notify your Students,
+                                    and Earn from Your Educational Article.</p>
+                            </div>
+
+
                         </div>
+                        <div class="col-md-6">
+                            <div class="slider-caption">
+                                <img v-lazy="'/images/teacher.svg'" class="slide_img_home">
+                            </div>
 
-
+                        </div>
                     </div>
-                      <div class="col-md-6">
-                      <div class="slider-caption">
-                  <img v-lazy="'/images/teacher.svg'"  class="slide_img_home">
-                  </div>
-
-                    </div>
-                   </div> 
                 </template>
                 <template slot="step3" class="home_slide">
-                  <div class="row">
-                    <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-6">
                             <div class="slider-caption">
-                      
-                        <h2 class="banner_title">Knowledge Seeker? </h2>
-                        <p>Explore Educational content from variety of courses, categories
-and Seek knowledge in diverse form.</p>
+
+                                <h2 class="banner_title">Knowledge Seeker? </h2>
+                                <p>Explore Educational content from variety of courses, categories
+                                    and Seek knowledge in diverse form.</p>
+                            </div>
+
+
                         </div>
+                        <div class="col-md-6">
+                            <div class="slider-caption">
+                                <img v-lazy="'/images/knowledge seeker.svg'" class="slide_img_home">
+                            </div>
 
-
+                        </div>
                     </div>
-                      <div class="col-md-6">
-                      <div class="slider-caption">
-                  <img v-lazy="'/images/knowledge seeker.svg'" class="slide_img_home" >
-                  </div>
-
-                    </div>
-                   </div> 
                 </template>
-                
-            </carousel>
-            <div  class="home_arrow">
-                       <!-- <div class="arrow_right">
-                        <span><i class="fas fa-arrow-left"></i></span>
-                        </div>-->
-                        <div class="arrow_right">
-                        <span><i class="fas fa-arrow-right"></i></span>
-                        </div>
 
-                      </div>
-            </div>
+            </carousel>
+        </div>
     </div>
 </template>
 <style scoped>
-  .slick-slide {
-    margin: 0 5px;
-  }
-  .slider-caption h5, p {
+    .slick-slide {
+        margin: 0 5px;
+    }
 
-      font-family: 'Open Sans'  !important;
-  }
-  .pt-80
-  {
-    padding-top:120px;
-  }
-  .pb-80 {
-    padding-bottom: 40px;
-  }
-  /* the parent */
-  .slick-list {
-    margin: 0 -5px;
-  }
+    .slider-caption h5,
+    p {
 
-.slick-dots {
-  display:flex;
-  justify-content: center;
-}
-.banner_post{background-color:#f6f6f6;position:relative;}
+        font-family: 'Open Sans' !important;
+    }
 
+    .pt-80 {
+        padding-top: 120px;
+    }
 
-h2.banner_title:before {
-    position: absolute;
-    content: '';
-    background-color: blue;
-    width: 100px;
-    height: 2px;
-    bottom: -15px;
-}
+    .pb-80 {
+        padding-bottom: 40px;
+    }
+
+    /* the parent */
+    .slick-list {
+        margin: 0 -5px;
+    }
+
+    .slick-dots {
+        display: flex;
+        justify-content: center;
+    }
+
+    .banner_post {
+        background-color: #f6f6f6;
+        position: relative;
+    }
 
 
-img.slide_img_home {
-    width: 100%;
-}
+    h2.banner_title:before {
+        position: absolute;
+        content: '';
+        background-color: blue;
+        width: 100px;
+        height: 2px;
+        bottom: -15px;
+    }
+
+
+    img.slide_img_home {
+        width: 100%;
+    }
 
 </style>
 
 <script>
-import Carousel from '../../components/Carousel.vue';
+    import Carousel from '../../components/Carousel.vue';
 
 
 
-export default {
-    components: {
-      Carousel,
-    },
-}
+    export default {
+        components: {
+            Carousel,
+        },
+    }
+
 </script>

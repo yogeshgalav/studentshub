@@ -10,9 +10,11 @@ class Mcq extends Model
     public function createNewMcq($data){
         
         $post_content_id=self::insertGetId([
-            'video_id'=>$data['video_id'],
-            'video_type'=>'youtube',
-            'content'=>$data['description'] ?? null
+            'option1'=>$data['option1'],
+            'option2'=>$data['option2'],
+            'option3'=>$data['option3'],
+            'option4'=>$data['option4'],
+            'answer'=>$data['answer'],
             ]);
             return $post_content_id;
     }

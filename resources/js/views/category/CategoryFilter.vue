@@ -68,6 +68,7 @@ export default {
     
     data(){
         return {
+          colors:['001f3f/39CCCC','0074D9/7FDBFF','2ECC40/01FF70','FF4136\FF851B','85144b\F012BE','111111\AAAAAA'],
             slickOptions: {
                  dots: false,
         arrows: true,
