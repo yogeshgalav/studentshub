@@ -74,12 +74,7 @@
 		margin-bottom:10px !important;
 		line-height: 22px;
 	}
-	.post_view {
-    padding: 0px 15px 0 0px;
-}
-.wel_view {
-    display: flex;
-}
+
 </style>
 <script>
 	import {mapState} from 'vuex';
