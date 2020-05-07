@@ -5,17 +5,17 @@
                 <template slot="step1" class="home_slide">
                   <div class="row">
                     <div class="col-md-6">
-                            <div class="text-center slider-caption">
+                            <div class="slider-caption">
                       
-                        <h5 class="mt-3 mb-1">Student </h5>
-                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. <br/>
-                          It has roots in a piece of classical Latin making it over 2000 years old.</p>
+                        <h2 class="banner_title">Are you a Student?</h2>
+                        <p>Meet Students from Your Batch, Course and Institute. Learn and Share from People Around You. Ask Your Doubts,Share Your Knowledge in posts,
+                        and Above All Find Your Interest Field.</p>
                         </div>
-
+                      
 
                     </div>
                       <div class="col-md-6">
-                      <div class="text-center slider-caption">
+                      <div class="slider-caption">
                   <img v-lazy="'/images/student.svg'"  class="slide_img_home">
                   </div>
 
@@ -25,18 +25,18 @@
                 <template slot="step2" class="home_slide">
                   <div class="row">
                     <div class="col-md-6">
-                            <div class="text-center slider-caption">
+                            <div class="slider-caption">
                       
-                        <h5 class="mt-3 mb-1">Student </h5>
-                        <p>Hello how are you..Contrary to popular belief, Lorem Ipsum is not simply random text. <br/>
-                          It has roots in a piece of classical Latin making it over 2000 years old.</p>
+                        <h2 class="banner_title">Teacher?</h2>
+                        <p>Get More Clear Insights about Your Students. Make Your Classrooms, Create Your Lessons, Notify your Students, 
+                        and Earn from Your Educational Article.</p>
                         </div>
 
 
                     </div>
                       <div class="col-md-6">
-                      <div class="text-center slider-caption">
-                  <img v-lazy="'/images/student.svg'"  class="slide_img_home">
+                      <div class="slider-caption">
+                  <img v-lazy="'/images/teacher.svg'"  class="slide_img_home">
                   </div>
 
                     </div>
@@ -45,24 +45,34 @@
                 <template slot="step3" class="home_slide">
                   <div class="row">
                     <div class="col-md-6">
-                            <div class="text-center slider-caption">
+                            <div class="slider-caption">
                       
-                        <h5 class="mt-3 mb-1">Student </h5>
-                        <p>Hello how are you..Contrary to popular belief, Lorem Ipsum is not simply random text. <br/>
-                          It has roots in a piece of classical Latin making it over 2000 years old.</p>
+                        <h2 class="banner_title">Knowledge Seeker? </h2>
+                        <p>Explore Educational content from variety of courses, categories
+and Seek knowledge in diverse form.</p>
                         </div>
 
 
                     </div>
                       <div class="col-md-6">
-                      <div class="text-center slider-caption">
-                  <img v-lazy="'/images/student.svg'" class="slide_img_home" >
+                      <div class="slider-caption">
+                  <img v-lazy="'/images/knowledge seeker.svg'" class="slide_img_home" >
                   </div>
 
                     </div>
                    </div> 
                 </template>
+                
             </carousel>
+            <div  class="home_arrow">
+                       <!-- <div class="arrow_right">
+                        <span><i class="fas fa-arrow-left"></i></span>
+                        </div>-->
+                        <div class="arrow_right">
+                        <span><i class="fas fa-arrow-right"></i></span>
+                        </div>
+
+                      </div>
             </div>
     </div>
 </template>
@@ -90,12 +100,29 @@
   display:flex;
   justify-content: center;
 }
-.banner_post{background-color:#f6f6f6;}
+.banner_post{background-color:#f6f6f6;position:relative;}
+
+
+h2.banner_title:before {
+    position: absolute;
+    content: '';
+    background-color: blue;
+    width: 100px;
+    height: 2px;
+    bottom: -15px;
+}
+
+
+img.slide_img_home {
+    width: 100%;
+}
 
 </style>
 
 <script>
 import Carousel from '../../components/Carousel.vue';
+import '@fortawesome/fontawesome-free/css/all.css'
+import '@fortawesome/fontawesome-free/js/all.js'
 
 export default {
     components: {

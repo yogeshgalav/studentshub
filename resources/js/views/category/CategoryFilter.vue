@@ -4,7 +4,7 @@
         <div class="cat">
         <div class="col-md-12 text-center" v-if="categories.length">
             <VueSlickCarousel  :arrows="true" v-bind="slickOptions" ref="slick" class="slick-p" >
-                    <a :href="'/category/'+category.category_url" class="btn btn-white" v-for="(category,index) in categories" :key="index">{{category.name}}</a>
+                    <a :href="'/category/'+category.category_url" class="btn btn-white cat_btn" v-for="(category,index) in categories" :key="index">{{category.name}}</a>
   </VueSlickCarousel >
         </div>
     </div>
@@ -12,11 +12,7 @@
     </div>
 </template>
 <style scoped>
-.category-filter .btn {
-  font-weight: 400;
-  font-size:14px;
-  margin: 0 5px;
-}
+
 .cat_pad {
     padding: 30px 0;
 }
@@ -47,7 +43,6 @@
   font-family: 'slick';
     font-size: 30px !important;
     line-height: 1;
-    opacity: 0.75;
     color: #171717 !important;
 }
 .slick-slide {
@@ -63,7 +58,9 @@
  import VueSlickCarousel from 'vue-slick-carousel'
   import 'vue-slick-carousel/dist/vue-slick-carousel.css'
   // optional style for arrows & dots
-  import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
+  import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css';
+  import '@fortawesome/fontawesome-free/css/all.css'
+import '@fortawesome/fontawesome-free/js/all.js'
 
 export default {
     components: {
@@ -78,7 +75,7 @@ export default {
         arrows: true,
         mobileFirst: true,
           centerPadding: '60px',
-          prevArrow: '<button type="button" class="slick-prev"><i class="fa fa-arrow-left"></i></button>',
+          prevArrow: '<button type="button" class="slick-prev"><i class="fas fa-arrow-left"></i></button>',
           nextArrow: '<button type="button" class="slick-next"><i class="fa fa-arrow-right"></i></button>',
         variableWidth: true,
         infinite: false,
@@ -98,3 +95,4 @@ export default {
     },
 }
 </script>
+

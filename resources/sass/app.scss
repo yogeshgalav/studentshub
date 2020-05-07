@@ -1247,8 +1247,7 @@ width:100% !important;
     align-items: center;
 }
 button.slick-prev {
-    border: solid 1px #ccc;
-    background-color: white !important;
+    background-color: #0f6bff !important;
     width: 30px;
     height: 30px;
     z-index: 9;
@@ -1258,8 +1257,7 @@ button.slick-prev {
 }
 
 button.slick-next {
-    border: solid 1px #ccc;
-    background-color: white !important;
+    background-color: #0f6bff !important;
     width: 30px;
     height: 30px;
     z-index: 9;
@@ -1267,10 +1265,7 @@ button.slick-next {
     right: -16px;
     box-shadow: 0 0 0 rgb(0, 0, 0);
 }
-.slick-prev:before, .slick-next:before
-{
-    color: #ccc !important;
-}
+
 .slick-slide {
     margin: 0 3px;
 }
@@ -1320,6 +1315,15 @@ button.slick-next {
     margin: 0;
     padding: 0;
 }
+.post_img_height
+{
+    width: 100%;
+    height: 260px;;
+}
+.wel_post_img
+{
+    height: 120px;
+}
 .card-img-top
 {
     border-radius: 5px;
@@ -1341,18 +1345,181 @@ button.slick-next {
 {
     font-size: 12px;
 }
+.slick-prev:before, .slick-next:before
+{
+    opacity: 1 !important;
+}
 
 .category-filter .btn[data-v-39a2c238] {
     font-weight: 400;
     font-size: 14px;
-    margin: 0 20px 0 0;
+    margin: 0 50px 0 0;
+    border-radius: 5px;
+    border: none;
+}
+.banner_post .text-center {text-align: inherit!important;}
+.home_arrow {
+    display: flex;
+    position: absolute;
+    bottom: 20px;
+    left: 20%;
+}
+.arrow_right span {
+    height: 50px;
+    background-color: #0f6bff;
+    margin: 10px;
+    /* padding: 11px 25px; */
+    border-radius: 50px;
+    color: white;
+    font-size: 20px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.exolpre-bottom-post .row .col-md-4 {
+    display: flex;
+}
+.post_view {
+    padding: 0px 15px 0 0px;
+}
+.wel_view {
+    display: flex;
+}
+h2.banner_title {
+    position: relative;    margin-bottom: 25px;    font-size: 36px;
+
+}
+.slider-caption p {
+    font-size: 19px;
+    line-height: 38px;
+}.social-network a:hover {
+    transform: rotate(360deg);
+    transition: .5s linear all;
+}
+.cat_btn:nth-child(odd){
+    font-weight: 400;
+        font-size: 14px;
+        margin: 0 5px;
+        background: #0f6bff;
+        color: white !important;
+        height: 50px;
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
+        border-radius: 5px;
+    }
+
+
+// login page
+
+
+.login_card
+{
+    background-color: white;
+position: relative;
+top: 115px;
+box-shadow:0 0 6px rgba(0, 0, 0, 0.11);
+width: 100%;
+}
+.login_img {
+background-color: #f2f2f2;
+height: 100%;
+display: flex;
+align-items: center;
+/* justify-content: center; */
+padding: 0px 20px;
+}
+.login_img img {
+width: 100%;
+}
+.login .btn
+{
+    width: 100%;
     border-radius: 0;
 }
+.logn_right {
+padding: 20px 30px 20px 0
+}
+
+.card_title
+{
+    text-align: center;
+}
+.card_title h3 {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    display: inline-block;
+    position: relative;
+}
+.card_title h3:before {
+    position: absolute;
+    content: '';
+    background-color: #0f6bff;
+    width: 88px;
+    height: 3px;
+    bottom: -9px;
+    left: 0;
+    right: 0;
+    /* margin: 0 auto; */
+}
+.card_title h3:after {
+    position: absolute;
+    content: '\2192';
+    /* background-color: #0f6bff; */
+    /* width: 40px; */
+    height: 3px;
+    /* bottom: -9px; */
+    /* left: 0; */
+    right: -25px;
+    /* margin: 0 auto; */
+}
+.login_btn {
+    background-color: #0f6bff;
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 0%, rgba(4,117,192,1) 0%, rgba(0,212,255,1) 79%);
+    border: none;
+    padding: 10px 30px;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    margin: 0 auto;
+        width: 50%;
+    justify-content: center;
+}
+.mt-1.forget_rember_pass {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.rem_pass label {
+    color: #868686;
+}
+.forget_pass a {
+    color: #868686;
+}
+
+.login_btn_part svg {
+    margin-left: 5px;
+}
+
+
+
+
+
 
 @media only screen and (max-width: 600px) {
     .search_box {
         width: 100%;
         margin-top: 25px;
+    }
+    .wel_post_img
+    {
+        height: auto;
     }
     button.slick-prev {
         width: 20px;
@@ -1372,5 +1539,24 @@ button.slick-next {
     .slide_img_home{width: 100%;}
     .ptb-50 {
          padding: 0; 
+    }
+    .home_arrow {
+
+        bottom: 19px;
+        left: 180px;
+    }
+    h2.banner_title {
+        font-size: 30px;
+    }
+    .slider-caption p {
+        font-size: 16px;
+        line-height: 27px;
+    }
+    h3.card-title.weight-800.text-black.mb-3 {
+        padding: 20px 0 0;
+    }
+
+    .logn_right {
+        padding: 20px;
     }
 }

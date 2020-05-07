@@ -6,13 +6,19 @@
       :width="250"
       :is-full-page="true"
     />
-        <div class="row justify-content-center login">
-            <div class="col-md-8 ">
-                <div class="card">
-                    <div class="card-header text-center">
-                        <h3 class="weight-800 text-black font-size-18">{{ trans('Login') }}</h3>
+    <div class="login_card">
+        <div class="row  login">
+            <div class="col-md-6">
+                <div class="login_img">
+                    <img src="/images/Group.svg" alt="">
+                </div>   
+            </div>
+            <div class="col-md-6 ">
+                <div class="logn_right">
+                    <div class="card_title">
+                        <h3>{{ trans('Login') }}</h3>
                     </div>
-                    <div class="card-body">
+                    <div class="card_body">
                         <form @submit.prevent="handleSubmit">
                             <div class="form-group row alert alert-danger" v-if="srvError401">
                                 <span>{{ trans('Invalid login credentials. Please try again.') }}</span>
@@ -26,73 +32,71 @@
                                     <span class="error">{{ formErrors('_token') }}</span>
                             </div>
                             <div class="form-group">
-                                <label for="email">{{ trans('E-Mail Address') }}</label>
+                                <label for="email"><span><i class="fa fa-user"></i> {{ trans('E-Mail Address') }}</span></label>
                                 <div class="inner-addon left-addon">
-      <i class="fa fa-user"></i>      
+           
       <input type="text" id="email"  name="email" v-model.lazy="email" autofocus v-validate="'required|email'" class="form-control" placeholder="Username or email" />
     <span class="error">{{ formErrors('email') }}</span>
     </div>
  </div>
 
                             <div class="form-group">
-                                  <label for="password">{{ trans('Password') }}</label>
+           
+                                  <label for="password"><span><i class="fa fa-lock"></i> {{ trans('Password') }}</span></label>
                                   <div class="inner-addon left-addon">
-      <i class="fa fa-lock"></i>     
                                     <input id="password" type="password" class="form-control" name="password" v-model="password" v-validate="'required'" placeholder="Password">
                                     <span class="error">{{ formErrors('password') }}</span>
                                     </div>
-                                    <div class="mt-1">
+                                    <div class="mt-1 forget_rember_pass">
+                                        <div class="rem_pass">
                                         <input type="checkbox" name="remember" id="remember" v-model="remember" />
                                         <label for="remember">
                                             {{ trans('Remember Me') }}
                                         </label>
+                                        </div>
+                                         <div class="forget_pass">
+                                             <router-link  :to="'/forgot-password'">
+                                        {{ trans('Forgot Your Password') }} 
+                                    </router-link>    
+                                         </div>   
                                     </div>
                             </div>
 
-                        
-
-                            <div class="form-group row mb-0">
-                                <div class="col-md-8 center-col">
-                                    <button type="submit" class="btn btn-primary">
+                        <div class="form-group  mb-0">
+                                <div class="login_btn_part">
+                                    <button type="submit" class="login_btn">
                                         {{ trans('Login') }} <i class="fa fa-arrow-right text-white"></i>
                                     </button>
 
-                                    <div class="text-center center-col pt-2">
-                                        <router-link  :to="'/forgot-password'">
-                                        {{ trans('Forgot Your Password') }} 
-                                    </router-link>     | <span class="text-black">Not a member? </span> <router-link :to="'/get-started'" >Sign Up</router-link> 
-                                    
-                                        </div>
+                                   
 
                                 </div>
                                 
                             </div>
-                        </form>
-                        <form>
-                            <p class="text-center">OR</p>
+                        <div class=" form-group social_btn">
+                            <p class="text-center mb-1 mt-1">OR</p>
                             <p class="text-center">Sign up with your social network</p>
-                            <div class="display-flex">
+                            <div class="social_login d-flex">
                             <a class="btn btn-white mr-3" href='/social-auth/google'><i><img src="/icons/search.png" /></i> Sign up with Google</a>
                             <a class="btn btn-white mr-3" href='/social-auth/facebook'><i><img src="/icons/facebook.png" /></i> Sign up with Facebook</a>
                             </div>
+                        </div>
+                            
+                             <div class="text-center center-col pt-2">
+                                          <span class="text-gray" style="color:#868686;">Dont't have an account ?</span> <router-link :to="'/get-started'" >Sign Up</router-link> 
+                                    
+                                        </div>
                         </form>
+                        
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    </div>
 </template>
 <style scoped>
-    .login .card
-    {
-        position: relative;
-        top: 30%;
-    }
-    .login .btn
-    {
-        width: 100%;
-        border-radius: 0;
-    }
+ 
     /* enable absolute positioning */
 .inner-addon {
   position: relative;
@@ -102,7 +106,6 @@
 
     height: 48px !important;
     color: #000;
-    background: #eee;
     border-radius: 0;
 }
 /* style glyph */
@@ -117,7 +120,8 @@
 .right-addon .fa { right: 0px;}
 
 /* add padding  */
-.left-addon input  { padding-left:  35px; }
+/* .left-addon input  { padding-left:  35px; } */
+
 </style>
 <script>
     import { mapState } from 'vuex';

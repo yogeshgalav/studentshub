@@ -14,7 +14,7 @@
 										</div>
 									</div>
 
-								<img class="card-img-top" v-lazy="post.image_path" alt="Card image cap">
+								<img class="card-img-top post_img_height" v-lazy="post.image_path" alt="Card image cap">
 								<div>
 									
 									<div class="separator-solid"></div>
@@ -25,12 +25,12 @@
 										</router-link>
 									</h3>
 									<p class="card-text post_des">{{post.content}}</p>
-									<div class="row post_views_sec">
-										<div class="col-md-2 col-3 post_view">
+									<div class="wel_view post_views_sec">
+										<div class="post_view">
 											<i class="fa fa-eye"></i>
 											<span class="badge-text">{{post.total_views}}</span>
 										</div>
-										<div class="col-md-6 col-3 post_view">
+										<div class="post_view">
 											<i class="fa fa-thumbs-up"></i>
 											<span class="badge-text">{{post.total_likes}}</span>
 										</div>

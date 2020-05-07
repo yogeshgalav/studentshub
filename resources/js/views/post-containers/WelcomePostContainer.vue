@@ -22,12 +22,12 @@
 										</router-link>
 									</h3>
 									<h5 class="mb-1 post_des">{{post.content}}</h5>
-									<div class="row">
-										<div class="col-md-2 col-3 post_view">
+									<div class="wel_view">
+										<div class="post_view">
 											<i class="fa fa-eye"></i>
 											<span class="badge-text">{{post.total_views}}</span>
 										</div>
-										<div class="col-md-2 col-3 post_view">
+										<div class="post_view">
 											<i class="fa fa-thumbs-up"></i>
 											<span class="badge-text">{{post.total_likes}}</span>
 										</div>
@@ -72,7 +72,14 @@
 		font-size:12px !important;
 		font-weight: 400;
 		margin-bottom:10px !important;
+		line-height: 22px;
 	}
+	.post_view {
+    padding: 0px 15px 0 0px;
+}
+.wel_view {
+    display: flex;
+}
 </style>
 <script>
 	import {mapState} from 'vuex';

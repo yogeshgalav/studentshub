@@ -19,11 +19,11 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        <div class="divider mt-5 mb-3"></div>
+        <div class="divider mt-5"></div>
     </div>
-    <div class="col-md-12 text-center mt-3 mb-3">
+    <div class="col-md-12 text-center">
                     <ul class="social-network social-circle">
-                        <li><a target="_blank" href='https://www.facebook.com/studentshub.in' class="icoFacebook" title="Facebook"><i class="fab fa-facebook"></i></a></li>
+                        <li><a target="_blank" href='https://www.facebook.com/studentshub.in' class="icoFacebook" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
                         <li><a target="_blank" href='https://www.twitter.com/studentshub_in'  class="icoTwitter" title="Twitter"><i class="fab fa-twitter"></i></a></li>
                         <li><a  target="_blank" href='https://www.instagram.com/studentshub.in' class="icoInstagram" title="Instagram"><i class="fab fa-instagram"></i></a></li>
                         <li><a href="#" target="_blank" class="icoLinkedin" title="Linkedin"><i class="fab fa-linkedin"></i></a></li>
@@ -45,7 +45,7 @@
 </template>
 <style scoped>
 .home-newsletter {
-padding: 40px 0;
+padding: 40px 0 0;
 background: #fff;
 }
 
