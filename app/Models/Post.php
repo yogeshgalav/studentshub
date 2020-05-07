@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Auth;
+use Carbon\Carbon;
+
 class Post extends Model
 {
     //
@@ -49,7 +51,7 @@ class Post extends Model
         return $this->hasMany('App\Models\PostTag');
     }           
     public function getTotalViewsAttribute(){
-        return $this->hasMany('App\Models\View')->count();
+        return $this->hasMany('App\Models\PostView')->count();
     }
     public function getTotalLikesAttribute(){
         return $this->like->where('like_status',1)->count();
@@ -69,7 +71,7 @@ class Post extends Model
             'heading'=>$this->post_heading,
             'user_name'=>$this->user_name,
             'subject_name'=>$this->subject->Subject_name,
-            'created_at'=>$this->created_at,
+            'created_at'=>Carbon::createFromTimeStamp(strtotime($this->created_at))->diffForHumans(),
             'total_views'=>$this->total_views,
             'total_likes'=>$this->total_likes,
             'total_dislikes'=>$this->total_dislikes,
@@ -94,7 +96,7 @@ class Post extends Model
             'user_name'=>$this->user_name,
             'like'=>$post_like ? $post_like->like : null,
             'subject_name'=>$this->subject->Subject_name,
-            'created_at'=>$this->created_at,
+            'created_at'=>Carbon::createFromTimeStamp(strtotime($this->created_at))->diffForHumans(),
             'total_views'=>$this->total_views,
             'total_likes'=>$this->total_likes,
             'total_dislikes'=>$this->total_dislikes,

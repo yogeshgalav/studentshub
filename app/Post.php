@@ -87,7 +87,7 @@ class Post extends PostModel
         // ->leftJoin('mcqs as mc','po.id','=','mc.post_id')
         ->select(['po.id as id','po.post_heading as heading','po.postable_type as postable_type','cat.name as category_name','sub.Subject_name as subject_name','po.primary_image_path as image_path',
         'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','inst.name as institute_name','ar.content as article_content','vd.content as video_content',
-        'vd.link as video_link']);
+        'vd.video_id as video_id']);
     }
 
     public function getSeekerPosts(Request $request){
@@ -118,7 +118,7 @@ class Post extends PostModel
         // ->leftJoin('facts as fa','po.id','=','fa.post_id')
         ->select(['po.id as id','po.post_heading as heading','po.postable_type as postable_type','cat.name as category_name','sub.Subject_name as subject_name','po.primary_image_path as image_path',
         'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','ar.content as article_content','vd.content as video_content',
-        'vd.link as video_link']);
+        'vd.video_id as video_id']);
     }
 
     public function getPostType($post_type){
@@ -147,7 +147,7 @@ class Post extends PostModel
             ->leftJoin('likes as dli',function($join){
                 $join->on('po.id','=','dli.likable_id')->where('dli.likable_type','=','App\Models\Post')->where('dli.like_status','=',0);
             })
-            ->leftJoin('views as vw','po.id','=','vw.post_id')
+            ->leftJoin('post_views as vw','po.id','=','vw.post_id')
             ->select(DB::raw('COUNT(distinct li.user_id) as total_likes'),DB::raw('COUNT(distinct dli.user_id) as total_dislikes'),DB::raw('COUNT(distinct vw.user_id) as total_views'))
             ->groupBy(['po.id'])
             ->first();
@@ -173,7 +173,27 @@ class Post extends PostModel
             $post->total_views=$postData->total_views;
             $post->time=Carbon::createFromTimeStamp(strtotime($post->time))->diffForHumans();
         }
-
+        
         return $posts;
+    }
+
+    public function getExplorePagePosts($type){
+        $posts=DB::table('explore_page_posts as epp')->where('epp.page_section','ExploreBottomPost')
+        ->leftJoin('posts as po','po.id','=','epp.post_id')
+        ->leftJoin('articles as ar',function($join){
+            $join->on('po.postable_id','=','ar.id')->where('po.postable_type','=','App\Models\Article');
+        })
+        ->leftJoin('videos as vd',function($join){
+            $join->on('po.postable_id','=','vd.id')->where('po.postable_type','=','App\Models\Video');
+        })
+        ->leftJoin('subjects as sub','sub.id','=','po.subject_id')
+        ->leftJoin('categories as cat','cat.id','=','sub.category_id')
+        ->leftJoin('users as us','us.id','=','po.user_id')
+        // ->leftJoin('facts as fa','po.id','=','fa.post_id')
+        ->select(['po.id as id','po.post_heading as heading','po.postable_type as postable_type','cat.name as category_name','sub.Subject_name as subject_name','po.primary_image_path as image_path',
+        'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','ar.content as article_content','vd.content as video_content',
+        'vd.video_id as video_id'])->limit(3)->get();
+
+        return $this->formatPostData($posts);
     }
 }

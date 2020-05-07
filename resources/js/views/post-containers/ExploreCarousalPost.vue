@@ -121,8 +121,8 @@ img.slide_img_home {
 
 <script>
 import Carousel from '../../components/Carousel.vue';
-import '@fortawesome/fontawesome-free/css/all.css'
-import '@fortawesome/fontawesome-free/js/all.js'
+
+
 
 export default {
     components: {
