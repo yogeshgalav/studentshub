@@ -1755,6 +1755,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //import VueSlickCarousel from 'vue-slick-carousel'
 // optional style for arrows & dots
 //import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
@@ -7677,7 +7689,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.cat_pad[data-v-39a2c238] {\r\n    padding: 30px 0;\n}\n.slick-slide[data-v-39a2c238] {\r\n    margin: 0 5px;\n}\r\n  /* the parent */\n.slick-list[data-v-39a2c238] {\r\n    margin: 0 -5px;\n}\n.slick-slider .slick-next[data-v-39a2c238]\r\n{\r\n    -webkit-appearance: none;\r\n    outline: 0;\r\n    background: transparent;\r\n    border: 0;\r\n    width: 38px;\r\n    height: 38px;\r\n    padding: 10px;\r\n    border-radius: 50%;\r\n    position: absolute;\r\n    z-index: 3000;\r\n    right: -25px;\r\n    box-shadow: 3px 2px 3px #eee;\r\n    top: 12px;\n}\n.slick-prev[data-v-39a2c238]:before, .slick-next[data-v-39a2c238]:before {\r\n  font-family: 'slick';\r\n    font-size: 30px !important;\r\n    line-height: 1;\r\n    color: #171717 !important;\n}\n.slick-slide[data-v-39a2c238] {\r\n    margin: 0 5px !important;\n}\r\n", ""]);
+exports.push([module.i, "\n.cat_pad[data-v-39a2c238] {\r\n    padding: 30px 0;\n}\n.slick-slide[data-v-39a2c238] {\r\n    margin: 0 5px;\n}\r\n  /* the parent */\n.slick-list[data-v-39a2c238] {\r\n    margin: 0 -5px;\n}\n.slick-slider .slick-next[data-v-39a2c238]\r\n{\r\n    -webkit-appearance: none;\r\n    outline: 0;\r\n    background: transparent;\r\n    border: 0;\r\n    width: 38px;\r\n    height: 38px;\r\n    padding: 10px;\r\n    border-radius: 50%;\r\n    position: absolute;\r\n    z-index: 3000;\r\n    right: -25px;\r\n    box-shadow: 3px 2px 3px #eee;\r\n    top: 12px;\n}\n.slick-prev[data-v-39a2c238]:before, .slick-next[data-v-39a2c238]:before {\r\n  font-family: 'slick';\r\n    font-size: 30px !important;\r\n    line-height: 1;\r\n    color: #171717 !important;\n}\n.slick-slide[data-v-39a2c238] {\r\n    margin: 0 5px !important;\n}\r\n\r\n\r\n\r\n\r\n\r\n", ""]);
 
 // exports
 
@@ -52472,41 +52484,23 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "bg-gray" }, [
     _c("div", { staticClass: "container category-filter cat_pad" }, [
-      _c("div", { staticClass: "cat" }, [
-        _vm.categories.length
-          ? _c(
-              "div",
-              { staticClass: "col-md-12 text-center" },
-              [
-                _c(
-                  "VueSlickCarousel",
-                  _vm._b(
-                    {
-                      ref: "slick",
-                      staticClass: "slick-p",
-                      attrs: { arrows: true }
-                    },
-                    "VueSlickCarousel",
-                    _vm.slickOptions,
-                    false
-                  ),
-                  _vm._l(_vm.categories, function(category, index) {
-                    return _c(
-                      "a",
-                      {
-                        key: index,
-                        staticClass: "btn btn-white cat_btn",
-                        attrs: { href: "/category/" + category.category_url }
-                      },
-                      [_vm._v(_vm._s(category.name))]
-                    )
-                  }),
-                  0
-                )
-              ],
-              1
+      _c("div", { staticClass: "cat_menu" }, [
+        _c(
+          "div",
+          { staticClass: "cat_menu_list" },
+          _vm._l(_vm.categories, function(category, index) {
+            return _c(
+              "a",
+              {
+                key: index,
+                staticClass: "btn btn-white cat_btn",
+                attrs: { href: "/category/" + category.category_url }
+              },
+              [_vm._v(_vm._s(category.name))]
             )
-          : _vm._e()
+          }),
+          0
+        )
       ])
     ])
   ])
