@@ -171,6 +171,8 @@ class Post extends PostModel
             $post->total_likes=$postData->total_likes;
             $post->total_dislikes=$postData->total_dislikes;
             $post->total_views=$postData->total_views;
+            $post->profile_image=$post->profile_image ?? '';
+            $post->image_path=$post->image_path ?? '';
             $post->time=Carbon::createFromTimeStamp(strtotime($post->time))->diffForHumans();
         }
         
