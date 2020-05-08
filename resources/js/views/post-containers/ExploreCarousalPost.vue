@@ -117,6 +117,7 @@
 
     img.slide_img_home {
         width: 100%;
+            height: 380px;
     }
 
 </style>

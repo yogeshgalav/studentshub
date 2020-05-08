@@ -32,19 +32,24 @@
                                     <span class="error">{{ formErrors('_token') }}</span>
                             </div>
                             <div class="form-group">
-                                <label for="email"><span><i class="fa fa-user"></i> {{ trans('E-Mail Address') }}</span></label>
+                                <label for="email"> {{ trans('E-Mail Address') }}</label>
                                 <div class="inner-addon left-addon">
-           
+                                     <div class="input_icon_frm">
+                                        <span class="icon_design_input"><i class="fa fa-user"></i></span>
       <input type="text" id="email"  name="email" v-model.lazy="email" autofocus v-validate="'required|email'" class="form-control" placeholder="Username or email" />
+                                     </div>
     <span class="error">{{ formErrors('email') }}</span>
     </div>
  </div>
 
                             <div class="form-group">
            
-                                  <label for="password"><span><i class="fa fa-lock"></i> {{ trans('Password') }}</span></label>
+                                  <label for="password"> {{ trans('Password') }}</label>
                                   <div class="inner-addon left-addon">
+                                       <div class="input_icon_frm">
+                                      <span class="icon_design_input"><i class="fa fa-lock"></i></span>
                                     <input id="password" type="password" class="form-control" name="password" v-model="password" v-validate="'required'" placeholder="Password">
+                                       </div>
                                     <span class="error">{{ formErrors('password') }}</span>
                                     </div>
                                     <div class="mt-1 forget_rember_pass">
@@ -98,6 +103,7 @@
 <style scoped>
  
     /* enable absolute positioning */
+
 .inner-addon {
   position: relative;
 }

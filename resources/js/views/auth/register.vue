@@ -36,9 +36,10 @@
                   <span class="error">{{ formErrors('_token') }}</span>
                 </div>
                 <div class="form-group">
-                    <label><span><i class="fa fa-user"></i></span> {{ trans('Full Name') }} </label>
+                    <label> {{ trans('Full Name') }} </label>
                   <div class="inner-addon left-addon">
-                    
+                     <div class="input_icon_frm">
+                    <span class="icon_design_input"><i class="fa fa-user"></i></span>
                     <input
                       id="full_name"
                       type="text"
@@ -49,6 +50,7 @@
                       v-validate="'required'"
                       v-model="full_name"
                     />
+                     </div>
                     <span class="error">{{errors.first('full_name')}}</span>
                   </div>
                 </div>
@@ -56,10 +58,11 @@
                 <div class="form-group">
                   <label
                     for="email"
-                  > <span><i class="fa fa-envelope"></i></span> {{ trans('E-Mail Address') }}</label>
+                  >  {{ trans('E-Mail Address') }}</label>
 
                  <div class="inner-addon left-addon">
-                    
+                    <div class="input_icon_frm">
+                    <span class="icon_design_input"><i class="fa fa-envelope"></i></span>
                     <input
                       id="email"
                       type="email"
@@ -69,6 +72,7 @@
                       placeholder="Email address"
                       v-model="email"
                     />
+                    </div>
                     <span class="error">{{errors.first('email')}}</span>
                   </div>
                 </div>
@@ -76,10 +80,12 @@
                 <div class="form-group">
                   <label
                     for="password"
-                  ><span><i class="fa fa-lock"></i></span> {{ trans('Password') }}</label>
+                  > {{ trans('Password') }}</label>
 
-                    <div class="inner-addon left-addon">
-                    
+                    <div class="inner-addon left-addon ">
+                       <div class="input_icon_frm">
+                      
+                    <span class="icon_design_input"><i class="fa fa-lock"></i></span>
                     <input
                       id="password"
                       ref="password"
@@ -89,7 +95,7 @@
                       v-validate="'required'" 
                       placeholder="Password"
                       v-model="password"
-                    />
+                    /></div>
                     <span class="error">{{errors.first('password')}}</span>
                   </div>
                 </div>
@@ -97,17 +103,18 @@
                 <div class="form-group">
                   <label
                     for="password-confirm"
-                  ><span><i class="fa fa-lock"></i></span> {{ trans('Confirm Password') }}</label>
+                  > {{ trans('Confirm Password') }}</label>
 
                    <div class="inner-addon left-addon">
-                    
+                      <div class="input_icon_frm">
+                    <span class="icon_design_input"><i class="fa fa-lock"></i></span>
                     <input
                       id="password-confirm"
                       type="password"
                       class="form-control"
                       name="password_confirmation"
                       v-validate="'required|confirmed:password'" placeholder="Confirm Password"
-                    />
+                    /></div>
                     <span class="error">{{errors.first('password_confirmation')}}</span>
                   </div>
                 </div>

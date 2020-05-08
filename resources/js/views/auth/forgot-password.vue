@@ -24,11 +24,14 @@
                             <span>{{ trans('An unknown error has occurred.') }}</span>
                         </div>
                         <div class="form-group">
-                            <label for="email" class="text-md-right"><span><i class="fa fa-envelope"></i></span> {{ trans('E-Mail Address') }}</label>
+                            <label for="email" class="text-md-right"> {{ trans('E-Mail Address') }}</label>
 
                             <div class="inner-addon left-addon">
-                                <input id="email" type="email" class="form-control" name="email" v-model="email" autofocus v-validate="'required|email'">
-                                <span>{{ formErrors('email') }}</span>
+                                <div class="input_icon_frm">
+                                <span class="icon_design_input"><i class="fa fa-envelope"></i></span>
+                                <input id="email" type="email" placeholder="Email address" class="form-control"  name="email" v-model="email" autofocus v-validate="'required|email'">
+                                </div>
+                                <span  class="error">{{ formErrors('email') }}</span>
                             </div>
                         </div>
                         <div class="form-group  mb-0">
@@ -52,6 +55,13 @@
         position: relative;
         top: 50%;
     }
+    .login .form-control
+{
+
+    height: 48px !important;
+    color: #000;
+    border-radius: 0;
+}
 </style>
 <script>
 import swal from '../../components/swal';

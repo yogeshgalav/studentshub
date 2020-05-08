@@ -23,10 +23,10 @@
           <span><i class="fas fa-arrow-left"></i></span>
           </div>-->
           <div class="arrow_right" v-if="!lastStep" @click="nextSlide">
-          <span><i class="fas fa-arrow-right"></i></span>
+          <button><i class="fas fa-arrow-right"></i></button>
           </div>
           <router-link class="arrow_right" v-if="lastStep" :to="'/get-started'">
-          <span>Get Started<i class="fas fa-arrow-right"></i></span>
+          <span class="c_get_start">Get Started<i class="fas fa-arrow-right"></i></span>
           </router-link>
 
       </div>

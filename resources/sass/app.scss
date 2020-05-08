@@ -1364,11 +1364,12 @@ button.slick-next {
     bottom: 20px;
     left: 20%;
 }
-.arrow_right span {
+.arrow_right button {
     height: 50px;
     background-color: #0f6bff;
     margin: 10px;
     /* padding: 11px 25px; */
+    border: none;
     border-radius: 50px;
     color: white;
     font-size: 20px;
@@ -1377,6 +1378,20 @@ button.slick-next {
     justify-content: center;
     align-items: center;
 
+}
+.c_get_start
+{
+    height: 50px;
+    background-color: #0f6bff;
+    margin: 10px;
+     padding: 11px 25px; 
+    border: none;
+    border-radius: 50px;
+    color: white;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .exolpre-bottom-post .row .col-md-4 {
     display: flex;
@@ -1508,7 +1523,12 @@ padding: 20px 30px 20px 0
 }
 
 
-
+.input_icon_frm{display: flex;}
+.icon_design_input{
+    background-color: #00c1d5;
+padding: 12px 20px;
+color: white;
+}
 
 
 
