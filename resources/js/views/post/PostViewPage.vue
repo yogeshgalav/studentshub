@@ -41,13 +41,13 @@
 				<div class="row">
 					<div class="col-md-9">
 						<h3>{{postContent.heading}}</h3>
-						<div v-if="postType==='article'">
-							<div v-html="postContent.content.content"></div>
+						<div v-if="postContent.post_type==='article'">
+							<div v-html="postContent.article_content"></div>
 						</div>
-						<div v-if="postType==='video'">
+						<div v-if="postContent.post_type==='video'">
 							<iframe width="620" height="315"
-							:src="postContent.content.link"></iframe>
-							<div>{{postContent.content.content}}</div>  
+							:src="'https://www.youtube.com/embed/'+postContent.video_id"></iframe>
+							<div>{{postContent.video_content}}</div>  
 						</div>
 						<social-sharing url="https://vuejs.org/"
 						title="The Progressive JavaScript Framework"
@@ -57,50 +57,17 @@
 						twitter-user="vuejs"
 						inline-template>
 						<div>
-							<network network="email">
-								<i class="fa fa-envelope"></i> Email
-							</network>
 							<network network="facebook">
 								<i class="fa fa-facebook"></i> Facebook
-							</network>
-							<network network="googleplus">
-								<i class="fa fa-google-plus"></i> Google +
-							</network>
-							<network network="line">
-								<i class="fa fa-line"></i> Line
-							</network>
-							<network network="linkedin">
-								<i class="fa fa-linkedin"></i> LinkedIn
-							</network>
-							<network network="odnoklassniki">
-								<i class="fa fa-odnoklassniki"></i> Odnoklassniki
-							</network>
-							<network network="pinterest">
-								<i class="fa fa-pinterest"></i> Pinterest
-							</network>
-							<network network="reddit">
-								<i class="fa fa-reddit"></i> Reddit
-							</network>
-							<network network="skype">
-								<i class="fa fa-skype"></i> Skype
-							</network>
-							<network network="sms">
-								<i class="fa fa-commenting-o"></i> SMS
-							</network>
-							<network network="telegram">
-								<i class="fa fa-telegram"></i> Telegram
 							</network>
 							<network network="twitter">
 								<i class="fa fa-twitter"></i> Twitter
 							</network>
-							<network network="vk">
-								<i class="fa fa-vk"></i> VKontakte
+							<network network="reddit">
+								<i class="fa fa-reddit"></i> Reddit
 							</network>
-							<network network="weibo">
-								<i class="fa fa-weibo"></i> Weibo
-							</network> 
-							<network network="whatsapp">
-								<i class="fa fa-whatsapp"></i> Whatsapp
+							<network network="email">
+								<i class="fa fa-envelope"></i> Email
 							</network>
 						</div>
 					</social-sharing>
@@ -140,19 +107,14 @@
 		},
 		computed:{
 			...mapState({
-				'categories': state=>state.common.postView.categories,
 				'postContent': state=>state.common.postView.post_content,
-				'relatedPost': state=>state.common.postView.related_posts,
+				'most_viewed': state=>state.common.postView.most_viewed,
+				'most_liked': state=>state.common.postView.most_liked,
+				'latest': state=>state.common.postView.latest,
 			}),
-			postType(){
-				return this.postContent.post_type ? this.postContent.post_type.toLowerCase() : '';
-            // return 'video';
-        }
     },
     mounted(){
-    	this.$store.dispatch('common/getPostContent',this.$route.params.id).then(resp=>
-    		document.title = resp.data.success.post_content.heading
-    		);
+    	this.$store.dispatch('common/getPostContent',this.$route.params.id);
     }
 }
 </script>

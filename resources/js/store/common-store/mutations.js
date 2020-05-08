@@ -10,8 +10,9 @@ export default {
       state.current_page=state.current_page+1;
     },
     get_post_content(state,data){
-      state.postView.categories = data.categories;
-      state.postView.related_posts = data.related_posts;
       state.postView.post_content = data.post_content;
-      },
+      state.postView.most_viewed = data.most_viewed;
+      state.postView.most_liked = data.most_liked;
+      state.postView.latest = data.lates;
+    },
   }

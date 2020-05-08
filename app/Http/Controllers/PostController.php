@@ -118,4 +118,27 @@ class PostController extends Controller
             return $post->getSeekerPosts($request);
         }
     }
+
+    public function show($post_id){
+        $user=Auth::user();
+        if($user){
+            \App\Models\PostView::create([
+                'post_id'=>$post_id,
+                'user_id'=>$user->id,
+            ]);
+        }
+
+        $post=new \App\Post;
+        $post_content=$post->getPostContent($post_id)[0];
+        $most_viewed=$post->getMostViewedPosts($post_content->category_id);
+        $most_liked=$post->getMostLikedPosts($post_content->category_id);
+        $latest=$post->getLatestPosts($post_content->category_id);
+
+        return response()->json(['success'=>[
+            'post_content'=>$post_content,
+            'most_viewed'=>$most_viewed,
+            'most_liked'=>$most_liked,
+            'latest'=>$latest,
+        ]]);        
+    }
 }

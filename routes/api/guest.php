@@ -3,7 +3,7 @@
 
 
 Route::post('/subscribe','GuestController@update');
-Route::get('/get-post-content/{post_id}','PostViewController@index');
+Route::get('/get-post-content/{post_id}','PostController@show');
 Route::post('/login','AuthController@login');
 Route::post('/register','AuthController@register');
 

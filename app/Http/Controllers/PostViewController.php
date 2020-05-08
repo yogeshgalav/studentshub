@@ -7,12 +7,5 @@ use App\Models\Post;
 class PostViewController extends Controller
 {
     //
-    public function index($post_id){
-        $post=Post::findOrFail($post_id)->getViewContent();
-        return response()->json(['success'=>[
-            'categories'=>$post['categories'],
-            'post_content'=>$post['post_content'],
-            'related_posts'=>$post['related_posts'],
-        ]]);        
-    }
+
 }

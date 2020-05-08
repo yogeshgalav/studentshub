@@ -85,7 +85,7 @@ class Post extends PostModel
         // ->leftJoin('notices as no','po.id','=','no.post_id')
         // ->leftJoin('facts as fa','po.id','=','fa.post_id')
         // ->leftJoin('mcqs as mc','po.id','=','mc.post_id')
-        ->select(['po.id as id','po.post_heading as heading','po.postable_type as postable_type','cat.name as category_name','sub.Subject_name as subject_name','po.primary_image_path as image_path',
+        ->select(['po.id as id','po.post_heading as heading','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','sub.Subject_name as subject_name','po.primary_image_path as image_path',
         'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','inst.name as institute_name','ar.content as article_content','vd.content as video_content',
         'vd.video_id as video_id']);
     }
@@ -116,7 +116,7 @@ class Post extends PostModel
         ->leftJoin('categories as cat','cat.id','=','sub.category_id')
         ->leftJoin('users as us','us.id','=','po.user_id')
         // ->leftJoin('facts as fa','po.id','=','fa.post_id')
-        ->select(['po.id as id','po.post_heading as heading','po.postable_type as postable_type','cat.name as category_name','sub.Subject_name as subject_name','po.primary_image_path as image_path',
+        ->select(['po.id as id','po.post_heading as heading','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','sub.Subject_name as subject_name','po.primary_image_path as image_path',
         'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','ar.content as article_content','vd.content as video_content',
         'vd.video_id as video_id']);
     }
@@ -180,7 +180,7 @@ class Post extends PostModel
     }
 
     public function getExplorePagePosts($type){
-        $posts=DB::table('explore_page_posts as epp')->where('epp.page_section','ExploreBottomPost')
+        $posts=DB::table('explore_page_posts as epp')->where('epp.page_section',$type)
         ->leftJoin('posts as po','po.id','=','epp.post_id')
         ->leftJoin('articles as ar',function($join){
             $join->on('po.postable_id','=','ar.id')->where('po.postable_type','=','App\Models\Article');
@@ -192,9 +192,68 @@ class Post extends PostModel
         ->leftJoin('categories as cat','cat.id','=','sub.category_id')
         ->leftJoin('users as us','us.id','=','po.user_id')
         // ->leftJoin('facts as fa','po.id','=','fa.post_id')
-        ->select(['po.id as id','po.post_heading as heading','po.postable_type as postable_type','cat.name as category_name','sub.Subject_name as subject_name','po.primary_image_path as image_path',
+        ->select(['po.id as id','po.post_heading as heading','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','sub.Subject_name as subject_name','po.primary_image_path as image_path',
         'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','ar.content as article_content','vd.content as video_content',
         'vd.video_id as video_id'])->limit(3)->get();
+
+        return $this->formatPostData($posts);
+    }
+
+    public function getPostContent($post_id){
+        $post=DB::table('posts as po')->where('po.id','=',$post_id)
+        ->leftJoin('articles as ar',function($join){
+            $join->on('po.postable_id','=','ar.id')->where('po.postable_type','=','App\Models\Article');
+        })
+        ->leftJoin('videos as vd',function($join){
+            $join->on('po.postable_id','=','vd.id')->where('po.postable_type','=','App\Models\Video');
+        })
+        ->leftJoin('subjects as sub','sub.id','=','po.subject_id')
+        ->leftJoin('categories as cat','cat.id','=','sub.category_id')
+        ->leftJoin('users as us','us.id','=','po.user_id')
+        // ->leftJoin('facts as fa','po.id','=','fa.post_id')
+        ->select(['po.id as id','po.post_heading as heading','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','sub.Subject_name as subject_name','po.primary_image_path as image_path',
+        'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','ar.content as article_content','vd.content as video_content',
+        'vd.video_id as video_id'])->get();
+
+        return $this->formatPostData($post);
+    }
+
+    public function getMostViewedPosts($category_id){
+        if($this->student){
+            $post_query=$this->getStudentPostTables();
+        }else{
+            $post_query=$this->getSeekerPostTabels();     
+        }
+
+        $posts=$post_query->where('cat.id',$category_id)
+        ->limit(3)->get();
+
+        return $this->formatPostData($posts);
+    }
+
+    public function getMostLikedPosts($category_id){
+        if($this->student){
+            $post_query=$this->getStudentPostTables();
+        }else{
+            $post_query=$this->getSeekerPostTabels();     
+        }
+
+        $posts=$post_query->where('cat.id',$category_id)
+        ->limit(3)->get();
+
+        return $this->formatPostData($posts);
+    }
+
+    public function getLatestPosts($category_id){
+        if($this->student){
+            $post_query=$this->getStudentPostTables();
+        }else{
+            $post_query=$this->getSeekerPostTabels();     
+        }
+
+        $posts=$post_query->where('cat.id',$category_id)
+        ->orderBy('po.created_at','DESC')
+        ->limit(3)->get();
 
         return $this->formatPostData($posts);
     }

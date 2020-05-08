@@ -37,7 +37,7 @@ Vue.mixin({
             return window.lang[file][string] ? window.lang[file][string] : (defaultString ? defaultString : string);
         },
         redirectPostView(post){
-            console.log();
+            document.title = post.heading;
         },
         bottomVisible() {
             const scrollY = window.scrollY
