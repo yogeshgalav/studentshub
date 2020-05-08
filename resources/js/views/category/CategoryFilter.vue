@@ -1,13 +1,20 @@
 <template>
     <div class="bg-gray">
    <div class="container category-filter cat_pad">
-        <div class="cat">
-        <div class="col-md-12 text-center" v-if="categories.length">
+        
+        <!-- <div class="col-md-12 text-center" v-if="categories.length">
             <VueSlickCarousel  :arrows="true" v-bind="slickOptions" ref="slick" class="slick-p" >
                     <a :href="'/category/'+category.category_url" class="btn btn-white cat_btn" v-for="(category,index) in categories" :key="index">{{category.name}}</a>
   </VueSlickCarousel >
+        </div> -->
+        <div class="cat_menu">
+            <div class="cat_menu_list">
+                    <a :href="'/category/'+category.category_url" class="btn btn-white cat_btn" v-for="(category,index) in categories" :key="index">{{category.name}}</a>
+
+            </div>
+        
         </div>
-    </div>
+    
    </div>
     </div>
 </template>
@@ -48,6 +55,11 @@
 .slick-slide {
     margin: 0 5px !important;
 }
+
+
+
+
+
 </style> 
 
 <script>

@@ -1247,7 +1247,7 @@ width:100% !important;
     align-items: center;
 }
 button.slick-prev {
-    background-color: #0f6bff !important;
+    background-color: #ff5d00 !important;
     width: 30px;
     height: 30px;
     z-index: 9;
@@ -1257,7 +1257,7 @@ button.slick-prev {
 }
 
 button.slick-next {
-    background-color: #0f6bff !important;
+    background-color: #ff5d00 !important;
     width: 30px;
     height: 30px;
     z-index: 9;
@@ -1350,13 +1350,6 @@ button.slick-next {
     opacity: 1 !important;
 }
 
-.category-filter .btn[data-v-39a2c238] {
-    font-weight: 400;
-    font-size: 14px;
-    margin: 0 50px 0 0;
-    border-radius: 5px;
-    border: none;
-}
 .banner_post .text-center {text-align: inherit!important;}
 .home_arrow {
     display: flex;
@@ -1413,19 +1406,56 @@ h2.banner_title {
     transform: rotate(360deg);
     transition: .5s linear all;
 }
-.cat_btn:nth-child(odd){
+.cat_menu_list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.category-filter .btn[data-v-39a2c238] {
     font-weight: 400;
-        font-size: 14px;
-        margin: 0 5px;
-        background: #0f6bff;
-        color: white !important;
-        height: 50px;
-        display: flex !important;
-        justify-content: center;
-        align-items: center;
-        border-radius: 5px;
+    font-size: 14px;
+    margin: 0 7px 20px;
+    border-radius: 12px;
+    border: none;
+}
+.cat_btn{
+    width: 13%;
+    font-weight: 400;
+    position: relative;
+    font-size: 14px;
+    margin: 0 5px;
+    overflow: hidden;
+    background: #ff5d00;
+    color: white !important;
+    padding: 25px 0;
+    display: -webkit-box !important;
+    display: flex !important;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    border-radius: 5px;
     }
-
+   .cat_btn:before {
+    position: absolute;
+    content: "";
+    background: #ffab84;
+    width: 56px;
+    height: 51px;
+    bottom: -22px;
+    right: -12px;
+    border-radius: 38px 30px 0 0px;
+    }
+    a.btn.btn-white.cat_btn:after {
+        position: absolute;
+        content: "";
+        background-color: #ffb74d;
+        width: 56px;
+        height: 51px;
+        border-radius: 0px 0px 20px 70px;
+        top: -36px;
+        right: 40px;
+    }
 
 // login page
 
@@ -1532,6 +1562,10 @@ color: white;
 
 
 
+
+
+
+
 @media only screen and (max-width: 600px) {
     .search_box {
         width: 100%;
@@ -1579,4 +1613,14 @@ color: white;
     .logn_right {
         padding: 20px;
     }
+    .c_get_start{font-size: 16px;}
+
+    .cat_menu {
+        overflow: scroll;
+    }
+    .cat_menu_list {
+        display: -webkit-box;
+        flex-wrap: inherit;
+    }
+    .cat_btn{width: 33%;}
 }
