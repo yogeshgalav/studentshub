@@ -1290,6 +1290,7 @@ button.slick-next {
     // padding: 8px;
     // border-radius: 4px;
     position: relative;
+    padding: 22px 10px;
 }
 .row.post_views_sec {
     position: absolute;
@@ -1361,7 +1362,7 @@ button.slick-next {
     height: 50px;
     background-color: #0f6bff;
     margin: 10px;
-    /* padding: 11px 25px; */
+    outline: none;
     border: none;
     border-radius: 50px;
     color: white;
@@ -1385,6 +1386,10 @@ button.slick-next {
     display: flex;
     justify-content: center;
     align-items: center;
+    outline: none;
+}
+a.arrow_right:hover {
+    text-decoration: none;
 }
 .exolpre-bottom-post .row .col-md-4 {
     display: flex;
@@ -1394,6 +1399,10 @@ button.slick-next {
 }
 .wel_view {
     display: flex;
+    position: absolute;
+    bottom: -15px;
+    bottom: 10px;
+    left: 10px;
 }
 h2.banner_title {
     position: relative;    margin-bottom: 25px;    font-size: 36px;
@@ -1560,8 +1569,42 @@ padding: 12px 20px;
 color: white;
 }
 
+// single view page social iocn
 
+.social-network_singlepage {
+    display: flex;
+    justify-content: flex-end;
+	align-items: baseline;
+	margin-top: 15px;
+}
+.post_content_social {
+    display: flex;
+    margin-left: 50px;
+}
 
+.post_content_social span {
+    border-radius: 50px;
+    list-style: none;
+    background-color: black;
+    margin: 0px 8px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+    cursor: pointer;
+}
+.post_content_social p {
+    margin: 0;
+}
+
+.post_content_social svg {
+    display: flex;
+    color: white;
+    justify-content: center;
+    align-items: center;
+}
 
 
 
@@ -1623,4 +1666,17 @@ color: white;
         flex-wrap: inherit;
     }
     .cat_btn{width: 33%;}
+    .single_post_head h2 {
+        font-size: 16px;
+    }
+    .single_post_head h2 {
+        font-size: 16px;
+    }
+    h3.post_main_title {
+        font-size: 16px;
+        margin-top: 20px;
+    }
+    h3.post_main_title:after{display: none;}
+    h3.post_main_title:before{display: none;}
+    .social-network_singlepage {justify-content: center;}
 }
