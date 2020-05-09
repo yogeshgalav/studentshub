@@ -1605,7 +1605,10 @@ color: white;
     justify-content: center;
     align-items: center;
 }
-
+.mx-input{border-radius: 0 !important;}
+.logn_right.login_card .form-control {
+    border-radius: 0 !important;
+  }
 
 
 

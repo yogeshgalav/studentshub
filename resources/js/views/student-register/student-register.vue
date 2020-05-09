@@ -6,25 +6,28 @@
       :width="250"
       :is-full-page="true"
     />
+ 
+
     <div class="container pb-100">
       <div class="row justify-content-center register">
         <div class="col-md-8">
-          <div class="card">
-            <div class="card-header text-center">
+          <div class="logn_right login_card">
+            <div class="card_title text-center">
               <h3 class="weight-800 text-black font-size-18">{{ trans('Check-In') }}</h3>
             </div>
 
             <div class="card-body">
                 <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-10">
               <p>Please Enter your Education details to avail full benifits of our platform.</p>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-10">
                   <form @submit.prevent="handleSubmit">
                 <div class="form-group">
                     <label> {{ trans('Institute Name') }} </label>
                   <div class="inner-addon left-addon">
-                    <i class="fa fa-user"></i>
+                     <div class="input_icon_frm">
+                    <span class="icon_design_input"><i class="fa fa-user"></i></span>
                     <auto-complete
                     :items="institute_list"
                     :value="'name'"
@@ -34,6 +37,7 @@
                     @selected="setInstitute"
                     :is-loading="instituteLoading"
                     />
+                     </div>
                     <span v-if="selected_institute.totalBatch">{{selected_institute.totalBatch }} batch found.</span>
                     <span v-if="selected_institute.id===0">{{selected_institute.description}}</span>
                     <span class="error">{{errors.first('institute_name')}}</span>
@@ -42,7 +46,8 @@
                 <div class="form-group">
                     <label> {{ trans('Course/Branch Name') }} </label>
                   <div class="inner-addon left-addon">
-                    <i class="fa fa-user"></i>
+                    <div class="input_icon_frm">
+                    <span class="icon_design_input"> <i class="fa fa-user"></i></span>
                     <auto-complete
                     :items="course_list"
                     :value="'course_name'"
@@ -52,17 +57,21 @@
                     @selectNew="setNewCourse"
                     :is-loading="courseLoading"
                     />
+                    </div>
                     <span v-if="selected_course.totalBatch">{{selected_course.totalBatch }} batch found.</span>
                     <span v-if="selected_course.id===0">Please enter your full course name followed by branch name(if any).Please make sure that course details you are entering is correct.</span>
                     <span class="error">{{errors.first('institute_name')}}</span>
                   </div>
                 </div>
-                <div class="col-md-2 col-sm-4 col-xs-12">
+                <div  class="row">
+                  <div class="col-md-6">
               <div class="form-group">
-                <label for="category" >Category of selected Course:</label>
+                 <label> {{ trans('Category of selected Course:') }} </label><br/>
+                 <div class="input_icon_frm">
+                  <span id="basic-addon1" class="icon_design_input" ><i class="fa fa-calendar"/></span>
                 <select name="category" id="category" 
                   v-model="selected_course.category_id"
-                  :disabled="categoryDisabled">
+                  :disabled="categoryDisabled" class="inner-addon left-addon select_box">
                     <option value="">Select Category</option>
                     <option value="1">Technology</option>
                     <option value="2">Management</option>
@@ -77,12 +86,21 @@
                     <option value="11">Hospitality</option>
                     <option value="12">Fashion</option>
                     <option value="13">Computer</option>
-                </select>
+                </select></div>
             </div>
-        </div>
+                  </div>
+                  <div class="col-md-6 form-group">
+              <label for="college_id">Unique College Id/Registation no.</label>
+               <div class="input_icon_frm">
+                  <span id="basic-addon1" class="icon_design_input" ><i class="fa fa-calendar"/></span>
+              <input type="text" v-model="college_id" id="college_id" class="form-control u_input">
+               </div>
+            </div>
+                </div>
+        
 
               <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-6">
               <label
                 class="text-black"
                 for="event_date_input"
@@ -94,13 +112,10 @@
                   class="input-group-prepend date"
                   data-provide="datepicker"
                 >
-                  <span
-                    id="basic-addon1"
-                    class="input-group-text"
-                  ><i
-                    class="fa fa-calendar"
-                  /></span>
                 </div>
+                 <div class="input_icon_frm">
+                  <span id="basic-addon1" class="icon_design_input" ><i class="fas fa-calendar"></i></span>
+
                 <date-picker
                   id="event_date"
                   ref="event_date"
@@ -114,25 +129,27 @@
                   :input-attr="{id: 'event_date_input'}"
                   placeholder=""
                 />
+                 </div>
               </div>
               <span class="error">{{ formErrors('form_data.event_date') }}</span>
             </div>
-            <div class="col-md-2">
-              To
-            </div>
-            <div class="col-md-5">
+
+            <div class="col-md-6">
+               <label
+                class="text-black"
+                for="event_date_input"
+              >
+                {{ trans('To') }}
+              </label>
               <div class="input-group-prepend ">
                 <div
                   class="input-group-prepend date"
                   data-provide="datepicker"
                 >
-                  <span
-                    id="basic-addon1"
-                    class="input-group-text"
-                  ><i
-                    class="fa fa-calendar"
-                  /></span>
+                  
                 </div>
+                 <div class="input_icon_frm">
+                  <span id="basic-addon1" class="icon_design_input" ><i class="fa fa-calendar"/></span>
                 <date-picker
                   id="event_date"
                   ref="event_date"
@@ -145,7 +162,7 @@
                   :lang="'en'"
                   :input-attr="{id: 'event_date_input'}"
                   placeholder="Start Year"
-                />
+                /></div>
               </div>
               <span class="error">{{ formErrors('form_data.event_date') }}</span>
             </div>
@@ -156,20 +173,25 @@
               <label>Is this your prefferred Batch and category</label>
             </div>
             </div> -->
-            <div class="row">
-            <div class="col-md-8 form-group">
+            <!-- <div class="row">
+            <div class="col-md-12 form-group">
               <label for="college_id">Unique College Id/Registation no.</label>
-              <input type="text" v-model="college_id" id="college_id">
+               <div class="input_icon_frm">
+                  <span id="basic-addon1" class="icon_design_input" ><i class="fa fa-calendar"/></span>
+              <input type="text" v-model="college_id" id="college_id" class="form-control u_input">
+               </div>
             </div>
-            </div>
-                <div class="form-group mb-0">
-                 <button type="submit" class="btn btn-primary">{{ trans('Register') }}</button>
+            </div> -->
+                <div class="form-group d-flex s_register_btn">
+                  
+                 <button type="submit" class="login_btn">{{ trans('Register') }}</button>
+                  <a href="/" class="login_btn">{{ trans('Skip') }}</a>
                 </div>
               </form>
                 </div>
                 </div>
                 </div>
-                <a href="/" class="btn btn-primary">{{ trans('Skip') }}</a>
+               
           </div>
         </div>
       </div>
@@ -181,6 +203,13 @@
   position: relative;
   top: 15%;
 }
+.autocomplete {
+    position: relative;
+    width: 100%;
+}
+.autocomplete input {
+    border-radius: 0;
+}
 .register .btn {
   width: 100%;
   border-radius: 0;
@@ -189,11 +218,9 @@
 .inner-addon {
   position: relative;
 }
-.register .form-control {
-  height: 48px !important;
+.login_card .form-control {
   color: #000;
-  background: #eee;
-  border-radius: 0;
+  border-radius: 0 !important;
 }
 /* style glyph */
 .inner-addon .fa {
@@ -217,6 +244,14 @@
 
 .display-flex{
   display:flex;
+}
+.s_register_btn a {
+ margin: 0px 0px 0 15px;
+}
+.select_box{width: 100%;    border-radius: 0;    border: solid 1px#ccc;}
+.register .input-group-text{border-radius: 0;}
+.form-group.d-flex.s_register_btn {
+      margin: 20px 0 0;
 }
 </style>
 <script>
