@@ -243,18 +243,4 @@ class Post extends PostModel
 
         return $this->formatPostData($posts);
     }
-
-    public function getLatestPosts($category_id){
-        if($this->student){
-            $post_query=$this->getStudentPostTables();
-        }else{
-            $post_query=$this->getSeekerPostTabels();     
-        }
-
-        $posts=$post_query->where('cat.id',$category_id)
-        ->orderBy('po.created_at','DESC')
-        ->limit(3)->get();
-
-        return $this->formatPostData($posts);
-    }
 }
