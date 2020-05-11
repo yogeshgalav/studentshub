@@ -132,13 +132,11 @@ class PostController extends Controller
         $post_content=$post->getPostContent($post_id)[0];
         $most_viewed=$post->getMostViewedPosts($post_content->category_id);
         $most_liked=$post->getMostLikedPosts($post_content->category_id);
-        $latest=$post->getLatestPosts($post_content->category_id);
 
         return response()->json(['success'=>[
             'post_content'=>$post_content,
             'most_viewed'=>$most_viewed,
             'most_liked'=>$most_liked,
-            'latest'=>$latest,
         ]]);        
     }
 }

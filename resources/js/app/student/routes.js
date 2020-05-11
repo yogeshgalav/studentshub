@@ -1,5 +1,5 @@
 import DashboardComponent from '../../views/student/dashboard'
-import ViewPost from '../../views/student/view-post.vue'
+import ViewPost from '../../views/student/student-post-view.vue'
 import EditPost from '../../views/create-post/edit-post.vue'
 import DoubtList from '../../views/doubt/doubt-list.vue'
 import DoubtAnswer from '../../views/doubt/doubt-answers.vue'

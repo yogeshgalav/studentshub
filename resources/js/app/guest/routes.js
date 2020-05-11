@@ -2,7 +2,7 @@ import WelcomeComponent from '../../views/guest/welcome'
 import ExploreComponent from '../../views/explore/explore.vue'
 import LoginComponent from '../../views/auth/login.vue'
 import RegisterComponent from '../../views/auth/register.vue'
-import ViewPost from '../../views/post/PostViewPage.vue'
+import ViewPost from '../../views/guest/guest-post-view.vue'
 import ForgotPasswordComponent from '../../views/auth/forgot-password.vue';
 
 const routes = [

@@ -4,7 +4,6 @@ const state = {
     postView:{
       'most_viewed':[],
       'most_liked':[],
-      'latest':[],
       'post_content':[],
     },
     search_posts:[]

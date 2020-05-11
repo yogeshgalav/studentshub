@@ -13,6 +13,5 @@ export default {
       state.postView.post_content = data.post_content;
       state.postView.most_viewed = data.most_viewed;
       state.postView.most_liked = data.most_liked;
-      state.postView.latest = data.lates;
     },
   }
