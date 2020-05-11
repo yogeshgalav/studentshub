@@ -1290,12 +1290,11 @@ button.slick-next {
     // padding: 8px;
     // border-radius: 4px;
     position: relative;
-    padding: 22px 10px;
 }
 .row.post_views_sec {
     position: absolute;
     width: 100%;
-    bottom: -15px;
+    bottom: -20px;
 }
 .top_post .row .col-md-4
 {
@@ -1400,8 +1399,7 @@ a.arrow_right:hover {
 .wel_view {
     display: flex;
     position: absolute;
-    bottom: -15px;
-    bottom: 10px;
+    bottom: -20px;
     left: 10px;
 }
 h2.banner_title {
@@ -1610,8 +1608,289 @@ color: white;
     border-radius: 0 !important;
   }
 
+//   student dashboard
+.user_img_dash img
+{
+    width: 35px;
+    height: 35px;
+    border-radius: 50px;;
+}
+.dashboard_post {
+    display: flex;
+}
+.cat_sub_name p {
+    margin: 0px 10px 0 0;
+    font-size: 12px;
+}
 
+.cat_sub_name {
+    display: flex;
+}
+p.dash_post_content {
+    font-size: 13px;
+    color: #868686;
+        margin: 0;
+}
 
+p.usernamedash.mb-0 {
+    font-size: 13px;
+    color: #868686;
+}
+.dash_post_likes {
+    display: flex;
+}
+.post_like {
+    padding: 0px 10px 0 0;
+}
+.dash_insititue_name
+{
+  width: 100%;
+}
+.dash_user_date{
+  display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.dash_board_title h3 {
+    font-size: 14px;
+    line-height: 24px;
+    margin-top: 10px;
+        margin-bottom: 0
+}
+ul.navbar-nav.menu_head.dash_search {
+    justify-content: space-between;
+}
+.dash_search.search_box {
+    width: 80%;
+}
+.dash_card {
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+        padding: 10px 10px;
+}
+.btn:focus
+{
+  box-shadow: none;
+  outline: none;
+}
+button:focus{ outline: none;}
+ /* Menu Styles */
+  
+  .primary-nav {
+      position: fixed;
+      z-index: 999;
+      top: 84px;
+  }
+  
+  .menu {
+      position: relative;
+  }
+  
+  .menu ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+      
+  }
+  
+  .open-panel {
+    border: none;
+    background-color:#fff;
+    padding: 0;
+  }
+  
+  .hamburger {
+      background: #3746c5;
+      position: relative;
+      display: block;
+      text-align: center;
+      padding: 13px 0;
+      width: 50px;
+    height: 73px;
+      left: 0;
+    top: 0;
+      z-index: 1000;
+    cursor: pointer;
+  }
+  
+  .hamburger:before {
+      content:"\2630"; /* hamburger icon */
+      display: block;
+    color: white;
+    line-height: 32px;
+    font-size: 16px;
+  }
+  
+  .openNav .hamburger:before {
+      content:"\2715"; /* close icon */
+      display: block;
+    color: white;
+    line-height: 32px;
+    font-size: 16px;
+  }
+  
+  .hamburger:hover:before {
+    color: #fff;
+  }
+  
+  .primary-nav .menu li {
+      position: relative;
+  }
+  
+  .menu .icon {
+      position: absolute;
+      top: 12px;
+      right: 10px;
+      pointer-events: none;
+    width: 24px;
+    height: 24px;
+    color: #fff;
+  }
+  
+  .menu,
+  .menu a,
+  .menu a:visited {
+    color: #fff;
+    text-decoration: none!important;
+      position: relative;
+  }
+  
+  .menu a {
+    display: block;
+    white-space: nowrap;
+    padding: 1em;
+    font-size: 14px;
+  }
+  
+  .menu a:hover {
+      color: #fff;
+  }
+  
+  .menu {
+      margin-bottom: 3em;
+  }
+.menu-dropdown li i
+{
+    color: white;
+}
+  
+  
+  
+
+  
+  
+  
+  
+  .openNav .new-wrapper {
+    position: absolute;
+    transform: translate3d(200px, 0, 0);
+    width: calc(100% - 250px);
+    transition: transform .45s cubic-bezier(0.77, 0, 0.175, 1);
+  }
+  
+  
+
+  
+  .menu {
+      position: absolute;
+      display: block;
+      left: -200px;
+    top: 0;
+      width: 250px;
+    transition: all 0.45s cubic-bezier(0.77, 0, 0.175, 1);
+    background-color: #3746c5;
+      z-index: 999;
+  }
+  
+  .menu-dropdown {
+    top: 0;
+    overflow-y: auto;
+  }
+  
+  .overflow-container {
+    position: relative;
+    height: calc(100vh - 73px)!important;
+    overflow-y: auto;
+    border-top: 73px solid #3746c5;
+    z-index: -1;
+    display:block;
+  }
+  
+  .menu a.logotype {
+    position: absolute!important;
+    top: 11px;
+    left: 55px;
+    display: block;
+    font-family: 'Work Sans', sans-serif;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: #000;
+    font-size: 21px;
+    padding: 10px;
+  }
+  
+  .menu a.logotype span {
+    font-weight: 400;
+  }
+  
+  .menu a.logotype:hover {
+    color: #777;
+  }
+  
+  
+  .menu:hover {
+      position: absolute;
+      left: 0;
+      top: 0;
+  }
+  
+  .openNav .menu:hover {
+      position: absolute;
+      left: -200px;
+  }
+  
+  .openNav .menu {
+          transform: translate3d(200px, 0, 0);
+      transition: transform .45s cubic-bezier(0.77, 0, 0.175, 1);
+  }
+ 
+  /* look and feel only, not needed for core menu*/
+  
+  @-webkit-keyframes grow {
+      
+    0% {
+      display: none;
+      opacity: 0;
+    }
+    50% {
+      display: block;
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 1;
+    }
+      
+  }
+  
+  @keyframes grow {
+      
+    0% {
+      display: none;
+      opacity: 0;
+    }
+    50% {
+      display: block;
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 1
+    }
+      
+  }
+  .main-panel {
+    margin-left: 50px;
+}
 @media only screen and (max-width: 600px) {
     .search_box {
         width: 100%;
@@ -1682,4 +1961,39 @@ color: white;
     h3.post_main_title:after{display: none;}
     h3.post_main_title:before{display: none;}
     .social-network_singlepage {justify-content: center;}
+    p.usernamedash.mb-0{font-size: 12px;}
+    p.dash_post_content {
+        font-size: 12px;
+        display: block;
+        /* white-space: nowrap; */
+        text-overflow: ellipsis;
+        word-wrap: break-word;
+        overflow: hidden;
+        max-height: 3.6em;
+        line-height: 1.8em;
+        position: relative;
+    }  
+
+    .dash_post_content::after {
+        content: "...";
+        position: absolute;
+        right: 23px;
+        bottom: -1px;
+        font-size: 14px;
+      }
+      .dash_board_title h3 {
+        margin-bottom: 0;
+        white-space: nowrap;
+        width: 280px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .s_dashboard
+{
+    margin-left: 50px;
+}
+.primary-nav {top: 70px;}  
+
+    
+    
 }

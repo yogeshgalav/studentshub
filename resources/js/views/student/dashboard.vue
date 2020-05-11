@@ -1,27 +1,24 @@
 <template>
-    <main>
+    <main class=" pt-100 s_dashboard">
+        <div class="container">
          <div class="row">
-     <div class="col-md-10 center-col">
+     <div class="col-md-8 center-col">
         <slot></slot>
-        <a class="card h-card share" :href="'/share-your-knowledge'">
-        <div class="card-body">
+        <a class=" h-card" :href="'/share-your-knowledge'">
+        <div class="dash_card">
                         Share Your Knowledge
                     </div>  
                     </a>
          </div>
      </div> 
-        <div class="container pt-100">
-            <div class="col-md-10 center-col">
-   
-     
-        <div class="row">
-            <div class="col-md-12">
+         <div class="row main_post_dash">
+
+            <div class="col-md-8 center-col">
+
                  <home-post-container></home-post-container>   
-            </div>   
-        </div>
                 </div>
-            </div>
-       
+         </div>
+        </div>
     </main>
 </template>
 <style scoped>
@@ -69,6 +66,11 @@
         color: #000;
         margin: 2px 0px 2px 0px;
     }
+.main_post_dash {
+    margin-top: 20px;
+}
+
+
 </style>
 
 <script>
