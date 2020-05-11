@@ -4328,6 +4328,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['role'],
   components: {
     CategoryFilter: _category_CategoryFilter__WEBPACK_IMPORTED_MODULE_2__["default"],
     RecentPost: _post_RecentPost__WEBPACK_IMPORTED_MODULE_3__["default"],
@@ -57436,7 +57437,7 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("site-footer")
+      _vm.role === "guest" ? _c("site-footer") : _vm._e()
     ],
     1
   )

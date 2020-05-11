@@ -204,7 +204,7 @@
         </div> 
 
 	
-	<site-footer></site-footer>
+	<site-footer v-if="role==='guest'"></site-footer>
 </section> 
 </template>
 <style scoped>
@@ -327,6 +327,7 @@ h5.social_icon_text {
 	import PostViewHeader from '../post/PostViewHeader';
 
 	export default {
+        props:['role'],
 		components: 
 		{
 			CategoryFilter, RecentPost, SiteFooter,PostInteraction,
