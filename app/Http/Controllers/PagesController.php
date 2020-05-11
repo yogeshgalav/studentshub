@@ -76,7 +76,16 @@ class PagesController extends Controller
     }
 
     public function searchPage(){
-        return view('guest.explore');
+        return view('explore.search');
+    }
+    public function coursePage(){
+        return view('explore.course');
+    }
+    public function subjectPage(){
+        return view('explore.subject');
+    }
+    public function categoryPage(){
+        return view('explore.category');
     }
 
     public function profile(){
