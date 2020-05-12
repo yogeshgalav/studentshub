@@ -122,7 +122,7 @@ class PostController extends Controller
     public function show($post_id){
         $user=Auth::user();
         if($user){
-            \App\Models\PostView::create([
+            \App\Models\PostView::firstOrCreate([
                 'post_id'=>$post_id,
                 'user_id'=>$user->id,
             ]);

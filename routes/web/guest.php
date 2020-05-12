@@ -7,7 +7,10 @@ Route::get('/reset-password/{token}','PagesController@resetPassword');
 Route::get('/logout','AuthController@logout');
 
 Route::get('/post/{ViewPostId}', 'PagesController@viewPost');
-Route::get('/explore/{subject}', 'SearchController@create');
-Route::get('/explore', 'PagesController@searchPage');
 Route::get('/social-auth/{provider}', 'AuthController@redirectToProvider');
 Route::get('/callback/{provider}', 'AuthController@handleProviderCallback');
+//explore routes
+Route::get('/search', 'PagesController@searchPage');
+Route::get('/course/{courseUrl}', 'PagesController@coursePage');
+Route::get('/subject/{subjectUrl}', 'PagesController@subjectPage');
+Route::get('/category/{categoryUrl}', 'PagesController@categoryPage');
