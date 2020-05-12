@@ -3624,6 +3624,53 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -9285,7 +9332,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.card-post h3[data-v-7d71770c],h5[data-v-7d71770c],p[data-v-7d71770c], h6[data-v-7d71770c] {\r\n\tfont-family: 'Open Sans'  !important;\n}\n.card-post h3[data-v-7d71770c] {\r\n\tmargin-bottom:1px;\r\n\tfont-size:14px !important;\n}\n.card-post h5[data-v-7d71770c] {\r\n\tfont-size:12px !important;\r\n\tfont-weight: 400;\r\n\tmargin-bottom:10px !important;\n}\r\n", ""]);
+exports.push([module.i, "\n.card-post h3[data-v-7d71770c],h5[data-v-7d71770c],p[data-v-7d71770c], h6[data-v-7d71770c] {\r\n\tfont-family: 'Open Sans'  !important;\n}\n.card-post h3[data-v-7d71770c] {\r\n\tmargin-bottom:1px;\r\n\tfont-size:14px !important;\n}\n.card-post h5[data-v-7d71770c] {\r\n\tfont-size:12px !important;\r\n\tfont-weight: 400;\r\n\tmargin-bottom:10px !important;\n}\n.text-muted[data-v-7d71770c] {\r\n    color: #6c757d !important;\n}\r\n", ""]);
 
 // exports
 
@@ -56401,118 +56448,131 @@ var render = function() {
       _vm._v(" "),
       _vm._l(_vm.posts, function(post, index) {
         return _c("div", { key: index }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col-md-9" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass: "card-post",
-                    on: {
-                      click: function($event) {
-                        return _vm.redirectPostView(post)
-                      }
+          _c("div", { staticClass: "dash_card card" }, [
+            _c("div", { staticClass: "card_post" }, [
+              _c(
+                "div",
+                {
+                  staticClass: "card_box",
+                  on: {
+                    click: function($event) {
+                      return _vm.redirectPostView(post)
                     }
-                  },
-                  [
-                    _c("div", [
-                      _c("div", { staticClass: "d-flex mt-2" }, [
+                  }
+                },
+                [
+                  _c("div", { staticClass: "cat_sub_name" }, [
+                    _c("p", { staticClass: "mb-0 text-muted" }, [
+                      _vm._v(_vm._s(post.category_name))
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "mb-1 text-muted" }, [
+                      _vm._v(_vm._s(post.subject_name))
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "dashboard_post" }, [
+                    _c(
+                      "div",
+                      { staticClass: "avatar" },
+                      [_c("profile-image", { attrs: { post: post } })],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "info-post ml-2 dash_insititue_name" },
+                      [
                         _c(
-                          "div",
-                          { staticClass: "avatar" },
-                          [_c("profile-image", { attrs: { post: post } })],
-                          1
+                          "p",
+                          { staticClass: "usernamedash mb-0 dash_user_date" },
+                          [
+                            _vm._v("  " + _vm._s(post.user_name) + "  "),
+                            _c("span", [_vm._v("  3 days ago")])
+                          ]
                         ),
                         _vm._v(" "),
-                        _c("div", { staticClass: "info-post ml-2" }, [
-                          _c("p", { staticClass: "username" }, [
-                            _vm._v(_vm._s(post.user_name))
-                          ]),
-                          _vm._v(" "),
-                          _c("p", { staticClass: "date text-muted" }, [
-                            _vm._v(_vm._s(post.institute_name))
-                          ]),
-                          _vm._v(" "),
-                          _c("h5", [_vm._v(_vm._s(post.category_name))]),
-                          _c("br"),
-                          _vm._v(" "),
-                          _c("h5", [_vm._v(_vm._s(post.subject_name))]),
-                          _c("br"),
-                          _vm._v(" "),
-                          _c(
-                            "h3",
-                            { staticClass: "card-title  font-size-16" },
-                            [
-                              _c(
-                                "p",
-                                { staticClass: "weight-600 text-black" },
-                                [
-                                  _vm._v(
-                                    "\r\n\t\t\t\t\t\t\t\t\t\t\t" +
-                                      _vm._s(post.heading) +
-                                      "\r\n\t\t\t\t\t\t\t\t\t\t"
-                                  )
-                                ]
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c("p", [_vm._v(_vm._s(post.content))]),
-                          _c(
-                            "p",
-                            [
-                              _c(
-                                "router-link",
-                                {
-                                  staticClass: "btn p-0 btn-link font-size-12",
-                                  attrs: { to: "/post/" + post.id }
-                                },
-                                [
-                                  _vm._v("Read Continue "),
-                                  _c("i", { staticClass: "fa fa-arrow-right" })
-                                ]
-                              )
-                            ],
-                            1
-                          ),
-                          _c("div", { staticClass: "row" }, [
-                            _c("div", { staticClass: "col-md-4" }, [
-                              _c("i", { staticClass: "fa fa-eye" }),
-                              _vm._v(" "),
-                              _c("span", { staticClass: "badge-text" }, [
-                                _vm._v(_vm._s(post.total_views))
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-md-6" }, [
-                              _c("i", { staticClass: "fa fa-thumbs-up" }),
-                              _vm._v(" "),
-                              _c("span", { staticClass: "badge-text" }, [
-                                _vm._v(_vm._s(post.total_likes))
-                              ])
-                            ])
-                          ])
+                        _c("p", { staticClass: "usernamedash mb-0" }, [
+                          _vm._v(_vm._s(post.institute_name))
+                        ])
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "dash_board_title" }, [
+                    _c(
+                      "h3",
+                      { staticClass: "card-title weight-600 text-black" },
+                      [_vm._v(_vm._s(post.heading))]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row" }, [
+                    _c(
+                      "div",
+                      { staticClass: "col-md-9 col-8" },
+                      [
+                        _c("p", { staticClass: "dash_post_content" }, [
+                          _vm._v(_vm._s(post.content))
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "router-link",
+                          {
+                            staticClass: "btn p-0 btn-link font-size-12",
+                            staticStyle: { "text-decoration": "underline" },
+                            attrs: { to: "/post/" + post.id }
+                          },
+                          [
+                            _vm._v(" Read Continue"),
+                            _c("i", { staticClass: "fab fa-arrow-right" })
+                          ]
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-3 col-4" }, [
+                      _c("img", {
+                        directives: [
+                          {
+                            name: "lazy",
+                            rawName: "v-lazy",
+                            value: post.image_path,
+                            expression: "post.image_path"
+                          }
+                        ],
+                        staticClass: "card-img-top",
+                        attrs: { alt: "Card image cap" }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "dash_post_likes" }, [
+                    _c("div", { staticClass: "post_like" }, [
+                      _c("i", { staticClass: "fab fa-eye" }),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "badge-text" }, [
+                        _vm._v("Views "),
+                        _c("span", { staticClass: "text-primary" }, [
+                          _vm._v(" " + _vm._s(post.total_views))
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "post_like" }, [
+                      _c("i", { staticClass: "fab fa-thumbs-up" }),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "badge-text" }, [
+                        _vm._v("Likes "),
+                        _c("span", { staticClass: "text-primary" }, [
+                          _vm._v(_vm._s(post.total_likes) + " ")
                         ])
                       ])
                     ])
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-3" }, [
-                _c("img", {
-                  directives: [
-                    {
-                      name: "lazy",
-                      rawName: "v-lazy",
-                      value: post.image_path,
-                      expression: "post.image_path"
-                    }
-                  ],
-                  staticClass: "card-img-top",
-                  attrs: { alt: "Card image cap" }
-                })
-              ])
+                  ])
+                ]
+              )
             ]),
             _vm._v(" "),
             _c(

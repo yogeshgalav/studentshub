@@ -6,9 +6,10 @@
             :width="250"
             :is-full-page="true"
         />
+         <div class="login_card col-md-6 center-col">
         <div class="row">
-            <div class="col-md-8 center-col">
-                <div class="card mt-5">
+            <div class="col-md-12 center-col">
+                <div class="logn_right ">
                     <div class="card-body">
                         <form @submit.prevent="()=>{}">
                             <form-wizard :step-data="step_data" @onComplete="onComplete"><template slot="header-row" />
@@ -31,6 +32,7 @@
                 </div>
             </div>
         </div>
+         </div>
     </div>
 </template>
 <style>
@@ -41,6 +43,7 @@
     .custom-link .btn {
         padding: 15px 0;
     }
+    .vue-form-wizard{padding: 0;}
 
     .vue-form-wizard .wizard-template {
         min-height: 100px;

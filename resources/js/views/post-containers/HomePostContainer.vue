@@ -1,13 +1,13 @@
 <template>
   <div>
     <div v-for="(post,index) in posts" :key="index">
-      <div class="dash_card mb-2">
+      <div class="dash_card card mb-2">
         <div class="card_post">
           <div class="card_box">
             <div class="cat_sub_name">
                        <p class="mb-0 text-muted">{{post.category_name}}</p>
                        <p class="mb-1 text-muted">{{post.subject_name}}</p>
-                      </div>
+            </div>
 
               <div class="dashboard_post">
                   <div class="avatar">
