@@ -25,6 +25,7 @@ class PostController extends Controller
         // require($path);
         
         $data=$request->all();
+        dd($data);
         $post_type=$data['post_type'];
         $selected_subject=$data['subject'];
         $heading=$data['heading'];
