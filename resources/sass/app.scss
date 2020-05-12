@@ -1642,6 +1642,10 @@ p.usernamedash.mb-0 {
 .post_like {
     padding: 0px 10px 0 0;
 }
+.post_like {
+    font-size: 12px;
+    color: #868686;
+}
 .dash_insititue_name
 {
   width: 100%;
@@ -1675,6 +1679,17 @@ ul.navbar-nav.menu_head.dash_search {
   outline: none;
 }
 button:focus{ outline: none;}
+
+
+.creat_post_card {
+    background-color: white;
+    margin-top: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.12);
+}
+.creat_post_card .row {
+    align-items: center;
+}
+
  /* Menu Styles */
   
   .primary-nav {
@@ -1993,7 +2008,9 @@ button:focus{ outline: none;}
     margin-left: 50px;
 }
 .primary-nav {top: 70px;}  
-
+.creat_post_card.img_der .row {
+    flex-direction: column-reverse;
+}
     
     
 }

@@ -28,7 +28,7 @@
                     <div class="col-md-9 col-8">
                       <p class="dash_post_content">{{post.content}}</p>
                       <!-- <p class="dash_post_content">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p> -->
-                       <router-link :to="'/post/'+post.id" class="btn p-0 btn-link font-size-12" style="text-decoration: underline;"> Read Continue<i class="fab fa-arrow-right"></i>
+                       <router-link :to="'/post/'+post.id" class="btn p-0 btn-link font-size-12" style="text-decoration: underline;"> Read Continue &nbsp;<i class="fa fa-arrow-right"></i>
                   </router-link>
                     </div>
                     <div class="col-md-3 col-4">
@@ -40,12 +40,12 @@
                                  
                 <div class="dash_post_likes">
                 <div class="post_like">
-                  <i class="fab fa-eye"></i>
-                  <span class="badge-text">Views <span class="text-primary"> {{post.total_views}}</span></span>
+                  <i class="fa fa-eye"></i>
+                  <span class="badge-text"> <span> {{post.total_views}}</span></span>
                 </div>
                 <div class="post_like">
-                  <i class="fab fa-thumbs-up"></i>
-                  <span class="badge-text">Likes <span class="text-primary">{{post.total_likes}} </span></span>
+                  <i class="fa fa-thumbs-up"></i>
+                  <span class="badge-text"> <span>{{post.total_likes}} </span></span>
                 </div>
               </div>
                 </div>
@@ -70,7 +70,11 @@
   </div>
 </template>
 <style  scoped>
-
+a.btn.p-0.btn-link.font-size-12 {
+    display: flex;
+    align-items: center;
+    margin: 4px 0;
+}
 
 </style>
 

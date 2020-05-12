@@ -16,7 +16,7 @@
 
                         <div class="info-post ml-2">
                             <div class="user_img_singe">
-                                <img v-lazy="'/images/4.jpg'" alt="...">
+                                <profile-image :post="post"/>
                             </div>
 
                             <h6 class="username weight-600">{{postContent.user_name}} <span
@@ -70,6 +70,7 @@
             </div>
         </div>
         <!-- <category-filter :categories="categories"></category-filter> -->
+    
         <div class="container ptb-50">
             <div class="col-md-12 col-12 center-col">
                 <div class="row">
@@ -108,7 +109,7 @@
                         <h5 class="weight-600">{{post.heading}}</h5>
                         <div class="d-flex">
                             <div class="recent_post_img">
-                                <img v-lazy="'/images/4.jpg'" alt="...">
+                              <profile-image :post="post"/>
                             </div>
                             <div class="info-post ml-2">
                                 <p class="username">{{post.user_name}}</p>
@@ -132,6 +133,7 @@
             </div>
 
         </div>
+           <div class="single_page_post_card">
         <div class="bg-gray ptb-50">
             <h3 class="post_like_head">You May Also Like</h3>
             <div class="container">
@@ -187,7 +189,7 @@
                 </div>
             </div>
         </div>
-
+           </div>
 
         <site-footer v-if="role==='guest'"></site-footer>
     </section>
@@ -213,8 +215,8 @@
 
     .back_btn {
         position: fixed;
-        top: 100px;
-        left: 15px;
+            top: 120px;
+    left: 80px;
         z-index: 99;
     }
 
@@ -335,6 +337,10 @@
 
     .recent_card_post {
         padding: 12px 10px 0;
+    }
+    .single_page_post_card .row .col-md-4
+    {
+        display: flex;
     }
 </style>
 <script>

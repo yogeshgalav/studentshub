@@ -11,6 +11,7 @@
       <span class="sr-only">{{ trans('vue-progressbar.complete', { percentage: progress_value }) }} </span>
     </div>
   </div>
+
 </template>
 <style scoped>
 

@@ -1,43 +1,6 @@
 <template>
   <div class="vue-form-wizard">
-    <div class="row">
-      <div class="col-md-11 center-col">
-        <div
-          v-if="show_back_button"
-          class=" custom-link mb-2 ml-2 "
-        >
-          <button
-            type="button"
-            class="btn btn-link"
-            @click="prevTab()"
-          >
-            <i
-              class="fa fa-angle-left"
-              aria-hidden="true"
-            />
-            {{ trans('back') }}
-          </button>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <slot name="header-row" />
-    </div>
-
-    <div
-      v-for="step in totalSteps"
-      :key="step"
-      class="row"
-    >
-      <div class="col-md-11 center-col">
-        <slot
-          v-if="step===activeStep"
-          :name="'step'+step"
-        />
-      </div>
-    </div>
-
-    <div class="wizard-card-footer">
+     <div class="wizard-card-foter">
       <div class="container">
         <div class="row">
           <div class="col-md-8 col-6 pt-2">
@@ -60,6 +23,52 @@
         </div>
       </div>
     </div>
+    <div class="hey">
+  <ul class="list-unstyled multi-steps">
+    <li >Type</li>
+    <li class="is-active">Content</li>
+    <li>Category</li>
+    <li >Finish</li>
+  </ul>
+    </div>
+    <!-- <div class="row">
+      <div class="col-md-12">
+        <div
+          v-if="show_back_button"
+          class=" custom-link mb-2 ml-2 "
+        >
+          <button
+            type="button"
+            class="btn btn-link"
+            @click="prevTab()"
+          >
+            <i
+              class="fa fa-angle-left"
+              aria-hidden="true"
+            />
+            {{ trans('back') }}
+          </button>
+        </div>
+      </div>
+    </div> -->
+    <div class="row">
+      <slot name="header-row" />
+    </div>
+
+    <div
+      v-for="step in totalSteps"
+      :key="step"
+      class="row"
+    >
+      <div class="col-md-12">
+        <slot
+          v-if="step===activeStep"
+          :name="'step'+step"
+        />
+      </div>
+    </div>
+
+   
   </div>
 </template>
 <script>
@@ -195,7 +204,7 @@ export default {
     .vue-form-wizard {
         padding-top: 100px;
     }
-    .vue-form-wizard .wizard-card-footer {
+    /* .vue-form-wizard .wizard-card-footer {
         background: #FFFFFF;
         box-shadow: 0 -2px 50px rgba(0, 0, 0, 0.15);
         position: fixed;
@@ -204,7 +213,7 @@ export default {
         padding: 20px 20% 20px 20%;
         z-index: 300;
         left: 0;
-    }
+    } */
 
     .wizard-btn {
         border-radius: 3px;
@@ -216,8 +225,82 @@ export default {
       background-color: rgb(16, 6, 159) !important;
       color:white;
     }
+.multi-steps > li.is-active:before, .multi-steps > li.is-active ~ li:before {
+  content: counter(stepNum);
+  font-family: inherit;
+  font-weight: 700;
+}
+.multi-steps > li.is-active:after, .multi-steps > li.is-active ~ li:after {
+  background-color: #ededed;
+}
+
+.multi-steps {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+}
+.multi-steps > li {
+  counter-increment: stepNum;
+  text-align: center;
+  display: table-cell;
+  position: relative;
+  color: black;
+      z-index: 9;
+}
+.multi-steps > li:before {
+  content: '\f00c';
+  content: '\2713;';
+  content: '\10003';
+  content: '\10004';
+  content: '\2713';
+  display: block;
+  margin: 0 auto 4px;
+  background-color: #fff;
+  width: 36px;
+  height: 36px;
+  line-height: 32px;
+  text-align: center;
+  font-weight: bold;
+  border-width: 2px;
+  border-style: solid;
+  /* border-color: tomato; */
+  border-radius: 50%;
+}
+.multi-steps > li:after {
+  content: '';
+  height: 2px;
+  width: 100%;
+  background-color: black;
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  z-index: -1;
+}
+.multi-steps > li:last-child:after {
+  display: none;
+}
+.multi-steps > li.is-active:before {
+  /* background-color: #fff; */
+  /* border-color: tomato; */
+      background-color: black;
+    color: white;
+}
+.multi-steps > li.is-active ~ li {
+  color: #808080;
+}
+.multi-steps > li.is-active ~ li:before {
+  background-color: #ededed;
+  border-color: #ededed;
+}
+ul.list-unstyled.multi-steps {
+    background-color: white;
+    padding: 15px 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.12);
+    border-radius: 4px;
+}
+
     @media only screen and (max-width:768px) {
-        .vue-form-wizard .wizard-card-footer {
+        /* .vue-form-wizard .wizard-card-footer {
             background: #FFFFFF;
             box-shadow: 0 -2px 50px rgba(0, 0, 0, 0.15);
             position: fixed;
@@ -225,7 +308,7 @@ export default {
             width: 100%;
             padding: 20px 5% 20px 5%;
             left: 0;
-        }
+        } */
         .vue-form-wizard .wizard-header
        {
            padding: 0;

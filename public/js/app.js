@@ -4410,6 +4410,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -9408,7 +9414,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.post_img[data-v-35874454] {\n    width: 100%;\n}\n.single_post_page .row[data-v-35874454] {\n    -webkit-box-align: center;\n            align-items: center;\n}\n.single_post_page[data-v-35874454] {\n    background-color: #f6f6f6;\n    padding: 49px 0;\n    text-align: center;\n}\nsection.single_post[data-v-35874454] {\n    padding: 85px 0;\n}\n.back_btn[data-v-35874454] {\n    position: fixed;\n    top: 100px;\n    left: 15px;\n    z-index: 99;\n}\n.s_page_like[data-v-35874454] {\n    display: -webkit-box;\n    display: flex;\n    -webkit-box-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n            align-items: center;\n    margin-top: 15px;\n}\n.like_1[data-v-35874454] {\n    padding: 0px 10px;\n    color: #868686;\n}\n.user_img_singe[data-v-35874454] {\n    margin-bottom: 15px;\n}\n.user_img_singe img[data-v-35874454] {\n    width: 50px;\n    height: 50px;\n    border-radius: 50px;\n}\n.post_video iframe[data-v-35874454] {\n    width: 100%;\n}\n.post_content[data-v-35874454] {\n    margin-top: 20px;\n}\n.post_content p[data-v-35874454] {\n    color: #868685;\n    line-height: 27px;\n    text-align: justify;\n    position: relative;\n    font-size: 20px;\n}\n.post_content p[data-v-35874454]:before {\n    position: absolute;\n    content: '';\n    background-color: black;\n    height: 70px;\n    width: 2px;\n    left: -12px;\n    top: 8px;\n}\nh3.post_main_title[data-v-35874454] {\n    /* font-size: 22px; */\n    font-weight: 500;\n    line-height: 34px;\n    position: relative;\n}\nh3.post_main_title[data-v-35874454]:before {\n    position: absolute;\n    content: '';\n    /* background-color: red; */\n    left: -36px;\n    width: 15px;\n    height: 15px;\n    top: 16px;\n    border: solid 1px #00c1d5;\n}\nh3.post_main_title[data-v-35874454]:after {\n    position: absolute;\n    content: '';\n    /* background-color: red; */\n    left: -29px;\n    width: 15px;\n    height: 15px;\n    top: 11px;\n    border: solid 1px #00c1d5;\n}\n.post_like_head[data-v-35874454] {\n    text-align: center;\n}\n.social_icon_text[data-v-35874454]:before {\n    position: absolute;\n    content: '';\n    background-color: #272727;\n    width: 37px;\n    height: 1px;\n    right: -43px;\n    bottom: 7px;\n}\nh5.social_icon_text[data-v-35874454] {\n    position: relative;\n    font-weight: 500;\n    color: #868686;\n}\n.recent_post_img img[data-v-35874454] {\n    width: 40px;\n    height: 40px;\n    border-radius: 50px;\n}\nh6.card-title[data-v-35874454] {\n    margin: 0;\n    padding: 10px 9px 0;\n    color: #868686;\n}\nh6.card-title-tag.font-size-12 a[data-v-35874454] {\n    color: #868686;\n}\n.recent_card_post[data-v-35874454] {\n    padding: 12px 10px 0;\n}\n", ""]);
+exports.push([module.i, "\n.post_img[data-v-35874454] {\n    width: 100%;\n}\n.single_post_page .row[data-v-35874454] {\n    -webkit-box-align: center;\n            align-items: center;\n}\n.single_post_page[data-v-35874454] {\n    background-color: #f6f6f6;\n    padding: 49px 0;\n    text-align: center;\n}\nsection.single_post[data-v-35874454] {\n    padding: 85px 0;\n}\n.back_btn[data-v-35874454] {\n    position: fixed;\n        top: 120px;\nleft: 80px;\n    z-index: 99;\n}\n.s_page_like[data-v-35874454] {\n    display: -webkit-box;\n    display: flex;\n    -webkit-box-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n            align-items: center;\n    margin-top: 15px;\n}\n.like_1[data-v-35874454] {\n    padding: 0px 10px;\n    color: #868686;\n}\n.user_img_singe[data-v-35874454] {\n    margin-bottom: 15px;\n}\n.user_img_singe img[data-v-35874454] {\n    width: 50px;\n    height: 50px;\n    border-radius: 50px;\n}\n.post_video iframe[data-v-35874454] {\n    width: 100%;\n}\n.post_content[data-v-35874454] {\n    margin-top: 20px;\n}\n.post_content p[data-v-35874454] {\n    color: #868685;\n    line-height: 27px;\n    text-align: justify;\n    position: relative;\n    font-size: 20px;\n}\n.post_content p[data-v-35874454]:before {\n    position: absolute;\n    content: '';\n    background-color: black;\n    height: 70px;\n    width: 2px;\n    left: -12px;\n    top: 8px;\n}\nh3.post_main_title[data-v-35874454] {\n    /* font-size: 22px; */\n    font-weight: 500;\n    line-height: 34px;\n    position: relative;\n}\nh3.post_main_title[data-v-35874454]:before {\n    position: absolute;\n    content: '';\n    /* background-color: red; */\n    left: -36px;\n    width: 15px;\n    height: 15px;\n    top: 16px;\n    border: solid 1px #00c1d5;\n}\nh3.post_main_title[data-v-35874454]:after {\n    position: absolute;\n    content: '';\n    /* background-color: red; */\n    left: -29px;\n    width: 15px;\n    height: 15px;\n    top: 11px;\n    border: solid 1px #00c1d5;\n}\n.post_like_head[data-v-35874454] {\n    text-align: center;\n}\n.social_icon_text[data-v-35874454]:before {\n    position: absolute;\n    content: '';\n    background-color: #272727;\n    width: 37px;\n    height: 1px;\n    right: -43px;\n    bottom: 7px;\n}\nh5.social_icon_text[data-v-35874454] {\n    position: relative;\n    font-weight: 500;\n    color: #868686;\n}\n.recent_post_img img[data-v-35874454] {\n    width: 40px;\n    height: 40px;\n    border-radius: 50px;\n}\nh6.card-title[data-v-35874454] {\n    margin: 0;\n    padding: 10px 9px 0;\n    color: #868686;\n}\nh6.card-title-tag.font-size-12 a[data-v-35874454] {\n    color: #868686;\n}\n.recent_card_post[data-v-35874454] {\n    padding: 12px 10px 0;\n}\n.single_page_post_card .row .col-md-4[data-v-35874454]\n{\n    display: -webkit-box;\n    display: flex;\n}\n", ""]);
 
 // exports
 
@@ -56978,19 +56984,12 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "info-post ml-2" }, [
-                _c("div", { staticClass: "user_img_singe" }, [
-                  _c("img", {
-                    directives: [
-                      {
-                        name: "lazy",
-                        rawName: "v-lazy",
-                        value: "/images/4.jpg",
-                        expression: "'/images/4.jpg'"
-                      }
-                    ],
-                    attrs: { alt: "..." }
-                  })
-                ]),
+                _c(
+                  "div",
+                  { staticClass: "user_img_singe" },
+                  [_c("profile-image", { attrs: { post: _vm.post } })],
+                  1
+                ),
                 _vm._v(" "),
                 _c("h6", { staticClass: "username weight-600" }, [
                   _vm._v(_vm._s(_vm.postContent.user_name) + " "),
@@ -57150,19 +57149,12 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "d-flex" }, [
-                          _c("div", { staticClass: "recent_post_img" }, [
-                            _c("img", {
-                              directives: [
-                                {
-                                  name: "lazy",
-                                  rawName: "v-lazy",
-                                  value: "/images/4.jpg",
-                                  expression: "'/images/4.jpg'"
-                                }
-                              ],
-                              attrs: { alt: "..." }
-                            })
-                          ]),
+                          _c(
+                            "div",
+                            { staticClass: "recent_post_img" },
+                            [_c("profile-image", { attrs: { post: post } })],
+                            1
+                          ),
                           _vm._v(" "),
                           _c("div", { staticClass: "info-post ml-2" }, [
                             _c("p", { staticClass: "username" }, [
@@ -57199,141 +57191,148 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "bg-gray ptb-50" }, [
-        _c("h3", { staticClass: "post_like_head" }, [
-          _vm._v("You May Also Like")
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "container" }, [
-          _c(
-            "div",
-            { staticClass: "row" },
-            _vm._l(_vm.most_liked, function(post, index) {
-              return _c("div", { key: index, staticClass: "col-md-4" }, [
-                _c("div", { staticClass: "card-post" }, [
-                  _c("img", {
-                    staticClass: "card-img-top post_img_height",
-                    attrs: {
-                      alt: "Card image cap",
-                      "data-src": post.image_path,
-                      src: post.image_path,
-                      lazy: "loaded"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("div", [
-                    _c("div", { staticClass: " mt-2" }, [
-                      _c("div", { staticClass: "post_name_date" }, [
-                        _c("div", { staticClass: "user_name" }, [
-                          _c("div"),
+      _c("div", { staticClass: "single_page_post_card" }, [
+        _c("div", { staticClass: "bg-gray ptb-50" }, [
+          _c("h3", { staticClass: "post_like_head" }, [
+            _vm._v("You May Also Like")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "container" }, [
+            _c(
+              "div",
+              { staticClass: "row" },
+              _vm._l(_vm.most_liked, function(post, index) {
+                return _c("div", { key: index, staticClass: "col-md-4" }, [
+                  _c("div", { staticClass: "card-post" }, [
+                    _c("img", {
+                      staticClass: "card-img-top post_img_height",
+                      attrs: {
+                        alt: "Card image cap",
+                        "data-src": post.image_path,
+                        src: post.image_path,
+                        lazy: "loaded"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("div", [
+                      _c("div", { staticClass: " mt-2" }, [
+                        _c("div", { staticClass: "post_name_date" }, [
+                          _c("div", { staticClass: "user_name" }, [
+                            _c("div"),
+                            _vm._v(" "),
+                            _c("p", { staticClass: "username" }, [
+                              _vm._v(_vm._s(post.user_name))
+                            ])
+                          ]),
                           _vm._v(" "),
-                          _c("p", { staticClass: "username" }, [
-                            _vm._v(_vm._s(post.user_name))
+                          _c("div", { staticClass: "info-post ml-2" }, [
+                            _c("p", { staticClass: "date text-muted" }, [
+                              _vm._v(_vm._s(post.time))
+                            ])
                           ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "info-post ml-2" }, [
-                          _c("p", { staticClass: "date text-muted" }, [
-                            _vm._v(_vm._s(post.time))
-                          ])
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("h3", { staticClass: "card-title mb-1 font-size-16" }, [
-                      _c(
-                        "a",
-                        {
-                          staticClass: "weight-600 text-black",
-                          attrs: { href: "/post/" + post.id }
-                        },
-                        [
-                          _vm._v(
-                            "\n                                    " +
-                              _vm._s(post.heading) +
-                              "\n                                "
-                          )
-                        ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "separator-solid" }),
-                    _vm._v(" "),
-                    _c("p", { staticClass: "card-text post_des" }, [
-                      _vm._v(_vm._s(post.content))
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "wel_view post_views_sec" }, [
-                      _c("div", { staticClass: "post_view" }, [
-                        _c(
-                          "svg",
-                          {
-                            staticClass: "svg-inline--fa fa-eye fa-w-18",
-                            attrs: {
-                              "aria-hidden": "true",
-                              focusable: "false",
-                              "data-prefix": "fa",
-                              "data-icon": "eye",
-                              role: "img",
-                              xmlns: "http://www.w3.org/2000/svg",
-                              viewBox: "0 0 576 512",
-                              "data-fa-i2svg": ""
-                            }
-                          },
-                          [
-                            _c("path", {
-                              attrs: {
-                                fill: "currentColor",
-                                d:
-                                  "M572.52 241.4C518.29 135.59 410.93 64 288 64S57.68 135.64 3.48 241.41a32.35 32.35 0 0 0 0 29.19C57.71 376.41 165.07 448 288 448s230.32-71.64 284.52-177.41a32.35 32.35 0 0 0 0-29.19zM288 400a144 144 0 1 1 144-144 143.93 143.93 0 0 1-144 144zm0-240a95.31 95.31 0 0 0-25.31 3.79 47.85 47.85 0 0 1-66.9 66.9A95.78 95.78 0 1 0 288 160z"
-                              }
-                            })
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "badge-text" }, [
-                          _vm._v(_vm._s(post.total_views))
                         ])
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "post_view" }, [
-                        _c(
-                          "svg",
-                          {
-                            staticClass: "svg-inline--fa fa-thumbs-up fa-w-16",
-                            attrs: {
-                              "aria-hidden": "true",
-                              focusable: "false",
-                              "data-prefix": "fa",
-                              "data-icon": "thumbs-up",
-                              role: "img",
-                              xmlns: "http://www.w3.org/2000/svg",
-                              viewBox: "0 0 512 512",
-                              "data-fa-i2svg": ""
-                            }
-                          },
-                          [
-                            _c("path", {
+                      _c(
+                        "h3",
+                        { staticClass: "card-title mb-1 font-size-16" },
+                        [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "weight-600 text-black",
+                              attrs: { href: "/post/" + post.id }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                    " +
+                                  _vm._s(post.heading) +
+                                  "\n                                "
+                              )
+                            ]
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "separator-solid" }),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "card-text post_des" }, [
+                        _vm._v(_vm._s(post.content))
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "wel_view post_views_sec" }, [
+                        _c("div", { staticClass: "post_view" }, [
+                          _c(
+                            "svg",
+                            {
+                              staticClass: "svg-inline--fa fa-eye fa-w-18",
                               attrs: {
-                                fill: "currentColor",
-                                d:
-                                  "M104 224H24c-13.255 0-24 10.745-24 24v240c0 13.255 10.745 24 24 24h80c13.255 0 24-10.745 24-24V248c0-13.255-10.745-24-24-24zM64 472c-13.255 0-24-10.745-24-24s10.745-24 24-24 24 10.745 24 24-10.745 24-24 24zM384 81.452c0 42.416-25.97 66.208-33.277 94.548h101.723c33.397 0 59.397 27.746 59.553 58.098.084 17.938-7.546 37.249-19.439 49.197l-.11.11c9.836 23.337 8.237 56.037-9.308 79.469 8.681 25.895-.069 57.704-16.382 74.757 4.298 17.598 2.244 32.575-6.148 44.632C440.202 511.587 389.616 512 346.839 512l-2.845-.001c-48.287-.017-87.806-17.598-119.56-31.725-15.957-7.099-36.821-15.887-52.651-16.178-6.54-.12-11.783-5.457-11.783-11.998v-213.77c0-3.2 1.282-6.271 3.558-8.521 39.614-39.144 56.648-80.587 89.117-113.111 14.804-14.832 20.188-37.236 25.393-58.902C282.515 39.293 291.817 0 312 0c24 0 72 8 72 81.452z"
+                                "aria-hidden": "true",
+                                focusable: "false",
+                                "data-prefix": "fa",
+                                "data-icon": "eye",
+                                role: "img",
+                                xmlns: "http://www.w3.org/2000/svg",
+                                viewBox: "0 0 576 512",
+                                "data-fa-i2svg": ""
                               }
-                            })
-                          ]
-                        ),
+                            },
+                            [
+                              _c("path", {
+                                attrs: {
+                                  fill: "currentColor",
+                                  d:
+                                    "M572.52 241.4C518.29 135.59 410.93 64 288 64S57.68 135.64 3.48 241.41a32.35 32.35 0 0 0 0 29.19C57.71 376.41 165.07 448 288 448s230.32-71.64 284.52-177.41a32.35 32.35 0 0 0 0-29.19zM288 400a144 144 0 1 1 144-144 143.93 143.93 0 0 1-144 144zm0-240a95.31 95.31 0 0 0-25.31 3.79 47.85 47.85 0 0 1-66.9 66.9A95.78 95.78 0 1 0 288 160z"
+                                }
+                              })
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "badge-text" }, [
+                            _vm._v(_vm._s(post.total_views))
+                          ])
+                        ]),
                         _vm._v(" "),
-                        _c("span", { staticClass: "badge-text" }, [
-                          _vm._v(_vm._s(post.total_likes))
+                        _c("div", { staticClass: "post_view" }, [
+                          _c(
+                            "svg",
+                            {
+                              staticClass:
+                                "svg-inline--fa fa-thumbs-up fa-w-16",
+                              attrs: {
+                                "aria-hidden": "true",
+                                focusable: "false",
+                                "data-prefix": "fa",
+                                "data-icon": "thumbs-up",
+                                role: "img",
+                                xmlns: "http://www.w3.org/2000/svg",
+                                viewBox: "0 0 512 512",
+                                "data-fa-i2svg": ""
+                              }
+                            },
+                            [
+                              _c("path", {
+                                attrs: {
+                                  fill: "currentColor",
+                                  d:
+                                    "M104 224H24c-13.255 0-24 10.745-24 24v240c0 13.255 10.745 24 24 24h80c13.255 0 24-10.745 24-24V248c0-13.255-10.745-24-24-24zM64 472c-13.255 0-24-10.745-24-24s10.745-24 24-24 24 10.745 24 24-10.745 24-24 24zM384 81.452c0 42.416-25.97 66.208-33.277 94.548h101.723c33.397 0 59.397 27.746 59.553 58.098.084 17.938-7.546 37.249-19.439 49.197l-.11.11c9.836 23.337 8.237 56.037-9.308 79.469 8.681 25.895-.069 57.704-16.382 74.757 4.298 17.598 2.244 32.575-6.148 44.632C440.202 511.587 389.616 512 346.839 512l-2.845-.001c-48.287-.017-87.806-17.598-119.56-31.725-15.957-7.099-36.821-15.887-52.651-16.178-6.54-.12-11.783-5.457-11.783-11.998v-213.77c0-3.2 1.282-6.271 3.558-8.521 39.614-39.144 56.648-80.587 89.117-113.111 14.804-14.832 20.188-37.236 25.393-58.902C282.515 39.293 291.817 0 312 0c24 0 72 8 72 81.452z"
+                                }
+                              })
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "badge-text" }, [
+                            _vm._v(_vm._s(post.total_likes))
+                          ])
                         ])
                       ])
                     ])
                   ])
                 ])
-              ])
-            }),
-            0
-          )
+              }),
+              0
+            )
+          ])
         ])
       ]),
       _vm._v(" "),

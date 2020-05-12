@@ -1,4 +1,5 @@
 <template>
+  <div class="creat_post_card img_der">
     <main>
         <div v-if="postType==='article'">
         <vue-editor id="ArticleEditor" v-model="content" :editorOptions="editorSettings" @input="editContent" 
@@ -21,6 +22,11 @@
             <net-video />
         </div>
     </main>
+    <div class="creat_post_btn">
+                      <button type="submit"  class="login_btn"><span><i class="fa fa-arrow-left" aria-hidden="true"></i></span> Back </button>
+                <button type="submit" class="login_btn">Next <span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></button>
+                </div>
+  </div>
 </template>
 <script>
 import { VueEditor,Quill } from 'vue2-editor'
@@ -73,3 +79,24 @@ export default {
     }
 }
 </script>
+<style  scoped>
+.creat_post_btn button {
+    margin: 20px 15px 0px 0;
+    width: auto;
+}
+
+.creat_post_btn {
+    display: flex;
+}
+.creat_post_card {
+    padding: 20px;
+}
+button.login_btn span {
+    margin: 0px 5px;
+}
+.creat_post_card .form-control
+{
+    border-radius: 0;
+      transform: inherit;
+    }
+</style>
