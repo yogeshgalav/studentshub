@@ -93,8 +93,8 @@ export default {
     ProfileImage
   },
   mounted() {
-    route= this.$route.path;
-    if(this.route.name==='search'){
+    var route= this.$route.path;
+    if(this.$route.name==='search'){
         this.$store.dispatch('common/getSearchPageContent',this.$route.query.query);
         return true;
     }

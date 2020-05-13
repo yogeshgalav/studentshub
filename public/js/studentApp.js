@@ -2141,9 +2141,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   mounted: function mounted() {
     var _this = this;
 
-    route = this.$route.path;
+    var route = this.$route.path;
 
-    if (this.route.name === 'search') {
+    if (this.$route.name === 'search') {
       this.$store.dispatch('common/getSearchPageContent', this.$route.query.query);
       return true;
     }

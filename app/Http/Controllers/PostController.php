@@ -158,9 +158,9 @@ class PostController extends Controller
         return $response;
       }
 
-      public function coursePosts(){
+      public function coursePosts(Request $request){
         $post=new \App\Post;
-        $response = $post->getSearchPosts($request);
+        $response = $post->getCoursePosts($request);
         
         $search=new \App\Models\Search;
         $search->query=$request->route('courseUrl');
@@ -175,9 +175,9 @@ class PostController extends Controller
         return $response;
       }
       
-      public function subjectPosts(){
+      public function subjectPosts(Request $request){
         $post=new \App\Post;
-        $response = $post->getSearchPosts($request);
+        $response = $post->getSubjectPosts($request);
         
         $search=new \App\Models\Search;
         $search->query=$request->route('subjectUrl');
@@ -192,9 +192,9 @@ class PostController extends Controller
         return $response;
       }
 
-      public function categoryPosts(){
+      public function categoryPosts(Request $request){
         $post=new \App\Post;
-        $response = $post->getSearchPosts($request);
+        $response = $post->getCategoryPosts($request);
         
         $search=new \App\Models\Search;
         $search->query=$request->route('categoryUrl');
