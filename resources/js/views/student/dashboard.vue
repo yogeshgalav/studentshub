@@ -2,20 +2,66 @@
     <main class=" pt-100 s_dashboard">
         <div class="container">
          <div class="row">
-     <div class="col-md-8 center-col">
+              <div class="col-md-3 center-col">
+                <div class="category_part">
+                    <div class="cat_head">
+                        <h6>CATEGORIES</h6>
+                    </div> 
+                      <div class="cat_list">
+                          <p><a href="">Technology</a></p>
+                          <p><a href="">Mangament</a></p>
+                          <p><a href="">Health Care</a></p>
+                          <p><a href="">Arts</a></p>
+                          <p><a href="">Science</a></p>
+                          <p><a href="">Economics</a></p>
+                          <p><a href="">Education</a></p>
+                          <p><a href="">Pharmacy</a></p>
+                          <p><a href="">Journalism</a></p>
+                          <p><a href="">Humanity</a></p>
+                          <p><a href="">Hospitality</a></p>
+                          <p><a href="">Fashion</a></p>
+                          <p><a href="">Computer</a></p>
+                          
+                    </div>     
+                </div>
+                </div>
+     <div class="col-md-6 col-12 center-col">
         <slot></slot>
-        <a class=" h-card" :href="'/share-your-knowledge'">
-        <div class="dash_card">
-                        Share Your Knowledge
-                    </div>  
-                    </a>
+        <a class=" h-card" :href="'/share-your-knowledge'"> <div class="dash_card">Share Your Knowledge</div>  </a>
+        <div class="home_post">
+             <home-post-container></home-post-container>   
+        </div>   
+
          </div>
+<div class="col-md-3 center-col">
+                <div class="category_part">
+                    <div class="cat_head">
+                        <h6>COURSES</h6>
+                    </div>
+                   <div class="cat_list">
+                          <p><a href="">Technology</a></p>
+                          <p><a href="">Mangament</a></p>
+                          <p><a href="">Health Care</a></p>
+                          <p><a href="">Arts</a></p>
+                          <p><a href="">Science</a></p>
+                          <p><a href="">Economics</a></p>
+                          <p><a href="">Education</a></p>
+                          <p><a href="">Pharmacy</a></p>
+                          <p><a href="">Journalism</a></p>
+                          <p><a href="">Humanity</a></p>
+                          <p><a href="">Hospitality</a></p>
+                          <p><a href="">Fashion</a></p>
+                          <p><a href="">Computer</a></p>
+                          
+                    </div>     
+                </div>
+                </div>
      </div> 
          <div class="row main_post_dash">
 
             <div class="col-md-8 center-col">
 
-                 <home-post-container></home-post-container>   
+                
                 </div>
          </div>
         </div>
@@ -69,7 +115,45 @@
 .main_post_dash {
     margin-top: 20px;
 }
+.home_post {
+    margin-top: 20px;
+}
 
+/* catergorry list css */
+
+.cat_head {
+    border-bottom: solid 1px #ccc;
+    padding: 0px 0 5px;
+    margin-bottom: 20px;
+}
+
+.cat_list a {
+    color: black;
+    font-weight: 600;
+}
+.cat_list a:hover
+{
+    text-decoration: none;
+}
+.cat_list {
+    margin-left: 25px;
+}
+.cat_list p[data-v-0099dcd1] {
+    /* margin: 0; */
+    position: relative;
+}
+
+.cat_list p:before {
+    position: absolute;
+    content: '';
+     background-color: #F2F2F2;
+    width: 15px;
+    height: 15px;
+    border-radius: 50px;
+    left: -25px;
+    border: solid 1px #ccc;
+    top: 3px;
+}
 
 </style>
 
