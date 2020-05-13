@@ -27,17 +27,18 @@ Vue.mixin({
     components:{
         Loading
     },
-    data(){
-        return {
-            explore_search:'',
-        };
-    },
     methods: {
         '$trans':function(file,string,defaultString){
             return window.lang[file][string] ? window.lang[file][string] : (defaultString ? defaultString : string);
         },
         redirectPostView(post){
             document.title = post.heading;
+        },
+        toggleSidebar(e){
+            e.preventDefault();
+            document.documentElement.classList.toggle("openNav");
+            var menu = document.querySelector('.nav-toggle') // Using a class instead, see note below.
+            menu.classList.toggle('active');
         },
         bottomVisible() {
             const scrollY = window.scrollY
@@ -46,16 +47,6 @@ Vue.mixin({
             const bottomOfPage = visible + scrollY >= pageHeight
             return bottomOfPage || pageHeight < visible
           },
-          exploreSearch(){
-            let path=`/explore`;
-            if(!this.explore_search){
-                return false;
-            }else if(this.$route.path !== path){
-                this.$router.replace({ path: '/explore', 'query':{'search':this.explore_search}});
-            }else{
-                this.$store.dispatch('common/getSearchPageContent',this.explore_search);
-            }
-          }
     },
     computed: {
         baseUrl() {

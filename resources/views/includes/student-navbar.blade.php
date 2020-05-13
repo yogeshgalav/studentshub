@@ -71,7 +71,7 @@
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <div class="d-flex p-2">
 										<div class="avatar user_img_dash">
-											<img src="/images/4.jpg" class="avatar-img">
+											<img src="/images/4.jpg" class="avatar-img" style="width:50px;height:50px;">
 										</div>
 										<div class="info-post ml-2 mt-2">
                                         <p class="username">{{$AuthUser->full_name}}</p>
@@ -98,10 +98,3 @@
   </div>
 </nav>
 </div>
-<style>
-    .user_img img
-    {
-        width:50px;
-        height:50px;
-    }
-</style>
