@@ -12,5 +12,7 @@ Route::post('/reset-password','AuthController@resetPassword');
 // Route::get('/get-view-post/{ViewPostId}', 'PostController@viewPost');
 Route::get('/get-explore-posts', 'ExploreController@index');
 
-Route::get('/explore', 'SearchController@searchPosts');
-Route::get('/explore/{subject}', 'SearchController@searchSubjectPosts');
+Route::get('/search', 'PostController@searchPosts');
+Route::get('/course/{courseUrl}', 'PostController@coursePosts');
+Route::get('/subject/{subjectUrl}', 'PostController@subjectPosts');
+Route::get('/category/{categoryUrl}', 'PostController@categoryPosts');

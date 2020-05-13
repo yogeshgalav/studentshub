@@ -16,6 +16,58 @@ class Post extends PostModel
         $this->student=Auth::student();
     }
 
+    public function getSubjectPosts(Request $request){
+        if($this->student){
+            $post_query=$this->getStudentPostTables();
+        }else{
+            $post_query=$this->getSeekerPostTabels();     
+        }
+
+        $posts=$post_query->where('sub.subject_url',$request->route('subjectUrl'))
+        ->orderBy('po.created_at','DESC')
+        ->paginate();
+
+        $this->formatPostData($posts);
+        
+        return response()->json(['success'=>[
+            'posts'=>$posts
+        ]]);
+    }
+
+    public function getCategoryPosts(Request $request){
+        if($this->student){
+            $post_query=$this->getStudentPostTables();
+        }else{
+            $post_query=$this->getSeekerPostTabels();     
+        }
+
+        $posts=$post_query->where('cat.category_url',$request->route('categoryUrl'))
+        ->orderBy('po.created_at','DESC')
+        ->paginate();
+
+        $this->formatPostData($posts);
+        
+        return response()->json(['success'=>[
+            'posts'=>$posts
+        ]]);
+    }
+    public function getCoursePosts(Request $request){
+        if($this->student){
+            $post_query=$this->getStudentPostTables();
+        }else{
+            $post_query=$this->getSeekerPostTabels();     
+        }
+
+        $posts=$post_query->where('course.id',$request->route('courseUrl'))
+        ->orderBy('po.created_at','DESC')
+        ->paginate();
+
+        $this->formatPostData($posts);
+        
+        return response()->json(['success'=>[
+            'posts'=>$posts
+        ]]);
+    }
     public function getSearchPosts(Request $request){
         if($this->student){
             $post_query=$this->getStudentPostTables();
@@ -23,13 +75,6 @@ class Post extends PostModel
             $post_query=$this->getSeekerPostTabels();     
         }
 
-        if(!empty($request->cId)){
-            $post_query->where('sp.course_id','=',$request->cId);    
-        }
-
-        if(!empty($request->sId)){
-            $post_query->where('po.subject_id','=',$request->sId);
-        }
         $posts=$post_query->where('sub.Subject_name','LIKE','%'.$request->search.'%')
         ->orWhere('cat.name','LIKE','%'.$request->search.'%')
         ->orWhere('po.post_heading','LIKE','%'.$request->search.'%')

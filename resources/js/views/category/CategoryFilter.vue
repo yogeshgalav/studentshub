@@ -13,6 +13,10 @@
                     <a :href="'/category/'+category.category_url" class="btn btn-white cat_btn" v-for="(category,index) in categories" :key="index">{{category.name}}</a>
 
             </div>
+
+            <div class="category_btn">
+              <button>Find Out</button>
+            </div> 
         
         </div>
     
@@ -71,12 +75,25 @@
 
 .cat_menu h3 {
     text-align: center;
-    margin-bottom: 25px;
+    margin-bottom: 40px;
     position: relative;
     /* color: #868686; */
 }
 
+.category_btn button {
+    border: none;
+    background-color: #10069f;
+    padding: 10px 50px;
+    border-radius: 5px;
+    color: white;
+    text-align: center;
+    font-weight: 600;
+}
 
+.category_btn {
+    text-align: center;
+    margin-top: 25px;
+}
   
 </style> 
 

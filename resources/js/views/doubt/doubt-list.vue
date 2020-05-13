@@ -1,6 +1,10 @@
 <template>
    <main>
-       <div class="container">
+       <div class="container pt-100">
+
+
+
+           
            <div class="row">
                <form @submit.prevent="addDoubtModal"  >
                    <div class="col-md-8 form-group">

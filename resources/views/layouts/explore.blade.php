@@ -12,7 +12,7 @@
 <link rel="shortcut icon" type="image/png" href="{{asset('favicon.png')}}" />
 </head>
 <body>
-    <div id="app">
+    <div id="exploreApp">
         <main class="flex-center position-ref full-height">   
 <div class="main-header">
      @include('includes.guest-navbar')

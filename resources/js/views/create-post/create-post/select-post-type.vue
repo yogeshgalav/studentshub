@@ -13,7 +13,7 @@
                    <div class="text-center"> <p class="title weight-600 font-size-16 text-black">Select Post Type</p></div>
                     <label class="weight-500">Choose type</label>
                     <div class="input_icon_frm">
-                        <span class="icon_design_input"><i class="fa fa-user"></i></span>
+                        <span class="icon_design_input"><i class="fa fa-newspaper" aria-hidden="true"></i></span>
                     <select class="form-control custom-select" v-model="selected_type">
                         <option v-for="type in postTypes" :key="type">
                              {{type}}

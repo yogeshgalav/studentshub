@@ -25,7 +25,7 @@ class PostController extends Controller
         // require($path);
         
         $data=$request->all();
-        dd($data);
+        return response()->json($data,200);
         $post_type=$data['post_type'];
         $selected_subject=$data['subject'];
         $heading=$data['heading'];
@@ -140,4 +140,72 @@ class PostController extends Controller
             'most_liked'=>$most_liked,
         ]]);        
     }
+
+    public function searchPosts(Request $request){
+        $post=new \App\Post;
+        $response = $post->getSearchPosts($request);
+        
+        $search=new \App\Models\Search;
+        $search->query=trim($request->query);
+        // $search->type='query';
+        if($response){
+          $search->success=true;
+        }else{
+          $search->success=false;
+        }
+        $search->save();
+  
+        return $response;
+      }
+
+      public function coursePosts(Request $request){
+        $post=new \App\Post;
+        $response = $post->getCoursePosts($request);
+        
+        $search=new \App\Models\Search;
+        $search->query=$request->route('courseUrl');
+        // $search->type='course';
+        if($response){
+          $search->success=true;
+        }else{
+          $search->success=false;
+        }
+        $search->save();
+  
+        return $response;
+      }
+      
+      public function subjectPosts(Request $request){
+        $post=new \App\Post;
+        $response = $post->getSubjectPosts($request);
+        
+        $search=new \App\Models\Search;
+        $search->query=$request->route('subjectUrl');
+        // $search->type='subject';
+        if($response){
+          $search->success=true;
+        }else{
+          $search->success=false;
+        }
+        $search->save();
+  
+        return $response;
+      }
+
+      public function categoryPosts(Request $request){
+        $post=new \App\Post;
+        $response = $post->getCategoryPosts($request);
+        
+        $search=new \App\Models\Search;
+        $search->query=$request->route('categoryUrl');
+        // $search->type='category';
+        if($response){
+          $search->success=true;
+        }else{
+          $search->success=false;
+        }
+        $search->save();
+  
+        return $response;
+      }
 }

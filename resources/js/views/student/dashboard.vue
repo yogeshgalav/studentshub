@@ -2,29 +2,6 @@
     <main class=" pt-100 s_dashboard">
         <div class="container">
          <div class="row">
-              <div class="col-md-3 center-col">
-                <div class="category_part">
-                    <div class="cat_head">
-                        <h6>CATEGORIES</h6>
-                    </div> 
-                      <div class="cat_list">
-                          <p><a href="">Technology</a></p>
-                          <p><a href="">Mangament</a></p>
-                          <p><a href="">Health Care</a></p>
-                          <p><a href="">Arts</a></p>
-                          <p><a href="">Science</a></p>
-                          <p><a href="">Economics</a></p>
-                          <p><a href="">Education</a></p>
-                          <p><a href="">Pharmacy</a></p>
-                          <p><a href="">Journalism</a></p>
-                          <p><a href="">Humanity</a></p>
-                          <p><a href="">Hospitality</a></p>
-                          <p><a href="">Fashion</a></p>
-                          <p><a href="">Computer</a></p>
-                          
-                    </div>     
-                </div>
-                </div>
      <div class="col-md-6 col-12 center-col">
         <slot></slot>
         <a class=" h-card" :href="'/share-your-knowledge'"> <div class="dash_card">Share Your Knowledge</div>  </a>
@@ -33,10 +10,10 @@
         </div>   
 
          </div>
-<div class="col-md-3 center-col">
+<div class="col-md-6 center-col">
                 <div class="category_part">
                     <div class="cat_head">
-                        <h6>COURSES</h6>
+                        <h6>CATEROIES</h6>
                     </div>
                    <div class="cat_list">
                           <p><a href="">Technology</a></p>
@@ -138,7 +115,7 @@
 .cat_list {
     margin-left: 25px;
 }
-.cat_list p[data-v-0099dcd1] {
+.cat_list p {
     /* margin: 0; */
     position: relative;
 }

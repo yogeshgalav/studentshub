@@ -75,8 +75,8 @@ class PagesController extends Controller
         return view('student.edit-post');
     }
 
-    public function searchPage(){
-        return view('explore.search');
+    public function searchPage(Request $request){
+        return view('explore.search')->with('query',$request->query);
     }
     public function coursePage(){
         return view('explore.course');

@@ -1,7 +1,7 @@
-<form @submit.prevent="exploreSearch">
+<form method="GET" action="/search">
     <div id="custom-search-input">
             <div class="input-group">
-                <input type="text" class="search-query form-control" name="explore_search" v-model="explore_search" placeholder="What do you want to learn ?" />
+                <input type="text" class="search-query form-control" name="query"  placeholder="Search..." />
                 <span class="input-group-btn">
                     <button class="btn btn-link" type="submit">
                         <i class=" fa fa-search text-black weight-400"></i>

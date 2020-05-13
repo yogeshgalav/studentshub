@@ -13,7 +13,7 @@
                     <div class="text-center"> <p class="title weight-600 font-size-16 text-black">What is the subject of your Post.</p></div>
                     <label class="weight-500">Subject</label>
                     <div class="input_icon_frm">
-                        <span class="icon_design_input"><i class="fa fa-user"></i></span>
+                        <span class="icon_design_input"><i class="fa fa-file" aria-hidden="true"></i></span>
                         <input type="text" @input="editSubject" class="form-control">
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                     <label> {{ 'Category' }} </label>
                   <div class="inner-addon left-addon">
                    <div class="input_icon_frm">
-                        <span class="icon_design_input"><i class="fa fa-user"></i></span>
+                        <span class="icon_design_input"><i class="fa fa-file" aria-hidden="true"></i></span>
                     <select class="form-control" v-model="selected_category">
                         <option v-for="category in categories" :key="category.id">{{category.name}}</option>
                     </select>

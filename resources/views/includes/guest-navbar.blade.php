@@ -1,30 +1,9 @@
-<!-- Navbar Header -->
-<!-- <div class="container">
-    <div class="row">
-        <div class="col-md-3">
-            <router-link :to="'/'">
-                <img src="{{asset('/images/logo.png') }}" alt="Student Hub"/>
-            </router-link>
-        </div>
-        <div class="col-md-6">
-            @include('includes.search-form')
-            </div>
-            <div class="col-md-3 text-right">
-                    <router-link class="btn btn-link text-black" :to="'/login'">Login</router-link>
-                    <router-link class="btn btn-primary weight-400" :to="'/get-started'">Get Started <i class="fas fa-arrow-right text-white"></i> </router-link>
-                </div>
-    </div>
-</div> -->
-<!-- End Navbar -->
-
-
-
 <div class="container">
     
 <nav class="navbar navbar-expand-lg navbar-light ">
     <div class="logo">
 <router-link :to="'/'">
-                <img src="{{asset('/images/logo.png') }}" alt="Student Hub"/>
+                <img src="{{asset('/images/logo.png') }}" alt="Student'sHUB"/>
             </router-link>
 </div>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

@@ -11,4 +11,3 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::post('/doubt/{doubtId}/add-answer','DoubtAnswersController@addDoubtAnswer');
     Route::get('/doubt/{doubtId}/get-answers','DoubtAnswersController@getDoubtAnswers');
 });
-Route::post('/submit-post','PostController@create');
