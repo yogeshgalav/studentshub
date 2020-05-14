@@ -13,15 +13,15 @@
 
     <ul class="menu-dropdown">
 
-      <li><a href="#">Doubts</a><span class="icon"><i class="fa fa-home"></i></span></li>
+      <li><a href="#">Doubts</a><span class="icon"><i class="fas fa-question-circle"></i></span></li>
 
-      <li><a href="#">Home</a><span class="icon"><i class="fa fa-heart"></i></span></li>
+      <li><a href="#">Home</a><span class="icon"><i class="fa fa-home"></i></span></li>
 
-      <li><a href="#">Saved Posts</a><span class="icon"><i class="fa fa-envelope"></i></span></li>
+      <li><a href="#">Saved Posts</a><span class="icon"><i class="fas fa-save"></i></span></li>
 
-      <li><a href="#">Profile</a><span class="icon"><i class="fa fa-envelope"></i></span></li>
+      <li><a href="#">Profile</a><span class="icon"><i class="fa fa-user" aria-hidden="true"></i></span></li>
 
-      <li><a href="#">Logout</a><span class="icon"><i class="fa fa-envelope"></i></span></li>
+      <li><a href="#">Logout</a><span class="icon"><i class="fa fa-power-off"></i></span></li>
 
     </ul>
 

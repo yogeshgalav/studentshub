@@ -1,5 +1,31 @@
 <template>
-  <div>
+  <div class="category_list_page">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 center-col">
+                <div class="category_part">
+                    <div class="cat_head">
+                        <h6>CATEGORIES</h6>
+                    </div> 
+                      <div class="cat_list">
+                          <p><a href="">Technology</a></p>
+                          <p><a href="">Mangament</a></p>
+                          <p><a href="">Health Care</a></p>
+                          <p><a href="">Arts</a></p>
+                          <p><a href="">Science</a></p>
+                          <p><a href="">Economics</a></p>
+                          <p><a href="">Education</a></p>
+                          <p><a href="">Pharmacy</a></p>
+                          <p><a href="">Journalism</a></p>
+                          <p><a href="">Humanity</a></p>
+                          <p><a href="">Hospitality</a></p>
+                          <p><a href="">Fashion</a></p>
+                          <p><a href="">Computer</a></p>
+                          
+                    </div>     
+                </div>
+                </div>
+                <div class="col-md-6">
     <div v-for="(post,index) in posts" :key="index">
       <div class="dash_card card mb-2">
         <div class="card_post">
@@ -25,16 +51,17 @@
                   <!-- <h3 class="card-title weight-600 text-black">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit adipisci velit adipisci velit</h3> -->
               </div>     
                   <div class="row">
-                    <div class="col-md-3 col-4">
-                  <img class="card-img-top" v-lazy="post.image_path" alt="Card image cap" />
-                
-                </div>  
+                   
                     <div class="col-md-9 col-8">
                       <p class="dash_post_content">{{post.content}}</p>
                       <!-- <p class="dash_post_content">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p> -->
                        <router-link :to="'/post/'+post.id" class="btn p-0 btn-link font-size-12" style="text-decoration: underline;"> Read Continue &nbsp;<i class="fa fa-arrow-right"></i>
                   </router-link>
                     </div>
+                       <div class="col-md-3 col-4">
+                  <img class="card-img-top" v-lazy="post.image_path" alt="Card image cap" />
+                
+                </div>
                  
                 </div>
                                  
@@ -67,6 +94,32 @@
         </div>
       </div>
     </div>
+                </div>
+                <div class="col-md-3 center-col">
+                <div class="category_part">
+                    <div class="cat_head">
+                        <h6>CATEGORIES</h6>
+                    </div> 
+                      <div class="cat_list">
+                          <p><a href="">Technology</a></p>
+                          <p><a href="">Mangament</a></p>
+                          <p><a href="">Health Care</a></p>
+                          <p><a href="">Arts</a></p>
+                          <p><a href="">Science</a></p>
+                          <p><a href="">Economics</a></p>
+                          <p><a href="">Education</a></p>
+                          <p><a href="">Pharmacy</a></p>
+                          <p><a href="">Journalism</a></p>
+                          <p><a href="">Humanity</a></p>
+                          <p><a href="">Hospitality</a></p>
+                          <p><a href="">Fashion</a></p>
+                          <p><a href="">Computer</a></p>
+                          
+                    </div>     
+                </div>
+                </div>
+    </div>
+    </div>
   </div>
 </template>
 <style  scoped>
@@ -74,6 +127,45 @@ a.btn.p-0.btn-link.font-size-12 {
     display: flex;
     align-items: center;
     margin: 4px 0;
+}
+.category_list_page {
+    padding: 130px 0;
+}
+
+/* catergorry list css */
+
+.cat_head {
+    border-bottom: solid 1px #ccc;
+    padding: 0px 0 5px;
+    margin-bottom: 20px;
+}
+
+.cat_list a {
+    color: black;
+    font-weight: 600;
+}
+.cat_list a:hover
+{
+    text-decoration: none;
+}
+.cat_list {
+    margin-left: 25px;
+}
+.cat_list p {
+    /* margin: 0; */
+    position: relative;
+}
+
+.cat_list p:before {
+    position: absolute;
+    content: '';
+     background-color: #F2F2F2;
+    width: 15px;
+    height: 15px;
+    border-radius: 50px;
+    left: -25px;
+    border: solid 1px #ccc;
+    top: 3px;
 }
 
 </style>

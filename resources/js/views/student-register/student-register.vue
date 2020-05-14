@@ -27,7 +27,7 @@
                     <label> {{ trans('Institute Name') }} </label>
                   <div class="inner-addon left-addon">
                      <div class="input_icon_frm">
-                    <span class="icon_design_input"><i class="fa fa-user"></i></span>
+                    <span class="icon_design_input" style="height: 43px;"><i class="fa fa-user"></i></span>
                     <auto-complete
                     :items="institute_list"
                     :value="'name'"
@@ -47,7 +47,7 @@
                     <label> {{ trans('Course/Branch Name') }} </label>
                   <div class="inner-addon left-addon">
                     <div class="input_icon_frm">
-                    <span class="icon_design_input"> <i class="fa fa-user"></i></span>
+                    <span class="icon_design_input"  style="height: 44px;"> <i class="fa fa-user"></i></span>
                     <auto-complete
                     :items="course_list"
                     :value="'course_name'"
@@ -114,7 +114,7 @@
                 >
                 </div>
                  <div class="input_icon_frm">
-                  <span id="basic-addon1" class="icon_design_input" ><i class="fas fa-calendar"></i></span>
+                  <span id="basic-addon1" class="icon_design_input" ><i class="fa fa-calendar"></i></span>
 
                 <date-picker
                   id="event_date"
@@ -183,9 +183,9 @@
             </div>
             </div> -->
                 <div class="form-group d-flex s_register_btn">
-                  
+                    <a href="/" class="skip_btn">{{ trans('Skip') }}</a>
                  <button type="submit" class="login_btn">{{ trans('Register') }}</button>
-                  <a href="/" class="login_btn">{{ trans('Skip') }}</a>
+                
                 </div>
               </form>
                 </div>
@@ -223,16 +223,8 @@
   border-radius: 0 !important;
 }
 /* style glyph */
-.inner-addon .fa {
-  position: absolute;
-  padding: 18px;
-  pointer-events: none;
-}
 
 /* align glyph */
-.left-addon .fa {
-  left: 0px;
-}
 .right-addon .fa {
   right: 0px;
 }
@@ -245,13 +237,24 @@
 .display-flex{
   display:flex;
 }
-.s_register_btn a {
+.s_register_btn button {
  margin: 0px 0px 0 15px;
 }
 .select_box{width: 100%;    border-radius: 0;    border: solid 1px#ccc;}
 .register .input-group-text{border-radius: 0;}
 .form-group.d-flex.s_register_btn {
       margin: 20px 0 0;
+}
+a.skip_btn {
+    width: 50%;
+    background-color: white;
+    border: solid 1px #ccc;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    border-radius: 5px;
 }
 </style>
 <script>

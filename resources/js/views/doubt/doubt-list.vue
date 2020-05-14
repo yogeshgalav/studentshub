@@ -1,6 +1,10 @@
 <template>
    <main>
-       <div class="container">
+       <div class="container pt-100">
+
+
+
+           
            <div class="row">
                <form @submit.prevent="addDoubtModal"  >
                    <div class="col-md-8 form-group">
@@ -108,6 +112,10 @@ export default {
     {
         addDoubtModal(){
             this.$modal.show('add_doubt_modal');
+        },
+        searchDoubt(){
+            axios.get("api/search-doubts/")
+            .then(response => {this.doubtList = response.data.success.doubtList})
         },
         addDoubt()
         {     

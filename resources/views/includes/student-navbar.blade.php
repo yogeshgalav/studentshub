@@ -63,6 +63,7 @@
       <li class="nav-item active search_box ">
       @include('includes.search-form')
       </li>
+      <li><span><i class="fa fa-bell"></i></span></li>
       <li class="nav-item">
       <div class="dropdown">
                         <button class="btn btn-sm btn-default border-radius-12 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
