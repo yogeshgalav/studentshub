@@ -88,12 +88,12 @@ class PagesController extends Controller
         return view('explore.category');
     }
 
-    public function profile(){
-        return view('student.profile');
-    }
-
     public function checkin(){
         return view('student-register.student-register');
+    }
+
+    public function profile(){
+        return view('profile.profile');
     }
 
     public function classroomList(){
