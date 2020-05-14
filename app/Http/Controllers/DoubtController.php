@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Auth;
 use Arr;
 use DB;
+use Carbon\Carbon;
 
 class DoubtController extends Controller
 {
@@ -53,15 +54,34 @@ class DoubtController extends Controller
     public function getDoubts(Request $request)
     {
         $student=Auth::student();
-        $Doubts=Doubt::whereHas('subject.course_subjects',function($query)use($student){
+        $doubts=Doubt::whereHas('subject.course_subjects',function($query)use($student){
             $query->where('course_id','=',$student->courseId);
         })
         ->orWhere('batch_id',$student->batchId)
+        ->join('users as us','us.id','=','doubts.user_id')
+        ->join('batches as pbt','pbt.id','=','doubts.batch_id')
+        ->join('institutes as inst','inst.id','=','pbt.institute_id')
+        ->join('subjects as sub','sub.id','=','doubts.subject_id')
+        ->select('us.full_name as user_name','sub.Subject_name','inst.name as inst_name','doubts.question','doubts.created_at','doubts.id',)
         ->get();
+
+        foreach($doubts as $doubt){
+            $doubt_content = DB::table('doubts')->where('doubts.id',$doubt->id)
+            ->leftJoin('doubt_answers as ans','doubts.id','=','ans.doubt_id')
+            ->leftJoin('likes as li',function($join){
+                $join->on('doubts.id','=','li.likable_id')->where('li.likable_type','=','App\Models\Doubt')->where('li.like_status','=',1);
+            })
+            ->select(DB::raw('COUNT(distinct li.user_id) as total_likes'),DB::raw('COUNT(distinct ans.user_id) as total_answers'))
+            ->groupBy(['doubts.id'])
+            ->first();
+            $doubt->total_likes=$doubt_content->total_likes;
+            $doubt->total_answers=$doubt_content->total_answers;
+            $doubt->time=Carbon::createFromTimeStamp(strtotime($doubt->created_at))->diffForHumans();
+        }
 
         return response()->json([
             'success'=>[
-                'doubtList'=>$Doubts
+                'doubtList'=>$doubts
             ]
         ]);
     }

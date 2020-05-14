@@ -25,19 +25,18 @@
         <div class="col-md-8 center-col">
 							<div class="doubt_lsit">
                                 <div class="cat_sub_name">
-                       <p class="mb-0 text-muted">{{doubt.category_name}} Technology</p>
-                       <!-- <p class="mb-1 text-muted">{{doubt.subject_name}}</p> -->
+                       <p class="mb-0 text-muted">{{doubt.Subject_name}}</p>
             </div>
 
               <div class="dashboard_post">
                   <div class="avatar doubt_user_img">
-                      <!-- <profile-image :post="post" /> -->
-                      <span>Y</span>
+                      <profile-image :post="doubt" />
+                      <!-- <span>Y</span> -->
                     </div>
                     <div class="info-post ml-2 dash_insititue_name">
                       
-                      <p class="usernamedash mb-0 dash_user_date">  {{doubt.user_name}} Yogesh Sharma <span> {{doubt.created_at}}</span></p>
-                      <p class="usernamedash mb-0">{{doubt.institute_name}} Poornima Institute Of college</p>
+                      <p class="usernamedash mb-0 dash_user_date">  {{doubt.user_name}}<span> {{doubt.time}}</span></p>
+                      <p class="usernamedash mb-0">{{doubt.inst_name}}</p>
 
                     </div>   
               </div>  
@@ -56,13 +55,11 @@
                                     </div>
 									</div>
                                     <div class="doubt_like_view">
-										<div class="doubt_like">
-											<span class="badge-text"><i class="fa fa-eye"></i> {{doubt.total_answers}}</span>
-                                            
+										<div class="doubt_like">                                            
 											<span class="badge-text"><i class="fa fa-thumbs-up"></i> {{doubt.total_likes}}</span>
 										</div>
 										<div class="doubt_answer">
-											<p><a href="">Answer</a></p>
+											<p><router-link :to="'/doubt/'+doubt.id">Answer</router-link></p>
 										</div>
 									</div>
 										
