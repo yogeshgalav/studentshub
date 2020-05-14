@@ -12,6 +12,9 @@ class Course extends Model
     public function category(){
         return $this->belongsTo('App\Models\Category');
     }
+    public function subjects(){
+        return $this->belongsToMany('App\Models\Subject','course_subjects');
+    }
     public function batch(){
         return $this->hasMany('App\Models\Batch');
     }

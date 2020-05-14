@@ -2055,6 +2055,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2072,7 +2074,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    axios.get("api/get-doubts/").then(function (response) {
+    this.axios.get("api/get-doubts/").then(function (response) {
       _this.doubtList = response.data.success.doubtList;
     });
   },
@@ -2083,7 +2085,9 @@ __webpack_require__.r(__webpack_exports__);
     searchDoubt: function searchDoubt() {
       var _this2 = this;
 
-      axios.get("api/search-doubts/").then(function (response) {
+      this.axios.post("api/search-doubts/", {
+        query: this.search_doubt
+      }).then(function (response) {
         _this2.doubtList = response.data.success.doubtList;
       });
     },
@@ -3572,24 +3576,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     HomePostContainer: _post_containers_HomePostContainer__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   data: function data() {
-    return {};
+    return {
+      student_course: '',
+      course_subjects: []
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    this.axios.get("/api/get-student-course-details").then(function (resp) {
+      _this.student_course = resp.data.success.course.course_name;
+      _this.course_subjects = resp.data.success.course.subjects;
+    });
   },
   methods: {
     trans: function trans(string, defaultString) {
@@ -53322,7 +53326,7 @@ var render = function() {
               on: {
                 submit: function($event) {
                   $event.preventDefault()
-                  return _vm.addDoubtModal($event)
+                  return _vm.searchDoubt($event)
                 }
               }
             },
@@ -53355,7 +53359,19 @@ var render = function() {
                 })
               ]),
               _vm._v(" "),
-              _vm._m(0)
+              _vm._m(0),
+              _vm._v(" "),
+              _c("div", { staticClass: " col-md-2 form-group" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "button" },
+                    on: { click: _vm.addDoubtModal }
+                  },
+                  [_vm._v("Ask new Doubt")]
+                )
+              ])
             ]
           )
         ]),
@@ -53454,7 +53470,7 @@ var render = function() {
               },
               [
                 _vm._v(
-                  "\n            Ask Doubt from students of your course.\n            If you ask for any concept, it will increase the probability of answering it.\n            "
+                  "\n            Ask Doubt about concepts which belongs to your Course.\n            Initially this doubt will be shared with students of your batch and course.\n            "
                 ),
                 _c("div", { staticClass: "col-md-12" }, [
                   _c("label", [_vm._v("Doubt")]),
@@ -53536,7 +53552,7 @@ var staticRenderFns = [
       _c(
         "button",
         { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-        [_vm._v("Clear your Doubt")]
+        [_vm._v("search")]
       )
     ])
   },
@@ -54914,54 +54930,33 @@ var render = function() {
           2
         ),
         _vm._v(" "),
-        _vm._m(0)
+        _c("div", { staticClass: "col-md-1 center-col" }, [
+          _c("div", { staticClass: "category_part" }, [
+            _c("div", { staticClass: "cat_head" }, [
+              _c("h6", [_vm._v(_vm._s(_vm.student_course))])
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "cat_list" },
+              _vm._l(_vm.course_subjects, function(subject) {
+                return _c("p", { key: subject.id }, [
+                  _c("a", { attrs: { href: subject.subject_url } }, [
+                    _vm._v(_vm._s(subject.Subject_name))
+                  ])
+                ])
+              }),
+              0
+            )
+          ])
+        ])
       ]),
       _vm._v(" "),
-      _vm._m(1)
+      _vm._m(0)
     ])
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-6 center-col" }, [
-      _c("div", { staticClass: "category_part" }, [
-        _c("div", { staticClass: "cat_head" }, [
-          _c("h6", [_vm._v("CATEROIES")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "cat_list" }, [
-          _c("p", [_c("a", { attrs: { href: "" } }, [_vm._v("Technology")])]),
-          _vm._v(" "),
-          _c("p", [_c("a", { attrs: { href: "" } }, [_vm._v("Mangament")])]),
-          _vm._v(" "),
-          _c("p", [_c("a", { attrs: { href: "" } }, [_vm._v("Health Care")])]),
-          _vm._v(" "),
-          _c("p", [_c("a", { attrs: { href: "" } }, [_vm._v("Arts")])]),
-          _vm._v(" "),
-          _c("p", [_c("a", { attrs: { href: "" } }, [_vm._v("Science")])]),
-          _vm._v(" "),
-          _c("p", [_c("a", { attrs: { href: "" } }, [_vm._v("Economics")])]),
-          _vm._v(" "),
-          _c("p", [_c("a", { attrs: { href: "" } }, [_vm._v("Education")])]),
-          _vm._v(" "),
-          _c("p", [_c("a", { attrs: { href: "" } }, [_vm._v("Pharmacy")])]),
-          _vm._v(" "),
-          _c("p", [_c("a", { attrs: { href: "" } }, [_vm._v("Journalism")])]),
-          _vm._v(" "),
-          _c("p", [_c("a", { attrs: { href: "" } }, [_vm._v("Humanity")])]),
-          _vm._v(" "),
-          _c("p", [_c("a", { attrs: { href: "" } }, [_vm._v("Hospitality")])]),
-          _vm._v(" "),
-          _c("p", [_c("a", { attrs: { href: "" } }, [_vm._v("Fashion")])]),
-          _vm._v(" "),
-          _c("p", [_c("a", { attrs: { href: "" } }, [_vm._v("Computer")])])
-        ])
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

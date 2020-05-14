@@ -6,13 +6,15 @@
 
            
            <div class="row">
-               <form @submit.prevent="addDoubtModal"  >
+               <form @submit.prevent="searchDoubt">
                    <div class="col-md-8 form-group">
                        <input type="text"  name="doubt" v-model="search_doubt" class="form-control" placeholder="Ask Question">
-
                    </div>
                    <div class=" col-md-2 form-group">
-                       <button type="submit" class="btn btn-primary">Clear your Doubt</button>
+                       <button type="submit" class="btn btn-primary">search</button>
+                   </div>
+                   <div class=" col-md-2 form-group">
+                       <button type="button" @click="addDoubtModal" class="btn btn-primary">Ask new Doubt</button>
                    </div>
                </form>
            </div>
@@ -64,8 +66,8 @@
 <modal name="add_doubt_modal">
     <div class="row">
         <form @submit.prevent="addDoubt">
-            Ask Doubt from students of your course.
-            If you ask for any concept, it will increase the probability of answering it.
+            Ask Doubt about concepts which belongs to your Course.
+            Initially this doubt will be shared with students of your batch and course.
             <div class="col-md-12">
                 <label>Doubt</label>
                 <input class="form-control" type="text" v-model="question">
@@ -104,7 +106,7 @@ export default {
 
     },
     mounted() {
-    axios.get("api/get-doubts/")
+    this.axios.get("api/get-doubts/")
     .then(response => {this.doubtList = response.data.success.doubtList})
 
 },
@@ -114,7 +116,7 @@ export default {
             this.$modal.show('add_doubt_modal');
         },
         searchDoubt(){
-            axios.get("api/search-doubts/")
+            this.axios.post("api/search-doubts/",{query:this.search_doubt})
             .then(response => {this.doubtList = response.data.success.doubtList})
         },
         addDoubt()

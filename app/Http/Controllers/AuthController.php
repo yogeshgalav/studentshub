@@ -39,7 +39,7 @@ class AuthController extends Controller
                 Passport::tokensExpireIn(now()->addDay(30));
                 // Passport::refreshTokensExpireIn(now()->addDay(30));
             }else{
-                Passport::tokensExpireIn(now()->addHour());
+                Passport::tokensExpireIn(now()->addHour(3));
                 // Passport::refreshTokensExpireIn(now()->addHour());
             }
 

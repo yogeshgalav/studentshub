@@ -149,4 +149,11 @@ class StudentController extends Controller
             'institutes'=>$institutes
         ]]);
     }
+
+    public function getCourseSubjects(){
+        $course=Course::where('id',Auth::student()->courseId)->with('subjects')->first();
+        return response()->json(['success'=>[
+            'course'=>$course
+        ]]);
+    }
 }
