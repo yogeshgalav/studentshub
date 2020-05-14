@@ -24,14 +24,18 @@ class DoubtController extends Controller
         DB::beginTransaction();
     try{
 
-        $subject_id=Subject::firstOrCreate([
-            'subject_name'=>$request->subject
-        ])->id;
+        $subject_name=strtolower($request->subject);
+        $subject=Subject::firstOrCreate([
+            'subject_url'=>urlencode($subject_name),
+            ],[
+            'Subject_name'=>$subject_name,
+            'category_id'=>$student->categoryId
+            ]);  
 
         $q = new Doubt();
         $q->user_id = Auth::user()->id;
         $q->question = $request->doubt;
-        $q->subject_id = $subject_id;
+        $q->subject_id = $subject->id;
         $q->batch_id = $student->batchId;
         $q->save();
 

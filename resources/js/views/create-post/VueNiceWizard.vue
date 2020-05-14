@@ -2,7 +2,7 @@
   <div class="vue-form-wizard">
      <div class="wizard-card-foter">
       <div class="container">
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-md-8 col-6 pt-2">
             <progress-bar
               :progress="progress"
@@ -20,15 +20,15 @@
               <span v-else >{{ trans('Next') }}</span>
             </button>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="hey">
   <ul class="list-unstyled multi-steps">
-    <li >Type</li>
-    <li class="is-active">Content</li>
-    <li>Category</li>
-    <li >Finish</li>
+    <li :class="activeStep===1 ? 'is-active' : ''">Type</li>
+    <li :class="activeStep===2 ? 'is-active' : ''">Content</li>
+    <li :class="activeStep===3 ? 'is-active' : ''">Category</li>
+    <li :class="activeStep===4 ? 'is-active' : ''">Finish</li>
   </ul>
     </div>
     <!-- <div class="row">
@@ -122,6 +122,8 @@ export default {
 		}
 	},
 	mounted(){
+		EventBus.$on('nextTab', () => { this.nextTab() });
+		EventBus.$on('prevTab', () => { this.prevTab() });
 		EventBus.$on('validateWizard', (step,valid) => {
 			if(step===this.activeStep && valid===true){
         if(this.isLastStep){

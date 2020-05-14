@@ -60,6 +60,8 @@
 <modal name="add_doubt_modal">
     <div class="row">
         <form @submit.prevent="addDoubt">
+            Ask Doubt from students of your course.
+            If you ask for any concept, it will increase the probability of answering it.
             <div class="col-md-12">
                 <label>Doubt</label>
                 <input class="form-control" type="text" v-model="question">
@@ -114,6 +116,8 @@ export default {
     .then(resp => {
         
             this.$modal.hide('add_doubt_modal');
+            this.question="";
+            this.subject="";
     })
     .catch(err => {
       reject(err)

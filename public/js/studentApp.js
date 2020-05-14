@@ -1987,6 +1987,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2020,6 +2022,9 @@ __webpack_require__.r(__webpack_exports__);
         subject: this.subject
       }).then(function (resp) {
         _this2.$modal.hide('add_doubt_modal');
+
+        _this2.question = "";
+        _this2.subject = "";
       })["catch"](function (err) {
         reject(err);
       });
@@ -2417,6 +2422,11 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
 //
 //
 //
@@ -53173,6 +53183,9 @@ var render = function() {
                 }
               },
               [
+                _vm._v(
+                  "\n            Ask Doubt from students of your course.\n            If you ask for any concept, it will increase the probability of answering it.\n            "
+                ),
                 _c("div", { staticClass: "col-md-12" }, [
                   _c("label", [_vm._v("Doubt")]),
                   _vm._v(" "),
@@ -53702,32 +53715,38 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "dash_board_title" }, [
-                _c("h3", { staticClass: "card-title weight-600 text-black" }, [
-                  _vm._v(_vm._s(post.heading))
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-md-3 col-4" }, [
-                  _c("img", {
-                    directives: [
-                      {
-                        name: "lazy",
-                        rawName: "v-lazy",
-                        value: post.image_path,
-                        expression: "post.image_path"
-                      }
-                    ],
-                    staticClass: "card-img-top",
-                    attrs: { alt: "Card image cap" }
-                  })
-                ]),
+              _c("div", { staticClass: "row mb-1 mt-1" }, [
+                _c("hr"),
+                _vm._v(" "),
+                post.image_path
+                  ? _c("div", { staticClass: "col-md-3 col-4" }, [
+                      _c("img", {
+                        directives: [
+                          {
+                            name: "lazy",
+                            rawName: "v-lazy",
+                            value: post.image_path,
+                            expression: "post.image_path"
+                          }
+                        ],
+                        staticClass: "card-img-top",
+                        attrs: { alt: "Card image cap" }
+                      })
+                    ])
+                  : _vm._e(),
                 _vm._v(" "),
                 _c(
                   "div",
                   { staticClass: "col-md-9 col-8" },
                   [
+                    _c("div", { staticClass: "dash_board_title" }, [
+                      _c(
+                        "h3",
+                        { staticClass: "card-title weight-600 text-black" },
+                        [_vm._v(_vm._s(post.heading))]
+                      )
+                    ]),
+                    _vm._v(" "),
                     _c("p", { staticClass: "dash_post_content" }, [
                       _vm._v(_vm._s(post.content))
                     ]),
@@ -53746,7 +53765,9 @@ var render = function() {
                     )
                   ],
                   1
-                )
+                ),
+                _vm._v(" "),
+                _c("hr")
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "dash_post_likes" }, [
@@ -53754,7 +53775,9 @@ var render = function() {
                   _c("i", { staticClass: "fa fa-eye" }),
                   _vm._v(" "),
                   _c("span", { staticClass: "badge-text" }, [
-                    _c("span", [_vm._v(" " + _vm._s(post.total_views))])
+                    _c("span", [
+                      _vm._v(" " + _vm._s(post.total_views) + " Views")
+                    ])
                   ])
                 ]),
                 _vm._v(" "),
@@ -53762,7 +53785,17 @@ var render = function() {
                   _c("i", { staticClass: "fa fa-thumbs-up" }),
                   _vm._v(" "),
                   _c("span", { staticClass: "badge-text" }, [
-                    _c("span", [_vm._v(_vm._s(post.total_likes) + " ")])
+                    _c("span", [_vm._v(_vm._s(post.total_likes) + " Likes")])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "post_like" }, [
+                  _c("i", { staticClass: "fa fa-thumbs-down" }),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "badge-text" }, [
+                    _c("span", [
+                      _vm._v(_vm._s(post.total_dislikes) + " Dislikes")
+                    ])
                   ])
                 ])
               ])

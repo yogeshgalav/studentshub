@@ -40,8 +40,8 @@
                   </div>
                 </div>
                  <div class="creat_post_btn">
-                    <button type="submit"  class="login_btn"><span><i class="fa fa-arrow-left" aria-hidden="true"></i></span> Back </button>
-                    <button type="submit" class="login_btn">Next <span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></button>
+                    <button type="button" @click="prevTab" class="login_btn"><span><i class="fa fa-arrow-left" aria-hidden="true"></i></span> Back </button>
+                    <button type="button" @click="nextTab" class="login_btn">Next <span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></button>
                 </div>
             </div>
             </div>
@@ -121,7 +121,13 @@ export default {
         },
         getSubject(subject_id){
             this.$store.dispatch('getSubjectList',{subject_id:subject_id});
-        }
+        },
+        nextTab(){
+            EventBus.$emit('nextTab');
+        },
+        prevTab(){
+            EventBus.$emit('prevTab');
+        },
     }
 }
 </script>

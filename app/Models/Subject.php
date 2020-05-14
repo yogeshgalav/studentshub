@@ -20,4 +20,7 @@ class Subject extends Model
     public function courses(){
         return $this->belongsToMany('App\Models\Course','course_subjects');
     }
+    public function course_subjects(){
+        return $this->hasMany('App\Models\CourseSubject');
+    }
 }

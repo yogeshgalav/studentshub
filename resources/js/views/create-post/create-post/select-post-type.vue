@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div class="creat_post_btn">
-                <button type="submit" class="login_btn">Next <span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></button>
+                <button type="button" @click="nextTab" class="login_btn">Next <span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></button>
                 </div>
                 </div>
             </div>
@@ -87,5 +87,10 @@ export default {
 			// });
 		});
     },
+    methods:{
+        nextTab(){
+            EventBus.$emit('nextTab');
+        },
+    }
 }
 </script>

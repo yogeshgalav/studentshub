@@ -23,9 +23,9 @@
         </div>
     </main>
     <div class="creat_post_btn">
-                      <button type="submit"  class="login_btn"><span><i class="fa fa-arrow-left" aria-hidden="true"></i></span> Back </button>
-                <button type="submit" class="login_btn">Next <span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></button>
-                </div>
+                <button type="button" @click="prevTab" class="login_btn"><span><i class="fa fa-arrow-left" aria-hidden="true"></i></span> Back </button>
+                <button type="button" @click="nextTab" class="login_btn">Next <span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></button>
+    </div>
   </div>
 </template>
 <script>
@@ -75,6 +75,12 @@ export default {
     methods:{
         editContent(){
             this.$store.commit('set_post_article_content',{postContent:this.content});
+        },
+        nextTab(){
+            EventBus.$emit('nextTab');
+        },
+        prevTab(){
+            EventBus.$emit('prevTab');
         },
     }
 }
