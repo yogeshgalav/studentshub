@@ -30,13 +30,24 @@
   </div>
 </form>
 </div>
-<div>
-	<textarea type="text" v-model="description"></textarea>
+<div class="col-md-8">
+<div class="document_text">
+	<textarea type="text" v-model="description" placeholder="Description"></textarea>
+</div>
 </div>
 </div>
 </template>
 <style scoped>
+.document_text {
+    margin-top: 30px;
+}
 
+.document_text textarea {
+    width: 100%;
+    border-radius: 4px;
+	padding: 10px 15px;
+    height: 80px;
+}
 
 .box
 				{
@@ -105,7 +116,6 @@
   display: inline-block;
   	background:rgb(151, 151, 229);
 } */
-
 
 </style>
 

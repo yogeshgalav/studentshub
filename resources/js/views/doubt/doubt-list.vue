@@ -1,59 +1,74 @@
 <template>
-   <main>
+   <main class="doubt_main_page">
        <div class="container pt-100">
 
-
-
            
-           <div class="row">
-               <form @submit.prevent="searchDoubt">
-                   <div class="col-md-8 form-group">
-                       <input type="text"  name="doubt" v-model="search_doubt" class="form-control" placeholder="Ask Question">
+               <form @submit.prevent="searchDoubt" class="doubt_search_box">
+                    <div class="row">
+                   <div class="col-md-8 center-col">
+                       <div class="doubt_header doubt_box_page">
+                        <div class="dount_search">
+                        <input type="text"  name="doubt" v-model="search_doubt" class="form-control" placeholder="Ask Question">
+                        <span class="doubt_search_btn"><button type="submit" class="btn btn-link"><i class=" fa fa-search text-black weight-400"></i> </button></span>
+                        </div>
+                        <div class="ask_btn">
+                       <button type="button" @click="addDoubtModal" class="ask_doubt_btn">Ask new Doubt</button>
                    </div>
-                   <div class=" col-md-2 form-group">
-                       <button type="submit" class="btn btn-primary">search</button>
                    </div>
-                   <div class=" col-md-2 form-group">
-                       <button type="button" @click="addDoubtModal" class="btn btn-primary">Ask new Doubt</button>
+                   </div>
+                   
                    </div>
                </form>
-           </div>
+           
 <div v-for="(doubt,index) in doubtList" :key="index">
     <div  class="row">
-        <div class="col-md-9">
-							<div class="card-post">
-						<div>
+        <div class="col-md-8 center-col">
+							<div class="doubt_lsit">
+                                <div class="cat_sub_name">
+                       <p class="mb-0 text-muted">{{doubt.category_name}} Technology</p>
+                       <!-- <p class="mb-1 text-muted">{{doubt.subject_name}}</p> -->
+            </div>
+
+              <div class="dashboard_post">
+                  <div class="avatar doubt_user_img">
+                      <!-- <profile-image :post="post" /> -->
+                      <span>Y</span>
+                    </div>
+                    <div class="info-post ml-2 dash_insititue_name">
+                      
+                      <p class="usernamedash mb-0 dash_user_date">  {{doubt.user_name}} Yogesh Sharma <span> {{doubt.created_at}}</span></p>
+                      <p class="usernamedash mb-0">{{doubt.institute_name}} Poornima Institute Of college</p>
+
+                    </div>   
+              </div>  
 									<div class="d-flex mt-2">
 										<div class="avatar">
 											<img v-lazy="'/images/4.jpg'" class="avatar-img rounded-circle">
 										</div>
 										<div class="info-post ml-2">
 											<p class="username">{{doubt.user_name}}</p>
-											<p class="date text-muted">{{doubt.created_at}}</p>
+											<!-- <p class="date text-muted">{{doubt.created_at}}</p> -->
                                             <h3 class="card-title  font-size-16">
 										<router-link :to="'/doubt/'+doubt.id"  class="weight-600 text-black">
 											{{doubt.question}}
 										</router-link>
 									</h3>
-                                    <div class="row">
-										<div class="col-md-4">
-											<i class="fa fa-eye"></i>
-											<span class="badge-text">{{doubt.total_answers}}</span>
+                                    </div>
+									</div>
+                                    <div class="doubt_like_view">
+										<div class="doubt_like">
+											<span class="badge-text"><i class="fa fa-eye"></i> {{doubt.total_answers}}</span>
+                                            
+											<span class="badge-text"><i class="fa fa-thumbs-up"></i> {{doubt.total_likes}}</span>
 										</div>
-										<div class="col-md-6">
-											<i class="fa fa-thumbs-up"></i>
-											<span class="badge-text">{{doubt.total_likes}}</span>
+										<div class="doubt_answer">
+											<p><a href="">Answer</a></p>
 										</div>
 									</div>
-										</div>
-									</div>
-
+										
 									
+
 								
-									
-
-                                   
-								</div>
 							</div>
 						</div>
     </div>
@@ -63,30 +78,42 @@
         </div>
     </div>
 </div>
-<modal name="add_doubt_modal">
-    <div class="row">
+<modal name="add_doubt_modal" class="doubt_model">
+    
         <form @submit.prevent="addDoubt">
-            Ask Doubt about concepts which belongs to your Course.
-            Initially this doubt will be shared with students of your batch and course.
+            <div class="model_box_inner">
+            <div class="row">
+                <div class="col-md-12">
+                  <p class="model_box_head">  Ask Doubt about concepts which belongs to your Course.
+                    Initially this doubt will be shared with students of your batch and course.</p>
+                </div>
             <div class="col-md-12">
-                <label>Doubt</label>
-                <input class="form-control" type="text" v-model="question">
+                <div class="model_input">
+                    <label>Doubt</label>
+                    <input class="form-control" type="text" placeholder="Enter Your Doubt" v-model="question">
+                </div>
             </div>
             <div class="col-md-12">
-                <label>Subject</label>
-                <input class="form-control" type="text" v-model="subject">
+                <div class="model_input">
+                    <label>Subject</label>
+                    <input class="form-control" type="text" v-model="subject" placeholder="Enter Your Subject">
+                </div>
             </div>
             <div class="col-md-12">
-                <button type="submit" class="btn btn-primary">submit</button>
+                <div class="model_btn">
+                    <button type="submit" class="ask_doubt_btn">submit</button>
+                </div>    
+            </div>
+            </div>
             </div>
         </form>
-    </div>
+    
 </modal>
        </div>
    </main>
 </template>
 <style scoped>
- 
+
 </style>
 <script>
 import VModal from 'vue-js-modal'

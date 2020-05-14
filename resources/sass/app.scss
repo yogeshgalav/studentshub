@@ -1914,6 +1914,84 @@ button:focus{ outline: none;}
   .main-panel {
     margin-left: 50px;
 }
+
+
+
+.doubt_search_box
+{
+    width: 100%;
+        margin-bottom: 30px;
+}
+.dount_search {
+   position: relative;
+   width: 75%;
+}
+.doubt_search_btn {
+   position: absolute;
+   top: 4px;
+   right: 0px;
+}
+.doubt_box_page {
+box-shadow: 0 0 10px rgba(0,0,0,0.12);
+   background-color: white;
+   padding: 20px;
+   border-radius: 5px;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   flex-wrap: wrap;
+}
+.doubt_lsit
+{
+   box-shadow: 0 0 10px rgba(0,0,0,0.12);
+   background-color: white;
+   padding: 20px;
+   border-radius: 5px;
+}
+button.ask_doubt_btn {
+   border: none;
+background: linear-gradient(90deg, #020024 0%, #090979 0%, #0475c0 0%, #00d4ff 79%);
+   padding: 10px 20px;
+   border-radius: 3px;
+   color: white;
+   font-weight: 500;
+   font-size: 15px;
+}
+.model_box_inner {
+   padding: 10px 20px;
+}
+.model_input {
+   margin-bottom: 10px;
+}
+
+.model_input label {
+   color: #858586;
+}
+p.model_box_head {
+   font-size: 15px;
+   text-align: center;
+   color: #868658;
+}
+.doubt_like_view {
+   display: flex;
+   justify-content: space-between;
+       margin-top: 15px;
+}
+.doubt_like span {
+   color: #868686;
+   padding: 10px 10px 0 0;
+}
+main.doubt_main_page {
+   margin-left: 20px;
+}
+.doubt_model .v--modal-box.v--modal {
+   
+   left: 0 !important;
+   height: auto !important;
+   right: 0 !important;
+   margin: 0 auto !important;
+   width: 50% !important;
+}
 @media only screen and (max-width: 600px) {
     .search_box {
         width: 100%;
@@ -2007,7 +2085,7 @@ button:focus{ outline: none;}
       .dash_board_title h3 {
         margin-bottom: 0;
         white-space: nowrap;
-        width: 230px;
+        width: auto;
         overflow: hidden;
         text-overflow: ellipsis;
       }
@@ -2015,6 +2093,16 @@ button:focus{ outline: none;}
 .creat_post_card.img_der .row {
     flex-direction: column-reverse;
 }
-    
-    
+.form-control
+{
+    transform: inherit !important;
+}
+.doubt_model .v--modal-box.v--modal {
+    width: 95% !important;
+}
+.dount_search {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+}
 }

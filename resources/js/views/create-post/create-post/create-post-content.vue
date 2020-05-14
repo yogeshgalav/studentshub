@@ -1,5 +1,5 @@
 <template>
-  <div class="creat_post_card img_der">
+  <div class="creat_post_card img_der artical_page">
     <main>
         <div v-if="postType==='article'">
         <vue-editor id="ArticleEditor" v-model="content" :editorOptions="editorSettings" @input="editContent" 

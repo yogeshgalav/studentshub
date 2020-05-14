@@ -1,28 +1,55 @@
 <template>
+<div class="video_box">
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-4">
+            <div class="video_link form-group">
             <label for="videoLink">Youtube Video Link</label>
 
-            <input type="text" id="videoLink" @blur="embedVideo">
-            
-        </div>
-        <div v-if="!is_video_embeded"
-            class="p-5 gray-box text-center mt-3"
-            >
+            <input type="text" id="videoLink" class="form-control" @blur="embedVideo">
+            </div>
+             <div v-if="!is_video_embeded" class="video_image">
             <i class="fa fa-video font-size-120 text-light-gray" />
         </div>
-       <div v-if="is_video_embeded" class="p-5 mt-3">
+        </div>
+        <div class="col-md-8">
+        <div v-if="is_video_embeded" class="p-5 mt-3">
             <iframe :src="video_url" width="320" height="240" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
             <span class="text-danger" v-if="video_error">{{video_error}}</span>
         </div>
-        <div class="row">
+        </div>
+      
+       
+    </div>
+     <div class="row">
             <div class="col-md-8 mt-2">
-                <label for="videoDescription">A little Description</label>
-                <textarea id="videoDescription" v-model="video_description" />
+                <div class="video_des">
+                    <label for="videoDescription">A little Description</label>
+                    <textarea id="videoDescription" v-model="video_description" />
+                </div>
             </div>
         </div>
-    </div>
+</div>   
 </template>
+<style>
+.video_link input {
+    width: 100%;
+    transform: inherit;
+}
+.video_image {
+    background-color: #ccc;
+    /* padding: 50px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    font-size: 60px;
+}
+.video_des textarea {
+    width: 100%;
+    border-radius: 5px;
+    height: 65px;
+}
+</style>
 <script>
 
 import { mapState } from 'vuex';

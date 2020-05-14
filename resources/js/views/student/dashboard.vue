@@ -2,15 +2,15 @@
     <main class=" pt-100 s_dashboard">
         <div class="container">
          <div class="row">
-     <div class="col-md-6 col-12 center-col">
+     <div class="col-md-8 col-12 center-col">
         <slot></slot>
-        <a class=" h-card" :href="'/share-your-knowledge'"> <div class="dash_card">Share Your Knowledge</div>  </a>
+        <a class=" h-card" :href="'/share-your-knowledge'"> <div class="dash_card know_img"><img src="/images/knowledge.svg" alt=""> Share Your Knowledge <span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></div>  </a>
         <div class="home_post">
              <home-post-container></home-post-container>   
         </div>   
 
          </div>
-<div class="col-md-1 center-col">
+<div class="col-md-4">
                 <div class="category_part">
                     <div class="cat_head">
                         <h6>{{student_course}}</h6>
@@ -40,8 +40,20 @@
     .pt-50
     {
         padding-top: 50px;
-    }
-
+    }main.pt-100.s_dashboard {
+    margin-left: 60px;
+}
+.dash_card.know_img img {
+    margin-right: 10px;
+    width: 30px;
+}
+.dash_card.know_img span {
+    margin-left: 5px;
+}
+.dash_card.know_img {
+    display: flex;
+    align-items: center;
+}
     .main-habit-builder .btn-default {
         background: #fff !important;
         box-shadow: 2px 2px 2px #bbbbcc;
@@ -120,7 +132,11 @@
     border: solid 1px #ccc;
     top: 3px;
 }
-
+@media only screen and (max-width: 600px) {
+main.pt-100.s_dashboard {
+    margin-left: 0;
+}
+}
 </style>
 
 <script>
