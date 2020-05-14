@@ -66,11 +66,9 @@ class DoubtController extends Controller
         ]);
     }
 
-    public function searchDoubts(){
-        $Doubts=Doubt::whereHas('subject.course_subjects',function($query)use($student){
-            $query->where('course_id','=',$student->courseId);
-        })
-        ->get();
+    public function searchDoubts(Request $request){
+        $search=implode('%',$this->extractKeyWords($request->query));
+        $Doubts=Doubt::where('question','LIKE','%',$search,'%')->get();
 
         return response()->json([
             'success'=>[
@@ -86,7 +84,7 @@ class DoubtController extends Controller
         $matchWords = array_filter(explode(' ',$string) , function ($item) use ($stopwords) { return !($item == '' || in_array($item, $stopwords) || mb_strlen($item) <= 2 || is_numeric($item));});
         $wordCountArr = array_count_values($matchWords);
         arsort($wordCountArr);
-        return array_keys(array_slice($wordCountArr, 0, 10));
+        return array_keys(array_slice($wordCountArr, 0, 5));
       }
 
 }

@@ -201,13 +201,13 @@ class Post extends PostModel
             switch($post->post_type){
                 case 'article':
                     if(empty($post->article_content)){
-                        continue 2;
+                        $post->content='';
                     }
                     $post->content=substr($post->article_content,0,$rand).'...';        
                 break;
                 case 'video':
                     if(empty($post->video_content)){
-                        continue 2;
+                        $post->content='';
                     }
                     $post->content=substr($post->video_content,0,$rand).'...';        
                 break;
