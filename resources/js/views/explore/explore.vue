@@ -5,22 +5,10 @@
         <div class="col-md-3 center-col">
                 <div class="category_part">
                     <div class="cat_head">
-                        <h6>CATEGORIES</h6>
+                        <h6>Subjects</h6>
                     </div> 
                       <div class="cat_list">
-                          <p><a href="">Technology</a></p>
-                          <p><a href="">Mangament</a></p>
-                          <p><a href="">Health Care</a></p>
-                          <p><a href="">Arts</a></p>
-                          <p><a href="">Science</a></p>
-                          <p><a href="">Economics</a></p>
-                          <p><a href="">Education</a></p>
-                          <p><a href="">Pharmacy</a></p>
-                          <p><a href="">Journalism</a></p>
-                          <p><a href="">Humanity</a></p>
-                          <p><a href="">Hospitality</a></p>
-                          <p><a href="">Fashion</a></p>
-                          <p><a href="">Computer</a></p>
+                          <p v-for="(subject,index) in subjects" :key="index"><a :href="'/subject/'+subject.url">{{subject.name}}</a></p>
                           
                     </div>     
                 </div>
@@ -98,22 +86,10 @@
                 <div class="col-md-3 center-col">
                 <div class="category_part">
                     <div class="cat_head">
-                        <h6>CATEGORIES</h6>
+                        <h6>Courses</h6>
                     </div> 
                       <div class="cat_list">
-                          <p><a href="">Technology</a></p>
-                          <p><a href="">Mangament</a></p>
-                          <p><a href="">Health Care</a></p>
-                          <p><a href="">Arts</a></p>
-                          <p><a href="">Science</a></p>
-                          <p><a href="">Economics</a></p>
-                          <p><a href="">Education</a></p>
-                          <p><a href="">Pharmacy</a></p>
-                          <p><a href="">Journalism</a></p>
-                          <p><a href="">Humanity</a></p>
-                          <p><a href="">Hospitality</a></p>
-                          <p><a href="">Fashion</a></p>
-                          <p><a href="">Computer</a></p>
+                          <p v-for="(course,index) in courses" :key="index"><a :href="'/subject/'+course.url">{{course.name}}</a></p>
                           
                     </div>     
                 </div>
@@ -179,7 +155,23 @@ export default {
   computed: {
     ...mapState({
       posts: state => state.common.dashboardPosts
-    })
+    }),
+    courses(){
+      return this.posts.map(node=>{
+        let new_node={};
+        new_node.url=node.course_id;
+        new_node.name=node.course_name;
+        return new_node;
+      });
+    },
+    subjects(){
+      return this.posts.map(node=>{
+        let new_node={};
+        new_node.url=node.subject_url;
+        new_node.name=node.subject_name;
+        return new_node;
+      });
+    }
   },
   components: {
     ProfileImage

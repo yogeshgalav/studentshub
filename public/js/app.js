@@ -2822,30 +2822,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2854,7 +2830,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     posts: function posts(state) {
       return state.common.dashboardPosts;
     }
-  })),
+  }), {
+    courses: function courses() {
+      return this.posts.map(function (node) {
+        var new_node = {};
+        new_node.url = node.course_id;
+        new_node.name = node.course_name;
+        return new_node;
+      });
+    },
+    subjects: function subjects() {
+      return this.posts.map(function (node) {
+        var new_node = {};
+        new_node.url = node.subject_url;
+        new_node.name = node.subject_name;
+        return new_node;
+      });
+    }
+  }),
   components: {
     ProfileImage: _post_ProfileImage_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
@@ -55549,7 +55542,24 @@ var render = function() {
   return _c("div", { staticClass: "category_list_page" }, [
     _c("div", { staticClass: "container" }, [
       _c("div", { staticClass: "row" }, [
-        _vm._m(0),
+        _c("div", { staticClass: "col-md-3 center-col" }, [
+          _c("div", { staticClass: "category_part" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "cat_list" },
+              _vm._l(_vm.subjects, function(subject, index) {
+                return _c("p", { key: index }, [
+                  _c("a", { attrs: { href: "/subject/" + subject.url } }, [
+                    _vm._v(_vm._s(subject.name))
+                  ])
+                ])
+              }),
+              0
+            )
+          ])
+        ]),
         _vm._v(" "),
         _c(
           "div",
@@ -55693,7 +55703,24 @@ var render = function() {
           0
         ),
         _vm._v(" "),
-        _vm._m(1)
+        _c("div", { staticClass: "col-md-3 center-col" }, [
+          _c("div", { staticClass: "category_part" }, [
+            _vm._m(1),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "cat_list" },
+              _vm._l(_vm.courses, function(course, index) {
+                return _c("p", { key: index }, [
+                  _c("a", { attrs: { href: "/subject/" + course.url } }, [
+                    _vm._v(_vm._s(course.name))
+                  ])
+                ])
+              }),
+              0
+            )
+          ])
+        ])
       ])
     ])
   ])
@@ -55703,80 +55730,16 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-3 center-col" }, [
-      _c("div", { staticClass: "category_part" }, [
-        _c("div", { staticClass: "cat_head" }, [
-          _c("h6", [_vm._v("CATEGORIES")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "cat_list" }, [
-          _c("p", [_c("a", { attrs: { href: "" } }, [_vm._v("Technology")])]),
-          _vm._v(" "),
-          _c("p", [_c("a", { attrs: { href: "" } }, [_vm._v("Mangament")])]),
-          _vm._v(" "),
-          _c("p", [_c("a", { attrs: { href: "" } }, [_vm._v("Health Care")])]),
-          _vm._v(" "),
-          _c("p", [_c("a", { attrs: { href: "" } }, [_vm._v("Arts")])]),
-          _vm._v(" "),
-          _c("p", [_c("a", { attrs: { href: "" } }, [_vm._v("Science")])]),
-          _vm._v(" "),
-          _c("p", [_c("a", { attrs: { href: "" } }, [_vm._v("Economics")])]),
-          _vm._v(" "),
-          _c("p", [_c("a", { attrs: { href: "" } }, [_vm._v("Education")])]),
-          _vm._v(" "),
-          _c("p", [_c("a", { attrs: { href: "" } }, [_vm._v("Pharmacy")])]),
-          _vm._v(" "),
-          _c("p", [_c("a", { attrs: { href: "" } }, [_vm._v("Journalism")])]),
-          _vm._v(" "),
-          _c("p", [_c("a", { attrs: { href: "" } }, [_vm._v("Humanity")])]),
-          _vm._v(" "),
-          _c("p", [_c("a", { attrs: { href: "" } }, [_vm._v("Hospitality")])]),
-          _vm._v(" "),
-          _c("p", [_c("a", { attrs: { href: "" } }, [_vm._v("Fashion")])]),
-          _vm._v(" "),
-          _c("p", [_c("a", { attrs: { href: "" } }, [_vm._v("Computer")])])
-        ])
-      ])
+    return _c("div", { staticClass: "cat_head" }, [
+      _c("h6", [_vm._v("Subjects")])
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-3 center-col" }, [
-      _c("div", { staticClass: "category_part" }, [
-        _c("div", { staticClass: "cat_head" }, [
-          _c("h6", [_vm._v("CATEGORIES")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "cat_list" }, [
-          _c("p", [_c("a", { attrs: { href: "" } }, [_vm._v("Technology")])]),
-          _vm._v(" "),
-          _c("p", [_c("a", { attrs: { href: "" } }, [_vm._v("Mangament")])]),
-          _vm._v(" "),
-          _c("p", [_c("a", { attrs: { href: "" } }, [_vm._v("Health Care")])]),
-          _vm._v(" "),
-          _c("p", [_c("a", { attrs: { href: "" } }, [_vm._v("Arts")])]),
-          _vm._v(" "),
-          _c("p", [_c("a", { attrs: { href: "" } }, [_vm._v("Science")])]),
-          _vm._v(" "),
-          _c("p", [_c("a", { attrs: { href: "" } }, [_vm._v("Economics")])]),
-          _vm._v(" "),
-          _c("p", [_c("a", { attrs: { href: "" } }, [_vm._v("Education")])]),
-          _vm._v(" "),
-          _c("p", [_c("a", { attrs: { href: "" } }, [_vm._v("Pharmacy")])]),
-          _vm._v(" "),
-          _c("p", [_c("a", { attrs: { href: "" } }, [_vm._v("Journalism")])]),
-          _vm._v(" "),
-          _c("p", [_c("a", { attrs: { href: "" } }, [_vm._v("Humanity")])]),
-          _vm._v(" "),
-          _c("p", [_c("a", { attrs: { href: "" } }, [_vm._v("Hospitality")])]),
-          _vm._v(" "),
-          _c("p", [_c("a", { attrs: { href: "" } }, [_vm._v("Fashion")])]),
-          _vm._v(" "),
-          _c("p", [_c("a", { attrs: { href: "" } }, [_vm._v("Computer")])])
-        ])
-      ])
+    return _c("div", { staticClass: "cat_head" }, [
+      _c("h6", [_vm._v("Courses")])
     ])
   }
 ]

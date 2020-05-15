@@ -130,7 +130,8 @@ class Post extends PostModel
         // ->leftJoin('notices as no','po.id','=','no.post_id')
         // ->leftJoin('facts as fa','po.id','=','fa.post_id')
         // ->leftJoin('mcqs as mc','po.id','=','mc.post_id')
-        ->select(['po.id as id','po.post_heading as heading','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','sub.Subject_name as subject_name','po.primary_image_path as image_path',
+        ->select(['po.id as id','po.post_heading as heading','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','po.primary_image_path as image_path',
+        'sub.subject_url','sub.Subject_name as subject_name','course.id as course_id','course.course_name',
         'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','inst.name as institute_name','ar.content as article_content','vd.content as video_content',
         'vd.video_id as video_id']);
     }
