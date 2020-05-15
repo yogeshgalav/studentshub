@@ -93,7 +93,8 @@ class PagesController extends Controller
     }
 
     public function profile(){
-        return view('profile.profile');
+        $user=Auth::user();
+        return view('profile.profile')->with('notifications',$this->notifications)->with('user',$user);
     }
 
     public function classroomList(){

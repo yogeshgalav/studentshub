@@ -1,4 +1,4 @@
 @extends('profile.app')
 @section('content')
-<router-view></router-view>
+<router-view :user="{{ json_encode($user) }}"></router-view>
 @endsection

@@ -4,10 +4,12 @@
     "/css/seekerApp.css": "/css/seekerApp.css",
     "/css/exploreApp.css": "/css/exploreApp.css",
     "/css/studentApp.css": "/css/studentApp.css",
+    "/css/profileApp.css": "/css/profileApp.css",
     "/css/createPostApp.css": "/css/createPostApp.css",
     "/css/studentRegisterApp.css": "/css/studentRegisterApp.css",
     "/js/createPostApp.js": "/js/createPostApp.js",
     "/js/exploreApp.js": "/js/exploreApp.js",
+    "/js/profileApp.js": "/js/profileApp.js",
     "/js/seekerApp.js": "/js/seekerApp.js",
     "/js/studentApp.js": "/js/studentApp.js",
     "/js/studentRegisterApp.js": "/js/studentRegisterApp.js"
