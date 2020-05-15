@@ -1,23 +1,15 @@
 import axios from 'axios';
 
 export default {
-getSearchPageContent({commit},data){
-  return new Promise((resolve, reject) => {
-    axios({url: window.App.baseUrl+'/api/search?query='+data, method: 'GET' })
-    .then(resp => {
-     const data = resp.data.success
-      commit('get_search_page_content', data)
-      resolve(resp)
-    })
-    .catch(err => {
-      reject(err)
-    })
-  })
-},
-getDashboardPosts({commit,state},route='/get-posts'){
+getDashboardPosts({commit,state},data){
   return new Promise((resolve, reject) => {
     commit('increase_post_paginate_count')
-    axios({url: window.App.baseUrl+'/api'+route+'?page='+state.current_page, method: 'GET' })
+    var route=data ? data.route : '/get-posts'
+    route=route+'?page='+state.current_page;
+    if(data.params){
+      route=route+'&'+data.params;
+    }
+    axios({url: window.App.baseUrl+'/api'+route, method: 'GET' })
     .then(resp => {
      const posts = resp.data.success.posts
       commit('get_posts', posts)

@@ -2862,21 +2862,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var _this = this;
 
     var route = this.$route.path;
+    var params = '';
 
     if (this.$route.name === 'search') {
-      this.$store.dispatch('common/getSearchPageContent', this.$route.query.query);
-      return true;
+      params = 'query=' + this.$route.query.query;
     }
 
     this.showLoader = true;
-    this.$store.dispatch("common/getDashboardPosts", route).then(function () {
+    this.$store.dispatch("common/getDashboardPosts", {
+      route: route,
+      params: params
+    }).then(function () {
       _this.showLoader = true;
     });
     window.addEventListener("scroll", function () {
       if (_this.bottomVisible()) {
         _this.showLoader = true;
 
-        _this.$store.dispatch("common/getDashboardPosts", route).then(function () {
+        _this.$store.dispatch("common/getDashboardPosts", {
+          route: route,
+          params: params
+        }).then(function () {
           _this.showLoader = true;
         });
       }
@@ -86024,29 +86030,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  getSearchPageContent: function getSearchPageContent(_ref, data) {
-    var commit = _ref.commit;
-    return new Promise(function (resolve, reject) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default()({
-        url: window.App.baseUrl + '/api/search?query=' + data,
-        method: 'GET'
-      }).then(function (resp) {
-        var data = resp.data.success;
-        commit('get_search_page_content', data);
-        resolve(resp);
-      })["catch"](function (err) {
-        reject(err);
-      });
-    });
-  },
-  getDashboardPosts: function getDashboardPosts(_ref2) {
-    var commit = _ref2.commit,
-        state = _ref2.state;
-    var route = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '/get-posts';
+  getDashboardPosts: function getDashboardPosts(_ref, data) {
+    var commit = _ref.commit,
+        state = _ref.state;
     return new Promise(function (resolve, reject) {
       commit('increase_post_paginate_count');
+      var route = data ? data.route : '/get-posts';
+      route = route + '?page=' + state.current_page;
+
+      if (data.params) {
+        route = route + '&' + data.params;
+      }
+
       axios__WEBPACK_IMPORTED_MODULE_0___default()({
-        url: window.App.baseUrl + '/api' + route + '?page=' + state.current_page,
+        url: window.App.baseUrl + '/api' + route,
         method: 'GET'
       }).then(function (resp) {
         var posts = resp.data.success.posts;
@@ -86057,8 +86054,8 @@ __webpack_require__.r(__webpack_exports__);
       });
     });
   },
-  getPostContent: function getPostContent(_ref3, post_id) {
-    var commit = _ref3.commit;
+  getPostContent: function getPostContent(_ref2, post_id) {
+    var commit = _ref2.commit;
     return new Promise(function (resolve, reject) {
       axios__WEBPACK_IMPORTED_MODULE_0___default()({
         url: window.App.baseUrl + '/api/get-post-content/' + post_id,
@@ -86072,8 +86069,8 @@ __webpack_require__.r(__webpack_exports__);
       });
     });
   },
-  subscribe: function subscribe(_ref4, data) {
-    var commit = _ref4.commit;
+  subscribe: function subscribe(_ref3, data) {
+    var commit = _ref3.commit;
     console.log(data);
     return new Promise(function (resolve, reject) {
       axios__WEBPACK_IMPORTED_MODULE_0___default()({
@@ -86128,9 +86125,6 @@ var exploreStore = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  get_search_page_content: function get_search_page_content(state, data) {
-    state.search_posts = data.posts.data;
-  },
   get_posts: function get_posts(state, posts) {
     state.dashboardPosts = state.dashboardPosts.concat(posts.data);
     state.current_page = posts.current_page;
@@ -86157,6 +86151,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 var state = {
+  no_more_posts: false,
   dashboardPosts: [],
   current_page: 0,
   postView: {

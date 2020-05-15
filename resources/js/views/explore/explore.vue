@@ -186,18 +186,18 @@ export default {
   },
   mounted() {
     var route= this.$route.path;
+    var params='';
     if(this.$route.name==='search'){
-        this.$store.dispatch('common/getSearchPageContent',this.$route.query.query);
-        return true;
+        params='query='+this.$route.query.query;
     }
     this.showLoader = true;
-    this.$store.dispatch("common/getDashboardPosts",route).then(() => {
+    this.$store.dispatch("common/getDashboardPosts",{route:route,params:params}).then(() => {
       this.showLoader = true;
     });
     window.addEventListener("scroll", () => {
       if (this.bottomVisible()) {
         this.showLoader = true;
-        this.$store.dispatch("common/getDashboardPosts",route).then(() => {
+        this.$store.dispatch("common/getDashboardPosts",{route:route,params:params}).then(() => {
           this.showLoader = true;
         });
       }

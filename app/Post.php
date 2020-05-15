@@ -75,9 +75,9 @@ class Post extends PostModel
             $post_query=$this->getSeekerPostTabels();     
         }
 
-        $posts=$post_query->where('sub.Subject_name','LIKE','%'.$request->search.'%')
-        ->orWhere('cat.name','LIKE','%'.$request->search.'%')
-        ->orWhere('po.post_heading','LIKE','%'.$request->search.'%')
+        $posts=$post_query->where('sub.Subject_name','LIKE','%'.$request->input('query').'%')
+        ->orWhere('cat.name','LIKE','%'.$request->input('query').'%')
+        ->orWhere('po.post_heading','LIKE','%'.$request->input('query').'%')
         ->orderBy('po.created_at','DESC')
         ->paginate();
 

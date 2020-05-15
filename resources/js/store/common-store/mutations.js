@@ -1,7 +1,4 @@
 export default {
-    get_search_page_content(state,data){
-      state.search_posts=data.posts.data;
-    },
     get_posts(state,posts){
       state.dashboardPosts=state.dashboardPosts.concat(posts.data);
       state.current_page = posts.current_page;

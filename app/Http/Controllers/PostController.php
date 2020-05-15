@@ -142,11 +142,11 @@ class PostController extends Controller
     }
 
     public function searchPosts(Request $request){
-        $post=new \App\Post;
-        $response = $post->getSearchPosts($request);
+      $post=new \App\Post;
+      $response = $post->getSearchPosts($request);
         
         $search=new \App\Models\Search;
-        $search->query=trim($request->query);
+        $search->query=$request->input('query');
         // $search->type='query';
         if($response){
           $search->success=true;
