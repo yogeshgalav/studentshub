@@ -1929,6 +1929,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -53251,9 +53252,9 @@ var render = function() {
                         _c("h3", { staticClass: "card-title  font-size-16" }, [
                           _c("p", { staticClass: "weight-600 text-black" }, [
                             _vm._v(
-                              "\n\t\t\t\t\t\t\t\t\t\t\t" +
+                              "\n                                            " +
                                 _vm._s(answer.answer) +
-                                "\n\t\t\t\t\t\t\t\t\t\t"
+                                "\n                                        "
                             )
                           ])
                         ]),

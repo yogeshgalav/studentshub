@@ -93,7 +93,9 @@ class PagesController extends Controller
     }
 
     public function profile(){
-        $user=Auth::user();
+        $user=Auth::user()
+        ->leftJoin('user_profiles as up','up.user_id','=','users.id')
+        ->first();
         return view('profile.profile')->with('notifications',$this->notifications)->with('user',$user);
     }
 
