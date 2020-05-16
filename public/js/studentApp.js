@@ -2713,15 +2713,28 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   mounted: function mounted() {
     var _this = this;
 
+    var route = this.$route.path;
+    var params = '';
+
+    if (this.$route.name === 'search') {
+      params = 'query=' + this.$route.query.query;
+    }
+
     this.showLoader = true;
-    this.$store.dispatch("common/getDashboardPosts").then(function () {
+    this.$store.dispatch("common/getDashboardPosts", {
+      route: route,
+      params: params
+    }).then(function () {
       _this.showLoader = true;
     });
     window.addEventListener("scroll", function () {
       if (_this.bottomVisible()) {
         _this.showLoader = true;
 
-        _this.$store.dispatch("common/getDashboardPosts").then(function () {
+        _this.$store.dispatch("common/getDashboardPosts", {
+          route: route,
+          params: params
+        }).then(function () {
           _this.showLoader = true;
         });
       }
@@ -53134,21 +53147,27 @@ var render = function() {
           0
         ),
         _vm._v(" "),
-        _vm._m(0)
+        _c(
+          "div",
+          { staticClass: "category_btn" },
+          [
+            _c("router-link", { attrs: { to: "/get-started" } }, [
+              _vm._v("Find Out "),
+              _c("span", [
+                _c("i", {
+                  staticClass: "fa fa-arrow-right",
+                  attrs: { "aria-hidden": "true" }
+                })
+              ])
+            ])
+          ],
+          1
+        )
       ])
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "category_btn" }, [
-      _c("button", [_vm._v("Find Out")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

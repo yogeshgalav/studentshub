@@ -190,6 +190,9 @@ class Post extends PostModel
            foreach($posts as $post){
             $rand=rand(60,100);
             $postData=DB::table('posts as po')->where('po.id',$post->id)
+            ->leftJoin('likes as uli',function($join){
+                $join->on('po.id','=','uli.likable_id')->where('uli.likable_type','=','App\Models\Post')->where('uli.user_id','=',Auth::user()->id);
+            })
             ->leftJoin('likes as li',function($join){
                 $join->on('po.id','=','li.likable_id')->where('li.likable_type','=','App\Models\Post')->where('li.like_status','=',1);
             })
@@ -197,7 +200,7 @@ class Post extends PostModel
                 $join->on('po.id','=','dli.likable_id')->where('dli.likable_type','=','App\Models\Post')->where('dli.like_status','=',0);
             })
             ->leftJoin('post_views as vw','po.id','=','vw.post_id')
-            ->select(DB::raw('COUNT(distinct li.user_id) as total_likes'),DB::raw('COUNT(distinct dli.user_id) as total_dislikes'),DB::raw('COUNT(distinct vw.user_id) as total_views'))
+            ->select(DB::raw('COUNT(distinct li.user_id) as total_likes'),DB::raw('COUNT(distinct dli.user_id) as total_dislikes'),DB::raw('COUNT(distinct vw.user_id) as total_views'),'uli.like_status as user_like')
             ->groupBy(['po.id'])
             ->first();
 
@@ -217,6 +220,7 @@ class Post extends PostModel
                 break;
             }
 
+            $post->user_like=$postData->user_like;
             $post->total_likes=$postData->total_likes;
             $post->total_dislikes=$postData->total_dislikes;
             $post->total_views=$postData->total_views;
