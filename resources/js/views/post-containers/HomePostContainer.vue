@@ -97,7 +97,7 @@ export default {
     ProfileImage
   },
   mounted() {
-    var route= this.$route.path;
+    var route= '/get-posts';
     var params='';
     if(this.$route.name==='search'){
         params='query='+this.$route.query.query;

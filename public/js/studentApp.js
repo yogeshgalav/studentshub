@@ -2713,7 +2713,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   mounted: function mounted() {
     var _this = this;
 
-    var route = this.$route.path;
+    var route = '/get-posts';
     var params = '';
 
     if (this.$route.name === 'search') {

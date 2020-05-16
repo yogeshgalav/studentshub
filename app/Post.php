@@ -201,7 +201,7 @@ class Post extends PostModel
             })
             ->leftJoin('post_views as vw','po.id','=','vw.post_id')
             ->select(DB::raw('COUNT(distinct li.user_id) as total_likes'),DB::raw('COUNT(distinct dli.user_id) as total_dislikes'),DB::raw('COUNT(distinct vw.user_id) as total_views'),'uli.like_status as user_like')
-            ->groupBy(['po.id'])
+            ->groupBy(['po.id','uli.like_status'])
             ->first();
 
             $post->post_type=$this->getPostType($post->postable_type);

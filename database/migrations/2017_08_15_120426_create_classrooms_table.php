@@ -18,10 +18,8 @@ class CreateClassroomsTable extends Migration
             $table->integer('teacher_id');
             $table->integer('short_link');
             $table->string('classroom_type')->comment('institute,private');
-            $table->string('logo_url')->nullable();
+            $table->string('thumbnail_url')->nullable();
             $table->string('locale_code',5)->nullable();
-            $table->date('expires_at')->nullable();
-            $table->boolean('is_demo_account');
             $table->timestamps();
         });
     }

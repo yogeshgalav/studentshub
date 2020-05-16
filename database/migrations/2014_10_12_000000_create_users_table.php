@@ -17,7 +17,6 @@ class CreateUsersTable extends Migration
             $table->bigIncrements('id');
             $table->string('full_name', 101);
             $table->string('email')->unique();
-            $table->string('phone')->unique()->nullable();
             $table->char('timezone_code',9)->nullable();
             $table->dateTime('email_verified_at')->nullable();
             $table->char('country_code',2)->default('IN');
@@ -25,7 +24,6 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('login_provider_id')->nullable();
             $table->string('login_provider_type')->nullable();
-            $table->date('onboarded_at')->nullable();
             $table->dateTime('last_login_at')->nullable();
             $table->integer('block_status')->default(0);
             $table->string('role_intended')->default('student');
