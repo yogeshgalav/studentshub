@@ -208,4 +208,18 @@ class PostController extends Controller
   
         return $response;
       }
+
+      public function savePost(Request $request){
+        $save_post=new \App\Models\SavedPost();
+        $save_post->user_id=Auth::user()->id;
+        $save_post->post_id=$request->post_id;
+        $save_post->save();
+      }
+
+      public function reportPost(Request $request){
+        $report_post=new \App\Models\PostReport();
+        $report_post->user_id=Auth::user()->id;
+        $report_post->post_id=$request->post_id;
+        $report_post->save();
+      }
 }
