@@ -1992,6 +1992,36 @@ main.doubt_main_page {
    margin: 0 auto !important;
    width: 50% !important;
 }
+
+
+.user_profile_page {
+    padding: 50px 0;
+}
+.user_social_links {
+    display: flex;
+    align-items: baseline;
+}
+.user_profile_img {
+    text-align: center;
+}
+.user_profile_img img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+}
+.user_des p {
+    color: #868686;
+    line-height: 27px;
+    /* text-align: justify; */
+}
+.user_social_link_left span {
+    padding: 0px 10px 0 0;
+    color: #868686;
+}
+
+.user_social_link_left {
+    margin-right: 20px;
+}
 @media only screen and (max-width: 600px) {
     .search_box {
         width: 100%;
@@ -2104,5 +2134,12 @@ main.doubt_main_page {
     position: relative;
     width: 100%;
     margin-bottom: 20px;
+}
+.user_profile_page {
+    padding: 50px 0;
+    margin-left: 20px;
+}
+.user_interest {
+    margin-top: 25px;
 }
 }
