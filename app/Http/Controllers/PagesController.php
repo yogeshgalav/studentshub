@@ -9,21 +9,14 @@ use App\Models\NotificationText;
 class PagesController extends Controller
 {
     public $AuthUserType='guest';
-    public $notifications;
     public function __construct()
     {
         $AuthUser=Auth::user();
             if($AuthUser==null){
                 $this->AuthUserType='guest';   
             }else if($AuthUser->student()->count()>0){
-                $this->AuthUserType='student';
-                $this->notifications=$AuthUser->notifications()->get()->each(function($notification){
-                    $notification->text=NotificationText::where('notification_type',$notification->type)->first()->notification_text;
-                });   
+                $this->AuthUserType='student'; 
             }else{
-                $this->notifications=$AuthUser->notifications()->get()->each(function($notification){
-                    $notification->text=NotificationText::where('notification_type',$notification->type)->first()->notification_text;
-                });
                 $this->AuthUserType='seeker';   
             }
     }
@@ -62,7 +55,7 @@ class PagesController extends Controller
 
     public function  root(){
         if(Auth::check()){
-            return view($this->AuthUserType.'.home')->with('notifications',$this->notifications);
+            return view($this->AuthUserType.'.home');
         }else{
             return view('guest.welcome');
         }
@@ -96,7 +89,7 @@ class PagesController extends Controller
         $user=Auth::user()
         ->leftJoin('user_profiles as up','up.user_id','=','users.id')
         ->first();
-        return view('profile.profile')->with('notifications',$this->notifications)->with('user',$user);
+        return view('profile.profile')->with('user',$user);
     }
 
     public function classroomList(){
@@ -116,13 +109,13 @@ class PagesController extends Controller
         return view('guest.auth.register');
     }
     public function askQuestion(){
-        return view('student.ask-question')->with('notifications',$this->notifications);
+        return view('student.ask-question');
     }
     public function sharePost(){
-        return view('create-post.share-post')->with('notifications',$this->notifications);
+        return view('create-post.share-post');
     }
     public function viewPost(){
-        return view($this->AuthUserType.'.view-post')->with('notifications',$this->notifications);
+        return view($this->AuthUserType.'.view-post');
     }
     public function report(){
         $total_users=\App\Models\User::count();

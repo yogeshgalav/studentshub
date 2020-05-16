@@ -113,6 +113,9 @@ class Post extends PostModel
         ->leftJoin('videos as vd',function($join){
             $join->on('po.postable_id','=','vd.id')->where('po.postable_type','=','App\Models\Video');
         })
+        ->leftJoin('likes as uli',function($join){
+            $join->on('po.id','=','uli.likable_id')->where('uli.likable_type','=','App\Models\Post')->where('uli.user_id','=',Auth::user()->id);
+        })
         ->leftJoin('subjects as sub','sub.id','=','po.subject_id')
         ->leftJoin('categories as cat','cat.id','=','sub.category_id')
         ->leftJoin('users as us','us.id','=','po.user_id')
@@ -131,7 +134,7 @@ class Post extends PostModel
         // ->leftJoin('facts as fa','po.id','=','fa.post_id')
         // ->leftJoin('mcqs as mc','po.id','=','mc.post_id')
         ->select(['po.id as id','po.post_heading as heading','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','po.primary_image_path as image_path',
-        'sub.subject_url','sub.Subject_name as subject_name','course.id as course_id','course.course_name',
+        'sub.subject_url','sub.Subject_name as subject_name','course.id as course_id','course.course_name','uli.like_status as user_like',
         'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','inst.name as institute_name','ar.content as article_content','vd.content as video_content',
         'vd.video_id as video_id']);
     }
@@ -158,6 +161,9 @@ class Post extends PostModel
         ->leftJoin('videos as vd',function($join){
             $join->on('po.postable_id','=','vd.id')->where('po.postable_type','=','App\Models\Video');
         })
+        ->leftJoin('likes as uli',function($join){
+            $join->on('po.id','=','uli.likable_id')->where('uli.likable_type','=','App\Models\Post')->where('uli.user_id','=',Auth::user()->id);
+        })
         ->leftJoin('subjects as sub','sub.id','=','po.subject_id')
         ->leftJoin('categories as cat','cat.id','=','sub.category_id')
         ->leftJoin('users as us','us.id','=','po.user_id')
@@ -165,7 +171,7 @@ class Post extends PostModel
         ->leftJoin('courses as course','course.id','=','sp.course_id')
         // ->leftJoin('facts as fa','po.id','=','fa.post_id')
         ->select(['po.id as id','po.post_heading as heading','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','po.primary_image_path as image_path',
-        'sub.subject_url','sub.Subject_name as subject_name','course.id as course_id','course.course_name',
+        'sub.subject_url','sub.Subject_name as subject_name','course.id as course_id','course.course_name','uli.like_status as user_like',
         'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','ar.content as article_content','vd.content as video_content',
         'vd.video_id as video_id']);
     }
@@ -190,9 +196,6 @@ class Post extends PostModel
            foreach($posts as $post){
             $rand=rand(60,100);
             $postData=DB::table('posts as po')->where('po.id',$post->id)
-            ->leftJoin('likes as uli',function($join){
-                $join->on('po.id','=','uli.likable_id')->where('uli.likable_type','=','App\Models\Post')->where('uli.user_id','=',Auth::user()->id);
-            })
             ->leftJoin('likes as li',function($join){
                 $join->on('po.id','=','li.likable_id')->where('li.likable_type','=','App\Models\Post')->where('li.like_status','=',1);
             })
@@ -200,8 +203,8 @@ class Post extends PostModel
                 $join->on('po.id','=','dli.likable_id')->where('dli.likable_type','=','App\Models\Post')->where('dli.like_status','=',0);
             })
             ->leftJoin('post_views as vw','po.id','=','vw.post_id')
-            ->select(DB::raw('COUNT(distinct li.user_id) as total_likes'),DB::raw('COUNT(distinct dli.user_id) as total_dislikes'),DB::raw('COUNT(distinct vw.user_id) as total_views'),'uli.like_status as user_like')
-            ->groupBy(['po.id','uli.like_status'])
+            ->select(DB::raw('COUNT(distinct li.user_id) as total_likes'),DB::raw('COUNT(distinct dli.user_id) as total_dislikes'),DB::raw('COUNT(distinct vw.user_id) as total_views'))
+            ->groupBy(['po.id'])
             ->first();
 
             $post->post_type=$this->getPostType($post->postable_type);
@@ -220,7 +223,6 @@ class Post extends PostModel
                 break;
             }
 
-            $post->user_like=$postData->user_like;
             $post->total_likes=$postData->total_likes;
             $post->total_dislikes=$postData->total_dislikes;
             $post->total_views=$postData->total_views;
@@ -260,12 +262,15 @@ class Post extends PostModel
         ->leftJoin('videos as vd',function($join){
             $join->on('po.postable_id','=','vd.id')->where('po.postable_type','=','App\Models\Video');
         })
+        ->leftJoin('likes as uli',function($join){
+            $join->on('po.id','=','uli.likable_id')->where('uli.likable_type','=','App\Models\Post')->where('uli.user_id','=',Auth::user()->id);
+        })
         ->leftJoin('subjects as sub','sub.id','=','po.subject_id')
         ->leftJoin('categories as cat','cat.id','=','sub.category_id')
         ->leftJoin('users as us','us.id','=','po.user_id')
         // ->leftJoin('facts as fa','po.id','=','fa.post_id')
         ->select(['po.id as id','po.post_heading as heading','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','sub.Subject_name as subject_name','po.primary_image_path as image_path',
-        'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','ar.content as article_content','vd.content as video_content',
+        'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','ar.content as article_content','vd.content as video_content','uli.like_status as user_like',
         'vd.video_id as video_id'])->get();
 
         return $this->formatPostData($post);

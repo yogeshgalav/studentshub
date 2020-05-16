@@ -24,6 +24,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        \View::composer('*', function($view){
+            if($user=\Auth::user()){
+                $notifications=$user->notifications()->get()->each(function($notification){
+                    $notification->text=\App\Models\NotificationText::where('notification_type',$notification->type)->first()->notification_text;
+                });
+                $view->with('notifications', $notifications);
+            }
+        });
         Schema::defaultStringLength(191);
     }
 }
