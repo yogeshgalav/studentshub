@@ -47,7 +47,7 @@
                         <div class="col-md-3" v-for="(interest,index) in interests" :key="index">
                             <radial-progress-bar :diameter="150" :completed-steps="interest.percent" :total-steps="100"
                                 :startColor="'#00BFFF'" :stopColor="'#000080'" :innerStrokeColor="'#B0E0E6'">
-                                <p>{{ interest.percent }}%</p>
+                                <p class="counter-count">{{ interest.percent }}</p>
                                 <p>{{ interest.name }}</p>
                             </radial-progress-bar>
                         </div>
@@ -56,7 +56,7 @@
             </div>
 
         </div>
-        <modal name="add_doubt_modal" class="doubt_model">
+        <modal name="edit_profile_modal" class="doubt_model">
 
             <form @submit.prevent="saveProfile">
                 <div class="model_box_inner">
@@ -64,27 +64,27 @@
                         <div class="col-md-12">
                             <div class="model_input">
                                 <label>Email Id</label>
-                                <input class="form-control" type="text" placeholder="Enter Your Doubt" v-model="email">
+                                <input class="form-control" type="text" placeholder="Enter Your Doubt" v-model="profile_data.email">
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="model_input">
                                 <label>Facebook id Url</label>
-                                <input class="form-control" type="text" v-model="fb_url"
+                                <input class="form-control" type="text" v-model="profile_data.fb_url"
                                     placeholder="Enter Your Subject">
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="model_input">
                                 <label>Instagram id Url</label>
-                                <input class="form-control" type="text" v-model="insta_url"
+                                <input class="form-control" type="text" v-model="profile_data.insta_url"
                                     placeholder="Enter Your Subject">
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="model_input">
                                 <label>Linkedin id Url</label>
-                                <input class="form-control" type="text" v-model="linked_url"
+                                <input class="form-control" type="text" v-model="profile_data.linked_url"
                                     placeholder="Enter Your Subject">
                             </div>
                         </div>
@@ -101,6 +101,7 @@
     </div>
 </template>
 <script>
+import VModal from 'vue-js-modal'
     import RadialProgressBar from 'vue-radial-progress'
     export default {
         props: ['user'],
@@ -119,7 +120,7 @@
 
         },
         components: {
-            RadialProgressBar
+            RadialProgressBar,VModal
         },
         watch: {
             user(val) {
@@ -130,9 +131,23 @@
             this.axios.get('/api/get-interests').then((resp) => {
                 // this.interest_enable=resp.data.success.interest_enable;
                 this.interests = resp.data.success.interests;
+                 $('.counter-count').each(function () {
+                    $(this).prop('Counter',0).animate({
+                        Counter: $(this).text()
+                    }, {
+                        duration: 5000,
+                        easing: 'swing',
+                        step: function (now) {
+                            $(this).text(Math.ceil(now));
+                        }
+                    });
+                });
             })
         },
         methods: {
+            openProfileEditModal(){
+                this.$modal.show('edit_profile_modal');
+            }, 
             saveProfile() {
                 this.axios.post('/api/save-profile', {
                     data: this.profile_data
