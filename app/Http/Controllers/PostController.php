@@ -130,7 +130,12 @@ class PostController extends Controller
         }
 
         $post=new \App\Post;
-        $post_content=$post->getPostContent($post_id)[0];
+        if($user){
+          $post_content=$post->getAuthPostContent($post_id)[0];
+        }else{
+          $post_content=$post->getGuestPostContent($post_id)[0];
+        }
+
         $most_viewed=$post->getMostViewedPosts($post_content->category_id);
         $most_liked=$post->getMostLikedPosts($post_content->category_id);
 

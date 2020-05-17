@@ -40,8 +40,6 @@
                     </div>
 
                 </div>
-
-                <!-- <post-view-header></post-view-header> -->
                 <div class="social-network_singlepage">
                     <h5 class="social_icon_text">Share</h5>
                     <social-sharing url="https://vuejs.org/" title="The Progressive JavaScript Framework"
@@ -68,9 +66,7 @@
                 </div>
 
             </div>
-        </div>
-        <!-- <category-filter :categories="categories"></category-filter> -->
-    
+        </div>    
         <div class="container ptb-50">
             <div class="col-md-12 col-12 center-col">
                 <div class="row">
