@@ -15,7 +15,7 @@
             </div>
 
             <div class="category_btn">
-              <button>Find Out</button>
+              <router-link :to="'/get-started'">Find Out <span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></router-link>
             </div> 
         
         </div>

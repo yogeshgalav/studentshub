@@ -17,6 +17,7 @@ class DoubtAnswersController extends Controller
         $input = $request->all();
         DB::beginTransaction();
     try{
+        
         $answer = new DoubtAnswer();
         $answer->user_id = Auth::user()->id;
         $answer->doubt_id = $doubtId;

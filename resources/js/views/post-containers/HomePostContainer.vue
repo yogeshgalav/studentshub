@@ -97,14 +97,19 @@ export default {
     ProfileImage
   },
   mounted() {
+    var route= '/get-posts';
+    var params='';
+    if(this.$route.name==='search'){
+        params='query='+this.$route.query.query;
+    }
     this.showLoader = true;
-    this.$store.dispatch("common/getDashboardPosts").then(() => {
+    this.$store.dispatch("common/getDashboardPosts",{route:route,params:params}).then(() => {
       this.showLoader = true;
     });
     window.addEventListener("scroll", () => {
       if (this.bottomVisible()) {
         this.showLoader = true;
-        this.$store.dispatch("common/getDashboardPosts").then(() => {
+        this.$store.dispatch("common/getDashboardPosts",{route:route,params:params}).then(() => {
           this.showLoader = true;
         });
       }

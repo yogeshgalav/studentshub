@@ -18,8 +18,8 @@
 
             <div class="card-body">
                 <div class="row justify-content-center">
-            <div class="col-md-10">
-              <p>Please Enter your Education details to avail full benifits of our platform.</p>
+            <div class="col-md-12">
+              <h5>Please Enter Education details of your Prefferred Course and Batch to avail full benifits of our platform.</h5>
             </div>
             <div class="col-md-10">
                   <form @submit.prevent="handleSubmit">
@@ -105,7 +105,7 @@
                 class="text-black"
                 for="event_date_input"
               >
-                {{ trans('Session of this Batch') }}
+                {{ trans('Batch Starting Year') }}
               </label>
               <div class="input-group-prepend ">
                 <div
@@ -139,7 +139,7 @@
                 class="text-black"
                 for="event_date_input"
               >
-                {{ trans('To') }}
+                {{ trans('Batch Ending Year') }}
               </label>
               <div class="input-group-prepend ">
                 <div
@@ -183,8 +183,8 @@
             </div>
             </div> -->
                 <div class="form-group d-flex s_register_btn">
-                    <a href="/" class="skip_btn">{{ trans('Skip') }}</a>
-                 <button type="submit" class="login_btn">{{ trans('Register') }}</button>
+                    <a href="/" class="skip_btn"><span><i class="fa fa-arrow-left" aria-hidden="true"></i></span> {{ trans('Skip') }}</a>
+                 <button type="submit" class="login_btn">{{ trans('Register') }} <span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></button>
                 
                 </div>
               </form>
