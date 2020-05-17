@@ -1,5 +1,5 @@
 import DashboardComponent from '../../views/seeker-dashboard/dashboard.vue'
-import ViewPost from '../../views/seeker-dashboard/view-post.vue'
+import ViewPost from '../../views/student/student-post-view.vue'
 import ExploreComponent from '../../views/explore/explore.vue'
 
 const StudentRoutes = [
