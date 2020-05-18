@@ -23,6 +23,6 @@ class Course extends Model
     }
 
     public function setCourseNameAttribute($value){
-        return ucwords($value);
+        $this->attributes['course_name'] = ucwords($value);
     }
 }

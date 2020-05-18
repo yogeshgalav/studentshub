@@ -71,6 +71,6 @@ class User extends Authenticatable
     }
 
     public function setFullNameAttribute($value){
-        return ucwords($value);
+        $this->attributes['full_name'] = ucwords($value);
     }
 }
