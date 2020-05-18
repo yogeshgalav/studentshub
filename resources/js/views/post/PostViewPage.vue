@@ -144,7 +144,6 @@
                                     <div class="post_name_date">
                                         <div class="user_name">
                                             <div>
-                                                <!---->
                                             </div>
                                             <p class="username">{{post.user_name}}</p>
                                         </div>
@@ -350,6 +349,7 @@
     import SiteFooter from '../footer/SiteFooter';
     import PostInteraction from '../post/PostInteraction';
     import PostViewHeader from '../post/PostViewHeader';
+    import ProfileImage from '../post/ProfileImage';
 
     export default {
         props: ['role'],
@@ -359,7 +359,8 @@
             SiteFooter,
             PostInteraction,
             PostViewHeader,
-            SocialSharing
+            SocialSharing,
+            ProfileImage
         },
         computed: {
             ...mapState({

@@ -15,31 +15,33 @@ use Auth;
 use DB;
 use Storage;
 use Illuminate\Support\Arr;
-use Illuminate\Pagination\LengthAwarePaginator as Paginator;
 
 class PostController extends Controller
 {
     //
     public function create(Request $request){
-        // $path =  (dirname(__FILE__) .'/../../Services/simple_html_dom.php');
-        // require($path);
         
         $data=$request->all();
-        return response()->json($data,200);
         $post_type=$data['post_type'];
-        $selected_subject=$data['subject'];
         $heading=$data['heading'];
+        $student=Auth::student();
         DB::beginTransaction();
         try{
-            if(is_null($selected_subject['id'])){
-                $subject_name=strtolower($selected_subject['name']);
+            if(is_null($data['subject_id'])){
+                $subject_name=strtolower($data['subject_name']);
                 $subject=Subject::firstOrCreate([
-                    'Subject_name'=>$subject_name,
-                    'subject_url'=>urlencode($subject_name),
-                    'category_id'=>$selected_subject['category_id']
-                    ]);   
+                  'subject_url'=>urlencode($subject_name),
+                ],[
+                'subject_name'=>$subject_name,
+                'category_id'=>$data['subject_course'] ? $student->categoryId : $data['category_id']
+                ]);
+                
+                CourseSubject::create([
+                  'course_id'=>$student->courseId,
+                  'subject_id'=>$subject->id
+                ]);
             }else{
-                $subject=Subject::findOrFail($selected_subject['id']);
+                $subject=Subject::findOrFail($data['subject_id']);
             }
         
         $post=new Post;
@@ -51,39 +53,39 @@ class PostController extends Controller
         switch(strToLower($request->post_type)){
             case 'article':
                 $article=new Article;
-                $post_content_id=$article->createFromContent($data['articleContent']);
+                $post_content_id=$article->createFromContent($data);
                 $post->postable_type="App\Models\Article";
                 $post->postable_id=$post_content_id;
               
             break;
             case 'notice':
                 $notice=new Notice;
-                $post_content_id=$notice->createFromContent($data['noticeContent']);
+                $post_content_id=$notice->createFromContent($data);
                 $post->postable_type="App\Models\Notice";
                 $post->postable_id=$post_content_id;
             break;
             case 'document':
              $document=new Document;
-             $post_content_id=$document->createNewDocument($data['documentContent']);
+             $post_content_id=$document->createNewDocument($data);
              $post->postable_type="App\Models\Document";
              $post->postable_id=$post_content_id;
             break;
             case 'video':
             $video=new Video;
-            $post_content_id=$video->createNewVideo($data['videoContent']);
+            $post_content_id=$video->createNewVideo($data);
             $post->primary_image_path='https://img.youtube.com/vi/'.$data['video_id'].'/0.jpg';
             $post->postable_type="App\Models\Video";
             $post->postable_id=$post_content_id;
             break;
             case 'mcq':
             $mcq=new Mcq;
-            $post_content_id=$mcq->createNewMcq($data['videoContent']);
+            $post_content_id=$mcq->createNewMcq($data);
             $post->postable_type="App\Models\Mcq";
             $post->postable_id=$post_content_id;
             break;    
             case 'fact':
             $fact=new Fact;
-            $post_content_id=$fact->createNewFact($data['factContent']);
+            $post_content_id=$fact->createNewFact($data);
             $post->postable_type="App\Models\Fact";
             $post->postable_id=$post_content_id;
             break;    
@@ -91,8 +93,6 @@ class PostController extends Controller
 
         
         $post->save();
-
-        $student=Auth::student();
 
         SthubPost::create([
             'post_id'=>$post->id,
@@ -219,6 +219,7 @@ class PostController extends Controller
         $save_post->user_id=Auth::user()->id;
         $save_post->post_id=$request->post_id;
         $save_post->save();
+        return 'success';
       }
 
       public function reportPost(Request $request){
@@ -226,5 +227,6 @@ class PostController extends Controller
         $report_post->user_id=Auth::user()->id;
         $report_post->post_id=$request->post_id;
         $report_post->save();
+        return 'success';
       }
 }

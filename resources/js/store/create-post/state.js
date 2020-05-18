@@ -1,35 +1,26 @@
 const state = {
     new_post:{
       post_type:'article',
-      subject:{},
+      subject_id:'',
+      subject_name:'',
+      subject_course:true,
+      category_id:'',
       heading:'',
-      articleContent:{
-        htmlContent:''
-      },
-      noticeContent:{
-        htmlContent:'',
-        expiry_date:''
-      },
-      documentContent:{
-        files:'',
-        description:''
-      },
-      factContent:{
-        image:'',
-        description:''
-      },
-      videoContent:{
-        video_id:'',
-        description:''
-      },
-      mcqContent:{
-        question:'',
-        option1:'',
-        option2:'',
-        option3:'',
-        option4:'',
-        answer:''
-      },
+      article_html_content:'',
+      notice_html_content:'',
+      notice_expiry_date:'',
+      document_files:'',
+      document_description:'',
+      fact_image:'',
+      fact_description:'',
+      video_id:'',
+      video_description:'',
+      mcq_option1:'',
+      mcq_option2:'',
+      mcq_option3:'',
+      mcq_option4:'',
+      mcq_correct_option:'',
+      mcq_answer:''
     },
     categories: [],
     AuthUserCategory: 0,

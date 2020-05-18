@@ -9,14 +9,14 @@ class Fact extends Model
     //
     public function createNewFact($data){
         
-        $file=File::get($data['image']);
+        $file=File::get($data['fact_image']);
         $file_name=uniqid().'.'.$file->getClientOriginalExtension();
         $file_path="post-images/".$file_name;
         storage()->put($file_path);
         
         $post_content_id=self::insertGetId([
             'image'=>$file_path,
-            'description'=>$data['description'],
+            'description'=>$data['fact_description'],
         ]);
 
         $newFile= new SthubFile();

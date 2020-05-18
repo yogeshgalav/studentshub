@@ -10,7 +10,7 @@ class SubjectController extends Controller
     //
     public function index($category_id,Request $request)
     {
-        $subjects=Subject::where('Subject_name','LIKE','%'.$request->subject.'%')->where('parent_id',$category_id)->limit(10)->get();
+        $subjects=Subject::where('subject_name','LIKE','%'.$request->subject.'%')->limit(10)->get();
         return response()->json([
             'success'=>[
                 'subjects'=>$subjects

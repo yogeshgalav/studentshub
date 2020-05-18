@@ -75,7 +75,7 @@ class Post extends PostModel
             $post_query=$this->getSeekerPostTabels();     
         }
 
-        $posts=$post_query->where('sub.Subject_name','LIKE','%'.$request->input('query').'%')
+        $posts=$post_query->where('sub.subject_name','LIKE','%'.$request->input('query').'%')
         ->orWhere('cat.name','LIKE','%'.$request->input('query').'%')
         ->orWhere('po.post_heading','LIKE','%'.$request->input('query').'%')
         ->orderBy('po.created_at','DESC')
@@ -134,7 +134,7 @@ class Post extends PostModel
         // ->leftJoin('facts as fa','po.id','=','fa.post_id')
         // ->leftJoin('mcqs as mc','po.id','=','mc.post_id')
         ->select(['po.id as id','po.post_heading as heading','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','po.primary_image_path as image_path',
-        'sub.subject_url','sub.Subject_name as subject_name','course.id as course_id','course.course_name','uli.like_status as user_like',
+        'sub.subject_url','sub.subject_name','course.id as course_id','course.course_name','uli.like_status as user_like',
         'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','inst.name as institute_name','ar.content as article_content','vd.content as video_content',
         'vd.video_id as video_id']);
     }
@@ -168,7 +168,7 @@ class Post extends PostModel
         ->leftJoin('courses as course','course.id','=','sp.course_id')
         // ->leftJoin('facts as fa','po.id','=','fa.post_id')
         ->select(['po.id as id','po.post_heading as heading','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','po.primary_image_path as image_path',
-        'sub.subject_url','sub.Subject_name as subject_name','course.id as course_id','course.course_name',
+        'sub.subject_url','sub.subject_name','course.id as course_id','course.course_name',
         'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','ar.content as article_content','vd.content as video_content',
         'vd.video_id as video_id']);
     }
@@ -244,7 +244,7 @@ class Post extends PostModel
         ->leftJoin('categories as cat','cat.id','=','sub.category_id')
         ->leftJoin('users as us','us.id','=','po.user_id')
         // ->leftJoin('facts as fa','po.id','=','fa.post_id')
-        ->select(['po.id as id','po.post_heading as heading','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','sub.Subject_name as subject_name','po.primary_image_path as image_path',
+        ->select(['po.id as id','po.post_heading as heading','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','sub.subject_name','po.primary_image_path as image_path',
         'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','ar.content as article_content','vd.content as video_content',
         'vd.video_id as video_id'])->limit(3)->get();
 
@@ -266,7 +266,7 @@ class Post extends PostModel
         ->leftJoin('categories as cat','cat.id','=','sub.category_id')
         ->leftJoin('users as us','us.id','=','po.user_id')
         // ->leftJoin('facts as fa','po.id','=','fa.post_id')
-        ->select(['po.id as id','po.post_heading as heading','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','sub.Subject_name as subject_name','po.primary_image_path as image_path',
+        ->select(['po.id as id','po.post_heading as heading','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','sub.subject_name','po.primary_image_path as image_path',
         'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','ar.content as article_content','vd.content as video_content','uli.like_status as user_like',
         'vd.video_id as video_id'])->get();
 
@@ -284,7 +284,7 @@ class Post extends PostModel
         ->leftJoin('categories as cat','cat.id','=','sub.category_id')
         ->leftJoin('users as us','us.id','=','po.user_id')
         // ->leftJoin('facts as fa','po.id','=','fa.post_id')
-        ->select(['po.id as id','po.post_heading as heading','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','sub.Subject_name as subject_name','po.primary_image_path as image_path',
+        ->select(['po.id as id','po.post_heading as heading','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','sub.subject_name','po.primary_image_path as image_path',
         'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','ar.content as article_content','vd.content as video_content',
         'vd.video_id as video_id'])->get();
 

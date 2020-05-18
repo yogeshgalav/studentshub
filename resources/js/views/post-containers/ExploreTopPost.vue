@@ -18,7 +18,7 @@
 								<div>
 									
 									<div class="separator-solid"></div>
-									<p class="card-category text-info mb-2"><a href="#">{{post.Subject_name}}</a></p>
+									<p class="card-category text-info mb-2"><a href="#">{{post.subject_name}}</a></p>
 									<h3 class="card-title  font-size-16">
 										<router-link :to="'/post/'+post.id"  class="weight-600 text-black">
 											{{post.heading}}

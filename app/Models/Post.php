@@ -62,21 +62,7 @@ class Post extends Model
     public function like(){
         return $this->morphMany('App\Models\Like', 'likable');
     }
-    public function scopeGetGuestPostContent(){
-        
-        return [
-            'id'=>$this->id,
-            'content'=>$this->postable()->first(),
-            'post_type'=>$this->post_type,
-            'heading'=>$this->post_heading,
-            'user_name'=>$this->user_name,
-            'subject_name'=>$this->subject->Subject_name,
-            'created_at'=>Carbon::createFromTimeStamp(strtotime($this->created_at))->diffForHumans(),
-            'total_views'=>$this->total_views,
-            'total_likes'=>$this->total_likes,
-            'total_dislikes'=>$this->total_dislikes,
-        ];
-    }
+    
     public function getPostTypeAttribute(){
         switch($this->postable_type){
             case 'App\Models\Article':
@@ -84,38 +70,6 @@ class Post extends Model
             case 'App\Models\Video':
                 return 'video';
         }
-    }
-    public function scopeGetSeekerPostContent(){
-
-        $post_like=$this->like->where('user_id',Auth::user()->id)->first();
-        return [
-            'id'=>$this->id,
-            'content'=>$this->postable()->first(),
-            'post_type'=>$this->post_type,
-            'heading'=>$this->post_heading,
-            'user_name'=>$this->user_name,
-            'like'=>$post_like ? $post_like->like : null,
-            'subject_name'=>$this->subject->Subject_name,
-            'created_at'=>Carbon::createFromTimeStamp(strtotime($this->created_at))->diffForHumans(),
-            'total_views'=>$this->total_views,
-            'total_likes'=>$this->total_likes,
-            'total_dislikes'=>$this->total_dislikes,
-        ];
-    }
-    public function scopeGetViewContent()
-    {
-        $post_content=Auth::check() ? $this->getSeekerPostContent() : $this->getGuestPostContent();
-        $parent_subject_id=$this->subject->parent_subject_id;
-        $subjects=Subject::where('parent_subject_id',$parent_subject_id)
-        ->where('id','!=',$this->subject_id)
-        ->limit(6)->get();
-        $related_posts=[];
-        foreach($subjects as $subject){
-            $post=$subject->posts()->first();
-            is_null($post)?'':$related_posts[]=$post;
-        }
-        
-        return ['categories'=>$subjects,'post_content'=>$post_content,'related_posts'=>$related_posts];
     }
     
 }
