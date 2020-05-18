@@ -69,4 +69,8 @@ class User extends Authenticatable
         }
         return $full_name;
     }
+
+    public function setFullNameAttribute($value){
+        return ucwords($value);
+    }
 }

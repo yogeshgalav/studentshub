@@ -29,7 +29,7 @@ class DoubtController extends Controller
         $subject=Subject::firstOrCreate([
             'subject_url'=>urlencode($subject_name),
             ],[
-            'Subject_name'=>$subject_name,
+            'subject_name'=>$subject_name,
             'category_id'=>$student->categoryId
             ]);  
 
@@ -62,7 +62,7 @@ class DoubtController extends Controller
         ->join('batches as pbt','pbt.id','=','doubts.batch_id')
         ->join('institutes as inst','inst.id','=','pbt.institute_id')
         ->join('subjects as sub','sub.id','=','doubts.subject_id')
-        ->select('us.full_name as user_name','us.avatar_url as profile_image','sub.Subject_name','inst.name as inst_name',
+        ->select('us.full_name as user_name','us.avatar_url as profile_image','sub.subject_name','inst.name as inst_name',
         'doubts.question','doubts.created_at','doubts.id')
         ->get();
 

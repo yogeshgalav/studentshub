@@ -25,7 +25,7 @@
         <div class="col-md-8 center-col">
 							<div class="doubt_lsit">
                                 <div class="cat_sub_name">
-                       <p class="mb-0 text-muted">{{doubt.Subject_name}}</p>
+                       <p class="mb-0 text-muted">{{doubt.subject_name}}</p>
             </div>
 
               <div class="dashboard_post">

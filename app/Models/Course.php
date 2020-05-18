@@ -21,4 +21,8 @@ class Course extends Model
     public function totalBatch(){
         return $this->batch()->count();
     }
+
+    public function setCourseNameAttribute($value){
+        return ucwords($value);
+    }
 }

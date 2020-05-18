@@ -10,10 +10,17 @@ class LikeController extends Controller
 {
     //
     public function post(Request $request){
-        $post=Post::findOrFail($request->post_id);
-        $like=Like::where($post->id,'=','likable_id')->where('li.likable_type','=','App\Models\Post')->where('user_id','=',Auth::user()->id)->first();
+        $post=\App\Models\Post::findOrFail($request->post_id);
+        $me=Auth::user();
+        $like=Like::where('likable_id','=',$post->id)->where('likable_type','=','App\Models\Post')->where('user_id','=',$me->id)->first();
         switch($request->input('method')){
             case 'add':
+                if(is_null($like)){
+                    $like= new Like();
+                    $like->likable_type='App\Models\Post';
+                    $like->likable_id=$post->id;
+                    $like->user_id=$me->id;
+                }
                 switch($request->input('type')){
                     case 'like':
                         $like->like_status=1;

@@ -30,7 +30,7 @@ class Search extends Model
         
         if(is_null($posts)){
             foreach($query_params as $param){
-                $subject=Subject::where('Subject_name',$param)->first();
+                $subject=Subject::where('subject_name',$param)->first();
                 if($subject){break;}
             }
             $posts=$subject->posts->sthubPost;

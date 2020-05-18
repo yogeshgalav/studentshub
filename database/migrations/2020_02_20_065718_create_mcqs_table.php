@@ -19,6 +19,7 @@ class CreateMcqsTable extends Migration
             $table->string('optionB');
             $table->string('optionC');
             $table->string('optionD');
+            $table->tinyInteger('correct_option');
             $table->text('answer');
             $table->timestamps();
         });

@@ -17,7 +17,7 @@
                     </div>
                    <div class="cat_list">
                           <p v-for="subject in course_subjects" :key="subject.id">
-                              <a :href="subject.subject_url">{{subject.Subject_name}}</a>
+                              <a :href="subject.subject_url">{{subject.subject_name}}</a>
                         </p>
                     </div>     
                 </div>
