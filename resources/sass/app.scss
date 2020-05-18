@@ -2022,6 +2022,67 @@ main.doubt_main_page {
 .user_social_link_left {
     margin-right: 20px;
 }
+
+.answer_card {
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.12);
+    padding: 20px;
+}
+.ans_user_img img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+}
+.ans_input_sec {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.ans_input_box {
+    width: 70%;
+}
+.answer_cat {
+    display: flex;
+    justify-content: space-between;
+    color: #868686;
+}
+.ans_user_text h6
+{
+    color: #868686;
+
+}
+.ans_btn {
+    border: none;
+    background-color: blue;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 2px;
+}
+p.answer_like {
+    color: #868686;
+    font-size: 12px;
+}
+.anser_deails {
+    display: flex;
+}
+.answer_que {
+    margin-top: 20px;
+}
+.ans_user_text {
+    width: 100%;
+}
+.answer_card.reply_box {
+    margin-left: 100px;
+}
+.answer_card {
+    margin-top: 40px;
+    position: relative;
+}
+p.answer_like {
+    position: absolute;
+    bottom: -42px;
+}
 @media only screen and (max-width: 600px) {
     .search_box {
         width: 100%;
@@ -2136,10 +2197,25 @@ main.doubt_main_page {
     margin-bottom: 20px;
 }
 .user_profile_page {
-    padding: 50px 0;
+    padding: 0px 0;
     margin-left: 20px;
 }
 .user_interest {
     margin-top: 25px;
+}
+.cojl {
+     width: 135px; 
+}
+.ans_input_box {
+    width: 100%;
+    margin-bottom: 15px;
+}
+.answer_cat
+{
+    font-size: 13px;
+}
+.answer_card.reply_box {
+    margin-top: 20px;
+    margin-left: 20px;
 }
 }
