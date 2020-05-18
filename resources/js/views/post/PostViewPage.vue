@@ -186,8 +186,16 @@
             </div>
         </div>
            </div>
-               
-
+               <div class="single_page_user_like">
+                   <div class="user_like">
+                       <p><span><i class="fas fa-thumbs-up"></i></span></p>
+                       <p>250</p>
+                   </div>
+                   <div class="user_dislike">
+                       <p><span><i class="fa fa-thumbs-down" aria-hidden="true"></i></span></p>
+                       <p>250</p>
+                   </div>   
+               </div>   
         <site-footer v-if="role==='guest'"></site-footer>
     </section>
 </template>
@@ -339,6 +347,43 @@
     {
         display: flex;
     }
+    .single_page_user_like {
+    display: flex;
+    justify-content: center;
+    margin-top: 90px;
+}
+    .user_like p {
+    margin: 0;
+    color: blue;
+    font-size: 18px;
+}
+    .user_dislike p {
+    margin: 0;
+    color: #868686;
+    font-size: 18px;
+}
+
+.user_like {
+    width: 100px;
+    height: 100px;
+    background-color: #f2f2f2;
+    border-radius: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.user_dislike {
+    width: 100px;
+    height: 100px;
+    background-color: #f2f2f2;
+    border-radius: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 50px;
+}
 </style>
 <script>
     import {
