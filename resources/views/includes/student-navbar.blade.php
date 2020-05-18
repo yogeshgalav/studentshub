@@ -49,7 +49,7 @@
 
 <div class="container">
     
-<nav class="navbar navbar-expand-lg navbar-light ">
+<nav class="navbar navbar-expand-lg navbar-light main_header_mobile ">
     <div class="logo">
     <router-link :to="'/'">
                 <img src="{{asset('/images/logo.png') }}" alt="Student Hub"/>

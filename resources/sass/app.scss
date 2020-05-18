@@ -1728,7 +1728,6 @@ button:focus{ outline: none;}
       position: relative;
       display: block;
       text-align: center;
-      padding: 13px 0;
       width: 50px;
     height: 73px;
       left: 0;
@@ -2083,6 +2082,50 @@ p.answer_like {
     position: absolute;
     bottom: -42px;
 }
+
+
+
+
+// mobile header
+
+.Dsad {
+    display: flex;
+    width: 100%;
+}
+.header_mobile {
+    position: relative;
+    left: 0px;
+    width: 100%;
+    display:none;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.12);
+    padding: 5px 0 0 0;
+}
+.header_mobile_login {
+    width: 100%;
+}
+.header_mobile_login ul {
+    display: flex;
+    padding: 0 20px 0 0px;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+.header_mobile_login li {
+    list-style: none;
+}
+.logo.mobile_logo img {
+    width: 100%;
+}
+.logo.mobile_logo {
+    width: 50%;
+    margin: 0 auto;
+    margin-bottom: 15px;
+}
+.togle_web
+{
+    display: block;
+}
 @media only screen and (max-width: 600px) {
     .search_box {
         width: 100%;
@@ -2180,7 +2223,11 @@ p.answer_like {
         overflow: hidden;
         text-overflow: ellipsis;
       }
-.primary-nav {top: 70px;}  
+.primary-nav {  
+      top: 0;
+    width: 100%;
+    z-index: 9999;
+}  
 .creat_post_card.img_der .row {
     flex-direction: column-reverse;
 }
@@ -2198,7 +2245,7 @@ p.answer_like {
 }
 .user_profile_page {
     padding: 0px 0;
-    margin-left: 20px;
+    margin: 0 20px;
 }
 .user_interest {
     margin-top: 25px;
@@ -2218,4 +2265,60 @@ p.answer_like {
     margin-top: 20px;
     margin-left: 20px;
 }
+.header_mobile
+{
+    display: block;
 }
+.hamburger
+{
+    position: relative;
+    height: 45px; 
+}
+
+.main_header_mobile
+{
+    display: none;
+}
+.menu {
+    left: -250px;
+}
+.openNav .menu {
+    -webkit-transform: translate3d(200px, 0, 0);
+    transform: translate3d(250px, 0, 0);
+}   
+.main-panel {
+    margin-left: 0;
+}
+.openNav .menu:hover {
+    position: absolute;
+    left: -250px;
+}
+main.doubt_main_page {
+    margin: 0 20px;
+}
+.togle_web
+{
+    display: none;
+}
+ul.menu-dropdown {
+    margin-top: 30px;
+}
+.overflow-container{height: 100vh !important;}
+ul.menu-dropdown li {
+    border-bottom: solid 1px white;
+    padding: 10px 0;
+}
+.hamburger:before
+{
+    color: black !important;
+}
+.hamburger {
+    background: transparent ;
+}
+.openNav .hamburger:before
+{
+    color: white !important;
+
+}
+}
+
