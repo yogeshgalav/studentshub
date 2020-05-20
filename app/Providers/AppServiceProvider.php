@@ -26,14 +26,16 @@ class AppServiceProvider extends ServiceProvider
     {
         \View::composer('*', function($view){
             if($user=\Auth::user()){
-                $notifications=$user->notifications()->get()->each(function($notification){
+                $notifications=[];
+                foreach($user->notifications()->get() as $key=>$notification){
                     $n_text=\App\Models\NotificationText::where('notification_type',$notification->type)->first();
                     if($n_text){
-                        $notification->text=$n_text->notification_text;
+                        $notification[$key]['text']=$n_text->notification_text;
+                        $notification[$key]['time']=Carbon::createFromTimeStamp(strtotime($notification->created_at))->diffForHumans();
                     }else{
                         \Log::critical('Notification text not found of type'.$notification->type);
                     }
-                });
+                };
                 $view->with('notifications', $notifications);
             }
         });

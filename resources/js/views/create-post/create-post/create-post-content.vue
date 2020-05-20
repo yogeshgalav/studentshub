@@ -6,8 +6,7 @@
         :height="'100%'"/>
         </div>
         <div v-if="postType==='notice'">
-        <vue-editor id="NoticeEditor" v-model="content" :editorOptions="editorSettings" @input="editContent" 
-        :height="'100%'"/>
+            <notice />
         </div>
         <div v-if="postType==='document'">
             <document/>
@@ -39,10 +38,11 @@ import Document from './post-type/document';
 import Fact from './post-type/fact.vue';
 import NetVideo from './post-type/video.vue';
 import Mcq from './post-type/mcq.vue';
+import Notice from './post-type/notice.vue';
 import EventBus from '../event-bus';
 export default {
     components:{
-        VueEditor,Document,Fact,Mcq,NetVideo
+        VueEditor,Document,Fact,Mcq,NetVideo,Notice
     },
     data(){
         return{

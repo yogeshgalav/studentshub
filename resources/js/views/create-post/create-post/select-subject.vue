@@ -17,23 +17,21 @@
                         <input type="text" @input="editSubject" class="form-control">
                     </div>
                 </div>
-                <div class="text-black mt-2" v-show="!enableCategorySelect">
-                    Category :
-                    <span>{{ selected_category }}</span>
-                    <button
-                        class="chnage_cat"
-                        @click="enableCategorySelect=!enableCategorySelect"
-                    >
-                        Change Category
-                    </button>
+                <div class="form-group">
+                    <label>Does this Post belongs to your Course?</label>
+                    <input type="radio" id="yes" value="yes" v-model="is_course_subject">
+                    <label for="yes">Yes</label>
+                    <input type="radio" id="no" value="no" v-model="is_course_subject">
+                    <label for="no">No</label>
                 </div>
-                <div class="form-group" v-show="enableCategorySelect">
+                <div class="form-group" v-if="is_course_subject==='no'">
                     <label> {{ 'Category' }} </label>
                   <div class="inner-addon left-addon">
                    <div class="input_icon_frm">
                         <span class="icon_design_input"><i class="fa fa-file" aria-hidden="true"></i></span>
                     <select class="form-control" v-model="selected_category">
-                        <option v-for="category in categories" :key="category.id">{{category.name}}</option>
+                        <option value="">Select Category</option>
+                        <option v-for="category in categories" :key="category.id" :value="category.id">{{category.name}}</option>
                     </select>
                    </div>
                     <span class="error">{{errors.first('institute_name')}}</span>
@@ -96,7 +94,7 @@ export default {
     },
     data(){
         return {
-            enableCategorySelect:false,
+            is_course_subject:'yes',
             selected_category:'',
             subject_name:'',
         };
@@ -105,7 +103,11 @@ export default {
         EventBus.$on('validateStep3',()=>{
 			this.$validator.validate().then(valid => {
 				if(valid){
-                    this.$store.commit('set_post_subject',{'subject_name':this.subject_name});
+                    this.$store.commit('set_post_subject',{
+                        'is_course_subject':this.is_course_subject,
+                        'subject_name':this.subject_name,
+                        'selected_category':this.selected_category
+                        });
 					EventBus.$emit('validateWizard',3,true);
 				}else{
 					EventBus.$emit('validateWizard',3,false);

@@ -69,7 +69,6 @@
 import HomePostContainer from "../post-containers/HomePostContainer";
 
 export default {
-  props: ["loginStatus"],
   components: {
     HomePostContainer
   },

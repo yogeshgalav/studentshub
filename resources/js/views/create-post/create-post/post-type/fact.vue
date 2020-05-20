@@ -129,17 +129,28 @@ export default {
     };
   },
   mounted(){
+	  
 	  EventBus.$on('validateStep2', () => {
-      const data = {image:this.image,description:this.description};
-			this.$store.commit('set_post_document_content', data);
-		  EventBus.$emit('validateWizard',2,true);
-	  })
+		  this.getBase64(this.image.file).then(file=>{
+			  const data = {image:file,description:this.description};
+				this.$store.commit('set_post_fact_content', data);
+			EventBus.$emit('validateWizard',2,true);
+		  });
+      })
   },
   methods: {
     inputUpdate(files) {
 	  this.image=files[0];
 	  this.url = URL.createObjectURL(files[0].file);
-    },
+	},
+	getBase64(file) {
+		return new Promise((resolve, reject) => {
+			const reader = new FileReader();
+			reader.readAsDataURL(file);
+			reader.onload = () => resolve(reader.result);
+			reader.onerror = error => reject(error);
+		});
+	}
   }
 }
 </script>
