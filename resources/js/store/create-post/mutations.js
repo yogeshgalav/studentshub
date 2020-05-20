@@ -18,7 +18,7 @@ export default {
       state.new_post.fact_description = data.description;
     },
     set_post_video_content(state,data){
-      state.new_post.video_id = data.link;
+      state.new_post.video_id = data.video_id;
       state.new_post.video_description = data.description;
     },
     set_post_mcq_content(state,data){

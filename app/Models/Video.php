@@ -11,7 +11,7 @@ class Video extends Model
     
         $post_content_id=self::insertGetId([
         'video_id'=>$data['video_id'],
-        'video_type'=>'youtube',
+        // 'video_type'=>'youtube',
         'content'=>$data['video_description'] ?? null
         ]);
         return $post_content_id;
