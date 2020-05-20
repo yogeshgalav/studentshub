@@ -17,6 +17,9 @@
 <div class="main-header">
      @include('includes.seeker-navbar')
 </div>
+<div class="main-sidebar">
+    @include('includes.sidebar')
+</div>
 
 @yield('content')  
 </main>

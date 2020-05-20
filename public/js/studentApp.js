@@ -3137,6 +3137,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _footer_SiteFooter__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../footer/SiteFooter */ "./resources/js/views/footer/SiteFooter.vue");
 /* harmony import */ var _post_PostInteraction__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../post/PostInteraction */ "./resources/js/views/post/PostInteraction.vue");
 /* harmony import */ var _post_PostViewHeader__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../post/PostViewHeader */ "./resources/js/views/post/PostViewHeader.vue");
+/* harmony import */ var _post_ProfileImage__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../post/ProfileImage */ "./resources/js/views/post/ProfileImage.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -3529,7 +3530,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
+
 
 
 
@@ -3545,7 +3546,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     SiteFooter: _footer_SiteFooter__WEBPACK_IMPORTED_MODULE_4__["default"],
     PostInteraction: _post_PostInteraction__WEBPACK_IMPORTED_MODULE_5__["default"],
     PostViewHeader: _post_PostViewHeader__WEBPACK_IMPORTED_MODULE_6__["default"],
-    SocialSharing: vue_social_sharing__WEBPACK_IMPORTED_MODULE_1___default.a
+    SocialSharing: vue_social_sharing__WEBPACK_IMPORTED_MODULE_1___default.a,
+    ProfileImage: _post_ProfileImage__WEBPACK_IMPORTED_MODULE_7__["default"]
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
     'postContent': function postContent(state) {
@@ -53733,7 +53735,7 @@ var render = function() {
                 _c("div", { staticClass: "doubt_lsit" }, [
                   _c("div", { staticClass: "cat_sub_name" }, [
                     _c("p", { staticClass: "mb-0 text-muted" }, [
-                      _vm._v(_vm._s(doubt.Subject_name))
+                      _vm._v(_vm._s(doubt.subject_name))
                     ])
                   ]),
                   _vm._v(" "),
@@ -55339,7 +55341,7 @@ var render = function() {
               _vm._l(_vm.course_subjects, function(subject) {
                 return _c("p", { key: subject.id }, [
                   _c("a", { attrs: { href: subject.subject_url } }, [
-                    _vm._v(_vm._s(subject.Subject_name))
+                    _vm._v(_vm._s(subject.subject_name))
                   ])
                 ])
               }),

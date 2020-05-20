@@ -27,7 +27,12 @@ class AppServiceProvider extends ServiceProvider
         \View::composer('*', function($view){
             if($user=\Auth::user()){
                 $notifications=$user->notifications()->get()->each(function($notification){
-                    $notification->text=\App\Models\NotificationText::where('notification_type',$notification->type)->first()->notification_text;
+                    $n_text=\App\Models\NotificationText::where('notification_type',$notification->type)->first();
+                    if($n_text){
+                        $notification->text=$n_text->notification_text;
+                    }else{
+                        \Log::critical('Notification text not found of type'.$notification->type);
+                    }
                 });
                 $view->with('notifications', $notifications);
             }

@@ -73,7 +73,7 @@ class StudentController extends Controller
         ]);
 
         $batch_users=$batch->users()->whereNotIn('id',[$user->id]);
-        Notification::send($batch_users, new BatchNewUserNotification($user,$batch));
+        // Notification::send($batch_users, new BatchNewUserNotification($user,$batch));
         // Notification::send($user, new StudentOnboardingNotification($batch));
             
         

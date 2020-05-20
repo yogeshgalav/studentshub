@@ -105,7 +105,8 @@ class AuthController extends Controller
         $success['refresh_token'] = $content->refresh_token;
                 
         $success['redirectUrl'] = '/education-details';
-        
+        \Notification::send($user, new \App\Notifications\NewUserWelcomeNotification());
+    
     DB::commit();
     } catch (\Exception $e) {
         DB::rollback();
