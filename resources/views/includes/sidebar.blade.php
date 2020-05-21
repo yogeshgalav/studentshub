@@ -35,9 +35,9 @@
                                 <span><i class="fa fa-bell"></i></span>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                @foreach($notifications as $notification)
-                                <a class="dropdown-item" href="#">@lang($notification->text)</a>
-                                @endforeach
+                             
+                                <a class="dropdown-item" href="#">Lipsum generator: Lorem Ipsum - All the facts Lipsum generator: Lorem Ipsum - All the facts</a>
+                               
                             </div>
                         </div>
                     </li>

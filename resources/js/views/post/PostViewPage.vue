@@ -1,9 +1,20 @@
 <template>
     <section class="single_post">
+        <div class="post_view_head">
         <div class="back_btn">
             <a class="btn btn-white btn-rounded btn-l" @click="$router.go(-1)"><i class="fa fa-arrow-left"></i> Back
             </a>
 
+        </div>
+        <div class="dropdown">
+  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+ <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="#">Save</a>
+    <a class="dropdown-item" href="#">Report</a>
+  </div>
+</div>
         </div>
         <div class="single_post_page">
             <div class="container">
@@ -199,6 +210,15 @@
     </section>
 </template>
 <style scoped>
+.post_view_head {
+    display: flex;
+    justify-content: flex-end;
+    padding: 25px;
+    position: absolute;
+    width: 100%;
+    /* left: 0; */
+    right: 0;
+}
     .post_img {
         width: 100%;
     }
@@ -209,20 +229,15 @@
 
     .single_post_page {
         background-color: #f6f6f6;
-        padding: 49px 0;
+    padding: 120px 0 80px;
         text-align: center;
     }
 
     section.single_post {
-        padding: 85px 0;
+        padding: 65px 0;
     }
 
-    .back_btn {
-        position: fixed;
-            top: 120px;
-    left: 80px;
-        z-index: 99;
-    }
+   
 
     .s_page_like {
         display: flex;
@@ -382,6 +397,18 @@
     justify-content: center;
     align-items: center;
     margin-left: 50px;
+}
+.post_view_head .dropdown-menu.show {
+    display: block;
+    left: -130px !important;
+    transform: inherit !important;
+        top: 37px !important;
+}
+.post_view_head .dropdown-menu {
+    min-width: 10rem;
+}
+.post_view_head .dropdown-toggle::after{
+    display: none;
 }
 </style>
 <script>

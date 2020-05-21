@@ -34,6 +34,10 @@ html {
     padding-top: 5px;
     padding-bottom: 5px;
 }
+body
+{
+    background-color: white;
+}
 
 body,
 h1,
@@ -60,6 +64,7 @@ button.close {
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
     font-family: 'Proxima Nova', Georgia, sans-serif !important;
+
 }
 
 // Standard Headings
@@ -2126,6 +2131,43 @@ p.answer_like {
 {
     display: block;
 }
+div#preview img {
+    width: 34%;
+    height: 250px;
+}
+
+.dash_search .dropdown-toggle::after
+{
+    display: none;
+}
+select.form-control.custom-select {
+    font-size: 18px;
+}
+ .dropdown-item
+{
+    white-space: inherit;
+}
+.dropdown-menu
+{
+    min-width: 20rem;
+}
+.logout_btn {
+    background-color: blue;
+    color: white;
+    padding: 5px 25px;
+  
+}
+.navbar-expand-lg .navbar-nav .dropdown-menu {
+    position: absolute;
+    left: -130px;
+    top: 55px;
+} .back_btn {
+    position: fixed;
+        top: 112px;
+left: 80px;
+    z-index: 99;
+}
+
 @media only screen and (max-width: 600px) {
     .search_box {
         width: 100%;
@@ -2305,7 +2347,6 @@ ul.menu-dropdown {
 }
 .overflow-container{height: 100vh !important;}
 ul.menu-dropdown li {
-    border-bottom: solid 1px white;
     padding: 10px 0;
 }
 .hamburger:before
@@ -2319,6 +2360,27 @@ ul.menu-dropdown li {
 {
     color: white !important;
 
+}
+.header_mobile .dropdown
+{
+    position: inherit;;
+}
+.header_mobile .dropdown-menu.show {
+    transform: inherit !important;
+    display: block;
+    width: 100%;
+    top: 96px !important;
+}
+.header_mobile .dropdown svg 
+{
+    font-size: 16px;
+}
+.header_mobile .dropdown-item
+{
+    white-space: inherit;
+}
+.back_btn {
+left: 12px;
 }
 }
 

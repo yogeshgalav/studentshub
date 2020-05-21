@@ -58,7 +58,20 @@
       <li class="nav-item active search_box ">
       @include('includes.search-form')
       </li>
-      <li><span><i class="fa fa-bell"></i></span></li>
+      <li>
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-default border-radius-12 dropdown-toggle" type="button"
+                                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
+                                <span><i class="fa fa-bell"></i></span>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                             
+                                <a class="dropdown-item" href="#">Lipsum generator: Lorem Ipsum - All the facts Lipsum generator: Lorem Ipsum - All the facts</a>
+                               
+                            </div>
+                        </div>
+                    </li>
       <li class="nav-item">
       <div class="dropdown">
                         <button class="btn btn-sm btn-default border-radius-12 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -80,7 +93,7 @@
                           <a class="dropdown-item" href="#">@lang($notification->text)</a>
 						  @endforeach
 						  <a class="dropdown-item" href="#">Something else here</a> --}}
-                          <a href="/logout" class="center-block ml-3 mt-1 btn btn-sm btn-default">Logout</a>
+                          <a href="/logout" class="center-block ml-3 mt-1 btn btn-sm btn-default logout_btn">Logout</a>
                         </div>
                       </div>
 

@@ -4497,6 +4497,33 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -9516,7 +9543,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.post_img[data-v-35874454] {\n        width: 100%;\n}\n.single_post_page .row[data-v-35874454] {\n        -webkit-box-align: center;\n                align-items: center;\n}\n.single_post_page[data-v-35874454] {\n        background-color: #f6f6f6;\n        padding: 49px 0;\n        text-align: center;\n}\nsection.single_post[data-v-35874454] {\n        padding: 85px 0;\n}\n.back_btn[data-v-35874454] {\n        position: fixed;\n            top: 120px;\n    left: 80px;\n        z-index: 99;\n}\n.s_page_like[data-v-35874454] {\n        display: -webkit-box;\n        display: flex;\n        -webkit-box-pack: center;\n                justify-content: center;\n        -webkit-box-align: center;\n                align-items: center;\n        margin-top: 15px;\n}\n.like_1[data-v-35874454] {\n        padding: 0px 10px;\n        color: #868686;\n}\n.user_img_singe[data-v-35874454] {\n        margin-bottom: 15px;\n}\n.user_img_singe img[data-v-35874454] {\n        width: 50px;\n        height: 50px;\n        border-radius: 50px;\n}\n.post_video iframe[data-v-35874454] {\n        width: 100%;\n}\n.post_content[data-v-35874454] {\n        margin-top: 20px;\n}\n.post_content p[data-v-35874454] {\n        color: #868685;\n        line-height: 27px;\n        text-align: justify;\n        position: relative;\n        font-size: 20px;\n}\n.post_content p[data-v-35874454]:before {\n        position: absolute;\n        content: '';\n        background-color: black;\n        height: 70px;\n        width: 2px;\n        left: -12px;\n        top: 8px;\n}\nh3.post_main_title[data-v-35874454] {\n        /* font-size: 22px; */\n        font-weight: 500;\n        line-height: 34px;\n        position: relative;\n}\nh3.post_main_title[data-v-35874454]:before {\n        position: absolute;\n        content: '';\n        /* background-color: red; */\n        left: -36px;\n        width: 15px;\n        height: 15px;\n        top: 16px;\n        border: solid 1px #00c1d5;\n}\nh3.post_main_title[data-v-35874454]:after {\n        position: absolute;\n        content: '';\n        /* background-color: red; */\n        left: -29px;\n        width: 15px;\n        height: 15px;\n        top: 11px;\n        border: solid 1px #00c1d5;\n}\n.post_like_head[data-v-35874454] {\n        text-align: center;\n}\n.social_icon_text[data-v-35874454]:before {\n        position: absolute;\n        content: '';\n        background-color: #272727;\n        width: 37px;\n        height: 1px;\n        right: -43px;\n        bottom: 7px;\n}\nh5.social_icon_text[data-v-35874454] {\n        position: relative;\n        font-weight: 500;\n        color: #868686;\n}\n.recent_post_img img[data-v-35874454] {\n        width: 40px;\n        height: 40px;\n        border-radius: 50px;\n}\nh6.card-title[data-v-35874454] {\n        margin: 0;\n        padding: 10px 9px 0;\n        color: #868686;\n}\nh6.card-title-tag.font-size-12 a[data-v-35874454] {\n        color: #868686;\n}\n.recent_card_post[data-v-35874454] {\n        padding: 12px 10px 0;\n}\n.single_page_post_card .row .col-md-4[data-v-35874454]\n    {\n        display: -webkit-box;\n        display: flex;\n}\n.single_page_user_like[data-v-35874454] {\n    display: -webkit-box;\n    display: flex;\n    -webkit-box-pack: center;\n            justify-content: center;\n    margin-top: 90px;\n}\n.user_like p[data-v-35874454] {\n    margin: 0;\n    color: blue;\n    font-size: 18px;\n}\n.user_dislike p[data-v-35874454] {\n    margin: 0;\n    color: #868686;\n    font-size: 18px;\n}\n.user_like[data-v-35874454] {\n    width: 100px;\n    height: 100px;\n    background-color: #f2f2f2;\n    border-radius: 50px;\n    display: -webkit-box;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n            flex-direction: column;\n    -webkit-box-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n            align-items: center;\n}\n.user_dislike[data-v-35874454] {\n    width: 100px;\n    height: 100px;\n    background-color: #f2f2f2;\n    border-radius: 50px;\n    display: -webkit-box;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n            flex-direction: column;\n    -webkit-box-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n            align-items: center;\n    margin-left: 50px;\n}\n", ""]);
+exports.push([module.i, "\n.post_view_head[data-v-35874454] {\r\n    display: -webkit-box;\r\n    display: flex;\r\n    -webkit-box-pack: end;\r\n            justify-content: flex-end;\r\n    padding: 25px;\r\n    position: absolute;\r\n    width: 100%;\r\n    /* left: 0; */\r\n    right: 0;\n}\n.post_img[data-v-35874454] {\r\n        width: 100%;\n}\n.single_post_page .row[data-v-35874454] {\r\n        -webkit-box-align: center;\r\n                align-items: center;\n}\n.single_post_page[data-v-35874454] {\r\n        background-color: #f6f6f6;\r\n    padding: 120px 0 80px;\r\n        text-align: center;\n}\nsection.single_post[data-v-35874454] {\r\n        padding: 65px 0;\n}\n.s_page_like[data-v-35874454] {\r\n        display: -webkit-box;\r\n        display: flex;\r\n        -webkit-box-pack: center;\r\n                justify-content: center;\r\n        -webkit-box-align: center;\r\n                align-items: center;\r\n        margin-top: 15px;\n}\n.like_1[data-v-35874454] {\r\n        padding: 0px 10px;\r\n        color: #868686;\n}\n.user_img_singe[data-v-35874454] {\r\n        margin-bottom: 15px;\n}\n.user_img_singe img[data-v-35874454] {\r\n        width: 50px;\r\n        height: 50px;\r\n        border-radius: 50px;\n}\n.post_video iframe[data-v-35874454] {\r\n        width: 100%;\n}\n.post_content[data-v-35874454] {\r\n        margin-top: 20px;\n}\n.post_content p[data-v-35874454] {\r\n        color: #868685;\r\n        line-height: 27px;\r\n        text-align: justify;\r\n        position: relative;\r\n        font-size: 20px;\n}\n.post_content p[data-v-35874454]:before {\r\n        position: absolute;\r\n        content: '';\r\n        background-color: black;\r\n        height: 70px;\r\n        width: 2px;\r\n        left: -12px;\r\n        top: 8px;\n}\nh3.post_main_title[data-v-35874454] {\r\n        /* font-size: 22px; */\r\n        font-weight: 500;\r\n        line-height: 34px;\r\n        position: relative;\n}\nh3.post_main_title[data-v-35874454]:before {\r\n        position: absolute;\r\n        content: '';\r\n        /* background-color: red; */\r\n        left: -36px;\r\n        width: 15px;\r\n        height: 15px;\r\n        top: 16px;\r\n        border: solid 1px #00c1d5;\n}\nh3.post_main_title[data-v-35874454]:after {\r\n        position: absolute;\r\n        content: '';\r\n        /* background-color: red; */\r\n        left: -29px;\r\n        width: 15px;\r\n        height: 15px;\r\n        top: 11px;\r\n        border: solid 1px #00c1d5;\n}\n.post_like_head[data-v-35874454] {\r\n        text-align: center;\n}\n.social_icon_text[data-v-35874454]:before {\r\n        position: absolute;\r\n        content: '';\r\n        background-color: #272727;\r\n        width: 37px;\r\n        height: 1px;\r\n        right: -43px;\r\n        bottom: 7px;\n}\nh5.social_icon_text[data-v-35874454] {\r\n        position: relative;\r\n        font-weight: 500;\r\n        color: #868686;\n}\n.recent_post_img img[data-v-35874454] {\r\n        width: 40px;\r\n        height: 40px;\r\n        border-radius: 50px;\n}\nh6.card-title[data-v-35874454] {\r\n        margin: 0;\r\n        padding: 10px 9px 0;\r\n        color: #868686;\n}\nh6.card-title-tag.font-size-12 a[data-v-35874454] {\r\n        color: #868686;\n}\n.recent_card_post[data-v-35874454] {\r\n        padding: 12px 10px 0;\n}\n.single_page_post_card .row .col-md-4[data-v-35874454]\r\n    {\r\n        display: -webkit-box;\r\n        display: flex;\n}\n.single_page_user_like[data-v-35874454] {\r\n    display: -webkit-box;\r\n    display: flex;\r\n    -webkit-box-pack: center;\r\n            justify-content: center;\r\n    margin-top: 90px;\n}\n.user_like p[data-v-35874454] {\r\n    margin: 0;\r\n    color: blue;\r\n    font-size: 18px;\n}\n.user_dislike p[data-v-35874454] {\r\n    margin: 0;\r\n    color: #868686;\r\n    font-size: 18px;\n}\n.user_like[data-v-35874454] {\r\n    width: 100px;\r\n    height: 100px;\r\n    background-color: #f2f2f2;\r\n    border-radius: 50px;\r\n    display: -webkit-box;\r\n    display: flex;\r\n    -webkit-box-orient: vertical;\r\n    -webkit-box-direction: normal;\r\n            flex-direction: column;\r\n    -webkit-box-pack: center;\r\n            justify-content: center;\r\n    -webkit-box-align: center;\r\n            align-items: center;\n}\n.user_dislike[data-v-35874454] {\r\n    width: 100px;\r\n    height: 100px;\r\n    background-color: #f2f2f2;\r\n    border-radius: 50px;\r\n    display: -webkit-box;\r\n    display: flex;\r\n    -webkit-box-orient: vertical;\r\n    -webkit-box-direction: normal;\r\n            flex-direction: column;\r\n    -webkit-box-pack: center;\r\n            justify-content: center;\r\n    -webkit-box-align: center;\r\n            align-items: center;\r\n    margin-left: 50px;\n}\n.post_view_head .dropdown-menu.show[data-v-35874454] {\r\n    display: block;\r\n    left: -130px !important;\r\n    -webkit-transform: inherit !important;\r\n            transform: inherit !important;\r\n        top: 37px !important;\n}\n.post_view_head .dropdown-menu[data-v-35874454] {\r\n    min-width: 10rem;\n}\n.post_view_head .dropdown-toggle[data-v-35874454]::after{\r\n    display: none;\n}\r\n", ""]);
 
 // exports
 
@@ -56920,67 +56947,114 @@ var render = function() {
   return _c("div", { staticClass: "post_header_single" }, [
     _c("div", { staticClass: "container-fluid" }, [
       _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-12" }, [
+        _c("div", { staticClass: "col-md-6 " }, [
+          _c(
+            "a",
+            {
+              staticClass: "btn btn-white btn-rounded btn-lg fixed-back",
+              on: {
+                click: function($event) {
+                  return _vm.$router.go(-1)
+                }
+              }
+            },
+            [_c("i", { staticClass: "fa fa-arrow-left" }), _vm._v(" Back ")]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-6" }, [
           _c("div", { staticClass: "social-network_singlepage" }, [
             _c("h5", { staticClass: "social_icon_text" }, [_vm._v("Share")]),
             _vm._v(" "),
-            _c("ul", { staticClass: "social_icon_singlepage" }, [
-              _c("li", [
-                _c(
-                  "a",
+            _vm.sharetoggle
+              ? _c(
+                  "ul",
                   {
-                    staticClass: "icoFacebook",
-                    attrs: { href: "#", title: "Facebook" },
-                    on: {
-                      click: function($event) {
-                        return _vm.newWindow(
-                          "https://www.facebook.com/studentshub.in"
-                        )
-                      }
-                    }
+                    staticClass:
+                      "social_icon_singlepage social-network social-circle"
                   },
-                  [_c("i", { staticClass: "fab fa-facebook-f" })]
+                  [
+                    _c("li", [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "icoFacebook",
+                          attrs: { href: "#", title: "Facebook" },
+                          on: {
+                            click: function($event) {
+                              return _vm.newWindow(
+                                "https://www.facebook.com/studentshub.in"
+                              )
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "fab fa-facebook-f" })]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("li", [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "icoTwitter",
+                          attrs: {
+                            href: "#",
+                            target: "_blank",
+                            title: "Twitter"
+                          },
+                          on: {
+                            click: function($event) {
+                              return _vm.newWindow(
+                                "https://www.twitter.com/studentshub_in"
+                              )
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "fab fa-twitter" })]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("li", [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "icoInstagram",
+                          attrs: {
+                            href: "#",
+                            target: "_blank",
+                            title: "Instagram"
+                          },
+                          on: {
+                            click: function($event) {
+                              return _vm.newWindow(
+                                "https://www.instagram.com/studentshub.in"
+                              )
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "fab fa-instagram" })]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _vm._m(0)
+                  ]
                 )
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c(
-                  "a",
-                  {
-                    staticClass: "icoTwitter",
-                    attrs: { href: "#", target: "_blank", title: "Twitter" },
-                    on: {
-                      click: function($event) {
-                        return _vm.newWindow(
-                          "https://www.twitter.com/studentshub_in"
-                        )
-                      }
-                    }
-                  },
-                  [_c("i", { staticClass: "fab fa-twitter" })]
-                )
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c(
-                  "a",
-                  {
-                    staticClass: "icoInstagram",
-                    attrs: { href: "#", target: "_blank", title: "Instagram" },
-                    on: {
-                      click: function($event) {
-                        return _vm.newWindow(
-                          "https://www.instagram.com/studentshub.in"
-                        )
-                      }
-                    }
-                  },
-                  [_c("i", { staticClass: "fab fa-instagram" })]
-                )
-              ]),
-              _vm._v(" "),
-              _vm._m(0)
-            ])
+              : _vm._e()
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-2 text-right" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-white btn-rounded btn-lg",
+                on: {
+                  click: function($event) {
+                    _vm.sharetoggle = !_vm.sharetoggle
+                  }
+                }
+              },
+              [_c("i", { staticClass: "fa fa-share-alt" })]
+            )
           ])
         ])
       ])
@@ -57029,22 +57103,26 @@ var render = function() {
     "section",
     { staticClass: "single_post" },
     [
-      _c("div", { staticClass: "back_btn" }, [
-        _c(
-          "a",
-          {
-            staticClass: "btn btn-white btn-rounded btn-l",
-            on: {
-              click: function($event) {
-                return _vm.$router.go(-1)
+      _c("div", { staticClass: "post_view_head" }, [
+        _c("div", { staticClass: "back_btn" }, [
+          _c(
+            "a",
+            {
+              staticClass: "btn btn-white btn-rounded btn-l",
+              on: {
+                click: function($event) {
+                  return _vm.$router.go(-1)
+                }
               }
-            }
-          },
-          [
-            _c("i", { staticClass: "fa fa-arrow-left" }),
-            _vm._v(" Back\n        ")
-          ]
-        )
+            },
+            [
+              _c("i", { staticClass: "fa fa-arrow-left" }),
+              _vm._v(" Back\n            ")
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _vm._m(0)
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "single_post_page" }, [
@@ -57214,7 +57292,7 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "col-md-4" }, [
               _c("div", { staticClass: "bg-gray p-2 mb-2" }, [
-                _vm._m(0),
+                _vm._m(1),
                 _vm._v(" "),
                 _c(
                   "div",
@@ -57251,9 +57329,9 @@ var render = function() {
                           [
                             _c("a", { attrs: { href: "#" } }, [
                               _vm._v(
-                                "\n                            " +
+                                "\n                                " +
                                   _vm._s(post.subject_name) +
-                                  "\n                        "
+                                  "\n                            "
                               )
                             ])
                           ]
@@ -57323,9 +57401,9 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\n                                    " +
+                                "\n                                        " +
                                   _vm._s(post.heading) +
-                                  "\n                                "
+                                  "\n                                    "
                               )
                             ]
                           )
@@ -57414,7 +57492,7 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _vm._m(1),
+      _vm._m(2),
       _vm._v(" "),
       _vm.role === "guest" ? _c("site-footer") : _vm._e()
     ],
@@ -57426,10 +57504,53 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "dropdown" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-primary dropdown-toggle",
+          attrs: {
+            type: "button",
+            id: "dropdownMenuButton",
+            "data-toggle": "dropdown",
+            "aria-haspopup": "true",
+            "aria-expanded": "false"
+          }
+        },
+        [
+          _c("i", {
+            staticClass: "fa fa-ellipsis-v",
+            attrs: { "aria-hidden": "true" }
+          })
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "dropdown-menu",
+          attrs: { "aria-labelledby": "dropdownMenuButton" }
+        },
+        [
+          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+            _vm._v("Save")
+          ]),
+          _vm._v(" "),
+          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+            _vm._v("Report")
+          ])
+        ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-12 latest-post" }, [
         _c("h6", { staticClass: "card-title" }, [
-          _vm._v("\n                    Popular Post\n                ")
+          _vm._v("\n                        Popular Post\n                    ")
         ])
       ])
     ])
