@@ -8,14 +8,14 @@
             <input type="text" id="videoLink" class="form-control" @blur="embedVideo">
             </div>
              <div v-if="!is_video_embeded" class="video_image">
-            <i class="fa fa-video font-size-120 text-light-gray" />
-        </div>
+                <i class="fa fa-video font-size-120 text-light-gray" />
+            </div>
+            <div v-if="is_video_embeded" class="video_image">
+                <iframe :src="video_url" width="320" height="240" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+            </div>
         </div>
         <div class="col-md-8">
-        <div v-if="is_video_embeded" class="p-5 mt-3">
-            <iframe :src="video_url" width="320" height="240" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-            <span class="text-danger" v-if="video_error">{{video_error}}</span>
-        </div>
+        
         </div>
       
        
@@ -41,7 +41,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 200px;
+    height: 240px;
+    width: 320px;
     font-size: 60px;
 }
 .video_des textarea {
@@ -74,24 +75,23 @@ export default {
   },
   methods: {
     embedVideo(event){
-        let url=event.target.value.trim();
+        let url=event.target.value.trim()+'&';
         this.video_error='';
         this.is_video_embeded=false;
 
         var regex1 = /(?<=watch\?v\=).*?(?=\&)/gi;
         var regex2 = /(?<=www\.youtu\.be\/).*?(?=\&)/gi;
         var v_id='';
-        if(v_id=regex1.exec(url)[0]){
-            this.video_id=v_id;
-        }else if(v_id=regex2.exec(url)[0]){
-            this.video_id=v_id;
+        if(v_id=regex1.exec(url)){
+            this.video_id=v_id[0];
+        }else if(v_id=regex2.exec(url)){
+            this.video_id=v_id[0];
         }else{
             this.video_error='This video link is not supported';
             return false;
         }
 
-        
-        this.video_url='https://www.youtube.com/embed/'+v_id;
+        this.video_url='https://www.youtube.com/embed/'+v_id[0];
         this.is_video_embeded=true;
     }
   }

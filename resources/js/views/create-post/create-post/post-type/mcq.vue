@@ -29,10 +29,10 @@
             <label>Answer</label>
             <div class="right_answer">
                 <ul>
-                  <li class="right_active">1</li>
-                  <li>2</li>
-                  <li>3</li>
-                  <li>4</li>
+                  <li v-for="num in 4" :key="num" 
+                  :class="correct_option===num ? 'right_active' : ''"
+                  @click="correct_option=num"
+                  >{{num}}</li>
                 </ul>
             </div>  
         </div>
@@ -101,7 +101,7 @@ export default {
       option2:'',
       option3:'',
       option4:'',
-      correct_option:'',
+      correct_option:1,
       answer:'',
     };
   },

@@ -18,7 +18,7 @@ export default {
       state.new_post.fact_description = data.description;
     },
     set_post_video_content(state,data){
-      state.new_post.video_id = data.link;
+      state.new_post.video_id = data.video_id;
       state.new_post.video_description = data.description;
     },
     set_post_mcq_content(state,data){
@@ -32,6 +32,8 @@ export default {
     set_post_subject(state,data){
       state.new_post.subject_id=data.subject_id ? data.subject_id : null;
       state.new_post.subject_name=data.subject_name;
+      state.new_post.course_subject=data.is_course_subject==='yes'?true:false;
+      state.new_post.category_id=data.selected_category;
     },
     set_post_heading(state,data){
       state.new_post.heading=data.post_heading;

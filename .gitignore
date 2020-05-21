@@ -2,7 +2,7 @@
 /node_modules
 /public/hot
 /public/storage
-/public/js
+/public/js/*.js
 /public/css
 /storage/*.key
 /storage/logs/
@@ -13,5 +13,3 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-public/js/app.js
-public/js/studentApp.js

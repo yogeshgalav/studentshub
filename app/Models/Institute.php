@@ -10,6 +10,6 @@ class Institute extends Model
     protected  $guarded = ['id', 'created_at', 'updated_at'];
 
     public function setNameAttribute($value){
-        return ucwords($value);
+        $this->attributes['name'] = ucwords($value);
     }
 }

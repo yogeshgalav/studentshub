@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\SthubPost;
-use App\Models\SthubFile;
-use App\Models\PostContent;
 use App\Models\PostImage;
 use App\Models\Article;
 use App\Models\Subject;
+use App\Models\CourseSubject;
 use App\Models\Video;
+use App\Models\Notice;
+use App\Models\Fact;
+use App\Models\Mcq;
 use Auth;
 use DB;
 use Storage;
@@ -36,7 +38,7 @@ class PostController extends Controller
                 'category_id'=>$data['subject_course'] ? $student->categoryId : $data['category_id']
                 ]);
                 
-                CourseSubject::create([
+                CourseSubject::firstOrCreate([
                   'course_id'=>$student->courseId,
                   'subject_id'=>$subject->id
                 ]);

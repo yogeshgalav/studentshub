@@ -22,6 +22,6 @@ class Subject extends Model
     }
 
     public function setSubjectNameAttribute($value){
-        return ucwords($value);
+        $this->attributes['subject_name'] = ucwords($value);
     }
 }
