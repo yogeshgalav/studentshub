@@ -4104,6 +4104,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _footer_SiteFooter__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../footer/SiteFooter */ "./resources/js/views/footer/SiteFooter.vue");
 /* harmony import */ var _post_PostInteraction__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../post/PostInteraction */ "./resources/js/views/post/PostInteraction.vue");
 /* harmony import */ var _post_PostViewHeader__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../post/PostViewHeader */ "./resources/js/views/post/PostViewHeader.vue");
+/* harmony import */ var _post_ProfileImage__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../post/ProfileImage */ "./resources/js/views/post/ProfileImage.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -4496,7 +4497,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
+
 
 
 
@@ -4512,7 +4513,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     SiteFooter: _footer_SiteFooter__WEBPACK_IMPORTED_MODULE_4__["default"],
     PostInteraction: _post_PostInteraction__WEBPACK_IMPORTED_MODULE_5__["default"],
     PostViewHeader: _post_PostViewHeader__WEBPACK_IMPORTED_MODULE_6__["default"],
-    SocialSharing: vue_social_sharing__WEBPACK_IMPORTED_MODULE_1___default.a
+    SocialSharing: vue_social_sharing__WEBPACK_IMPORTED_MODULE_1___default.a,
+    ProfileImage: _post_ProfileImage__WEBPACK_IMPORTED_MODULE_7__["default"]
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
     'postContent': function postContent(state) {
@@ -56630,7 +56632,7 @@ var render = function() {
               _vm._v(" "),
               _c("p", { staticClass: "card-category text-info mb-2" }, [
                 _c("a", { attrs: { href: "#" } }, [
-                  _vm._v(_vm._s(post.Subject_name))
+                  _vm._v(_vm._s(post.subject_name))
                 ])
               ]),
               _vm._v(" "),
