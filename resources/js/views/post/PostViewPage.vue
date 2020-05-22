@@ -1,13 +1,13 @@
 <template>
     <section class="single_post">
-        <div class="post_view_head">
-        <div class="back_btn">
-            <a class="btn btn-white btn-rounded btn-l" @click="$router.go(-1)"><i class="fa fa-arrow-left"></i> Back
+        <div class="post_view_head back_btn ">
+        <div class="back_bdtn ">
+            <a class="btn btn-white btn-rounded btn-l" @click="$router.go(-1)"><i class="fa fa-arrow-left"></i> 
             </a>
 
         </div>
         <div class="dropdown">
-  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  <button class="btn btn-white  dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
  <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
   </button>
   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -210,15 +210,7 @@
     </section>
 </template>
 <style scoped>
-.post_view_head {
-    display: flex;
-    justify-content: flex-end;
-    padding: 25px;
-    position: absolute;
-    width: 100%;
-    /* left: 0; */
-    right: 0;
-}
+
     .post_img {
         width: 100%;
     }
@@ -410,6 +402,7 @@
 .post_view_head .dropdown-toggle::after{
     display: none;
 }
+
 </style>
 <script>
     import {
