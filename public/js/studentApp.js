@@ -1802,6 +1802,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 //import VueSlickCarousel from 'vue-slick-carousel'
 // optional style for arrows & dots
 //import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
@@ -8471,7 +8475,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.cat_pad[data-v-39a2c238] {\r\n    padding: 30px 0;\n}\n.slick-slide[data-v-39a2c238] {\r\n    margin: 0 5px;\n}\r\n  /* the parent */\n.slick-list[data-v-39a2c238] {\r\n    margin: 0 -5px;\n}\n.slick-slider .slick-next[data-v-39a2c238]\r\n{\r\n    -webkit-appearance: none;\r\n    outline: 0;\r\n    background: transparent;\r\n    border: 0;\r\n    width: 38px;\r\n    height: 38px;\r\n    padding: 10px;\r\n    border-radius: 50%;\r\n    position: absolute;\r\n    z-index: 3000;\r\n    right: -25px;\r\n    box-shadow: 3px 2px 3px #eee;\r\n    top: 12px;\n}\n.slick-prev[data-v-39a2c238]:before, .slick-next[data-v-39a2c238]:before {\r\n  font-family: 'slick';\r\n    font-size: 30px !important;\r\n    line-height: 1;\r\n    color: #171717 !important;\n}\n.slick-slide[data-v-39a2c238] {\r\n    margin: 0 5px !important;\n}\n.cat_menu h3[data-v-39a2c238]:before {\r\n    position: absolute;\r\n    content: '';\r\n    background-color: #00c1d5;\r\n    width: 100px;\r\n    height: 2px;\r\n    bottom: -8px;\r\n    left: 0;\r\n    right: 0;\r\n    margin: 0 auto;\n}\n.cat_menu h3[data-v-39a2c238] {\r\n    text-align: center;\r\n    margin-bottom: 40px;\r\n    position: relative;\r\n    /* color: #868686; */\n}\n.category_btn button[data-v-39a2c238] {\r\n    border: none;\r\n    background-color: #10069f;\r\n    padding: 10px 50px;\r\n    border-radius: 5px;\r\n    color: white;\r\n    text-align: center;\r\n    font-weight: 600;\n}\n.category_btn[data-v-39a2c238] {\r\n    text-align: center;\r\n    margin-top: 25px;\n}\r\n  \r\n", ""]);
+exports.push([module.i, "\n.cat_pad[data-v-39a2c238] {\n    padding: 30px 0;\n}\n.slick-slide[data-v-39a2c238] {\n    margin: 0 5px;\n}\n\n/* the parent */\n.slick-list[data-v-39a2c238] {\n    margin: 0 -5px;\n}\n.slick-slider .slick-next[data-v-39a2c238] {\n    -webkit-appearance: none;\n    outline: 0;\n    background: transparent;\n    border: 0;\n    width: 38px;\n    height: 38px;\n    padding: 10px;\n    border-radius: 50%;\n    position: absolute;\n    z-index: 3000;\n    right: -25px;\n    box-shadow: 3px 2px 3px #eee;\n    top: 12px;\n}\n.slick-prev[data-v-39a2c238]:before,\n.slick-next[data-v-39a2c238]:before {\n    font-family: 'slick';\n    font-size: 30px !important;\n    line-height: 1;\n    color: #171717 !important;\n}\n.slick-slide[data-v-39a2c238] {\n    margin: 0 5px !important;\n}\n.cat_menu h3[data-v-39a2c238]:before {\n    position: absolute;\n    content: '';\n    background-color: #00c1d5;\n    width: 100px;\n    height: 2px;\n    bottom: -8px;\n    left: 0;\n    right: 0;\n    margin: 0 auto;\n}\n.cat_menu h3[data-v-39a2c238] {\n    text-align: center;\n    margin-bottom: 40px;\n    position: relative;\n    /* color: #868686; */\n}\n.category_btn button[data-v-39a2c238] {\n    border: none;\n    background-color: #10069f;\n    padding: 10px 50px;\n    border-radius: 5px;\n    color: white;\n    text-align: center;\n    font-weight: 600;\n}\n.category_btn[data-v-39a2c238] {\n    text-align: center;\n    margin-top: 25px;\n}\n.category_head[data-v-39a2c238] {\n    text-align: center;\n}\n\n", ""]);
 
 // exports
 
@@ -53364,9 +53368,9 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "bg-gray" }, [
     _c("div", { staticClass: "container category-filter cat_pad" }, [
+      _vm._m(0),
+      _vm._v(" "),
       _c("div", { staticClass: "cat_menu" }, [
-        _c("h3", [_vm._v("\tWhat is your field of Interset ?")]),
-        _vm._v(" "),
         _c(
           "div",
           { staticClass: "cat_menu_list" },
@@ -53375,36 +53379,45 @@ var render = function() {
               "a",
               {
                 key: index,
-                staticClass: "btn btn-white cat_btn",
+                class: ["btn btn-white cat_btn", category.category_url],
                 attrs: { href: "/category/" + category.category_url }
               },
               [_vm._v(_vm._s(category.name))]
             )
           }),
           0
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "category_btn" },
-          [
-            _c("router-link", { attrs: { to: "/get-started" } }, [
-              _vm._v("Find Out "),
-              _c("span", [
-                _c("i", {
-                  staticClass: "fa fa-arrow-right",
-                  attrs: { "aria-hidden": "true" }
-                })
-              ])
-            ])
-          ],
-          1
         )
-      ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "category_btn" },
+        [
+          _c("router-link", { attrs: { to: "/get-started" } }, [
+            _vm._v("Find Out "),
+            _c("span", [
+              _c("i", {
+                staticClass: "fa fa-arrow-right",
+                attrs: { "aria-hidden": "true" }
+              })
+            ])
+          ])
+        ],
+        1
+      )
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "category_head" }, [
+      _c("h3", [_vm._v(" What is your field of Interset ?")])
+    ])
+  }
+]
 render._withStripped = true
 
 

@@ -1431,6 +1431,45 @@ h2.banner_title {
     border-radius: 12px;
     border: none;
 }
+.technology{
+    background: #ff5d00;
+}
+.management{
+    background: #967117;
+}
+.healthcare{
+    background: #ff91a4;
+}
+.arts{
+    background: brown;
+}
+.science{
+    background: #D4AF37;
+}
+.economics{
+    background: #b87333;
+}
+.education{
+    background: #add8e6;
+}
+.pharmacy{
+    background: #556b2f;
+}
+.journalism{
+    background:#DC143C;
+}
+.humanity{
+    background: #c58c85;
+}
+.hospitality{
+    background: #9fa91f ;
+}
+.fashion{
+    background: #432443;
+}
+.computer{
+    background: #13efd1;
+}
 .cat_btn{
     width: 13%;
     font-weight: 400;
@@ -1438,7 +1477,6 @@ h2.banner_title {
     font-size: 14px;
     margin: 0 5px;
     overflow: hidden;
-    background: #ff5d00;
     color: white !important;
     padding: 16px 0;
     display: -webkit-box !important;
