@@ -15,7 +15,7 @@
         <main class="flex-center position-ref full-height">
             <div class="wrapper">
     <div class="main-header">
-    @include('includes.student-navbar')
+    @include('includes.navbar')
     </div>
     <div class="main-sidebar">
     @include('includes.sidebar')
@@ -29,16 +29,7 @@
 </div>
 </main>
 </div>
-<script>
-    window.App ={!! json_encode([
-        'AuthUser' => $AuthUser,
-        'AuthUserType' => 'student',
-        'signedIn' => is_null($AuthUser),
-        'csrfToken' => csrf_token(),
-        'baseUrl' => URL::to('/'),
-        'fileUrl' => config('url.file_storage_url'),
-        ]) !!}
-</script>
+@include('includes.jsVariables')
 <style>
 .main-sidebar{
     padding-top:20px;

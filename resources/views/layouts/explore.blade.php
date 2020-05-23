@@ -15,19 +15,16 @@
     <div id="exploreApp">
         <main class="flex-center position-ref full-height">   
 <div class="main-header">
-     @include('includes.guest-navbar')
+    @if($AuthUser)
+    @include('includes.navbar')
+    @else
+    @include('includes.guest-navbar')
+    @endif
 </div>
 
 @yield('content')  
 </main>
 </div>
-<script>
-    window.App ={!! json_encode([
-        'AuthUserType' => 'guest',
-        'csrfToken' => csrf_token(),
-        'baseUrl' => URL::to('/'),
-        'fileUrl' => config('url.file_storage_url'),
-        ]) !!}
-</script>
+    @include('includes.jsVariables')
 </body>
 </html>

@@ -61,9 +61,6 @@ class PagesController extends Controller
         }
     }
 
-    public function dashboard(){
-        return view($this->AuthUserType.'.home');
-    }
     public function editPost(){
         return view('student.edit-post');
     }
