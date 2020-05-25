@@ -40,6 +40,7 @@
                      </div>
                     <span v-if="selected_institute.totalBatch">{{selected_institute.totalBatch }} batch found.</span>
                     <span v-if="selected_institute.id===0">{{selected_institute.description}}</span>
+                    <span v-if="institute_list.length===0">Please Enter Full Institute name.</span>
                     <span class="error">{{errors.first('institute_name')}}</span>
                   </div>
                 </div>

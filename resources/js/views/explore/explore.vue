@@ -89,7 +89,7 @@
                         <h6>Courses</h6>
                     </div> 
                       <div class="cat_list">
-                          <p v-for="(course,index) in courses" :key="index"><a :href="'/subject/'+course.url">{{course.name}}</a></p>
+                          <p v-for="(course,index) in courses" :key="index"><a :href="'/course/'+course.url">{{course.name}}</a></p>
                           
                     </div>     
                 </div>
@@ -157,20 +157,28 @@ export default {
       posts: state => state.common.dashboardPosts
     }),
     courses(){
-      return this.posts.map(node=>{
-        let new_node={};
-        new_node.url=node.course_id;
-        new_node.name=node.course_name;
-        return new_node;
-      });
+      return this.posts.reduce((acc,currVal)=>{
+        let index=acc.findIndex(node=>node.url===currVal.course_id);
+        if(index=== -1){
+          let new_node={};
+          new_node.url=currVal.course_id;
+          new_node.name=currVal.course_name;
+          acc.push(new_node);  
+        }
+        return acc;
+      },[]);
     },
     subjects(){
-      return this.posts.map(node=>{
-        let new_node={};
-        new_node.url=node.subject_url;
-        new_node.name=node.subject_name;
-        return new_node;
-      });
+      return this.posts.reduce((acc,currVal)=>{
+        let index=acc.findIndex(node=>node.url===currVal.subject_url);
+        if(index=== -1){
+          let new_node={};
+          new_node.url=currVal.subject_url;
+          new_node.name=currVal.subject_name;
+          acc.push(new_node);  
+        }
+        return acc;
+      },[]);
     }
   },
   components: {

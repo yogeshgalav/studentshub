@@ -33,6 +33,7 @@ register({commit}, user){
       resolve(resp)
     })
     .catch(err => {
+      console.log(err)
       // commit('auth_error')
       localStorage.removeItem('token')
       reject(err)

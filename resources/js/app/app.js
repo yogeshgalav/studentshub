@@ -70,6 +70,34 @@ Vue.mixin({
         accessToken() {
             return localStorage.getItem('access_token');
         },
+        catchResponse(err){console.log(err,'here');
+            switch (err.response.status) {
+                case 401:
+                    this.redirect('/login');
+                    break;
+                case 422:
+                    let fieldErrors = [];
+                    for (let [index, field] of Object.entries(err.response.data.errors)) {
+                        fieldErrors = field.map(msg => {
+                            return { 'field': index, msg };
+                        });
+                        field = this.$validator.fields.find({ name: index });
+                        fieldErrors.forEach(error => {
+                            error.id = field.id;
+                            this.errors.add(error);
+                        });
+                        field.setFlags({
+                            valid: !!fieldErrors.length,
+                            dirty: true
+                        });
+                    };
+                    break;
+                default:
+                    console.error('Error code:' + err.response.status); // eslint-disable-line no-console
+                    console.error(err.response.data); // eslint-disable-line no-console
+                    break;
+            }
+        }
     },
     mounted(){
         window.axios.defaults.headers.common = {

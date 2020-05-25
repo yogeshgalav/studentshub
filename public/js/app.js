@@ -2394,34 +2394,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2475,27 +2447,25 @@ __webpack_require__.r(__webpack_exports__);
       var email = this.email;
       var password = this.password;
       var full_name = this.full_name;
-      this.$store.dispatch('auth/register', {
+      this.axios.post(window.App.baseUrl + '/api/register', {
         full_name: full_name,
         email: email,
         password: password
       }).then(function (resp) {
         var _resp$data$success;
 
+        var access_token = resp.data.success.access_token;
+        var refresh_token = resp.data.success.refresh_token;
+        localStorage.setItem('access_token', access_token);
+        localStorage.setItem('refresh_token', refresh_token);
         _this2.showLoader = false;
         _components_swal__WEBPACK_IMPORTED_MODULE_1__["default"].successDialog('Register', 'Success!', 'success')((_resp$data$success = resp.data.success, window.location.href = _resp$data$success.redirectUrl, _resp$data$success));
       })["catch"](function (err) {
-        _this2.showLoader = false;
+        _this2.catchResponse(err);
 
-        if (401 === err.response.status) {
-          _this2.srvError401 = true;
-          _this2.srvErrorUnknown = false;
-          _this2.form_errors = [];
-        } else {
-          _this2.srvErrorUnknown = true;
-          _this2.srvError401 = false;
-          _this2.form_errors = err.response.data.errors;
-        }
+        _this2.showLoader = false;
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
       });
     }
   }
@@ -2836,20 +2806,36 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }), {
     courses: function courses() {
-      return this.posts.map(function (node) {
-        var new_node = {};
-        new_node.url = node.course_id;
-        new_node.name = node.course_name;
-        return new_node;
-      });
+      return this.posts.reduce(function (acc, currVal) {
+        var index = acc.findIndex(function (node) {
+          return node.url === currVal.course_id;
+        });
+
+        if (index === -1) {
+          var new_node = {};
+          new_node.url = currVal.course_id;
+          new_node.name = currVal.course_name;
+          acc.push(new_node);
+        }
+
+        return acc;
+      }, []);
     },
     subjects: function subjects() {
-      return this.posts.map(function (node) {
-        var new_node = {};
-        new_node.url = node.subject_url;
-        new_node.name = node.subject_name;
-        return new_node;
-      });
+      return this.posts.reduce(function (acc, currVal) {
+        var index = acc.findIndex(function (node) {
+          return node.url === currVal.subject_url;
+        });
+
+        if (index === -1) {
+          var new_node = {};
+          new_node.url = currVal.subject_url;
+          new_node.name = currVal.subject_name;
+          acc.push(new_node);
+        }
+
+        return acc;
+      }, []);
     }
   }),
   components: {
@@ -9312,7 +9298,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.register .card[data-v-005be7bb] {\r\n  position: relative;\r\n  top: 15%;\n}\n.register .btn[data-v-005be7bb] {\r\n  width: 100%;\r\n  border-radius: 0;\n}\r\n/* enable absolute positioning */\n.inner-addon[data-v-005be7bb] {\r\n  position: relative;\n}\n.register .form-control[data-v-005be7bb] {\r\n  height: 48px !important;\r\n  color: #000;\r\n  border-radius: 0;\n}\r\n/* style glyph */\n.inner-addon .fa[data-v-005be7bb] {\r\n  position: absolute;\r\n  padding: 18px;\r\n  pointer-events: none;\n}\r\n\r\n/* align glyph */\n.left-addon .fa[data-v-005be7bb] {\r\n  left: 0px;\n}\n.right-addon .fa[data-v-005be7bb] {\r\n  right: 0px;\n}\r\n\r\n/* add padding  */\n.left-addon input[data-v-005be7bb] {\r\n  padding-left: 35px;\n}\n.display-flex[data-v-005be7bb]{\r\n  display:-webkit-box;\r\n  display:flex;\n}\r\n", ""]);
+exports.push([module.i, "\n.register .card[data-v-005be7bb] {\n    position: relative;\n    top: 15%;\n}\n.register .btn[data-v-005be7bb] {\n    width: 100%;\n    border-radius: 0;\n}\n\n/* enable absolute positioning */\n.inner-addon[data-v-005be7bb] {\n    position: relative;\n}\n.register .form-control[data-v-005be7bb] {\n    height: 48px !important;\n    color: #000;\n    border-radius: 0;\n}\n\n/* style glyph */\n.inner-addon .fa[data-v-005be7bb] {\n    position: absolute;\n    padding: 18px;\n    pointer-events: none;\n}\n\n/* align glyph */\n.left-addon .fa[data-v-005be7bb] {\n    left: 0px;\n}\n.right-addon .fa[data-v-005be7bb] {\n    right: 0px;\n}\n\n/* add padding  */\n.left-addon input[data-v-005be7bb] {\n    padding-left: 35px;\n}\n.display-flex[data-v-005be7bb] {\n    display: -webkit-box;\n    display: flex;\n}\n\n", ""]);
 
 // exports
 
@@ -55299,7 +55285,7 @@ var render = function() {
                           _vm._v(" "),
                           _c("div", { staticClass: "form-group" }, [
                             _c("label", { attrs: { for: "email" } }, [
-                              _vm._v("  " + _vm._s(_vm.trans("E-Mail Address")))
+                              _vm._v(" " + _vm._s(_vm.trans("E-Mail Address")))
                             ]),
                             _vm._v(" "),
                             _c(
@@ -55795,7 +55781,7 @@ var render = function() {
               { staticClass: "cat_list" },
               _vm._l(_vm.courses, function(course, index) {
                 return _c("p", { key: index }, [
-                  _c("a", { attrs: { href: "/subject/" + course.url } }, [
+                  _c("a", { attrs: { href: "/course/" + course.url } }, [
                     _vm._v(_vm._s(course.name))
                   ])
                 ])
@@ -86524,6 +86510,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_loading_overlay_dist_vue_loading_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue-loading-overlay/dist/vue-loading.css */ "./node_modules/vue-loading-overlay/dist/vue-loading.css");
 /* harmony import */ var vue_loading_overlay_dist_vue_loading_css__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(vue_loading_overlay_dist_vue_loading_css__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var vue_lazyload__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue-lazyload */ "./node_modules/vue-lazyload/vue-lazyload.esm.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$utils = _helpers_utilities__WEBPACK_IMPORTED_MODULE_1__["default"]; //Dependencies
@@ -86594,6 +86588,59 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
     },
     accessToken: function accessToken() {
       return localStorage.getItem('access_token');
+    },
+    catchResponse: function catchResponse(err) {
+      var _this = this;
+
+      console.log(err, 'here');
+
+      switch (err.response.status) {
+        case 401:
+          this.redirect('/login');
+          break;
+
+        case 422:
+          var fieldErrors = [];
+
+          var _loop = function _loop() {
+            var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+                index = _Object$entries$_i[0],
+                field = _Object$entries$_i[1];
+
+            fieldErrors = field.map(function (msg) {
+              return {
+                'field': index,
+                msg: msg
+              };
+            });
+            field = _this.$validator.fields.find({
+              name: index
+            });
+            fieldErrors.forEach(function (error) {
+              error.id = field.id;
+
+              _this.errors.add(error);
+            });
+            field.setFlags({
+              valid: !!fieldErrors.length,
+              dirty: true
+            });
+          };
+
+          for (var _i = 0, _Object$entries = Object.entries(err.response.data.errors); _i < _Object$entries.length; _i++) {
+            _loop();
+          }
+
+          ;
+          break;
+
+        default:
+          console.error('Error code:' + err.response.status); // eslint-disable-line no-console
+
+          console.error(err.response.data); // eslint-disable-line no-console
+
+          break;
+      }
     }
   },
   mounted: function mounted() {
@@ -87306,7 +87353,8 @@ __webpack_require__.r(__webpack_exports__);
 
         resolve(resp);
       })["catch"](function (err) {
-        // commit('auth_error')
+        console.log(err); // commit('auth_error')
+
         localStorage.removeItem('token');
         reject(err);
       });

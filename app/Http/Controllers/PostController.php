@@ -29,7 +29,7 @@ class PostController extends Controller
         $student=Auth::student();
         DB::beginTransaction();
         try{
-            if(is_null($data['subject_id'])){
+            if($data['subject_id']===0){
                 $subject_name=strtolower($data['subject_name']);
                 $subject=Subject::firstOrCreate([
                   'subject_url'=>urlencode($subject_name),
