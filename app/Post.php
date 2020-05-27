@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Auth;
 use DB;
+use PHPHtmlParser\Dom;
 
 class Post extends PostModel
 {
@@ -139,7 +140,7 @@ class Post extends PostModel
         ->select(['po.id as id','po.post_heading as heading','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','po.primary_image_path as image_path',
         'sub.subject_url','sub.subject_name','course.id as course_id','course.course_name','uli.like_status as user_like',
         'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','inst.name as institute_name','ar.content as article_content','vd.content as video_content',
-        'vd.video_id as video_id','fc.image_path as fact_image_path','fc.content as fact_content','mcqs.optionA','mcqs.optionB','mcqs.optionC','mcqs.optionD']);
+        'vd.video_id as video_id','no.content as notice_content','fc.image_path as fact_image_path','fc.content as fact_content','mcqs.optionA','mcqs.optionB','mcqs.optionC','mcqs.optionD']);
     }
 
     public function getSeekerPosts(Request $request){
@@ -200,8 +201,8 @@ class Post extends PostModel
     }
 
     public function formatPostData($posts){
-        $path =  (dirname(__FILE__) .'./Services/simple_html_dom.php');
-        require($path);
+        // $path =  (dirname(__FILE__) .'./Services/simple_html_dom.php');
+        // require($path);
            //get groupBy fields
            foreach($posts as $post){
             $rand=rand(60,100);
@@ -223,14 +224,21 @@ class Post extends PostModel
                     if(empty($post->article_content)){
                         $post->content='';
                     }
-                    $article_content=str_get_html($post->article_content)->plaintext;
+                    $dom = new Dom;
+                    $dom->load($post->article_content);
+                    $article_content=$dom->find('p', 0)->text;
+                    // $article_content=str_get_html($post->article_content)->plaintext;
                     $post->content=substr($article_content,0,$rand).'...';        
                 break;
                 case 'notice':
                     if(empty($post->notice_content)){
                         $post->content='';
                     }
-                    $notice_content=str_get_html($post->notice_content)->plaintext;
+                    
+                    $dom = new Dom;
+                    $dom->load($post->notice_content);
+                    $notice_content=$dom->find('p', 0)->text;
+                    // $notice_content=str_get_html($post->notice_content)->plaintext;
                     $post->content=substr($notice_content,0,$rand).'...';        
                 break;
                 case 'video':
@@ -292,6 +300,12 @@ class Post extends PostModel
         ->leftJoin('videos as vd',function($join){
             $join->on('po.postable_id','=','vd.id')->where('po.postable_type','=','App\Models\Video');
         })
+        ->leftJoin('facts as fc',function($join){
+            $join->on('po.postable_id','=','fc.id')->where('po.postable_type','=','App\Models\Fact');
+        })
+        ->leftJoin('mcqs',function($join){
+            $join->on('po.postable_id','=','mcqs.id')->where('po.postable_type','=','App\Models\Mcq');
+        })
         ->leftJoin('likes as uli',function($join){
             $join->on('po.id','=','uli.likable_id')->where('uli.likable_type','=','App\Models\Post')->where('uli.user_id','=',Auth::user()->id);
         })
@@ -301,7 +315,7 @@ class Post extends PostModel
         // ->leftJoin('facts as fa','po.id','=','fa.post_id')
         ->select(['po.id as id','po.post_heading as heading','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','sub.subject_name','po.primary_image_path as image_path',
         'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','ar.content as article_content','vd.content as video_content','uli.like_status as user_like',
-        'vd.video_id as video_id'])->get();
+        'vd.video_id as video_id','fc.image_path as fact_image_path','fc.content as fact_content','mcqs.optionA','mcqs.optionB','mcqs.optionC','mcqs.optionD'])->get();
 
         return $this->formatPostData($post);
     }
@@ -313,13 +327,19 @@ class Post extends PostModel
         ->leftJoin('videos as vd',function($join){
             $join->on('po.postable_id','=','vd.id')->where('po.postable_type','=','App\Models\Video');
         })
+        ->leftJoin('facts as fc',function($join){
+            $join->on('po.postable_id','=','fc.id')->where('po.postable_type','=','App\Models\Fact');
+        })
+        ->leftJoin('mcqs',function($join){
+            $join->on('po.postable_id','=','mcqs.id')->where('po.postable_type','=','App\Models\Mcq');
+        })
         ->leftJoin('subjects as sub','sub.id','=','po.subject_id')
         ->leftJoin('categories as cat','cat.id','=','sub.category_id')
         ->leftJoin('users as us','us.id','=','po.user_id')
         // ->leftJoin('facts as fa','po.id','=','fa.post_id')
         ->select(['po.id as id','po.post_heading as heading','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','sub.subject_name','po.primary_image_path as image_path',
         'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','ar.content as article_content','vd.content as video_content',
-        'vd.video_id as video_id'])->get();
+        'vd.video_id as video_id','fc.image_path as fact_image_path','fc.content as fact_content','mcqs.optionA','mcqs.optionB','mcqs.optionC','mcqs.optionD'])->get();
 
         return $this->formatPostData($post);
     }

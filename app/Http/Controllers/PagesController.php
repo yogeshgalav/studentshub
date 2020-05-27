@@ -22,7 +22,7 @@ class PagesController extends Controller
     }
 
     public function postImage( $filename){
-        $path = storage_path('app/post-images/' . $filename);
+        $path = storage_path('/app/post-images/' . $filename);
 
         if (!\File::exists($path)) {
             abort(404);

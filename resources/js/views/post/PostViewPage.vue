@@ -11,8 +11,8 @@
  <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
   </button>
   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="#">Save</a>
-    <a class="dropdown-item" href="#">Report</a>
+    <a class="dropdown-item" href="#" @click="postSave()">Save</a>
+    <a class="dropdown-item" href="#" @click="postReport()">Report</a>
   </div>
 </div>
         </div>
@@ -84,20 +84,43 @@
                     <div class="col-md-8">
                         <h3 class="post_main_title">{{postContent.heading}}</h3>
                         <div v-if="postContent.post_type==='article'">
-                            <div v-html="postContent.article_content"></div>
+                            <div class="post_s_c">
+                                <div class="post_content">
+                                    <div v-html="postContent.article_content"></div>
+                                </div>
+                            </div>
                         </div>
                         <div v-if="postContent.post_type==='video'">
                             <div class="post_video">
                                 <iframe width="620" height="315"
                                     :src="'https://www.youtube.com/embed/'+postContent.video_id"></iframe>
                             </div>
-
-                        </div>
-                        <div class="post_s_c">
-                            <div class="post_content">
-                                <p>{{postContent.video_content}}</p>
+                            <div class="post_s_c">
+                                <div class="post_content">
+                                    <p>{{postContent.video_content}}</p>
+                                </div>
                             </div>
-
+                        </div>
+                        <div v-if="postContent.post_type==='fact'">
+                            <div class="post_video">
+                                <img width="620" height="315"
+                                    :src="postContent.fact_image_path"></div>
+                            </div>
+                            <div class="post_s_c">
+                                <div class="post_content">
+                                    <p>{{postContent.fact_content}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div v-if="postContent.post_type==='mcq'">
+                            <div class="post_s_c">
+                                <div class="post_content">
+                                    <p>{{postContent.optionA}}</p>
+                                    <p>{{postContent.optionB}}</p>
+                                    <p>{{postContent.optionC}}</p>
+                                    <p>{{postContent.optionD}}</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -139,8 +162,7 @@
                 </div>
             </div>
 
-        </div>
-           <div class="single_page_post_card">
+    <div class="single_page_post_card">
         <div class="bg-gray ptb-50">
             <h3 class="post_like_head">You May Also Like</h3>
             <div class="container">
@@ -196,14 +218,14 @@
             </div>
         </div>
            </div>
-               <div class="single_page_user_like">
-                   <div class="user_like">
+               <div class="single_page_user_like" v-if="role!=='guest'">
+                   <div class="user_like" @click="sendUserLike()">
                        <p><span><i class="fas fa-thumbs-up"></i></span></p>
-                       <p>250</p>
+                       <p>{{post.total_likes}}</p>
                    </div>
-                   <div class="user_dislike">
+                   <div class="user_dislike" @click="sendUserDislike()">
                        <p><span><i class="fa fa-thumbs-down" aria-hidden="true"></i></span></p>
-                       <p>250</p>
+                       <p>{{post.total_dislikes}}</p>
                    </div>   
                </div>   
         <site-footer v-if="role==='guest'"></site-footer>
@@ -416,6 +438,7 @@
     import PostInteraction from '../post/PostInteraction';
     import PostViewHeader from '../post/PostViewHeader';
     import ProfileImage from '../post/ProfileImage';
+    import swal from '../../components/swal';
 
     export default {
         props: ['role'],
@@ -428,6 +451,13 @@
             SocialSharing,
             ProfileImage
         },
+        data(){
+            return {
+                user_like:'',
+                post_save:'',
+                post_report:'',
+            }
+        },
         computed: {
             ...mapState({
                 'postContent': state => state.common.postView.post_content,
@@ -437,6 +467,46 @@
         },
         mounted() {
             this.$store.dispatch('common/getPostContent', this.$route.params.id);
+        },
+        methods:{
+            sendUserLike(){
+                this.user_like=this.postContent.user_like;
+                this.axios.post('\post-like',{
+                    post_id:this.postContent.id,
+                    type:'like',
+                    method: this.user_like===1 ? 'delete' : 'add' 
+                }).then(resp=>{
+                    this.user_like=this.user_like===1 ? null : 1;
+                });
+            },
+            sendUserDislike(){
+                this.user_like=this.postContent.user_like;
+                this.axios.post('\post-like',{
+                    post_id:this.postContent.id,
+                    type:'like',
+                    method: this.user_like===0 ? 'delete' : 'add' 
+                }).then(resp=>{
+                    this.user_like=this.user_like===0 ? null : 0;
+                });
+            },
+            postSave(){
+                this.post_save=this.postContent.post_save ? true :false;
+                this.axios.post('\post-save',{
+                    post_id:this.postContent.id,
+                }).then(resp=>{
+                    swal.successDialog('Post Saved','Succesfully!','success');
+                    this.post_save=this.post_save ? false : true;
+                });
+            },
+            postReport(){
+                this.post_report=this.postContent.post_report ? true :false;
+                this.axios.post('\post-report',{
+                    post_id:this.postContent.id,
+                }).then(resp=>{
+                    swal.successDialog('Post Reported','Succesfully!','success');
+                    this.post_report=this.post_report ? false : true;
+                });
+            }
         }
 
     }

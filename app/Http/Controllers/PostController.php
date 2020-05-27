@@ -29,7 +29,7 @@ class PostController extends Controller
         $student=Auth::student();
         DB::beginTransaction();
         try{
-            if($data['subject_id']===0){
+            if(intval($data['subject_id'])===0){
                 $subject_name=strtolower($data['subject_name']);
                 $subject=Subject::firstOrCreate([
                   'subject_url'=>urlencode($subject_name),
@@ -57,6 +57,7 @@ class PostController extends Controller
                 $article=new Article;
                 $post_content_id=$article->createFromContent($data);
                 $post->postable_type="App\Models\Article";
+                $post->primary_image_path='/post-images/article-default.png';
                 $post->postable_id=$post_content_id;
               
             break;
@@ -82,12 +83,14 @@ class PostController extends Controller
             case 'mcq':
             $mcq=new Mcq;
             $post_content_id=$mcq->createNewMcq($data);
+            $post->primary_image_path='/post-images/mcq-default.png';
             $post->postable_type="App\Models\Mcq";
             $post->postable_id=$post_content_id;
             break;    
             case 'fact':
             $fact=new Fact;
-            $post_content_id=$fact->createNewFact($data);
+            [$post_content_id,$file_path]=$fact->createNewFact($data);
+            $post->primary_image_path=$file_path;
             $post->postable_type="App\Models\Fact";
             $post->postable_id=$post_content_id;
             break;    
