@@ -123,14 +123,14 @@ class Post extends PostModel
         ->leftJoin('institutes as inst','inst.id','=','sp.institute_id')
         ->leftJoin('courses as course','course.id','=','sp.course_id')
         
-        ->leftJoin('documents as do',function($join)use($myInstituteId,$myCourseId){
-            $join->on('po.postable_id','=','do.id')->where('po.postable_type','=','App\Models\Document')
-            ->where('inst.id','=',$myInstituteId)->where('course.id','=',$myCourseId);
-        })
-        ->leftJoin('notices as no',function($join)use($myInstituteId){
-            $join->on('po.postable_id','=','no.id')->where('po.postable_type','=','App\Models\Notice')
-            ->where('inst.id','=',$myInstituteId);
-        })
+        // ->leftJoin('documents as do',function($join)use($myInstituteId,$myCourseId){
+        //     $join->on('po.postable_id','=','do.id')->where('po.postable_type','=','App\Models\Document')
+        //     ->where('inst.id','=',$myInstituteId)->where('course.id','=',$myCourseId);
+        // })
+        // ->leftJoin('notices as no',function($join)use($myInstituteId){
+        //     $join->on('po.postable_id','=','no.id')->where('po.postable_type','=','App\Models\Notice')
+        //     ->where('inst.id','=',$myInstituteId);
+        // })
         ->leftJoin('facts as fc',function($join){
             $join->on('po.postable_id','=','fc.id')->where('po.postable_type','=','App\Models\Fact');
         })
@@ -140,7 +140,7 @@ class Post extends PostModel
         ->select(['po.id as id','po.post_heading as heading','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','po.primary_image_path as image_path',
         'sub.subject_url','sub.subject_name','course.id as course_id','course.course_name','uli.like_status as user_like',
         'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','inst.name as institute_name','ar.content as article_content','vd.content as video_content',
-        'vd.video_id as video_id','no.content as notice_content','fc.image_path as fact_image_path','fc.content as fact_content','mcqs.optionA','mcqs.optionB','mcqs.optionC','mcqs.optionD']);
+        'vd.video_id as video_id','fc.image_path as fact_image_path','fc.content as fact_content','mcqs.optionA','mcqs.optionB','mcqs.optionC','mcqs.optionD']);
     }
 
     public function getSeekerPosts(Request $request){
@@ -191,10 +191,10 @@ class Post extends PostModel
                 return 'video';
             case 'App\Models\Fact':
                 return 'fact';
-            case 'App\Models\Document':
-                return 'document';
-            case 'App\Models\Notice':
-                return 'notice';
+            // case 'App\Models\Document':
+            //     return 'document';
+            // case 'App\Models\Notice':
+            //     return 'notice';
             case 'App\Models\Mcq':
                 return 'mcq';
         }
@@ -230,16 +230,16 @@ class Post extends PostModel
                         $post->content=substr($article_content->text,0,$rand).'...';
                     }        
                 break;
-                case 'notice':
-                    $dom = new Dom;
-                    $dom->load($post->notice_content);
-                    $notice_content=$dom->find('p', 0);
-                    if(empty($notice_content)){
-                        $post->content='';
-                    }else{
-                        $post->content=substr($notice_content->text,0,$rand).'...';
-                    }       
-                break;
+                // case 'notice':
+                //     $dom = new Dom;
+                //     $dom->load($post->notice_content);
+                //     $notice_content=$dom->find('p', 0);
+                //     if(empty($notice_content)){
+                //         $post->content='';
+                //     }else{
+                //         $post->content=substr($notice_content->text,0,$rand).'...';
+                //     }       
+                // break;
                 case 'video':
                     if(empty($post->video_content)){
                         $post->content='';

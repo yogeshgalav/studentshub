@@ -17,27 +17,27 @@ class ExplorePostSeeder extends Seeder
             // factory(\App\Models\ExplorePagePost::class,6)->create(['page_section'=>'HomePostContainer']);
             // factory(\App\Models\ExplorePagePost::class,3)->create(['page_section'=>'ExploreSidebar']);
             // factory(\App\Models\ExplorePagePost::class,3)->create(['page_section'=>'ExploreBottomPost']);
-            DB::statement("INSERT INTO `posts` (`id`, `user_id`, `subject_id`, `postable_id`, `postable_type`, `post_heading`, `primary_image_path`, `post_url`, `rating`, `created_at`, `updated_at`) VALUES
-            (1, 1, 42, 1, 'App\\\\Models\\\\Video', 'The iPhone Documentary - The Untold Story', 'https://img.youtube.com/vi/24O00Jz8R04/0.jpg', NULL, 3, '2019-11-03 09:01:25', '2020-02-20 15:53:20'),
-            (2, 2, 43, 2, 'App\\\\Models\\\\Video', 'The Egg', 'https://img.youtube.com/vi/h6fcK_fRYaI/0.jpg', NULL, 3, '2019-11-03 09:25:21', '2020-02-20 15:53:20'),
-            (3, 3, 44, 3, 'App\\\\Models\\\\Video', 'Why Finding an Alien Life Would be our Doom?', 'https://img.youtube.com/vi/UjtOGPJ0URM/0.jpg', NULL, 3, '2019-11-03 09:27:29', '2020-02-20 15:53:20'),
-            (4, 4, 45, 4, 'App\\\\Models\\\\Video', 'How to start a business with no money: tips for entrepreneurs', 'https://img.youtube.com/vi/jD0WQW_-O8k/0.jpg', NULL, 3, '2019-11-03 09:41:22', '2020-02-20 15:53:20'),
-            (5, 5, 47, 5, 'App\\\\Models\\\\Video', 'How to Create a Pitch Deck for Investors: Fundraising for Startups', 'https://img.youtube.com/vi/SB16xgtFmco/0.jpg', NULL, 3, '2019-11-03 11:04:12', '2020-02-20 15:53:20'),
-            (6, 6, 46, 6, 'App\\\\Models\\\\Video', 'Seed Funding for Startups: How to raise venture capital as an entrepreneur', 'https://img.youtube.com/vi/4RAs9Y5wwDo/0.jpg', NULL, 3, '2019-11-03 11:16:29', '2020-02-20 15:53:20'),
-            (7, 7, 48, 7, 'App\\\\Models\\\\Video', 'Why Do We Have Sex?', 'https://img.youtube.com/vi/rTFqo81Ci_0/0.jpg', NULL, 3, '2019-11-03 11:28:43', '2020-02-20 15:53:20'),
-            (8, 8, 49, 8, 'App\\\\Models\\\\Video', 'Is marijuana less harmfull in comparison to other drugs?', 'https://img.youtube.com/vi/JsUoG2DZ_S8/0.jpg', NULL, 3, '2019-11-03 11:36:08', '2020-02-20 15:53:20'),
-            (9, 9, 50, 9, 'App\\\\Models\\\\Video', 'Does the fly sitting on your food make you sick?', 'https://img.youtube.com/vi/-zf7UxfL0zE/0.jpg', NULL, 3, '2019-11-03 12:03:43', '2020-02-20 15:53:20'),
-            (10, 10, 51, 10, 'App\\\\Models\\\\Video', 'What Happens When You Die?', 'https://img.youtube.com/vi/nqOITqLfnkc/0.jpg', NULL, 3, '2019-11-03 12:06:17', '2020-02-20 15:53:20'),
-            (11, 11, 52, 11, 'App\\\\Models\\\\Video', 'Consciousness: Crash Course Psychology', 'https://img.youtube.com/vi/jReX7qKU2yc/0.jpg', NULL, 3, '2019-11-03 12:14:53', '2020-02-20 15:53:20'),
-            (12, 12, 53, 12, 'App\\\\Models\\\\Video', 'Intro to Psychology: Crash Course Psychology', 'https://img.youtube.com/vi/vo4pMVb0R6M/0.jpg', NULL, 3, '2019-11-03 12:16:05', '2020-02-20 15:53:20'),
-            (13, 13, 54, 13, 'App\\\\Models\\\\Video', 'Why Do We Dream?', 'https://img.youtube.com/vi/7GGzc3x9WJU/0.jpg', NULL, 3, '2019-11-03 12:17:16', '2020-02-20 15:53:20'),
-            (14, 14, 51, 14, 'App\\\\Models\\\\Video', 'How Much Pain Can You Handle?', 'https://img.youtube.com/vi/s4XQo4txlk0/0.jpg', NULL, 3, '2019-11-03 12:20:59', '2020-02-20 15:53:20'),
-            (15, 15, 44, 15, 'App\\\\Models\\\\Video', 'Which Came First - The Chicken or the Egg?', 'https://img.youtube.com/vi/1a8pI65emDE/0.jpg', NULL, 3, '2019-11-03 12:26:31', '2020-02-20 15:53:20'),
-            (16, 16, 56, 16, 'App\\\\Models\\\\Video', 'Is Masturbation Good For You?', 'https://img.youtube.com/vi/GU3JqoUDkjA/0.jpg', NULL, 3, '2019-11-03 12:33:58', '2020-02-20 15:53:20'),
-            (17, 17, 57, 17, 'App\\\\Models\\\\Video', 'How Much Sleep Do You Actually Need?', 'https://img.youtube.com/vi/SVQlcxiQlzI/0.jpg', NULL, 3, '2019-11-03 12:40:07', '2020-02-20 15:53:20'),
-            (18, 18, 58, 18, 'App\\\\Models\\\\Video', 'What if We ARE Alone in the Universe?', 'https://img.youtube.com/vi/c9TXy_Ovweg/0.jpg', NULL, 3, '2019-11-03 12:43:41', '2020-02-20 15:53:20'),
-            (19, 19, 59, 19, 'App\\\\Models\\\\Video', 'How An Igloo Keeps You Warm?', 'https://img.youtube.com/vi/1L7EI0vKVuU/0.jpg', NULL, 3, '2019-11-03 12:46:24', '2020-02-20 15:53:20'),
-            (20, 20, 44, 20, 'App\\\\Models\\\\Video', 'Why Are We The Only Humans Left?', 'https://img.youtube.com/vi/dbHj-Q1FTj8/0.jpg', NULL, 3, '2019-11-03 12:48:39', '2020-02-20 15:53:20');");
+            DB::statement("INSERT INTO `posts` (`id`, `user_id`, `subject_id`, `postable_id`, `postable_type`, `post_heading`, `primary_image_path`, `rating`, `created_at`, `updated_at`) VALUES
+            (1, 1, 42, 1, 'App\\\\Models\\\\Video', 'The iPhone Documentary - The Untold Story', 'https://img.youtube.com/vi/24O00Jz8R04/0.jpg', 3, '2019-11-03 09:01:25', '2020-02-20 15:53:20'),
+            (2, 1, 43, 2, 'App\\\\Models\\\\Video', 'The Egg', 'https://img.youtube.com/vi/h6fcK_fRYaI/0.jpg', 3, '2019-11-03 09:25:21', '2020-02-20 15:53:20'),
+            (3, 1, 44, 3, 'App\\\\Models\\\\Video', 'Why Finding an Alien Life Would be our Doom?', 'https://img.youtube.com/vi/UjtOGPJ0URM/0.jpg', 3, '2019-11-03 09:27:29', '2020-02-20 15:53:20'),
+            (4, 1, 45, 4, 'App\\\\Models\\\\Video', 'How to start a business with no money: tips for entrepreneurs', 'https://img.youtube.com/vi/jD0WQW_-O8k/0.jpg', 3, '2019-11-03 09:41:22', '2020-02-20 15:53:20'),
+            (5, 1, 47, 5, 'App\\\\Models\\\\Video', 'How to Create a Pitch Deck for Investors: Fundraising for Startups', 'https://img.youtube.com/vi/SB16xgtFmco/0.jpg', 3, '2019-11-03 11:04:12', '2020-02-20 15:53:20'),
+            (6, 1, 46, 6, 'App\\\\Models\\\\Video', 'Seed Funding for Startups: How to raise venture capital as an entrepreneur', 'https://img.youtube.com/vi/4RAs9Y5wwDo/0.jpg', 3, '2019-11-03 11:16:29', '2020-02-20 15:53:20'),
+            (7, 1, 48, 7, 'App\\\\Models\\\\Video', 'Why Do We Have Sex?', 'https://img.youtube.com/vi/rTFqo81Ci_0/0.jpg', 3, '2019-11-03 11:28:43', '2020-02-20 15:53:20'),
+            (8, 1, 49, 8, 'App\\\\Models\\\\Video', 'Is marijuana less harmfull in comparison to other drugs?', 'https://img.youtube.com/vi/JsUoG2DZ_S8/0.jpg', 3, '2019-11-03 11:36:08', '2020-02-20 15:53:20'),
+            (9, 1, 50, 9, 'App\\\\Models\\\\Video', 'Does the fly sitting on your food make you sick?', 'https://img.youtube.com/vi/-zf7UxfL0zE/0.jpg', 3, '2019-11-03 12:03:43', '2020-02-20 15:53:20'),
+            (10, 1, 51, 10, 'App\\\\Models\\\\Video', 'What Happens When You Die?', 'https://img.youtube.com/vi/nqOITqLfnkc/0.jpg', 3, '2019-11-03 12:06:17', '2020-02-20 15:53:20'),
+            (11, 1, 52, 11, 'App\\\\Models\\\\Video', 'Consciousness: Crash Course Psychology', 'https://img.youtube.com/vi/jReX7qKU2yc/0.jpg', 3, '2019-11-03 12:14:53', '2020-02-20 15:53:20'),
+            (12, 1, 53, 12, 'App\\\\Models\\\\Video', 'Intro to Psychology: Crash Course Psychology', 'https://img.youtube.com/vi/vo4pMVb0R6M/0.jpg', 3, '2019-11-03 12:16:05', '2020-02-20 15:53:20'),
+            (13, 1, 54, 13, 'App\\\\Models\\\\Video', 'Why Do We Dream?', 'https://img.youtube.com/vi/7GGzc3x9WJU/0.jpg', 3, '2019-11-03 12:17:16', '2020-02-20 15:53:20'),
+            (14, 1, 51, 14, 'App\\\\Models\\\\Video', 'How Much Pain Can You Handle?', 'https://img.youtube.com/vi/s4XQo4txlk0/0.jpg', 3, '2019-11-03 12:20:59', '2020-02-20 15:53:20'),
+            (15, 1, 44, 15, 'App\\\\Models\\\\Video', 'Which Came First - The Chicken or the Egg?', 'https://img.youtube.com/vi/1a8pI65emDE/0.jpg', 3, '2019-11-03 12:26:31', '2020-02-20 15:53:20'),
+            (16, 1, 56, 16, 'App\\\\Models\\\\Video', 'Is Masturbation Good For You?', 'https://img.youtube.com/vi/GU3JqoUDkjA/0.jpg', 3, '2019-11-03 12:33:58', '2020-02-20 15:53:20'),
+            (17, 1, 57, 17, 'App\\\\Models\\\\Video', 'How Much Sleep Do You Actually Need?', 'https://img.youtube.com/vi/SVQlcxiQlzI/0.jpg', 3, '2019-11-03 12:40:07', '2020-02-20 15:53:20'),
+            (18, 1, 58, 18, 'App\\\\Models\\\\Video', 'What if We ARE Alone in the Universe?', 'https://img.youtube.com/vi/c9TXy_Ovweg/0.jpg', 3, '2019-11-03 12:43:41', '2020-02-20 15:53:20'),
+            (19, 1, 59, 19, 'App\\\\Models\\\\Video', 'How An Igloo Keeps You Warm?', 'https://img.youtube.com/vi/1L7EI0vKVuU/0.jpg', 3, '2019-11-03 12:46:24', '2020-02-20 15:53:20'),
+            (20, 1, 44, 20, 'App\\\\Models\\\\Video', 'Why Are We The Only Humans Left?', 'https://img.youtube.com/vi/dbHj-Q1FTj8/0.jpg', 3, '2019-11-03 12:48:39', '2020-02-20 15:53:20');");
             
             DB::statement("INSERT INTO `videos` (`id`, `video_id`, `content`, `created_at`, `updated_at`) VALUES
             (1, '24O00Jz8R04', 'The iPhone Documentary - The Untold Story', NULL, NULL),
@@ -84,25 +84,24 @@ class ExplorePostSeeder extends Seeder
             (20, 20, 1,  NULL, NULL, NULL, NULL, 1, '2019-11-03 23:48:39', '2019-11-03 23:48:39');");
 
 
-        DB::statement("INSERT INTO `subjects` (`id`, `Subject_name`, `subject_url`, `created_at`, `updated_at`) VALUES
-        (42, 'Iphone', 'iphone', NULL, NULL),
-        (43, 'Atheist', 'atheist', NULL, NULL),
-        (44, 'Evolution', 'evolution', NULL, NULL),
-        (45, 'Startup', 'startup', NULL, NULL),
-        (47, 'Pitch Deck', 'pitch-deck', NULL, NULL),
-        (46, 'Seed funding', 'seed-funding', NULL, NULL),
-        (48, 'Sex', 'sex', NULL, NULL),
-        (49, 'Weed', 'weed', NULL, NULL),
-        (50, 'Disease', 'disease', NULL, NULL),
-        (51, 'Human Body', 'human-body', NULL, NULL),
-        (52, 'Consciousness', 'consciousness', NULL, NULL),
-        (53, 'Psychology', 'psychology', NULL, NULL),
-        (54, 'Human Brain', 'Human Brain', NULL, NULL),
-        (56, 'Masturbation', 'Masturbation', NULL, NULL),
-        (57, 'Sleep', 'sleep', NULL, NULL),
-        (58, 'Universe', 'universe', NULL, NULL),
-        (59, 'Igloo', 'igloo', NULL, NULL);
-        ");
+        DB::statement("INSERT INTO `subjects` (`id`, `Subject_name`, `subject_url`, `category_id`, `created_at`, `updated_at`) VALUES
+        (42, 'Iphone', 'iphone',1, NULL, NULL),
+        (43, 'Atheist', 'atheist',10, NULL, NULL),
+        (44, 'Evolution', 'evolution',5, NULL, NULL),
+        (45, 'Startup', 'startup',2, NULL, NULL),
+        (47, 'Pitch Deck', 'pitch-deck',2, NULL, NULL),
+        (46, 'Seed funding', 'seed-funding',2, NULL, NULL),
+        (48, 'Sex', 'sex',3, NULL, NULL),
+        (49, 'Weed', 'weed',5, NULL, NULL),
+        (50, 'Disease', 'disease',3, NULL, NULL),
+        (51, 'Human Body', 'human-body',3, NULL, NULL),
+        (52, 'Consciousness', 'consciousness',10, NULL, NULL),
+        (53, 'Psychology', 'psychology',10, NULL, NULL),
+        (54, 'Human Brain', 'Human Brain',5, NULL, NULL),
+        (56, 'Masturbation', 'Masturbation',3, NULL, NULL),
+        (57, 'Sleep', 'sleep',5, NULL, NULL),
+        (58, 'Universe', 'universe',5, NULL, NULL),
+        (59, 'Igloo', 'igloo',5, NULL, NULL);");
 
         factory(\App\Models\ExplorePagePost::class,3)->create(['page_section'=>'ExploreTopPost']);
         factory(\App\Models\ExplorePagePost::class,6)->create(['page_section'=>'HomePostContainer']);

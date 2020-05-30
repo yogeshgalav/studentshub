@@ -2959,8 +2959,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3007,7 +3005,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       showLoader: false
     };
   },
-  methods: {}
+  methods: {
+    setPostView: function setPostView(post) {
+      document.title = post.heading;
+      this.$store.commit("common/set_post_initial", post);
+    }
+  }
 });
 
 /***/ }),
@@ -54664,7 +54667,14 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "div",
-                  { staticClass: "col-md-9 col-8" },
+                  {
+                    staticClass: "col-md-9 col-8",
+                    on: {
+                      click: function($event) {
+                        return _vm.setPostView(post)
+                      }
+                    }
+                  },
                   [
                     _c("div", { staticClass: "dash_board_title" }, [
                       _c(
@@ -85260,6 +85270,18 @@ __webpack_require__.r(__webpack_exports__);
     state.postView.post_content = data.post_content;
     state.postView.most_viewed = data.most_viewed;
     state.postView.most_liked = data.most_liked;
+  },
+  set_post_initial: function set_post_initial(state, data) {
+    state.postView.post_content.heading = data.heading;
+    state.postView.post_content.category_name = data.category_name;
+    state.postView.post_content.subject_name = data.subject_name;
+    state.postView.post_content.profile_image = data.profile_image;
+    state.postView.post_content.institute_name = data.institute_name;
+    state.postView.post_content.post_type = data.post_type;
+    state.postView.post_content.user_name = data.user_name;
+    state.postView.post_content.total_likes = data.total_likes;
+    state.postView.post_content.total_dislikes = data.total_dislikes;
+    state.postView.post_content.total_views = data.total_views;
   }
 });
 

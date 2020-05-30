@@ -66,11 +66,9 @@ export default {
             postTypes:[
                 'Article',
                 'Fact',
-                'Notice',
-                'Video',
-                'Document',
-                'Link',
                 'MCQ',
+                'Web Link',
+                'Youtube video'
                 ],
                 selected_type:'Article',
         }
