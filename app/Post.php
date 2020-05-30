@@ -221,25 +221,24 @@ class Post extends PostModel
             $post->post_type=$this->getPostType($post->postable_type);
             switch($post->post_type){
                 case 'article':
-                    if(empty($post->article_content)){
-                        $post->content='';
-                    }
                     $dom = new Dom;
                     $dom->load($post->article_content);
-                    $article_content=$dom->find('p', 0)->text;
-                    // $article_content=str_get_html($post->article_content)->plaintext;
-                    $post->content=substr($article_content,0,$rand).'...';        
+                    $article_content=$dom->find('p', 0);
+                    if(empty($article_content)){
+                        $post->content='';
+                    }else{
+                        $post->content=substr($article_content->text,0,$rand).'...';
+                    }        
                 break;
                 case 'notice':
-                    if(empty($post->notice_content)){
-                        $post->content='';
-                    }
-                    
                     $dom = new Dom;
                     $dom->load($post->notice_content);
-                    $notice_content=$dom->find('p', 0)->text;
-                    // $notice_content=str_get_html($post->notice_content)->plaintext;
-                    $post->content=substr($notice_content,0,$rand).'...';        
+                    $notice_content=$dom->find('p', 0);
+                    if(empty($notice_content)){
+                        $post->content='';
+                    }else{
+                        $post->content=substr($notice_content->text,0,$rand).'...';
+                    }       
                 break;
                 case 'video':
                     if(empty($post->video_content)){

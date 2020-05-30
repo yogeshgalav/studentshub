@@ -224,7 +224,9 @@ class PostController extends Controller
         $save_post->user_id=Auth::user()->id;
         $save_post->post_id=$request->post_id;
         $save_post->save();
-        return 'success';
+        return response()->json(['success'=>[
+          'post_save'=>true,
+        ]]);
       }
 
       public function reportPost(Request $request){
@@ -232,6 +234,8 @@ class PostController extends Controller
         $report_post->user_id=Auth::user()->id;
         $report_post->post_id=$request->post_id;
         $report_post->save();
-        return 'success';
+        return response()->json(['success'=>[
+          'user_like'=>true,
+        ]]);
       }
 }

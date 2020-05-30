@@ -4532,6 +4532,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -4559,6 +4563,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       post_report: ''
     };
   },
+  watch: {
+    postContent: function postContent(val) {
+      this.user_like = this.postContent.user_like;
+      this.post_save = this.postContent.post_save ? true : false;
+      this.post_report = this.postContent.post_report ? true : false;
+    }
+  },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
     'postContent': function postContent(state) {
       return state.common.postView.post_content;
@@ -4577,47 +4588,47 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     sendUserLike: function sendUserLike() {
       var _this = this;
 
-      this.user_like = this.postContent.user_like;
-      this.axios.post('\post-like', {
+      this.user_like = this.user_like === 1 ? null : 1;
+      this.axios.post('/api/post-like', {
         post_id: this.postContent.id,
         type: 'like',
         method: this.user_like === 1 ? 'delete' : 'add'
       }).then(function (resp) {
-        _this.user_like = _this.user_like === 1 ? null : 1;
+        _this.user_like = resp.data.success.user_like;
       });
     },
     sendUserDislike: function sendUserDislike() {
       var _this2 = this;
 
-      this.user_like = this.postContent.user_like;
-      this.axios.post('\post-like', {
+      this.user_like = this.user_like === 0 ? null : 0;
+      this.axios.post('/api/post-like', {
         post_id: this.postContent.id,
         type: 'like',
         method: this.user_like === 0 ? 'delete' : 'add'
       }).then(function (resp) {
-        _this2.user_like = _this2.user_like === 0 ? null : 0;
+        _this2.user_like = resp.data.success.user_like;
       });
     },
     postSave: function postSave() {
       var _this3 = this;
 
-      this.post_save = this.postContent.post_save ? true : false;
-      this.axios.post('\post-save', {
+      this.post_save = this.post_save ? false : true;
+      this.axios.post('/api/post-save', {
         post_id: this.postContent.id
       }).then(function (resp) {
         _components_swal__WEBPACK_IMPORTED_MODULE_8__["default"].successDialog('Post Saved', 'Succesfully!', 'success');
-        _this3.post_save = _this3.post_save ? false : true;
+        _this3.post_save = resp.data.success.post_save;
       });
     },
     postReport: function postReport() {
       var _this4 = this;
 
-      this.post_report = this.postContent.post_report ? true : false;
-      this.axios.post('\post-report', {
+      this.post_report = this.post_report ? false : true;
+      this.axios.post('/api/post-report', {
         post_id: this.postContent.id
       }).then(function (resp) {
         _components_swal__WEBPACK_IMPORTED_MODULE_8__["default"].successDialog('Post Reported', 'Succesfully!', 'success');
-        _this4.post_report = _this4.post_report ? false : true;
+        _this4.post_report = resp.data.success.post_report;
       });
     }
   }
@@ -9607,7 +9618,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.post_img[data-v-35874454] {\n        width: 100%;\n}\n.single_post_page .row[data-v-35874454] {\n        -webkit-box-align: center;\n                align-items: center;\n}\n.single_post_page[data-v-35874454] {\n        background-color: #f6f6f6;\n    padding: 120px 0 80px;\n        text-align: center;\n}\nsection.single_post[data-v-35874454] {\n        padding: 65px 0;\n}\n.s_page_like[data-v-35874454] {\n        display: -webkit-box;\n        display: flex;\n        -webkit-box-pack: center;\n                justify-content: center;\n        -webkit-box-align: center;\n                align-items: center;\n        margin-top: 15px;\n}\n.like_1[data-v-35874454] {\n        padding: 0px 10px;\n        color: #868686;\n}\n.user_img_singe[data-v-35874454] {\n        margin-bottom: 15px;\n}\n.user_img_singe img[data-v-35874454] {\n        width: 50px;\n        height: 50px;\n        border-radius: 50px;\n}\n.post_video iframe[data-v-35874454] {\n        width: 100%;\n}\n.post_content[data-v-35874454] {\n        margin-top: 20px;\n}\n.post_content p[data-v-35874454] {\n        color: #868685;\n        line-height: 27px;\n        text-align: justify;\n        position: relative;\n        font-size: 20px;\n}\n.post_content p[data-v-35874454]:before {\n        position: absolute;\n        content: '';\n        background-color: black;\n        height: 70px;\n        width: 2px;\n        left: -12px;\n        top: 8px;\n}\nh3.post_main_title[data-v-35874454] {\n        /* font-size: 22px; */\n        font-weight: 500;\n        line-height: 34px;\n        position: relative;\n}\nh3.post_main_title[data-v-35874454]:before {\n        position: absolute;\n        content: '';\n        /* background-color: red; */\n        left: -36px;\n        width: 15px;\n        height: 15px;\n        top: 16px;\n        border: solid 1px #00c1d5;\n}\nh3.post_main_title[data-v-35874454]:after {\n        position: absolute;\n        content: '';\n        /* background-color: red; */\n        left: -29px;\n        width: 15px;\n        height: 15px;\n        top: 11px;\n        border: solid 1px #00c1d5;\n}\n.post_like_head[data-v-35874454] {\n        text-align: center;\n}\n.social_icon_text[data-v-35874454]:before {\n        position: absolute;\n        content: '';\n        background-color: #272727;\n        width: 37px;\n        height: 1px;\n        right: -43px;\n        bottom: 7px;\n}\nh5.social_icon_text[data-v-35874454] {\n        position: relative;\n        font-weight: 500;\n        color: #868686;\n}\n.recent_post_img img[data-v-35874454] {\n        width: 40px;\n        height: 40px;\n        border-radius: 50px;\n}\nh6.card-title[data-v-35874454] {\n        margin: 0;\n        padding: 10px 9px 0;\n        color: #868686;\n}\nh6.card-title-tag.font-size-12 a[data-v-35874454] {\n        color: #868686;\n}\n.recent_card_post[data-v-35874454] {\n        padding: 12px 10px 0;\n}\n.single_page_post_card .row .col-md-4[data-v-35874454]\n    {\n        display: -webkit-box;\n        display: flex;\n}\n.single_page_user_like[data-v-35874454] {\n    display: -webkit-box;\n    display: flex;\n    -webkit-box-pack: center;\n            justify-content: center;\n    margin-top: 90px;\n}\n.user_like p[data-v-35874454] {\n    margin: 0;\n    color: blue;\n    font-size: 18px;\n}\n.user_dislike p[data-v-35874454] {\n    margin: 0;\n    color: #868686;\n    font-size: 18px;\n}\n.user_like[data-v-35874454] {\n    width: 100px;\n    height: 100px;\n    background-color: #f2f2f2;\n    border-radius: 50px;\n    display: -webkit-box;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n            flex-direction: column;\n    -webkit-box-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n            align-items: center;\n}\n.user_dislike[data-v-35874454] {\n    width: 100px;\n    height: 100px;\n    background-color: #f2f2f2;\n    border-radius: 50px;\n    display: -webkit-box;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n            flex-direction: column;\n    -webkit-box-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n            align-items: center;\n    margin-left: 50px;\n}\n.post_view_head .dropdown-menu.show[data-v-35874454] {\n    display: block;\n    left: -130px !important;\n    -webkit-transform: inherit !important;\n            transform: inherit !important;\n        top: 37px !important;\n}\n.post_view_head .dropdown-menu[data-v-35874454] {\n    min-width: 10rem;\n}\n.post_view_head .dropdown-toggle[data-v-35874454]::after{\n    display: none;\n}\n\n", ""]);
+exports.push([module.i, "\n.post_img[data-v-35874454] {\n    width: 100%;\n}\n.single_post_page .row[data-v-35874454] {\n    -webkit-box-align: center;\n            align-items: center;\n}\n.single_post_page[data-v-35874454] {\n    background-color: #f6f6f6;\n    padding: 120px 0 80px;\n    text-align: center;\n}\nsection.single_post[data-v-35874454] {\n    padding: 65px 0;\n}\n.s_page_like[data-v-35874454] {\n    display: -webkit-box;\n    display: flex;\n    -webkit-box-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n            align-items: center;\n    margin-top: 15px;\n}\n.like_1[data-v-35874454] {\n    padding: 0px 10px;\n    color: #868686;\n}\n.user_img_singe[data-v-35874454] {\n    margin-bottom: 15px;\n}\n.user_img_singe img[data-v-35874454] {\n    width: 50px;\n    height: 50px;\n    border-radius: 50px;\n}\n.post_video iframe[data-v-35874454] {\n    width: 100%;\n}\n.post_content[data-v-35874454] {\n    margin-top: 20px;\n}\n.post_content p[data-v-35874454] {\n    color: #868685;\n    line-height: 27px;\n    text-align: justify;\n    position: relative;\n    font-size: 20px;\n}\n.post_content p[data-v-35874454]:before {\n    position: absolute;\n    content: '';\n    background-color: black;\n    height: 70px;\n    width: 2px;\n    left: -12px;\n    top: 8px;\n}\nh3.post_main_title[data-v-35874454] {\n    /* font-size: 22px; */\n    font-weight: 500;\n    line-height: 34px;\n    position: relative;\n}\nh3.post_main_title[data-v-35874454]:before {\n    position: absolute;\n    content: '';\n    /* background-color: red; */\n    left: -36px;\n    width: 15px;\n    height: 15px;\n    top: 16px;\n    border: solid 1px #00c1d5;\n}\nh3.post_main_title[data-v-35874454]:after {\n    position: absolute;\n    content: '';\n    /* background-color: red; */\n    left: -29px;\n    width: 15px;\n    height: 15px;\n    top: 11px;\n    border: solid 1px #00c1d5;\n}\n.post_like_head[data-v-35874454] {\n    text-align: center;\n}\n.social_icon_text[data-v-35874454]:before {\n    position: absolute;\n    content: '';\n    background-color: #272727;\n    width: 37px;\n    height: 1px;\n    right: -43px;\n    bottom: 7px;\n}\nh5.social_icon_text[data-v-35874454] {\n    position: relative;\n    font-weight: 500;\n    color: #868686;\n}\n.recent_post_img img[data-v-35874454] {\n    width: 40px;\n    height: 40px;\n    border-radius: 50px;\n}\nh6.card-title[data-v-35874454] {\n    margin: 0;\n    padding: 10px 9px 0;\n    color: #868686;\n}\nh6.card-title-tag.font-size-12 a[data-v-35874454] {\n    color: #868686;\n}\n.recent_card_post[data-v-35874454] {\n    padding: 12px 10px 0;\n}\n.single_page_post_card .row .col-md-4[data-v-35874454] {\n    display: -webkit-box;\n    display: flex;\n}\n.single_page_user_like[data-v-35874454] {\n    display: -webkit-box;\n    display: flex;\n    -webkit-box-pack: center;\n            justify-content: center;\n    margin-top: 90px;\n}\n.like_active p[data-v-35874454] {\n    margin: 0;\n    color: blue;\n    font-size: 18px;\n}\n.like_inactive p[data-v-35874454] {\n    margin: 0;\n    color: #868686;\n    font-size: 18px;\n}\n.user_like[data-v-35874454] {\n    width: 100px;\n    height: 100px;\n    background-color: #f2f2f2;\n    border-radius: 50px;\n    display: -webkit-box;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n            flex-direction: column;\n    -webkit-box-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n            align-items: center;\n}\n.user_dislike[data-v-35874454] {\n    width: 100px;\n    height: 100px;\n    background-color: #f2f2f2;\n    border-radius: 50px;\n    display: -webkit-box;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n            flex-direction: column;\n    -webkit-box-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n            align-items: center;\n    margin-left: 50px;\n}\n.post_view_head .dropdown-menu.show[data-v-35874454] {\n    display: block;\n    left: -130px !important;\n    -webkit-transform: inherit !important;\n            transform: inherit !important;\n    top: 37px !important;\n}\n.post_view_head .dropdown-menu[data-v-35874454] {\n    min-width: 10rem;\n}\n.post_view_head .dropdown-toggle[data-v-35874454]::after {\n    display: none;\n}\n\n", ""]);
 
 // exports
 
@@ -57252,7 +57263,7 @@ var render = function() {
                 _c(
                   "div",
                   { staticClass: "user_img_singe" },
-                  [_c("profile-image", { attrs: { post: _vm.post } })],
+                  [_c("profile-image", { attrs: { post: _vm.postContent } })],
                   1
                 ),
                 _vm._v(" "),
@@ -57307,12 +57318,10 @@ var render = function() {
               _vm._v(" "),
               _c("social-sharing", {
                 attrs: {
-                  url: "https://vuejs.org/",
-                  title: "The Progressive JavaScript Framework",
-                  description:
-                    "Intuitive, Fast and Composable MVVM for building interactive interfaces.",
-                  quote:
-                    "Vue is a progressive framework for building user interfaces.",
+                  url: "http://www.studentshub.in/post/" + _vm.postContent.id,
+                  title: _vm.postContent.heading,
+                  description: _vm.postContent.heading,
+                  quote: _vm.postContent.heading,
                   hashtags:
                     _vm.postContent.category_name +
                     ", " +
@@ -57450,6 +57459,20 @@ var render = function() {
                 _vm._l(_vm.most_viewed, function(post, index) {
                   return _c("div", { key: index, staticClass: "col-md-12" }, [
                     _c("div", { staticClass: "recent_card_post" }, [
+                      _c(
+                        "h6",
+                        { staticClass: "card-title-tag  font-size-12" },
+                        [
+                          _c("a", { attrs: { href: "#" } }, [
+                            _vm._v(
+                              "\n                                        " +
+                                _vm._s(post.subject_name) +
+                                "\n                                    "
+                            )
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
                       _c("h5", { staticClass: "weight-600" }, [
                         _vm._v(_vm._s(post.heading))
                       ]),
@@ -57471,21 +57494,7 @@ var render = function() {
                             _vm._v(_vm._s(post.time))
                           ])
                         ])
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "h6",
-                        { staticClass: "card-title-tag  font-size-12" },
-                        [
-                          _c("a", { attrs: { href: "#" } }, [
-                            _vm._v(
-                              "\n                                " +
-                                _vm._s(post.subject_name) +
-                                "\n                            "
-                            )
-                          ])
-                        ]
-                      )
+                      ])
                     ])
                   ])
                 }),
@@ -57495,6 +57504,44 @@ var render = function() {
           ])
         ])
       ]),
+      _vm._v(" "),
+      _vm.role !== "guest"
+        ? _c("div", { staticClass: "single_page_user_like" }, [
+            _c(
+              "button",
+              {
+                class: _vm.user_like === 1 ? "like_active" : "like_inactive",
+                on: {
+                  click: function($event) {
+                    return _vm.sendUserLike()
+                  }
+                }
+              },
+              [
+                _vm._m(2),
+                _vm._v(" "),
+                _c("p", [_vm._v(_vm._s(_vm.postContent.total_likes))])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                class: _vm.user_like === 0 ? "like_active" : "like_inactive",
+                on: {
+                  click: function($event) {
+                    return _vm.sendUserDislike()
+                  }
+                }
+              },
+              [
+                _vm._m(3),
+                _vm._v(" "),
+                _c("p", [_vm._v(_vm._s(_vm.postContent.total_dislikes))])
+              ]
+            )
+          ])
+        : _vm._e(),
       _vm._v(" "),
       _c("div", { staticClass: "single_page_post_card" }, [
         _c("div", { staticClass: "bg-gray ptb-50" }, [
@@ -57641,44 +57688,6 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _vm.role !== "guest"
-        ? _c("div", { staticClass: "single_page_user_like" }, [
-            _c(
-              "div",
-              {
-                staticClass: "user_like",
-                on: {
-                  click: function($event) {
-                    return _vm.sendUserLike()
-                  }
-                }
-              },
-              [
-                _vm._m(2),
-                _vm._v(" "),
-                _c("p", [_vm._v(_vm._s(_vm.post.total_likes))])
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "user_dislike",
-                on: {
-                  click: function($event) {
-                    return _vm.sendUserDislike()
-                  }
-                }
-              },
-              [
-                _vm._m(3),
-                _vm._v(" "),
-                _c("p", [_vm._v(_vm._s(_vm.post.total_dislikes))])
-              ]
-            )
-          ])
-        : _vm._e(),
-      _vm._v(" "),
       _vm.role === "guest" ? _c("site-footer") : _vm._e()
     ],
     1
@@ -57716,7 +57725,9 @@ var staticRenderFns = [
     return _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-12 latest-post" }, [
         _c("h6", { staticClass: "card-title" }, [
-          _vm._v("\n                        Popular Post\n                    ")
+          _vm._v(
+            "\n                                Popular Post\n                            "
+          )
         ])
       ])
     ])
