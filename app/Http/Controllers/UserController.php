@@ -11,7 +11,8 @@ class UserController extends Controller
 {
     //
     public function getInterests(){
-        if(is_null(Auth::student())){
+        $user=Auth::user();
+        if($user->post()->count()<4){
             return response()->json(['success'=>[
                 'interests'=>[]
             ]]);
@@ -43,5 +44,39 @@ class UserController extends Controller
         return response()->json(['success'=>[
             'interests'=>$categories
         ]]);
+    }
+
+    public function saveProfile(Request $request){
+        $me=Auth::user();
+        $profile=UserProfile::where('user_id',$me->id)->first();
+        if(!$profile){
+            $profile=new UserProfile();
+            $profile->user_id=$me->id;
+        }
+        if($request->profile_pic){
+            $image = $request->profile_pic; // image base64 encoded
+            preg_match("/data:image\/(.*?);/",$image,$image_extension); // extract the image extension
+            $image = preg_replace('/data:image\/(.*?);base64,/','',$image); // remove the type part
+            $image = str_replace(' ', '+', $image);
+            $file_name = 'image_' . time() . '.' . $image_extension[1]; //generating unique file name;
+            $file_path="/profile-images/".$file_name;
+            \Storage::put($file_path,base64_decode($image));
+            $me->avatar_url=$file_path;
+            $me->save();
+        }
+        if($request->introduction){
+            $profile->introduction=$request->introduction;
+        }
+        if($request->fb_url){
+            $profile->fb_url=$request->fb_url;
+        }
+        if($request->insta_url){
+            $profile->insta_url=$request->insta_url;
+        }
+        if($request->linkedin_url){
+            $profile->linkedin_url=$request->linkedin_url;
+        }
+
+        $profile->save();
     }
 }
