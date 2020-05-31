@@ -13,18 +13,18 @@ class CategorySeeder extends Seeder
     {
         //
         $sql="INSERT INTO `categories` (`id`, `name`, `category_url`) VALUES
-        (1, 'Technology', 'technology'),
-        (2, 'Management', 'management'),
+        (1, 'Engineering & Technology', 'technology'),
+        (2, 'Business & Management', 'management'),
         (3, 'Healthcare', 'healthcare'),
-        (4, 'Arts', 'arts'),
+        (4, 'Fine Arts', 'arts'),
         (5, 'Science', 'science'),
         (6, 'Economics', 'economics'),
         (7, 'Education', 'education'),
         (8, 'Pharmacy', 'pharmacy'),
         (9, 'Journalism', 'journalism'),
-        (10, 'Humanity', 'humanity'),
-        (11, 'Hospitality', 'hospitality'),
-        (12, 'Fashion', 'fashion'),
+        (10, 'Law & Humanity', 'humanity'),
+        (11, 'Travel & Hospitality', 'hospitality'),
+        (12, 'Design & Fashion', 'design'),
         (13, 'Computer', 'computer');";
 
         DB::unprepared($sql);

@@ -13,7 +13,7 @@ class TestController extends Controller
         for($i=1;$i<2;$i++){
             $ch = curl_init();
     
-            curl_setopt($ch, CURLOPT_URL, 'http://education-india.in/Education/Courses/?&Category_Id=TRAV&PageNumber='.$i);
+            curl_setopt($ch, CURLOPT_URL, 'http://education-india.in/Education/Courses/?&Category_Id=FASH&PageNumber='.$i);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             curl_setopt($ch, CURLOPT_POST, 1);
             curl_setopt($ch, CURLOPT_POSTFIELDS, "__RequestVerificationToken=_IvTMY2Q5OoHWmjAToioXKcKojaWk0pQI-7VR8MEiUptO6n-gjr3ERyxP1FmNLfvg8B2-CFOylFZnzDh8D5yCFwpERnIkg3w2NpAUtAHrUs1&Discipline_ID=0&ProgramLevel_Id=0&Qualification_ID=0&CourseOfStudy_ID=0&InstituteType=All&Type=InstituteWise");
@@ -56,7 +56,7 @@ class TestController extends Controller
                 $new_course->course_name=trim($course->plaintext);
                 $new_course->duration=$duration ? trim($duration->plaintext) : null;
                 $new_course->eligibility=$eligibility ? trim($eligibility->plaintext) : null;
-                $new_course->category_id=11;
+                $new_course->category_id=12;
                 $new_course->country_id='IN';
                 $new_course->save();
             }

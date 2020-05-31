@@ -34,7 +34,6 @@
   box-shadow: 2px 2px 2px #bbbbcc;
   border: 1px solid #eee;
   font-size: 17px;
-  font-family: Arial, Helvetica, sans-serif;
   color: #bbbbcc !important;
   font-weight: bold;
   margin-right: 20px;
@@ -55,13 +54,11 @@
 .main-habit-builder h2 {
   font-size: 36px;
   font-weight: 600;
-  font-family: Arial, Helvetica, sans-serif;
   color: #000;
 }
 
 .main-habit-builder p {
   font-weight: bold;
-  font-family: Arial, Helvetica, sans-serif;
   color: #000;
   margin: 2px 0px 2px 0px;
 }

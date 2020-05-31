@@ -15,9 +15,10 @@
                     <div class="input_icon_frm">
                         <span class="icon_design_input"><i class="fa fa-newspaper" aria-hidden="true"></i></span>
                     <select class="form-control custom-select" v-model="selected_type">
-                        <option v-for="type in postTypes" :key="type">
-                             {{type}}
-                        </option>
+                        <option value="article">Article</option>
+                        <option value="fact">Fact</option>
+                        <option value="mcq">MCQ</option>
+                        <option value="video">Youtube video</option>
                     </select>
                     </div>
                 </div>
@@ -63,14 +64,7 @@ import EventBus from '../event-bus';
 export default {
     data(){
         return{
-            postTypes:[
-                'Article',
-                'Fact',
-                'MCQ',
-                'Web Link',
-                'Youtube video'
-                ],
-                selected_type:'Article',
+            selected_type:'article',
         }
     },
     mounted(){

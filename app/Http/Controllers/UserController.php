@@ -30,8 +30,8 @@ class UserController extends Controller
         ->leftJoin('posts as upo',function($join){
             $join->on('upo.subject_id','=','sub.id')->where('upo.user_id','=',Auth::id());
         })
-        ->select(DB::raw('COUNT(distinct li.likable_id) as total_likes'),DB::raw('COUNT(distinct pv.post_id) as total_views'),DB::raw('COUNT(distinct upo.id) as total_posts'))
-        ->groupBy('cat.id')
+        ->select('cat.name',DB::raw('COUNT(distinct li.likable_id) as total_likes'),DB::raw('COUNT(distinct pv.post_id) as total_views'),DB::raw('COUNT(distinct upo.id) as total_posts'))
+        ->groupBy('cat.id','cat.name')
         ->get();
         
         $total=0;

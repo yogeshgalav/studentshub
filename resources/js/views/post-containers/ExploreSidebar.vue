@@ -61,9 +61,6 @@
 	</div>
 </template>
 <style scoped>
-	.card-title, .username, .text-muted {
-		font-family: 'Open Sans'  !important;
-	}
 	.bg-gray {
 		background: #F7F7F7 !important;
 	}

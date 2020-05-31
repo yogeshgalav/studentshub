@@ -55,9 +55,6 @@
 
 </template>
 <style scoped>
-	.card-post h3,h5,p, h6 {
-		font-family: 'Open Sans'  !important;
-	}
 	.card-post h3 {
 		margin-bottom:1px;
 	}

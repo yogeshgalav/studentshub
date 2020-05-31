@@ -1,5 +1,4 @@
 @import 'variables';
-// @import '../atlantis/sass/atlantis';
 @import '~bootstrap/scss/bootstrap';
 
 // Utility Classes
@@ -7,19 +6,37 @@
 .error {
     color: red;
 }
-// @font-face {
-//     font-family: ProximaNova-Regular;
-//     src: url(ProximaNova-Regular.woff);
-//  }
-html {
-    font-family: 'ProximaNova-Regular';
-}
-@supports (font-variation-settings: normal) {
-    html {
-        font-family: 'ProximaNova-Regular';
-    }
-}
 
+@font-face {
+    font-family: "Proxima Nova", sans-serif;
+    src: url('../fonts/proxima-nova/ProximaNova-Regular.eot');
+    src: url('../fonts/proxima-nova/ProximaNova-Regular.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/proxima-nova/ProximaNova-Regular.woff2') format('woff2'),
+        url('../fonts/proxima-nova/ProximaNova-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: "Proxima Nova", sans-serif;
+    src: url('../fonts/proxima-nova/ProximaNova-Bold.eot');
+    src: url('../fonts/proxima-nova/ProximaNova-Bold.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/proxima-nova/ProximaNova-Bold.woff2') format('woff2'),
+        url('../fonts/proxima-nova/ProximaNova-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: "Proxima Nova", sans-serif;
+    src: url('../fonts/proxima-nova/ProximaNovaT-Thin.eot');
+    src: url('../fonts/proxima-nova/ProximaNovaT-Thin.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/proxima-nova/ProximaNovaT-Thin.woff2') format('woff2'),
+        url('../fonts/proxima-nova/ProximaNovaT-Thin.woff') format('woff');
+    font-weight: 100;
+    font-style: normal;
+  }
+  
 .clearfix {
     overflow: auto;
 }
@@ -37,6 +54,10 @@ html {
 body
 {
     background-color: white;
+}
+
+html,body {
+    font-family: "Proxima Nova", sans-serif !important;
 }
 
 body,

@@ -23,6 +23,7 @@ Route::get('/terms-of-service', 'PagesController@report');
 
 
 Route::get('/post-images/{filename}','PagesController@postImage');
+Route::get('/profile-images/{filename}','PagesController@profileImage');
 // Localization
 Route::get('/js/lang.js', function () {
     $strings = Cache::remember('lang.js',1, function () {

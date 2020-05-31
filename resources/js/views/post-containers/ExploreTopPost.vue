@@ -44,12 +44,6 @@
     </div>
      </div>
 </template>
-<style scoped>
-.card-text, .card-title, .card-post p
-{
-	font-family: 'Open Sans'  !important;
-}
-</style>
 <script>
 export default {
     

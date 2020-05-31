@@ -1922,9 +1922,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -8544,7 +8541,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.main-habit-builder[data-v-6101d06f] {\r\n  margin: auto;\n}\n.main-habit-builder .btn-default[data-v-6101d06f] {\r\n  background: #fff !important;\r\n  box-shadow: 2px 2px 2px #bbbbcc;\r\n  border: 1px solid #eee;\r\n  font-size: 17px;\r\n  font-family: Arial, Helvetica, sans-serif;\r\n  color: #bbbbcc !important;\r\n  font-weight: bold;\r\n  margin-right: 20px;\r\n  margin-bottom: 5px;\n}\n.share[data-v-6101d06f] {\r\n  position: fixed;\r\n  z-index: 999;\n}\n.main-habit-builder input[data-v-6101d06f] {\r\n  color: #bbbbcc;\n}\n.main-habit-builder .card[data-v-6101d06f] {\r\n  padding: 20px !important;\n}\n.main-habit-builder h2[data-v-6101d06f] {\r\n  font-size: 36px;\r\n  font-weight: 600;\r\n  font-family: Arial, Helvetica, sans-serif;\r\n  color: #000;\n}\n.main-habit-builder p[data-v-6101d06f] {\r\n  font-weight: bold;\r\n  font-family: Arial, Helvetica, sans-serif;\r\n  color: #000;\r\n  margin: 2px 0px 2px 0px;\n}\r\n", ""]);
+exports.push([module.i, "\n.main-habit-builder[data-v-6101d06f] {\r\n  margin: auto;\n}\n.main-habit-builder .btn-default[data-v-6101d06f] {\r\n  background: #fff !important;\r\n  box-shadow: 2px 2px 2px #bbbbcc;\r\n  border: 1px solid #eee;\r\n  font-size: 17px;\r\n  color: #bbbbcc !important;\r\n  font-weight: bold;\r\n  margin-right: 20px;\r\n  margin-bottom: 5px;\n}\n.share[data-v-6101d06f] {\r\n  position: fixed;\r\n  z-index: 999;\n}\n.main-habit-builder input[data-v-6101d06f] {\r\n  color: #bbbbcc;\n}\n.main-habit-builder .card[data-v-6101d06f] {\r\n  padding: 20px !important;\n}\n.main-habit-builder h2[data-v-6101d06f] {\r\n  font-size: 36px;\r\n  font-weight: 600;\r\n  color: #000;\n}\n.main-habit-builder p[data-v-6101d06f] {\r\n  font-weight: bold;\r\n  color: #000;\r\n  margin: 2px 0px 2px 0px;\n}\r\n", ""]);
 
 // exports
 

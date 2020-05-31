@@ -44,11 +44,14 @@
                         </div>
                         <div class="progess_bar">
                         <div class="cojl" v-for="(interest,index) in interests" :key="index">
-                            <radial-progress-bar :diameter="150" :completed-steps="interest.percent" :total-steps="100"
+                            <radial-progress-bar :diameter="150" :completed-steps="interest_enable ? interest.percent :0" :total-steps="100"
                                 :startColor="'#00BFFF'" :stopColor="'#000080'" :innerStrokeColor="'#B0E0E6'">
-                                <p class="counter-count">{{ interest.percent }}</p>
+                                <animate-number :number="interest_enable ? interest.percent :0"></animate-number>
                                 <p>{{ interest.name }}</p>
                             </radial-progress-bar>
+                            <p>Total Posts: {{interest.total_posts}}</p>
+                            <p>Total Likes: {{interest.total_likes}}</p>
+                            <p>Total Views: {{interest.total_views}}</p>
                         </div>
                         </div> 
                     </div>
@@ -129,13 +132,14 @@
 import VModal from 'vue-js-modal'
 import RadialProgressBar from 'vue-radial-progress'
 import FileUpload from 'vue-upload-component'
+import AnimateNumber from './animate-number.vue'
 
     export default {
         props: ['user'],
         data() {
             return {
                 interests: [],
-                interest_enable: true,
+                interest_enable: false,
                 image:'',
                 profile_image_url:'',
                 errors:{
@@ -154,7 +158,7 @@ import FileUpload from 'vue-upload-component'
 
         },
         components: {
-            RadialProgressBar,VModal,FileUpload
+            RadialProgressBar,VModal,FileUpload,AnimateNumber
         },
         watch: {
             user(val) {
@@ -163,20 +167,9 @@ import FileUpload from 'vue-upload-component'
         },
         mounted() {
             this.axios.get('/api/get-interests').then((resp) => {
-                // this.interest_enable=resp.data.success.interest_enable;
                 this.interests = resp.data.success.interests;
-                 $('.counter-count').each(function () {
-                    $(this).prop('Counter',0).animate({
-                        Counter: $(this).text()
-                    }, {
-                        duration: 5000,
-                        easing: 'swing',
-                        step: function (now) {
-                            $(this).text(Math.ceil(now));
-                        }
-                    });
-                });
-            })
+                setTimeout(()=>{ this.interest_enable=true; }, 1000);
+            });
         },
         methods: {
             openProfileEditModal(){

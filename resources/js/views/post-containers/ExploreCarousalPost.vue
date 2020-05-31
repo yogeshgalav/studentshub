@@ -74,13 +74,6 @@
     .slick-slide {
         margin: 0 5px;
     }
-
-    .slider-caption h5,
-    p {
-
-        font-family: 'Open Sans' !important;
-    }
-
     .pt-80 {
         padding-top: 120px;
     }

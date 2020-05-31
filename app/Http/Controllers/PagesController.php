@@ -28,29 +28,17 @@ class PagesController extends Controller
             abort(404);
         }
 
-        $file = \File::get($path);
-        $type = \File::mimeType($path);
-
-        $response = \Response::make($file, 200);
-        $response->header("Content-Type", $type);
-
-        return $response;
+        return response()->file($path);
     }
 
     public function profileImage( $filename){
-        $path = storage_path('app/uploads/profile/' . $filename);
+        $path = storage_path('app/profile-images/' . $filename);
 
         if (!\File::exists($path)) {
             abort(404);
         }
 
-        $file = \File::get($path);
-        $type = \File::mimeType($path);
-
-        $response = \Response::make($file, 200);
-        $response->header("Content-Type", $type);
-
-        return $response;
+        return response()->file($path);
     }
 
     public function  root(){

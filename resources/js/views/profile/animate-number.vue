@@ -1,25 +1,19 @@
-Vue.component('animated-number',{
-template:"{{displayNumber}}",
+<template>
+  <p>{{displayNumber}}</p>
+</template>
+<script>
+export default {
 props:{'number':{default:0}},
 data: function(){
-
     return {
-
       displayNumber:0,
       interval:false
-
     }
-
   },
-
   mounted(){
-
     this.displayNumber = this.number ? this.number : 0;
-
   },
-
   watch:{
-
     number: function(){
 
       clearInterval(this.interval);
@@ -32,7 +26,7 @@ data: function(){
 
           if(this.displayNumber != this.number){
 
-            var change = (this.number - this.displayNumber) / 10;
+            var change = (this.number - this.displayNumber) / 100;
 
             change = change >= 0 ? Math.ceil(change) : Math.floor(change);
 
@@ -45,4 +39,5 @@ data: function(){
     }
 
   }
-})
+}
+</script>
