@@ -110,18 +110,7 @@
                             </div>
                         </div>
                     </div>
-                    <div v-if="postContent.post_type==='mcq'">
-                        <div class="post_s_c">
-                            <div class="post_content">
-                                <p>{{postContent.optionA}}</p>
-                                <p>{{postContent.optionB}}</p>
-                                <p>{{postContent.optionC}}</p>
-                                <p>{{postContent.optionD}}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
+                    <div class="col-md-4">
                     <div class="bg-gray p-2 mb-2">
                         <div class="row">
                             <div class="col-md-12 latest-post">
@@ -157,6 +146,18 @@
                     </div>
 
                 </div>
+                    <div v-if="postContent.post_type==='mcq'">
+                        <div class="post_s_c">
+                            <div class="post_content">
+                                <p>{{postContent.optionA}}</p>
+                                <p>{{postContent.optionB}}</p>
+                                <p>{{postContent.optionC}}</p>
+                                <p>{{postContent.optionD}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
         </div>
         <div class="single_page_user_like" v-if="role!=='guest'">
@@ -170,7 +171,7 @@
             </button>
         </div>
         <div class="single_page_post_card">
-            <div class="bg-gray ptb-50">
+            <div class="bg-gray s_p_c">
                 <h3 class="post_like_head">You May Also Like</h3>
                 <div class="container">
                     <div class="row">
@@ -264,6 +265,9 @@
 
     .user_img_singe {
         margin-bottom: 15px;
+            display: flex;
+    justify-content: center;
+
     }
 
     .user_img_singe img {
@@ -330,6 +334,7 @@
 
     .post_like_head {
         text-align: center;
+        margin-bottom: 20px;
     }
 
 
@@ -376,7 +381,7 @@
     .single_page_user_like {
         display: flex;
         justify-content: center;
-        margin-top: 90px;
+    margin: 90px 0 40px;
     }
 
     .like_active p {
@@ -401,6 +406,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+            border: none;
     }
 
     .single_page_user_like button:nth-child(2) {
@@ -413,6 +419,7 @@
         justify-content: center;
         align-items: center;
         margin-left: 50px;
+            border: none;
     }
 
     .post_view_head .dropdown-menu.show {
@@ -429,7 +436,9 @@
     .post_view_head .dropdown-toggle::after {
         display: none;
     }
-
+.bg-gray.s_p_c {
+    padding: 50px 0;
+}
 </style>
 <script>
     import {

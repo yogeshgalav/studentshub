@@ -4537,6 +4537,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -9619,7 +9628,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.post_img[data-v-35874454] {\n    width: 100%;\n}\n.single_post_page .row[data-v-35874454] {\n    -webkit-box-align: center;\n            align-items: center;\n}\n.single_post_page[data-v-35874454] {\n    background-color: #f6f6f6;\n    padding: 120px 0 80px;\n    text-align: center;\n}\nsection.single_post[data-v-35874454] {\n    padding: 65px 0;\n}\n.s_page_like[data-v-35874454] {\n    display: -webkit-box;\n    display: flex;\n    -webkit-box-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n            align-items: center;\n    margin-top: 15px;\n}\n.like_1[data-v-35874454] {\n    padding: 0px 10px;\n    color: #868686;\n}\n.user_img_singe[data-v-35874454] {\n    margin-bottom: 15px;\n}\n.user_img_singe img[data-v-35874454] {\n    width: 50px;\n    height: 50px;\n    border-radius: 50px;\n}\n.post_video iframe[data-v-35874454] {\n    width: 100%;\n}\n.post_content[data-v-35874454] {\n    margin-top: 20px;\n}\n.post_content p[data-v-35874454] {\n    color: #868685;\n    line-height: 27px;\n    text-align: justify;\n    position: relative;\n    font-size: 20px;\n}\n.post_content p[data-v-35874454]:before {\n    position: absolute;\n    content: '';\n    background-color: black;\n    height: 70px;\n    width: 2px;\n    left: -12px;\n    top: 8px;\n}\nh3.post_main_title[data-v-35874454] {\n    /* font-size: 22px; */\n    font-weight: 500;\n    line-height: 34px;\n    position: relative;\n}\nh3.post_main_title[data-v-35874454]:before {\n    position: absolute;\n    content: '';\n    /* background-color: red; */\n    left: -36px;\n    width: 15px;\n    height: 15px;\n    top: 16px;\n    border: solid 1px #00c1d5;\n}\nh3.post_main_title[data-v-35874454]:after {\n    position: absolute;\n    content: '';\n    /* background-color: red; */\n    left: -29px;\n    width: 15px;\n    height: 15px;\n    top: 11px;\n    border: solid 1px #00c1d5;\n}\n.post_like_head[data-v-35874454] {\n    text-align: center;\n}\n.social_icon_text[data-v-35874454]:before {\n    position: absolute;\n    content: '';\n    background-color: #272727;\n    width: 37px;\n    height: 1px;\n    right: -43px;\n    bottom: 7px;\n}\nh5.social_icon_text[data-v-35874454] {\n    position: relative;\n    font-weight: 500;\n    color: #868686;\n}\n.recent_post_img img[data-v-35874454] {\n    width: 40px;\n    height: 40px;\n    border-radius: 50px;\n}\nh6.card-title[data-v-35874454] {\n    margin: 0;\n    padding: 10px 9px 0;\n    color: #868686;\n}\nh6.card-title-tag.font-size-12 a[data-v-35874454] {\n    color: #868686;\n}\n.recent_card_post[data-v-35874454] {\n    padding: 12px 10px 0;\n}\n.single_page_post_card .row .col-md-4[data-v-35874454] {\n    display: -webkit-box;\n    display: flex;\n}\n.single_page_user_like[data-v-35874454] {\n    display: -webkit-box;\n    display: flex;\n    -webkit-box-pack: center;\n            justify-content: center;\n    margin-top: 90px;\n}\n.like_active p[data-v-35874454] {\n    margin: 0;\n    color: blue;\n    font-size: 18px;\n}\n.like_inactive p[data-v-35874454] {\n    margin: 0;\n    color: #868686;\n    font-size: 18px;\n}\n.single_page_user_like button[data-v-35874454]:nth-child(1) {\n\n    width: 100px;\n    height: 100px;\n    background-color: #f2f2f2;\n    border-radius: 50px;\n    display: -webkit-box;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n            flex-direction: column;\n    -webkit-box-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n            align-items: center;\n}\n.single_page_user_like button[data-v-35874454]:nth-child(2) {\n    width: 100px;\n    height: 100px;\n    background-color: #f2f2f2;\n    border-radius: 50px;\n    display: -webkit-box;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n            flex-direction: column;\n    -webkit-box-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n            align-items: center;\n    margin-left: 50px;\n}\n.post_view_head .dropdown-menu.show[data-v-35874454] {\n    display: block;\n    left: -130px !important;\n    -webkit-transform: inherit !important;\n            transform: inherit !important;\n    top: 37px !important;\n}\n.post_view_head .dropdown-menu[data-v-35874454] {\n    min-width: 10rem;\n}\n.post_view_head .dropdown-toggle[data-v-35874454]::after {\n    display: none;\n}\n\n", ""]);
+exports.push([module.i, "\n.post_img[data-v-35874454] {\n        width: 100%;\n}\n.single_post_page .row[data-v-35874454] {\n        -webkit-box-align: center;\n                align-items: center;\n}\n.single_post_page[data-v-35874454] {\n        background-color: #f6f6f6;\n        padding: 120px 0 80px;\n        text-align: center;\n}\nsection.single_post[data-v-35874454] {\n        padding: 65px 0;\n}\n.s_page_like[data-v-35874454] {\n        display: -webkit-box;\n        display: flex;\n        -webkit-box-pack: center;\n                justify-content: center;\n        -webkit-box-align: center;\n                align-items: center;\n        margin-top: 15px;\n}\n.like_1[data-v-35874454] {\n        padding: 0px 10px;\n        color: #868686;\n}\n.user_img_singe[data-v-35874454] {\n        margin-bottom: 15px;\n            display: -webkit-box;\n            display: flex;\n    -webkit-box-pack: center;\n            justify-content: center;\n}\n.user_img_singe img[data-v-35874454] {\n        width: 50px;\n        height: 50px;\n        border-radius: 50px;\n}\n.post_video iframe[data-v-35874454] {\n        width: 100%;\n}\n.post_content[data-v-35874454] {\n        margin-top: 20px;\n}\n.post_content p[data-v-35874454] {\n        color: #868685;\n        line-height: 27px;\n        text-align: justify;\n        position: relative;\n        font-size: 20px;\n}\n.post_content p[data-v-35874454]:before {\n        position: absolute;\n        content: '';\n        background-color: black;\n        height: 70px;\n        width: 2px;\n        left: -12px;\n        top: 8px;\n}\nh3.post_main_title[data-v-35874454] {\n        /* font-size: 22px; */\n        font-weight: 500;\n        line-height: 34px;\n        position: relative;\n}\nh3.post_main_title[data-v-35874454]:before {\n        position: absolute;\n        content: '';\n        /* background-color: red; */\n        left: -36px;\n        width: 15px;\n        height: 15px;\n        top: 16px;\n        border: solid 1px #00c1d5;\n}\nh3.post_main_title[data-v-35874454]:after {\n        position: absolute;\n        content: '';\n        /* background-color: red; */\n        left: -29px;\n        width: 15px;\n        height: 15px;\n        top: 11px;\n        border: solid 1px #00c1d5;\n}\n.post_like_head[data-v-35874454] {\n        text-align: center;\n        margin-bottom: 20px;\n}\n.social_icon_text[data-v-35874454]:before {\n        position: absolute;\n        content: '';\n        background-color: #272727;\n        width: 37px;\n        height: 1px;\n        right: -43px;\n        bottom: 7px;\n}\nh5.social_icon_text[data-v-35874454] {\n        position: relative;\n        font-weight: 500;\n        color: #868686;\n}\n.recent_post_img img[data-v-35874454] {\n        width: 40px;\n        height: 40px;\n        border-radius: 50px;\n}\nh6.card-title[data-v-35874454] {\n        margin: 0;\n        padding: 10px 9px 0;\n        color: #868686;\n}\nh6.card-title-tag.font-size-12 a[data-v-35874454] {\n        color: #868686;\n}\n.recent_card_post[data-v-35874454] {\n        padding: 12px 10px 0;\n}\n.single_page_post_card .row .col-md-4[data-v-35874454] {\n        display: -webkit-box;\n        display: flex;\n}\n.single_page_user_like[data-v-35874454] {\n        display: -webkit-box;\n        display: flex;\n        -webkit-box-pack: center;\n                justify-content: center;\n    margin: 90px 0 40px;\n}\n.like_active p[data-v-35874454] {\n        margin: 0;\n        color: blue;\n        font-size: 18px;\n}\n.like_inactive p[data-v-35874454] {\n        margin: 0;\n        color: #868686;\n        font-size: 18px;\n}\n.single_page_user_like button[data-v-35874454]:nth-child(1) {\n\n        width: 100px;\n        height: 100px;\n        background-color: #f2f2f2;\n        border-radius: 50px;\n        display: -webkit-box;\n        display: flex;\n        -webkit-box-orient: vertical;\n        -webkit-box-direction: normal;\n                flex-direction: column;\n        -webkit-box-pack: center;\n                justify-content: center;\n        -webkit-box-align: center;\n                align-items: center;\n            border: none;\n}\n.single_page_user_like button[data-v-35874454]:nth-child(2) {\n        width: 100px;\n        height: 100px;\n        background-color: #f2f2f2;\n        border-radius: 50px;\n        display: -webkit-box;\n        display: flex;\n        -webkit-box-orient: vertical;\n        -webkit-box-direction: normal;\n                flex-direction: column;\n        -webkit-box-pack: center;\n                justify-content: center;\n        -webkit-box-align: center;\n                align-items: center;\n        margin-left: 50px;\n            border: none;\n}\n.post_view_head .dropdown-menu.show[data-v-35874454] {\n        display: block;\n        left: -130px !important;\n        -webkit-transform: inherit !important;\n                transform: inherit !important;\n        top: 37px !important;\n}\n.post_view_head .dropdown-menu[data-v-35874454] {\n        min-width: 10rem;\n}\n.post_view_head .dropdown-toggle[data-v-35874454]::after {\n        display: none;\n}\n.bg-gray.s_p_c[data-v-35874454] {\n    padding: 50px 0;\n}\n", ""]);
 
 // exports
 
@@ -57433,6 +57442,60 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
+            _c("div", { staticClass: "col-md-4" }, [
+              _c("div", { staticClass: "bg-gray p-2 mb-2" }, [
+                _vm._m(1),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "row" },
+                  _vm._l(_vm.most_viewed, function(post, index) {
+                    return _c("div", { key: index, staticClass: "col-md-12" }, [
+                      _c("div", { staticClass: "recent_card_post" }, [
+                        _c(
+                          "h6",
+                          { staticClass: "card-title-tag  font-size-12" },
+                          [
+                            _c("a", { attrs: { href: "#" } }, [
+                              _vm._v(
+                                "\n                                        " +
+                                  _vm._s(post.subject_name) +
+                                  "\n                                    "
+                              )
+                            ])
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("h5", { staticClass: "weight-600" }, [
+                          _vm._v(_vm._s(post.heading))
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "d-flex" }, [
+                          _c(
+                            "div",
+                            { staticClass: "recent_post_img" },
+                            [_c("profile-image", { attrs: { post: post } })],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "info-post ml-2" }, [
+                            _c("p", { staticClass: "username" }, [
+                              _vm._v(_vm._s(post.user_name))
+                            ]),
+                            _vm._v(" "),
+                            _c("p", { staticClass: "date text-muted" }, [
+                              _vm._v(_vm._s(post.time))
+                            ])
+                          ])
+                        ])
+                      ])
+                    ])
+                  }),
+                  0
+                )
+              ])
+            ]),
+            _vm._v(" "),
             _vm.postContent.post_type === "mcq"
               ? _c("div", [
                   _c("div", { staticClass: "post_s_c" }, [
@@ -57448,60 +57511,6 @@ var render = function() {
                   ])
                 ])
               : _vm._e()
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-md-4" }, [
-            _c("div", { staticClass: "bg-gray p-2 mb-2" }, [
-              _vm._m(1),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "row" },
-                _vm._l(_vm.most_viewed, function(post, index) {
-                  return _c("div", { key: index, staticClass: "col-md-12" }, [
-                    _c("div", { staticClass: "recent_card_post" }, [
-                      _c(
-                        "h6",
-                        { staticClass: "card-title-tag  font-size-12" },
-                        [
-                          _c("a", { attrs: { href: "#" } }, [
-                            _vm._v(
-                              "\n                                        " +
-                                _vm._s(post.subject_name) +
-                                "\n                                    "
-                            )
-                          ])
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c("h5", { staticClass: "weight-600" }, [
-                        _vm._v(_vm._s(post.heading))
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "d-flex" }, [
-                        _c(
-                          "div",
-                          { staticClass: "recent_post_img" },
-                          [_c("profile-image", { attrs: { post: post } })],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "info-post ml-2" }, [
-                          _c("p", { staticClass: "username" }, [
-                            _vm._v(_vm._s(post.user_name))
-                          ]),
-                          _vm._v(" "),
-                          _c("p", { staticClass: "date text-muted" }, [
-                            _vm._v(_vm._s(post.time))
-                          ])
-                        ])
-                      ])
-                    ])
-                  ])
-                }),
-                0
-              )
-            ])
           ])
         ])
       ]),
@@ -57545,7 +57554,7 @@ var render = function() {
         : _vm._e(),
       _vm._v(" "),
       _c("div", { staticClass: "single_page_post_card" }, [
-        _c("div", { staticClass: "bg-gray ptb-50" }, [
+        _c("div", { staticClass: "bg-gray s_p_c" }, [
           _c("h3", { staticClass: "post_like_head" }, [
             _vm._v("You May Also Like")
           ]),
