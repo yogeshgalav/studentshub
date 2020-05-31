@@ -28,7 +28,7 @@ class DoubtAnswersController extends Controller
         } catch (\Exception $e) {
             DB::rollback();
             \Log::critical('Doubt Creation failure: for user id#'.Auth::user()->id.' with data '.implode(', ',Arr::flatten($input)));
-            dd($e->getMessage(),$e->getLine());
+            // dd($e->getMessage(),$e->getLine());
             return response()->$e;
         }        
         return 'success';

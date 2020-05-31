@@ -56752,7 +56752,7 @@ var render = function() {
               _c("div", { staticClass: "separator-solid" }),
               _vm._v(" "),
               _c("p", { staticClass: "card-category text-info mb-2" }, [
-                _c("a", { attrs: { href: "#" } }, [
+                _c("a", { attrs: { href: post.subject_url } }, [
                   _vm._v(_vm._s(post.subject_name))
                 ])
               ]),
