@@ -7,7 +7,7 @@
 
         </div>
         <div class="dropdown">
-  <button class="btn btn-white  dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  <button class="btn btn-white   dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
  <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
   </button>
   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
