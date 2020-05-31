@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use Carbon\Carbon;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -30,8 +31,8 @@ class AppServiceProvider extends ServiceProvider
                 foreach($user->notifications()->get() as $key=>$notification){
                     $n_text=\App\Models\NotificationText::where('notification_type',$notification->type)->first();
                     if($n_text){
-                        $notification[$key]['text']=$n_text->notification_text;
-                        $notification[$key]['time']=Carbon::createFromTimeStamp(strtotime($notification->created_at))->diffForHumans();
+                        $notifications[$key]['text']=$n_text->notification_text;
+                        $notifications[$key]['time']=Carbon::createFromTimeStamp(strtotime($notification->created_at))->diffForHumans();
                     }else{
                         \Log::critical('Notification text not found of type'.$notification->type);
                     }

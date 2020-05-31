@@ -21,7 +21,6 @@ class CreatePostsTable extends Migration
             $table->string('postable_type');
             $table->text('post_heading');
             $table->string('primary_image_path')->nullable();
-            $table->integer('post_url')->nullable();
             $table->integer('rating')->default(3);
             $table->timestamps();
         });

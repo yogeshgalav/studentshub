@@ -29,7 +29,7 @@ class PostController extends Controller
         $student=Auth::student();
         DB::beginTransaction();
         try{
-            if(is_null($data['subject_id'])){
+            if(intval($data['subject_id'])===0){
                 $subject_name=strtolower($data['subject_name']);
                 $subject=Subject::firstOrCreate([
                   'subject_url'=>urlencode($subject_name),
@@ -57,6 +57,7 @@ class PostController extends Controller
                 $article=new Article;
                 $post_content_id=$article->createFromContent($data);
                 $post->postable_type="App\Models\Article";
+                $post->primary_image_path='/post-images/article-default.png';
                 $post->postable_id=$post_content_id;
               
             break;
@@ -82,12 +83,14 @@ class PostController extends Controller
             case 'mcq':
             $mcq=new Mcq;
             $post_content_id=$mcq->createNewMcq($data);
+            $post->primary_image_path='/post-images/mcq-default.png';
             $post->postable_type="App\Models\Mcq";
             $post->postable_id=$post_content_id;
             break;    
             case 'fact':
             $fact=new Fact;
-            $post_content_id=$fact->createNewFact($data);
+            [$post_content_id,$file_path]=$fact->createNewFact($data);
+            $post->primary_image_path=$file_path;
             $post->postable_type="App\Models\Fact";
             $post->postable_id=$post_content_id;
             break;    
@@ -106,8 +109,7 @@ class PostController extends Controller
         DB::commit();
     } catch (\Exception $e) {
         DB::rollback();
-        // \Log::critical('Post Creation failure: for user id#'.Auth::user()->id.' with data '.implode(', ',Arr::flatten($data)));
-        dd($e->getMessage(),$e->getLine());
+        \Log::critical('Post Creation failure: for user id#'.Auth::user()->id.' with data '.implode(', ',Arr::flatten($data)));
         return response()->$e;
     }
         return response()->json('success');
@@ -221,7 +223,9 @@ class PostController extends Controller
         $save_post->user_id=Auth::user()->id;
         $save_post->post_id=$request->post_id;
         $save_post->save();
-        return 'success';
+        return response()->json(['success'=>[
+          'post_save'=>true,
+        ]]);
       }
 
       public function reportPost(Request $request){
@@ -229,6 +233,8 @@ class PostController extends Controller
         $report_post->user_id=Auth::user()->id;
         $report_post->post_id=$request->post_id;
         $report_post->save();
-        return 'success';
+        return response()->json(['success'=>[
+          'user_like'=>true,
+        ]]);
       }
 }

@@ -35,9 +35,9 @@
                                 <span><i class="fa fa-bell"></i></span>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                             
-                                <a class="dropdown-item" href="#">Lipsum generator: Lorem Ipsum - All the facts Lipsum generator: Lorem Ipsum - All the facts</a>
-                               
+                            @foreach($notifications as $notification)
+                                      <a class="dropdown-item" href="#">@lang($notification['text'])</a>
+                            @endforeach
                             </div>
                         </div>
                     </li>
@@ -58,8 +58,6 @@
                                     </div>
                                 </div>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Profile</a>
-                                <a class="dropdown-item" href="#">Account Settings</a>
                                 <a href="/logout" class="center-block ml-3 mt-1 btn btn-sm btn-default">Logout</a>
                             </div>
                         </div>

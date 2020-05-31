@@ -26,13 +26,11 @@
                   <img class="card-img-top" v-lazy="post.image_path" alt="Card image cap" />
                 
                 </div>  
-                    <div class="col-md-9 col-8">
+                    <div class="col-md-9 col-8" @click="setPostView(post)">
                       <div class="dash_board_title">
                           <h3 class="card-title weight-600 text-black">{{post.heading}}</h3>
-                          <!-- <h3 class="card-title weight-600 text-black">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit adipisci velit adipisci velit</h3> -->
                       </div> 
                       <p class="dash_post_content">{{post.content}}</p>
-                      <!-- <p class="dash_post_content">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p> -->
                        <router-link :to="'/post/'+post.id" class="btn p-0 btn-link font-size-12" style="text-decoration: underline;"> Read Continue &nbsp;<i class="fa fa-arrow-right"></i>
                   </router-link>
                     </div>
@@ -120,6 +118,11 @@ export default {
       showLoader: false
     };
   },
-  methods: {}
+  methods: {
+    setPostView(post){
+      document.title = post.heading;
+      this.$store.commit("common/set_post_initial",post);
+    },
+  }
 };
 </script>

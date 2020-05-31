@@ -29,6 +29,6 @@ class Fact extends Model
         $newFile->file_name=$file_name;
         $newFile->user_id=\Auth::user()->id;
         $newFile->save();
-        return $post_content_id;
+        return [$post_content_id,$file_path];
     }
 }

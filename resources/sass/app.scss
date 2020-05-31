@@ -2220,6 +2220,27 @@ justify-content: space-between;
     align-items: center;
     justify-content: center;
 }
+.category_btn a {
+    background: #10069f;
+    padding: 12px;
+    color: antiquewhite;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.09);
+    border-radius: 5px;
+    font-weight: 600;
+}
+.category_btn a:hover
+{
+    text-decoration: none;
+}
+.logout_btn:hover
+{
+    color: white;
+    text-decoration: none;
+}
+.card-body a:hover {
+    text-decoration: none;
+    color: #10069F; 
+}
 @media only screen and (max-width: 600px) {
     .search_box {
         width: 100%;

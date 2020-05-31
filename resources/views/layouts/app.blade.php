@@ -21,13 +21,6 @@
 @yield('content')  
 </main>
 </div>
-<script>
-    window.App ={!! json_encode([
-        'AuthUserType' => 'guest',
-        'csrfToken' => csrf_token(),
-        'baseUrl' => URL::to('/'),
-        'fileUrl' => config('url.file_storage_url'),
-        ]) !!}
-</script>
+    @include('includes.jsVariables')
 </body>
 </html>

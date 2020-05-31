@@ -22,7 +22,7 @@ class PagesController extends Controller
     }
 
     public function postImage( $filename){
-        $path = storage_path('app/post-images/' . $filename);
+        $path = storage_path('/app/post-images/' . $filename);
 
         if (!\File::exists($path)) {
             abort(404);
@@ -61,9 +61,6 @@ class PagesController extends Controller
         }
     }
 
-    public function dashboard(){
-        return view($this->AuthUserType.'.home');
-    }
     public function editPost(){
         return view('student.edit-post');
     }

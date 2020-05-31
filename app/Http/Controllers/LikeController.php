@@ -42,6 +42,8 @@ class LikeController extends Controller
             break;
             
         }
-        return response()->json('success');
+        return response()->json(['success'=>[
+            'user_like'=>$like ? $like->like_status : null,
+        ]]);
     }
 }

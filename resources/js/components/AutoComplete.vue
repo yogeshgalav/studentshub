@@ -129,7 +129,7 @@ export default {
 			return this.$trans("auth", string, defaultString);
 		},
 		onChange() {
-			if(this.search.length<4){
+			if(this.search.length<3){
 				return false;
 			}
 
