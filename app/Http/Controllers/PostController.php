@@ -109,8 +109,7 @@ class PostController extends Controller
         DB::commit();
     } catch (\Exception $e) {
         DB::rollback();
-        // \Log::critical('Post Creation failure: for user id#'.Auth::user()->id.' with data '.implode(', ',Arr::flatten($data)));
-        dd($e->getMessage(),$e->getLine());
+        \Log::critical('Post Creation failure: for user id#'.Auth::user()->id.' with data '.implode(', ',Arr::flatten($data)));
         return response()->$e;
     }
         return response()->json('success');
