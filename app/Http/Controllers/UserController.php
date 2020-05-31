@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\UserProfile;
 use Auth;
 use DB;
 
@@ -78,5 +79,9 @@ class UserController extends Controller
         }
 
         $profile->save();
+
+        return response()->json(['success'=>[
+            'profile'=>$profile
+        ]]);
     }
 }

@@ -24,7 +24,7 @@
                                         <span><a :href="user.fb_url ? user.fb_url :'#'" target="_blank"><i class="fab fa-facebook-f"></i></a></span>
                                         <span><a :href="user.insta_url ? user.fb_url :'#'" target="_blank"><i class="fab fa-instagram"></i></a></span>
                                         <span><a :href="user.linkedin_url ? user.fb_url :'#'" target="_blank"><i class="fab fa-linkedin"></i></a></span>
-                                        <span><a :href="user.email ? 'mailto:'+user.email :'#'" target="_blank"><i class="fab fa-email"></i></a></span>
+                                        <span><a :href="user.email ? 'mailto:'+user.email :'#'" target="_blank"><i class="fa fa-envelope"></i></a></span>
 
                                     </div>
                                 </div>
@@ -94,6 +94,7 @@
                                 <label>Facebook Profile Url</label>
                                 <input class="form-control" type="text" v-model="profile_data.fb_url"
                                     placeholder="http://facebook.com/profile-id">
+                                    <span class="text-danger">{{errors.fb_url}}</span>
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -101,6 +102,7 @@
                                 <label>Instagram Profile Url</label>
                                 <input class="form-control" type="text" v-model="profile_data.insta_url"
                                     placeholder="http://instagram.com/username">
+                                    <span class="text-danger">{{errors.insta_url}}</span>
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -108,6 +110,7 @@
                                 <label>Linkedin Profile Url</label>
                                 <input class="form-control" type="text" v-model="profile_data.linked_url"
                                     placeholder="http://linked.com/profile-id">
+                                    <span class="text-danger">{{errors.linked_url}}</span>
                             </div>
                         </div>   
                         <div class="col-md-12">
@@ -124,7 +127,9 @@
 </template>
 <script>
 import VModal from 'vue-js-modal'
-    import RadialProgressBar from 'vue-radial-progress'
+import RadialProgressBar from 'vue-radial-progress'
+import FileUpload from 'vue-upload-component'
+
     export default {
         props: ['user'],
         data() {
@@ -132,6 +137,7 @@ import VModal from 'vue-js-modal'
                 interests: [],
                 interest_enable: true,
                 image:'',
+                profile_image_url:'',
                 errors:{
                     profile_pic: '',
                     fb_url: '',
@@ -148,7 +154,7 @@ import VModal from 'vue-js-modal'
 
         },
         components: {
-            RadialProgressBar,VModal
+            RadialProgressBar,VModal,FileUpload
         },
         watch: {
             user(val) {
@@ -175,31 +181,42 @@ import VModal from 'vue-js-modal'
         methods: {
             openProfileEditModal(){
                 this.$modal.show('edit_profile_modal');
-            }, 
-            closeProfileEditModal(){
-                this.$modal.hide('edit_profile_modal');
-            }, 
-            saveProfile() {
-                if(!this.profile_data.fb_url.includes('facebook.com')){
-                    this.errors.fb_url='This is not valid Facebook url.'
+            },
+            async saveProfile() {
+                if(this.profile_data.fb_url && !this.profile_data.fb_url.includes('facebook.com')){
+                    this.errors.fb_url='This is not valid Facebook url.';
+                    return false;
                 }
-                if(!this.profile_data.insta_url.includes('instagram.com')){
-                    this.errors.insta_url='This is not valid Instagram url.'
+                if(this.profile_data.insta_url && !this.profile_data.insta_url.includes('instagram.com')){
+                    this.errors.insta_url='This is not valid Instagram url.';
+                    return false;
                 }
-                if(!this.profile_data.linked_url.includes('linkedin.com')){
-                    this.errors.linked_url='This is not valid Linkedin url.'
+                if(this.profile_data.linked_url &&!this.profile_data.linked_url.includes('linkedin.com')){
+                    this.errors.linked_url='This is not valid Linkedin url.';
+                    return false;
                 }
-                this.getBase64(this.image.file).then(file=>{
-                    this.profile_data.profile_pic=file;
-                });
-                this.axios.post('/api/save-profile', profile_data).then((resp) => {
+                if(this.image.file){
+                    await this.getBase64(this.image.file).then(file=>{
+                        this.profile_data.profile_pic=file;
+                    });
+                }
+
+                await this.axios.post('/api/save-profile', this.profile_data).then((resp) => {
                     this.setProfile(resp.data.success.profile);
+                    this.$modal.hide('edit_profile_modal');
                 });
+
+                this.errors={
+                    profile_pic: '',
+                    fb_url: '',
+                    insta_url: '',
+                    linked_url: '',
+                };
             },
             setProfile(profile) {
-                this.profile_data.fb_url = profile.fb_url;
-                this.profile_data.insta_url = profile.insta_url;
-                this.profile_data.linked_url = profile.linked_url;
+                this.profile_data.fb_url = profile.fb_url ? profile.fb_url : '';
+                this.profile_data.insta_url = profile.insta_url ? profile.insta_url : '';
+                this.profile_data.linked_url = profile.linked_url ? profile.linked_url : '';
             },
             inputUpdate(files) {
                 this.image = files[0];
