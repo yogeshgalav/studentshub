@@ -48,7 +48,7 @@
                     <label> {{ trans('Course/Branch Name') }} </label>
                   <div class="inner-addon left-addon">
                     <div class="input_icon_frm">
-                    <span class="icon_design_input"  style="height: 44px;"> <i class="fa fa-user"></i></span>
+                    <span class="icon_design_input"  style="height: 44px;"> <i class="fa fa-certificate" aria-hidden="true"></i></span>
                     <auto-complete
                     :items="course_list"
                     :value="'course_name'"
@@ -69,7 +69,7 @@
               <div class="form-group">
                  <label> {{ trans('Category of selected Course:') }} </label><br/>
                  <div class="input_icon_frm">
-                  <span id="basic-addon1" class="icon_design_input" ><i class="fa fa-calendar"/></span>
+                  <span id="basic-addon1" class="icon_design_input" ><i class="fa fa-list-alt" aria-hidden="true"></i></span>
                 <select name="category" id="category" 
                   v-model="selected_course.category_id"
                   :disabled="categoryDisabled" class="inner-addon left-addon select_box">
@@ -93,7 +93,7 @@
                   <div class="col-md-6 form-group">
               <label for="college_id">Unique College Id/Registation no.</label>
                <div class="input_icon_frm">
-                  <span id="basic-addon1" class="icon_design_input" ><i class="fa fa-calendar"/></span>
+                  <span id="basic-addon1" class="icon_design_input" ><i class="fa fa-id-card" aria-hidden="true"></i></span>
               <input type="text" v-model="college_id" id="college_id" class="form-control u_input">
                </div>
             </div>
@@ -220,7 +220,7 @@
   position: relative;
 }
 .login_card .form-control {
-  color: #000;
+     color: black !important;
   border-radius: 0 !important;
 }
 /* style glyph */
@@ -256,6 +256,18 @@ a.skip_btn {
     align-items: center;
     color: black;
     border-radius: 5px;
+}
+a.skip_btn span {
+    margin-right: 10px;
+    color: r;
+}
+button.login_btn i {
+    color: white;
+}
+
+button.login_btn span {
+    color: white;
+    margin-left: 10px;
 }
 </style>
 <script>

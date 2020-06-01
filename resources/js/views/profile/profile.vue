@@ -21,10 +21,10 @@
                                 </div>
                                 <div class="user_social_links">
                                     <div class="user_social_link_left">
-                                        <span><a :href="user.fb_url ? user.fb_url :'#'" target="_blank"><i class="fab fa-facebook-f"></i></a></span>
-                                        <span><a :href="user.insta_url ? user.fb_url :'#'" target="_blank"><i class="fab fa-instagram"></i></a></span>
-                                        <span><a :href="user.linkedin_url ? user.fb_url :'#'" target="_blank"><i class="fab fa-linkedin"></i></a></span>
-                                        <span><a :href="user.email ? 'mailto:'+user.email :'#'" target="_blank"><i class="fa fa-envelope"></i></a></span>
+                                        <span><a  :href="user.fb_url ? user.fb_url :'#'" :disabled="user.fb_url ? false:true" target="_blank"><i class="fab fa-facebook-f"></i></a></span>
+                                        <span><a :href="user.insta_url ? user.fb_url :'#'" :disabled="user.fb_url ? false:true" target="_blank"><i class="fab fa-instagram"></i></a></span>
+                                        <span><a :href="user.linkedin_url ? user.fb_url :'#'" :disabled="user.fb_url ? false:true" target="_blank"><i class="fab fa-linkedin"></i></a></span>
+                                        <span><a :href="user.email ? 'mailto:'+user.email :'#'" :disabled="user.fb_url ? false:true" target="_blank"><i class="fa fa-envelope"></i></a></span>
 
                                     </div>
                                 </div>
@@ -63,8 +63,12 @@
 
             <form @submit.prevent="saveProfile">
                 <div class="model_box_inner">
+                     <div  class="edit_profile_head">
+                                <h4>Edit Your Profile</h4>
+                            </div> 
                     <div class="row">
                         <div class="col-md-12">
+                             
                             <div class="user_edit_profile_img">
                                 <div class="u_e_img">
                                     <img v-if="user.avatar_url" :src="user.avatar_url" alt="">
@@ -73,7 +77,7 @@
                                 </div>
                                 <file-upload
                                     id="documentUpload"
-                                    class="btn btn-primary mt-3"
+                                    class="edit_img_btn"
                                     post-action="/upload/post"
                                     extensions="jpg,jpeg,png"
                                     accept="image/*"
@@ -119,6 +123,8 @@
                         <div class="col-md-12">
                             <div class="model_btn">
                                 <button type="submit" class="save_profile_btn">Submit</button>
+                                <button type="button" class="cancel_profile_btn">Cancel</button>
+
                             </div>
                         </div>
                     </div>
@@ -263,6 +269,18 @@ button.save_profile_btn {
     font-weight: 500;
     font-size: 16px;
 }
+button.cancel_profile_btn {
+    border: solid 1px #737171;
+    background-color: transparent;
+    color: black;
+    padding: 10px 40px;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: 500;
+    font-size: 16px;
+    margin-left: 15px
+}
 .user_int_text p {
     color: #868686;
     margin-bottom: 25px;
@@ -278,10 +296,12 @@ button.save_profile_btn {
     width: 80px;
     height: 80px;
     border-radius: 50px;
+        margin-right: 15px;
 }
 .user_edit_profile_img {
     display: flex;
     align-items: center;
+    margin-bottom: 15px;
 }
 .user_edit_btn button {
     background-color: blue;
@@ -295,5 +315,22 @@ button.save_profile_btn {
 .user_edit_btn {
     margin-left: 20px;
 }
-
+.user_social_link_left a {
+    color: #868686;
+}
+.edit_profile_head {
+    margin-bottom: 20px;
+    border-bottom: solid 1px #ccc;
+    margin-top: 10px;
+}
+.v--modal-box.v--modal {
+    top: 130px !important;
+}
+.edit_img_btn {
+    /* border: solid 1px #ccc; */
+    padding: 8px;
+    border-radius: 4px;
+    background: #f0f0f0;
+    cursor: pointer;
+}
 </style>
