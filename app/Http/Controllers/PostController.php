@@ -57,7 +57,7 @@ class PostController extends Controller
                 $article=new Article;
                 $post_content_id=$article->createFromContent($data);
                 $post->postable_type="App\Models\Article";
-                $post->primary_image_path='/post-images/article-default.png';
+                $post->primary_image_path='/public/article-default.png';
                 $post->postable_id=$post_content_id;
               
             break;
@@ -83,7 +83,7 @@ class PostController extends Controller
             case 'mcq':
             $mcq=new Mcq;
             $post_content_id=$mcq->createNewMcq($data);
-            $post->primary_image_path='/post-images/mcq-default.png';
+            $post->primary_image_path='/public/mcq-default.png';
             $post->postable_type="App\Models\Mcq";
             $post->postable_id=$post_content_id;
             break;    
@@ -108,7 +108,7 @@ class PostController extends Controller
         
         DB::commit();
     } catch (\Exception $e) {
-        DB::rollback();
+        DB::rollback();dd($e);
         \Log::critical('Post Creation failure: for user id#'.Auth::user()->id.' with data '.implode(', ',Arr::flatten($data)));
         return response()->$e;
     }

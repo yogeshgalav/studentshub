@@ -37,7 +37,7 @@
                                 <div class="d-flex p-2">
 										<div class="avatar user_img_dash">
                     @if($AuthUser->avatar_url)
-                    	<img src="{{$AuthUser->avatar_url}}" class="avatar-img" style="width:50px;height:50px;">
+                    	<img alt="{{$AuthUser->avatar_url}}" src="/images/default-avatar.png" class="avatar-img" style="width:50px;height:50px;">
                     @else
                       <img src="/images/default-avatar.png" class="avatar-img" style="width:50px;height:50px;">
 										@endif

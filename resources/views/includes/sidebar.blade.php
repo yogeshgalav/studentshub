@@ -51,7 +51,7 @@
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <div class="d-flex p-2">
                                     <div class="avatar user_img_dash">
-                                        <img src="/images/4.jpg" class="avatar-img" style="width:50px;height:50px;">
+                                        <img src="/images/default-avatar.png" class="avatar-img" style="width:50px;height:50px;">
                                     </div>
                                     <div class="info-post ml-2 mt-2">
                                         <p class="username">{{$AuthUser->full_name}}</p>
@@ -79,12 +79,7 @@
         <div class="overflow-container">
 
             <ul class="menu-dropdown">
-            @if(Auth::student())
-                <li><a href="/doubts">Doubts</a><span class="icon"><i class="fas fa-question-circle"></i></span></li>
-  @endif
                 <li><a href="/">Home</a><span class="icon"><i class="fa fa-home"></i></span></li>
-
-                <li><a href="/saved-posts">Saved Posts</a><span class="icon"><i class="fas fa-save"></i></span></li>
 
                 <li><a href="/profile">Profile</a><span class="icon"><i class="fa fa-user"
                             aria-hidden="true"></i></span></li>

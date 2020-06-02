@@ -114,8 +114,8 @@ export default {
 				}
 			});
         });
-        let category = this.categories.find(node=>node.id===this.AuthUserCategory);
-        this.selected_category= category ? category.name : 'Technology';
+        
+        this.selected_category= this.AuthUserCategory;
     },
     methods:{
         editSubject(event){

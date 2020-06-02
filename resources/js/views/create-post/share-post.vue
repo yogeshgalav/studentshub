@@ -135,12 +135,10 @@ import FormMixin from "../../components/mixins/form-mixin.js";
         methods: {
             onComplete() {
                 this.showLoader=true;
-                this.$store.dispatch('submitPost', this.$store.state.new_post,{
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }}).then(()=>{
+                this.$store.dispatch('submitPost', this.$store.state.new_post)
+                .then(()=>{
                     this.showLoader=false;
-                    this.redirect('/');
+                    window.location.href ='/';
                 }).catch(()=>{this.showLoader=false;});
             }
         }

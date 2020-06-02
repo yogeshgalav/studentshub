@@ -216,9 +216,8 @@
                             } = resp.data.success);
                     })
                     .catch(err => {
-                        console.log(err,'h43');
-                        this.catchResponse(err);
                         this.showLoader = false;
+                        this.catchResponse(err);
                         localStorage.removeItem('access_token')
                         localStorage.removeItem('refresh_token')
                     });

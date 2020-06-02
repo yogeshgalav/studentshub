@@ -4,6 +4,7 @@
       v-model="search"
       type="text"
       class="form-control"
+	  :placeholder="placeholder"
       @input="onChange"
       @keydown.down="onArrowDown"
       @keydown.up="onArrowUp"
@@ -84,6 +85,11 @@ export default {
 			type: String,
 			required: true,
 			default: () => 'name',
+		},
+		placeholder: {
+			type: String,
+			required: false,
+			default: () => '',
 		},
 		items: {
 			type: Array,

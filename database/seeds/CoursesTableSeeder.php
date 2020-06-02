@@ -335,8 +335,8 @@ class CoursesTableSeeder extends Seeder
         (327, 'Post Graduate Diploma in Ambedkar Studies', 'Two years', 'Bachelors Degree', 4, 'IN', '2020-04-03 18:39:43', '2020-04-03 18:39:43'),
         (328, 'Post Graduate Diploma in Horticulture and Landscape Gardening', 'One year', 'Bachelor\'s Degree', 4, 'IN', '2020-04-03 18:39:43', '2020-04-03 18:39:43'),
         (329, 'Post Graduate Diploma in Yoga for Human Excellence', 'One year', 'Bachelors Degree', 4, 'IN', '2020-04-03 18:39:43', '2020-04-03 18:39:43'),
-        (330, 'XI Arts', 'One year', 'Pass in 10th or SSC examination', 4, 'IN', '2020-04-03 18:39:43', '2020-04-03 18:39:43'),
-        (331, 'XII Arts', 'One year', 'Pass in 10th or SSC', 4, 'IN', '2020-04-03 18:39:43', '2020-04-03 18:39:43'),
+        (330, '11th Arts', 'One year', 'Pass in 10th or SSC examination', 4, 'IN', '2020-04-03 18:39:43', '2020-04-03 18:39:43'),
+        (331, '12th Arts', 'One year', 'Pass in 10th or SSC', 4, 'IN', '2020-04-03 18:39:43', '2020-04-03 18:39:43'),
         (334, 'Bachelor of Home Science', 'Three Years', '', 5, 'IN', '2020-04-03 18:41:22', '2020-04-03 18:41:22'),
         (335, 'Bachelor of Home Science Apparel Production & Management', 'Four years', '10+2 or equivalent', 5, 'IN', '2020-04-03 18:41:22', '2020-04-03 18:41:22'),
         (336, 'Bachelor of Home Science Journalism & Mass Communication', 'Four years', '10+2 or equivalent', 5, 'IN', '2020-04-03 18:41:22', '2020-04-03 18:41:22'),
@@ -479,8 +479,8 @@ class CoursesTableSeeder extends Seeder
         (472, 'Post Graduate Diploma in Digital and Cyber Forensics and related Laws', 'One year', 'Bachelor\'s Degree', 5, 'IN', '2020-04-03 18:41:35', '2020-04-03 18:41:35'),
         (473, 'Post Graduate Diploma in Forensic Science and related Laws', 'One year', 'Bachelor\'s Degree', 5, 'IN', '2020-04-03 18:41:35', '2020-04-03 18:41:35'),
         (474, 'Post Graduate Diploma in Health and Social Gerontology', 'One year', 'Bachelor\'s Degree', 5, 'IN', '2020-04-03 18:41:35', '2020-04-03 18:41:35'),
-        (475, 'XI Science', 'One year', 'Pass in 10th or SSC examination', 5, 'IN', '2020-04-03 18:41:35', '2020-04-03 18:41:35'),
-        (476, 'XII Science', 'One year', 'Pass in 11th science', 5, 'IN', '2020-04-03 18:41:35', '2020-04-03 18:41:35'),
+        (475, '11th Science', 'One year', 'Pass in 10th or SSC examination', 5, 'IN', '2020-04-03 18:41:35', '2020-04-03 18:41:35'),
+        (476, '12th Science', 'One year', 'Pass in 11th science', 5, 'IN', '2020-04-03 18:41:35', '2020-04-03 18:41:35'),
         (479, 'Bachelor of Arts Business Economics (Honors)', 'Four years', '10+2 or equivalent', 6, 'IN', '2020-04-03 18:45:22', '2020-04-03 18:45:22'),
         (480, 'Bachelor of Arts Economics', 'Three Years', '10+2 or equivalent', 6, 'IN', '2020-04-03 18:45:22', '2020-04-03 18:45:22'),
         (481, 'Bachelor of Commerce (General)', 'Three years', '10+2 or equivalent', 6, 'IN', '2020-04-03 18:45:22', '2020-04-03 18:45:22'),
@@ -509,8 +509,8 @@ class CoursesTableSeeder extends Seeder
         (504, 'Master of Commerce Industrial Economics', 'Two Years', '', 6, 'IN', '2020-04-03 18:45:23', '2020-04-03 18:45:23'),
         (505, 'Master of Commerce Management', 'Two years', 'Bachelor\'s Degree', 6, 'IN', '2020-04-03 18:45:23', '2020-04-03 18:45:23'),
         (506, 'Post Graduate Diploma in Global Business Operations', 'Two years', 'Bachelor\'s Degree', 6, 'IN', '2020-04-03 18:45:23', '2020-04-03 18:45:23'),
-        (507, 'XI Commerce', 'One year', '10 or equivalent', 6, 'IN', '2020-04-03 18:45:23', '2020-04-03 18:45:23'),
-        (508, 'XII Commerce', 'One year', '10+1', 6, 'IN', '2020-04-03 18:45:23', '2020-04-03 18:45:23'),
+        (507, '11th Commerce', 'One year', '10 or equivalent', 6, 'IN', '2020-04-03 18:45:23', '2020-04-03 18:45:23'),
+        (508, '12th Commerce', 'One year', '10+1', 6, 'IN', '2020-04-03 18:45:23', '2020-04-03 18:45:23'),
         (511, 'Bachelor of Arts Education', 'Three Years', '', 7, 'IN', '2020-04-03 18:48:05', '2020-04-03 18:48:05'),
         (512, 'Bachelor of Education', 'One Year', '', 7, 'IN', '2020-04-03 18:48:05', '2020-04-03 18:48:05'),
         (513, 'Bachelor of Education (English)', 'One year', 'Bachelors Degree', 7, 'IN', '2020-04-03 18:48:05', '2020-04-03 18:48:05'),
@@ -602,7 +602,8 @@ class CoursesTableSeeder extends Seeder
         (604, 'Diploma In Interior Design And Decoration', 'Two years', 'Pass in 10th or SSC examination', 12, 'IN', '2020-05-31 15:53:06', '2020-05-31 15:53:06'),
         (605, 'Diploma In Textile Manufactures', 'Three years', '10th or equivalent', 12, 'IN', '2020-05-31 15:53:06', '2020-05-31 15:53:06'),
         (606, 'Master Of Science Fabric & Apparel Science', 'Two years', 'Bachelor\'s Degree', 12, 'IN', '2020-05-31 15:53:06', '2020-05-31 15:53:06'),
-        (607, 'Post Diploma In Interior Designing & Decoration', 'One year', 'Diploma IDD', 12, 'IN', '2020-05-31 15:53:06', '2020-05-31 15:53:06');";
+        (607, 'Post Diploma In Interior Designing & Decoration', 'One year', 'Diploma IDD', 12, 'IN', '2020-05-31 15:53:06', '2020-05-31 15:53:06')
+        (608, 'Bachelor of Science Master of Science Integrated', 'Five year', '10+2 or equivalent', 5, 'IN', '2020-05-31 15:53:06', '2020-05-31 15:53:06');";
         DB::unprepared($sql);
     }
 }

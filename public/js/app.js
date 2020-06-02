@@ -2461,11 +2461,10 @@ __webpack_require__.r(__webpack_exports__);
         _this2.showLoader = false;
         _components_swal__WEBPACK_IMPORTED_MODULE_1__["default"].successDialog('Register', 'Success!', 'success')((_resp$data$success = resp.data.success, window.location.href = _resp$data$success.redirectUrl, _resp$data$success));
       })["catch"](function (err) {
-        console.log(err, 'h43');
+        _this2.showLoader = false;
 
         _this2.catchResponse(err);
 
-        _this2.showLoader = false;
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
       });
