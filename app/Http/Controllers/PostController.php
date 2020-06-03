@@ -24,6 +24,7 @@ class PostController extends Controller
     public function create(Request $request){
         
         $data=$request->all();
+        print_r($data);
         $post_type=$data['post_type'];
         $heading=$data['heading'];
         $student=Auth::student();
@@ -108,9 +109,10 @@ class PostController extends Controller
         
         DB::commit();
     } catch (\Exception $e) {
-        DB::rollback();dd($e);
+        DB::rollback();
+        print_r($e->getMessage());
         \Log::critical('Post Creation failure: for user id#'.Auth::user()->id.' with data '.implode(', ',Arr::flatten($data)));
-        return response()->$e;
+        return 'error on line '.$e->getLine();
     }
         return response()->json('success');
     }
