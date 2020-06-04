@@ -25,10 +25,11 @@ import BlogArticle from './post-type/blog-article';
 import Fact from './post-type/fact.vue';
 import NetVideo from './post-type/video.vue';
 import Mcq from './post-type/mcq.vue';
+import EventBus from '../event-bus';
 
 export default {
     components:{
-        BlogArticle,Document,Fact,Mcq,NetVideo,Notice
+        BlogArticle,Document,Fact,Mcq,NetVideo
     },
     computed:{
         postType(){

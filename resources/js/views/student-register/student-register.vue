@@ -14,19 +14,19 @@
                         <div class="card-body">
                             <div class="row justify-content-center">
                                 <div class="col-md-12">
-                                    <h4>Please Enter Education details of your Prefferred Program and Batch to avail
-                                        full benifits of our platform.</h4>
+                                    <p class="text-grey">Please Enter Education details of your Prefferred Program and Batch to avail
+                                        full benifits of our platform.</p>
                                 </div>
-                                <div class="col-md-10">
-                                    <form @submit.prevent="register">
+                                <div class="col-md-10 mt-2">
+                                    <form @submit.prevent="handleSubmit">
                                         <div class="form-group">
                                             <label> {{ trans('Institute Name') }} </label>
                                             <div class="inner-addon left-addon">
                                                 <div class="input_icon_frm">
                                                     <span class="icon_design_input" style="height: 43px;"><i
                                                             class="fa fa-user" aria-hidden="true"></i></span>
-                                                    <auto-complete :items="institute_list" :value="'name'"
-                                                        :is-async="true" :create-new-item="false" @input="getInstitutes"
+                                                    <auto-complete :items="institute_list" :value="'name'"  name="institute_name" v-validate="'required'"
+                                                        :is-async="true" @input="getInstitutes"
                                                         @selected="setInstitute" :is-loading="instituteLoading" />
                                                 </div>
                                                 <span
@@ -36,7 +36,7 @@
                                                     v-if="selected_institute.id===0">{{selected_institute.description}}</span>
                                                 <span v-if="institute_list.length===0">Please Enter Full Institute
                                                     name.</span>
-                                                <span class="text-danger">{{errors.institute_name}}</span>
+                                                <span class="text-danger">{{ formErrors('institute_name')}}</span>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -45,8 +45,8 @@
                                                 <div class="input_icon_frm">
                                                     <span class="icon_design_input" style="height: 44px;"> <i
                                                             class="fa fa-certificate" aria-hidden="true"></i></span>
-                                                    <auto-complete :items="course_list" :value="'course_name'"
-                                                        :placeholder="'eg. Bachelor of Arts'" :is-async="true"
+                                                    <auto-complete :items="course_list" :value="'course_name'" v-validate="'required'"
+                                                         name="program_name" :placeholder="'eg. Bachelor of Arts'" :is-async="true"
                                                         @input="getCourses" @selected="setCourse"
                                                         @selectNew="setNewCourse" :is-loading="courseLoading" />
                                                 </div>
@@ -55,7 +55,7 @@
                                                 <span v-if="selected_course.id===0">Please enter your full Program name
                                                     followed by branch name(if any).Please make sure that program
                                                     details you are entering is correct.</span>
-                                                <span class="error">{{errors.program_name}}</span>
+                                                <span class="error">{{ formErrors('program_name') }}</span>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -110,14 +110,14 @@
                                                         <span id="basic-addon1" class="icon_design_input"><i
                                                                 class="fa fa-calendar"></i></span>
 
-                                                        <date-picker id="start_year" v-validate="'required'"
+                                                        <date-picker id="start_year" name="start_year" v-validate="'required'"
                                                             value-type="format" v-model="start_year"
-                                                            :not-after="current_year" :typeable="true" :type="'year'"
+                                                            :not-after="current_date" :typeable="true" :type="'year'"
                                                             :lang="'en'" :input-attr="{id: 'start_year_input'}"
                                                             placeholder="Start Year" />
                                                     </div>
                                                 </div>
-                                                <span class="text-danger">{{ errors.start_year }}</span>
+                                                <span class="text-danger">{{ formErrors('start_year') }}</span>
                                             </div>
 
                                             <div class="col-md-6">
@@ -132,13 +132,13 @@
                                                         <span id="basic-addon1" class="icon_design_input"><i
                                                                 class="fa fa-calendar" /></span>
                                                         <date-picker id="end_year" v-validate="'required'"
-                                                            value-type="format" v-model="end_year"
-                                                            :not-before="start_year" :typeable="true" :type="'year'"
+                                                            value-type="format"  name="end_year" v-model="end_year"
+                                                            :not-before="start_year_date" :typeable="true" :type="'year'"
                                                             :lang="'en'" :input-attr="{id: 'end_year_input'}"
                                                             placeholder="End Year" />
                                                     </div>
                                                 </div>
-                                                <span class="error">{{ errors.end_year }}</span>
+                                                <span class="error">{{ formErrors('end_year') }}</span>
                                             </div>
                                         </div>
                                         <div class="form-group d-flex s_register_btn">
@@ -282,15 +282,9 @@
                 },
                 end_year: '',
                 start_year: '',
-                current_year: new Date().getFullYear(),
                 is_prefferred: true,
                 college_id: '',
-                errors: {
-                    institute_name: '',
-                    program_name: '',
-                    start_year: '',
-                    end_year: '',
-                }
+                current_date:new Date(),
             };
         },
         methods: {
@@ -364,15 +358,24 @@
             setInstitute(result) {
                 this.selected_institute = result;
             },
+            handleSubmit(e) {
+                this.$validator.validate().then(valid => {
+                    if (valid) {
+                        this.form_errors=[];
+                        this.register();
+                    }
+                });
+                return true;
+            },
             register() {
-                if (this.institute_name.trim() === '') {
-                    this.errors.institute_name = 'Institute Name is required.';
-                    return false;
-                }
-                if (this.program_name.trim() === '') {
-                    this.errors.program_name = 'Program Name is required.';
-                    return false;
-                }
+                // if (this.selected_institute.name.trim() === '') {
+                //     this.errors.institute_name = 'Institute Name is required.';
+                //     return false;
+                // }
+                // if (this.selected_course.course_name.trim() === '') {
+                //     this.errors.program_name = 'Program Name is required.';
+                //     return false;
+                // }
                 this.showLoader = true;
                 axios.post('/api/checkin', {
                     course_id: this.selected_course.id,

@@ -5,7 +5,7 @@
             <div class="video_link form-group">
             <label for="videoLink">Youtube Video Link</label>
 
-            <input type="text" id="videoLink" class="form-control" @blur="embedVideo">
+            <input type="text" id="videoLink" name="youtube_video_link" v-validate="'required'" class="form-control" @blur="embedVideo">
             </div>
              <div v-if="!is_video_embeded" class="video_image">
                 <i class="fa fa-video font-size-120 text-light-gray" />
@@ -24,7 +24,8 @@
             <div class="col-md-8 mt-2">
                 <div class="video_des">
                     <label for="videoDescription">A little Description</label>
-                    <textarea id="videoDescription" v-model="video_description" />
+                    <textarea id="videoDescription" v-model="video_description" name="description" v-validate="'required'"/>
+                    <span class="text-danger">{{ formErrors('description') }}</span>
                 </div>
             </div>
         </div>
@@ -52,11 +53,12 @@
 }
 </style>
 <script>
-
+import FormMixin from "../../../../components/mixins/form-mixin.js";
 import { mapState } from 'vuex';
 import EventBus from '../../event-bus';
 
 export default {
+    mixins:[FormMixin],
   data(){
     return {
         video_id:'',
@@ -68,24 +70,30 @@ export default {
   },
   mounted(){
 	  EventBus.$on('validateStep2', () => {
-        const data = {video_id:this.video_id,description:this.video_description}
-        this.$store.commit('set_post_video_content', data);
-		  EventBus.$emit('validateWizard',2,true);
+          this.$validator.validate().then(valid => {
+            if(valid  && this.video_id && this.video_error===''){
+                const data = {video_id:this.video_id,description:this.video_description}
+                this.$store.commit('set_post_video_content', data);
+                EventBus.$emit('validateWizard',2,true);
+            }else{
+                EventBus.$emit('validateWizard',2,false);
+            }
+          });
 	  })
   },
   methods: {
     embedVideo(event){
-        let url=event.target.value.trim()+'&';
+        
         this.video_error='';
         this.is_video_embeded=false;
-
-        var regex1 = /(?<=watch\?v\=).*?(?=\&)/gi;
-        var regex2 = /(?<=www\.youtu\.be\/).*?(?=\&)/gi;
-        var v_id='';
-        if(v_id=regex1.exec(url)){
-            this.video_id=v_id[0];
-        }else if(v_id=regex2.exec(url)){
-            this.video_id=v_id[0];
+        let url =event.target.value.trim();
+        if(url===''){
+            this.video_error='An Youtube video link is required.';
+            return false;
+        }
+        let id = this.matchYoutubeUrl(url);
+        if(id!==false){
+            this.video_id=id;
         }else{
             this.video_error='This video link is not supported';
             return false;
@@ -93,6 +101,14 @@ export default {
 
         this.video_url='https://www.youtube.com/embed/'+v_id[0];
         this.is_video_embeded=true;
+    },
+    matchYoutubeUrl(url) {
+        var p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+        var matches = url.match(p);
+        if(matches){
+            return matches[1];
+        }
+        return false;
     }
   }
 }

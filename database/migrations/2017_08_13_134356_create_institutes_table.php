@@ -23,7 +23,7 @@ class CreateInstitutesTable extends Migration
             $table->char('country_code',2)->default('IN');
             $table->string('email_slug')->nullable();
             $table->string('regno_slug')->nullable();
-            $table->string('icon_url')->nullable();
+            $table->string('alias')->nullable();
             $table->integer('added_by_user_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();

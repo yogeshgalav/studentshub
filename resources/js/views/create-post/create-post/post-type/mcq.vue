@@ -4,26 +4,31 @@
   <div class="col-md-6">
    <div class="form-group mcq_que">
             <label>Question</label>
-            <textarea name="" id="" v-model="question"></textarea>
+            <textarea id="" v-model="question" name="question" v-validate="'required'"></textarea>
+            <span class="text-danger">{{ formErrors('question') }}</span>
         </div>
   </div>
   </div>
     <div class="row">
         <div class="form-group col-md-3">
             <label>Option 1:</label>
-            <input type="text" class="form-control" v-model="option1"/>
+            <input type="text" class="form-control" v-model="option1" name="option_1" v-validate="'required'"/>
+            <span class="text-danger">{{ formErrors('option_1') }}</span>
         </div>
         <div class="form-group col-md-3">
             <label>Option 2:</label>
-            <input type="text" class="form-control" v-model="option2"/>
+            <input type="text" class="form-control" v-model="option2" name="option_2" v-validate="'required'"/>
+            <span class="text-danger">{{ formErrors('option_2') }}</span>
         </div>
         <div class="form-group col-md-3">
             <label>Option 3:</label>
-            <input type="text" class="form-control" v-model="option3"/>
+            <input type="text" class="form-control" v-model="option3" name="option_3" v-validate="'required'"/>
+            <span class="text-danger">{{ formErrors('option_3') }}</span>
         </div>
         <div class="form-group col-md-3">
             <label>Option 4:</label>
-            <input type="text" class="form-control" v-model="option4"/>
+            <input type="text" class="form-control" v-model="option4" name="option_4" v-validate="'required'"/>
+            <span class="text-danger">{{ formErrors('option_4') }}</span>
         </div>
       <div class="form-group col-md-3">
             <label>Answer</label>
@@ -42,7 +47,8 @@
            <div class="col-md-6">
            <div class="form-group mcq_que">
                <label>Some description about answer</label>
-               <textarea name="" id="" v-model="answer"></textarea>
+               <textarea name="answer" v-validate="'required'" id="" v-model="answer"></textarea>
+               <span class="text-danger">{{ formErrors('answer') }}</span>
               </div>
           </div>
           </div>
@@ -92,8 +98,10 @@
 
 import { mapState } from 'vuex'
 import EventBus from '../../event-bus';
+    import FormMixin from "../../../../components/mixins/form-mixin.js";
 
 export default {
+  mixins:[FormMixin],
   data(){
     return {
       question:'',
@@ -107,18 +115,24 @@ export default {
   },
   mounted(){
 	  EventBus.$on('validateStep2', () => {
-      const data = {
-        option1:this.option1,
-        option2:this.option2,
-        option3:this.option3,
-        option4:this.option4,
-        correct_option:this.correct_option,
-        answer:this.answer,
-      };
-			this.$store.commit('set_post_mcq_content', data);
-			this.$store.commit('set_post_heading', {'post_heading':this.question});
-		  EventBus.$emit('validateWizard',2,true);
-	  })
+      this.$validator.validate().then(valid => {
+        if(valid){
+          const data = {
+            option1:this.option1,
+            option2:this.option2,
+            option3:this.option3,
+            option4:this.option4,
+            correct_option:this.correct_option,
+            answer:this.answer,
+          };
+          this.$store.commit('set_post_mcq_content', data);
+          this.$store.commit('set_post_heading', {'post_heading':this.question});
+          EventBus.$emit('validateWizard',2,true);
+        }else{
+          EventBus.$emit('validateWizard',2,false);
+        }
+      });
+	  });
   },
   methods: {
     

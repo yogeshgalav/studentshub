@@ -16,7 +16,7 @@ try {
 /**
  * Custom Directives
  */
-require('./helpers/directives')
+// require('./helpers/directives')
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

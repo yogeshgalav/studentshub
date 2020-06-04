@@ -13,6 +13,7 @@ import { ImageDrop } from 'quill-image-drop-module';
 Quill.register("modules/imageDrop", ImageDrop);
 Quill.register("modules/imageResize", ImageResize);
 import EventBus from '../../event-bus';
+
 export default {
     components:{
         VueEditor

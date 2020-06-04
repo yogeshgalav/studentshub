@@ -12,7 +12,6 @@
     >
     <transition name="fade">
       <ul
-        v-show="isOpen"
         id="autocomplete-results"
         class="autocomplete-results"
       >
@@ -24,8 +23,7 @@
         </li>
         <li
           v-for="(currentResult, i) in results"
-          v-else
-          :key="i"
+		  :key="i"
           class="autocomplete-result"
           :class="{ 'is-active': i === arrowCounter }"
           @click="setResult(currentResult)"
@@ -38,7 +36,7 @@
           </slot>
         </li>
 		<li
-		v-if="results.length===0 && createNewItem===true"
+		v-if="createNewItem===true && isOpen===true"
 		class="autocomplete-result"
 		@click="createNew"
         >
@@ -112,7 +110,11 @@ export default {
 			default: true,
 		},
 	},
-
+	$_veeValidate: {
+		value () {
+			return this.search;
+		}
+	},
 	data() {
 		return {
 			isOpen: false,
@@ -143,9 +145,8 @@ export default {
 				return item[this.value].toLowerCase().indexOf(this.search.toLowerCase()) > -1;
 			});
 
-			if(this.results.length){
-				this.isOpen=true;
-			}
+			this.isOpen=true;
+			
 			this.initialLength = this.items.length=== 0 ? 1 : this.items.length;
 			if(this.results.length>Math.floor(this.initialLength/2)){
 				return true;

@@ -223,7 +223,7 @@ class Post extends PostModel
                 case 'article':
                     $dom = new Dom;
                     $dom->load($post->article_content);
-                    $article_content=$dom->find('p', 0);
+                    $article_content=$dom->innerText;
                     if(empty($article_content)){
                         $post->content='';
                     }else{

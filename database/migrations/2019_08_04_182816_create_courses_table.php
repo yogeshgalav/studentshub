@@ -20,6 +20,8 @@ class CreateCoursesTable extends Migration
             $table->string('eligibility')->nullable();
             $table->integer('category_id')->unsigned()->default(1);
             $table->char('country_id',2)->default('IN');
+            $table->boolean('verified')->default(false);
+            $table->string('alias')->nullable();
             $table->timestamps();
         });
     }

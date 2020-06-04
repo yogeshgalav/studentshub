@@ -84803,9 +84803,8 @@ try {
 /**
  * Custom Directives
  */
+// require('./helpers/directives')
 
-
-__webpack_require__(/*! ./helpers/directives */ "./resources/js/helpers/directives.js");
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the
@@ -84993,53 +84992,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_sweetalert2__WEBPACK_IMPORTED
       title: title,
       type: 'error'
     });
-  }
-});
-
-/***/ }),
-
-/***/ "./resources/js/helpers/directives.js":
-/*!********************************************!*\
-  !*** ./resources/js/helpers/directives.js ***!
-  \********************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
-
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.directive('click-outside', {
-  bind: function bind(el, binding, vnode) {
-    el.event = function (event) {
-      // here I check that click was outside the el and his childrens
-      if (!(el === event.target || el.contains(event.target))) {
-        // and if it did, call method provided in attribute value
-        vnode.context[binding.expression](event);
-      }
-    };
-
-    document.body.addEventListener('click', el.event);
-  },
-  unbind: function unbind(el) {
-    document.body.removeEventListener('click', el.event);
-  }
-});
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.directive('autoresize', {
-  inserted: function inserted(el) {
-    el.style.height = el.scrollHeight + 'px';
-    el.style.overflow.y = 'hidden';
-    el.style.resize = 'none';
-
-    function OnInput() {
-      this.style.height = 'auto';
-      this.style.height = this.scrollHeight + 'px';
-      this.scrollTop = this.scrollHeight;
-      window.scrollTo(window.scrollLeft, this.scrollTop + this.scrollHeight);
-    }
-
-    el.addEventListener('input', OnInput, false);
   }
 });
 

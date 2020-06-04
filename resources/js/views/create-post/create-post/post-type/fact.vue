@@ -25,7 +25,8 @@
   </div>
 <div class="form-group fact_text">
 	<div class="col-md-8">
-	<textarea type="text" v-model="description" placeholder="Description"></textarea>
+	<textarea type="text" v-model="description" name="description" v-validate="'required'" placeholder="Description"></textarea>
+	<span class="text-danger">{{ formErrors('description') }}</span>
 	</div>
 </div>
 </div>
@@ -116,8 +117,10 @@
 import { mapState } from 'vuex'
 import FileUpload from 'vue-upload-component'
 import EventBus from '../../event-bus';
+import FormMixin from "../../../../components/mixins/form-mixin.js";
 
 export default {
+	mixins:[FormMixin],
   components: {
     FileUpload,
   },
@@ -131,11 +134,14 @@ export default {
   mounted(){
 	  
 	  EventBus.$on('validateStep2', () => {
-		  this.getBase64(this.image.file).then(file=>{
-			  const data = {image:file,description:this.description};
-				this.$store.commit('set_post_fact_content', data);
-			EventBus.$emit('validateWizard',2,true);
-		  });
+		  this.$validator.validate().then(valid => {
+			if(valid){
+				this.getBase64(this.image.file).then(file=>{
+				const data = {image:file,description:this.description};
+					this.$store.commit('set_post_fact_content', data);
+					EventBus.$emit('validateWizard',2,true);
+				});
+			}});
       })
   },
   methods: {

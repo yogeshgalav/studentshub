@@ -21,6 +21,7 @@
                         <option value="video">Youtube video</option>
                     </select>
                     </div>
+                    <span>{{info_text[selected_type]}}</span>
                 </div>
                 <div class="creat_post_btn">
                 <button type="button" @click="nextTab" class="login_btn">Next <span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></button>
@@ -65,6 +66,12 @@ export default {
     data(){
         return{
             selected_type:'article',
+            info_text:{
+                'article':'A Blog Article of minimum 400 words enriched with Rich Text Content and Media.',
+                'fact':'A Short Information supported by an Image.',
+                'mcq':'A Question with 4 choices and its Answer.',
+                'video':'An url of Youtube Video with short Description.'
+            }
         }
     },
     mounted(){

@@ -1,5 +1,24 @@
 @import 'variables';
-@import '~bootstrap/scss/bootstrap';
+
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 600px,
+  md: 800px,
+  lg: 1000px,
+  xl: 1280px
+);
+
+$container-max-widths: (
+  sm: 600px,
+  md: 800px,
+  lg: 1000px,
+  xl: 1220px
+);
+
+@import "~bootstrap/scss/bootstrap";
 
 // Utility Classes
 .danger,
@@ -56,10 +75,6 @@ body
     background-color: white;
 }
 
-html,body {
-    font-family: "Proxima Nova", sans-serif !important;
-}
-
 body,
 h1,
 .h1,
@@ -84,8 +99,7 @@ td,
 button.close {
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
-    font-family: 'Proxima Nova', Georgia, sans-serif !important;
-
+    font-family: "Proxima Nova", sans-serif !important;
 }
 
 // Standard Headings
@@ -366,6 +380,9 @@ button[disabled="disabled"] {
 }
 .text-blue {
     color: #10069F !important;
+}
+.text-grey {
+    color: grey !important;
 }
 .text-disabled {
     color: #BDBDBD !important;

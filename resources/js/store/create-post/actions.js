@@ -1,11 +1,6 @@
 import axios from 'axios';
 
 export default {
-  createPost({commit}, data){
-    return new Promise(() => {
-      commit('create_post',data)
-    })
-},
 getSubjectList({commit},data){
   commit('set_subject', data.subject_id)
   return new Promise((resolve, reject) => {

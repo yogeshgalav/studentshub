@@ -136,10 +136,10 @@ import FormMixin from "../../components/mixins/form-mixin.js";
             onComplete() {
                 this.showLoader=true;
                 this.$store.dispatch('submitPost', this.$store.state.new_post)
-                .then(()=>{
+                .then((resp)=>{
                     this.showLoader=false;
                     window.location.href ='/';
-                }).catch(()=>{this.showLoader=false;});
+                }).catch((err)=>{this.showLoader=false;});
             }
         }
     }
