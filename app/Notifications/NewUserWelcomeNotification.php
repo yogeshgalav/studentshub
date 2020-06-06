@@ -49,7 +49,10 @@ class NewUserWelcomeNotification extends Notification
     public function toDatabase($notifiable)
     {
         return [
-            'user_id'=>$notifiable->id
+            'user_id'=>$notifiable->id,
+            'url'=>'/profile/'.$notifiable->id,
+            'urlName'=>'profile',
+            'urlId'=>$notifiable->id,
         ];
     }
     /**

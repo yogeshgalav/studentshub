@@ -2,7 +2,7 @@
 import ProfileComponent from '../../views/profile/profile';
 const ProfileRoutes = [
   {
-    path: '/profile',
+    path: '/profile/:id',
     component: ProfileComponent,
   },
 ];

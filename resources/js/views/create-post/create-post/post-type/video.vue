@@ -11,7 +11,7 @@
                 <i class="fa fa-video font-size-120 text-light-gray" />
             </div>
             <div v-if="is_video_embeded" class="video_image">
-                <iframe :src="video_url" width="320" height="240" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                <iframe :src="'https://www.youtube.com/embed/'+video_id" width="320" height="240" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
             </div>
         </div>
         <div class="col-md-8">
@@ -58,11 +58,11 @@ import { mapState } from 'vuex';
 import EventBus from '../../event-bus';
 
 export default {
+    props:['newPost'],
     mixins:[FormMixin],
   data(){
     return {
         video_id:'',
-        video_url:'',
         video_error:'',
         video_description:'',
         is_video_embeded:false,
@@ -81,6 +81,12 @@ export default {
           });
 	  })
   },
+  watch:{
+        newPost(val){
+            this.video_id=val.video_id;
+            this.video_description=val.video_description;
+        }
+    },
   methods: {
     embedVideo(event){
         
@@ -99,7 +105,6 @@ export default {
             return false;
         }
 
-        this.video_url='https://www.youtube.com/embed/'+v_id[0];
         this.is_video_embeded=true;
     },
     matchYoutubeUrl(url) {

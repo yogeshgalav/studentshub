@@ -63,6 +63,7 @@ button.login_btn span {
 <script>
 import EventBus from '../event-bus';
 export default {
+    props:['newPost'],
     data(){
         return{
             selected_type:'article',
@@ -72,6 +73,11 @@ export default {
                 'mcq':'A Question with 4 choices and its Answer.',
                 'video':'An url of Youtube Video with short Description.'
             }
+        }
+    },
+    watch:{
+        newPost(val){
+            this.selected_type=val.post_type;
         }
     },
     mounted(){

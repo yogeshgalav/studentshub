@@ -85,12 +85,20 @@ button.login_btn span {
 import {mapState} from 'vuex';
 import EventBus from '../event-bus';
 export default {
+    props:['newPost'],
     computed:{
 		...mapState({
 			'categories': state=>state.categories,
 			'AuthUserCategory': state=>state.AuthUserCategory,
 			'subject': state=>state.new_post.subject,
         }),
+    },
+    watch:{
+        newPost(val){
+            this.is_course_subject=val.subject_course;
+            this.selected_category=val.category_id;
+            this.subject_name=val.subject_name;
+        }
     },
     data(){
         return {

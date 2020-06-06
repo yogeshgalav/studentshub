@@ -379,8 +379,9 @@ class CoursesTableSeeder extends Seeder
         (373, 'Bachelor of Science Visual Communication', 'Three years', '10+2 or equivalent', 5, 'IN', '2020-04-03 18:41:25', '2020-04-03 18:41:25'),
         (374, 'Bachelor of Science Zoology', 'Three Years', '', 5, 'IN', '2020-04-03 18:41:25', '2020-04-03 18:41:25'),
         (375, 'Bachelor of Science Zoology (Honors)', 'Four years', '10+2 or equivalent', 5, 'IN', '2020-04-03 18:41:25', '2020-04-03 18:41:25'),
-        (376, 'Bachelor of Technology Computer Science', 'Four years', '10+2 or equivalent', 5, 'IN', '2020-04-03 18:41:25', '2020-04-03 18:41:25');
-        INSERT INTO `courses` (`id`, `course_name`, `duration`, `eligibility`, `category_id`, `country_id`, `created_at`, `updated_at`) VALUES
+        (376, 'Bachelor of Technology Computer Science', 'Four years', '10+2 or equivalent', 5, 'IN', '2020-04-03 18:41:25', '2020-04-03 18:41:25');";
+
+        $sql2 = "INSERT INTO `courses` (`id`, `course_name`, `duration`, `eligibility`, `category_id`, `country_id`, `created_at`, `updated_at`) VALUES
         (377, 'Bachelor of Veterinary Science and Animal Husbandry', 'Four years', '10+2 or equivalent with Science', 5, 'IN', '2020-04-03 18:41:25', '2020-04-03 18:41:25'),
         (378, 'Diploma in Agriculture', 'Two years', '10 or equivalent', 5, 'IN', '2020-04-03 18:41:25', '2020-04-03 18:41:25'),
         (379, 'Diploma in Technical Chemistry', 'Three years', '10th or equivalent', 5, 'IN', '2020-04-03 18:41:25', '2020-04-03 18:41:25'),
@@ -605,5 +606,6 @@ class CoursesTableSeeder extends Seeder
         (607, 'Post Diploma In Interior Designing & Decoration', 'One year', 'Diploma IDD', 12, 'IN', '2020-05-31 15:53:06', '2020-05-31 15:53:06')
         (608, 'Bachelor of Science Master of Science Integrated', 'Five year', '10+2 or equivalent', 5, 'IN', '2020-05-31 15:53:06', '2020-05-31 15:53:06');";
         DB::unprepared($sql);
+        DB::unprepared($sql2);
     }
 }

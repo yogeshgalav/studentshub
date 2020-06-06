@@ -66,7 +66,7 @@ class UserController extends Controller
             $me->save();
         }
         if($request->introduction){
-            $profile->introduction=$request->introduction;
+            $profile->introduction=$request->intro;
         }
         if($request->fb_url){
             $profile->fb_url=$request->fb_url;

@@ -95,6 +95,13 @@ class StudentController extends Controller
         ->groupBy('cor.id','cor.course_name','cor.category_id')
         ->orderBy('totalBatch','DESC')->limit(10)->get();
 
+        if(count($courses)==0 && empty($request->aliasSearch)){
+            $request->request->add(['aliasSearch'=>true]);
+            $new_terms=str_split(str_replace('.', '', $request->searchTerm));
+            $request->searchTerm=implode('%',$new_terms);
+            return $this->courseList($request);
+        }
+
         if(count($courses)==0 && empty($request->recursive)){
             $request->request->add(['recursive'=>true]);
             $terms=explode(' ',$request->searchTerm);

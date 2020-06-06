@@ -2,16 +2,16 @@
   <div class="creat_post_card img_der artical_page">
     <main>
         <div v-if="postType==='article'">
-            <blog-article/>
+            <blog-article :new-post="newPost"/>
         </div>
         <div v-if="postType==='fact'">
-            <fact/>
+            <fact :new-post="newPost"/>
         </div>
         <div v-if="postType==='mcq'">
-            <mcq/>
+            <mcq :new-post="newPost"/>
         </div>
         <div v-if="postType==='video'">
-            <net-video />
+            <net-video :new-post="newPost"/>
         </div>
     </main>
     <div class="creat_post_btn">
@@ -28,6 +28,7 @@ import Mcq from './post-type/mcq.vue';
 import EventBus from '../event-bus';
 
 export default {
+    props:['newPost'],
     components:{
         BlogArticle,Document,Fact,Mcq,NetVideo
     },

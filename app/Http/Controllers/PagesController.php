@@ -70,9 +70,10 @@ class PagesController extends Controller
         return view('student-register.student-register');
     }
 
-    public function profile(){
-        $user=Auth::user()
+    public function profile($profileId){
+        $user=\App\Models\User::where('users.id',$profileId)
         ->leftJoin('user_profiles as up','up.user_id','=','users.id')
+        ->select('up.*','users.id','users.full_name','users.email','users.avatar_url')
         ->first();
         return view('profile.profile')->with('user',$user);
     }

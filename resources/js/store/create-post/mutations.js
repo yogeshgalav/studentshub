@@ -16,6 +16,7 @@ export default {
     set_post_fact_content(state,data){
       state.new_post.fact_image = data.image;
       state.new_post.fact_description = data.description;
+      state.new_post.fact_image_url = data.url;
     },
     set_post_video_content(state,data){
       state.new_post.video_id = data.video_id;

@@ -33,6 +33,7 @@ class AppServiceProvider extends ServiceProvider
                     if($n_text){
                         $notifications[$key]['text']=$n_text->notification_text;
                         $notifications[$key]['time']=Carbon::createFromTimeStamp(strtotime($notification->created_at))->diffForHumans();
+                        $notifications[$key]['data']=$notification->data;
                     }else{
                         \Log::critical('Notification text not found of type'.$notification->type);
                     }

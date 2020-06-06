@@ -112,7 +112,7 @@
 
                                                         <date-picker id="start_year" name="start_year" v-validate="'required'"
                                                             value-type="format" v-model="start_year"
-                                                            :not-after="current_date" :typeable="true" :type="'year'"
+                                                             :typeable="true" :type="'year'"
                                                             :lang="'en'" :input-attr="{id: 'start_year_input'}"
                                                             placeholder="Start Year" />
                                                     </div>
@@ -133,7 +133,7 @@
                                                                 class="fa fa-calendar" /></span>
                                                         <date-picker id="end_year" v-validate="'required'"
                                                             value-type="format"  name="end_year" v-model="end_year"
-                                                            :not-before="start_year_date" :typeable="true" :type="'year'"
+                                                             :typeable="true" :type="'year'"
                                                             :lang="'en'" :input-attr="{id: 'end_year_input'}"
                                                             placeholder="End Year" />
                                                     </div>

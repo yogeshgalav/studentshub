@@ -15,6 +15,7 @@ Quill.register("modules/imageResize", ImageResize);
 import EventBus from '../../event-bus';
 
 export default {
+    props:['newPost'],
     components:{
         VueEditor
     },
@@ -29,6 +30,11 @@ export default {
               }
             },
             error:'', 
+        }
+    },
+    watch:{
+        newPost(val){
+            this.content=val.article_html_content;
         }
     },
     computed:{

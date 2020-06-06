@@ -12,6 +12,7 @@
     >
     <transition name="fade">
       <ul
+	  	v-show="isOpen===true"
         id="autocomplete-results"
         class="autocomplete-results"
       >
@@ -36,7 +37,7 @@
           </slot>
         </li>
 		<li
-		v-if="createNewItem===true && isOpen===true"
+		v-if="createNewItem===true"
 		class="autocomplete-result"
 		@click="createNew"
         >
@@ -122,7 +123,6 @@ export default {
 			result:{},
 			search: '',
 			arrowCounter: 0,
-			initialLength: 0
 		};
 	},
 	mounted() {
@@ -131,7 +131,12 @@ export default {
 	destroyed() {
 		document.removeEventListener('click', this.handleClickOutside);
 	},
-
+	watch:{
+		items(val){
+			this.results = val;
+			this.isOpen=true;
+		}
+	},
 	methods: {
 		trans: function(string, defaultString) {
 			return this.$trans("auth", string, defaultString);
@@ -139,17 +144,6 @@ export default {
 		onChange() {
 			if(this.search.length<3){
 				return false;
-			}
-
-			this.results = this.items.filter((item) => {
-				return item[this.value].toLowerCase().indexOf(this.search.toLowerCase()) > -1;
-			});
-
-			this.isOpen=true;
-			
-			this.initialLength = this.items.length=== 0 ? 1 : this.items.length;
-			if(this.results.length>Math.floor(this.initialLength/2)){
-				return true;
 			}
 			// Let's warn the parent that a change was made
 			this.$emit('input', this.search);

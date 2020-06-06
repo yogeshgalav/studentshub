@@ -14,7 +14,7 @@
                     <label class="weight-500">Heading</label>
                     <div class="input_icon_frm">
                         <span class="icon_design_input"><i class="fa fa-user"></i></span>
-                    <input type="text" class="form-control" v-model="heading">
+                    <input type="text" class="form-control" :disabled="newPost.post_type==='mcq'" v-model="heading">
                     </div>
                 </div>
                  <div class="creat_post_btn">
@@ -55,6 +55,7 @@ button.login_btn span {
 <script>
 import EventBus from '../event-bus';
 export default {
+    props:['newPost'],
     mounted(){
         EventBus.$on('validateStep4',()=>{
 			this.$validator.validate().then(valid => {
@@ -71,6 +72,11 @@ export default {
         return{
             heading:'',
         };
+    },
+    watch:{
+        newPost(val){
+            this.heading=val.heading;
+        }
     },
     methods:{
         nextTab(){

@@ -12,16 +12,16 @@
                         <form @submit.prevent="()=>{}">
                             <form-wizard :step-data="step_data" @onComplete="onComplete"><template slot="header-row" />
                                 <template slot="step1">
-                                    <select-post-type></select-post-type>
+                                    <select-post-type :new-post="newPost"></select-post-type>
                                 </template>
                                 <template slot="step2">
-                                    <create-post-content></create-post-content>
+                                    <create-post-content :new-post="newPost"></create-post-content>
                                 </template>
                                 <template slot="step3">
-                                    <select-subject></select-subject>
+                                    <select-subject :new-post="newPost"></select-subject>
                                 </template>
                                 <template slot="step4">
-                                    <select-heading></select-heading>
+                                    <select-heading :new-post="newPost"></select-heading>
                                 </template>
 
                             </form-wizard>
@@ -94,6 +94,7 @@
 
 </style>
 <script>
+    import {mapState} from 'vuex';
 import FormMixin from "../../components/mixins/form-mixin.js";
     import FormWizard from './VueNiceWizard';
     import SelectPostType from './create-post/select-post-type'
@@ -132,10 +133,15 @@ import FormMixin from "../../components/mixins/form-mixin.js";
             }
             this.$store.dispatch('getCategories');
         },
+        computed:{
+            ...mapState({
+			'newPost': state=>state.new_post,
+            })
+        },
         methods: {
             onComplete() {
                 this.showLoader=true;
-                this.$store.dispatch('submitPost', this.$store.state.new_post)
+                this.$store.dispatch('submitPost', this.newPost)
                 .then((resp)=>{
                     this.showLoader=false;
                     window.location.href ='/';

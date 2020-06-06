@@ -51,7 +51,7 @@
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <div class="d-flex p-2">
                                     <div class="avatar user_img_dash">
-                                        <img src="/images/default-avatar.png" class="avatar-img" style="width:50px;height:50px;">
+                                        <img src="{{$AuthUser->avatar_url ?? '/images/default-avatar.png'}}" class="avatar-img" style="width:50px;height:50px;">
                                     </div>
                                     <div class="info-post ml-2 mt-2">
                                         <p class="username">{{$AuthUser->full_name}}</p>
@@ -81,7 +81,7 @@
             <ul class="menu-dropdown">
                 <li><a href="/">Home</a><span class="icon"><i class="fa fa-home"></i></span></li>
 
-                <li><a href="/profile">Profile</a><span class="icon"><i class="fa fa-user"
+                <li><a href="/profile/{{Auth::id()}}">Profile</a><span class="icon"><i class="fa fa-user"
                             aria-hidden="true"></i></span></li>
 
                 <li><a href="/logout">Logout</a><span class="icon"><i class="fa fa-power-off"></i></span></li>
