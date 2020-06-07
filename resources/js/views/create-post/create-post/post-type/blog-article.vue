@@ -21,7 +21,7 @@ export default {
     },
     data(){
         return{
-            content:'',
+            content:this.newPost.article_html_content,
             files:[],
             editorSettings: {
             modules: {
@@ -30,11 +30,6 @@ export default {
               }
             },
             error:'', 
-        }
-    },
-    watch:{
-        newPost(val){
-            this.content=val.article_html_content;
         }
     },
     computed:{

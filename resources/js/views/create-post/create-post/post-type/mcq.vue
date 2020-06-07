@@ -105,26 +105,15 @@ export default {
   mixins:[FormMixin],
   data(){
     return {
-      question:'',
-      option1:'',
-      option2:'',
-      option3:'',
-      option4:'',
-      correct_option:1,
-      answer:'',
+      question:this.newPost.heading,
+      option1:this.newPost.mcq_option1,
+      option2:this.newPost.mcq_option2,
+      option3:this.newPost.mcq_option3,
+      option4:this.newPost.mcq_option4,
+      correct_option:this.newPost.mcq_correct_option,
+      answer:this.newPost.mcq_answer,
     };
   },
-  watch:{
-        newPost(val){
-            this.question=val.heading;
-            this.option1=val.mcq_option1;
-            this.option2=val.mcq_option2;
-            this.option3=val.mcq_option3;
-            this.option4=val.mcq_option4;
-            this.correct_option=val.mcq_correct_option;
-            this.answer=val.mcq_answer;
-        }
-    },
   mounted(){
 	  EventBus.$on('validateStep2', () => {
       this.$validator.validate().then(valid => {

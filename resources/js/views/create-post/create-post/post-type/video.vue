@@ -62,9 +62,9 @@ export default {
     mixins:[FormMixin],
   data(){
     return {
-        video_id:'',
+        video_id:this.newPost.video_id,
         video_error:'',
-        video_description:'',
+        video_description:this.newPost.video_description,
         is_video_embeded:false,
     };
   },
@@ -81,12 +81,6 @@ export default {
           });
 	  })
   },
-  watch:{
-        newPost(val){
-            this.video_id=val.video_id;
-            this.video_description=val.video_description;
-        }
-    },
   methods: {
     embedVideo(event){
         

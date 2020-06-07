@@ -143,17 +143,10 @@
         },
         data() {
             return {
-                image: '',
-                description: '',
-                url: ''
+                image: this.newPost.fact_image,
+                description: this.newPost.fact_description,
+                url: this.newPost.fact_image_url
             };
-		},
-		watch:{
-			newPost(val){
-				this.image=val.fact_image;
-				this.description=val.fact_description;
-				this.url=val.fact_image_url;
-			}
 		},
         mounted() {
             EventBus.$on('validateStep2', () => {

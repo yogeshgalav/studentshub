@@ -20,7 +20,7 @@ const state = {
       mcq_option2:'',
       mcq_option3:'',
       mcq_option4:'',
-      mcq_correct_option:'',
+      mcq_correct_option:1,
       mcq_answer:''
     },
     categories: [],
