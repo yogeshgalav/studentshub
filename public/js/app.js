@@ -2417,11 +2417,15 @@ __webpack_require__.r(__webpack_exports__);
             required: "You must create new Password to continue."
           },
           password_confirmation: {
-            required: "The confirm password field is required"
+            required: "The confirm password field is required.",
+            confirmed: "The confirm password field is not same as password."
           }
         }
       }
     };
+  },
+  mounted: function mounted() {
+    this.$validator.localize("en", this.dict);
   },
   methods: {
     trans: function trans(string, defaultString) {
@@ -2430,7 +2434,6 @@ __webpack_require__.r(__webpack_exports__);
     handleSubmit: function handleSubmit(e) {
       var _this = this;
 
-      this.$validator.localize("en", this.dict);
       this.$validator.validate().then(function (valid) {
         if (valid) {
           _this.form_errors = [];

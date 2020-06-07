@@ -16,8 +16,8 @@ class NotificationTextSeeder extends Seeder
             'notification_text'=>'notifications.BatchNewUser'
             ]);
         \App\Models\NotificationText::create([
-            'notification_type'=>'App\Notifications\NewUserNotification',
-            'notification_text'=>'notifications.NewUser'
+            'notification_type'=>'App\Notifications\NewUserWelcomeNotification',
+            'notification_text'=>'notifications.NewUserWelcome'
         ]);
     }
 }

@@ -174,18 +174,21 @@
                             required: "You must create new Password to continue.",
                         },
                         password_confirmation: {
-                            required: "The confirm password field is required"
+                            required: "The confirm password field is required.",
+                            confirmed: "The confirm password field is not same as password."
                         }
                     }
                 }
             };
+        },
+        mounted(){  
+            this.$validator.localize("en", this.dict);
         },
         methods: {
             trans: function (string, defaultString) {
                 return this.$trans("auth", string, defaultString);
             },
             handleSubmit(e) {
-                this.$validator.localize("en", this.dict);
                 this.$validator.validate().then(valid => {
                     if (valid) {
                         this.form_errors = [];

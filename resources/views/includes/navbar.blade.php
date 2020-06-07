@@ -23,7 +23,7 @@
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             @foreach($notifications as $notification)
-                                      <a class="dropdown-item" href="#">@lang($notification['text'])</a>
+                                      <a class="dropdown-item" href="{{$notification['data']['url']}}">@lang($notification['text'])</a>
                             @endforeach
                             </div>
                         </div>
