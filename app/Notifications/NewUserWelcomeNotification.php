@@ -15,7 +15,7 @@ class NewUserWelcomeNotification extends Notification
 {
     use Queueable;
 
-    protected $message='';
+    protected $text="Welcome to Student'sHUB. You can now check your interest field in Profile section.";
 
     /**
      * Get the notification's delivery channels.
@@ -49,6 +49,7 @@ class NewUserWelcomeNotification extends Notification
     public function toDatabase($notifiable)
     {
         return [
+            'text'=>$this->text,
             'user_id'=>$notifiable->id,
             'url'=>'/profile/'.$notifiable->id,
             'urlName'=>'profile',

@@ -603,7 +603,7 @@ class CoursesTableSeeder extends Seeder
         (604, 'Diploma In Interior Design And Decoration', 'Two years', 'Pass in 10th or SSC examination', 12, 'IN', '2020-05-31 15:53:06', '2020-05-31 15:53:06'),
         (605, 'Diploma In Textile Manufactures', 'Three years', '10th or equivalent', 12, 'IN', '2020-05-31 15:53:06', '2020-05-31 15:53:06'),
         (606, 'Master Of Science Fabric & Apparel Science', 'Two years', 'Bachelor\'s Degree', 12, 'IN', '2020-05-31 15:53:06', '2020-05-31 15:53:06'),
-        (607, 'Post Diploma In Interior Designing & Decoration', 'One year', 'Diploma IDD', 12, 'IN', '2020-05-31 15:53:06', '2020-05-31 15:53:06')
+        (607, 'Post Diploma In Interior Designing & Decoration', 'One year', 'Diploma IDD', 12, 'IN', '2020-05-31 15:53:06', '2020-05-31 15:53:06'),
         (608, 'Bachelor of Science Master of Science Integrated', 'Five year', '10+2 or equivalent', 5, 'IN', '2020-05-31 15:53:06', '2020-05-31 15:53:06');";
         DB::unprepared($sql);
         DB::unprepared($sql2);

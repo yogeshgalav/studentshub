@@ -15,6 +15,7 @@ use App\Models\Institute;
 use App\Models\Batch;
 use App\Models\BatchStudent;
 use App\Notifications\BatchNewUserNotification;
+use App\Notifications\StudentOnboardingNotification;
 use Illuminate\Support\Arr;
 use SKAgarwal\GoogleApi\PlacesApi;
 
@@ -74,7 +75,7 @@ class StudentController extends Controller
 
         $batch_users=$batch->users()->whereNotIn('id',[$user->id]);
         // Notification::send($batch_users, new BatchNewUserNotification($user,$batch));
-        // Notification::send($user, new StudentOnboardingNotification($batch));
+        Notification::send($user, new StudentOnboardingNotification(count($batch_users)));
             
         
     DB::commit();
