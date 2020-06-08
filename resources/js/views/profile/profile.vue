@@ -42,7 +42,15 @@
                                 precise this data is.</p>
                             <h4 class="text-center mt-3" v-if="interests.length===0 && user.id===AuthUser.id">Currently we don't have enough data to analys your interest.
                                 Please share at least 3 Posts to generate this data.</h4>
-                                <div class="text-center"><img src="/storage/share-knowledge.svg"/></div>
+                                <div class="row">
+                                    <div class="col-md-5 center-col">
+                                <div class="sh_kn">
+                                  <img src="/images/noun_knowledge.svg"/>
+                                    <h4>Share Your Knowledge</h4>
+                                    <a  href="">Get Started</a>
+                                </div>
+                                    </div>
+                                </div>
                         </div>
                         <div class="progess_bar">
                         <div class="cojl" v-for="(interest,index) in interests" :key="index">
@@ -92,7 +100,7 @@
                         <div class="col-md-12">
                             <div class="model_input">
                                 <label>Introduction</label>
-                                <textarea id="introduction" v-model="profile_data.intro" name="introduction"></textarea>
+                                <textarea id="introduction" v-model="profile_data.intro" name="introduction" class="form-control"></textarea>
                                 <span class="text-danger">{{errors.intro}}</span>
                             </div>
                         </div>
@@ -249,6 +257,29 @@ import AnimateNumber from './animate-number.vue'
     flex-wrap: wrap;
     justify-content: space-around;
 }
+.model_box_inner
+{
+    height: 580px;
+    overflow: scroll;
+}
+.model_box_inner::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+.model_box_inner::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+.model_box_inner::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+.model_box_inner::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
 .progess_bar circle {
     stroke-width: 8px !important;
 }
@@ -340,5 +371,25 @@ button.cancel_profile_btn {
     border-radius: 4px;
     background: #f0f0f0;
     cursor: pointer;
+}
+.sh_kn {
+    margin-top: 30px;
+    background: #F4F4F4 ;
+    text-align: center;
+    padding: 40px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.12);
+    border-radius: 4px;
+}
+.sh_kn a {
+    border: solid 1px #3746C5;
+    padding: 10px 30px;
+    margin-top: 8px;
+    display: inline-block;
+    border-radius: 1px;
+}
+
+.sh_kn h4 {
+    color: black;
+    margin: 20px 0;
 }
 </style>
