@@ -110,7 +110,7 @@ class PostController extends Controller
         ]);
         
         DB::commit();
-    } catch (\Exception $e) {
+    } catch (\Exception $e) {echo $e->getMessage();
         DB::rollback();
         \Log::critical('Post Creation failure: for user id#'.Auth::user()->id.' with data '.implode(', ',Arr::flatten($data)));
         return response()->$e;

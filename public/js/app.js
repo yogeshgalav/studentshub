@@ -3858,6 +3858,49 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['postContent']
 });
@@ -4136,6 +4179,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
 //
 //
 //
@@ -9579,7 +9623,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.right_answer ul li[data-v-7ae84b90] {\r\n    list-style: none;\r\n    border: solid 1px #ccc;\r\n    color: #868686;\r\n    border-radius: 50px;\r\n    width: 30px;\r\n    height: 30px;\r\n    display: -webkit-box;\r\n    display: flex;\r\n    -webkit-box-align: center;\r\n            align-items: center;\r\n    -webkit-box-pack: center;\r\n            justify-content: center;\r\n    cursor: pointer;\n}\n.right_answer ul[data-v-7ae84b90] {\r\n    display: -webkit-box;\r\n    display: flex;\r\n    -webkit-box-pack: justify;\r\n            justify-content: space-between;\r\n    padding: 0;\r\n    background-color: white;\r\n    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);\r\n    padding: 20px;\r\n    border-radius: 5px;\n}\n.right_active[data-v-7ae84b90] {\r\n    border: solid 1px green;\r\n    background-color: green;\r\n color: white !important;\n}\r\n", ""]);
+exports.push([module.i, "\n.right_answer ul li[data-v-7ae84b90] {\r\n    list-style: none;\r\n    border: solid 1px #ccc;\r\n    color: #868686;\r\n    border-radius: 50px;\r\n    width: 30px;\r\n    height: 30px;\r\n    display: -webkit-box;\r\n    display: flex;\r\n    -webkit-box-align: center;\r\n            align-items: center;\r\n    -webkit-box-pack: center;\r\n            justify-content: center;\r\n    cursor: pointer;\n}\n.right_answer ul[data-v-7ae84b90] {\r\n    display: -webkit-box;\r\n    display: flex;\r\n    -webkit-box-pack: justify;\r\n            justify-content: space-between;\r\n    padding: 0;\r\n    background-color: white;\r\n    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);\r\n    padding: 20px;\r\n    border-radius: 5px;\n}\n.right_active[data-v-7ae84b90] {\r\n    border: solid 1px green;\r\n    background-color: green;\r\n color: white !important;\n}\n.right_answer .custom-control.custom-radio[data-v-7ae84b90] {\r\n    margin-bottom: 30px;\n}\n.right_answer[data-v-7ae84b90] {\r\n    background: white;\r\n    box-shadow: 0 0 10px rgba(0,0,0,0.12);\r\n    padding: 20px 10px;\n}\n.right_answer h4[data-v-7ae84b90] {\r\n    font-weight: 600;\r\n    padding: 0 7px 15px;\r\n    color: #868686;\n}\n.submit_answer_btn button[data-v-7ae84b90] {\r\n    border: none;\r\n    background: #3746c5;\r\n    color: white;\r\n    padding: 8px 20px;\r\n    border-radius: 3px;\r\n    box-shadow: 0 0 10px rgba(0,0,0,0.12);\n}\n.submit_answer_btn[data-v-7ae84b90] {\r\n    margin: 0 8px;\n}\n.right_answer .custom-control.custom-radio label[data-v-7ae84b90] {\r\n    color: #868686;\n}\r\n", ""]);
 
 // exports
 
@@ -56959,19 +57003,86 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "post_s_c" }, [
     _c("div", { staticClass: "right_answer" }, [
-      _c("ul", [
-        _c("li", [_vm._v(_vm._s(_vm.postContent.optionA))]),
+      _c("h4", [_vm._v(" Pick Your Answer")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "custom-control custom-radio" }, [
+        _c("input", {
+          staticClass: "custom-control-input",
+          attrs: { type: "radio", id: "customRadio", name: "option" }
+        }),
         _vm._v(" "),
-        _c("li", [_vm._v(_vm._s(_vm.postContent.optionB))]),
+        _c(
+          "label",
+          {
+            staticClass: "custom-control-label",
+            attrs: { for: "customRadio" }
+          },
+          [_vm._v(_vm._s(_vm.postContent.optionA))]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "custom-control custom-radio" }, [
+        _c("input", {
+          staticClass: "custom-control-input",
+          attrs: { type: "radio", id: "customRadio1", name: "option" }
+        }),
         _vm._v(" "),
-        _c("li", [_vm._v(_vm._s(_vm.postContent.optionC))]),
+        _c(
+          "label",
+          {
+            staticClass: "custom-control-label",
+            attrs: { for: "customRadio1" }
+          },
+          [_vm._v(_vm._s(_vm.postContent.optionB))]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "custom-control custom-radio" }, [
+        _c("input", {
+          staticClass: "custom-control-input",
+          attrs: { type: "radio", id: "customRadio2", name: "option" }
+        }),
         _vm._v(" "),
-        _c("li", [_vm._v(_vm._s(_vm.postContent.optionD))])
-      ])
+        _c(
+          "label",
+          {
+            staticClass: "custom-control-label",
+            attrs: { for: "customRadio2" }
+          },
+          [_vm._v(_vm._s(_vm.postContent.optionC))]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "custom-control custom-radio" }, [
+        _c("input", {
+          staticClass: "custom-control-input",
+          attrs: { type: "radio", id: "customRadio3", name: "option" }
+        }),
+        _vm._v(" "),
+        _c(
+          "label",
+          {
+            staticClass: "custom-control-label",
+            attrs: { for: "customRadio3" }
+          },
+          [_vm._v(_vm._s(_vm.postContent.optionD))]
+        )
+      ]),
+      _vm._v(" "),
+      _vm._m(0)
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "submit_answer_btn" }, [
+      _c("button", { attrs: { type: "submit" } }, [_vm._v("Submit Answer")])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -57452,7 +57563,20 @@ var render = function() {
               _c("div", { staticClass: "post_s_c" }, [
                 _c("div", { staticClass: "post_content" }, [
                   _c("p", [_vm._v(_vm._s(_vm.postContent.fact_content))])
-                ])
+                ]),
+                _vm._v(" "),
+                _vm.postContent.post_type === "mcq"
+                  ? _c(
+                      "div",
+                      { staticClass: "col-md-8" },
+                      [
+                        _c("mcq-post-view", {
+                          attrs: { "post-content": _vm.postContent }
+                        })
+                      ],
+                      1
+                    )
+                  : _vm._e()
               ])
             ]),
             _vm._v(" "),
@@ -57508,19 +57632,7 @@ var render = function() {
                   0
                 )
               ])
-            ]),
-            _vm._v(" "),
-            _vm.postContent.post_type === "mcq"
-              ? _c(
-                  "div",
-                  [
-                    _c("mcq-post-view", {
-                      attrs: { "post-content": _vm.postContent }
-                    })
-                  ],
-                  1
-                )
-              : _vm._e()
+            ])
           ])
         ])
       ]),
