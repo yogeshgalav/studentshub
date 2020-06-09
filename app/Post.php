@@ -314,7 +314,8 @@ class Post extends PostModel
         // ->leftJoin('facts as fa','po.id','=','fa.post_id')
         ->select(['po.id as id','po.post_heading as heading','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','sub.subject_name','po.primary_image_path as image_path',
         'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','ar.content as article_content','vd.content as video_content','uli.like_status as user_like',
-        'vd.video_id as video_id','fc.image_path as fact_image_path','fc.content as fact_content','mcqs.optionA','mcqs.optionB','mcqs.optionC','mcqs.optionD'])->get();
+        'vd.video_id as video_id','fc.image_path as fact_image_path','fc.content as fact_content','mcqs.optionA','mcqs.optionB','mcqs.optionC','mcqs.optionD',
+        'mcqs.correct_option','mcqs.answer as mcq_answer'])->get();
 
         return $this->formatPostData($post);
     }

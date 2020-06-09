@@ -2,25 +2,33 @@
     <div class="post_s_c">
                             <div class="right_answer">
                                 <h4> Pick Your Answer</h4>
+                                <form @submit.prevent="showAnswer">
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" class="custom-control-input" id="customRadio" name="option">
-                                        <label class="custom-control-label" for="customRadio">{{postContent.optionA}}</label>
+                                        <input type="radio" class="custom-control-input" id="customRadio" name="option" v-model="submitted_answer" :value="1" :disabled="is_submitted">
+                                        <label :class="['custom-control-label', optionClass(1) ]" for="customRadio">{{postContent.optionA}}</label>
                                     </div>
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" class="custom-control-input" id="customRadio1" name="option">
-                                        <label class="custom-control-label" for="customRadio1">{{postContent.optionB}}</label>
+                                        <input type="radio" class="custom-control-input" id="customRadio1" name="option" v-model="submitted_answer" :value="2" :disabled="is_submitted">
+                                        <label :class="['custom-control-label', optionClass(2) ]" for="customRadio1">{{postContent.optionB}}</label>
                                     </div>
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" class="custom-control-input" id="customRadio2" name="option">
-                                        <label class="custom-control-label" for="customRadio2">{{postContent.optionC}}</label>
+                                        <input type="radio" class="custom-control-input" id="customRadio2" name="option" v-model="submitted_answer" :value="3" :disabled="is_submitted">
+                                        <label :class="['custom-control-label', optionClass(3) ]" for="customRadio2">{{postContent.optionC}}</label>
                                     </div>
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" class="custom-control-input" id="customRadio3" name="option">
-                                        <label class="custom-control-label" for="customRadio3">{{postContent.optionD}}</label>
+                                        <input type="radio" class="custom-control-input" id="customRadio3" name="option"  v-model="submitted_answer" :value="4" :disabled="is_submitted">
+                                        <label :class="['custom-control-label', optionClass(4) ]" for="customRadio3">{{postContent.optionD}}</label>
                                     </div>
+                                    <span class="text-danger" v-if="show_error">Please select an Option.</span>
                                 <div class="submit_answer_btn">
-                                    <button type="submit">Submit Answer</button>
+                                    <button type="submit" v-if="is_submitted===false">Submit Answer</button>
+                                    <button type="button" class="btn btn-success" v-if="is_submitted===true && is_correct===true">Correct Answer</button>
+                                    <button type="button" class="btn btn-danger" v-if="is_submitted===true && is_correct===false">Wrong Answer</button>
                                 </div>
+                                </form>
+                            </div>
+                            <div v-if="is_submitted">
+                                {{postContent.mcq_answer}}
                             </div>
                             </div>
 </template>
@@ -84,6 +92,37 @@
 </style>
 <script>
 export default {
-    props:['postContent']
+    props:['postContent'],
+    data(){
+        return {
+            submitted_answer:'',
+            is_submitted:false,
+            is_correct:false,
+            show_error:false
+        };
+    },
+    methods:{
+        showAnswer(){
+            this.show_error=false;
+            if(this.submitted_answer===''){
+                this.show_error=true;
+                return false;
+            }else if(this.submitted_answer===this.postContent.correct_option){
+                this.is_correct=true;
+            }else{
+                this.is_correct=false;
+            }
+            this.is_submitted=true;
+        },
+        optionClass(num){
+            if(this.is_submitted===false){
+                return '';
+            }else if(this.postContent.correct_option===num){
+                return 'text-success';
+            }else{
+                return 'text-danger'
+            }
+        }
+    }
 }
 </script>

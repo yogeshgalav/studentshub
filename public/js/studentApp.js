@@ -3105,8 +3105,49 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['postContent']
+  props: ['postContent'],
+  data: function data() {
+    return {
+      submitted_answer: '',
+      is_submitted: false,
+      is_correct: false,
+      show_error: false
+    };
+  },
+  methods: {
+    showAnswer: function showAnswer() {
+      this.show_error = false;
+
+      if (this.submitted_answer === '') {
+        this.show_error = true;
+        return false;
+      } else if (this.submitted_answer === this.postContent.correct_option) {
+        this.is_correct = true;
+      } else {
+        this.is_correct = false;
+      }
+
+      this.is_submitted = true;
+    },
+    optionClass: function optionClass(num) {
+      if (this.is_submitted === false) {
+        return '';
+      } else if (this.postContent.correct_option === num) {
+        return 'text-success';
+      } else {
+        return 'text-danger';
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -54944,84 +54985,202 @@ var render = function() {
     _c("div", { staticClass: "right_answer" }, [
       _c("h4", [_vm._v(" Pick Your Answer")]),
       _vm._v(" "),
-      _c("div", { staticClass: "custom-control custom-radio" }, [
-        _c("input", {
-          staticClass: "custom-control-input",
-          attrs: { type: "radio", id: "customRadio", name: "option" }
-        }),
-        _vm._v(" "),
-        _c(
-          "label",
-          {
-            staticClass: "custom-control-label",
-            attrs: { for: "customRadio" }
-          },
-          [_vm._v(_vm._s(_vm.postContent.optionA))]
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "custom-control custom-radio" }, [
-        _c("input", {
-          staticClass: "custom-control-input",
-          attrs: { type: "radio", id: "customRadio1", name: "option" }
-        }),
-        _vm._v(" "),
-        _c(
-          "label",
-          {
-            staticClass: "custom-control-label",
-            attrs: { for: "customRadio1" }
-          },
-          [_vm._v(_vm._s(_vm.postContent.optionB))]
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "custom-control custom-radio" }, [
-        _c("input", {
-          staticClass: "custom-control-input",
-          attrs: { type: "radio", id: "customRadio2", name: "option" }
-        }),
-        _vm._v(" "),
-        _c(
-          "label",
-          {
-            staticClass: "custom-control-label",
-            attrs: { for: "customRadio2" }
-          },
-          [_vm._v(_vm._s(_vm.postContent.optionC))]
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "custom-control custom-radio" }, [
-        _c("input", {
-          staticClass: "custom-control-input",
-          attrs: { type: "radio", id: "customRadio3", name: "option" }
-        }),
-        _vm._v(" "),
-        _c(
-          "label",
-          {
-            staticClass: "custom-control-label",
-            attrs: { for: "customRadio3" }
-          },
-          [_vm._v(_vm._s(_vm.postContent.optionD))]
-        )
-      ]),
-      _vm._v(" "),
-      _vm._m(0)
-    ])
+      _c(
+        "form",
+        {
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.showAnswer($event)
+            }
+          }
+        },
+        [
+          _c("div", { staticClass: "custom-control custom-radio" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.submitted_answer,
+                  expression: "submitted_answer"
+                }
+              ],
+              staticClass: "custom-control-input",
+              attrs: {
+                type: "radio",
+                id: "customRadio",
+                name: "option",
+                disabled: _vm.is_submitted
+              },
+              domProps: { value: 1, checked: _vm._q(_vm.submitted_answer, 1) },
+              on: {
+                change: function($event) {
+                  _vm.submitted_answer = 1
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "label",
+              {
+                class: ["custom-control-label", _vm.optionClass(1)],
+                attrs: { for: "customRadio" }
+              },
+              [_vm._v(_vm._s(_vm.postContent.optionA))]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "custom-control custom-radio" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.submitted_answer,
+                  expression: "submitted_answer"
+                }
+              ],
+              staticClass: "custom-control-input",
+              attrs: {
+                type: "radio",
+                id: "customRadio1",
+                name: "option",
+                disabled: _vm.is_submitted
+              },
+              domProps: { value: 2, checked: _vm._q(_vm.submitted_answer, 2) },
+              on: {
+                change: function($event) {
+                  _vm.submitted_answer = 2
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "label",
+              {
+                class: ["custom-control-label", _vm.optionClass(2)],
+                attrs: { for: "customRadio1" }
+              },
+              [_vm._v(_vm._s(_vm.postContent.optionB))]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "custom-control custom-radio" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.submitted_answer,
+                  expression: "submitted_answer"
+                }
+              ],
+              staticClass: "custom-control-input",
+              attrs: {
+                type: "radio",
+                id: "customRadio2",
+                name: "option",
+                disabled: _vm.is_submitted
+              },
+              domProps: { value: 3, checked: _vm._q(_vm.submitted_answer, 3) },
+              on: {
+                change: function($event) {
+                  _vm.submitted_answer = 3
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "label",
+              {
+                class: ["custom-control-label", _vm.optionClass(3)],
+                attrs: { for: "customRadio2" }
+              },
+              [_vm._v(_vm._s(_vm.postContent.optionC))]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "custom-control custom-radio" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.submitted_answer,
+                  expression: "submitted_answer"
+                }
+              ],
+              staticClass: "custom-control-input",
+              attrs: {
+                type: "radio",
+                id: "customRadio3",
+                name: "option",
+                disabled: _vm.is_submitted
+              },
+              domProps: { value: 4, checked: _vm._q(_vm.submitted_answer, 4) },
+              on: {
+                change: function($event) {
+                  _vm.submitted_answer = 4
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "label",
+              {
+                class: ["custom-control-label", _vm.optionClass(4)],
+                attrs: { for: "customRadio3" }
+              },
+              [_vm._v(_vm._s(_vm.postContent.optionD))]
+            )
+          ]),
+          _vm._v(" "),
+          _vm.show_error
+            ? _c("span", { staticClass: "text-danger" }, [
+                _vm._v("Please select an Option.")
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _c("div", { staticClass: "submit_answer_btn" }, [
+            _vm.is_submitted === false
+              ? _c("button", { attrs: { type: "submit" } }, [
+                  _vm._v("Submit Answer")
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.is_submitted === true && _vm.is_correct === true
+              ? _c(
+                  "button",
+                  { staticClass: "btn btn-success", attrs: { type: "button" } },
+                  [_vm._v("Correct Answer")]
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.is_submitted === true && _vm.is_correct === false
+              ? _c(
+                  "button",
+                  { staticClass: "btn btn-danger", attrs: { type: "button" } },
+                  [_vm._v("Wrong Answer")]
+                )
+              : _vm._e()
+          ])
+        ]
+      )
+    ]),
+    _vm._v(" "),
+    _vm.is_submitted
+      ? _c("div", [
+          _vm._v(
+            "\n                            " +
+              _vm._s(_vm.postContent.mcq_answer) +
+              "\n                        "
+          )
+        ])
+      : _vm._e()
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "submit_answer_btn" }, [
-      _c("button", { attrs: { type: "submit" } }, [_vm._v("Submit Answer")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
