@@ -70,13 +70,8 @@ export default {
     },
     data(){
         return{
-            heading:'',
+            heading:this.newPost.heading,
         };
-    },
-    watch:{
-        newPost(val){
-            this.heading=val.heading;
-        }
     },
     methods:{
         nextTab(){

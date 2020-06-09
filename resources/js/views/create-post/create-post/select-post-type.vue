@@ -66,18 +66,13 @@ export default {
     props:['newPost'],
     data(){
         return{
-            selected_type:'article',
+            selected_type:this.newPost.post_type,
             info_text:{
                 'article':'A Blog Article of minimum 400 words enriched with Rich Text Content and Media.',
                 'fact':'A Short Information supported by an Image.',
                 'mcq':'A Question with 4 choices and its Answer.',
                 'video':'An url of Youtube Video with short Description.'
             }
-        }
-    },
-    watch:{
-        newPost(val){
-            this.selected_type=val.post_type;
         }
     },
     mounted(){

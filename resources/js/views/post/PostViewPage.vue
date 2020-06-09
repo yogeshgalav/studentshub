@@ -147,14 +147,7 @@
 
                 </div>
                     <div v-if="postContent.post_type==='mcq'">
-                        <div class="post_s_c">
-                            <div class="post_content">
-                                <p>{{postContent.optionA}}</p>
-                                <p>{{postContent.optionB}}</p>
-                                <p>{{postContent.optionC}}</p>
-                                <p>{{postContent.optionD}}</p>
-                            </div>
-                        </div>
+                            <mcq-post-view :post-content="postContent" />
                     </div>
                 </div>
                 
@@ -453,6 +446,7 @@
     import PostViewHeader from '../post/PostViewHeader';
     import ProfileImage from '../post/ProfileImage';
     import swal from '../../components/swal';
+    import McqPostView from './McqPostView';
 
     export default {
         props: ['role'],
@@ -463,7 +457,8 @@
             PostInteraction,
             PostViewHeader,
             SocialSharing,
-            ProfileImage
+            ProfileImage,
+            McqPostView
         },
         data() {
             return {

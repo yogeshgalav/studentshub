@@ -93,18 +93,11 @@ export default {
 			'subject': state=>state.new_post.subject,
         }),
     },
-    watch:{
-        newPost(val){
-            this.is_course_subject=val.subject_course;
-            this.selected_category=val.category_id;
-            this.subject_name=val.subject_name;
-        }
-    },
     data(){
         return {
-            is_course_subject:'yes',
-            selected_category:'',
-            subject_name:'',
+            is_course_subject:this.newPost.subject_course ?'yes' :'no',
+            selected_category:this.newPost.category_id,
+            subject_name:this.newPost.subject_name,
         };
     },
     mounted(){

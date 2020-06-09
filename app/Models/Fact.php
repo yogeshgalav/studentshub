@@ -14,10 +14,11 @@ class Fact extends Model
         $image = str_replace(' ', '+', $image);
         $file_name = 'image_' . time() . '.' . $image_extension[1]; //generating unique file name;
         $file_path="/public/post-images/".$file_name;
+        $get_file_path="/storage/post-images/".$file_name;
         \Storage::put($file_path,base64_decode($image));
 
         $post_content_id=self::insertGetId([
-            'image_path'=>'/storage/post-image/'.$file_name,
+            'image_path'=>$get_file_path,
             'content'=>$data['fact_description'],
         ]);
 
@@ -29,6 +30,6 @@ class Fact extends Model
         $newFile->file_name=$file_name;
         $newFile->user_id=\Auth::user()->id;
         $newFile->save();
-        return [$post_content_id,$file_path];
+        return [$post_content_id,$get_file_path];
     }
 }

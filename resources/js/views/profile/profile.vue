@@ -47,7 +47,7 @@
                                 <div class="sh_kn">
                                   <img src="/images/noun_knowledge.svg"/>
                                     <h4>Share Your Knowledge</h4>
-                                    <a  href="">Get Started</a>
+                                    <a  href="/share-your-knowledge">Get Started</a>
                                 </div>
                                     </div>
                                 </div>

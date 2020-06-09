@@ -4,7 +4,7 @@
   <div class="col-md-6">
    <div class="form-group mcq_que">
             <label>Question</label>
-            <input type="text" id="" v-model="question" name="question" v-validate="'required'">
+            <input type="text" class="form-control" id="question" v-model="question" name="question" v-validate="'required'">
             <span class="text-danger">{{ formErrors('question') }}</span>
         </div>
   </div>
