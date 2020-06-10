@@ -26,10 +26,11 @@
                                     <button type="button" class="btn btn-danger" v-if="is_submitted===true && is_correct===false">Wrong Answer</button>
                                 </div>
                                 </form>
+                                 <div v-if="is_submitted" class="right_answer_q">
+                                <p><span><i class="fa fa-check" aria-hidden="true"></i> </span> Right Answer is:- {{postContent.mcq_answer}}</p>
+                                  </div>
                             </div>
-                            <div v-if="is_submitted">
-                                {{postContent.mcq_answer}}
-                            </div>
+                           
                             </div>
 </template>
 
@@ -81,6 +82,7 @@
     padding: 8px 20px;
     border-radius: 3px;
     box-shadow: 0 0 10px rgba(0,0,0,0.12);
+        font-weight: 500;
 }
 .submit_answer_btn {
     margin: 0 8px;
@@ -88,6 +90,14 @@
 
 .right_answer .custom-control.custom-radio label {
     color: #868686;
+}
+.right_answer_q {
+    margin-top: 15px;
+}
+
+.right_answer_q p {
+    color: #969696;
+    margin: 0;
 }
 </style>
 <script>

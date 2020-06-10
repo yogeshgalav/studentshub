@@ -108,7 +108,7 @@
                             <div class="post_content">
                                 <p>{{postContent.fact_content}}</p>
                             </div>
-                             <div v-if="postContent.post_type==='mcq'" class="col-md-8">
+                             <div v-if="postContent.post_type==='mcq'" class="col-md-12">
                             <mcq-post-view :post-content="postContent" />
                     </div>
                         </div>
