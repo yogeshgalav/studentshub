@@ -23,6 +23,8 @@ class Course extends Model
     }
 
     public function setCourseNameAttribute($value){
-        $this->attributes['course_name'] = ucwords($value);
+        $this->attributes['course_name'] = \Sthub::ucWordSome($value);
+        $this->attributes['course_url'] = \Str::slug($value);
+        $this->attributes['alias'] = \Sthub::generateAlias($value);
     }
 }

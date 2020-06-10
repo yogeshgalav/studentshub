@@ -22,6 +22,8 @@ class Subject extends Model
     }
 
     public function setSubjectNameAttribute($value){
-        $this->attributes['subject_name'] = ucwords($value);
+        $this->attributes['subject_name'] = \Sthub::ucWordSome($value);
+        $this->attributes['subject_url'] = \Str::slug($value);
+        $this->attributes['alias'] = \Sthub::generateAlias($value);
     }
 }

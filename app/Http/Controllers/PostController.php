@@ -35,7 +35,7 @@ class PostController extends Controller
             if(intval($data['subject_id'])===0){
                 $subject_name=strtolower($data['subject_name']);
                 $subject=Subject::firstOrCreate([
-                  'subject_url'=>urlencode($subject_name),
+                  'subject_url'=>\Str::slug($subject_name),
                 ],[
                 'subject_name'=>$subject_name,
                 'category_id'=>$data['subject_course'] ? $student->categoryId : $data['category_id']
