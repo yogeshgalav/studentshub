@@ -11,13 +11,13 @@
                             <h3 class="weight-800 text-black font-size-18">{{ trans('Check-In') }}</h3>
                         </div>
 
-                        <div class="card-body">
+                        <div class="card-body edu_det_page">
                             <div class="row justify-content-center">
                                 <div class="col-md-12">
                                     <p class="text-grey">Please Enter Education details of your Prefferred Program and Batch to avail
                                         full benifits of our platform.</p>
                                 </div>
-                                <div class="col-md-10 mt-2">
+                                <div class="col-md-12 mt-2">
                                     <form @submit.prevent="handleSubmit">
                                         <div class="form-group">
                                             <label> {{ trans('Institute Name') }} </label>
@@ -100,6 +100,7 @@
 
                                         <div class="row">
                                             <div class="col-md-6">
+                                                <div class="form-group">
                                                 <label class="text-black" for="event_date_input">
                                                     {{ trans('Batch Starting Year') }}
                                                 </label>
@@ -119,7 +120,7 @@
                                                 </div>
                                                 <span class="text-danger">{{ formErrors('start_year') }}</span>
                                             </div>
-
+                                            </div>
                                             <div class="col-md-6">
                                                 <label class="text-black" for="event_date_input">
                                                     {{ trans('Batch Ending Year') }}

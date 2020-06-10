@@ -3113,6 +3113,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['postContent'],
   data: function data() {
@@ -8773,7 +8783,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.right_answer ul li[data-v-7ae84b90] {\r\n    list-style: none;\r\n    border: solid 1px #ccc;\r\n    color: #868686;\r\n    border-radius: 50px;\r\n    width: 30px;\r\n    height: 30px;\r\n    display: -webkit-box;\r\n    display: flex;\r\n    -webkit-box-align: center;\r\n            align-items: center;\r\n    -webkit-box-pack: center;\r\n            justify-content: center;\r\n    cursor: pointer;\n}\n.right_answer ul[data-v-7ae84b90] {\r\n    display: -webkit-box;\r\n    display: flex;\r\n    -webkit-box-pack: justify;\r\n            justify-content: space-between;\r\n    padding: 0;\r\n    background-color: white;\r\n    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);\r\n    padding: 20px;\r\n    border-radius: 5px;\n}\n.right_active[data-v-7ae84b90] {\r\n    border: solid 1px green;\r\n    background-color: green;\r\n color: white !important;\n}\n.right_answer .custom-control.custom-radio[data-v-7ae84b90] {\r\n    margin-bottom: 30px;\n}\n.right_answer[data-v-7ae84b90] {\r\n    background: white;\r\n    box-shadow: 0 0 10px rgba(0,0,0,0.12);\r\n    padding: 20px 10px;\n}\n.right_answer h4[data-v-7ae84b90] {\r\n    font-weight: 600;\r\n    padding: 0 7px 15px;\r\n    color: #868686;\n}\n.submit_answer_btn button[data-v-7ae84b90] {\r\n    border: none;\r\n    background: #3746c5;\r\n    color: white;\r\n    padding: 8px 20px;\r\n    border-radius: 3px;\r\n    box-shadow: 0 0 10px rgba(0,0,0,0.12);\n}\n.submit_answer_btn[data-v-7ae84b90] {\r\n    margin: 0 8px;\n}\n.right_answer .custom-control.custom-radio label[data-v-7ae84b90] {\r\n    color: #868686;\n}\r\n", ""]);
+exports.push([module.i, "\n.right_answer ul li[data-v-7ae84b90] {\r\n    list-style: none;\r\n    border: solid 1px #ccc;\r\n    color: #868686;\r\n    border-radius: 50px;\r\n    width: 30px;\r\n    height: 30px;\r\n    display: -webkit-box;\r\n    display: flex;\r\n    -webkit-box-align: center;\r\n            align-items: center;\r\n    -webkit-box-pack: center;\r\n            justify-content: center;\r\n    cursor: pointer;\n}\n.right_answer ul[data-v-7ae84b90] {\r\n    display: -webkit-box;\r\n    display: flex;\r\n    -webkit-box-pack: justify;\r\n            justify-content: space-between;\r\n    padding: 0;\r\n    background-color: white;\r\n    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);\r\n    padding: 20px;\r\n    border-radius: 5px;\n}\n.right_active[data-v-7ae84b90] {\r\n    border: solid 1px green;\r\n    background-color: green;\r\n color: white !important;\n}\n.right_answer .custom-control.custom-radio[data-v-7ae84b90] {\r\n    margin-bottom: 30px;\n}\n.right_answer[data-v-7ae84b90] {\r\n    background: white;\r\n    box-shadow: 0 0 10px rgba(0,0,0,0.12);\r\n    padding: 20px 10px;\n}\n.right_answer h4[data-v-7ae84b90] {\r\n    font-weight: 600;\r\n    padding: 0 7px 15px;\r\n    color: #868686;\n}\n.submit_answer_btn button[data-v-7ae84b90] {\r\n    border: none;\r\n    background: #3746c5;\r\n    color: white;\r\n    padding: 8px 20px;\r\n    border-radius: 3px;\r\n    box-shadow: 0 0 10px rgba(0,0,0,0.12);\r\n        font-weight: 500;\n}\n.submit_answer_btn[data-v-7ae84b90] {\r\n    margin: 0 8px;\n}\n.right_answer .custom-control.custom-radio label[data-v-7ae84b90] {\r\n    color: #868686;\n}\n.right_answer_q[data-v-7ae84b90] {\r\n    margin-top: 15px;\n}\n.right_answer_q p[data-v-7ae84b90] {\r\n    color: #969696;\r\n    margin: 0;\n}\r\n", ""]);
 
 // exports
 
@@ -55166,21 +55176,29 @@ var render = function() {
               : _vm._e()
           ])
         ]
-      )
-    ]),
-    _vm._v(" "),
-    _vm.is_submitted
-      ? _c("div", [
-          _vm._v(
-            "\n                            " +
-              _vm._s(_vm.postContent.mcq_answer) +
-              "\n                        "
-          )
-        ])
-      : _vm._e()
+      ),
+      _vm._v(" "),
+      _vm.is_submitted
+        ? _c("div", { staticClass: "right_answer_q" }, [
+            _c("p", [
+              _vm._m(0),
+              _vm._v(" Right Answer is:- " + _vm._s(_vm.postContent.mcq_answer))
+            ])
+          ])
+        : _vm._e()
+    ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", [
+      _c("i", { staticClass: "fa fa-check", attrs: { "aria-hidden": "true" } })
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -55666,7 +55684,7 @@ var render = function() {
                 _vm.postContent.post_type === "mcq"
                   ? _c(
                       "div",
-                      { staticClass: "col-md-8" },
+                      { staticClass: "col-md-12" },
                       [
                         _c("mcq-post-view", {
                           attrs: { "post-content": _vm.postContent }
