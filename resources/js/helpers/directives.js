@@ -30,3 +30,42 @@ Vue.directive('autoresize', {
     el.addEventListener('input', OnInput, false)
   }
 })
+
+Vue.directive('scroll', {
+  bind: (el) => {
+      el.scrollCallback = () => {
+          el.dataset.scrolled = true;
+      }
+  },
+  unbind: (el) => {
+      window.removeEventListener('scroll', el.scrollCallback);
+  },
+  inserted: (el, binding, vnode) => {
+
+      // Store data in element directly
+      el.dataset.scrolled = false;
+  
+      let stickyTop = 300;
+  
+      setTimeout(function(){
+  
+          stickyTop = el.offsetTop;
+  
+          checkPosition();
+  
+          window.addEventListener('scroll', el.scrollCallback);
+  
+      }, 2500);
+  
+      // REST OF YOUR CODE HERE
+  
+      // Remember to update all references to `scrolled` to `el.dataset.scrolled`
+      let timeout = setInterval(function() {
+          if (el.dataset.scrolled) {
+              el.dataset.scrolled = false;
+              checkPosition();
+          }
+      }, 2500);
+  
+  }
+});

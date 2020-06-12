@@ -70,18 +70,18 @@
                                                             :disabled="categoryDisabled"
                                                             class="inner-addon left-addon select_box">
                                                             <option value="">Select Category</option>
-                                                            <option value="1">Technology</option>
-                                                            <option value="2">Management</option>
+                                                            <option value="1">Engineering & Technology</option>
+                                                            <option value="2">Business & Management</option>
                                                             <option value="3">Healthcare</option>
-                                                            <option value="4">Arts</option>
+                                                            <option value="4">Fine Arts</option>
                                                             <option value="5">Science</option>
                                                             <option value="6">Economics</option>
                                                             <option value="7">Education</option>
                                                             <option value="8">Pharmacy</option>
                                                             <option value="9">Journalism</option>
-                                                            <option value="10">Humanity</option>
-                                                            <option value="11">Hospitality</option>
-                                                            <option value="12">Fashion</option>
+                                                            <option value="10">Law & Humanity</option>
+                                                            <option value="11">Travel & Hospitality</option>
+                                                            <option value="12">Design & Fashion</option>
                                                             <option value="13">Computer</option>
                                                         </select></div>
                                                 </div>

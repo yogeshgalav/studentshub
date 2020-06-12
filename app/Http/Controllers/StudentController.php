@@ -90,18 +90,21 @@ class StudentController extends Controller
     }
 
     public function courseList(Request $request){
-        $courses=DB::table('courses as cor')->where('cor.course_name','LIKE','%'.$request->searchTerm.'%')
+        $search=str_replace('.', '', $request->searchTerm);
+        $courses=DB::table('courses as cor')
+        ->where('cor.course_name','LIKE','%'.$search.'%')
+        ->orWhere('cor.alias','LIKE','%'.$search.'%')
         ->leftJoin('batches as bat','cor.id','=','bat.course_id')
         ->select('cor.id','cor.course_name','cor.category_id',DB::raw("COUNT('bat.id') as totalBatch"))
         ->groupBy('cor.id','cor.course_name','cor.category_id')
         ->orderBy('totalBatch','DESC')->limit(10)->get();
 
-        if(count($courses)==0 && empty($request->aliasSearch)){
-            $request->request->add(['aliasSearch'=>true]);
-            $new_terms=str_split(str_replace('.', '', $request->searchTerm));
-            $request->searchTerm=implode('%',$new_terms);
-            return $this->courseList($request);
-        }
+        // if(count($courses)==0 && empty($request->aliasSearch)){
+        //     $request->request->add(['aliasSearch'=>true]);
+        //     $new_terms=str_split(str_replace('.', '', $request->searchTerm));
+        //     $request->searchTerm=implode('%',$new_terms);
+        //     return $this->courseList($request);
+        // }
 
         if(count($courses)==0 && empty($request->recursive)){
             $request->request->add(['recursive'=>true]);
@@ -122,7 +125,9 @@ class StudentController extends Controller
     public function instituteList(Request $request){
         $input=$request->searchTerm;
     try{
-        $institutes=DB::table('institutes as ins')->where('ins.name','LIKE',$input.'%')
+        $institutes=DB::table('institutes as ins')
+        ->where('ins.name','LIKE',$input.'%')
+        ->orWhere('ins.alias','LIKE',$input.'%')
         ->leftJoin('batches as bat','ins.id','=','bat.institute_id')
         ->select('ins.id','ins.name','ins.address','ins.place_id','ins.description',DB::raw("COUNT('bat.id') as totalBatch"))
         ->groupBy('ins.id','ins.name','ins.address','ins.place_id','ins.description')

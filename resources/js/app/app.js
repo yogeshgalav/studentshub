@@ -1,6 +1,6 @@
 import Vue from 'vue';
-import utils from '../helpers/utilities'
-Vue.prototype.$utils = utils
+// import utils from '../helpers/utilities'
+// Vue.prototype.$utils = utils
 
 //Dependencies
 import axios from 'axios'

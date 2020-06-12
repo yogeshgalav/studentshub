@@ -86989,18 +86989,17 @@ module.exports = function(module) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _helpers_utilities__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helpers/utilities */ "./resources/js/helpers/utilities.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var vue_axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-axios */ "./node_modules/vue-axios/dist/vue-axios.min.js");
-/* harmony import */ var vue_axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue_axios__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var vue_js_modal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-js-modal */ "./node_modules/vue-js-modal/dist/index.js");
-/* harmony import */ var vue_js_modal__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vue_js_modal__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-loading-overlay */ "./node_modules/vue-loading-overlay/dist/vue-loading.min.js");
-/* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(vue_loading_overlay__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var vue_loading_overlay_dist_vue_loading_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue-loading-overlay/dist/vue-loading.css */ "./node_modules/vue-loading-overlay/dist/vue-loading.css");
-/* harmony import */ var vue_loading_overlay_dist_vue_loading_css__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(vue_loading_overlay_dist_vue_loading_css__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var vue_lazyload__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue-lazyload */ "./node_modules/vue-lazyload/vue-lazyload.esm.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vue_axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-axios */ "./node_modules/vue-axios/dist/vue-axios.min.js");
+/* harmony import */ var vue_axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vue_js_modal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-js-modal */ "./node_modules/vue-js-modal/dist/index.js");
+/* harmony import */ var vue_js_modal__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue_js_modal__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-loading-overlay */ "./node_modules/vue-loading-overlay/dist/vue-loading.min.js");
+/* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vue_loading_overlay__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var vue_loading_overlay_dist_vue_loading_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-loading-overlay/dist/vue-loading.css */ "./node_modules/vue-loading-overlay/dist/vue-loading.css");
+/* harmony import */ var vue_loading_overlay_dist_vue_loading_css__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(vue_loading_overlay_dist_vue_loading_css__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var vue_lazyload__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue-lazyload */ "./node_modules/vue-lazyload/vue-lazyload.esm.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
@@ -87009,32 +87008,32 @@ function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) ||
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-
-
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$utils = _helpers_utilities__WEBPACK_IMPORTED_MODULE_1__["default"]; //Dependencies
-
-
-
+ // import utils from '../helpers/utilities'
+// Vue.prototype.$utils = utils
+//Dependencies
 
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_lazyload__WEBPACK_IMPORTED_MODULE_7__["default"]); // or with options
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_lazyload__WEBPACK_IMPORTED_MODULE_7__["default"], {
+
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_lazyload__WEBPACK_IMPORTED_MODULE_6__["default"]); // or with options
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_lazyload__WEBPACK_IMPORTED_MODULE_6__["default"], {
   preLoad: 1.3,
   error: 'dist/error.png',
   loading: 'dist/loading.gif',
   attempt: 1
 });
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_js_modal__WEBPACK_IMPORTED_MODULE_4___default.a, {
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_js_modal__WEBPACK_IMPORTED_MODULE_3___default.a, {
   dynamic: true,
   injectModalsContainer: true
 });
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_axios__WEBPACK_IMPORTED_MODULE_3___default.a, axios__WEBPACK_IMPORTED_MODULE_2___default.a);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_axios__WEBPACK_IMPORTED_MODULE_2___default.a, axios__WEBPACK_IMPORTED_MODULE_1___default.a);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
   components: {
-    Loading: vue_loading_overlay__WEBPACK_IMPORTED_MODULE_5___default.a
+    Loading: vue_loading_overlay__WEBPACK_IMPORTED_MODULE_4___default.a
   },
   methods: {
     '$trans': function $trans(file, string, defaultString) {
@@ -87627,119 +87626,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_sweetalert2__WEBPACK_IMPORTED
       title: title,
       type: 'error'
     });
-  }
-});
-
-/***/ }),
-
-/***/ "./resources/js/helpers/utilities.js":
-/*!*******************************************!*\
-  !*** ./resources/js/helpers/utilities.js ***!
-  \*******************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ({
-  toggleSidebar: function toggleSidebar() {
-    var icon = document.getElementsByClassName('hamburger')[0];
-    document.body.classList.toggle('sidebar-open');
-    icon.classList.toggle('is-active');
-  },
-  addClass: function addClass(el, className) {
-    if (el.classList) el.classList.add(className);else el.className += ' ' + className;
-  },
-  hasClass: function hasClass(el, className) {
-    var hasClass = el.classList ? el.classList.contains(className) : new RegExp('(^| )' + className + '( |$)', 'gi').test(el.className);
-    return hasClass;
-  },
-  reset: function reset(prefix) {
-    var regx = new RegExp('\\b' + prefix + '(.*)?\\b', 'g');
-    document.body.className = document.body.className.replace(regx, '');
-  },
-  setLayout: function setLayout(layoutName) {
-    this.reset('layout-');
-    document.body.classList.add('layout-' + layoutName);
-  },
-  setSkin: function setSkin(skinName) {
-    this.reset('skin-');
-    document.body.classList.add('skin-' + skinName);
-  },
-  setLogo: function setLogo(logoSrc) {
-    document.getElementById('logo-desk').src = logoSrc;
-  },
-  formatMoney: function formatMoney(amount) {
-    var currency = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-
-    if (!currency) {
-      currency = {
-        precision: 2,
-        thousand_separator: ',',
-        decimal_separator: '.',
-        symbol: '$'
-      };
-    }
-
-    amount = amount / 100;
-    var _currency = currency,
-        precision = _currency.precision,
-        decimal_separator = _currency.decimal_separator,
-        thousand_separator = _currency.thousand_separator,
-        symbol = _currency.symbol;
-
-    try {
-      precision = Math.abs(precision);
-      precision = isNaN(precision) ? 2 : precision;
-      var negativeSign = amount < 0 ? '-' : '';
-      var i = parseInt(amount = Math.abs(Number(amount) || 0).toFixed(precision)).toString();
-      var j = i.length > 3 ? i.length % 3 : 0;
-      var moneySymbol = "<span style=\"font-family: sans-serif\">".concat(symbol, "</span>");
-      return moneySymbol + ' ' + negativeSign + (j ? i.substr(0, j) + thousand_separator : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, '$1' + thousand_separator) + (precision ? decimal_separator + Math.abs(amount - i).toFixed(precision).slice(2) : '');
-    } catch (e) {
-      console.log(e);
-    }
-  },
-  formatGraphMoney: function formatGraphMoney(amount) {
-    var currency = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-
-    if (!currency) {
-      currency = {
-        precision: 2,
-        thousand_separator: ',',
-        decimal_separator: '.',
-        symbol: '$'
-      };
-    }
-
-    amount = amount / 100;
-    var _currency2 = currency,
-        precision = _currency2.precision,
-        decimal_separator = _currency2.decimal_separator,
-        thousand_separator = _currency2.thousand_separator,
-        symbol = _currency2.symbol;
-
-    try {
-      precision = Math.abs(precision);
-      precision = isNaN(precision) ? 2 : precision;
-      var negativeSign = amount < 0 ? '-' : '';
-      var i = parseInt(amount = Math.abs(Number(amount) || 0).toFixed(precision)).toString();
-      var j = i.length > 3 ? i.length % 3 : 0;
-      var moneySymbol = "".concat(symbol);
-      return moneySymbol + ' ' + negativeSign + (j ? i.substr(0, j) + thousand_separator : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, '$1' + thousand_separator) + (precision ? decimal_separator + Math.abs(amount - i).toFixed(precision).slice(2) : '');
-    } catch (e) {
-      console.log(e);
-    }
-  },
-  checkValidUrl: function checkValidUrl(url) {
-    var pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
-    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
-    '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
-    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
-    '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
-    '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
-
-    return !!pattern.test(url);
   }
 });
 

@@ -101,7 +101,7 @@ import FormMixin from "../../components/mixins/form-mixin.js";
     import CreatePostContent from './create-post/create-post-content'
     import SelectSubject from './create-post/select-subject'
     import SelectHeading from './create-post/select-heading'
-
+    import swal from '../../components/swal';
     import EventBus from './event-bus';
 
     export default {
@@ -144,6 +144,7 @@ import FormMixin from "../../components/mixins/form-mixin.js";
                 this.$store.dispatch('submitPost', this.newPost)
                 .then((resp)=>{
                     this.showLoader=false;
+                    swal.successDialog('Post Created', 'Successfully!', 'success')
                     window.location.href ='/';
                 }).catch((err)=>{this.showLoader=false;});
             }
