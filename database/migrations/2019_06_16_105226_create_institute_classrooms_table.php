@@ -14,7 +14,7 @@ class CreateInstituteClassroomsTable extends Migration
     public function up()
     {
         Schema::create('institute_classrooms', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->integer('institute_id');
             $table->integer('branch_id');
             $table->integer('subject_id');

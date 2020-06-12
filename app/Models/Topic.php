@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Classroom extends Model
+class Topic extends Model
 {
     protected  $guarded = ['id', 'created_at', 'updated_at'];
 

@@ -14,7 +14,7 @@ class CreatePostViewsTable extends Migration
     public function up()
     {
         Schema::create('post_views', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('post_id')->unsigned();
             $table->timestamps();

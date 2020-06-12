@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePostReportsTable extends Migration
+class CreateUnitsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,13 @@ class CreatePostReportsTable extends Migration
      */
     public function up()
     {
-        Schema::create('post_reports', function (Blueprint $table) {
+        Schema::create('units', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('post_id')->unsigned();
-            $table->integer('user_id')->unsigned();
+            $table->integer('classroom_id')->unsigned();
+            $table->integer('unit_no');
+            $table->string('unit_name');
+            $table->dateTime('activated_at')->nullable();
+            $table->dateTime('deactivated_at')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +31,6 @@ class CreatePostReportsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('post_reports');
+        Schema::dropIfExists('units');
     }
 }

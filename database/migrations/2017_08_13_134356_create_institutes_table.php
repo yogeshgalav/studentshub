@@ -14,7 +14,7 @@ class CreateInstitutesTable extends Migration
     public function up()
     {
         Schema::create('institutes', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('type')->nullable();
             $table->string('name');
             $table->string('address')->nullable();

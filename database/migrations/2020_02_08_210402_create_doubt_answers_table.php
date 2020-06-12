@@ -14,7 +14,7 @@ class CreateDoubtAnswersTable extends Migration
     public function up()
     {
         Schema::create('doubt_answers', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('doubt_id')->unsigned();
             $table->integer('post_id')->unsigned()->nullable();

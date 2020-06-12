@@ -14,7 +14,7 @@ class CreateCourseSubjectsTable extends Migration
     public function up()
     {
         Schema::create('course_subjects', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->integer('course_id')->unsigned();
             $table->integer('subject_id')->unsigned();
             $table->boolean('is_verfied')->default(false);

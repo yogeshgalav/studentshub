@@ -14,7 +14,7 @@ class CreateMcqsTable extends Migration
     public function up()
     {
         Schema::create('mcqs', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('optionA');
             $table->string('optionB');
             $table->string('optionC');

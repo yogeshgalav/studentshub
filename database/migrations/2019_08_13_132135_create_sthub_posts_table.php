@@ -14,7 +14,7 @@ class CreateSthubPostsTable extends Migration
     public function up()
     {
         Schema::create('sthub_posts', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->integer('post_id')->unsigned();
             $table->integer('shared_by')->unsigned();
             $table->integer('category_id')->unsigned()->nullable();

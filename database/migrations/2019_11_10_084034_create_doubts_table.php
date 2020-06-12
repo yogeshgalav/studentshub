@@ -14,7 +14,7 @@ class CreateDoubtsTable extends Migration
     public function up()
     {
         Schema::create('doubts', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('question');
             $table->integer('user_id')->unsigned();
             $table->integer('batch_id')->unsigned();

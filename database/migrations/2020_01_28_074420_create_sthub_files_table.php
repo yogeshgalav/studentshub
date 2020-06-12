@@ -14,7 +14,7 @@ class CreateSthubFilesTable extends Migration
     public function up()
     {
         Schema::create('sthub_files', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('fileable_id');
             $table->string('fileable_type');

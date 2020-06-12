@@ -14,12 +14,18 @@ class CreateClassroomsTable extends Migration
     public function up()
     {
         Schema::create('classrooms', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->integer('teacher_id');
-            $table->integer('short_link');
-            $table->string('classroom_type')->comment('institute,private');
+            $table->increments('id');
+            $table->integer('teacher_id')->unsigned();
+            $table->integer('subject_id')->unsigned();
+            $table->integer('course_id')->unsigned();
+            $table->integer('expected_students')->nullable();
+            $table->integer('classroom_duration')->nullable();
+            $table->integer('activated_unit')->nullable();
+            $table->string('classroom_join_id');
+            $table->enum('classroom_type',['private','institute','university']);
+            $table->dateTime('start_time')->nullable();
+            $table->dateTime('end_time')->nullable();
             $table->string('thumbnail_url')->nullable();
-            $table->string('locale_code',5)->nullable();
             $table->timestamps();
         });
     }
