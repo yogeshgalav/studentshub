@@ -7,7 +7,7 @@
 @yield('compiledJs')
 @include('includes.fonts')
 <script src="/js/lang.js"></script>
-<link rel="shortcut icon" type="image/x-icon" href="{{asset('favicon.ico')}}" />
+<link rel="shortcut icon" type="image/x-icon" href="{{asset('favicon1.ico')}}" />
 
     </head>
 <body>
