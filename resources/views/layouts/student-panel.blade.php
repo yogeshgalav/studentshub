@@ -11,7 +11,7 @@
 
     </head>
 <body>
-    <div id="classroomApp">
+    <div id="studentPanelApp">
         <main class="flex-center position-ref full-height">
             <div class="wrapper">
     <div class="main-header">

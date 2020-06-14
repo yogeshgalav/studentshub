@@ -6,9 +6,9 @@ Route::group(['middleware'=>['auth']],function(){
     Route::get('/create-post','PagesController@createPost');
     Route::get('/edit-post','PagesController@editPost');
             
-    Route::get('/classrooms', 'PagesController@classroomList');
-    
-    Route::get('/classroom/{classroom_id}','PagesController@classroom');
     Route::get('/doubts','PagesController@askQuestion');
     Route::get('/doubt/{id}','DoubtAnswersController@getDoubtAnswersPage');
+    
+    Route::get('/classrooms', 'ClassroomController@classroomListPage');
+    Route::get('/classroom/{classroomId}','PagesController@classroomPage');
 });
