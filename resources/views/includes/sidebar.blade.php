@@ -82,6 +82,11 @@
         <div class="overflow-container">
 
             <ul class="menu-dropdown">
+                <li><a href="/classrooms">Classrooms</a><span class="icon">
+                <i class="fa fa-line-chart"
+                            aria-hidden="true">
+                        </span></li>
+
                 <li><a href="/">Home</a><span class="icon"><i class="fa fa-home"></i></span></li>
 
                 <li><a href="/profile/{{Auth::id()}}">Profile</a><span class="icon"><i class="fa fa-user"

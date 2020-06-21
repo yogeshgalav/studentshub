@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class StudentsTableSeeder extends Seeder
+class ClassroomTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,13 +14,17 @@ class StudentsTableSeeder extends Seeder
     {
         //
         $time=\Carbon\Carbon::now()->toDateTimeString();
+        DB::table('teachers')->insert([
+            'user_id'=>1
+        ]);
+
         DB::table('classrooms')->insert([
+            'name'=>'PPLBYAK',
             'teacher_id'=>1,
             'subject_id'=>1,
             'course_id'=>1,
             'expected_students'=>60,
             'activated_unit'=>null,
-            'classroom_type'=>'private',
             'classroom_duration'=>6,
             'start_time'=>$time,
             'end_time'=>$time

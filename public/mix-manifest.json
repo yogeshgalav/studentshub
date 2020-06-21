@@ -7,10 +7,14 @@
     "/css/profileApp.css": "/css/profileApp.css",
     "/css/createPostApp.css": "/css/createPostApp.css",
     "/css/studentRegisterApp.css": "/css/studentRegisterApp.css",
+    "/css/studentPanelApp.css": "/css/studentPanelApp.css",
+    "/css/classroomApp.css": "/css/classroomApp.css",
+    "/js/classroomApp.js": "/js/classroomApp.js",
     "/js/createPostApp.js": "/js/createPostApp.js",
     "/js/exploreApp.js": "/js/exploreApp.js",
     "/js/profileApp.js": "/js/profileApp.js",
     "/js/seekerApp.js": "/js/seekerApp.js",
     "/js/studentApp.js": "/js/studentApp.js",
+    "/js/studentPanelApp.js": "/js/studentPanelApp.js",
     "/js/studentRegisterApp.js": "/js/studentRegisterApp.js"
 }

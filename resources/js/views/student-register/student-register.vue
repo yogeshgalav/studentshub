@@ -24,7 +24,7 @@
                                             <div class="inner-addon left-addon">
                                                 <div class="input_icon_frm">
                                                     <span class="icon_design_input" style="height: 43px;"><i
-                                                            class="fa fa-user" aria-hidden="true"></i></span>
+                                                            class="fa fa-university" aria-hidden="true"></i></span>
                                                     <auto-complete :items="institute_list" :value="'name'"  name="institute_name" v-validate="'required'"
                                                         :is-async="true" @input="getInstitutes"
                                                         @selected="setInstitute" :is-loading="instituteLoading" />

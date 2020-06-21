@@ -1,4 +1,4 @@
-import ClassroomListComponent from '../../views/classroom/classroom-listvue'
+import ClassroomListComponent from '../../views/classroom/classroom-list.vue'
 import ClassroomMyPanelComponent from '../../views/classroom/classroom-my-panel.vue'
 const StudentPanelRoutes = [
       {
