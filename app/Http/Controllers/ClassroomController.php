@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Classroom;
+use DB;
+use Auth;
 
 class ClassroomController extends Controller
 {
