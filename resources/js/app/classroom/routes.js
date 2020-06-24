@@ -9,15 +9,15 @@ const ClassroomRoutes = [
         component: ClassroomListComponent,
       },
       {
-        path: '/classroom/{classroomId}',
+        path: '/classroom/:classroomId',
         component: ClassroomComponent,
       },
       {
-        path: '/classroom/{classroomId}/student-panel/{userId}',
+        path: '/classroom/:classroomId/student-panel/:userId',
         component: ClassroomStudentPanelComponent,
       },
       {
-        path: '/classroom/{classroomId}/topic/{topicId}',
+        path: '/classroom/:classroomId/topic/:topicId',
         component: ClassroomTopicComponent,
       },
 ];

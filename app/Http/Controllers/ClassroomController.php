@@ -11,6 +11,8 @@ class ClassroomController extends Controller
 {
     //
     public function classroomListPage(){
+        // $classroom_list=ClassroomUser::where('user_id',Auth::id())->where('joined_at','!=',null)->get();
+        // $my_classroom=Auth::user()->teacher()->classrooms()->get();
         return view('classroom.classroom-list');
     }
 
@@ -22,13 +24,15 @@ class ClassroomController extends Controller
         ->join('subjects as su','su.id','=','cs.subject_id')
         ->join('teachers as th','th.id','=','cs.teacher_id')
         ->join('users as us','us.id','=','th.user_id')
-        ->select('co.course_name','su.subject_name','us.id as user_id','us.full_name as teacher_name')
+        ->select('cs.name','co.course_name','su.subject_name','us.id as user_id','us.full_name as teacher_name')
         ->first();
 
         if($classroomDetail->user_id===Auth::id()){
             return view('classroom.classroom')->with('classroomDetail',$classroomDetail);    
         }
-        return view('classroom.my-panel')->with('classroomDetail',$classroomDetail);
+        // $is_classroom_student=ClassroomUser::where('user_id',Auth::id())
+        // ->where('classroom_id',$classroom->id)->where('joined_at','!=',null)->exists();
+        return view('student-panel.my-panel')->with('classroomDetail',$classroomDetail);
     }
     
     public function studentPanelPage(){

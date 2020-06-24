@@ -10,10 +10,10 @@
                   {{ classroomDetail.name }}
                 </h2>
                 <p class="font-size-18 text-black mb-1">
-                  <span> {{ classroomDetail.subject_name }}  </span>
+                  <span> {{ 'Subject' }}: {{ classroomDetail.subject_name }}  </span>
                 </p>
                 <h3 class="text-blue font-size-24 weight-800">
-                  {{ 'By ' }}: {{ classroomDetail.teacher_name }}
+                  {{ 'By' }}: {{ classroomDetail.teacher_name }}
                 </h3>
               </div>
             </div>
@@ -25,13 +25,13 @@
                   :initial-tab="initialTab"
                 >
                   <template slot="tab-heading-Setup">
-                    {{ 'Setup' }}
+                    {{ 'Current Unit' }}
                   </template>
                   <template slot="tab-panel-Setup">
                     
                   </template>
                   <template slot="tab-heading-Students">
-                    {{ 'Students' }}
+                    {{ 'Previous Units' }}
                   </template>
                   <template slot="tab-panel-Students">
                     
@@ -53,12 +53,6 @@ export default {
     components:{
       NavTabs,Accordion
     },
-    props:['classroomDetail'],
-    data(){
-      return {
-        tabs:['Setup','Students'],
-        initialTab:'Setup'
-      };
-    }
+    props:['classroomDetail']
 }
 </script>

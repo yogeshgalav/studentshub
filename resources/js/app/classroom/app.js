@@ -10,17 +10,8 @@ require('../../bootstrap');
 // window.Vue = require('vue').default;
 import Vue from '../app';
 
-//Dependencies
-import ClassroomRoutes from './routes';
-import VueRouter from 'vue-router';
-
-Vue.use(VueRouter);
-//Vue Router Initialisation
-const router = new VueRouter({
-    routes:ClassroomRoutes,
-    mode:'history'
-});
-
+Vue.component('ClassroomComponent', require('../../views/classroom/classroom.vue').default);
+Vue.component('ClassroomListComponent', require('../../views/classroom/classroom-list.vue').default);
 
 import ClassroomStore from '../../store/classroom';
 import Vuex from 'vuex';
@@ -35,5 +26,4 @@ const store = new Vuex.Store({
 const app = new Vue({
     el: '#classroomApp',
     store,
-    router,
 });

@@ -9,17 +9,7 @@ require('../../bootstrap');
 
 // window.Vue = require('vue').default;
 import Vue from '../app';
-
-//Dependencies
-import StudentPanelRoutes from './routes';
-import VueRouter from 'vue-router';
-
-Vue.use(VueRouter);
-//Vue Router Initialisation
-const router = new VueRouter({
-    routes:StudentPanelRoutes,
-    mode:'history'
-});
+Vue.component('MyPanelComponent', require('../../views/student-panel/my-panel.vue').default);
 
 
 import StudentPanelStore from '../../store/student-panel';
@@ -34,6 +24,5 @@ const store = new Vuex.Store({
 //Vue App Initialisation
 const app = new Vue({
     el: '#studentPanelApp',
-    store,
-    router,
+    store
 });

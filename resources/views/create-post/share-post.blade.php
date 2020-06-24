@@ -1,4 +1,4 @@
 @extends('create-post.app')
 @section('content')
-<router-view></router-view>
+<share-post></share-post>
 @endsection

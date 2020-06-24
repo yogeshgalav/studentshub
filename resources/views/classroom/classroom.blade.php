@@ -1,4 +1,4 @@
 @extends('classroom.app')
 @section('content')
-<router-view></router-view>
+<classroom-component :classroom-detail="{{json_encode($classroomDetail)}}"></classroom-component>
 @endsection

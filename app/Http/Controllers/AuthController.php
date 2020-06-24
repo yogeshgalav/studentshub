@@ -43,15 +43,19 @@ class AuthController extends Controller
                 // Passport::refreshTokensExpireIn(now()->addHour());
             }
 
-            $content=$this->getPassportTokens($request);
-            if(empty($content->access_token) || empty($content->refresh_token)){
-                throw new \Illuminate\Auth\AuthenticationException;
-            }
-
             $user=User::where('email',$request->email)->first();
             $user->last_login_at=\Carbon\Carbon::now()->toDateTimeString();
             $user->save();
             
+            $content=$this->getPassportTokens($request);
+            if(empty($content->access_token) || empty($content->refresh_token)){
+                $success['access_token'] = $user->createToken('sthub')->accessToken;;
+                $success['refresh_token'] = '';
+            }else{
+                $success['access_token'] = $content->access_token;
+                $success['refresh_token'] = $content->refresh_token;
+            }
+
             Auth::login($user, $request->remember);
             //log info
             Log::info($user->full_name." (User ID # ".$user->id.") logged in from IP Address ".$request->ip());
@@ -59,8 +63,6 @@ class AuthController extends Controller
             $success['redirectUrl'] = '/';
             $success['student'] = Auth::student();
             $success['full_name'] = $user->full_name;
-            $success['access_token'] = $content->access_token;
-            $success['refresh_token'] = $content->refresh_token;
             
         }catch(\Exception $e){
             Log::warning("An invalid attempt to login was made for user ".$request->email." from IP Address ".$request->ip());
@@ -94,16 +96,17 @@ class AuthController extends Controller
 
         $content=$this->getPassportTokens($request);
         if(empty($content->access_token) || empty($content->refresh_token)){
-            throw new \Illuminate\Auth\AuthenticationException;
+            $success['access_token'] = $user->createToken('sthub')->accessToken;;
+            $success['refresh_token'] = '';
+        }else{
+            $success['access_token'] = $content->access_token;
+            $success['refresh_token'] = $content->refresh_token;
         }
 
         Auth::login($user);
         //log info
         Log::info('new User '.$user->full_name." (User ID # ".$user->id.") registered and logged in from IP Address ".$request->ip());
-
-        $success['access_token'] = $content->access_token;
-        $success['refresh_token'] = $content->refresh_token;
-                
+       
         $success['redirectUrl'] = '/education-details';
         \Notification::send($user, new \App\Notifications\NewUserWelcomeNotification());
     

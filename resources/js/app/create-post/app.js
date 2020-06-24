@@ -12,17 +12,9 @@ import Vue from '../app';
 
 //Dependencies
 import CreatePostStore from '../../store/create-post';
-import CreatePostRoutes from './routes';
 import Vuex from 'vuex';
-import VueRouter from 'vue-router';
 Vue.use(Vuex);
-
-Vue.use(VueRouter);
-//Vue Router Initialisation
-const router = new VueRouter({
-    routes:CreatePostRoutes,
-    mode:'history'
-});
+Vue.component('SharePost', require('../../views/create-post/share-post.vue').default);
 
 //Vue Router Initialisation
 const store = new Vuex.Store(CreatePostStore);
@@ -31,5 +23,4 @@ const store = new Vuex.Store(CreatePostStore);
 const app = new Vue({
     el: '#studentApp',
     store,
-    router,
 });
