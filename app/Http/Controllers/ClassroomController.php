@@ -26,7 +26,7 @@ class ClassroomController extends Controller
         ->join('users as us','us.id','=','th.user_id')
         ->select('cs.name','co.course_name','su.subject_name','us.id as user_id','us.full_name as teacher_name')
         ->first();
-
+       
         if($classroomDetail->user_id===Auth::id()){
             return view('classroom.classroom')->with('classroomDetail',$classroomDetail);    
         }
