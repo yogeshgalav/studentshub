@@ -72,6 +72,59 @@
 </form>
                        </div>
                      </div>
+
+                     <!-- Unit Accordian UI-->
+                      <div class="card mt-5">
+                       <div class="card-body">
+                         <div class="row">
+                           <div class="col-md-12">
+                             <accordion
+          title="Unit 0: introduction"
+          :aria-expanded="true"
+          tab="accordion_status_unit_active"
+        >
+        <div class="row">
+          <div class="col-md-6">
+            <div class="col-md-12">
+            <div class="form-group  row">
+   <label  class="col-sm-2 col-form-label text-black font-size-14">Topic Title </label>
+    <div class="col-sm-9">
+      <input type="text" class="form-control" id="topic_title" >
+    </div>
+  </div>
+        <div class="form-group  row">
+   <label  class="col-sm-2 col-form-label text-black font-size-14">Answer Type </label>
+    <div class="col-sm-9">
+    <select class="form-control">
+      <option>Text</option>
+       <option>Multiple </option>
+        <option>Scale </option>
+    </select>
+    </div>
+  </div>
+  <div class="form-group row">
+    <button class="btn btn-primary-accent">ADD Topic </button>
+  </div>
+  </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 mb-2 mt-2">
+              <div class="divider">
+            </div>
+            </div>
+            <div class="col-md-12">
+             <button class="btn btn-primary-accent">Delete Unit </button>
+             <button class="btn btn-success">Activate Unit   </button>
+              </div>
+            </div>
+        </accordion>
+                             </div>
+                           </div>
+                         </div>
+                          </div>
+                           <!-- End Unit Accordian UI-->
+                           <button class="btn btn-primary">Add Unit </button>
                         </div>
                     </div>
                   </template>
