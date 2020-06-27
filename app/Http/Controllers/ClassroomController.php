@@ -11,13 +11,36 @@ class ClassroomController extends Controller
 {
     //
     public function classroomListPage(){
-        // $classroom_list=ClassroomUser::where('user_id',Auth::id())->where('joined_at','!=',null)->get();
-        // $my_classroom=Auth::user()->teacher()->classrooms()->get();
-        return view('classroom.classroom-list');
+        $classroom_query = DB::table('classrooms as cs')
+        ->join('courses as co','co.id','=','cs.course_id')
+        ->join('subjects as su','su.id','=','cs.subject_id')
+        ->join('teachers as th','th.id','=','cs.teacher_id')
+        ->join('users as us','us.id','=','th.user_id')
+        ->select('cs.name','co.course_name','su.subject_name','su.alias as subject_alias','us.id as user_id','us.full_name as teacher_name');
+        
+        $classroom_query2=clone $classroom_query;
+        
+        $classroom_list=$classroom_query->rightJoin('classroom_users as cu',function($join){
+            $join->on('cu.classroom_id','=','cs.id')->where('cu.user_id',Auth::id())->where('joined_at','!=',null);
+        })
+        ->get();
+
+        $teacher=Auth::user()->teacher;
+        if($teacher){
+            $my_classrooms=$classroom_query2->where('teacher_id','=',$teacher->id)->get();
+        }else{
+            $my_classrooms=[];
+        }
+        
+        return view('classroom.classroom-list')
+        ->with([
+            'classroomList'=>$classroom_list,
+            'myClassrooms'=>$my_classrooms,
+        ]);
     }
 
-    public function classroomPage($classroomId){
-        $classroom=Classroom::findOrFail($classroomId);
+    public function classroomPage($classroomName){
+        $classroom=Classroom::where('name','=',$classroomName)->firstOrFail();
         $classroomDetail=DB::table('classrooms as cs')
         ->where('cs.id',$classroom->id)
         ->join('courses as co','co.id','=','cs.course_id')
