@@ -36,6 +36,7 @@ class ClassroomController extends Controller
         ->with([
             'classroomList'=>$classroom_list,
             'myClassrooms'=>$my_classrooms,
+            'teacher'=>$teacher ? true :false,
         ]);
     }
 
