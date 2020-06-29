@@ -17,7 +17,7 @@ class CreateClassroomUsersTable extends Migration
             $table->increments('id');
             $table->integer('classroom_id')->unsigned();
             $table->integer('user_id')->unsigned();
-            $table->datTime('joined_at')->nullable();
+            $table->dateTime('joined_at')->nullable();
             $table->timestamps();
         });
     }

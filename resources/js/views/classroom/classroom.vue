@@ -1,5 +1,5 @@
 <template>
-  <div class="pt-100">
+  <div>
     <div class="container">
       <div class="row">
         <div class=" col-md-12">
@@ -10,9 +10,9 @@
                   {{ classroomDetail.name }}
                 </h3>
                 <p class="font-size-14 text-black mb-1">
-                  <span> {{ classroomDetail.subject_name }}  </span>
+                  <span style="color: #868686;"> {{ classroomDetail.subject_name }}  </span>
                 </p>
-                <h3 class="text-blue font-size-18">
+                <h3 class="font-size-18">
                   {{ 'By ' }}: {{ classroomDetail.teacher_name }}
                 </h3>
               </div>
@@ -75,7 +75,7 @@
 
                      <!-- Unit Accordian UI-->
                       <div class="card mt-5">
-                       <div class="card-body">
+                       <div class="card-bdody">
                          <div class="row">
                            <div class="col-md-12">
                              <accordion
@@ -87,23 +87,36 @@
           <div class="col-md-6">
             <div class="col-md-12">
             <div class="form-group  row">
-   <label  class="col-sm-2 col-form-label text-black font-size-14">Topic Title </label>
-    <div class="col-sm-9">
+              <div class="col-md-12">
+   <label  class="col-form-label text-black font-size-14">Topic Title </label>
+   <div class="inner-addon left-addon">
+    <div class="input_icon_frm">
+     <span class="icon_design_input"><i class="fa fa-user"></i></span>
+    <div class="cl_input">
       <input type="text" class="form-control" id="topic_title" >
+    </div>
+    </div>
+    </div>
     </div>
   </div>
         <div class="form-group  row">
-   <label  class="col-sm-2 col-form-label text-black font-size-14">Answer Type </label>
-    <div class="col-sm-9">
+          <div class="col-md-12">
+   <label  class="col-form-label text-black font-size-14">Answer Type </label>
+   <div class="inner-addon left-addon">
+   <div class="input_icon_frm">
+    <span class="icon_design_input"><i class="fa fa-user"></i></span>
+
     <select class="form-control">
       <option>Text</option>
        <option>Multiple </option>
         <option>Scale </option>
     </select>
+  </div>
+    </div>
     </div>
   </div>
-  <div class="form-group row">
-    <button class="btn btn-primary-accent">ADD Topic </button>
+  <div class="form-group cl_add_topic ">
+    <button class="login_btn">ADD Topic </button>
   </div>
   </div>
             </div>
@@ -114,8 +127,11 @@
             </div>
             </div>
             <div class="col-md-12">
-             <button class="btn btn-primary-accent">Delete Unit </button>
-             <button class="btn btn-success">Activate Unit   </button>
+              <div class="cls_btn">
+             <button class="login_btn">Delete Unit </button>
+             <button class="login_btn">Activate Unit   </button>
+             <button class="login_btn">Add Unit </button>
+             </div>
               </div>
             </div>
         </accordion>
@@ -124,7 +140,9 @@
                          </div>
                           </div>
                            <!-- End Unit Accordian UI-->
-                           <button class="btn btn-primary">Add Unit </button>
+                           <div class="col-md-3">
+                           
+                           </div>
                         </div>
                     </div>
                   </template>
@@ -145,7 +163,28 @@
   </div>
 </template>
 <style scoped>
+.cls_btn {
+    display: flex;
+}
+.cls_btn .login_btn {
+    width: inherit;
+    margin: 0px 10px;
+}
 
+.form-group.cl_add_topic .login_btn {
+    margin: 0;
+    width: auto;
+}
+.cl_input input {
+    border-radius: 0;
+}
+
+.cl_input {
+    width: 100%;
+}
+select.form-control {
+    border-radius: 0;
+}
 </style>
 <script>
 import NavTabs from '../../components/NavTabs.vue';
