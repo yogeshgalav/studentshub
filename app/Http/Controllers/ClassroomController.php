@@ -59,8 +59,12 @@ class ClassroomController extends Controller
         return view('student-panel.my-panel')->with('classroomDetail',$classroomDetail);
     }
     
+    public function unitAttemptPage(){
+        return view('student-panel.unit-attempt');
+    }
+
     public function studentPanelPage(){
-        return view('classroom.student-panel');
+        return view('student-panel.my-panel');
     }
 
     public function topicAnswersPage(){

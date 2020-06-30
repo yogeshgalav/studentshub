@@ -10,6 +10,7 @@ require('../../bootstrap');
 // window.Vue = require('vue').default;
 import Vue from '../app';
 Vue.component('MyPanelComponent', require('../../views/student-panel/my-panel.vue').default);
+Vue.component('UnitAttemptComponent', require('../../views/student-panel/UnitAttemptWizard.vue').default);
 
 
 import StudentPanelStore from '../../store/student-panel';

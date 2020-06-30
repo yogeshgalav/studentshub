@@ -11,4 +11,5 @@ Route::group(['middleware'=>['auth']],function(){
     
     Route::get('/classrooms', 'ClassroomController@classroomListPage');
     Route::get('/classroom/{classroomId}','ClassroomController@classroomPage');
+    Route::get('/classroom/{classroomId}/unit-attempt','ClassroomController@unitAttemptPage');
 });
