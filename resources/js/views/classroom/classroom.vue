@@ -93,63 +93,51 @@
                                                     <div class="card-bdody">
                                                         <div class="row">
                                                             <div class="col-md-12">
-                                                                <accordion title="Unit 0: introduction"
+                                                                <accordion title="Reflection Question"
                                                                     :aria-expanded="true"
                                                                     tab="accordion_status_unit_active">
-                                                                    <div class="row">
-                                                                        <div class="col-md-6">
-                                                                            <div class="col-md-12">
-                                                                                <div class="form-group  row">
-                                                                                    <div class="col-md-12">
-                                                                                        <label
-                                                                                            class="col-form-label text-black font-size-14">Topic
-                                                                                            Title </label>
-                                                                                        <div
-                                                                                            class="inner-addon left-addon">
-                                                                                            <div class="input_icon_frm">
-                                                                                                <span
-                                                                                                    class="icon_design_input"><i
-                                                                                                        class="fa fa-user"></i></span>
-                                                                                                <div class="cl_input">
-                                                                                                    <input type="text"
-                                                                                                        class="form-control"
-                                                                                                        id="topic_title">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="form-group  row">
-                                                                                    <div class="col-md-12">
-                                                                                        <label
-                                                                                            class="col-form-label text-black font-size-14">Answer
-                                                                                            Type </label>
-                                                                                        <div
-                                                                                            class="inner-addon left-addon">
-                                                                                            <div class="input_icon_frm">
-                                                                                                <span
-                                                                                                    class="icon_design_input"><i
-                                                                                                        class="fa fa-user"></i></span>
+                                                                    <div class="row add_cl_q">
+                                                                      <div class="col-md-12">
+                                                                      <div class="ac_text">
+                                                                        <p>Participants will be asked to answer the following questions once their commitment has ended </p>
+                                                                        </div>
+                                                                      </div>
+                                                                      <div class="col-md-12">
 
-                                                                                                <select
-                                                                                                    class="form-control">
-                                                                                                    <option>Text
-                                                                                                    </option>
-                                                                                                    <option>Multiple
-                                                                                                    </option>
-                                                                                                    <option>Scale
-                                                                                                    </option>
-                                                                                                </select>
-                                                                                            </div>
-                                                                                        </div>
+                                                                      <h4>Question</h4>
+                                                                      </div>
+                                                                      <div class="cl_q_type_text">
+                                                                        <div class="cl_q_text_box">
+                                                                        
+                                                                            <label class="col-form-label text-black font-size-14">Question 1</label>
+                                                                            <div class="inner-addon left-addon">
+                                                                         <div class="cl_input">
+                                                                                        <input type="text"
+                                                                                            class="form-control"
+                                                                                            id="topic_title">
                                                                                     </div>
-                                                                                </div>
-                                                                                <div class="form-group cl_add_topic ">
-                                                                                    <button class="login_btn">ADD Topic
-                                                                                    </button>
-                                                                                </div>
+                                                                              
+                                                                            </div>
+                                                                        
+                                                                          </div>
+                                                                          <div class="cl_q_type_box">
+                                                                            <label class="col-form-label text-black font-size-14">Question Type</label>
+                                                                            <div class="cl_q_type">
+                                                                                <select>
+                                                                                        <option>Text
+                                                                                        </option>
+                                                                                        <option>Multiple
+                                                                                        </option>
+                                                                                        <option>Scale
+                                                                                        </option>
+                                                                                    </select>
+                                                                        
                                                                             </div>
                                                                         </div>
+                                                                        <div class="cl_q_close">
+                                                                          <p><i class="fa fa-times" aria-hidden="true"></i></p>
+                                                                          </div>
+                                                                     </div>
                                                                     </div>
                                                                     <div class="row">
                                                                         <div class="col-md-12 mb-2 mt-2">
@@ -158,9 +146,7 @@
                                                                         </div>
                                                                         <div class="col-md-12">
                                                                             <div class="cls_btn">
-                                                                                <button class="login_btn">Delete Unit
-                                                                                </button>
-                                                                                <button class="login_btn">Activate Unit
+                                                                                <button class="login_btn"><span <i class="fa fa-plus" aria-hidden="true"></i> </span> Add Question
                                                                                 </button>
                                                                             </div>
                                                                         </div>
@@ -171,6 +157,91 @@
                                                     </div>
                                                 </div>
                                                 <!-- End Unit Accordian UI-->
+
+      
+                                                <!-- Unit Accordian UI-->
+                                                <div class="card mt-5">
+                                                  <div class="card-bdody">
+                                                      <div class="row">
+                                                          <div class="col-md-12">
+                                                              <accordion title="Unit 0: introduction"
+                                                                  :aria-expanded="true"
+                                                                  tab="accordion_status_unit_active">
+                                                                  <div class="row">
+                                                                      <div class="col-md-6">
+                                                                          <div class="col-md-12">
+                                                                              <div class="form-group  row">
+                                                                                  <div class="col-md-12">
+                                                                                      <label
+                                                                                          class="col-form-label text-black font-size-14">Topic
+                                                                                          Title </label>
+                                                                                      <div
+                                                                                          class="inner-addon left-addon">
+                                                                                          <div class="input_icon_frm">
+                                                                                              <span
+                                                                                                  class="icon_design_input"><i
+                                                                                                      class="fa fa-user"></i></span>
+                                                                                              <div class="cl_input">
+                                                                                                  <input type="text"
+                                                                                                      class="form-control"
+                                                                                                      id="topic_title">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                      </div>
+                                                                                  </div>
+                                                                              </div>
+                                                                              <div class="form-group  row">
+                                                                                  <div class="col-md-12">
+                                                                                      <label
+                                                                                          class="col-form-label text-black font-size-14">Answer
+                                                                                          Type </label>
+                                                                                      <div
+                                                                                          class="inner-addon left-addon">
+                                                                                          <div class="input_icon_frm">
+                                                                                              <span
+                                                                                                  class="icon_design_input"><i
+                                                                                                      class="fa fa-user"></i></span>
+
+                                                                                              <select
+                                                                                                  class="form-control">
+                                                                                                  <option>Text
+                                                                                                  </option>
+                                                                                                  <option>Multiple
+                                                                                                  </option>
+                                                                                                  <option>Scale
+                                                                                                  </option>
+                                                                                              </select>
+                                                                                          </div>
+                                                                                      </div>
+                                                                                  </div>
+                                                                              </div>
+                                                                              <div class="form-group cl_add_topic ">
+                                                                                  <button class="login_btn">ADD Topic
+                                                                                  </button>
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                                  <div class="row">
+                                                                      <div class="col-md-12 mb-2 mt-2">
+                                                                          <div class="divider">
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-md-12">
+                                                                          <div class="cls_btn">
+                                                                              <button class="login_btn">Delete Unit
+                                                                              </button>
+                                                                              <button class="login_btn">Activate Unit
+                                                                              </button>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </accordion>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <!-- End Unit Accordian UI-->
                                                 <div class="col-md-3">
 
                                                 </div>
@@ -186,7 +257,7 @@
                                 </NavTabs>
                             </div>
                         </div>
-                        <div class="divider1 mt-2 mb-2" />
+                        <!-- <div class="divider1 mt-2 mb-2" /></div> -->
                     </div>
                 </div>
             </div>
@@ -219,6 +290,18 @@
     select.form-control {
         border-radius: 0;
     }
+    .ac_text p {
+    color: #868686;
+    font-size: 16px;
+}
+
+.ac_text {
+    padding: 18px 0;
+}
+.add_cl_q
+{
+  padding: 0 20px;
+}
 
 </style>
 <script>
