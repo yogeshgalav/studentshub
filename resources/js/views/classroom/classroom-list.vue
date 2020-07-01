@@ -7,14 +7,109 @@
             <p>My Classroomsb</p>
             </div>
             <div v-for="classroom in myClassrooms" :key="classroom.name" class="classroom_box">
+                <div class="clss_username">
+                    <p><img src="/images/Group.svg" alt=""></p>
+                    <h5>{{classroom.teacher_name}}</h5>
+                  </div>  
+                  <div class="classroom_content">
                 <a :href="'/classroom/'+classroom.name">{{classroom.name}}</a>
                 <p>{{classroom.subject_alias}}</p>
                 <p>{{classroom.subject_name}}</p>
-                <p>{{classroom.teacher_name}}</p>
+               </div>
             </div>
         </div>
             </div>
             <div class="col-md-4">
+                <div v-if="myClassrooms.length" class="clas_roo_main_box">
+                    <div class="cl_box_top">
+                    <p>My Classroomsb</p>
+                    </div>
+                    <div v-for="classroom in myClassrooms" :key="classroom.name" class="classroom_box">
+                        <div class="clss_username">
+                            <p><img src="/images/Group.svg" alt=""></p>
+                            <h5>{{classroom.teacher_name}}</h5>
+                          </div>  
+                          <div class="classroom_content">
+                        <a :href="'/classroom/'+classroom.name">{{classroom.name}}</a>
+                        <p>{{classroom.subject_alias}}</p>
+                        <p>{{classroom.subject_name}}</p>
+                       </div>
+                    </div>
+                </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div v-if="myClassrooms.length" class="clas_roo_main_box">
+                            <div class="cl_box_top">
+                            <p>My Classroomsb</p>
+                            </div>
+                            <div v-for="classroom in myClassrooms" :key="classroom.name" class="classroom_box">
+                                <div class="clss_username">
+                                    <p><img src="/images/Group.svg" alt=""></p>
+                                    <h5>{{classroom.teacher_name}}</h5>
+                                  </div>  
+                                  <div class="classroom_content">
+                                <a :href="'/classroom/'+classroom.name">{{classroom.name}}</a>
+                                <p>{{classroom.subject_alias}}</p>
+                                <p>{{classroom.subject_name}}</p>
+                               </div>
+                            </div>
+                        </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div v-if="myClassrooms.length" class="clas_roo_main_box">
+                                    <div class="cl_box_top">
+                                    <p>My Classroomsb</p>
+                                    </div>
+                                    <div v-for="classroom in myClassrooms" :key="classroom.name" class="classroom_box">
+                                        <div class="clss_username">
+                                            <p><img src="/images/Group.svg" alt=""></p>
+                                            <h5>{{classroom.teacher_name}}</h5>
+                                          </div>  
+                                          <div class="classroom_content">
+                                        <a :href="'/classroom/'+classroom.name">{{classroom.name}}</a>
+                                        <p>{{classroom.subject_alias}}</p>
+                                        <p>{{classroom.subject_name}}</p>
+                                       </div>
+                                    </div>
+                                </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div v-if="myClassrooms.length" class="clas_roo_main_box">
+                                            <div class="cl_box_top">
+                                            <p>My Classroomsb</p>
+                                            </div>
+                                            <div v-for="classroom in myClassrooms" :key="classroom.name" class="classroom_box">
+                                                <div class="clss_username">
+                                                    <p><img src="/images/Group.svg" alt=""></p>
+                                                    <h5>{{classroom.teacher_name}}</h5>
+                                                  </div>  
+                                                  <div class="classroom_content">
+                                                <a :href="'/classroom/'+classroom.name">{{classroom.name}}</a>
+                                                <p>{{classroom.subject_alias}}</p>
+                                                <p>{{classroom.subject_name}}</p>
+                                               </div>
+                                            </div>
+                                        </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div v-if="myClassrooms.length" class="clas_roo_main_box">
+                                                    <div class="cl_box_top">
+                                                    <p>My Classroomsb</p>
+                                                    </div>
+                                                    <div v-for="classroom in myClassrooms" :key="classroom.name" class="classroom_box">
+                                                        <div class="clss_username">
+                                                            <p><img src="/images/Group.svg" alt=""></p>
+                                                            <h5>{{classroom.teacher_name}}</h5>
+                                                          </div>  
+                                                          <div class="classroom_content">
+                                                        <a :href="'/classroom/'+classroom.name">{{classroom.name}}</a>
+                                                        <p>{{classroom.subject_alias}}</p>
+                                                        <p>{{classroom.subject_name}}</p>
+                                                       </div>
+                                                    </div>
+                                                </div>
+                                                    </div>
+            <!-- <div class="col-md-4">
         <div v-if="classroomList.length" class="clas_roo_main_box">
             <div class="cl_box_top">
             <p>Followed Classrooms</p>
@@ -26,7 +121,7 @@
                 <p>{{classroom.teacher_name}}</p>   
             </div>
         </div>
-        </div>  
+        </div>   -->
         </div>
     </div>
 </template>
@@ -39,6 +134,7 @@ export default {
 <style>
     .clas_roo_main_box {
     box-shadow: 0 0 10px rgba(0,0,0,0.16);
+    margin-bottom: 30px;
     border-radius: 4px;
 }
     .cl_box_top p {
@@ -63,6 +159,31 @@ export default {
     font-weight: 700;
 }
 .classroom_box {
-    padding: 20px;
+    position: relative;
+}
+.clss_username {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: -52px;
+    width: 100%;
+    padding: 0px 15px;
+}
+.clss_username img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: #f6f6f6;
+    border: solid 1px #ccc;
+}
+.classroom_content {
+    padding: 44px 0 0;
+}
+.clss_username h5 {
+    /* padding: 25px 12px; */
+    margin: 20px 10px 0;
+}
+.classroom_content {
+    padding: 60px 18px 10px;
 }
 </style>
