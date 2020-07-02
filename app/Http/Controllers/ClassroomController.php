@@ -73,16 +73,12 @@ class ClassroomController extends Controller
 
     public function getClassroomUnitDetails(Request $request){
         $classroom=Classroom::findOrFail($request->classroomId);
-        $unitDetails=DB::table('classrooms as cs')
-        ->where('cs.id',$classroom->id)
-        ->letJoin('unit as un','un.classroom_id','=','cs.id')
-        ->letJoin('topic as to','to.unit_id','=','un.id')
-        ->select('to.name','un.name')
-        ->get();
+        $unitData=Unit::where('classroom_id',$classroom->id)
+        ->with('questions')->get();
 
         return response()->json([
             'success'=>[
-                'unitDetails'=>$unitDetails
+                'unitData'=>$unitData
             ]
         ]);
     }

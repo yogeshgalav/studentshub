@@ -203,7 +203,7 @@ import ProgressBar from './ProgressBar';
 import EventBus from './event-bus';
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
-import swal from '../components/swal';
+import swal from '../../../components/swal';
 
 export default {
 	components: {
