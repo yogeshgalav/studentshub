@@ -1,4 +1,5 @@
 @import 'variables';
+@import 'buttons';
 
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
@@ -151,7 +152,7 @@ button[disabled="disabled"] {
 .btn-success,
 .btn-warning,
 .btn-disabled, .btn-white {
-    font-family: $font-family-inter !important;
+    font-family: $font-family-sans-serif !important;
     text-transform: capitalize;
     font-size: $font-12;
     letter-spacing: $letter-spacing-01;

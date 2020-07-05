@@ -23,8 +23,8 @@ class CreateClassroomsTable extends Migration
             $table->integer('expected_students')->nullable();
             $table->integer('classroom_duration')->nullable();
             $table->integer('activated_unit')->nullable();
-            $table->dateTime('start_time')->nullable();
-            $table->dateTime('end_time')->nullable();
+            $table->dateTime('estimated_start_date')->nullable();
+            $table->dateTime('estimated_end_date')->nullable();
             $table->string('thumbnail_url')->nullable();
             $table->timestamps();
         });

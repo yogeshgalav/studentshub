@@ -52,7 +52,7 @@
                                                 </div>
                                                 <span v-if="selected_course.totalBatch">{{selected_course.totalBatch }}
                                                     batch found.</span>
-                                                <span v-if="selected_course.id===0">Please enter your full Program name
+                                                <span v-if="no_course_found">Please enter your full Program name
                                                     followed by branch name(if any).Please make sure that program
                                                     details you are entering is correct.</span>
                                                 <span class="error">{{ formErrors('program_name') }}</span>
@@ -266,6 +266,7 @@
                 showLoader: false,
                 course_list: [],
                 courseLoading: false,
+                no_course_found: false,
                 categoryDisabled: true,
                 institute_list: [],
                 instituteLoading: false,
@@ -312,6 +313,7 @@
                                 return true;
                             }
                         });
+                        this.no_course_found= this.course_list.length===0 ? true :false;
                         this.courseLoading = false;
                     }).catch(() => {
                         this.courseLoading = false;

@@ -19,4 +19,14 @@ class Auth extends AuthUser
         ->join('categories as cat','cat.id','=','courses.category_id')
         ->select('inst.id as instituteId','courses.id as courseId','pbt.id as batchId','cat.id as categoryId')->first();
     }
+
+    public static function teacher(){
+        if(!self::check()){
+            return null;
+        }
+        
+        return DB::table('teachers as th')->where('th.user_id','=',self::user()->id)
+        ->leftJoin('institutes as inst','inst.id','=','th.institute_id')
+        ->select('inst.id as instituteId','th.id as id')->first();
+    }
 }

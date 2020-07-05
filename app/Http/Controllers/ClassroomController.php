@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Classroom;
+use App\Http\Requests\JoinClassroomRequest;
 use DB;
 use Auth;
 
@@ -25,7 +26,7 @@ class ClassroomController extends Controller
         })
         ->get();
 
-        $teacher=Auth::user()->teacher;
+        $teacher=Auth::teacher();
         if($teacher){
             $my_classrooms=$classroom_query2->where('teacher_id','=',$teacher->id)->get();
         }else{
@@ -83,8 +84,34 @@ class ClassroomController extends Controller
         ]);
     }
 
-    public function getTopicAnswers(){
+    public function createClassroomPage(Request $request){
+        return view('classroom.create-classroom');
+    }
+    public function createClassroom(Request $request){
+        $subject=Subject::firstOrCreate([
+            'subject_url'=>\Str::slug($subject_name),
+          ],[
+          'subject_name'=>$subject_name,
+          'category_id'=>$data['category_id']
+          ]);
 
+        $classroom=new CLassroom;
+        $classroom->teacher_id=Auth::teacher()->id;
+        $classroom->subject_id=$subject->id;
+        $classroom->course_id=$course->id;
+        $classroom->save();
+
+    }
+
+    public function joinClassroom(JoinClassroomRequest $request){
+        $classroom=Classroom::where('name',$request->name)->first();
+
+        ClassroomUser::firstOrCreate([
+            'user_id'=>Auth::id(),
+            'classroom_id'=>$classroom->id
+        ]);
+
+        return response()->json('success');
     }
 
 }

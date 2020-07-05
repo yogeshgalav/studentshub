@@ -1,47 +1,16 @@
 <template>
     <div>
         <div>
-            <button 
-            class="btn btn-primary" 
+            <a href="/create-classroom"
+            class="btn btn-primary btn-lg" 
             type="button"
-            @click="$modal.show('create_classroom_modal')"
-            >Create Classroom</button>
+            >Create Classroom</a>
+
             <button 
-            class="btn btn-primary" 
+            class="btn btn-primary btn-lg" 
             type="button"
             @click="$modal.show('join_classroom_modal')"
             >Join Classroom</button>
-            
-            <modal name="create_classroom_modal" class="doubt_model">
-            <form @submit.prevent="createClassroom">
-                <div class="model_box_inner card">
-                     <div  class="edit_profile_head">
-                                <h4>Create Classroom</h4>
-                            </div> 
-                    <div class="row card-body">
-                        <div class="col-md-12">
-                            <div class="model_input">
-                                <label>Subject Name</label>
-                                <input type="text" class="form-control" v-model="create_classroom_subject">
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="model_input">
-                                <label>Classroom Name</label>
-                                <input type="text" class="form-control" v-model="create_classroom_name">
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="model_btn">
-                                <button type="submit" class="save_profile_btn">Create</button>
-                                <button type="button" class="cancel_profile_btn">Cancel</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-            </modal>
-            
             <modal name="join_classroom_modal" class="doubt_model">
             <form @submit.prevent="joinClassroom">
                 <div class="model_box_inner card">
@@ -57,7 +26,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="model_btn">
-                                <button type="submit" class="save_profile_btn">Join</button>
+                                <button type="submit" class="save_profile_btn">Request</button>
                                 <button type="button" class="cancel_profile_btn">Cancel</button>
                             </div>
                         </div>
@@ -128,17 +97,19 @@ import VModal from 'vue-js-modal'
         },
         data(){
             return {
-                create_classroom_name:'',
-                create_classroom_subject:'',
                 join_classroom_name:'',
             };
         },
+        watch:{
+            create_classroom_subject(){
+
+            }
+        },
         methods:{
-            createClassroom(){
-
-            },
             joinClassroom(){
-
+                this.axios.post('/api/classroom/join',{
+                    name:this.join_classroom_name
+                });
             },
         }
     }

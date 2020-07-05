@@ -12,6 +12,7 @@ import Vue from '../app';
 
 Vue.component('ClassroomComponent', require('../../views/classroom/classroom.vue').default);
 Vue.component('ClassroomListComponent', require('../../views/classroom/classroom-list.vue').default);
+Vue.component('CreateClassroomComponent', require('../../views/classroom/create-classroom.vue').default);
 
 import ClassroomStore from '../../store/classroom';
 import Vuex from 'vuex';

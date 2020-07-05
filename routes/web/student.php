@@ -8,8 +8,4 @@ Route::group(['middleware'=>['auth']],function(){
             
     Route::get('/doubts','PagesController@askQuestion');
     Route::get('/doubt/{id}','DoubtAnswersController@getDoubtAnswersPage');
-    
-    Route::get('/classrooms', 'ClassroomController@classroomListPage');
-    Route::get('/classroom/{classroomId}','ClassroomController@classroomPage');
-    Route::get('/classroom/{classroomId}/unit-attempt','ClassroomController@unitAttemptPage');
 });

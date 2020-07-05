@@ -20,10 +20,10 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <NavTabs size="large" :tabs="tabs" :initial-tab="initialTab">
-                                    <template slot="tab-heading-Setup">
-                                        {{ 'Setup' }}
+                                    <template slot="tab-heading-Overview">
+                                        {{ 'Overview' }}
                                     </template>
-                                    <template slot="tab-panel-Setup">
+                                    <template slot="tab-panel-Overview">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="card mt-5">
@@ -82,88 +82,20 @@
                                                                 <div class="col-sm-10">
                                                                     <div class="text-black">3 </div>
                                                                 </div>
-                                                                <button class="login_btn">Add Unit </button>
                                                             </div>
                                                         </form>
                                                     </div>
                                                 </div>
-
-                                                <!-- Unit Accordian UI-->
-                                                <div class="card mt-5">
-                                                    <div class="card-bdody">
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <accordion title="Reflection Question"
-                                                                    :aria-expanded="true"
-                                                                    tab="accordion_status_unit_active">
-                                                                    <div class="row add_cl_q">
-                                                                      <div class="col-md-12">
-                                                                      <div class="ac_text">
-                                                                        <p>Participants will be asked to answer the following questions once their commitment has ended </p>
-                                                                        </div>
-                                                                      </div>
-                                                                      <div class="col-md-12">
-
-                                                                      <h4>Question</h4>
-                                                                      </div>
-                                                                      <div class="cl_q_type_text">
-                                                                        <div class="cl_q_text_box">
-                                                                        
-                                                                            <label class="col-form-label text-black font-size-14">Question 1</label>
-                                                                            <div class="inner-addon left-addon">
-                                                                         <div class="cl_input">
-                                                                                        <input type="text"
-                                                                                            class="form-control"
-                                                                                            id="topic_title">
-                                                                                    </div>
-                                                                              
-                                                                            </div>
-                                                                        
-                                                                          </div>
-                                                                          <div class="cl_q_type_box">
-                                                                            <label class="col-form-label text-black font-size-14">Question Type</label>
-                                                                            <div class="cl_q_type">
-                                                                                <select>
-                                                                                        <option>Text
-                                                                                        </option>
-                                                                                        <option>Multiple
-                                                                                        </option>
-                                                                                        <option>Scale
-                                                                                        </option>
-                                                                                    </select>
-                                                                        
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="cl_q_close">
-                                                                          <p><i class="fa fa-times" aria-hidden="true"></i></p>
-                                                                          </div>
-                                                                     </div>
-                                                                    </div>
-                                                                    <div class="row">
-                                                                        <div class="col-md-12 mb-2 mt-2">
-                                                                            <div class="divider">
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-12">
-                                                                            <div class="cls_btn">
-                                                                                <button class="login_btn"><span <i class="fa fa-plus" aria-hidden="true"></i> </span> Add Question
-                                                                                </button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </accordion>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="card mt-5">
-                                                  <div class="card-bdody">
-                                                      <unit-accordian :classroom-id="classroomDetail.id"/>
-                                                  </div>
-                                              </div>
-                                         <div class="col-md-3">
-
-                                                </div>
+                                            </div>
+                                        </div>
+                                    </template>
+                                    <template slot="tab-heading-Setup">
+                                        {{ 'Setup' }}
+                                    </template>
+                                    <template slot="tab-panel-Setup">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <unit-accordian :classroom-id="classroomDetail.id" />
                                             </div>
                                         </div>
                                     </template>
@@ -209,33 +141,34 @@
     select.form-control {
         border-radius: 0;
     }
-    .ac_text p {
-    color: #868686;
-    font-size: 16px;
-}
 
-.ac_text {
-    padding: 18px 0;
-}
-.add_cl_q
-{
-  padding: 0 20px;
-}
+    .ac_text p {
+        color: #868686;
+        font-size: 16px;
+    }
+
+    .ac_text {
+        padding: 18px 0;
+    }
+
+    .add_cl_q {
+        padding: 0 20px;
+    }
 
 </style>
 <script>
     import NavTabs from '../../components/NavTabs.vue';
-    import Accordion from '../../components/accordion.vue';
+    import UnitAccordian from './unit-accordian.vue';
     export default {
         components: {
             NavTabs,
-            Accordion
+            UnitAccordian
         },
         props: ['classroomDetail'],
         data() {
             return {
-                tabs: ['Setup', 'Students'],
-                initialTab: 'Setup'
+                tabs: ['Overview', 'Setup', 'Students'],
+                initialTab: 'Overview'
             };
         }
     }
