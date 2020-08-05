@@ -8,4 +8,11 @@ class Unit extends Model
 {
     protected  $guarded = ['id', 'created_at', 'updated_at'];
 
+    public function descriptiveQuestions(){
+        return $this->hasMany('App\Models\DescriptiveQuestion');
+    }
+    
+    public function dailyQuestions(){
+        return $this->hasMany('App\Models\DailyQuestion');
+    }
 }

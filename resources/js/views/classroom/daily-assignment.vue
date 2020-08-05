@@ -1,23 +1,49 @@
 <template>
     <div>
         <div class="mt-2">
-            <add-button name="Add Unit" @submit="addUnit" />
+            <add-button name="Add Assignment" @submit="addAssignment" />
         </div>
-        <div class="card mt-5" v-for="(unit,index) in unitData" :key="index">
+        <div class="card mt-5" v-for="(daily,index) in dailyData" :key="index">
             <div>
                 <div class="row">
                     <div class="col-md-12">
-                        <accordion :title="'Unit '+unit.unit_no+': '+unit.unit_name" :aria-expanded="true"
+                        <accordion :title="daily.attempt_date" :aria-expanded="true"
                             tab="accordion_status_unit_active">
                             <div class="row add_cl_q">
                                 <div class="col-md-3 col-12">
                                     <div class="form-group pl-0">
                                         <label class="text-black mb-1"
-                                            :for="'unit_name' + index">{{ 'Unit Name' }}</label>
-                                        <input :id="'unit_name' + index" v-model="unit.unit_name" v-validate="'required'"
-                                            type="text" class="form-control" :name="'unit_name' + index"
-                                            @blur="updateUnitName(unit.unit_no,$event)">
-                                        <span class="error">{{ formErrors('unit_name' + index) }}</span>
+                                            :for="'start_date' + index">{{ 'Assignment Date' }}</label>
+                                                  <date-picker
+                                                    id="start_date_create"
+                                                    ref="start_date"
+                                                    v-model="daily.attempt_date"
+                                                    v-validate="'required'"
+                                                    name="start_date"
+                                                    value-type="format"
+                                                    :typeable="true"
+                                                    :type="'date'"
+                                                    :format="'YYYY-MM-DD'"
+                                                    :lang="'en'"
+                                                    :input-attr="{id: 'start_date_input'}"
+                                                    placeholder=""
+                                                    @change="updateAssignmentDate(daily)"
+                                                  />
+                                                <span class="error">{{ formErrors('start_date') }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row add_cl_q">
+                                <div class="col-md-3 col-12">
+                                    <div class="form-group pl-0">
+                                        <label class="text-black mb-1"
+                                            :for="'start_date' + index">{{ 'Assignment Date' }}</label>
+                                                  <select v-model="daily.selected_unit" @change="updateAssignmentDate(daily)">
+                                                      <option v-for="(unit,index2) in unitList" :key="index2" :value="unit.unit_no">
+                                                          {{ 'Unit '+unit.unit_no + ':' +unit.unit_name}}
+                                                      </option>
+                                                  </select>
+                                                <span class="error">{{ formErrors('start_date') }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -29,7 +55,7 @@
                                         </div>
                                 </div>
                             </div>
-                            <div class="row add_cl_q" v-for="(question,index) in unit.questions" :key="index">
+                            <div class="row add_cl_q" v-for="(question,index) in daily.questions" :key="index">
                                     <div class="col-md-12 mt-2">
                                         <h4>Question {{index+1}}</h4>
                                     </div>
@@ -48,12 +74,9 @@
                                             <label class="col-form-label text-black font-size-14">Question Type</label>
                                             <div class="cl_q_type">
                                                 <select>
-                                                    <option>Short Answer
-                                                    </option>
-                                                    <option>Long Answer
+                                                    <option>Multiple Choice
                                                     </option>
                                                 </select>
-
                                             </div>
                                         </div>
                                         <div class="cl_q_close">
@@ -61,15 +84,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="mt-2">
+                                <div class="mt-2" v-if="daily.selected_unit && daily.attempt_date">
                                     <add-button name="Add Question" @submit="addQuestion(unit.unit_no)" />
-                                </div>
-                                <div class="mt-5">
-                                    <hr />
-                                    <button class="btn skip_btn btn-lg" @click="deleteUnit(unit.unit_no)"> Delete Unit
-                                    </button>
-                                    <button class="btn btn-primary btn-lg" @click="activateUnit(unit.unit_no)">{{ activated_unit===unit.unit_no ? 'Deactivate Unit' : 'Activate Unit'}}
-                                    </button>
                                 </div>
                         </accordion>
                     </div>
@@ -83,86 +99,72 @@
     import Accordion from '../../components/accordion';
     import AddButton from '../../components/AddButton';
     import swal from '../../components/swal.js';
-    
+    import DatePicker from 'vue2-datepicker';
+    import 'vue2-datepicker/index.css';
     export default {
         mixins:[FormMixin],
         components: {
             Accordion,
-            AddButton
+            AddButton,
+            DatePicker
         },
         props: ['classroomId','activatedUnit'],
         data() {
             return {
-                unitData: [],
+                dailyData: [],
                 activated_unit:this.activatedUnit,
+                assignment_date:'',
             };
         },
         computed:{
             latestUnit(){
-                return this.unitData.length ? this.unitData[0].unit_no : 0;
+                return this.dailyData.length ? this.dailyData[0].unit_no : 0;
             }
         },
         mounted() {
-            this.axios.get('/api/classroom/' + this.classroomId + '/unit-details').then((resp) => {
-                this.unitData = resp.data.success.unitData
+            this.axios.get('/api/classroom/' + this.classroomId + '/daily-questions').then((resp) => {
+                this.unitList = resp.data.success.unitList
+                this.dailyData = resp.data.success.dailyData
             });
         },
         methods: {
-            activateUnit(unit_no) {
-                let activation_text='';
-                if(this.activated_unit===unit_no){
-                    activation_text='Are you sure you want to Deactivate Unit '+unit_no;
-                }else{
-                    activation_text='Are you sure you want to Activate Unit '+unit_no;
-                    activation_text += (this.activated_unit ? 'and Deactivate Unit '+this.activated_unit : '');
-                }
-                activation_text += ' ?';
-
-                swal
-				.confirmDialog(activation_text)
-				.then(result => {
-					if (result.value) {
-						this.axios.post('/api/classroom/'+this.classroomId+'/activate-unit',{
-                            unit_no: unit_no
-                        }).then((resp)=>{
-                            this.activated_unit = resp.data.success.activated_unit;
-                        });
-					}
-				});
-            },
-            addUnit() {
-                this.unitData.unshift({
-                    'unit_no': this.latestUnit + 1,
-                    'unit_name': '',
+            addAssignment() {
+                this.dailyData.unshift({
+                    'selected_unit': '',
+                    'attempt_date': '',
                     'questions': []
                 });
 
             },
-            deleteUnit(unit_no) {
+            deleteAssignment(attempt_date) {
                 swal
-				.confirmDialog('Are you sure you want to Delete Unit '+unit_no+'?')
+				.confirmDialog('Are you sure you want to Delete Assignment for date '+attempt_date+'?')
 				.then(result => {
 					if (result.value) {
 						this.axios.post('/api/classroom/'+this.classroomId+'/delete-unit',{
-                            unit_no: unit_no
+                            attempt_date: attempt_date
                         });
 					}
 				});
             },
-            addQuestion(unit_no) {
-                let unit = this.unitData.find(node=>node.unit_no === unit_no);
-                unit.questions.push({
+            addQuestion(attempt_date) {
+                let daily = this.dailyData.find(node=>node.attempt_date === attempt_date);
+                daily.questions.push({
                     'question_text': '',
                     'answer_type': ''
                 });
             },
-            updateUnitName(unit_no,event) {
+            updateAssignmentDate(daily) {
+                if(!daily.selected_unit || !daily.attempt_date){
+                    return false;
+                }
                 //call api and update field
                 this.axios.post('/api/classroom/'+this.classroomId+'/update-unit',{
-                    unit_no: unit_no,
-                    unit_name: event.target.value
+                    unit_no: daily.selected_unit,
+                    attempt_date: daily.attempt_date
                 });
             }
+
         }
     }
 

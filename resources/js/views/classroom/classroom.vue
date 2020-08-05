@@ -27,6 +27,11 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="card mt-5">
+                                                    <div class="card-header">
+                                                        <h4 class="mb-1">
+                                                            {{ 'Classroom Overview' }}
+                                                        </h4>
+                                                    </div>
                                                     <div class="card-body">
                                                         <form>
                                                             <div class="form-group mb-0 row">
@@ -95,7 +100,14 @@
                                     <template slot="tab-panel-Setup">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <unit-accordian :classroom-id="classroomDetail.id" />
+                                                <unit-accordian :classroom-id="classroomDetail.id" :activated-unit="classroomDetail.activated_unit"/>
+                                            </div>
+                                        </div>
+                                    </template>
+                                    <template slot="tab-panel-Daily Assignment">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <daily-assignment :classroom-id="classroomDetail.id" :activated-unit="classroomDetail.activated_unit"/>
                                             </div>
                                         </div>
                                     </template>
@@ -159,15 +171,17 @@
 <script>
     import NavTabs from '../../components/NavTabs.vue';
     import UnitAccordian from './unit-accordian.vue';
+    import DailyAssignment from './daily-assignment.vue';
     export default {
         components: {
             NavTabs,
-            UnitAccordian
+            UnitAccordian,
+            DailyAssignment
         },
         props: ['classroomDetail'],
         data() {
             return {
-                tabs: ['Overview', 'Setup', 'Students'],
+                tabs: ['Overview', 'Setup','Daily Assignment', 'Students'],
                 initialTab: 'Overview'
             };
         }

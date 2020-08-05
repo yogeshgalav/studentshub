@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTopicAnswersTable extends Migration
+class CreateDescriptiveQuestionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateTopicAnswersTable extends Migration
      */
     public function up()
     {
-        Schema::create('topic_answers', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('topic_id')->unsigned();
-            $table->integer('user_id')->unsigned();
-            $table->integer('post_id')->unsigned();
+        Schema::create('descriptive_questions', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->integer('unit_id')->unsigned();
+            $table->string('question_text');
+            $table->string('question_type');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateTopicAnswersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('topic_answers');
+        Schema::dropIfExists('formative_questions');
     }
 }

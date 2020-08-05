@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Classroom;
+use App\Models\Unit;
 use App\Http\Requests\JoinClassroomRequest;
 use DB;
 use Auth;
@@ -21,7 +22,7 @@ class ClassroomController extends Controller
         
         $classroom_query2=clone $classroom_query;
         
-        $classroom_list=$classroom_query->rightJoin('classroom_users as cu',function($join){
+        $classroom_list=$classroom_query->join('classroom_users as cu',function($join){
             $join->on('cu.classroom_id','=','cs.id')->where('cu.user_id',Auth::id())->where('joined_at','!=',null);
         })
         ->get();
@@ -41,6 +42,7 @@ class ClassroomController extends Controller
         ]);
     }
 
+    //web endpoit to classroomm vieew for teachers
     public function classroomPage($classroomName){
         $classroom=Classroom::where('name','=',$classroomName)->firstOrFail();
         $classroomDetail=DB::table('classrooms as cs')
@@ -49,7 +51,7 @@ class ClassroomController extends Controller
         ->join('subjects as su','su.id','=','cs.subject_id')
         ->join('teachers as th','th.id','=','cs.teacher_id')
         ->join('users as us','us.id','=','th.user_id')
-        ->select('cs.name','co.course_name','su.subject_name','us.id as user_id','us.full_name as teacher_name')
+        ->select('cs.*','co.course_name','su.subject_name','us.id as user_id','us.full_name as teacher_name')
         ->first();
        
         if($classroomDetail->user_id===Auth::id()){
@@ -72,17 +74,18 @@ class ClassroomController extends Controller
         return view('classroom.topic-answers');
     }
 
-    public function getClassroomUnitDetails(Request $request){
-        $classroom=Classroom::findOrFail($request->classroomId);
-        $unitData=Unit::where('classroom_id',$classroom->id)
-        ->with('questions')->get();
+    //api end point for getting unit assisment data for students and teachers
+    public function getUnitAssismentDetails(Request $request){
+        $unitData=Unit::where('classroom_id',$request->classroomId)
+        ->with('descriptiveQuestions')
+        ->get();
 
         return response()->json([
             'success'=>[
                 'unitData'=>$unitData
             ]
         ]);
-    }
+    }   
 
     public function createClassroomPage(Request $request){
         return view('classroom.create-classroom');
@@ -112,6 +115,20 @@ class ClassroomController extends Controller
         ]);
 
         return response()->json('success');
+    }
+
+    public function getPreviousUnitAnswers($classroom_id){
+        $answers = DB::table('classroom_answers as ca')
+        ->join('descriptive_questions as cq','cq.id','=','ca.descriptive_question_id')
+        ->join('units',function($join)use($classroom_id){
+            $join->on('units.id','=','cq.unit_id')->where('classroom_id','=',$classroom_id)->whereNotNull('unit.deactivated');
+        })
+        ->select()
+        ->get();
+
+        return response()->json(['success'=>[
+            'answers'=>$answers
+        ]]);
     }
 
 }

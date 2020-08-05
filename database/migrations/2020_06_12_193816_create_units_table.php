@@ -18,6 +18,7 @@ class CreateUnitsTable extends Migration
             $table->integer('classroom_id')->unsigned();
             $table->integer('unit_no');
             $table->string('unit_name');
+            $table->boolean('is_activated')->default(0);
             $table->dateTime('activated_at')->nullable();
             $table->dateTime('deactivated_at')->nullable();
             $table->timestamps();

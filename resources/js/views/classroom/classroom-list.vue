@@ -59,6 +59,7 @@
                     </div>
                 </div>
             </div>
+            </div>
             <div v-if="classroomList.length">
                 <div class="row">
                     Joined Classrooms
@@ -84,7 +85,6 @@
                     </div>
                 </div>
             </div>
-        </div>
     </div>
 </template>
 <script>

@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 require_once('api/guest.php');
 require_once('api/seeker.php');
 require_once('api/student.php');
+require_once('api/classroom.php');
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
