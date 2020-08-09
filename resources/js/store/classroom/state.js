@@ -1,11 +1,4 @@
 const state = {
-    categories:[],
-    posts: {
-      'ExploreCarousalPost':[],
-      'ExploreTopPost':[],
-      'HomePostContainer':[],
-      'ExploreSidebar':[],
-      'ExploreBottomPost':[],
-    },
+    classroomDetail:{},
   }
   export default state;

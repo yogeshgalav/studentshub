@@ -1,12 +1,12 @@
 import axios from 'axios';
 
 export default {
-  getWelcomePageContent({commit}){
+  getClassroomDetail({commit},classroomId){
   return new Promise((resolve, reject) => {
-    axios({url: window.App.baseUrl+'/api/get-explore-posts', method: 'GET' })
+    axios({url: window.App.baseUrl+'/api/get-classroom-detail/'+classroomId, method: 'GET' })
     .then(resp => {
-     const data = resp.data.success
-      commit('get_welcome_page_content', data,)
+     const data = resp.data.success.classroomDetail
+      commit('get_classroom_detail', data,)
       resolve(resp)
     })
     .catch(err => {

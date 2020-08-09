@@ -90,24 +90,36 @@
             Accordion,
             AddButton
         },
-        props: ['classroomId','activatedUnit'],
         data() {
             return {
                 unitData: [],
-                activated_unit:this.activatedUnit,
+                activated_unit:null,
             };
         },
         computed:{
             latestUnit(){
                 return this.unitData.length ? this.unitData[0].unit_no : 0;
+            },
+            classroomDetail(){
+                return this.$store.state.classroom.classroomDetail;
             }
         },
         mounted() {
-            this.axios.get('/api/classroom/' + this.classroomId + '/unit-details').then((resp) => {
-                this.unitData = resp.data.success.unitData
-            });
+            if(!this.classroomDetail.id){
+                this.$store.dispatch('classroom/getClassroomDetail',this.$route.params.classroomId).then(()=>{
+                    this.activate_unit=this.classroomDetail.activated_unit;
+                    this.getUnitDetails();
+                });
+            }else{
+                this.getUnitDetails();
+            }
         },
         methods: {
+            getUnitDetails(){
+                this.axios.get('/api/classroom/' + this.classroomDetail.id + '/unit-details').then((resp) => {
+                    this.unitData = resp.data.success.unitData
+                });
+            },
             activateUnit(unit_no) {
                 let activation_text='';
                 if(this.activated_unit===unit_no){
@@ -122,7 +134,7 @@
 				.confirmDialog(activation_text)
 				.then(result => {
 					if (result.value) {
-						this.axios.post('/api/classroom/'+this.classroomId+'/activate-unit',{
+						this.axios.post('/api/classroom/'+this.classroomDetail.id+'/activate-unit',{
                             unit_no: unit_no
                         }).then((resp)=>{
                             this.activated_unit = resp.data.success.activated_unit;
@@ -143,7 +155,7 @@
 				.confirmDialog('Are you sure you want to Delete Unit '+unit_no+'?')
 				.then(result => {
 					if (result.value) {
-						this.axios.post('/api/classroom/'+this.classroomId+'/delete-unit',{
+						this.axios.post('/api/classroom/'+this.classroomDetail.id+'/delete-unit',{
                             unit_no: unit_no
                         });
 					}
@@ -158,7 +170,7 @@
             },
             updateUnitName(unit_no,event) {
                 //call api and update field
-                this.axios.post('/api/classroom/'+this.classroomId+'/update-unit',{
+                this.axios.post('/api/classroom/'+this.classroomDetail.id+'/update-unit',{
                     unit_no: unit_no,
                     unit_name: event.target.value
                 });

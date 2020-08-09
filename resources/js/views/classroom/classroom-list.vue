@@ -52,7 +52,7 @@
                                 <h5>{{classroom.teacher_name}}</h5>
                             </div>
                             <div class="classroom_content">
-                                <a :href="'/classroom/'+classroom.name">{{classroom.name}}</a>
+                                <a :href="'/classroom/'+classroom.id">{{classroom.name}}</a>
                                 <p>{{classroom.subject_name}}</p>
                             </div>
                         </div>
@@ -77,7 +77,7 @@
                                     <h5>{{classroom.teacher_name}}</h5>
                                 </div>
                                 <div class="classroom_content">
-                                    <a :href="'/classroom/'+classroom.name">{{classroom.name}}</a>
+                                    <a :href="'/classroom/'+classroom.id">{{classroom.name}}</a>
                                     <p>{{classroom.subject_name}}</p>
                                 </div>
                             </div>

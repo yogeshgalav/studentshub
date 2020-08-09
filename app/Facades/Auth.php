@@ -27,6 +27,6 @@ class Auth extends AuthUser
         
         return DB::table('teachers as th')->where('th.user_id','=',self::user()->id)
         ->leftJoin('institutes as inst','inst.id','=','th.institute_id')
-        ->select('inst.id as instituteId','th.id as id')->first();
+        ->select('inst.id as instituteId','th.id as id','th.user_id')->first();
     }
 }

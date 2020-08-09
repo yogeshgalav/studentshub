@@ -18,7 +18,7 @@ class ClassroomController extends Controller
         ->join('subjects as su','su.id','=','cs.subject_id')
         ->join('teachers as th','th.id','=','cs.teacher_id')
         ->join('users as us','us.id','=','th.user_id')
-        ->select('cs.name','co.course_name','su.subject_name','su.alias as subject_alias','us.id as user_id','us.full_name as teacher_name');
+        ->select('cs.id','cs.name','co.course_name','su.subject_name','su.alias as subject_alias','us.id as user_id','us.full_name as teacher_name');
         
         $classroom_query2=clone $classroom_query;
         
@@ -43,23 +43,57 @@ class ClassroomController extends Controller
     }
 
     //web endpoit to classroomm vieew for teachers
-    public function classroomPage($classroomName){
-        $classroom=Classroom::where('name','=',$classroomName)->firstOrFail();
-        $classroomDetail=DB::table('classrooms as cs')
-        ->where('cs.id',$classroom->id)
+    public function getClassroomDetails($classroom_id){
+        $classroomDetail = DB::table('classrooms as cs')
+        ->where('cs.id',$classroom_id)
         ->join('courses as co','co.id','=','cs.course_id')
         ->join('subjects as su','su.id','=','cs.subject_id')
         ->join('teachers as th','th.id','=','cs.teacher_id')
         ->join('users as us','us.id','=','th.user_id')
         ->select('cs.*','co.course_name','su.subject_name','us.id as user_id','us.full_name as teacher_name')
         ->first();
-       
-        if($classroomDetail->user_id===Auth::id()){
-            return view('classroom.classroom')->with('classroomDetail',$classroomDetail);    
+
+        return response()->json([
+            'success'=>[
+                'classroomDetail'=>$classroomDetail
+            ]
+        ]);
+    }
+    public function classroomPage($classroomId){
+        $classroom=Classroom::findOrFail($classroomId);
+
+        if($classroom->teacher_id===Auth::teacher()->id){
+            return view('classroom.classroom');    
         }
+
         // $is_classroom_student=ClassroomUser::where('user_id',Auth::id())
         // ->where('classroom_id',$classroom->id)->where('joined_at','!=',null)->exists();
-        return view('student-panel.my-panel')->with('classroomDetail',$classroomDetail);
+        return view('student-panel.my-panel');
+    }
+
+    public function classroomOverviewPage($classroomId){
+        $classroom=Classroom::findOrFail($classroomId);
+
+        return view('classroom.classroom-overview');
+    }
+    public function classroomSetupPage($classroomId){
+        $classroom=Classroom::findOrFail($classroomId);
+
+        return view('classroom.classroom-setup');
+    }
+    public function classroomUnitAssignmentPage($classroomId){
+        $classroom=Classroom::findOrFail($classroomId);
+
+        return view('classroom.classroom-unit-assignment');
+    }
+    public function classroomDailyAssignmentPage($classroomId){
+        $classroom=Classroom::findOrFail($classroomId);
+
+        return view('classroom.classroom-daily-assignment');
+    }
+    public function classroomStudentPage($classroomId){
+        $classroom=Classroom::findOrFail($classroomId);
+        return view('classroom.classroom-student-details');
     }
     
     public function unitAttemptPage(){
