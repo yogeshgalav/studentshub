@@ -84,8 +84,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="mt-2" v-if="daily.selected_unit && daily.attempt_date">
-                                    <add-button name="Add Question" @submit="addQuestion(unit.unit_no)" />
+                                <div class="mt-2" v-if="daily.selected_unit!==null && daily.attempt_date">
+                                    <add-button name="Add Question" @submit="addQuestion(daily.attempt_date)" />
                                 </div>
                         </accordion>
                     </div>
@@ -117,8 +117,8 @@
             };
         },
         computed:{
-            latestUnit(){
-                return this.dailyData.length ? this.dailyData[0].unit_no : 0;
+            latestDate(){
+                return new Date();
             }
         },
         mounted() {
@@ -159,10 +159,16 @@
                     return false;
                 }
                 //call api and update field
-                this.axios.post('/api/classroom/'+this.classroomId+'/update-unit',{
-                    unit_no: daily.selected_unit,
-                    attempt_date: daily.attempt_date
-                });
+                daily.questions.forEach(question=>{
+                    if(question.id===0){
+                        return false;
+                    }
+                    this.axios.post('/api/classroom/'+this.classroomId+'/update-daily-questions',{
+                        question_id: question.id,
+                        unit_no: daily.selected_unit,
+                        attempt_date: daily.attempt_date
+                    });
+                })
             }
 
         }

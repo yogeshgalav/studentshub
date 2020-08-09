@@ -22,7 +22,7 @@ class DailyQuestionController extends Controller
                 if(!$key){
                     $dailyData[$key]=[
                         'attempt_date'=>$date,
-                        'unit_no'=>$unit->unit_no,
+                        'selected_unit'=>$unit->unit_no,
                         'questions'=>[],
                     ];
                 }
