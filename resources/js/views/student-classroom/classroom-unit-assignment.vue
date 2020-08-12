@@ -10,18 +10,6 @@
                         <accordion :title="'Unit '+unit.unit_no+': '+unit.unit_name" :aria-expanded="true"
                             tab="accordion_status_unit_active">
                             <div class="row add_cl_q">
-                                <div class="col-md-3 col-12">
-                                    <div class="form-group pl-0">
-                                        <label class="text-black mb-1"
-                                            :for="'unit_name' + index">{{ 'Unit Name' }}</label>
-                                        <input :id="'unit_name' + index" v-model="unit.unit_name" v-validate="'required'"
-                                            type="text" class="form-control" :name="'unit_name' + index"
-                                            @blur="updateUnitName(unit.unit_no,$event)">
-                                        <span class="error">{{ formErrors('unit_name' + index) }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row add_cl_q">
                                 <div class="col-md-12">
                                         <div class="text-grey">
                                             <p>Students will be asked to answer the following questions on this unit
@@ -64,13 +52,6 @@
                                 <div class="mt-2">
                                     <add-button name="Add Question" @submit="addQuestion(unit.unit_no)" />
                                 </div>
-                                <div class="mt-5">
-                                    <hr />
-                                    <button class="btn skip_btn btn-lg" @click="deleteUnit(unit.unit_no)"> Delete Unit
-                                    </button>
-                                    <button class="btn btn-primary btn-lg" @click="activateUnit(unit.unit_no)">{{ activated_unit===unit.unit_no ? 'Deactivate Unit' : 'Activate Unit'}}
-                                    </button>
-                                </div>
                         </accordion>
                     </div>
                 </div>
@@ -93,13 +74,9 @@
         data() {
             return {
                 unitData: [],
-                activated_unit:null,
             };
         },
         computed:{
-            latestUnit(){
-                return this.unitData.length ? this.unitData[0].unit_no : 0;
-            },
             classroomDetail(){
                 return this.$store.state.classroom.classroomDetail;
             }
@@ -107,7 +84,6 @@
         mounted() {
             if(!this.classroomDetail.id){
                 this.$store.dispatch('classroom/getClassroomDetail',this.$route.params.classroomId).then(()=>{
-                    this.activate_unit=this.classroomDetail.activated_unit;
                     this.getUnitDetails();
                 });
             }else{
@@ -119,48 +95,7 @@
                 this.axios.get('/api/classroom/' + this.classroomDetail.id + '/unit-details').then((resp) => {
                     this.unitData = resp.data.success.unitData
                 });
-            },
-            activateUnit(unit_no) {
-                let activation_text='';
-                if(this.activated_unit===unit_no){
-                    activation_text='Are you sure you want to Deactivate Unit '+unit_no;
-                }else{
-                    activation_text='Are you sure you want to Activate Unit '+unit_no;
-                    activation_text += (this.activated_unit ? 'and Deactivate Unit '+this.activated_unit : '');
-                }
-                activation_text += ' ?';
-
-                swal
-				.confirmDialog(activation_text)
-				.then(result => {
-					if (result.value) {
-						this.axios.post('/api/classroom/'+this.classroomDetail.id+'/activate-unit',{
-                            unit_no: unit_no
-                        }).then((resp)=>{
-                            this.activated_unit = resp.data.success.activated_unit;
-                        });
-					}
-				});
-            },
-            addUnit() {
-                this.unitData.unshift({
-                    'unit_no': this.latestUnit + 1,
-                    'unit_name': '',
-                    'questions': []
-                });
-
-            },
-            deleteUnit(unit_no) {
-                swal
-				.confirmDialog('Are you sure you want to Delete Unit '+unit_no+'?')
-				.then(result => {
-					if (result.value) {
-						this.axios.post('/api/classroom/'+this.classroomDetail.id+'/delete-unit',{
-                            unit_no: unit_no
-                        });
-					}
-				});
-            },
+            },      
             addQuestion(unit_no) {
                 let unit = this.unitData.find(node=>node.unit_no === unit_no);
                 unit.questions.push({
@@ -168,13 +103,6 @@
                     'answer_type': ''
                 });
             },
-            updateUnitName(unit_no,event) {
-                //call api and update field
-                this.axios.post('/api/classroom/'+this.classroomDetail.id+'/update-unit',{
-                    unit_no: unit_no,
-                    unit_name: event.target.value
-                });
-            }
         }
     }
 

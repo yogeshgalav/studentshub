@@ -11,7 +11,7 @@ class DailyQuestionController extends Controller
     //api end point for getting daily assisment data for students and teachers
     public function getDailyAssismentDetails(Request $request){
         $unitList=Unit::where('classroom_id',$request->classroomId)
-        ->with('dailyQuestions')
+        ->with('dailyQuestions.multipleChoice')
         ->get();
 
         $dailyData=[];

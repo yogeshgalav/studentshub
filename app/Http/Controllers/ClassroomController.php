@@ -62,7 +62,7 @@ class ClassroomController extends Controller
     public function classroomPage($classroomId){
         $classroom=Classroom::findOrFail($classroomId);
 
-        if($classroom->teacher_id===Auth::teacher()->id){
+        if(Auth::teacher() && $classroom->teacher_id===Auth::teacher()->id){
             return view('classroom.classroom');    
         }
 

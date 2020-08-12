@@ -78,6 +78,12 @@
                                                     </option>
                                                 </select>
                                             </div>
+                                            <div class="col-md-4" v-for="(choice,index) in question.multiple_choice" :key="index">
+                                                <input type="text" v-model="choice.text">
+                                            </div>
+                                            <div class="mt-2">
+                                                <add-button name="Add Option" @submit="addOption(question.id)" />
+                                            </div>
                                         </div>
                                         <div class="cl_q_close">
                                             <p><i class="fa fa-times" aria-hidden="true"></i></p>
@@ -108,40 +114,49 @@
             AddButton,
             DatePicker
         },
-        props: ['classroomId','activatedUnit'],
         data() {
             return {
                 dailyData: [],
-                activated_unit:this.activatedUnit,
                 assignment_date:'',
             };
         },
         computed:{
             latestDate(){
                 return new Date();
+            },
+            classroomDetail(){
+                return this.$store.state.classroom.classroomDetail;
             }
         },
         mounted() {
-            this.axios.get('/api/classroom/' + this.classroomId + '/daily-questions').then((resp) => {
-                this.unitList = resp.data.success.unitList
-                this.dailyData = resp.data.success.dailyData
-            });
+            if(!this.classroomDetail.id){
+                this.$store.dispatch('classroom/getClassroomDetail',this.$route.params.classroomId).then(()=>{
+                    this.getDailyDetails();
+                });
+            }else{
+                this.getDailyDetails();
+            }
         },
         methods: {
+            getDailyDetails(){
+                this.axios.get('/api/classroom/' + this.classroomDetail.id + '/daily-questions').then((resp) => {
+                    this.unitList = resp.data.success.unitList
+                    this.dailyData = resp.data.success.dailyData
+                });
+            },
             addAssignment() {
                 this.dailyData.unshift({
                     'selected_unit': '',
                     'attempt_date': '',
                     'questions': []
                 });
-
             },
             deleteAssignment(attempt_date) {
                 swal
 				.confirmDialog('Are you sure you want to Delete Assignment for date '+attempt_date+'?')
 				.then(result => {
 					if (result.value) {
-						this.axios.post('/api/classroom/'+this.classroomId+'/delete-unit',{
+						this.axios.post('/api/classroom/'+this.classroomDetail.id+'/delete-daily-assignment',{
                             attempt_date: attempt_date
                         });
 					}
@@ -163,7 +178,7 @@
                     if(question.id===0){
                         return false;
                     }
-                    this.axios.post('/api/classroom/'+this.classroomId+'/update-daily-questions',{
+                    this.axios.post('/api/classroom/'+this.classroomDetail.id+'/update-daily-questions',{
                         question_id: question.id,
                         unit_no: daily.selected_unit,
                         attempt_date: daily.attempt_date
