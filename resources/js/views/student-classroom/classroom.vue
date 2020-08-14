@@ -1,6 +1,8 @@
 <template>
     <div>
-        <div class="col-md-10">
+        <classroom-layout>
+            <template>
+                <div class="col-md-10">
             <div class="row">
                 <div class="col-md-12">
                     <h1 class="text-black">
@@ -122,6 +124,8 @@
                 </div>
             </div>
         </div>
+            </template>
+        </classroom-layout>
     </div>
 </template>
 <style lang="scss">
@@ -164,22 +168,10 @@
 
 </style>
 <script>
+import ClassroomLayout from '../layouts/ClassroomLayout.vue'
     export default {
-        data() {
-            return {};
-        },
-        methods: {
-
-        },
-        mounted() {
-            if (!this.classroomDetail.id) {
-                this.$store.dispatch('classroom/getClassroomDetail',this.$route.params.classroomId);
-            }
-        },
-        computed: {
-            classroomDetail() {
-                return this.$store.state.classroom.classroomDetail;
-            }
+        components:{
+            ClassroomLayout
         }
     };
 

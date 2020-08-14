@@ -4,7 +4,7 @@ import ClassroomDailyAssignmentComponent from '../../views/student-classroom/cla
 import ClassroomStudentDetailComponent from '../../views/student-classroom/classroom.vue'
 import ClassroomResourceComponent from '../../views/student-classroom/classroom.vue'
 import ClassroomMessageComponent from '../../views/student-classroom/classroom.vue'
-import ClassroomDoubtComponent from '../../views/student-classroom/classroom.vue'
+import ClassroomDoubtComponent from '../../views/student-classroom/classroom-doubts.vue'
 
 const StudentClassroomRoutes = [
       {
