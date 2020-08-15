@@ -27,8 +27,10 @@
                                                     :lang="'en'"
                                                     :input-attr="{id: 'start_date_input'}"
                                                     placeholder=""
+                                                    :disabled="daily.disabled"
+                                                    @change="updateAssignmentDate(daily)"
                                                   />
-                                                <span class="error">{{ formErrors('start_date') }}</span>
+                                                <div class="error">{{ formErrors('attempt_date') }}</div>
                                     </div>
                                 </div>
                             </div>
@@ -37,12 +39,12 @@
                                     <div class="form-group pl-0">
                                         <label class="control-label mb-1"
                                             :for="'start_date' + index">Select Unit</label>
-                                                  <select v-model="daily.selected_unit" class="form-control" @change="updateAssignmentDate(daily)">
+                                                  <select v-model="daily.selected_unit" class="form-control" :disabled="daily.disabled" @change="updateAssignmentDate(daily)">
                                                       <option v-for="(unit,index2) in unitList" :key="index2" :value="unit.id">
                                                           {{ 'Unit '+unit.unit_no + ':' +unit.unit_name}}
                                                       </option>
                                                   </select>
-                                                <span class="error">{{ formErrors('start_date') }}</span>
+                                                <div class="error">{{ formErrors('unit_id') }}</div>
                                     </div>
                                 </div>
                             </div>
@@ -178,7 +180,7 @@
                 options:{
                     height:"400px"
                 },
-                marks:10
+                marks:10,
             };
         },
         computed:{
@@ -214,6 +216,7 @@
                 this.dailyData.unshift({
                     'selected_unit': '',
                     'attempt_date': '',
+                    'disabled': false,
                     'questions': []
                 });
             },
@@ -235,25 +238,25 @@
                     'answer_type': ''
                 });
 
-                this.$modal.show('addAssignment',{scrollable:true});
+                this.$modal.show('addAssignment',{daily:daily});
             },
             updateAssignmentDate(daily) {
-                console.log(daily, 'Hello from daily');
+
+                this.form_errors = [];
                 if(!daily.selected_unit || !daily.attempt_date){
                     return false;
                 }
-                //call api and update field
-                // daily.questions.forEach(question=>{
-                //     if(question.id===0){
-                //         return false;
-                //     }
-                    this.axios.post('/api/classroom/'+this.classroomDetail.id+'/update-daily-questions',{
-                        unit_id: daily.selected_unit,
-                        attempt_date: daily.attempt_date
-                    }).then((res) => {
-                        console.log(res, 'Response from update daily question');
-                    });
-                // })
+
+                this.axios.post('/api/classroom/'+this.classroomDetail.id+'/update-daily-questions',{
+                    unit_id: daily.selected_unit,
+                    attempt_date: daily.attempt_date
+                }).then((res) => {
+                    console.log(res, 'Response from update daily question');
+                }).catch((error) => {
+                    if(typeof error.response.data.errors == 'object') {
+                        this.form_errors = error.response.data.errors;
+                    }
+                });
             },
             saveQuestion() {
 

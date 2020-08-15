@@ -25,7 +25,19 @@ class StoreRequest extends FormRequest
     {
         return [
             'unit_id' => 'required|exists:units,id',
-            'attempt_date' => 'required|date',
+            'attempt_date' => 'required|date|unique:daily_questions',
         ];
+    }
+
+    public function messages()
+    {
+        return [
+            'attempt_date.required' => 'The assignment date field is required.',
+            'attempt_date.date' => 'The assignment date field is not a valid date.',
+            'attempt_date.unique' => 'The assignment date has already been taken.',
+            'unit_id.exists' => 'The unit field is not exists.',
+            'unit_id.required' => 'The unit field is required.',
+        ];
+
     }
 }

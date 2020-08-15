@@ -16,7 +16,7 @@ class DailyQuestionController extends Controller
         ->get();
 
         $dailyData=[];
-        foreach($unitList as $unit){
+        foreach($unitList as $unit) {
             foreach($unit->dailyQuestions as $questionKey => $question){
                 $date = $question->attempt_date;
 
@@ -26,6 +26,7 @@ class DailyQuestionController extends Controller
                     $dailyData[$questionKey]=[
                         'attempt_date'=>$date,
                         'selected_unit'=>$unit->unit_no,
+                        'disabled' => true,
                         'questions'=>[],
                     ];
                     array_push($dailyData[$questionKey]['questions'],$question);
