@@ -44,17 +44,18 @@
                                                     <span class="icon_design_input" style="height: 44px;"> <i
                                                             class="fa fa-certificate" aria-hidden="true"></i></span>
                                                     <auto-complete :items="subject_list" :value="'subject_name'" v-validate="'required'"
-                                                         name="program_name" :placeholder="'eg. Biology,Chemistry'" :is-async="true"
+                                                         name="subject_name" :placeholder="'eg. Biology,Chemistry'" :is-async="true"
                                                         @input="getSubjects" @selected="setSubject"
                                                         @selectNew="setNewSubject" :is-loading="subjectLoading" />
                                                 
                                                 </div>
-                                                <span class="error">{{ formErrors('subject') }}</span>
+                                                <span class="error">{{ formErrors('subject_name') }}</span>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label> {{ 'Description.'}} </label>
-                                            <input type="text" v-model="description" name="description">
+                                            <input type="text" v-model="description" v-validate="'required'" name="description">
+                                            <span class="error">{{ formErrors('description') }}</span>
                                         </div>
                                         <div class="form-group d-flex s_register_btn">
                                             <button type="submit" class="login_btn">{{ 'Next' }} <span><i
@@ -68,7 +69,8 @@
                                     <form @submit="createClassroom">
                                         <label> {{ 'Name of Classroom.'}} </label>
                                         <div class="form-group">
-                                            <input type="text" v-model="classroom_name" name ="classroom_name" v-validate="'alpha_num'">
+                                            <input type="text" v-model="classroom_name" name="classroom_name" v-validate="'alpha_num'">
+                                            <span class="error">{{ formErrors('classroom_name') }}</span>
                                         </div>
                                         <div class="form-group d-flex s_register_btn">
                                             <button type="submit" class="login_btn">{{ 'Create' }} <span><i
@@ -160,16 +162,28 @@
                 return acronym.toUpperCase();
             },
             createClassroom() {
-                this.axios.post('/api/classroom/create', {
-                    course: this.selected_course,
-                    subject: this.selected_subject,
-                    description: this.description,
-                    name: this.classroom_name,
+                 this.$validator.validate().then(valid => {
+                    if (valid) {
+                        this.form_errors=[];
+                        this.axios.post('/api/classroom/create', {
+                            course: this.selected_course,
+                            subject: this.selected_subject,
+                            description: this.description,
+                            name: this.classroom_name,
+                        });
+                    }
                 });
+                return true;
             },
             nextStep(){
-                this.classroom_name=this.getFirstChar(this.selected_subject.name)+'BY'+this.getFirstChar(this.AuthUser.full_name);
-                this.step='step2';
+                 this.$validator.validate().then(valid => {
+                    if (valid) {
+                        this.form_errors=[];        
+                        this.classroom_name=this.getFirstChar(this.selected_subject.name)+'BY'+this.getFirstChar(this.AuthUser.full_name);
+                        this.step='step2';
+                    }
+                });
+                return true;
             },
             backStep(){
                 this.step='step1';

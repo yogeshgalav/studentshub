@@ -12,6 +12,9 @@ import 'vue-loading-overlay/dist/vue-loading.css';
 
 import VueSlimScroll from 'vue-slimscroll';
 import VueLazyload from 'vue-lazyload';
+import VueMoment from 'vue-moment';
+const moment = require('moment');
+Vue.use(VueMoment, { moment });
 Vue.use(VueLazyload);
 Vue.use(VueSlimScroll);
 // or with options

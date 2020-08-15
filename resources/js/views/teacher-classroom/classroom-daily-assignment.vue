@@ -94,7 +94,7 @@
                         <div class="form-group">
                             <label class="control-label font-size-14">Marks</label>
                             <select class="form-control" name="marks" v-model="assignment.question.marks">
-                                <option :value="mark" v-for="mark in marks">{{ mark }}</option>
+                                <option :value="mark" v-for="(mark,index) in marks" :key="index">{{ mark }}</option>
                             </select>
                         </div>
                     </div>
@@ -149,7 +149,6 @@
     import AddButton from '../../components/AddButton';
     import swal from '../../components/swal.js';
     import DatePicker from 'vue2-datepicker';
-    import moment from 'moment';
     import 'vue2-datepicker/index.css';
 
     export default {
@@ -164,7 +163,7 @@
                 dailyData: [],
                 assignment_date:'',
                 assignment:{
-                    assignment_date:moment(),
+                    assignment_date:this.$moment(),
                     selected_unit:null,
                     question:{
                         question_text:null,
