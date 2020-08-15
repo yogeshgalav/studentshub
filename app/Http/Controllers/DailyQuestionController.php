@@ -26,7 +26,6 @@ class DailyQuestionController extends Controller
                     $dailyData[$questionKey]=[
                         'attempt_date'=>$date,
                         'selected_unit'=>$unit->unit_no,
-                        'disabled' => true,
                         'questions'=>[],
                     ];
                     array_push($dailyData[$questionKey]['questions'],$question);

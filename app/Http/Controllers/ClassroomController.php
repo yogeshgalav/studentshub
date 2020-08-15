@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Classroom;
 use App\Models\Unit;
-use App\Http\Requests\JoinClassroomRequest;
 use DB;
 use Auth;
 
@@ -170,17 +169,6 @@ class ClassroomController extends Controller
             'id'=>$classroom->id,
             'live_id'=>$classroom->classroom_live_id
         ]]);
-    }
-
-    public function joinClassroom(JoinClassroomRequest $request){
-        $classroom=Classroom::where('name',$request->name)->first();
-
-        ClassroomUser::firstOrCreate([
-            'user_id'=>Auth::id(),
-            'classroom_id'=>$classroom->id
-        ]);
-
-        return response()->json('success');
     }
 
     public function getPreviousUnitAnswers($classroom_id){

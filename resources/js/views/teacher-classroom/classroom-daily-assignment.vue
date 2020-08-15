@@ -27,7 +27,6 @@
                                                     :lang="'en'"
                                                     :input-attr="{id: 'start_date_input'}"
                                                     placeholder=""
-                                                    :disabled="daily.disabled"
                                                     @change="updateAssignmentDate(daily)"
                                                   />
                                                 <div class="error">{{ formErrors('attempt_date') }}</div>
@@ -39,7 +38,7 @@
                                     <div class="form-group pl-0">
                                         <label class="control-label mb-1"
                                             :for="'start_date' + index">Select Unit</label>
-                                                  <select v-model="daily.selected_unit" class="form-control" :disabled="daily.disabled" @change="updateAssignmentDate(daily)">
+                                                  <select v-model="daily.selected_unit" class="form-control" @change="updateAssignmentDate(daily)">
                                                       <option v-for="(unit,index2) in unitList" :key="index2" :value="unit.id">
                                                           {{ 'Unit '+unit.unit_no + ':' +unit.unit_name}}
                                                       </option>
@@ -216,7 +215,6 @@
                 this.dailyData.unshift({
                     'selected_unit': '',
                     'attempt_date': '',
-                    'disabled': false,
                     'questions': []
                 });
             },

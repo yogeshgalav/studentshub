@@ -44,7 +44,7 @@
                 <div class="col-md-4" v-for="(classroom,index) in myClassrooms" :key="index">
                     <div class="clas_roo_main_box">
                         <div class="cl_box_top">
-                            <p>{{classroom.subject_alias}}</p>
+                            <p>{{classroom.classroom_live_id}}</p>
                         </div>
                         <div class="classroom_box">
                             <div class="clss_username">
@@ -52,8 +52,8 @@
                                 <h5>{{classroom.teacher_name}}</h5>
                             </div>
                             <div class="classroom_content">
-                                <a :href="'/classroom/'+classroom.id">{{classroom.name}}</a>
-                                <p>{{classroom.subject_name}}</p>
+                                <a :href="'/classroom/'+classroom.id">{{classroom.subject_name}}</a>
+                                <p>{{classroom.name}}</p>
                             </div>
                         </div>
                     </div>
@@ -67,18 +67,20 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4" v-for="(classroom,index) in classroomList" :key="index">
-                        <div class="clas_roo_main_box">
-                            <div class="cl_box_top">
-                                <p>{{classroom.subject_alias}}</p>
-                            </div>
-                            <div class="classroom_box">
-                                <div class="clss_username">
-                                    <p><img src="/images/Group.svg" alt=""></p>
-                                    <h5>{{classroom.teacher_name}}</h5>
+                        <div class="col-md-4" v-for="(classroom,index) in myClassrooms" :key="index">
+                            <div class="clas_roo_main_box">
+                                <div class="cl_box_top">
+                                    <p>{{classroom.classroom_live_id}}</p>
                                 </div>
-                                <div class="classroom_content">
-                                    <a :href="'/classroom/'+classroom.id">{{classroom.name}}</a>
-                                    <p>{{classroom.subject_name}}</p>
+                                <div class="classroom_box">
+                                    <div class="clss_username">
+                                        <p><img src="/images/Group.svg" alt=""></p>
+                                        <h5>{{classroom.teacher_name}}</h5>
+                                    </div>
+                                    <div class="classroom_content">
+                                        <a :href="'/classroom/'+classroom.id">{{classroom.subject_name}}</a>
+                                        <p>{{classroom.name}}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
