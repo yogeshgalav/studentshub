@@ -16,17 +16,18 @@ class DailyQuestionController extends Controller
 
         $dailyData=[];
         foreach($unitList as $unit){
-            foreach($unit->dailyQuestions as $question){
+            foreach($unit->dailyQuestions as $questionKey => $question){
                 $date = $question->attempt_date;
                 $key = array_search($date, array_column($dailyData, 'attempt_date'));
-                if(!$key){
-                    $dailyData[$key]=[
+
+                if(!$key) {
+                    $dailyData[$questionKey]=[
                         'attempt_date'=>$date,
                         'selected_unit'=>$unit->unit_no,
                         'questions'=>[],
                     ];
                 }
-                array_push($dailyData[$key]['questions'],$question);
+                array_push($dailyData[$questionKey]['questions'],$question);
             }   
         }
 

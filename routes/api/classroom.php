@@ -14,4 +14,9 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::post('/classroom/{classroomId}/activate-unit','ClassroomUnitController@activateUnit');
     Route::post('/classroom/{classroomId}/delete-unit','ClassroomUnitController@deleteUnit');
 
+    //region Daily assignment
+//    classroom/1/update-daily-questions
+    Route::post('/classroom/{classroomId}/update-daily-questions','DailyAssignmentController@addDailyAssignment');
+    //endregion
+
 });
