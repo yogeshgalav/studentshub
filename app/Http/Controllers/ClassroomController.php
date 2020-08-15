@@ -125,19 +125,51 @@ class ClassroomController extends Controller
         return view('classroom.create-classroom');
     }
     public function createClassroom(Request $request){
-        $subject=Subject::firstOrCreate([
-            'subject_url'=>\Str::slug($subject_name),
-          ],[
-          'subject_name'=>$subject_name,
-          'category_id'=>$data['category_id']
-          ]);
+        $subject_id = $request->subject['id'];
+        $subject_name = $request->subject['subject_name'];
+        $course_id = $request->course['id'];
+        $course_name = $request->course['course_name'];
 
-        $classroom=new CLassroom;
+        DB::beginTransaction();
+    try{
+        if($course_id){
+            $course = \App\Models\Course::findOrFail($course_id);
+        }else{
+            $course=\App\Models\Course::create([
+                'course_url'=>\Str::slug($course_name),
+                'course_name'=>$course_name,
+                'category_id'=>null
+            ]);
+        }
+
+        if($subject_id){
+            $subject = \App\Models\Subject::findOrFail($subject_id);
+        }else{
+            $subject= \App\Models\Subject::create([
+                'subject_url'=>\Str::slug($subject_name),
+                'subject_name'=>$subject_name,
+                'category_id'=>$course->category_id ?? null
+            ]);
+        }
+
+        $classroom=new Classroom;
+        $classroom->name=$request->name;
+        $classroom->classroom_live_id=$request->classroom_id;
         $classroom->teacher_id=Auth::teacher()->id;
         $classroom->subject_id=$subject->id;
         $classroom->course_id=$course->id;
         $classroom->save();
 
+        DB::commit();
+    } catch (\Exception $e) {
+        DB::rollback();
+        Log::critical('classroom create failure: with data ',$request->all());
+        return response()->$e;
+    }
+        return response()->json(['success'=>[
+            'id'=>$classroom->id,
+            'live_id'=>$classroom->classroom_live_id
+        ]]);
     }
 
     public function joinClassroom(JoinClassroomRequest $request){

@@ -16,6 +16,7 @@ class CreateClassroomsTable extends Migration
         Schema::create('classrooms', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('classroom_live_id');
             $table->integer('teacher_id')->unsigned();
             $table->integer('subject_id')->unsigned();
             $table->integer('course_id')->unsigned();
@@ -25,7 +26,6 @@ class CreateClassroomsTable extends Migration
             $table->integer('activated_unit')->nullable();
             $table->dateTime('estimated_start_date')->nullable();
             $table->dateTime('estimated_end_date')->nullable();
-            $table->string('description')->nullable();
             $table->string('thumbnail_url')->nullable();
             $table->timestamps();
         });
