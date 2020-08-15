@@ -3,16 +3,7 @@
         <classroom-layout>
             <template>
                 <div class="col-md-10">
-            <div class="row">
-                <div class="col-md-12">
-                    <h1 class="text-black">
-                        {{ 'Classroom' }}
-                    </h1>
-                    <p>
-                        {{ 'classroom' }}
-                    </p>
-                </div>
-            </div>
+          
             <div class="row">
                 <div class="col-md-6">
                     <div class="selection-box-default">

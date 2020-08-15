@@ -22,7 +22,9 @@
     </div>
 
     <div class="main-panel">
+        
         <div class="content">
+        @include('includes.classroom-header')
             @yield('content')
         </div>
     </div>
@@ -33,6 +35,9 @@
 <style>
 .main-sidebar{
     padding-top:20px;
+}
+.font-size-18 {
+    font-size :18px;
 }
 </style>
 </body>

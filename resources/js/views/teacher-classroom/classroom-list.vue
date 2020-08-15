@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="col-md-12">
         <div>
             <a href="/create-classroom"
             class="btn btn-primary btn-lg" 
@@ -7,7 +7,7 @@
             >Create Classroom</a>
 
             <button 
-            class="btn btn-primary btn-lg" 
+            class="btn btn-success btn-lg" 
             type="button"
             @click="$modal.show('join_classroom_modal')"
             >Join Classroom</button>
@@ -37,8 +37,10 @@
         </div>
         <div v-if="myClassrooms.length">
             <div class="row">
-                My Classrooms
+                <div class="col-md-12 mt-3">
+                    <h3>My Classrooms </h3>
                 <hr />
+                </div>
             </div>
             <div class="row">
                 <div class="col-md-4" v-for="(classroom,index) in myClassrooms" :key="index">

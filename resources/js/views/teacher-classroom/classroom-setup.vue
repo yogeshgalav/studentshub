@@ -24,9 +24,9 @@
                           
                                 <div class="mt-5">
                                     <hr />
-                                    <button class="btn skip_btn btn-lg" @click="deleteUnit(unit.unit_no)"> Delete Unit
+                                    <button class="btn btn-danger btn-md" @click="deleteUnit(unit.unit_no)"> Delete Unit
                                     </button>
-                                    <button class="btn btn-primary btn-lg" @click="activateUnit(unit.unit_no)">{{ activated_unit===unit.unit_no ? 'Deactivate Unit' : 'Activate Unit'}}
+                                    <button class="btn btn-primary btn-md" @click="activateUnit(unit.unit_no)">{{ activated_unit===unit.unit_no ? 'Deactivate Unit' : 'Activate Unit'}}
                                     </button>
                                 </div>
                         </accordion>

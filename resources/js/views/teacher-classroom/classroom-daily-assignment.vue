@@ -10,7 +10,8 @@
                         <accordion :title="daily.attempt_date" :aria-expanded="true"
                             tab="accordion_status_unit_active">
                             <div class="row add_cl_q">
-                                <div class="col-md-3 col-12">
+                               <div class="col-md-12">
+                                    <div class="col-md-3 col-12 mt-3">
                                     <div class="form-group pl-0">
                                         <label class="text-black mb-1"
                                             :for="'start_date' + index">{{ 'Assignment Date' }}</label>
@@ -32,9 +33,11 @@
                                                 <span class="error">{{ formErrors('start_date') }}</span>
                                     </div>
                                 </div>
+                               </div>
                             </div>
                             <div class="row add_cl_q">
-                                <div class="col-md-3 col-12">
+                               <div class="col-md-12">
+                                    <div class="col-md-3 col-12">
                                     <div class="form-group pl-0">
                                         <label class="text-black mb-1"
                                             :for="'start_date' + index">{{ 'Assignment Date' }}</label>
@@ -46,6 +49,7 @@
                                                 <span class="error">{{ formErrors('start_date') }}</span>
                                     </div>
                                 </div>
+                               </div>
                             </div>
                             <div class="row add_cl_q">
                                 <div class="col-md-12">

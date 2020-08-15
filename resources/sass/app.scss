@@ -163,7 +163,13 @@ button[disabled="disabled"] {
 .color-placeholder {
     color: $disabled;
 }
-
+.btn-lg,
+.btn-group-lg > .btn {
+  padding: 10.5rem 1rem;
+  font-size: 1.125rem;
+  line-height: 1.5;
+  border-radius: 0.3rem;
+}
 .btn-label {
 
     padding: 15px;
@@ -2220,6 +2226,9 @@ div#preview img {
 .dash_search .dropdown-toggle::after
 {
     display: none;
+}
+.font-size-18 {
+    font-size:18px !important;
 }
 select.form-control.custom-select {
     font-size: 18px;

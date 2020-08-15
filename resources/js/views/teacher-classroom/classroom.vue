@@ -1,18 +1,9 @@
 <template>
-    <div>
+    <div class="row">
         <div class="col-md-10">
+       
             <div class="row">
-                <div class="col-md-12">
-                    <h1 class="text-black">
-                        {{ 'Classroom' }}
-                    </h1>
-                    <p>
-                        {{ 'classroom' }}
-                    </p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4 mb-3">
                     <div class="selection-box-default">
                         <router-link class="card h-card" :to="'/classroom/'+$route.params.classroomId+'/overview'">
                             <div class="card-body">
@@ -30,7 +21,7 @@
                         </router-link>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4 mb-3">
                     <div class="selection-box-default">
                         <router-link class="card h-card" :to="'/classroom/'+$route.params.classroomId+'/setup'">
                             <div class="card-body">
@@ -48,7 +39,7 @@
                         </router-link>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4 mb-3">
                     <div class="selection-box-default">
                         <router-link class="card h-card" :to="'/classroom/'+$route.params.classroomId+'/unit-assignment'">
                             <div class="card-body">
@@ -66,7 +57,7 @@
                         </router-link>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4 mb-3">
                     <div class="selection-box-default">
                         <router-link class="card h-card" :to="'/classroom/'+$route.params.classroomId+'/daily-assignment'">
                             <div class="card-body">
@@ -85,7 +76,7 @@
                     </div>
                 </div>
                 
-                <div class="col-md-6">
+                <div class="col-md-4 mb-3">
                     <div class="selection-box-default">
                         <router-link class="card h-card" :to="'/classroom/'+$route.params.classroomId+'/students'">
                             <div class="card-body">
@@ -103,7 +94,7 @@
                         </router-link>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4 mb-3">
                     <div class="selection-box-default">
                         <router-link class="card h-card" :to="'/classroom/'+$route.params.classroomId+'/resources'">
                             <div class="card-body">
@@ -121,7 +112,7 @@
                         </router-link>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4 mb-3">
                     <div class="selection-box-default">
                         <router-link class="card h-card" :to="'/classroom/'+$route.params.classroomId+'/messages'">
                             <div class="card-body">
@@ -139,7 +130,7 @@
                         </router-link>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4 mb-3">
                     <div class="selection-box-default">
                         <router-link class="card h-card" :to="'/classroom/'+$route.params.classroomId+'/doubts'">
                             <div class="card-body">
@@ -169,7 +160,7 @@
         display: flex;
         height: 100%;
         width: 100%;
-        min-height: 180px;
+       
     }
 
     .selection-box-default a {
@@ -182,7 +173,7 @@
         border: 4px solid transparent;
         border-radius: 8px;
     }
-
+ 
     .selection-box-default:hover a {
         text-decoration: none;
     }
