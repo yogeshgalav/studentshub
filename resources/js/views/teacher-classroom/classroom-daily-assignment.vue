@@ -55,41 +55,6 @@
                                         </div>
                                 </div>
                             </div>
-                            <div class="row add_cl_q" v-for="(question,index) in daily.questions" :key="index">
-                                    <div class="col-md-12 mt-2">
-                                        <h4>Question {{index+1}}</h4>
-                                    </div>
-                                    <div class="cl_q_type_text">
-                                        <div class="cl_q_text_box">
-                                            <label class="col-form-label text-black font-size-14">Question text</label>
-                                            <div class="inner-addon left-addon">
-                                                <div class="cl_input">
-                                                    <input type="text" :value="question.question_text" class="form-control" id="topic_title">
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-                                        <div class="cl_q_type_box">
-                                            <label class="col-form-label text-black font-size-14">Question Type</label>
-                                            <div class="cl_q_type">
-                                                <select>
-                                                    <option>Multiple Choice
-                                                    </option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-4" v-for="(choice,index) in question.multiple_choice" :key="index">
-                                                <input type="text" v-model="choice.text">
-                                            </div>
-                                            <div class="mt-2">
-                                                <add-button name="Add Option" @submit="addOption(question.id)" />
-                                            </div>
-                                        </div>
-                                        <div class="cl_q_close">
-                                            <p><i class="fa fa-times" aria-hidden="true"></i></p>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="mt-2" v-if="daily.selected_unit!==null && daily.attempt_date">
                                     <add-button name="Add Question" @submit="addQuestion(daily.attempt_date)" />
                                 </div>
@@ -98,15 +63,95 @@
                 </div>
             </div>
         </div>
+
+        <modal  name="addAssignment" class="doubt_model">
+            <form @submit.prevent="saveQuestion()" style="padding:25px;" v-slimscroll="options">
+                <div class="row">
+                    <div class="col-md-12 mt-2">
+                        <h4>Question</h4>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label font-size-14">Question text</label>
+                            <div class="inner-addon left-addon">
+                                <div class="cl_input">
+                                    <input type="text" v-model="assignment.question.question_text" class="form-control" id="topic_title">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label font-size-14">Question Type</label>
+                            <div class="cl_q_type">
+                                <select class="form-control" v-model="assignment.question.question_type">
+                                    <option value="multiple_choice">Multiple Choice</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label font-size-14">Marks</label>
+                            <select class="form-control" name="marks" v-model="assignment.question.marks">
+                                <option :value="mark" v-for="mark in marks">{{ mark }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mt-2">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4>Answers</h4>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group d-flex" v-for="(choice,index) in assignment.question.multiple_choice" :key="index">
+                                            <label class="contol-label col-md-2 mt-2">{{ letters[index] }} : </label>
+                                            <input type="text" class="form-control col-md-10" v-model="choice.text">
+                                            <button class="btn btn-danger btn-sm ml-2" @click="removeAnswer(index)">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+
+                                            <div class="form-check ml-3 mt-2">
+                                                <input class="form-check-input" type="radio" name="correctAnswer" v-model="choice.answer" :id="'correctAnswer'+index" value="true">
+                                                <label class="form-check-label">
+                                                    Mark as correct answer
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <button class="btn btn-success btn-sm" @click="addAnswer()">
+                                            <i class="fa fa-plus"></i> Add More
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="mt-3 row text-right">
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-outline-primary">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </modal>
     </div>
 </template>
 <script>
+    import Vue from 'vue';
+
     import FormMixin from '../../components/mixins/form-mixin.js';
     import Accordion from '../../components/accordion';
     import AddButton from '../../components/AddButton';
     import swal from '../../components/swal.js';
     import DatePicker from 'vue2-datepicker';
+    import moment from 'moment';
     import 'vue2-datepicker/index.css';
+
     export default {
         mixins:[FormMixin],
         components: {
@@ -118,6 +163,24 @@
             return {
                 dailyData: [],
                 assignment_date:'',
+                assignment:{
+                    assignment_date:moment(),
+                    selected_unit:null,
+                    question:{
+                        question_text:null,
+                        marks:null,
+                        question_type:"multiple_choice",
+                        correct_option:null,
+                        multiple_choice:[{
+                            text:null,
+                            answer:false,
+                        }]
+                    }
+                },
+                options:{
+                    height:"400px"
+                },
+                marks:10
             };
         },
         computed:{
@@ -126,6 +189,11 @@
             },
             classroomDetail(){
                 return this.$store.state.classroom.classroomDetail;
+            },
+            letters() {
+                let letters = []
+                for(let i = "A".charCodeAt(0); i <= "Z".charCodeAt(0); i++) {letters.push(String.fromCharCode([i]))}
+                return letters
             }
         },
         mounted() {
@@ -168,6 +236,8 @@
                     'question_text': '',
                     'answer_type': ''
                 });
+
+                this.$modal.show('addAssignment',{scrollable:true});
             },
             updateAssignmentDate(daily) {
                 if(!daily.selected_unit || !daily.attempt_date){
@@ -184,8 +254,26 @@
                         attempt_date: daily.attempt_date
                     });
                 })
-            }
+            },
+            saveQuestion() {
 
+            },
+            addAnswer() {
+                let data = this.assignment.question.multiple_choice;
+                console.log(data, 'Hello from add');
+                data.push({
+                    text:null,
+                    answer:false,
+                });
+
+                this.assignment.question.multiple_choice = data;
+            },
+            removeAnswer(index) {
+                let data = this.assignment.question.multiple_choice;
+                data.splice(index, 1);
+
+                this.assignment.question.multiple_choice = data;
+            }
         }
     }
 

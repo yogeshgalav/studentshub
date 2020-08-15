@@ -10,9 +10,10 @@ import VModal from 'vue-js-modal'
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 
+import VueSlimScroll from 'vue-slimscroll';
 import VueLazyload from 'vue-lazyload';
 Vue.use(VueLazyload);
-
+Vue.use(VueSlimScroll);
 // or with options
 Vue.use(VueLazyload, {
   preLoad: 1.3,
@@ -20,7 +21,7 @@ Vue.use(VueLazyload, {
   loading: 'dist/loading.gif',
   attempt: 1
 })
-Vue.use(VModal, { dynamic: true, injectModalsContainer: true })
+Vue.use(VModal, { dynamic: true, injectModalsContainer: true, scrollable:true })
 Vue.use(VueAxios, axios);
 
 Vue.mixin({
