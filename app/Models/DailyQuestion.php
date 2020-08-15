@@ -6,9 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class DailyQuestion extends Model
 {
-    //
+    protected $guarded = [
+        'id'
+    ];
 
     public function multipleChoice(){
-        return $this->hasMany('App\Models\MultipleChoice');
+        return $this->hasMany(MultipleChoice::class);
     }
 }

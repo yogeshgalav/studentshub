@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Unit;
+use Illuminate\Support\Facades\Log;
 
 class DailyQuestionController extends Controller
 {
@@ -15,18 +16,23 @@ class DailyQuestionController extends Controller
         ->get();
 
         $dailyData=[];
-        foreach($unitList as $unit){
-            foreach($unit->dailyQuestions as $question){
+        foreach($unitList as $unit) {
+            foreach($unit->dailyQuestions as $questionKey => $question){
                 $date = $question->attempt_date;
+
                 $key = array_search($date, array_column($dailyData, 'attempt_date'));
-                if(!$key){
-                    $dailyData[$key]=[
+
+                if(!is_numeric($key)) {
+                    $dailyData[$questionKey]=[
                         'attempt_date'=>$date,
                         'selected_unit'=>$unit->unit_no,
+                        'disabled' => true,
                         'questions'=>[],
                     ];
+                    array_push($dailyData[$questionKey]['questions'],$question);
+                } else {
+                    array_push($dailyData[$key]['questions'],$question);
                 }
-                array_push($dailyData[$key]['questions'],$question);
             }   
         }
 
