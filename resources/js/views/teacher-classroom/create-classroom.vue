@@ -1,81 +1,87 @@
 <template>
-    <div class="row">
-        <div class="col-md-8">
-            <h1 class="text-black mb-3">
-                Create Classroom
-            </h1>
-        </div>
-        <div class="col-md-12">
-            <div class="row">
-                <div class="col-md-8 pl-2 main-habit-builder">
-                    <form autocomplete="off" @submit.prevent="handleSubmit">
-                        <div class="form-group pt-0">
-                            <div>
-                                <div class="row">
-                                    <div class="col-md-12">
+<div>
+        <loading :active.sync="showLoader" :color="'#10069F'" :width="250" :is-full-page="true" />
+
+
+        <div class="container pb-100">
+            <div class="row justify-content-center register">
+                <div class="col-md-8">
+                    <div class="logn_right login_card">
+                        <div class="card_title text-center">
+                            <h3 class="weight-800 text-black font-size-18">{{ 'Create Classroom' }}</h3>
+                        </div>
+
+                        <div class="card-body edu_det_page">
+                            <div class="row justify-content-center">
+                                <div class="col-md-12">
+                                    <p class="text-grey">Please Enter Following Details to Create Classroom.</p>
+                                </div>
+                                <div class="col-md-12 mt-2" v-if="step==='step1'">
+                                    <form @submit.prevent="nextStep">
                                         <div class="form-group">
-                                            <label class="col-form-label mt-2">Subject Name</label>
-                                            <input type="text" class="form-control" v-model="subject"
-                                                name="subject_name" v-validate="'required'">
-                                            <span class="error">{{ formErrors('subject_name') }}</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label class="col-form-label mt-2">Classroom Name</label>
-                                            <input type="text" class="form-control" name="classroom_name" v-model="name"
-                                                v-validate="'required'">
-                                            <span class="error">{{ formErrors('classroom_name') }}</span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group pl-0">
-                                        <label for="master_template" class="col-form-label mb-0 pt-0">Does this
-                                            Classroom belongs to Program ?</label>
-                                        <div class="custom-control custom-radio mt-2">
-                                            <input id="master_template" v-model="include_program"
-                                                v-validate="'required'" name="master" type="radio"
-                                                class="custom-control-input" :value="true">
-                                            <label for="master_template"
-                                                class="custom-control-label">{{ 'YES' }}</label>
-                                        </div>
-                                        <div class="custom-control custom-radio mt-2">
-                                            <input id="master_template_no" v-model="include_program"
-                                                v-validate="'required'" name="master" type="radio" :value="false"
-                                                class="custom-control-input">
-                                            <label for="master_template_no"
-                                                class="custom-control-label">{{ 'NO' }}</label>
-                                        </div>
-                                        <span class="error">{{ formErrors('master') }}</span>
-                                    </div>
-                                    <div class="col-md-12" v-if="include_program">
-                                        <div class="model_input">
+                                            <label> {{ 'Program/Course of classroom.'}} </label>
                                             <div class="inner-addon left-addon">
                                                 <div class="input_icon_frm">
                                                     <span class="icon_design_input" style="height: 44px;"> <i
                                                             class="fa fa-certificate" aria-hidden="true"></i></span>
-                                                    <auto-complete :items="course_list" :value="'course_name'"
-                                                        v-validate="'required'" name="program_name"
-                                                        :placeholder="'eg. Bachelor of Arts'" :is-async="true"
+                                                    <auto-complete :items="course_list" :value="'course_name'" v-validate="'required'"
+                                                         name="program_name" :placeholder="'eg. Bachelor of Arts'" :is-async="true"
                                                         @input="getCourses" @selected="setCourse"
                                                         @selectNew="setNewCourse" :is-loading="courseLoading" />
                                                 </div>
+                                                <span v-if="selected_course.totalBatch">{{selected_course.totalBatch }}
+                                                    batch found.</span>
                                                 <span v-if="no_course_found">Please enter your full Program name
                                                     followed by branch name(if any).Please make sure that program
                                                     details you are entering is correct.</span>
                                                 <span class="error">{{ formErrors('program_name') }}</span>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="model_btn">
-                                            <button type="submit" class="btn btn-primary mr-3 mt-2">Create</button>
-                                            <a href="/classrooms" class="btn btn-secondary mt-2">Go Back</a>
+                                        <div class="form-group">
+                                            <label> {{ 'Subject of Classroom.'}} </label>
+                                            <div class="inner-addon left-addon">
+                                                <div class="input_icon_frm">
+                                                    <span class="icon_design_input" style="height: 44px;"> <i
+                                                            class="fa fa-certificate" aria-hidden="true"></i></span>
+                                                    <auto-complete :items="subject_list" :value="'subject_name'" v-validate="'required'"
+                                                         name="program_name" :placeholder="'eg. Biology,Chemistry'" :is-async="true"
+                                                        @input="getSubjects" @selected="setSubject"
+                                                        @selectNew="setNewSubject" :is-loading="subjectLoading" />
+                                                
+                                                </div>
+                                                <span class="error">{{ formErrors('subject') }}</span>
+                                            </div>
                                         </div>
-                                    </div>
+                                        <div class="form-group">
+                                            <label> {{ 'Description.'}} </label>
+                                            <input type="text" v-model="description" name="description">
+                                        </div>
+                                        <div class="form-group d-flex s_register_btn">
+                                            <button type="submit" class="login_btn">{{ 'Next' }} <span><i
+                                                        class="fa fa-arrow-right"
+                                                        aria-hidden="true"></i></span></button>
+
+                                        </div>
+                                         </form>
+                                </div>
+                                <div class="col-md-12 mt-2"  v-if="step==='step2'">
+                                    <form @submit="createClassroom">
+                                        <label> {{ 'Name of Classroom.'}} </label>
+                                        <div class="form-group">
+                                            <input type="text" v-model="classroom_name" name ="classroom_name" v-validate="'alpha_num'">
+                                        </div>
+                                        <div class="form-group d-flex s_register_btn">
+                                            <button type="submit" class="login_btn">{{ 'Create' }} <span><i
+                                                        class="fa fa-arrow-right"
+                                                        aria-hidden="true"></i></span>
+                                            </button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
-                    </form>
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -128,9 +134,9 @@
         },
         data() {
             return {
-                name: '',
-                subject: '',
-                include_program: true,
+                classroom_name: '',
+                step: 'step1',
+                showLoader: false,
                 course_list: [],
                 courseLoading: false,
                 no_course_found: false,
@@ -139,19 +145,34 @@
                     'course_name': '',
                     'category_id': ''
                 },
+                subject_list: [],
+                subjectLoading: false,
+                selected_subject: {
+                    'id': null,
+                    'subject_name': '',
+                },
             };
         },
-        watch: {
-            subject() {
-
-            }
-        },
         methods: {
+            getFirstChar(str){
+                var matches = str.match(/\b(\w)/g);
+                var acronym = matches.join('');
+                return acronym.toUpperCase();
+            },
             createClassroom() {
                 this.axios.post('/api/classroom/create', {
-                    subject: this.subject,
-                    name: this.name,
+                    course: this.selected_course,
+                    subject: this.selected_subject,
+                    description: this.description,
+                    name: this.classroom_name,
                 });
+            },
+            nextStep(){
+                this.classroom_name=this.getFirstChar(this.selected_subject.name)+'BY'+this.getFirstChar(this.AuthUser.full_name);
+                this.step='step2';
+            },
+            backStep(){
+                this.step='step1';
             },
             getCourses(search) {
                 this.selected_course = {
@@ -190,6 +211,41 @@
                     'category_id': 0
                 };
                 this.categoryDisabled = false;
+            },
+            getSubjects(search) {
+                this.selected_subject = {
+                    'id': null,
+                    'course_name': search,
+                    'category_id': ''
+                };
+                this.subjectLoading = true;
+                this.axios
+                    .post(this.baseUrl + '/api/search-subject', {
+                        searchTerm: search
+                    })
+                    .then(resp => {
+                        this.subject_list = resp.data.success.subjects;
+                        this.subject_list.find(node => {
+                            if (node.subject_name.toLowerCase() === this.selected_subject.subject_name
+                                .toLowerCase()) {
+                                this.selected_subject = node;
+                                return true;
+                            }
+                        });
+                        this.subjectLoading = false;
+                    }).catch(() => {
+                        this.subjectLoading = false;
+                    });
+
+            },
+            setSubject(result) {
+                this.selected_subject = result;
+            },
+            setNewSubject(name) {
+                this.selected_subject = {
+                    'id': 0,
+                    'subject_name': name,
+                };
             },
         }
     }

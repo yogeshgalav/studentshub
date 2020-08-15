@@ -10,5 +10,6 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::get('/get-categories','CategoryController@index');
     Route::post('/checkin','StudentController@create');
     Route::post('/search-course','StudentController@courseList');
+    Route::post('/search-subject','StudentController@subjectList');
     Route::post('/search-institute','StudentController@instituteList');
 });

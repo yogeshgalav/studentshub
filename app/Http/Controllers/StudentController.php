@@ -121,6 +121,19 @@ class StudentController extends Controller
             'courses'=>$courses
         ]]);
     }
+    public function subjectList(Request $request){
+        $search=str_replace('.', '', $request->searchTerm);
+        $subjects=DB::table('subjects as sub')
+        ->where('sub.subject_name','LIKE','%'.$search.'%')
+        ->orWhere('sub.alias','LIKE',$search)
+        ->select('sub.id','sub.subject_name')
+        ->limit(10)->get();
+
+
+        return response()->json(['success'=>[
+            'subjects'=>$subjects
+        ]]);
+    }
     
     public function instituteList(Request $request){
         $input=$request->searchTerm;
