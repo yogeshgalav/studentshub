@@ -7,7 +7,7 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::post('/classroom/create','ClassroomController@createClassroom');
     Route::post('/classroom/join','ClassroomUserController@joinClassroom');
 
-    Route::get('/classroom/{classroomId}/unit-details','ClassroomController@getUnitAssismentDetails');
+    Route::get('/classroom/{classroomId}/unit-assignment-details','ClassroomController@getUnitAssismentDetails');
     Route::get('/classroom/{classroomId}/daily-questions','DailyQuestionController@getDailyAssismentDetails');
     Route::get('/get-previous-unit-answers','ClassroomController@getPreviousUnitAnswers');
     Route::post('/classroom/{classroomId}/update-unit','ClassroomUnitController@updateUnit');

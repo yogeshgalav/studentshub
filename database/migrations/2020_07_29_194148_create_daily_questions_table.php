@@ -17,6 +17,7 @@ class CreateDailyQuestionsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('unit_id')->unsigned();
             $table->date('attempt_date');
+            $table->tinyInteger('question_order');
             $table->string('question_text');
             $table->enum('question_type',['multiple_choice'])->default('multiple_choice');
             $table->tinyInteger('marks');
