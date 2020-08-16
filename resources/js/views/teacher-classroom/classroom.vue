@@ -1,7 +1,14 @@
 <template>
     <div class="row">
         <div class="col-md-10">
-       
+        <div class="row">
+            <div class="col-md-12">
+               <classroom-header 
+               :title="this.classroomDetail.name" 
+               :subtitle ="this.classroomDetail.course_name">
+               </classroom-header>
+            </div>
+        </div>
             <div class="row">
                 <div class="col-md-4 mb-3">
                     <div class="selection-box-default">
@@ -192,7 +199,11 @@
 
 </style>
 <script>
+import ClassroomHeader from '../../components2/base/ClassroomHeader';
     export default {
+        components: {
+            ClassroomHeader
+        },
         data() {
             return {};
         },

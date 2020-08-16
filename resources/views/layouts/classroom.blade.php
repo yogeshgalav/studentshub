@@ -24,7 +24,6 @@
     <div class="main-panel">
         
         <div class="content">
-        @include('includes.classroom-header')
             @yield('content')
         </div>
     </div>

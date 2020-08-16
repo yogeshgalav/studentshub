@@ -16,15 +16,16 @@
                                 <div class="col-md-12">
                                     <p class="text-grey">Please Enter Following Details to Create Classroom.</p>
                                 </div>
+                               
                                 <div class="col-md-12 mt-2" v-if="step==='step1'">
                                     <form @submit.prevent="nextStep">
                                         <div class="form-group">
-                                            <label> {{ 'Program/Course of classroom.'}} </label>
+                                            <label class="mb-1"> {{ 'Program/Course of classroom.'}} </label>
                                             <div class="inner-addon left-addon">
                                                 <div class="input_icon_frm">
                                                     <span class="icon_design_input" style="height: 44px;"> <i
                                                             class="fa fa-certificate" aria-hidden="true"></i></span>
-                                                    <auto-complete :items="course_list" :value="'course_name'" v-validate="'required'"
+                                                    <auto-complete class ="width-100"  :items="course_list" :value="'course_name'" v-validate="'required'"
                                                          name="program_name" :placeholder="'eg. Bachelor of Arts'" :is-async="true"
                                                         @input="getCourses" @selected="setCourse"
                                                         @selectNew="setNewCourse" :is-loading="courseLoading" />
@@ -38,12 +39,12 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label> {{ 'Subject of Classroom.'}} </label>
+                                            <label class="mb-1"> {{ 'Subject of Classroom.'}} </label>
                                             <div class="inner-addon left-addon">
                                                 <div class="input_icon_frm">
                                                     <span class="icon_design_input" style="height: 44px;"> <i
                                                             class="fa fa-certificate" aria-hidden="true"></i></span>
-                                                    <auto-complete :items="subject_list" :value="'subject_name'" v-validate="'required'"
+                                                    <auto-complete  class ="width-100" :items="subject_list" :value="'subject_name'" v-validate="'required'"
                                                          name="program_name" :placeholder="'eg. Biology,Chemistry'" :is-async="true"
                                                         @input="getSubjects" @selected="setSubject"
                                                         @selectNew="setNewSubject" :is-loading="subjectLoading" />
@@ -54,7 +55,8 @@
                                         </div>
                                         <div class="form-group">
                                             <label> {{ 'Description.'}} </label>
-                                            <input type="text" v-model="description" name="description">
+                                            
+                                            <input type="text" v-model="description" name="description" class="form-control">
                                         </div>
                                         <div class="form-group d-flex s_register_btn">
                                             <button type="submit" class="login_btn">{{ 'Next' }} <span><i
@@ -91,6 +93,9 @@
     .form-group label,
     .form-check label {
         margin-bottom: 0rem;
+    }
+    .width-100 {
+        width: 100% !important;
     }
 
     .hide-program {
