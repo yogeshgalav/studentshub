@@ -16,6 +16,7 @@ class CreateDescriptiveQuestionsTable extends Migration
         Schema::create('descriptive_questions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('unit_id')->unsigned();
+            $table->tinyInteger('question_order');
             $table->string('question_text');
             $table->string('question_type');
             $table->timestamps();

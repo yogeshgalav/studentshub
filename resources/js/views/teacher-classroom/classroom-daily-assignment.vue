@@ -13,8 +13,8 @@
                                <div class="col-md-12">
                                     <div class="col-md-3 col-12 mt-3">
                                     <div class="form-group pl-0">
-                                        <label class="text-black mb-1"
-                                            :for="'start_date' + index">{{ 'Assignment Date' }}</label>
+                                        <label class="control-label"
+                                            :for="'start_date' + index">Assignment Date</label>
                                                   <date-picker
                                                     id="start_date_create"
                                                     ref="start_date"
@@ -30,7 +30,7 @@
                                                     placeholder=""
                                                     @change="updateAssignmentDate(daily)"
                                                   />
-                                                <span class="error">{{ formErrors('start_date') }}</span>
+                                                <div class="error">{{ formErrors('attempt_date') }}</div>
                                     </div>
                                 </div>
                                </div>
@@ -39,14 +39,14 @@
                                <div class="col-md-12">
                                     <div class="col-md-3 col-12">
                                     <div class="form-group pl-0">
-                                        <label class="text-black mb-1"
-                                            :for="'start_date' + index">{{ 'Assignment Date' }}</label>
-                                                  <select v-model="daily.selected_unit" @change="updateAssignmentDate(daily)">
-                                                      <option v-for="(unit,index2) in unitList" :key="index2" :value="unit.unit_no">
+                                        <label class="control-label mb-1"
+                                            :for="'start_date' + index">Select Unit</label>
+                                                  <select v-model="daily.selected_unit" class="form-control" @change="updateAssignmentDate(daily)">
+                                                      <option v-for="(unit,index2) in unitList" :key="index2" :value="unit.id">
                                                           {{ 'Unit '+unit.unit_no + ':' +unit.unit_name}}
                                                       </option>
                                                   </select>
-                                                <span class="error">{{ formErrors('start_date') }}</span>
+                                                <div class="error">{{ formErrors('unit_id') }}</div>
                                     </div>
                                 </div>
                                </div>
@@ -98,7 +98,7 @@
                         <div class="form-group">
                             <label class="control-label font-size-14">Marks</label>
                             <select class="form-control" name="marks" v-model="assignment.question.marks">
-                                <option :value="mark" v-for="mark in marks">{{ mark }}</option>
+                                <option :value="mark" v-for="(mark,index) in marks" :key="index">{{ mark }}</option>
                             </select>
                         </div>
                     </div>
@@ -153,7 +153,6 @@
     import AddButton from '../../components/AddButton';
     import swal from '../../components/swal.js';
     import DatePicker from 'vue2-datepicker';
-    import moment from 'moment';
     import 'vue2-datepicker/index.css';
 
     export default {
@@ -168,7 +167,7 @@
                 dailyData: [],
                 assignment_date:'',
                 assignment:{
-                    assignment_date:moment(),
+                    assignment_date:this.$moment(),
                     selected_unit:null,
                     question:{
                         question_text:null,
@@ -184,7 +183,7 @@
                 options:{
                     height:"400px"
                 },
-                marks:10
+                marks:10,
             };
         },
         computed:{
@@ -241,23 +240,25 @@
                     'answer_type': ''
                 });
 
-                this.$modal.show('addAssignment',{scrollable:true});
+                this.$modal.show('addAssignment',{daily:daily});
             },
             updateAssignmentDate(daily) {
+
+                this.form_errors = [];
                 if(!daily.selected_unit || !daily.attempt_date){
                     return false;
                 }
-                //call api and update field
-                daily.questions.forEach(question=>{
-                    if(question.id===0){
-                        return false;
+
+                this.axios.post('/api/classroom/'+this.classroomDetail.id+'/update-daily-questions',{
+                    unit_id: daily.selected_unit,
+                    attempt_date: daily.attempt_date
+                }).then((res) => {
+                    console.log(res, 'Response from update daily question');
+                }).catch((error) => {
+                    if(typeof error.response.data.errors == 'object') {
+                        this.form_errors = error.response.data.errors;
                     }
-                    this.axios.post('/api/classroom/'+this.classroomDetail.id+'/update-daily-questions',{
-                        question_id: question.id,
-                        unit_no: daily.selected_unit,
-                        attempt_date: daily.attempt_date
-                    });
-                })
+                });
             },
             saveQuestion() {
 

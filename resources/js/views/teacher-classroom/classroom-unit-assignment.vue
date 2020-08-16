@@ -1,8 +1,5 @@
 <template>
     <div>
-        <div class="mt-2">
-            <add-button name="Add Unit" @submit="addUnit" />
-        </div>
         <div class="card mt-5" v-for="(unit,index) in unitData" :key="index">
             <div>
                 <div class="row">
@@ -17,7 +14,7 @@
                                         </div>
                                 </div>
                             </div>
-                            <div class="row add_cl_q" v-for="(question,index) in unit.questions" :key="index">
+                            <div class="row add_cl_q" v-for="(question,index) in unit.descriptive_questions" :key="index">
                                     <div class="col-md-12 mt-2">
                                         <h4>Question {{index+1}}</h4>
                                     </div>
@@ -26,7 +23,7 @@
                                             <label class="col-form-label text-black font-size-14">Question text</label>
                                             <div class="inner-addon left-addon">
                                                 <div class="cl_input">
-                                                    <input type="text" :value="question.question_text" class="form-control" id="topic_title">
+                                                    <input type="text" :value="question.question_text" class="form-control" id="topic_title" @blur="addOrUpdateQuestion($event,unit.unit_no)">
                                                 </div>
 
                                             </div>
@@ -35,7 +32,7 @@
                                         <div class="cl_q_type_box">
                                             <label class="col-form-label text-black font-size-14">Question Type</label>
                                             <div class="cl_q_type">
-                                                <select>
+                                                <select @change="addOrUpdateQuestion($event,unit.unit_no)">
                                                     <option>Short Answer
                                                     </option>
                                                     <option>Long Answer
@@ -45,7 +42,7 @@
                                             </div>
                                         </div>
                                         <div class="cl_q_close">
-                                            <p><i class="fa fa-times" aria-hidden="true"></i></p>
+                                            <p><i class="fa fa-times" aria-hidden="true" @click="removeQuestion($event,unit.unit_no)"></i></p>
                                         </div>
                                     </div>
                                 </div>
@@ -92,17 +89,23 @@
         },
         methods: {
             getUnitDetails(){
-                this.axios.get('/api/classroom/' + this.classroomDetail.id + '/unit-details').then((resp) => {
-                    this.unitData = resp.data.success.unitData
+                this.axios.get('/api/classroom/' + this.classroomDetail.id + '/unit-assignment-details').then((resp) => {
+                    this.unitData = resp.data.success.unitData;
                 });
             },      
             addQuestion(unit_no) {
                 let unit = this.unitData.find(node=>node.unit_no === unit_no);
-                unit.questions.push({
+                unit.descriptive_questions.push({
                     'question_text': '',
                     'answer_type': ''
                 });
             },
+            addOrUpdateQuestion($event,unit_no){
+
+            },
+            removeQuestion($event,unit_no){
+                
+            }
         }
     }
 

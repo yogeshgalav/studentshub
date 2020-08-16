@@ -17,7 +17,7 @@ class CreateSubjectsTable extends Migration
             $table->increments('id');
             $table->string('subject_name');
             $table->string('subject_url');
-            $table->integer('category_id')->unsigned()->default(1);
+            $table->integer('category_id')->unsigned()->nullable();
             $table->string('alias')->nullable();
             $table->timestamps();
         });

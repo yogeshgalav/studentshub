@@ -18,7 +18,18 @@
                                 </div>
                                
                                 <div class="col-md-12 mt-2" v-if="step==='step1'">
-                                    <form @submit.prevent="nextStep">
+                                    <form @submit.prevent="createClassroom">
+                                        <div class="form-group">
+                                            <label> {{ 'Classroom Name'}} </label>
+                                            <div class="inner-addon left-addon">
+                                                <div class="input_icon_frm">
+                                                    <span class="icon_design_input" style="height: 44px;"> <i
+                                                            class="fa fa-certificate" aria-hidden="true"></i></span>
+                                                    <input type="text" v-model="classroom_name" name="classroom_name" class="form-control" v-validate="'required'">
+                                                </div>
+                                                <span class="error">{{ formErrors('classroom_name') }}</span>
+                                            </div>
+                                        </div>
                                         <div class="form-group">
                                             <label class="mb-1"> {{ 'Program/Course of classroom.'}} </label>
                                             <div class="inner-addon left-addon">
@@ -50,35 +61,19 @@
                                                         @selectNew="setNewSubject" :is-loading="subjectLoading" />
                                                 
                                                 </div>
-                                                <span class="error">{{ formErrors('subject') }}</span>
+                                                <span class="error">{{ formErrors('subject_name') }}</span>
                                             </div>
                                         </div>
+                                        
                                         <div class="form-group">
                                             <label> {{ 'Description.'}} </label>
                                             
                                             <input type="text" v-model="description" name="description" class="form-control">
                                         </div>
                                         <div class="form-group d-flex s_register_btn">
-                                            <button type="submit" class="login_btn">{{ 'Next' }} <span><i
-                                                        class="fa fa-arrow-right"
-                                                        aria-hidden="true"></i></span></button>
-
+                                            <button type="submit" class="login_btn">{{ 'Create' }}</button>
                                         </div>
                                          </form>
-                                </div>
-                                <div class="col-md-12 mt-2"  v-if="step==='step2'">
-                                    <form @submit="createClassroom">
-                                        <label> {{ 'Name of Classroom.'}} </label>
-                                        <div class="form-group">
-                                            <input type="text" v-model="classroom_name" name ="classroom_name" v-validate="'alpha_num'">
-                                        </div>
-                                        <div class="form-group d-flex s_register_btn">
-                                            <button type="submit" class="login_btn">{{ 'Create' }} <span><i
-                                                        class="fa fa-arrow-right"
-                                                        aria-hidden="true"></i></span>
-                                            </button>
-                                        </div>
-                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -139,6 +134,7 @@
         },
         data() {
             return {
+                classroom_id: '',
                 classroom_name: '',
                 step: 'step1',
                 showLoader: false,
@@ -165,19 +161,23 @@
                 return acronym.toUpperCase();
             },
             createClassroom() {
-                this.axios.post('/api/classroom/create', {
-                    course: this.selected_course,
-                    subject: this.selected_subject,
-                    description: this.description,
-                    name: this.classroom_name,
+                 this.$validator.validate().then(valid => {
+                    if (valid) {
+                        this.form_errors=[];
+                        this.axios.post('/api/classroom/create', {
+                            course: this.selected_course,
+                            subject: this.selected_subject,
+                            name: this.classroom_name,
+                            classroom_id: this.classroom_id,
+                        }).then((resp)=>{
+                            if (resp.data.success) {
+                                swal.successDialog('Classroom create', 'Success!', 'success')
+                                window.location.href = '/classroom/'+resp.data.success.id;
+                            }
+                        });
+                    }
                 });
-            },
-            nextStep(){
-                this.classroom_name=this.getFirstChar(this.selected_subject.name)+'BY'+this.getFirstChar(this.AuthUser.full_name);
-                this.step='step2';
-            },
-            backStep(){
-                this.step='step1';
+                return true;
             },
             getCourses(search) {
                 this.selected_course = {
@@ -220,9 +220,9 @@
             getSubjects(search) {
                 this.selected_subject = {
                     'id': null,
-                    'course_name': search,
-                    'category_id': ''
+                    'subject_name': search,
                 };
+                this.classroom_name = this.getFirstChar(search)+'BY'+this.getFirstChar(this.AuthUser.full_name);
                 this.subjectLoading = true;
                 this.axios
                     .post(this.baseUrl + '/api/search-subject', {
@@ -245,6 +245,7 @@
             },
             setSubject(result) {
                 this.selected_subject = result;
+                this.classroom_name=this.getFirstChar(result.subject_name)+'BY'+this.getFirstChar(this.AuthUser.full_name);
             },
             setNewSubject(name) {
                 this.selected_subject = {
