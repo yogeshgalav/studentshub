@@ -91,8 +91,8 @@ class ClassroomController extends Controller
         return view('classroom.classroom-daily-assignment');
     }
     public function classroomStudentPage($classroomId){
-        $classroom=Classroom::findOrFail($classroomId);
-        return view('classroom.classroom-student-details');
+        $classroom = Classroom::findOrFail($classroomId);
+        return view('classroom.classroom-student-details')->with(['classroom'=>$classroom] );
     }
     
     public function unitAttemptPage(){

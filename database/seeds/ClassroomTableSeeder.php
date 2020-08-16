@@ -19,15 +19,16 @@ class ClassroomTableSeeder extends Seeder
         ]);
 
         DB::table('classrooms')->insert([
-            'name'=>'PPLBYAK',
+            'classroom_live_id'=>'PPLBYAK',
+            'name'=>'YOGESH',
             'teacher_id'=>1,
             'subject_id'=>1,
             'course_id'=>1,
             'expected_students'=>60,
             'activated_unit'=>null,
             'classroom_duration'=>6,
-            'start_time'=>$time,
-            'end_time'=>$time
+            'estimated_start_date'=>$time,
+            'estimated_end_date'=>$time
         ]);
 
         DB::table('units')->insert([
@@ -38,17 +39,17 @@ class ClassroomTableSeeder extends Seeder
             'deactivated_at'=>$time
             ]);
 
-        DB::table('topics')->insert([
-            'unit_id' => 1,
-            'topic_name' => 'topic1',
-            'post_type' => 'article',
-        ]);
+        // DB::table('topics')->insert([
+        //     'unit_id' => 1,
+        //     'topic_name' => 'topic1',
+        //     'post_type' => 'article',
+        // ]);
 
-        DB::table('topic_answers')->insert([
-            'topic_id' => 1,
-            'user_id' => 1,
-            'post_id' =>1,
-        ]);
+        // DB::table('topic_answers')->insert([
+        //     'topic_id' => 1,
+        //     'user_id' => 1,
+        //     'post_id' =>1,
+        // ]);
 
     }
 }

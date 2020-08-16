@@ -23,6 +23,7 @@ Vue.component('ClassroomComponent', require('../../views/teacher-classroom/class
 Vue.component('ClassroomListComponent', require('../../views/teacher-classroom/classroom-list.vue').default);
 Vue.component('CreateClassroomComponent', require('../../views/teacher-classroom/create-classroom.vue').default);
 
+
 import TeacherClassroomStore from '../../store/teacher-classroom';
 import Vuex from 'vuex';
 Vue.use(Vuex);

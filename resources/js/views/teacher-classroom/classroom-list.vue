@@ -3,8 +3,8 @@
          <div class="row">
             <div class="col-md-12">
                <classroom-header 
-               :title="this.myClassrooms[0].name" 
-               :subtitle ="this.myClassrooms[0].course_name">
+               title="NAme" 
+               subtitle ="Subname">
                </classroom-header>
             </div>
         </div>

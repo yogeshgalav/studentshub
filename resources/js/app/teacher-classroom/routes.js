@@ -7,6 +7,7 @@ import ClassroomStudentDetailComponent from '../../views/teacher-classroom/class
 import ClassroomResourceComponent from '../../views/teacher-classroom/classroom.vue'
 import ClassroomMessageComponent from '../../views/teacher-classroom/classroom.vue'
 import ClassroomDoubtComponent from '../../views/teacher-classroom/classroom.vue'
+import ClassroomStudentDetailsComponent from '../../views/teacher-classroom/classroom-student-detail.vue'
 
 const TeacherClassroomRoutes = [
       {
@@ -21,17 +22,14 @@ const TeacherClassroomRoutes = [
         path: '/classroom/:classroomId/setup',
         component: ClassroomSetupComponent,
       },
-      {
-        path: '/classroom/:classroomId/unit-assignment',
-        component: ClassroomUnitAssignmentComponent,
-      },
+     
       {
         path: '/classroom/:classroomId/daily-assignment',
         component: ClassroomDailyAssignmentComponent,
       },
       {
         path: '/classroom/:classroomId/students',
-        component: ClassroomStudentDetailComponent,
+        component: ClassroomStudentDetailsComponent,
       },
       {
         path: '/classroom/:classroomId/resources',
@@ -44,6 +42,10 @@ const TeacherClassroomRoutes = [
       {
         path: '/classroom/:classroomId/doubts',
         component: ClassroomDoubtComponent,
+      },
+      {
+        path: '/classroom/:classroomId/students',
+        component: ClassroomStudentDetailsComponent,
       },
 ];
 

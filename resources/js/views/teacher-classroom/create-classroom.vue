@@ -66,9 +66,9 @@
                                         </div>
                                         
                                         <div class="form-group">
-                                            <label> {{ 'Description.'}} </label>
+                                            <label> {{ 'Classroom Id.'}} </label>
                                             
-                                            <input type="text" v-model="description" name="description" class="form-control">
+                                            <input type="text" v-model="classroom_id" name="classroom_id" class="form-control">
                                         </div>
                                         <div class="form-group d-flex s_register_btn">
                                             <button type="submit" class="login_btn">{{ 'Create' }}</button>
@@ -222,7 +222,7 @@
                     'id': null,
                     'subject_name': search,
                 };
-                this.classroom_name = this.getFirstChar(search)+'BY'+this.getFirstChar(this.AuthUser.full_name);
+                this.classroom_id = this.getFirstChar(search)+'BY'+this.getFirstChar(this.AuthUser.full_name);
                 this.subjectLoading = true;
                 this.axios
                     .post(this.baseUrl + '/api/search-subject', {
@@ -245,7 +245,7 @@
             },
             setSubject(result) {
                 this.selected_subject = result;
-                this.classroom_name=this.getFirstChar(result.subject_name)+'BY'+this.getFirstChar(this.AuthUser.full_name);
+                this.classroom_id=this.getFirstChar(result.subject_name)+'BY'+this.getFirstChar(this.AuthUser.full_name);
             },
             setNewSubject(name) {
                 this.selected_subject = {

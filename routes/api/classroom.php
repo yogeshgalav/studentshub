@@ -6,6 +6,7 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::get('/classroom/{classroomId}/unit-details','ClassroomController@getClassroomUnitDetails');
     Route::post('/classroom/create','ClassroomController@createClassroom');
     Route::post('/classroom/join','ClassroomUserController@joinClassroom');
+    Route::post('/classroom/accept','ClassroomUserController@acceptJoinRequest');
 
     Route::get('/classroom/{classroomId}/unit-assignment-details','ClassroomController@getUnitAssismentDetails');
     Route::get('/classroom/{classroomId}/daily-questions','DailyQuestionController@getDailyAssismentDetails');
