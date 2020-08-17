@@ -28,8 +28,8 @@ const TeacherClassroomRoutes = [
         component: ClassroomDailyAssignmentComponent,
       },
       {
-        path: '/classroom/:classroomId/students',
-        component: ClassroomStudentDetailsComponent,
+        path: '/classroom/:classroomId/unit-assignment',
+        component: ClassroomUnitAssignmentComponent,
       },
       {
         path: '/classroom/:classroomId/resources',

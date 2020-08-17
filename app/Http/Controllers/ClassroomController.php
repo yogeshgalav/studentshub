@@ -121,7 +121,9 @@ class ClassroomController extends Controller
     }   
 
     public function createClassroomPage(Request $request){
-        return view('classroom.create-classroom');
+        $course_levels = \App\Models\CourseLevel::get();
+        return view('classroom.create-classroom')
+        ->with('course_levels',$course_levels);
     }
     public function createClassroom(Request $request){
         $subject_id = $request->subject['id'];

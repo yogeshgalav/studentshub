@@ -9,6 +9,7 @@
       @keydown.down="onArrowDown"
       @keydown.up="onArrowUp"
       @keydown.enter="onEnter"
+	  @focus="onFocus"
     >
     <transition name="fade">
       <ul
@@ -98,7 +99,7 @@ export default {
 		isAsync: {
 			type: Boolean,
 			required: false,
-			default: false,
+			default: true,
 		},
 		isLoading: {
 			type: Boolean,
@@ -134,7 +135,9 @@ export default {
 	watch:{
 		items(val){
 			this.results = val;
-			this.isOpen=true;
+			if(this.isAsync===true){
+				this.isOpen=true;
+			}
 		}
 	},
 	methods: {
@@ -144,6 +147,10 @@ export default {
 		onChange() {
 			if(this.search.length<3){
 				return false;
+			}
+			if(this.isAsync===false){
+				this.results = this.results.filter(node=>node.name.indexOf(this.search) !== -1);
+				return true;
 			}
 			// Let's warn the parent that a change was made
 			this.$emit('input', this.search);
@@ -184,6 +191,11 @@ export default {
 				this.$emit('selectNew', this.search);
 				this.isOpen = false;
 				this.arrowCounter = -1;
+			}
+		},
+		onFocus(){console.log('here')
+			if(this.isAsync===false){
+				this.isOpen=true;
 			}
 		}
 	}

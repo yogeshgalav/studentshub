@@ -31,6 +31,19 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
+                                            <label class="mb-1"> {{ 'Program/Course Level.'}} </label>
+                                            <div class="inner-addon left-addon">
+                                                <div class="input_icon_frm">
+                                                    <span class="icon_design_input" style="height: 44px;"> <i
+                                                            class="fa fa-certificate" aria-hidden="true"></i></span>
+                                                    <auto-complete class ="width-100"  :items="courseLevels" :value="'name'" v-validate="'required'"
+                                                         name="course_level" :placeholder="'eg. Bachelor of Arts'" :is-async="false"
+                                                        @selected="setCourseLevel" :createNewItem="false" />
+                                                </div>
+                                                <span class="error">{{ formErrors('course_level') }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" v-if="show_courses">
                                             <label class="mb-1"> {{ 'Program/Course of classroom.'}} </label>
                                             <div class="inner-addon left-addon">
                                                 <div class="input_icon_frm">
@@ -128,7 +141,7 @@
 
     export default {
         mixins: [FormMixin],
-        props: ['myClassrooms', 'classroomList'],
+        props: ['courseLevels'],
         components: {
             AutoComplete
         },
@@ -137,6 +150,7 @@
                 classroom_id: '',
                 classroom_name: '',
                 step: 'step1',
+                show_courses: false,
                 showLoader: false,
                 course_list: [],
                 courseLoading: false,
@@ -149,6 +163,10 @@
                 subject_list: [],
                 subjectLoading: false,
                 selected_subject: {
+                    'id': null,
+                    'subject_name': '',
+                },
+                selected_level: {
                     'id': null,
                     'subject_name': '',
                 },
@@ -253,6 +271,32 @@
                     'subject_name': name,
                 };
             },
+            setCourseLevel(result){
+                this.selected_level = result;
+                 this.show_courses=false;
+                if(this.selected_level.level===2){
+                    this.selected_course = {
+                        'id': 1001,
+                        'course_name': this.selected_level.name,
+                        'category_id': null
+                    };
+                }else if(this.selected_level.level===3){
+                    this.selected_course = {
+                        'id': 1002,
+                        'course_name': this.selected_level.name,
+                        'category_id': null
+                    };
+                }else if(this.selected_level.level===4){
+                    this.selected_course = {
+                        'id': 1003,
+                        'course_name': this.selected_level.name,
+                        'category_id': null
+                    };
+                }else{
+                    this.show_courses=true;
+                }
+
+            }
         }
     }
 

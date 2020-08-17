@@ -67,7 +67,9 @@ class PagesController extends Controller
     }
 
     public function checkin(){
-        return view('student-register.student-register');
+        $course_levels = \App\Models\CourseLevel::get();
+        return view('student-register.student-register')
+        ->with('course_levels',$course_levels);
     }
 
     public function profile($profileId){

@@ -13,7 +13,7 @@ class CourseLevelTableSeeder extends Seeder
     public function run()
     {
         //
-        DB::table('course_level')->insert([
+        DB::table('course_levels')->insert([
             ['level' => '2','name' => 'Preparatory Stage'],
             ['level' => '3','name' => 'Middle Stage'],
             ['level' => '4','name' => 'Secoundary Stage'],
