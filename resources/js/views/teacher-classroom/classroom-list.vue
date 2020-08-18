@@ -1,13 +1,5 @@
 <template>
     <div class="col-md-12">
-         <div class="row">
-            <div class="col-md-12">
-               <classroom-header 
-               title="NAme" 
-               subtitle ="Subname">
-               </classroom-header>
-            </div>
-        </div>
         <div>
             <a href="/create-classroom"
             class="btn btn-primary btn-lg" 
@@ -101,13 +93,11 @@
 </template>
 <script>
 import VModal from 'vue-js-modal';
-import ClassroomHeader from '../../components2/base/ClassroomHeader';
 
     export default {
         props: ['myClassrooms', 'classroomList'],
         components:{
-            VModal,
-            ClassroomHeader
+            VModal
         },
         data(){
             return {

@@ -16,8 +16,8 @@ class Auth extends AuthUser
         ->join('batches as pbt','pbt.id','=','st.prefferred_batch')
         ->join('institutes as inst','inst.id','=','pbt.institute_id')
         ->join('courses','courses.id','=','pbt.course_id')
-        ->join('categories as cat','cat.id','=','courses.category_id')
-        ->select('inst.id as instituteId','courses.id as courseId','pbt.id as batchId','cat.id as categoryId')->first();
+        ->leftJoin('categories as cat','cat.id','=','courses.category_id')
+        ->select('inst.id as instituteId','inst.name as instituteName','courses.id as courseId','courses.course_name as courseName','pbt.id as batchId','cat.id as categoryId')->first();
     }
 
     public static function teacher(){

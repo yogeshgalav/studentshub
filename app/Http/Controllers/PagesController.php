@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Auth;
+use App\Facades\Auth;
 use App\Models\NotificationText;
 
 class PagesController extends Controller
@@ -69,6 +69,7 @@ class PagesController extends Controller
     public function checkin(){
         $course_levels = \App\Models\CourseLevel::get();
         return view('student-register.student-register')
+        ->with('student_details',Auth::student())
         ->with('course_levels',$course_levels);
     }
 

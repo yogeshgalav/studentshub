@@ -17,8 +17,8 @@ class CreateStudentsTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('prefferred_batch')->unsigned();
-            $table->integer('prefferred_category')->unsigned();
-            $table->string('unique_college_id')->nullable();
+            $table->integer('prefferred_category')->unsigned()->nullable();
+            $table->string('unique_college_id');
             $table->timestamps();
         });
     }

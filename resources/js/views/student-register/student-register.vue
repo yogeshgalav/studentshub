@@ -26,7 +26,7 @@
                                                     <span class="icon_design_input" style="height: 43px;"><i
                                                             class="fa fa-university" aria-hidden="true"></i></span>
                                                     <auto-complete :items="institute_list" :value="'name'"  name="institute_name" v-validate="'required'"
-                                                        :is-async="true" @input="getInstitutes"
+                                                        :is-async="true" @input="getInstitutes" :initial-value="selected_institute"
                                                         @selected="setInstitute" :is-loading="instituteLoading" />
                                                 </div>
                                                 <span
@@ -40,6 +40,19 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
+                                            <label class="mb-1"> {{ 'Program/Course Level.'}} </label>
+                                            <div class="inner-addon left-addon">
+                                                <div class="input_icon_frm">
+                                                    <span class="icon_design_input" style="height: 44px;"> <i
+                                                            class="fa fa-certificate" aria-hidden="true"></i></span>
+                                                    <auto-complete class ="width-100"  :items="courseLevels" :value="'name'" v-validate="'required'"
+                                                         name="course_level" :placeholder="'eg. Bachelor of Arts'" :is-async="false"
+                                                        @selected="setCourseLevel" :createNewItem="false" />
+                                                </div>
+                                                <span class="error">{{ formErrors('course_level') }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" v-if="show_courses">
                                             <label> {{ 'Degree/Program in which you Enroll.'}} </label>
                                             <div class="inner-addon left-addon">
                                                 <div class="input_icon_frm">
@@ -47,7 +60,7 @@
                                                             class="fa fa-certificate" aria-hidden="true"></i></span>
                                                     <auto-complete :items="course_list" :value="'course_name'" v-validate="'required'"
                                                          name="program_name" :placeholder="'eg. Bachelor of Arts'" :is-async="true"
-                                                        @input="getCourses" @selected="setCourse"
+                                                        @input="getCourses" @selected="setCourse" :initial-value="selected_course"
                                                         @selectNew="setNewCourse" :is-loading="courseLoading" />
                                                 </div>
                                                 <span v-if="selected_course.totalBatch">{{selected_course.totalBatch }}
@@ -59,40 +72,13 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label> {{ trans('Category of selected Program:') }} </label><br />
-                                                    <div class="input_icon_frm">
-                                                        <span id="basic-addon1" class="icon_design_input"><i
-                                                                class="fa fa-list-alt" aria-hidden="true" /></span>
-                                                        <select name="category" id="category"
-                                                            v-model="selected_course.category_id"
-                                                            :disabled="categoryDisabled"
-                                                            class="inner-addon left-addon select_box">
-                                                            <option value="">Select Category</option>
-                                                            <option value="1">Engineering & Technology</option>
-                                                            <option value="2">Business & Management</option>
-                                                            <option value="3">Healthcare</option>
-                                                            <option value="4">Fine Arts</option>
-                                                            <option value="5">Science</option>
-                                                            <option value="6">Economics</option>
-                                                            <option value="7">Education</option>
-                                                            <option value="8">Pharmacy</option>
-                                                            <option value="9">Journalism</option>
-                                                            <option value="10">Law & Humanity</option>
-                                                            <option value="11">Travel & Hospitality</option>
-                                                            <option value="12">Design & Fashion</option>
-                                                            <option value="13">Computer</option>
-                                                        </select></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 form-group">
-                                                <label for="college_id">Unique College Id/Registration no.</label>
+                                            <div class="col-md-12 form-group">
+                                                <label for="college_id">Unique Institute Id/Registration no.</label>
                                                 <div class="input_icon_frm">
                                                     <span id="basic-addon1" class="icon_design_input"><i
                                                             class="fa fa-id-card" aria-hidden="true" /></span>
                                                     <input type="text" v-model="college_id" id="college_id"
-                                                        class="form-control u_input">
+                                                       v-validate="'required'" class="form-control u_input">
                                                 </div>
                                             </div>
                                         </div>
@@ -257,6 +243,7 @@
 
     export default {
         mixins: [FormMixin],
+        props: ['courseLevels','studentDetails'],
         components: {
             DatePicker,
             AutoComplete
@@ -264,10 +251,10 @@
         data() {
             return {
                 showLoader: false,
+                show_courses: false,
                 course_list: [],
                 courseLoading: false,
                 no_course_found: false,
-                categoryDisabled: true,
                 institute_list: [],
                 instituteLoading: false,
                 selected_course: {
@@ -288,6 +275,14 @@
                 college_id: '',
                 current_date:new Date(),
             };
+        },
+        mounted(){
+            if(this.studentDetails){
+                this.selected_course['id']=this.studentDetails.courseId
+                this.selected_course['name']=this.studentDetails.courseName
+                this.selected_institute['id']=this.studentDetails.instituteId
+                this.selected_institute['name']=this.studentDetails.instituteName
+            }
         },
         methods: {
             trans: function (string, defaultString) {
@@ -329,7 +324,6 @@
                     'course_name': name,
                     'category_id': 0
                 };
-                this.categoryDisabled = false;
             },
             getInstitutes(search) {
                 this.selected_institute = {
@@ -402,6 +396,32 @@
                     this.showLoader = false;
                 });
             },
+            setCourseLevel(result){
+                this.selected_level = result;
+                 this.show_courses=false;
+                if(this.selected_level.level===2){
+                    this.selected_course = {
+                        'id': 1001,
+                        'course_name': this.selected_level.name,
+                        'category_id': null
+                    };
+                }else if(this.selected_level.level===3){
+                    this.selected_course = {
+                        'id': 1002,
+                        'course_name': this.selected_level.name,
+                        'category_id': null
+                    };
+                }else if(this.selected_level.level===4){
+                    this.selected_course = {
+                        'id': 1003,
+                        'course_name': this.selected_level.name,
+                        'category_id': null
+                    };
+                }else{
+                    this.show_courses=true;
+                }
+
+            }
         },
     };
 

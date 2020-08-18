@@ -5,7 +5,7 @@ export default {
     return new Promise((resolve, reject) => {
       // commit('auth_request')
       axios({url: window.App.baseUrl+'/api/login', data: user, method: 'POST' })
-      .then(resp => {
+      .then(resp => {console.log(resp)
         const access_token = resp.data.success.access_token
         const refresh_token = resp.data.success.refresh_token
         localStorage.setItem('access_token', access_token);

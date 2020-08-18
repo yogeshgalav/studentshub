@@ -111,6 +111,11 @@ export default {
 			required: false,
 			default: true,
 		},
+		initialValue: {
+			type: Object,
+			required: false,
+			default: () => {},
+		},
 	},
 	$_veeValidate: {
 		value () {
@@ -128,6 +133,12 @@ export default {
 	},
 	mounted() {
 		document.addEventListener('click', this.handleClickOutside);
+		console.log(this.initialValue,'here')
+		if(this.initialValue){
+			this.result = this.initialValue;
+			this.search =this.result[this.value];
+			console.log(this.result,this.search);
+		}
 	},
 	destroyed() {
 		document.removeEventListener('click', this.handleClickOutside);
@@ -138,7 +149,7 @@ export default {
 			if(this.isAsync===true){
 				this.isOpen=true;
 			}
-		}
+		},
 	},
 	methods: {
 		trans: function(string, defaultString) {

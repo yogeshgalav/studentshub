@@ -17,7 +17,7 @@
                                     <p class="text-grey">Please Enter Following Details to Create Classroom.</p>
                                 </div>
                                
-                                <div class="col-md-12 mt-2" v-if="step==='step1'">
+                                <div class="col-md-12 mt-2">
                                     <form @submit.prevent="createClassroom">
                                         <div class="form-group">
                                             <label> {{ 'Classroom Name'}} </label>
