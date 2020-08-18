@@ -30,6 +30,7 @@ class StudentsTableSeeder extends Seeder
             'user_id' => '1',
             'prefferred_batch' => '1',
             'prefferred_category' => '1',
+            'unique_college_id' => '1',
         ]);
     }
 }
