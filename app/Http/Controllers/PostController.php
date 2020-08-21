@@ -17,12 +17,13 @@ use Auth;
 use DB;
 use Storage;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Log;
 
 class PostController extends Controller
 {
     //
     public function create(Request $request){
-        
+
         $data=$request->all();
         $post_type=$data['post_type'];
         $heading=$data['heading'];
@@ -40,7 +41,7 @@ class PostController extends Controller
                 'subject_name'=>$subject_name,
                 'category_id'=>$data['subject_course'] ? $student->categoryId : $data['category_id']
                 ]);
-                
+
                 CourseSubject::firstOrCreate([
                   'course_id'=>$student->courseId,
                   'subject_id'=>$subject->id
@@ -48,12 +49,12 @@ class PostController extends Controller
             }else{
                 $subject=Subject::findOrFail($data['subject_id']);
             }
-        
+
         $post=new Post;
         $post->user_id=Auth::user()->id;
         $post->post_heading=$heading;
         $post->subject_id=$subject->id;
-        
+
 
         switch(strToLower($request->post_type)){
             case 'article':
@@ -62,7 +63,7 @@ class PostController extends Controller
                 $post->postable_type="App\Models\Article";
                 $post->primary_image_path='/storage/article-default.png';
                 $post->postable_id=$post_content_id;
-              
+
             break;
             case 'notice':
                 $notice=new Notice;
@@ -89,17 +90,17 @@ class PostController extends Controller
             $post->primary_image_path='/storage/mcq-default.png';
             $post->postable_type="App\Models\Mcq";
             $post->postable_id=$post_content_id;
-            break;    
+            break;
             case 'fact':
             $fact=new Fact;
             [$post_content_id,$file_path]=$fact->createNewFact($data);
             $post->primary_image_path=$file_path;
             $post->postable_type="App\Models\Fact";
             $post->postable_id=$post_content_id;
-            break;    
+            break;
         }
 
-        
+
         $post->save();
 
         SthubPost::create([
@@ -108,11 +109,11 @@ class PostController extends Controller
             'course_id'=>$student->courseId,
             'shared_by'=>Auth::user()->id,
         ]);
-        
+
         DB::commit();
     } catch (\Exception $e) {echo $e->getMessage();
         DB::rollback();
-        \Log::critical('Post Creation failure: for user id#'.Auth::user()->id.' with data '.implode(', ',Arr::flatten($data)));
+        Log::critical('Post Creation failure: for user id#'.Auth::user()->id.' with data '.implode(', ',Arr::flatten($data)));
         return response()->$e;
     }
         return response()->json(['success'=>[
@@ -152,13 +153,13 @@ class PostController extends Controller
             'post_content'=>$post_content,
             'most_viewed'=>$most_viewed,
             'most_liked'=>$most_liked,
-        ]]);        
+        ]]);
     }
 
     public function searchPosts(Request $request){
       $post=new \App\Post;
       $response = $post->getSearchPosts($request);
-        
+
         $search=new \App\Models\Search;
         $search->query=$request->input('query');
         // $search->type='query';
@@ -168,14 +169,14 @@ class PostController extends Controller
           $search->success=false;
         }
         $search->save();
-  
+
         return $response;
       }
 
       public function coursePosts(Request $request){
         $post=new \App\Post;
         $response = $post->getCoursePosts($request);
-        
+
         $search=new \App\Models\Search;
         $search->query=$request->route('courseUrl');
         // $search->type='course';
@@ -185,14 +186,14 @@ class PostController extends Controller
           $search->success=false;
         }
         $search->save();
-  
+
         return $response;
       }
-      
+
       public function subjectPosts(Request $request){
         $post=new \App\Post;
         $response = $post->getSubjectPosts($request);
-        
+
         $search=new \App\Models\Search;
         $search->query=$request->route('subjectUrl');
         // $search->type='subject';
@@ -202,14 +203,14 @@ class PostController extends Controller
           $search->success=false;
         }
         $search->save();
-  
+
         return $response;
       }
 
       public function categoryPosts(Request $request){
         $post=new \App\Post;
         $response = $post->getCategoryPosts($request);
-        
+
         $search=new \App\Models\Search;
         $search->query=$request->route('categoryUrl');
         // $search->type='category';
@@ -219,7 +220,7 @@ class PostController extends Controller
           $search->success=false;
         }
         $search->save();
-  
+
         return $response;
       }
 

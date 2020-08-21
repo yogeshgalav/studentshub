@@ -7,6 +7,7 @@ use App\Models\Classroom;
 use App\Models\Unit;
 use DB;
 use Auth;
+use Illuminate\Support\Facades\Log;
 
 class ClassroomController extends Controller
 {
@@ -18,9 +19,9 @@ class ClassroomController extends Controller
         ->join('teachers as th','th.id','=','cs.teacher_id')
         ->join('users as us','us.id','=','th.user_id')
         ->select('cs.id','cs.name','co.course_name','su.subject_name','su.alias as subject_alias','us.id as user_id','us.full_name as teacher_name');
-        
+
         $classroom_query2=clone $classroom_query;
-        
+
         $classroom_list=$classroom_query->join('classroom_users as cu',function($join){
             $join->on('cu.classroom_id','=','cs.id')->where('cu.user_id',Auth::id())->where('joined_at','!=',null);
         })
@@ -32,7 +33,7 @@ class ClassroomController extends Controller
         }else{
             $my_classrooms=[];
         }
-        
+
         return view('classroom.classroom-list')
         ->with([
             'classroomList'=>$classroom_list,
@@ -62,7 +63,7 @@ class ClassroomController extends Controller
         $classroom=Classroom::findOrFail($classroomId);
 
         if(Auth::teacher() && $classroom->teacher_id===Auth::teacher()->id){
-            return view('classroom.classroom');    
+            return view('classroom.classroom');
         }
 
         // $is_classroom_student=ClassroomUser::where('user_id',Auth::id())
@@ -94,7 +95,7 @@ class ClassroomController extends Controller
         $classroom = Classroom::findOrFail($classroomId);
         return view('classroom.classroom-student-details')->with(['classroom'=>$classroom] );
     }
-    
+
     public function unitAttemptPage(){
         return view('student-panel.unit-attempt');
     }
@@ -118,7 +119,7 @@ class ClassroomController extends Controller
                 'unitData'=>$unitData
             ]
         ]);
-    }   
+    }
 
     public function createClassroomPage(Request $request){
         $course_levels = \App\Models\CourseLevel::get();

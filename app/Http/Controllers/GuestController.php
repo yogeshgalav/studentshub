@@ -8,7 +8,7 @@ use App\Models\Subscriber;
 use App\Mails\SubscriptionFirstMail;
 use Mail;
 use DB;
-use Log;
+use Illuminate\Support\Facades\Log;
 
 class GuestController extends Controller
 {
@@ -34,5 +34,5 @@ class GuestController extends Controller
         }
         return 'success';
     }
-    
+
 }
