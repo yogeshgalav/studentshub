@@ -27,26 +27,27 @@ class DailyAssignmentController extends Controller
         
     }
 
-    public function updateDailyQuestion(StoreRequest $request)
+    public function updateDailyQuestion(Request $request)
     {    
         $dailyQuestion = DailyQuestion::firstOrNew([
-            'daily_assignment_id' => $request->daily_assignment_id,
+            'daily_assignment_id' => $request->assignment_id,
+            'marks' => $request->marks,
             'question_order' => $request->question_order,
             'question_text' => $request->question_text,
-            'question_type' => $request->question_type
+            'question_type' => $request->question_type,
         ]);
+        $dailyQuestion->save();
 
-        foreach($request->choices as $choice){
+        foreach($request->multiple_choice as $key=>$choice){
             $multiple_choice =MultipleChoice::firstOrNew([
-                'daily_question_id' => $request->daily_question_id,
-                'choice_order' => $request->choice_order,
-                'choice_text' => $request->choice_text
+                'daily_question_id' => $dailyQuestion->id,
+                'choice_order' => $key,
+                'choice_text' => $request->text,
+                'is_correct' => $request->answer
             ]); 
             
             $multiple_choice->save();
         }
-
-        $dailyQuestion->save();
 
             return response()->json(['success'=>[
                 'assignment'=>$dailyQuestion

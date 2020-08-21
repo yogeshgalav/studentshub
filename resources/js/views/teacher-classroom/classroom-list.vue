@@ -1,7 +1,7 @@
 <template>
     <div class="col-md-12">
         <div>
-            <a href="/create-classroom"
+            <a v-if="AuthTeacher" href="/create-classroom"
             class="btn btn-primary btn-lg" 
             type="button"
             >Create Classroom</a>

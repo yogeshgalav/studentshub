@@ -170,8 +170,11 @@
                     question_text:null,
                     marks:null,
                     question_type:"multiple_choice",
-                    correct_option:null,
+                    question_order:0,
                     multiple_choice:[{
+                        text:null,
+                        answer:false,
+                    },{
                         text:null,
                         answer:false,
                     }]
@@ -250,19 +253,19 @@
             addQuestion(attempt_date) {
                 let assignment = this.dailyAssignmentData.find(node=>node.attempt_date===attempt_date);
                 if(assignment && assignment.id){
-                    this.current_question_edit.assignment_id;
+                    this.current_question_edit.assignment_id = assignment.id;
+                    this.current_question_edit.question_order = assignment.questions.length;
                 }
                 this.$modal.show('addDailyQuestionModal');
             },
             saveQuestion() {
-                this.axios('/api/update-daily-question',{
+                this.axios.post('/api/update-daily-question',{
                     question:this.current_question_edit
                 });
                 this.$modal.hide('addDailyQuestionModal');
             },
             addAnswer() {
                 let data = this.current_question_edit.multiple_choice;
-                console.log(data, 'Hello from add');
                 data.push({
                     text:null,
                     answer:false,

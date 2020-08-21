@@ -65,8 +65,8 @@ Vue.mixin({
         AuthUser(){
             return window.App.AuthUser;
         },
-        AuthUserType(){
-            return window.App.AuthUserType;
+        AuthTeacher(){
+            return window.App.AuthTeacher;
         },
         csrfToken() {
             return window.App.csrfToken;

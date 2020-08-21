@@ -20,7 +20,6 @@ class CreateDailyQuestionsTable extends Migration
             $table->string('question_text');
             $table->enum('question_type',['multiple_choice'])->default('multiple_choice');
             $table->tinyInteger('marks');
-            $table->tinyInteger('correct_option');
             $table->timestamps();
         });
     }
