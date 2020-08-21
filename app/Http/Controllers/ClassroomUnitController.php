@@ -10,6 +10,28 @@ use App\Models\Classroom;
 class ClassroomUnitController extends Controller
 {
     //
+    //api end point for getting unit assisment data for students and teachers
+    public function getClassroomUnitDetails(Request $request){
+        $unitData=Unit::where('classroom_id',$request->classroomId)->get();
+
+        return response()->json([
+            'success'=>[
+                'unitData'=>$unitData
+            ]
+        ]);
+    }   
+    public function getUnitAssismentDetails(Request $request){
+        $unitData=Unit::where('classroom_id',$request->classroomId)
+        ->with('descriptiveQuestions')
+        ->get();
+
+        return response()->json([
+            'success'=>[
+                'unitData'=>$unitData
+            ]
+        ]);
+    }   
+
     public function updateUnit($classroomId,Request $request){
         $unit = Unit::updateOrCreate([
             'unit_name'=>$request->unit_name

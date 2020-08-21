@@ -116,6 +116,9 @@
 						this.axios.post('/api/classroom/'+this.classroomDetail.id+'/delete-unit',{
                             unit_no: unit_no
                         });
+                        
+                        let deleteIndex = this.unitData.findIndex(node=>node.unit_no===unit_no);
+                        this.unitData.slice(deleteIndex,1);
 					}
 				});
             },

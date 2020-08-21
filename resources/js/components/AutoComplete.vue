@@ -133,7 +133,6 @@ export default {
 	},
 	mounted() {
 		document.addEventListener('click', this.handleClickOutside);
-		console.log(this.initialValue,'here')
 		if(this.initialValue){
 			this.result = this.initialValue;
 			this.search =this.result[this.value];

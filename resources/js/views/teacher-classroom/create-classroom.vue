@@ -138,6 +138,7 @@
 <script>
     import FormMixin from "../../components/mixins/form-mixin.js";
     import AutoComplete from "../../components/AutoComplete.vue";
+    import swal from '../../components/swal';
 
     export default {
         mixins: [FormMixin],

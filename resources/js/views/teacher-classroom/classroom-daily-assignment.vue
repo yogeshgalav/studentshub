@@ -3,7 +3,7 @@
         <div class="mt-2">
             <add-button name="Add Assignment" @submit="addAssignment" />
         </div>
-        <div class="card mt-5" v-for="(daily,index) in dailyData" :key="index">
+        <div class="card mt-5" v-for="(daily,index) in dailyAssignmentData" :key="index">
             <div>
                 <div class="row">
                     <div class="col-md-12">
@@ -28,7 +28,7 @@
                                                     :lang="'en'"
                                                     :input-attr="{id: 'start_date_input'}"
                                                     placeholder=""
-                                                    @change="updateAssignmentDate(daily)"
+                                                    @change="updateAssignment(daily)"
                                                   />
                                                 <div class="error">{{ formErrors('attempt_date') }}</div>
                                     </div>
@@ -41,7 +41,7 @@
                                     <div class="form-group pl-0">
                                         <label class="control-label mb-1"
                                             :for="'start_date' + index">Select Unit</label>
-                                                  <select v-model="daily.selected_unit" class="form-control" @change="updateAssignmentDate(daily)">
+                                                  <select v-model="daily.unit_id" class="form-control" @change="updateAssignment(daily)">
                                                       <option v-for="(unit,index2) in unitList" :key="index2" :value="unit.id">
                                                           {{ 'Unit '+unit.unit_no + ':' +unit.unit_name}}
                                                       </option>
@@ -59,7 +59,7 @@
                                         </div>
                                 </div>
                             </div>
-                                <div class="mt-2" v-if="daily.selected_unit!==null && daily.attempt_date">
+                                <div class="mt-2" v-if="daily.unit_id!==null && daily.attempt_date">
                                     <add-button name="Add Question" @submit="addQuestion(daily.attempt_date)" />
                                 </div>
                         </accordion>
@@ -68,7 +68,7 @@
             </div>
         </div>
 
-        <modal  name="addAssignment" class="doubt_model">
+        <modal  name="addDailyQuestionModal" class="doubt_model">
             <form @submit.prevent="saveQuestion()" style="padding:25px;" v-slimscroll="options">
                 <div class="row">
                     <div class="col-md-12 mt-2">
@@ -79,7 +79,7 @@
                             <label class="control-label font-size-14">Question text</label>
                             <div class="inner-addon left-addon">
                                 <div class="cl_input">
-                                    <input type="text" v-model="assignment.question.question_text" class="form-control" id="topic_title">
+                                    <input type="text" v-model="current_question_edit.question_text" class="form-control" id="topic_title">
                                 </div>
                             </div>
                         </div>
@@ -88,7 +88,7 @@
                         <div class="form-group">
                             <label class="control-label font-size-14">Question Type</label>
                             <div class="cl_q_type">
-                                <select class="form-control" v-model="assignment.question.question_type">
+                                <select class="form-control" v-model="current_question_edit.question_type">
                                     <option value="multiple_choice">Multiple Choice</option>
                                 </select>
                             </div>
@@ -97,7 +97,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label font-size-14">Marks</label>
-                            <select class="form-control" name="marks" v-model="assignment.question.marks">
+                            <select class="form-control" name="marks" v-model="current_question_edit.marks">
                                 <option :value="mark" v-for="(mark,index) in marks" :key="index">{{ mark }}</option>
                             </select>
                         </div>
@@ -109,10 +109,10 @@
 
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <div class="form-group d-flex" v-for="(choice,index) in assignment.question.multiple_choice" :key="index">
+                                        <div class="form-group d-flex" v-for="(choice,index) in current_question_edit.multiple_choice" :key="index">
                                             <label class="contol-label col-md-2 mt-2">{{ letters[index] }} : </label>
                                             <input type="text" class="form-control col-md-10" v-model="choice.text">
-                                            <button class="btn btn-danger btn-sm ml-2" @click="removeAnswer(index)">
+                                            <button class="btn btn-danger btn-sm ml-2" v-if="current_question_edit.multiple_choice.length>2" @click="removeAnswer(index)">
                                                 <i class="fa fa-times"></i>
                                             </button>
 
@@ -125,7 +125,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-12">
-                                        <button class="btn btn-success btn-sm" @click="addAnswer()">
+                                        <button type="button" class="btn btn-success btn-sm" @click="addAnswer()">
                                             <i class="fa fa-plus"></i> Add More
                                         </button>
                                     </div>
@@ -164,26 +164,23 @@
         },
         data() {
             return {
-                dailyData: [],
-                assignment_date:'',
-                assignment:{
-                    assignment_date:this.$moment(),
-                    selected_unit:null,
-                    question:{
-                        question_text:null,
-                        marks:null,
-                        question_type:"multiple_choice",
-                        correct_option:null,
-                        multiple_choice:[{
-                            text:null,
-                            answer:false,
-                        }]
-                    }
+                dailyAssignmentData: {},
+                current_question_edit:{
+                    assignment_id:null,
+                    question_text:null,
+                    marks:null,
+                    question_type:"multiple_choice",
+                    correct_option:null,
+                    multiple_choice:[{
+                        text:null,
+                        answer:false,
+                    }]
+                
                 },
                 options:{
                     height:"400px"
                 },
-                marks:10,
+                marks:10
             };
         },
         computed:{
@@ -212,14 +209,31 @@
             getDailyDetails(){
                 this.axios.get('/api/classroom/' + this.classroomDetail.id + '/daily-questions').then((resp) => {
                     this.unitList = resp.data.success.unitList
-                    this.dailyData = resp.data.success.dailyData
+                    this.dailyAssignmentData = resp.data.success.unitList.reduce((acc,currVal)=>acc.concat(currVal.daily_assignment),[]);
                 });
             },
             addAssignment() {
-                this.dailyData.unshift({
-                    'selected_unit': '',
+                this.dailyAssignmentData.unshift({
+                    'unit_id': '',
                     'attempt_date': '',
                     'questions': []
+                });
+            },
+            updateAssignment(daily) {
+                this.form_errors = [];
+                if(!daily.unit_id || !daily.attempt_date){
+                    return false;
+                }
+
+                this.axios.post('/api/update-daily-assignment',{
+                    unit_id: daily.unit_id,
+                    attempt_date: daily.attempt_date
+                }).then((res) => {
+                    this.current_question_edit.assignment_id=resp.data.success.assignment.id;
+                }).catch((error) => {
+                    if(typeof error.response.data.errors == 'object') {
+                        this.form_errors = error.response.data.errors;
+                    }
                 });
             },
             deleteAssignment(attempt_date) {
@@ -227,57 +241,40 @@
 				.confirmDialog('Are you sure you want to Delete Assignment for date '+attempt_date+'?')
 				.then(result => {
 					if (result.value) {
-						this.axios.post('/api/classroom/'+this.classroomDetail.id+'/delete-daily-assignment',{
+						this.axios.post('/api/delete-daily-assignment',{
                             attempt_date: attempt_date
                         });
 					}
 				});
             },
             addQuestion(attempt_date) {
-                let daily = this.dailyData.find(node=>node.attempt_date === attempt_date);
-                daily.questions.push({
-                    'question_text': '',
-                    'answer_type': ''
-                });
-
-                this.$modal.show('addAssignment',{daily:daily});
-            },
-            updateAssignmentDate(daily) {
-
-                this.form_errors = [];
-                if(!daily.selected_unit || !daily.attempt_date){
-                    return false;
+                let assignment = this.dailyAssignmentData.find(node=>node.attempt_date===attempt_date);
+                if(assignment && assignment.id){
+                    this.current_question_edit.assignment_id;
                 }
-
-                this.axios.post('/api/classroom/'+this.classroomDetail.id+'/update-daily-questions',{
-                    unit_id: daily.selected_unit,
-                    attempt_date: daily.attempt_date
-                }).then((res) => {
-                    console.log(res, 'Response from update daily question');
-                }).catch((error) => {
-                    if(typeof error.response.data.errors == 'object') {
-                        this.form_errors = error.response.data.errors;
-                    }
-                });
+                this.$modal.show('addDailyQuestionModal');
             },
             saveQuestion() {
-
+                this.axios('/api/update-daily-question',{
+                    question:this.current_question_edit
+                });
+                this.$modal.hide('addDailyQuestionModal');
             },
             addAnswer() {
-                let data = this.assignment.question.multiple_choice;
+                let data = this.current_question_edit.multiple_choice;
                 console.log(data, 'Hello from add');
                 data.push({
                     text:null,
                     answer:false,
                 });
 
-                this.assignment.question.multiple_choice = data;
+                this.current_question_edit.multiple_choice = data;
             },
             removeAnswer(index) {
-                let data = this.assignment.question.multiple_choice;
+                let data = this.current_question_edit.multiple_choice;
                 data.splice(index, 1);
 
-                this.assignment.question.multiple_choice = data;
+                this.current_question_edit.multiple_choice = data;
             }
         }
     }

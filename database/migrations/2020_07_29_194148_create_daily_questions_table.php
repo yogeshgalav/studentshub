@@ -15,8 +15,7 @@ class CreateDailyQuestionsTable extends Migration
     {
         Schema::create('daily_questions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('unit_id')->unsigned();
-            $table->date('attempt_date');
+            $table->integer('daily_assignment_id')->unsigned();
             $table->tinyInteger('question_order');
             $table->string('question_text');
             $table->enum('question_type',['multiple_choice'])->default('multiple_choice');

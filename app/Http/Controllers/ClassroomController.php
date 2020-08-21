@@ -107,19 +107,6 @@ class ClassroomController extends Controller
         return view('classroom.topic-answers');
     }
 
-    //api end point for getting unit assisment data for students and teachers
-    public function getUnitAssismentDetails(Request $request){
-        $unitData=Unit::where('classroom_id',$request->classroomId)
-        ->with('descriptiveQuestions')
-        ->get();
-
-        return response()->json([
-            'success'=>[
-                'unitData'=>$unitData
-            ]
-        ]);
-    }   
-
     public function createClassroomPage(Request $request){
         $course_levels = \App\Models\CourseLevel::get();
         return view('classroom.create-classroom')
