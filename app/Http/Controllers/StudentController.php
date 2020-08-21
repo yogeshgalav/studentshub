@@ -26,7 +26,7 @@ class StudentController extends Controller
     {
         $input = $request->all();
         $user = Auth::user();
-        Log::info('input', [$input]);
+
         DB::beginTransaction();
         try {
             //create or get course id
@@ -47,7 +47,8 @@ class StudentController extends Controller
                 'address' => $input['institute_address'],
                 'description' => $input['institute_description'],
                 'added_by_user_id' => $user->id,
-                'country_code' => 'IN'
+                'country_code' => 'IN',
+                'place_id' => $input['institute_place_id'],
             ]);
 
             //create or get batch id
