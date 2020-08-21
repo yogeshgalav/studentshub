@@ -339,7 +339,6 @@
                         searchTerm: search
                     })
                     .then(resp => {
-                        console.log('resp', resp);
                         this.institute_list = resp.data.success.institutes;
                         this.institute_list.find(node => {
                             if (node.name.toLowerCase() === this.selected_institute.name.toLowerCase()) {
