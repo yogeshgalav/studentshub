@@ -74,7 +74,7 @@ Vue.mixin({
         accessToken() {
             return localStorage.getItem('access_token');
         },
-        catchResponse(err){console.log(err,'here');
+        catchResponse(err){
             switch (err.response.status) {
                 case 401:
                     this.redirect('/login');

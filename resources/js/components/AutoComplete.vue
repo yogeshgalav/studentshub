@@ -203,7 +203,7 @@ export default {
 				this.arrowCounter = -1;
 			}
 		},
-		onFocus(){console.log('here')
+		onFocus(){
 			if(this.isAsync===false){
 				this.isOpen=true;
 			}
