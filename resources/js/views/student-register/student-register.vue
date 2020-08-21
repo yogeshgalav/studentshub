@@ -14,8 +14,8 @@
                         <div class="card-body edu_det_page">
                             <div class="row justify-content-center">
                                 <div class="col-md-12">
-                                    <p class="text-grey">Please Enter Education details of your Prefferred Program and Batch to avail
-                                        full benifits of our platform.</p>
+                                    <p class="text-grey">Please enter Education details of your preferred Program and Batch to avail
+                                        full benefits from our platform.</p>
                                 </div>
                                 <div class="col-md-12 mt-2">
                                     <form @submit.prevent="handleSubmit">
@@ -339,6 +339,7 @@
                         searchTerm: search
                     })
                     .then(resp => {
+                        console.log('resp', resp);
                         this.institute_list = resp.data.success.institutes;
                         this.institute_list.find(node => {
                             if (node.name.toLowerCase() === this.selected_institute.name.toLowerCase()) {
