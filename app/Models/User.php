@@ -77,4 +77,11 @@ class User extends Authenticatable
     public function setFullNameAttribute($value){
         $this->attributes['full_name'] = ucwords($value);
     }
+
+    public function joinedClassoomCount(){
+        return \DB::table('classroom_users')
+            ->where('user_id',$this->id)
+            ->where('joined_at','!=',null)
+            ->count();
+    }
 }

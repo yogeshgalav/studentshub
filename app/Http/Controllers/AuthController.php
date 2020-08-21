@@ -61,10 +61,13 @@ class AuthController extends Controller
             Log::info($user->full_name." (User ID # ".$user->id.") logged in from IP Address ".$request->ip());
 
             $success['redirectUrl'] = '/';
+            if($user->joinedClassoomCount()>0){
+                $success['redirectUrl'] = '/classrooms';
+            }
             $success['student'] = Auth::student();
             $success['full_name'] = $user->full_name;
             
-        }catch(\Exception $e){
+        }catch(\Exception $e){dd($e->getMessage());
             Log::warning("An invalid attempt to login was made for user ".$request->email." from IP Address ".$request->ip());
             return response()->json(['error'=>'Unauthorised'], 401);
         }
