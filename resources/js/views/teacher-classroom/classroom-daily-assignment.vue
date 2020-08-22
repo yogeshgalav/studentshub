@@ -15,6 +15,7 @@
                                     <div class="form-group pl-0">
                                         <label class="control-label"
                                             :for="'start_date' + index">Assignment Date</label>
+                                            <div>
                                                   <date-picker
                                                     id="start_date_create"
                                                     ref="start_date"
@@ -30,6 +31,8 @@
                                                     placeholder=""
                                                     @change="updateAssignment(daily)"
                                                   />
+                                            </div>
+                                                  
                                                 <div class="error">{{ formErrors('attempt_date') }}</div>
                                     </div>
                                 </div>
@@ -49,17 +52,14 @@
                                                 <div class="error">{{ formErrors('unit_id') }}</div>
                                     </div>
                                 </div>
-                               </div>
-                            </div>
-                            <div class="row add_cl_q">
-                                <div class="col-md-12">
-                                        <div class="text-grey">
+                                  <div class="text-grey col-md-12">
                                             <p>Students will be asked to answer the following questions on this unit
                                                 attempt</p>
                                         </div>
-                                </div>
+                               </div>
+                              
                             </div>
-                                <div class="mt-2" v-if="daily.unit_id!==null && daily.attempt_date">
+                                <div class="mt-2 mb-2 col-md-12" v-if="daily.unit_id!==null && daily.attempt_date">
                                     <add-button name="Add Question" @submit="addQuestion(daily.attempt_date)" />
                                 </div>
                         </accordion>
@@ -68,7 +68,7 @@
             </div>
         </div>
 
-        <modal  name="addDailyQuestionModal" class="doubt_model">
+        <modal  name="addDailyQuestionModal" class="doubt_model model-md">
             <form @submit.prevent="saveQuestion()" style="padding:25px;" v-slimscroll="options">
                 <div class="row">
                     <div class="col-md-12 mt-2">
@@ -112,7 +112,7 @@
                                         <div class="form-group d-flex" v-for="(choice,index) in current_question_edit.multiple_choice" :key="index">
                                             <label class="contol-label col-md-2 mt-2">{{ letters[index] }} : </label>
                                             <input type="text" class="form-control col-md-10" v-model="choice.text">
-                                            <button class="btn btn-danger btn-sm ml-2" v-if="current_question_edit.multiple_choice.length>2" @click="removeAnswer(index)">
+                                            <button class="btn btn-danger btn-sm ml-2 delete_btn" v-if="current_question_edit.multiple_choice.length>2" @click="removeAnswer(index)">
                                                 <i class="fa fa-times"></i>
                                             </button>
 
@@ -125,7 +125,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-12">
-                                        <button type="button" class="btn btn-success btn-sm" @click="addAnswer()">
+                                        <button type="button" class="btn btn-success btn-lg" @click="addAnswer()">
                                             <i class="fa fa-plus"></i> Add More
                                         </button>
                                     </div>
@@ -136,15 +136,22 @@
 
                 </div>
 
-                <div class="mt-3 row text-right">
+                <div class="mt-1 row text-right">
                     <div class="col-md-12">
-                        <button type="submit" class="btn btn-outline-primary">Submit</button>
+                        <hr/>
+                        <button type="submit" class="btn btn-outline-primary mb-2">Submit</button>
                     </div>
                 </div>
             </form>
         </modal>
     </div>
 </template>
+<style scoped>
+.delete_btn {
+    padding: 0 22px 0 22px;
+    font-size: 18px;
+}
+</style>
 <script>
     import Vue from 'vue';
 
