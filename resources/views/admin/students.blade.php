@@ -5,7 +5,7 @@
 @section('content')
  <div class="main-panel">
         <div class="content-wrapper">
-      
+
           <div class="row">
             <div class="col-md-12 stretch-card">
               <div class="card">
@@ -25,8 +25,8 @@
                         </tr>
                       </thead>
                       <tbody>
-                        
-                        @foreach($students as $hero) 
+
+                        @foreach($students as $hero)
                             <tr>
                                 <td rowspan="{{count($hero->batches)}}">{{  $hero->user->full_name }}</td>
                                 @foreach($hero->batches as $batch)
@@ -35,7 +35,7 @@
                                 <td>{{  $batch->course->course_name }}</td>
                                 <td>{{  $batch->start_year }}- {{  $batch->end_year}}</td>
                                 @endforeach
-                               
+
                                 <td rowspan="{{count($hero->batches)}}"><a href="/admin/show_post/{{  $hero->id}}"><button class="btn btn-danger">Show Post</button></a></td>
                                 <td rowspan="{{count($hero->batches)}}">
                            @if($hero->block_status)
@@ -45,7 +45,7 @@
                                 <button type="submit" class="btn btn-danger" name="submit" svalue="{{  $hero->id }}" id="block">block</button>
                             @endif
                             </tr>
-                          @endforeach 
+                          @endforeach
                       </tbody>
                     </table>
                   </div>
@@ -57,8 +57,6 @@
         <script>
         $("#block").click(function(){
             var blockid = $(this).attr("svalue");
-            /*console.log(blockid);
-           alert(blockid);*/
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -67,13 +65,13 @@
             $.ajax({
                url: "{{ url('/admin/blockUpdate') }}",
               method: 'post',
-              data: { 
+              data: {
                  "_token": "{{ csrf_token() }}",
-                  "id": blockid 
+                  "id": blockid
               },
                success: function (data) {
-                      alert('blocked');    
-                      window.location.href = "{{ url('/admin/students') }}";     
+                      alert('blocked');
+                      window.location.href = "{{ url('/admin/students') }}";
                },
                error: function (data) {
                      alert(data);
@@ -93,13 +91,13 @@
             $.ajax({
                url: "{{ url('/admin/unblockUpdate') }}",
               method: 'post',
-              data: { 
+              data: {
                  "_token": "{{ csrf_token() }}",
-                  "id": blockid 
+                  "id": blockid
               },
                success: function (data) {
-                      alert('unblocked'); 
-                      window.location.href = "{{ url('/admin/students') }}";            
+                      alert('unblocked');
+                      window.location.href = "{{ url('/admin/students') }}";
                },
                error: function (data) {
                      alert(data);

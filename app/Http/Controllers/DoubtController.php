@@ -9,15 +9,16 @@ use Auth;
 use Arr;
 use DB;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class DoubtController extends Controller
 {
-    
+
     public function addDoubt (Request $request)
     {
         $input = $request->all();
         $student=Auth::student();
-        
+
         if(is_null($student)){
             abort(403);
         }
@@ -31,7 +32,7 @@ class DoubtController extends Controller
             ],[
             'subject_name'=>$subject_name,
             'category_id'=>$student->categoryId
-            ]);  
+            ]);
 
         $q = new Doubt();
         $q->user_id = Auth::user()->id;
@@ -40,14 +41,14 @@ class DoubtController extends Controller
         $q->batch_id = $student->batchId;
         $q->save();
 
-        
+
     DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
-            \Log::critical('Doubt Creation failure: for user id#'.Auth::user()->id.' with data '.implode(', ',Arr::flatten($input)));
+            Log::critical('Doubt Creation failure: for user id#'.Auth::user()->id.' with data '.implode(', ',Arr::flatten($input)));
             // dd($e->getMessage(),$e->getLine());
             return response()->$e;
-        }        
+        }
         return 'success';
     }
 

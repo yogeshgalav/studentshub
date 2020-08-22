@@ -7,6 +7,8 @@ use Auth;
 use DB;
 use App\Models\Unit;
 use App\Models\Classroom;
+use Illuminate\Support\Facades\Log;
+
 class ClassroomUnitController extends Controller
 {
     //
@@ -49,7 +51,7 @@ class ClassroomUnitController extends Controller
 
     public function activateUnit($classroomId,Request $request){
         $now = \Carbon\Carbon::now()->toDateTimeString();
-        
+
         DB::beginTransaction();
     try{
         $classroom = Classroom::findOrFail($classroomId);
@@ -70,16 +72,16 @@ class ClassroomUnitController extends Controller
         }else{
             $classroom->activated_unit = null;
         }
-        
+
         $classroom->save();
 
         DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
-            \Log::critical('Unit Activation failure: for user id#'.Auth::user()->id,$request->all());
+            Log::critical('Unit Activation failure: for user id#'.Auth::user()->id,$request->all());
             dd($e->getMessage(),$e->getLine());
             return response()->$e;
-        } 
+        }
         return response()->json(['success'=>[
             'activated_unit' => $classroom->activated_unit
         ]]);

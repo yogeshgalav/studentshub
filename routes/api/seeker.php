@@ -1,6 +1,8 @@
 
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 Route::group(['middleware'=>['auth:api']],function(){
     Route::get('/get-posts','PostController@getPosts');
     Route::post('/post-like','LikeController@post');

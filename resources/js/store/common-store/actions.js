@@ -34,7 +34,6 @@ getPostContent({commit},post_id){
   })
 },
 subscribe({commit},data){
-  console.log(data);
   return new Promise((resolve, reject) => {
     axios({url: window.App.baseUrl+'/api/subscribe',data:data, method: 'POST'})
     .then(resp => {
@@ -47,4 +46,4 @@ subscribe({commit},data){
     })
   })
 },
-} 
+}

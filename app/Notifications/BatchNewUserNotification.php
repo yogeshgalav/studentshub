@@ -6,10 +6,10 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Log;
 use App\Models\User;
 use App\Models\Batch;
 use App\Models\student;
+use Illuminate\Support\Facades\Log;
 
 class BatchNewUserNotification extends Notification
 {

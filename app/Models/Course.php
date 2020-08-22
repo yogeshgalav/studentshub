@@ -3,28 +3,34 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Facades\Sthub;
 
 class Course extends Model
 {
     //
     protected  $guarded = ['id', 'created_at', 'updated_at'];
 
-    public function category(){
+    public function category()
+    {
         return $this->belongsTo('App\Models\Category');
     }
-    public function subjects(){
-        return $this->belongsToMany('App\Models\Subject','course_subjects');
+    public function subjects()
+    {
+        return $this->belongsToMany('App\Models\Subject', 'course_subjects');
     }
-    public function batch(){
+    public function batch()
+    {
         return $this->hasMany('App\Models\Batch');
     }
-    public function totalBatch(){
+    public function totalBatch()
+    {
         return $this->batch()->count();
     }
 
-    public function setCourseNameAttribute($value){
-        $this->attributes['course_name'] = \Sthub::ucWordSome($value);
+    public function setCourseNameAttribute($value)
+    {
+        $this->attributes['course_name'] = Sthub::ucWordSome($value);
         $this->attributes['course_url'] = \Str::slug($value);
-        $this->attributes['alias'] = \Sthub::generateAlias($value);
+        $this->attributes['alias'] = Sthub::generateAlias($value);
     }
 }
