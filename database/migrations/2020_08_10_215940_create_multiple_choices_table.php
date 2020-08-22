@@ -17,8 +17,8 @@ class CreateMultipleChoicesTable extends Migration
             $table->bigIncrements('id');
             $table->tinyInteger('option_order');
             $table->integer('daily_question_id')->unsigned();
-            $table->string('text');
-            $table->boolean('is_correct');
+            $table->string('option_text');
+            $table->boolean('is_correct')->default(false);
             $table->timestamps();
         });
     }

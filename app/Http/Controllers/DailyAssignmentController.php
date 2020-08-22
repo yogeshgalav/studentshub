@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\TeacherDailyAssignment\StoreRequest;
 use App\Models\DailyAssignment;
 use App\Models\DailyQuestion;
+use App\Models\MultipleChoice;
 use App\Models\Unit;
 use Illuminate\Http\Request;
 
@@ -29,21 +30,22 @@ class DailyAssignmentController extends Controller
 
     public function updateDailyQuestion(Request $request)
     {    
+        $question=$request->question;
         $dailyQuestion = DailyQuestion::firstOrNew([
-            'daily_assignment_id' => $request->assignment_id,
-            'marks' => $request->marks,
-            'question_order' => $request->question_order,
-            'question_text' => $request->question_text,
-            'question_type' => $request->question_type,
+            'daily_assignment_id' => $question['assignment_id'],
+            'marks' => $question['marks'],
+            'question_order' => $question['question_order'],
+            'question_text' => $question['question_text'],
+            'question_type' => $question['question_type'],
         ]);
         $dailyQuestion->save();
 
-        foreach($request->multiple_choice as $key=>$choice){
+        foreach($question['multiple_choice'] as $key=>$choice){
             $multiple_choice =MultipleChoice::firstOrNew([
                 'daily_question_id' => $dailyQuestion->id,
-                'choice_order' => $key,
-                'choice_text' => $request->text,
-                'is_correct' => $request->answer
+                'option_order' => $key,
+                'option_text' => $choice['text'],
+                'is_correct' => $choice['answer']=='true'?1:0
             ]); 
             
             $multiple_choice->save();

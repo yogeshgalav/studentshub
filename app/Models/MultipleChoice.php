@@ -7,4 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class MultipleChoice extends Model
 {
     //
+    protected $guarded = [
+        'id'
+    ];
 }

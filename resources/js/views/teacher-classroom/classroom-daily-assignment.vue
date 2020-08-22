@@ -56,6 +56,18 @@
                                             <p>Students will be asked to answer the following questions on this unit
                                                 attempt</p>
                                         </div>
+
+                                    <div v-for="(question,index) in daily.daily_questions" :key="index">
+                                        <div>{{'Question' + (index+1)}} </div>
+                                        <div>{{question.question_text}} </div>
+                                        <div>{{'Marks' + question.marks}} </div>
+                                        
+                                        <div v-for="(choice,index) in question.multiple_choice" :key="index">
+                                            <div>{{'Option ' + letters[index]}} </div>
+                                            <div>{{choice.option_text}} </div>
+                                            <div>{{choice.is_correct}} </div>
+                                        </div>
+                                    </div>
                                </div>
                               
                             </div>
@@ -261,7 +273,7 @@
                 let assignment = this.dailyAssignmentData.find(node=>node.attempt_date===attempt_date);
                 if(assignment && assignment.id){
                     this.current_question_edit.assignment_id = assignment.id;
-                    this.current_question_edit.question_order = assignment.questions.length;
+                    // this.current_question_edit.question_order = assignment.questions.length;
                 }
                 this.$modal.show('addDailyQuestionModal');
             },
