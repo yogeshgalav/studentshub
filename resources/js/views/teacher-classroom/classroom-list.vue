@@ -63,13 +63,13 @@
             </div>
             </div>
             <div v-if="classroomList.length">
-                <div class="row">
-                    Joined Classrooms
-                    <hr />
+              <div class="col-md-12 mt-3">
+                    <h3>Joined Classrooms </h3>
+                <hr />
                 </div>
                 <div class="row">
                     <div class="col-md-4" v-for="(classroom,index) in classroomList" :key="index">
-                        <div class="col-md-4" v-for="(classroom,index) in myClassrooms" :key="index">
+                        <div class="col-md-12" v-for="(classroom,index) in myClassrooms" :key="index">
                             <div class="clas_roo_main_box">
                                 <div class="cl_box_top">
                                     <p>{{classroom.classroom_live_id}}</p>
