@@ -2,32 +2,34 @@
     <div class="col-md-12">
         <div>
             <a v-if="AuthTeacher" href="/create-classroom"
-            class="btn btn-primary btn-lg" 
+            class="btn btn-primary btn-lg mb-1" 
             type="button"
             >Create Classroom</a>
 
             <button 
-            class="btn btn-success btn-lg" 
+            class="btn btn-success btn-lg mb-1" 
             type="button"
             @click="$modal.show('join_classroom_modal')"
             >Join Classroom</button>
             <modal name="join_classroom_modal" class="doubt_model">
             <form @submit.prevent="joinClassroom">
-                <div class="model_box_inner card">
-                     <div class="edit_profile_head">
+                <div class="model_box_inner card p-0">
+                    <div class="card-header">
+                         <div class="edit_profile_head">
                                 <h4>Join Classroom</h4>
                             </div> 
+                    </div>
                     <div class="row card-body">
                         <div class="col-md-12">
                             <div class="model_input">
-                                <label>Enter Classroom Name</label>
+                                <label class="text-gray">Enter Classroom Name</label>
                                 <input type="text" class="form-control" v-model="join_classroom_name">
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="model_btn">
-                                <button type="submit" class="save_profile_btn">Request</button>
-                                <button type="button" class="cancel_profile_btn">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Request</button>
+                                <button type="button" class="btn btn-danger">Cancel</button>
                             </div>
                         </div>
                     </div>
