@@ -1,4 +1,5 @@
 <template>
+<div>
 <div v-if="0">
       <div
         id="reflection-complete"
@@ -46,11 +47,12 @@
                   <p>
                     <span class="weight-800 text-accent">
                       {{ 'Daily assisgment for today is remaining' }}
+                      </span>
                   </p>
                   <a
                   id="reflection-link"
                     class="btn btn-accent"
-                    :href="'/classroom/' + classroomId +'/daily-attempt'"
+                    :href="'/classroom/' + $route.params.classroomId +'/daily-attempt'"
                   >
                     {{ 'Attempt now' }}
                   </a>
@@ -60,6 +62,7 @@
           </div>
         </div>
       </div>
+    </div>
     </div>
 </template>
 <script>

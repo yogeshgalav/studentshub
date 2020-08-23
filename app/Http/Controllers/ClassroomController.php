@@ -83,8 +83,12 @@ class ClassroomController extends Controller
     }
     public function classroomUnitAssignmentPage($classroomId){
         $classroom=Classroom::findOrFail($classroomId);
+                
+        if(Auth::teacher() && $classroom->teacher_id===Auth::teacher()->id){
+            return view('classroom.classroom-unit-assignment');
+        }
 
-        return view('classroom.classroom-unit-assignment');
+        return view('student-panel.classroom-unit-assignment');
     }
     public function classroomDailyAssignmentPage($classroomId){
         $classroom=Classroom::findOrFail($classroomId);
@@ -108,10 +112,6 @@ class ClassroomController extends Controller
 
     public function studentPanelPage(){
         return view('student-panel.my-panel');
-    }
-
-    public function topicAnswersPage(){
-        return view('classroom.topic-answers');
     }
 
     public function createClassroomPage(Request $request){

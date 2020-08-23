@@ -1,5 +1,10 @@
 <template>
   <div>
+    <div class="row">
+            <div class="col-md-12">
+               <classroom-header />
+            </div>
+        </div>
     <div class="mt-2">
       <add-button name="Add Assignment" @submit="addAssignment" />
     </div>
@@ -230,12 +235,15 @@ import swal from "../../components/swal.js";
 import DatePicker from "vue2-datepicker";
 import "vue2-datepicker/index.css";
 
+import ClassroomHeader from '../../components/ClassroomHeader';
+
 export default {
   mixins: [FormMixin],
   components: {
     Accordion,
     AddButton,
     DatePicker,
+    ClassroomHeader
   },
   data() {
     return {

@@ -1,5 +1,6 @@
 <template>
     <div>
+        <classroom-header />
         <div class="card mt-5" v-for="(unit,index) in unitData" :key="index">
             <div>
                 <div class="row">
@@ -73,23 +74,12 @@
                 unitData: [],
             };
         },
-        computed:{
-            classroomDetail(){
-                return this.$store.state.classroom.classroomDetail;
-            }
-        },
         mounted() {
-            if(!this.classroomDetail.id){
-                this.$store.dispatch('classroom/getClassroomDetail',this.$route.params.classroomId).then(()=>{
-                    this.getUnitDetails();
-                });
-            }else{
-                this.getUnitDetails();
-            }
+            this.getUnitDetails();
         },
         methods: {
             getUnitDetails(){
-                this.axios.get('/api/classroom/' + this.classroomDetail.id + '/unit-assignment-details').then((resp) => {
+                this.axios.get('/api/classroom/' + this.$route.params.classroomId + '/unit-assignment-details').then((resp) => {
                     this.unitData = resp.data.success.unitData;
                 });
             },      

@@ -69,4 +69,16 @@ class DailyAssignmentController extends Controller
         ]);
     }   
 
+    public function dailyAssignmentAttemptPage($classroom_id){dd(now()->toDateString());
+        $daily_questions=\App\Models\DailyQuestion::join('daily_assignments as da',function($join){
+            $join->on('da.id','=','daily_questions.id')->where('da.attempt_date','=',now()->toDateString());
+        })
+        ->join('units as un',function($join)use($classroom_id){
+            return $join->on('un.id','=','da.unit_id')->where('un.classroom_id','=',$classroom_id);
+        })->with('multipleChoice')->get();
+
+        return view('student-panel.daily-attempt')
+        ->with('daily_questions',$daily_questions);
+    }
+
 }
