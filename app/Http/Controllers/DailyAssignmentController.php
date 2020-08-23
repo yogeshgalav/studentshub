@@ -12,12 +12,12 @@ use Illuminate\Http\Request;
 class DailyAssignmentController extends Controller
 {
     //
-    public function updateDailyAssignment($unitId,Request $request)
+    public function updateDailyAssignment(Request $request)
     {    
             
         $dailyAssignment = DailyAssignment::firstOrNew([
             'attempt_date' => $request->attempt_date,
-            'unit_id' => $unitId,
+            'unit_id' => $request->unit_id,
         ]);
 
         $dailyAssignment->save();

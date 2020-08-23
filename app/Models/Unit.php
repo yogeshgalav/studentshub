@@ -13,6 +13,6 @@ class Unit extends Model
     }
     
     public function dailyAssignment(){
-        return $this->hasMany('App\Models\dailyAssignment');
+        return $this->hasMany('App\Models\DailyAssignment');
     }
 }
