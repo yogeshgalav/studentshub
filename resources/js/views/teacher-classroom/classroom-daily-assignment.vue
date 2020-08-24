@@ -252,6 +252,7 @@ export default {
     return {
       dailyAssignmentData: {},
       current_question_edit: {
+        id:0,
         daily_assignment_id: null,
         question_text: null,
         marks: null,
@@ -259,10 +260,12 @@ export default {
         question_order: 0,
         multiple_choice: [
           {
+            id:0,
             option_text: null,
             is_correct: false,
           },
           {
+            id:0,
             option_text: null,
             is_correct: false,
           },

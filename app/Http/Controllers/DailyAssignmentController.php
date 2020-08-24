@@ -31,29 +31,36 @@ class DailyAssignmentController extends Controller
     public function updateDailyQuestion(Request $request)
     {    
         $question=$request->question;
-        $dailyQuestion = DailyQuestion::firstOrNew([
-            'daily_assignment_id' => $question['daily_assignment_id'],
-            'marks' => $question['marks'],
-            'question_order' => $question['question_order'],
-            'question_text' => $question['question_text'],
-            'question_type' => $question['question_type'],
-        ]);
+        if($question['id']){
+            $dailyQuestion = DailyQuestion::find($question['id']);    
+        }else{
+            $dailyQuestion = new DailyQuestion;
+        }
+        $dailyQuestion->daily_assignment_id = $question['daily_assignment_id']; 
+        $dailyQuestion->marks = $question['marks']; 
+        $dailyQuestion->question_order = $question['question_order']; 
+        $dailyQuestion->question_text = $question['question_text']; 
+        $dailyQuestion->question_type = $question['question_type']; 
+
         $dailyQuestion->save();
 
         foreach($question['multiple_choice'] as $key=>$choice){
-            $multiple_choice =MultipleChoice::firstOrNew([
-                'daily_question_id' => $dailyQuestion->id,
-                'option_order' => $key,
-                'option_text' => $choice['option_text'],
-                'is_correct' => $choice['is_correct']=='true'?1:0
-            ]); 
+            if($choice['id']){
+                $multiple_choice = MultipleChoice::find($choice['id']);    
+            }else{
+                $multiple_choice = new MultipleChoice;
+            }
+            $multiple_choice->daily_question_id = $dailyQuestion->id;
+            $multiple_choice->option_order = $key;
+            $multiple_choice->option_text = $choice['option_text'];
+            $multiple_choice->is_correct = $choice['is_correct']=='true'?1:0;
             
             $multiple_choice->save();
         }
 
-            return response()->json(['success'=>[
-                'assignment'=>$dailyQuestion
-            ]]);
+        return response()->json(['success'=>[
+            'assignment'=>$dailyQuestion
+        ]]);
         
     }
 
