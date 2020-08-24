@@ -22,9 +22,9 @@ class DailyAssignmentController extends Controller
 
         $dailyAssignment->save();
 
-            return response()->json(['success'=>[
-                'assignment'=>$dailyAssignment
-            ]]);
+        return response()->json(['success'=>[
+            'assignment'=>$dailyAssignment
+        ]]);
         
     }
 
@@ -32,7 +32,7 @@ class DailyAssignmentController extends Controller
     {    
         $question=$request->question;
         $dailyQuestion = DailyQuestion::firstOrNew([
-            'daily_assignment_id' => $question['assignment_id'],
+            'daily_assignment_id' => $question['daily_assignment_id'],
             'marks' => $question['marks'],
             'question_order' => $question['question_order'],
             'question_text' => $question['question_text'],
@@ -44,8 +44,8 @@ class DailyAssignmentController extends Controller
             $multiple_choice =MultipleChoice::firstOrNew([
                 'daily_question_id' => $dailyQuestion->id,
                 'option_order' => $key,
-                'option_text' => $choice['text'],
-                'is_correct' => $choice['answer']=='true'?1:0
+                'option_text' => $choice['option_text'],
+                'is_correct' => $choice['is_correct']=='true'?1:0
             ]); 
             
             $multiple_choice->save();
@@ -69,7 +69,7 @@ class DailyAssignmentController extends Controller
         ]);
     }   
 
-    public function dailyAssignmentAttemptPage($classroom_id){dd(now()->toDateString());
+    public function dailyAssignmentAttemptPage($classroom_id){
         $daily_questions=\App\Models\DailyQuestion::join('daily_assignments as da',function($join){
             $join->on('da.id','=','daily_questions.id')->where('da.attempt_date','=',now()->toDateString());
         })
@@ -81,4 +81,8 @@ class DailyAssignmentController extends Controller
         ->with('daily_questions',$daily_questions);
     }
 
+    public function deleteDailyQuestion(Request $request){
+        DailyQuestion::where('id',$request->question_id)->delete();
+        return 'success';
+    }
 }

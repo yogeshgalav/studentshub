@@ -80,7 +80,10 @@
                       <div class="col-md-6">
                         <div class="row">
                           <div class="col-md-6">
-                            <div class="weight-800">{{'Question' + (index+1)}} <button  title ="Edit" class="btn btn-link"  @click="addQuestion(daily.attempt_date)"><i class="fa fa-edit"></i> </button>  <button  title="Delete" class="btn btn-link p-0"><i class="fa fa-trash text-danger"></i> </button></div>
+                            <div class="weight-800">{{'Question' + (index+1)}} 
+                              <button  title="Edit" class="btn btn-link"  @click="editQuestion(daily.id,question.id)"><i class="fa fa-edit"></i> </button> 
+                               <button  title="Delete" class="btn btn-link p-0" @click="deleteQuestion(daily.id,question.id)"><i class="fa fa-trash text-danger"></i> </button>
+                            </div>
                           </div>
                           <div class="col-md-6">
                             <div class="text-success">{{'Marks' + question.marks}}</div>
@@ -115,7 +118,7 @@
                   </div>
                 </div>
               </div>
-              <div class="mt-3 mb-2 col-md-12" v-if="daily.unit_id!==null && daily.attempt_date">
+              <div class="mt-3 mb-2 col-md-12" v-if="daily.unit_id!==null && daily.attempt_date && marks!==0">
                 <add-button name="Add Question" @submit="addQuestion(daily.attempt_date)" />
               </div>
             </accordion>
@@ -176,7 +179,7 @@
                       :key="index"
                     >
                       <label class="contol-label col-md-2 mt-2">{{ letters[index] }} :</label>
-                      <input type="text" class="form-control col-md-10" v-model="choice.text" />
+                      <input type="text" class="form-control col-md-10" v-model="choice.option_text" />
                       <button
                         class="btn btn-danger btn-sm ml-2 delete_btn"
                         v-if="current_question_edit.multiple_choice.length>2"
@@ -190,9 +193,9 @@
                           class="form-check-input"
                           type="radio"
                           name="correctAnswer"
-                          v-model="choice.answer"
+                          v-model="choice.is_correct"
                           :id="'correctAnswer'+index"
-                          value="true"
+                          :value="true"
                         />
                         <label class="form-check-label">Mark as correct answer</label>
                       </div>
@@ -249,19 +252,19 @@ export default {
     return {
       dailyAssignmentData: {},
       current_question_edit: {
-        assignment_id: null,
+        daily_assignment_id: null,
         question_text: null,
         marks: null,
         question_type: "multiple_choice",
         question_order: 0,
         multiple_choice: [
           {
-            text: null,
-            answer: false,
+            option_text: null,
+            is_correct: false,
           },
           {
-            text: null,
-            answer: false,
+            option_text: null,
+            is_correct: false,
           },
         ],
       },
@@ -287,23 +290,12 @@ export default {
     },
   },
   mounted() {
-    if (!this.classroomDetail.id) {
-      this.$store
-        .dispatch(
-          "classroom/getClassroomDetail",
-          this.$route.params.classroomId
-        )
-        .then(() => {
-          this.getDailyDetails();
-        });
-    } else {
       this.getDailyDetails();
-    }
   },
   methods: {
     getDailyDetails() {
       this.axios
-        .get("/api/classroom/" + this.classroomDetail.id + "/daily-questions")
+        .get("/api/classroom/" + this.$route.params.classroomId + "/daily-questions")
         .then((resp) => {
           this.unitList = resp.data.success.unitList;
           this.dailyAssignmentData = resp.data.success.unitList.reduce(
@@ -330,14 +322,12 @@ export default {
           unit_id: daily.unit_id,
           attempt_date: daily.attempt_date,
         })
-        .then((res) => {
-          this.current_question_edit.assignment_id =
+        .then((resp) => {
+          this.current_question_edit.daily_assignment_id =
             resp.data.success.assignment.id;
         })
         .catch((error) => {
-          if (typeof error.response.data.errors == "object") {
-            this.form_errors = error.response.data.errors;
-          }
+          
         });
     },
     deleteAssignment(attempt_date) {
@@ -360,7 +350,10 @@ export default {
         (node) => node.attempt_date === attempt_date
       );
       if (assignment && assignment.id) {
-        this.current_question_edit.assignment_id = assignment.id;
+        this.current_question_edit.daily_assignment_id = assignment.id;
+        this.marks= (10 - assignment.daily_questions.reduce((acc,currVal)=>{
+          return acc+currVal.marks;
+        },0));
         // this.current_question_edit.question_order = assignment.questions.length;
       }
       this.$modal.show("addDailyQuestionModal");
@@ -368,8 +361,65 @@ export default {
     saveQuestion() {
       this.axios.post("/api/update-daily-question", {
         question: this.current_question_edit,
+      }).then((resp)=>{
+        const question = this.current_question_edit;
+        if(!question.id){
+          question.id=resp.data.success.question_id;
+          let assignmentIndex = this.dailyAssignmentData.findIndex(
+          (node) => node.id === question.daily_assignment_id
+          );
+          this.dailyAssignmentData[assignmentIndex].daily_questions.push(question);
+        }
+        this.resetEditQuestion();
       });
+
       this.$modal.hide("addDailyQuestionModal");
+    },
+    editQuestion(assignment_id,question_id){
+      let assignment = this.dailyAssignmentData.find(
+        (node) => node.id === assignment_id
+      );
+      this.current_question_edit = assignment.daily_questions.find(node=>node.id===question_id);
+      this.marks= (10 - assignment.daily_questions.reduce((acc,currVal)=>{
+        if(currVal.id===question_id){
+          return acc;
+        }
+        return acc+currVal.marks;
+      },0));
+      // this.current_question_edit.question_order = assignment.questions.length;
+      this.$modal.show("addDailyQuestionModal");
+    },
+    deleteQuestion(assignment_id,question_id){
+      this.axios.post('/api/classroom/delete-daily-question',{
+        classroom_id:this.classroomDetail.id,
+        question_id:question_id,
+      }).then((resp)=>{
+        let assignment = this.dailyAssignmentData.find(
+          (node) => node.id === assignment_id
+        );
+        let questionIndex = assignment.daily_questions.findIndex(node=>node.id===question_id);
+        assignment.daily_questions.splice(questionIndex,1);
+
+      })
+    },
+    resetEditQuestion(){
+        this.current_question_edit= {
+        daily_assignment_id: null,
+        question_text: null,
+        marks: null,
+        question_type: "multiple_choice",
+        question_order: 0,
+        multiple_choice: [
+          {
+            option_text: null,
+            is_correct: false,
+          },
+          {
+            option_text: null,
+            is_correct: false,
+          },
+        ],
+        };
     },
     addAnswer() {
       let data = this.current_question_edit.multiple_choice;
