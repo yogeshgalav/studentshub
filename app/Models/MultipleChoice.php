@@ -10,4 +10,8 @@ class MultipleChoice extends Model
     protected $guarded = [
         'id'
     ];
+
+    public function getIsCorrectAttribute(){
+        return $this->is_correct ? true : false;
+    }
 }

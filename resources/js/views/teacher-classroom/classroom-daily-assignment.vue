@@ -118,7 +118,7 @@
                   </div>
                 </div>
               </div>
-              <div class="mt-3 mb-2 col-md-12" v-if="daily.unit_id!==null && daily.attempt_date && marks!==0">
+              <div class="mt-3 mb-2 col-md-12" v-if="daily.unit_id!==null && daily.attempt_date && assignmentMarks[index]!==0">
                 <add-button name="Add Question" @submit="addQuestion(daily.attempt_date)" />
               </div>
             </accordion>
@@ -291,6 +291,13 @@ export default {
       }
       return letters;
     },
+    assignmentMarks(){
+      return this.dailyAssignmentData.map(node=>{
+        return (10 - node.daily_questions.reduce((acc,currVal)=>{
+          return acc+currVal.marks;
+        },0));
+      });
+    }
   },
   mounted() {
       this.getDailyDetails();
