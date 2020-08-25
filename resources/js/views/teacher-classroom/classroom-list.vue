@@ -2,32 +2,34 @@
     <div class="col-md-12">
         <div>
             <a v-if="AuthTeacher" href="/create-classroom"
-            class="btn btn-primary btn-lg" 
+            class="btn btn-primary btn-lg mb-1" 
             type="button"
             >Create Classroom</a>
 
             <button 
-            class="btn btn-success btn-lg" 
+            class="btn btn-success btn-lg mb-1" 
             type="button"
             @click="$modal.show('join_classroom_modal')"
             >Join Classroom</button>
             <modal name="join_classroom_modal" class="doubt_model">
             <form @submit.prevent="joinClassroom">
-                <div class="model_box_inner card">
-                     <div class="edit_profile_head">
+                <div class="model_box_inner card p-0">
+                    <div class="card-header">
+                         <div class="edit_profile_head">
                                 <h4>Join Classroom</h4>
                             </div> 
+                    </div>
                     <div class="row card-body">
                         <div class="col-md-12">
                             <div class="model_input">
-                                <label>Enter Classroom Name</label>
+                                <label class="text-gray">Enter Classroom Name</label>
                                 <input type="text" class="form-control" v-model="join_classroom_name">
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="model_btn">
-                                <button type="submit" class="save_profile_btn">Request</button>
-                                <button type="button" class="cancel_profile_btn">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Request</button>
+                                <button type="button" class="btn btn-danger">Cancel</button>
                             </div>
                         </div>
                     </div>
@@ -69,21 +71,17 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4" v-for="(classroom,index) in classroomList" :key="index">
-                        <div class="col-md-12" v-for="(classroom,index) in myClassrooms" :key="index">
-                            <div class="clas_roo_main_box">
-                                <div class="cl_box_top">
-                                    <p>{{classroom.classroom_live_id}}</p>
-                                </div>
-                                <div class="classroom_box">
-                                    <div class="clss_username">
-                                        <p><img src="/images/Group.svg" alt=""></p>
-                                        <h5>{{classroom.teacher_name}}</h5>
-                                    </div>
-                                    <div class="classroom_content">
-                                        <a :href="'/classroom/'+classroom.id">{{classroom.subject_name}}</a>
-                                        <p>{{classroom.name}}</p>
-                                    </div>
-                                </div>
+                          <div class="cl_box_top">
+                            <p>{{classroom.classroom_live_id}}</p>
+                        </div>
+                        <div class="classroom_box">
+                            <div class="clss_username">
+                                <p><img src="/images/Group.svg" alt=""></p>
+                                <h5>{{classroom.teacher_name}}</h5>
+                            </div>
+                            <div class="classroom_content">
+                                <a :href="'/classroom/'+classroom.id">{{classroom.subject_name}}</a>
+                                <p>{{classroom.name}}</p>
                             </div>
                         </div>
                     </div>

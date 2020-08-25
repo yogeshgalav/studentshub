@@ -1,5 +1,6 @@
 <template>
     <div>
+        <classroom-header />
         <div class="mt-2">
             <add-button name="Add Unit" @submit="addUnit" />
         </div>
@@ -42,11 +43,14 @@
     import AddButton from '../../components/AddButton';
     import swal from '../../components/swal.js';
     
+import ClassroomHeader from '../../components/ClassroomHeader';
+    
     export default {
         mixins:[FormMixin],
         components: {
             Accordion,
-            AddButton
+            AddButton,
+            ClassroomHeader
         },
         data() {
             return {
@@ -63,19 +67,13 @@
             }
         },
         mounted() {
-            if(!this.classroomDetail.id){
-                this.$store.dispatch('classroom/getClassroomDetail',this.$route.params.classroomId).then(()=>{
-                    this.activate_unit=this.classroomDetail.activated_unit;
-                    this.getUnitDetails();
-                });
-            }else{
-                this.getUnitDetails();
-            }
+            this.getUnitDetails();
         },
         methods: {
             getUnitDetails(){
-                this.axios.get('/api/classroom/' + this.classroomDetail.id + '/unit-details').then((resp) => {
+                this.axios.get('/api/classroom/' + this.$route.params.classroomId + '/unit-details').then((resp) => {
                     this.unitData = resp.data.success.unitData
+                    this.activate_unit=this.classroomDetail.activated_unit;
                 });
             },
             activateUnit(unit_no) {

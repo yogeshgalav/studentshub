@@ -1,6 +1,7 @@
 <template>
     <div class="row">
         <div class="col-md-12">
+            <classroom-header />
             <div class="card mt-5">
                 <div class="card-header">
                     <h4 class="mb-1">
@@ -62,11 +63,11 @@
     </div>
 </template>
 <script>
+
+import ClassroomHeader from '../../components/ClassroomHeader';
     export default {
-        mounted(){
-            if(!this.classroomDetail){
-                this.$store.dispatch('classroom/getClassroomDetail',this.$route.params.classroomId);
-            }
+        components: {
+            ClassroomHeader
         },
         computed:{
             classroomDetail(){

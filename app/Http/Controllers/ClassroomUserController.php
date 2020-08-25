@@ -21,29 +21,30 @@ class ClassroomUserController extends Controller
 
         return response()->json('success');
     }
-    public function acceptJoinRequest(Request $request){
+    public function userRequestAction(Request $request){
 
         $classroom_user = ClassroomUser::where('user_id',$request->user_id)->where('classroom_id',$request->classroom_id)->firstOrFail();
-        $classroom_user->joined_at=now();
-        $classroom_user->save();
-        
+        if($request->status==='accept'){
+            $classroom_user->joined_at=now();
+            $classroom_user->save();
+        }
+        if($request->status==='decline'){
+            $classroom_user->delete();
+        }
         return response()->json(['success'=>[
             'classroom_user'=> $classroom_user,
-           
         ]]);
     }
-    public function getClassrromUserData(Request $request){
+    public function getClassrromUserData($classroom_id){
 
-        $join_requests = ClassroomUser::where('joined_at',null)->where('classroom_id',$request->classroom_id)->get();
-        $student_report = ClassroomUser::where('joined_at','!=',null)
-        ->where('classroom_id',$request->classroom_id)
-        ->leftJoin('users','users.id','=','classroom_users.user_id')
-        ->select('users.id','users.full_name')
+        $student_details = \DB::table('classroom_users as csu')
+        ->where('csu.classroom_id',$classroom_id)
+        ->join('users','users.id','=','csu.user_id')
+        ->select('users.id as user_id','users.full_name as user_name','csu.joined_at')
         ->get();
 
         return response()->json(['success'=>[
-            'join_requests'=>$join_requests,
-            'student_report'=>$student_report
+            'student_details'=>$student_details
         ]]);
     }
 }

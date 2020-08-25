@@ -6,7 +6,8 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::get('/classroom/{classroomId}/unit-details','ClassroomUnitController@getClassroomUnitDetails');
     Route::post('/classroom/create','ClassroomController@createClassroom');
     Route::post('/classroom/join','ClassroomUserController@joinClassroom');
-    Route::post('/classroom/accept','ClassroomUserController@acceptJoinRequest');
+    Route::get('/classroom/{classroomId}/student-details','ClassroomUserController@getClassrromUserData');
+    Route::post('/classroom/user-request-action','ClassroomUserController@userRequestAction');
 
     Route::get('/classroom/{classroomId}/unit-assignment-details','ClassroomUnitController@getUnitAssismentDetails');
     Route::get('/get-previous-unit-answers','ClassroomController@getPreviousUnitAnswers');
@@ -17,5 +18,5 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::get('/classroom/{classroomId}/daily-questions','DailyAssignmentController@getDailyAssismentDetails');
     Route::post('/update-daily-assignment','DailyAssignmentController@updateDailyAssignment');
     Route::post('/update-daily-question','DailyAssignmentController@updateDailyQuestion');
-
+    Route::post('/classroom/delete-daily-question','DailyAssignmentController@deleteDailyQuestion');
 });
