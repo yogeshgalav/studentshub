@@ -329,6 +329,7 @@ export default {
 
       this.axios
         .post("/api/update-daily-assignment", {
+          assignment_id: daily.id,
           unit_id: daily.unit_id,
           attempt_date: daily.attempt_date,
         })

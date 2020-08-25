@@ -14,11 +14,13 @@ class DailyAssignmentController extends Controller
     //
     public function updateDailyAssignment(Request $request)
     {    
-            
-        $dailyAssignment = DailyAssignment::firstOrNew([
-            'attempt_date' => $request->attempt_date,
-            'unit_id' => $request->unit_id,
-        ]);
+        if($request->assignment_id){
+            $dailyAssignment = DailyAssignment::find($request->assignment_id);     
+        }else{
+            $dailyAssignment = new DailyAssignment;
+        }   
+        $dailyAssignment->attempt_date=$request->attempt_date;
+        $dailyAssignment->unit_id=$request->unit_id;
 
         $dailyAssignment->save();
 
@@ -77,15 +79,13 @@ class DailyAssignmentController extends Controller
     }   
 
     public function dailyAssignmentAttemptPage($classroom_id){
-        $daily_questions=\App\Models\DailyQuestion::join('daily_assignments as da',function($join){
-            $join->on('da.id','=','daily_questions.id')->where('da.attempt_date','=',now()->toDateString());
-        })
-        ->join('units as un',function($join)use($classroom_id){
-            return $join->on('un.id','=','da.unit_id')->where('un.classroom_id','=',$classroom_id);
-        })->with('multipleChoice')->get();
+        $daily_assignment=\App\Models\DailyAssignment::where('attempt_date','=',now()->toDateString())
+        ->whereHas('unit',function($query)use($classroom_id){
+            return $query->where('classroom_id','=',$classroom_id);
+        })->with('dailyQuestions.multipleChoice')->first();
 
         return view('student-panel.daily-attempt')
-        ->with('daily_questions',$daily_questions);
+        ->with('daily_assignment',$daily_assignment);
     }
 
     public function deleteDailyQuestion(Request $request){

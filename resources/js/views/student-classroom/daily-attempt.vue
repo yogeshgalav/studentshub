@@ -2,7 +2,7 @@
 <div id="no-copy">
   
                   <div
-                    v-for="(question,index) in DailyQuestions"
+                    v-for="(question,index) in DailyAssignment.daily_questions"
                     :key="index"
                     class="col-md-12"
                   >
@@ -58,7 +58,16 @@
 </style>
 <script>
 export default {
-  props:['DailyQuestions'],
+  props:['DailyAssignment'],
+  computed:{
+    letters() {
+      let letters = [];
+      for (let i = "A".charCodeAt(0); i <= "Z".charCodeAt(0); i++) {
+        letters.push(String.fromCharCode([i]));
+      }
+      return letters;
+    },
+  },
     mounted(){
         var target = document.getElementById("no-copy");
         
