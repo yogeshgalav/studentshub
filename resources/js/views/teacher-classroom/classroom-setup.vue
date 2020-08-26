@@ -23,11 +23,11 @@
                                 </div>
                             </div>
                           
-                                <div class="mt-5">
+                                <div class="mt-0">
                                     <hr />
-                                    <button class="btn btn-danger btn-md" @click="deleteUnit(unit.unit_no)"> Delete Unit
+                                    <button class="btn btn-danger btn-md mb-1" @click="deleteUnit(unit.unit_no)"> Delete Unit
                                     </button>
-                                    <button class="btn btn-primary btn-md" @click="activateUnit(unit.unit_no)">{{ activated_unit===unit.unit_no ? 'Deactivate Unit' : 'Activate Unit'}}
+                                    <button class="btn btn-primary btn-md mb-1" @click="activateUnit(unit.unit_no)">{{ activated_unit===unit.unit_no ? 'Deactivate Unit' : 'Activate Unit'}}
                                     </button>
                                 </div>
                         </accordion>

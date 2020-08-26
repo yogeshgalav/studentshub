@@ -17,7 +17,7 @@
                                         </div>
                                 </div>
                             </div>
-                            <div class="row add_cl_q" v-for="(question,index) in unit.questions" :key="index">
+                            <div class="row unit-questions add_cl_q" v-for="(question,index) in unit.questions" :key="index">
                                     <div class="col-md-12 mt-2">
                                         <h4>Question {{index+1}}</h4>
                                     </div>
@@ -59,6 +59,7 @@
         </div>
     </div>
 </template>
+
 <script>
     import FormMixin from '../../components/mixins/form-mixin.js';
     import Accordion from '../../components/accordion';
