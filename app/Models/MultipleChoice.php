@@ -11,7 +11,7 @@ class MultipleChoice extends Model
         'id'
     ];
 
-    public function getIsCorrectAttribute(){
-        return $this->is_correct ? true : false;
+    public function getIsCorrectAttribute($value){
+        return $value ? true : false;
     }
 }
