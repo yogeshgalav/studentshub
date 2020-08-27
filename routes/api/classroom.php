@@ -19,6 +19,7 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::post('/update-daily-assignment','DailyAssignmentController@updateDailyAssignment');
     Route::post('/update-daily-question','DailyAssignmentController@updateDailyQuestion');
     Route::post('/delete-daily-question','DailyAssignmentController@deleteDailyQuestion');
-    Route::post('/activate-daily-assignment','DailyAssignmentController@activateDailyAssignment');
-    Route::post('/delete-daily-assignment','DailyAssignmentController@deleteDailyAssignment');
+    Route::post('/activate-daily-assignment','DailyQuestionController@activateDailyAssignment');
+    Route::post('/delete-daily-assignment','DailyQuestionController@deleteDailyAssignment');
+    Route::post('/classroom/{classroomId}/get-student-daily-report','DailyQuestionController@studentDailyReport');
 });

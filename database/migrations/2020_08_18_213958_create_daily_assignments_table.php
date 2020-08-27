@@ -16,9 +16,14 @@ class CreateDailyAssignmentsTable extends Migration
         Schema::create('daily_assignments', function (Blueprint $table) {
             $table->bigIncrements('id');            
             $table->integer('unit_id')->unsigned();
+            $table->integer('classroom_id')->unsigned();
             $table->date('attempt_date');
-            $table->dateTime('activated_at');
+            $table->dateTime('activated_at')->nullable();
             $table->timestamps();
+        });
+
+        Schema::table('daily_assignments', function (Blueprint $table) {
+            $table->unique(['classroom_id', 'attempt_date']);
         });
     }
 
