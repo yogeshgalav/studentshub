@@ -53,8 +53,6 @@
                                 
                                 <div class="mt-5">
                                     <hr />
-                                    <button class="btn btn-danger btn-md" @click="deleteUnit(unit.unit_no)"> Delete Unit Assignment
-                                    </button>
                                     <button class="btn btn-primary btn-md" @click="activateUnit(unit.unit_no)">{{ activated_unit===unit.unit_no ? 'Deactivate Unit Assignment' : 'Activate Unit Assignment'}}
                                     </button>
                                 </div>
@@ -119,20 +117,6 @@
                         }).then((resp)=>{
                             this.activated_unit = resp.data.success.activated_unit;
                         });
-					}
-				});
-            },
-            deleteUnit(unit_no) {
-                swal
-				.confirmDialog('Are you sure you want to Delete Unit '+unit_no+'?')
-				.then(result => {
-					if (result.value) {
-						this.axios.post('/api/classroom/'+this.classroomDetail.id+'/delete-unit',{
-                            unit_no: unit_no
-                        });
-                        
-                        let deleteIndex = this.unitData.findIndex(node=>node.unit_no===unit_no);
-                        this.unitData.slice(deleteIndex,1);
 					}
 				});
             },

@@ -301,6 +301,9 @@ export default {
     },
     assignmentMarks(){
       return this.dailyAssignmentData.map(node=>{
+        if(!node.daily_questions){
+          return 10;
+        }
         return (10 - node.daily_questions.reduce((acc,currVal)=>{
           return acc+currVal.marks;
         },0));

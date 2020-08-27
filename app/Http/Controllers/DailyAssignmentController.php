@@ -41,7 +41,7 @@ class DailyAssignmentController extends Controller
         }   
         $dailyAssignment->attempt_date=$request->attempt_date;
         $dailyAssignment->unit_id=$unit->id;
-        $dailyAssignment->classroom_id=$unit->classroom->id;
+        $dailyAssignment->classroom_id=$unit->classroom_id;
 
         $dailyAssignment->save();
 
