@@ -12,6 +12,26 @@ use Illuminate\Http\Request;
 class DailyAssignmentController extends Controller
 {
     //
+    public function activateDailyAssignment(Request $request){
+        $daily = DailyAssignment::findOrFail($request->daily_assignment_id);
+        if($request->status==="activate"){
+            $daily->activated_at = now()->toDateTimeString();
+        }else{
+            $daily->activated_at = null;
+        }
+        $daily->save();
+
+        return response()->json('success');
+    }
+
+    public function deleteDailyAssignment(Request $request){
+        $daily = DailyAssignment::findOrFail($request->daily_assignment_id);
+
+        $daily->delete();
+
+        return response()->json('success');
+    }
+
     public function updateDailyAssignment(Request $request)
     {    
         if($request->assignment_id){

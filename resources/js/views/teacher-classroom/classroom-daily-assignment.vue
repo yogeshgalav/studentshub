@@ -121,6 +121,14 @@
               <div class="mt-3 mb-2 col-md-12" v-if="daily.unit_id!==null && daily.attempt_date && assignmentMarks[index]!==0">
                 <add-button name="Add Question" @submit="addQuestion(daily.attempt_date)" />
               </div>
+              
+              <div class="mt-5" v-if="daily.id">
+                  <hr />
+                  <button class="btn btn-danger btn-md" @click="deleteDailyAssignment(daily)"> Delete Daily Assignment
+                  </button>
+                  <button class="btn btn-primary btn-md" @click="activateDailyAssignment(daily)">{{ daily.activated_at ? 'Deactivate Daily Assignment' : 'Activate Daily Assignment'}}
+                  </button>
+              </div>
             </accordion>
           </div>
         </div>
@@ -341,17 +349,43 @@ export default {
           
         });
     },
-    deleteAssignment(attempt_date) {
+    deleteDailyAssignment(daily) {
       swal
         .confirmDialog(
           "Are you sure you want to Delete Assignment for date " +
-            attempt_date +
+            daily.attempt_date +
             "?"
         )
         .then((result) => {
           if (result.value) {
             this.axios.post("/api/delete-daily-assignment", {
-              attempt_date: attempt_date,
+              daily_assignment_id: daily.id,
+            }).then(()=>{
+              let assignmentIndex = this.dailyAssignmentData.findIndex(
+                (node) => node.id === daily.id
+              );
+              this.dailyAssignmentData.splice(assignmentIndex,1);
+            });
+          }
+        });
+    },
+    activateDailyAssignment(daily) {
+      swal
+        .confirmDialog(
+          "Are you sure you want to Activate Assignment for date " +
+            daily.attempt_date +
+            "?"
+        )
+        .then((result) => {
+          if (result.value) {
+            this.axios.post("/api/activate-daily-assignment", {
+              daily_assignment_id: daily.id,
+              status:daily.activated_at ? 'deactivate' : 'activate' 
+            }).then(()=>{
+              let assignment = this.dailyAssignmentData.find(
+                (node) => node.id === daily.id
+              );
+              assignment.activated_at = new Date();
             });
           }
         });

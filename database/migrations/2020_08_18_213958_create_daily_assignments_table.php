@@ -17,6 +17,7 @@ class CreateDailyAssignmentsTable extends Migration
             $table->bigIncrements('id');            
             $table->integer('unit_id')->unsigned();
             $table->date('attempt_date');
+            $table->dateTime('activated_at');
             $table->timestamps();
         });
     }

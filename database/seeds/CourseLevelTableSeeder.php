@@ -14,9 +14,9 @@ class CourseLevelTableSeeder extends Seeder
     {
         //
         DB::table('course_levels')->insert([
-            ['level' => '2','name' => 'Preparatory Stage'],
-            ['level' => '3','name' => 'Middle Stage'],
-            ['level' => '4','name' => 'Secoundary Stage'],
+            ['level' => '2','name' => 'Preparatory Stage (3-5)'],
+            ['level' => '3','name' => 'Middle Stage (6-8)'],
+            ['level' => '4','name' => 'Secoundary Stage (9-12)'],
             ['level' => '5','name' => 'Bachelor'],
             ['level' => '6','name' => 'Master'],
             ['level' => '7','name' => 'PhD'],
