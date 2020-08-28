@@ -76,7 +76,7 @@
                     :key="index"
                     class="col-md-12"
                   >
-                    <div class="row">
+                    <div class="row mt-3">
                       <div class="col-md-6">
                         <div class="row">
                           <div class="col-md-6">
@@ -86,21 +86,21 @@
                             </div>
                           </div>
                           <div class="col-md-6">
-                            <div class="text-success">{{'Marks' + question.marks}}</div>
+                            <div class="text-success">{{'Marks'+ ' ' + question.marks}}</div>
                           </div>
                         </div>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-md-12">
-                        <hr />
+                        <hr class="mt-0" />
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-md-6">
                         <div class="row">
                           <div class="col-md-12">
-                            <div class="mb-2">{{question.question_text}}</div>
+                            <div class="mb-2 weight-800">{{question.question_text}}</div>
                           </div>
                         </div>
 

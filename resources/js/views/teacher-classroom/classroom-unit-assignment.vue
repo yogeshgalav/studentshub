@@ -22,7 +22,7 @@
                                     <div class="cl_q_type_text">
                                         <div class="cl_q_text_box">
                                             <label class="col-form-label text-black font-size-14">Question text</label>
-                                            <div class="inner-addon left-addon">
+                                            <div class="inner-addon left-addon unit-questions">
                                                 <div class="cl_input">
                                                     <input type="text" :value="question.question_text" class="form-control" id="topic_title" @blur="addOrUpdateQuestion($event,unit.unit_no)">
                                                 </div>
@@ -42,8 +42,8 @@
 
                                             </div>
                                         </div>
-                                        <div class="cl_q_close">
-                                            <p><i class="fa fa-times" aria-hidden="true" @click="removeQuestion($event,unit.unit_no)"></i></p>
+                                        <div class="cl_q_close unit-questions">
+                                            <button class="btn btn-danger"><i class="fa fa-times" aria-hidden="true" @click="removeQuestion($event,unit.unit_no)"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -57,6 +57,14 @@
         </div>
     </div>
 </template>
+<style scoped>
+.unit-questions .form-control {
+    border-radius: 0;
+}
+.unit-questions .btn-danger {
+    padding: 12px 20px;
+}
+</style>
 <script>
     import FormMixin from '../../components/mixins/form-mixin.js';
     import Accordion from '../../components/accordion';

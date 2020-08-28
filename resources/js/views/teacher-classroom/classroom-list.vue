@@ -29,7 +29,7 @@
                         <div class="col-md-12">
                             <div class="model_btn">
                                 <button type="submit" class="btn btn-primary">Request</button>
-                                <button type="button" class="btn btn-danger">Cancel</button>
+                                <button type="button" class="btn btn-danger" @click="$modal.hide('join_classroom_modal')">Cancel</button>
                             </div>
                         </div>
                     </div>
