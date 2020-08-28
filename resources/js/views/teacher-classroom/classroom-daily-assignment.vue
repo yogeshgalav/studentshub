@@ -191,7 +191,7 @@
                       <button
                         class="btn btn-danger btn-sm ml-2 delete_btn"
                         v-if="current_question_edit.multiple_choice.length>2"
-                        @click="removeAnswer(index)"
+                        @click="removeOption(index)"
                       >
                         <i class="fa fa-times"></i>
                       </button>
@@ -210,7 +210,7 @@
                     </div>
                   </div>
                   <div class="col-md-12">
-                    <button type="button" class="btn btn-success btn-lg" @click="addAnswer()">
+                    <button type="button" class="btn btn-success btn-lg" @click="addOption()">
                       <i class="fa fa-plus"></i> Add More
                     </button>
                   </div>
@@ -319,10 +319,7 @@ export default {
         .get("/api/classroom/" + this.$route.params.classroomId + "/daily-questions")
         .then((resp) => {
           this.unitList = resp.data.success.unitList;
-          this.dailyAssignmentData = resp.data.success.unitList.reduce(
-            (acc, currVal) => acc.concat(currVal.daily_assignment),
-            []
-          );
+          this.dailyAssignmentData = resp.data.success.dailyAssignmentData;
         });
     },
     addAssignment() {
@@ -469,7 +466,7 @@ export default {
         ],
         };
     },
-    addAnswer() {
+    addOption() {
       let data = this.current_question_edit.multiple_choice;
       data.push({
         text: null,
@@ -478,7 +475,7 @@ export default {
 
       this.current_question_edit.multiple_choice = data;
     },
-    removeAnswer(index) {
+    removeOption(index) {
       let data = this.current_question_edit.multiple_choice;
       data.splice(index, 1);
 

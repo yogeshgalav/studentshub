@@ -9,4 +9,7 @@ class DailyReport extends Model
     //
     protected  $guarded = ['id', 'created_at', 'updated_at'];
 
+    public function dailyAssignment(){
+        return $this->belongsTo('App\Models\DailyAssignment');
+    }
 }

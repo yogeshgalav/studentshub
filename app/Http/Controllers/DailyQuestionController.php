@@ -16,6 +16,14 @@ class DailyQuestionController extends Controller
     public function updateDailyQuestion(Request $request)
     {    
         $question=$request->question;
+        $correct_answer=0;
+        foreach($question['multiple_choice'] as $key=>$choice){
+            if($choice['is_correct']=='true'){
+                $correct_answer=$key;
+                break;
+            }
+        }
+
         if($question['id']){
             $dailyQuestion = DailyQuestion::find($question['id']);    
         }else{
@@ -26,6 +34,7 @@ class DailyQuestionController extends Controller
         $dailyQuestion->question_order = $question['question_order']; 
         $dailyQuestion->question_text = $question['question_text']; 
         $dailyQuestion->question_type = $question['question_type']; 
+        $dailyQuestion->correct_answer = $correct_answer; 
 
         $dailyQuestion->save();
 
@@ -38,8 +47,6 @@ class DailyQuestionController extends Controller
             $multiple_choice->daily_question_id = $dailyQuestion->id;
             $multiple_choice->option_order = $key;
             $multiple_choice->option_text = $choice['option_text'];
-            $multiple_choice->is_correct = $choice['is_correct']=='true'?1:0;
-            
             $multiple_choice->save();
         }
 
