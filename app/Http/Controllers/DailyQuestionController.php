@@ -69,6 +69,7 @@ class DailyQuestionController extends Controller
 
     public function saveDailyAnswer(Request $request){
 
+       
         $daily_questions = DailyQuestion::where('daily_assignment_id',$request->daily_assignment_id)->get();
 
         $total_marks = 0;
