@@ -32,7 +32,7 @@
 <style lang="scss">
     @import 'resources/sass/_variables.scss';
     .tab__header {
-        background: white;
+        background: #fbfbfb;
     }
 
     .tab__header a {
