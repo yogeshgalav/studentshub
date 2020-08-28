@@ -50,6 +50,12 @@
                                 <div class="mt-2">
                                     <add-button name="Add Question" @submit="addQuestion(unit.unit_no)" />
                                 </div>
+                                
+                                <div class="mt-5">
+                                    <hr />
+                                    <button class="btn btn-primary btn-md" @click="activateUnit(unit.unit_no)">{{ activated_unit===unit.unit_no ? 'Deactivate Unit Assignment' : 'Activate Unit Assignment'}}
+                                    </button>
+                                </div>
                         </accordion>
                     </div>
                 </div>
@@ -70,17 +76,25 @@
     import Accordion from '../../components/accordion';
     import AddButton from '../../components/AddButton';
     import swal from '../../components/swal.js';
-    
+    import ClassroomHeader from '../../components/ClassroomHeader';
+
     export default {
         mixins:[FormMixin],
         components: {
             Accordion,
-            AddButton
+            AddButton,
+            ClassroomHeader
         },
         data() {
             return {
                 unitData: [],
+                activated_unit:null,
             };
+        },
+        computed:{  
+            classroomDetail(){
+                return this.$store.state.classroom.classroomDetail;
+            }
         },
         mounted() {
             this.getUnitDetails();
@@ -89,8 +103,31 @@
             getUnitDetails(){
                 this.axios.get('/api/classroom/' + this.$route.params.classroomId + '/unit-assignment-details').then((resp) => {
                     this.unitData = resp.data.success.unitData;
+                    this.activate_unit=this.classroomDetail.activated_unit;
                 });
             },      
+            activateUnit(unit_no) {
+                let activation_text='';
+                if(this.activated_unit===unit_no){
+                    activation_text='Are you sure you want to Deactivate Unit '+unit_no;
+                }else{
+                    activation_text='Are you sure you want to Activate Unit '+unit_no;
+                    activation_text += (this.activated_unit ? 'and Deactivate Unit '+this.activated_unit : '');
+                }
+                activation_text += ' ?';
+
+                swal
+				.confirmDialog(activation_text)
+				.then(result => {
+					if (result.value) {
+						this.axios.post('/api/classroom/'+this.classroomDetail.id+'/activate-unit',{
+                            unit_no: unit_no
+                        }).then((resp)=>{
+                            this.activated_unit = resp.data.success.activated_unit;
+                        });
+					}
+				});
+            },
             addQuestion(unit_no) {
                 let unit = this.unitData.find(node=>node.unit_no === unit_no);
                 unit.descriptive_questions.push({

@@ -12,7 +12,10 @@ class DailyAssignment extends Model
     public function dailyQuestions(){
         return $this->hasMany('App\Models\DailyQuestion');
     }
+    public function dailyReport(){
+        return $this->hasMany('App\Models\DailyReport');
+    }
     public function unit(){
-        return $this->belongsTO('App\Models\Unit');
+        return $this->belongsTo('App\Models\Unit');
     }
 }

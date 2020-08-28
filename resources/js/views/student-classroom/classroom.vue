@@ -5,7 +5,7 @@
                 <div class="col-md-10">
           
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="selection-box-default">
                         <router-link class="card h-card" :to="'/classroom/'+$route.params.classroomId+'/unit-assignment'">
                             <div class="card-body">
@@ -23,7 +23,7 @@
                         </router-link>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="selection-box-default">
                         <router-link class="card h-card" :to="'/classroom/'+$route.params.classroomId+'/daily-assignment'">
                             <div class="card-body">
@@ -41,7 +41,7 @@
                         </router-link>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="selection-box-default">
                         <router-link class="card h-card" :to="'/classroom/'+$route.params.classroomId+'/classmates'">
                             <div class="card-body">
@@ -59,7 +59,7 @@
                         </router-link>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="selection-box-default">
                         <router-link class="card h-card" :to="'/classroom/'+$route.params.classroomId+'/resources'">
                             <div class="card-body">
@@ -77,7 +77,7 @@
                         </router-link>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="selection-box-default">
                         <router-link class="card h-card" :to="'/classroom/'+$route.params.classroomId+'/messages'">
                             <div class="card-body">
@@ -95,7 +95,7 @@
                         </router-link>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="selection-box-default">
                         <router-link class="card h-card" :to="'/classroom/'+$route.params.classroomId+'/doubts'">
                             <div class="card-body">
@@ -127,7 +127,7 @@
         display: flex;
         height: 100%;
         width: 100%;
-        min-height: 180px;
+       
     }
 
     .selection-box-default a {
@@ -138,7 +138,7 @@
         box-shadow: 0 2px 50px rgba(0, 0, 0, 0.15);
         cursor: pointer;
         border: 4px solid transparent;
-        border-radius: 8px;
+        border-radius: 8px;margin-bottom: 20px;
     }
 
     .selection-box-default:hover a {

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDailyQuestionsTable extends Migration
+class CreateDailyReportsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateDailyQuestionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('daily_questions', function (Blueprint $table) {
+        Schema::create('daily_reports', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('user_id')->unsigned();
             $table->integer('daily_assignment_id')->unsigned();
-            $table->tinyInteger('question_order');
-            $table->tinyInteger('correct_answer');
-            $table->string('question_text');
-            $table->enum('question_type',['multiple_choice'])->default('multiple_choice');
-            $table->tinyInteger('marks');
+            $table->integer('marks_obtained');
+            $table->time('duration')->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ class CreateDailyQuestionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('daily_questions');
+        Schema::dropIfExists('daily_reports');
     }
 }

@@ -86,9 +86,4 @@ class ClassroomUnitController extends Controller
             'activated_unit' => $classroom->activated_unit
         ]]);
     }
-
-    public function deleteUnit($classroomId,Request $request){
-        Unit::where('classroom_id',$classroomId)->where('unit_no',$request->unit_no)->delete();
-        return response()->json('success');
-    }
 }

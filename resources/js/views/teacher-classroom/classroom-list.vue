@@ -28,7 +28,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="model_btn">
-                                <button type="submit" class="btn btn-primary">Request</button>
+                                <button type="submit" class="btn btn-primary" @click="$modal.hide('join_classroom_modal')">Request</button>
                                 <button type="button" class="btn btn-danger" @click="$modal.hide('join_classroom_modal')">Cancel</button>
                             </div>
                         </div>
@@ -111,6 +111,8 @@ import VModal from 'vue-js-modal';
             joinClassroom(){
                 this.axios.post('/api/classroom/join',{
                     name:this.join_classroom_name
+                }).then(()=>{
+
                 });
             },
         }

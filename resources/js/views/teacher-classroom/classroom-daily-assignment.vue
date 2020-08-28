@@ -121,6 +121,14 @@
               <div class="mt-3 mb-2 col-md-12" v-if="daily.unit_id!==null && daily.attempt_date && assignmentMarks[index]!==0">
                 <add-button name="Add Question" @submit="addQuestion(daily.attempt_date)" />
               </div>
+              
+              <div class="mt-5" v-if="daily.id">
+                  <hr />
+                  <button class="btn btn-danger btn-md" @click="deleteDailyAssignment(daily)"> Delete Daily Assignment
+                  </button>
+                  <button class="btn btn-primary btn-md" @click="activateDailyAssignment(daily)">{{ daily.activated_at ? 'Deactivate Daily Assignment' : 'Activate Daily Assignment'}}
+                  </button>
+              </div>
             </accordion>
           </div>
         </div>
@@ -183,7 +191,7 @@
                       <button
                         class="btn btn-danger btn-sm ml-2 delete_btn"
                         v-if="current_question_edit.multiple_choice.length>2"
-                        @click="removeAnswer(index)"
+                        @click="removeOption(index)"
                       >
                         <i class="fa fa-times"></i>
                       </button>
@@ -202,7 +210,7 @@
                     </div>
                   </div>
                   <div class="col-md-12">
-                    <button type="button" class="btn btn-success btn-lg" @click="addAnswer()">
+                    <button type="button" class="btn btn-success btn-lg" @click="addOption()">
                       <i class="fa fa-plus"></i> Add More
                     </button>
                   </div>
@@ -293,6 +301,9 @@ export default {
     },
     assignmentMarks(){
       return this.dailyAssignmentData.map(node=>{
+        if(!node.daily_questions){
+          return 10;
+        }
         return (10 - node.daily_questions.reduce((acc,currVal)=>{
           return acc+currVal.marks;
         },0));
@@ -308,10 +319,7 @@ export default {
         .get("/api/classroom/" + this.$route.params.classroomId + "/daily-questions")
         .then((resp) => {
           this.unitList = resp.data.success.unitList;
-          this.dailyAssignmentData = resp.data.success.unitList.reduce(
-            (acc, currVal) => acc.concat(currVal.daily_assignment),
-            []
-          );
+          this.dailyAssignmentData = resp.data.success.dailyAssignmentData;
         });
     },
     addAssignment() {
@@ -341,17 +349,43 @@ export default {
           
         });
     },
-    deleteAssignment(attempt_date) {
+    deleteDailyAssignment(daily) {
       swal
         .confirmDialog(
           "Are you sure you want to Delete Assignment for date " +
-            attempt_date +
+            daily.attempt_date +
             "?"
         )
         .then((result) => {
           if (result.value) {
             this.axios.post("/api/delete-daily-assignment", {
-              attempt_date: attempt_date,
+              daily_assignment_id: daily.id,
+            }).then(()=>{
+              let assignmentIndex = this.dailyAssignmentData.findIndex(
+                (node) => node.id === daily.id
+              );
+              this.dailyAssignmentData.splice(assignmentIndex,1);
+            });
+          }
+        });
+    },
+    activateDailyAssignment(daily) {
+      swal
+        .confirmDialog(
+          "Are you sure you want to Activate Assignment for date " +
+            daily.attempt_date +
+            "?"
+        )
+        .then((result) => {
+          if (result.value) {
+            this.axios.post("/api/activate-daily-assignment", {
+              daily_assignment_id: daily.id,
+              status:daily.activated_at ? 'deactivate' : 'activate' 
+            }).then(()=>{
+              let assignment = this.dailyAssignmentData.find(
+                (node) => node.id === daily.id
+              );
+              assignment.activated_at = new Date();
             });
           }
         });
@@ -432,7 +466,7 @@ export default {
         ],
         };
     },
-    addAnswer() {
+    addOption() {
       let data = this.current_question_edit.multiple_choice;
       data.push({
         text: null,
@@ -441,7 +475,7 @@ export default {
 
       this.current_question_edit.multiple_choice = data;
     },
-    removeAnswer(index) {
+    removeOption(index) {
       let data = this.current_question_edit.multiple_choice;
       data.splice(index, 1);
 

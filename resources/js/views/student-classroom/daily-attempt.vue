@@ -1,48 +1,72 @@
 <template>
 <div id="no-copy">
-  
+   <div class="card col-md-8 col-center p-0">
+     <div class="card-header">
+       Complete Daily Assignments
+     </div>
+     <div class="card-body">
+       <form action="/api/save-daily-answers" method="post">
                   <div
                     v-for="(question,index) in DailyAssignment.daily_questions"
                     :key="index"
                     class="col-md-12"
                   >
                     <div class="row">
-                      <div class="col-md-6">
+                      <div class="col-md-12 mb-1 mt-3">
                         <div class="row">
-                          <div class="col-md-6">
-                            <div class="weight-800">{{'Question' + (index+1)}} <button  title ="Edit" class="btn btn-link"  @click="addQuestion(daily.attempt_date)"><i class="fa fa-edit"></i> </button>  <button  title="Delete" class="btn btn-link p-0"><i class="fa fa-trash text-danger"></i> </button></div>
+                          <div class="col-md-12">
+                            <div class="weight-800">{{'Question' + (index+1)}} </div>
                           </div>
-                          <div class="col-md-6">
-                            <div class="text-success">{{'Marks' + question.marks}}</div>
-                          </div>
+                          
                         </div>
                       </div>
                     </div>
+                   
                     <div class="row">
                       <div class="col-md-12">
-                        <hr />
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
                         <div class="row">
                           <div class="col-md-12">
                             <div class="mb-2">{{question.question_text}}</div>
                           </div>
                         </div>
-
+                     <input
+                          class="form-check-input"
+                          type="hidden"
+                          :name="'answers['+index+'][question_id]'"
+                          :value="question.id"
+                        />
                         <div
                           class="row"
-                          v-for="(choice,index) in question.multiple_choice"
-                          :key="index"
+                          v-for="(choice,index2) in question.multiple_choice"
+                          :key="index2"
                         >
-                          <div class="col-md-3">{{'Option ' + letters[index]}}</div>
+                       
+                          <div class="col-md-3">{{'Option ' + letters[index2]}}</div>
                           <div class="col-md-3">{{choice.option_text}}</div>
-                          <div class="col-md-1" v-if="choice.is_correct === 1"><i class="fa fa-check-circle text-success"></i></div>
+                          <div class="col-md-1" >
+                            <div class="form-check ml-3 mt-2">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          :name="'answers['+index+'][answer]'"
+                          :id="'correctAnswer'+index2"
+                          :value="choice.option_order"
+                        />
+                       
+                      </div>
+                      </div>
+                     
                         </div>
+                        
                       </div>
                     </div>
                   </div>
+                  <div class="col-md-12 mt-3">
+                     <button type="submit" class="btn btn-primary">Submit Answers</button>
+                  </div>
+                        </form>
+     </div>
+   </div>
 </div>
 </template>
 <style scoped>
@@ -54,6 +78,9 @@
       }
       #no-copy::-moz-selection {
         background: none;
+      }
+      .col-center {
+       margin:auto;
       }
 </style>
 <script>
