@@ -54,7 +54,7 @@ class DailyAssignmentController extends Controller
     public function getDailyAssismentDetails(Request $request){
         $unitList=Unit::where('classroom_id',$request->classroomId);
         $dailyAssignmentData=DailyAssignment::where('classroom_id',$request->classroomId)
-        ->hasNot('dailyReport')
+        ->doesntHave('dailyReport')
         ->with('dailyQuestions.multipleChoice')
         ->get();
 
