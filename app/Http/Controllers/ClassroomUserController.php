@@ -13,7 +13,11 @@ class ClassroomUserController extends Controller
     
     public function joinClassroom(Request $request){
        
-        $classroom=Classroom::where('name',$request->name)->first();
+        $classroom=Classroom::where('classroom_live_id',$request->name)->first();
+
+        if(empty($classroom)){
+            abort(422);
+        }
          
 
         ClassroomUser::firstOrCreate([

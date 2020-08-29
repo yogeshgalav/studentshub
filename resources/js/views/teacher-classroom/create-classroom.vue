@@ -193,6 +193,10 @@
                                 swal.successDialog('Classroom create', 'Success!', 'success')
                                 window.location.href = '/classroom/'+resp.data.success.id;
                             }
+                        }).catch((err)=>{
+                            if(err.response.status===422){
+                                
+                            }
                         });
                     }
                 });

@@ -24,17 +24,17 @@ class ExplorePostSeeder extends Seeder
             (4, 1, 45, 4, 'App\\\\Models\\\\Video', 'How to start a business with no money: tips for entrepreneurs', 'https://img.youtube.com/vi/jD0WQW_-O8k/0.jpg', 3, '2019-11-03 09:41:22', '2020-02-20 15:53:20'),
             (5, 1, 47, 5, 'App\\\\Models\\\\Video', 'How to Create a Pitch Deck for Investors: Fundraising for Startups', 'https://img.youtube.com/vi/SB16xgtFmco/0.jpg', 3, '2019-11-03 11:04:12', '2020-02-20 15:53:20'),
             (6, 1, 46, 6, 'App\\\\Models\\\\Video', 'Seed Funding for Startups: How to raise venture capital as an entrepreneur', 'https://img.youtube.com/vi/4RAs9Y5wwDo/0.jpg', 3, '2019-11-03 11:16:29', '2020-02-20 15:53:20'),
-            (9, 1, 50, 9, 'App\\\\Models\\\\Video', 'Does the fly sitting on your food make you sick?', 'https://img.youtube.com/vi/-zf7UxfL0zE/0.jpg', 3, '2019-11-03 12:03:43', '2020-02-20 15:53:20'),
-            (10, 1, 51, 10, 'App\\\\Models\\\\Video', 'What Happens When You Die?', 'https://img.youtube.com/vi/nqOITqLfnkc/0.jpg', 3, '2019-11-03 12:06:17', '2020-02-20 15:53:20'),
-            (11, 1, 52, 11, 'App\\\\Models\\\\Video', 'Consciousness: Crash Course Psychology', 'https://img.youtube.com/vi/jReX7qKU2yc/0.jpg', 3, '2019-11-03 12:14:53', '2020-02-20 15:53:20'),
-            (12, 1, 53, 12, 'App\\\\Models\\\\Video', 'Intro to Psychology: Crash Course Psychology', 'https://img.youtube.com/vi/vo4pMVb0R6M/0.jpg', 3, '2019-11-03 12:16:05', '2020-02-20 15:53:20'),
-            (13, 1, 54, 13, 'App\\\\Models\\\\Video', 'Why Do We Dream?', 'https://img.youtube.com/vi/7GGzc3x9WJU/0.jpg', 3, '2019-11-03 12:17:16', '2020-02-20 15:53:20'),
-            (14, 1, 51, 14, 'App\\\\Models\\\\Video', 'How Much Pain Can You Handle?', 'https://img.youtube.com/vi/s4XQo4txlk0/0.jpg', 3, '2019-11-03 12:20:59', '2020-02-20 15:53:20'),
-            (15, 1, 44, 15, 'App\\\\Models\\\\Video', 'Which Came First - The Chicken or the Egg?', 'https://img.youtube.com/vi/1a8pI65emDE/0.jpg', 3, '2019-11-03 12:26:31', '2020-02-20 15:53:20'),
-            (17, 1, 57, 17, 'App\\\\Models\\\\Video', 'How Much Sleep Do You Actually Need?', 'https://img.youtube.com/vi/SVQlcxiQlzI/0.jpg', 3, '2019-11-03 12:40:07', '2020-02-20 15:53:20'),
-            (18, 1, 58, 18, 'App\\\\Models\\\\Video', 'What if We ARE Alone in the Universe?', 'https://img.youtube.com/vi/c9TXy_Ovweg/0.jpg', 3, '2019-11-03 12:43:41', '2020-02-20 15:53:20'),
-            (19, 1, 59, 19, 'App\\\\Models\\\\Video', 'How An Igloo Keeps You Warm?', 'https://img.youtube.com/vi/1L7EI0vKVuU/0.jpg', 3, '2019-11-03 12:46:24', '2020-02-20 15:53:20'),
-            (20, 1, 44, 20, 'App\\\\Models\\\\Video', 'Why Are We The Only Humans Left?', 'https://img.youtube.com/vi/dbHj-Q1FTj8/0.jpg', 3, '2019-11-03 12:48:39', '2020-02-20 15:53:20');");
+            (7, 1, 50, 9, 'App\\\\Models\\\\Video', 'Does the fly sitting on your food make you sick?', 'https://img.youtube.com/vi/-zf7UxfL0zE/0.jpg', 3, '2019-11-03 12:03:43', '2020-02-20 15:53:20'),
+            (8, 1, 51, 10, 'App\\\\Models\\\\Video', 'What Happens When You Die?', 'https://img.youtube.com/vi/nqOITqLfnkc/0.jpg', 3, '2019-11-03 12:06:17', '2020-02-20 15:53:20'),
+            (9, 1, 52, 11, 'App\\\\Models\\\\Video', 'Consciousness: Crash Course Psychology', 'https://img.youtube.com/vi/jReX7qKU2yc/0.jpg', 3, '2019-11-03 12:14:53', '2020-02-20 15:53:20'),
+            (10, 1, 53, 12, 'App\\\\Models\\\\Video', 'Intro to Psychology: Crash Course Psychology', 'https://img.youtube.com/vi/vo4pMVb0R6M/0.jpg', 3, '2019-11-03 12:16:05', '2020-02-20 15:53:20'),
+            (11, 1, 54, 13, 'App\\\\Models\\\\Video', 'Why Do We Dream?', 'https://img.youtube.com/vi/7GGzc3x9WJU/0.jpg', 3, '2019-11-03 12:17:16', '2020-02-20 15:53:20'),
+            (12, 1, 51, 14, 'App\\\\Models\\\\Video', 'How Much Pain Can You Handle?', 'https://img.youtube.com/vi/s4XQo4txlk0/0.jpg', 3, '2019-11-03 12:20:59', '2020-02-20 15:53:20'),
+            (13, 1, 44, 15, 'App\\\\Models\\\\Video', 'Which Came First - The Chicken or the Egg?', 'https://img.youtube.com/vi/1a8pI65emDE/0.jpg', 3, '2019-11-03 12:26:31', '2020-02-20 15:53:20'),
+            (14, 1, 57, 17, 'App\\\\Models\\\\Video', 'How Much Sleep Do You Actually Need?', 'https://img.youtube.com/vi/SVQlcxiQlzI/0.jpg', 3, '2019-11-03 12:40:07', '2020-02-20 15:53:20'),
+            (15, 1, 58, 18, 'App\\\\Models\\\\Video', 'What if We ARE Alone in the Universe?', 'https://img.youtube.com/vi/c9TXy_Ovweg/0.jpg', 3, '2019-11-03 12:43:41', '2020-02-20 15:53:20'),
+            (16, 1, 59, 19, 'App\\\\Models\\\\Video', 'How An Igloo Keeps You Warm?', 'https://img.youtube.com/vi/1L7EI0vKVuU/0.jpg', 3, '2019-11-03 12:46:24', '2020-02-20 15:53:20'),
+            (17, 1, 44, 20, 'App\\\\Models\\\\Video', 'Why Are We The Only Humans Left?', 'https://img.youtube.com/vi/dbHj-Q1FTj8/0.jpg', 3, '2019-11-03 12:48:39', '2020-02-20 15:53:20');");
             
             DB::statement("INSERT INTO `videos` (`id`, `video_id`, `content`, `created_at`, `updated_at`) VALUES
             (1, '24O00Jz8R04', 'The iPhone Documentary - The Untold Story', NULL, NULL),
@@ -62,17 +62,17 @@ class ExplorePostSeeder extends Seeder
             (4, 4, 1,  NULL, NULL, NULL, NULL, 1, '2019-11-03 20:41:22', '2019-11-03 20:41:22'),
             (5, 5, 1,  NULL, NULL, NULL, NULL, 1, '2019-11-03 22:04:12', '2019-11-03 22:04:12'),
             (6, 6, 1,  NULL, NULL, NULL, NULL, 1, '2019-11-03 22:16:29', '2019-11-03 22:16:29'),
-            (9, 9, 1,  NULL, NULL, NULL, NULL, 1, '2019-11-03 23:03:43', '2019-11-03 23:03:43'),
-            (10, 10, 1,  NULL, NULL, NULL, NULL, 1, '2019-11-03 23:06:17', '2019-11-03 23:06:17'),
-            (11, 11, 1,  NULL, NULL, NULL, NULL, 1, '2019-11-03 23:14:53', '2019-11-03 23:14:53'),
-            (12, 12, 1,  NULL, NULL, NULL, NULL, 1, '2019-11-03 23:16:05', '2019-11-03 23:16:05'),
-            (13, 13, 1,  NULL, NULL, NULL, NULL, 1, '2019-11-03 23:17:16', '2019-11-03 23:17:16'),
-            (14, 14, 1,  NULL, NULL, NULL, NULL, 1, '2019-11-03 23:21:00', '2019-11-03 23:21:00'),
-            (15, 15, 1,  NULL, NULL, NULL, NULL, 1, '2019-11-03 23:26:31', '2019-11-03 23:26:31'),
-            (17, 17, 1,  NULL, NULL, NULL, NULL, 1, '2019-11-03 23:40:07', '2019-11-03 23:40:07'),
-            (18, 18, 1,  NULL, NULL, NULL, NULL, 1, '2019-11-03 23:43:41', '2019-11-03 23:43:41'),
-            (19, 19, 1,  NULL, NULL, NULL, NULL, 1, '2019-11-03 23:46:24', '2019-11-03 23:46:24'),
-            (20, 20, 1,  NULL, NULL, NULL, NULL, 1, '2019-11-03 23:48:39', '2019-11-03 23:48:39');");
+            (7, 7, 1,  NULL, NULL, NULL, NULL, 1, '2019-11-03 23:03:43', '2019-11-03 23:03:43'),
+            (8, 8, 1,  NULL, NULL, NULL, NULL, 1, '2019-11-03 23:06:17', '2019-11-03 23:06:17'),
+            (9, 9, 1,  NULL, NULL, NULL, NULL, 1, '2019-11-03 23:14:53', '2019-11-03 23:14:53'),
+            (10, 10, 1,  NULL, NULL, NULL, NULL, 1, '2019-11-03 23:16:05', '2019-11-03 23:16:05'),
+            (11, 11, 1,  NULL, NULL, NULL, NULL, 1, '2019-11-03 23:17:16', '2019-11-03 23:17:16'),
+            (12, 12, 1,  NULL, NULL, NULL, NULL, 1, '2019-11-03 23:21:00', '2019-11-03 23:21:00'),
+            (13, 13, 1,  NULL, NULL, NULL, NULL, 1, '2019-11-03 23:26:31', '2019-11-03 23:26:31'),
+            (14, 14, 1,  NULL, NULL, NULL, NULL, 1, '2019-11-03 23:40:07', '2019-11-03 23:40:07'),
+            (15, 15, 1,  NULL, NULL, NULL, NULL, 1, '2019-11-03 23:43:41', '2019-11-03 23:43:41'),
+            (16, 16, 1,  NULL, NULL, NULL, NULL, 1, '2019-11-03 23:46:24', '2019-11-03 23:46:24'),
+            (17, 17, 1,  NULL, NULL, NULL, NULL, 1, '2019-11-03 23:48:39', '2019-11-03 23:48:39');");
 
 
         DB::statement("INSERT INTO `subjects` (`id`, `Subject_name`, `subject_url`, `category_id`, `created_at`, `updated_at`) VALUES

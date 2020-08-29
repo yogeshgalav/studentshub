@@ -5,7 +5,10 @@
        Complete Daily Assignments
      </div>
      <div class="card-body">
-       <form action="/api/save-daily-answers" method="post">
+       <form action="/save-daily-answers" method="POST">
+       <input type="hidden" name="_token" :value="csrfToken" />
+       <input type="hidden" name="daily_assignment_id" :value="DailyAssignment.id" />
+       <input type="hidden" name="classroom_id" :value="DailyAssignment.classroom_id" />
                   <div
                     v-for="(question,index) in DailyAssignment.daily_questions"
                     :key="index"

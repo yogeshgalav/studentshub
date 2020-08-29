@@ -21,7 +21,6 @@ Route::group(['middleware'=>['auth:api']],function(){
     
     Route::post('/update-daily-question','DailyQuestionController@updateDailyQuestion');
     Route::post('/delete-daily-question','DailyQuestionController@deleteDailyQuestion');
-    Route::post('/classroom/{classroomId}/get-student-daily-report','DailyQuestionController@studentDailyReport');
+    Route::get('/classroom/{classroomId}/get-student-daily-report','DailyQuestionController@studentDailyReport');
     
 });
-Route::post('/save-daily-answers','DailyQuestionController@saveDailyAnswer');

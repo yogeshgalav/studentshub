@@ -1,6 +1,6 @@
 <template>
 <div class="col-md-8 col-center">
-<div v-if="0">
+<div v-if="daily_report">
       <div
         id="reflection-complete"
         class="card mt-3 mb-3  bg-success "

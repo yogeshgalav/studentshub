@@ -20,4 +20,6 @@ Route::group(['middleware'=>['auth']],function(){
     Route::get('/classroom/{classroomId}/unit-attempt','ClassroomController@unitAttemptPage');
     Route::get('/classroom/{classroomId}/question/{questionId}','ClassroomController@topicAnswersPage');
     Route::get('/classroom/{classroomId}/daily-attempt','DailyAssignmentController@dailyAssignmentAttemptPage');
+
+    Route::post('/save-daily-answers','DailyQuestionController@saveDailyAnswer');
 });

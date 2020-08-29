@@ -91,6 +91,7 @@
 </template>
 <script>
 import VModal from 'vue-js-modal';
+    import swal from '../../components/swal';
 
     export default {
         props: ['myClassrooms', 'classroomList'],
@@ -102,17 +103,12 @@ import VModal from 'vue-js-modal';
                 join_classroom_name:'',
             };
         },
-        watch:{
-            create_classroom_subject(){
-
-            }
-        },
         methods:{
             joinClassroom(){
                 this.axios.post('/api/classroom/join',{
                     name:this.join_classroom_name
                 }).then(()=>{
-
+                    swal.successDialog('Request sent', 'Successfully!', 'success');
                 });
             },
         }

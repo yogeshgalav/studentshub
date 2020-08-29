@@ -326,7 +326,7 @@ export default {
       this.dailyAssignmentData.unshift({
         unit_id: "",
         attempt_date: "",
-        questions: [],
+        daily_questions: [],
       });
     },
     updateAssignment(daily) {
@@ -344,6 +344,8 @@ export default {
         .then((resp) => {
           this.current_question_edit.daily_assignment_id =
             resp.data.success.assignment.id;
+            let dailyIndex=this.dailyAssignmentData.findIndex(node=>node.attempt_date===daily.attempt_date);
+            this.dailyAssignmentData[dailyIndex]['id']=resp.data.success.assignment.id
         })
         .catch((error) => {
           
@@ -370,6 +372,14 @@ export default {
         });
     },
     activateDailyAssignment(daily) {
+      let total_marks=daily.daily_questions.reduce((acc,currVal)=>{
+          return acc+currVal.marks;
+        },0);
+      if(total_marks!==10){
+      swal
+        .infoDialog("Total marks for Daily Assignment should be 10.");
+        return false;
+      }
       swal
         .confirmDialog(
           "Are you sure you want to Activate Assignment for date " +

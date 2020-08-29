@@ -125,6 +125,11 @@ class ClassroomController extends Controller
         $course_id = $request->course['id'];
         $course_name = $request->course['course_name'];
 
+        if(Classroom::where('classroom_live_id',$request->classroom_id)->exists()){
+            return response()->json(['error'=>[
+                'message'=>'This Classroom Id is already used. Please try another.'
+            ]],422);
+        }
         DB::beginTransaction();
     try{
         if($course_id){

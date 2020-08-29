@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TeacherDailyAssignment\StoreRequest;
 use App\Models\DailyAssignment;
+use App\Models\DailyQuestion;
 use App\Models\Unit;
 use Illuminate\Http\Request;
 
@@ -12,6 +13,10 @@ class DailyAssignmentController extends Controller
     //
     public function activateDailyAssignment(Request $request){
         $daily = DailyAssignment::findOrFail($request->daily_assignment_id);
+        $marks=DailyQuestion::where('daily_assignment_id',$daily->id)->pluck('marks')->toArray();
+        if(array_sum($marks)!==10){
+            abort(403);
+        }
         if($request->status==="activate"){
             $daily->activated_at = now()->toDateTimeString();
         }else{
@@ -36,6 +41,8 @@ class DailyAssignmentController extends Controller
 
         if($request->assignment_id){
             $dailyAssignment = DailyAssignment::find($request->assignment_id);     
+        }else if(DailyAssignment::where('attempt_date',$request->attempt_date)->exists()){
+                abort(422);
         }else{
             $dailyAssignment = new DailyAssignment;
         }   
@@ -52,7 +59,7 @@ class DailyAssignmentController extends Controller
     }
 
     public function getDailyAssismentDetails(Request $request){
-        $unitList=Unit::where('classroom_id',$request->classroomId);
+        $unitList=Unit::where('classroom_id',$request->classroomId)->get();
         $dailyAssignmentData=DailyAssignment::where('classroom_id',$request->classroomId)
         ->doesntHave('dailyReport')
         ->with('dailyQuestions.multipleChoice')

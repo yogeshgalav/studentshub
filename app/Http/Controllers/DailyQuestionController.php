@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
+use App\Models\DailyAssignment;
 use App\Models\DailyQuestion;
+use App\Models\DailyAnswer;
 use App\Models\MultipleChoice;
 use App\Models\DailyReport;
 use Illuminate\Support\Facades\Log;
@@ -16,15 +19,18 @@ class DailyQuestionController extends Controller
     public function updateDailyQuestion(Request $request)
     {    
         $question=$request->question;
-        $correct_answer=0;
+        $correct_answer=null;
         foreach($question['multiple_choice'] as $key=>$choice){
             if($choice['is_correct']=='true'){
                 $correct_answer=$key;
                 break;
             }
         }
+        if($correct_answer===null){
+            abort(422);
+        }
 
-        if($question['id']){
+        if(!empty($question['id'])){
             $dailyQuestion = DailyQuestion::find($question['id']);    
         }else{
             $dailyQuestion = new DailyQuestion;
@@ -64,9 +70,13 @@ class DailyQuestionController extends Controller
 
     public function studentDailyReport($classroomId){
         $daily_assignment = DailyAssignment::where('attempt_date',now()->toDateString())
+        ->where('activated_at','!=',null)
         ->where('classroom_id',$classroomId)->first();
-        $daily_report = DailyReport::where('user_id',Auth::id())
-        ->where('daily_assignment_id',$daily_assignment->id)->first();
+        $daily_report=null;
+        if($daily_assignment){            
+            $daily_report = DailyReport::where('user_id',Auth::id())
+            ->where('daily_assignment_id',$daily_assignment->id)->first();
+        }
 
         return response()->json(['success'=>[
             'daily_report'=>$daily_report,
@@ -83,11 +93,11 @@ class DailyQuestionController extends Controller
         foreach($request->answers as $answer){
             DailyAnswer::create([
                 'user_id'=>Auth::id(),
-                'question_id'=>$answer->question_id,
-                'answer'=>$answer->answer,
+                'daily_question_id'=>$answer['question_id'],
+                'selected_answer'=>$answer['answer'],
             ]);
-            $question=$daily_questions->where('id',$answer->question_id)->first();
-            if($question->correct_answer===$answer->answer){
+            $question=$daily_questions->where('id',$answer['question_id'])->first();
+            if($question->correct_answer===$answer['answer']){
                 $total_marks++;
             }
         }
