@@ -190,12 +190,12 @@
                             classroom_id: this.classroom_id,
                         }).then((resp)=>{
                             if (resp.data.success) {
-                                swal.successDialog('Classroom create', 'Success!', 'success')
+                                swal.successDialog('Classroom create', 'Success!', 'success');
                                 window.location.href = '/classroom/'+resp.data.success.id;
                             }
                         }).catch((err)=>{
                             if(err.response.status===422){
-                                
+
                             }
                         });
                     }
