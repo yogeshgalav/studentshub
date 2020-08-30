@@ -127,6 +127,7 @@ class ClassroomController extends Controller
 
         if(Classroom::where('classroom_live_id',$request->classroom_id)->exists()){
             return response()->json(['error'=>[
+                'field'=>'classroom_id',
                 'message'=>'This Classroom Id is already used. Please try another.'
             ]],422);
         }

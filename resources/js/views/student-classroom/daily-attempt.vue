@@ -44,20 +44,20 @@
                           :key="index2"
                         >
                        
-                          <div class="col-md-3">{{'Option ' + letters[index2]}}</div>
-                          <div class="col-md-3">{{choice.option_text}}</div>
-                          <div class="col-md-1" >
+                       <div class="col-md-1" >
                             <div class="form-check ml-3 mt-2">
-                        <input
-                          class="form-check-input"
-                          type="radio"
-                          :name="'answers['+index+'][answer]'"
-                          :id="'correctAnswer'+index2"
-                          :value="choice.option_order"
-                        />
-                       
-                      </div>
-                      </div>
+                              <input
+                                class="form-check-input"
+                                type="radio"
+                                :name="'answers['+index+'][answer]'"
+                                :id="'correctAnswer'+index2"
+                                :value="choice.option_order"
+                              />
+                            
+                            </div>
+                        </div>
+                          <div class="col-md-3">{{choice.option_text}}</div>
+                          
                      
                         </div>
                         
