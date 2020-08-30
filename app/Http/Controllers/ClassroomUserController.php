@@ -46,7 +46,8 @@ class ClassroomUserController extends Controller
         $student_details = \DB::table('classroom_users as csu')
         ->where('csu.classroom_id',$classroom_id)
         ->join('users','users.id','=','csu.user_id')
-        ->select('users.id as user_id','users.full_name as user_name','csu.joined_at')
+        ->leftJoin('students as st','st.user_id','=','users.id')
+        ->select('users.id as user_id','users.full_name as user_name','csu.joined_at','st.unique_college_id')
         ->get();
 
         return response()->json(['success'=>[

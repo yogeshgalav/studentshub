@@ -423,6 +423,7 @@ export default {
           let assignmentIndex = this.dailyAssignmentData.findIndex(
           (node) => node.id === question.daily_assignment_id
           );
+          console.log(assignmentIndex,question.daily_assignment_id);
           this.dailyAssignmentData[assignmentIndex].daily_questions.push(question);
         }
         this.resetEditQuestion();
