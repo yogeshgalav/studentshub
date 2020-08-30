@@ -414,7 +414,7 @@ export default {
       this.$modal.show("addDailyQuestionModal");
     },
     saveQuestion() {
-      this.axios.post("/api/update-daily-question", {
+      this.axios.post("/api/classroom/update-daily-question", {
         question: this.current_question_edit,
       }).then((resp)=>{
         const question = this.current_question_edit;

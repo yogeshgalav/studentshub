@@ -45,7 +45,7 @@ class DailyQuestionController extends Controller
         $dailyQuestion->save();
 
         foreach($question['multiple_choice'] as $key=>$choice){
-            if($choice['id']){
+            if(!empty($choice['id'])){
                 $multiple_choice = MultipleChoice::find($choice['id']);    
             }else{
                 $multiple_choice = new MultipleChoice;
