@@ -1,8 +1,6 @@
 <template>
     <div>
         <loading :active.sync="showLoader" :color="'#10069F'" :width="250" :is-full-page="true" />
-
-
         <div class="container pb-100">
             <div class="row justify-content-center register">
                 <div class="col-md-8">
@@ -27,15 +25,14 @@
                                                             class="fa fa-university" aria-hidden="true"></i></span>
                                                     <auto-complete :items="institute_list" :value="'name'"  name="institute_name" v-validate="'required'"
                                                         :is-async="true" @input="getInstitutes" :initial-value="selected_institute"
+                                                        :key="selected_institute.id"
                                                         @selected="setInstitute" :is-loading="instituteLoading" />
                                                 </div>
                                                 <span
-                                                    v-if="selected_institute.totalBatch">{{selected_institute.totalBatch }}
-                                                    batch found.</span>
+                                                    v-if="selected_institute.totalBatch">{{selected_institute.totalBatch }} batch found.</span>
                                                 <span
                                                     v-if="selected_institute.id===0">{{selected_institute.description}}</span>
-                                                <span v-if="institute_list.length===0">Please Enter Full Institute
-                                                    name.</span>
+                                                <span v-if="institute_list.length===0 && selected_institute.id===0">Please Enter Full Institute name.</span>
                                                 <span class="text-danger">{{ formErrors('institute_name')}}</span>
                                             </div>
                                         </div>
@@ -45,7 +42,8 @@
                                                 <div class="input_icon_frm">
                                                     <span class="icon_design_input" style="height: 44px;"> <i
                                                             class="fa fa-certificate" aria-hidden="true"></i></span>
-                                                    <auto-complete class ="width-100"  :items="courseLevels" :value="'name'" v-validate="'required'"
+                                                    <auto-complete class ="width-100"  :items="courseLevels" :value="'course_name'" v-validate="'required'"
+                                                        :key="selected_course.id" :initial-value="selected_course"
                                                          name="course_level" :placeholder="'eg. Bachelor of Arts'" :is-async="false"
                                                         @selected="setCourseLevel" :createNewItem="false" />
                                                 </div>
@@ -61,6 +59,7 @@
                                                     <auto-complete :items="course_list" :value="'course_name'" v-validate="'required'"
                                                          name="program_name" :placeholder="'eg. Bachelor of Arts'" :is-async="true"
                                                         @input="getCourses" @selected="setCourse" :initial-value="selected_course"
+                                                        :key="selected_course.course_name"
                                                         @selectNew="setNewCourse" :is-loading="courseLoading" />
                                                 </div>
                                                 <span v-if="selected_course.totalBatch">{{selected_course.totalBatch }}
@@ -99,8 +98,8 @@
 
                                                         <date-picker id="start_year" name="start_year" v-validate="'required'"
                                                             value-type="format" v-model="start_year"
-                                                             :typeable="true" :type="'year'"
-                                                            :lang="'en'" :input-attr="{id: 'start_year_input'}"
+                                                            :typeable="true" :type="'year'"
+                                                            :lang="'en'" :input-attr="{id: 'start_year_input', value: start_year}"
                                                             placeholder="Start Year" />
                                                     </div>
                                                 </div>
@@ -120,8 +119,8 @@
                                                                 class="fa fa-calendar" /></span>
                                                         <date-picker id="end_year" v-validate="'required'"
                                                             value-type="format"  name="end_year" v-model="end_year"
-                                                             :typeable="true" :type="'year'"
-                                                            :lang="'en'" :input-attr="{id: 'end_year_input'}"
+                                                            :typeable="true" :type="'year'"
+                                                            :lang="'en'" :input-attr="{id: 'end_year_input', value: end_year}"
                                                             placeholder="End Year" />
                                                     </div>
                                                 </div>
@@ -243,7 +242,7 @@
 
     export default {
         mixins: [FormMixin],
-        props: ['courseLevels','studentDetails'],
+        props: ['courseLevels','studentDetails', 'batches'],
         components: {
             DatePicker,
             AutoComplete
@@ -278,10 +277,15 @@
         },
         mounted(){
             if(this.studentDetails){
-                this.selected_course['id']=this.studentDetails.courseId
-                this.selected_course['name']=this.studentDetails.courseName
-                this.selected_institute['id']=this.studentDetails.instituteId
-                this.selected_institute['name']=this.studentDetails.instituteName
+                this.selected_course['id']=this.studentDetails.courseId;
+                this.selected_course['course_name']=this.studentDetails.courseName;
+                this.selected_institute['id']=this.studentDetails.instituteId;
+                this.selected_institute['name']=this.studentDetails.instituteName;
+                this.college_id = this.studentDetails.college_id;
+            }
+            if(this.batches.length) {
+                this.start_year = this.batches.filter(i => i.course_id === this.studentDetails.courseId)[0].start_year;
+                this.end_year = this.batches.filter(i => i.course_id === this.studentDetails.courseId)[0].end_year;
             }
         },
         methods: {

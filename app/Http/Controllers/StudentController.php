@@ -26,7 +26,7 @@ class StudentController extends Controller
     {
         $input = $request->all();
         $user = Auth::user();
-
+        $course = '';
         DB::beginTransaction();
         try {
             //create or get course id
@@ -61,7 +61,8 @@ class StudentController extends Controller
             ]);
 
             $student = Student::updateOrCreate([
-                'user_id' => Auth::user()->id
+                'user_id' => Auth::user()->id,
+                'unique_college_id' => $request->college_id
             ], [
                 'prefferred_batch' => $batch->id,
                 'prefferred_category' => $course->category_id,
