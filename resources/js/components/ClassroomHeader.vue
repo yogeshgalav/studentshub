@@ -8,9 +8,11 @@
                 <p class="font-size-18 text-black mb-1">
                 {{'Teacher:'+classroomDetail.teacher_name}}  
                 </p>
-                <h3 class="text-blue font-size-24 weight-800" @click="copyText">
-                  {{ 'Join id' }}: {{ classroomDetail.classroom_live_id }}
-                </h3>
+                <span class="text-blue font-size-24 weight-800" @click="copyText">
+                  {{ 'Join id' }}: {{ classroomDetail.classroom_live_id }}  
+                  <span v-if="displayText"  ><i class="fa fa-check text-success font-size-17" ></i> </span>
+                </span>
+                <span v-if="displayText1" ><i class="fa fa-copy font-size-17" ></i> </span>
         </div>
     </div>
     <div class="row">
@@ -20,10 +22,20 @@
     </div>
     </div>
 </template>
-
+<style scoped>
+.font-size-17 {
+    font-size: 17px;;
+}
+</style>
 <script>
     export default {
-      
+      data() {
+          return {
+               displayText: false,
+                displayText1: true,
+
+          };
+      },
         mounted() {
           this.$store.dispatch('classroom/getClassroomDetail',this.$route.params.classroomId);  
         },
@@ -32,16 +44,24 @@
                 return this.$store.state.classroom.classroomDetail;
             }
         },
+       
         methods:{
           copyText(){
                 const el = document.createElement('textarea');
                 el.value = this.classroomDetail.classroom_live_id;
                 document.body.appendChild(el);
                 el.select();
+               
                 document.execCommand('copy');
+                this.displayText = true;
+                this.displayText1 = false;
                 document.body.removeChild(el);
-            }
-        }
+               
+               
+                
+            },
+            
+        },
     }
 
 </script>
