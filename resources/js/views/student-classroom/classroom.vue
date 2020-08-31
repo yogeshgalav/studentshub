@@ -1,9 +1,6 @@
 <template>
     <div>
-        <classroom-layout>
-            <template>
-                <div class="col-md-10">
-          
+        <classroom-header />
             <div class="row">
                 <div class="col-md-4">
                     <div class="selection-box-default">
@@ -114,9 +111,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-            </template>
-        </classroom-layout>
     </div>
 </template>
 <style lang="scss">
@@ -159,10 +153,10 @@
 
 </style>
 <script>
-import ClassroomLayout from '../layouts/ClassroomLayout.vue'
+import ClassroomHeader from '../../components/ClassroomHeader';
     export default {
         components:{
-            ClassroomLayout
+            ClassroomHeader
         }
     };
 

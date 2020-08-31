@@ -18,7 +18,8 @@ class CreateDailyReportsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('daily_assignment_id')->unsigned();
             $table->integer('marks_obtained');
-            $table->time('duration')->nullable();
+            $table->integer('rank');
+            $table->time('duration');
             $table->timestamps();
         });
     }

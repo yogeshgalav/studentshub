@@ -1,4 +1,5 @@
 <template>
+<div><classroom-header />
 <div class="col-md-8 col-center">
 <div v-if="daily_report">
       <div
@@ -64,6 +65,7 @@
       </div>
     </div>
     </div>
+</div>
 </template>
 <style scoped>
 .col-center {
@@ -71,7 +73,12 @@
    }
 </style>
 <script>
+import ClassroomHeader from '../../components/ClassroomHeader';
+
 export default {
+  components:{
+            ClassroomHeader
+  },
   data(){
     return {
       daily_report:null,
