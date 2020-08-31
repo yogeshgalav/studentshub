@@ -19,7 +19,7 @@ Route::group(['middleware'=>['auth']],function(){
     //student page for unit-attempt
     Route::get('/classroom/{classroomId}/unit-attempt','ClassroomController@unitAttemptPage');
     Route::get('/classroom/{classroomId}/question/{questionId}','ClassroomController@topicAnswersPage');
-    Route::get('/classroom/{classroomId}/daily-attempt','DailyAssignmentController@dailyAssignmentAttemptPage');
+    Route::get('/classroom/{classroomId}/daily-attempt','DailyReportController@dailyAssignmentAttemptPage');
 
-    Route::post('/save-daily-answers','DailyQuestionController@saveDailyAnswer');
+    Route::post('/save-daily-answers','DailyReportController@saveDailyAnswer');
 });

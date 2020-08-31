@@ -81,10 +81,8 @@ class PagesController extends Controller
     {
         $course_levels = CourseLevel::get();
         $student = Auth::student();
-        $batches = Batch::where('institute_id', $student->instituteId)->get();
         return view('student-register.student-register')
             ->with('student_details', $student)
-            ->with('batches', $batches)
             ->with('course_levels', $course_levels);
     }
 
