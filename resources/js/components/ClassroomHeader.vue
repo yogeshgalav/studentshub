@@ -8,11 +8,11 @@
                 <p class="font-size-18 text-black mb-1">
                 {{'Teacher:'+classroomDetail.teacher_name}}  
                 </p>
-                <span class="text-blue font-size-24 weight-800" @click="copyText">
+                <span class="text-blue font-size-24 weight-800 join-id" @click="copyText">
                   {{ 'Join id' }}: {{ classroomDetail.classroom_live_id }}  
-                  <span v-if="displayText"  ><i class="fa fa-check text-success font-size-17" ></i> </span>
+                  <span v-if="displayText"  ><i class="fa fa-check text-success font-size-15" ></i> </span>
                 </span>
-                <span v-if="displayText1" ><i class="fa fa-copy font-size-17" ></i> </span>
+                <span v-if="displayText1" ><i class="fa fa-copy text-blue font-size-15" ></i> </span>
         </div>
     </div>
     <div class="row">
@@ -23,8 +23,11 @@
     </div>
 </template>
 <style scoped>
-.font-size-17 {
-    font-size: 17px;;
+.font-size-15 {
+    font-size: 15px;
+}
+.join-id {
+    cursor: copy;
 }
 </style>
 <script>

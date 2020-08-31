@@ -88,6 +88,7 @@ class DailyQuestionController extends Controller
 
        
         $daily_questions = DailyQuestion::where('daily_assignment_id',$request->daily_assignment_id)->get();
+        $rank = DailyReport::where('daily_assignment_id',$request->daily_assignment_id)->count();
 
         $total_marks = 0;
         foreach($request->answers as $answer){
@@ -105,6 +106,8 @@ class DailyQuestionController extends Controller
         DailyReport::create([
             'user_id'=>Auth::id(),
             'daily_assignment_id'=>$request->daily_assignment_id,
+            'duration'=>$request->time,
+            'rank'=>$rank+1,
             'marks_obtained'=>$total_marks
         ]);
 

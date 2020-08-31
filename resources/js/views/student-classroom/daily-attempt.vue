@@ -1,4 +1,6 @@
 <template>
+<div>
+  <span class="text-blue">{{timer}}</span>
 <div id="no-copy">
    <div class="card col-md-8 col-center p-0">
      <div class="card-header">
@@ -9,6 +11,7 @@
        <input type="hidden" name="_token" :value="csrfToken" />
        <input type="hidden" name="daily_assignment_id" :value="DailyAssignment.id" />
        <input type="hidden" name="classroom_id" :value="DailyAssignment.classroom_id" />
+       <input type="hidden" name="time" :value="timer" />
                   <div
                     v-for="(question,index) in DailyAssignment.daily_questions"
                     :key="index"
@@ -65,11 +68,12 @@
                     </div>
                   </div>
                   <div class="col-md-12 mt-3">
-                     <button type="submit" class="btn btn-primary">Submit Answers</button>
+                     <button type="submit" class="btn btn-primary" @click="clearInterval(interval)">Submit Answers</button>
                   </div>
                         </form>
      </div>
    </div>
+</div>
 </div>
 </template>
 <style scoped>
@@ -89,14 +93,11 @@
 <script>
 export default {
   props:['DailyAssignment'],
-  computed:{
-    letters() {
-      let letters = [];
-      for (let i = "A".charCodeAt(0); i <= "Z".charCodeAt(0); i++) {
-        letters.push(String.fromCharCode([i]));
-      }
-      return letters;
-    },
+  data(){
+    return {
+      timer:'00:00',
+      interval:null
+    };
   },
     mounted(){
         var target = document.getElementById("no-copy");
@@ -113,6 +114,12 @@ export default {
           // Prevent the default copy action
           evt.preventDefault();
         }, false);
+
+        this.interval=setInterval(()=>{
+          this.timer=this.$moment(this.timer,'mm:ss').add(1,'seconds').format('mm:ss');
+        }, 1000);
+    },
+    methods:{
     }
 }
 </script>
