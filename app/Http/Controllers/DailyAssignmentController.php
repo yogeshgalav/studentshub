@@ -72,13 +72,4 @@ class DailyAssignmentController extends Controller
             ]
         ]);
     }   
-
-    public function dailyAssignmentAttemptPage($classroom_id){
-        $daily_assignment=\App\Models\DailyAssignment::where('attempt_date','=',now()->toDateString())
-        ->where('activated_at','!=',null)->where('classroom_id','=',$classroom_id)
-        ->with('dailyQuestions.multipleChoice')->first();
-
-        return view('student-panel.daily-attempt')
-        ->with('daily_assignment',$daily_assignment);
-    }
 }
