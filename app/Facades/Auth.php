@@ -24,6 +24,8 @@ class Auth extends AuthUser
                 'courses.id as courseId',
                 'courses.course_name as courseName',
                 'pbt.id as batchId',
+                'pbt.start_year as start_year',
+                'pbt.end_year as end_year',
                 'cat.id as categoryId',
                 'st.prefferred_batch as preferred_batch',
                 'st.prefferred_category as preferred_category',

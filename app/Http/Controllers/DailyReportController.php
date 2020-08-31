@@ -1,13 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\DailyAssignment;
+use App\Models\DailyQuestion;
+use App\Models\DailyAnswer;
+use App\Models\DailyReport;
+use Auth;
 use Illuminate\Http\Request;
 
 class DailyReportController extends Controller
 {
-    //
-    
     public function dailyAssignmentAttemptPage($classroom_id){
         $daily_assignment=\App\Models\DailyAssignment::where('attempt_date','=',now()->toDateString())
         ->where('activated_at','!=',null)->where('classroom_id','=',$classroom_id)
@@ -43,9 +45,8 @@ class DailyReportController extends Controller
     }
 
     public function saveDailyAnswer(Request $request){
-
-       
         $daily_questions = DailyQuestion::where('daily_assignment_id',$request->daily_assignment_id)->get();
+        $rank = DailyReport::where('daily_assignment_id',$request->daily_assignment_id)->count();
 
         $total_marks = 0;
         foreach($request->answers as $answer){
@@ -63,6 +64,8 @@ class DailyReportController extends Controller
         DailyReport::create([
             'user_id'=>Auth::id(),
             'daily_assignment_id'=>$request->daily_assignment_id,
+            'duration'=>$request->time,
+            'rank'=>$rank+1,
             'marks_obtained'=>$total_marks
         ]);
 

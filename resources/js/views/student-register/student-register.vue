@@ -282,10 +282,8 @@
                 this.selected_institute['id']=this.studentDetails.instituteId;
                 this.selected_institute['name']=this.studentDetails.instituteName;
                 this.college_id = this.studentDetails.college_id;
-            }
-            if(this.batches.length) {
-                this.start_year = this.batches.filter(i => i.course_id === this.studentDetails.courseId)[0].start_year;
-                this.end_year = this.batches.filter(i => i.course_id === this.studentDetails.courseId)[0].end_year;
+                this.start_year = this.studentDetails.start_year;
+                this.end_year = this.studentDetails.end_year;
             }
         },
         methods: {
