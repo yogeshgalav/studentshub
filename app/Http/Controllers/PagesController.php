@@ -139,6 +139,11 @@ class PagesController extends Controller
             ->with('total_posts', $total_posts);
     }
 
+    public function Institute()
+    {
+        return view('institute.institute');
+    }
+
     //     {
     //         var list= document.getElementsByClassName("index")[0].getElementsByTagName("A");
     // var newList=[];
