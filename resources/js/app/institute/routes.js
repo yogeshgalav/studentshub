@@ -1,10 +1,10 @@
 
-import ProfileComponent from '../../views/profile/profile';
-const ProfileRoutes = [
+import InstituteComponent from '../../views/institute/institute';
+const InstituteRoutes = [
   {
-    path: '/profile/:id',
-    component: ProfileComponent,
+    path: '/institute',
+    component: InstituteComponent,
   },
 ];
 
-export default ProfileRoutes;
+export default InstituteRoutes;
