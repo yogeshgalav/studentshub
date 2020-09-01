@@ -45,27 +45,8 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <div class="dropdown">
-                            <button class="btn btn-sm btn-default border-radius-12 dropdown-toggle" type="button"
-                                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false">
-                                <i class="fa fa-user"></i>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <div class="d-flex p-2">
-                                    <div class="avatar user_img_dash">
-                                        <img src="{{$AuthUser->avatar_url ?? '/images/default-avatar.png'}}" class="avatar-img" style="width:50px;height:50px;">
-                                    </div>
-                                    <div class="info-post ml-2 mt-2">
-                                        <p class="username">{{$AuthUser->full_name}}</p>
-                                    </div>
-                                </div>
-                                <div class="dropdown-divider"></div>
-                                <a href="/logout" class="center-block ml-3 mt-1 btn btn-sm btn-default">Logout</a>
-                            </div>
-                        </div>
-
-
+                       
+                        @include('includes.profile-dropdown')
                     </li>
                 </ul>
             </div>
@@ -82,7 +63,7 @@
         <div class="overflow-container">
 
             <ul class="menu-dropdown">
-                <li><a href="/classrooms">Classrooms</a><span class="icon">
+                <li><a href="/classrooms">	<span class="icon"><i class="fa fa-book-open"></i></span>Classrooms</a><span class="icon">
                 
                 <li><a href="/">Home</a><span class="icon"><i class="fa fa-home"></i></span></li>
 
