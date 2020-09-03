@@ -12,4 +12,7 @@ class DailyQuestion extends Model
     public function multipleChoice(){
         return $this->hasMany(MultipleChoice::class);
     }
+    public function dailyAnswer(){
+        return $this->hasMany(DailyAnswer::class);
+    }
 }

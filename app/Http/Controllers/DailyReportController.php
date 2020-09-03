@@ -6,6 +6,8 @@ use App\Models\DailyQuestion;
 use App\Models\DailyAnswer;
 use App\Models\DailyReport;
 use Auth;
+use DB;
+use Log;
 use Illuminate\Http\Request;
 
 class DailyReportController extends Controller
@@ -31,7 +33,10 @@ class DailyReportController extends Controller
     public function studentDailyReport($classroomId){
         $daily_assignment = DailyAssignment::where('attempt_date',now()->toDateString())
         ->where('activated_at','!=',null)
-        ->where('classroom_id',$classroomId)->first();
+        ->where('classroom_id',$classroomId)
+        ->with('dailyQuestions.multipleChoice')
+        ->with('dailyQuestions.dailyAnswer')
+        ->first();
         $daily_report=null;
         if($daily_assignment){            
             $daily_report = DailyReport::where('user_id',Auth::id())
@@ -47,7 +52,9 @@ class DailyReportController extends Controller
     public function saveDailyAnswer(Request $request){
         $daily_questions = DailyQuestion::where('daily_assignment_id',$request->daily_assignment_id)->get();
         $rank = DailyReport::where('daily_assignment_id',$request->daily_assignment_id)->count();
-
+        
+        DB::beginTransaction();
+    try{
         $total_marks = 0;
         foreach($request->answers as $answer){
             DailyAnswer::create([
@@ -56,8 +63,8 @@ class DailyReportController extends Controller
                 'selected_answer'=>$answer['answer'],
             ]);
             $question=$daily_questions->where('id',$answer['question_id'])->first();
-            if($question->correct_answer===$answer['answer']){
-                $total_marks++;
+            if($question->correct_answer==$answer['answer']){
+                $total_marks=$total_marks+$question->marks;
             }
         }
 
@@ -69,6 +76,12 @@ class DailyReportController extends Controller
             'marks_obtained'=>$total_marks
         ]);
 
+        DB::commit();
+    } catch (\Exception $e) {
+        DB::rollback();
+        \Log::critical('daily report save failure: with data ',$request->all());
+        return response()->$e;
+    }
         return redirect('/classroom/'.$request->classroom_id.'/daily-assignment');
     }
 
