@@ -6,6 +6,8 @@ use App\Http\Requests\TeacherDailyAssignment\StoreRequest;
 use App\Models\DailyAssignment;
 use App\Models\DailyQuestion;
 use App\Models\Unit;
+use DB;
+use Log;
 use Illuminate\Http\Request;
 
 class DailyAssignmentController extends Controller
@@ -39,6 +41,8 @@ class DailyAssignmentController extends Controller
     {    
         $unit=Unit::findOrFail($request->unit_id);
 
+        DB::beginTransaction();
+    try{
         if($request->assignment_id){
             $dailyAssignment = DailyAssignment::find($request->assignment_id);     
         }else if(DailyAssignment::where('attempt_date',$request->attempt_date)->exists()){
@@ -52,6 +56,12 @@ class DailyAssignmentController extends Controller
 
         $dailyAssignment->save();
 
+        DB::commit();
+    } catch (\Exception $e) {
+        DB::rollback();
+        Log::critical('daily assignment update failure: with data ',$request->all());
+        return response()->$e;
+    }
         return response()->json(['success'=>[
             'assignment'=>$dailyAssignment
         ]]);
