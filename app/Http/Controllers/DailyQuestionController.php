@@ -35,7 +35,7 @@ class DailyQuestionController extends Controller
         }else{
             $dailyQuestion = new DailyQuestion;
         }
-        $dailyQuestion->daily_assignment_id = $question['daily_assignment_id']; 
+        $dailyQuestion->daily_assignment_id = $request->daily_assignment_id; 
         $dailyQuestion->marks = $question['marks']; 
         $dailyQuestion->question_order = $question['question_order']; 
         $dailyQuestion->question_text = $question['question_text']; 

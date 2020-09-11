@@ -84,4 +84,12 @@ class User extends Authenticatable
             ->where('joined_at','!=',null)
             ->count();
     }
+
+    public function createdClassoomCount(){
+        return \DB::table('classrooms')
+        ->join('teachers as tc',function($join){
+            $join->on('tc.id','=','classrooms.teacher_id')->where('user_id','=',$this->id);
+        })
+        ->count();
+    }
 }
