@@ -19,4 +19,8 @@ class Institute extends Model
     {
         $this->attributes['place_id'] = Sthub::randomString($value);
     }
+
+    public function instituteUsers(){
+        return $this->hasMany('App\Models\InstituteUsers');
+    }
 }
