@@ -23,7 +23,7 @@
                         <p class="mt-3">
                         {{ 'Currently no student has joined this classroom' }}
                         </p>
-                        <p>{{ 'Share join Id and accept there request to jion here.' }}</p>
+                        <p>{{ 'Share join Id and accept there request to join here.' }}</p>
                     </div>
                     </vue-table-component>
             </div>
