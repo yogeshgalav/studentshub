@@ -149,6 +149,7 @@
                   <input
                     type="text"
                     v-model="current_question_edit.question_text"
+                    v-validate="'required'"
                     class="form-control"
                     id="topic_title"
                   />
@@ -160,7 +161,7 @@
             <div class="form-group">
               <label class="control-label font-size-14">Question Type</label>
               <div class="cl_q_type">
-                <select class="form-control" v-model="current_question_edit.question_type">
+                <select class="form-control" v-model="current_question_edit.question_type" v-validate="'required'">
                   <option value="multiple_choice">Multiple Choice</option>
                 </select>
               </div>
@@ -169,7 +170,7 @@
           <div class="col-md-6">
             <div class="form-group">
               <label class="control-label font-size-14">Marks</label>
-              <select class="form-control" name="marks" v-model="current_question_edit.marks">
+              <select class="form-control" name="marks" v-model="current_question_edit.marks" v-validate="'required'">
                 <option :value="mark" v-for="(mark,index) in marks" :key="index">{{ mark }}</option>
               </select>
             </div>
@@ -187,7 +188,7 @@
                       :key="index"
                     >
                       <label class="contol-label col-md-2 mt-2">{{ letters[index] }} :</label>
-                      <input type="text" class="form-control col-md-10" v-model="choice.option_text" />
+                      <input type="text" class="form-control col-md-10" v-model="choice.option_text" v-validate="'required'"/>
                       <button
                         class="btn btn-danger btn-sm ml-2 delete_btn"
                         v-if="current_question_edit.multiple_choice.length>2"
@@ -202,6 +203,7 @@
                           type="radio"
                           name="correctAnswer"
                           v-model="choice.is_correct"
+                          v-validate="'required'"
                           :id="'correctAnswer'+index"
                           :value="true"
                         />
@@ -414,6 +416,8 @@ export default {
       this.$modal.show("addDailyQuestionModal");
     },
     saveQuestion() {
+       this.$validator.validate().then(valid => {
+                    if (valid) {
       this.axios.post("/api/classroom/update-daily-question", {
         question: this.current_question_edit,
       }).then((resp)=>{
@@ -430,6 +434,8 @@ export default {
       });
 
       this.$modal.hide("addDailyQuestionModal");
+       }});
+                    
     },
     editQuestion(assignment_id,question_id){
       let assignment = this.dailyAssignmentData.find(

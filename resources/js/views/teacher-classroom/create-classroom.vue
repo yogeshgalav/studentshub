@@ -82,6 +82,8 @@
                                             <label> {{ 'Classroom Id.'}} </label>
                                             
                                             <input type="text" v-model="classroom_id" name="classroom_id" class="form-control">
+                                            <span class="error">{{ id_error }}</span>
+
                                         </div>
                                         <div class="form-group d-flex s_register_btn">
                                             <button type="submit" class="login_btn">{{ 'Create' }}</button>
@@ -148,6 +150,7 @@
         },
         data() {
             return {
+                id_error: '',
                 classroom_id: '',
                 classroom_name: '',
                 step: 'step1',
@@ -180,6 +183,7 @@
                 return acronym.toUpperCase();
             },
             createClassroom() {
+                this.id_error=''
                  this.$validator.validate().then(valid => {
                     if (valid) {
                         this.form_errors=[];
@@ -195,7 +199,13 @@
                             }
                         }).catch((err)=>{
                             if(err.response.status===422){
-
+                            let error_data = err.response.data.error;
+                            if(error_data.field==='classroom_id'){
+                                this.id_error = error_data.message; 
+                            }
+                                // this.form_errors[error_data.field]=[];
+                                // this.form_errors[error_data.field][0] = error_data.message;
+                                // console.log(error_data,this.form_errors);
                             }
                         });
                     }
