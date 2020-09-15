@@ -220,6 +220,16 @@ class AuthController extends Controller
         }
 
         $token = $request->input('token');
+        $user=Auth::user();
+        if(!$token && $user && $user->must_rest_password){
+            $user->update([
+                'must_rest_password'=>false,
+                'password'=>Hash::make($request->input('password'))
+            ]);
+            
+            return response()->json(['success'=>'Password Changed.'], 200);
+        }
+
         $dbToken= PasswordReset::where('token', $token)
             ->where('expires_at', '>', Carbon::now())
             ->first();
