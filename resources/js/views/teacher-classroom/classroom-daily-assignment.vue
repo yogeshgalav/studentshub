@@ -1,5 +1,11 @@
 <template>
   <div>
+    <loading
+      :active.sync="showLoader"
+      :color="'#10069F'"
+      :width="250"
+      :is-full-page="true"
+    />
     <div class="row">
       <div class="col-md-12">
         <classroom-header />
@@ -360,6 +366,7 @@ export default {
 	mixins: [FormMixin],
 	data() {
 		return {
+			showLoader:true,
 			dailyAssignmentData: {},
 			current_question_edit: {
 				id:0,
@@ -422,6 +429,7 @@ export default {
 				.then((resp) => {
 					this.unitList = resp.data.success.unitList;
 					this.dailyAssignmentData = resp.data.success.dailyAssignmentData;
+					this.showLoader=false;
 				});
 		},
 		addAssignment() {

@@ -16,7 +16,10 @@ class ClassroomUserController extends Controller
         $classroom=Classroom::where('classroom_live_id',$request->name)->first();
 
         if(empty($classroom)){
-            abort(422);
+            return response()->json(['error'=>[
+                'field'=>'classroom_id',
+                'message'=>'This classroom join id does not exist.'
+            ]],422);
         }
          
 
