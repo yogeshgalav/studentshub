@@ -3,7 +3,8 @@
 Route::get('/login','PagesController@loginPage');
 Route::get('/get-started','PagesController@registerPage');
 Route::get('/forgot-password','PagesController@forgotPasswordPage');
-Route::get('/reset-password/{token}','PagesController@resetPassword');
+Route::get('/reset-password/{token}','UserController@resetPassword');
+Route::get('/reset-password','UserController@resetPassword');
 Route::get('/logout','AuthController@logout');
 
 Route::get('/post/{ViewPostId}', 'PagesController@viewPost');
