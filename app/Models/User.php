@@ -84,4 +84,10 @@ class User extends Authenticatable
             ->where('joined_at','!=',null)
             ->count();
     }
+
+    public function isInstituteMember(){
+        return \DB::table('institute_users')
+            ->where('user_id',$this->id)
+            ->exists();
+    }
 }
