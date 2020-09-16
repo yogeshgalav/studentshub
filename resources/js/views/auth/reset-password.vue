@@ -4,16 +4,16 @@
       <div class="col-md-8">
         <div class="card">
           <div class="card-header">
-            {{ trans('Reset Password') }}
+            {{ 'Reset Password' }}
           </div>
 
           <div class="card-body">
-            <form @submit.prevent="handleSubmit">
+            <form @submit.prevent="submitPassword">
               <div class="form-group row">
                 <label
                   for="password"
                   class="col-md-4 col-form-label text-md-right"
-                >{{ trans('Password') }}</label>
+                >{{ 'Password' }}</label>
 
                 <div class="col-md-6">
                   <input
@@ -52,7 +52,7 @@
                     type="submit"
                     class="btn btn-primary"
                   >
-                    {{ trans('Reset Password') }}
+                    {{ 'Reset Password' }}
                   </button>
                 </div>
               </div>
@@ -81,23 +81,24 @@ export default {
 		};
 	},
 	methods:{
-		trans: function (string) {
-			return this.$trans('auth',string);
-		},
-		handleSubmit: function (e) {
+		handleSubmit(){
 			this.$validator.validate().then(valid => {
 				if (valid) {
 					this.submitPassword();
 				}
 			});
 		},
-		submitPassword: function () {
-			this.axios.post('/api/reset-password',{password:this.password,confirm_password:this.confirm_password,token:this.token})
-				.then((resp)=>{
-					window.location.href = '/login';
-				}).catch((err)=>{
+		submitPassword(){
+			let api_path= '/api/reset-password';
+			api_path = this.token ? (api_path+'/'+this.token) : api_path;
+			this.axios.post(api_path,{
+				password:this.password,
+				confirm_password:this.confirm_password
+			}).then((resp)=>{
+				window.location.href = this.AuthUser ? '/' : '/login';
+			}).catch((err)=>{
 
-				});
+			});
 		}
 	} 
 };
