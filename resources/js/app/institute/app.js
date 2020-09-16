@@ -17,8 +17,8 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 //Vue Router Initialisation
 const router = new VueRouter({
-    routes:InstituteRoutes,
-    mode:'history'
+	routes:InstituteRoutes,
+	mode:'history'
 });
 
 Vue.component('InstituteComponent', require('../../views/institute/institute.vue').default);
@@ -27,13 +27,13 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 //Vue Router Initialisation
 const store = new Vuex.Store({
-    modules: {
-        common: InstituteStore,
-      }
+	modules: {
+		common: InstituteStore,
+	}
 });
 //Vue App Initialisation
 const app = new Vue({
-    el: '#instituteApp',
-    store,
-    router,
+	el: '#instituteApp',
+	store,
+	router,
 });

@@ -19,12 +19,14 @@ import CommonStore from '../../store/common-store';
 
 Vue.use(Vuex);
 const store = new Vuex.Store({
-    modules: {
-        auth: AuthStore,
-        guest:GuestStore,
-        common: CommonStore,
-      }
+	modules: {
+		auth: AuthStore,
+		guest:GuestStore,
+		common: CommonStore,
+	}
 });
+
+Vue.component('ResetPasswordComponent', require('../../views/auth/reset-password.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -33,7 +35,7 @@ const store = new Vuex.Store({
  */
 
 const app = new Vue({
-    el: '#app',
-    store,
-    router,
+	el: '#app',
+	store,
+	router,
 });

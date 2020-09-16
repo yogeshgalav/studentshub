@@ -38,7 +38,10 @@ class InstituteUserController extends Controller
 
         $user->full_name = $request->full_name;
         $user->email = $request->email;
-        $user->password = \Hash::make($request->password);
+        if($request->password){
+            $user->password = \Hash::make($request->password);
+            $user->must_reset_password=true;
+        }
         $user->save();
         
         $ins_user->user_id = $user->id;
