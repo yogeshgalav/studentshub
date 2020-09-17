@@ -1,7 +1,8 @@
 <template>
   <main>
-    <div class="row justify-content-center">
-      <div class="col-md-8">
+    <div class="col-md-12">
+      <div class="row justify-content-center">
+      <div class="col-md-6 mt-100 p-2">
         <div class="card">
           <div class="card-header">
             {{ 'Reset Password' }}
@@ -61,8 +62,15 @@
         </div>
       </div>
     </div>
+    </div>
+    
   </main>
 </template>
+<style scoped>
+.mt-100 {
+  margin-top: 200px;
+}
+</style>
 <script>
 import Vue from 'vue';
 import VeeValidate  from 'vee-validate';
