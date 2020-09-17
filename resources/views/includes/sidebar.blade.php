@@ -67,6 +67,7 @@
             @if(Auth::user()->isInstituteMember())
                 <li><a href="/institute">Institute</a><span class="icon"><i class="fa fa-university"></i></span></li>
             @endif
+                <li><a href="/my-institute">My Institute</a><span class="icon"><i class="fa fa-university"></i></span></li>
                 <li><a href="/">Home</a><span class="icon"><i class="fa fa-home"></i></span></li>
 
                 <li><a href="/profile/{{Auth::id()}}">Profile</a><span class="icon"><i class="fa fa-user"

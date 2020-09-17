@@ -84,4 +84,10 @@ class UserController extends Controller
             'profile'=>$profile
         ]]);
     }
+
+    public function resetPassword(Request $request){
+        $token = $request->route('token');
+        return view('guest.auth.reset-password')
+        ->with('token',$token);
+    }
 }

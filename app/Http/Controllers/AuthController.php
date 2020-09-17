@@ -208,7 +208,25 @@ class AuthController extends Controller
     }
 
     // Handling the request to reset the password
-    public function resetPassword(Request $request)
+    public function resetPassword2(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'password'=>'required|min:6',
+            'confirm_password'=>'required|same:password',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error'=>$validator->errors()], 422);
+        }
+
+        $user=Auth::user();    
+        $user->must_reset_password=0;
+        $user->password=$request->input('password');
+        $user->save();
+        return response()->json(['success'=>'Password Changed.'], 200);
+    }
+
+    public function resetPassword($token,Request $request)
     {
         $validator = Validator::make($request->all(), [
             'password'=>'required|min:6',
@@ -219,7 +237,6 @@ class AuthController extends Controller
             return response()->json(['error'=>$validator->errors()], 433);
         }
 
-        $token = $request->input('token');
         $dbToken= PasswordReset::where('token', $token)
             ->where('expires_at', '>', Carbon::now())
             ->first();

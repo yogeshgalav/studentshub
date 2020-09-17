@@ -8,7 +8,8 @@ Route::post('/login','AuthController@login');
 Route::post('/register','AuthController@register');
 
 Route::post('/forgot-password','AuthController@processForgotPassword');
-Route::post('/reset-password','AuthController@resetPassword');
+Route::post('/reset-password/{token}','AuthController@resetPassword');
+Route::post('/reset-password','AuthController@resetPassword2')->middleware('auth:api');
 // Route::get('/get-view-post/{ViewPostId}', 'PostController@viewPost');
 Route::get('/get-explore-posts', 'ExploreController@index');
 

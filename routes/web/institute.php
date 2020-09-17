@@ -1,7 +1,7 @@
 <?php
 
 Route::group(['middleware'=>['auth']],function(){
-    Route::get('/institute', 'PagesController@Institute');
+    Route::get('/my-institute', 'PagesController@Institute');
     
     //post routes
 });
