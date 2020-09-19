@@ -8,7 +8,7 @@
           </div>
 
           <div class="card-body">
-            <form @submit.prevent="submitPassword">
+            <form @submit.prevent="handleSubmit">
               <div class="form-group row">
                 <label
                   for="password"
@@ -25,7 +25,7 @@
                     name="password"
                     autocomplete
                   >
-                  <span>{{ errors.first('password') }}</span>
+                  <span class="error">{{ errors.first('password') }}</span>
                 </div>
               </div>
               <div class="form-group row">
@@ -38,12 +38,12 @@
                   <input
                     id="confirm-password"
                     v-model="confirm_password"
-                    v-validate="'required'"
+                    v-validate="'required|confirmed:password'"
                     type="password"
                     class="form-control"
                     name="confirm-password"
                   >
-                  <span>{{ errors.first('confirm-password') }}</span>
+                  <span class="error">{{ errors.first('confirm-password') }}</span>
                 </div>
               </div>
               <div class="form-group row mb-0">
@@ -84,22 +84,19 @@ export default {
 		handleSubmit(){
 			this.$validator.validate().then(valid => {
 				if (valid) {
-					this.submitPassword();
+					let api_path= '/api/reset-password';
+					api_path = this.token ? (api_path+'/'+this.token) : api_path;
+					this.axios.post(api_path,{
+						password:this.password,
+						confirm_password:this.confirm_password
+					}).then((resp)=>{
+						window.location.href = this.token ? '/' : '/login';
+					}).catch((err)=>{
+
+					});
 				}
 			});
 		},
-		submitPassword(){
-			let api_path= '/api/reset-password';
-			api_path = this.token ? (api_path+'/'+this.token) : api_path;
-			this.axios.post(api_path,{
-				password:this.password,
-				confirm_password:this.confirm_password
-			}).then((resp)=>{
-				window.location.href = this.AuthUser ? '/' : '/login';
-			}).catch((err)=>{
-
-			});
-		}
 	} 
 };
 </script>
