@@ -99,14 +99,14 @@
                   <div
                     v-for="(question,index) in daily.daily_questions"
                     :key="index"
-                    class="col-md-12"
+                    class="col-md-6 border-1px ml-3 p-3 mb-3"
                   >
-                    <div class="row mt-3">
-                      <div class="col-md-6">
+                    <div class="row">
+                      <div class="col-md-12">
                         <div class="row">
-                          <div class="col-md-6">
+                          <div class="col-md-9">
                             <div class="weight-800">
-                              {{ 'Question' + (index+1) }} 
+                              {{ 'Question' + ' ' + (index+1) }} 
                               <button
                                 title="Edit"
                                 class="btn btn-link"
@@ -123,24 +123,20 @@
                               </button>
                             </div>
                           </div>
-                          <div class="col-md-6">
-                            <div class="text-success">
-                              {{ 'Marks'+ ' ' + question.marks }}
-                            </div>
+                          <div class="col-md-3">
+                            <button class="btn btn-white ">
+                              {{ 'Marks:'+ ' ' + question.marks }}
+                            </button>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div class="row">
+                    
+                    <div class="row mt-2">
                       <div class="col-md-12">
-                        <hr class="mt-0">
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
                         <div class="row">
                           <div class="col-md-12">
-                            <div class="mb-2 weight-800">
+                            <div class="mb-2 weight-500">
                               {{ question.question_text }}
                             </div>
                           </div>
@@ -151,18 +147,20 @@
                           :key="index"
                           class="row"
                         >
-                          <div class="col-md-3">
-                            {{ 'Option ' + letters[index] }}
+                          <div class="col-md-9 mb-1 mt-1">
+                            <div class="bg-gray p-2">
+                                <div class="bg-circle">
+                              {{ letters[index] }}
+                           </div>
+                          <span class="pl-2">  {{ choice.option_text }}  </span>
+                         
+                            </div>
+                         
                           </div>
                           <div class="col-md-3">
-                            {{ choice.option_text }}
+                            <span class="line-height-55"  v-if="choice.is_correct === 1">   <i class="fa fa-check-circle text-success" />  </span>
                           </div>
-                          <div
-                            v-if="choice.is_correct === 1"
-                            class="col-md-1"
-                          >
-                            <i class="fa fa-check-circle text-success" />
-                          </div>
+                         
                         </div>
                       </div>
                     </div>
@@ -269,7 +267,7 @@
           </div>
           <div class="col-md-12 mt-2">
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-12">
                 <h4>Answers</h4>
 
                 <div class="row">
@@ -279,19 +277,26 @@
                       :key="index"
                       class="form-group d-flex"
                     >
-                      <label class="contol-label col-md-2 mt-2">{{ letters[index] }} :</label>
-                      <input
+                    <div class="input-group">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon1"><i class="fa fa-list"> </i></span>
+  </div>
+  <input
                         v-model="choice.option_text"
                         v-validate="'required'"
                         type="text"
-                        class="form-control col-md-10"
+                        class="form-control col-md-12"
                       >
+</div>
+
+                      <!-- <label class="contol-label col-md-2 mt-2">{{ letters[index] }} :</label> -->
+                     
                       <button
                         v-if="current_question_edit.multiple_choice.length>2"
-                        class="btn btn-danger btn-sm ml-2 delete_btn"
+                        class="btn btn-default btn-sm ml-2 delete_btn"
                         @click="removeOption(index)"
                       >
-                        <i class="fa fa-times" />
+                        <i class="fa fa-trash-alt" />
                       </button>
 
                       <div class="form-check ml-3 mt-2">
@@ -342,6 +347,31 @@
 .delete_btn {
   padding: 0 22px 0 22px;
   font-size: 18px;
+}
+.btn-white {
+  border-radius: 15px;
+  border: 1px solid #000;
+}
+.border-1px  {
+  border:1px solid #ccc;
+}
+.bg-gray {
+  background-color: #eee;display: flex;
+  line-height: 30px;
+  
+}
+.bg-circle {
+  border-radius: 50%;
+    border: 1px solid #000;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 30px;
+    font-weight: 700;
+}
+.line-height-55  {
+  line-height: 55px;
 }
 </style>
 <script>
