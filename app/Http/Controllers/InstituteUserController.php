@@ -36,6 +36,7 @@ class InstituteUserController extends Controller
             $ins_user = new InstituteUser();
         }
 
+        $user->role_intended = $request->role;
         $user->full_name = $request->full_name;
         $user->email = $request->email;
         if($request->password){

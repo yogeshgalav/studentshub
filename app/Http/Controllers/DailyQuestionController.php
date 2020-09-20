@@ -57,7 +57,7 @@ class DailyQuestionController extends Controller
         }
 
         return response()->json(['success'=>[
-            'assignment'=>$dailyQuestion
+            'question'=>$dailyQuestion->with('multipleChoice')->first()
         ]]);
         
     }

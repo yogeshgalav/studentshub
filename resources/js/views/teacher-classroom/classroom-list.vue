@@ -83,7 +83,7 @@
             <div class="cl_box_top">
               <p>{{ classroom.classroom_live_id }}</p>
             </div>
-            <div class="classroom_box">
+            <a :href="'/classroom/'+classroom.id" class="classroom_box">
               <div class="clss_username">
                 <p>
                   <img
@@ -94,10 +94,10 @@
                 <h5>{{ classroom.teacher_name }}</h5>
               </div>
               <div class="classroom_content">
-                <a :href="'/classroom/'+classroom.id">{{ classroom.subject_name }}</a>
+                <p>{{ classroom.subject_name }}</p>
                 <p>{{ classroom.name }}</p>
               </div>
-            </div>
+            </a>
           </div>
         </div>
       </div>

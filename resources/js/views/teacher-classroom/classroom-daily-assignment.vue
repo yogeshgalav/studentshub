@@ -149,18 +149,18 @@
                         >
                           <div class="col-md-9 mb-1 mt-1">
                             <div class="bg-gray p-2">
-                                <div class="bg-circle">
-                              {{ letters[index] }}
-                           </div>
-                          <span class="pl-2">  {{ choice.option_text }}  </span>
-                         
+                              <div class="bg-circle">
+                                {{ letters[index] }}
+                              </div>
+                              <span class="pl-2">  {{ choice.option_text }}  </span>
                             </div>
-                         
                           </div>
                           <div class="col-md-3">
-                            <span class="line-height-55"  v-if="choice.is_correct === 1">   <i class="fa fa-check-circle text-success" />  </span>
+                            <span
+                              v-if="choice.is_correct === 1"
+                              class="line-height-55"
+                            >   <i class="fa fa-check-circle text-success" />  </span>
                           </div>
-                         
                         </div>
                       </div>
                     </div>
@@ -214,18 +214,19 @@
           <div class="col-md-12 mt-2">
             <h4>Question</h4>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-12">
             <div class="form-group">
               <label class="control-label font-size-14">Question text</label>
               <div class="inner-addon left-addon">
                 <div class="cl_input">
-                  <input
+                  <textarea
                     id="topic_title"
                     v-model="current_question_edit.question_text"
                     v-validate="'required'"
-                    type="text"
                     class="form-control"
-                  >
+                    name="question_text"
+                  />
+                  <span class="error">{{ formErrors('question_text') }}</span>
                 </div>
               </div>
             </div>
@@ -238,6 +239,7 @@
                   v-model="current_question_edit.question_type"
                   v-validate="'required'"
                   class="form-control"
+                  name="question_type"
                 >
                   <option value="multiple_choice">
                     Multiple Choice
@@ -255,6 +257,9 @@
                 class="form-control"
                 name="marks"
               >
+                <option value="">
+                  Select Marks
+                </option>
                 <option
                   v-for="(mark,index) in marks"
                   :key="index"
@@ -264,6 +269,9 @@
                 </option>
               </select>
             </div>
+          </div>
+          <div class="col-md-12">
+            <span class="error">{{ formErrors('marks') }}</span>
           </div>
           <div class="col-md-12 mt-2">
             <div class="row">
@@ -277,17 +285,21 @@
                       :key="index"
                       class="form-group d-flex"
                     >
-                    <div class="input-group">
-  <div class="input-group-prepend">
-    <span class="input-group-text" id="basic-addon1"><i class="fa fa-list"> </i></span>
-  </div>
-  <input
-                        v-model="choice.option_text"
-                        v-validate="'required'"
-                        type="text"
-                        class="form-control col-md-12"
-                      >
-</div>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span
+                            id="basic-addon1"
+                            class="input-group-text"
+                          ><i class="fa fa-list" /></span>
+                        </div>
+                        <input
+                          v-model="choice.option_text"
+                          v-validate="'required'"
+                          type="text"
+                          name="option_text"
+                          class="form-control col-md-12"
+                        >
+                      </div>
 
                       <!-- <label class="contol-label col-md-2 mt-2">{{ letters[index] }} :</label> -->
                      
@@ -306,12 +318,16 @@
                           v-validate="'required'"
                           class="form-check-input"
                           type="radio"
-                          name="correctAnswer"
+                          name="correct_answer"
                           :value="true"
                         >
                         <label class="form-check-label">Mark as correct answer</label>
                       </div>
                     </div>
+                  </div>
+                  <div class="col-md-12">
+                    <span class="error">{{ formErrors('option_text') }}</span>
+                    <span class="error">{{ formErrors('correct_answer') }}</span>
                   </div>
                   <div class="col-md-12">
                     <button
@@ -402,7 +418,7 @@ export default {
 				id:0,
 				daily_assignment_id: null,
 				question_text: null,
-				marks: null,
+				marks: '',
 				question_type: 'multiple_choice',
 				question_order: 0,
 				multiple_choice: [
@@ -559,14 +575,19 @@ export default {
 					this.axios.post('/api/classroom/update-daily-question', {
 						question: this.current_question_edit,
 					}).then((resp)=>{
-						const question = this.current_question_edit;
-						if(!question.id){
-							question.id=resp.data.success.question_id;
-							let assignmentIndex = this.dailyAssignmentData.findIndex(
-								(node) => node.id === question.daily_assignment_id
-							);
-							console.log(assignmentIndex,question.daily_assignment_id);
+						const question = resp.data.success.question;
+						let assignmentIndex = this.dailyAssignmentData.findIndex(
+							(node) => node.id === question.daily_assignment_id
+						);
+						if(!this.current_question_edit.id){
 							this.dailyAssignmentData[assignmentIndex].daily_questions.push(question);
+						}else{
+							this.dailyAssignmentData[assignmentIndex].daily_questions.map(node=>{
+								if(node.id===question.id){
+									return question;
+								}
+								return node;
+							});
 						}
 						this.resetEditQuestion();
 					});
@@ -579,13 +600,14 @@ export default {
 			let assignment = this.dailyAssignmentData.find(
 				(node) => node.id === assignment_id
 			);
-			this.current_question_edit = assignment.daily_questions.find(node=>node.id===question_id);
+			let question_to_edit = assignment.daily_questions.find(node=>node.id===question_id);
 			this.marks= (10 - assignment.daily_questions.reduce((acc,currVal)=>{
 				if(currVal.id===question_id){
 					return acc;
 				}
 				return acc+currVal.marks;
 			},0));
+			this.current_question_edit =Object.assign(question_to_edit,{});
 			// this.current_question_edit.question_order = assignment.questions.length;
 			this.$modal.show('addDailyQuestionModal');
 		},
@@ -606,7 +628,7 @@ export default {
 			this.current_question_edit= {
 				daily_assignment_id: null,
 				question_text: null,
-				marks: null,
+				marks: '',
 				question_type: 'multiple_choice',
 				question_order: 0,
 				multiple_choice: [
