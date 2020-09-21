@@ -168,7 +168,7 @@
                 </div>
               </div>
               <div
-                v-if="daily.unit_id!==null && daily.attempt_date && assignmentMarks[index]!==0"
+                v-if="daily.id"
                 class="mt-3 mb-2 col-md-12"
               >
                 <add-button

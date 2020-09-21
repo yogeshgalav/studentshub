@@ -120,6 +120,9 @@
 </style>
 <script>
 import FormMixin from '../../components/mixins/form-mixin.js';
+import dayjs from 'dayjs';
+var customParseFormat = require('dayjs/plugin/customParseFormat');
+dayjs.extend(customParseFormat);
 
 export default {
 	mixins: [FormMixin],
@@ -147,8 +150,8 @@ export default {
 		}, false);
 
 		this.interval=setInterval(()=>{
-			this.timer=this.$moment(this.timer,'mm:ss').add(1,'seconds').format('mm:ss');
-		}, 1000);
+			this.timer=dayjs(this.timer,'mm:ss').add(2,'seconds').format('mm:ss');
+		}, 2000);
 	},
 	methods:{
 		sumbitAttempt(e){
