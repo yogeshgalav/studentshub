@@ -19,6 +19,7 @@
                   <div class="col-md-6">
                     <input
                       id="password"
+                      ref="password"
                       v-model="password"
                       v-validate="'required'"
                       type="password"

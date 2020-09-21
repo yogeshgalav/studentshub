@@ -17,7 +17,7 @@ class UserCheckMiddleware
     public function handle($request, Closure $next)
     {
         $user=Auth::user();  
-        if($user && $user->must_reset_password && $request->path()!=='reset-password'){
+        if($user && $user->must_reset_password && !in_array($request->path(),['reset-password','login','get-started'])){
             return redirect('/reset-password');
         }
         return $next($request);

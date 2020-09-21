@@ -1,37 +1,43 @@
 <template>
-    <div>
-  <div class="slides">
-  
-    <transition
-     name="fade" class="slides-group"
-    >
+  <div>
+    <div class="slides">
+      <transition
+        name="fade"
+        class="slides-group"
+      >
         <slot :name="'step'+currentStep" />
-     
-     </transition>
-     
-  
-  </div>
-  <div class="row">
-    <div class="col-md-12  text-center">
-      <span v-for="step in total_steps" :key="step">
-        <span v-if="currentStep===step"> <img src="/images/rectangle2.svg"> </span>
-        <span v-if="currentStep!==step" class="ml-1 mr-1" @click="changeSlide(step)"> <img src="/images/circle.svg"> </span>
-      </span>
+      </transition>
     </div>
-    <div  class="home_arrow">
-          <!-- <div class="arrow_right">
+    <div class="row">
+      <div class="col-md-12  text-center">
+        <span
+          v-for="step in total_steps"
+          :key="step"
+        >
+          <span v-if="currentStep===step"> <img src="/images/rectangle2.svg"> </span>
+          <span
+            v-if="currentStep!==step"
+            class="ml-1 mr-1"
+            @click="changeSlide(step)"
+          > <img src="/images/circle.svg"> </span>
+        </span>
+      </div>
+      <div class="home_arrow">
+        <!-- <div class="arrow_right">
           <span><i class="fas fa-arrow-left"></i></span>
           </div>-->
-          <div class="arrow_right" v-if="!lastStep" @click="nextSlide">
+        <!-- <div class="arrow_right" v-if="!lastStep" @click="nextSlide">
           <button><i class="fas fa-arrow-right"></i></button>
-          </div>
-          <router-link class="arrow_right" v-if="lastStep" :to="'/get-started'">
-          <span class="c_get_start">Get Started<i class="fas fa-arrow-right"></i></span>
-          </router-link>
-
+          </div> -->
+        <router-link
+          class="arrow_right"
+          :to="'/get-started'"
+        >
+          <span class="c_get_start">Get Started<i class="fas fa-arrow-right" /></span>
+        </router-link>
       </div>
+    </div>
   </div>
-</div>
 </template>
 <style scoped>
 
@@ -131,32 +137,36 @@ border-radius: 11111px;
 
 <script>
 export default {
-  props:{
-  },
-  data() {
-    return {
-      currentStep:1,
-      total_steps:3,
-    }
-  },
-  computed:{
-    lastStep(){
-      if(this.currentStep===this.total_steps){
-        return true;
-      }
-      return false;
-    }
-  },
-  methods: {
-    nextSlide(){
-      this.currentStep=this.currentStep+1;
-    },
-    getStarted(){
-
-    },
-    changeSlide(step){
-      this.currentStep=step;
-    }
-}
-}
+	props:{
+	},
+	data() {
+		return {
+			currentStep:1,
+			total_steps:3,
+		};
+	},
+	computed:{
+		lastStep(){
+			if(this.currentStep===this.total_steps){
+				return true;
+			}
+			return false;
+		}
+	},
+	mounted(){
+		setInterval(()=>{ this.nextSlide(); }, 7000);
+	},
+	methods: {
+		nextSlide(){
+			if(this.currentStep===this.total_steps){
+				this.currentStep=1;
+			}else{
+        	this.currentStep=this.currentStep+1;
+			}
+		},
+		changeSlide(step){
+			this.currentStep=step;
+		}
+	}
+};
 </script>

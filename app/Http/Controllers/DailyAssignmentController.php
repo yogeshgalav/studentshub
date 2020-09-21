@@ -60,7 +60,7 @@ class DailyAssignmentController extends Controller
     } catch (\Exception $e) {
         DB::rollback();
         Log::critical('daily assignment update failure: with data ',$request->all());
-        return response()->$e;
+        return response()->$e; 
     }
         return response()->json(['success'=>[
             'assignment'=>$dailyAssignment
