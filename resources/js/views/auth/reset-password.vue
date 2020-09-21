@@ -21,7 +21,7 @@
                       id="password"
                       ref="password"
                       v-model="password"
-                      v-validate="'required'"
+                      v-validate="'required|min:6'"
                       type="password"
                       class="form-control"
                       name="password"

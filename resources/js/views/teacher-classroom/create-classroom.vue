@@ -67,7 +67,6 @@
                             :items="courseLevels"
                             :value="'name'"
                             name="course_level"
-                            :placeholder="'eg. Bachelor of Arts'"
                             :is-async="false"
                             :create-new-item="false"
                             @selected="setCourseLevel"
