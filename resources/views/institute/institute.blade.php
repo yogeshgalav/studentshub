@@ -1,4 +1,4 @@
 @extends('institute.app')
 @section('content')
-<router-view></router-view>
+<institute-component :institute-id="{{$instituteId}}"></institute--component>
 @endsection

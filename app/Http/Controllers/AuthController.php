@@ -61,9 +61,11 @@ class AuthController extends Controller
             Log::info($user->full_name." (User ID # ".$user->id.") logged in from IP Address ".$request->ip());
 
             $success['redirectUrl'] = '/';
-            if($user->joinedClassoomCount()>0 || $user->createdClassoomCount()>0){
+            if($user->joinedClassoomCount()>0 || Auth::teacher()){
                 $success['redirectUrl'] = '/classrooms';
             }
+            $success['redirectUrl'] = session('url.intended') ?? $success['redirectUrl'];
+
             $success['student'] = Auth::student();
             $success['full_name'] = $user->full_name;
             
@@ -208,7 +210,25 @@ class AuthController extends Controller
     }
 
     // Handling the request to reset the password
-    public function resetPassword(Request $request)
+    public function resetPassword2(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'password'=>'required|min:6',
+            'confirm_password'=>'required|same:password',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error'=>$validator->errors()], 422);
+        }
+
+        $user=Auth::user();    
+        $user->must_reset_password=0;
+        $user->password=$request->input('password');
+        $user->save();
+        return response()->json(['success'=>'Password Changed.'], 200);
+    }
+
+    public function resetPassword($token,Request $request)
     {
         $validator = Validator::make($request->all(), [
             'password'=>'required|min:6',
@@ -219,7 +239,6 @@ class AuthController extends Controller
             return response()->json(['error'=>$validator->errors()], 433);
         }
 
-        $token = $request->input('token');
         $dbToken= PasswordReset::where('token', $token)
             ->where('expires_at', '>', Carbon::now())
             ->first();

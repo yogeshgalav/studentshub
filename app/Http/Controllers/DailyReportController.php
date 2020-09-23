@@ -16,6 +16,7 @@ class DailyReportController extends Controller
         $daily_assignment=\App\Models\DailyAssignment::where('attempt_date','=',now()->toDateString())
         ->where('activated_at','!=',null)->where('classroom_id','=',$classroom_id)
         ->with('dailyQuestions.multipleChoice')->first();
+        // dd( $daily_assignment);
         $daily_report=null;
         if($daily_assignment){            
             $daily_report = DailyReport::where('user_id',Auth::id())
@@ -37,6 +38,7 @@ class DailyReportController extends Controller
         ->with('dailyQuestions.multipleChoice')
         ->with('dailyQuestions.dailyAnswer')
         ->first();
+        // dd($daily_assignment);
         $daily_report=null;
         if($daily_assignment){            
             $daily_report = DailyReport::where('user_id',Auth::id())

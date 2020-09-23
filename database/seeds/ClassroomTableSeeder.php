@@ -14,10 +14,6 @@ class ClassroomTableSeeder extends Seeder
     {
         //
         $time=\Carbon\Carbon::now()->toDateTimeString();
-        DB::table('teachers')->insert([
-            'user_id'=>1
-        ]);
-
         DB::table('classrooms')->insert([
             'classroom_live_id'=>'PPLBYAK',
             'name'=>'YOGESH',

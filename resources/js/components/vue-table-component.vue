@@ -113,6 +113,8 @@
 }
 </style>
 <script>
+import dayjs from 'dayjs';
+
 export default {
 	props: {
 		columns: { type: Array, default: () => [] },
@@ -272,11 +274,11 @@ export default {
 					}
 				} else if (column.type === 'date' && row[column.field]) {
 					if (typeof column.dateFormat !== 'undefined') {
-						new_row[column.field] = this.$moment(row[column.field]).format(
+						new_row[column.field] = dayjs(row[column.field]).format(
 							column.dateFormat
 						);
 					} else {
-						new_row[column.field] = this.$moment(row[column.field]).format(
+						new_row[column.field] = dayjs(row[column.field]).format(
 							'YYYY-MM-DD'
 						);
 					}

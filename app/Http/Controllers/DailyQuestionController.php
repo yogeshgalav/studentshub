@@ -34,30 +34,31 @@ class DailyQuestionController extends Controller
             $dailyQuestion = DailyQuestion::find($question['id']);    
         }else{
             $dailyQuestion = new DailyQuestion;
+            $dailyQuestion->daily_assignment_id = $request->daily_assignment_id; 
+            $dailyQuestion->question_type = $question['question_type']; 
         }
-        $dailyQuestion->daily_assignment_id = $request->daily_assignment_id; 
         $dailyQuestion->marks = $question['marks']; 
         $dailyQuestion->question_order = $question['question_order']; 
         $dailyQuestion->question_text = $question['question_text']; 
-        $dailyQuestion->question_type = $question['question_type']; 
         $dailyQuestion->correct_answer = $correct_answer; 
 
         $dailyQuestion->save();
-
+        $daily_question=$dailyQuestion->toArray();
         foreach($question['multiple_choice'] as $key=>$choice){
             if(!empty($choice['id'])){
                 $multiple_choice = MultipleChoice::find($choice['id']);    
             }else{
                 $multiple_choice = new MultipleChoice;
+                $multiple_choice->daily_question_id = $dailyQuestion->id;
             }
-            $multiple_choice->daily_question_id = $dailyQuestion->id;
             $multiple_choice->option_order = $key;
             $multiple_choice->option_text = $choice['option_text'];
             $multiple_choice->save();
+            $daily_question['multiple_choice'][]=$multiple_choice->toArray();
         }
 
         return response()->json(['success'=>[
-            'assignment'=>$dailyQuestion
+            'question'=>$daily_question
         ]]);
         
     }

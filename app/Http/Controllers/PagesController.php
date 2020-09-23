@@ -141,7 +141,9 @@ class PagesController extends Controller
 
     public function Institute()
     {
-        return view('institute.institute');
+        $institute = \App\Models\InstituteUser::where('user_id',Auth::id())->first();
+        return view('institute.institute')
+        ->with('instituteId',$institute->institute_id);
     }
 
     //     {
