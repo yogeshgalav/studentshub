@@ -14,8 +14,10 @@
     <div class="mt-2">
       <add-button
         name="Add Assignment"
+        size="lg"
         @submit="addAssignment"
       />
+      fdsfsd
     </div>
     <div
       v-for="(daily,index) in dailyAssignmentData"
@@ -99,7 +101,7 @@
                   <div
                     v-for="(question,index) in daily.daily_questions"
                     :key="index"
-                    class="col-md-6 border-1px ml-3 p-3 mb-3"
+                    class="col-md-6 border-bottom-1px ml-3 p-3 mb-3"
                   >
                     <div class="row">
                       <div class="col-md-12">
@@ -148,11 +150,11 @@
                           class="row"
                         >
                           <div class="col-md-9 mb-1 mt-1">
-                            <div class="bg-gray p-2">
+                            <div class="bg-card-green p-2 row">
                               <div class="bg-circle">
                                 {{ letters[index] }}
                               </div>
-                              <span class="pl-2">  {{ choice.option_text }}  </span>
+                              <div class="pl-2">  {{ choice.option_text }}  </div>
                             </div>
                           </div>
                           <div class="col-md-3">
@@ -368,8 +370,8 @@
   border-radius: 15px;
   border: 1px solid #000;
 }
-.border-1px  {
-  border:1px solid #ccc;
+.border-bottom-1px  {
+  border-bottom:1px dashed #ccc !important;
 }
 .bg-gray {
   background-color: #eee;display: flex;

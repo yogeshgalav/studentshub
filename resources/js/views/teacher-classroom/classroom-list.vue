@@ -7,13 +7,13 @@
       :is-full-page="true"
     />
     <div>
+      
       <a
         v-if="AuthTeacher"
         href="/create-classroom"
         class="btn btn-primary btn-lg mb-1" 
         type="button"
       >Create Classroom</a>
-
       <button 
         class="btn btn-success btn-lg mb-1" 
         type="button"
@@ -94,8 +94,8 @@
                 <h5>{{ classroom.teacher_name }}</h5>
               </div>
               <div class="classroom_content">
-                <p>{{ classroom.subject_name }}</p>
-                <p>{{ classroom.name }}</p>
+                <p>{{ classroom.subject_name }} <br/> <span>{{ classroom.name }}</span></p>
+               
               </div>
             </a>
           </div>
@@ -136,13 +136,34 @@
     </div>
   </div>
 </template>
+<style scoped>
+.clss_username h5 {
+margin-top:-30px !important;
+color:#fff;
+}
+.classroom_content p {
+  font-size: 20px;
+  font-weight: bold;
+}
+.clas_roo_main_box a:hover {
+  text-decoration: none;
+}
+.classroom_content p:hover {
+  text-decoration: none;
+}
+.classroom_content p span {
+  font-size: 16px;
+  font-weight: normal;
+}
+</style>
 <script>
 import VModal from 'vue-js-modal';
 import swal from '../../components/swal';
-
+import AddButton from '../../components/AddButton';
 export default {
 	components:{
-		VModal
+    VModal,
+    AddButton
 	},
 	props: ['myClassrooms', 'classroomList'],
 	data(){

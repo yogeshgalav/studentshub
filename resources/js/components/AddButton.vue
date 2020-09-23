@@ -1,7 +1,7 @@
 <template>
   <button
     type="button"
-    class="btn btn-success btn-labeled"
+    :class="[buttonsize, 'btn btn-success btn-labeled']"
     @click="$emit('submit')"
   >
     <span class="btn-label bg-success-accent"><i class="fa fa-plus" /></span>{{ name }}
@@ -21,7 +21,25 @@
 <script>
 export default {
 
-	props:{ name:{ type:String, default: 'Add' },
-	},
-};
+	props:{ 
+    name:
+    { type:String, default: 'Add' },
+     size:
+    { type:String, default: 'md' },
+  },
+  computed: {
+    buttonsize() {
+   if(this.size === 'md')  {
+    return 'btn-md'
+   }
+    if(this.size === 'lg')  {
+    return 'btn-lg'
+   }
+     if(this.size === 'sm')  {
+    return 'btn-sm'
+   }
+   return false
+    
+  } }
+}
 </script>

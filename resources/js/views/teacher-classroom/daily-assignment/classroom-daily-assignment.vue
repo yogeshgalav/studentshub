@@ -14,6 +14,7 @@
     <div class="mt-2">
       <add-button
         name="Add Assignment"
+		size="lg"
         @submit="addAssignment"
       />
     </div>
@@ -34,6 +35,9 @@
 .delete_btn {
   padding: 0 22px 0 22px;
   font-size: 18px;
+}
+.border-bottom-1px  {
+  border-bottom:1px dashed #ccc !important;
 }
 </style>
 <script>

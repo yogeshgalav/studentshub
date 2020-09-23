@@ -3,7 +3,7 @@
     <div
       v-for="(question,index) in daily_questions"
       :key="index"
-      class="col-md-6 border-1px ml-3 p-3 mb-3"
+      class="col-md-6 border-bottom-1px ml-3 p-3 mb-3"
     >
       <div class="row">
         <div class="col-md-12">
@@ -51,9 +51,9 @@
             :key="index"
             class="row"
           >
-            <div class="col-md-9 mb-1 mt-1">
-              <div :class="[choice.option_order === question.correct_answer ? 'bg-green' : 'bg-gray', 'p-2']">
-                <div class="bg-circle">
+            <div class="col-md-9 mb-1 mt-1 ">
+              <div :class="['row line-height-30', choice.option_order === question.correct_answer ? 'bg-card-green text-white' : 'bg-card-gray', 'p-2']">
+                <div :class="[choice.option_order === question.correct_answer ? 'bg-circle-white' : 'bg-circle']">
                   {{ letters[index] }}
                 </div>
                 <span class="pl-2">  {{ choice.option_text }}  </span>
@@ -70,6 +70,7 @@
     >
       <add-button
         name="Add Question"
+        size="md"
         @submit="addQuestion"
       />
     </div>
@@ -202,9 +203,10 @@
                     <span class="error">{{ formErrors('correct_answer') }}</span>
                   </div>
                   <div class="col-md-12">
+                    
                     <button
                       type="button"
-                      class="btn btn-success btn-lg"
+                      class="btn btn-success btn-sm"
                       @click="addOption()"
                     >
                       <i class="fa fa-plus" /> Add More
@@ -247,14 +249,26 @@
   background-color: #eee;display: flex;
   line-height: 30px;
 }
-.bg-green
-{
-    background: #90ee90;
-  line-height: 30px;
+
+.border-bottom-1px  {
+  border-bottom:1px dashed #ccc !important;
+}
+.line-height-30 {
+   line-height: 30px !important;
 }
 .bg-circle {
   border-radius: 50%;
     border: 1px solid #000;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 30px;
+    font-weight: 700;
+}
+.bg-circle-white {
+   border-radius: 50%;
+    border: 1px solid #fff;
     width: 30px;
     height: 30px;
     text-align: center;
