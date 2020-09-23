@@ -110,14 +110,14 @@
                               <button
                                 title="Edit"
                                 class="btn btn-link"
-                                @click="editQuestion(daily.id,question.id)"
+                                @click="editQuestion(question.id)"
                               >
                                 <i class="fa fa-edit" />
                               </button> 
                               <button
                                 title="Delete"
                                 class="btn btn-link p-0"
-                                @click="deleteQuestion(daily.id,question.id)"
+                                @click="deleteQuestion(question.id)"
                               >
                                 <i class="fa fa-trash text-danger" />
                               </button>
