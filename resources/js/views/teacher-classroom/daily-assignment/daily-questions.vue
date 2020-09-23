@@ -268,7 +268,7 @@
 }
 .bg-circle-white {
    border-radius: 50%;
-    border: 1px solid #fff;
+    border: 1px solid black;
     width: 30px;
     height: 30px;
     text-align: center;
