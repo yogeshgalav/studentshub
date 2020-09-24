@@ -91,7 +91,7 @@
                     alt=""
                   >
                 </p>
-                <h5>{{ classroom.teacher_name }}</h5>
+                <h5 class="mt-3">{{ classroom.teacher_name }}</h5>
               </div>
               <div class="classroom_content">
                 <p>{{ classroom.subject_name }} <br/> <span>{{ classroom.name }}</span></p>
@@ -124,7 +124,7 @@
                   alt=""
                 >
               </p>
-              <h5>{{ classroom.teacher_name }}</h5>
+              <h5 class="mt-3">{{ classroom.teacher_name }}</h5>
             </div>
             <div class="classroom_content">
               <a :href="'/classroom/'+classroom.id">{{ classroom.subject_name }}</a>
@@ -138,8 +138,7 @@
 </template>
 <style scoped>
 .clss_username h5 {
-margin-top:-30px !important;
-color:#fff;
+color:#333;
 }
 .classroom_content p {
   font-size: 20px;
