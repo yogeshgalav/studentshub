@@ -73,6 +73,12 @@
                     :name="'answers['+index+'][answer]'"
                     :value="answers[index]['answer']"
                   >
+                  <input
+                    v-if="answers[index]"
+                    type="hidden"
+                    :name="'answers['+index+'][question_id]'"
+                    :value="question.id"
+                  >
                   <div
                     v-for="(choice,index2) in question.multiple_choice"
                     :key="index2"
@@ -182,7 +188,7 @@ export default {
 	data(){
 		return {
 			timer:'00:00',
-			answers:[{},{},{}],
+			answers:[],
 			interval:null
 		};
 	},
