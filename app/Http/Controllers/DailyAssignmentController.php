@@ -82,4 +82,18 @@ class DailyAssignmentController extends Controller
             ]
         ]);
     }   
+    public function getDailyAssismentReports(Request $request){
+        $unitList=Unit::where('classroom_id',$request->classroomId)->get();
+        $dailyAssignmentData=DailyAssignment::where('classroom_id',$request->classroomId)
+        ->has('dailyReport')
+        ->with('dailyQuestions.multipleChoice')
+        ->get();
+
+        return response()->json([
+            'success'=>[
+                'unitList'=>$unitList,
+                'dailyAssignmentData'=>$dailyAssignmentData
+            ]
+        ]);
+    }   
 }

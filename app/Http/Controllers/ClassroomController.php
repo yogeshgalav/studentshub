@@ -101,6 +101,17 @@ class ClassroomController extends Controller
         // ->where('classroom_id',$classroom->id)->where('joined_at','!=',null)->exists();
         return view('student-panel.classroom-daily-assignment');
     }
+    public function classroomDailyReportPage($classroomId){
+        $classroom=Classroom::findOrFail($classroomId);
+        
+        if(Auth::teacher() && $classroom->teacher_id===Auth::teacher()->id){
+            return view('classroom.classroom-daily-report');
+        }
+
+        // $is_classroom_student=ClassroomUser::where('user_id',Auth::id())
+        // ->where('classroom_id',$classroom->id)->where('joined_at','!=',null)->exists();
+        return view('student-panel.classroom-daily-report');
+    }
     public function classroomStudentPage($classroomId){
         $classroom = Classroom::findOrFail($classroomId);
         return view('classroom.classroom-student-details')->with(['classroom'=>$classroom] );

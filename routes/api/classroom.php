@@ -15,6 +15,7 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::post('/classroom/{classroomId}/activate-unit','ClassroomUnitController@activateUnit');
 
     Route::get('/classroom/{classroomId}/daily-questions','DailyAssignmentController@getDailyAssismentDetails');
+    Route::get('/classroom/{classroomId}/daily-assignment-reports','DailyAssignmentController@getDailyAssismentReports');
     Route::post('/update-daily-assignment','DailyAssignmentController@updateDailyAssignment');
     Route::post('/activate-daily-assignment','DailyAssignmentController@activateDailyAssignment');
     Route::post('/delete-daily-assignment','DailyAssignmentController@deleteDailyAssignment');

@@ -1,156 +1,201 @@
 <template>
-    <div class="row">
-        <div class="col-md-10">
-            <classroom-header />
-            <div class="row">
-                <div class="col-md-4 mb-3">
-                    <div class="selection-box-default">
-                        <router-link class="card h-card" :to="'/classroom/'+$route.params.classroomId+'/overview'">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <h2 class="font-size-18">
-                                            {{ 'Overview' }}
-                                        </h2>
-                                        <p>
-                                            {{ 'overview' }}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </router-link>
-                    </div>
+  <div class="row">
+    <div class="col-md-10">
+      <classroom-header />
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <div class="selection-box-default">
+            <router-link
+              class="card h-card"
+              :to="'/classroom/'+$route.params.classroomId+'/overview'"
+            >
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <h2 class="font-size-18">
+                      {{ 'Overview' }}
+                    </h2>
+                    <p>
+                      {{ 'overview' }}
+                    </p>
+                  </div>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <div class="selection-box-default">
-                        <router-link class="card h-card" :to="'/classroom/'+$route.params.classroomId+'/setup'">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <h2 class="font-size-18">
-                                            {{ 'Setup' }}
-                                        </h2>
-                                        <p>
-                                            {{ 'setup' }}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </router-link>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <div class="selection-box-default">
-                        <router-link class="card h-card" :to="'/classroom/'+$route.params.classroomId+'/unit-assignment'">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <h2 class="font-size-18">
-                                            {{ 'Unit Assignment' }}
-                                        </h2>
-                                        <p>
-                                            {{ 'unit assignment' }}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </router-link>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <div class="selection-box-default">
-                        <router-link class="card h-card" :to="'/classroom/'+$route.params.classroomId+'/daily-assignment'">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <h2 class="font-size-18">
-                                            {{ 'Daily Assignment' }}
-                                        </h2>
-                                        <p>
-                                            {{ 'daily-assignment' }}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </router-link>
-                    </div>
-                </div>
-                
-                <div class="col-md-4 mb-3">
-                    <div class="selection-box-default">
-                        <router-link class="card h-card" :to="'/classroom/'+$route.params.classroomId+'/students'">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <h2 class="font-size-18">
-                                            {{ 'Students' }}
-                                        </h2>
-                                        <p>
-                                            {{ 'students' }}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </router-link>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <div class="selection-box-default">
-                        <router-link class="card h-card" :to="'/classroom/'+$route.params.classroomId+'/resources'">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <h2 class="font-size-18">
-                                            {{ 'Resources' }}
-                                        </h2>
-                                        <p>
-                                            {{ 'resources' }}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </router-link>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <div class="selection-box-default">
-                        <router-link class="card h-card" :to="'/classroom/'+$route.params.classroomId+'/messages'">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <h2 class="font-size-18">
-                                            {{ 'Message' }}
-                                        </h2>
-                                        <p>
-                                            {{ 'message' }}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </router-link>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <div class="selection-box-default">
-                        <router-link class="card h-card" :to="'/classroom/'+$route.params.classroomId+'/doubts'">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <h2 class="font-size-18">
-                                            {{ 'Doubts' }}
-                                        </h2>
-                                        <p>
-                                            {{ 'doubts' }}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </router-link>
-                    </div>
-                </div>
-            </div>
+              </div>
+            </router-link>
+          </div>
         </div>
+        <div class="col-md-4 mb-3">
+          <div class="selection-box-default">
+            <router-link
+              class="card h-card"
+              :to="'/classroom/'+$route.params.classroomId+'/setup'"
+            >
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <h2 class="font-size-18">
+                      {{ 'Unit Setup' }}
+                    </h2>
+                    <p>
+                      {{ 'Divide your subject in units.' }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </router-link>
+          </div>
+        </div>
+        <div class="col-md-4 mb-3">
+          <div class="selection-box-default">
+            <router-link
+              class="card h-card"
+              :to="'/classroom/'+$route.params.classroomId+'/daily-assignment'"
+            >
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <h2 class="font-size-18">
+                      {{ 'Daily Assignment' }}
+                    </h2>
+                    <p>
+                      {{ 'Create daily assisment test for students.' }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </router-link>
+          </div>
+        </div>
+        <div class="col-md-4 mb-3">
+          <div class="selection-box-default">
+            <router-link
+              class="card h-card"
+              :to="'/classroom/'+$route.params.classroomId+'/daily-report'"
+            >
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <h2 class="font-size-18">
+                      {{ 'Daily Report' }}
+                    </h2>
+                    <p>
+                      {{ 'Daily assignment report.' }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </router-link>
+          </div>
+        </div>
+         
+        <div class="col-md-4 mb-3">
+          <div class="selection-box-default">
+            <router-link
+              class="card h-card"
+              :to="'/classroom/'+$route.params.classroomId+'/unit-assignment'"
+            >
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <h2 class="font-size-18">
+                      {{ 'Unit Assignment' }}
+                    </h2>
+                    <p>
+                      {{ 'Coming soon...' }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </router-link>
+          </div>
+        </div>       
+        <div class="col-md-4 mb-3">
+          <div class="selection-box-default">
+            <router-link
+              class="card h-card"
+              :to="'/classroom/'+$route.params.classroomId+'/students'"
+            >
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <h2 class="font-size-18">
+                      {{ 'Students' }}
+                    </h2>
+                    <p>
+                      {{ 'Coming soon...' }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </router-link>
+          </div>
+        </div>
+        <div class="col-md-4 mb-3">
+          <div class="selection-box-default">
+            <router-link
+              class="card h-card"
+              :to="'/classroom/'+$route.params.classroomId+'/resources'"
+            >
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <h2 class="font-size-18">
+                      {{ 'Resources' }}
+                    </h2>
+                    <p>
+                      {{ 'Coming soon...' }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </router-link>
+          </div>
+        </div>
+        <div class="col-md-4 mb-3">
+          <div class="selection-box-default">
+            <router-link
+              class="card h-card"
+              :to="'/classroom/'+$route.params.classroomId+'/messages'"
+            >
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <h2 class="font-size-18">
+                      {{ 'Message' }}
+                    </h2>
+                    <p>
+                      {{ 'Coming soon...' }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </router-link>
+          </div>
+        </div>
+        <div class="col-md-4 mb-3">
+          <div class="selection-box-default">
+            <router-link
+              class="card h-card"
+              :to="'/classroom/'+$route.params.classroomId+'/doubts'"
+            >
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <h2 class="font-size-18">
+                      {{ 'Doubts' }}
+                    </h2>
+                    <p>
+                      {{ 'Coming soon...' }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </router-link>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </template>
 <style lang="scss">
     @import 'resources/sass/_variables.scss';
@@ -193,13 +238,13 @@
 </style>
 <script>
 import ClassroomHeader from '../../components/ClassroomHeader';
-    export default {
-        components: {
-            ClassroomHeader
-        },
-        data() {
-            return {};
-        },
-    };
+export default {
+	components: {
+		ClassroomHeader
+	},
+	data() {
+		return {};
+	},
+};
 
 </script>

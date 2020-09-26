@@ -65,7 +65,7 @@
                   </div>
 
                   <input
-                    v-if="answers[index]"
+                    v-validate="'required'"
                     type="hidden"
                     :name="'answers['+index+'][answer]'"
                     :value="answers[index]['answer']"
@@ -95,6 +95,7 @@
                       </div>
                     </div>
                   </div>
+                  <span class="error">{{ formErrors('answers['+index+'][answer]') ? 'Please answer this question.' : '' }}</span>
                 </div>
               </div>
             </div>
@@ -105,7 +106,7 @@
                 class="btn btn-primary"
                 @click="clearInterval(interval)"
               >
-                Submit Answers
+                Submit php
               </button>
             </div>
           </form>
@@ -217,6 +218,7 @@ export default {
 	},
 	methods:{
 		sumbitAttempt(e){
+
 			this.$validator.validate().then(valid => {
 				if (valid) {
 					return true;

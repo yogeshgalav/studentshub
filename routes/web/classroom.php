@@ -13,7 +13,8 @@ Route::group(['middleware'=>['auth']],function(){
     Route::get('/classroom/{classroomId}/overview','ClassroomController@classroomOverviewPage');
     Route::get('/classroom/{classroomId}/setup','ClassroomController@classroomSetupPage');
     Route::get('/classroom/{classroomId}/unit-assignment','ClassroomController@classroomUnitAssignmentPage');
-    Route::get('/classroom/{classroomId}/daily-assignment','ClassroomController@classroomDailyAssignmentPage');
+    Route::get('/classroom/{classroomId}/daily-assignment','ClassroomController@classroomDailyReportPage');
+    Route::get('/classroom/{classroomId}/daily-report','ClassroomController@classroomDailyReportPage');
     Route::get('/classroom/{classroomId}/students','ClassroomController@classroomStudentPage');
     
     //student page for unit-attempt
