@@ -316,13 +316,6 @@ export default {
 		};
 	},
 	computed:{
-		letters() {
-			let letters = [];
-			for (let i = 'A'.charCodeAt(0); i <= 'Z'.charCodeAt(0); i++) {
-				letters.push(String.fromCharCode([i]));
-			}
-			return letters;
-		},
 		total_marks(){
 			return this.daily_questions.reduce((acc, currVal) => {
 				return acc + currVal.marks;

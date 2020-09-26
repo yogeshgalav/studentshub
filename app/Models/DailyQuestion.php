@@ -15,4 +15,7 @@ class DailyQuestion extends Model
     public function dailyAnswer(){
         return $this->hasMany(DailyAnswer::class);
     }
+    public function myDailyAnswer(){
+        return $this->hasOne(DailyAnswer::class)->where('user_id',\Auth::id());
+    }
 }

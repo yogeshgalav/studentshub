@@ -62,25 +62,30 @@
               <div
                 v-for="(question,index) in daily_assignment.daily_questions"
                 :key="index"
-                class="col-md-12"
+                class="col-md-6 border-bottom-1px ml-3 p-3 mb-3"
               >
                 <div class="row">
-                  <div class="col-md-12 mb-1 mt-3">
+                  <div class="col-md-12">
                     <div class="row">
-                      <div class="col-md-12">
+                      <div class="col-md-9">
                         <div class="weight-800">
-                          {{ 'Question' + (index+1) }}
+                          {{ 'Question' + ' ' + (index+1) }} 
                         </div>
+                      </div>
+                      <div class="col-md-3">
+                        <label class="btn btn-white ">
+                          {{ 'Marks:'+ ' ' + question.marks }}
+                        </label>
                       </div>
                     </div>
                   </div>
                 </div>
-                   
-                <div class="row">
+                    
+                <div class="row mt-2">
                   <div class="col-md-12">
                     <div class="row">
                       <div class="col-md-12">
-                        <div class="mb-2">
+                        <div class="mb-2 weight-500">
                           {{ question.question_text }}
                         </div>
                       </div>
@@ -90,33 +95,34 @@
                       :key="index2"
                       class="row"
                     >
-                      <div class="col-md-1">
-                        <div class="form-check ml-3 ">
-                          <input
-                            :id="'correctAnswer'+index2"
-                            class="form-check-input"
-                            type="radio"
-                            disabled
-                            :name="'answers['+index+'][answer]'"
-                            :value="choice.option_order"
-                          >
+                      <div class="col-md-9 mb-1 mt-1 ">
+                        <div
+                          v-if="choice.option_order===question.correct_answer"
+                          class="row line-height-30 bg-card-green p-2"
+                        >
+                          <div class="'bg-circle-white'">
+                            {{ letters[index2] }}
+                          </div>
+                          <span class="pl-2">  {{ choice.option_text }}  </span>
                         </div>
-                      </div>
-                       
-                      <div class="col-md-3">
-                        {{ choice.option_text }}
-                      </div>
-                      <div
-                        v-if="choice.is_correct"
-                        class="col-md-3"
-                      >
-                        <i class="fa fa-check text-success" />
-                      </div>
-                      <div
-                        v-else
-                        class="col-md-3"
-                      >
-                        <i class="fa fa-times text-danger" />
+                        <div
+                          v-else-if="choice.option_order===question.my_daily_answer.selected_answer"
+                          class="row line-height-30 bg-card-yellow p-2"
+                        >
+                          <div class="'bg-circle-white'">
+                            {{ letters[index2] }}
+                          </div>
+                          <span class="pl-2">  {{ choice.option_text }}  </span>
+                        </div>
+                        <div
+                          v-else
+                          class="row line-height-30 bg-card-gray p-2"
+                        >
+                          <div class="bg-circle">
+                            {{ letters[index2] }}
+                          </div>
+                          <span class="pl-2">  {{ choice.option_text }}  </span>
+                        </div>
                       </div>
                     </div>
                   </div>

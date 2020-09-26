@@ -36,7 +36,7 @@ class DailyReportController extends Controller
         ->where('activated_at','!=',null)
         ->where('classroom_id',$classroomId)
         ->with('dailyQuestions.multipleChoice')
-        ->with('dailyQuestions.dailyAnswer')
+        ->with('dailyQuestions.myDailyAnswer')
         ->first();
         // dd($daily_assignment);
         $daily_report=null;

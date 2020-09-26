@@ -46,12 +46,9 @@
                       </div>
                     </div>
                     <div class="col-md-3">
-                      <button
-                        class="btn btn-white "
-                        type="button"
-                      >
+                      <label class="btn btn-white ">
                         {{ 'Marks:'+ ' ' + question.marks }}
-                      </button>
+                      </label>
                     </div>
                   </div>
                 </div>
@@ -191,15 +188,6 @@ export default {
 			answers:[],
 			interval:null
 		};
-	},
-	computed:{
-		letters() {
-			let letters = [];
-			for (let i = 'A'.charCodeAt(0); i <= 'Z'.charCodeAt(0); i++) {
-				letters.push(String.fromCharCode([i]));
-			}
-			return letters;
-		},
 	},
 	mounted(){
 		this.answers=this.dailyAssignment.daily_questions.map(node=>{

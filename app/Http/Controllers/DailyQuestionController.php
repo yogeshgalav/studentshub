@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Models\DailyAssignment;
 use App\Models\DailyQuestion;
-use App\Models\DailyAnswer;
 use App\Models\MultipleChoice;
 use App\Models\DailyReport;
 use Illuminate\Support\Facades\Log;

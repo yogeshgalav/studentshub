@@ -118,23 +118,29 @@
           :key="index"
           class="col-md-4"
         >
-          <div class="cl_box_top">
-            <p>{{ classroom.classroom_live_id }}</p>
-          </div>
-          <div class="classroom_box">
-            <div class="clss_username">
-              <p>
-                <img
-                  src="/images/Group.svg"
-                  alt=""
-                >
-              </p>
-              <h5 class="mt-3">{{ classroom.teacher_name }}</h5>
+          
+          <div class="clas_roo_main_box">
+            <div class="cl_box_top">
+              <p>{{ classroom.classroom_live_id }}</p>
             </div>
-            <div class="classroom_content">
-              <a :href="'/classroom/'+classroom.id">{{ classroom.subject_name }}</a>
-              <p>{{ classroom.name }}</p>
-            </div>
+            <a
+              :href="'/classroom/'+classroom.id"
+              class="classroom_box"
+            >
+              <div class="clss_username">
+                <p>
+                  <img
+                    src="/images/Group.svg"
+                    alt=""
+                  >
+                </p>
+                <h5 class="mt-3">{{ classroom.teacher_name }}</h5>
+              </div>
+              <div class="classroom_content">
+                <p>{{ classroom.subject_name }} <br> <span>{{ classroom.name }}</span></p>
+               
+              </div>
+            </a>
           </div>
         </div>
       </div>

@@ -77,7 +77,14 @@ Vue.mixin({
 				console.error(err.response.data); // eslint-disable-line no-console
 				break;
 			}
-		}
+		},
+		letters() {
+			let letters = [];
+			for (let i = 'A'.charCodeAt(0); i <= 'Z'.charCodeAt(0); i++) {
+				letters.push(String.fromCharCode([i]));
+			}
+			return letters;
+		},
 	},
 	mounted(){
 		window.axios.defaults.headers.common = {
