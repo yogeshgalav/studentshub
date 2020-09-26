@@ -183,7 +183,7 @@ export default {
 					if (result.value) {
 						this.axios.post('/api/activate-daily-assignment', {
 							daily_assignment_id: this.daily.id,
-							status: daily.activated_at ? 'deactivate' : 'activate'
+							status: this.daily.activated_at ? 'deactivate' : 'activate'
 						}).then(() => {
 							this.daily.activated_at = new Date();
 						});

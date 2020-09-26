@@ -35,60 +35,64 @@
             <div
               v-for="(question,index) in dailyAssignment.daily_questions"
               :key="index"
-              class="col-md-12"
+              class="col-md-6 border-bottom-1px ml-3 p-3 mb-3"
             >
               <div class="row">
-                <div class="col-md-12 mb-1 mt-3">
+                <div class="col-md-12">
                   <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-9">
                       <div class="weight-800">
-                        {{ 'Question' + (index+1) }}
+                        {{ 'Question' + ' ' + (index+1) }} 
                       </div>
+                    </div>
+                    <div class="col-md-3">
+                      <button
+                        class="btn btn-white "
+                        type="button"
+                      >
+                        {{ 'Marks:'+ ' ' + question.marks }}
+                      </button>
                     </div>
                   </div>
                 </div>
               </div>
-                   
-              <div class="row">
+                    
+              <div class="row mt-2">
                 <div class="col-md-12">
                   <div class="row">
                     <div class="col-md-12">
-                      <div class="mb-2">
+                      <div class="mb-2 weight-500">
                         {{ question.question_text }}
                       </div>
                     </div>
                   </div>
+
                   <input
-                    class="form-check-input"
                     type="hidden"
-                    :name="'answers['+index+'][question_id]'"
-                    :value="question.id"
+                    :name="'answers['+index+'][answer]'"
+                    :value="answers[index].answer"
                   >
                   <div
                     v-for="(choice,index2) in question.multiple_choice"
                     :key="index2"
                     class="row"
                   >
-                    <div class="col-md-1">
-                      <div class="form-check ml-3 mt-2">
-                        <input
-                          :id="'correctAnswer'+index2"
-                          v-validate="'required'"
-                          class="form-check-input"
-                          type="radio"
-                          :name="'answers['+index+'][answer]'"
-                          :value="choice.option_order"
+                    <div class="col-md-9 mb-1 mt-1 ">
+                      <div :class="['row line-height-30', choice.option_order === answers[index] ? 'bg-card-green text-white' : 'bg-card-gray', 'p-2']">
+                        <div
+                          :class="[choice.option_order === answers[index] ? 'bg-circle-white' : 'bg-circle']"
+                          @click="selectAnswer(index,index2)"
                         >
+                          {{ letters[index2] }}
+                        </div>
+                        <span class="pl-2">  {{ choice.option_text }}  </span>
                       </div>
                     </div>
-                    <div class="col-md-3">
-                      {{ choice.option_text }}
-                    </div>
                   </div>
-                  <span class="error">{{ formErrors('answers['+index+'][answer]') ? 'Please answer this question.' : '' }}</span>
                 </div>
               </div>
             </div>
+            
             <div class="col-md-12 mt-3">
               <button
                 type="submit"
@@ -105,7 +109,7 @@
   </div>
 </template>
 <style scoped>
-      #no-copy {
+#no-copy {
         user-select: none;
       }
       #no-copy::selection {
@@ -117,6 +121,51 @@
       .col-center {
        margin:auto;
       }
+.delete_btn {
+  padding: 0 22px 0 22px;
+  font-size: 18px;
+}
+.btn-white {
+  border-radius: 15px;
+  border: 1px solid #000;
+}
+.border-1px  {
+  border:1px solid #ccc;
+}
+.bg-gray {
+  background-color: #eee;display: flex;
+  line-height: 30px;
+}
+
+.border-bottom-1px  {
+  border-bottom:1px dashed #ccc !important;
+}
+.line-height-30 {
+   line-height: 30px !important;
+}
+.bg-circle {
+  border-radius: 50%;
+    border: 1px solid #000;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 30px;
+    font-weight: 700;
+}
+.bg-circle-white {
+   border-radius: 50%;
+    border: 1px solid black;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 30px;
+    font-weight: 700;
+}
+.line-height-55  {
+  line-height: 55px;
+}
 </style>
 <script>
 import FormMixin from '../../components/mixins/form-mixin.js';
@@ -130,10 +179,26 @@ export default {
 	data(){
 		return {
 			timer:'00:00',
+			answers:[],
 			interval:null
 		};
 	},
+	computed:{
+		letters() {
+			let letters = [];
+			for (let i = 'A'.charCodeAt(0); i <= 'Z'.charCodeAt(0); i++) {
+				letters.push(String.fromCharCode([i]));
+			}
+			return letters;
+		},
+	},
 	mounted(){
+		this.answers=this.dailyAssignment.daily_questions.map(node=>{
+			return {
+				'question_id': node.id,
+				'answer': '',
+			};
+		});
 		var target = document.getElementById('no-copy');
         
 		// PREVENT CONTEXT MENU FROM OPENING
@@ -162,6 +227,9 @@ export default {
 					e.preventDefault();
 				}
 			});
+		},
+		selectAnswer(index,index2){
+			this.answers[index].answer= this.dailyAssignment.daily_questions[index].multiple_choice[index2].option_order;
 		}
 	}
 };
