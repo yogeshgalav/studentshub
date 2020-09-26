@@ -28,9 +28,9 @@
               </div>
             </div>
             <div class="col-md-3">
-              <button class="btn btn-white ">
+              <label class="btn btn-white ">
                 {{ 'Marks:'+ ' ' + question.marks }}
-              </button>
+              </label>
             </div>
           </div>
         </div>
