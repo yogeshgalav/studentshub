@@ -7,20 +7,22 @@
       :is-full-page="true"
     />
     <div>
-      
-      <a
+      <add-button
         v-if="AuthTeacher"
-        href="/create-classroom"
-        class="btn btn-primary btn-lg mb-1" 
+        button-class="btn-primary mb-1"
         type="button"
-      >Create Classroom</a>
-      <button 
-        class="btn btn-success btn-lg mb-1" 
+        size="lg"
+        name="Create Classroom"
+        bg-class="bg-primary-accent"
+        @submit="createClassroom()"
+      />
+      <add-button
+        button-class="btn-success mb-1"
         type="button"
-        @click="$modal.show('join_classroom_modal')"
-      >
-        Join Classroom
-      </button>
+        size="lg"
+        name="Join Classroom"
+        @submit="$modal.show('join_classroom_modal')"
+      />
       <modal
         name="join_classroom_modal"
         class="doubt_model"
@@ -83,7 +85,10 @@
             <div class="cl_box_top">
               <p>{{ classroom.classroom_live_id }}</p>
             </div>
-            <a :href="'/classroom/'+classroom.id" class="classroom_box">
+            <a
+              :href="'/classroom/'+classroom.id"
+              class="classroom_box"
+            >
               <div class="clss_username">
                 <p>
                   <img
@@ -94,7 +99,7 @@
                 <h5 class="mt-3">{{ classroom.teacher_name }}</h5>
               </div>
               <div class="classroom_content">
-                <p>{{ classroom.subject_name }} <br/> <span>{{ classroom.name }}</span></p>
+                <p>{{ classroom.subject_name }} <br> <span>{{ classroom.name }}</span></p>
                
               </div>
             </a>
@@ -161,8 +166,8 @@ import swal from '../../components/swal';
 import AddButton from '../../components/AddButton';
 export default {
 	components:{
-    VModal,
-    AddButton
+		VModal,
+		AddButton
 	},
 	props: ['myClassrooms', 'classroomList'],
 	data(){
@@ -191,6 +196,9 @@ export default {
 				this.showLoader=false;
 			});
 		},
+		createClassroom(){
+			window.location.href='/create-classroom';
+		}
 	}
 };
 

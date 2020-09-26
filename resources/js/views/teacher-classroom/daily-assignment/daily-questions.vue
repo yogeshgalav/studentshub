@@ -28,7 +28,10 @@
               </div>
             </div>
             <div class="col-md-3">
-              <button class="btn btn-white ">
+              <button
+                class="btn btn-white "
+                type="button"
+              >
                 {{ 'Marks:'+ ' ' + question.marks }}
               </button>
             </div>
@@ -203,14 +206,12 @@
                     <span class="error">{{ formErrors('correct_answer') }}</span>
                   </div>
                   <div class="col-md-12">
-                    
-                    <button
+                    <add-button
                       type="button"
-                      class="btn btn-success btn-sm"
-                      @click="addOption()"
-                    >
-                      <i class="fa fa-plus" /> Add More
-                    </button>
+                      size="sm"
+                      name="Add Option"
+                      @submit="addOption()"
+                    />
                   </div>
                 </div>
               </div>
@@ -268,7 +269,7 @@
 }
 .bg-circle-white {
    border-radius: 50%;
-    border: 1px solid #fff;
+    border: 1px solid black;
     width: 30px;
     height: 30px;
     text-align: center;

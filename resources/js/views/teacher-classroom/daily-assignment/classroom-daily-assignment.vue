@@ -14,7 +14,7 @@
     <div class="mt-2">
       <add-button
         name="Add Assignment"
-		size="lg"
+        size="lg"
         @submit="addAssignment"
       />
     </div>

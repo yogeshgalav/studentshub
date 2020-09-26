@@ -10,6 +10,7 @@
     <div class="mt-2">
       <add-button
         name="Add Unit"
+        size="lg"
         @submit="addUnit"
       />
     </div>
