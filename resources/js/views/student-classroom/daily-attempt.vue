@@ -68,9 +68,10 @@
                   </div>
 
                   <input
+                    v-if="answers[index]"
                     type="hidden"
                     :name="'answers['+index+'][answer]'"
-                    :value="answers[index].answer"
+                    :value="answers[index]['answer']"
                   >
                   <div
                     v-for="(choice,index2) in question.multiple_choice"
@@ -78,10 +79,12 @@
                     class="row"
                   >
                     <div class="col-md-9 mb-1 mt-1 ">
-                      <div :class="['row line-height-30', choice.option_order === answers[index] ? 'bg-card-green text-white' : 'bg-card-gray', 'p-2']">
+                      <div
+                        :class="['row line-height-30', choice.option_order === answers[index]['answer'] ? 'bg-card-green text-white' : 'bg-card-gray', 'p-2']"
+                        @click="selectAnswer(index,index2)"
+                      >
                         <div
-                          :class="[choice.option_order === answers[index] ? 'bg-circle-white' : 'bg-circle']"
-                          @click="selectAnswer(index,index2)"
+                          :class="[choice.option_order === answers[index]['answer'] ? 'bg-circle-white' : 'bg-circle']"
                         >
                           {{ letters[index2] }}
                         </div>
@@ -179,7 +182,7 @@ export default {
 	data(){
 		return {
 			timer:'00:00',
-			answers:[],
+			answers:[{},{},{}],
 			interval:null
 		};
 	},
@@ -229,7 +232,7 @@ export default {
 			});
 		},
 		selectAnswer(index,index2){
-			this.answers[index].answer= this.dailyAssignment.daily_questions[index].multiple_choice[index2].option_order;
+			this.answers[index]['answer']= this.dailyAssignment.daily_questions[index].multiple_choice[index2].option_order;
 		}
 	}
 };
