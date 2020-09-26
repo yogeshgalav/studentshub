@@ -67,6 +67,7 @@
                             :items="courseLevels"
                             :value="'name'"
                             name="course_level"
+                            :placeholder="'Select Program Level'"
                             :is-async="false"
                             :create-new-item="false"
                             @selected="setCourseLevel"

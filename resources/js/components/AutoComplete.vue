@@ -4,16 +4,17 @@
       v-model="search"
       type="text"
       class="form-control"
-	  :placeholder="placeholder"
+      :placeholder="placeholder"
+      :readonly="!isAsync"
       @input="onChange"
       @keydown.down="onArrowDown"
       @keydown.up="onArrowUp"
       @keydown.enter="onEnter"
-	  @focus="onFocus"
+      @focus="onFocus"
     >
     <transition name="fade">
       <ul
-	  	v-show="isOpen===true"
+        v-show="isOpen===true"
         id="autocomplete-results"
         class="autocomplete-results"
       >
@@ -25,7 +26,7 @@
         </li>
         <li
           v-for="(currentResult, i) in results"
-		  :key="i"
+          :key="i"
           class="autocomplete-result"
           :class="{ 'is-active': i === arrowCounter }"
           @click="setResult(currentResult)"
@@ -37,10 +38,10 @@
             {{ currentResult[value] }}
           </slot>
         </li>
-		<li
-		v-if="createNewItem===true"
-		class="autocomplete-result"
-		@click="createNew"
+        <li
+          v-if="createNewItem===true"
+          class="autocomplete-result"
+          @click="createNew"
         >
           {{ trans('Create New') }}
         </li>
@@ -131,6 +132,14 @@ export default {
 			arrowCounter: 0,
 		};
 	},
+	watch:{
+		items(val){
+			this.results = val;
+			if(this.isAsync===true){
+				this.isOpen=true;
+			}
+		},
+	},
 	mounted() {
 		document.addEventListener('click', this.handleClickOutside);
 		if(this.initialValue){
@@ -141,17 +150,9 @@ export default {
 	destroyed() {
 		document.removeEventListener('click', this.handleClickOutside);
 	},
-	watch:{
-		items(val){
-			this.results = val;
-			if(this.isAsync===true){
-				this.isOpen=true;
-			}
-		},
-	},
 	methods: {
 		trans: function(string, defaultString) {
-			return this.$trans("auth", string, defaultString);
+			return this.$trans('auth', string, defaultString);
 		},
 		onChange() {
 			if(this.search.length<3){

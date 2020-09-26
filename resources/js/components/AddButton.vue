@@ -1,10 +1,10 @@
 <template>
   <button
     type="button"
-    :class="[buttonsize, 'btn btn-success btn-labeled']"
+    :class="[buttonsize,buttonClass, 'btn btn-labeled']"
     @click="$emit('submit')"
   >
-    <span class="btn-label bg-success-accent"><i class="fa fa-plus" /></span>{{ name }}
+    <span :class="[bgClass,'btn-label']"><i class="fa fa-plus" /></span>{{ name }}
   </button>
 </template>
 <style scoped>
@@ -22,24 +22,28 @@
 export default {
 
 	props:{ 
-    name:
+		name:
     { type:String, default: 'Add' },
-     size:
+		size:
     { type:String, default: 'md' },
-  },
-  computed: {
-    buttonsize() {
-   if(this.size === 'md')  {
-    return 'btn-md'
-   }
-    if(this.size === 'lg')  {
-    return 'btn-lg'
-   }
-     if(this.size === 'sm')  {
-    return 'btn-sm'
-   }
-   return false
+		buttonClass:
+    { type:String, default: 'btn-success' },
+		bgClass:
+    { type:String, default: 'bg-success-accent' },
+	},
+	computed: {
+		buttonsize() {
+			if(this.size === 'md')  {
+				return 'btn-md';
+			}
+			if(this.size === 'lg')  {
+				return 'btn-lg';
+			}
+			if(this.size === 'sm')  {
+				return 'btn-sm';
+			}
+			return false;
     
-  } }
-}
+		} }
+};
 </script>
