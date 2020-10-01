@@ -400,6 +400,15 @@ export default {
 			this.college_id = this.studentDetails.college_id;
 			this.start_year = this.studentDetails.start_year;
 			this.end_year = this.studentDetails.end_year;
+			if(this.selected_course.id===1001){
+				this.selected_level.level=2;
+			}else if(this.selected_course.id===1002){
+				this.selected_level.level=3;
+			}else if(this.selected_course.id===1003){
+				this.selected_level.level=4;
+			}else{
+				this.show_courses=true;
+			}
 		}
 	},
 	methods: {

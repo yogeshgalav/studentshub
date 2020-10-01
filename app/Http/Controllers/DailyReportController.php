@@ -9,6 +9,7 @@ use Auth;
 use DB;
 use Log;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class DailyReportController extends Controller
 {
@@ -34,7 +35,7 @@ class DailyReportController extends Controller
     }
 
     public function studentDailyReport($classroomId){
-        $daily_assignment = DailyAssignment::where('attempt_date',now()->toDateString())
+        $daily_assignment = DailyAssignment::where('attempt_date',Carbon::now('Asia/Kolkata')->toDateString())
         ->where('activated_at','!=',null)
         ->where('classroom_id',$classroomId)
         ->with('dailyQuestions.multipleChoice')

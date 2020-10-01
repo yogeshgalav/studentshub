@@ -28,6 +28,27 @@
           <div class="selection-box-default">
             <router-link
               class="card h-card"
+              :to="'/classroom/'+$route.params.classroomId+'/students'"
+            >
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <h2 class="font-size-18">
+                      {{ 'Students' }}
+                    </h2>
+                    <p>
+                      {{ 'Students details and join requests.' }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </router-link>
+          </div>
+        </div>
+        <div class="col-md-4 mb-3">
+          <div class="selection-box-default">
+            <router-link
+              class="card h-card"
               :to="'/classroom/'+$route.params.classroomId+'/setup'"
             >
               <div class="card-body">
@@ -79,7 +100,7 @@
                       {{ 'Daily Report' }}
                     </h2>
                     <p>
-                      {{ 'Daily assignment report.' }}
+                      {{ 'Daily assignment report for attempted tests.' }}
                     </p>
                   </div>
                 </div>
@@ -109,27 +130,6 @@
             </router-link>
           </div>
         </div>       
-        <div class="col-md-4 mb-3">
-          <div class="selection-box-default">
-            <router-link
-              class="card h-card"
-              :to="'/classroom/'+$route.params.classroomId+'/students'"
-            >
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-lg-12">
-                    <h2 class="font-size-18">
-                      {{ 'Students' }}
-                    </h2>
-                    <p>
-                      {{ 'Coming soon...' }}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </router-link>
-          </div>
-        </div>
         <div class="col-md-4 mb-3">
           <div class="selection-box-default">
             <router-link

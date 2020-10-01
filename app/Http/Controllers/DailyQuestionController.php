@@ -18,16 +18,6 @@ class DailyQuestionController extends Controller
     public function updateDailyQuestion(Request $request)
     {    
         $question=$request->question;
-        $correct_answer=null;
-        foreach($question['multiple_choice'] as $key=>$choice){
-            if($choice['is_correct']=='true'){
-                $correct_answer=$key;
-                break;
-            }
-        }
-        if($correct_answer===null){
-            abort(422);
-        }
 
         if(!empty($question['id'])){
             $dailyQuestion = DailyQuestion::find($question['id']);    
@@ -39,7 +29,7 @@ class DailyQuestionController extends Controller
         $dailyQuestion->marks = $question['marks']; 
         $dailyQuestion->question_order = $question['question_order']; 
         $dailyQuestion->question_text = $question['question_text']; 
-        $dailyQuestion->correct_answer = $correct_answer; 
+        $dailyQuestion->correct_answer = $question['correct_answer']; 
 
         $dailyQuestion->save();
         $daily_question=$dailyQuestion->toArray();

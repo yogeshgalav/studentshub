@@ -173,9 +173,7 @@
                           class="form-control col-md-12"
                         >
                       </div>
-
-                      <!-- <label class="contol-label col-md-2 mt-2">{{ letters[index] }} :</label> -->
-                     
+            
                       <button
                         v-if="current_question_edit.multiple_choice.length>2"
                         class="btn btn-default btn-sm ml-2 delete_btn"
@@ -187,12 +185,13 @@
                       <div class="form-check ml-3 mt-2">
                         <input
                           :id="'correctAnswer'+index"
-                          v-model="choice.is_correct"
                           v-validate="'required'"
+                          :checked="current_question_edit.correct_answer===index"
                           class="form-check-input"
                           type="radio"
                           name="correct_answer"
                           :value="true"
+                          @change="current_question_edit.correct_answer=index"
                         >
                         <label class="form-check-label">Mark as correct answer</label>
                       </div>
@@ -301,15 +300,14 @@ export default {
 				marks: null,
 				question_type: 'multiple_choice',
 				question_order: 0,
+				correct_answer: 0,
 				multiple_choice: [{
 					id: 0,
 					option_text: null,
-					is_correct: false,
 				},
 				{
 					id: 0,
 					option_text: null,
-					is_correct: false,
 				},
 				],
 			},
@@ -381,13 +379,14 @@ export default {
 				marks: null,
 				question_type: 'multiple_choice',
 				question_order: 0,
+				correct_answer: 0,
 				multiple_choice: [{
+					id:0,
 					option_text: null,
-					is_correct: false,
 				},
 				{
+					id:0,
 					option_text: null,
-					is_correct: false,
 				},
 				],
 			};

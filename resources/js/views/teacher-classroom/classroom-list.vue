@@ -17,6 +17,7 @@
         @submit="createClassroom()"
       />
       <add-button
+        v-if="!AuthTeacher"
         button-class="btn-success mb-1"
         type="button"
         size="lg"

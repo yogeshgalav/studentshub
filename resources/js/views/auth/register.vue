@@ -80,6 +80,7 @@
                             >
                           </div>
                           <span class="error">{{ errors.first('email') }}</span>
+                          <span class="error">{{ email_error }}</span>
                         </div>
                       </div>
 
@@ -212,6 +213,7 @@ export default {
 	data() {
 		return {
 			showLoader: false,
+			email_error: '',
 			full_name: '',
 			email: '',
 			password: '',
@@ -274,6 +276,12 @@ export default {
 				})
 				.catch(err => {
 					this.showLoader = false;
+					if(err.response.status===422){
+						let error_data = err.response.data.errors;
+						if(error_data['email']){
+							this.email_error = error_data['email'][0]; 
+						}
+					}
 					this.catchResponse(err);
 					localStorage.removeItem('access_token');
 					localStorage.removeItem('refresh_token');
