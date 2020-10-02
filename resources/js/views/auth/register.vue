@@ -29,6 +29,12 @@
                 <div class="row justify-content-center">
                   <div class="col-md-12">
                     <form @submit.prevent="handleSubmit">
+                      <div
+                        v-if="email_error"
+                        class="form-group row alert alert-warning"
+                      >
+                        <span>{{ email_error }}</span>
+                      </div>
                       <div class="form-group">
                         <input
                           id="token"
@@ -80,7 +86,6 @@
                             >
                           </div>
                           <span class="error">{{ errors.first('email') }}</span>
-                          <span class="error">{{ email_error }}</span>
                         </div>
                       </div>
 

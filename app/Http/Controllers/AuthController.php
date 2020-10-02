@@ -34,6 +34,11 @@ class AuthController extends Controller
     public function login(LoginRequest $request)
     {        
 
+        $user=User::where('email',$request->email)->first();
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            abort(401);
+        }
+        
         try{
             if ($request->remember) {
                 Passport::tokensExpireIn(now()->addDay(30));
@@ -43,7 +48,6 @@ class AuthController extends Controller
                 // Passport::refreshTokensExpireIn(now()->addHour());
             }
 
-            $user=User::where('email',$request->email)->first();
             $user->last_login_at=\Carbon\Carbon::now()->toDateTimeString();
             $user->save();
             

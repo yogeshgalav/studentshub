@@ -106,7 +106,7 @@
                 class="btn btn-primary"
                 @click="clearInterval(interval)"
               >
-                Submit php
+                Submit
               </button>
             </div>
           </form>

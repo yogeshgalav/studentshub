@@ -14,10 +14,10 @@ use Carbon\Carbon;
 class DailyReportController extends Controller
 {
     public function dailyAssignmentAttemptPage($classroom_id){
-        $daily_assignment=\App\Models\DailyAssignment::where('attempt_date','=',now()->toDateString())
+        $daily_assignment=\App\Models\DailyAssignment::where('attempt_date','=',now('Asia/Kolkata')->toDateString())
         ->where('activated_at','!=',null)->where('classroom_id','=',$classroom_id)
         ->with('dailyQuestions.multipleChoice')->first();
-        $daily_assignment->daily_questions->makeHidden('correct_answer');
+        $daily_assignment->dailyQuestions->makeHidden('correct_answer');
         
         // check if assignment is not already attempted
         $daily_report=null;
