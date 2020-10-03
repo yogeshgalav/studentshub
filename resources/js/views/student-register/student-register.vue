@@ -72,7 +72,9 @@
                             aria-hidden="true"
                           /></span>
                           <auto-complete
+                            :key="selected_level.id"
                             v-validate="'required'"
+                            :initial-value="selected_level"
                             class="width-100"
                             :items="courseLevels"
                             :value="'name'"
@@ -229,7 +231,7 @@
                         type="submit"
                         class="login_btn"
                       >
-                        {{ trans('Register') }} <span><i
+                        {{ trans('Submit') }} <span><i
                           class="fa fa-arrow-right"
                           aria-hidden="true"
                         /></span>
@@ -401,12 +403,29 @@ export default {
 			this.start_year = this.studentDetails.start_year;
 			this.end_year = this.studentDetails.end_year;
 			if(this.selected_course.id===1001){
-				this.selected_level.level=2;
+				this.selected_level={
+					id:1,
+					level:2,
+					name:'Preparatory Stage (3-5)'
+				};
 			}else if(this.selected_course.id===1002){
-				this.selected_level.level=3;
+				this.selected_level={
+					id:2,
+					level:3,
+					name:'"Middle Stage (6-8)"'
+				};
 			}else if(this.selected_course.id===1003){
-				this.selected_level.level=4;
+				this.selected_level={
+					id:3,
+					level:4,
+					name:'"Secoundary Stage (9-12)"'
+				};			
 			}else{
+				this.selected_level={
+					id:4,
+					level:5,
+					name:'Bachelor'
+				};
 				this.show_courses=true;
 			}
 		}
