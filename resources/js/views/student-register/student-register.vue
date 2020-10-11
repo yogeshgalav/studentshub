@@ -38,7 +38,7 @@
                             aria-hidden="true"
                           /></span>
                           <auto-complete
-                            :key="selected_institute.id"
+                            :key="1"
                             v-validate="'required'"
                             :items="institute_list"
                             :value="'name'"
@@ -72,7 +72,7 @@
                             aria-hidden="true"
                           /></span>
                           <auto-complete
-                            :key="selected_level.id"
+                            :key="2"
                             v-validate="'required'"
                             :initial-value="selected_level"
                             class="width-100"
@@ -102,7 +102,7 @@
                             aria-hidden="true"
                           /></span>
                           <auto-complete
-                            :key="selected_course.course_name"
+                            :key="3"
                             ref="courseList"
                             v-validate="'required'"
                             :items="course_list"

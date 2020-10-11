@@ -1,139 +1,204 @@
 <template>
-  <div>
-    <div class="mt-2">
-      <add-button
-        name="Add Unit"
-        size="lg"
-        @submit="addUnit"
-      />
-    </div>
-    <div
-      v-for="(unit,index) in unitData"
-      :key="index"
-      class="card mt-5"
-    >
-      <div>
-        <div class="row">
-          <div class="col-md-12">
-            <accordion
-              :title="'Unit '+unit.unit_no+': '+unit.unit_name"
-              :aria-expanded="true"
-              tab="accordion_status_unit_active"
-            >
-              <div class="row add_cl_q">
-                <div class="col-md-12">
-                  <div class="text-grey">
-                    <p>
-                      Students will be asked to answer the following questions on this unit
-                      attempt
-                    </p>
-                  </div>
+  <div class="col-md-8 col-center">
+    <div v-if="daily_report===null && daily_assignment===null">
+      <div
+        id="reflection-complete"
+        class="card mt-3 mb-3  bg-success "
+      >
+        <div class="card-header">
+          <h3 class="text-center font-size-18 text-white">
+            {{ 'Daily Assignment' }}
+          </h3>
+        </div>
+        <div class="card-body bg-white border-bottom-left-8 border-bottom-right-8">
+          <div class="row">
+            <div class="col-md-12 col-12 center-col">
+              <div class="row">
+                <div class="col-md-12 col-lg-12 col-12 text-center">
+                  <p>
+                    {{ 'There is no Daily Assignment for today.' }}
+                  </p>
                 </div>
               </div>
-              <div
-                v-for="(question,index) in unit.questions"
-                :key="index"
-                class="row unit-questions add_cl_q"
-              >
-                <div class="col-md-12 mt-2">
-                  <h4>Question {{ index+1 }}</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div v-if="daily_report!==null && daily_assignment!==null">
+      <div
+        id="reflection-complete"
+        class="card mt-3 mb-3  bg-success "
+      >
+        <div class="card-header">
+          <h3 class="text-center font-size-18 text-white">
+            {{ 'Daily Assignment' }}
+          </h3>
+        </div>
+        <div class="card-body bg-white border-bottom-left-8 border-bottom-right-8">
+          <div class="row">
+            <div class="col-md-12 col-12 center-col">
+              <div class="row">
+                <div class="col-md-12 col-lg-12 col-12 text-center">
+                  <p>
+                    {{ 'Daily Assisment for today is completed' }}
+                  </p>
                 </div>
-                <div class="cl_q_type_text">
-                  <div class="cl_q_text_box">
-                    <label class="col-form-label text-black font-size-14">Question text</label>
-                    <div class="inner-addon left-addon">
-                      <div class="cl_input">
-                        <input
-                          id="topic_title"
-                          type="text"
-                          :value="question.question_text"
-                          class="form-control"
-                        >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mt-3 mb-3  bg-default ">
+        <div class="card-header">
+          <h3 class="text-center font-size-18 text-black">
+            {{ 'Attempted Questions Status' }}
+          </h3>
+        </div>
+        <div class="card-body bg-white border-bottom-left-8 border-bottom-right-8">
+          <div class="row">
+            <div class="col-md-12 col-12 center-col">
+              <div
+                v-for="(question,index) in daily_assignment.daily_questions"
+                :key="index"
+                class="col-md-6 border-bottom-1px ml-3 p-3 mb-3"
+              >
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-md-9">
+                        <div class="weight-800">
+                          {{ 'Question' + ' ' + (index+1) }} 
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <label class="btn btn-white ">
+                          {{ 'Marks:'+ ' ' + question.marks }}
+                        </label>
                       </div>
                     </div>
                   </div>
-                  <div class="cl_q_type_box">
-                    <label class="col-form-label text-black font-size-14">Question Type</label>
-                    <div class="cl_q_type">
-                      <select>
-                        <option>
-                          Short Answer
-                        </option>
-                        <option>
-                          Long Answer
-                        </option>
-                      </select>
+                </div>
+                    
+                <div class="row mt-2">
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="mb-2 weight-500">
+                          {{ question.question_text }}
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <div class="cl_q_close">
-                    <p>
-                      <i
-                        class="fa fa-times"
-                        aria-hidden="true"
-                      />
-                    </p>
+                    <div
+                      v-for="(choice,index2) in question.multiple_choice"
+                      :key="index2"
+                      class="row"
+                    >
+                      <div class="col-md-9 mb-1 mt-1 ">
+                        <div
+                          v-if="choice.option_order===question.correct_answer"
+                          class="row line-height-30 bg-card-green p-2"
+                        >
+                          <div class="'bg-circle-white'">
+                            {{ letters[index2] }}
+                          </div>
+                          <span class="pl-2">  {{ choice.option_text }}  </span>
+                        </div>
+                        <div
+                          v-else-if="choice.option_order===question.my_daily_answer.selected_answer"
+                          class="row line-height-30 bg-card-yellow p-2"
+                        >
+                          <div class="'bg-circle-white'">
+                            {{ letters[index2] }}
+                          </div>
+                          <span class="pl-2">  {{ choice.option_text }}  </span>
+                        </div>
+                        <div
+                          v-else
+                          class="row line-height-30 bg-card-gray p-2"
+                        >
+                          <div class="bg-circle">
+                            {{ letters[index2] }}
+                          </div>
+                          <span class="pl-2">  {{ choice.option_text }}  </span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div class="mt-2">
-                <add-button
-                  name="Add Question"
-                  size="md"
-                  @submit="addQuestion(unit.unit_no)"
-                />
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="row">
+            <div class="col-md-12">
+              <p class="text-black mb-1">
+                Marks obtained : <span class="text-success weight-800"> {{ daily_report.marks_obtained }} </span> | Rank : <span class="text-success weight-800"> {{ daily_report.rank }} </span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div v-if="daily_report===null && daily_assignment!==null">
+      <div
+        id="reflection-incomplete"
+        class="card mt-3 mb-3 bg-primary border-primary"
+      >
+        <div class="card-header ">
+          <h3 class="text-center font-size-18 text-white">
+            {{ 'Daily Assignment' }}
+          </h3>
+        </div>
+        <div class="card-body bg-white border-bottom-left-8 border-bottom-right-8">
+          <div class="row">
+            <div class="col-md-12 col-12 center-col">
+              <div class="row">
+                <div class="col-md-12 col-lg-12 col-12 text-center">
+                  <p>
+                    <span class="weight-800 text-black">
+                      {{ 'Daily assisgment for today is remaining' }}
+                    </span>
+                  </p>
+                  <a
+                    id="reflection-link"
+                    class="btn btn-success text-white"
+                    :href="'/classroom/' + $route.params.classroomId +'/daily-attempt'"
+                  >
+                    {{ 'Attempt now' }}
+                  </a>
+                </div>
               </div>
-            </accordion>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </template>
+<style scoped>
+    .col-center {
+        margin: auto;
+    }
 
+</style>
 <script>
-import FormMixin from '../../components/mixins/form-mixin.js';
-import Accordion from '../../components/accordion';
-import AddButton from '../../components/AddButton';
-import swal from '../../components/swal.js';
-    
 export default {
-	components: {
-		Accordion,
-		AddButton
-	},
-	mixins:[FormMixin],
 	data() {
 		return {
-			unitData: [],
+			daily_report: null,
+			daily_assignment: null,
+               
 		};
 	},
-	computed:{
-		classroomDetail(){
-			return this.$store.state.classroom.classroomDetail;
-		}
-	},
 	mounted() {
-		if(!this.classroomDetail.id){
-			this.$store.dispatch('classroom/getClassroomDetail',this.$route.params.classroomId).then(()=>{
-				this.getUnitDetails();
-			});
-		}else{
-			this.getUnitDetails();
-		}
-	},
-	methods: {
-		getUnitDetails(){
-			this.axios.get('/api/classroom/' + this.classroomDetail.id + '/unit-details').then((resp) => {
-				this.unitData = resp.data.success.unitData;
-			});
-		},      
-		addQuestion(unit_no) {
-			let unit = this.unitData.find(node=>node.unit_no === unit_no);
-			unit.questions.push({
-				'question_text': '',
-				'answer_type': ''
-			});
-		},
+		this.axios.get('/api/classroom/' + this.$route.params.classroomId + '/get-student-daily-report').then((
+			resp) => {
+			this.daily_report = resp.data.success.daily_report;
+			this.daily_assignment = resp.data.success.daily_assignment;
+		});
 	}
 };
 

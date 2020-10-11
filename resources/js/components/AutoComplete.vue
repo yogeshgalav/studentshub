@@ -143,7 +143,7 @@ export default {
 	mounted() {
 		document.addEventListener('click', this.handleClickOutside);
 		if(this.initialValue){
-			this.result = this.initialValue;
+			this.result = Object.assign({},this.initialValue);
 			this.search =this.result[this.value];
 		}
 	},

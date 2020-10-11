@@ -8,34 +8,109 @@
           tab="accordion_status_unit_active"
         >
           <div class="row add_cl_q">
-            <div class="col-md-12">
-              <div class="col-md-3 col-12 mt-3">
-                <div class="form-group pl-0">
+            <div class="col-md-6 col-12">
+              <div class="row">
+                <div class="col-md-6">
                   <label
-                    class="control-label"
-                    :for="'start_date'"
-                  >Assignment Date</label>
-                  <div>
+                    class="text-black mb-1"
+                    :for="'attempt_date'"
+                  >{{ 'Attempt Date' }}</label>
+                  <div class="input-group-prepend">
+                    <div
+                      class="input-group-prepend date"
+                      data-provide="datepicker"
+                    >
+                      <span class="input-group-text">
+                        <i class="icon-calendar" />
+                      </span>
+                    </div>
                     <date-picker
-                      id="start_date_create"
-                      ref="start_date"
+                      :id="'attempt_date'"
                       v-model="daily.attempt_date"
                       v-validate="'required'"
-                      name="start_date"
+                      :name="'attempt_date'"
                       value-type="format"
                       :typeable="true"
                       :type="'date'"
                       :format="'YYYY-MM-DD'"
                       :lang="'en'"
-                      :input-attr="{id: 'start_date_input'}"
                       placeholder
+                      :not-before="currentDate.setDate(currentDate.getDate() + 1)"
                       @change="updateAssignment(daily)"
                     />
                   </div>
-
-                  <div class="error">
-                    {{ formErrors('attempt_date') }}
+                  <span class="text-danger">{{ formErrors('attempt_date') }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row add_cl_q">
+            <div class="col-md-6 col-12">
+              <div class="row">
+                <div class="col-md-6">
+                  <label
+                    class="text-black mb-1"
+                    :for="'start_time'"
+                  >{{ 'Start Time' }}</label>
+                  <div class="input-group-prepend">
+                    <div
+                      class="input-group-prepend date"
+                      data-provide="datepicker"
+                    >
+                      <span class="input-group-text">
+                        <i class="icon-calendar" />
+                      </span>
+                    </div>
+                    <date-picker
+                      :id="'start_time'"
+                      v-validate="'required'"
+                      :value="dailyStartTime"
+                      :name="'start_time'"
+                      value-type="format"
+                      :typeable="true"
+                      :type="'time'"
+                      :format="'hh:mm a'"
+                      :lang="'en'"
+                      placeholder
+                      :time-picker-options="{ start: '08:00', step: '00:15', end: '22:00' }"
+                      @input="timeFormat('start',$event)"
+                      @change="updateAssignment(daily)"
+                    />
                   </div>
+                  <span class="text-danger">{{ formErrors('start_time') }}</span>
+                </div>
+                
+                <div class="col-md-6">
+                  <label
+                    class="text-black mb-1"
+                    :for="'start_time'"
+                  >{{ 'End Time' }}</label>
+                  <div class="input-group-prepend">
+                    <div
+                      class="input-group-prepend date"
+                      data-provide="datepicker"
+                    >
+                      <span class="input-group-text">
+                        <i class="icon-calendar" />
+                      </span>
+                    </div>
+                    <date-picker
+                      :id="'end_time'"
+                      v-validate="'required'"
+                      :value="dailyEndTime"
+                      :name="'end_time'"
+                      value-type="format"
+                      :typeable="true"
+                      :type="'time'"
+                      :format="'hh:mm a'"
+                      :lang="'en'"
+                      placeholder
+                      :time-picker-options="{ start: '08:00', step: '00:15', end: '22:00' }"
+                      @input="timeFormat('end',$event)"
+                      @change="updateAssignment(daily)"
+                    />
+                  </div>
+                  <span class="text-danger">{{ formErrors('end_time') }}</span>
                 </div>
               </div>
             </div>
@@ -111,6 +186,10 @@ import swal from '../../../components/swal.js';
 import DailyQuestions from './daily-questions';
 import DatePicker from 'vue2-datepicker';
 import 'vue2-datepicker/index.css';
+import dayjs from 'dayjs';
+var customParseFormat = require('dayjs/plugin/customParseFormat');
+dayjs.extend(customParseFormat);
+
 export default {
 	components: {
 		Accordion,
@@ -121,10 +200,27 @@ export default {
 	props: ['assignment','unitList'],
 	data() {
 		return {
+			currentDate:new Date(),
 			daily: this.assignment,
 		};
 	},
+	computed:{
+		dailyStartTime(){
+			return dayjs(this.daily.start_time,'HH:mm:ss').format('hh:mm a');
+		},
+		dailyEndTime(){
+			return dayjs(this.daily.end_time,'HH:mm:ss').format('hh:mm a');
+		}
+	},
 	methods: {
+		timeFormat(type,newValue){
+			if(type==='start'){
+				this.daily.start_time = dayjs(newValue,'hh:mm a').format('HH:mm:ss');
+			}
+			if(type==='end'){
+				this.daily.end_time = dayjs(newValue,'hh:mm a').format('HH:mm:ss'); 
+			}
+		},
 		updateAssignment(daily) {
 			this.form_errors = [];
 			if (!daily.unit_id || !daily.attempt_date) {
@@ -136,6 +232,8 @@ export default {
 					assignment_id: daily.id,
 					unit_id: daily.unit_id,
 					attempt_date: daily.attempt_date,
+					start_time: daily.start_time,
+					end_time: daily.end_time,
 				})
 				.then((resp) => {
 					this.daily = resp.data.success.assignment;            
