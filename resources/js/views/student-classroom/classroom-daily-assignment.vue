@@ -177,6 +177,20 @@
                 </div>
               </div>
               <div
+                v-else-if="isAssignmentEnded"
+                class="row"
+              >
+                <div class="col-md-12 col-lg-12 col-12 text-center">
+                  <p>
+                    <span
+                      class="weight-800 text-black"
+                    >
+                      {{ 'Daily assisgment for today has been ended at ' }}{{ daily_assignment.start_time | timeFormat }}
+                    </span>
+                  </p>
+                </div>
+              </div>
+              <div
                 v-else
                 class="row"
               >
@@ -185,7 +199,7 @@
                     <span
                       class="weight-800 text-black"
                     >
-                      {{ 'Daily assisgment for today will start at'+daily_assignment.start_time }}
+                      {{ 'Daily assisgment for today will start at ' }}{{ daily_assignment.start_time | timeFormat }}
                     </span>
                   </p>
                 </div>
@@ -204,13 +218,24 @@
 
 </style>
 <script>
+import dayjs from 'dayjs';
 export default {
+	filters:{
+		timeFormat(time){
+			return dayjs(time,'hh:mm:ss').format('HH:mm A');
+		}
+	},
 	data() {
 		return {
 			daily_report: null,
 			daily_assignment: null,
 			is_available: false,
 		};
+	},
+	computed:{
+		isAssignmentEnded(){
+			return dayjs().isAfter(dayjs(this.daily_assignment.end_time,'hh:mm:ss'));
+		}
 	},
 	mounted() {
 		this.axios.get('/api/classroom/' + this.$route.params.classroomId + '/get-student-daily-report').then((

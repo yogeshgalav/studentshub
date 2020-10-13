@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
+use Auth;
 
 class DailyAssignment extends Model
 {
@@ -22,8 +24,8 @@ class DailyAssignment extends Model
         if($this->end_time===null){
             return true;
         }
-        $current=Carbon::now(Auth::user()->timezone)->toTimeString();
-        if($carbon->gt($this->start_time) && $carbon->lt($this->end_time)){
+        $current=Carbon::now(Auth::user()->timezone);
+        if($current->gt($this->start_time) && $current->lt($this->end_time)){
             return true;
         }
         return false;
