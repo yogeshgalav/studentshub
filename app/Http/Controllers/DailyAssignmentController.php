@@ -51,6 +51,8 @@ class DailyAssignmentController extends Controller
             $dailyAssignment = new DailyAssignment;
         }   
         $dailyAssignment->attempt_date=$request->attempt_date;
+        $dailyAssignment->start_time=$request->start_time;
+        $dailyAssignment->end_time=$request->end_time;
         $dailyAssignment->unit_id=$unit->id;
         $dailyAssignment->classroom_id=$unit->classroom_id;
 

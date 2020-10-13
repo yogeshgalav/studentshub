@@ -1,8 +1,17 @@
 <template>
     <div class="row">
         <div class="col-md-12">
-            <classroom-header />
-            <div class="card mt-5">
+               <classroom-header />
+        </div>
+          <div class="col-md-12">
+             <span class="text-blue font-size-24 weight-800 join-id line-height-25-px" @click="copyText">
+                  {{ 'Join id' }}: {{ classroomDetail.classroom_live_id }}  
+                  <span v-if="displayText"  ><i class="fa fa-check text-success font-size-15" ></i> </span>
+                </span>
+                <span v-if="displayText1" ><i class="fa fa-copy text-blue font-size-15" ></i> </span>
+        </div>
+        <div class="col-md-12">
+            <div class="card mt-2">
                 <div class="card-header">
                     <h4 class="mb-1">
                         {{ 'Classroom Overview' }}
@@ -69,11 +78,35 @@ import ClassroomHeader from '../../components/ClassroomHeader';
         components: {
             ClassroomHeader
         },
+           data() {
+          return {
+               displayText: false,
+                displayText1: true,
+
+          };
+      },
         computed:{
             classroomDetail(){
                 return this.$store.state.classroom.classroomDetail;
             }
-        }
+        },
+         methods:{
+          copyText(){
+                const el = document.createElement('textarea');
+                el.value = this.classroomDetail.classroom_live_id;
+                document.body.appendChild(el);
+                el.select();
+               
+                document.execCommand('copy');
+                this.displayText = true;
+                this.displayText1 = false;
+                document.body.removeChild(el);
+               
+               
+                
+            },
+            
+        },
     }
 
 </script>

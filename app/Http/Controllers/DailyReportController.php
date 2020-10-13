@@ -14,7 +14,7 @@ use Carbon\Carbon;
 class DailyReportController extends Controller
 {
     public function dailyAssignmentAttemptPage($classroom_id){
-        $daily_assignment=\App\Models\DailyAssignment::where('attempt_date','=',now('Asia/Kolkata')->toDateString())
+        $daily_assignment=\App\Models\DailyAssignment::where('attempt_date','=',now(Auth::user()->timezone)->toDateString())
         ->where('activated_at','!=',null)->where('classroom_id','=',$classroom_id)
         ->with('dailyQuestions.multipleChoice')->first();
         $daily_assignment->dailyQuestions->makeHidden('correct_answer');
@@ -26,7 +26,7 @@ class DailyReportController extends Controller
             ->where('daily_assignment_id',$daily_assignment->id)->first();
         }
 
-        if($daily_assignment && !empty($daily_report)){
+        if($daily_assignment && !$daily_assignment->isCurrentlyAvailable() && !empty($daily_report)){
             return redirect('/classroom/'.$classroom_id.'/daily-assignment');
         }
 
@@ -35,22 +35,23 @@ class DailyReportController extends Controller
     }
 
     public function studentDailyReport($classroomId){
-        $daily_assignment = DailyAssignment::where('attempt_date',Carbon::now('Asia/Kolkata')->toDateString())
+        $daily_assignment = DailyAssignment::where('attempt_date',Carbon::now(Auth::user()->timezone)->toDateString())
         ->where('activated_at','!=',null)
         ->where('classroom_id',$classroomId)
         ->with('dailyQuestions.multipleChoice')
         ->with('dailyQuestions.myDailyAnswer')
         ->first();
-        // dd($daily_assignment);
+        
         $daily_report=null;
-        if($daily_assignment){            
+        if($daily_assignment){
             $daily_report = DailyReport::where('user_id',Auth::id())
             ->where('daily_assignment_id',$daily_assignment->id)->first();
         }
 
         return response()->json(['success'=>[
             'daily_report'=>$daily_report,
-            'daily_assignment'=>$daily_assignment
+            'daily_assignment'=>$daily_assignment,
+            'is_available'=>$daily_assignment->isCurrentlyAvailable()
         ]]);
     }
 

@@ -1,31 +1,6 @@
 <template>
   <div class="col-md-8 col-center">
-    <div v-if="daily_report===null && daily_assignment===null">
-      <div
-        id="reflection-complete"
-        class="card mt-3 mb-3  bg-success "
-      >
-        <div class="card-header">
-          <h3 class="text-center font-size-18 text-white">
-            {{ 'Daily Assignment' }}
-          </h3>
-        </div>
-        <div class="card-body bg-white border-bottom-left-8 border-bottom-right-8">
-          <div class="row">
-            <div class="col-md-12 col-12 center-col">
-              <div class="row">
-                <div class="col-md-12 col-lg-12 col-12 text-center">
-                  <p>
-                    {{ 'There is no Daily Assignment for today.' }}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div v-if="daily_report!==null && daily_assignment!==null">
+    <div v-if="daily_report!==null">
       <div
         id="reflection-complete"
         class="card mt-3 mb-3  bg-success "
@@ -142,6 +117,31 @@
         </div>
       </div>
     </div>
+    <div v-if="daily_report===null && daily_assignment===null">
+      <div
+        id="reflection-complete"
+        class="card mt-3 mb-3  bg-success "
+      >
+        <div class="card-header">
+          <h3 class="text-center font-size-18 text-white">
+            {{ 'Daily Assignment' }}
+          </h3>
+        </div>
+        <div class="card-body bg-white border-bottom-left-8 border-bottom-right-8">
+          <div class="row">
+            <div class="col-md-12 col-12 center-col">
+              <div class="row">
+                <div class="col-md-12 col-lg-12 col-12 text-center">
+                  <p>
+                    {{ 'There is no Daily Assignment for today.' }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div v-if="daily_report===null && daily_assignment!==null">
       <div
         id="reflection-incomplete"
@@ -155,10 +155,15 @@
         <div class="card-body bg-white border-bottom-left-8 border-bottom-right-8">
           <div class="row">
             <div class="col-md-12 col-12 center-col">
-              <div class="row">
+              <div
+                v-if="is_available"
+                class="row"
+              >
                 <div class="col-md-12 col-lg-12 col-12 text-center">
                   <p>
-                    <span class="weight-800 text-black">
+                    <span
+                      class="weight-800 text-black"
+                    >
                       {{ 'Daily assisgment for today is remaining' }}
                     </span>
                   </p>
@@ -169,6 +174,20 @@
                   >
                     {{ 'Attempt now' }}
                   </a>
+                </div>
+              </div>
+              <div
+                v-else
+                class="row"
+              >
+                <div class="col-md-12 col-lg-12 col-12 text-center">
+                  <p>
+                    <span
+                      class="weight-800 text-black"
+                    >
+                      {{ 'Daily assisgment for today will start at'+daily_assignment.start_time }}
+                    </span>
+                  </p>
                 </div>
               </div>
             </div>
@@ -190,7 +209,7 @@ export default {
 		return {
 			daily_report: null,
 			daily_assignment: null,
-               
+			is_available: false,
 		};
 	},
 	mounted() {
@@ -198,6 +217,7 @@ export default {
 			resp) => {
 			this.daily_report = resp.data.success.daily_report;
 			this.daily_assignment = resp.data.success.daily_assignment;
+			this.is_available = resp.data.success.is_available;
                    
 		});
 	}

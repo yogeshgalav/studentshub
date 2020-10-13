@@ -134,7 +134,7 @@ export default {
 	},
 	watch:{
 		items(val){
-			this.result = val;
+			this.results = val;
 			if(this.isAsync===true){
 				this.isOpen=true;
 			}
@@ -144,7 +144,7 @@ export default {
 		this.results = this.items;
 		document.addEventListener('click', this.handleClickOutside);
 		if(this.initialValue){
-			this.result = this.initialValue;
+			this.result = Object.assign({},this.initialValue);
 			this.search =this.result[this.value];
 		}
 	},

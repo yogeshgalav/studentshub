@@ -18,4 +18,15 @@ class DailyAssignment extends Model
     public function unit(){
         return $this->belongsTo('App\Models\Unit');
     }
+    public function isCurrentlyAvailable(){
+        if($this->end_time===null){
+            return true;
+        }
+        $current=Carbon::now(Auth::user()->timezone)->toTimeString();
+        if($carbon->gt($this->start_time) && $carbon->lt($this->end_time)){
+            return true;
+        }
+        return false;
+    }
+
 }

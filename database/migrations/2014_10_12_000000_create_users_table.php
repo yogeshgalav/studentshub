@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('full_name', 101);
             $table->string('email')->unique();
-            $table->char('timezone_code',9)->nullable();
+            $table->string('timezone')->default('Asia/Kolkata');
             $table->dateTime('email_verified_at')->nullable();
             $table->char('country_code',2)->default('IN');
             $table->char('locale_code',2)->default('EN');

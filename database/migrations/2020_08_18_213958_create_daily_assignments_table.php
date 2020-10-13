@@ -18,6 +18,8 @@ class CreateDailyAssignmentsTable extends Migration
             $table->integer('unit_id')->unsigned();
             $table->integer('classroom_id')->unsigned();
             $table->date('attempt_date');
+            $table->time('start_time')->nullable();
+            $table->time('end_time')->nullable();
             $table->dateTime('activated_at')->nullable();
             $table->timestamps();
         });
