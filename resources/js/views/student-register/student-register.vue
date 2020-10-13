@@ -419,7 +419,7 @@ export default {
 					id:3,
 					level:4,
 					name:'"Secoundary Stage (9-12)"'
-				};			
+				};
 			}else{
 				this.selected_level={
 					id:4,
@@ -549,32 +549,31 @@ export default {
 		setCourseLevel(result){
 			this.selected_level = result;
 			this.show_courses=false;
-			if(this.selected_level.level===2){
+			switch(this.selected_level.level) {
+			case 2:
 				this.selected_course = {
 					'id': 1001,
 					'course_name': this.selected_level.name,
 					'category_id': null
 				};
-			}else if(this.selected_level.level===3){
+				break;
+			case 3:
 				this.selected_course = {
 					'id': 1002,
 					'course_name': this.selected_level.name,
 					'category_id': null
 				};
-			}else if(this.selected_level.level===4){
+				break;
+			case 4:
 				this.selected_course = {
 					'id': 1003,
 					'course_name': this.selected_level.name,
 					'category_id': null
 				};
-			}else{
+			default:
 				this.show_courses=true;
+				break;
 			}
-			this.selected_course = {
-				'id': null,
-				'course_name': '',
-				'category_id': ''
-			};
 		}
 	},
 };

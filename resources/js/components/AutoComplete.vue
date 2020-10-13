@@ -141,6 +141,7 @@ export default {
 		},
 	},
 	mounted() {
+		this.results = this.items;
 		document.addEventListener('click', this.handleClickOutside);
 		if(this.initialValue){
 			this.result = Object.assign({},this.initialValue);
