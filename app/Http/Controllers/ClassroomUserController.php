@@ -53,8 +53,16 @@ class ClassroomUserController extends Controller
         ->select('users.id as user_id','users.full_name as user_name','csu.joined_at','st.unique_college_id')
         ->get();
 
+        $assignment_details = \DB::table('daily_assignments as da')
+        ->where('da.classroom_id',$classroom_id)
+        ->rightJoin('daily_reports as dr','dr.daily_assignment_id','=','da.id')
+        ->select('dr.*','da.attempt_date')
+        ->orderBy('da.attempt_date')
+        ->get();
+
         return response()->json(['success'=>[
-            'student_details'=>$student_details
+            'student_details'=>$student_details,
+            'assignment_details'=>$assignment_details
         ]]);
     }
 }

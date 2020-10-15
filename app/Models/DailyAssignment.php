@@ -25,7 +25,10 @@ class DailyAssignment extends Model
             return true;
         }
         $current=Carbon::now(Auth::user()->timezone);
-        if($current->gt($this->start_time) && $current->lt($this->end_time)){
+        $start_time = Carbon::parse($this->start_time,Auth::user()->timezone);
+        $end_time = Carbon::parse($this->end_time,Auth::user()->timezone);
+        // dd($current,$start_time,$current->gt($start_time),$current->lt($end_time));
+        if($current->gt($start_time) && $current->lt($end_time)){
             return true;
         }
         return false;
