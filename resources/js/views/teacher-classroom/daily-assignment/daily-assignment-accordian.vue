@@ -152,6 +152,7 @@
                 <daily-questions
                   :daily-questions="daily.daily_questions"
                   :assignment-id="daily.id"
+                  @totalUpdate="totalUpdate"
                 />
               </div>
             </div>
@@ -270,11 +271,11 @@ export default {
 					}
 				});
 		},
+		totalUpdate(total){
+			this.total=total;
+		},
 		activateDailyAssignment() {
-			let total_marks = this.daily.daily_questions.reduce((acc, currVal) => {
-				return acc + currVal.marks;
-			}, 0);
-			if (total_marks !== 10) {
+			if (this.total_marks !== 10) {
 				swal
 					.infoDialog('Total marks for Daily Assignment should be 10.');
 				return false;
