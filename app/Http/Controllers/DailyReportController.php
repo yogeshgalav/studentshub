@@ -26,12 +26,12 @@ class DailyReportController extends Controller
             ->where('daily_assignment_id',$daily_assignment->id)->first();
         }
 
-        if($daily_assignment && !$daily_assignment->isCurrentlyAvailable() && !empty($daily_report)){
-            return redirect('/classroom/'.$classroom_id.'/daily-assignment');
+        if($daily_assignment && $daily_assignment->isCurrentlyAvailable() && !empty($daily_report)){
+            return view('student-panel.daily-attempt')
+            ->with('daily_assignment',$daily_assignment);
         }
-
-        return view('student-panel.daily-attempt')
-        ->with('daily_assignment',$daily_assignment);
+        
+        return redirect('/classroom/'.$classroom_id.'/daily-assignment');
     }
 
     public function studentDailyReport($classroomId){

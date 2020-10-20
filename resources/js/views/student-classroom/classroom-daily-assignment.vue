@@ -185,7 +185,7 @@
                     <span
                       class="weight-800 text-black"
                     >
-                      {{ 'Daily assisgment for today has been ended at ' }}{{ daily_assignment.start_time | timeFormat }}
+                      {{ 'Daily assisgment for today has been ended at ' }}{{ daily_assignment.end_time | timeFormat }}
                     </span>
                   </p>
                 </div>
@@ -222,7 +222,7 @@ import dayjs from 'dayjs';
 export default {
 	filters:{
 		timeFormat(time){
-			return dayjs(time,'hh:mm:ss').format('HH:mm A');
+			return dayjs(time,'hh:mm:ss').format('hh:mm A');
 		}
 	},
 	data() {

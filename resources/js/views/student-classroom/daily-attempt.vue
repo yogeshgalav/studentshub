@@ -191,6 +191,9 @@ export default {
 		};
 	},
 	mounted(){
+		this.interval=setInterval(()=>{
+			this.timer=dayjs(this.timer,'mm:ss').add(1,'seconds').format('mm:ss');
+		}, 1000);
 		this.answers=this.dailyAssignment.daily_questions.map(node=>{
 			return {
 				'question_id': node.id,
@@ -212,9 +215,6 @@ export default {
 			evt.preventDefault();
 		}, false);
 
-		this.interval=setInterval(()=>{
-			this.timer=dayjs(this.timer,'mm:ss').add(1,'seconds').format('mm:ss');
-		}, 1000);
 	},
 	methods:{
 		sumbitAttempt(e){

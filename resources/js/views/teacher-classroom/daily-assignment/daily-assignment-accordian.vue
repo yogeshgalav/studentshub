@@ -8,6 +8,30 @@
           tab="accordion_status_unit_active"
         >
           <div class="row add_cl_q">
+            <div class="col-md-3 col-12">
+              <div class="form-group pl-0">
+                <label
+                  class="control-label mb-1"
+                  :for="'start_date'"
+                >Select Unit</label>
+                <select
+                  v-model="daily.unit_id"
+                  class="form-control"
+                  @change="updateAssignment(daily)"
+                >
+                  <option
+                    v-for="(unit,index2) in unitList"
+                    :key="index2"
+                    :value="unit.id"
+                  >
+                    {{ 'Unit '+unit.unit_no + ':' +unit.unit_name }}
+                  </option>
+                </select>
+                <div class="error">
+                  {{ formErrors('unit_id') }}
+                </div>
+              </div>
+            </div>
             <div class="col-md-6 col-12">
               <div class="row">
                 <div class="col-md-6">
@@ -44,135 +68,112 @@
               </div>
             </div>
           </div>
-          <div class="row add_cl_q">
-            <div class="col-md-6 col-12">
-              <div class="row">
-                <div class="col-md-6">
-                  <label
-                    class="text-black mb-1"
-                    :for="'start_time'"
-                  >{{ 'Start Time' }}</label>
-                  <div class="input-group-prepend">
-                    <div
-                      class="input-group-prepend date"
-                      data-provide="datepicker"
-                    >
-                      <span class="input-group-text">
-                        <i class="icon-calendar" />
-                      </span>
+          <div v-if="daily.id">
+            <div class="row add_cl_q">
+              <div class="col-md-6 col-12">
+                <div class="row">
+                  <div class="col-md-6">
+                    <label
+                      class="text-black mb-1"
+                      :for="'start_time'"
+                    >{{ 'Start Time' }}</label>
+                    <div class="input-group-prepend">
+                      <div
+                        class="input-group-prepend date"
+                        data-provide="datepicker"
+                      >
+                        <span class="input-group-text">
+                          <i class="icon-calendar" />
+                        </span>
+                      </div>
+                      <date-picker
+                        :id="'start_time'"
+                        v-validate="'required'"
+                        :value="dailyStartTime"
+                        :name="'start_time'"
+                        value-type="format"
+                        :typeable="true"
+                        :type="'time'"
+                        :format="'hh:mm a'"
+                        :lang="'en'"
+                        placeholder
+                        :time-picker-options="{ start: currentUserStartTime, step: '00:15', end: '23:45' }"
+                        @input="timeFormat('start',$event)"
+                        @change="updateAssignment(daily)"
+                      />
                     </div>
-                    <date-picker
-                      :id="'start_time'"
-                      v-validate="'required'"
-                      :value="dailyStartTime"
-                      :name="'start_time'"
-                      value-type="format"
-                      :typeable="true"
-                      :type="'time'"
-                      :format="'hh:mm a'"
-                      :lang="'en'"
-                      placeholder
-                      :time-picker-options="{ start: '08:00', step: '00:15', end: '22:00' }"
-                      @input="timeFormat('start',$event)"
-                      @change="updateAssignment(daily)"
-                    />
+                    <span class="text-danger">{{ formErrors('start_time') }}</span>
                   </div>
-                  <span class="text-danger">{{ formErrors('start_time') }}</span>
-                </div>
                 
-                <div class="col-md-6">
-                  <label
-                    class="text-black mb-1"
-                    :for="'start_time'"
-                  >{{ 'End Time' }}</label>
-                  <div class="input-group-prepend">
-                    <div
-                      class="input-group-prepend date"
-                      data-provide="datepicker"
-                    >
-                      <span class="input-group-text">
-                        <i class="icon-calendar" />
-                      </span>
+                  <div class="col-md-6">
+                    <label
+                      class="text-black mb-1"
+                      :for="'start_time'"
+                    >{{ 'End Time' }}</label>
+                    <div class="input-group-prepend">
+                      <div
+                        class="input-group-prepend date"
+                        data-provide="datepicker"
+                      >
+                        <span class="input-group-text">
+                          <i class="icon-calendar" />
+                        </span>
+                      </div>
+                      <date-picker
+                        :id="'end_time'"
+                        v-validate="'required'"
+                        :value="dailyEndTime"
+                        :name="'end_time'"
+                        value-type="format"
+                        :typeable="true"
+                        :type="'time'"
+                        :format="'hh:mm a'"
+                        :lang="'en'"
+                        placeholder
+                        :time-picker-options="{ start: currentUserStartTime, step: '00:15', end: '23:45' }"
+                        @input="timeFormat('end',$event)"
+                        @change="updateAssignment(daily)"
+                      />
                     </div>
-                    <date-picker
-                      :id="'end_time'"
-                      v-validate="'required'"
-                      :value="dailyEndTime"
-                      :name="'end_time'"
-                      value-type="format"
-                      :typeable="true"
-                      :type="'time'"
-                      :format="'hh:mm a'"
-                      :lang="'en'"
-                      placeholder
-                      :time-picker-options="{ start: '08:00', step: '00:15', end: '22:00' }"
-                      @input="timeFormat('end',$event)"
-                      @change="updateAssignment(daily)"
-                    />
-                  </div>
-                  <span class="text-danger">{{ formErrors('end_time') }}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row add_cl_q">
-            <div class="col-md-12">
-              <div class="col-md-3 col-12">
-                <div class="form-group pl-0">
-                  <label
-                    class="control-label mb-1"
-                    :for="'start_date'"
-                  >Select Unit</label>
-                  <select
-                    v-model="daily.unit_id"
-                    class="form-control"
-                    @change="updateAssignment(daily)"
-                  >
-                    <option
-                      v-for="(unit,index2) in unitList"
-                      :key="index2"
-                      :value="unit.id"
-                    >
-                      {{ 'Unit '+unit.unit_no + ':' +unit.unit_name }}
-                    </option>
-                  </select>
-                  <div class="error">
-                    {{ formErrors('unit_id') }}
+                    <span class="text-danger">{{ formErrors('end_time') }}</span>
                   </div>
                 </div>
               </div>
-              <div class="text-grey col-md-12">
-                <p>
-                  Students will be asked to answer the following questions on this unit
-                  attempt
-                </p>
-              </div>
-
-              <daily-questions
-                :daily-questions="daily.daily_questions"
-                :assignment-id="daily.id"
-              />
             </div>
-          </div>
+            <div class="row add_cl_q">
+              <div class="col-md-12">
+                <div class="text-grey col-md-12">
+                  <p>
+                    Students will be asked to answer the following questions on this unit
+                    attempt
+                  </p>
+                </div>
 
-          <div
-            v-if="daily.id"
-            class="mt-5"
-          >
-            <hr>
-            <button
-              class="btn btn-danger btn-md"
-              @click="deleteDailyAssignment(daily)"
+                <daily-questions
+                  :daily-questions="daily.daily_questions"
+                  :assignment-id="daily.id"
+                />
+              </div>
+            </div>
+
+            <div
+              class="mt-5"
             >
-              Delete Daily
-              Assignment
-            </button>
-            <button
-              class="btn btn-primary btn-md"
-              @click="activateDailyAssignment(daily)"
-            >
-              {{ daily.activated_at ? 'Deactivate Daily Assignment' : 'Activate Daily Assignment' }}
-            </button>
+              <hr>
+              <button
+                class="btn btn-danger btn-md"
+                @click="deleteDailyAssignment(daily)"
+              >
+                Delete Daily
+                Assignment
+              </button>
+              <button
+                class="btn btn-primary btn-md"
+                @click="activateDailyAssignment(daily)"
+              >
+                {{ daily.activated_at ? 'Deactivate Daily Assignment' : 'Activate Daily Assignment' }}
+              </button>
+            </div>
           </div>
         </accordion>
       </div>
@@ -210,7 +211,14 @@ export default {
 		},
 		dailyEndTime(){
 			return dayjs(this.daily.end_time,'HH:mm:ss').format('hh:mm a');
-		}
+		},
+		currentUserStartTime(){
+			if(this.attempt_date!==dayjs().format('YYYY-MM-DD')){
+				return '00:00';
+			}
+
+			return  dayjs().add(15 - dayjs().minute() % 15, 'minutes').format('HH:mm');
+		},
 	},
 	methods: {
 		timeFormat(type,newValue){
