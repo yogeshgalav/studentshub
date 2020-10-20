@@ -28,35 +28,6 @@
         </vue-table-component>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-8">
-        <div
-          v-for="(student,index) in unjoinedStudents"
-          :key="student.user_id"
-          class="card mt-5"
-        >
-          <div class="card-header">
-            <h4 class="mb-1">
-              {{ student.user_name }}
-            </h4>
-          </div>
-          <div class="card-body">
-            <button
-              class="btn btn-md btn-success"
-              @click="acceptJoinRequest(student.user_id,'accept')"
-            >
-              Accept
-            </button>
-            <button
-              class="btn btn-md btn-danger"
-              @click="acceptJoinRequest(student.user_id,'decline')"
-            >
-              Decline
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 <script>
@@ -166,16 +137,6 @@ export default {
 					return node;
 				});
 			});
-		},
-		acceptJoinRequest(user_id,status) {
-			this.axios.post('/api/classroom/user-request-action', {
-				user_id: user_id,
-				status: status,
-				classroom_id: this.$route.params.classroomId,
-			}).then((resp) => {
-				this.student_details = this.student_details.filter(node=>node.user_id!=user_id);
-			});;
-
 		},
 	},
 

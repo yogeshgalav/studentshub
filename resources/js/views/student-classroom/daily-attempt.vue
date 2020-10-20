@@ -185,7 +185,7 @@ export default {
 	props:['dailyAssignment'],
 	data(){
 		return {
-			timer:'00:00',
+			timer:'00:01',
 			answers:[],
 			interval:null
 		};
@@ -213,8 +213,8 @@ export default {
 		}, false);
 
 		this.interval=setInterval(()=>{
-			this.timer=dayjs(this.timer,'mm:ss').add(2,'seconds').format('mm:ss');
-		}, 2000);
+			this.timer=dayjs(this.timer,'mm:ss').add(1,'seconds').format('mm:ss');
+		}, 1000);
 	},
 	methods:{
 		sumbitAttempt(e){
