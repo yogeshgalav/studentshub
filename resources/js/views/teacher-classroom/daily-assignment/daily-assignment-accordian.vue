@@ -130,7 +130,8 @@
                         :format="'hh:mm a'"
                         :lang="'en'"
                         placeholder
-                        :time-picker-options="{ start: currentUserStartTime, step: '00:15', end: '23:45' }"
+                        :disabled="dailyStartTime==='Invalid Date'"
+                        :time-picker-options="{ start: currentUserEndTime, step: '00:15', end: '23:45' }"
                         @input="timeFormat('end',$event)"
                         @change="updateAssignment(daily)"
                       />
@@ -204,6 +205,7 @@ export default {
 		return {
 			currentDate:new Date(),
 			daily: this.assignment,
+			total: 0,
 		};
 	},
 	computed:{
@@ -214,11 +216,16 @@ export default {
 			return dayjs(this.daily.end_time,'HH:mm:ss').format('hh:mm a');
 		},
 		currentUserStartTime(){
-			if(this.attempt_date!==dayjs().format('YYYY-MM-DD')){
+			if(this.daily.attempt_date!==dayjs().format('YYYY-MM-DD')){
 				return '00:00';
 			}
-
 			return  dayjs().add(15 - dayjs().minute() % 15, 'minutes').format('HH:mm');
+		},
+		currentUserEndTime(){
+			if(this.dailyStartTime){
+				return dayjs(this.dailyStartTime,'hh:mm a').add(15, 'minutes').format('HH:mm');
+			}
+			return  this.currentUserStartTime;
 		},
 	},
 	methods: {
@@ -275,7 +282,7 @@ export default {
 			this.total=total;
 		},
 		activateDailyAssignment() {
-			if (this.total_marks !== 10) {
+			if (this.total !== 10) {
 				swal
 					.infoDialog('Total marks for Daily Assignment should be 10.');
 				return false;

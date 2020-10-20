@@ -5,7 +5,7 @@ import ClassroomResourceComponent from '../../views/student-classroom/classroom.
 import ClassroomMessageComponent from '../../views/student-classroom/classroom.vue';
 import ClassroomDoubtComponent from '../../views/student-classroom/classroom-doubts.vue';
 import ClassroomStudentReportComponent from '../../views/teacher-classroom/classroom-student-report.vue';
-import ClassroomDailyReportComponent from '../../views/student-classroom/classroom-daily-report.vue';
+// import ClassroomDailyReportComponent from '../../views/student-classroom/classroom-daily-report.vue';
 
 const StudentClassroomRoutes = [
 	{
@@ -20,14 +20,14 @@ const StudentClassroomRoutes = [
 		path: '/classroom/:classroomId/daily-assignment',
 		component: ClassroomDailyAssignmentComponent,
 	},
-	{
-		path: '/classroom/:classroomId/daily-report',
-		component: ClassroomDailyReportComponent,
-	},
-	{
-		path: '/classroom/:classroomId/students',
-		component: ClassroomStudentDetailComponent,
-	},
+	// {
+	// 	path: '/classroom/:classroomId/daily-report',
+	// 	component: ClassroomDailyReportComponent,
+	// },
+	// {
+	// 	path: '/classroom/:classroomId/students',
+	// 	component: ClassroomStudentDetailComponent,
+	// },
 	{
 		path: '/classroom/:classroomId/resources',
 		component: ClassroomResourceComponent,
