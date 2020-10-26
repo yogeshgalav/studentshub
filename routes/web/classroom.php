@@ -6,7 +6,7 @@ Route::group(['middleware'=>['auth']],function(){
     //claasrooom create
     Route::get('/create-classroom','ClassroomController@createClassroomPage');
     //student's info view for teachers
-    Route::get('/classroom/{classroomId}/student-panel/{?userId}','ClassroomController@studentPanelPage');
+    Route::get('/classroom/{classroomId}/student-panel/{userId?}','ClassroomController@studentPanelPage');
     
     //classrrom pages
     Route::get('/classroom/{classroomId}','ClassroomController@classroomPage');

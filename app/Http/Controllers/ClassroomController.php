@@ -121,7 +121,11 @@ class ClassroomController extends Controller
         return view('student-panel.unit-attempt');
     }
 
-    public function studentPanelPage(){
+    public function studentPanelPage($classroom_id,$user_id){
+        if($user_id){
+            return view('classroom.student-panel');
+        }
+
         return view('student-panel.my-panel');
     }
 

@@ -96,7 +96,7 @@ class DailyReportController extends Controller
 
     public function getDailyReports($classroom_id, $user_id){
         $student_id = $user_id ? $user_id : Auth::id();
-        $daily_reports=DB::table('classrooms as cl')->where('id',$classroom_id)
+        $daily_reports=DB::table('classrooms as cl')->where('cl.id',$classroom_id)
         ->rightJoin('daily_assignments as da','da.classroom_id','=','cl.id')
         ->rightJoin('daily_reports as dr',function($join)use($student_id){
             $join->on('dr.daily_assignment_id','=','da.id')->where('user_id','=',$student_id);
@@ -105,14 +105,14 @@ class DailyReportController extends Controller
         ->get();
 
         if(count($daily_reports)){            
-            $daily_assignment = DailyReport::where('id',$daily_reports[0]['id'])
-            ->with('DailyAnswer.dailyQuestions.multipleChoice')
+            $current_report = DailyReport::where('id',$daily_reports[0]->id)
+            ->with('DailyAnswer.dailyQuestion.multipleChoice')
             ->first();
         }
-        
-        return respons()->json(['success'=>[
+
+        return response()->json(['success'=>[
             'daily_reports'=>$daily_reports,
-            'daily_assignment'=>$daily_assignment
+            'current_report'=>$current_report
         ]]);
     }
 
@@ -121,7 +121,7 @@ class DailyReportController extends Controller
         ->with('DailyAnswer.dailyQuestions.multipleChoice')
         ->first();
 
-        return respons()->json(['success'=>[
+        return response()->json(['success'=>[
             'daily_assignment'=>$daily_assignment
         ]]);
     }

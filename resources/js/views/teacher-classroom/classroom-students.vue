@@ -14,7 +14,7 @@
           >
             <span v-if="props.column.field==='user_name'">
               <a
-                :href="'/student-panel/'+props.row.user_id"
+                :href="'/classroom/'+$route.params.classroomId+'/student-panel/'+props.row.user_id"
                 class="text-underline"
               >{{ props.row['user_name'] }}</a>
             </span>

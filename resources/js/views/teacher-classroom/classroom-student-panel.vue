@@ -6,7 +6,7 @@
           <li
             v-for="report in daily_reports"
             :key="report.attempt_date"
-            @click="getDailyAnswer(report.id)"
+            @click="getDailyAnswer(report)"
           >
             {{ report.attempt_date }}
           </li>
@@ -23,7 +23,7 @@
             <div class="row">
               <div class="col-md-12 col-12 center-col">
                 <div
-                  v-for="(question,index) in daily_assignment.daily_questions"
+                  v-for="(answer,index) in current_report.daily_answer"
                   :key="index"
                   class="col-md-6 border-bottom-1px ml-3 p-3 mb-3"
                 >
@@ -37,7 +37,7 @@
                         </div>
                         <div class="col-md-3">
                           <label class="btn btn-white ">
-                            {{ 'Marks:'+ ' ' + question.marks }}
+                            {{ 'Marks:'+ ' ' + answer.daily_question.marks }}
                           </label>
                         </div>
                       </div>
@@ -49,18 +49,18 @@
                       <div class="row">
                         <div class="col-md-12">
                           <div class="mb-2 weight-500">
-                            {{ question.question_text }}
+                            {{ answer.daily_question.question_text }}
                           </div>
                         </div>
                       </div>
                       <div
-                        v-for="(choice,index2) in question.multiple_choice"
+                        v-for="(choice,index2) in answer.daily_question.multiple_choice"
                         :key="index2"
                         class="row"
                       >
                         <div class="col-md-9 mb-1 mt-1 ">
                           <div
-                            v-if="choice.option_order===question.correct_answer"
+                            v-if="choice.option_order===answer.daily_question.correct_answer"
                             class="row line-height-30 bg-card-green p-2"
                           >
                             <div class="'bg-circle-white'">
@@ -69,7 +69,7 @@
                             <span class="pl-2">  {{ choice.option_text }}  </span>
                           </div>
                           <div
-                            v-else-if="choice.option_order===question.my_daily_answer.selected_answer"
+                            v-else-if="choice.option_order===answer.selected_answer"
                             class="row line-height-30 bg-card-yellow p-2"
                           >
                             <div class="'bg-circle-white'">
@@ -98,7 +98,7 @@
             <div class="row">
               <div class="col-md-12">
                 <p class="text-black mb-1">
-                  Marks obtained : <span class="text-success weight-800"> {{ daily_report.marks_obtained }} </span> | Rank : <span class="text-success weight-800"> {{ daily_report.rank }} </span>
+                  Marks obtained : <span class="text-success weight-800"> {{ current_report.marks_obtained }} </span> | Rank : <span class="text-success weight-800"> {{ current_report.rank }} </span>
                 </p>
               </div>
             </div>
@@ -112,7 +112,7 @@
 export default {
 	data(){
 		return {
-			daily_assignment:[],
+			current_report:[],
 			daily_reports:[],
 		};
 	},
@@ -124,20 +124,20 @@ export default {
 		getDailyReports(){
 			let url='/api/classroom/' + this.$route.params.classroomId + '/get-student-daily-reports';
 			if(this.$route.name==='ClassroomStudentPanel'){
-				url=url+'/'+this.$router.params.userId;
+				url=url+'/'+this.$router.currentRoute.params.userId;
 			}
 			this.axios.get(url).then((
 				resp) => {
 				this.daily_reports = resp.data.success.daily_reports;
-				this.daily_assignment = resp.data.success.daily_assignment;                   
+				this.current_report = resp.data.success.current_report;
 			});    
 		},
-		getDailyAnswer(report_id){
+		getDailyAnswer(report){
 			this.axios.post('/api/classroom/' + this.$route.params.classroomId + '/get-daily-answers',{
-				'report_id':report_id,
+				'report_id':report.id,
 			}).then((
 				resp) => {
-				this.daily_assignment = resp.data.success.daily_assignment;                   
+				this.current_report = resp.data.success.current_report;                   
 			});    
 		}
 	}

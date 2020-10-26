@@ -25,7 +25,7 @@ Route::group(['middleware'=>['auth:api']],function(){
     //student daily assignment page
     Route::get('/classroom/{classroomId}/get-todays-report','DailyReportController@getTodaysReport');
     //student panel
-    Route::get('/classroom/{classroomId}/get-daily-reports/{?userId}','DailyReportController@getDailyReports');
+    Route::get('/classroom/{classroomId}/get-student-daily-reports/{userId?}','DailyReportController@getDailyReports');
     Route::post('/classroom/{classroomId}/get-daily-answers','DailyReportController@getDailyAnswers');
     
 });
