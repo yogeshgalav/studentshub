@@ -118,7 +118,7 @@ class DailyReportController extends Controller
 
     public function getDailyAnswers(Request $request){
         $daily_assignment = DailyReport::where('id',$request->report_id)
-        ->with('DailyAnswer.dailyQuestions.multipleChoice')
+        ->with('DailyAnswer.dailyQuestion.multipleChoice')
         ->first();
 
         return response()->json(['success'=>[
