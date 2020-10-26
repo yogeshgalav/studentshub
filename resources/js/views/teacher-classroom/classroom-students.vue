@@ -4,7 +4,8 @@
     <div class="row">
       <div class="col-md-8">
         <vue-table-component
-          :columns="columns"
+          key="joinedStudents"
+          :columns="joinedColumns"
           :rows="joinedStudents"
         >
           <template
@@ -30,31 +31,49 @@
     </div>
     <div class="row">
       <div class="col-md-8">
-        <div
-          v-for="(student,index) in unjoinedStudents"
-          :key="student.user_id"
-          class="card mt-5"
+        <vue-table-component
+          key="unjoinedStudents"
+          :columns="unjoinedColumns"
+          :rows="unjoinedStudents"
         >
-          <div class="card-header">
-            <h4 class="mb-1">
-              {{ student.user_name }}
-            </h4>
+          <template
+            slot="table-row"
+            slot-scope="props"
+          >
+            <span v-if="props.column.field==='user_name'">
+              <a
+                :href="'/student-panel/'+props.row.user_id"
+                class="text-underline"
+              >{{ props.row['user_name'] }}</a>
+            </span>
+
+            <span v-else-if="props.column.field==='accept_request'">  
+              <button
+                class="btn btn-md btn-success"
+                @click="acceptJoinRequest(props.row.user_id,'accept')"
+              >
+                Accept
+              </button>
+            </span>
+
+            <span v-else-if="props.column.field==='delete_request'">
+              <button
+                class="btn btn-md btn-danger"
+                @click="acceptJoinRequest(props.row.user_id,'decline')"
+              >
+                Decline
+              </button>
+            </span>
+			
+            <span v-else>{{ props.row[props.column.field] }}</span>
+          </template>
+          <div slot="emptystate">
+            <p class="mt-3">
+              {{ 'Currently no student has joined this classroom' }}
+            </p>
+            <p>{{ 'Share join Id and accept there request to join here.' }}</p>
           </div>
-          <div class="card-body">
-            <button
-              class="btn btn-md btn-success"
-              @click="acceptJoinRequest(student.user_id,'accept')"
-            >
-              Accept
-            </button>
-            <button
-              class="btn btn-md btn-danger"
-              @click="acceptJoinRequest(student.user_id,'decline')"
-            >
-              Decline
-            </button>
-          </div>
-        </div>
+        </vue-table-component>
       </div>
     </div>
   </div>
@@ -71,7 +90,7 @@ export default {
 	data() {
 		return {
 			student_details: [],
-			columns: [
+			joinedColumns: [
 				{
 					label: 'Student Name',
 					field: 'user_name',
@@ -108,6 +127,24 @@ export default {
 					field: 'daily_average_rank',
 				},
 			],
+			unjoinedColumns: [
+				{
+					label: 'Student Name',
+					field: 'user_name',
+				},
+				{
+					label: 'Institute ID',
+					field: 'unique_college_id',
+				},
+				{
+					label: 'Accept Request',
+					field: 'accept_request',
+				},
+				{
+					label: 'Delete Request',
+					field: 'accept_request',
+				},
+			]
 		};
 	},
 	computed: {
@@ -123,7 +160,7 @@ export default {
 	},
 	methods: {
 		getClassroomStudentDetails(){
-			this.axios('/api/classroom/'+ this.$route.params.classroomId +'/student-details').then((resp)=>{
+			this.axios('/api/classroom/'+ this.$route.params.classroomId +'/students-data').then((resp)=>{
 				this.student_details=resp.data.success.student_details;
 				this.assignment_details = resp.data.success.assignment_details;
 				this.student_details.map(node=>{
@@ -173,7 +210,7 @@ export default {
 				status: status,
 				classroom_id: this.$route.params.classroomId,
 			}).then((resp) => {
-				this.student_details = this.student_details.filter(node=>node.user_id!=user_id);
+				this.student_details = this.student_details.filter(node=>node.user_id!==user_id);
 			});;
 
 		},

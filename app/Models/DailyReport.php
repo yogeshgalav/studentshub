@@ -12,4 +12,7 @@ class DailyReport extends Model
     public function dailyAssignment(){
         return $this->belongsTo('App\Models\DailyAssignment');
     }
+    public function dailyAnswer(){
+        return $this->hasMany(DailyAnswer::class);
+    }
 }

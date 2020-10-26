@@ -1,7 +1,17 @@
 <template>
   <div>
     <div class="row">
-      <div class="col-md-2" />
+      <div class="col-md-2">
+        <ul>
+          <li
+            v-for="report in daily_reports"
+            :key="report.attempt_date"
+            @click="getDailyAnswer(report.id)"
+          >
+            {{ report.attempt_date }}
+          </li>
+        </ul>
+      </div>
       <div class="col-md-8">
         <div class="card mt-3 mb-3  bg-default ">
           <div class="card-header">
@@ -103,16 +113,28 @@ export default {
 	data(){
 		return {
 			daily_assignment:[],
+			daily_reports:[],
 		};
 	},
 	mounted() {
-		this.getAssignmentDetails(attempt_date);
+		this.getDailyReports();
+		// this.getDailyAssignmentReport(attempt_date);
 	},
 	methods:{
-		getAssignmentDetails(attempt_date){
+		getDailyReports(){
+			let url='/api/classroom/' + this.$route.params.classroomId + '/get-student-daily-reports';
+			if(this.$route.name==='ClassroomStudentPanel'){
+				url=url+'/'+this.$router.params.userId;
+			}
+			this.axios.get(url).then((
+				resp) => {
+				this.daily_reports = resp.data.success.daily_reports;
+				this.daily_assignment = resp.data.success.daily_assignment;                   
+			});    
+		},
+		getDailyAnswer(report_id){
 			this.axios.post('/api/classroom/' + this.$route.params.classroomId + '/get-daily-answers',{
-				'user_id':this.AuthUser.id,
-				'attempt_date':attempt_date,
+				'report_id':report_id,
 			}).then((
 				resp) => {
 				this.daily_assignment = resp.data.success.daily_assignment;                   

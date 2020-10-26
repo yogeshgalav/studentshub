@@ -17,6 +17,7 @@ class CreateDailyAnswersTable extends Migration
             $table->bigIncrements('id');
             $table->integer('user_id')->unsigned();
             $table->integer('daily_question_id')->unsigned();
+            $table->integer('daily_report_id')->unsigned();
             $table->tinyInteger('selected_answer');
             $table->timestamps();
         });

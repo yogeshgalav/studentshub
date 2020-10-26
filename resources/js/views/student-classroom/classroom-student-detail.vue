@@ -94,7 +94,7 @@ export default {
 	},
 	methods: {
 		getClassroomStudentDetails(){
-			this.axios('/api/classroom/'+ this.$route.params.classroomId +'/student-details').then((resp)=>{
+			this.axios('/api/classroom/'+ this.$route.params.classroomId +'/students-data').then((resp)=>{
 				this.student_details=resp.data.success.student_details;
 				this.assignment_details = resp.data.success.assignment_details;
 				this.student_details.map(node=>{

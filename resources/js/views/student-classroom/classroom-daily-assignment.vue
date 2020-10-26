@@ -238,7 +238,7 @@ export default {
 		}
 	},
 	mounted() {
-		this.axios.get('/api/classroom/' + this.$route.params.classroomId + '/get-student-daily-report').then((
+		this.axios.get('/api/classroom/' + this.$route.params.classroomId + '/get-todays-report').then((
 			resp) => {
 			this.daily_report = resp.data.success.daily_report;
 			this.daily_assignment = resp.data.success.daily_assignment;

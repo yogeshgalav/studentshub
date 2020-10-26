@@ -7,8 +7,8 @@ import ClassroomDailyReportComponent from '../../views/teacher-classroom/classro
 import ClassroomResourceComponent from '../../views/teacher-classroom/classroom.vue';
 import ClassroomMessageComponent from '../../views/teacher-classroom/classroom.vue';
 import ClassroomDoubtComponent from '../../views/teacher-classroom/classroom.vue';
-import ClassroomStudentDetailsComponent from '../../views/teacher-classroom/classroom-student-detail.vue';
-import ClassroomStudentReportComponent from '../../views/teacher-classroom/classroom-student-report.vue';
+import ClassroomStudentsComponent from '../../views/teacher-classroom/classroom-students.vue';
+import ClassroomStudentPanelComponent from '../../views/teacher-classroom/classroom-student-panel.vue';
 
 const TeacherClassroomRoutes = [
 	{
@@ -50,11 +50,12 @@ const TeacherClassroomRoutes = [
 	},
 	{
 		path: '/classroom/:classroomId/students',
-		component: ClassroomStudentDetailsComponent,
+		component: ClassroomStudentsComponent,
 	},
 	{
-		path: '/classroom/:classroomId/student-report/:userId',
-		component: ClassroomStudentReportComponent,
+		path: '/classroom/:classroomId/student-panel/:userId',
+		component: ClassroomStudentPanelComponent,
+		name: 'ClassroomStudentPanel'
 	},
 ];
 

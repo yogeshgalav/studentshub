@@ -4,7 +4,7 @@ import ClassroomDailyAssignmentComponent from '../../views/student-classroom/cla
 import ClassroomResourceComponent from '../../views/student-classroom/classroom.vue';
 import ClassroomMessageComponent from '../../views/student-classroom/classroom.vue';
 import ClassroomDoubtComponent from '../../views/student-classroom/classroom-doubts.vue';
-import ClassroomStudentReportComponent from '../../views/teacher-classroom/classroom-student-report.vue';
+import ClassroomStudentPanelComponent from '../../views/teacher-classroom/classroom-student-panel.vue';
 // import ClassroomDailyReportComponent from '../../views/student-classroom/classroom-daily-report.vue';
 
 const StudentClassroomRoutes = [
@@ -20,10 +20,6 @@ const StudentClassroomRoutes = [
 		path: '/classroom/:classroomId/daily-assignment',
 		component: ClassroomDailyAssignmentComponent,
 	},
-	// {
-	// 	path: '/classroom/:classroomId/daily-report',
-	// 	component: ClassroomDailyReportComponent,
-	// },
 	// {
 	// 	path: '/classroom/:classroomId/students',
 	// 	component: ClassroomStudentDetailComponent,
@@ -41,8 +37,8 @@ const StudentClassroomRoutes = [
 		component: ClassroomDoubtComponent,
 	},
 	{
-		path: '/classroom/:classroomId/my-report',
-		component: ClassroomStudentReportComponent,
+		path: '/classroom/:classroomId/student-panel',
+		component: ClassroomStudentPanelComponent,
 	},
 ];
 
