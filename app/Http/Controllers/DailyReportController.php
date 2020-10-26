@@ -26,15 +26,15 @@ class DailyReportController extends Controller
             ->where('daily_assignment_id',$daily_assignment->id)->first();
         }
 
-        if($daily_assignment && !$daily_assignment->isCurrentlyAvailable() && !empty($daily_report)){
-            return redirect('/classroom/'.$classroom_id.'/daily-assignment');
+        if($daily_assignment && $daily_assignment->isCurrentlyAvailable() && !empty($daily_report)){
+            return view('student-panel.daily-attempt')
+            ->with('daily_assignment',$daily_assignment);
         }
-
-        return view('student-panel.daily-attempt')
-        ->with('daily_assignment',$daily_assignment);
+        
+        return redirect('/classroom/'.$classroom_id.'/daily-assignment');
     }
 
-    public function studentDailyReport($classroomId){
+    public function getTodaysReport($classroomId){
         $daily_assignment = DailyAssignment::where('attempt_date',Carbon::now(Auth::user()->timezone)->toDateString())
         ->where('activated_at','!=',null)
         ->where('classroom_id',$classroomId)
@@ -63,18 +63,13 @@ class DailyReportController extends Controller
     try{
         $total_marks = 0;
         foreach($request->answers as $answer){
-            DailyAnswer::create([
-                'user_id'=>Auth::id(),
-                'daily_question_id'=>$answer['question_id'],
-                'selected_answer'=>$answer['answer'],
-            ]);
             $question=$daily_questions->where('id',$answer['question_id'])->first();
             if($question->correct_answer==$answer['answer']){
                 $total_marks=$total_marks+$question->marks;
             }
         }
 
-        DailyReport::create([
+        $report = DailyReport::create([
             'user_id'=>Auth::id(),
             'daily_assignment_id'=>$request->daily_assignment_id,
             'duration'=>$request->time,
@@ -82,6 +77,14 @@ class DailyReportController extends Controller
             'marks_obtained'=>$total_marks
         ]);
 
+        foreach($request->answers as $answer){
+            DailyAnswer::create([
+                'user_id'=>Auth::id(),
+                'daily_question_id'=>$answer['question_id'],
+                'daily_report_id'=>$report->id,
+                'selected_answer'=>$answer['answer'],
+            ]);
+        }
         DB::commit();
     } catch (\Exception $e) {
         DB::rollback();
@@ -91,4 +94,35 @@ class DailyReportController extends Controller
         return redirect('/classroom/'.$request->classroom_id.'/daily-assignment');
     }
 
+    public function getDailyReports($classroom_id, $user_id){
+        $student_id = $user_id ? $user_id : Auth::id();
+        $daily_reports=DB::table('classrooms as cl')->where('cl.id',$classroom_id)
+        ->rightJoin('daily_assignments as da','da.classroom_id','=','cl.id')
+        ->rightJoin('daily_reports as dr',function($join)use($student_id){
+            $join->on('dr.daily_assignment_id','=','da.id')->where('user_id','=',$student_id);
+        })
+        ->select('dr.*','da.attempt_date')
+        ->get();
+
+        if(count($daily_reports)){            
+            $current_report = DailyReport::where('id',$daily_reports[0]->id)
+            ->with('DailyAnswer.dailyQuestion.multipleChoice')
+            ->first();
+        }
+
+        return response()->json(['success'=>[
+            'daily_reports'=>$daily_reports,
+            'current_report'=>$current_report
+        ]]);
+    }
+
+    public function getDailyAnswers(Request $request){
+        $daily_assignment = DailyReport::where('id',$request->report_id)
+        ->with('DailyAnswer.dailyQuestion.multipleChoice')
+        ->first();
+
+        return response()->json(['success'=>[
+            'daily_assignment'=>$daily_assignment
+        ]]);
+    }
 }

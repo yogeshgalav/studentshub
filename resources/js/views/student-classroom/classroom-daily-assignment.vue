@@ -185,7 +185,7 @@
                     <span
                       class="weight-800 text-black"
                     >
-                      {{ 'Daily assisgment for today has been ended at ' }}{{ daily_assignment.start_time | timeFormat }}
+                      {{ 'Daily assisgment for today has been ended at ' }}{{ daily_assignment.end_time | timeFormat }}
                     </span>
                   </p>
                 </div>
@@ -222,7 +222,7 @@ import dayjs from 'dayjs';
 export default {
 	filters:{
 		timeFormat(time){
-			return dayjs(time,'hh:mm:ss').format('HH:mm A');
+			return dayjs(time,'hh:mm:ss').format('hh:mm A');
 		}
 	},
 	data() {
@@ -238,7 +238,7 @@ export default {
 		}
 	},
 	mounted() {
-		this.axios.get('/api/classroom/' + this.$route.params.classroomId + '/get-student-daily-report').then((
+		this.axios.get('/api/classroom/' + this.$route.params.classroomId + '/get-todays-report').then((
 			resp) => {
 			this.daily_report = resp.data.success.daily_report;
 			this.daily_assignment = resp.data.success.daily_assignment;

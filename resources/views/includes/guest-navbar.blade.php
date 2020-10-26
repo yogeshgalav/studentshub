@@ -15,7 +15,7 @@
       @include('includes.search-form')
       </li>
       <li class="nav-item">
-      <router-link class="btn btn-link text-black" :to="'/login'">Login</router-link>
+      <router-link class="btn btn-link text-blue" :to="'/login'">Login</router-link>
 
 
       </li>

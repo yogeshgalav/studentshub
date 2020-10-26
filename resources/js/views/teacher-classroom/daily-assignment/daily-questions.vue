@@ -77,11 +77,8 @@
     <modal
       name="addDailyQuestionModal"
       class="doubt_model model-md"
-      :clickToClose="false"
-     
-      
+      :click-to-close="false"
     >
-   
       <form
         v-slimscroll="options"
         style="padding:25px;"
@@ -90,12 +87,19 @@
         <div class="row">
           <div class="col-md-12 mt-2">
             <div class="row">
-              <div class="col-md-6">  <h4>Question</h4>    </div>
+              <div class="col-md-6">
+                <h4>Question</h4>
+              </div>
               <div class="col-md-6 text-right">
-                 <button type="button"  class="btn btn-lg btn-link font-size-24" @click="close()">&times;</button>
+                <button
+                  type="button"
+                  class="btn btn-lg btn-link font-size-24"
+                  @click="close()"
+                >
+                  &times;
+                </button>
               </div>
             </div>
-          
           </div>
           <div class="col-md-12">
             <div class="form-group">
@@ -325,18 +329,20 @@ export default {
 	},
 	computed:{
 		total_marks(){
-			return this.daily_questions.reduce((acc, currVal) => {
+			let total = this.daily_questions.reduce((acc, currVal) => {
 				return acc + currVal.marks;
 			}, 0);
+			this.$emit('totalUpdate',total);
+			return total;
 		}
 	},
 	mounted(){
 		this.daily_questions =this.dailyQuestions ? this.dailyQuestions :[];
 	},
 	methods: {
-    close() {
-	this.$modal.hide('addDailyQuestionModal');
-    },
+		close() {
+			this.$modal.hide('addDailyQuestionModal');
+		},
 		addQuestion() {
 			this.resetEditQuestion();
 			this.avail_marks = this.total_marks<11 ? (10-this.total_marks) : 0;

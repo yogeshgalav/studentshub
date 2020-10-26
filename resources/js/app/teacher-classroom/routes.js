@@ -4,11 +4,11 @@ import ClassroomSetupComponent from '../../views/teacher-classroom/classroom-set
 import ClassroomUnitAssignmentComponent from '../../views/teacher-classroom/classroom-unit-assignment.vue';
 import ClassroomDailyAssignmentComponent from '../../views/teacher-classroom/daily-assignment/classroom-daily-assignment.vue';
 import ClassroomDailyReportComponent from '../../views/teacher-classroom/classroom-daily-report.vue';
-import ClassroomStudentDetailComponent from '../../views/teacher-classroom/classroom.vue';
 import ClassroomResourceComponent from '../../views/teacher-classroom/classroom.vue';
 import ClassroomMessageComponent from '../../views/teacher-classroom/classroom.vue';
 import ClassroomDoubtComponent from '../../views/teacher-classroom/classroom.vue';
-import ClassroomStudentDetailsComponent from '../../views/teacher-classroom/classroom-student-detail.vue';
+import ClassroomStudentsComponent from '../../views/teacher-classroom/classroom-students.vue';
+import ClassroomStudentPanelComponent from '../../views/teacher-classroom/classroom-student-panel.vue';
 
 const TeacherClassroomRoutes = [
 	{
@@ -50,7 +50,12 @@ const TeacherClassroomRoutes = [
 	},
 	{
 		path: '/classroom/:classroomId/students',
-		component: ClassroomStudentDetailsComponent,
+		component: ClassroomStudentsComponent,
+	},
+	{
+		path: '/classroom/:classroomId/student-panel/:userId',
+		component: ClassroomStudentPanelComponent,
+		name: 'ClassroomStudentPanel'
 	},
 ];
 
