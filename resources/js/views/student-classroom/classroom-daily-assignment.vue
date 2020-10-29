@@ -28,7 +28,7 @@
       <div class="card mt-3 mb-3  bg-default ">
         <div class="card-header">
           <h3 class="text-center font-size-18 text-black">
-            {{ 'Attempted Questions Status' }}
+            {{ 'Attempted Questions Status 1' }}
           </h3>
         </div>
         <div class="card-body bg-white border-bottom-left-8 border-bottom-right-8">
