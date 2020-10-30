@@ -21,7 +21,9 @@
     @include('includes.sidebar')
 </div>
 
-@yield('content')  
+<div class="pt-100-px">
+    @yield('content') 
+</div> 
 </main>
 </div>
     @include('includes.jsVariables')

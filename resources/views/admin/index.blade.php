@@ -1,8 +1,8 @@
 @extends('admin.app')
 
 @section('content')
- <div class="main-panel">
-        <div class="content-wrapper">
+ <div class="container">
+        <div class="content-wrapper pt-100-px">
           
           <div class="row">
             <div class="col-md-12 grid-margin">

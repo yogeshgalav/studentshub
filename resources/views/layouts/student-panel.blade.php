@@ -21,8 +21,8 @@
     @include('includes.sidebar')
     </div>
 
-    <div class="main-panel">
-        <div class="content">
+    <div class="container">
+        <div class="content pt-100-px">
             @yield('content')
         </div>
     </div>
