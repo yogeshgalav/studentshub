@@ -1843,22 +1843,27 @@ button:focus{ outline: none;}
   
   .hamburger:before {
       content:"\2630"; /* hamburger icon */
-      display: block;
-    color: white;
+    display: block;
+    color: #333;
     line-height: 32px;
     font-size: 16px;
+    right: 0;
+   
   }
   
   .openNav .hamburger:before {
       content:"\2715"; /* close icon */
       display: block;
-    color: white;
+    color: #333;
     line-height: 32px;
     font-size: 16px;
+    position: absolute;
+    top: 0px;
+    left: 200px;
   }
   
   .hamburger:hover:before {
-    color: #fff;
+    color: #333;
   }
   
   .primary-nav .menu li {
@@ -1866,21 +1871,20 @@ button:focus{ outline: none;}
   }
   
   .menu .icon {
-      position: absolute;
-      top: 12px;
-      right: 10px;
-      pointer-events: none;
+    pointer-events: none;
     width: 24px;
     height: 24px;
-    color: #fff;
+    color: #2d2e31;
+    margin-right: 10px;
   }
   
   .menu,
   .menu a,
   .menu a:visited {
-    color: #fff;
+    color: #2d2e31;
     text-decoration: none!important;
       position: relative;
+      font-size: 14px;
   }
   
   .menu a {
@@ -1891,7 +1895,7 @@ button:focus{ outline: none;}
   }
   
   .menu a:hover {
-      color: #fff;
+      color: #10069f;
   }
   
   .menu {
@@ -1899,7 +1903,7 @@ button:focus{ outline: none;}
   }
 .menu-dropdown li i
 {
-    color: white;
+    color: #2d2e31;
 }
   
   
@@ -1919,17 +1923,29 @@ button:focus{ outline: none;}
   
 
   
-  .menu {
-      position: absolute;
-      display: block;
-      left: -200px;
-    top: 0;
-      width: 250px;
-    transition: all 0.45s cubic-bezier(0.77, 0, 0.175, 1);
-    background-color: #3746c5;
-      z-index: 999;
-  }
+//   .menu {
+//       position: absolute;
+//       display: block;
+//       left: -200px;
+//     top: 0;
+//       width: 250px;
+//     transition: all 0.45s cubic-bezier(0.77, 0, 0.175, 1);
+//     background-color: #3746c5;
+//       z-index: 999;
+//   }
   
+  .menu {
+    position: absolute;
+    display: block;
+  top: 0;
+    width: 250px;
+  transition: all 0.45s cubic-bezier(0.77, 0, 0.175, 1);
+  background-color: rgb(244, 245, 247);
+  box-shadow: 2px 3px #e8e7e7;
+    z-index: 999;
+    padding-top: 20px;
+}
+
   .menu-dropdown {
     top: 0;
     overflow-y: auto;
@@ -1939,9 +1955,9 @@ button:focus{ outline: none;}
     position: relative;
     height: calc(100vh - 73px)!important;
     overflow-y: auto;
-    border-top: 73px solid #3746c5;
     z-index: -1;
     display:block;
+    box-shadow: 2px 3px #e8e7e7;
   }
   
   .menu a.logotype {
@@ -2015,9 +2031,6 @@ button:focus{ outline: none;}
     }
       
   }
-  .main-panel {
-    margin-left: 50px;
-}
 
 
 
@@ -2311,8 +2324,8 @@ justify-content: space-between;
 .noti_design .dropdown-item {
     font-size: 13px;
 }
-.main-panel {
-    padding: 100px 15px;
+.pt-100-px {
+    padding-top: 100px;
 }
 .pt-100 {
     padding: 0;
@@ -2524,9 +2537,7 @@ justify-content: space-between;
     -webkit-transform: translate3d(200px, 0, 0);
     transform: translate3d(250px, 0, 0);
 }   
-.main-panel {
-    margin-left: 0;
-}
+
 .openNav .menu:hover {
     position: absolute;
     left: -250px;
@@ -2554,7 +2565,7 @@ ul.menu-dropdown li {
 }
 .openNav .hamburger:before
 {
-    color: white !important;
+    color: #333 !important;
 
 }
 .header_mobile .dropdown

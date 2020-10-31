@@ -54,8 +54,8 @@
 
 
     </div>
-    <button class="hamburger open-panel togle_web" id="nav-toggle" @click="toggleSidebar($event)">
-    </button>
+    {{-- <button class="hamburger open-panel togle_web" id="nav-toggle">
+    </button> --}}
     <!-- web header -->
     <nav role="navigation" class="menu">
 
@@ -63,16 +63,16 @@
         <div class="overflow-container">
 
             <ul class="menu-dropdown">
-            <li><a href="/classrooms">	<span class="icon"><i class="fa fa-book-open"></i></span>Classrooms</a><span class="icon"></li>
+            <li><a href="/classrooms">	<span class="icon"><i class="fa fa-book-open"></i></span>Classrooms</a></li>
             @if(Auth::user()->isInstituteMember())
-            <li><a href="/my-institute">My Institute</a><span class="icon"><i class="fa fa-university"></i></span></li>
+            <li> <a href="/my-institute">My Institute</a></li>
             @endif
-                <li><a href="/">Home</a><span class="icon"><i class="fa fa-home"></i></span></li>
+                <li> <a href="/"> <span class="icon"><i class="fa fa-home"></i></span> Home</a></li>
 
-                <li><a href="/profile/{{Auth::id()}}">Profile</a><span class="icon"><i class="fa fa-user"
-                            aria-hidden="true"></i></span></li>
+                <li> <a href="/profile/{{Auth::id()}}"> <span class="icon"><i class="fa fa-user"
+                    aria-hidden="true"></i></span> Profile</a></li>
 
-                <li><a href="/logout">Logout</a><span class="icon"><i class="fa fa-power-off"></i></span></li>
+                <li><a href="/logout"> <span class="icon"><i class="fa fa-power-off"></i></span> Logout</a></li>
 
             </ul>
 
