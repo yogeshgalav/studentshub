@@ -59,6 +59,21 @@ class ClassroomController extends Controller
             ]
         ]);
     }
+
+    public function update($classroomId,Request $request){
+        $classroom=Classroom::findOrFail($classroomId);
+        $classroom->update([
+            'expected_students'=> $request->expected_students,
+            'classroom_duration'=> $request->duration,
+            'batch_end_year'=> $request->end_year,
+            'batch_start_year'=> $request->start_year,
+        ]);
+
+        return response(['success'=>[
+            'classroom'=>$classroom
+        ]]);
+    }
+
     public function classroomPage($classroomId){
         $classroom=Classroom::findOrFail($classroomId);
 

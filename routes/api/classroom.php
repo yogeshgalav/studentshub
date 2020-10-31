@@ -2,13 +2,18 @@
 
 Route::group(['middleware'=>['auth:api']],function(){
 
-    Route::get('/get-classroom-detail/{classroomId}','ClassroomController@getClassroomDetails');
-    Route::get('/classroom/{classroomId}/unit-details','ClassroomUnitController@getClassroomUnitDetails');
     Route::post('/classroom/create','ClassroomController@createClassroom');
     Route::post('/classroom/join','ClassroomUserController@joinClassroom');
+    Route::get('/get-classroom-detail/{classroomId}','ClassroomController@getClassroomDetails');
+    //overview
+    Route::post('/classroom/{classroomId}/update-detail','ClassroomController@update');
+    //unit setup
+    Route::get('/classroom/{classroomId}/unit-details','ClassroomUnitController@getClassroomUnitDetails');
+    //students    
     Route::get('/classroom/{classroomId}/students-data','ClassroomUserController@getClassrromUserData');
+    //student join request
     Route::post('/classroom/user-request-action','ClassroomUserController@userRequestAction');
-
+    //unit assignment
     Route::get('/classroom/{classroomId}/unit-assignment-details','ClassroomUnitController@getUnitAssismentDetails');
     Route::get('/get-previous-unit-answers','ClassroomController@getPreviousUnitAnswers');
     Route::post('/classroom/{classroomId}/update-unit','ClassroomUnitController@updateUnit');
