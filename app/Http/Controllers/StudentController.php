@@ -40,16 +40,15 @@ class StudentController extends Controller
                 $course = Course::findOrFail($input['course_id']);
             }
             //create or get institute id
-            $institute = Institute::firstOrCreate([
-                'place_id' => $input['institute_place_id'],
-            ], [
-                'name' => $input['institute_name'],
-                'address' => $input['institute_address'],
-                'description' => $input['institute_description'],
-                'added_by_user_id' => $user->id,
-                'country_code' => 'IN',
-                'place_id' => $input['institute_place_id'],
-            ]);
+            if(!empty($input['institute_id'])){
+                $institute = Institute::find($input['institute_id']);
+            }else{
+                $institute = Institute::create([
+                    'name' => $input['institute_name'],
+                    'added_by_user_id' => $user->id,
+                    'country_code' => 'IN',
+                ]);
+            }
 
             //create or get batch id
             $batch = Batch::firstOrCreate([
@@ -61,8 +60,7 @@ class StudentController extends Controller
             ]);
 
             $student = Student::updateOrCreate([
-                'user_id' => Auth::user()->id,
-                'unique_college_id' => $request->college_id
+                'user_id' => Auth::user()->id
             ], [
                 'prefferred_batch' => $batch->id,
                 'prefferred_category' => $course->category_id,

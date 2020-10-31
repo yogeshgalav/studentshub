@@ -263,10 +263,13 @@ export default {
 			let email = this.email;
 			let password = this.password;
 			let full_name = this.full_name;
+
+			let join_id = this.$route.query.joinId;
 			this.axios.post(window.App.baseUrl + '/api/register', {
 				full_name,
 				email,
-				password
+				password,
+				join_id: join_id ? join_id : '',
 			})
 				.then(resp => {
 					const access_token = resp.data.success.access_token;

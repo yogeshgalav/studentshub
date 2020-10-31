@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Mail\ResetPasswordMail;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Classroom;
+use App\Models\ClassroomUser;
 use Illuminate\Http\Response;
 use App\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -111,23 +113,46 @@ class AuthController extends Controller
             $success['access_token'] = $content->access_token;
             $success['refresh_token'] = $content->refresh_token;
         }
-
         Auth::login($user);
         //log info
         Log::info('new User '.$user->full_name." (User ID # ".$user->id.") registered and logged in from IP Address ".$request->ip());
-       
+
+        if($request->join_id){
+            $this->registerWithClassrrom($user,$request->join_id);
+        }
+
         $success['redirectUrl'] = '/education-details';
         \Notification::send($user, new \App\Notifications\NewUserWelcomeNotification());
     
     DB::commit();
     } catch (\Exception $e) {
         DB::rollback();
-        Log::critical('user Registeration failure: with data '.implode(',',$input));
+        Log::critical('user Registeration failure: with data '.implode(',',$input));(
+        dd($e->getMessage(),$e->getLine()));
         return response()->$e;
     }        
         return response()->json(['success' => $success]);
     }
 
+    public function registerWithClassrrom($user,$joinId){
+        $classroom = Classroom::where('classroom_live_id',$joinId)->first();
+
+        $request = new Request([
+            'course_id' => $classroom->course_id,
+            'institute_id' => $classroom->teacher->institute_id, 
+            'institute_name' => '', 
+            'start_year' => $classroom->batch_start_year,
+            'end_year' => $classroom->batch_end_year,
+        ]);
+        $student_controller =new StudentController;
+        $student_controller->create($request);
+
+        ClassroomUser::create([
+            'classroom_id'=>$classroom->id,
+            'user_id'=>$user->id,
+            'joined_at'=>now(),
+        ]);
+    }
     /**
      * details api
      *
