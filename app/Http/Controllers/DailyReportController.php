@@ -26,7 +26,7 @@ class DailyReportController extends Controller
             ->where('daily_assignment_id',$daily_assignment->id)->first();
         }
 
-        if($daily_assignment && $daily_assignment->isCurrentlyAvailable() && !empty($daily_report)){
+        if($daily_assignment && $daily_assignment->isCurrentlyAvailable() && empty($daily_report)){
             return view('student-panel.daily-attempt')
             ->with('daily_assignment',$daily_assignment);
         }
