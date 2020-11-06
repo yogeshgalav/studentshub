@@ -27,27 +27,6 @@
         <div class="selection-box-default">
           <router-link
             class="card h-card"
-            :to="'/classroom/'+$route.params.classroomId+'/unit-assignment'"
-          >
-            <div class="card-body">
-              <div class="row">
-                <div class="col-lg-12">
-                  <h2 class="font-size-18">
-                    {{ 'Unit Assignment' }}
-                  </h2>
-                  <p>
-                    {{ 'unit assignment' }}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </router-link>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="selection-box-default">
-          <router-link
-            class="card h-card"
             :to="'/classroom/'+$route.params.classroomId+'/daily-assignment'"
           >
             <div class="card-body">
@@ -78,7 +57,28 @@
                     {{ 'Classmates' }}
                   </h2>
                   <p>
-                    {{ 'classmates' }}
+                    {{ 'classmates report' }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </router-link>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="selection-box-default">
+          <router-link
+            class="card h-card"
+            :to="'/classroom/'+$route.params.classroomId+'/unit-assignment'"
+          >
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <h2 class="font-size-18">
+                    {{ 'Unit Assignment' }}
+                  </h2>
+                  <p>
+                    {{ 'comming soon' }}
                   </p>
                 </div>
               </div>

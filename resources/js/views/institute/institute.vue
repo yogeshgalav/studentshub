@@ -1,13 +1,47 @@
 <template>
   <div>
-    <div class="row">
-      <div class="col-md-12">
-        <vue-table-component
-          :columns="columns"
-          :rows="users"
-        />
-      </div>    
-    </div>
+    <h2 class="font-size-40 text-black weight-800 mb-2 line-height-25-px">
+      {{ institute_detail.name }}
+    </h2>
+    <NavTabs
+      :tabs="tabs"
+      :initial-tab="initialTab"
+    >
+      <template slot="tab-heading-members">
+        {{ 'Members' }}
+      </template>
+      <template slot="tab-panel-members">
+        <div class="row">
+          <div class="col-md-12">
+            <vue-table-component
+              :columns="columns"
+              :rows="users"
+            />
+          </div>   
+      
+          <div class="col-md-12">
+            <button 
+              class="btn btn-success" 
+              type="button"
+              @click="$modal.show('add_member')"
+            >
+              Add Member
+            </button>
+          </div> 
+        </div>
+      </template>
+      
+      <template slot="tab-heading-classrooms">
+        {{ 'Classrooms' }}
+      </template>
+      <template slot="tab-panel-classrooms" />
+      
+      <template slot="tab-heading-students">
+        {{ 'Students' }}
+      </template>
+      <template slot="tab-panel-students" />
+    </NavTabs>
+    
     <div class="col-md-12">
       <button 
         class="btn btn-success" 
@@ -112,17 +146,22 @@ import VModal from 'vue-js-modal';
 import swal from '../../components/swal';
 import VueTableComponent from '../../components/vue-table-component';
 import FormMixin from '../../components/mixins/form-mixin';
+import NavTabs from '../../components/NavTabs';
 
 export default {
 	components:{
 		VModal,
+		NavTabs,
 		VueTableComponent
 	},
 	mixins:[FormMixin],
 	props:['instituteId'],
 	data(){
 		return {
+			initialTab:'members',
+			tabs:['members','classrooms','students'],
 			users:[],
+			institute_detail:{},
 			new_member:{
 				user_id:0,
 				full_name:'',
@@ -147,8 +186,9 @@ export default {
 		};
 	},
 	mounted(){
-		this.axios.get('/api/institute/'+this.instituteId+'/get-users').then((resp)=>{
+		this.axios.get('/api/institute/'+this.instituteId+'/get-institute-details').then((resp)=>{
 			this.users=resp.data.success.users;
+			this.institute_detail=resp.data.success.institute_detail;
 		});
 	},
 	methods:{

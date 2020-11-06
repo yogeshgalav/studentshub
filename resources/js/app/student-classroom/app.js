@@ -20,21 +20,21 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 //Vue Router Initialisation
 const router = new VueRouter({
-    routes:StudentClassroomRoutes,
-    mode:'history'
+	routes:StudentClassroomRoutes,
+	mode:'history'
 });
 import StudentClassroomStore from '../../store/student-classroom';
 import Vuex from 'vuex';
 Vue.use(Vuex);
 //Vue Router Initialisation
 const store = new Vuex.Store({
-    modules: {
-        classroom: StudentClassroomStore,
-      }
+	modules: {
+		classroom: StudentClassroomStore,
+	}
 });
 //Vue App Initialisation
 const app = new Vue({
-    el: '#studentPanelApp',
-    store,
-    router
+	el: '#studentPanelApp',
+	store,
+	router
 });

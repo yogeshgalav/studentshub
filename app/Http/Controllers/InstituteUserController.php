@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\InstituteUser;
+use App\Models\Institute;
 use App\Models\Teacher;
 use DB;
 
 class InstituteUserController extends Controller
 {
     public function showInstituteUsers($instituteId){
+        $institute_detail = Institute::findOrFail($instituteId);
 
         $users=DB::table('institute_users as inu')->where('inu.institute_id',$instituteId)
         // ->join('institute_users as inu2',function($join){
@@ -22,6 +24,7 @@ class InstituteUserController extends Controller
 
         return response()->json([
             'success'=>[
+                'institute_detail'=>$institute_detail,
                 'users'=>$users
             ]
         ],200);
