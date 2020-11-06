@@ -5,6 +5,7 @@ use App\Models\DailyAssignment;
 use App\Models\DailyQuestion;
 use App\Models\DailyAnswer;
 use App\Models\DailyReport;
+use App\Models\User;
 use Auth;
 use DB;
 use Log;
@@ -94,8 +95,9 @@ class DailyReportController extends Controller
         return redirect('/classroom/'.$request->classroom_id.'/daily-assignment');
     }
 
-    public function getDailyReports($classroom_id, $user_id){
+    public function getDailyReports($classroom_id, $user_id=null){
         $student_id = $user_id ? $user_id : Auth::id();
+        $user_detail = $user_id ? User::findOrFail($user_id) : null;
         $daily_reports=DB::table('classrooms as cl')->where('cl.id',$classroom_id)
         ->rightJoin('daily_assignments as da','da.classroom_id','=','cl.id')
         ->rightJoin('daily_reports as dr',function($join)use($student_id){
@@ -104,6 +106,7 @@ class DailyReportController extends Controller
         ->select('dr.*','da.attempt_date')
         ->get();
 
+        $current_report = null;
         if(count($daily_reports)){            
             $current_report = DailyReport::where('id',$daily_reports[0]->id)
             ->with('DailyAnswer.dailyQuestion.multipleChoice')
@@ -112,6 +115,7 @@ class DailyReportController extends Controller
 
         return response()->json(['success'=>[
             'daily_reports'=>$daily_reports,
+            'user_detail'=>$user_detail,
             'current_report'=>$current_report
         ]]);
     }

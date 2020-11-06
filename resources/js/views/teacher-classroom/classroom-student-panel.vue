@@ -1,6 +1,17 @@
 <template>
   <div>
     <div class="row">
+      <div class="col-md-12">
+        <classroom-header />
+      </div>
+      <div
+        v-if="user_detail"
+        class="col-md-12"
+      >
+        <h2 class="font-size-40 text-black weight-800">
+          {{ user_detail.full_name }}
+        </h2>
+      </div>
       <div class="col-md-2">
         <ul>
           <li
@@ -29,7 +40,10 @@
             </select>
           </div>
         </div>
-        <div class="row">
+        <div
+          v-if="current_report"
+          class="row"
+        >
           <div class="col-md-12">
             <div class="card mt-3 mb-3  bg-default ">
               <div class="card-header">
@@ -170,10 +184,16 @@ margin: 10px 0px;
 }
 </style>
 <script>
+import ClassroomHeader from '../../components/ClassroomHeader';
+
 export default {
+	components: {
+		ClassroomHeader,
+	},
 	data(){
 		return {
-			current_report:[],
+			user_detail:null,
+			current_report:null,
 			daily_reports:[],
 		};
 	},
@@ -191,6 +211,7 @@ export default {
 				resp) => {
 				this.daily_reports = resp.data.success.daily_reports;
 				this.current_report = resp.data.success.current_report;
+				this.user_detail = resp.data.success.user_detail;
 			});    
 		},
 		getDailyAnswer(event){
