@@ -61,18 +61,20 @@
 
 
         <div class="overflow-container">
-
+            <div class="mb-3">
+            <img src="{{asset('/images/default-avatar.png') }}" alt="Student'sHUB" width="40" class="pl-2"/>
+            <span class="sidebar_heading ml-1">Student's Hub </span>
+            </div>
             <ul class="menu-dropdown">
-            <li><a href="/classrooms">	<span class="icon"><i class="fa fa-book-open"></i></span>Classrooms</a></li>
+            <li><a href="/classrooms" class="active">	<span class="icon">  <img src="{{asset('/images/whiteboard.png') }}" alt="Student'sHUB" width="20"/></span>Classrooms</a></li>
             @if(Auth::user()->isInstituteMember())
-            <li> <a href="/my-institute">My Institute</a></li>
+            <li> <a href="/my-institute"><span class="icon"><img src="{{asset('/images/university.png') }}" alt="Student'sHUB" width="20"/></span> My Institute</a></li>
             @endif
-                <li> <a href="/"> <span class="icon"><i class="fa fa-home"></i></span> Home</a></li>
+                <li> <a href="/"> <span class="icon"><img src="{{asset('/images/home.png') }}" alt="Student'sHUB" width="20"/></span> Home</a></li>
 
-                <li> <a href="/profile/{{Auth::id()}}"> <span class="icon"><i class="fa fa-user"
-                    aria-hidden="true"></i></span> Profile</a></li>
+                <li> <a href="/profile/{{Auth::id()}}"> <span class="icon"><img src="{{asset('/images/user.png') }}" alt="Student'sHUB" width="20"/></span> Profile</a></li>
 
-                <li><a href="/logout"> <span class="icon"><i class="fa fa-power-off"></i></span> Logout</a></li>
+                <li><a href="/logout"> <span class="icon"><img src="{{asset('/images/logout.png') }}" alt="Student'sHUB" width="20"/></span> Logout</a></li>
 
             </ul>
 

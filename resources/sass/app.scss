@@ -1125,6 +1125,25 @@ width:100% !important;
         max-width: 100%;
     }
 }
+
+// sidebar_icon_sidebar 
+.sidebar_heading {
+    letter-spacing: -0.003em;
+    font-weight: 800;
+    color: #42526E;
+}
+.sidebar_sub_heading {
+    letter-spacing: -0.003em;
+    color: #42526E;
+}
+.sidebar_logo {
+    display: flex;
+    flex-direction: column;
+}
+.f_left {
+    float: left;
+}
+
 // category filter
 .ptb-50
 {
@@ -1821,7 +1840,25 @@ button:focus{ outline: none;}
     list-style: none;
       
   }
-  
+  .menu ul li:hover {
+      background-color: #EBECF0;
+
+  }
+  .active {
+    background-color: #EBECF0;
+    color: #0052CC;
+} 
+.active .icon i {
+    color: #0052CC !important; 
+}
+  .menu ul li:hover a {
+    color: #0052CC;
+    
+}
+  .menu ul li a:visited {
+    color: #0052CC;
+   
+}
   .open-panel {
     border: none;
     background-color:#fff;
@@ -1874,7 +1911,7 @@ button:focus{ outline: none;}
     pointer-events: none;
     width: 24px;
     height: 24px;
-    color: #2d2e31;
+    color: #42526E;
     margin-right: 10px;
   }
   
@@ -1884,14 +1921,20 @@ button:focus{ outline: none;}
     color: #2d2e31;
     text-decoration: none!important;
       position: relative;
-      font-size: 14px;
+      font-size: 15px;
+    letter-spacing: -0.003em;
+    font-weight: 500;
+    color: #42526E ! important;
   }
   
   .menu a {
     display: block;
     white-space: nowrap;
     padding: 1em;
-    font-size: 14px;
+    font-size: 15px;
+    letter-spacing: -0.003em;
+    font-weight: 500;
+    color: #42526E ! important;
   }
   
   .menu a:hover {
