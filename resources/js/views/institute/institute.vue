@@ -43,13 +43,6 @@
     </NavTabs>
     
     <div class="col-md-12">
-      <button 
-        class="btn btn-success" 
-        type="button"
-        @click="$modal.show('add_member')"
-      >
-        Add Member
-      </button>
       <modal
         name="add_member"
         class="doubt_model"
