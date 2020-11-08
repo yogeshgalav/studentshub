@@ -43,7 +43,7 @@
                 >
                   <span v-if="props.column.field==='client_name'">
                     <a
-                      :href="'/institute/'+props.row.client_id"
+                      :href="'/admin/institute/'+props.row.client_id"
                       class="text-underline"
                     >{{ props.row.client_name }}</a>
                   </span>
@@ -216,7 +216,7 @@ export default {
 		saveClient(){
 			this.axios.post('/api/save-institute',{form_data:this.form_data})
 				.then((response) => {
-					window.location.href = '/institute/' + response.data.success.institute_id;
+					window.location.href = '/admin/institute/' + response.data.success.institute_id;
 					this.closeModal();
 				}).catch((err) => {
 					if ( 422 === err.response.status ) {

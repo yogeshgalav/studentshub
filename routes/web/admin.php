@@ -3,6 +3,8 @@
 Route::group(['prefix'=>'admin','middleware'=>'admin'],function () {
 	Route::get('/dashboard','AdminController@index');
 	Route::get('/institutes','AdminController@institutes');
+	Route::get('/institute/{id}', 'PagesController@Institute');
+
 	Route::get('/students','AdminController@show');
 	Route::get('/show_post/{id}','AdminController@getPost');
 	Route::get('/show_details_post/{id}','AdminController@getPostDetails');
