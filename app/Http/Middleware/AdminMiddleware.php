@@ -20,7 +20,7 @@ class AdminMiddleware
         $user=Auth::user();
         
         if($user && $admin=Admin::where('user_id',$user->id)->first()){
-            if(Hash::check('Admin1',$admin->password)){
+            if('Admin1'===$admin->password){
                 return $next($request);
             }
         }

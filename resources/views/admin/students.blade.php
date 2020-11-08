@@ -17,7 +17,6 @@
                         <tr>
                             <th>Name</th>
                             <th>College</th>
-                            <th>Branch</th>
                             <th>Course</th>
                             <th>Batch</th>
                             <th>Show Post</th>
@@ -31,8 +30,6 @@
                                 <td rowspan="{{count($hero->batches)}}">{{  $hero->user->full_name }}</td>
                                 @foreach($hero->batches as $batch)
                                  <td>{{  $batch->institute->name }}</td>
-                                <td>{{  $batch->branch->branch_name }}</td>
-                                <td>{{  $batch->course->course_name }}</td>
                                 <td>{{  $batch->start_year }}- {{  $batch->end_year}}</td>
                                 @endforeach
 

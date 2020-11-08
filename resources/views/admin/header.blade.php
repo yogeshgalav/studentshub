@@ -167,6 +167,12 @@
            </a>
          </li>
          <li class="nav-item">
+           <a class="nav-link" href="{{ url('/admin/institutes') }}">
+             <i class="mdi mdi-view-headline menu-icon"></i>
+             <span class="menu-title">Institutes</span>
+           </a>
+         </li>
+         <li class="nav-item">
            <a class="nav-link" href="{{ url('/admin/explorePost') }}">
              <i class="mdi mdi-view-headline menu-icon"></i>
              <span class="menu-title">Explore Page Post</span>

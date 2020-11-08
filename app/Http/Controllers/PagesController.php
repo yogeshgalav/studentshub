@@ -139,11 +139,12 @@ class PagesController extends Controller
             ->with('total_posts', $total_posts);
     }
 
-    public function Institute()
+    public function Institute($instituteId = null)
     {
         $institute = \App\Models\InstituteUser::where('user_id',Auth::id())->first();
+        
         return view('institute.institute')
-        ->with('instituteId',$institute->institute_id);
+        ->with('instituteId',$instituteId ?? $institute->institute_id);
     }
 
     //     {

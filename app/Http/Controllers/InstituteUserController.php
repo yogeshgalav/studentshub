@@ -11,24 +11,6 @@ use DB;
 
 class InstituteUserController extends Controller
 {
-    public function showInstituteUsers($instituteId){
-        $institute_detail = Institute::findOrFail($instituteId);
-
-        $users=DB::table('institute_users as inu')->where('inu.institute_id',$instituteId)
-        // ->join('institute_users as inu2',function($join){
-        //     $join->on('inu2.institute_id','=','inu.institute_id')->where('inu2.user_id','=',Auth::id());
-        // })
-        ->join('users as us','us.id','=','inu.user_id')
-        ->select('us.id','us.full_name','us.email','inu.role')
-        ->get();
-
-        return response()->json([
-            'success'=>[
-                'institute_detail'=>$institute_detail,
-                'users'=>$users
-            ]
-        ],200);
-    }
 
     public function updateInstituteUser($instituteId,Request $request){
         if($request->user_id){

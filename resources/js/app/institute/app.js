@@ -22,6 +22,7 @@ const router = new VueRouter({
 });
 
 Vue.component('InstituteComponent', require('../../views/institute/institute.vue').default);
+Vue.component('InstitutesComponent', require('../../views/admin/institutes.vue').default);
 import InstituteStore from '../../store/seeker';
 import Vuex from 'vuex';
 Vue.use(Vuex);

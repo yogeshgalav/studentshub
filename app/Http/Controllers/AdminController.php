@@ -10,7 +10,6 @@ use App\Models\Course;
 use App\Models\Category;
 use App\Models\Institute;
 use App\Models\ExplorePagePost;
-use App\Models\Branch;
 use App\Models\BatchStudent;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
@@ -18,6 +17,10 @@ use Illuminate\Http\Request;
 class AdminController extends Controller
 {
     //
+    public function institutes(){
+      return view('admin.institutes');
+    }
+
     public function index()
     {
     	$Users =  User::count();
@@ -30,7 +33,7 @@ class AdminController extends Controller
     public function show()
     {
 		$students = Student::with('User')
-		->with(['batches.institute','batches.course','batches.branch'])
+		->with(['batches.institute','batches.course'])
 		->get();
     	return view('admin.students')->with(compact('students'));
     }

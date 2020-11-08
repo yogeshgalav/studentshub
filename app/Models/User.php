@@ -97,4 +97,9 @@ class User extends Authenticatable
             ->where('user_id',$this->id)
             ->exists();
     }
+    public function isAdmin(){
+        return \DB::table('admins')
+            ->where('user_id',$this->id)
+            ->exists();
+    }
 }
