@@ -10,11 +10,9 @@ use App\Models\User;
 use App\Models\Batch;
 use App\Models\student;
 
-class NewUserWelcomeNotification extends SthubAllowlistedUserNotification
+class NewInstituteMemberNotification extends SthubAllowlistedUserNotification
 {
     use Queueable;
-
-    protected $text="Welcome to Student'sHUB. You can now check your interest field in Profile section.";
 
     /**
      * Get the notification's delivery channels.
@@ -24,7 +22,7 @@ class NewUserWelcomeNotification extends SthubAllowlistedUserNotification
      */
     public function via($notifiable)
     {
-        return ['database','mail'];
+        return ['mail'];
     }
 
     /**
@@ -35,8 +33,12 @@ class NewUserWelcomeNotification extends SthubAllowlistedUserNotification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-                    ->line('The introduction to the notification.');
+        $password = \Sthub::generatePassword(8);
+        $mail = new \App\Mail\NewInstituteMemberNotification($password, $this->getPrimaryLink($notifiable, MailChannel::class));
+        $mail->to($notifiable->email)
+            ->from(config('mail.from.address'), 'StudentsHUB');
+
+        return $mail;
     }
 
     /**
@@ -48,11 +50,6 @@ class NewUserWelcomeNotification extends SthubAllowlistedUserNotification
     public function toDatabase($notifiable)
     {
         return [
-            'text'=>$this->text,
-            'user_id'=>$notifiable->id,
-            'url'=>'/profile/'.$notifiable->id,
-            'urlName'=>'profile',
-            'urlId'=>$notifiable->id,
         ];
     }
     /**

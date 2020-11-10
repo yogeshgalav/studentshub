@@ -122,7 +122,7 @@ class AuthController extends Controller
         }
 
         $success['redirectUrl'] = '/education-details';
-        \Notification::send($user, new \App\Notifications\NewUserWelcomeNotification());
+        \App\Models\ScheduledJob::scheduleNewUserNotification($user);
     
     DB::commit();
     } catch (\Exception $e) {

@@ -8,10 +8,10 @@ use Illuminate\Support\Facades\Log;
 use NotificationChannels\Twilio\TwilioChannel;
 
 /***
- * Class ActionableAllowlistedNotification
+ * Class SthubAllowlistedUserNotification
  * @package App\Notifications
  */
-abstract class ActionableAllowlistedUserNotification extends ActionableNotification
+abstract class SthubAllowlistedUserNotification extends ActionableNotification
 {
     /**
      * Return a list of valid notification channels for
