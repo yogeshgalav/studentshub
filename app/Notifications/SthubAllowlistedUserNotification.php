@@ -11,7 +11,7 @@ use NotificationChannels\Twilio\TwilioChannel;
  * Class SthubAllowlistedUserNotification
  * @package App\Notifications
  */
-abstract class SthubAllowlistedUserNotification extends ActionableNotification
+abstract class SthubAllowlistedUserNotification extends SthubNotification
 {
     /**
      * Return a list of valid notification channels for

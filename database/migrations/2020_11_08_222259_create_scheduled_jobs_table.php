@@ -18,6 +18,7 @@ class CreateScheduledJobsTable extends Migration
             $table->unsignedInteger('user_id')->nullable()->index('queue_ix_user_id');
             $table->dateTime('run_at');
             $table->string('job_type', 100);
+            $table->string('notification_class_name', 100);
             $table->json('job_body')->nullable();
             $table->dateTime('sent_to_queue_at')->nullable();
             $table->json('response')->nullable();

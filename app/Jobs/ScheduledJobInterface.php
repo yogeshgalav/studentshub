@@ -23,7 +23,7 @@ class ScheduledJobInterface implements ShouldQueue
 
     public $job_body;
 
-    public ScheduledJob $scheduled_job;
+    public $scheduled_job;
 
     public bool $job_cancelled = false;
 
@@ -33,7 +33,7 @@ class ScheduledJobInterface implements ShouldQueue
     public function __construct(ScheduledJob $scheduled_job)
     {
         $this->scheduled_job = $scheduled_job;
-        $this->scheduled_job->load(['user', 'buddy', 'commitment']);
+        $this->scheduled_job->load(['user']);
         $this->job_body = (empty($scheduled_job->job_body)) ? [] : $scheduled_job->job_body;
     }
 

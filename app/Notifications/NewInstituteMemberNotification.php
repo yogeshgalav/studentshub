@@ -34,7 +34,7 @@ class NewInstituteMemberNotification extends SthubAllowlistedUserNotification
     public function toMail($notifiable)
     {
         $password = \Sthub::generatePassword(8);
-        $mail = new \App\Mail\NewInstituteMemberNotification($password, $this->getPrimaryLink($notifiable, MailChannel::class));
+        $mail = new \App\Mails\NewInstituteMemberNotification($password, $this->getPrimaryLink($notifiable, MailChannel::class));
         $mail->to($notifiable->email)
             ->from(config('mail.from.address'), 'StudentsHUB');
 
@@ -63,5 +63,9 @@ class NewInstituteMemberNotification extends SthubAllowlistedUserNotification
         return [
             //
         ];
+    }
+
+    public function getPrimaryLink($notifiable, $channel){
+        return  'http://studentshub.in/login';
     }
 }

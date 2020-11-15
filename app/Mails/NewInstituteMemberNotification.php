@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mail;
+namespace App\Mails;
 
 use App\Models\User;
 
@@ -8,20 +8,22 @@ use App\Models\User;
  * Class NewInstituteMemberNotification
  * @package App\Mail
  */
-class NewInstituteMemberNotification extends ActionableMailable
+class NewInstituteMemberNotification extends SthubMailable
 {
     /***
      * @var
      */
+    protected $password;
+    protected $loginUrl;
+
     /**
      * Create a new message instance.
      *
      */
-    public function __construct(string $password,string $inviteNewBuddyUrl)
+    public function __construct(string $password,string $loginUrl)
     {
-        $this->participant = $participant;
-        $this->inviteNewBuddyUrl = $inviteNewBuddyUrl;
-        $this->setCommitment = $commitment;
+        $this->password = $password;
+        $this->loginUrl = $loginUrl;
     }
 
     /***
@@ -32,7 +34,7 @@ class NewInstituteMemberNotification extends ActionableMailable
     public function build()
     {
         return $this->subject('Welcome to Students Hub')
-            ->view('mails.html.teacher.check-in')
+            ->view('mails.teacher.check-in')
             ->with([
                 'password'=>$this->password,
                 'theme'=>config('view.theme')
