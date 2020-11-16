@@ -922,32 +922,19 @@
         ],
 
         'allowlist_emails' => [
-            // Actionable Team
-            'shawn@shawnhooper.ca',
-            // WBECS Development Team
-            'dino@wbecs.com',
-            'julio@wbecs.com',
-            'dima@wbecs.com',
+            'mr.yogesh.galav.gmail.com',
+            'pankaj@crackerdigital.com',
+            'yogesh@crackerdigital.com',
+            'vipin@crackerdigital.com',
+            'raz@crackerdigital.com',
         ],
         'allowlist_email_domains' => [
-            'actionable.co',
-            'actionablebooks.com',
             'crackerdigital.com',
         ],
         'allowlist_phone_sms' => [
-            '+16137997860', // Shawn Hooper
-            '+15879987224', // Zac Novak
-            '+15195513800', // Lora
-            '+14167214029', // Chris
-            '+14165734482', // Alyssa
-
             '+919680968508', // Pankaj
             '+918005937819', // Vipin Kundal
             '+918003345821', // yogesh galav
             '+919950105566', //Raj Nagar
-
-            '+14036807964', // Zac's Fiancée's Mobile
-            '+16133194823', // Shawn Hooper Burner,
-
         ],
     ];
