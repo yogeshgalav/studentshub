@@ -1,6 +1,6 @@
 <?php
 //classroom routes
-Route::group(['middleware'=>['auth','auth:api']],function(){
+Route::group(['middleware'=>['AuthorizeUser']],function(){
     //classroom listing
     Route::get('/classrooms', 'ClassroomController@classroomListPage');
     //claasrooom create

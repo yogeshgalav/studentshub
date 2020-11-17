@@ -6,6 +6,7 @@ export default {
 			// commit('auth_request')
 			axios({url: window.App.baseUrl+'/api/login', data: user, method: 'POST' })
 				.then(resp => {
+					console.log(resp.data.success);
 					const access_token = resp.data.success.access_token;
 					const refresh_token = resp.data.success.refresh_token;
 					localStorage.setItem('access_token', access_token);
