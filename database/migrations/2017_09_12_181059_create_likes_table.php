@@ -14,10 +14,11 @@ class CreateLikesTable extends Migration
     public function up()
     {
         Schema::create('likes', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->integer('post_id')->unsigned();
-            $table->boolean('like')->comment('1 for like,0 for dislike');
+            $table->integer('likable_id')->unsigned();
+            $table->string('likable_type');
+            $table->boolean('like_status')->comment('1 for like,0 for dislike');
             $table->timestamps();
         });
     }

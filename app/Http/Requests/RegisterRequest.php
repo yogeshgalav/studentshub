@@ -34,6 +34,7 @@ class RegisterRequest extends FormRequest
     public function messages()
     {
         return [
+            'email.email'=>'You must provide a valid email address.',
             'email.unique'=>'You are already registered, Please Login.'
         ];
     }

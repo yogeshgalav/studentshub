@@ -1,4 +1,4 @@
 @extends('student-register.app')
 @section('content')
-<student-register :courses="{{ json_encode($courses) }}" :branches="{{ json_encode($branches) }}"></student-register> 
+<student-register :course-levels="{{json_encode($course_levels)}}"  :student-details="{{json_encode($student_details)}}"></student-register>
 @endsection

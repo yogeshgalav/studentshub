@@ -14,11 +14,9 @@ class CreateNoticesTable extends Migration
     public function up()
     {
         Schema::create('notices', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->integer('post_id')->unsigned();
+            $table->increments('id');
             $table->text('content');
-            $table->boolean('live')->default(0);
-            $table->timestamp('expiry_date')->nullable();
+            $table->timestamp('expiry_date');
             $table->timestamps();
         });
     }

@@ -14,22 +14,22 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('first_name', 50)->nullable();
-            $table->string('last_name', 50)->nullable();
-            $table->string('full_name', 101)->nullable();
+            $table->increments('id');
+            $table->string('full_name', 101);
             $table->string('email')->unique();
-            $table->string('phone')->unique()->nullable();
-            $table->char('timezone_code',9)->nullable();
+            $table->string('timezone')->default('Asia/Kolkata');
             $table->dateTime('email_verified_at')->nullable();
             $table->char('country_code',2)->default('IN');
             $table->char('locale_code',2)->default('EN');
             $table->string('password');
-            $table->boolean('is_knowledge_seeker')->default(true);
-            $table->date('onboarded_at')->nullable();
-            $table->date('student_activated_at')->nullable();
+            $table->string('login_provider_id')->nullable();
+            $table->string('login_provider_type')->nullable();
+            $table->dateTime('last_login_at')->nullable();
+            $table->integer('block_status')->default(0);
+            $table->string('role_intended')->default('student');
             $table->string('avatar_url')->nullable();
-            $table->softDeletes();
+            $table->string('fcm_token')->nullable();
+            $table->boolean('must_reset_password')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

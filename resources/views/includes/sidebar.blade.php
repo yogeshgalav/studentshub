@@ -1,1 +1,85 @@
-<sidebar-component></sidebar-component>
+<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+
+<div class="primary-nav">
+    <!-- mobile header -->
+    <div class="Dsfdad">
+        <div class="header_mobile">
+            <div class="logo mobile_logo">
+                <a href="/">
+                    <img src="{{asset('/images/logo.png') }}" alt="Student'sHUB" />
+                </a>
+            </div>
+            <div class="header_mobile_login">
+                <ul>
+                    <li><button class="hamburger open-panel togle_mobile" id="nav-toggle"
+                            @click="toggleSidebar($event)">
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-default border-radius-12 dropdown-toggle" type="button"
+                                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
+                                <span><i class="fa fa-search" aria-hidden="true"></i></span>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                @include('includes.search-form')
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-default border-radius-12 dropdown-toggle" type="button"
+                                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
+                                <span><i class="fa fa-bell"></i></span>
+                            </button>
+                            <div class="dropdown-menu noti_design" aria-labelledby="dropdownMenuButton">
+                            <p class="n_head dropdown-item">Recent Notification</p>
+                            @foreach($notifications as $notification)
+                                    <hr/>
+                                      <a class="dropdown-item" href="{{ $notification['data']['url'] }}">{{ $notification['data']['text'] }}</a>
+                                      <p class="dropdown-item"> <i class="fas fa-clock"></i> <span>{{ $notification['time'] }}</span></p>
+                            @endforeach
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                       
+                        @include('includes.profile-dropdown')
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+    </div>
+    {{-- <button class="hamburger open-panel togle_web" id="nav-toggle">
+    </button> --}}
+    <!-- web header -->
+    <nav role="navigation" class="menu">
+
+
+        <div class="overflow-container">
+            <div class="mb-3">
+            <img src="{{asset('/images/default-avatar.png') }}" alt="Student'sHUB" width="40" class="pl-2"/>
+            <span class="sidebar_heading ml-1">Student's Hub </span>
+            </div>
+            <ul class="menu-dropdown">
+            <li><a href="/classrooms" class="active">	<span class="icon">  <img src="{{asset('/images/whiteboard.png') }}" alt="Student'sHUB" width="20"/></span>Classrooms</a></li>
+            @if(Auth::user()->isInstituteMember())
+            <li> <a href="/my-institute"><span class="icon"><img src="{{asset('/images/university.png') }}" alt="Student'sHUB" width="20"/></span> My Institute</a></li>
+            @endif
+                <li> <a href="/"> <span class="icon"><img src="{{asset('/images/home.png') }}" alt="Student'sHUB" width="20"/></span> Home</a></li>
+
+                <li> <a href="/profile/{{Auth::id()}}"> <span class="icon"><img src="{{asset('/images/user.png') }}" alt="Student'sHUB" width="20"/></span> Profile</a></li>
+
+                <li><a href="/logout"> <span class="icon"><img src="{{asset('/images/logout.png') }}" alt="Student'sHUB" width="20"/></span> Logout</a></li>
+
+            </ul>
+
+        </div>
+
+    </nav>
+
+</div>

@@ -28,32 +28,8 @@ class BladeServiceProvider extends ServiceProvider
         view()->composer('*', function ($view) 
         {
             $AuthUser=Auth::user();
-            $AuthUserType=null;
-            if(is_null($AuthUser)){
-                $AuthUserType='guest';
-            }
-            else if($AuthUser->has('student')){
-                $AuthUserType='student';   
-            }
-            else if($AuthUser->has('teacher')){
-                $AuthUserType='teacher';   
-            }
             //...with this variable
-            $view->with('AuthUser', $AuthUser );    
-            $view->with('AuthUserType', $AuthUserType );    
-        }); 
-        $AuthUser=Auth::user();
-        $AuthUserType=null;
-        if(is_null($AuthUser)){
-            $AuthUserType='guest';
-        }
-        else if($AuthUser->has('student')){
-            $AuthUserType='student';   
-        }
-        else if($AuthUser->has('teacher')){
-            $AuthUserType='teacher';   
-        }
-        View::share('AuthUser',$AuthUser );
-        View::share('AuthUserType',$AuthUserType);
+            $view->with('AuthUser', $AuthUser );       
+        });
     }
 }

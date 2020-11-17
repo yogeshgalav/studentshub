@@ -6,7 +6,7 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Models\ExplorePagePost::class, function (Faker $faker) {
     $user_id=rand(1,50);
-    $sthub_post_id=rand(1,20);
+    $post_id=rand(1,17);
     // $post=factory(App\Models\Post::class)->create(['user_id'=>$user_id]);
     // $sthub_post=factory(App\Models\SthubPost::class)->create(['post_id'=>$post->id,'shared_by'=>$user_id,'post_type'=>$post->post_type]);
     // factory(App\Models\Like::class)->create(['post_id'=>$post->id,'user_id'=>$user_id]);
@@ -15,7 +15,7 @@ $factory->define(App\Models\ExplorePagePost::class, function (Faker $faker) {
 
     // $article=factory(App\Models\Article::class)->create(['post_id'=>$post->id]);
     return [
-        'sthub_post_id' => $sthub_post_id,
+        'post_id' => $post_id,
         'added_by' => $user_id,
     ];
 });

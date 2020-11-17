@@ -14,11 +14,13 @@ class DatabaseSeeder extends Seeder
 
         $this->call(CountryTableSeeder::class);
         $this->call(UsersTableSeeder::class);
+        $this->call(InstitutesTableSeeder::class);
         $this->call(StudentsTableSeeder::class);
         $this->call(CoursesTableSeeder::class);
-        $this->call(BranchesTableSeeder::class);
         $this->call(CategorySeeder::class);
         $this->call(ExplorePostSeeder::class);
+        $this->call(CourseLevelTableSeeder::class);
+        $this->call(ClassroomTableSeeder::class);
         // $this->call(ConsultantFirmTableSeeder::class);
         // $this->call(ClientTableSeeder::class);
         // $this->call(ConversationInstanceTableSeeder::class);

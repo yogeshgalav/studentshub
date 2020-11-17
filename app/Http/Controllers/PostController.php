@@ -5,89 +5,242 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\SthubPost;
-use App\Models\PostContent;
 use App\Models\PostImage;
 use App\Models\Article;
 use App\Models\Subject;
+use App\Models\CourseSubject;
 use App\Models\Video;
+use App\Models\Notice;
+use App\Models\Fact;
+use App\Models\Mcq;
 use Auth;
 use DB;
+use Storage;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Log;
 
 class PostController extends Controller
 {
     //
     public function create(Request $request){
+
         $data=$request->all();
         $post_type=$data['post_type'];
-        $selected_subject=$data['selected_subject'];
-        $heading=$data['post_heading'];
-        $postContent=$data['postContent'];
-
+        $heading=$data['heading'];
+        $student=Auth::student();
+        if(is_null($student)){
+          abort(403);
+        }
         DB::beginTransaction();
         try{
-            if(is_null($selected_subject['id'])){
-                $subject_name=strtolower($selected_subject['subject_name']);
+            if(intval($data['subject_id'])===0){
+                $subject_name=strtolower($data['subject_name']);
                 $subject=Subject::firstOrCreate([
-                    'Subject_name'=>$subject_name,
-                    'subject_url'=>urlencode($subject_name)
-                    ]);   
+                  'subject_url'=>\Str::slug($subject_name),
+                ],[
+                'subject_name'=>$subject_name,
+                'category_id'=>$data['subject_course'] ? $student->categoryId : $data['category_id']
+                ]);
+
+                CourseSubject::firstOrCreate([
+                  'course_id'=>$student->courseId,
+                  'subject_id'=>$subject->id
+                ]);
             }else{
-                $subject=Subject::findOrFail($selected_subject['id']);
+                $subject=Subject::findOrFail($data['subject_id']);
             }
-        
+
         $post=new Post;
         $post->user_id=Auth::user()->id;
-        $post->post_type=$post_type;
         $post->post_heading=$heading;
         $post->subject_id=$subject->id;
-        $post->save();
+
 
         switch(strToLower($request->post_type)){
             case 'article':
-            $post_content_id=Article::create(['post_id'=>$post->id,'content'=>$postContent['content']])->id;
+                $article=new Article;
+                $post_content_id=$article->createFromContent($data);
+                $post->postable_type="App\Models\Article";
+                $post->primary_image_path='/storage/article-default.png';
+                $post->postable_id=$post_content_id;
+
             break;
             case 'notice':
+                $notice=new Notice;
+                $post_content_id=$notice->createFromContent($data);
+                $post->postable_type="App\Models\Notice";
+                $post->postable_id=$post_content_id;
             break;
             case 'document':
+             $document=new Document;
+             $post_content_id=$document->createNewDocument($data);
+             $post->postable_type="App\Models\Document";
+             $post->postable_id=$post_content_id;
             break;
             case 'video':
-            $str=$postContent['link'].'&';
-            
-            if (preg_match('/(?<=watch\?v\=).*?(?=\&)/', $str, $m)) {
-                $video_id = $m[0]; 
-            }else if (preg_match('/(?<=www\.youtu\.be\/).*?(?=\&)/', $str, $m)) {
-                $video_id = $m[0]; 
-            }
-            // if ($pos=strpos($str, 'watch?v=') == true) {
-            //     $video_id=str_replace('https://www.youtube.com/watch?v=','',$str);
-            // }else if ($pos=strpos($str, 'youtu.be/') == true) {
-            //     $video_id=str_replace('https://www.youtu.be/','',$str);
-            // }
-            $post_content_id=Video::insertGetId(['post_id'=>$post->id,
-            'link'=>'https://www.youtube.com/embed/'.$video_id,
-            'description'=>$postContent['description'] ?? null
-            ]);
-            $post_image=PostImage::create(['post_id'=>$post->id,
-            'user_id'=>Auth::user()->id,
-            'path'=>'https://img.youtube.com/vi/'.$video_id.'/0.jpg'
-            ]);
+            $video=new Video;
+            $post_content_id=$video->createNewVideo($data);
+            $post->primary_image_path='https://img.youtube.com/vi/'.$data['video_id'].'/0.jpg';
+            $post->postable_type="App\Models\Video";
+            $post->postable_id=$post_content_id;
+            break;
+            case 'mcq':
+            $mcq=new Mcq;
+            $post_content_id=$mcq->createNewMcq($data);
+            $post->primary_image_path='/storage/mcq-default.png';
+            $post->postable_type="App\Models\Mcq";
+            $post->postable_id=$post_content_id;
+            break;
+            case 'fact':
+            $fact=new Fact;
+            [$post_content_id,$file_path]=$fact->createNewFact($data);
+            $post->primary_image_path=$file_path;
+            $post->postable_type="App\Models\Fact";
+            $post->postable_id=$post_content_id;
             break;
         }
+
+
+        $post->save();
+
         SthubPost::create([
             'post_id'=>$post->id,
-            'post_type'=>$post_type,
-            // 'post_content_id'=>$post_content_id,
+            'institute_id'=>$student->instituteId,
+            'course_id'=>$student->courseId,
             'shared_by'=>Auth::user()->id,
         ]);
-        
+
         DB::commit();
-    } catch (\Exception $e) {
+    } catch (\Exception $e) {echo $e->getMessage();
         DB::rollback();
         Log::critical('Post Creation failure: for user id#'.Auth::user()->id.' with data '.implode(', ',Arr::flatten($data)));
-        // dd($e->getMessage(),$e->getLine());
         return response()->$e;
     }
-        return response()->json('success');
+        return response()->json(['success'=>[
+          'message'=>'Post Successfully Created',
+        ]]);
     }
+
+    public function getPosts(Request $request){
+        $post=new \App\Post;
+        if(Auth::student()){
+            return $post->getStudentPosts($request);
+        }else{
+            return $post->getSeekerPosts($request);
+        }
+    }
+
+    public function show($post_id){
+        $user=Auth::user();
+        if($user){
+            \App\Models\PostView::firstOrCreate([
+                'post_id'=>$post_id,
+                'user_id'=>$user->id,
+            ]);
+        }
+
+        $post=new \App\Post;
+        if($user){
+          $post_content=$post->getAuthPostContent($post_id)[0];
+        }else{
+          $post_content=$post->getGuestPostContent($post_id)[0];
+        }
+
+        $most_viewed=$post->getMostViewedPosts($post_content->category_id);
+        $most_liked=$post->getMostLikedPosts($post_content->category_id);
+
+        return response()->json(['success'=>[
+            'post_content'=>$post_content,
+            'most_viewed'=>$most_viewed,
+            'most_liked'=>$most_liked,
+        ]]);
+    }
+
+    public function searchPosts(Request $request){
+      $post=new \App\Post;
+      $response = $post->getSearchPosts($request);
+
+        $search=new \App\Models\Search;
+        $search->query=$request->input('query');
+        // $search->type='query';
+        if($response){
+          $search->success=true;
+        }else{
+          $search->success=false;
+        }
+        $search->save();
+
+        return $response;
+      }
+
+      public function coursePosts(Request $request){
+        $post=new \App\Post;
+        $response = $post->getCoursePosts($request);
+
+        $search=new \App\Models\Search;
+        $search->query=$request->route('courseUrl');
+        // $search->type='course';
+        if($response){
+          $search->success=true;
+        }else{
+          $search->success=false;
+        }
+        $search->save();
+
+        return $response;
+      }
+
+      public function subjectPosts(Request $request){
+        $post=new \App\Post;
+        $response = $post->getSubjectPosts($request);
+
+        $search=new \App\Models\Search;
+        $search->query=$request->route('subjectUrl');
+        // $search->type='subject';
+        if($response){
+          $search->success=true;
+        }else{
+          $search->success=false;
+        }
+        $search->save();
+
+        return $response;
+      }
+
+      public function categoryPosts(Request $request){
+        $post=new \App\Post;
+        $response = $post->getCategoryPosts($request);
+
+        $search=new \App\Models\Search;
+        $search->query=$request->route('categoryUrl');
+        // $search->type='category';
+        if($response){
+          $search->success=true;
+        }else{
+          $search->success=false;
+        }
+        $search->save();
+
+        return $response;
+      }
+
+      public function savePost(Request $request){
+        $save_post=new \App\Models\SavedPost();
+        $save_post->user_id=Auth::user()->id;
+        $save_post->post_id=$request->post_id;
+        $save_post->save();
+        return response()->json(['success'=>[
+          'post_save'=>true,
+        ]]);
+      }
+
+      public function reportPost(Request $request){
+        $report_post=new \App\Models\PostReport();
+        $report_post->user_id=Auth::user()->id;
+        $report_post->post_id=$request->post_id;
+        $report_post->save();
+        return response()->json(['success'=>[
+          'user_like'=>true,
+        ]]);
+      }
 }

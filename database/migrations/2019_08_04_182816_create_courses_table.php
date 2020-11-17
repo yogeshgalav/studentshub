@@ -14,11 +14,15 @@ class CreateCoursesTable extends Migration
     public function up()
     {
         Schema::create('courses', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('course_name');
+            $table->string('course_url');
+            $table->string('duration')->nullable();
+            $table->string('eligibility')->nullable();
             $table->integer('category_id')->unsigned()->nullable();
-            $table->string('course_level')->nullable();
             $table->char('country_id',2)->default('IN');
+            $table->boolean('verified')->default(false);
+            $table->string('alias')->nullable();
             $table->timestamps();
         });
     }

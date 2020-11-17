@@ -9,29 +9,41 @@ use Auth;
 class LikeController extends Controller
 {
     //
-    public function index($post_id,Request $request){
-        
-            switch($request->input('method')){
-                case 'add':
-                    switch($request->input('type')){
-                        case 'like':
-                        $like=Like::updateOrCreate(['post_id'=>$post_id,'user_id'=>Auth::user()->id],['like'=>1]);
-                        break;        
-                        case 'dislike':
-                        $like=Like::updateOrCreate(['post_id'=>$post_id,'user_id'=>Auth::user()->id],['like'=>0]);
-                        break;
-                    }
-                break;
-                
-                case 'delete':
-                if(!is_null($like)){
-                    $like->delete();
-                }else{
-                    abort(403);
+    public function post(Request $request){
+        $post=\App\Models\Post::findOrFail($request->post_id);
+        $me=Auth::user();
+        $like=Like::where('likable_id','=',$post->id)->where('likable_type','=','App\Models\Post')->where('user_id','=',$me->id)->first();
+        switch($request->input('method')){
+            case 'add':
+                if(is_null($like)){
+                    $like= new Like();
+                    $like->likable_type='App\Models\Post';
+                    $like->likable_id=$post->id;
+                    $like->user_id=$me->id;
                 }
-                break;
-                
+                switch($request->input('type')){
+                    case 'like':
+                        $like->like_status=1;
+                        $like->save();
+                    break;        
+                    case 'dislike':
+                        $like->like_status=0;
+                        $like->save();
+                    break;
+                }
+            break;
+            
+            case 'delete':
+            if(!is_null($like)){
+                $like->delete();
+            }else{
+                abort(403);
             }
-            return response()->json('success');
+            break;
+            
         }
+        return response()->json(['success'=>[
+            'user_like'=>$like ? $like->like_status : null,
+        ]]);
+    }
 }

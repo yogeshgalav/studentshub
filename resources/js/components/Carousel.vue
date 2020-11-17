@@ -1,42 +1,43 @@
 <template>
-    <div>
-  <div class="slides">
-  
-    <transition-group tag="ul"
-     name="fade" class="slides-group"
-    >
-     
-      <li v-for="slide in carouselSlides"
-      :key="slide.index"
+  <div>
+    <div class="slides">
+      <transition
+        name="fade"
+        class="slides-group"
       >
-      <slot :slide="slide"       
->Slide {{slide}}</slot>
-      </li>
-     </transition-group>
-  
+        <slot :name="'step'+currentStep" />
+      </transition>
+    </div>
+    <div class="row">
+      <div class="col-md-12  text-center">
+        <span
+          v-for="step in total_steps"
+          :key="step"
+        >
+          <span v-if="currentStep===step"> <img src="/images/rectangle2.svg"> </span>
+          <span
+            v-if="currentStep!==step"
+            class="ml-1 mr-1"
+            @click="changeSlide(step)"
+          > <img src="/images/circle.svg"> </span>
+        </span>
+      </div>
+      <div class="home_arrow">
+        <!-- <div class="arrow_right">
+          <span><i class="fas fa-arrow-left"></i></span>
+          </div>-->
+        <!-- <div class="arrow_right" v-if="!lastStep" @click="nextSlide">
+          <button><i class="fas fa-arrow-right"></i></button>
+          </div> -->
+        <router-link
+          class="arrow_right"
+          :to="'/get-started'"
+        >
+          <span class="c_get_start">Get Started<i class="fas fa-arrow-right" /></span>
+        </router-link>
+      </div>
+    </div>
   </div>
-  <!-- <button
-    class="prev"
-    @click="prev()"
-  >Left
-    <i class="fa fa-chevron-left" aria-hidden="true"></i>
-  </button>
-  <button
-    class="next"
-    @click="next()"
-  >Right
-    <i class="fa fa-chevron-right" aria-hidden="true"></i>
-  </button> -->
-  <!-- <ul class="dots">
-    <li 
-      v-for="(dot, index) in slides"
-      :key="index"
-      :class="{ active: ++index === active }"
-      @click="jump(index)"
-    ></li>
-
-  </ul> -->
-</div>
 </template>
 <style scoped>
 
@@ -45,6 +46,15 @@
 {
   margin-bottom:0px;
 }
+.circle-active {
+  width: 36px;
+height: 12px;
+left: 60px;
+top: 669.5px;
+background: #0297E8;
+border-radius: 11111px;
+}
+
 .fade-enter-active {
   transition: opacity 1s;
 }
@@ -127,91 +137,36 @@
 
 <script>
 export default {
-  props:{
-    'stepJump':{
-      type:Number,
-      default:1
-    },
-    'perPage':{
-      type:Number,
-      default:1
-    },
-    'slides':{
-      type:Array,
-      default:()=>[]
-    },'loop':{
-      type:Boolean,
-      default:false
-    }
-  },
-  data() {
-    return {
-      active:0,
-    }
-  },
-  computed:{
-    pageFirstIndex(){
-      return this.activeIndexes[this.active][0];
-    },
-    pageLastIndex(){
-      return this.activeIndexes[this.active][1];
-    },
-    slideLastIndex(){
-      return this.slides.length-1;
-    },
-    activeIndexes(){
-      let data=[];
-      let i=0
-      while(i<this.slides.length)
-      {
-        data.push([i,i+this.perPage]);
-        i=i+this.stepJump;
-      }
-      return data;
-    },
-    carouselSlides(){
-      return this.slides.map((node,index)=>{
-        if(index>=this.pageFirstIndex && index<this.pageLastIndex){
-          node.isActive=true;
-        }else{
-          node.isActive=false;
-        }
-        node.index=index;
-        return node;
-      });
-    }
-  },
-  methods: {
-    next(){
-      if(this.indexExists()){
-        this.active++;
-      }else if(this.loop===true && !this.indexExists()){
-        this.active=0;
-      }else{
-        return false;
-      }
-    },
-    indexExists(){
-       if((this.active+1)<this.activeIndexes.length)
-       return true;
-       else
-       return false;
-    },
-    prev(){
-      if(this.prevIndexExists()){
-        this.active--;  
-      }else if(this.loop===true && !this.prevIndexExists()){
-        this.active=this.activeIndexes[this.activeIndexes.length-1];
-      }else{
-        return false;
-      }      
-    },
-    prevIndexExists(){
-      if((this.active-1)>=0)
-       return true;
-       else
-       return false;
-    },
-  }
-}
+	props:{
+	},
+	data() {
+		return {
+			currentStep:1,
+			total_steps:3,
+		};
+	},
+	computed:{
+		lastStep(){
+			if(this.currentStep===this.total_steps){
+				return true;
+			}
+			return false;
+		}
+	},
+	mounted(){
+		setInterval(()=>{ this.nextSlide(); }, 7000);
+	},
+	methods: {
+		nextSlide(){
+			if(this.currentStep===this.total_steps){
+				this.currentStep=1;
+			}else{
+        	this.currentStep=this.currentStep+1;
+			}
+		},
+		changeSlide(step){
+			this.currentStep=step;
+		}
+	}
+};
 </script>

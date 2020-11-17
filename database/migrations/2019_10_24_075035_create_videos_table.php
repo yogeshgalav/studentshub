@@ -14,10 +14,9 @@ class CreateVideosTable extends Migration
     public function up()
     {
         Schema::create('videos', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->integer('post_id')->unsigned();
-            $table->string('link');
-            $table->text('description')->nullable();
+            $table->increments('id');
+            $table->string('video_id');
+            $table->text('content')->nullable();
             $table->timestamps();
         });
     }

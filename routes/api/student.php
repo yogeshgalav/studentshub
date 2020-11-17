@@ -2,13 +2,18 @@
 <?php
 
 Route::group(['middleware'=>['auth:api']],function(){
-
-    Route::get('/get-categories','CategoryController@index');
+    Route::post('/submit-post','PostController@create');
+    Route::get('/get-student-posts','PostController@getStudentPosts');
     Route::get('/get-subjects/{category_id}','SubjectController@index');
     Route::get('/get-subject-list/{category_id}','SubjectController@subjectList');
-    Route::post('/submit-post','PostController@create');
     Route::post('/save-post-image','PostController@createImage');
-    Route::post('/add-question','QuestionController@addQuestion');
-    Route::get('/get-question','QuestionController@getQuestion');
-    
+    Route::post('/add-doubt','DoubtController@addDoubt');
+    Route::get('/get-doubts','DoubtController@getDoubts');
+    Route::post('/search-doubts','DoubtController@searchDoubts');
+    Route::get('/get-student-course-details','StudentController@getCourseSubjects');
+    //doubt
+    Route::post('/doubt/{doubtId}/add-answer','DoubtAnswersController@addDoubtAnswer');
+    Route::get('/doubt/{doubtId}/get-answers','DoubtAnswersController@getDoubtAnswers');
+    //profile
+    Route::get('/get-interests','UserController@getInterests');
 });

@@ -1,44 +1,49 @@
 <template>
   <div class="autocomplete">
     <input
-      :value="search[value]"
+      v-model="search"
       type="text"
       class="form-control"
-      @input="showResult($event)"
+      :placeholder="placeholder"
+      :readonly="!isAsync"
+      @input="onChange"
       @keydown.down="onArrowDown"
       @keydown.up="onArrowUp"
       @keydown.enter="onEnter"
+      @focus="onFocus"
     >
     <transition name="fade">
       <ul
-        v-show="isOpen"
+        v-show="isOpen===true"
         id="autocomplete-results"
         class="autocomplete-results"
       >
-          <li
-              class="autocomplete-result"
-              @click="getEmit({'id':0,value:search[value]})"
-          >
-              Create        </li>
-        <!--              <li-->
-        <!--                  v-if="isLoading"-->
-        <!--                  class="loading"-->
-        <!--              >-->
-        <!--                  {{ $t('vue-auto-complete.loading') }}-->
-        <!--              </li>-->
         <li
-          v-for="(result, i) in results"
+          v-if="isLoading"
+          class="loading"
+        >
+          {{ trans('loading...') }}
+        </li>
+        <li
+          v-for="(currentResult, i) in results"
           :key="i"
           class="autocomplete-result"
           :class="{ 'is-active': i === arrowCounter }"
-          @click="getEmit(result)"
+          @click="setResult(currentResult)"
         >
           <slot
             name="list"
-            v-bind="result"
+            v-bind="currentResult"
           >
-            {{ result[value] }}
+            {{ currentResult[value] }}
           </slot>
+        </li>
+        <li
+          v-if="createNewItem===true"
+          class="autocomplete-result"
+          @click="createNew"
+        >
+          {{ trans('Create New') }}
         </li>
       </ul>
     </transition>
@@ -46,93 +51,164 @@
 </template>
 
 <style>
-    .autocomplete {
-        position: relative;
-    }
+  .autocomplete {
+    position: relative;
+  }
 
-    .autocomplete-results {
-        padding: 0;
-        margin: 0;
-        border: 1px solid #eeeeee;
-        overflow: auto;
-        width: 100%;
-    }
+  .autocomplete-results {
+    padding: 0;
+    margin: 0;
+    border: 1px solid #eeeeee;
+    overflow: auto;
+    width: 100%;
+  }
 
-    .autocomplete-result {
-        list-style: none;
-        text-align: left;
-        padding: 4px 2px;
-        cursor: pointer;
-    }
+  .autocomplete-result {
+    list-style: none;
+    text-align: left;
+    padding: 4px 2px;
+    cursor: pointer;
+  }
 
-    .autocomplete-result.is-active,
-    .autocomplete-result:hover {
-        background-color: #4AAE9B;
-        color: white;
-    }
+  .autocomplete-result.is-active,
+  .autocomplete-result:hover {
+    background-color: #4AAE9B;
+    color: white;
+  }
 
 </style>
 <script>
 export default {
 	name: 'Autocomplete',
 
-	props: ['items','value','isAsync',],
-
+	props: {
+		value: {
+			type: String,
+			required: true,
+			default: () => 'name',
+		},
+		placeholder: {
+			type: String,
+			required: false,
+			default: () => '',
+		},
+		items: {
+			type: Array,
+			required: true,
+			default: () => [],
+		},
+		isAsync: {
+			type: Boolean,
+			required: false,
+			default: true,
+		},
+		isLoading: {
+			type: Boolean,
+			required: false,
+			default: false,
+		},
+		createNewItem: {
+			type: Boolean,
+			required: false,
+			default: true,
+		},
+		initialValue: {
+			type: Object,
+			required: false,
+			default: () => {},
+		},
+	},
+	$_veeValidate: {
+		value () {
+			return this.search;
+		}
+	},
 	data() {
 		return {
-			isOpen:false,
+			isOpen: false,
 			results: [],
-            search:{},
-            arrowCounter: 0,
+			result:{},
+			search: '',
+			arrowCounter: 0,
 		};
 	},
-	watch : {
-         items: function (val) {
-             this.results= val;
-
-         }
-  },
-	methods: {
-	    getEmit: function (currentResult) {
-			this.$emit('selected', currentResult );
-			this.search = currentResult;
-			this.isOpen=false;
-		},
-		showResult(event){
-      this.search[this.value]= event.target.value;
-			if(this.isAsync){
-				this.$emit('setValue', this.search[this.value]);
-			}else {
-				this.filterResults();
+	watch:{
+		items(val){
+			this.results = val;
+			if(this.isAsync===true){
+				this.isOpen=true;
 			}
-      this.isOpen = true;
 		},
-		filterResults() {
-      this.results = this.items.filter((item) => {
-				if (item[this.value].toLowerCase().indexOf(this.search[this.value].toLowerCase())>-1) {
-					return true;
-        }
-        return false;
-      });
-    },
-        onArrowDown() {
-            if (this.arrowCounter < this.results.length) {
-                this.arrowCounter = this.arrowCounter + 1;
-            }
-        },
-        onArrowUp() {
-            if (this.arrowCounter > 0) {
-                this.arrowCounter = this.arrowCounter -1;
-            }
-        },
-        onEnter() {
-            this.search = this.results[this.arrowCounter];
-            this.isOpen = false;
-            this.arrowCounter = -1;
-        },
-
-
+	},
+	mounted() {
+		this.results = this.items;
+		document.addEventListener('click', this.handleClickOutside);
+		if(this.initialValue){
+			this.result = Object.assign({},this.initialValue);
+			this.search =this.result[this.value];
+		}
+	},
+	destroyed() {
+		document.removeEventListener('click', this.handleClickOutside);
+	},
+	methods: {
+		trans: function(string, defaultString) {
+			return this.$trans('auth', string, defaultString);
+		},
+		onChange() {
+			if(this.search.length<3){
+				return false;
+			}
+			if(this.isAsync===false){
+				this.results = this.results.filter(node=>node.name.indexOf(this.search) !== -1);
+				return true;
+			}
+			// Let's warn the parent that a change was made
+			this.$emit('input', this.search);
+		},
+		setResult(result) {
+			this.$emit('selected', result);
+			this.search = result[this.value];
+			this.isOpen = false;
+		},
+		createNew() {
+			if(this.createNewItem===false){
+				return false;
+			}
+			this.$emit('selectNew', this.search);
+			this.isOpen = false;
+		},
+		onArrowDown() {
+			if (this.arrowCounter < this.results.length) {
+				this.arrowCounter = this.arrowCounter + 1;
+			}
+		},
+		onArrowUp() {
+			if (this.arrowCounter > 0) {
+				this.arrowCounter = this.arrowCounter -1;
+			}
+		},
+		onEnter() {
+			this.$emit('selected', this.results[this.arrowCounter]);
+			this.search = this.results[this.arrowCounter][this.value];
+			this.isOpen = false;
+			this.arrowCounter = -1;
+		},
+		handleClickOutside(evt) {
+			if(this.createNewItem===false || this.isOpen === false){
+				return false;
+			}
+			if (!this.$el.contains(evt.target)) {
+				this.$emit('selectNew', this.search);
+				this.isOpen = false;
+				this.arrowCounter = -1;
+			}
+		},
+		onFocus(){
+			if(this.isAsync===false){
+				this.isOpen=true;
+			}
+		}
 	}
-
 };
 </script>

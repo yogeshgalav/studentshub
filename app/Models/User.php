@@ -5,12 +5,11 @@ namespace App\Models;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, Notifiable, SoftDeletes;
+    use HasApiTokens, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -18,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'full_name','first_name','last_name', 'email', 'password',
+        'full_name', 'email', 'password',
     ];
 
     /**
@@ -43,6 +42,10 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Models\Student');
     }
+    public function post()
+    {
+        return $this->hasMany('App\Models\Post');
+    }
     public function teacher()
     {
         return $this->hasOne('App\Models\Teacher');
@@ -58,5 +61,45 @@ class User extends Authenticatable
     public static function notificationCount()
     {
         return 0;
+    }
+
+    public function getFirstNameAttribute(){
+        $full_name=$this->full_name;
+        $parts = explode(" ", $full_name);
+        if(count($parts) > 1) {
+            $lastname = array_pop($parts);
+            return implode(" ", $parts);
+        }
+        return $full_name;
+    }
+
+    public function setFullNameAttribute($value){
+        $this->attributes['full_name'] = ucwords($value);
+    }
+
+    public function joinedClassoomCount(){
+        return \DB::table('classroom_users')
+            ->where('user_id',$this->id)
+            ->where('joined_at','!=',null)
+            ->count();
+    }
+
+    public function createdClassoomCount(){
+        return \DB::table('classrooms')
+        ->join('teachers as tc',function($join){
+            $join->on('tc.id','=','classrooms.teacher_id')->where('user_id','=',$this->id);
+        })
+        ->count();
+    }
+    
+    public function isInstituteMember(){
+        return \DB::table('institute_users')
+            ->where('user_id',$this->id)
+            ->exists();
+    }
+    public function isAdmin(){
+        return \DB::table('admins')
+            ->where('user_id',$this->id)
+            ->exists();
     }
 }

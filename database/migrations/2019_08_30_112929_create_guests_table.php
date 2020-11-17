@@ -14,11 +14,9 @@ class CreateGuestsTable extends Migration
     public function up()
     {
         Schema::create('guests', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('ip');
             $table->string('agent');
-            $table->string('email')->nullable();
-            $table->boolean('is_subscribed')->default(false);
             $table->timestamps();
         });
     }

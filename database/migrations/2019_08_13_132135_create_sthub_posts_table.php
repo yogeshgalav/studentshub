@@ -14,16 +14,15 @@ class CreateSthubPostsTable extends Migration
     public function up()
     {
         Schema::create('sthub_posts', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->integer('post_id')->unsigned();
             $table->integer('shared_by')->unsigned();
-            $table->string('post_type');
+            $table->integer('category_id')->unsigned()->nullable();
             $table->integer('classroom_id')->unsigned()->nullable();
             $table->integer('batch_id')->unsigned()->nullable();
             $table->integer('branch_id')->unsigned()->nullable();
             $table->integer('course_id')->unsigned()->nullable();
             $table->integer('institute_id')->unsigned()->nullable();
-            $table->integer('post_image_id')->unsigned()->nullable();
             $table->timestamps();
         });
     }
