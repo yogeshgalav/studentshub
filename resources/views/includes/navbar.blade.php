@@ -11,7 +11,7 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav menu_head dash_search">
-      <li class="nav-item active search_box ">
+      <li class="nav-item  search_box ">
       @include('includes.search-form')
       </li>
       {{-- <li>
