@@ -3,28 +3,24 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Support\Carbon;
+use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
-use Log;
-use App\Models\User;
-use App\Models\Batch;
-use App\Models\student;
-use Carbon\Carbon;
+use NotificationChannels\WebPush\WebPushMessage;
+use NotificationChannels\WebPush\WebPushChannel;
 
-class NewUserWelcomeNotification extends SthubAllowlistedUserNotification
+class HelloNotification extends Notification
 {
     use Queueable;
 
-    protected $text;
-
-        /**
+    /**
      * Create a new notification instance.
      *
      * @return void
      */
     public function __construct()
     {
-        $this->text="Welcome to Student'sHUB. You can now check your interest field in Profile section.";
+        //
     }
 
     /**
@@ -69,34 +65,5 @@ class NewUserWelcomeNotification extends SthubAllowlistedUserNotification
             ->body('Thank you for using our application.')
             ->action('View app', 'view_app')
             ->data(['id' => $notification->id]);
-    }
-
-    /**
-     * Get the mail representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
-    public function toMail($notifiable)
-    {
-        return (new MailMessage)
-                    ->line('The introduction to the notification.');
-    }
-
-    /**
-     * Get the array representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
-    public function toDatabase($notifiable)
-    {
-        return [
-            'text'=>$this->text,
-            'user_id'=>$notifiable->id,
-            'url'=>'/profile/'.$notifiable->id,
-            'urlName'=>'profile',
-            'urlId'=>$notifiable->id,
-        ];
     }
 }

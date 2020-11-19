@@ -123,7 +123,7 @@ class AuthController extends Controller
 
         $success['redirectUrl'] = '/education-details';
         \App\Models\ScheduledJob::scheduleNewUserNotification($user);
-    
+        
     DB::commit();
     } catch (\Exception $e) {
         DB::rollback();

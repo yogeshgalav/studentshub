@@ -14,23 +14,9 @@
       <li class="nav-item active search_box ">
       @include('includes.search-form')
       </li>
-      {{-- <li>
-                        <div class="dropdown">
-                            <button class="btn btn-sm btn-default border-radius-12 dropdown-toggle" type="button"
-                                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false">
-                                <span><i class="fa fa-bell"></i></span>
-                            </button>
-                            <div class="dropdown-menu noti_design" aria-labelledby="dropdownMenuButton">
-                              <p class="n_head dropdown-item">Recent Notification</p>
-                            @foreach($notifications as $notification)
-                                      <hr/>
-                                      <a class="dropdown-item" href="{{$notification['data']['url']}}">{{ $notification['data']['text'] }}</a>
-                                     <p class="dropdown-item"> <i class="fas fa-clock"></i> <span>{{ $notification['time'] }}</span></p>
-                            @endforeach
-                            </div>
-                        </div>
-                    </li> --}}
+      <li class="nav-item">
+          <notifications-dropdown></notifications-dropdown>
+      </li>
       <li class="nav-item">
         @include('includes.profile-dropdown')
       </li>

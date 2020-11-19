@@ -24,8 +24,13 @@ Vue.use(VueLazyload, {
 Vue.use(VModal, { dynamic: true, injectModalsContainer: true, scrollable:true });
 Vue.use(VueAxios, axios);
 
+import NotificationsDemo from '../components/NotificationsDemo';
+import NotificationsDropdown from '../components/NotificationsDropdown';
+
 Vue.mixin({
 	components:{
+		NotificationsDemo,
+		NotificationsDropdown,
 		Loading
 	},
 	computed: {
