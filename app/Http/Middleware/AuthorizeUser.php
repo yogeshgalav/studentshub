@@ -24,7 +24,7 @@ class AuthorizeUser
         if($request->expectsJson()) {
             return response()->json('Unautorized',401);
         }
-        return Url::to('/login');
-        
+
+        return redirect('/login');
     }
 }
