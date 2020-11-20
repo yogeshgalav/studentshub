@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Facades\Auth;
 use App\Models\Batch;
 use App\Models\CourseLevel;
-use App\Models\NotificationText;
 use App\Models\Student;
 
 class PagesController extends Controller

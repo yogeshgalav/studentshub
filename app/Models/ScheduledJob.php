@@ -47,7 +47,7 @@ class ScheduledJob extends Model
             'notification_class_name' => NewUserWelcomeNotification::class,
             'user_id'=>$user->id
         ]);
-        $user->notify(new NewUserWelcomeNotification);
+        // $user->notify(new NewUserWelcomeNotification);
         return $job;
     }
 

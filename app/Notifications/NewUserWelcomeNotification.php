@@ -9,6 +9,7 @@ use Log;
 use App\Models\User;
 use App\Models\Batch;
 use App\Models\student;
+use App\Models\ScheduledJob;
 use Carbon\Carbon;
 
 class NewUserWelcomeNotification extends SthubAllowlistedUserNotification
@@ -16,14 +17,18 @@ class NewUserWelcomeNotification extends SthubAllowlistedUserNotification
     use Queueable;
 
     protected $text;
+    public ScheduledJob $scheduled_job;
 
         /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(ScheduledJob $scheduled_job)
     {
+        parent::__construct();
+
+        $this->scheduled_job =$scheduled_job;
         $this->text="Welcome to Student'sHUB. You can now check your interest field in Profile section.";
     }
 
@@ -39,22 +44,6 @@ class NewUserWelcomeNotification extends SthubAllowlistedUserNotification
     }
 
     /**
-     * Get the array representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
-    public function toArray($notifiable)
-    {
-        return [
-            'title' => 'Hello from Laravel!',
-            'body' => 'Thank you for using our application.',
-            'action_url' => 'https://laravel.com',
-            'created' => Carbon::now()->toIso8601String()
-        ];
-    }
-
-    /**
      * Get the web push representation of the notification.
      *
      * @param  mixed  $notifiable
@@ -64,9 +53,9 @@ class NewUserWelcomeNotification extends SthubAllowlistedUserNotification
     public function toWebPush($notifiable, $notification)
     {
         return (new WebPushMessage)
-            ->title('Hello from Laravel!')
+            ->title('Hi '.$notifiable->full_name.',')
             ->icon('/notification-icon.png')
-            ->body('Thank you for using our application.')
+            ->body($this->text)
             ->action('View app', 'view_app')
             ->data(['id' => $notification->id]);
     }
@@ -92,7 +81,8 @@ class NewUserWelcomeNotification extends SthubAllowlistedUserNotification
     public function toDatabase($notifiable)
     {
         return [
-            'text'=>$this->text,
+            'title'=>'Hi '.$notifiable->full_name.',',
+            'body'=>$this->text,
             'user_id'=>$notifiable->id,
             'url'=>'/profile/'.$notifiable->id,
             'urlName'=>'profile',
