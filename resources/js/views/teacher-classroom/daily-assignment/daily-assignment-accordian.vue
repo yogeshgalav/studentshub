@@ -143,8 +143,8 @@
             </div>
             <div class="row add_cl_q">
               <div class="col-md-12">
-                <div class="text-grey col-md-12">
-                  <p>
+                <div class="text-grey col-md-12 pl-0">
+                  <p class="mt-1">
                     Students will be asked to answer the following questions on this unit
                     attempt
                   </p>

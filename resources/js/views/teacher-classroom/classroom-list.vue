@@ -152,6 +152,7 @@
 .clss_username h5 {
 color:#333;
 }
+
 .classroom_content p {
   font-size: 20px;
   font-weight: bold;

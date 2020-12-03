@@ -1221,7 +1221,10 @@ textarea:focus {
     border: solid 1px blue !important;
 }
 @media only screen and (max-width: 600px) {
-
+   
+        .btn-label {
+          margin-right: 10px !important;
+        }
     // Habit Builder 
     .custom-nav .nav-item .active {
         background: $white;
@@ -2150,12 +2153,27 @@ main.doubt_main_page {
 .doubt_model .v--modal-box.v--modal {
    
    left: 0 !important;
-   height: auto !important;
+   height: 400px !important;
    right: 0 !important;
    margin: 0 auto !important;
    width: 50% !important;
+   overflow-y: scroll;
+   padding: 20px;
+
+}
+::-webkit-scrollbar {
+    width: 12px;
 }
 
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
 
 .user_profile_page {
     padding: 50px 0;
@@ -2421,6 +2439,13 @@ justify-content: space-between;
     .search_box {
         width: 100%;
         margin-top: 25px;
+    }
+    .doubt_model .d-flex {
+        display: block !important;
+    }
+    .doubt_model .delete_btn {
+    margin-top: 20px;
+    margin-left: 5px;
     }
     .cl_q_close {
        
