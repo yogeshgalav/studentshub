@@ -66,7 +66,7 @@
         
     <div
       v-if="assignmentId && total_marks<10"
-      class="mt-3 mb-2 col-md-12"
+      class="mt-3 mb-2 col-md-12 pl-0"
     >
       <add-button
         name="Add Question"
@@ -80,8 +80,6 @@
       :click-to-close="false"
     >
       <form
-        v-slimscroll="options"
-        style="padding:25px;"
         @submit.prevent="saveQuestion()"
       >
         <div class="row">
@@ -305,7 +303,8 @@ export default {
 		return {
 			daily_questions:[],
 			options: {
-				height: '400px',
+        height: '400px',
+        overflow:scroll
 			},
 			avail_marks:10,
 			current_question_edit: {
