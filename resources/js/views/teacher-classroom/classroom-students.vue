@@ -157,6 +157,10 @@ export default {
 	},
 	mounted(){
 		this.getClassroomStudentDetails();
+		// this.$store.dispatch('classroom/getClassroomDetail',this.$route.params.classroomId);
+        this.$store.dispatch('classroom/getStudentsDetail', this.$route.params.classroomId);
+		
+
 	},
 	methods: {
 		getClassroomStudentDetails(){
