@@ -607,7 +607,7 @@ class CoursesTableSeeder extends Seeder
         (608, 'Bachelor of Science Master of Science Integrated', 'bachelor-of-science-master-of-science-integrated', 'Five year', '10+2 or equivalent', 5, 'IN', 1, 'BSMSI', '2020-05-31 10:23:06', '2020-06-10 00:26:26'),
         (1001, 'Preparatory Stage (3-5)', 'preparatory-stage', 'Three year', '', null, 'IN', 1, 'class', '2020-05-31 10:23:06', '2020-06-10 00:26:26'),
         (1002, 'Middle Stage (6-8)', 'middle-stage', 'Three year', 'Preparatory Stage', null, 'IN', 1, 'class', '2020-05-31 10:23:06', '2020-06-10 00:26:26'),
-        (1003, 'Secoundary Stage (9-12)', 'secoundary-stage', 'Four year', 'Middle Stage', null, 'IN', 1, 'class', '2020-05-31 10:23:06', '2020-06-10 00:26:26');";
+        (1003, 'Secondary Stage (9-12)', 'secondary-stage', 'Four year', 'Middle Stage', null, 'IN', 1, 'class', '2020-05-31 10:23:06', '2020-06-10 00:26:26');";
         DB::unprepared($sql);
         DB::unprepared($sql2);
         DB::unprepared($sql3);

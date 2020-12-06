@@ -51,7 +51,7 @@
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="mb-1"> {{ 'Program/Course Level.' }} </label>
+                      <label class="mb-1"> {{ 'Program/Course Level' }} </label>
                       <div class="inner-addon left-addon">
                         <div class="input_icon_frm">
                           <span
@@ -80,7 +80,7 @@
                       v-if="show_courses"
                       class="form-group"
                     >
-                      <label class="mb-1"> {{ 'Program/Course of classroom.' }} </label>
+                      <label class="mb-1"> {{ 'Program/Course of classroom' }} </label>
                       <div class="inner-addon left-addon">
                         <div class="input_icon_frm">
                           <span
@@ -113,7 +113,7 @@
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="mb-1"> {{ 'Subject of Classroom.' }} </label>
+                      <label class="mb-1"> {{ 'Subject of Classroom' }} </label>
                       <div class="inner-addon left-addon">
                         <div class="input_icon_frm">
                           <span
