@@ -15,15 +15,35 @@ class DoubtAnswersController extends Controller
     public function addDoubtAnswer ($doubtId,Request $request)
     {
 
-        $input = $request->all();
+        $doubt = Doubt::findOrFail($doubtId);
         DB::beginTransaction();
     try{
 
         $answer = new DoubtAnswer();
-        $answer->user_id = Auth::user()->id;
+        $answer->user_id = Auth::id();
         $answer->doubt_id = $doubtId;
         $answer->answer = $request->answer;
         $answer->save();
+
+        $post=new Post;
+        $post->user_id=Auth::user()->id;
+        $post->post_heading=$doubt->question;
+        $post->subject_id=$doubt->subject_id;
+
+        $article=new Article;
+        $post_content_id=$article->createFromContent(['article_html_content'=>$request->answer]);
+        $post->postable_type="App\Models\Article";
+        $post->primary_image_path='/storage/article-default.png';
+        $post->postable_id=$post_content_id;
+
+        $post->save();
+        $student = Auth::student();
+        SthubPost::create([
+            'post_id'=>$post->id,
+            'institute_id'=>$student->instituteId,
+            'course_id'=>$student->courseId,
+            'shared_by'=>Auth::id(),
+        ]);
 
     DB::commit();
         } catch (\Exception $e) {
@@ -37,7 +57,8 @@ class DoubtAnswersController extends Controller
 
     public function getDoubtanswers($doubtId,Request $request)
     {
-        $answers=\DB::table('doubt_answers')->where('doubt_id',$doubtId)
+        $answers=\DB::table('doubt_answers as da')->where('da.doubt_id',$doubtId)
+        ->join('posts','posts.id','=','da.post_id')
         ->get();
 
         return response()->json([

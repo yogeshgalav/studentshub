@@ -71,7 +71,9 @@
             <li> <a href="/my-institute"><span class="icon"><img src="{{asset('/images/university.png') }}" alt="Student'sHUB" width="20"/></span> My Institute</a></li>
             @endif
                 <li> <a href="/"> <span class="icon"><img src="{{asset('/images/home.png') }}" alt="Student'sHUB" width="20"/></span> Home</a></li>
-
+            @if(Auth::student())
+                <li> <a href="/doubts"> <span class="icon"><img src="{{asset('/images/home.png') }}" alt="Student'sHUB" width="20"/></span> Doubts</a></li>
+            @endif
                 <li> <a href="/profile/{{Auth::id()}}"> <span class="icon"><img src="{{asset('/images/user.png') }}" alt="Student'sHUB" width="20"/></span> Profile</a></li>
 
                 <li><a href="/logout"> <span class="icon"><img src="{{asset('/images/logout.png') }}" alt="Student'sHUB" width="20"/></span> Logout</a></li>

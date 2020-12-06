@@ -28,7 +28,7 @@ class DoubtController extends Controller
 
         $subject_name=strtolower($request->subject);
         $subject=Subject::firstOrCreate([
-            'subject_url'=>urlencode($subject_name),
+            'subject_url'=>\Str::slug($subject_name),
             ],[
             'subject_name'=>$subject_name,
             'category_id'=>$student->categoryId
@@ -90,7 +90,7 @@ class DoubtController extends Controller
 
     public function searchDoubts(Request $request){
         $search=implode('%',$this->extractKeyWords($request->query));
-        $Doubts=Doubt::where('question','LIKE','%',$search,'%')->get();
+        $Doubts=Doubt::where('question','LIKE','%'.$search.'%')->get();
 
         return response()->json([
             'success'=>[
