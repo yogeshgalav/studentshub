@@ -45,7 +45,7 @@
                       data-provide="datepicker"
                     >
                       <span class="input-group-text">
-                        <i class="icon-calendar" />
+                        <i class="fa fa-calendar" />
                       </span>
                     </div>
                     <date-picker
@@ -83,7 +83,7 @@
                         data-provide="datepicker"
                       >
                         <span class="input-group-text">
-                          <i class="icon-calendar" />
+                          <i class="fa fa-clock" />
                         </span>
                       </div>
                       <date-picker
@@ -116,7 +116,7 @@
                         data-provide="datepicker"
                       >
                         <span class="input-group-text">
-                          <i class="icon-calendar" />
+                           <i class="fa fa-clock" />
                         </span>
                       </div>
                       <date-picker
@@ -144,7 +144,7 @@
             <div class="row add_cl_q">
               <div class="col-md-12">
                 <div class="text-grey col-md-12 pl-0">
-                  <p class="mt-1">
+                  <p class="mt-2">
                     Students will be asked to answer the following questions on this unit
                     attempt
                   </p>
@@ -159,18 +159,18 @@
             </div>
 
             <div
-              class="mt-5"
+              class="mt-3 mobile_button_view"
             >
               <hr>
               <button
-                class="btn btn-danger btn-md"
+                class="btn btn-danger btn-md mt-1 "
                 @click="deleteDailyAssignment(daily)"
               >
                 Delete Daily
                 Assignment
               </button>
               <button
-                class="btn btn-primary btn-md"
+                class="btn btn-primary btn-md mt-1"
                 @click="activateDailyAssignment(daily)"
               >
                 {{ daily.activated_at ? 'Deactivate Daily Assignment' : 'Activate Daily Assignment' }}
@@ -182,6 +182,14 @@
     </div>
   </div>
 </template>
+<style scoped>
+
+@media only screen and (max-width: 600px) {
+.mobile_button_view button {
+  width: 100%;
+}
+}
+</style>
 <script>
 import FormMixin from '../../../components/mixins/form-mixin.js';
 import Accordion from '../../../components/accordion';
