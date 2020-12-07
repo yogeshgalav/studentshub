@@ -160,29 +160,37 @@
       </div>
     </div>
     
-    <div class="col-md-6">
-      <span
-        class="text-blue font-size-24 weight-800 join-id line-height-25-px"
-        @click="copyText('joinId')"
+    <div class="col-md-3  col-12 mt-3">
+     <div class="join_id_box"   @click="copyText('joinId')">
+       <i class="fa  text-blue  fa-arrow-right mr-3"/>  <span
+        class="text-blue font-size-14 weight-800 join-id line-height-25-px"
       >
         {{ 'Join id' }}: {{ classroomDetail.classroom_live_id }}  
-        <span v-if="displayText"><i class="fa fa-check text-success font-size-15" /> </span>
+        <span v-if="displayText" class="right_positions"><i class="fa fa-check text-success font-size-15" /> </span>
       </span>
-      <span v-if="displayText1"><i class="fa fa-copy text-blue font-size-15" /> </span>
+      <span v-if="displayText1" class="right_positions"><i class="fa fa-copy text-blue font-size-15" /> </span>
+     </div>
     </div>
     
-    <div class="col-md-6">
-      <span
-        class="text-blue font-size-24 weight-800 join-id line-height-25-px"
-        @click="copyText('RegisterationLink')"
-      >
-        {{ 'Join id' }}: {{ classroomDetail.classroom_live_id }}  
-        <span v-if="displayText"><i class="fa fa-check text-success font-size-15" /> </span>
-      </span>
-      <span v-if="displayText1"><i class="fa fa-copy text-blue font-size-15" /> </span>
-    </div>
+  
   </div>
 </template>
+<style scoped>
+.join_id_box {
+ border:1px solid #eee;
+ border-radius: 5px;
+ padding: 8px 5px 8px 15px;
+ cursor: pointer;
+}
+.join_id_box:hover {
+ background-color: #f3f9e8;
+ border-color: #e1ebb3;
+}
+.right_positions {
+  position: absolute;
+  right: 40px;
+}
+</style>
 <script>
 
 import ClassroomHeader from '../../components/ClassroomHeader';
