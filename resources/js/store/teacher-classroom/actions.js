@@ -14,20 +14,6 @@ export default {
     })
   })
 },
-getStudentsDetail({commit}, classroomId) {
-  return new Promise((resolve, reject) => {
-    axios({url: window.App.baseUrl+'/api/classroom/'+classroomId + '/students-data', method:'GET' }).then(resp=> {
-      const data = resp.data.success.student_details
-      commit('get_students_detials', data)
-      resolve(resp)
-    }).catch(error=> {
-      reject(resp)
-    })
-  }
- 
-  )
-
-}
 
 
 } 
