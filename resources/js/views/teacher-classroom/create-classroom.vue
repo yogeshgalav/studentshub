@@ -142,14 +142,16 @@
                     </div>
                                         
                     <div class="form-group">
-                      <label> {{ 'Classroom Id.' }} </label>
+                      <label> {{ 'Classroom Join Id' }} </label>
                                             
                       <input
+                       v-validate="'required|alpha_num|min:4|max:8'"
                         v-model="classroom_id"
                         type="text"
-                        name="classroom_id"
+                        name="classroom_join_id"
                         class="form-control"
                       >
+                      <span class="error">{{ formErrors('classroom_join_id') }}</span>
                       <span class="error">{{ id_error }}</span>
                     </div>
                     <div class="form-group d-flex s_register_btn">
