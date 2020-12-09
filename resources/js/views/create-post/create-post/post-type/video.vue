@@ -72,10 +72,7 @@ export default {
         is_embeded:false
     };
   },
-  updated(){
-      console.log(this.is_video_embeded)
-
-  },
+  
   mounted(){
 	  EventBus.$on('validateStep2', () => {
           this.$validator.validate().then(valid => {
@@ -99,7 +96,7 @@ export default {
             return false;
         }
         let id = this.matchYoutubeUrl(url);
-        console.log(id)
+        
         if(id!==false){
             this.video_id=id;
             this.is_video_embeded=true
@@ -110,7 +107,7 @@ export default {
         }
 
         this.is_video_embeded=true;
-        console.log(this.is_video_embeded)
+        
     },
     matchYoutubeUrl(url) {
         var p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
