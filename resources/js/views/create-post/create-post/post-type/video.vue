@@ -7,12 +7,14 @@
 
             <input type="text" id="videoLink" name="youtube_video_link" v-validate="'required'" class="form-control" @blur="embedVideo">
             </div>
-             <div v-if="!is_video_embeded" class="video_image">
-                <i class="fa fa-video font-size-120 text-light-gray" />
-            </div>
-            <div v-if="is_video_embeded" class="video_image">
+            <div v-if="is_video_embeded==true" class="video_image">
                 <iframe :src="'https://www.youtube.com/embed/'+video_id" width="320" height="240" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
             </div>
+              <!-- <div v-else class="video_image">
+                <i class="fa fa-video font-size-120 text-light-gray" />
+            </div> 
+            -->
+
         </div>
         <div class="col-md-8">
         
@@ -63,10 +65,16 @@ export default {
   data(){
     return {
         video_id:this.newPost.video_id,
+        video_url:"https://www.youtube.com/embed/",
         video_error:'',
         video_description:this.newPost.video_description,
         is_video_embeded:false,
+        is_embeded:false
     };
+  },
+  updated(){
+      console.log(this.is_video_embeded)
+
   },
   mounted(){
 	  EventBus.$on('validateStep2', () => {
@@ -83,8 +91,7 @@ export default {
   },
   methods: {
     embedVideo(event){
-        
-        this.video_error='';
+      this.video_error='';
         this.is_video_embeded=false;
         let url =event.target.value.trim();
         if(url===''){
@@ -92,18 +99,23 @@ export default {
             return false;
         }
         let id = this.matchYoutubeUrl(url);
+        console.log(id)
         if(id!==false){
             this.video_id=id;
+            this.is_video_embeded=true
+            return true
         }else{
             this.video_error='This video link is not supported';
             return false;
         }
 
         this.is_video_embeded=true;
+        console.log(this.is_video_embeded)
     },
     matchYoutubeUrl(url) {
         var p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
         var matches = url.match(p);
+        
         if(matches){
             return matches[1];
         }
