@@ -12,12 +12,18 @@
         </div>
         <div class="card-body">
           <form>
-            <div class="form-group mb-0 row">
-              <label class="col-sm-2 col-form-label text-black font-size-14">Name
-              </label>
-              <div class="col-sm-10">
+              <div class="form-group  row">
+              <label class="col-sm-2 col-form-label text-black font-size-14">Classroom
+                Name </label>
+              <div class="col-sm-3">
                 <div class="text-black">
-                  {{ classroomDetail.name }}
+                  <input
+                    id="duration"
+                    v-model="form_data.name"
+                    type="text"
+                    class="form-control"
+                    @blur="updateClassroomDetail"
+                  >
                 </div>
               </div>
             </div>
@@ -66,15 +72,6 @@
                     class="form-control"
                     @blur="updateClassroomDetail"
                   >
-                </div>
-              </div>
-            </div>
-            <div class="form-group mb-0 row">
-              <label class="col-sm-2 col-form-label text-black font-size-14">Total
-                Units </label>
-              <div class="col-sm-10">
-                <div class="text-black">
-                  3
                 </div>
               </div>
             </div>
@@ -159,28 +156,6 @@
         </div>
       </div>
     </div>
-    
-    <div class="col-md-6">
-      <span
-        class="text-blue font-size-24 weight-800 join-id line-height-25-px"
-        @click="copyText('joinId')"
-      >
-        {{ 'Join id' }}: {{ classroomDetail.classroom_live_id }}  
-        <span v-if="displayText"><i class="fa fa-check text-success font-size-15" /> </span>
-      </span>
-      <span v-if="displayText1"><i class="fa fa-copy text-blue font-size-15" /> </span>
-    </div>
-    
-    <div class="col-md-6">
-      <span
-        class="text-blue font-size-24 weight-800 join-id line-height-25-px"
-        @click="copyText('RegisterationLink')"
-      >
-        {{ 'Join id' }}: {{ classroomDetail.classroom_live_id }}  
-        <span v-if="displayText"><i class="fa fa-check text-success font-size-15" /> </span>
-      </span>
-      <span v-if="displayText1"><i class="fa fa-copy text-blue font-size-15" /> </span>
-    </div>
   </div>
 </template>
 <script>
@@ -196,9 +171,8 @@ export default {
 	},
 	data() {
 		return {
-			displayText: false,
-			displayText1: true,
 			form_data:{
+				name: '',
 				expected_students: 0,
 				duration: 0,
 				end_year: '',
@@ -222,37 +196,23 @@ export default {
 			return '';
 		}
 	},
-	mounted(){
-		this.updateFormData();
-	},
+  watch:{
+    classroomDetail(val){
+      if(val.id){
+        this.form_data={
+          name: val.name,
+          expected_students: val.expected_students,
+          duration: val.classroom_duration,
+          end_year: val.batch_end_year,
+          start_year: val.batch_start_year,
+			  };
+      }
+    }
+  },
 	methods:{
-		updateFormData(){
-			this.form_data={
-				expected_students:this.classroomDetail.expected_students,
-				duration: this.classroomDetail.classroom_duration,
-				end_year: this.classroomDetail.batch_end_year,
-				start_year: this.classroomDetail.batch_start_year,
-			};
-		},
 		updateClassroomDetail(){
 			this.axios.post('/api/classroom/'+this.classroomDetail.id+'/update-detail',this.form_data);
-		},
-		copyText(copyType){
-			const el = document.createElement('textarea');
-			if(copyType==='RegisterationLink'){
-				el.value = this.baseUrl+'/get-started?joinId='+this.classroomDetail.classroom_live_id;
-			}else{
-				el.value = this.classroomDetail.classroom_live_id;
-			}
-			document.body.appendChild(el);
-			el.select();
-               
-			document.execCommand('copy');
-			this.displayText = true;
-			this.displayText1 = false;
-			document.body.removeChild(el);
-		},
-            
+		},      
 	},
 };
 

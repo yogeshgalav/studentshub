@@ -61,7 +61,7 @@
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="mb-1"> {{ 'Program/Course Level.' }} </label>
+                      <label class="mb-1"> {{ 'Program/Course Level' }} </label>
                       <div class="inner-addon left-addon">
                         <div class="input_icon_frm">
                           <span
@@ -91,7 +91,7 @@
                       v-if="show_courses"
                       class="form-group"
                     >
-                      <label> {{ 'Degree/Program in which you Enroll.' }} </label>
+                      <label> {{ 'Degree/Program in which you Enroll' }} </label>
                       <div class="inner-addon left-addon">
                         <div class="input_icon_frm">
                           <span
@@ -418,7 +418,7 @@ export default {
 				this.selected_level={
 					id:3,
 					level:4,
-					name:'"Secoundary Stage (9-12)"'
+					name:'"Secondary Stage (9-12)"'
 				};
 			}else{
 				this.selected_level={

@@ -135,7 +135,7 @@
                   <span
                     class="text-gray"
                     style="color:#868686;"
-                  >Dont't have an account ?</span> <router-link :to="'/get-started'">
+                  >Dont't have an account?</span> <router-link :to="'/get-started'">
                     Sign Up
                   </router-link>
                 </div>
