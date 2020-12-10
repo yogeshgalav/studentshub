@@ -95,17 +95,6 @@ class DoubtController extends Controller
         ]);
     }
 
-    public function searchDoubts(Request $request){
-        $search=implode('%',$this->extractKeyWords($request->query));
-        $Doubts=Doubt::where('question','LIKE','%'.$search.'%')->get();
-
-        return response()->json([
-            'success'=>[
-                'doubtList'=>$Doubts
-            ]
-        ]);
-    }
-
     function extractKeyWords($string) {
         mb_internal_encoding('UTF-8');
         $stopwords = array();
