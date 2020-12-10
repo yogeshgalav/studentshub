@@ -41,6 +41,9 @@ Vue.mixin({
 		AuthUser(){
 			return window.App.AuthUser;
 		},
+		AuthStudent(){
+			return window.App.AuthStudent;
+		},
 		AuthTeacher(){
 			return window.App.AuthTeacher;
 		},

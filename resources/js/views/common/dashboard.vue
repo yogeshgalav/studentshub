@@ -6,7 +6,7 @@
           <div class="col-md-12">
             <div class="card mb-3">
               <div class="card-body">
-                <a class="h-card" :href="AuthUserType==='student'?'/share-your-knowledge':'/education-details'"> 
+                <a class="h-card" :href="AuthStudent ? '/share-your-knowledge' : '/education-details'"> 
                 <img src="/images/knowledge.svg" alt="">&emsp;
                 Share Your Knowledge &emsp;<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span>  
                 </a>
