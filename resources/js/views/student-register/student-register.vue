@@ -182,6 +182,7 @@
                                 :typeable="true"
                                 :type="'year'"
                                 :lang="'en'"
+                                default-value="2019"
                                 :input-attr="{id: 'start_year_input', value: start_year}"
                                 placeholder="Start Year"
                               />
@@ -217,6 +218,7 @@
                               :typeable="true"
                               :type="'year'"
                               :lang="'en'"
+                              default-value="2019"
                               :input-attr="{id: 'end_year_input', value: end_year}"
                               placeholder="End Year"
                             />
