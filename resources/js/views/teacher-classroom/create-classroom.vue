@@ -140,13 +140,89 @@
                         <span class="error">{{ formErrors('subject_name') }}</span>
                       </div>
                     </div>
-                                        
+                    
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label
+                            class="text-black"
+                            for="event_date_input"
+                          >
+                            {{ ('Batch Starting Year') }}
+                          </label>
+                          <div class="input-group-prepend ">
+                            <div
+                              class="input-group-prepend date"
+                              data-provide="datepicker"
+                            />
+                            <div class="input_icon_frm">
+                              <span
+                                id="basic-addon1"
+                                class="icon_design_input"
+                              ><i
+                                class="fa fa-calendar"
+                              /></span>
+
+                              <date-picker
+                                id="start_year"
+                                v-model="start_year"
+                                v-validate="'required'"
+                                name="start_year"
+                                value-type="format"
+                                :typeable="true"
+                                :type="'year'"
+                                :lang="'en'"
+                                default-value="2019"
+                                :input-attr="{id: 'start_year_input', value: start_year}"
+                                placeholder="Start Year"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <label
+                          class="text-black"
+                          for="event_date_input"
+                        >
+                          {{ ('Batch Ending Year') }}
+                        </label>
+                        <div class="input-group-prepend ">
+                          <div
+                            class="input-group-prepend date"
+                            data-provide="datepicker"
+                          />
+                          <div class="input_icon_frm">
+                            <span
+                              id="basic-addon1"
+                              class="icon_design_input"
+                            ><i
+                              class="fa fa-calendar"
+                            /></span>
+                            <date-picker
+                              id="end_year"
+                              v-model="end_year"
+                              v-validate="'required'"
+                              value-type="format"
+                              name="end_year"
+                              :typeable="true"
+                              :type="'year'"
+                              :lang="'en'"
+                              default-value="2019"
+                              :input-attr="{id: 'end_year_input', value: end_year}"
+                              placeholder="End Year"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <span class="error">{{ yearError }}</span>
+                    </div>              
                     <div class="form-group">
                       <label> {{ 'Classroom Join Id' }} </label>
                                             
                       <input
-                       v-validate="'required|alpha_num|min:4|max:8'"
                         v-model="classroom_id"
+                        v-validate="'required|alpha_num|min:4|max:8'"
                         type="text"
                         name="classroom_join_id"
                         class="form-control"
@@ -214,10 +290,13 @@
 import FormMixin from '../../components/mixins/form-mixin.js';
 import AutoComplete from '../../components/AutoComplete.vue';
 import swal from '../../components/swal';
+import DatePicker from 'vue2-datepicker';
+import 'vue2-datepicker/index.css';
 
 export default {
 	components: {
-		AutoComplete
+		AutoComplete,
+		DatePicker
 	},
 	mixins: [FormMixin],
 	props: ['courseLevels'],
@@ -226,6 +305,8 @@ export default {
 			id_error: '',
 			classroom_id: '',
 			classroom_name: '',
+			start_year: '',
+			end_year: '',
 			step: 'step1',
 			show_courses: false,
 			showLoader: false,
@@ -249,6 +330,18 @@ export default {
 			},
 		};
 	},
+	computed:{
+		yearError(){
+			var d = new Date();
+			var n = d.getFullYear();
+			if(this.start_year>n){
+				return 'Please enter currect start year.';
+			}else if(this.end_year && this.end_year<this.start_year){
+				return 'Please enter currect start and end year.';
+			}
+			return '';
+		}
+	},
 	methods: {
 		getFirstChar(str){
 			var matches = str.match(/\b(\w)/g);
@@ -257,6 +350,9 @@ export default {
 		},
 		createClassroom() {
 			this.id_error='';
+			if(this.yearError!==''){
+				return false;
+			}
 			this.$validator.validate().then(valid => {
 				if (valid) {
 					this.form_errors=[];
@@ -264,6 +360,8 @@ export default {
 						course: this.selected_course,
 						subject: this.selected_subject,
 						name: this.classroom_name,
+						start_year: this.start_year,
+						end_year: this.end_year,
 						classroom_id: this.classroom_id,
 					}).then((resp)=>{
 						if (resp.data.success) {

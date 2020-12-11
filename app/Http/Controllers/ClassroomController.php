@@ -189,6 +189,8 @@ class ClassroomController extends Controller
         $classroom->teacher_id=Auth::teacher()->id;
         $classroom->subject_id=$subject->id;
         $classroom->course_id=$course->id;
+        $classroom->batch_start_year=$request->start_year;
+        $classroom->batch_end_year=$request->end_year;
         $classroom->save();
 
         DB::commit();
