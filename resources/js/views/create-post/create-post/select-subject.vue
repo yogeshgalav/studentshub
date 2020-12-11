@@ -17,14 +17,8 @@
                         <input type="text" @input="editSubject" class="form-control">
                     </div>
                 </div>
-                <div class="form-group">
-                    <label>Does this Post belongs to your Course?</label>
-                    <input type="radio" id="yes" value="yes" v-model="is_course_subject">
-                    <label for="yes">Yes</label>
-                    <input type="radio" id="no" value="no" v-model="is_course_subject">
-                    <label for="no">No</label>
-                </div>
-                <div class="form-group" v-if="is_course_subject==='no'">
+                <!--  -->
+                <div class="form-group" >
                     <label> {{ 'Category' }} </label>
                   <div class="inner-addon left-addon">
                    <div class="input_icon_frm">

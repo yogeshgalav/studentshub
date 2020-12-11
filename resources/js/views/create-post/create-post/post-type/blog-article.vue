@@ -1,7 +1,7 @@
 <template>
     <div>
         <vue-editor id="ArticleEditor" v-model="content" :editorOptions="editorSettings" :height="'100%'"/>
-        <span>{{countContent}}/400</span>&nbsp;<span class="text-danger">{{error}}</span>
+        <span>{{countContent}}/100</span>&nbsp;<span class="text-danger">{{error}}</span>
     </div>
 </template>
 <script>
