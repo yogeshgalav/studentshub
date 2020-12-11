@@ -76,28 +76,40 @@
         </vue-table-component>
       </div>
     </div>
-	<div class="row">
-		<div class="col-md-3  col-12 mt-3 mb-3" v-if="classroomDetail.id">
-		<div class="join_id_box"   @click="copyText('joinId')">
-		<i class="fa  text-blue  fa-arrow-right mr-3"/>  <span
-			class="text-blue font-size-14 weight-800 join-id line-height-25-px"
-		>
-			{{ 'Copy Join Id' }}: {{ classroomDetail.classroom_live_id }}
-			<strong class="right_positions hide"><i class="fa fa-copy text-success font-size-15" /> </strong>  
-		</span>
-		</div>
-		</div>
-		<div class="col-md-3  col-12 mt-3 mb-3" v-if="classroomDetail.batch_start_year && classroomDetail.batch_end_year">
-		<div class="join_id_box"   @click="copyText('RegisterationLink')">
-		<i class="fa  text-blue  fa-arrow-right mr-3"/>  <span
-			class="text-blue font-size-14 weight-800 join-id line-height-25-px"
-		>
-			{{ 'Copy Registration Link' }}
-			<strong class="right_positions hide"><i class="fa fa-copy text-success font-size-15" /> </strong>
-		</span>
-		</div>
-		</div>
-	</div>
+    <div class="row">
+      <div
+        v-if="classroomDetail.id"
+        class="col-md-3  col-12 mt-3 mb-3"
+      >
+        <div
+          class="join_id_box"
+          @click="copyText('joinId')"
+        >
+          <i class="fa  text-blue  fa-arrow-right mr-3" />  <span
+            class="text-blue font-size-14 weight-800 join-id line-height-25-px"
+          >
+            {{ 'Copy Join Id' }}: {{ classroomDetail.classroom_live_id }}
+            <strong class="right_positions hide"><i class="fa fa-copy text-success font-size-15" /> </strong>  
+          </span>
+        </div>
+      </div>
+      <div
+        v-if="classroomDetail.batch_start_year && classroomDetail.batch_end_year"
+        class="col-md-3  col-12 mt-3 mb-3"
+      >
+        <div
+          class="join_id_box"
+          @click="copyText('RegisterationLink')"
+        >
+          <i class="fa  text-blue  fa-arrow-right mr-3" />  <span
+            class="text-blue font-size-14 weight-800 join-id line-height-25-px"
+          >
+            {{ 'Copy Registration Link' }}
+            <strong class="right_positions hide"><i class="fa fa-copy text-success font-size-15" /> </strong>
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <style scoped>

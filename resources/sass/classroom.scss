@@ -3,3 +3,24 @@
 .btn-lg {
     padding:8px 15px;
 }
+.join_id_box {
+    border:1px solid #eee;
+    border-radius: 5px;
+    padding: 8px 5px 8px 15px;
+    cursor: pointer;
+   }
+   .join_id_box:hover {
+    background-color: #f3f9e8;
+    border-color: #e1ebb3;
+   }
+   .right_positions {
+     position: absolute;
+     right: 40px;
+   }
+   .join_id_box:hover strong{
+       display: block;
+       margin-top: -20px;
+   }
+   .hide {
+     display: none;
+   }
