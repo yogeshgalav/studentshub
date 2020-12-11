@@ -94,7 +94,7 @@ export default {
 		return{
 			selected_type:this.newPost.post_type,
 			info_text:{
-				'article':'Write an infromational blog of minimum 100 words.',
+				'article':'Write an informational blog of minimum 100 words.',
 				'fact':'Upload a factual image. Information which can be proven, repeated or observed by an Image.',
 				'video':'Add Youtube video link'
 			}
