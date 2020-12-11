@@ -218,6 +218,7 @@ class Post extends PostModel
             ->groupBy(['po.id'])
             ->first();
 
+            $post->description=strlen($post->description)>$rand ? substr($post->description,0,$rand).'...' : $post->description;
             $post->post_type=$this->getPostType($post->postable_type);
             $post->total_likes=$postData->total_likes;
             $post->total_dislikes=$postData->total_dislikes;

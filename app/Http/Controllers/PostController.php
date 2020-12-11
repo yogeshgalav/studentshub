@@ -101,7 +101,7 @@ class PostController extends Controller
         }
 
 
-        $post->post_description = $data['descritption'];
+        $post->post_description = $data['description'];
         $post->save();
 
         SthubPost::create([

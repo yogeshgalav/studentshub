@@ -4,6 +4,7 @@ export default {
 	},
 	set_post_article_content(state,data){
 		state.new_post.article_html_content = data.postContent;
+		state.new_post.description = data.description;
 	},
 	set_post_notice_content(state,data){
 		state.new_post.notice_html_content = data.postContent;
