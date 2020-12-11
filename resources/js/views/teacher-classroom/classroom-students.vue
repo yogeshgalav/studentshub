@@ -79,7 +79,7 @@
     <div class="row">
       <div
         v-if="classroomDetail.id"
-        class="col-md-3  col-12 mt-3 mb-3"
+        class="col-md-4 col-12 mt-3 mb-3"
       >
         <div
           class="join_id_box"
@@ -95,7 +95,7 @@
       </div>
       <div
         v-if="classroomDetail.batch_start_year && classroomDetail.batch_end_year"
-        class="col-md-3  col-12 mt-3 mb-3"
+        class="col-md-4 col-12 mt-3 mb-3"
       >
         <div
           class="join_id_box"
@@ -199,7 +199,7 @@ export default {
 				},
 				{
 					label: 'Delete Request',
-					field: 'accept_request',
+					field: 'delete_request',
 				},
 			],
 			hover: false,
