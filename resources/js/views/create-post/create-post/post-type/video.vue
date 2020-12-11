@@ -24,7 +24,7 @@
             <div class="col-md-8 mt-2">
                 <div class="video_des">
                     <label for="videoDescription">A little Description</label>
-                    <textarea id="videoDescription" v-model="video_description" name="description" v-validate="'required'"/>
+                    <textarea id="videoDescription" v-model="description" name="description" v-validate="'required'"/>
                     <span class="text-danger">{{ formErrors('description') }}</span>
                 </div>
             </div>
@@ -64,7 +64,7 @@ export default {
     return {
         video_id:this.newPost.video_id,
         video_error:'',
-        video_description:this.newPost.video_description,
+        description:this.newPost.description,
         is_video_embeded:false,
     };
   },
@@ -72,7 +72,7 @@ export default {
 	  EventBus.$on('validateStep2', () => {
           this.$validator.validate().then(valid => {
             if(valid  && this.video_id && this.video_error===''){
-                const data = {video_id:this.video_id,description:this.video_description}
+                const data = {video_id:this.video_id,description:this.description}
                 this.$store.commit('set_post_video_content', data);
                 EventBus.$emit('validateWizard',2,true);
             }else{

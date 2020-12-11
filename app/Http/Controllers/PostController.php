@@ -37,9 +37,9 @@ class PostController extends Controller
                 $subject_name=strtolower($data['subject_name']);
                 $subject=Subject::firstOrCreate([
                   'subject_url'=>\Str::slug($subject_name),
+                  'category_id'=>$data['category_id']
                 ],[
-                'subject_name'=>$subject_name,
-                'category_id'=>$data['subject_course'] ? $student->categoryId : $data['category_id']
+                'subject_name'=>$subject_name
                 ]);
 
                 CourseSubject::firstOrCreate([
@@ -101,6 +101,7 @@ class PostController extends Controller
         }
 
 
+        $post->post_description = $data['descritption'];
         $post->save();
 
         SthubPost::create([
