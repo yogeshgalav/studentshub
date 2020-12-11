@@ -79,6 +79,62 @@
     </div>
   </div>
 </template>
+
+<style scoped>
+select.minimal {
+    background-image: linear-gradient(45deg, transparent 50%, gray 50%), linear-gradient(135deg, gray 50%, transparent 50%), linear-gradient(to right, #ccc, #ccc);
+    background-position: calc(100% - 20px) calc(1em + 4px), calc(100% - 15px) calc(1em + 4px), calc(100% - 2.8em) 0em;
+    background-size: 5px 5px, 5px 5px, 1px 4em;
+    background-repeat: no-repeat;
+    padding: 0.8rem 2.8rem 0.8rem 1rem;
+    background-color: #F6F5FF;
+}
+.light-black {
+  color: #444040 !important;
+}
+.option_word {
+  padding: 10px 12px;
+    margin-right: 10px;
+}
+.font-16 {
+  font-size: 16px !important;
+}
+.border-right-gray {
+  border-right: 1px solid #ccc;
+}
+.border-right-success {
+  border-right: 1px solid #1A8908;
+  
+}
+.bg-success-light {
+  background-color: #135B07;
+  
+}
+.text-white {
+  color: #fff;
+}
+.btn_marks {
+   background-color: #E4E4E4; 
+   padding:3px 15px 3px 15px;
+   text-align: center;
+   border-radius: 25px;
+   width: auto;
+}
+.border-bottom {
+  border-bottom: 1px solid #DEDEDE;
+}
+.option_box {
+  width: 100%;
+line-height: 40px;
+margin: 10px 0px;
+}
+.outline-gray {
+ border:1px solid #D6D6D6;
+}
+.outline-success {
+  border:1px solid #1A8908;
+}
+</style>
 <script>
 export default {
 	props:['currentReport']
