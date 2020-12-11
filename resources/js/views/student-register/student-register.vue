@@ -48,7 +48,6 @@
                             :is-loading="instituteLoading"
                             @input="getInstitutes"
                             @selected="setInstitute"
-                            v-model="Institutename"
                           />
                         </div>
                         <span
@@ -354,7 +353,6 @@ export default {
 	props: ['courseLevels','studentDetails', 'batches'],
 	data() {
 		return {
-      Institutename:"",
 			showLoader: false,
 			show_courses: false,
 			course_list: [],
