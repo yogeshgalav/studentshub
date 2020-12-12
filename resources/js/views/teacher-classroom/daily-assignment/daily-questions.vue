@@ -170,7 +170,7 @@
                       :key="index"
                       class="form-group d-flex"
                     >
-                      <div class="input-group">
+                      <div class="input-group mr-2">
                         <div class="input-group-prepend">
                           <span
                             id="basic-addon1"
@@ -194,7 +194,7 @@
                         <i class="fa fa-trash-alt" />
                       </button>
 
-                      <div class="form-check ml-3 mt-2">
+                      <div class="form-check ml-0 mt-2">
                         <input
                           :id="'correctAnswer'+index"
                           v-validate="'required'"

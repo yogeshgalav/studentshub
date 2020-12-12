@@ -137,10 +137,10 @@ class Post extends PostModel
         ->leftJoin('mcqs',function($join){
             $join->on('po.postable_id','=','mcqs.id')->where('po.postable_type','=','App\Models\Mcq');
         })
-        ->select(['po.id as id','po.post_heading as heading','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','po.primary_image_path as image_path',
+        ->select(['po.id as id','po.post_heading as heading','po.post_description as description','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','po.primary_image_path as image_path',
         'sub.subject_url','sub.subject_name','course.id as course_id','course.course_name','uli.like_status as user_like',
-        'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','inst.name as institute_name','ar.content as article_content','vd.content as video_content',
-        'vd.video_id as video_id','fc.image_path as fact_image_path','fc.content as fact_content','mcqs.optionA','mcqs.optionB','mcqs.optionC','mcqs.optionD']);
+        'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','inst.name as institute_name','ar.html_content as article_content',
+        'vd.video_id as video_id','fc.image_path as fact_image_path','mcqs.optionA','mcqs.optionB','mcqs.optionC','mcqs.optionD']);
     }
 
     public function getSeekerPosts(Request $request){
@@ -177,10 +177,10 @@ class Post extends PostModel
         ->leftJoin('institutes as inst','inst.id','=','sp.institute_id')
         ->leftJoin('courses as course','course.id','=','sp.course_id')
         // ->leftJoin('facts as fa','po.id','=','fa.post_id')
-        ->select(['po.id as id','po.post_heading as heading','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','po.primary_image_path as image_path',
+        ->select(['po.id as id','po.post_heading as heading','po.post_description as description','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','po.primary_image_path as image_path',
         'sub.subject_url','sub.subject_name','course.id as course_id','course.course_name',
-        'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','ar.content as article_content','vd.content as video_content',
-        'vd.video_id as video_id','fc.image_path as fact_image_path','fc.content as fact_content','mcqs.optionA','mcqs.optionB','mcqs.optionC','mcqs.optionD']);
+        'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','ar.html_content as article_content',
+        'vd.video_id as video_id','fc.image_path as fact_image_path','mcqs.optionA','mcqs.optionB','mcqs.optionC','mcqs.optionD']);
     }
 
     public function getPostType($post_type){
@@ -218,48 +218,8 @@ class Post extends PostModel
             ->groupBy(['po.id'])
             ->first();
 
+            $post->description=strlen($post->description)>$rand ? substr($post->description,0,$rand).'...' : $post->description;
             $post->post_type=$this->getPostType($post->postable_type);
-            switch($post->post_type){
-                case 'article':
-                    $dom = new Dom;
-                    $dom->load($post->article_content);
-                    $article_content=$dom->innerText;
-                    if(empty($article_content)){
-                        $post->content='';
-                    }else{
-                        $post->content=substr($article_content->text,0,$rand).'...';
-                    }        
-                break;
-                // case 'notice':
-                //     $dom = new Dom;
-                //     $dom->load($post->notice_content);
-                //     $notice_content=$dom->find('p', 0);
-                //     if(empty($notice_content)){
-                //         $post->content='';
-                //     }else{
-                //         $post->content=substr($notice_content->text,0,$rand).'...';
-                //     }       
-                // break;
-                case 'video':
-                    if(empty($post->video_content)){
-                        $post->content='';
-                    }
-                    $post->content=substr($post->video_content,0,$rand).'...';
-                break;  
-                case 'fact':
-                    if(empty($post->fact_content)){
-                        $post->content='';
-                    }
-                    $post->content=substr($post->fact_content,0,$rand).'...';
-                break;
-                case 'mcq':
-                    if(empty($post->optionA)){
-                        $post->content='';
-                    }
-                    $post->content=substr('1)'.$post->optionA.'2)'.$post->optionB,0,$rand).'...';        
-                break;
-            }
-
             $post->total_likes=$postData->total_likes;
             $post->total_dislikes=$postData->total_dislikes;
             $post->total_views=$postData->total_views;
@@ -284,8 +244,8 @@ class Post extends PostModel
         ->leftJoin('categories as cat','cat.id','=','sub.category_id')
         ->leftJoin('users as us','us.id','=','po.user_id')
         // ->leftJoin('facts as fa','po.id','=','fa.post_id')
-        ->select(['po.id as id','po.post_heading as heading','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','sub.subject_name','po.primary_image_path as image_path',
-        'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','ar.content as article_content','vd.content as video_content',
+        ->select(['po.id as id','po.post_heading as heading','po.post_description as description','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','sub.subject_name','po.primary_image_path as image_path',
+        'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','ar.html_content as article_content',
         'vd.video_id as video_id'])->limit(3)->get();
 
         return $this->formatPostData($posts);
@@ -312,9 +272,9 @@ class Post extends PostModel
         ->leftJoin('categories as cat','cat.id','=','sub.category_id')
         ->leftJoin('users as us','us.id','=','po.user_id')
         // ->leftJoin('facts as fa','po.id','=','fa.post_id')
-        ->select(['po.id as id','po.post_heading as heading','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','sub.subject_name','po.primary_image_path as image_path',
-        'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','ar.content as article_content','vd.content as video_content','uli.like_status as user_like',
-        'vd.video_id as video_id','fc.image_path as fact_image_path','fc.content as fact_content','mcqs.optionA','mcqs.optionB','mcqs.optionC','mcqs.optionD',
+        ->select(['po.id as id','po.post_heading as heading','po.post_description as description','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','sub.subject_name','po.primary_image_path as image_path',
+        'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','ar.content as article_content','uli.like_status as user_like',
+        'vd.video_id as video_id','fc.image_path as fact_image_path','mcqs.optionA','mcqs.optionB','mcqs.optionC','mcqs.optionD',
         'mcqs.correct_option','mcqs.answer as mcq_answer'])->get();
 
         return $this->formatPostData($post);
@@ -337,9 +297,9 @@ class Post extends PostModel
         ->leftJoin('categories as cat','cat.id','=','sub.category_id')
         ->leftJoin('users as us','us.id','=','po.user_id')
         // ->leftJoin('facts as fa','po.id','=','fa.post_id')
-        ->select(['po.id as id','po.post_heading as heading','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','sub.subject_name','po.primary_image_path as image_path',
-        'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','ar.content as article_content','vd.content as video_content',
-        'vd.video_id as video_id','fc.image_path as fact_image_path','fc.content as fact_content','mcqs.optionA','mcqs.optionB','mcqs.optionC','mcqs.optionD'])->get();
+        ->select(['po.id as id','po.post_heading as heading','po.post_description as description','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','sub.subject_name','po.primary_image_path as image_path',
+        'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','ar.html_content as article_content',
+        'vd.video_id as video_id','fc.image_path as fact_image_path','mcqs.optionA','mcqs.optionB','mcqs.optionC','mcqs.optionD'])->get();
 
         return $this->formatPostData($post);
     }

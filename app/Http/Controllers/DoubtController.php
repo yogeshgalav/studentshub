@@ -55,14 +55,21 @@ class DoubtController extends Controller
     public function getDoubts(Request $request)
     {
         $student=Auth::student();
-        $doubts=Doubt::whereHas('subject.course_subjects',function($query)use($student){
-            $query->where('course_id','=',$student->courseId);
-        })
-        ->orWhere('batch_id',$student->batchId)
-        ->join('users as us','us.id','=','doubts.user_id')
+        $doubt_query=Doubt::join('users as us','us.id','=','doubts.user_id')
         ->join('batches as pbt','pbt.id','=','doubts.batch_id')
         ->join('institutes as inst','inst.id','=','pbt.institute_id')
-        ->join('subjects as sub','sub.id','=','doubts.subject_id')
+        ->join('subjects as sub','sub.id','=','doubts.subject_id');
+        
+        if(!empty($request->search)){
+            $doubt_query = $doubt_query->where('question','LIKE','%'.$request->search.'%');
+        }else{
+            $doubt_query = $doubt_query->whereHas('subject.course_subjects',function($query)use($student){
+                $query->where('course_id','=',$student->courseId);
+            })
+            ->orWhere('batch_id',$student->batchId);
+        }
+
+        $doubts = $doubt_query
         ->select('us.full_name as user_name','us.avatar_url as profile_image','sub.subject_name','inst.name as inst_name',
         'doubts.question','doubts.created_at','doubts.id')
         ->get();
@@ -84,17 +91,6 @@ class DoubtController extends Controller
         return response()->json([
             'success'=>[
                 'doubtList'=>$doubts
-            ]
-        ]);
-    }
-
-    public function searchDoubts(Request $request){
-        $search=implode('%',$this->extractKeyWords($request->query));
-        $Doubts=Doubt::where('question','LIKE','%'.$search.'%')->get();
-
-        return response()->json([
-            'success'=>[
-                'doubtList'=>$Doubts
             ]
         ]);
     }

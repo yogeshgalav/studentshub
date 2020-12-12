@@ -2,7 +2,7 @@
     <div class="bg-gray">
         <div class="container category-filter cat_pad">
             <div class="category_head">
-                <h3> What is your field of Interset ?</h3>
+                <h3> What is your field of Interest ?</h3>
             </div>
             <div class="cat_menu">
                 <div class="cat_menu_list">

@@ -63,10 +63,9 @@ class ClassroomController extends Controller
     public function update($classroomId,Request $request){
         $classroom=Classroom::findOrFail($classroomId);
         $classroom->update([
+            'name'=> $request->name,
             'expected_students'=> $request->expected_students,
             'classroom_duration'=> $request->duration,
-            'batch_end_year'=> $request->end_year,
-            'batch_start_year'=> $request->start_year,
         ]);
 
         return response(['success'=>[
@@ -189,6 +188,8 @@ class ClassroomController extends Controller
         $classroom->teacher_id=Auth::teacher()->id;
         $classroom->subject_id=$subject->id;
         $classroom->course_id=$course->id;
+        $classroom->batch_start_year=$request->start_year;
+        $classroom->batch_end_year=$request->end_year;
         $classroom->save();
 
         DB::commit();
