@@ -5,30 +5,37 @@
     </div>
     <div class="col-md-12">
       <div class="card mt-2">
-        <div class="card-header">
-          <h4 class="mb-1">
+        <div class="card-header bg-white">
+          <h4 class="mb-1 mt-1">
             {{ 'Classroom Overview' }}
           </h4>
         </div>
         <div class="card-body">
-          <form>
-            <div class="form-group mb-0 row">
-              <label class="col-sm-2 col-form-label text-black font-size-14">Course
+          <div class="col-md-6 col-12">
+            <form>
+            <div class="form-group">
+              <label class="text-black font-size-14">Course
               </label>
-              <div class="col-sm-10">
-                <div class="text-black">
-                  {{ classroomDetail.course_name }}
-                </div>
-              </div>
+                <input
+                    id="course"
+                    type="text"
+                    class="form-control"
+                    disabled
+                    :value="classroomDetail.course_name"
+                   
+                  >
             </div>
-            <div class="form-group mb-0 row">
-              <label class="col-sm-2 col-form-label text-black font-size-14">Subject
+                 <div class="form-group">
+              <label class="text-black font-size-14">Subject
               </label>
-              <div class="col-sm-10">
-                <div class="text-black">
-                  {{ classroomDetail.subject_name }}
-                </div>
-              </div>
+                <input
+                    id="subject"
+                    type="text"
+                    class="form-control"
+                    disabled
+                    :value="classroomDetail.subject_name"
+                   
+                  >
             </div>
             <div class="form-group mb-0 row">
               <label class="col-sm-2 col-form-label text-black font-size-14">Batch
@@ -85,6 +92,7 @@
               </div>
             </div>
           </form>
+          </div>
         </div>
       </div>
     </div>
@@ -124,6 +132,9 @@
 </template>
 
 <style scoped>
+.card {
+  box-shadow: 0px 2px 50px rgba(0,0,0,0.15) !important;
+}
 .join_id_box {
  border:1px solid #eee;
  border-radius: 5px;
