@@ -7,6 +7,9 @@ Route::get('/reset-password/{token}','UserController@resetPassword');
 Route::get('/reset-password','UserController@resetPassword');
 Route::get('/logout','AuthController@logout');
 
+Route::post('/login','AuthController@login');
+Route::post('/register','AuthController@register');
+
 Route::get('/post/{ViewPostId}', 'PagesController@viewPost');
 Route::get('/social-auth/{provider}', 'AuthController@redirectToProvider');
 Route::get('/callback/{provider}', 'AuthController@handleProviderCallback');
