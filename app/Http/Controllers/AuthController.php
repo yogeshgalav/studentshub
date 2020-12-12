@@ -129,7 +129,7 @@ class AuthController extends Controller
                 'email'=>$input['email'],
                 'password'=>$input['password'],
             ]);
-            
+
             Auth::login($user);
             //log info
             Log::info('new User '.$user->full_name." (User ID # ".$user->id.") registered and logged in from IP Address ".$request->ip());
@@ -197,8 +197,10 @@ class AuthController extends Controller
     }
 
     public function registerWithClassrrom($user,$joinId){
-        $classroom = Classroom::where('classroom_live_id',$joinId)->first();
-
+        $classroom = Classroom::where('classroom_join_id',$joinId)->first();
+        if(empty($classroom)){
+            return false;
+        }
         $request = new Request([
             'course_id' => $classroom->course_id,
             'institute_id' => $classroom->teacher->institute_id, 
