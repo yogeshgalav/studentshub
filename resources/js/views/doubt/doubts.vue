@@ -10,7 +10,8 @@
             <div class="doubt_header doubt_box_page">
               <div class="dount_search">
                 <input
-                  v-model="search_doubt"
+                  v-model="search_doubt" 
+                  @input="debounce()"
                   type="text"
                   name="doubt"
                   class="form-control"
@@ -120,10 +121,19 @@ export default {
 
 	},
 	mounted() {
+    console.log("mounted")
 
 	},
 	methods:
     {
+      debounce(){
+        console.log("abc")
+        setTimeout(this.filterinput,500)
+      },
+      filterinput()
+      {
+        alert(this.search_doubt)
+      },
     	addDoubtModal(){
     		this.$modal.show('add_doubt_modal');
     	},

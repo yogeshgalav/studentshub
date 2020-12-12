@@ -8,7 +8,7 @@
                    <div class="col-md-8 center-col">
                        <div class="doubt_header doubt_box_page">
                         <div class="dount_search">
-                        <input type="text"  name="doubt" v-model="search_doubt" class="form-control" placeholder="Ask Question">
+                        <input type="text"  name="doubt" @input="debounce()" v-model="search_doubt" class="form-control" placeholder="Ask Question">
                         <span class="doubt_search_btn"><button type="submit" class="btn btn-link"><i class=" fa fa-search text-black weight-400"></i> </button></span>
                         </div>
                         <div class="ask_btn">
@@ -19,6 +19,16 @@
                    
                    </div>
                </form>
+               <loading
+                :key="Math.random()"
+                :active.sync="loading"
+                :color="'#10069F'"
+                :width="100"
+                :is-full-page="false"
+                :opacity="0.7"
+                loader="dots"
+                :name="'vue-table-loading' + Math.random()"
+              />
            
 <div v-for="(doubt,index) in doubtList" :key="index">
     <div  class="row">
@@ -114,9 +124,12 @@
 </style>
 <script>
 import VModal from 'vue-js-modal'
+import Loading from 'vue-loading-overlay';
+ 
 export default {
     components:{
-        VModal
+        VModal,
+        Loading
     },
     data()
     {
@@ -126,22 +139,61 @@ export default {
          subject:'',
          new_doubt_type:'batch',           
             doubtList:[],
+            loading:false,
         };
 
     },
     mounted() {
-    this.axios.get("api/get-doubts/")
-    .then(response => {this.doubtList = response.data.success.doubtList})
+    this.getdata()
 
 },
     methods:
     {
+        getdata(){
+            this.loading=true
+            this.axios.get("api/get-doubts/")
+    .then(response => {this.doubtList = response.data.success.doubtList;this.loading=false})
+
+        },
+        debounce(){
+        console.log("abc")
+        setTimeout(this.filterinput(),2000)
+      },
+      removeDebounce()
+      {
+          clearTimeout()
+      },
+
+    //whenever someone enter someting in input box this function will trigger  
+      filterinput()
+      {
+        //   let tempArr=[]
+        //   if(this.search_doubt.length==0)
+        //   {
+        //       this.getdata()
+        //   }
+        //   for(let i=0;i<this.doubtList.length;i++)
+        //   {
+        //       let oneobj=this.doubtList[i]
+        //       let objquestion=oneobj["question"]
+        //      console.log(objquestion)
+        //       if(this.search_doubt[0]==objquestion[0])
+        //       {
+        //           tempArr.push(oneobj)
+        //       }
+              
+        //   }
+        //   this.doubtList=tempArr;
+        this.loading=true
+        this.axios.get("api/get-doubts?search="+this.search_doubt)
+            .then(response => {this.doubtList= response.data.success.doubtList;this.loading=false})
+      },
         addDoubtModal(){
             this.$modal.show('add_doubt_modal');
         },
         searchDoubt(){
             this.axios.post("api/search-doubts/",{query:this.search_doubt})
-            .then(response => {this.doubtList = response.data.success.doubtList})
+            .then(response => {this.doubtList = response.data.success.doubtList;console.log(response)})
         },
         addDoubt()
         {     
@@ -152,6 +204,7 @@ export default {
             this.$modal.hide('add_doubt_modal');
             this.question="";
             this.subject="";
+            this.getdata()
     })
     .catch(err => {
       reject(err)
