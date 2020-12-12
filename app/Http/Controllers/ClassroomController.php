@@ -184,7 +184,6 @@ class ClassroomController extends Controller
 
         $classroom=new Classroom;
         $classroom->name=$request->name;
-        $classroom->classroom_live_id=$request->classroom_id;
         $classroom->teacher_id=Auth::teacher()->id;
         $classroom->subject_id=$subject->id;
         $classroom->course_id=$course->id;
