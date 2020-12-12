@@ -113,7 +113,7 @@
                               id="password"
                               ref="password"
                               v-model="password"
-                              v-validate="'required|min:6'"
+                              v-validate="'required|min:8'"
                               type="password"
                               class="form-control"
                               name="password"
@@ -268,7 +268,7 @@ export default {
 				if (valid) {
 					this.form_errors = [];
 					this.showLoader = true;
-					document.getElementById('login_form').submit();
+					document.getElementById('register_form').submit();
 				}
 			});
 			return true;
