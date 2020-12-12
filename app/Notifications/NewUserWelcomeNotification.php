@@ -11,24 +11,25 @@ use App\Models\Batch;
 use App\Models\student;
 use App\Models\ScheduledJob;
 use Carbon\Carbon;
-
+use NotificationChannels\WebPush\WebPushMessage;
+use NotificationChannels\WebPush\WebPushChannel;
 class NewUserWelcomeNotification extends SthubAllowlistedUserNotification
 {
     use Queueable;
 
     protected $text;
-    public ScheduledJob $scheduled_job;
+    public $scheduled_job;
 
         /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(ScheduledJob $scheduled_job)
+    public function __construct($scheduled_job)
     {
         parent::__construct();
 
-        $this->scheduled_job =$scheduled_job;
+        $this->scheduled_job = $scheduled_job;
         $this->text="Welcome to Student'sHUB. You can now check your interest field in Profile section.";
     }
 
@@ -79,6 +80,18 @@ class NewUserWelcomeNotification extends SthubAllowlistedUserNotification
      * @return array
      */
     public function toDatabase($notifiable)
+    {
+        return [
+            'title'=>'Hi '.$notifiable->full_name.',',
+            'body'=>$this->text,
+            'user_id'=>$notifiable->id,
+            'url'=>'/profile/'.$notifiable->id,
+            'urlName'=>'profile',
+            'urlId'=>$notifiable->id,
+        ];
+    }
+
+    public function toArray($notifiable)
     {
         return [
             'title'=>'Hi '.$notifiable->full_name.',',

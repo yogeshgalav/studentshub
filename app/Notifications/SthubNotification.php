@@ -16,7 +16,7 @@ class SthubNotification extends Notification
     use Queueable;
 
     /** @var ScheduledJob */
-    protected ScheduledJob $scheduled_job;
+    protected $scheduled_job;
 
     /* @var array */
     protected $allowlist_emails;

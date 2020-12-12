@@ -14,6 +14,7 @@
         "guzzlehttp/guzzle": "*",
         "laravel-notification-channels/fcm": "~2.0",
         "laravel-notification-channels/pusher-push-notifications": "^2.3",
+        "laravel-notification-channels/webpush": "^5.0",
         "laravel/framework": "5.8.*",
         "laravel/helpers": "^1.2",
         "laravel/installer": "^4.1",
