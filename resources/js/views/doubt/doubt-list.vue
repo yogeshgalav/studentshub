@@ -8,7 +8,7 @@
                    <div class="col-md-8 center-col">
                        <div class="doubt_header doubt_box_page">
                         <div class="dount_search">
-                        <input type="text"  name="doubt" @input="debounce()" v-model="search_doubt" class="form-control" placeholder="Ask Question">
+                        <input type="text"  name="doubt" @input="debounceSearch" v-model="search_doubt" class="form-control" placeholder="Ask Question">
                         <span class="doubt_search_btn"><button type="submit" class="btn btn-link"><i class=" fa fa-search text-black weight-400"></i> </button></span>
                         </div>
                         <div class="ask_btn">
@@ -103,8 +103,20 @@
             <div class="col-md-12">
                 <div class="model_input">
                     <label>Subject</label>
-                    <input class="form-control" type="text" v-model="subject" placeholder="Enter Your Subject">
-                </div>
+                    <auto-complete
+                            v-validate="'required'"
+                            class="width-100"
+                            :items="subject_list"
+                            :value="'subject_name'"
+                            name="program_name"
+                            :placeholder="'eg. Biology,Chemistry'"
+                            :is-async="true"
+                            :is-loading="subjectLoading"
+                            @input="getSubjects"
+                            @selected="setSubject"
+                            @selectNew="setNewSubject"
+                          />
+                    </div>
             </div>
             <div class="col-md-12">
                 <div class="model_btn">
@@ -125,11 +137,14 @@
 <script>
 import VModal from 'vue-js-modal'
 import Loading from 'vue-loading-overlay';
- 
+import AutoComplete from '../../components/AutoComplete.vue';
+
+
 export default {
     components:{
         VModal,
-        Loading
+        Loading,
+        AutoComplete
     },
     data()
     {
@@ -140,6 +155,21 @@ export default {
          new_doubt_type:'batch',           
             doubtList:[],
             loading:false,
+            debounce:null,
+            subject_list:[],
+            course_list: [],
+			courseLoading: false,
+			no_course_found: false,
+			selected_course: {
+				'id': null,
+				'course_name': '',
+				'category_id': ''
+            },
+            subjectLoading: false,
+			selected_subject: {
+				'id': null,
+				'subject_name': '',
+			},
         };
 
     },
@@ -148,22 +178,26 @@ export default {
 
 },
     methods:
-    {
+    {	getFirstChar(str){
+			var matches = str.match(/\b(\w)/g);
+			var acronym = matches.join('');
+			return acronym.toUpperCase();
+		},
         getdata(){
             this.loading=true
             this.axios.get("api/get-doubts/")
     .then(response => {this.doubtList = response.data.success.doubtList;this.loading=false})
 
         },
-        debounce(){
-        console.log("abc")
-        setTimeout(this.filterinput(),2000)
-      },
-      removeDebounce()
-      {
-          clearTimeout()
-      },
-
+        debounceSearch(event) {
+      
+      clearTimeout(this.debounce)
+      this.debounce = setTimeout(() => {
+        
+        this.filterinput()
+      }, 600)
+    },
+        
     //whenever someone enter someting in input box this function will trigger  
       filterinput()
       {
@@ -189,6 +223,7 @@ export default {
             .then(response => {this.doubtList= response.data.success.doubtList;this.loading=false})
       },
         addDoubtModal(){
+            this.question=this.search_doubt
             this.$modal.show('add_doubt_modal');
         },
         searchDoubt(){
@@ -209,7 +244,46 @@ export default {
     .catch(err => {
       reject(err)
     })
-        }
+        },
+        getSubjects	(search) {
+            console.log("Hy")
+            console.log(search)
+			this.selected_subject = {
+				'id': null,
+				'subject_name': search,
+			};
+			this.classroom_id = this.getFirstChar(search)+'BY'+this.getFirstChar(this.AuthUser.full_name);
+			this.subjectLoading = true;
+			this.axios
+				.post(this.baseUrl + '/api/search-subject', {
+					searchTerm: search
+				})
+				.then(resp => {
+          this.subject_list = resp.data.success.subjects;
+          this.subject_list=["Maths","Chemistry","Bio"]
+					this.subject_list.find(node => {
+						if (node.subject_name.toLowerCase() === this.selected_subject.subject_name
+							.toLowerCase()) {
+							this.selected_subject = node;
+							return true;
+						}
+					});
+					this.subjectLoading = false;
+				}).catch(() => {
+					this.subjectLoading = false;
+				});
+
+		},
+		setSubject(result) {
+			this.selected_subject = result;
+			this.classroom_id=this.getFirstChar(result.subject_name)+'BY'+this.getFirstChar(this.AuthUser.full_name);
+		},
+		setNewSubject(name) {
+			this.selected_subject = {
+				'id': 0,
+				'subject_name': name,
+			};
+		},
     }
 }
 </script>

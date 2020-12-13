@@ -120,20 +120,11 @@ export default {
 		};
 
 	},
-	mounted() {
-    console.log("mounted")
-
+	mounted() {console.log('mounted');
 	},
 	methods:
     {
-      debounce(){
-        console.log("abc")
-        setTimeout(this.filterinput,500)
-      },
-      filterinput()
-      {
-        alert(this.search_doubt)
-      },
+    
     	addDoubtModal(){
     		this.$modal.show('add_doubt_modal');
     	},

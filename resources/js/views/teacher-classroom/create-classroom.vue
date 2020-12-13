@@ -318,7 +318,7 @@ export default {
 				'course_name': '',
 				'category_id': ''
 			},
-			subject_list: [],
+			subject_list: ["abcs","bza","cmd"],
 			subjectLoading: false,
 			selected_subject: {
 				'id': null,
@@ -384,6 +384,8 @@ export default {
 			return true;
 		},
 		getCourses(search) {
+            
+
 			this.selected_course = {
 				'id': null,
 				'course_name': search,
@@ -421,7 +423,8 @@ export default {
 			};
 			this.categoryDisabled = false;
 		},
-		getSubjects(search) {
+	getSubjects	(search) {
+    console.log(search)
 			this.selected_subject = {
 				'id': null,
 				'subject_name': search,
@@ -433,7 +436,8 @@ export default {
 					searchTerm: search
 				})
 				.then(resp => {
-					this.subject_list = resp.data.success.subjects;
+          this.subject_list = resp.data.success.subjects;
+          this.subject_list=["Maths","Chemistry","Bio"]
 					this.subject_list.find(node => {
 						if (node.subject_name.toLowerCase() === this.selected_subject.subject_name
 							.toLowerCase()) {
