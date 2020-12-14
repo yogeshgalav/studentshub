@@ -228,7 +228,7 @@ export default {
         },
         searchDoubt(){
             this.axios.post("api/search-doubts/",{query:this.search_doubt})
-            .then(response => {this.doubtList = response.data.success.doubtList;console.log(response)})
+            .then(response => {this.doubtList = response.data.success.doubtList;})
         },
         addDoubt()
         {     
@@ -246,8 +246,7 @@ export default {
     })
         },
         getSubjects	(search) {
-            console.log("Hy")
-            console.log(search)
+            
 			this.selected_subject = {
 				'id': null,
 				'subject_name': search,
@@ -260,7 +259,7 @@ export default {
 				})
 				.then(resp => {
           this.subject_list = resp.data.success.subjects;
-          this.subject_list=["Maths","Chemistry","Bio"]
+          this.subject_list=[]
 					this.subject_list.find(node => {
 						if (node.subject_name.toLowerCase() === this.selected_subject.subject_name
 							.toLowerCase()) {
