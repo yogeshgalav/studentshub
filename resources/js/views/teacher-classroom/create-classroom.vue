@@ -31,30 +31,39 @@
                       <label> {{ 'Classroom Name' }} </label>
                       <div class="inner-addon left-addon">
                         <div class="input_icon_frm">
-                          <span class="icon_design_input" style="height: 44px">
-                            <i class="fa fa-certificate" aria-hidden="true"
-                          /></span>
+                          <span
+                            class="icon_design_input"
+                            style="height: 44px"
+                          >
+                            <i
+                              class="fa fa-certificate"
+                              aria-hidden="true"
+                            /></span>
                           <input
                             v-model="classroom_name"
                             v-validate="'required'"
                             type="text"
                             name="classroom_name"
                             class="form-control"
-                          />
+                          >
                         </div>
                         <span
                           class="error"
-                          >{{ formErrors('classroom_name') }}</span
-                        >
+                        >{{ formErrors('classroom_name') }}</span>
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="mb-1"> {{ 'Program/Course Level' }} </label>
                       <div class="inner-addon left-addon">
                         <div class="input_icon_frm">
-                          <span class="icon_design_input" style="height: 44px">
-                            <i class="fa fa-certificate" aria-hidden="true"
-                          /></span>
+                          <span
+                            class="icon_design_input"
+                            style="height: 44px"
+                          >
+                            <i
+                              class="fa fa-certificate"
+                              aria-hidden="true"
+                            /></span>
                           <auto-complete
                             v-validate="'required'"
                             class="width-100"
@@ -69,19 +78,26 @@
                         </div>
                         <span
                           class="error"
-                          >{{ formErrors('course_level') }}</span
-                        >
+                        >{{ formErrors('course_level') }}</span>
                       </div>
                     </div>
-                    <div v-if="show_courses" class="form-group">
+                    <div
+                      v-if="show_courses"
+                      class="form-group"
+                    >
                       <label class="mb-1">
                         {{ 'Program/Course of classroom' }}
                       </label>
                       <div class="inner-addon left-addon">
                         <div class="input_icon_frm">
-                          <span class="icon_design_input" style="height: 44px">
-                            <i class="fa fa-certificate" aria-hidden="true"
-                          /></span>
+                          <span
+                            class="icon_design_input"
+                            style="height: 44px"
+                          >
+                            <i
+                              class="fa fa-certificate"
+                              aria-hidden="true"
+                            /></span>
                           <auto-complete
                             v-validate="'required'"
                             class="width-100"
@@ -96,27 +112,31 @@
                             @selectNew="setNewCourse"
                           />
                         </div>
-                        <span v-if="selected_course.totalBatch"
-                          >{{ selected_course.totalBatch }} batch found.</span
-                        >
-                        <span v-if="no_course_found"
-                          >Please enter your full Program name followed by
+                        <span
+                          v-if="selected_course.totalBatch"
+                        >{{ selected_course.totalBatch }} batch found.</span>
+                        <span
+                          v-if="no_course_found"
+                        >Please enter your full Program name followed by
                           branch name(if any).Please make sure that program
-                          details you are entering is correct.</span
-                        >
+                          details you are entering is correct.</span>
                         <span
                           class="error"
-                          >{{ formErrors('program_name') }}</span
-                        >
+                        >{{ formErrors('program_name') }}</span>
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="mb-1"> {{ 'Subject of Classroom' }} </label>
                       <div class="inner-addon left-addon">
                         <div class="input_icon_frm">
-                          <span class="icon_design_input" style="height: 44px">
-                            <i class="fa fa-certificate" aria-hidden="true"
-                          /></span>
+                          <span
+                            class="icon_design_input"
+                            style="height: 44px"
+                          >
+                            <i
+                              class="fa fa-certificate"
+                              aria-hidden="true"
+                            /></span>
                           <auto-complete
                             v-validate="'required'"
                             class="width-100"
@@ -133,15 +153,17 @@
                         </div>
                         <span
                           class="error"
-                          >{{ formErrors('subject_name') }}</span
-                        >
+                        >{{ formErrors('subject_name') }}</span>
                       </div>
                     </div>
 
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label class="text-black" for="event_date_input">
+                          <label
+                            class="text-black"
+                            for="event_date_input"
+                          >
                             {{ ('Batch Starting Year') }}
                           </label>
                           <div class="input-group-prepend">
@@ -150,8 +172,11 @@
                               data-provide="datepicker"
                             />
                             <div class="input_icon_frm">
-                              <span id="basic-addon1" class="icon_design_input"
-                                ><i class="fa fa-calendar"
+                              <span
+                                id="basic-addon1"
+                                class="icon_design_input"
+                              ><i
+                                class="fa fa-calendar"
                               /></span>
 
                               <date-picker
@@ -172,7 +197,10 @@
                         </div>
                       </div>
                       <div class="col-md-6">
-                        <label class="text-black" for="event_date_input">
+                        <label
+                          class="text-black"
+                          for="event_date_input"
+                        >
                           {{ ('Batch Ending Year') }}
                         </label>
                         <div class="input-group-prepend">
@@ -181,8 +209,11 @@
                             data-provide="datepicker"
                           />
                           <div class="input_icon_frm">
-                            <span id="basic-addon1" class="icon_design_input"
-                              ><i class="fa fa-calendar"
+                            <span
+                              id="basic-addon1"
+                              class="icon_design_input"
+                            ><i
+                              class="fa fa-calendar"
                             /></span>
                             <date-picker
                               id="end_year"
@@ -211,15 +242,17 @@
                         type="text"
                         name="classroom_join_id"
                         class="form-control"
-                      />
+                      >
                       <span
                         class="error"
-                        >{{ formErrors('classroom_join_id') }}</span
-                      >
+                      >{{ formErrors('classroom_join_id') }}</span>
                       <span class="error">{{ id_error }}</span>
                     </div>
                     <div class="form-group d-flex s_register_btn">
-                      <button type="submit" class="login_btn">
+                      <button
+                        type="submit"
+                        class="login_btn"
+                      >
                         {{ 'Create' }}
                       </button>
                     </div>
@@ -368,8 +401,6 @@ export default {
 			return true;
 		},
 		getCourses(search) {
-
-
 			this.selected_course = {
 				'id': null,
 				'course_name': search,
@@ -407,8 +438,8 @@ export default {
 			};
 			this.categoryDisabled = false;
 		},
-	getSubjects	(search) {
-    this.selected_subject = {
+		getSubjects	(search) {
+			this.selected_subject = {
 				'id': null,
 				'subject_name': search,
 			};
@@ -419,8 +450,7 @@ export default {
 					searchTerm: search
 				})
 				.then(resp => {
-          this.subject_list = resp.data.success.subjects;
-          this.subject_list=[]
+					this.subject_list = resp.data.success.subjects;
 					this.subject_list.find(node => {
 						if (node.subject_name.toLowerCase() === this.selected_subject.subject_name
 							.toLowerCase()) {

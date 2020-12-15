@@ -207,7 +207,6 @@ export default {
 			loading:false,
 			debounce:null,
 			subject_list:[],
-			no_course_found: false,
 			subjectLoading: false,
 			selected_subject: {
 				'id': null,

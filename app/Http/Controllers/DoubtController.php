@@ -65,7 +65,7 @@ class DoubtController extends Controller
         ->join('subjects as sub','sub.id','=','doubts.subject_id');
         
         if(!empty($request->search)){
-            $doubt_query = $doubt_query->where('question','LIKE','%what%');
+            $doubt_query = $doubt_query->where('question','LIKE','%'.$request->search.'%');
         }else{
             $doubt_query = $doubt_query->whereHas('subject.course_subjects',function($query)use($student){
                 $query->where('course_id','=',$student->courseId);
