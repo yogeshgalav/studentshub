@@ -1,29 +1,35 @@
 <template>
   <main class="doubt_main_page">
     <div class="container pt-100">
-      <form @submit.prevent="searchDoubt" class="doubt_search_box">
+      <form
+        class="doubt_search_box"
+        @submit.prevent="searchDoubt"
+      >
         <div class="row">
           <div class="col-md-8 center-col">
             <div class="doubt_header doubt_box_page">
               <div class="dount_search">
                 <input
+                  v-model="search_doubt"
                   type="text"
                   name="doubt"
-                  @input="debounceSearch"
-                  v-model="search_doubt"
                   class="form-control"
                   placeholder="Ask Question"
-                />
-                <span class="doubt_search_btn"
-                  ><button type="submit" class="btn btn-link">
-                    <i class="fa fa-search text-black weight-400"></i></button
-                ></span>
+                  @input="debounceSearch"
+                >
+                <span
+                  class="doubt_search_btn"
+                ><button
+                  type="submit"
+                  class="btn btn-link"
+                >
+                  <i class="fa fa-search text-black weight-400" /></button></span>
               </div>
               <div class="ask_btn">
                 <button
                   type="button"
-                  @click="addDoubtModal"
                   class="ask_doubt_btn"
+                  @click="addDoubtModal"
                 >
                   Ask new Doubt
                 </button>
@@ -43,12 +49,17 @@
         :name="'vue-table-loading' + Math.random()"
       />
 
-      <div v-for="(doubt,index) in doubtList" :key="index">
+      <div
+        v-for="(doubt,index) in doubtList"
+        :key="index"
+      >
         <div class="row">
           <div class="col-md-8 center-col">
             <div class="doubt_lsit">
               <div class="cat_sub_name">
-                <p class="mb-0 text-muted">{{doubt.subject_name}}</p>
+                <p class="mb-0 text-muted">
+                  {{ doubt.subject_name }}
+                </p>
               </div>
 
               <div class="dashboard_post">
@@ -58,9 +69,11 @@
                 </div>
                 <div class="info-post ml-2 dash_insititue_name">
                   <p class="usernamedash mb-0 dash_user_date">
-                    {{doubt.user_name}}<span> {{doubt.time}}</span>
+                    {{ doubt.user_name }}<span> {{ doubt.time }}</span>
                   </p>
-                  <p class="usernamedash mb-0">{{doubt.inst_name}}</p>
+                  <p class="usernamedash mb-0">
+                    {{ doubt.inst_name }}
+                  </p>
                 </div>
               </div>
               <div class="d-flex mt-2">
@@ -68,30 +81,34 @@
                   <img
                     v-lazy="'/images/4.jpg'"
                     class="avatar-img rounded-circle"
-                  />
+                  >
                 </div>
                 <div class="info-post ml-2">
-                  <p class="username">{{doubt.user_name}}</p>
+                  <p class="username">
+                    {{ doubt.user_name }}
+                  </p>
                   <!-- <p class="date text-muted">{{doubt.created_at}}</p> -->
                   <h3 class="card-title font-size-16">
                     <router-link
                       :to="'/doubt/'+doubt.id"
                       class="weight-600 text-black"
                     >
-                      {{doubt.question}}
+                      {{ doubt.question }}
                     </router-link>
                   </h3>
                 </div>
               </div>
               <div class="doubt_like_view">
                 <div class="doubt_like">
-                  <span class="badge-text"
-                    ><i class="fa fa-thumbs-up"></i> {{doubt.total_likes}}</span
-                  >
+                  <span
+                    class="badge-text"
+                  ><i class="fa fa-thumbs-up" /> {{ doubt.total_likes }}</span>
                 </div>
                 <div class="doubt_answer">
                   <p>
-                    <router-link :to="'/doubt/'+doubt.id">Answer</router-link>
+                    <router-link :to="'/doubt/'+doubt.id">
+                      Answer
+                    </router-link>
                   </p>
                 </div>
               </div>
@@ -100,11 +117,14 @@
         </div>
         <div class="row">
           <div class="col-md-12">
-            <div class="divider"></div>
+            <div class="divider" />
           </div>
         </div>
       </div>
-      <modal name="add_doubt_modal" class="doubt_model">
+      <modal
+        name="add_doubt_modal"
+        class="doubt_model"
+      >
         <form @submit.prevent="addDoubt">
           <div class="model_box_inner">
             <div class="row">
@@ -119,11 +139,11 @@
                 <div class="model_input">
                   <label>Doubt</label>
                   <input
+                    v-model="question"
                     class="form-control"
                     type="text"
                     placeholder="Enter Your Doubt"
-                    v-model="question"
-                  />
+                  >
                 </div>
               </div>
               <div class="col-md-12">
@@ -146,7 +166,12 @@
               </div>
               <div class="col-md-12">
                 <div class="model_btn">
-                  <button type="submit" class="ask_doubt_btn">submit</button>
+                  <button
+                    type="submit"
+                    class="ask_doubt_btn"
+                  >
+                    submit
+                  </button>
                 </div>
               </div>
             </div>
@@ -158,142 +183,130 @@
 </template>
 <style scoped></style>
 <script>
-import VModal from 'vue-js-modal'
+import VModal from 'vue-js-modal';
 import Loading from 'vue-loading-overlay';
 import AutoComplete from '../../components/AutoComplete.vue';
+import ProfileImage from '../post/ProfileImage';
 
 
 export default {
-    components:{
-        VModal,
-        Loading,
-        AutoComplete
-    },
-    data()
-    {
-        return {
-         search_doubt:'',
-         question:'',
-         subject:'',
-         new_doubt_type:'batch',
-            doubtList:[],
-            loading:false,
-            debounce:null,
-            subject_list:[],
+	components:{
+		VModal,
+		Loading,
+		AutoComplete,
+		ProfileImage
+	},
+	data()
+	{
+		return {
+			search_doubt:'',
+			question:'',
+			subject:'',
+			new_doubt_type:'batch',
+			doubtList:[],
+			loading:false,
+			debounce:null,
+			subject_list:[],
 			no_course_found: false,
-            subjectLoading: false,
+			subjectLoading: false,
 			selected_subject: {
 				'id': null,
 				'subject_name': '',
 			},
-        };
+		};
 
-    },
-    mounted() {
-    this.getdata()
+	},
+	mounted() {
+		this.getdata();
 
-},
-    methods:
+	},
+	methods:
     {
-        getdata(){
-            this.loading=true
-            this.axios.get("api/get-doubts/")
-    .then(response => {this.doubtList = response.data.success.doubtList;this.loading=false})
+    	getdata(){
+    		this.loading=true;
+    		this.axios.get('api/get-doubts/')
+    			.then(response => {
+    				this.doubtList = response.data.success.doubtList;
+    				this.loading=false;
+    			});
 
-        },
-        debounceSearch(event) {
+    	},
+    	debounceSearch(event) {
+    		clearTimeout(this.debounce);
+    		this.debounce = setTimeout(() => {
 
-      clearTimeout(this.debounce)
-      this.debounce = setTimeout(() => {
+    			this.filterinput();
+    		}, 600);
+    	},
 
-        this.filterinput()
-      }, 600)
-    },
+    	//whenever someone enter someting in input box this function will trigger
+    	filterinput()
+    	{
+    		this.loading=true;
+    		this.axios.get('api/get-doubts?search='+this.search_doubt)
+    			.then(response => {
+    				this.doubtList= response.data.success.doubtList;
+    				this.loading=false;
+    			});
+    	},
+    	addDoubtModal(){
+    		this.question=this.search_doubt;
+    		this.$modal.show('add_doubt_modal');
+    	},
+    	searchDoubt(){
+    		this.axios.post('api/search-doubts/',{query:this.search_doubt})
+    			.then(response => {this.doubtList = response.data.success.doubtList;});
+    	},
+    	addDoubt()
+    	{
 
-    //whenever someone enter someting in input box this function will trigger
-      filterinput()
-      {
-        //   let tempArr=[]
-        //   if(this.search_doubt.length==0)
-        //   {
-        //       this.getdata()
-        //   }
-        //   for(let i=0;i<this.doubtList.length;i++)
-        //   {
-        //       let oneobj=this.doubtList[i]
-        //       let objquestion=oneobj["question"]
-        //      console.log(objquestion)
-        //       if(this.search_doubt[0]==objquestion[0])
-        //       {
-        //           tempArr.push(oneobj)
-        //       }
+    		this.axios.post('/api/add-doubt/',{doubt:this.question,subject:this.selected_subject} )
+    			.then(resp => {
 
-        //   }
-        //   this.doubtList=tempArr;
-        this.loading=true
-        this.axios.get("api/get-doubts?search="+this.search_doubt)
-            .then(response => {this.doubtList= response.data.success.doubtList;this.loading=false})
-      },
-        addDoubtModal(){
-            this.question=this.search_doubt
-            this.$modal.show('add_doubt_modal');
-        },
-        searchDoubt(){
-            this.axios.post("api/search-doubts/",{query:this.search_doubt})
-            .then(response => {this.doubtList = response.data.success.doubtList;})
-        },
-        addDoubt()
-        {
+    				this.$modal.hide('add_doubt_modal');
+    				this.question='';
+    				this.subject='';
+    				this.getdata();
+    			})
+    			.catch(err => {
+    				reject(err);
+    			});
+    	},
+    	getSubjects	(search) {
+    		this.selected_subject = {
+    			'id': null,
+    			'subject_name': search,
+    		};
+    		this.subjectLoading = true;
+    		this.axios
+    			.post(this.baseUrl + '/api/search-subject', {
+    				searchTerm: search
+    			})
+    			.then(resp => {
+    				this.subject_list=[];
+    				this.subject_list = resp.data.success.subjects;
+    				this.subject_list.find(node => {
+    					if (node.subject_name.toLowerCase() === this.selected_subject.subject_name
+    						.toLowerCase()) {
+    						this.selected_subject = node;
+    						return true;
+    					}
+    				});
+    				this.subjectLoading = false;
+    			}).catch(() => {
+    				this.subjectLoading = false;
+    			});
 
-        this.axios.post('/api/add-doubt/',{doubt:this.question,subject:this.subject} )
-    .then(resp => {
-
-            this.$modal.hide('add_doubt_modal');
-            this.question="";
-            this.subject="";
-            this.getdata()
-    })
-    .catch(err => {
-      reject(err)
-    })
-        },
-        getSubjects	(search) {
-
-			this.selected_subject = {
-				'id': null,
-				'subject_name': search,
-			};
-			this.classroom_id = this.getFirstChar(search)+'BY'+this.getFirstChar(this.AuthUser.full_name);
-			this.subjectLoading = true;
-			this.axios
-				.post(this.baseUrl + '/api/search-subject', {
-					searchTerm: search
-				})
-				.then(resp => {
-          this.subject_list = resp.data.success.subjects;
-          this.subject_list=[]
-					this.subject_list.find(node => {
-						if (node.subject_name.toLowerCase() === this.selected_subject.subject_name
-							.toLowerCase()) {
-							this.selected_subject = node;
-							return true;
-						}
-					});
-					this.subjectLoading = false;
-				}).catch(() => {
-					this.subjectLoading = false;
-				});
-
-		},
-		setSubject(result) {
-			this.selected_subject = result;
-		},
-		setNewSubject(name) {
-			this.selected_subject = {
-				'id': 0,
-				'subject_name': name,
-			};
-		},
+    	},
+    	setSubject(result) {
+    		this.selected_subject = result;
+    	},
+    	setNewSubject(name) {
+    		this.selected_subject = {
+    			'id': 0,
+    			'subject_name': name,
+    		};
+    	},
     }
-}
+};
 </script>

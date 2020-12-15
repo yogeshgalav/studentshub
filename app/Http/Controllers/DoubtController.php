@@ -16,8 +16,8 @@ class DoubtController extends Controller
 
     public function addDoubt (Request $request)
     {
-        $input = $request->all();
         $student=Auth::student();
+        $selected_subject=$request->subject;
 
         if(is_null($student)){
             abort(403);
@@ -26,13 +26,17 @@ class DoubtController extends Controller
         DB::beginTransaction();
     try{
 
-        $subject_name=strtolower($request->subject);
-        $subject=Subject::firstOrCreate([
-            'subject_url'=>\Str::slug($subject_name),
-            ],[
-            'subject_name'=>$subject_name,
-            'category_id'=>$student->categoryId
-            ]);
+        if($selected_subject['id']){
+            $subject = Subject::findOrFail($selected_subject['id']);
+        }else{
+            $subject_name=strtolower($selected_subject['subject_name']);
+            $subject=Subject::firstOrCreate([
+                'subject_url'=>\Str::slug($subject_name),
+                ],[
+                'subject_name'=>$subject_name,
+                'category_id'=>$student->categoryId
+                ]);
+        }
 
         $q = new Doubt();
         $q->user_id = Auth::user()->id;
@@ -45,7 +49,7 @@ class DoubtController extends Controller
     DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
-            Log::critical('Doubt Creation failure: for user id#'.Auth::user()->id.' with data '.implode(', ',Arr::flatten($input)));
+            Log::critical('Doubt Creation failure',['user_id'=>Auth::id(),'request_data'=>$request->all()]);
             // dd($e->getMessage(),$e->getLine());
             return response()->$e;
         }
@@ -61,7 +65,7 @@ class DoubtController extends Controller
         ->join('subjects as sub','sub.id','=','doubts.subject_id');
         
         if(!empty($request->search)){
-            $doubt_query = $doubt_query->where('question','LIKE','%'.$request->search.'%');
+            $doubt_query = $doubt_query->where('question','LIKE','%what%');
         }else{
             $doubt_query = $doubt_query->whereHas('subject.course_subjects',function($query)use($student){
                 $query->where('course_id','=',$student->courseId);
