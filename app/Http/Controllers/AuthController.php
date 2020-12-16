@@ -33,7 +33,23 @@ class AuthController extends Controller
      *
      * @return Response
      */
-    public function login(LoginRequest $request)
+    public function login(LoginRequest $request){
+        $user=User::where('email',$request->email)->first();
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            return redirect('/login')->with('srvError401',true);
+        }
+
+        try{
+            $success = $this->getLoginSuccessData('page',$user,$request);
+        }catch(\Exception $e){
+            Log::warning("An invalid attempt to login was made for user ".$request->email." from IP Address ".$request->ip());
+            return redirect('/login')->with('srvErrorUnknown',true);
+        }
+
+        return redirect($success['redirectUrl']);
+    }
+
+    public function loginViaApi(LoginRequest $request)
     {        
 
         $user=User::where('email',$request->email)->first();
@@ -42,38 +58,8 @@ class AuthController extends Controller
         }
         
         try{
-            if ($request->remember) {
-                Passport::tokensExpireIn(now()->addDay(30));
-                // Passport::refreshTokensExpireIn(now()->addDay(30));
-            }else{
-                Passport::tokensExpireIn(now()->addHour(3));
-                // Passport::refreshTokensExpireIn(now()->addHour());
-            }
-
-            $user->last_login_at=\Carbon\Carbon::now()->toDateTimeString();
-            $user->save();
             
-            $content=$this->getPassportTokens($request);
-            if(empty($content->access_token) || empty($content->refresh_token)){
-                $success['access_token'] = $user->createToken('sthub')->accessToken;;
-                $success['refresh_token'] = '';
-            }else{
-                $success['access_token'] = $content->access_token;
-                $success['refresh_token'] = $content->refresh_token;
-            }
-
-            Auth::login($user, $request->remember);
-            //log info
-            Log::info($user->full_name." (User ID # ".$user->id.") logged in from IP Address ".$request->ip());
-
-            $success['redirectUrl'] = '/';
-            if($user->joinedClassoomCount()>0 || Auth::teacher()){
-                $success['redirectUrl'] = '/classrooms';
-            }
-            $success['redirectUrl'] = session('url.intended') ?? $success['redirectUrl'];
-
-            $success['student'] = Auth::student();
-            $success['full_name'] = $user->full_name;
+            $success = $this->getLoginSuccessData('api',$user,$request);
             
         }catch(\Exception $e){dd($e->getMessage());
             Log::warning("An invalid attempt to login was made for user ".$request->email." from IP Address ".$request->ip());
@@ -82,6 +68,45 @@ class AuthController extends Controller
         return response()->json(['success' => $success]);
     }
 
+    public function getLoginSuccessData($method,$user,$request){
+        $success = [];
+        
+        if('api' === $method){
+            if ($request->remember) {
+                Passport::tokensExpireIn(now()->addDay(30));
+                // Passport::refreshTokensExpireIn(now()->addDay(30));
+            }else{
+                Passport::tokensExpireIn(now()->addHour(3));
+                // Passport::refreshTokensExpireIn(now()->addHour());
+            }
+
+            $content=$this->getPassportTokens($request);
+            if(empty($content->access_token) || empty($content->refresh_token)){
+                $success['access_token'] = $user->createToken('sthub')->accessToken;;
+                $success['refresh_token'] = '';
+            }else{
+                $success['access_token'] = $content->access_token;
+                $success['refresh_token'] = $content->refresh_token;
+            }
+        }
+        $user->last_login_at=\Carbon\Carbon::now()->toDateTimeString();
+        $user->save();
+    
+        Auth::login($user, $request->remember);
+        //log info
+        Log::info($user->full_name." (User ID # ".$user->id.") logged in from IP Address ".$request->ip());
+
+        $success['redirectUrl'] = '/';
+        if($user->joinedClassoomCount()>0 || Auth::teacher()){
+            $success['redirectUrl'] = '/classrooms';
+        }
+        $success['redirectUrl'] = session('url.intended') ?? $success['redirectUrl'];
+
+        $success['student'] = Auth::student();
+        $success['full_name'] = $user->full_name;
+    
+        return $success;
+    }
     /**
      * Register api
      *
@@ -90,6 +115,43 @@ class AuthController extends Controller
      * @return Response
      */
     public function register(RegisterRequest $request)
+    {
+        $input = $request->all();
+        
+        $input['full_name']=trim($input['full_name']);
+        //hash password
+        $input['password'] = bcrypt($input['password']);
+
+        DB::beginTransaction();
+    try{
+            $user = User::create([
+                'full_name'=>$input['full_name'],
+                'email'=>$input['email'],
+                'password'=>$input['password'],
+            ]);
+
+            Auth::login($user);
+            //log info
+            Log::info('new User '.$user->full_name." (User ID # ".$user->id.") registered and logged in from IP Address ".$request->ip());
+                
+            if($request->join_id){
+                $this->registerWithClassrrom($user,$request->join_id);
+            }
+    
+            $success['redirectUrl'] = '/education-details';
+            \Notification::send($user, new \App\Notifications\NewUserWelcomeNotification());
+        
+        DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            Log::critical('user Registeration failure: with data '.implode(',',$input));
+            return redirect('/get-started');
+        }  
+
+        return redirect($success['redirectUrl']);
+    }
+
+    public function registerViaApi(RegisterRequest $request)
     {
         $input = $request->all();
         
@@ -135,8 +197,10 @@ class AuthController extends Controller
     }
 
     public function registerWithClassrrom($user,$joinId){
-        $classroom = Classroom::where('classroom_live_id',$joinId)->first();
-
+        $classroom = Classroom::where('classroom_join_id',$joinId)->first();
+        if(empty($classroom)){
+            return false;
+        }
         $request = new Request([
             'course_id' => $classroom->course_id,
             'institute_id' => $classroom->teacher->institute_id, 

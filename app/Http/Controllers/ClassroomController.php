@@ -154,12 +154,6 @@ class ClassroomController extends Controller
         $course_id = $request->course['id'];
         $course_name = $request->course['course_name'];
 
-        if(Classroom::where('classroom_live_id',$request->classroom_id)->exists()){
-            return response()->json(['error'=>[
-                'field'=>'classroom_id',
-                'message'=>'This Classroom Id is already used. Please try another.'
-            ]],422);
-        }
         DB::beginTransaction();
     try{
         if($course_id){
@@ -184,7 +178,6 @@ class ClassroomController extends Controller
 
         $classroom=new Classroom;
         $classroom->name=$request->name;
-        $classroom->classroom_live_id=$request->classroom_id;
         $classroom->teacher_id=Auth::teacher()->id;
         $classroom->subject_id=$subject->id;
         $classroom->course_id=$course->id;
@@ -200,7 +193,7 @@ class ClassroomController extends Controller
     }
         return response()->json(['success'=>[
             'id'=>$classroom->id,
-            'live_id'=>$classroom->classroom_live_id
+            'join_id'=>$classroom->classroom_join_id
         ]]);
     }
 

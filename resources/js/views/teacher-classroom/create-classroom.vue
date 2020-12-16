@@ -233,21 +233,6 @@
                       </div>
                       <span class="error">{{ yearError }}</span>
                     </div>
-                    <div class="form-group">
-                      <label> {{ 'Classroom Join Id' }} </label>
-
-                      <input
-                        v-model="classroom_id"
-                        v-validate="'required|alpha_num|min:4|max:8'"
-                        type="text"
-                        name="classroom_join_id"
-                        class="form-control"
-                      >
-                      <span
-                        class="error"
-                      >{{ formErrors('classroom_join_id') }}</span>
-                      <span class="error">{{ id_error }}</span>
-                    </div>
                     <div class="form-group d-flex s_register_btn">
                       <button
                         type="submit"
@@ -319,8 +304,6 @@ export default {
 	props: ['courseLevels'],
 	data() {
 		return {
-			id_error: '',
-			classroom_id: '',
 			classroom_name: '',
 			start_year: '',
 			end_year: '',
@@ -360,13 +343,7 @@ export default {
 		}
 	},
 	methods: {
-		getFirstChar(str){
-			var matches = str.match(/\b(\w)/g);
-			var acronym = matches.join('');
-			return acronym.toUpperCase();
-		},
 		createClassroom() {
-			this.id_error='';
 			if(this.yearError!==''){
 				return false;
 			}
@@ -379,7 +356,6 @@ export default {
 						name: this.classroom_name,
 						start_year: this.start_year,
 						end_year: this.end_year,
-						classroom_id: this.classroom_id,
 					}).then((resp)=>{
 						if (resp.data.success) {
 							swal.successDialog('Classroom create', 'Success!', 'success');
@@ -388,9 +364,6 @@ export default {
 					}).catch((err)=>{
 						if(err.response.status===422){
 							let error_data = err.response.data.error;
-							if(error_data.field==='classroom_id'){
-								this.id_error = error_data.message;
-							}
 							// this.form_errors[error_data.field]=[];
 							// this.form_errors[error_data.field][0] = error_data.message;
 							// console.log(error_data,this.form_errors);
@@ -443,7 +416,6 @@ export default {
 				'id': null,
 				'subject_name': search,
 			};
-			this.classroom_id = this.getFirstChar(search)+'BY'+this.getFirstChar(this.AuthUser.full_name);
 			this.subjectLoading = true;
 			this.axios
 				.post(this.baseUrl + '/api/search-subject', {
@@ -466,7 +438,6 @@ export default {
 		},
 		setSubject(result) {
 			this.selected_subject = result;
-			this.classroom_id=this.getFirstChar(result.subject_name)+'BY'+this.getFirstChar(this.AuthUser.full_name);
 		},
 		setNewSubject(name) {
 			this.selected_subject = {
