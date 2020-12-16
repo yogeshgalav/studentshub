@@ -1,6 +1,7 @@
 <?php
 
 Route::get('/login','PagesController@loginPage');
+Route::get('/membership-plan','PagesController@membershipPlan');
 Route::get('/get-started','PagesController@registerPage');
 Route::get('/forgot-password','PagesController@forgotPasswordPage');
 Route::get('/reset-password/{token}','UserController@resetPassword');

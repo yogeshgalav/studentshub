@@ -108,6 +108,10 @@ class PagesController extends Controller
     {
         return view('guest.auth.login');
     }
+    public function membershipPlan()
+    {
+        return view('guest.membership-plan');
+    }
     public function forgotPasswordPage()
     {
         return view('guest.auth.forgot-password');

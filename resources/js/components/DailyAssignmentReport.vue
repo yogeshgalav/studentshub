@@ -27,7 +27,7 @@
                 {{ 'Question:' + ' ' + (index+1) }}
               </p>
             </div>
-            <div class="col-md-2 text-right">
+            <div class="col-md-2 pl-0 text-right">
               <label class="btn_marks font-16 light-black">
                 Marks: <span>{{ answer.daily_question.marks }}</span>
               </label>
@@ -46,7 +46,7 @@
               >
                 <div 
                   v-if="choice.option_order===answer.daily_question.correct_answer"
-                  class="bg-success-light outline-success text-white"
+                  class="bg-success-light  option_box outline-success text-white"
                 >
                   <span 
                     class="weight-800 border-right-success  option_word"
@@ -55,10 +55,10 @@
                 </div>
                 <div 
                   v-else-if="choice.option_order===answer.selected_answer"
-                  class="bg-success-light outline-success text-white"
+                  class="bg-warning  option_box outline-warning text-white"
                 >
                   <span 
-                    class="weight-800 border-right-success  option_word"
+                    class="weight-800 border-right-warning  option_word"
                   > {{ letters[index2] }} </span>
                   {{ choice.option_text }}
                 </div>
@@ -96,6 +96,7 @@ select.minimal {
   padding: 10px 12px;
     margin-right: 10px;
 }
+
 .font-16 {
   font-size: 16px !important;
 }
@@ -104,6 +105,10 @@ select.minimal {
 }
 .border-right-success {
   border-right: 1px solid #1A8908;
+  
+}
+.border-right-warning {
+  border-right: 1px solid #c7a107 !important;
   
 }
 .bg-success-light {
@@ -134,6 +139,14 @@ margin: 10px 0px;
 .outline-success {
   border:1px solid #1A8908;
 }
+  @media screen  and (max-width: 768px) { 
+    .bg-default .text-right {
+      text-align:  left !important;
+  
+}
+
+  }
+
 </style>
 <script>
 export default {
