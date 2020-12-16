@@ -84,7 +84,7 @@
         >
           <div class="clas_roo_main_box">
             <div class="cl_box_top">
-              <p>{{ classroom.classroom_live_id }}</p>
+              <p>{{ classroom.classroom_join_id }}</p>
             </div>
             <a
               :href="'/classroom/'+classroom.id"
@@ -122,7 +122,7 @@
           
           <div class="clas_roo_main_box">
             <div class="cl_box_top">
-              <p>{{ classroom.classroom_live_id }}</p>
+              <p>{{ classroom.classroom_join_id }}</p>
             </div>
             <a
               :href="'/classroom/'+classroom.id"

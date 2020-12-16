@@ -89,8 +89,7 @@ Vue.mixin({
 	mounted(){
 		window.axios.defaults.headers.common = {
 			'X-CSRF-TOKEN': this.csrfToken,
-			'X-Requested-With': 'XMLHttpRequest',
-			'Authorization' : 'Bearer '+this.accessToken,
+			'X-Requested-With': 'XMLHttpRequest'
 		};
 	},
 	methods: {
