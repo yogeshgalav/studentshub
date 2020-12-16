@@ -36,6 +36,9 @@
                 <option value="video">
                   Youtube video
                 </option>
+                <option value="document">
+                  Document link
+                </option>
               </select>
             </div>
             <span>{{ info_text[selected_type] }}</span>
@@ -96,7 +99,8 @@ export default {
 			info_text:{
 				'article':'Write an informational blog of minimum 100 words.',
 				'fact':'Upload a factual image. Information which can be proven, repeated or observed by an Image.',
-				'video':'Add Youtube video link'
+				'video':'Add Youtube video link',
+				'document':'Add e-book or research paper link',
 			}
 		};
 	},

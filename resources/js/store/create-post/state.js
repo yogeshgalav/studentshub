@@ -11,6 +11,7 @@ const state = {
 		// notice_expiry_date:'',
 		// document_files:'',
 		// document_description:'',
+		document_link:'',
 		fact_image_url:'',
 		fact_image:'',
 		description:'',

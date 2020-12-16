@@ -11,8 +11,8 @@ export default {
 		state.new_post.notice_expiry_date = data.expiry_date;
 	},
 	set_post_document_content(state,data){
-		state.new_post.document_files = data.files;
-		state.new_post.document_description = data.description;
+		state.new_post.document_link = data.document_link;
+		state.new_post.description = data.description;
 	},
 	set_post_fact_content(state,data){
 		state.new_post.fact_image = data.image;

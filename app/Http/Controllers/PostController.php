@@ -73,7 +73,7 @@ class PostController extends Controller
             break;
             case 'document':
              $document=new Document;
-             $post_content_id=$document->createNewDocument($data);
+             $post_content_id=$document->createNewDocument($data,'public');
              $post->postable_type="App\Models\Document";
              $post->postable_id=$post_content_id;
             break;
