@@ -125,7 +125,7 @@ class Post extends PostModel
         ->leftJoin('facts as fc',function($join){
             $join->on('po.postable_id','=','fc.id')->where('po.postable_type','=','App\Models\Fact');
         })
-        ->leftJoin('document as do',function($join){
+        ->leftJoin('documents as do',function($join){
             $join->on('po.postable_id','=','do.id')->where('po.postable_type','=','App\Models\Document');
         })
         ->select(['po.id as id','po.post_heading as heading','po.post_description as description','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','po.primary_image_path as image_path',
@@ -159,7 +159,7 @@ class Post extends PostModel
         ->leftJoin('facts as fc',function($join){
             $join->on('po.postable_id','=','fc.id')->where('po.postable_type','=','App\Models\Fact');
         })
-        ->leftJoin('document as do',function($join){
+        ->leftJoin('documents as do',function($join){
             $join->on('po.postable_id','=','do.id')->where('po.postable_type','=','App\Models\Document');
         })
         ->leftJoin('subjects as sub','sub.id','=','po.subject_id')
@@ -249,7 +249,7 @@ class Post extends PostModel
         ->leftJoin('facts as fc',function($join){
             $join->on('po.postable_id','=','fc.id')->where('po.postable_type','=','App\Models\Fact');
         })
-        ->leftJoin('document as do',function($join){
+        ->leftJoin('documents as do',function($join){
             $join->on('po.postable_id','=','do.id')->where('po.postable_type','=','App\Models\Document');
         })
         ->leftJoin('likes as uli',function($join){
@@ -277,7 +277,7 @@ class Post extends PostModel
         ->leftJoin('facts as fc',function($join){
             $join->on('po.postable_id','=','fc.id')->where('po.postable_type','=','App\Models\Fact');
         })
-        ->leftJoin('document as do',function($join){
+        ->leftJoin('documents as do',function($join){
             $join->on('po.postable_id','=','do.id')->where('po.postable_type','=','App\Models\Document');
         })
         ->leftJoin('subjects as sub','sub.id','=','po.subject_id')
