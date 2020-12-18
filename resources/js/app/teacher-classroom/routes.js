@@ -4,7 +4,8 @@ import ClassroomSetupComponent from '../../views/teacher-classroom/classroom-set
 import ClassroomUnitAssignmentComponent from '../../views/teacher-classroom/classroom-unit-assignment.vue';
 import ClassroomDailyAssignmentComponent from '../../views/teacher-classroom/daily-assignment/classroom-daily-assignment.vue';
 import ClassroomDailyReportComponent from '../../views/teacher-classroom/classroom-daily-report.vue';
-import ClassroomResourceComponent from '../../views/teacher-classroom/classroom.vue';
+import ClassroomDocumentComponent from '../../views/classroom/documents.vue';
+import ClassroomVideoComponent from '../../views/classroom/videos.vue';
 import ClassroomMessageComponent from '../../views/teacher-classroom/classroom.vue';
 import ClassroomDoubtComponent from '../../views/teacher-classroom/classroom.vue';
 import ClassroomStudentsComponent from '../../views/teacher-classroom/classroom-students.vue';
@@ -37,12 +38,12 @@ const TeacherClassroomRoutes = [
 		component: ClassroomUnitAssignmentComponent,
 	},
 	{
-		path: '/classroom/:classroomId/resources',
-		component: ClassroomResourceComponent,
+		path: '/classroom/:classroomId/documents',
+		component: ClassroomDocumentComponent,
 	},
 	{
-		path: '/classroom/:classroomId/messages',
-		component: ClassroomMessageComponent,
+		path: '/classroom/:classroomId/videos',
+		component: ClassroomVideoComponent,
 	},
 	{
 		path: '/classroom/:classroomId/doubts',

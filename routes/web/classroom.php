@@ -16,6 +16,8 @@ Route::group(['middleware'=>['AuthorizeUser']],function(){
     Route::get('/classroom/{classroomId}/daily-assignment','ClassroomController@classroomDailyAssignmentPage');
     Route::get('/classroom/{classroomId}/daily-report','ClassroomController@classroomDailyReportPage');
     Route::get('/classroom/{classroomId}/students','ClassroomController@classroomStudentPage');
+    Route::get('/classroom/{classroomId}/documents','ClassroomController@classroomDocumentPage');
+    Route::get('/classroom/{classroomId}/videos','ClassroomController@classroomVideoPage');
     
     //student page for unit-attempt
     Route::get('/classroom/{classroomId}/unit-attempt','ClassroomController@unitAttemptPage');
