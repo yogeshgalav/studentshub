@@ -11,7 +11,7 @@ class ClassroomResourceController extends Controller
         $documents = ClassroomDocument::where('classroom_id',$classroomId)
         ->leftJoin('documents as do','do.id','=','classroom_documents.classroom_id')
         ->leftJoin('units as ui','ui.id','=','classroom_documents.unit_id')
-        ->select('ui.id as unit_id','ui.name as unit_name','do.id as document_id','do.link','do.description')
+        ->select('ui.id as unit_id','ui.name as unit_name','do.id as document_id','do.link','classroom_documents.description')
         ->get();
 
         return response()->json(['success'=>[
@@ -20,14 +20,15 @@ class ClassroomResourceController extends Controller
     }
     public function addDocument(Request $request,$classroomId){
         $document = new Document;
+        $document->ext = 'pdf';
         $document->link = $request->document_link;
-        $document->description = $request->description;
         $document->save();
 
         $classroom_document = new ClassroomDocument;
         $classroom_document->classroom_id = $classroomId;
         $classroom_document->document_id = $document->id;
         $classroom_document->unit_id = $request->unit_id;
+        $classroom_document->description = $request->description;
         $classroom_document->save();
         
         return response()->json(['success'=>[
@@ -44,7 +45,7 @@ class ClassroomResourceController extends Controller
         $videos = ClassroomVideo::where('classroom_id',$classroomId)
         ->leftJoin('videos as vi','vi.id','=','classroom_videos.classroom_id')
         ->leftJoin('units as ui','ui.id','=','classroom_videos.unit_id')
-        ->select('ui.id as unit_id','ui.name as unit_name','vi.id as video_id','vi.link','vi.description')
+        ->select('ui.id as unit_id','ui.name as unit_name','vi.id as video_id','vi.link','classroom_videos.description')
         ->get();
         return response()->json(['success'=>[
             'videos'=>$videos
@@ -53,13 +54,13 @@ class ClassroomResourceController extends Controller
     public function addVideo(Request $request,$classroomId){
         $videos = new Video;
         $videos->link = $request->videos_link;
-        $videos->description = $request->description;
         $videos->save();
 
         $classroom_videos = new ClassroomVideo;
         $classroom_videos->classroom_id = $classroomId;
         $classroom_videos->videos_id = $videos->id;
         $classroom_videos->unit_id = $request->unit_id;
+        $classroom_videos->description = $request->description;
         $classroom_videos->save();
         
         return response()->json(['success'=>[

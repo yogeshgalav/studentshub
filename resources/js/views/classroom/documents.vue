@@ -89,14 +89,14 @@
                     <label for="documentDescription">Description:</label>
                     <div class="inner-addon left-addon">
                       <div class="cl_input">
-                        <textarea
+                        <input
                           id="documentDescription"
                           v-model="description"
                           v-validate="'required'"
                           name="description"
                           class="form-control"
                           placeholder="say something about this document..."
-                        />
+                        >
                         <span class="text-danger">{{ formErrors('description') }}</span>
                       </div>
                     </div>

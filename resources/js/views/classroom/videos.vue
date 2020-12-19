@@ -68,13 +68,13 @@
                   <div class="col-md-8 mt-2">
                     <div class="video_des">
                       <label for="videoDescription">Description:</label>
-                      <textarea
+                      <input
                         id="videoDescription"
                         v-model="description"
                         v-validate="'required'"
                         name="description"
                         placeholder="say something about this video..."
-                      />
+                      >
                       <span class="text-danger">{{ formErrors('description') }}</span>
                     </div>
                   </div>

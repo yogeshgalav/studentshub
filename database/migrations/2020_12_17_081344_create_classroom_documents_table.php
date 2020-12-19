@@ -18,6 +18,7 @@ class CreateClassroomDocumentsTable extends Migration
             $table->integer('classroom_id')->unsigned();
             $table->integer('document_id')->unsigned();
             $table->integer('unit_id')->unsigned();
+            $table->string('description');
             $table->timestamps();
         });
     }

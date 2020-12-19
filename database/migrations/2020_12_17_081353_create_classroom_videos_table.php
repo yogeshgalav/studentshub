@@ -18,6 +18,7 @@ class CreateClassroomVideosTable extends Migration
             $table->integer('classroom_id')->unsigned();
             $table->integer('video_id')->unsigned();
             $table->integer('unit_id')->unsigned();
+            $table->string('description');
             $table->timestamps();
         });
     }
