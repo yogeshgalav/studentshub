@@ -19,21 +19,6 @@
       </div>
       <div class="col-md-8" />
     </div>
-    <div class="row">
-      <div class="col-md-8 mt-2">
-        <div class="document_des">
-          <label for="documentDescription">Description:</label>
-          <textarea
-            id="documentDescription"
-            v-model="description"
-            v-validate="'required'"
-            name="description"
-            placeholder="say something about this document..."
-          />
-          <span class="text-danger">{{ formErrors('description') }}</span>
-        </div>
-      </div>
-    </div>
   </div>   
 </template>
 <style>
@@ -69,7 +54,6 @@ export default {
 		return {
 			document_link:this.newPost.document_link,
 			document_error:'',
-			description:this.newPost.description,
 			is_embeded:false
 		};
 	},

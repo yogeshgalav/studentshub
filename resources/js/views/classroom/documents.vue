@@ -189,6 +189,11 @@ export default {
 						document_link: this.document_link,
 						description: this.description,
 					}).then(()=>{
+						let current_unit = this.unitData.find(node=>node.id===this.unit_id);
+						current_unit.documents.push({
+							'link':this.document_link,
+							'description':this.description,
+						});
 						this.unit_id = '';
 						this.document_link = '';
 						this.description = '';

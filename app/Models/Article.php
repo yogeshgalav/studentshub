@@ -35,7 +35,10 @@ class Article extends Model
         //     }
         // }
         
-        $post_content_id= self::insertGetId(['content'=>$data['article_html_content']]);
+        $post_content_id= self::insertGetId([
+            'html_content'=>$data['article_html_content'],
+            'text_content'=>$data['article_text_content']
+        ]);
         // foreach($files as $file){
         //     $newFile= new SthubFile();
         //         $newFile->fileable_id=$post_content_id;

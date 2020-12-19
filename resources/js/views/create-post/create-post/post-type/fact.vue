@@ -46,18 +46,6 @@
         :src="url"
       >
     </div>
-    <div class="form-group fact_text">
-      <div class="col-md-8">
-        <textarea
-          v-model="description"
-          v-validate="'required'"
-          type="text"
-          name="description"
-          placeholder="Description"
-        />
-        <span class="text-danger">{{ formErrors('description') }}</span>
-      </div>
-    </div>
   </div>
 </template>
 <style scoped>
@@ -174,7 +162,6 @@ export default {
 	data() {
 		return {
 			image: this.newPost.fact_image,
-			description: this.newPost.description,
 			url: this.newPost.fact_image_url
 		};
 	},
@@ -185,7 +172,6 @@ export default {
 					this.getBase64(this.image.file).then(file => {
 						const data = {
 							image: file,
-							description: this.description,
 							url: this.url
 						};
 						this.$store.commit('set_post_fact_content', data);

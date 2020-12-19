@@ -17,7 +17,7 @@ class CreateDocumentsTable extends Migration
             $table->increments('id');
             $table->string('ext');
             $table->string('link');
-            $table->enum('access',['public','private']);
+            $table->enum('access',['public','private'])->default('public');
             $table->timestamps();
         });
     }

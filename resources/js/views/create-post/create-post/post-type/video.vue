@@ -35,21 +35,6 @@
       </div>
       <div class="col-md-8" />
     </div>
-    <div class="row">
-      <div class="col-md-8 mt-2">
-        <div class="video_des">
-          <label for="videoDescription">Description:</label>
-          <textarea
-            id="videoDescription"
-            v-model="description"
-            v-validate="'required'"
-            name="description"
-            placeholder="say something about this video..."
-          />
-          <span class="text-danger">{{ formErrors('description') }}</span>
-        </div>
-      </div>
-    </div>
   </div>   
 </template>
 <style>
@@ -86,7 +71,6 @@ export default {
 			video_id:this.newPost.video_id,
 			video_url:'https://www.youtube.com/embed/',
 			video_error:'',
-			description:this.newPost.description,
 			is_video_embeded:false,
 			is_embeded:false
 		};
@@ -96,7 +80,7 @@ export default {
 	  EventBus.$on('validateStep2', () => {
 			this.$validator.validate().then(valid => {
 				if(valid  && this.video_id && this.video_error===''){
-					const data = {video_id:this.video_id,description:this.description};
+					const data = {video_id:this.video_id};
 					this.$store.commit('set_post_video_content', data);
 					EventBus.$emit('validateWizard',2,true);
 				}else{

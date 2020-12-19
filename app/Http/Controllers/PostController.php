@@ -100,8 +100,6 @@ class PostController extends Controller
             break;
         }
 
-
-        $post->post_description = $data['description'];
         $post->save();
 
         SthubPost::create([

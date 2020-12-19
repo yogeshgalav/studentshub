@@ -132,7 +132,6 @@ export default {
   data(){
 	  return {
 		  files:[],
-		  description:'',
 	  };
   },
   filters:{
@@ -150,7 +149,7 @@ export default {
   },
   mounted(){
 	  EventBus.$on('validateStep2', () => {
-		  	const data = {files:this.files,description:this.description}
+		  	const data = {files:this.files}
 			this.$store.commit('set_post_document_content', data);
 		  EventBus.$emit('validateWizard',2,true);
 	  })
