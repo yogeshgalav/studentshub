@@ -143,6 +143,13 @@ class PagesController extends Controller
             ->with('total_posts', $total_posts);
     }
 
+    public function privacyPolicy(){
+        return view('guest.privacy-policy');
+    }
+    public function termOfUse(){
+        return view('guest.term-of-use');
+    }
+
     public function Institute($instituteId = null)
     {
         $institute = \App\Models\InstituteUser::where('user_id',Auth::id())->first();
