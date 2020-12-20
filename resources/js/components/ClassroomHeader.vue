@@ -63,7 +63,7 @@ export default {
 	methods:{
 		copyText(){
 			const el = document.createElement('textarea');
-			el.value = this.classroomDetail.classroom_live_id;
+			el.value = this.classroomDetail.classroom_join_id;
 			document.body.appendChild(el);
 			el.select();
                

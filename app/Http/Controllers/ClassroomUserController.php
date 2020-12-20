@@ -13,7 +13,7 @@ class ClassroomUserController extends Controller
     
     public function joinClassroom(Request $request){
        
-        $classroom=Classroom::where('classroom_live_id',$request->name)->first();
+        $classroom=Classroom::where('classroom_join_id',$request->name)->first();
 
         if(empty($classroom)){
             return response()->json(['error'=>[

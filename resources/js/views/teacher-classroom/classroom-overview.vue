@@ -99,7 +99,7 @@
         <i class="fa  text-blue  fa-arrow-right mr-3" />  <span
           class="text-blue font-size-14 weight-800 join-id line-height-25-px"
         >
-          {{ 'Copy Join Id' }}: {{ classroomDetail.classroom_live_id }}
+          {{ 'Copy Join Id' }}: {{ classroomDetail.classroom_join_id }}
           <strong class="right_positions hide"><i class="fa fa-copy text-success font-size-15" /> </strong>  
         </span>
       </div>
@@ -186,9 +186,9 @@ export default {
 		copyText(copyType){
 			const el = document.createElement('textarea');
 			if(copyType==='RegisterationLink'){
-				el.value = this.baseUrl+'/get-started?joinId='+this.classroomDetail.classroom_live_id;
+				el.value = this.baseUrl+'/get-started?joinId='+this.classroomDetail.classroom_join_id;
 			}else{
-				el.value = this.classroomDetail.classroom_live_id;
+				el.value = this.classroomDetail.classroom_join_id;
 			}
 			document.body.appendChild(el);
 			el.select();
