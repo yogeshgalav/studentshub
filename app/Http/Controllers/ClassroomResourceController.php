@@ -3,19 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\ClassroomDocument;
+use App\Models\Document;
+use App\Models\ClassroomVideo;
+use App\Models\Video;
+use App\Models\Unit;
 class ClassroomResourceController extends Controller
 {
     //
     public function listDocument(Request $request,$classroomId){
-        $documents = ClassroomDocument::where('classroom_id',$classroomId)
-        ->leftJoin('documents as do','do.id','=','classroom_documents.classroom_id')
-        ->leftJoin('units as ui','ui.id','=','classroom_documents.unit_id')
-        ->select('ui.id as unit_id','ui.name as unit_name','do.id as document_id','do.link','classroom_documents.description')
+        $documentUnitData = Unit::where('classroom_id',$classroomId)
+        ->with('classroomDocuments.document')
         ->get();
 
         return response()->json(['success'=>[
-            'documents'=>$documents
+            'documentUnitData'=>$documentUnitData
         ]]);
     }
     public function addDocument(Request $request,$classroomId){

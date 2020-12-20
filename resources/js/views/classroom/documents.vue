@@ -9,7 +9,7 @@
     <classroom-header />
     
     <div
-      v-for="(unit,index) in unitData"
+      v-for="(unit,index) in documentUnitData"
       :key="index"
       class="card mt-5"
     >
@@ -33,6 +33,19 @@
                 </div>
                 <div class="col-md-3 col-12" />
               </div>
+              <div class="row add_cl_q">
+                <ol>
+                  <li 
+                    v-for="(document,index2) in unit.documents"
+                    :key="index2"
+                    class="col-md-10 col-12 mt-2"
+                  >
+                    <a :href="document.link">{{ document.link }}</a>
+                    <p>{{ document.description }}</p>
+                  </li>
+                </ol>
+                <div class="col-md-3 col-12" />
+              </div>
             </accordion>
           </div>
 
@@ -48,13 +61,13 @@
                 <div class="col-md-12 mt-2">
                   <div class="row">
                     <div class="col-md-6">
-                      <h4>Question</h4>
+                      <h4>Add Document Link</h4>
                     </div>
                     <div class="col-md-6 text-right">
                       <button
                         type="button"
                         class="btn btn-lg btn-link font-size-24"
-                        @click="close()"
+                        @click="$modal.hide('addDocumentModal')"
                       >
                         &times;
                       </button>
@@ -139,7 +152,7 @@ export default {
 	data() {
 		return {
 			showLoader:true,
-			unitData: [],
+			documentUnitData: [],
 			unit_id: '',
 			document_link: '',
 			description: '',
@@ -152,27 +165,17 @@ export default {
 	methods: {
 		getDocuments(){
 			this.axios.get('/api/classroom/' + this.$route.params.classroomId + '/get-documents').then((resp) => {
-				this.documents = resp.data.success.documents;
-				this.documents.map(node=>{
-					let unit = this.unitData.find(node2=>node2.id===node.unit_id);
-					if(unit){
-						unit.documents.push({
-							'id':node.document_id,
-							'link':node.link,
-							'description':node.description,
-						});
-					}else{
-						this.unitData.push({
-							'id':node.unit_id,
-							'name':node.unit_name,
-							'documents':[{
-								'id':node.document_id,
-								'link':node.link,
-								'description':node.description,
-							}]
-						});
-					}
+				this.documentUnitData = resp.data.success.documentUnitData.map(node=>{
+					node.documents = node.classroom_documents.map(node2=>{
+						let new_node = {};
+						new_node['id'] = node2.id;
+						new_node['description'] = node2.description;
+						new_node['link'] = node2.document.link;
+						return new_node;
+					});
+					return node;
 				});
+				
 				this.showLoader=false;
 			});
 		},
@@ -189,6 +192,12 @@ export default {
 						document_link: this.document_link,
 						description: this.description,
 					}).then(()=>{
+						let document = this.documentUnitData.find(node=>node.id===this.unit_id);
+						document.documents.push({
+							document_link:document_link,
+							description:description,
+						});
+			      this.$modal.hide('addDocumentModal');
 						this.unit_id = '';
 						this.document_link = '';
 						this.description = '';

@@ -14,7 +14,7 @@ class Document extends Model
             'link'=>$data['document_link'],
             'access'=>$access,
         ]);
-
+    }
     // foreach($files as $file){
     //     $file_name=uniqid();
     //     $file_path="documents/".$file_name;
