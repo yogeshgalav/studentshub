@@ -140,13 +140,16 @@ export default {
 			}
 		},
 	},
-	mounted() {
+	updated() {
 		this.results = this.items;
-		document.addEventListener('click', this.handleClickOutside);
-		if(this.initialValue){
+		if(this.initialValue && this.search===''){
 			this.result = Object.assign({},this.initialValue);
 			this.search =this.result[this.value];
 		}
+	},
+	mounted() {
+		this.results = this.items;
+		document.addEventListener('click', this.handleClickOutside);
 	},
 	destroyed() {
 		document.removeEventListener('click', this.handleClickOutside);

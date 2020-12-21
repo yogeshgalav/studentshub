@@ -85,4 +85,7 @@ class Classroom extends Model
     public function teacher(){
         return $this->belongsTo('App\Models\Teacher');
     }
+    public function batch(){
+        return $this->belongsTo('App\Models\Batch');
+    }
 }

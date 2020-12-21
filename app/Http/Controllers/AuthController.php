@@ -202,11 +202,11 @@ class AuthController extends Controller
             return false;
         }
         $request = new Request([
-            'course_id' => $classroom->course_id,
+            'course_id' => $classroom->batch->course_id,
             'institute_id' => $classroom->teacher->institute_id, 
             'institute_name' => '', 
-            'start_year' => $classroom->batch_start_year,
-            'end_year' => $classroom->batch_end_year,
+            'start_year' => $classroom->batch->start_year,
+            'end_year' => $classroom->batch->end_year,
         ]);
         $student_controller =new StudentController;
         $student_controller->create($request);
@@ -214,7 +214,6 @@ class AuthController extends Controller
         ClassroomUser::create([
             'classroom_id'=>$classroom->id,
             'user_id'=>$user->id,
-            'joined_at'=>now(),
         ]);
     }
     /**

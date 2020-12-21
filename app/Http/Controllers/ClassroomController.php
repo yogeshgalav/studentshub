@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Classroom;
+use App\Models\Batch;
 use App\Models\Unit;
 use DB;
 use Auth;
@@ -14,7 +15,8 @@ class ClassroomController extends Controller
     //
     public function classroomListPage(){
         $classroom_query = DB::table('classrooms as cs')
-        ->join('courses as co','co.id','=','cs.course_id')
+        ->join('batches as bt','bt.id','=','cs.batch_id')
+        ->join('courses as co','co.id','=','bt.course_id')
         ->join('subjects as su','su.id','=','cs.subject_id')
         ->join('teachers as th','th.id','=','cs.teacher_id')
         ->join('users as us','us.id','=','th.user_id')
@@ -23,7 +25,7 @@ class ClassroomController extends Controller
         $classroom_query2=clone $classroom_query;
 
         $classroom_list=$classroom_query->join('classroom_users as cu',function($join){
-            $join->on('cu.classroom_id','=','cs.id')->where('cu.user_id',Auth::id())->where('joined_at','!=',null);
+            $join->on('cu.classroom_id','=','cs.id')->where('cu.user_id',Auth::id());
         })
         ->get();
 
@@ -46,11 +48,13 @@ class ClassroomController extends Controller
     public function getClassroomDetails($classroom_id){
         $classroomDetail = DB::table('classrooms as cs')
         ->where('cs.id',$classroom_id)
-        ->join('courses as co','co.id','=','cs.course_id')
+        ->join('batches as bt','bt.id','=','cs.batch_id')
+        ->join('courses as co','co.id','=','bt.course_id')
         ->join('subjects as su','su.id','=','cs.subject_id')
         ->join('teachers as th','th.id','=','cs.teacher_id')
         ->join('users as us','us.id','=','th.user_id')
-        ->select('cs.*','co.course_name','su.subject_name','us.id as user_id','us.full_name as teacher_name')
+        ->select('cs.*','co.course_name','su.subject_name','us.id as user_id','us.full_name as teacher_name',
+        'bt.start_year as batch_start_year', 'bt.end_year as batch_end_year')
         ->first();
 
         return response()->json([
@@ -154,12 +158,6 @@ class ClassroomController extends Controller
         $course_id = $request->course['id'];
         $course_name = $request->course['course_name'];
 
-        if(Classroom::where('classroom_join_id',$request->classroom_id)->exists()){
-            return response()->json(['error'=>[
-                'field'=>'classroom_id',
-                'message'=>'This Classroom Id is already used. Please try another.'
-            ]],422);
-        }
         DB::beginTransaction();
     try{
         if($course_id){
@@ -182,13 +180,18 @@ class ClassroomController extends Controller
             ]);
         }
 
+        $batch =Batch::firstOrCreate([
+            'institute_id'=>Auth::teacher()->instituteId,
+            'course_id'=>$course->id,
+            'start_year'=>$request->start_year,
+            'end_year'=>$request->end_year,
+        ]);
+
         $classroom=new Classroom;
         $classroom->name=$request->name;
         $classroom->teacher_id=Auth::teacher()->id;
         $classroom->subject_id=$subject->id;
-        $classroom->course_id=$course->id;
-        $classroom->batch_start_year=$request->start_year;
-        $classroom->batch_end_year=$request->end_year;
+        $classroom->batch_id=$batch->id;
         $classroom->save();
 
         DB::commit();
