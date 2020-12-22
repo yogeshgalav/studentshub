@@ -23,10 +23,13 @@
             </li>
           </ul>
           <span class="pricing-price">Free</span>
-          <a
-            href="#"
+          <button
+            type="button"
             class="pricing-button"
-          >Get Started</a>
+            @click="choosePlan('Accelarate')"
+          >
+            Get Started
+          </button>
         </div>
       
         <div class="pricing-plan">
@@ -56,10 +59,13 @@
             </li>
           </ul>
           <span class="pricing-price">$95</span>
-          <a
-            href="#/"
+          <button
+            type="button"
             class="pricing-button is-featured"
-          >Free trial</a>
+            @click="choosePlan('scale')"
+          >
+            Free trial
+          </button>
         </div>
       
         <div class="pricing-plan">
@@ -84,6 +90,98 @@
         </div>
       </div>
     </div>
+
+    <modal
+      name="memberModal"
+      class="doubt_model"
+    >
+      <form @submit.prevent="memberRequest">
+        <div class="model_box_inner card p-0">
+          <div class="card-header">
+            <div class="edit_profile_head">
+              <h4>Enter Details:</h4>
+            </div> 
+          </div>
+          <div class="row card-body">
+            <div class="col-md-6 col-12">
+              <div class="model_input">
+                <label class="text-gray">Institute name</label>
+                <input
+                  v-model="institute_name"
+                  v-validate="'required'"
+                  name="institute_name"
+                  type="text"
+                  class="form-control"
+                >
+                <span class="error">{{ formErrors('institute_name') }}</span>
+              </div>
+            </div>
+            <div class="col-md-6 col-12">
+              <div class="model_input">
+                <label class="text-gray">Your full name</label>
+                <input
+                  v-model="full_name"
+                  v-validate="'required'"
+                  name="full_name"
+                  type="text"
+                  class="form-control"
+                >
+                <span class="error">{{ formErrors('full_name') }}</span>
+              </div>
+            </div>
+            <div class="col-md-6 col-12">
+              <div class="model_input">
+                <label class="text-gray">Email</label>
+                <input
+                  v-model="email"
+                  v-validate="'required|email'"
+                  name="email"
+                  type="text"
+                  class="form-control"
+                >
+                <span class="error">{{ formErrors('email') }}</span>
+              </div>
+            </div>
+            <div class="col-md-6 col-12">
+              <div class="model_input">
+                <label class="text-gray">Contact number</label>
+                <input
+                  v-model="phone_no"
+                  v-validate="'required'"
+                  name="phone_no"
+                  type="text"
+                  class="form-control"
+                >
+                <span class="error">{{ formErrors('phone_no') }}</span>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="model_btn">
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                >
+                  Submit
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  @click="$modal.hide('memberModal')"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </modal>
+    <loading 
+      :active.sync="showLoader"
+      :color="'#10069F'"
+      :width="250"
+      :is-full-page="true"
+    />
   </div>
 </template>
 <style scoped>
@@ -241,11 +339,49 @@ html {
 }
 </style>
 <script>
+
+import FormMixin from '../../components/mixins/form-mixin.js' ;
+import swal from '../../components/swal';
+import VModal from 'vue-js-modal';
+
 export default {
+	components:{
+		VModal,
+	},
+	mixins: [FormMixin],
 	data(){
 		return {
-
+			showLoader:false,
+			institute_name:'',
+			full_name:'',
+			email:'',
+			phone_no:'',
+			plan:'',
 		};
+	},
+	methods:{
+		choosePlan(plan){
+			this.plan = plan;
+			this.$modal.show('memberModal');
+		},
+		memberRequest(){
+			this.$validator.validate().then(valid => {
+				if (valid) {
+					this.$modal.hide('memberModal');
+					this.showLoader = true;
+					this.axios.post('/api/member-request',{
+						institute_name:this.institute_name,
+						full_name:this.full_name,
+						email:this.email,
+						phone_no:this.email,
+						plan:this.email,
+					}).then(()=>{
+						this.showLoader =false;
+						swal.infoDialog('Thank you for connecting with us.');
+					});
+				}
+			});
+		}
 	}
 };
 </script>
