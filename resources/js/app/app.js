@@ -47,6 +47,9 @@ Vue.mixin({
 		AuthTeacher(){
 			return window.App.AuthTeacher;
 		},
+		AuthStudent(){
+			return window.App.AuthStudent;
+		},
 		csrfToken() {
 			return window.App.csrfToken;
 		},

@@ -105,7 +105,7 @@
       </div>
     </div>
     <div
-      v-if="classroomDetail.batch_start_year && classroomDetail.batch_end_year"
+      v-if="classroomDetail.batch_id"
       class="col-md-4  col-12 mt-3 mb-3"
     >
       <div

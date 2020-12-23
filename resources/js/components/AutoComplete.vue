@@ -150,6 +150,10 @@ export default {
 		this.results = this.items;
 		document.addEventListener('click', this.handleClickOutside);
 	},
+	mounted() {
+		this.results = this.items;
+		document.addEventListener('click', this.handleClickOutside);
+	},
 	destroyed() {
 		document.removeEventListener('click', this.handleClickOutside);
 	},

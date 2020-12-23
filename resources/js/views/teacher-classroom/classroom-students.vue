@@ -30,53 +30,6 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-8">
-        <vue-table-component
-          key="unjoinedStudents"
-          :columns="unjoinedColumns"
-          :rows="unjoinedStudents"
-        >
-          <template
-            slot="table-row"
-            slot-scope="props"
-          >
-            <span v-if="props.column.field==='user_name'">
-              <a
-                :href="'/student-panel/'+props.row.user_id"
-                class="text-underline"
-              >{{ props.row['user_name'] }}</a>
-            </span>
-
-            <span v-else-if="props.column.field==='accept_request'">  
-              <button
-                class="btn btn-md btn-success"
-                @click="acceptJoinRequest(props.row.user_id,'accept')"
-              >
-                Accept
-              </button>
-            </span>
-
-            <span v-else-if="props.column.field==='delete_request'">
-              <button
-                class="btn btn-md btn-danger"
-                @click="acceptJoinRequest(props.row.user_id,'decline')"
-              >
-                Decline
-              </button>
-            </span>
-			
-            <span v-else>{{ props.row[props.column.field] }}</span>
-          </template>
-          <div slot="emptystate">
-            <p class="mt-3">
-              {{ 'Currently no student has joined this classroom' }}
-            </p>
-            <p>{{ 'Share join Id and accept their request to join here.' }}</p>
-          </div>
-        </vue-table-component>
-      </div>
-    </div>
-    <div class="row">
       <div
         v-if="classroomDetail.id"
         class="col-md-4 col-12 mt-3 mb-3"
@@ -94,7 +47,7 @@
         </div>
       </div>
       <div
-        v-if="classroomDetail.batch_start_year && classroomDetail.batch_end_year"
+        v-if="classroomDetail.batch_id"
         class="col-md-4 col-12 mt-3 mb-3"
       >
         <div
@@ -184,24 +137,6 @@ export default {
 					field: 'daily_average_rank',
 				},
 			],
-			unjoinedColumns: [
-				{
-					label: 'Student Name',
-					field: 'user_name',
-				},
-				{
-					label: 'Institute ID',
-					field: 'unique_college_id',
-				},
-				{
-					label: 'Accept Request',
-					field: 'accept_request',
-				},
-				{
-					label: 'Delete Request',
-					field: 'delete_request',
-				},
-			],
 			hover: false,
 		};
 	},
@@ -210,11 +145,8 @@ export default {
 			return this.$store.state.classroom.classroomDetail;
 		},
 		joinedStudents(){
-			return this.student_details.filter(node=>node.joined_at!==null);
+			return this.student_details;
 		},
-		unjoinedStudents(){
-			return this.student_details.filter(node=>node.joined_at===null);
-		}
 	},
 	mounted(){
 		this.getClassroomStudentDetails();
@@ -264,16 +196,6 @@ export default {
 					return node;
 				});
 			});
-		},
-		acceptJoinRequest(user_id,status) {
-			this.axios.post('/api/classroom/user-request-action', {
-				user_id: user_id,
-				status: status,
-				classroom_id: this.$route.params.classroomId,
-			}).then((resp) => {
-				this.student_details = this.student_details.filter(node=>node.user_id!==user_id);
-			});;
-
 		},
 		copyText(copyType){
 			const el = document.createElement('textarea');
