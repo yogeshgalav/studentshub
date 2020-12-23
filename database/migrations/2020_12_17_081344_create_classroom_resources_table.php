@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateClassroomDocumentsTable extends Migration
+class CreateClassroomResourcesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateClassroomDocumentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('classroom_documents', function (Blueprint $table) {
+        Schema::create('classroom_resources', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('classroom_id')->unsigned();
-            $table->integer('document_id')->unsigned();
+            $table->string('link')->unsigned();
             $table->integer('unit_id')->unsigned();
+            $table->string('type')->default('other');
+            $table->string('access')->default('public');
             $table->string('description');
             $table->timestamps();
         });

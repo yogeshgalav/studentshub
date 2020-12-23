@@ -9,7 +9,7 @@
     <classroom-header />
     
     <div
-      v-for="(unit,index) in documentUnitData"
+      v-for="(unit,index) in resourceUnitData"
       :key="index"
       class="card mt-5"
     >
@@ -25,9 +25,9 @@
                 <div class="col-md-3 col-12">
                   <div class="mt-2">
                     <add-button
-                      name="Add Document"
+                      name="Add Resource"
                       size="lg"
-                      @submit="addDocument(unit.id)"
+                      @submit="addResource(unit.id)"
                     />
                   </div>
                 </div>
@@ -36,12 +36,12 @@
               <div class="row add_cl_q">
                 <ol>
                   <li 
-                    v-for="(document,index2) in unit.documents"
+                    v-for="(resource,index2) in unit.classroom_resources"
                     :key="index2"
                     class="col-md-10 col-12 mt-2"
                   >
-                    <a :href="document.link">{{ document.link }}</a>
-                    <p>{{ document.description }}</p>
+                    <a :href="resource.link">{{ resource.link }}</a>
+                    <p>{{ resource.description }}</p>
                   </li>
                 </ol>
                 <div class="col-md-3 col-12" />
@@ -50,24 +50,24 @@
           </div>
 
           <modal
-            name="addDocumentModal"
+            name="addResourceModal"
             class="doubt_model model-md"
             :click-to-close="false"
           >
             <form
-              @submit.prevent="saveDocument()"
+              @submit.prevent="saveResource()"
             >
               <div class="row">
                 <div class="col-md-12 mt-2">
                   <div class="row">
                     <div class="col-md-6">
-                      <h4>Add Document Link</h4>
+                      <h4>Add Resource Link</h4>
                     </div>
                     <div class="col-md-6 text-right">
                       <button
                         type="button"
                         class="btn btn-lg btn-link font-size-24"
-                        @click="$modal.hide('addDocumentModal')"
+                        @click="$modal.hide('addResourceModal')"
                       >
                         &times;
                       </button>
@@ -78,20 +78,20 @@
 
                 <div class="col-md-12">
                   <div class="form-group">
-                    <label for="documentLink">Online Document Link</label>
+                    <label for="resourceLink">Online Resource Link</label>
                     <div class="inner-addon left-addon">
                       <div class="cl_input">
                         <input
-                          id="documentLink"
-                          v-model="document_link"
+                          id="resourceLink"
+                          v-model="resource_link"
                           v-validate="'required'"
                           type="text"
-                          name="document_link"
+                          name="resource_link"
                           class="form-control"
-                          @blur="embeddocument"
+                          @blur="embedresource"
                         >
-                        <span class="text-danger">{{ formErrors('document_link') }}</span>
-                        <span class="text-danger">{{ document_error }}</span>
+                        <span class="text-danger">{{ formErrors('resource_link') }}</span>
+                        <span class="text-danger">{{ resource_error }}</span>
                       </div>
                     </div>
                   </div>
@@ -99,16 +99,16 @@
 
                 <div class="col-md-12">
                   <div class="form-group">
-                    <label for="documentDescription">Description:</label>
+                    <label for="resourceDescription">Description:</label>
                     <div class="inner-addon left-addon">
                       <div class="cl_input">
                         <input
-                          id="documentDescription"
+                          id="resourceDescription"
                           v-model="description"
                           v-validate="'required'"
                           name="description"
                           class="form-control"
-                          placeholder="say something about this document..."
+                          placeholder="say something about this resource..."
                         >
                         <span class="text-danger">{{ formErrors('description') }}</span>
                       </div>
@@ -152,79 +152,84 @@ export default {
 	data() {
 		return {
 			showLoader:true,
-			documentUnitData: [],
+			resourceUnitData: [],
 			unit_id: '',
-			document_link: '',
+			resource_link: '',
 			description: '',
-			document_error: '',
+			resource_error: '',
+			resource_type: '',
 		};
 	},
 	mounted() {
-		this.getDocuments();
+		this.getResources();
 	},
 	methods: {
-		getDocuments(){
-			this.axios.get('/api/classroom/' + this.$route.params.classroomId + '/get-documents').then((resp) => {
-				this.documentUnitData = resp.data.success.documentUnitData.map(node=>{
-					node.documents = node.classroom_documents.map(node2=>{
-						let new_node = {};
-						new_node['id'] = node2.id;
-						new_node['description'] = node2.description;
-						new_node['link'] = node2.document.link;
-						return new_node;
-					});
-					return node;
-				});
+		getResources(){
+			this.axios.get('/api/classroom/' + this.$route.params.classroomId + '/get-resources').then((resp) => {
+				this.resourceUnitData = resp.data.success.resourceUnitData;
 				
 				this.showLoader=false;
 			});
 		},
-		addDocument(unit_id) {
+		addResource(unit_id) {
 			this.unit_id = unit_id;
-			this.$modal.show('addDocumentModal');
+			this.$modal.show('addResourceModal');
 		},
-		saveDocument() {
+		saveResource() {
 			this.$validator.validate().then(valid => {
-				if(valid  && this.document_link && this.document_error===''){
+				if(valid  && this.resource_link && this.resource_error===''){
 					//call api and update field
-					this.axios.post('/api/classroom/'+this.$route.params.classroomId+'/add-document',{
+					this.axios.post('/api/classroom/'+this.$route.params.classroomId+'/add-resource',{
 						unit_id: this.unit_id,
-						document_link: this.document_link,
+						resource_link: this.resource_link,
+						resource_type: this.resource_type,
 						description: this.description,
 					}).then(()=>{
-						let document = this.documentUnitData.find(node=>node.id===this.unit_id);
-						document.documents.push({
-							document_link:document_link,
-							description:description,
+						let resource = this.resourceUnitData.find(node=>node.id===this.unit_id);
+						resource.classroom_resources.push({
+							link:this.resource_link,
+							type:this.resource_type,
+							description:this.description,
 						});
-			      this.$modal.hide('addDocumentModal');
+			      this.$modal.hide('addResourceModal');
 						this.unit_id = '';
-						this.document_link = '';
+						this.resource_link = '';
 						this.description = '';
 					});
 				}
 			});
 		},
-		embeddocument(event){
-			this.document_error='';
+		embedresource(event){
+			this.resource_error='';
 			let url =event.target.value.trim();
 			if(url===''){
-				this.document_error='A document link is required.';
+				this.resource_error='A resource link is required.';
 				return false;
 			}
-			let link = this.matchDocumentUrl(url);
+			let link = this.matchResourceUrl(url);
         
 			if(link!==false){
-				this.document_link=link;
+				this.resource_link=link;
 				return true;
 			}else{
-				this.document_error='This document link is not supported';
+				this.resource_error='This resource link is not supported';
 				return false;
 			}        
 		},
-		matchDocumentUrl(link){
+		matchResourceUrl(link){
+			var p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+			var matches = link.match(p);
+			if(matches){
+				this.resource_type = 'youtubeVideo';
+				return 'https://www.youtube.com/embed/' + matches[1];
+			}
 			let url = link.replace(/#[^#]*$/, '').replace(/\?[^\?]*$/, '');
 			if(url.indexOf('.pdf')>-1){
+				this.resource_type = 'documentLink';
+				return url;
+			}
+			if(url.indexOf('drive.google.com')>-1){
+				this.resource_type = 'googleDrive';
 				return url;
 			}
 			return false;

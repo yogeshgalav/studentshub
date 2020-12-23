@@ -220,10 +220,7 @@ class ClassroomController extends Controller
         ]]);
     }
 
-    public function classroomDocumentPage(){
-        return view('classroom.document');
-    }
-    public function classroomVideoPage(){
-        return view('classroom.video');
+    public function classroomResoucePage(){
+        return view('classroom.resources');
     }
 }

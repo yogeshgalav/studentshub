@@ -15,8 +15,8 @@ class Unit extends Model
     public function dailyAssignment(){
         return $this->hasMany('App\Models\DailyAssignment');
     }
-    public function classroomDocuments(){
-        return $this->hasMany('App\Models\ClassroomDocument');
+    public function classroomResources(){
+        return $this->hasMany('App\Models\ClassroomResource');
     }
 
 }

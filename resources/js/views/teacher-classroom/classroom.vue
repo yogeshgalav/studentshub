@@ -134,16 +134,16 @@
           <div class="selection-box-default">
             <router-link
               class="card h-card"
-              :to="'/classroom/'+$route.params.classroomId+'/documents'"
+              :to="'/classroom/'+$route.params.classroomId+'/resources'"
             >
               <div class="card-body">
                 <div class="row">
                   <div class="col-lg-12">
                     <h2 class="font-size-18">
-                      {{ 'Documents' }}
+                      {{ 'Resources' }}
                     </h2>
                     <p>
-                      {{ 'Add e-book or pdf links.' }}
+                      {{ 'Add document or video links.' }}
                     </p>
                   </div>
                 </div>
@@ -155,16 +155,16 @@
           <div class="selection-box-default">
             <router-link
               class="card h-card"
-              :to="'/classroom/'+$route.params.classroomId+'/videos'"
+              :to="'/classroom/'+$route.params.classroomId+'/messages'"
             >
               <div class="card-body">
                 <div class="row">
                   <div class="col-lg-12">
                     <h2 class="font-size-18">
-                      {{ 'Video' }}
+                      {{ 'Message' }}
                     </h2>
                     <p>
-                      {{ 'Add video link.' }}
+                      {{ 'Coming soon...' }}
                     </p>
                   </div>
                 </div>
@@ -185,7 +185,7 @@
                       {{ 'Doubts' }}
                     </h2>
                     <p>
-                      {{ 'Classroom doubts.' }}
+                      {{ 'Coming soon...' }}
                     </p>
                   </div>
                 </div>

@@ -15,12 +15,9 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::post('/delete-daily-assignment','DailyAssignmentController@deleteDailyAssignment');
     Route::post('/classroom/update-daily-question','DailyQuestionController@updateDailyQuestion');
     Route::post('/classroom/delete-daily-question','DailyQuestionController@deleteDailyQuestion');
-    Route::get('/classroom/{classroomId}/get-documents','ClassroomResourceController@listDocument');
-    Route::post('/classroom/{classroomId}/add-document','ClassroomResourceController@addDocument');
-    Route::post('/classroom/{classroomId}/delete-document','ClassroomResourceController@deleteDocument');
-    Route::post('/classroom/{classroomId}/get-videos','ClassroomResourceController@listVideo');
-    Route::post('/classroom/{classroomId}/add-video','ClassroomResourceController@addVideo');
-    Route::post('/classroom/{classroomId}/delete-video','ClassroomResourceController@deleteVideo');
+    Route::get('/classroom/{classroomId}/get-resources','ClassroomResourceController@listresource');
+    Route::post('/classroom/{classroomId}/add-resource','ClassroomResourceController@addresource');
+    Route::post('/classroom/{classroomId}/delete-resource','ClassroomResourceController@deleteresource');
     
     //student classroom routes
     Route::post('/classroom/join','ClassroomUserController@joinClassroom');
