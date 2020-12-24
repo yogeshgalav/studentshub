@@ -28,7 +28,13 @@
               <div class="card_body">
                 <div class="row justify-content-center">
                   <div class="col-md-12">
-                    <form @submit.prevent="handleSubmit">
+                    <form 
+                      id="register_form"
+                      name="register"
+                      method="POST"
+                      action="/register"
+                      @submit.prevent="handleSubmit"
+                    >
                       <div
                         v-if="email_error"
                         class="form-group row alert alert-warning"
@@ -43,7 +49,13 @@
                           name="_token"
                           :value="csrfToken"
                         >
-                        <span class="error">{{ formErrors('_token') }}</span>
+                        <input
+                          id="token"
+                          type="hidden"
+                          class="form-control"
+                          name="join_id"
+                          :value="join_id"
+                        >
                       </div>
                       <div class="form-group">
                         <label> {{ trans('Full Name') }} </label>
@@ -101,7 +113,7 @@
                               id="password"
                               ref="password"
                               v-model="password"
-                              v-validate="'required|min:6'"
+                              v-validate="'required|min:8'"
                               type="password"
                               class="form-control"
                               name="password"
@@ -155,6 +167,18 @@
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+      <div class="login_card">
+        <div class="row">
+          <div class="col-md-12">
+            <router-link
+              :to="'/membership-plan'"
+              class="font-size-40 text-black weight-800 mb-2 line-height-25-px text-center"
+            >
+              {{ trans('New Institute or Teacher?') }} 
+            </router-link>
           </div>
         </div>
       </div>
@@ -222,6 +246,7 @@ export default {
 			full_name: '',
 			email: '',
 			password: '',
+			join_id: '',
 			dict: {
 				custom: {
 					full_name: {
@@ -243,6 +268,7 @@ export default {
 		};
 	},
 	mounted(){  
+		this.join_id = this.$route.query.joinId ? this.$route.query.joinId : '';
 		this.$validator.localize('en', this.dict);
 	},
 	methods: {
@@ -254,46 +280,10 @@ export default {
 				if (valid) {
 					this.form_errors = [];
 					this.showLoader = true;
-					this.register();
+					document.getElementById('register_form').submit();
 				}
 			});
 			return true;
-		},
-		register(){
-			let email = this.email;
-			let password = this.password;
-			let full_name = this.full_name;
-
-			let join_id = this.$route.query.joinId;
-			this.axios.post(window.App.baseUrl + '/api/register', {
-				full_name,
-				email,
-				password,
-				join_id: join_id ? join_id : '',
-			})
-				.then(resp => {
-					const access_token = resp.data.success.access_token;
-					const refresh_token = resp.data.success.refresh_token;
-					localStorage.setItem('access_token', access_token);
-					localStorage.setItem('refresh_token', refresh_token);
-					this.showLoader = false;
-					swal.successDialog('Register', 'Success!', 'success')
-					({
-						redirectUrl: window.location.href
-					} = resp.data.success);
-				})
-				.catch(err => {
-					this.showLoader = false;
-					if(err.response.status===422){
-						let error_data = err.response.data.errors;
-						if(error_data['email']){
-							this.email_error = error_data['email'][0]; 
-						}
-					}
-					this.catchResponse(err);
-					localStorage.removeItem('access_token');
-					localStorage.removeItem('refresh_token');
-				});
 		},
 	}
 };

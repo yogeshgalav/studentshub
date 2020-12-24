@@ -1,74 +1,91 @@
 <template>
-    <div class="banner_post pt-80 pb-80 ">
-        <div class="container">
-            <carousel>
-                <template slot="step1" class="home_slide">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="slider-caption">
-
-                                <h2 class="banner_title">Are you a Student?</h2>
-                                <p>Meet Students from Your Batch, Course and Institute.
-                                   Learn and Share from People Around You. 
-                                   Ask Your Doubts,Share Your Knowledge in posts 
-                                   and Above All Find Your Interest Field.</p>
-                            </div>
-
-
-                        </div>
-                        <div class="col-md-6">
-                            <div class="slider-caption">
-                                <img v-lazy="'/images/student.svg'" class="slide_img_home">
-                            </div>
-
-                        </div>
-                    </div>
-                </template>
-                <template slot="step2" class="home_slide">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="slider-caption">
-
-                                <h2 class="banner_title">Teacher?</h2>
-                                <p>Get More Clear Insights about Your Students. Make Your Classrooms, Create Your
-                                    Lessons, Notify your Students,
-                                    and Earn from Your Educational Article.</p>
-                            </div>
-
-
-                        </div>
-                        <div class="col-md-6">
-                            <div class="slider-caption">
-                                <img v-lazy="'/images/teacher.svg'" class="slide_img_home">
-                            </div>
-
-                        </div>
-                    </div>
-                </template>
-                <template slot="step3" class="home_slide">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="slider-caption">
-
-                                <h2 class="banner_title">Knowledge Seeker? </h2>
-                                <p>Explore Educational content from variety of courses, categories
-                                    and Seek knowledge in diverse form.</p>
-                            </div>
-
-
-                        </div>
-                        <div class="col-md-6">
-                            <div class="slider-caption">
-                                <img v-lazy="'/images/knowledge seeker.svg'" class="slide_img_home">
-                            </div>
-
-                        </div>
-                    </div>
-                </template>
-
-            </carousel>
-        </div>
+  <div class="banner_post pt-80 pb-80 ">
+    <div class="container">
+      <carousel>
+        <template
+          slot="step1"
+          class="home_slide"
+        >
+          <div class="row">
+            <div class="col-md-6">
+              <div class="slider-caption">
+                <h2 class="banner_title">
+                  Are you a Student?
+                </h2>
+                <p>
+                  Meet Students from Your Batch, Course and Institute.
+                  Learn and Share from People Around You. 
+                  Ask Your Doubts,Share Your Knowledge in posts 
+                  and Above All Find Your Interest Field.
+                </p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="slider-caption">
+                <img
+                  v-lazy="'/images/student.svg'"
+                  class="slide_img_home"
+                >
+              </div>
+            </div>
+          </div>
+        </template>
+        <template
+          slot="step2"
+          class="home_slide"
+        >
+          <div class="row">
+            <div class="col-md-6">
+              <div class="slider-caption">
+                <h2 class="banner_title">
+                  Institute or Teacher?
+                </h2>
+                <p>
+                  Get More Clear Insights about Your Student's Progress. 
+                  Make Your Classrooms, Create Your Lessons,
+                  Daily assignments, Share Resources and Notify your Students.
+                </p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="slider-caption">
+                <img
+                  v-lazy="'/images/teacher.svg'"
+                  class="slide_img_home"
+                >
+              </div>
+            </div>
+          </div>
+        </template>
+        <template
+          slot="step3"
+          class="home_slide"
+        >
+          <div class="row">
+            <div class="col-md-6">
+              <div class="slider-caption">
+                <h2 class="banner_title">
+                  Knowledge Seeker?
+                </h2>
+                <p>
+                  Explore Educational content from variety of courses, categories
+                  and Seek knowledge in diverse form.
+                </p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="slider-caption">
+                <img
+                  v-lazy="'/images/knowledge seeker.svg'"
+                  class="slide_img_home"
+                >
+              </div>
+            </div>
+          </div>
+        </template>
+      </carousel>
     </div>
+  </div>
 </template>
 <style scoped>
     .slick-slide {
@@ -122,14 +139,14 @@
 </style>
 
 <script>
-    import Carousel from '../../components/Carousel.vue';
+import Carousel from '../../components/Carousel.vue';
 
 
 
-    export default {
-        components: {
-            Carousel,
-        },
-    }
+export default {
+	components: {
+		Carousel,
+	},
+};
 
 </script>

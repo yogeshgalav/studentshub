@@ -414,13 +414,13 @@ export default {
 				this.selected_level={
 					id:2,
 					level:3,
-					name:'"Middle Stage (6-8)"'
+					name:'Middle Stage (6-8)'
 				};
 			}else if(this.selected_course.id===1003){
 				this.selected_level={
 					id:3,
 					level:4,
-					name:'"Secondary Stage (9-12)"'
+					name:'Secondary Stage (9-12)'
 				};
 			}else{
 				this.selected_level={
@@ -570,6 +570,7 @@ export default {
 					'course_name': this.selected_level.name,
 					'category_id': null
 				};
+				break;
 			default:
 				this.show_courses=true;
 				break;

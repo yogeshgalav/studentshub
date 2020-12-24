@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateClassroomUsersTable extends Migration
+class CreateMemberRequestsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,13 @@ class CreateClassroomUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('classroom_users', function (Blueprint $table) {
+        Schema::create('member_requests', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('classroom_id')->unsigned();
-            $table->integer('user_id')->unsigned();
+            $table->string('full_name');
+            $table->string('email');
+            $table->string('phone_no');
+            $table->string('institute_name');
+            $table->string('plan');
             $table->timestamps();
         });
     }
@@ -28,6 +31,6 @@ class CreateClassroomUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('classrom_users');
+        Schema::dropIfExists('member_requests');
     }
 }

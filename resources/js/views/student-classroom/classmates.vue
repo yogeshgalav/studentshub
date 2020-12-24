@@ -78,7 +78,7 @@ export default {
 	},
 	computed: {
 		joinedStudents(){
-			return this.student_details.filter(node=>node.joined_at!==null);
+			return this.student_details;
 		},
 	},
 	mounted(){

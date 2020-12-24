@@ -63,7 +63,13 @@
         <div class="overflow-container">
             <div class="mb-3">
             <img src="{{asset('/images/default-avatar.png') }}" alt="Student'sHUB" width="40" class="pl-2"/>
+            @if(Auth::teacher())
+            <span class="sidebar_heading ml-1">{{ Auth::teacher()->instituteName }} </span>
+            @elseif(Auth::student())
+            <span class="sidebar_heading ml-1">{{ Auth::student()->instituteName }} </span>
+            @else
             <span class="sidebar_heading ml-1">Student's Hub </span>
+            @endif
             </div>
             <ul class="menu-dropdown">
             <li><a href="/classrooms" class="active">	<span class="icon">  <img src="{{asset('/images/whiteboard.png') }}" alt="Student'sHUB" width="20"/></span>Classrooms</a></li>

@@ -6,9 +6,18 @@
           <div class="col-md-12">
             <div class="card mb-3">
               <div class="card-body">
-                <a class="h-card" :href="AuthUserType==='student'?'/share-your-knowledge':'/education-details'"> 
-                <img src="/images/knowledge.svg" alt="">&emsp;
-                Share Your Knowledge &emsp;<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span>  
+                <a
+                  class="h-card"
+                  :href="AuthStudent ?'/share-your-knowledge':'/education-details'"
+                > 
+                  <img
+                    src="/images/knowledge.svg"
+                    alt=""
+                  >&emsp;
+                  Share Your Knowledge &emsp;<span><i
+                    class="fa fa-arrow-right"
+                    aria-hidden="true"
+                  /></span>  
                 </a>
               </div>
             </div>
@@ -17,7 +26,7 @@
 
         <div class="row">
           <div class="col-md-12">
-            <home-post-container></home-post-container>
+            <home-post-container />
           </div>
         </div>
       </div>
@@ -65,19 +74,19 @@
 </style>
 
 <script>
-import HomePostContainer from "../post-containers/HomePostContainer";
+import HomePostContainer from '../post-containers/HomePostContainer';
 
 export default {
-  components: {
-    HomePostContainer
-  },
-  data() {
-    return {};
-  },
-  methods: {
-    trans: function(string, defaultString) {
-      return this.$trans("home", string, defaultString);
-    }
-  }
+	components: {
+		HomePostContainer
+	},
+	data() {
+		return {};
+	},
+	methods: {
+		trans: function(string, defaultString) {
+			return this.$trans('home', string, defaultString);
+		}
+	}
 };
 </script>

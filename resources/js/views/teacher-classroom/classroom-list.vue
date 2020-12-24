@@ -17,7 +17,7 @@
         @submit="createClassroom()"
       />
       <add-button
-        v-if="!AuthTeacher"
+        v-if="AuthStudent"
         button-class="btn-success mb-1"
         type="button"
         size="lg"
@@ -84,7 +84,7 @@
         >
           <div class="clas_roo_main_box">
             <div class="cl_box_top">
-              <p>{{ classroom.classroom_live_id }}</p>
+              <p>{{ classroom.classroom_join_id }}</p>
             </div>
             <a
               :href="'/classroom/'+classroom.id"
@@ -119,10 +119,9 @@
           :key="index"
           class="col-md-4"
         >
-          
           <div class="clas_roo_main_box">
             <div class="cl_box_top">
-              <p>{{ classroom.classroom_live_id }}</p>
+              <p>{{ classroom.classroom_join_id }}</p>
             </div>
             <a
               :href="'/classroom/'+classroom.id"
@@ -193,7 +192,8 @@ export default {
 			}).then(()=>{
 				this.$modal.hide('join_classroom_modal');
 				this.showLoader=false;
-				swal.successDialog('Request sent', 'Successfully!', 'success');
+				swal.successDialog('Classroom joined', 'Successfully!', 'success');
+				location.reload();
 			}).catch((err)=>{
 				if(err.response.status===422){
 					let error_data = err.response.data.error;

@@ -19,8 +19,8 @@ require_once('web/admin.php');
 require_once('web/institute.php');
 Route::get('/', 'PagesController@root');
 Route::get('/report', 'PagesController@report');
-Route::get('/privacy-policy', 'PagesController@report');
-Route::get('/terms-of-service', 'PagesController@report');
+Route::get('/privacy-policy', 'PagesController@privacyPolicy');
+Route::get('/terms-of-service', 'PagesController@termOfUse');
 
 
 Route::get('/post-images/{filename}','PagesController@postImage');

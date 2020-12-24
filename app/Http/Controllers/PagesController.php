@@ -11,19 +11,6 @@ use App\Models\Student;
 
 class PagesController extends Controller
 {
-    public $AuthUserType = 'guest';
-    public function __construct()
-    {
-        $AuthUser = Auth::user();
-        if ($AuthUser == null) {
-            $this->AuthUserType = 'guest';
-        } else if ($AuthUser->student()->count() > 0) {
-            $this->AuthUserType = 'student';
-        } else {
-            $this->AuthUserType = 'seeker';
-        }
-    }
-
     public function postImage($filename)
     {
         $path = storage_path('/app/post-images/' . $filename);
@@ -49,7 +36,7 @@ class PagesController extends Controller
     public function  root()
     {
         if (Auth::check()) {
-            return view($this->AuthUserType . '.home');
+            return view('seeker.posts');
         } else {
             return view('guest.welcome');
         }
@@ -108,6 +95,10 @@ class PagesController extends Controller
     {
         return view('guest.auth.login');
     }
+    public function membershipPlan()
+    {
+        return view('guest.membership-plan');
+    }
     public function forgotPasswordPage()
     {
         return view('guest.auth.forgot-password');
@@ -126,7 +117,10 @@ class PagesController extends Controller
     }
     public function viewPost()
     {
-        return view($this->AuthUserType . '.view-post');
+        if (Auth::check()) {
+            return view('seeker.post-view');
+        }
+        return view('guest.post-view');
     }
     public function report()
     {
@@ -137,6 +131,13 @@ class PagesController extends Controller
             ->with('total_users', $total_users)
             ->with('total_guests', $total_guests)
             ->with('total_posts', $total_posts);
+    }
+
+    public function privacyPolicy(){
+        return view('guest.privacy-policy');
+    }
+    public function termOfUse(){
+        return view('guest.term-of-use');
     }
 
     public function Institute($instituteId = null)

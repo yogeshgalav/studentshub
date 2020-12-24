@@ -98,13 +98,13 @@
           <i class="fa  text-blue  fa-arrow-right mr-3" />  <span
             class="text-blue font-size-14 weight-800 join-id line-height-25-px"
           >
-            {{ 'Copy Join Id' }}: {{ classroomDetail.classroom_live_id }}
+            {{ 'Copy Join Id' }}: {{ classroomDetail.classroom_join_id }}
             <strong class="right_positions hide"><i class="fa fa-copy text-success font-size-15" /> </strong>  
           </span>
         </div>
       </div>
       <div
-        v-if="classroomDetail.batch_start_year && classroomDetail.batch_end_year"
+        v-if="classroomDetail.batch_id"
         class="col-md-4 col-12 mt-3 mb-3"
       >
         <div
@@ -194,24 +194,6 @@ export default {
 					field: 'daily_average_rank',
 				},
 			],
-			unjoinedColumns: [
-				{
-					label: 'Student Name',
-					field: 'user_name',
-				},
-				{
-					label: 'Institute ID',
-					field: 'unique_college_id',
-				},
-				{
-					label: 'Accept Request',
-					field: 'accept_request',
-				},
-				{
-					label: 'Delete Request',
-					field: 'delete_request',
-				},
-			],
 			hover: false,
 		};
 	},
@@ -220,11 +202,8 @@ export default {
 			return this.$store.state.classroom.classroomDetail;
 		},
 		joinedStudents(){
-			return this.student_details.filter(node=>node.joined_at!==null);
+			return this.student_details;
 		},
-		unjoinedStudents(){
-			return this.student_details.filter(node=>node.joined_at===null);
-		}
 	},
 	mounted(){
 		this.getClassroomStudentDetails();
@@ -275,22 +254,12 @@ export default {
 				});
 			});
 		},
-		acceptJoinRequest(user_id,status) {
-			this.axios.post('/api/classroom/user-request-action', {
-				user_id: user_id,
-				status: status,
-				classroom_id: this.$route.params.classroomId,
-			}).then((resp) => {
-				this.student_details = this.student_details.filter(node=>node.user_id!==user_id);
-			});;
-
-		},
 		copyText(copyType){
 			const el = document.createElement('textarea');
 			if(copyType==='RegisterationLink'){
-				el.value = this.baseUrl+'/get-started?joinId='+this.classroomDetail.classroom_live_id;
+				el.value = this.baseUrl+'/get-started?joinId='+this.classroomDetail.classroom_join_id;
 			}else{
-				el.value = this.classroomDetail.classroom_live_id;
+				el.value = this.classroomDetail.classroom_join_id;
 			}
 			document.body.appendChild(el);
 			el.select();
