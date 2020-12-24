@@ -126,11 +126,7 @@ class PostController extends Controller
 
     public function getPosts(Request $request){
         $post=new \App\Post;
-        if(Auth::student()){
-            return $post->getStudentPosts($request);
-        }else{
-            return $post->getSeekerPosts($request);
-        }
+        return $post->getAuthUserPosts($request);
     }
 
     public function show($post_id){
