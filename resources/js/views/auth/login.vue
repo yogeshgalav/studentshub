@@ -22,7 +22,13 @@
               <h3>{{ trans('Login') }}</h3>
             </div>
             <div class="card_body">
-              <form @submit.prevent="handleSubmit">
+              <form
+                id="login_form"
+                name="login"
+                method="POST"
+                action="/login"
+                @submit.prevent="handleSubmit"
+              >
                 <div
                   v-if="srvError401"
                   class="form-group row alert alert-danger"
@@ -52,7 +58,7 @@
                       <span class="icon_design_input"><i class="fa fa-user" /></span>
                       <input
                         id="email"
-                        v-model.lazy="email"
+                        v-model="email"
                         v-validate="'required|email'"
                         type="text"
                         name="email"
@@ -135,13 +141,25 @@
                   <span
                     class="text-gray"
                     style="color:#868686;"
-                  >Dont't have an account ?</span> <router-link :to="'/get-started'">
+                  >Dont't have an account?</span> <router-link :to="'/get-started'">
                     Sign Up
                   </router-link>
                 </div>
               </form>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+    <div class="login_card">
+      <div class="row">
+        <div class="col-md-12 text-center mt-3">
+          <router-link
+            :to="'/membership-plan'"
+            class="font-size-40 text-black weight-800 mb-2 line-height-25-px text-center"
+          >
+            {{ trans('New Institute or Teacher?') }} 
+          </router-link>
         </div>
       </div>
     </div>
@@ -179,29 +197,34 @@
 <script>
 import { mapState } from 'vuex';
 import FormMixin from '../../components/mixins/form-mixin.js' ;
-import swal from '../../components/swal';
 
 export default {
 	mixins: [FormMixin],
+	props: { 
+		srvError401:{
+			default:false,
+		},
+		srvErrorUnknown:{
+			default:false,
+		} 
+	},
 	data(){
 		return{
 			showLoader:false,
 			email:'',
 			password:'',
-			remember:false,
-			srvError401:'',
-			srvErrorUnknown:'',
+			remember:true,
 		};
 	},
 	mounted(){
 		var self=this;
 		this.$validator.localize('en', {custom: {
 			email: {
-				required: self.trans('emailOrPhone.invalid','You must provide a valid email address or phone number.')
+				required: self.trans('emailOrPhone.invalid','You must provide a valid email address.')
 			}}});
 		this.$validator.extend('email', {
 			getMessage() {
-				return self.trans('emailOrPhone.invalid','You must provide a valid email address or phone number.');
+				return self.trans('emailOrPhone.invalid','You must provide a valid email address.');
 			},
 			validate: function(value) {
 				const email = /\S+@\S+\.\S+/;
@@ -219,33 +242,10 @@ export default {
 				if (valid) {
 					this.form_errors=[];
 					this.showLoader=true;
-					this.login();
+					document.getElementById('login_form').submit();
 				}
 			});
 			return true;
-		},
-		login: function () {
-			let email = this.email;
-			let password = this.password;
-			let remember = this.remember;
-			this.$store.dispatch('auth/login', { email, password, remember})
-				.then((resp) => {
-					this.showLoader=false;
-					swal.successDialog('Login','Success!','success')
-					({redirectUrl: window.location.href} = resp.data.success);
-				})
-				.catch(err => {
-					this.showLoader=false;
-					if( 401 === err.response.status){
-						this.srvError401=true;
-						this.srvErrorUnknown=false;
-						this.form_errors=[];
-					} else {
-						this.srvErrorUnknown=true;
-						this.srvError401 = false;
-						this.form_errors=err.response.data.errors;
-					}
-				});
 		},
 	}
 };

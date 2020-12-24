@@ -14,18 +14,12 @@
           >
             <span v-if="props.column.field==='user_name'">
               <a
-                :href="'/classroom/'+$route.params.classroomId+'/student-panel/'+props.row.user_id"
+                :href="'/profile/'+props.row.user_id"
                 class="text-underline"
               >{{ props.row['user_name'] }}</a>
             </span>
             <span v-else>{{ props.row[props.column.field] }}</span>
           </template>
-          <div slot="emptystate">
-            <p class="mt-3">
-              {{ 'Currently no student has joined this classroom' }}
-            </p>
-            <p>{{ 'Share join Id and accept there request to join here.' }}</p>
-          </div>
         </vue-table-component>
       </div>
     </div>
@@ -84,7 +78,7 @@ export default {
 	},
 	computed: {
 		joinedStudents(){
-			return this.student_details.filter(node=>node.joined_at!==null);
+			return this.student_details;
 		},
 	},
 	mounted(){

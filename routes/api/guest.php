@@ -4,8 +4,9 @@
 
 Route::post('/subscribe','GuestController@update');
 Route::get('/get-post-content/{post_id}','PostController@show');
-Route::post('/login','AuthController@login');
-Route::post('/register','AuthController@register');
+Route::post('/login','AuthController@loginViaApi');
+Route::post('/register','AuthController@registerViaApi');
+Route::post('/member-request','GuestController@memberRequest');
 
 Route::post('/forgot-password','AuthController@processForgotPassword');
 Route::post('/reset-password/{token}','AuthController@resetPassword');

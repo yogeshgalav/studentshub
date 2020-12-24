@@ -2,7 +2,12 @@
   <div>
     <classroom-header />
     <div class="row">
-      <div class="col-md-8">
+      <div class="col-md-12">
+        <h4 class="text-black mb-0">
+          Classroom students report
+        </h4>
+      </div>
+      <div class="col-md-12">
         <vue-table-component
           key="joinedStudents"
           :columns="joinedColumns"
@@ -24,13 +29,18 @@
             <p class="mt-3">
               {{ 'Currently no student has joined this classroom' }}
             </p>
-            <p>{{ 'Share join Id and accept there request to join here.' }}</p>
+            <p>{{ 'Share join Id and accept their request to join here.' }}</p>
           </div>
         </vue-table-component>
       </div>
     </div>
     <div class="row">
-      <div class="col-md-8">
+      <div class="col-md-12">
+        <h4 class="text-black mb-0 mt-3">
+          Join requests
+        </h4>
+      </div>
+      <div class="col-md-12">
         <vue-table-component
           key="unjoinedStudents"
           :columns="unjoinedColumns"
@@ -71,13 +81,70 @@
             <p class="mt-3">
               {{ 'Currently no student has joined this classroom' }}
             </p>
-            <p>{{ 'Share join Id and accept there request to join here.' }}</p>
+            <p>{{ 'Share join Id and accept their request to join here.' }}</p>
           </div>
         </vue-table-component>
       </div>
     </div>
+    <div class="row">
+      <div
+        v-if="classroomDetail.id"
+        class="col-md-4 col-12 mt-3 mb-3"
+      >
+        <div
+          class="join_id_box"
+          @click="copyText('joinId')"
+        >
+          <i class="fa  text-blue  fa-arrow-right mr-3" />  <span
+            class="text-blue font-size-14 weight-800 join-id line-height-25-px"
+          >
+            {{ 'Copy Join Id' }}: {{ classroomDetail.classroom_join_id }}
+            <strong class="right_positions hide"><i class="fa fa-copy text-success font-size-15" /> </strong>  
+          </span>
+        </div>
+      </div>
+      <div
+        v-if="classroomDetail.batch_id"
+        class="col-md-4 col-12 mt-3 mb-3"
+      >
+        <div
+          class="join_id_box"
+          @click="copyText('RegisterationLink')"
+        >
+          <i class="fa  text-blue  fa-arrow-right mr-3" />  <span
+            class="text-blue font-size-14 weight-800 join-id line-height-25-px"
+          >
+            {{ 'Copy Registration Link' }}
+            <strong class="right_positions hide"><i class="fa fa-copy text-success font-size-15" /> </strong>
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
+<style scoped>
+.join_id_box {
+ border:1px solid #eee;
+ border-radius: 5px;
+ padding: 8px 5px 8px 15px;
+ cursor: pointer;
+}
+.join_id_box:hover {
+ background-color: #f3f9e8;
+ border-color: #e1ebb3;
+}
+.right_positions {
+  position: absolute;
+  right: 40px;
+}
+.join_id_box:hover strong{
+	display: block;
+	margin-top: -20px;
+}
+.hide {
+  display: none;
+}
+</style>
 <script>
 import ClassroomHeader from '../../components/ClassroomHeader';
 import VueTableComponent from '../../components/vue-table-component';
@@ -127,33 +194,16 @@ export default {
 					field: 'daily_average_rank',
 				},
 			],
-			unjoinedColumns: [
-				{
-					label: 'Student Name',
-					field: 'user_name',
-				},
-				{
-					label: 'Institute ID',
-					field: 'unique_college_id',
-				},
-				{
-					label: 'Accept Request',
-					field: 'accept_request',
-				},
-				{
-					label: 'Delete Request',
-					field: 'accept_request',
-				},
-			]
+			hover: false,
 		};
 	},
 	computed: {
-		joinedStudents(){
-			return this.student_details.filter(node=>node.joined_at!==null);
+		classroomDetail(){
+			return this.$store.state.classroom.classroomDetail;
 		},
-		unjoinedStudents(){
-			return this.student_details.filter(node=>node.joined_at===null);
-		}
+		joinedStudents(){
+			return this.student_details;
+		},
 	},
 	mounted(){
 		this.getClassroomStudentDetails();
@@ -204,15 +254,18 @@ export default {
 				});
 			});
 		},
-		acceptJoinRequest(user_id,status) {
-			this.axios.post('/api/classroom/user-request-action', {
-				user_id: user_id,
-				status: status,
-				classroom_id: this.$route.params.classroomId,
-			}).then((resp) => {
-				this.student_details = this.student_details.filter(node=>node.user_id!==user_id);
-			});;
-
+		copyText(copyType){
+			const el = document.createElement('textarea');
+			if(copyType==='RegisterationLink'){
+				el.value = this.baseUrl+'/get-started?joinId='+this.classroomDetail.classroom_join_id;
+			}else{
+				el.value = this.classroomDetail.classroom_join_id;
+			}
+			document.body.appendChild(el);
+			el.select();
+               
+			document.execCommand('copy');
+			document.body.removeChild(el);
 		},
 	},
 

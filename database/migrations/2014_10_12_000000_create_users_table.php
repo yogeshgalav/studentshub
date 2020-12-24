@@ -28,6 +28,7 @@ class CreateUsersTable extends Migration
             $table->integer('block_status')->default(0);
             $table->string('role_intended')->default('student');
             $table->string('avatar_url')->nullable();
+            $table->string('fcm_token')->nullable();
             $table->boolean('must_reset_password')->default(false);
             $table->rememberToken();
             $table->timestamps();

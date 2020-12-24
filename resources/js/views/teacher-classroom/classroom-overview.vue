@@ -5,254 +5,231 @@
     </div>
     <div class="col-md-12">
       <div class="card mt-2">
-        <div class="card-header">
-          <h4 class="mb-1">
+        <div class="card-header bg-white">
+          <h4 class="mb-1 mt-1">
             {{ 'Classroom Overview' }}
           </h4>
         </div>
         <div class="card-body">
-          <form>
-            <div class="form-group mb-0 row">
-              <label class="col-sm-2 col-form-label text-black font-size-14">Name
-              </label>
-              <div class="col-sm-10">
-                <div class="text-black">
-                  {{ classroomDetail.name }}
+          <div class="col-md-6 col-12">
+            <form>
+              <div class="form-group">
+                <label class="text-black font-size-14">Course
+                </label>
+                <input
+                  id="course"
+                  type="text"
+                  class="form-control"
+                  disabled
+                  :value="classroomDetail.course_name"
+                >
+              </div>
+              <div class="form-group">
+                <label class="text-black font-size-14">Subject
+                </label>
+                <input
+                  id="subject"
+                  type="text"
+                  class="form-control"
+                  disabled
+                  :value="classroomDetail.subject_name"
+                >
+              </div>
+              <div class="form-group">
+                <label class="text-black font-size-14">Batch:
+                </label>
+                {{ classroomDetail.batch_start_year }} - {{ classroomDetail.batch_end_year }}
+              </div>
+              <div class="form-group">
+                <label class="text-black font-size-14">Classroom
+                  Name
+                </label>
+                <input
+                  id="duration"
+                  v-model="form_data.name"
+                  type="text"
+                  class="form-control"
+                  @blur="updateClassroomDetail"
+                >
+              </div>
+         
+              <div class="form-group">
+                <label class="text-black font-size-14">Number of expected participants </label>
+                <div class="row">
+                  <div class="col-md-3 col-6">
+                    <input
+                      id="expected_students"
+                      v-model="form_data.expected_students"
+                      type="text"
+                      class="form-control"
+                      @blur="updateClassroomDetail"
+                    >
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="form-group mb-0 row">
-              <label class="col-sm-2 col-form-label text-black font-size-14">Subject
-              </label>
-              <div class="col-sm-10">
-                <div class="text-black">
-                  {{ classroomDetail.subject_name }}
-                </div>
-              </div>
-            </div>
-            <div class="form-group mb-0 row">
-              <label class="col-sm-2 col-form-label text-black font-size-14">Course
-              </label>
-              <div class="col-sm-10">
-                <div class="text-black">
-                  {{ classroomDetail.course_name }}
-                </div>
-              </div>
-            </div>
-            <div class="form-group  row">
-              <label class="col-sm-2 col-form-label text-black font-size-14">Expected
-                Students </label>
-              <div class="col-sm-3">
-                <div class="text-black">
-                  <input
-                    id="expected_students"
-                    v-model="form_data.expected_students"
-                    type="text"
-                    class="form-control"
-                    @blur="updateClassroomDetail"
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="form-group  row">
-              <label class="col-sm-2 col-form-label text-black font-size-14">Classroom
-                duration </label>
-              <div class="col-sm-3">
-                <div class="text-black">
-                  <input
-                    id="duration"
-                    v-model="form_data.duration"
-                    type="text"
-                    class="form-control"
-                    @blur="updateClassroomDetail"
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="form-group mb-0 row">
-              <label class="col-sm-2 col-form-label text-black font-size-14">Total
-                Units </label>
-              <div class="col-sm-10">
-                <div class="text-black">
-                  3
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label
-                    class="text-black"
-                    for="event_date_input"
-                  >
-                    {{ ('Batch Starting Year') }}
-                  </label>
-                  <div class="input-group-prepend ">
-                    <div
-                      class="input-group-prepend date"
-                      data-provide="datepicker"
-                    />
-                    <div class="input_icon_frm">
-                      <span
-                        id="basic-addon1"
-                        class="icon_design_input"
-                      ><i
-                        class="fa fa-calendar"
-                      /></span>
-
-                      <date-picker
-                        id="start_year"
-                        v-model="form_data.start_year"
-                        v-validate="'required'"
-                        name="start_year"
-                        value-type="format"
-                        :typeable="true"
-                        :type="'year'"
-                        :lang="'en'"
-                        :input-attr="{id: 'start_year_input', value: form_data.start_year}"
-                        placeholder="Start Year"
-                        @change="updateClassroomDetail"
-                      />
+              <div class="form-group">
+                <label class="text-black font-size-14">Classroom
+                  duration </label>
+                <div class="row">
+                  <div class="col-md-3 col-6 pr-0">
+                    <input
+                      id="duration"
+                      v-model="form_data.duration"
+                      type="text"
+                      class="form-control"
+                      @blur="updateClassroomDetail"
+                    >
+                  </div>
+                  <div class="col-md-3 col-6 text-black">
+                    <div class="mt-2 weight-800">
+                      Days
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="col-md-6">
-                <label
-                  class="text-black"
-                  for="event_date_input"
-                >
-                  {{ ('Batch Ending Year') }}
-                </label>
-                <div class="input-group-prepend ">
-                  <div
-                    class="input-group-prepend date"
-                    data-provide="datepicker"
-                  />
-                  <div class="input_icon_frm">
-                    <span
-                      id="basic-addon1"
-                      class="icon_design_input"
-                    ><i
-                      class="fa fa-calendar"
-                    /></span>
-                    <date-picker
-                      id="end_year"
-                      v-model="form_data.end_year"
-                      v-validate="'required'"
-                      value-type="format"
-                      name="end_year"
-                      :typeable="true"
-                      :type="'year'"
-                      :lang="'en'"
-                      :input-attr="{id: 'end_year_input', value: form_data.end_year}"
-                      placeholder="End Year"
-                      @change="updateClassroomDetail"
-                    />
-                  </div>
-                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mt-5">
+        <div class="card-header bg-white">
+          <h4 class="mb-1 mt-1">
+            {{ 'Delete Program' }}
+          </h4>
+        </div>
+        <div class="card-body">
+          <div class="col-md-6 col-12">
+            <div class="row">
+              <div class="col-md-12">
+                {{ 'Click the button below to delete this classroom. This will permanently delete the classroom.' }}
               </div>
-              <span class="error">{{ yearError }}</span>
             </div>
-            <div>{{ register_join_id }}</div>
-          </form>
+            <div class="row">
+              <div class="col-md-12 mt-2 delete_btn">
+                <button class="btn btn-white">
+                  {{ 'Delete' }}
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    
-    <div class="col-md-6">
-      <span
-        class="text-blue font-size-24 weight-800 join-id line-height-25-px"
+    <div
+      v-if="classroomDetail.id"
+      class="col-md-4  col-12 mt-3 mb-3"
+    >
+      <div
+        class="join_id_box"
         @click="copyText('joinId')"
       >
-        {{ 'Join id' }}: {{ classroomDetail.classroom_live_id }}  
-        <span v-if="displayText"><i class="fa fa-check text-success font-size-15" /> </span>
-      </span>
-      <span v-if="displayText1"><i class="fa fa-copy text-blue font-size-15" /> </span>
+        <i class="fa  text-blue  fa-arrow-right mr-3" />  <span
+          class="text-blue font-size-14 weight-800 join-id line-height-25-px"
+        >
+          {{ 'Copy Join Id' }}: {{ classroomDetail.classroom_join_id }}
+          <strong class="right_positions hide"><i class="fa fa-copy text-success font-size-15" /> </strong>  
+        </span>
+      </div>
     </div>
-    
-    <div class="col-md-6">
-      <span
-        class="text-blue font-size-24 weight-800 join-id line-height-25-px"
+    <div
+      v-if="classroomDetail.batch_id"
+      class="col-md-4  col-12 mt-3 mb-3"
+    >
+      <div
+        class="join_id_box"
         @click="copyText('RegisterationLink')"
       >
-        {{ 'Join id' }}: {{ classroomDetail.classroom_live_id }}  
-        <span v-if="displayText"><i class="fa fa-check text-success font-size-15" /> </span>
-      </span>
-      <span v-if="displayText1"><i class="fa fa-copy text-blue font-size-15" /> </span>
+        <i class="fa  text-blue  fa-arrow-right mr-3" />  <span
+          class="text-blue font-size-14 weight-800 join-id line-height-25-px"
+        >
+          {{ 'Copy Registration Link' }}
+          <strong class="right_positions hide"><i class="fa fa-copy text-success font-size-15" /> </strong>
+        </span>
+      </div>
     </div>
   </div>
 </template>
+
+<style scoped>
+.delete_btn .btn {
+  padding: 10px 35px;
+}
+.card {
+  box-shadow: 0px 2px 50px rgba(0,0,0,0.15) !important;
+}
+.join_id_box {
+ border:1px solid #eee;
+ border-radius: 5px;
+ padding: 8px 5px 8px 15px;
+ cursor: pointer;
+}
+.join_id_box:hover {
+ background-color: #f3f9e8;
+ border-color: #e1ebb3;
+}
+.right_positions {
+  position: absolute;
+  right: 40px;
+}
+.join_id_box:hover strong{
+	display: block;
+	margin-top: -20px;
+}
+.hide {
+  display: none;
+}
+</style>
 <script>
 
 import ClassroomHeader from '../../components/ClassroomHeader';
-import DatePicker from 'vue2-datepicker';
-import 'vue2-datepicker/index.css';
 
 export default {
 	components: {
 		ClassroomHeader,
-		DatePicker
 	},
 	data() {
 		return {
-			displayText: false,
-			displayText1: true,
 			form_data:{
+				name: '',
 				expected_students: 0,
-				duration: 0,
-				end_year: '',
-				start_year: '',
+				duration: 0
 			},
-			register_join_id: '',
 		};
 	},
 	computed:{
 		classroomDetail(){
 			return this.$store.state.classroom.classroomDetail;
 		},
-		yearError(){
-			var d = new Date();
-			var n = d.getFullYear();
-			if(this.form_data.start_year>n){
-				return 'Please enter currect start year.';
-			}else if(this.form_data.end_year && this.form_data.end_year<this.form_data.start_year){
-				return 'Please enter currect start and end year.';
+	},
+	watch:{
+		classroomDetail(val){
+			if(val.id){
+				this.form_data={
+					name: val.name,
+					expected_students: val.expected_students,
+					duration: val.classroom_duration
+			  };
 			}
-			return '';
 		}
 	},
-	mounted(){
-		this.updateFormData();
-	},
 	methods:{
-		updateFormData(){
-			this.form_data={
-				expected_students:this.classroomDetail.expected_students,
-				duration: this.classroomDetail.classroom_duration,
-				end_year: this.classroomDetail.batch_end_year,
-				start_year: this.classroomDetail.batch_start_year,
-			};
-		},
 		updateClassroomDetail(){
 			this.axios.post('/api/classroom/'+this.classroomDetail.id+'/update-detail',this.form_data);
-		},
+		}, 
 		copyText(copyType){
 			const el = document.createElement('textarea');
 			if(copyType==='RegisterationLink'){
-				el.value = this.baseUrl+'/get-started?joinId='+this.classroomDetail.classroom_live_id;
+				el.value = this.baseUrl+'/get-started?joinId='+this.classroomDetail.classroom_join_id;
 			}else{
-				el.value = this.classroomDetail.classroom_live_id;
+				el.value = this.classroomDetail.classroom_join_id;
 			}
 			document.body.appendChild(el);
 			el.select();
                
 			document.execCommand('copy');
-			this.displayText = true;
-			this.displayText1 = false;
 			document.body.removeChild(el);
-		},
-            
+		},     
 	},
 };
 

@@ -49,6 +49,9 @@ Vue.mixin({
 		AuthTeacher(){
 			return window.App.AuthTeacher;
 		},
+		AuthStudent(){
+			return window.App.AuthStudent;
+		},
 		csrfToken() {
 			return window.App.csrfToken;
 		},
@@ -94,8 +97,7 @@ Vue.mixin({
 	mounted(){
 		window.axios.defaults.headers.common = {
 			'X-CSRF-TOKEN': this.csrfToken,
-			'X-Requested-With': 'XMLHttpRequest',
-			'Authorization' : 'Bearer '+this.accessToken,
+			'X-Requested-With': 'XMLHttpRequest'
 		};
 	},
 	methods: {

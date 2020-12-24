@@ -16,15 +16,13 @@ class CreateClassroomsTable extends Migration
         Schema::create('classrooms', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('classroom_live_id');
+            $table->string('classroom_join_id');
             $table->integer('teacher_id')->unsigned();
             $table->integer('subject_id')->unsigned();
-            $table->integer('course_id')->unsigned();
+            $table->integer('batch_id')->unsigned();
             $table->integer('expected_students')->nullable();
             $table->integer('classroom_duration')->nullable();
             $table->integer('activated_unit')->nullable();
-            $table->char('batch_start_year',4)->nullable();
-            $table->char('batch_end_year',4)->nullable();
             $table->dateTime('estimated_start_date')->nullable();
             $table->dateTime('estimated_end_date')->nullable();
             $table->string('thumbnail_url')->nullable();

@@ -6,7 +6,7 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <meta name="application-name" content="StudentsHUB"/>
 <meta name="author" content="Yogesh Galav"/>
-<meta name="description" content="Best plateform to explore knowledge of any course or stream.Do you know what is your field of interest?Explore now - StudentsHUB"/>
+<meta name="description" content="Educational App to boost productivity of Students, Teachers and Institutes. Learn about your progress, pain points and student's field of interest."/>
 <meta name="keywords" content="studenthub, studentshub, student, hub, education,knowledge,curiosity,institute information"/>
 {{-- 
 <title>@yield('title')</title> --}}

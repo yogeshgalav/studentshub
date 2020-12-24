@@ -25,7 +25,8 @@ class UsersTableSeeder extends Seeder
         
         DB::unprepared($sql);
         DB::table('teachers')->insert([
-            'user_id'=>1
+            'user_id'=>1,
+            'institute_id'=> 1,
         ]);
         DB::table('institute_users')->insert([
             'institute_id'=> 1,
