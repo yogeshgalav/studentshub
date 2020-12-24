@@ -13,85 +13,105 @@
         <div class="card-body">
           <div class="col-md-6 col-12">
             <form>
-            <div class="form-group">
-              <label class="text-black font-size-14">Course
-              </label>
+              <div class="form-group">
+                <label class="text-black font-size-14">Course
+                </label>
                 <input
-                    id="course"
-                    type="text"
-                    class="form-control"
-                    disabled
-                    :value="classroomDetail.course_name"
-                   
-                  >
-            </div>
-                 <div class="form-group">
-              <label class="text-black font-size-14">Subject
-              </label>
+                  id="course"
+                  type="text"
+                  class="form-control"
+                  disabled
+                  :value="classroomDetail.course_name"
+                >
+              </div>
+              <div class="form-group">
+                <label class="text-black font-size-14">Subject
+                </label>
                 <input
-                    id="subject"
-                    type="text"
-                    class="form-control"
-                    disabled
-                    :value="classroomDetail.subject_name"
-                   
-                  >
-            </div>
-            <div class="form-group mb-0 row">
-              <label class="col-sm-2 col-form-label text-black font-size-14">Batch
-              </label>
-              <div class="col-sm-10">
-                <div class="text-black">
-                  {{ classroomDetail.batch_start_year }} - {{ classroomDetail.batch_end_year }}
+                  id="subject"
+                  type="text"
+                  class="form-control"
+                  disabled
+                  :value="classroomDetail.subject_name"
+                >
+              </div>
+              <div class="form-group">
+                <label class="text-black font-size-14">Batch:
+                </label>
+                {{ classroomDetail.batch_start_year }} - {{ classroomDetail.batch_end_year }}
+              </div>
+              <div class="form-group">
+                <label class="text-black font-size-14">Classroom
+                  Name
+                </label>
+                <input
+                  id="duration"
+                  v-model="form_data.name"
+                  type="text"
+                  class="form-control"
+                  @blur="updateClassroomDetail"
+                >
+              </div>
+         
+              <div class="form-group">
+                <label class="text-black font-size-14">Number of expected participants </label>
+                <div class="row">
+                  <div class="col-md-3 col-6">
+                    <input
+                      id="expected_students"
+                      v-model="form_data.expected_students"
+                      type="text"
+                      class="form-control"
+                      @blur="updateClassroomDetail"
+                    >
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="form-group  row">
-              <label class="col-sm-2 col-form-label text-black font-size-14">Classroom
-                Name </label>
-              <div class="col-sm-3">
-                <div class="text-black">
-                  <input
-                    id="duration"
-                    v-model="form_data.name"
-                    type="text"
-                    class="form-control"
-                    @blur="updateClassroomDetail"
-                  >
+              <div class="form-group">
+                <label class="text-black font-size-14">Classroom
+                  duration </label>
+                <div class="row">
+                  <div class="col-md-3 col-6 pr-0">
+                    <input
+                      id="duration"
+                      v-model="form_data.duration"
+                      type="text"
+                      class="form-control"
+                      @blur="updateClassroomDetail"
+                    >
+                  </div>
+                  <div class="col-md-3 col-6 text-black">
+                    <div class="mt-2 weight-800">
+                      Days
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="form-group  row">
-              <label class="col-sm-2 col-form-label text-black font-size-14">Expected
-                Students </label>
-              <div class="col-sm-3">
-                <div class="text-black">
-                  <input
-                    id="expected_students"
-                    v-model="form_data.expected_students"
-                    type="text"
-                    class="form-control"
-                    @blur="updateClassroomDetail"
-                  >
-                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mt-5">
+        <div class="card-header bg-white">
+          <h4 class="mb-1 mt-1">
+            {{ 'Delete Program' }}
+          </h4>
+        </div>
+        <div class="card-body">
+          <div class="col-md-6 col-12">
+            <div class="row">
+              <div class="col-md-12">
+                {{ 'Click the button below to delete this classroom. This will permanently delete the classroom.' }}
               </div>
             </div>
-            <div class="form-group  row">
-              <label class="col-sm-2 col-form-label text-black font-size-14">Classroom
-                duration </label>
-              <div class="col-sm-3">
-                <div class="text-black">
-                  <input
-                    id="duration"
-                    v-model="form_data.duration"
-                    type="text"
-                    class="form-control"
-                    @blur="updateClassroomDetail"
-                  >
-                </div>
+            <div class="row">
+              <div class="col-md-12 mt-2 delete_btn">
+                <button class="btn btn-white">
+                  {{ 'Delete' }}
+                </button>
               </div>
             </div>
-          </form>
           </div>
         </div>
       </div>
@@ -132,6 +152,9 @@
 </template>
 
 <style scoped>
+.delete_btn .btn {
+  padding: 10px 35px;
+}
 .card {
   box-shadow: 0px 2px 50px rgba(0,0,0,0.15) !important;
 }

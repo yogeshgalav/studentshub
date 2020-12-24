@@ -2,7 +2,12 @@
   <div>
     <classroom-header />
     <div class="row">
-      <div class="col-md-8">
+      <div class="col-md-12">
+        <h4 class="text-black mb-0">
+          Classroom students report
+        </h4>
+      </div>
+      <div class="col-md-12">
         <vue-table-component
           key="joinedStudents"
           :columns="joinedColumns"
@@ -30,7 +35,12 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-8">
+      <div class="col-md-12">
+        <h4 class="text-black mb-0 mt-3">
+          Join requests
+        </h4>
+      </div>
+      <div class="col-md-12">
         <vue-table-component
           key="unjoinedStudents"
           :columns="unjoinedColumns"
