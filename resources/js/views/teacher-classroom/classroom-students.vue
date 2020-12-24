@@ -2,7 +2,12 @@
   <div>
     <classroom-header />
     <div class="row">
-      <div class="col-md-8">
+      <div class="col-md-12">
+        <h4 class="text-black mb-0">
+          Classroom students report
+        </h4>
+      </div>
+      <div class="col-md-12">
         <vue-table-component
           key="joinedStudents"
           :columns="joinedColumns"
@@ -18,6 +23,58 @@
                 class="text-underline"
               >{{ props.row['user_name'] }}</a>
             </span>
+            <span v-else>{{ props.row[props.column.field] }}</span>
+          </template>
+          <div slot="emptystate">
+            <p class="mt-3">
+              {{ 'Currently no student has joined this classroom' }}
+            </p>
+            <p>{{ 'Share join Id and accept their request to join here.' }}</p>
+          </div>
+        </vue-table-component>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <h4 class="text-black mb-0 mt-3">
+          Join requests
+        </h4>
+      </div>
+      <div class="col-md-12">
+        <vue-table-component
+          key="unjoinedStudents"
+          :columns="unjoinedColumns"
+          :rows="unjoinedStudents"
+        >
+          <template
+            slot="table-row"
+            slot-scope="props"
+          >
+            <span v-if="props.column.field==='user_name'">
+              <a
+                :href="'/student-panel/'+props.row.user_id"
+                class="text-underline"
+              >{{ props.row['user_name'] }}</a>
+            </span>
+
+            <span v-else-if="props.column.field==='accept_request'">  
+              <button
+                class="btn btn-md btn-success"
+                @click="acceptJoinRequest(props.row.user_id,'accept')"
+              >
+                Accept
+              </button>
+            </span>
+
+            <span v-else-if="props.column.field==='delete_request'">
+              <button
+                class="btn btn-md btn-danger"
+                @click="acceptJoinRequest(props.row.user_id,'decline')"
+              >
+                Decline
+              </button>
+            </span>
+			
             <span v-else>{{ props.row[props.column.field] }}</span>
           </template>
           <div slot="emptystate">

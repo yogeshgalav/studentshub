@@ -181,37 +181,39 @@
                         </div>
                       </div>
                       <div class="col-md-6">
-                        <label
-                          class="text-black"
-                          for="event_date_input"
-                        >
-                          {{ ('Batch Ending Year') }}
-                        </label>
-                        <div class="input-group-prepend ">
-                          <div
-                            class="input-group-prepend date"
-                            data-provide="datepicker"
-                          />
-                          <div class="input_icon_frm">
-                            <span
-                              id="basic-addon1"
-                              class="icon_design_input"
-                            ><i
-                              class="fa fa-calendar"
-                            /></span>
-                            <date-picker
-                              id="end_year"
-                              v-model="end_year"
-                              v-validate="'required'"
-                              value-type="format"
-                              name="end_year"
-                              :typeable="true"
-                              :type="'year'"
-                              :lang="'en'"
-                              default-value="2019"
-                              :input-attr="{id: 'end_year_input', value: end_year}"
-                              placeholder="End Year"
+                        <div class="form-group">
+                          <label
+                            class="text-black"
+                            for="event_date_input"
+                          >
+                            {{ ('Batch Ending Year') }}
+                          </label>
+                          <div class="input-group-prepend ">
+                            <div
+                              class="input-group-prepend date"
+                              data-provide="datepicker"
                             />
+                            <div class="input_icon_frm">
+                              <span
+                                id="basic-addon1"
+                                class="icon_design_input"
+                              ><i
+                                class="fa fa-calendar"
+                              /></span>
+                              <date-picker
+                                id="end_year"
+                                v-model="end_year"
+                                v-validate="'required'"
+                                value-type="format"
+                                name="end_year"
+                                :typeable="true"
+                                :type="'year'"
+                                :lang="'en'"
+                                default-value="2019"
+                                :input-attr="{id: 'end_year_input', value: end_year}"
+                                placeholder="End Year"
+                              />
+                            </div>
                           </div>
                         </div>
                       </div>
