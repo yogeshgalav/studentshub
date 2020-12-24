@@ -116,7 +116,7 @@
                         data-provide="datepicker"
                       >
                         <span class="input-group-text">
-                           <i class="fa fa-clock" />
+                          <i class="fa fa-clock" />
                         </span>
                       </div>
                       <date-picker
@@ -159,22 +159,25 @@
             </div>
 
             <div
-              class="mt-3 mobile_button_view"
+              class="mt-3 row mobile_button_view"
             >
               <hr>
-              <button
-                class="btn btn-danger btn-md mt-1 "
-                @click="deleteDailyAssignment(daily)"
-              >
-                Delete Daily
-                Assignment
-              </button>
-              <button
-                class="btn btn-primary btn-md mt-1"
-                @click="activateDailyAssignment(daily)"
-              >
-                {{ daily.activated_at ? 'Deactivate Daily Assignment' : 'Activate Daily Assignment' }}
-              </button>
+              <div class="col-md-6 col-6 text-left">
+                <button
+                  class="btn btn-white btn-md mt-1 "
+                  @click="deleteDailyAssignment(daily)"
+                >
+                  <i class="fa fa-trash text-black" />
+                </button>
+              </div>
+              <div class="col-md-6 col-6 text-right">
+                <button
+                  class="btn btn-primary btn-md mt-1"
+                  @click="activateDailyAssignment(daily)"
+                >
+                  {{ daily.activated_at ? 'Deactivate' : 'Activate' }}
+                </button>
+              </div>
             </div>
           </div>
         </accordion>
@@ -184,11 +187,11 @@
 </template>
 <style scoped>
 
-@media only screen and (max-width: 600px) {
+/* @media only screen and (max-width: 600px) {
 .mobile_button_view button {
   width: 100%;
 }
-}
+} */
 </style>
 <script>
 import FormMixin from '../../../components/mixins/form-mixin.js';

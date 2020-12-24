@@ -228,7 +228,7 @@
                       <span class="error">{{ formErrors('end_year') }}</span>
                       <span class="error">{{ yearError }}</span>
                     </div>
-                    <div class="form-group d-flex s_register_btn">
+                    <div class="row">
                       <button
                         type="submit"
                         class="login_btn"
