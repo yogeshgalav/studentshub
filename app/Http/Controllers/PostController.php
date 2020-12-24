@@ -74,6 +74,8 @@ class PostController extends Controller
             case 'document':
              $document=new Document;
              $post_content_id=$document->createNewDocument($data,'public');
+
+             $post->primary_image_path='/images/document.png';
              $post->postable_type="App\Models\Document";
              $post->postable_id=$post_content_id;
             break;
