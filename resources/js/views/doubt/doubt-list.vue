@@ -146,7 +146,10 @@
                   >
                 </div>
               </div>
-              <div class="col-md-12">
+              <div
+                v-if="!subjectId"
+                class="col-md-12"
+              >
                 <div class="model_input">
                   <label>Subject</label>
                   <auto-complete
@@ -190,12 +193,13 @@ import ProfileImage from '../post/ProfileImage';
 
 
 export default {
-	components:{
+  	components:{
 		VModal,
 		Loading,
 		AutoComplete,
 		ProfileImage
 	},
+	props:['classroomId','subjectId'],
 	data()
 	{
 		return {
@@ -217,13 +221,19 @@ export default {
 	},
 	mounted() {
 		this.getdata();
-
+		if(this.subjectId){
+			this.selected_subject.id = this.subjectId; 
+		}
 	},
 	methods:
     {
     	getdata(){
     		this.loading=true;
-    		this.axios.get('api/get-doubts/')
+    		let url = this.baseUrl + '/api/get-doubts';
+    		if(this.classroomId){
+    			url = url+'?classroomId=' + this.classroomId;
+    		}
+    		this.axios.get(url)
     			.then(response => {
     				this.doubtList = response.data.success.doubtList;
     				this.loading=false;
@@ -242,7 +252,7 @@ export default {
     	filterinput()
     	{
     		this.loading=true;
-    		this.axios.get('api/get-doubts?search='+this.search_doubt)
+    		this.axios.get(this.baseUrl + '/api/get-doubts?search='+this.search_doubt)
     			.then(response => {
     				this.doubtList= response.data.success.doubtList;
     				this.loading=false;
@@ -253,13 +263,17 @@ export default {
     		this.$modal.show('add_doubt_modal');
     	},
     	searchDoubt(){
-    		this.axios.post('api/search-doubts/',{query:this.search_doubt})
+    		this.axios.post(this.baseUrl + '/api/search-doubts/',{query:this.search_doubt})
     			.then(response => {this.doubtList = response.data.success.doubtList;});
     	},
     	addDoubt()
     	{
 
-    		this.axios.post('/api/add-doubt/',{doubt:this.question,subject:this.selected_subject} )
+    		this.axios.post(this.baseUrl + '/api/add-doubt/',{
+    			doubt:this.question,
+    			subject:this.selected_subject,
+    			classroomId:this.classroomId ?this.classroomId :''
+    		} )
     			.then(resp => {
 
     				this.$modal.hide('add_doubt_modal');

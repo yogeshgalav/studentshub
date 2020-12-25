@@ -43,6 +43,7 @@ class DoubtController extends Controller
         $q->question = $request->doubt;
         $q->subject_id = $subject->id;
         $q->batch_id = $student->batchId;
+        $q->classroom_id = $student->classroomId;
         $q->save();
 
 
@@ -64,6 +65,9 @@ class DoubtController extends Controller
         ->join('institutes as inst','inst.id','=','pbt.institute_id')
         ->join('subjects as sub','sub.id','=','doubts.subject_id');
         
+        if(!empty($request->classroomId)){
+            $doubt_query = $doubt_query->where('classroom_id',$request->classroomId);
+        }
         if(!empty($request->search)){
             $doubt_query = $doubt_query->where('question','LIKE','%'.$request->search.'%');
         }else{
