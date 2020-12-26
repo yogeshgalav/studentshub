@@ -72,6 +72,19 @@ class Post extends PostModel
             'posts'=>$posts
         ]]);
     }
+    public function getDoubtPosts($doubtId){
+        $post_query=$this->getAuthUserPostTabels();
+
+        $posts=$post_query->join('doubt_answers as da',function($join)use($doubtId){
+            $join->on('po.id','=','da.post_id')->where('da.doubt_id','=',$doubtId);
+        })
+        ->orderBy('po.created_at','DESC')
+        ->paginate();
+
+        $this->formatPostData($posts);
+        
+        return $posts;
+    }
 
     public function getAuthUserPosts(Request $request){
 

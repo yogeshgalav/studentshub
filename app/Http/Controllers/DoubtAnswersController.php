@@ -42,7 +42,7 @@ class DoubtAnswersController extends Controller
         $post->postable_id=$post_content_id;
 
         $post->save();
-        
+
         $answer->post_id=$post->id;
         $answer->save();
 
@@ -75,9 +75,8 @@ class DoubtAnswersController extends Controller
         'doubts.question','doubts.created_at','doubts.id')
         ->first();
 
-        $answers=\DB::table('doubt_answers as da')->where('da.doubt_id',$doubtId)
-        ->join('posts','posts.id','=','da.post_id')
-        ->get();
+        $post = new \App\Post;
+        $answers=$post->getDoubtPosts($doubtId);
 
         return response()->json([
             'success'=>[
