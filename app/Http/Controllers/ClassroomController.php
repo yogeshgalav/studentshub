@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Classroom;
 use App\Models\Batch;
 use App\Models\Unit;
+use App\Models\ClassroomUser;
 use DB;
 use Auth;
 use Illuminate\Support\Facades\Log;
@@ -53,8 +54,11 @@ class ClassroomController extends Controller
         ->join('subjects as su','su.id','=','cs.subject_id')
         ->join('teachers as th','th.id','=','cs.teacher_id')
         ->join('users as us','us.id','=','th.user_id')
+        ->leftJoin('classroom_users as cus','cus.classroom_id','=','cs.id')
         ->select('cs.*','co.course_name','su.subject_name','us.id as user_id','us.full_name as teacher_name',
-        'bt.start_year as batch_start_year', 'bt.end_year as batch_end_year')
+        'bt.start_year as batch_start_year', 'bt.end_year as batch_end_year',
+        DB::raw('COUNT(cus.id) as total_students'))
+        ->groupBy('cs.id')
         ->first();
 
         return response()->json([
@@ -75,6 +79,15 @@ class ClassroomController extends Controller
         return response(['success'=>[
             'classroom'=>$classroom
         ]]);
+    }
+    public function delete($classroomId,Request $request){
+        $classroom=Classroom::findOrFail($classroomId);
+        if(ClassroomUser::where('classroom_id',$classroomId)->count()>0){
+            return response('forbidden',403);    
+        }
+        $classroom->delete();
+
+        return response([],204);
     }
 
     public function classroomPage($classroomId){

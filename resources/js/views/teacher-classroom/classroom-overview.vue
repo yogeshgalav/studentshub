@@ -92,25 +92,30 @@
         </div>
       </div>
 
-      <div class="card mt-5">
+      <div
+        v-if="classroomDetail.total_students===0"
+        class="card mt-5"
+      >
         <div class="card-header bg-white">
           <h4 class="mb-1 mt-1">
-            {{ 'Delete Program' }}
+            {{ 'Delete Classroom' }}
           </h4>
         </div>
         <div class="card-body">
-          <div class="col-md-6 col-12">
-            <div class="row">
-              <div class="col-md-12">
-                {{ 'Click the button below to delete this classroom. This will permanently delete the classroom.' }}
-              </div>
+          <div class="row">
+            <div class="col-md-12">
+              {{ 'Click the button below to delete this classroom. You can delete this classroom until any student has joined. This will permanently delete the classroom.' }}
             </div>
-            <div class="row">
-              <div class="col-md-12 mt-2 delete_btn">
-                <button class="btn btn-white">
-                  {{ 'Delete' }}
-                </button>
-              </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 mt-2 delete_btn">
+              <button
+                type="button"
+                class="btn btn-white"
+                @click="deleteClassroom"
+              >
+                {{ 'Delete' }}
+              </button>
             </div>
           </div>
         </div>
@@ -216,6 +221,11 @@ export default {
 	methods:{
 		updateClassroomDetail(){
 			this.axios.post('/api/classroom/'+this.classroomDetail.id+'/update-detail',this.form_data);
+		}, 
+		deleteClassroom(){
+			this.axios.delete('/api/classroom/'+this.classroomDetail.id+'/delete').then(()=>{
+				window.location.href = this.baseUrl + '/classrooms';
+			});
 		}, 
 		copyText(copyType){
 			const el = document.createElement('textarea');
