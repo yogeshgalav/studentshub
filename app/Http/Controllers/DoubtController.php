@@ -43,7 +43,7 @@ class DoubtController extends Controller
         $q->question = $request->doubt;
         $q->subject_id = $subject->id;
         $q->batch_id = $student->batchId;
-        $q->classroom_id = $student->classroomId;
+        $q->classroom_id = $request->classroomId ?? null;
         $q->save();
 
 
@@ -70,11 +70,6 @@ class DoubtController extends Controller
         }
         if(!empty($request->search)){
             $doubt_query = $doubt_query->where('question','LIKE','%'.$request->search.'%');
-        }else{
-            $doubt_query = $doubt_query->whereHas('subject.course_subjects',function($query)use($student){
-                $query->where('course_id','=',$student->courseId);
-            })
-            ->orWhere('batch_id',$student->batchId);
         }
 
         $doubts = $doubt_query

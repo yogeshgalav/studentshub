@@ -1,92 +1,5 @@
 <template>
   <main class="ml-2">
-    <!-- <div class="container pt-100">
-
-            <div v-for="(answer,index) in answerList" :key="index">
-                <div class="row">
-                    <div class="col-md-8 center-col">
-                        <div class="answer_card"> 
-                            <div class="anser_deails">  
-                                    <div class="ans_user_img">
-                                        <img v-lazy="'/images/user-img.jpg'">
-                                    </div>
-                                    <div class="ans_user_text ml-2">
-                                        <h6 class="answer_cat"> Technology  <span>{{answer.created_at}}</span></h6>
-                                        <h6>Manish Agarwal {{answer.user_name}}</h6>
-                                        
-                                     </div>
-
-                            </div>
-                            <div class="answer_que">
-                                 <h4> What is Technology ?</h4>
-                                <p class="answer_like"><i class="fa fa-thumbs-up"></i><span class="badge-text">{{answer.total_likes}}</span></p>
-                            </div>         
-                <form @submit.prevent="addDoubtAnswer">
-                    <div class="ans_input_sec">
-                    <div class="ans_input_box">
-                        <input type="text" name="answer" v-model="new_answer" class="form-control"
-                            placeholder="Ask Question">
-
-                    </div>
-                    <div class="ans_input_button">
-                        <button type="submit" class="ans_btn">Answer this doubt</button>
-                    </div>
-                    </div>
-                </form>  
-                                        <p class="date text-muted"></p>
-                                        <h3 class="card-title  font-size-16">
-                                            <p class="weight-600 text-black">
-                                                {{answer.answer}}
-                                            </p>
-                                        </h3>
-
-                                   
-                         
-
-
-
-
-
-
-                           
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="divider"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                    <div class="col-md-6 ">
-                        <div class="answer_card"> 
-           <div class="anser_deails">  
-                                    <div class="ans_user_img">
-                                        <img v-lazy="'/images/user-img.jpg'">
-                                    </div>
-                                    <div class="ans_user_text ml-2">
-                                        <h6 class="answer_cat"> Technology  <span>3 Days</span></h6>
-                                        <h6>Manish Agarwal </h6>
-                                  </div>
-                                  
-
-            </div>
-              <div class="answer_que">
-                                 <h4> What is Technology ?</h4>
-
-                                 <h3 class="card-title  font-size-16">
-                                            <p class="weight-600 text-black">
-                                                Answer
-                                            </p>
-                                        </h3>
-                                <p class="answer_like"><i class="fa fa-thumbs-up"></i><span class="badge-text">5</span></p>
-                            </div>  
-        </div>
-           </div>
-
-            </div>
-        </div> -->
     <div class="container pt-100">
       <div class="row">
         <div class="col-md-9 center-col">
@@ -97,131 +10,60 @@
               </div>
               <div class="ans_user_text ml-2">
                 <h6 class="answer_cat">
-                  Technology  <span>3 Daays</span>
+                  {{ doubt.subject_name }}  <span>3 Daays</span>
                 </h6>
-                <h6>Manish Agarwal</h6>
+                <h6>{{ doubt.user_name }}</h6>
               </div>
             </div>
             <div class="answer_que">
               <h4 class="main_que">
-                What is Technology ?
+                {{ doubt.question }}
               </h4>
               <p class="answer_like">
                 <i class="fa fa-thumbs-up" /> <span class="badge-text">10</span>
               </p>
             </div>
             <div class="ans_input_sec">
-              <div class="ans_input_box">
-                <input
-                  v-model="new_answer"
-                  type="text"
-                  name="answer"
-                  class="form-control"
-                  placeholder="Answer the question"
-                >
-              </div>
-              <div class="ans_input_button">
+              <div
+                v-if="!add_answer"
+                class="ans_input_button"
+              >
                 <button
                   type="submit"
                   class="ans_btn"
-                  @click="addDoubtAnswer()"
+                  @click="add_answer = true"
                 >
                   Answer this doubt
                 </button>
               </div>
-            </div> 
-          </div>
-        </div> 
-      </div>   
-      <div class="row">
-        <div class="col-md-8 center-col">
-          <div class="answer_card"> 
-            <div class="anser_deails">  
-              <div class="ans_user_img">
-                <img v-lazy="'/images/user-img.jpg'">
-              </div>
-              <div class="ans_user_text ml-2">
-                <h6 class="answer_cat">
-                  Technology  <span>3 Daays</span>
-                </h6>
-                <h6>Manish Agarwal</h6>
-              </div>
-            </div>
-            <div class="answer_que">
-              <h4> What is Technology ?</h4>
-              <p>Answer About Question</p>
-              <p class="answer_like">
-                <i class="fa fa-thumbs-up" /> <span class="badge-text">10</span>
-              </p>
-            </div> 
-          </div>
-        </div> 
-      </div>  
-      <div class="row">
-        <div class="col-md-8 center-col">
-          <div class="answer_card reply_box"> 
-            <div class="anser_deails">  
-              <div class="ans_user_img">
-                <img v-lazy="'/images/user-img.jpg'">
-              </div>
-              <div class="ans_user_text ml-2">
-                <h6 class="answer_cat">
-                  Technology  <span>3 Daays</span>
-                </h6>
-                <h6>Manish Agarwal</h6>
-              </div>
-            </div>
-            <div class="answer_que">
-              <h4> What is Technology ?</h4>
-              <p>Answer About Question</p>
-              <p class="answer_like">
-                <i class="fa fa-thumbs-up" /> <span class="badge-text">10</span>
-                <a href="">&nbsp; &nbsp;Reply</a>
-              </p>
-            </div> 
-          </div>
-        </div> 
-      </div>  
-    </div>
-
-    <modal
-      name="add_answer_modal"
-      class="doubt_model"
-    >
-      <form @submit.prevent="addDoubt">
-        <div class="model_box_inner">
-          <div class="row">
-            <div class="col-md-12">
-              <p class="model_box_head">
-                Enter your answer within 100 words.
-              </p>
-            </div>
-            <div class="col-md-12">
-              <div class="model_input">
-                <label>Answer</label>
-                <input
-                  v-model="question"
-                  class="form-control"
-                  type="text"
-                  placeholder="Enter Your Answer"
-                >
-              </div>
-            </div>
-            
-            <div class="col-md-12">
-              <div class="model_btn">
+              <div v-if="add_answer">
+                <vue-editor
+                  id="ArticleEditor"
+                  v-model="new_answer"
+                  :editor-options="editorSettings"
+                  :height="'100%'"
+                />
+                <span>{{ countContent }}/100</span>&nbsp;<span class="text-danger">{{ error }}</span>
                 <button
                   type="submit"
-                  class="ask_doubt_btn"
+                  class="ans_btn"
+                  @click="cancelAnswer"
                 >
-                  submit
+                  Cancel
                 </button>
-              </div>    
-            </div>
+                <button
+                  type="submit"
+                  class="ans_btn"
+                  @click="submitAnswer"
+                >
+                  Submit
+                </button>
+              </div>
+            </div> 
           </div>
-        </div>
-      </form>
-    </modal>
+        </div> 
+      </div>
+    </div>
   </main>
 </template>
 <style scoped>
@@ -237,42 +79,87 @@ h4.main_que {
 }
 </style>
 <script>
-import VModal from 'vue-js-modal';
+
+import { VueEditor,Quill } from 'vue2-editor';
+
+import ImageResize from 'quill-image-resize-vue';
+import { ImageDrop } from 'quill-image-drop-module';
+Quill.register('modules/imageDrop', ImageDrop);
+Quill.register('modules/imageResize', ImageResize);
 export default {
 	components:{
-		VModal
+		VueEditor
 	},
 	data() {
 		return {
+			doubt: {},
+			add_answer: false,
 			new_answer: '',
 			answerList: [],
+			//
+			files:[],
+			editorSettings: {
+				modules: {
+					imageDrop: true,
+					imageResize: {},
+				}
+			},
+			error:'', 
 		};
 
+	},
+	computed:{
+		description(){
+			if(this.new_answer.trim()===''){
+				return '';
+			}
+			var span= document.createElement('span');
+			span.innerHTML= this.new_answer;
+        
+			var children= span.querySelectorAll('*');
+			for(var i = 0 ; i < children.length ; i++) {
+				if(children[i].textContent)
+					children[i].textContent+= ' ';
+				else
+					children[i].innerText+= ' ';
+			}
+			return [span.textContent || span.innerText].toString();
+		},
+		countContent(){
+			return this.description.toString().trim().split(/\s+/).length;
+		}
 	},
 	mounted() {
 		axios.get('/api/doubt/' + this.$route.params.doubtId + '/get-answers/')
 			.then(response => {
+				this.doubt = response.data.success.doubt;
 				this.answerList = response.data.success.answerList;
 			}); 
 
 	},
 	methods: {
-		activateAnswerModal()
-		{
-			this.$modal.show('add_answer_modal');
-		},
-
-		addDoubtAnswer() {
+		submitAnswer() {
+			if(this.countContent<100){
+				this.error='An answer should be of minimum 100 words.';
+				return false;
+			}
 			this.axios.post('/api/doubt/' + this.$route.params.doubtId + '/add-answer/', {
-				answer: this.new_answer
+				answer_html: this.new_answer,
+				answer_text: this.description
 			})
 				.then(resp => {
-
-
+					this.add_answer = false;
+					this.new_answer = '';
+					this.error = '';
 				})
 				.catch(err => {
 					reject(err);
 				});
+		},
+		cancelAnswer(){
+			this.add_answer = false;
+			this.new_answer = '';
+			this.error = '';
 		}
 	}
 };

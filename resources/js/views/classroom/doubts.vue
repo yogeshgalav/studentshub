@@ -3,10 +3,12 @@
     <div class="col-md-12">
       <classroom-header />
     </div>
-    <doubt-list 
-      :classroom-id="$route.params.classroomId" 
-      :subject-id="$store.state.classroom.classroomDetail.subject_id" 
-    />
+    <div class="col-md-12">
+      <doubt-list 
+        :classroom-id="$route.params.classroomId" 
+        :subject-id="$store.state.classroom.classroomDetail.subject_id" 
+      />
+    </div>
   </div>
 </template>
 <script>

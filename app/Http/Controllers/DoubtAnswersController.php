@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 use App\Models\Doubt;
 use App\Models\DoubtAnswer;
+use App\Models\Post;
+use App\Models\Article;
+use App\Models\SthubPost;
 use Illuminate\Http\Request;
 use Auth;
 use Arr;
@@ -22,8 +25,7 @@ class DoubtAnswersController extends Controller
         $answer = new DoubtAnswer();
         $answer->user_id = Auth::id();
         $answer->doubt_id = $doubtId;
-        $answer->answer = $request->answer;
-        $answer->save();
+        $answer->answer = $request->answer_html;
 
         $post=new Post;
         $post->user_id=Auth::user()->id;
@@ -31,12 +33,19 @@ class DoubtAnswersController extends Controller
         $post->subject_id=$doubt->subject_id;
 
         $article=new Article;
-        $post_content_id=$article->createFromContent(['article_html_content'=>$request->answer]);
+        $post_content_id=$article->createFromContent([
+            'article_html_content'=>$request->answer_html,
+            ]);
+        $post->post_description=$request->answer_text;
         $post->postable_type="App\Models\Article";
         $post->primary_image_path='/storage/article-default.png';
         $post->postable_id=$post_content_id;
 
         $post->save();
+        
+        $answer->post_id=$post->id;
+        $answer->save();
+
         $student = Auth::student();
         SthubPost::create([
             'post_id'=>$post->id,
@@ -48,7 +57,7 @@ class DoubtAnswersController extends Controller
     DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
-            Log::critical('Doubt Creation failure: for user id#'.Auth::user()->id.' with data '.implode(', ',Arr::flatten($input)));
+            Log::critical('Doubt Creation failure',['user_id'=>Auth::id(),'data'=>$request->all()]);
             // dd($e->getMessage(),$e->getLine());
             return response()->$e;
         }
@@ -57,12 +66,22 @@ class DoubtAnswersController extends Controller
 
     public function getDoubtanswers($doubtId,Request $request)
     {
+        $doubt=\DB::table('doubts')->where('doubts.id',$doubtId)
+        ->join('users as us','us.id','=','doubts.user_id')
+        ->join('batches as pbt','pbt.id','=','doubts.batch_id')
+        ->join('institutes as inst','inst.id','=','pbt.institute_id')
+        ->join('subjects as sub','sub.id','=','doubts.subject_id')
+        ->select('us.full_name as user_name','us.avatar_url as profile_image','sub.subject_name','inst.name as inst_name',
+        'doubts.question','doubts.created_at','doubts.id')
+        ->first();
+
         $answers=\DB::table('doubt_answers as da')->where('da.doubt_id',$doubtId)
         ->join('posts','posts.id','=','da.post_id')
         ->get();
 
         return response()->json([
             'success'=>[
+                'doubt'=>$doubt,
                 'answerList'=>$answers
             ]
         ]);

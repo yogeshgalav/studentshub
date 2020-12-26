@@ -6,35 +6,33 @@
         @submit.prevent="searchDoubt"
       >
         <div class="row">
-          <div class="col-md-8 center-col">
-            <div class="doubt_header doubt_box_page">
-              <div class="dount_search">
-                <input
-                  v-model="search_doubt"
-                  type="text"
-                  name="doubt"
-                  class="form-control"
-                  placeholder="Ask Question"
-                  @input="debounceSearch"
-                >
-                <span
-                  class="doubt_search_btn"
-                ><button
-                  type="submit"
-                  class="btn btn-link"
-                >
-                  <i class="fa fa-search text-black weight-400" /></button></span>
-              </div>
-              <div class="ask_btn">
-                <button
-                  type="button"
-                  class="ask_doubt_btn"
-                  @click="addDoubtModal"
-                >
-                  Ask new Doubt
-                </button>
-              </div>
-            </div>
+          <div class="col-md-8">
+            <label for="doubt">Search Doubt</label>
+            <input
+              v-model="search_doubt"
+              type="text"
+              name="doubt"
+              class="form-control"
+              placeholder="Ask Question"
+              @input="debounceSearch"
+            >
+            <span
+              class="doubt_search_btn"
+            ><button
+              type="submit"
+              class="btn btn-link"
+            >
+              <i class="fa fa-search text-black weight-400" /></button></span>
+          </div>
+
+          <div class="col-md-4">
+            <button
+              type="button"
+              class="ask_doubt_btn"
+              @click="addDoubtModal"
+            >
+              Ask new Doubt
+            </button>
           </div>
         </div>
       </form>

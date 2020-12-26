@@ -60,11 +60,11 @@ export default {
 	},
 	mounted(){
 		EventBus.$on('validateStep2',()=>{
-			if(this.countContent()>400){
+			if(this.countContent>100){
 				this.$store.commit('set_post_article_content',{postContent:this.content,description:this.description});
 				EventBus.$emit('validateWizard',2,true);
 			}else{
-				this.error='You must Write Atleast 400 words for an Article.';
+				this.error='You must Write Atleast 100 words for an Article.';
 				EventBus.$emit('validateWizard',2,false);
 			}
 		});
