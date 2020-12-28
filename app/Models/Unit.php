@@ -19,4 +19,8 @@ class Unit extends Model
         return $this->hasMany('App\Models\ClassroomResource');
     }
 
+    public function setUnitNameAttribute($value)
+    {
+        $this->attributes['unit_name'] = ucfirst($value);
+    }
 }

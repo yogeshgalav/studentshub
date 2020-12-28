@@ -42,7 +42,6 @@ export default {
 	},
 	get_categories(state,data){
 		state.categories = data.categories;
-		state.AuthUserCategory = data.AuthUserCategory;
 	},
 	set_subject(state,data){
 		state.new_post.selected_primary_subject_id=data.subject_id;

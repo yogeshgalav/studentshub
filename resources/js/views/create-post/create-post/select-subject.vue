@@ -17,7 +17,7 @@
             </p>
           </div>
           <div class="form-group">
-            <label> {{ 'Category' }} </label>
+            <label for="category"> {{ 'Category' }} </label>
             <div class="inner-addon left-addon">
               <div class="input_icon_frm">
                 <span class="icon_design_input"><i
@@ -26,6 +26,7 @@
                 /></span>
                 <select
                   v-model="selected_category"
+                  name="category"
                   class="form-control"
                 >
                   <option value="">
@@ -40,21 +41,27 @@
                   </option>
                 </select>
               </div>
-              <span class="error">{{ errors.first('institute_name') }}</span>
+              <span class="error">{{ errors.first('category') }}</span>
             </div>
-            <div class="form-group">
-              <label class="weight-500">Subject</label>
-              <div class="input_icon_frm">
-                <span class="icon_design_input"><i
-                  class="fa fa-file"
-                  aria-hidden="true"
-                /></span>
-                <input
-                  type="text"
-                  class="form-control"
-                  @input="editSubject"
-                >
-              </div>
+          </div>
+
+          <div class="form-group">
+            <label
+              class="weight-500"
+              for="subject"
+            >Subject</label>
+            <div class="input_icon_frm">
+              <span class="icon_design_input"><i
+                class="fa fa-file"
+                aria-hidden="true"
+              /></span>
+              <input
+                type="text"
+                name="subject"
+                class="form-control"
+                @input="editSubject"
+              >
+              <span class="error">{{ errors.first('subject') }}</span>
             </div>
           </div>
           <!--  -->
@@ -127,7 +134,6 @@ export default {
 	computed:{
 		...mapState({
 			'categories': state=>state.categories,
-			'AuthUserCategory': state=>state.AuthUserCategory,
 			'subject': state=>state.new_post.subject,
 		}),
 	},
@@ -154,7 +160,7 @@ export default {
 			});
 		});
         
-		this.selected_category= this.AuthUserCategory;
+		this.selected_category= (this.AuthStudent && this.AuthStudent.categoryId) ? this.AuthStudent.categoryId : '';
 	},
 	methods:{
 		editSubject(event){

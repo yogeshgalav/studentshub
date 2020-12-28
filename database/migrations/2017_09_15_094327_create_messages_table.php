@@ -15,8 +15,8 @@ class CreateMessagesTable extends Migration
     {
         Schema::create('Messages', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('classe_id');
-            $table->integer('user_id');
+            $table->integer('classroom_id');
+            $table->enum('sent_to',['all','selected'])->default('all');
             $table->text('content');
             $table->timestamps();
         });

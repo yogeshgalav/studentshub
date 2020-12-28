@@ -24,7 +24,6 @@ const state = {
 		// mcq_answer:''
 	},
 	categories: [],
-	AuthUserCategory: 0,
 	subjects: [],
 };
 export default state;

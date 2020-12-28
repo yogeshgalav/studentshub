@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Doubt;
 use App\Models\DoubtRequest;
 use App\Models\Subject;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Auth;
 use Arr;
@@ -13,6 +14,11 @@ use Illuminate\Support\Facades\Log;
 
 class DoubtController extends Controller
 {
+    public function indexPage()
+    {
+        $categories = Category::all();
+        return view('student.doubts')->with('categories',$categories);
+    }
 
     public function addDoubt (Request $request)
     {

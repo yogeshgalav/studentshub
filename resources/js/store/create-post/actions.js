@@ -21,7 +21,6 @@ export default {
 				.then(resp => {
 					let data={};
 					data['categories'] = resp.data.success.categories;
-					data['AuthUserCategory'] = resp.data.success.AuthUserCategory;
 					commit('get_categories', data);
 					resolve(resp);
 				})

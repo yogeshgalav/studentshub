@@ -42,8 +42,25 @@
                 :key="index2"
                 class="col-md-10 col-12 mt-2"
               >
-                <a :href="resource.link">{{ resource.link }}</a>
+                <a
+                  :href="resource.link"
+                  target="_blank"
+                >{{ resource.link }}</a>
                 <p>{{ resource.description }}</p>
+
+                <div
+                  v-if="resource.type==='youtubeVideo'"
+                  class="video_image"
+                >
+                  <iframe
+                    :src="resource.link"
+                    width="320"
+                    height="240"
+                    webkitallowfullscreen
+                    mozallowfullscreen
+                    allowfullscreen
+                  />
+                </div>
               </li>
             </ol>
             <div class="col-md-3 col-12" />
@@ -232,7 +249,7 @@ export default {
 				this.resource_type = 'documentLink';
 				return url;
 			}
-			if(url.indexOf('drive.google.com')>-1){
+			if(url.indexOf('drive.google.com')>-1 || url.indexOf('docs.google.com')>-1){
 				this.resource_type = 'googleDrive';
 				return url;
 			}

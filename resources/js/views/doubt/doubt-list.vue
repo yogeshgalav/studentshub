@@ -128,9 +128,7 @@
             <div class="row">
               <div class="col-md-12">
                 <p class="model_box_head">
-                  Ask Doubt about concepts which belongs to your Course.
-                  Initially this doubt will be shared with students of your
-                  batch and course.
+                  Ask Doubt
                 </p>
               </div>
               <div class="col-md-12">
@@ -142,6 +140,39 @@
                     type="text"
                     placeholder="Enter Your Doubt"
                   >
+                </div>
+              </div>
+              <div
+                v-if="!subjectId"
+                class="col-md-12"
+              >
+                <div class="form-group">
+                  <label for="category"> {{ 'Category' }} </label>
+                  <div class="inner-addon left-addon">
+                    <div class="input_icon_frm">
+                      <span class="icon_design_input"><i
+                        class="fa fa-file"
+                        aria-hidden="true"
+                      /></span>
+                      <select
+                        v-model="selected_category"
+                        name="category"
+                        class="form-control"
+                      >
+                        <option value="">
+                          Select Category
+                        </option>
+                        <option
+                          v-for="category in categories"
+                          :key="category.id"
+                          :value="category.id"
+                        >
+                          {{ category.name }}
+                        </option>
+                      </select>
+                    </div>
+                    <span class="error">{{ errors.first('category') }}</span>
+                  </div>
                 </div>
               </div>
               <div
@@ -197,7 +228,7 @@ export default {
 		AutoComplete,
 		ProfileImage
 	},
-	props:['classroomId','subjectId'],
+	props:['classroomId','subjectId','categories'],
 	data()
 	{
 		return {
@@ -210,6 +241,7 @@ export default {
 			debounce:null,
 			subject_list:[],
 			subjectLoading: false,
+			selected_category: '',
 			selected_subject: {
 				'id': null,
 				'subject_name': '',
@@ -219,6 +251,7 @@ export default {
 	},
 	mounted() {
 		this.getdata();
+		this.selected_category= (this.AuthStudent && this.AuthStudent.categoryId) ? this.AuthStudent.categoryId : '';
 		if(this.subjectId){
 			this.selected_subject.id = this.subjectId; 
 		}

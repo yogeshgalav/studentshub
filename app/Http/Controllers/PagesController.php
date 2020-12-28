@@ -107,10 +107,6 @@ class PagesController extends Controller
     {
         return view('guest.auth.register');
     }
-    public function askQuestion()
-    {
-        return view('student.ask-question');
-    }
     public function sharePost()
     {
         return view('create-post.share-post');
