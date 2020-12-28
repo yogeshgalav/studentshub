@@ -545,6 +545,13 @@
 .bg-gray.s_p_c {
     padding: 50px 0;
 }
+@media only screen and (max-width: 600px) {
+    
+      section.single_post {
+        padding: 0px 0;
+    }
+
+}
 </style>
 <script>
 import {

@@ -725,6 +725,7 @@ input:checked+.switch:before {
     border: 1px solid #BDBDBD;
     padding: 0.6rem 1rem;
     height: inherit !important;
+    color:#333 !important
 }
 
 select {
@@ -1450,8 +1451,14 @@ button.slick-next {
     display: flex;
     position: absolute;
     bottom: 20px;
-    left: 20%;
+    left: 25%;
 }
+// Sidebar image logo row style 
+
+.overflow-container .row {
+    flex-wrap: unset;
+}
+// End Here 
 .arrow_right button {
     height: 50px;
     background-color: #0f6bff;
@@ -2666,7 +2673,7 @@ ul.menu-dropdown li {
 }
 .post_view_head {
     background-color: white;
-    margin-top: 12px;
+    margin-top: 0px;
     padding: 10px;
     box-shadow: 0 0 7px rgba(0,0,0,0.12);
 }
