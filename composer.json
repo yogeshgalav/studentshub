@@ -19,6 +19,7 @@
         "laravel/tinker": "^1.0",
         "lcobucci/jwt": "3.3.3",
         "paquettg/php-html-parser": "^2.2",
+        "silviolleite/laravelpwa": "^2.0",
         "skagarwal/google-places-api": "^1.6"
     },
     "require-dev": {
