@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="infinite-list">
     <div
       v-for="(post,index) in posts"
       :key="index"
@@ -8,12 +8,15 @@
     </div>
 
     <div class="card border-0">
+      <p @click="loadPosts">
+        Load More...
+      </p>
       <loading
         :active.sync="showLoader"
         :color="'#10069F'"
         :loader="'bars'"
         :width="250"
-        :is-full-page="false"
+        :is-full-page="true"
       />
     </div>
   </div>
@@ -35,40 +38,31 @@ export default {
 	components: {
 		PostCard
 	},
+	data() {
+		return {
+			showLoader: false
+		};
+	},
 	computed: {
 		...mapState({
 			posts: state => state.common.dashboardPosts
 		})
 	},
 	mounted() {
-		var route= '/get-posts';
-		var params='';
-		if(this.$route.name==='search'){
-			params='query='+this.$route.query.query;
-		}
-		this.showLoader = true;
-		this.$store.dispatch('common/getDashboardPosts',{route:route,params:params}).then(() => {
-			this.showLoader = true;
-		});
-		window.addEventListener('scroll', () => {
-			if (this.bottomVisible()) {
-				this.showLoader = true;
-				this.$store.dispatch('common/getDashboardPosts',{route:route,params:params}).then(() => {
-					this.showLoader = true;
-				});
-			}
-		});
-	},
-	data() {
-		return {
-			showLoader: false
-		};
+		this.loadPosts();
 	},
 	methods: {
-		setPostView(post){
-			document.title = post.heading;
-			this.$store.commit('common/set_post_initial',post);
-		},
+		loadPosts(){
+			var route= '/get-posts';
+			var params='';
+			if(this.$route.name==='search'){
+				params='query='+this.$route.query.query;
+			}
+			this.showLoader = true;
+			this.$store.dispatch('common/getDashboardPosts',{route:route,params:params}).then(() => {
+				this.showLoader = false;
+			});
+		}
 	}
 };
 </script>

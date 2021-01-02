@@ -54,8 +54,6 @@
 
 
     </div>
-    {{-- <button class="hamburger open-panel togle_web" id="nav-toggle">
-    </button> --}}
     <!-- web header -->
     <nav role="navigation" class="menu">
 
@@ -81,7 +79,7 @@
             @if(Auth::user()->isInstituteMember())
             <li> <a href="/my-institute"><span class="icon"><img src="{{asset('/images/university.png') }}" alt="Student'sHUB" width="20"/></span> My Institute</a></li>
             @endif
-                <li> <a href="/"> <span class="icon"><img src="{{asset('/images/home.png') }}" alt="Student'sHUB" width="20"/></span> Home</a></li>
+                {{--<li> <a href="/"> <span class="icon"><img src="{{asset('/images/home.png') }}" alt="Student'sHUB" width="20"/></span> Home</a></li>--}}
             @if(Auth::student())
                 <li> <a href="/doubts"> <span class="icon"><img src="{{asset('/images/home.png') }}" alt="Student'sHUB" width="20"/></span> Doubts</a></li>
             @endif

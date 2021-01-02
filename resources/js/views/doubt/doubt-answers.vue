@@ -19,11 +19,11 @@
               <h4 class="main_que">
                 {{ doubt.question }}
               </h4>
-              <p class="answer_like">
-                <i class="fa fa-thumbs-up" /> <span class="badge-text">10</span>
-              </p>
             </div>
-            <div class="ans_input_sec">
+            <div
+              v-if="!isAnswered"
+              class="ans_input_sec"
+            >
               <div
                 v-if="!add_answer"
                 class="ans_input_button"
@@ -59,7 +59,13 @@
                   Submit
                 </button>
               </div>
-            </div> 
+            </div>
+            <div
+              v-for="(post,index) in posts"
+              :key="index"
+            >
+              <doubt-card :post="post" />
+            </div>
           </div>
         </div> 
       </div>
@@ -86,16 +92,20 @@ import ImageResize from 'quill-image-resize-vue';
 import { ImageDrop } from 'quill-image-drop-module';
 Quill.register('modules/imageDrop', ImageDrop);
 Quill.register('modules/imageResize', ImageResize);
+import DoubtCard from '../post/DoubtCard.vue';
+
 export default {
 	components:{
-		VueEditor
+		VueEditor,
+		DoubtCard
 	},
 	data() {
 		return {
 			doubt: {},
+			isAnswered: false,
 			add_answer: false,
 			new_answer: '',
-			answerList: [],
+			posts: [],
 			//
 			files:[],
 			editorSettings: {
@@ -133,7 +143,8 @@ export default {
 		axios.get('/api/doubt/' + this.$route.params.doubtId + '/get-answers/')
 			.then(response => {
 				this.doubt = response.data.success.doubt;
-				this.answerList = response.data.success.answerList;
+				this.posts = response.data.success.answerList;
+				this.isAnswered = response.data.success.isAnswered;
 			}); 
 
 	},

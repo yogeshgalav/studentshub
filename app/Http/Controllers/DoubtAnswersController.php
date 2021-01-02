@@ -81,7 +81,8 @@ class DoubtAnswersController extends Controller
         return response()->json([
             'success'=>[
                 'doubt'=>$doubt,
-                'answerList'=>$answers
+                'answerList'=>$answers,
+                'isAnswered'=>DoubtAnswer::where('doubt_id',$doubtId)->where('user_id',Auth::id())->exists()
             ]
         ]);
     }

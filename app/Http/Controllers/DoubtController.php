@@ -40,7 +40,7 @@ class DoubtController extends Controller
                 'subject_url'=>\Str::slug($subject_name),
                 ],[
                 'subject_name'=>$subject_name,
-                'category_id'=>$student->categoryId
+                'category_id'=>$request->category,
                 ]);
         }
 

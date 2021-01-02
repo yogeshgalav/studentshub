@@ -239,4 +239,7 @@ class ClassroomController extends Controller
     public function classroomDoubtPage(){
         return view('classroom.doubts');
     }
+    public function classroomMessagePage(){
+        return view('classroom.messages');
+    }
 }

@@ -82,10 +82,6 @@
                   >
                 </div>
                 <div class="info-post ml-2">
-                  <p class="username">
-                    {{ doubt.user_name }}
-                  </p>
-                  <!-- <p class="date text-muted">{{doubt.created_at}}</p> -->
                   <h3 class="card-title font-size-16">
                     <router-link
                       :to="'/doubt/'+doubt.id"
@@ -94,20 +90,6 @@
                       {{ doubt.question }}
                     </router-link>
                   </h3>
-                </div>
-              </div>
-              <div class="doubt_like_view">
-                <div class="doubt_like">
-                  <span
-                    class="badge-text"
-                  ><i class="fa fa-thumbs-up" /> {{ doubt.total_likes }}</span>
-                </div>
-                <div class="doubt_answer">
-                  <p>
-                    <router-link :to="'/doubt/'+doubt.id">
-                      Answer
-                    </router-link>
-                  </p>
                 </div>
               </div>
             </div>
@@ -302,6 +284,7 @@ export default {
 
     		this.axios.post(this.baseUrl + '/api/add-doubt/',{
     			doubt:this.question,
+    			category:this.selected_category,
     			subject:this.selected_subject,
     			classroomId:this.classroomId ?this.classroomId :''
     		} )

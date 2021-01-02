@@ -79,7 +79,7 @@ class Post extends PostModel
             $join->on('po.id','=','da.post_id')->where('da.doubt_id','=',$doubtId);
         })
         ->orderBy('po.created_at','DESC')
-        ->paginate();
+        ->get();
 
         $this->formatPostData($posts);
         

@@ -23,7 +23,10 @@
             </option>
           </select>
 
-          <div class="row add_cl_q">
+          <div
+            v-if="AuthTeacher && AuthTeacher.id===classroomDetail.teacher_id"
+            class="row add_cl_q"
+          >
             <div class="col-md-3 col-12">
               <div class="mt-2">
                 <add-button
@@ -36,17 +39,21 @@
             <div class="col-md-3 col-12" />
           </div>
           <div class="row add_cl_q">
-            <ol>
-              <li 
-                v-for="(resource,index2) in resources"
-                :key="index2"
-                class="col-md-10 col-12 mt-2"
+            <div 
+              v-for="(resource,index2) in resources"
+              :key="index2"
+              class="col-md-10 col-12 mt-2 card"
+            >
+              <div 
+                class="card-body"
               >
+                <p>{{ $dayjs(resource.created_at).format('D MMMM, YYYY') }}</p>
+                <hr>
+                <p>{{ resource.description }}</p>
                 <a
                   :href="resource.link"
                   target="_blank"
                 >{{ resource.link }}</a>
-                <p>{{ resource.description }}</p>
 
                 <div
                   v-if="resource.type==='youtubeVideo'"
@@ -61,8 +68,8 @@
                     allowfullscreen
                   />
                 </div>
-              </li>
-            </ol>
+              </div>
+            </div>
             <div class="col-md-3 col-12" />
           </div>
         </div>
@@ -181,6 +188,9 @@ export default {
 				return this.resourceUnitData.find(node => node.id === this.current_unit).classroom_resources;
 			}
 			return [];
+		},
+		classroomDetail(){
+			return this.$store.state.classroom.classroomDetail;
 		}
 	},
 	mounted() {
