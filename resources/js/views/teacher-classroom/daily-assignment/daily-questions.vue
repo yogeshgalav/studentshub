@@ -66,7 +66,7 @@
         
     <div
       v-if="assignmentId && total_marks<10"
-      class="mt-3 mb-2 col-md-12"
+      class="mt-3 mb-2 col-md-12 pl-0"
     >
       <add-button
         name="Add Question"
@@ -80,15 +80,13 @@
       :click-to-close="false"
     >
       <form
-        v-slimscroll="options"
-        style="padding:25px;"
         @submit.prevent="saveQuestion()"
       >
         <div class="row">
           <div class="col-md-12 mt-2">
             <div class="row">
               <div class="col-md-6">
-                <h4>Question</h4>
+                <h4>Add Question</h4>
               </div>
               <div class="col-md-6 text-right">
                 <button
@@ -172,7 +170,7 @@
                       :key="index"
                       class="form-group d-flex"
                     >
-                      <div class="input-group">
+                      <div class="input-group mr-2">
                         <div class="input-group-prepend">
                           <span
                             id="basic-addon1"
@@ -196,7 +194,7 @@
                         <i class="fa fa-trash-alt" />
                       </button>
 
-                      <div class="form-check ml-3 mt-2">
+                      <div class="form-check ml-0 mt-2">
                         <input
                           :id="'correctAnswer'+index"
                           v-validate="'required'"
@@ -306,6 +304,7 @@ export default {
 			daily_questions:[],
 			options: {
 				height: '400px',
+				overflow:scroll
 			},
 			avail_marks:10,
 			current_question_edit: {

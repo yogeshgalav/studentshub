@@ -725,6 +725,7 @@ input:checked+.switch:before {
     border: 1px solid #BDBDBD;
     padding: 0.6rem 1rem;
     height: inherit !important;
+    color:#333 !important
 }
 
 select {
@@ -1221,7 +1222,10 @@ textarea:focus {
     border: solid 1px blue !important;
 }
 @media only screen and (max-width: 600px) {
-
+   
+        .btn-label {
+          margin-right: 10px !important;
+        }
     // Habit Builder 
     .custom-nav .nav-item .active {
         background: $white;
@@ -1302,6 +1306,9 @@ textarea:focus {
 // header
     .logo {
     width: 27%;
+}
+.width-250px {
+    width: 250px !important;
 }
 .menu_head
 {
@@ -1444,8 +1451,14 @@ button.slick-next {
     display: flex;
     position: absolute;
     bottom: 20px;
-    left: 20%;
+    left: 25%;
 }
+// Sidebar image logo row style 
+
+.overflow-container .row {
+    flex-wrap: unset;
+}
+// End Here 
 .arrow_right button {
     height: 50px;
     background-color: #0f6bff;
@@ -1759,7 +1772,7 @@ display: flex;
     display: flex;
 }
 p.dash_post_content {
-    font-size: 13px;
+    font-size: 18px;
     color: #868686;
         margin: 0;
 }
@@ -1788,7 +1801,7 @@ p.usernamedash.mb-0 {
     width: 100%;
 }
 .dash_board_title h3 {
-    font-size: 14px;
+    font-size: 23px;
     line-height: 24px;
     margin-top: 10px;
         margin-bottom: 0
@@ -2147,12 +2160,31 @@ main.doubt_main_page {
 .doubt_model .v--modal-box.v--modal {
    
    left: 0 !important;
-   height: auto !important;
+   height: 400px !important;
    right: 0 !important;
    margin: 0 auto !important;
    width: 50% !important;
+   overflow-y: scroll;
+   padding: 20px;
+
+}
+// mx input height 
+.mx-input { 
+    height: 45px !important;
+}
+::-webkit-scrollbar {
+    width: 12px;
 }
 
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
 
 .user_profile_page {
     padding: 50px 0;
@@ -2419,6 +2451,13 @@ justify-content: space-between;
         width: 100%;
         margin-top: 25px;
     }
+    .doubt_model .d-flex {
+        display: block !important;
+    }
+    .doubt_model .delete_btn {
+    margin-top: 20px;
+    margin-left: 5px;
+    }
     .cl_q_close {
        
         margin-top: 5px;
@@ -2492,7 +2531,7 @@ justify-content: space-between;
     .social-network_singlepage {justify-content: center;}
     p.usernamedash.mb-0{font-size: 12px;}
     p.dash_post_content {
-        font-size: 12px;
+        font-size: 18px;
         display: block;
         /* white-space: nowrap; */
         text-overflow: ellipsis;
@@ -2634,7 +2673,7 @@ ul.menu-dropdown li {
 }
 .post_view_head {
     background-color: white;
-    margin-top: 12px;
+    margin-top: 0px;
     padding: 10px;
     box-shadow: 0 0 7px rgba(0,0,0,0.12);
 }

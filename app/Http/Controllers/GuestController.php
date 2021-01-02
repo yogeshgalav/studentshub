@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Guest;
 use App\Models\Subscriber;
+use App\Models\MemberRequest;
 use App\Mails\SubscriptionFirstMail;
 use Mail;
 use DB;
@@ -35,4 +36,15 @@ class GuestController extends Controller
         return 'success';
     }
 
+    public function memberRequest(Request $request){
+        $member =new MemberRequest;
+        $member->full_name = $request->full_name;
+        $member->email = $request->email;
+        $member->phone_no = $request->phone_no;
+        $member->institute_name = $request->institute_name;
+        $member->plan = $request->plan;
+        $member->save();
+
+        return response()->json([],204);
+    }
 }

@@ -140,13 +140,19 @@ export default {
 			}
 		},
 	},
+	updated() {
+		if(this.initialValue && this.search===''){console.log('hr2',this.initialValue);
+			this.result = Object.assign({},this.initialValue);
+			this.search = this.result[this.value];
+		}
+	},
 	mounted() {
 		this.results = this.items;
 		document.addEventListener('click', this.handleClickOutside);
-		if(this.initialValue){
-			this.result = Object.assign({},this.initialValue);
-			this.search =this.result[this.value];
-		}
+	},
+	mounted() {
+		this.results = this.items;
+		document.addEventListener('click', this.handleClickOutside);
 	},
 	destroyed() {
 		document.removeEventListener('click', this.handleClickOutside);

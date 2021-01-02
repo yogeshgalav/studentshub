@@ -40,24 +40,35 @@
 
 
     </div>
-    {{-- <button class="hamburger open-panel togle_web" id="nav-toggle">
-    </button> --}}
     <!-- web header -->
     <nav role="navigation" class="menu">
 
 
         <div class="overflow-container">
-            <div class="mb-3">
-            <img src="{{asset('/images/default-avatar.png') }}" alt="Student'sHUB" width="40" class="pl-2"/>
-            <span class="sidebar_heading ml-1">Student's Hub </span>
+            <div class="row mb-2">
+                <div class="pl-3">
+                    <img src="{{asset('/images/default-avatar.png') }}" alt="Student'sHUB" width="40" class="pl-2"/>
+                </div>
+                <div class="pl-1 pr-2">
+                    @if(Auth::teacher())
+                    <span class="sidebar_heading ml-1">{{ Auth::teacher()->instituteName }} </span>
+                    @elseif(Auth::student())
+                    <span class="sidebar_heading ml-1">{{ Auth::student()->instituteName }} </span>
+                    @else
+                    <span class="sidebar_heading ml-1">Student's Hub </span>
+                    @endif
+                </div>
             </div>
+          
             <ul class="menu-dropdown">
             <li><a href="/classrooms" class="active">	<span class="icon">  <img src="{{asset('/images/whiteboard.png') }}" alt="Student'sHUB" width="20"/></span>Classrooms</a></li>
             @if(Auth::user()->isInstituteMember())
             <li> <a href="/my-institute"><span class="icon"><img src="{{asset('/images/university.png') }}" alt="Student'sHUB" width="20"/></span> My Institute</a></li>
             @endif
-                <li> <a href="/"> <span class="icon"><img src="{{asset('/images/home.png') }}" alt="Student'sHUB" width="20"/></span> Home</a></li>
-
+                {{--<li> <a href="/"> <span class="icon"><img src="{{asset('/images/home.png') }}" alt="Student'sHUB" width="20"/></span> Home</a></li>--}}
+            @if(Auth::student())
+                <li> <a href="/doubts"> <span class="icon"><img src="{{asset('/images/home.png') }}" alt="Student'sHUB" width="20"/></span> Doubts</a></li>
+            @endif
                 <li> <a href="/profile/{{Auth::id()}}"> <span class="icon"><img src="{{asset('/images/user.png') }}" alt="Student'sHUB" width="20"/></span> Profile</a></li>
 
                 <li><a href="/logout"> <span class="icon"><img src="{{asset('/images/logout.png') }}" alt="Student'sHUB" width="20"/></span> Logout</a></li>

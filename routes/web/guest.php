@@ -1,11 +1,15 @@
 <?php
 
 Route::get('/login','PagesController@loginPage');
+Route::get('/membership-plan','PagesController@membershipPlan');
 Route::get('/get-started','PagesController@registerPage');
 Route::get('/forgot-password','PagesController@forgotPasswordPage');
 Route::get('/reset-password/{token}','UserController@resetPassword');
 Route::get('/reset-password','UserController@resetPassword');
 Route::get('/logout','AuthController@logout');
+
+Route::post('/login','AuthController@login');
+Route::post('/register','AuthController@register');
 
 Route::get('/post/{ViewPostId}', 'PagesController@viewPost');
 Route::get('/social-auth/{provider}', 'AuthController@redirectToProvider');

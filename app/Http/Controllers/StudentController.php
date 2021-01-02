@@ -83,7 +83,7 @@ class StudentController extends Controller
         } catch (\Exception $e) {
             DB::rollback();
             // dd($e->getLine(),$e->getMessage());
-            Log::critical('Student Registeration failure: for user id#' . $user->id . ' with data ' . implode(', ', Arr::flatten($input)));
+            Log::critical('Student Registeration failure',['error'=>$e->getMessage()]);
             return response()->$e;
         }
         $success['redirectUrl'] = '/';

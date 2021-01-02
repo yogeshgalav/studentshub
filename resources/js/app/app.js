@@ -9,11 +9,16 @@ import VModal from 'vue-js-modal';
 
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
+import Dayjs from 'vue-dayjs';
 
-import VueSlimScroll from 'vue-slimscroll';
 import VueLazyload from 'vue-lazyload';
 Vue.use(VueLazyload);
-Vue.use(VueSlimScroll);
+Vue.use(Dayjs, {
+	lang:'en',
+	filters: {
+		ago: 'ago',
+	}
+});
 // or with options
 Vue.use(VueLazyload, {
 	preLoad: 1.3,
@@ -45,6 +50,9 @@ Vue.mixin({
 		},
 		AuthUser(){
 			return window.App.AuthUser;
+		},
+		AuthStudent(){
+			return window.App.AuthStudent;
 		},
 		AuthTeacher(){
 			return window.App.AuthTeacher;
@@ -82,6 +90,7 @@ Vue.mixin({
 				console.error(err.response.data); // eslint-disable-line no-console
 				break;
 			}
+			return true;
 		},
 		letters() {
 			let letters = [];
@@ -94,8 +103,7 @@ Vue.mixin({
 	mounted(){
 		window.axios.defaults.headers.common = {
 			'X-CSRF-TOKEN': this.csrfToken,
-			'X-Requested-With': 'XMLHttpRequest',
-			'Authorization' : 'Bearer '+this.accessToken,
+			'X-Requested-With': 'XMLHttpRequest'
 		};
 	},
 	methods: {
@@ -110,13 +118,6 @@ Vue.mixin({
 			document.documentElement.classList.toggle('openNav');
 			var menu = document.querySelector('.nav-toggle'); // Using a class instead, see note below.
 			menu.classList.toggle('active');
-		},
-		bottomVisible() {
-			const scrollY = window.scrollY;
-			const visible = document.documentElement.clientHeight;
-			const pageHeight = document.documentElement.scrollHeight;
-			const bottomOfPage = visible + scrollY >= pageHeight;
-			return bottomOfPage || pageHeight < visible;
 		},
 	}
 });

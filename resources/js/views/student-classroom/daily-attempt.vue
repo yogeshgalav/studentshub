@@ -35,7 +35,7 @@
             <div
               v-for="(question,index) in dailyAssignment.daily_questions"
               :key="index"
-              class="col-md-6 border-bottom-1px ml-3 p-3 mb-3"
+              class="col-md-12 border-bottom-1px ml-3 p-3 mb-3"
             >
               <div class="row">
                 <div class="col-md-12">

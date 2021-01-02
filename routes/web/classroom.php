@@ -1,6 +1,6 @@
 <?php
 //classroom routes
-Route::group(['middleware'=>['auth']],function(){
+Route::group(['middleware'=>['AuthorizeUser']],function(){
     //classroom listing
     Route::get('/classrooms', 'ClassroomController@classroomListPage');
     //claasrooom create
@@ -16,6 +16,9 @@ Route::group(['middleware'=>['auth']],function(){
     Route::get('/classroom/{classroomId}/daily-assignment','ClassroomController@classroomDailyAssignmentPage');
     Route::get('/classroom/{classroomId}/daily-report','ClassroomController@classroomDailyReportPage');
     Route::get('/classroom/{classroomId}/students','ClassroomController@classroomStudentPage');
+    Route::get('/classroom/{classroomId}/resources','ClassroomController@classroomResoucePage');
+    Route::get('/classroom/{classroomId}/doubts','ClassroomController@classroomDoubtPage');
+    Route::get('/classroom/{classroomId}/messages','ClassroomController@classroomMessagePage');
     
     //student page for unit-attempt
     Route::get('/classroom/{classroomId}/unit-attempt','ClassroomController@unitAttemptPage');

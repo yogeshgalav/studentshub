@@ -14,6 +14,7 @@ class StudentsTableSeeder extends Seeder
     {
         //
         DB::table('batches')->insert([
+            'id'=>1,
             'start_year'=>2014,
             'end_year'=>2018,
             'course_id'=>32,

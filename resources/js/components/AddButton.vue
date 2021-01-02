@@ -11,12 +11,18 @@
     .btn-label {
         padding: 15px;
         text-align: center;
-        margin-right: 50px;
+        margin-right: 20px;
         border-radius: 3px 0 0 3px;
     }
     .btn-labeled {
-        padding: 0 70px 0 0 !important;
+        padding: 0 20px 0 0 !important;
     }
+    @media only screen and (max-width: 600px) { 
+         .btn-labeled {
+        padding: 0 20px 0 0 !important;
+    }
+    }
+
 </style>
 <script>
 export default {

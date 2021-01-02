@@ -79,7 +79,7 @@
                       {{ 'Daily Assignment' }}
                     </h2>
                     <p>
-                      {{ 'Create daily assisment test for students.' }}
+                      {{ 'Create daily assignment test for students.' }}
                     </p>
                   </div>
                 </div>
@@ -143,7 +143,7 @@
                       {{ 'Resources' }}
                     </h2>
                     <p>
-                      {{ 'Coming soon...' }}
+                      {{ 'Add document or video links.' }}
                     </p>
                   </div>
                 </div>
