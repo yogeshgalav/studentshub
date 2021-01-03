@@ -9,8 +9,8 @@
     <classroom-header />
     <div>
       <div class="row">
-        <div class="col-md-12">
-          <select
+        <div class="col-md-6">
+            <select
             v-model="current_unit"
             class="form-control minimal"
           >
@@ -22,27 +22,31 @@
               {{ 'Unit '+unit.unit_no+': '+unit.unit_name }}
             </option>
           </select>
-
-          <div
+        </div>
+        <div class="col-md-6 ">
+                    <div
             v-if="AuthTeacher && AuthTeacher.id===classroomDetail.teacher_id"
             class="row add_cl_q"
           >
-            <div class="col-md-3 col-12">
-              <div class="mt-2">
+             <div class="text-right">
                 <add-button
                   name="Add Resource"
                   size="lg"
                   @submit="addResource"
                 />
               </div>
-            </div>
-            <div class="col-md-3 col-12" />
           </div>
+        </div>
+      </div>
+      <div class="row">
+        
+        <div class="col-md-12">
+       
           <div class="row add_cl_q">
             <div 
               v-for="(resource,index2) in resources"
               :key="index2"
-              class="col-md-10 col-12 mt-2 card"
+              class="col-md-10 col-12 mt-2 ml-3 card"
             >
               <div 
                 class="card-body"
