@@ -16,7 +16,7 @@ class CreateClassroomResourcesTable extends Migration
         Schema::create('classroom_resources', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('classroom_id')->unsigned();
-            $table->string('link')->unsigned();
+            $table->string('link');
             $table->integer('unit_id')->unsigned();
             $table->string('type')->default('other');
             $table->string('access')->default('public');

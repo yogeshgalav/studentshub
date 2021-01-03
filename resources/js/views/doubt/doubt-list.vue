@@ -6,9 +6,10 @@
         @submit.prevent="searchDoubt"
       >
         <div class="row">
-          <div class="col-md-8">
-            <label for="doubt">Search Doubt</label>
-            <input
+          <div class="col-md-8 pl-0">
+             <div class="form-group has-search">
+    <span class="fa fa-search form-control-feedback"></span>
+   <input
               v-model="search_doubt"
               type="text"
               name="doubt"
@@ -16,19 +17,14 @@
               placeholder="Ask Question"
               @input="debounceSearch"
             >
-            <span
-              class="doubt_search_btn"
-            ><button
-              type="submit"
-              class="btn btn-link"
-            >
-              <i class="fa fa-search text-black weight-400" /></button></span>
+  </div>
+            
           </div>
 
-          <div class="col-md-4">
+          <div class="col-md-4 custom_btn pl-0">
             <button
               type="button"
-              class="ask_doubt_btn"
+              class="btn btn-primary"
               @click="addDoubtModal"
             >
               Ask new Doubt
@@ -195,7 +191,27 @@
     </div>
   </main>
 </template>
-<style scoped></style>
+<style scoped>
+.has-search .form-control {
+    padding-left: 2.375rem;
+}
+.custom_btn .btn {
+  padding: 10px;
+}
+.has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+   width: 1rem;
+    height: 1rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+    top: 12px;
+    left: 15px;
+}
+</style>
 <script>
 import VModal from 'vue-js-modal';
 import Loading from 'vue-loading-overlay';

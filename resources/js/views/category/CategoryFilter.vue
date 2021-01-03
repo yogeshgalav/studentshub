@@ -60,7 +60,7 @@
     .slick-slide {
         margin: 0 5px !important;
     }
-
+>
     .cat_menu h3:before {
         position: absolute;
         content: '';
@@ -102,18 +102,18 @@
 </style>
 
 <script>
-    //import VueSlickCarousel from 'vue-slick-carousel'
-    // optional style for arrows & dots
-    //import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
+    // //import VueSlickCarousel from 'vue-slick-carousel'
+    // // optional style for arrows & dots
+    // //import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
 
-    import VueSlickCarousel from 'vue-slick-carousel'
-    import 'vue-slick-carousel/dist/vue-slick-carousel.css'
-    // optional style for arrows & dots
-    import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css';
+    // // import VueSlickCarousel from 'vue-slick-carousel'
+    // import 'vue-slick-carousel/dist/vue-slick-carousel.css'
+    // // optional style for arrows & dots
+    // import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css';
 
     export default {
         components: {
-            VueSlickCarousel,
+            // VueSlickCarousel,
         },
         props: ['categories'],
 
