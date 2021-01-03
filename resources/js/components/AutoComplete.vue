@@ -141,7 +141,7 @@ export default {
 		},
 	},
 	updated() {
-		if(this.initialValue && this.search===''){console.log('hr2',this.initialValue);
+		if(this.initialValue && this.search===''){
 			this.result = Object.assign({},this.initialValue);
 			this.search = this.result[this.value];
 		}

@@ -8,6 +8,7 @@
 <meta name="author" content="Yogesh Galav"/>
 <meta name="description" content="Educational App to boost productivity of Students, Teachers and Institutes. Learn about your progress, pain points and student's field of interest."/>
 <meta name="keywords" content="studenthub, studentshub, student, hub, education,knowledge,curiosity,institute information"/>
+@if('production' === config('app.env'))
 <!-- Hotjar Tracking Code for www.studentshub.in -->
 <script>
     (function(h,o,t,j,a,r){
@@ -19,5 +20,4 @@
         a.appendChild(r);
     })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
 </script>
-{{-- 
-<title>@yield('title')</title> --}}
+@endif
