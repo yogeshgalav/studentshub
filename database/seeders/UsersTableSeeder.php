@@ -1,7 +1,9 @@
 <?php
+namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Laravel\Passport\ClientRepository;
+use Illuminate\Support\Facades\DB;
 
 class UsersTableSeeder extends Seeder
 {

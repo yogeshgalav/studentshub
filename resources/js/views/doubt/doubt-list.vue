@@ -7,18 +7,17 @@
       >
         <div class="row">
           <div class="col-md-8 pl-0">
-             <div class="form-group has-search">
-    <span class="fa fa-search form-control-feedback"></span>
-   <input
-              v-model="search_doubt"
-              type="text"
-              name="doubt"
-              class="form-control"
-              placeholder="Ask Question"
-              @input="debounceSearch"
-            >
-  </div>
-            
+            <div class="form-group has-search">
+              <span class="fa fa-search form-control-feedback" />
+              <input
+                v-model="search_doubt"
+                type="text"
+                name="doubt"
+                class="form-control"
+                placeholder="Ask Question"
+                @input="debounceSearch"
+              >
+            </div>
           </div>
 
           <div class="col-md-4 custom_btn pl-0">

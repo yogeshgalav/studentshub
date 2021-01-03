@@ -55,10 +55,11 @@ class ClassroomController extends Controller
         ->join('teachers as th','th.id','=','cs.teacher_id')
         ->join('users as us','us.id','=','th.user_id')
         ->leftJoin('classroom_users as cus','cus.classroom_id','=','cs.id')
-        ->select('cs.*','co.course_name','su.subject_name','us.id as user_id','us.full_name as teacher_name',
+        ->select('cs.id','cs.name','cs.classroom_join_id','cs.teacher_id','cs.subject_id','cs.batch_id','cs.expected_students','cs.classroom_duration','co.course_name','su.subject_name','us.id as user_id','us.full_name as teacher_name',
         'bt.start_year as batch_start_year', 'bt.end_year as batch_end_year',
         DB::raw('COUNT(cus.id) as total_students'))
-        ->groupBy('cs.id')
+        ->groupBy('cs.id','cs.name','cs.classroom_join_id','cs.teacher_id','cs.subject_id','cs.batch_id','cs.expected_students','cs.classroom_duration','co.course_name','su.subject_name','us.id','us.full_name',
+        'bt.start_year', 'bt.end_year')
         ->first();
 
         return response()->json([

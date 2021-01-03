@@ -10,7 +10,7 @@
     <div>
       <div class="row">
         <div class="col-md-6">
-            <select
+          <select
             v-model="current_unit"
             class="form-control minimal"
           >
@@ -24,24 +24,22 @@
           </select>
         </div>
         <div class="col-md-6 ">
-                    <div
+          <div
             v-if="AuthTeacher && AuthTeacher.id===classroomDetail.teacher_id"
             class="row add_cl_q"
           >
-             <div class="text-right">
-                <add-button
-                  name="Add Resource"
-                  size="lg"
-                  @submit="addResource"
-                />
-              </div>
+            <div class="text-right">
+              <add-button
+                name="Add Resource"
+                size="lg"
+                @submit="addResource"
+              />
+            </div>
           </div>
         </div>
       </div>
       <div class="row">
-        
         <div class="col-md-12">
-       
           <div class="row add_cl_q">
             <div 
               v-for="(resource,index2) in resources"

@@ -1,8 +1,9 @@
 <?php
+namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-
+use App\Models\ExplorePagePost;
 class ExplorePostSeeder extends Seeder
 {
     /**
@@ -12,11 +13,6 @@ class ExplorePostSeeder extends Seeder
      */
     public function run()
     {
-            // factory(\App\Models\ExplorePagePost::class,3)->create(['page_section'=>'ExploreCarousalPost']);
-            // factory(\App\Models\ExplorePagePost::class,3)->create(['page_section'=>'ExploreTopPost']);
-            // factory(\App\Models\ExplorePagePost::class,6)->create(['page_section'=>'HomePostContainer']);
-            // factory(\App\Models\ExplorePagePost::class,3)->create(['page_section'=>'ExploreSidebar']);
-            // factory(\App\Models\ExplorePagePost::class,3)->create(['page_section'=>'ExploreBottomPost']);
             DB::statement("INSERT INTO posts (user_id,subject_id,postable_id,postable_type,post_heading,primary_image_path,rating,created_at,updated_at,post_description) VALUES
             (1,42,1,'App\Models\Video','The iPhone Documentary - The Untold Story','https://img.youtube.com/vi/24O00Jz8R04/0.jpg',3,'2019-11-03 09:01:25.0','2020-02-20 15:53:20.0','The iPhone Documentary - The Untold Story'),
             (1,43,2,'App\Models\Video','The Egg','https://img.youtube.com/vi/h6fcK_fRYaI/0.jpg',3,'2019-11-03 09:25:21.0','2020-02-20 15:53:20.0','The Egg'),
@@ -96,10 +92,9 @@ class ExplorePostSeeder extends Seeder
         (58, 'Universe', 'universe',5, NULL, NULL),
         (59, 'Igloo', 'igloo',5, NULL, NULL);");
 
-        factory(\App\Models\ExplorePagePost::class,3)->create(['page_section'=>'ExploreTopPost']);
-        factory(\App\Models\ExplorePagePost::class,6)->create(['page_section'=>'HomePostContainer']);
-        factory(\App\Models\ExplorePagePost::class,3)->create(['page_section'=>'ExploreSidebar']);
-        factory(\App\Models\ExplorePagePost::class,3)->create(['page_section'=>'ExploreBottomPost']);
-
+        ExplorePagePost::factory(3)->create(['page_section'=>'ExploreTopPost']);
+        ExplorePagePost::factory(6)->create(['page_section'=>'HomePostContainer']);
+        ExplorePagePost::factory(3)->create(['page_section'=>'ExploreSidebar']);
+        ExplorePagePost::factory(3)->create(['page_section'=>'ExploreBottomPost']);
     }
 }
