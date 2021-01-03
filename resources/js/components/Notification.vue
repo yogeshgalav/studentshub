@@ -30,10 +30,7 @@
 
         <div class="notification-meta">
           <small class="timestamp">
-            <timeago
-              :since="notification.created"
-              :auto-update="30"
-            />
+          
           </small>
         </div>
       </div>

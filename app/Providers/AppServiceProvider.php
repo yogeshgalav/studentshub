@@ -38,10 +38,10 @@ class AppServiceProvider extends ServiceProvider
             $payload = $jobProcessed->job->payload();
             $job_details = unserialize($payload['data']['command']);
 
-            Log::info('Queued Job Processed', [
-                'job' => $jobProcessed,
-                'payload' => $payload,
-            ]);
+            // Log::info('Queued Job Processed', [
+            //     'job' => $jobProcessed,
+            //     'payload' => $payload,
+            // ]);
 
             if (! $job_details instanceof ScheduledJobInterface) {
                 return;

@@ -20,10 +20,6 @@
       <li class="nav-item">
         @include('includes.profile-dropdown')
       </li>
-      <!-- <li class="nav-item">
-      <router-link class="btn btn-primary weight-400" :to="'/get-started'">Get Started <i class="fas fa-arrow-right text-white"></i> </router-link>
-
-      </li> -->
     </ul>
   </div>
 </nav>

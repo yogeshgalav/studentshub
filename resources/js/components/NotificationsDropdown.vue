@@ -145,7 +145,7 @@ export default {
      * Listen for Echo push notifications.
      */
 		listen () {
-			window.Echo.private(`App.User.${window.Laravel.user.id}`)
+			window.Echo.private(`App.User.` + AuthUser.id)
 				.notification(notification => {
 					this.total++;
 					this.notifications.unshift(notification);
