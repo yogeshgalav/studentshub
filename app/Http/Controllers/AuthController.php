@@ -139,12 +139,12 @@ class AuthController extends Controller
             }
     
             $success['redirectUrl'] = '/education-details';
-            \Notification::send($user, new \App\Notifications\NewUserWelcomeNotification());
+            \App\Models\ScheduledJob::scheduleNewUserNotification($user);
         
         DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
-            Log::critical('user Registeration failure: with data '.implode(',',$input));
+            Log::critical('user Registeration failure',['request_data'=>$input,'error'=>$e->getMessage()]);
             return redirect('/get-started');
         }  
 
@@ -184,8 +184,8 @@ class AuthController extends Controller
         }
 
         $success['redirectUrl'] = '/education-details';
-        \Notification::send($user, new \App\Notifications\NewUserWelcomeNotification());
-    
+        \App\Models\ScheduledJob::scheduleNewUserNotification($user);
+        
     DB::commit();
     } catch (\Exception $e) {
         DB::rollback();
