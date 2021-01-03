@@ -16,10 +16,8 @@ class CreateDocumentsTable extends Migration
         Schema::create('documents', function (Blueprint $table) {
             $table->increments('id');
             $table->string('ext');
-            $table->string('path');
-            $table->integer('total_files');
-            $table->string('size');
-            $table->text('description');
+            $table->string('link');
+            $table->enum('access',['public','private']);
             $table->timestamps();
         });
     }

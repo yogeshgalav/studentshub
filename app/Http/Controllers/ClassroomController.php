@@ -233,4 +233,13 @@ class ClassroomController extends Controller
         ]]);
     }
 
+    public function classroomResoucePage(){
+        return view('classroom.resources');
+    }
+    public function classroomDoubtPage(){
+        return view('classroom.doubts');
+    }
+    public function classroomMessagePage(){
+        return view('classroom.messages');
+    }
 }

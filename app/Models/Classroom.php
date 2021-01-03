@@ -88,4 +88,7 @@ class Classroom extends Model
     public function batch(){
         return $this->belongsTo('App\Models\Batch');
     }
+    public function subject(){
+        return $this->belongsTo('App\Models\Subject');
+    }
 }

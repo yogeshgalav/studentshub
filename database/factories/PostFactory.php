@@ -37,7 +37,7 @@ $factory->define(App\Models\Post::class, function (Faker $faker) {
 $factory->define(App\Models\Article::class, function (Faker $faker) {
     $content = $faker->sentence(20);
     return [        
-        'content' => $content,
+        'html_content' => $content,
     ];
 });
 

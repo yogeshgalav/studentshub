@@ -9,11 +9,16 @@ import VModal from 'vue-js-modal';
 
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
+import Dayjs from 'vue-dayjs';
 
-import VueSlimScroll from 'vue-slimscroll';
 import VueLazyload from 'vue-lazyload';
 Vue.use(VueLazyload);
-Vue.use(VueSlimScroll);
+Vue.use(Dayjs, {
+	lang:'en',
+	filters: {
+		ago: 'ago',
+	}
+});
 // or with options
 Vue.use(VueLazyload, {
 	preLoad: 1.3,
@@ -24,8 +29,13 @@ Vue.use(VueLazyload, {
 Vue.use(VModal, { dynamic: true, injectModalsContainer: true, scrollable:true });
 Vue.use(VueAxios, axios);
 
+import NotificationsDemo from '../components/NotificationsDemo';
+import NotificationsDropdown from '../components/NotificationsDropdown';
+
 Vue.mixin({
 	components:{
+		NotificationsDemo,
+		NotificationsDropdown,
 		Loading
 	},
 	computed: {
@@ -41,11 +51,11 @@ Vue.mixin({
 		AuthUser(){
 			return window.App.AuthUser;
 		},
-		AuthTeacher(){
-			return window.App.AuthTeacher;
-		},
 		AuthStudent(){
 			return window.App.AuthStudent;
+		},
+		AuthTeacher(){
+			return window.App.AuthTeacher;
 		},
 		csrfToken() {
 			return window.App.csrfToken;
@@ -80,6 +90,7 @@ Vue.mixin({
 				console.error(err.response.data); // eslint-disable-line no-console
 				break;
 			}
+			return true;
 		},
 		letters() {
 			let letters = [];
@@ -107,13 +118,6 @@ Vue.mixin({
 			document.documentElement.classList.toggle('openNav');
 			var menu = document.querySelector('.nav-toggle'); // Using a class instead, see note below.
 			menu.classList.toggle('active');
-		},
-		bottomVisible() {
-			const scrollY = window.scrollY;
-			const visible = document.documentElement.clientHeight;
-			const pageHeight = document.documentElement.scrollHeight;
-			const bottomOfPage = visible + scrollY >= pageHeight;
-			return bottomOfPage || pageHeight < visible;
 		},
 	}
 });

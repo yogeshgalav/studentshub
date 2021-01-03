@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Classroom;
 use App\Models\ClassroomUser;
+use App\Models\ClassroomMessage;
 use Illuminate\Http\Request;
 use Auth;
 use App\Http\Requests\JoinClassroomRequest;
@@ -35,8 +36,8 @@ class ClassroomUserController extends Controller
 
         return response()->json('success');
     }
-    public function getClassrromUserData($classroom_id){
 
+    public function getClassrromUserData($classroom_id){
         $student_details = \DB::table('classroom_users as csu')
         ->where('csu.classroom_id',$classroom_id)
         ->join('users','users.id','=','csu.user_id')
@@ -55,5 +56,31 @@ class ClassroomUserController extends Controller
             'student_details'=>$student_details,
             'assignment_details'=>$assignment_details
         ]]);
+    }
+
+    public function listmessage($classroomId){
+        $messages = ClassroomMessage::where('classroom_id',$classroomId)
+        ->get();
+
+        return response()->json(['success'=>[
+            'messages'=>$messages
+        ]]);
+    }
+    public function addmessage(Request $request, $classroomId){
+        $message = ClassroomMessage::create([
+            'sender_user_id'=>Auth::id(),
+            'classroom_id'=>$classroomId,
+            'content'=>$request->content,
+        ]);
+
+        return response()->json(['success'=>[
+            'message'=>$message
+        ]]);
+    }
+    public function deletemessage(){
+        $classroom_message = ClassroomMessage::findOrFail($request->message_id);
+        $classroom_message->delete();
+
+        return response()->json([],204);
     }
 }

@@ -53,6 +53,11 @@ class Sthub extends Facade
         return "\t" . implode("\n\t", $result);
     }
 
+    public static function generatePassword()
+    {
+        $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        return substr(str_shuffle($chars),0,8);
+    }
     public static function randomString()
     {
         return Str::random(20);

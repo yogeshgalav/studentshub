@@ -143,7 +143,7 @@
                       {{ 'Resources' }}
                     </h2>
                     <p>
-                      {{ 'Coming soon...' }}
+                      {{ 'Add document or video links.' }}
                     </p>
                   </div>
                 </div>

@@ -7,7 +7,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class StudentOnboardingNotification extends Notification
+class StudentOnboardingNotification extends SthubAllowlistedUserNotification
 {
     use Queueable;
     private $batch_user_count;
