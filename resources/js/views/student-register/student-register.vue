@@ -595,8 +595,12 @@ export default {
         return
       }
       if (Notification.permission === 'denied') {
-        console.log('The user has blocked notifications.')
-        return
+        Notification.requestPermission(function (permission) {
+          if (permission !== "granted") {
+            console.log('The user has blocked notifications.')
+            return
+          }
+        });
       }
       if (!('PushManager' in window)) {
         console.log('Push messaging isn\'t supported.')

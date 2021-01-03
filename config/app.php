@@ -177,6 +177,8 @@ return [
         App\Providers\BladeServiceProvider::class,
 
         NotificationChannels\WebPush\WebPushServiceProvider::class,
+        Arcanedev\LogViewer\LogViewerServiceProvider::class,
+
     ],
 
     /*
