@@ -48,6 +48,9 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">Profile</a>
                             <a class="dropdown-item" href="#">Account Settings</a>
+                            @foreach($notifications as $notification)
+                            <a class="dropdown-item" href="#">@lang($notification->text)</a>
+                            @endforeach
                             <a href="/logout" class="center-block ml-3 mt-1 btn btn-sm btn-default logout_btn">Logout</a>
                         </div>
                     </div>

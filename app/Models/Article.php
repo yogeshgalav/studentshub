@@ -10,6 +10,10 @@ class Article extends Model
 {
     protected  $guarded = ['id', 'created_at', 'updated_at'];
 
+    public function getShortContentAttribute(){
+        return $this->content;
+    }
+
     public function createFromContent($data){
         // $path =  (dirname(__FILE__) .'/../Services/simple_html_dom.php');
         //     require($path);
@@ -31,7 +35,7 @@ class Article extends Model
         //     }
         // }
         
-        $post_content_id= self::insertGetId(['html_content'=>$data['article_html_content']]);
+        $post_content_id= self::insertGetId(['content'=>$data['article_html_content']]);
         // foreach($files as $file){
         //     $newFile= new SthubFile();
         //         $newFile->fileable_id=$post_content_id;

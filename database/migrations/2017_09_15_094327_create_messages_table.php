@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateClassroomMessagesTable extends Migration
+class CreateMessagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateClassroomMessagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('classroom_messages', function (Blueprint $table) {
+        Schema::create('Messages', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('classroom_id');
-            $table->integer('sender_user_id');
-            $table->enum('sent_to',['all','selected'])->default('all');
+            $table->integer('classe_id');
+            $table->integer('user_id');
             $table->text('content');
             $table->timestamps();
         });
@@ -30,6 +29,6 @@ class CreateClassroomMessagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('classroom_messages');
+        Schema::dropIfExists('Messages');
     }
 }

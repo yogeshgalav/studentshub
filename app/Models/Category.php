@@ -7,4 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     //
+    public static function AuthUserCategory(){
+        return \Auth::user()->student->prefferred_category;
+    }
 }

@@ -6,10 +6,5 @@
         'signedIn' => is_null($AuthUser),
         'csrfToken' => csrf_token(),
         'baseUrl' => URL::to('/'),
-        'vapidPublicKey' => config('webpush.vapid.public_key'),
-            'pusher' => [
-                'key' => config('broadcasting.connections.pusher.key'),
-                'cluster' => config('broadcasting.connections.pusher.options.cluster'),
-            ],
-        ]) !!};
+        ]) !!}
 </script>

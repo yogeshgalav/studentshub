@@ -28,7 +28,21 @@
                         </div>
                     </li>
                     <li>
-                        <notifications-dropdown></notifications-dropdown>
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-default border-radius-12 dropdown-toggle" type="button"
+                                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
+                                <span><i class="fa fa-bell"></i></span>
+                            </button>
+                            <div class="dropdown-menu noti_design" aria-labelledby="dropdownMenuButton">
+                            <p class="n_head dropdown-item">Recent Notification</p>
+                            @foreach($notifications as $notification)
+                                    <hr/>
+                                      <a class="dropdown-item" href="{{ $notification['data']['url'] }}">{{ $notification['data']['text'] }}</a>
+                                      <p class="dropdown-item"> <i class="fas fa-clock"></i> <span>{{ $notification['time'] }}</span></p>
+                            @endforeach
+                            </div>
+                        </div>
                     </li>
                     <li class="nav-item">
                        
@@ -40,6 +54,8 @@
 
 
     </div>
+    {{-- <button class="hamburger open-panel togle_web" id="nav-toggle">
+    </button> --}}
     <!-- web header -->
     <nav role="navigation" class="menu">
 
@@ -65,10 +81,8 @@
             @if(Auth::user()->isInstituteMember())
             <li> <a href="/my-institute"><span class="icon"><img src="{{asset('/images/university.png') }}" alt="Student'sHUB" width="20"/></span> My Institute</a></li>
             @endif
-                {{--<li> <a href="/"> <span class="icon"><img src="{{asset('/images/home.png') }}" alt="Student'sHUB" width="20"/></span> Home</a></li>--}}
-            @if(Auth::student())
-                <li> <a href="/doubts"> <span class="icon"><img src="{{asset('/images/home.png') }}" alt="Student'sHUB" width="20"/></span> Doubts</a></li>
-            @endif
+                <li> <a href="/"> <span class="icon"><img src="{{asset('/images/home.png') }}" alt="Student'sHUB" width="20"/></span> Home</a></li>
+
                 <li> <a href="/profile/{{Auth::id()}}"> <span class="icon"><img src="{{asset('/images/user.png') }}" alt="Student'sHUB" width="20"/></span> Profile</a></li>
 
                 <li><a href="/logout"> <span class="icon"><img src="{{asset('/images/logout.png') }}" alt="Student'sHUB" width="20"/></span> Logout</a></li>

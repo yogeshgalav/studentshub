@@ -19,6 +19,7 @@ class Fact extends Model
 
         $post_content_id=self::insertGetId([
             'image_path'=>$get_file_path,
+            'content'=>$data['fact_description'],
         ]);
 
         $newFile= new SthubFile();

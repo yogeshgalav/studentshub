@@ -1,37 +1,36 @@
 <template>
-  <div class="container">
-    <loading 
-      :active.sync="showLoader"
-      :color="'#10069F'"
-      :width="250"
-      :is-full-page="true"
-    />
+    <div class="container">
+        <loading 
+            :active.sync="showLoader"
+            :color="'#10069F'"
+            :width="250"
+            :is-full-page="true"
+        />
 
-    <div class="logn_righ ">
-      <div class="card_body">
-        <form @submit.prevent="()=>{}">
-          <form-wizard
-            :step-data="step_data"
-            @onComplete="onComplete"
-          >
-            <template slot="header-row" />
-            <template slot="step1">
-              <select-post-type :new-post="newPost" />
-            </template>
-            <template slot="step2">
-              <create-post-content :new-post="newPost" />
-            </template>
-            <template slot="step3">
-              <select-subject :new-post="newPost" />
-            </template>
-            <template slot="step4">
-              <select-heading :new-post="newPost" />
-            </template>
-          </form-wizard>
-        </form>
-      </div>
-    </div>
-  </div>
+                <div class="logn_righ ">
+                    <div class="card_body">
+                        <form @submit.prevent="()=>{}">
+                            <form-wizard :step-data="step_data" @onComplete="onComplete"><template slot="header-row" />
+                                <template slot="step1">
+                                    <select-post-type :new-post="newPost"></select-post-type>
+                                </template>
+                                <template slot="step2">
+                                    <create-post-content :new-post="newPost"></create-post-content>
+                                </template>
+                                <template slot="step3">
+                                    <select-subject :new-post="newPost"></select-subject>
+                                </template>
+                                <template slot="step4">
+                                    <select-heading :new-post="newPost"></select-heading>
+                                </template>
+
+                            </form-wizard>
+                        </form>
+                    </div>
+                </div>
+           
+         </div>
+  
 </template>
 <style>
     .wizardHeader {
@@ -95,62 +94,62 @@
 
 </style>
 <script>
-import {mapState} from 'vuex';
-import FormMixin from '../../components/mixins/form-mixin.js';
-import FormWizard from './VueNiceWizard';
-import SelectPostType from './create-post/select-post-type';
-import CreatePostContent from './create-post/create-post-content';
-import SelectSubject from './create-post/select-subject';
-import SelectHeading from './create-post/select-heading';
-import swal from '../../components/swal';
-import EventBus from './event-bus';
+    import {mapState} from 'vuex';
+import FormMixin from "../../components/mixins/form-mixin.js";
+    import FormWizard from './VueNiceWizard';
+    import SelectPostType from './create-post/select-post-type'
+    import CreatePostContent from './create-post/create-post-content'
+    import SelectSubject from './create-post/select-subject'
+    import SelectHeading from './create-post/select-heading'
+    import swal from '../../components/swal';
+    import EventBus from './event-bus';
 
-export default {
-	components: {
-		FormWizard,
-		SelectPostType,
-		CreatePostContent,
-		SelectSubject,
-		SelectHeading
-	},
-	data() {
-		return {
-			step_data: [],
-			total_steps: 4,
-			showLoader:false,
-		};
-	},
-	mounted() {
-		for (let i = 1; i <= this.total_steps; i++) {
-			this.step_data.push({
-				'backbutton': true,
-				'stepskip': false,
-				'nextTab': true,
-				'validation': true,
-				'emit': '',
-				'name': 'step' + i,
-				'step': i
-			});
-		}
-		this.$store.dispatch('getCategories');
-	},
-	computed:{
-		...mapState({
+    export default {
+        components: {
+            FormWizard,
+            SelectPostType,
+            CreatePostContent,
+            SelectSubject,
+            SelectHeading
+        },
+        data() {
+            return {
+                step_data: [],
+                total_steps: 4,
+                showLoader:false,
+            }
+        },
+        mounted() {
+            for (let i = 1; i <= this.total_steps; i++) {
+                this.step_data.push({
+                    'backbutton': true,
+                    'stepskip': false,
+                    'nextTab': true,
+                    'validation': true,
+                    'emit': '',
+                    'name': 'step' + i,
+                    'step': i
+                });
+            }
+            this.$store.dispatch('getCategories');
+        },
+        computed:{
+            ...mapState({
 			'newPost': state=>state.new_post,
-		})
-	},
-	methods: {
-		onComplete() {
-			this.showLoader=true;
-			this.$store.dispatch('submitPost', this.newPost)
-				.then((resp)=>{
-					this.showLoader=false;
-					swal.successDialog('Post Created', 'Successfully!', 'success');
-					window.location.href ='/';
-				}).catch((err)=>{this.showLoader=false;});
-		}
-	}
-};
+            })
+        },
+        methods: {
+            onComplete() {
+                this.showLoader=true;
+                this.$store.dispatch('submitPost', this.newPost)
+                .then((resp)=>{
+                    this.showLoader=false;
+                    swal.successDialog('Post Created', 'Successfully!', 'success')
+                    window.location.href ='/';
+                }).catch((err)=>{this.showLoader=false;});
+            }
+        }
+    }
 
 </script>
 <style scoped>

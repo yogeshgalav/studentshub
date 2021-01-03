@@ -37,9 +37,9 @@ class PostController extends Controller
                 $subject_name=strtolower($data['subject_name']);
                 $subject=Subject::firstOrCreate([
                   'subject_url'=>\Str::slug($subject_name),
-                  'category_id'=>$data['category_id']
                 ],[
-                'subject_name'=>$subject_name
+                'subject_name'=>$subject_name,
+                'category_id'=>$data['subject_course'] ? $student->categoryId : $data['category_id']
                 ]);
 
                 CourseSubject::firstOrCreate([
@@ -73,9 +73,7 @@ class PostController extends Controller
             break;
             case 'document':
              $document=new Document;
-             $post_content_id=$document->createNewDocument($data,'public');
-
-             $post->primary_image_path='/images/document.png';
+             $post_content_id=$document->createNewDocument($data);
              $post->postable_type="App\Models\Document";
              $post->postable_id=$post_content_id;
             break;
@@ -103,7 +101,6 @@ class PostController extends Controller
         }
 
 
-        $post->post_description = $data['description'];
         $post->save();
 
         SthubPost::create([
@@ -114,7 +111,7 @@ class PostController extends Controller
         ]);
 
         DB::commit();
-    } catch (\Exception $e) {
+    } catch (\Exception $e) {echo $e->getMessage();
         DB::rollback();
         Log::critical('Post Creation failure: for user id#'.Auth::user()->id.' with data '.implode(', ',Arr::flatten($data)));
         return response()->$e;
@@ -126,7 +123,11 @@ class PostController extends Controller
 
     public function getPosts(Request $request){
         $post=new \App\Post;
-        return $post->getAuthUserPosts($request);
+        if(Auth::student()){
+            return $post->getStudentPosts($request);
+        }else{
+            return $post->getSeekerPosts($request);
+        }
     }
 
     public function show($post_id){

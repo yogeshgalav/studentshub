@@ -11,9 +11,11 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         $categories=Category::all();
+        $AuthUserCategory=Category::AuthUserCategory();
         return response()->json([
             'success'=>[
                 'categories'=>$categories,
+                'AuthUserCategory'=>$AuthUserCategory
             ]
         ]);
     }

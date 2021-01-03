@@ -15,12 +15,4 @@ class Unit extends Model
     public function dailyAssignment(){
         return $this->hasMany('App\Models\DailyAssignment');
     }
-    public function classroomResources(){
-        return $this->hasMany('App\Models\ClassroomResource');
-    }
-
-    public function setUnitNameAttribute($value)
-    {
-        $this->attributes['unit_name'] = ucfirst($value);
-    }
 }

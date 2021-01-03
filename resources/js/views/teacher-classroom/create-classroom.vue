@@ -7,6 +7,7 @@
       :is-full-page="true"
     />
 
+
     <div class="container pb-100">
       <div class="row justify-content-center register">
         <div class="col-md-8">
@@ -24,7 +25,7 @@
                     Please Enter Following Details to Create Classroom.
                   </p>
                 </div>
-
+                               
                 <div class="col-md-12 mt-2">
                   <form @submit.prevent="createClassroom">
                     <div class="form-group">
@@ -33,12 +34,11 @@
                         <div class="input_icon_frm">
                           <span
                             class="icon_design_input"
-                            style="height: 44px"
-                          >
-                            <i
-                              class="fa fa-certificate"
-                              aria-hidden="true"
-                            /></span>
+                            style="height: 44px;"
+                          > <i
+                            class="fa fa-certificate"
+                            aria-hidden="true"
+                          /></span>
                           <input
                             v-model="classroom_name"
                             v-validate="'required'"
@@ -47,9 +47,7 @@
                             class="form-control"
                           >
                         </div>
-                        <span
-                          class="error"
-                        >{{ formErrors('classroom_name') }}</span>
+                        <span class="error">{{ formErrors('classroom_name') }}</span>
                       </div>
                     </div>
                     <div class="form-group">
@@ -58,12 +56,11 @@
                         <div class="input_icon_frm">
                           <span
                             class="icon_design_input"
-                            style="height: 44px"
-                          >
-                            <i
-                              class="fa fa-certificate"
-                              aria-hidden="true"
-                            /></span>
+                            style="height: 44px;"
+                          > <i
+                            class="fa fa-certificate"
+                            aria-hidden="true"
+                          /></span>
                           <auto-complete
                             v-validate="'required'"
                             class="width-100"
@@ -76,28 +73,23 @@
                             @selected="setCourseLevel"
                           />
                         </div>
-                        <span
-                          class="error"
-                        >{{ formErrors('course_level') }}</span>
+                        <span class="error">{{ formErrors('course_level') }}</span>
                       </div>
                     </div>
                     <div
                       v-if="show_courses"
                       class="form-group"
                     >
-                      <label class="mb-1">
-                        {{ 'Program/Course of classroom' }}
-                      </label>
+                      <label class="mb-1"> {{ 'Program/Course of classroom' }} </label>
                       <div class="inner-addon left-addon">
                         <div class="input_icon_frm">
                           <span
                             class="icon_design_input"
-                            style="height: 44px"
-                          >
-                            <i
-                              class="fa fa-certificate"
-                              aria-hidden="true"
-                            /></span>
+                            style="height: 44px;"
+                          > <i
+                            class="fa fa-certificate"
+                            aria-hidden="true"
+                          /></span>
                           <auto-complete
                             v-validate="'required'"
                             class="width-100"
@@ -112,17 +104,12 @@
                             @selectNew="setNewCourse"
                           />
                         </div>
-                        <span
-                          v-if="selected_course.totalBatch"
-                        >{{ selected_course.totalBatch }} batch found.</span>
-                        <span
-                          v-if="no_course_found"
-                        >Please enter your full Program name followed by
-                          branch name(if any).Please make sure that program
+                        <span v-if="selected_course.totalBatch">{{ selected_course.totalBatch }}
+                          batch found.</span>
+                        <span v-if="no_course_found">Please enter your full Program name
+                          followed by branch name(if any).Please make sure that program
                           details you are entering is correct.</span>
-                        <span
-                          class="error"
-                        >{{ formErrors('program_name') }}</span>
+                        <span class="error">{{ formErrors('program_name') }}</span>
                       </div>
                     </div>
                     <div class="form-group">
@@ -131,12 +118,11 @@
                         <div class="input_icon_frm">
                           <span
                             class="icon_design_input"
-                            style="height: 44px"
-                          >
-                            <i
-                              class="fa fa-certificate"
-                              aria-hidden="true"
-                            /></span>
+                            style="height: 44px;"
+                          > <i
+                            class="fa fa-certificate"
+                            aria-hidden="true"
+                          /></span>
                           <auto-complete
                             v-validate="'required'"
                             class="width-100"
@@ -151,12 +137,10 @@
                             @selectNew="setNewSubject"
                           />
                         </div>
-                        <span
-                          class="error"
-                        >{{ formErrors('subject_name') }}</span>
+                        <span class="error">{{ formErrors('subject_name') }}</span>
                       </div>
                     </div>
-
+                    
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
@@ -166,7 +150,7 @@
                           >
                             {{ ('Batch Starting Year') }}
                           </label>
-                          <div class="input-group-prepend">
+                          <div class="input-group-prepend ">
                             <div
                               class="input-group-prepend date"
                               data-provide="datepicker"
@@ -254,41 +238,42 @@
   </div>
 </template>
 <style scoped>
-.form-group label,
-.form-check label {
-  margin-bottom: 0rem;
-}
-.width-100 {
-  width: 100% !important;
-}
+    .form-group label,
+    .form-check label {
+        margin-bottom: 0rem;
+    }
+    .width-100 {
+        width: 100% !important;
+    }
 
-.hide-program {
-  display: none;
-}
+    .hide-program {
+        display: none
+    }
 
-.main-habit-builder li {
-  list-style: none;
-  padding: 5px;
-}
+    .main-habit-builder li {
+        list-style: none;
+        padding: 5px;
+    }
 
-.main-habit-builder ul {
-  padding-left: 0px;
-}
+    .main-habit-builder ul {
+        padding-left: 0px;
+    }
 
-.main-habit-builder .card {
-  padding: 20px !important;
-}
+    .main-habit-builder .card {
+        padding: 20px !important;
+    }
 
-.main-habit-builder .form-group {
-  padding-bottom: 5px;
-  padding-top: 5px;
-}
+    .main-habit-builder .form-group {
+        padding-bottom: 5px;
+        padding-top: 5px;
+    }
 
-@media (max-width: 768px) {
-  .btn-footer .btn {
-    width: 100%;
-  }
-}
+    @media (max-width: 768px) {
+        .btn-footer .btn {
+            width: 100%;
+        }
+    }
+
 </style>
 <script>
 import FormMixin from '../../components/mixins/form-mixin.js';
@@ -413,7 +398,7 @@ export default {
 			};
 			this.categoryDisabled = false;
 		},
-		getSubjects	(search) {
+		getSubjects(search) {
 			this.selected_subject = {
 				'id': null,
 				'subject_name': search,
@@ -475,4 +460,5 @@ export default {
 		}
 	}
 };
+
 </script>

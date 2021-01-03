@@ -18,7 +18,11 @@ class Post extends PostModel
     }
 
     public function getSubjectPosts(Request $request){
-        $post_query=$this->getAuthUserPostTabels();     
+        if($this->student){
+            $post_query=$this->getStudentPostTables();
+        }else{
+            $post_query=$this->getSeekerPostTabels();     
+        }
 
         $posts=$post_query->where('sub.subject_url',$request->route('subjectUrl'))
         ->orderBy('po.created_at','DESC')
@@ -32,7 +36,11 @@ class Post extends PostModel
     }
 
     public function getCategoryPosts(Request $request){
-        $post_query=$this->getAuthUserPostTabels();     
+        if($this->student){
+            $post_query=$this->getStudentPostTables();
+        }else{
+            $post_query=$this->getSeekerPostTabels();     
+        }
 
         $posts=$post_query->where('cat.category_url',$request->route('categoryUrl'))
         ->orderBy('po.created_at','DESC')
@@ -45,7 +53,11 @@ class Post extends PostModel
         ]]);
     }
     public function getCoursePosts(Request $request){
-        $post_query=$this->getAuthUserPostTabels();     
+        if($this->student){
+            $post_query=$this->getStudentPostTables();
+        }else{
+            $post_query=$this->getSeekerPostTabels();     
+        }
 
         $posts=$post_query->where('course.id',$request->route('courseUrl'))
         ->orderBy('po.created_at','DESC')
@@ -58,7 +70,11 @@ class Post extends PostModel
         ]]);
     }
     public function getSearchPosts(Request $request){
-        $post_query=$this->getAuthUserPostTabels();
+        if($this->student){
+            $post_query=$this->getStudentPostTables();
+        }else{
+            $post_query=$this->getSeekerPostTabels();     
+        }
 
         $posts=$post_query->where('sub.subject_name','LIKE','%'.$request->input('query').'%')
         ->orWhere('cat.name','LIKE','%'.$request->input('query').'%')
@@ -72,23 +88,10 @@ class Post extends PostModel
             'posts'=>$posts
         ]]);
     }
-    public function getDoubtPosts($doubtId){
-        $post_query=$this->getAuthUserPostTabels();
 
-        $posts=$post_query->join('doubt_answers as da',function($join)use($doubtId){
-            $join->on('po.id','=','da.post_id')->where('da.doubt_id','=',$doubtId);
-        })
-        ->orderBy('po.created_at','DESC')
-        ->get();
-
-        $this->formatPostData($posts);
+    public function getStudentPosts(Request $request){
         
-        return $posts;
-    }
-
-    public function getAuthUserPosts(Request $request){
-
-        $posts=$this->getAuthUserPostTabels()
+        $posts=$this->getStudentPostTables()
         ->orderBy('po.created_at','DESC')
         ->paginate();
 
@@ -99,7 +102,10 @@ class Post extends PostModel
         ]]);
     }
 
-    public function getAuthUserPostTabels(){
+    public function getStudentPostTables(){
+        $myInstituteId=$this->student->instituteId;
+        $myCourseId=$this->student->courseId;
+
         return DB::table('sthub_posts as sp')
         ->join('posts as po','po.id','=','sp.post_id')
         ->leftJoin('articles as ar',function($join){
@@ -116,16 +122,65 @@ class Post extends PostModel
         ->leftJoin('users as us','us.id','=','po.user_id')
         ->leftJoin('institutes as inst','inst.id','=','sp.institute_id')
         ->leftJoin('courses as course','course.id','=','sp.course_id')
+        
+        // ->leftJoin('documents as do',function($join)use($myInstituteId,$myCourseId){
+        //     $join->on('po.postable_id','=','do.id')->where('po.postable_type','=','App\Models\Document')
+        //     ->where('inst.id','=',$myInstituteId)->where('course.id','=',$myCourseId);
+        // })
+        // ->leftJoin('notices as no',function($join)use($myInstituteId){
+        //     $join->on('po.postable_id','=','no.id')->where('po.postable_type','=','App\Models\Notice')
+        //     ->where('inst.id','=',$myInstituteId);
+        // })
         ->leftJoin('facts as fc',function($join){
             $join->on('po.postable_id','=','fc.id')->where('po.postable_type','=','App\Models\Fact');
         })
-        ->leftJoin('documents as do',function($join){
-            $join->on('po.postable_id','=','do.id')->where('po.postable_type','=','App\Models\Document');
+        ->leftJoin('mcqs',function($join){
+            $join->on('po.postable_id','=','mcqs.id')->where('po.postable_type','=','App\Models\Mcq');
         })
-        ->select(['po.id as id','po.post_heading as heading','po.post_description as description','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','po.primary_image_path as image_path',
+        ->select(['po.id as id','po.post_heading as heading','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','po.primary_image_path as image_path',
         'sub.subject_url','sub.subject_name','course.id as course_id','course.course_name','uli.like_status as user_like',
-        'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','inst.name as institute_name','ar.html_content as article_content',
-        'vd.video_id as video_id','fc.image_path as fact_image_path','do.link as document_link']);
+        'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','inst.name as institute_name','ar.content as article_content','vd.content as video_content',
+        'vd.video_id as video_id','fc.image_path as fact_image_path','fc.content as fact_content','mcqs.optionA','mcqs.optionB','mcqs.optionC','mcqs.optionD']);
+    }
+
+    public function getSeekerPosts(Request $request){
+
+        $posts=$this->getSeekerPostTabels()
+        ->orderBy('po.created_at','DESC')
+        ->paginate();
+
+        $this->formatPostData($posts);
+        
+        return response()->json(['success'=>[
+            'posts'=>$posts
+        ]]);
+    }
+
+    public function getSeekerPostTabels(){
+        return DB::table('sthub_posts as sp')
+        ->join('posts as po','po.id','=','sp.post_id')
+        ->leftJoin('articles as ar',function($join){
+            $join->on('po.postable_id','=','ar.id')->where('po.postable_type','=','App\Models\Article');
+        })
+        ->leftJoin('videos as vd',function($join){
+            $join->on('po.postable_id','=','vd.id')->where('po.postable_type','=','App\Models\Video');
+        })
+        ->leftJoin('facts as fc',function($join){
+            $join->on('po.postable_id','=','fc.id')->where('po.postable_type','=','App\Models\Fact');
+        })
+        ->leftJoin('mcqs',function($join){
+            $join->on('po.postable_id','=','mcqs.id')->where('po.postable_type','=','App\Models\Mcq');
+        })
+        ->leftJoin('subjects as sub','sub.id','=','po.subject_id')
+        ->leftJoin('categories as cat','cat.id','=','sub.category_id')
+        ->leftJoin('users as us','us.id','=','po.user_id')
+        ->leftJoin('institutes as inst','inst.id','=','sp.institute_id')
+        ->leftJoin('courses as course','course.id','=','sp.course_id')
+        // ->leftJoin('facts as fa','po.id','=','fa.post_id')
+        ->select(['po.id as id','po.post_heading as heading','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','po.primary_image_path as image_path',
+        'sub.subject_url','sub.subject_name','course.id as course_id','course.course_name',
+        'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','ar.content as article_content','vd.content as video_content',
+        'vd.video_id as video_id','fc.image_path as fact_image_path','fc.content as fact_content','mcqs.optionA','mcqs.optionB','mcqs.optionC','mcqs.optionD']);
     }
 
     public function getPostType($post_type){
@@ -136,8 +191,12 @@ class Post extends PostModel
                 return 'video';
             case 'App\Models\Fact':
                 return 'fact';
-            case 'App\Models\Document':
-                return 'document';
+            // case 'App\Models\Document':
+            //     return 'document';
+            // case 'App\Models\Notice':
+            //     return 'notice';
+            case 'App\Models\Mcq':
+                return 'mcq';
         }
     }
 
@@ -159,8 +218,48 @@ class Post extends PostModel
             ->groupBy(['po.id'])
             ->first();
 
-            $post->description=strlen($post->description)>$rand ? substr($post->description,0,$rand).'...' : $post->description;
             $post->post_type=$this->getPostType($post->postable_type);
+            switch($post->post_type){
+                case 'article':
+                    $dom = new Dom;
+                    $dom->load($post->article_content);
+                    $article_content=$dom->innerText;
+                    if(empty($article_content)){
+                        $post->content='';
+                    }else{
+                        $post->content=substr($article_content->text,0,$rand).'...';
+                    }        
+                break;
+                // case 'notice':
+                //     $dom = new Dom;
+                //     $dom->load($post->notice_content);
+                //     $notice_content=$dom->find('p', 0);
+                //     if(empty($notice_content)){
+                //         $post->content='';
+                //     }else{
+                //         $post->content=substr($notice_content->text,0,$rand).'...';
+                //     }       
+                // break;
+                case 'video':
+                    if(empty($post->video_content)){
+                        $post->content='';
+                    }
+                    $post->content=substr($post->video_content,0,$rand).'...';
+                break;  
+                case 'fact':
+                    if(empty($post->fact_content)){
+                        $post->content='';
+                    }
+                    $post->content=substr($post->fact_content,0,$rand).'...';
+                break;
+                case 'mcq':
+                    if(empty($post->optionA)){
+                        $post->content='';
+                    }
+                    $post->content=substr('1)'.$post->optionA.'2)'.$post->optionB,0,$rand).'...';        
+                break;
+            }
+
             $post->total_likes=$postData->total_likes;
             $post->total_dislikes=$postData->total_dislikes;
             $post->total_views=$postData->total_views;
@@ -185,8 +284,8 @@ class Post extends PostModel
         ->leftJoin('categories as cat','cat.id','=','sub.category_id')
         ->leftJoin('users as us','us.id','=','po.user_id')
         // ->leftJoin('facts as fa','po.id','=','fa.post_id')
-        ->select(['po.id as id','po.post_heading as heading','po.post_description as description','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','sub.subject_name','po.primary_image_path as image_path',
-        'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','ar.html_content as article_content',
+        ->select(['po.id as id','po.post_heading as heading','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','sub.subject_name','po.primary_image_path as image_path',
+        'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','ar.content as article_content','vd.content as video_content',
         'vd.video_id as video_id'])->limit(3)->get();
 
         return $this->formatPostData($posts);
@@ -203,8 +302,8 @@ class Post extends PostModel
         ->leftJoin('facts as fc',function($join){
             $join->on('po.postable_id','=','fc.id')->where('po.postable_type','=','App\Models\Fact');
         })
-        ->leftJoin('documents as do',function($join){
-            $join->on('po.postable_id','=','do.id')->where('po.postable_type','=','App\Models\Document');
+        ->leftJoin('mcqs',function($join){
+            $join->on('po.postable_id','=','mcqs.id')->where('po.postable_type','=','App\Models\Mcq');
         })
         ->leftJoin('likes as uli',function($join){
             $join->on('po.id','=','uli.likable_id')->where('uli.likable_type','=','App\Models\Post')->where('uli.user_id','=',Auth::user()->id);
@@ -213,10 +312,10 @@ class Post extends PostModel
         ->leftJoin('categories as cat','cat.id','=','sub.category_id')
         ->leftJoin('users as us','us.id','=','po.user_id')
         // ->leftJoin('facts as fa','po.id','=','fa.post_id')
-        ->select(['po.id as id','po.post_heading as heading','po.post_description as description','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','sub.subject_name','po.primary_image_path as image_path',
-        'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','ar.html_content as article_content','uli.like_status as user_like',
-        'vd.video_id as video_id','fc.image_path as fact_image_path','do.link as document_link'
-        ])->get();
+        ->select(['po.id as id','po.post_heading as heading','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','sub.subject_name','po.primary_image_path as image_path',
+        'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','ar.content as article_content','vd.content as video_content','uli.like_status as user_like',
+        'vd.video_id as video_id','fc.image_path as fact_image_path','fc.content as fact_content','mcqs.optionA','mcqs.optionB','mcqs.optionC','mcqs.optionD',
+        'mcqs.correct_option','mcqs.answer as mcq_answer'])->get();
 
         return $this->formatPostData($post);
     }
@@ -231,22 +330,26 @@ class Post extends PostModel
         ->leftJoin('facts as fc',function($join){
             $join->on('po.postable_id','=','fc.id')->where('po.postable_type','=','App\Models\Fact');
         })
-        ->leftJoin('documents as do',function($join){
-            $join->on('po.postable_id','=','do.id')->where('po.postable_type','=','App\Models\Document');
+        ->leftJoin('mcqs',function($join){
+            $join->on('po.postable_id','=','mcqs.id')->where('po.postable_type','=','App\Models\Mcq');
         })
         ->leftJoin('subjects as sub','sub.id','=','po.subject_id')
         ->leftJoin('categories as cat','cat.id','=','sub.category_id')
         ->leftJoin('users as us','us.id','=','po.user_id')
         // ->leftJoin('facts as fa','po.id','=','fa.post_id')
-        ->select(['po.id as id','po.post_heading as heading','po.post_description as description','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','sub.subject_name','po.primary_image_path as image_path',
-        'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','ar.html_content as article_content',
-        'vd.video_id as video_id','fc.image_path as fact_image_path','do.link as document_link'])->get();
+        ->select(['po.id as id','po.post_heading as heading','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','sub.subject_name','po.primary_image_path as image_path',
+        'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','ar.content as article_content','vd.content as video_content',
+        'vd.video_id as video_id','fc.image_path as fact_image_path','fc.content as fact_content','mcqs.optionA','mcqs.optionB','mcqs.optionC','mcqs.optionD'])->get();
 
         return $this->formatPostData($post);
     }
 
     public function getMostViewedPosts($category_id){
-        $post_query=$this->getAuthUserPostTabels();
+        if($this->student){
+            $post_query=$this->getStudentPostTables();
+        }else{
+            $post_query=$this->getSeekerPostTabels();     
+        }
 
         $posts=$post_query->where('cat.id',$category_id)
         ->limit(3)->get();
@@ -255,7 +358,11 @@ class Post extends PostModel
     }
 
     public function getMostLikedPosts($category_id){
-        $post_query=$this->getAuthUserPostTabels();
+        if($this->student){
+            $post_query=$this->getStudentPostTables();
+        }else{
+            $post_query=$this->getSeekerPostTabels();     
+        }
 
         $posts=$post_query->where('cat.id',$category_id)
         ->limit(3)->get();

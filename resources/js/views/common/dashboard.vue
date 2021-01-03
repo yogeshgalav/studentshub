@@ -1,14 +1,14 @@
 <template>
   <main>
     <div class="container">
-      <div class="col-md-10 center-col">
+      <div class="col-md-8 center-col">
         <div class="row">
           <div class="col-md-12">
             <div class="card mb-3">
               <div class="card-body">
                 <a
                   class="h-card"
-                  :href="AuthStudent ? '/share-your-knowledge' : '/education-details'"
+                  :href="AuthStudent ?'/share-your-knowledge':'/education-details'"
                 > 
                   <img
                     src="/images/knowledge.svg"

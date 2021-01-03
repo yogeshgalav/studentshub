@@ -32,7 +32,7 @@ class Notice extends Model
         // }
         
         $post_content_id= self::insertGetId([
-            'html_content'=>$data['notice_html_content'],
+            'content'=>$data['notice_html_content'],
             'expiry_date'=>$data['notice_expiry_date']]);
         // foreach($files as $file){
         //     $newFile= new SthubFile();

@@ -7,7 +7,6 @@ use App\Models\User;
 use App\Models\InstituteUser;
 use App\Models\Institute;
 use App\Models\Teacher;
-use App\Models\ScheduledJob;
 use DB;
 
 class InstituteUserController extends Controller
@@ -42,8 +41,6 @@ class InstituteUserController extends Controller
             $teacher->institute_id = $instituteId;
             $teacher->save();
         }
-
-        ScheduledJob::scheduleNewInstituteMemberNotification($user);
 
         return response()->json('success');
     }

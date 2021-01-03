@@ -25,26 +25,6 @@ Route::get('/terms-of-service', 'PagesController@termOfUse');
 
 Route::get('/post-images/{filename}','PagesController@postImage');
 Route::get('/profile-images/{filename}','PagesController@profileImage');
-
-
-// Notifications
-Route::get('notifications', 'NotificationController@index');
-Route::patch('notifications/{id}/read', 'NotificationController@markAsRead');
-Route::post('notifications/mark-all-read', 'NotificationController@markAllRead');
-Route::post('notifications/{id}/dismiss', 'NotificationController@dismiss');
-
-// Push Subscriptions
-Route::post('subscriptions', 'PushSubscriptionController@update');
-Route::post('subscriptions/delete', 'PushSubscriptionController@destroy');
-
-// Manifest file (optional if VAPID is used)
-Route::get('manifest.json', function () {
-    return [
-        'name' => config('app.name'),
-        'gcm_sender_id' => config('webpush.gcm.sender_id')
-    ];
-});
-
 // Localization
 Route::get('/js/lang.js', function () {
     $strings = Cache::remember('lang.js',1, function () {

@@ -141,14 +141,11 @@ export default {
 		},
 	},
 	updated() {
+		this.results = this.items;
 		if(this.initialValue && this.search===''){
 			this.result = Object.assign({},this.initialValue);
-			this.search = this.result[this.value];
+			this.search =this.result[this.value];
 		}
-	},
-	mounted() {
-		this.results = this.items;
-		document.addEventListener('click', this.handleClickOutside);
 	},
 	mounted() {
 		this.results = this.items;

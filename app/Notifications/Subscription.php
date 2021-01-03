@@ -5,7 +5,7 @@ namespace App\Notifications;
 use App\Commitment;
 use Illuminate\Mail\Mailable;
 
-class Subscription extends SthubAllowlistedUserNotification
+class Subscription extends SthubUserNotification
 {
     protected $commitment;
 

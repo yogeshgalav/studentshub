@@ -1,9 +1,9 @@
 import ClassroomComponent from '../../views/student-classroom/classroom.vue';
 import ClassroomUnitAssignmentComponent from '../../views/student-classroom/classroom-unit-assignment.vue';
 import ClassroomDailyAssignmentComponent from '../../views/student-classroom/classroom-daily-assignment.vue';
-import ClassroomResourceComponent from '../../views/classroom/resources.vue';
-import ClassroomMessageComponent from '../../views/classroom/messages.vue';
-import ClassroomDoubtComponent from '../../views/classroom/doubts.vue';
+import ClassroomResourceComponent from '../../views/student-classroom/classroom.vue';
+import ClassroomMessageComponent from '../../views/student-classroom/classroom.vue';
+import ClassroomDoubtComponent from '../../views/student-classroom/classroom-doubts.vue';
 import ClassroomStudentPanelComponent from '../../views/teacher-classroom/classroom-student-panel.vue';
 import ClassmatesComponent from '../../views/student-classroom/classmates.vue';
 

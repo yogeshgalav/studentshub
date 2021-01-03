@@ -11,9 +11,4 @@ class Doubt extends Model
     public function subject(){
         return $this->belongsTo('App\Models\Subject');
     }
-
-    public function setQuestionAttribute($value)
-    {
-        $this->attributes['question'] = ucfirst($value);
-    }
 }

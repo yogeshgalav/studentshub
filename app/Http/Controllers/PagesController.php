@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Facades\Auth;
 use App\Models\Batch;
 use App\Models\CourseLevel;
+use App\Models\NotificationText;
 use App\Models\Student;
 
 class PagesController extends Controller
@@ -105,6 +106,10 @@ class PagesController extends Controller
     public function registerPage()
     {
         return view('guest.auth.register');
+    }
+    public function askQuestion()
+    {
+        return view('student.ask-question');
     }
     public function sharePost()
     {
