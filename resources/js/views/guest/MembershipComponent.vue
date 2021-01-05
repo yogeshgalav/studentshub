@@ -92,16 +92,13 @@
     </div>
 
     <modal
-      name="memberModal"
-      class="doubt_model"
+      ref="memberModal"
     >
-      <form @submit.prevent="memberRequest">
-        <div class="model_box_inner card p-0">
-          <div class="card-header">
-            <div class="edit_profile_head">
-              <h4>Enter Details:</h4>
-            </div> 
-          </div>
+      <template v-slot:header>
+        <h4>Enter Details:</h4>
+      </template>
+      <template v-slot:body>
+        <form @submit.prevent="memberRequest">
           <div class="row card-body">
             <div class="col-md-6 col-12">
               <div class="model_input">
@@ -160,21 +157,22 @@
                 <button
                   type="submit"
                   class="btn btn-primary"
+                  @click="$refs.memberModal.closeModal()"
                 >
                   Submit
                 </button>
                 <button
                   type="button"
                   class="btn btn-danger"
-                  @click="$modal.hide('memberModal')"
+                  @click="$refs.memberModal.closeModal()"
                 >
                   Cancel
                 </button>
               </div>
             </div>
           </div>
-        </div>
-      </form>
+        </form>
+      </template>
     </modal>
     <loading 
       :active.sync="showLoader"
@@ -342,11 +340,11 @@ html {
 
 import FormMixin from '../../components/mixins/form-mixin.js' ;
 import swal from '../../components/swal';
-import VModal from 'vue-js-modal';
+import Modal from '../../components/ModalComponent';
 
 export default {
 	components:{
-		VModal,
+		Modal,
 	},
 	mixins: [FormMixin],
 	data(){
@@ -362,12 +360,12 @@ export default {
 	methods:{
 		choosePlan(plan){
 			this.plan = plan;
-			this.$modal.show('memberModal');
+			this.$refs.memberModal.openModal();
 		},
 		memberRequest(){
 			this.$validator.validate().then(valid => {
 				if (valid) {
-					this.$modal.hide('memberModal');
+					this.$refs.memberModal.closeModal();
 					this.showLoader = true;
 					this.axios.post('/api/member-request',{
 						institute_name:this.institute_name,
