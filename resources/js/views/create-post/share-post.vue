@@ -19,13 +19,13 @@
               <select-post-type :new-post="newPost" />
             </template>
             <template slot="step2">
-              <create-post-content :new-post="newPost" />
+              <select-heading :new-post="newPost" />
             </template>
             <template slot="step3">
               <select-subject :new-post="newPost" />
             </template>
             <template slot="step4">
-              <select-heading :new-post="newPost" />
+              <create-post-content :new-post="newPost" />
             </template>
           </form-wizard>
         </form>
