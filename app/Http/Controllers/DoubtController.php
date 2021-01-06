@@ -5,6 +5,7 @@ use App\Models\Doubt;
 use App\Models\DoubtRequest;
 use App\Models\Subject;
 use App\Models\Category;
+use App\Models\Classroom;
 use Illuminate\Http\Request;
 use Auth;
 use Arr;
@@ -32,7 +33,9 @@ class DoubtController extends Controller
         DB::beginTransaction();
     try{
 
-        if($selected_subject['id']){
+        if($request->classroomId){
+            $subject = Classroom::findOrFail($request->classroomId)->subject;
+        }else if($selected_subject['id']){
             $subject = Subject::findOrFail($selected_subject['id']);
         }else{
             $subject_name=strtolower($selected_subject['subject_name']);

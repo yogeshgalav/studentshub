@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 Route::group(['middleware'=>['auth']],function(){
     //post routes
     Route::get('/share-your-knowledge','PagesController@sharePost');

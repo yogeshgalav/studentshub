@@ -1,4 +1,6 @@
 <?php
+
+use Illuminate\Support\Facades\Route;
 //classroom routes
 Route::group(['middleware'=>['AuthorizeUser']],function(){
     //classroom listing

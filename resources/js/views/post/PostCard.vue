@@ -97,10 +97,11 @@
 </template>
 <script>
 import ProfileImage from './ProfileImage.vue';
+// import ImageSlider from './ImageSlider.vue';
 
 export default {
 	components: {
-		ProfileImage
+		// ImageSlider
 	},
 	props:['post'],
 	methods:{

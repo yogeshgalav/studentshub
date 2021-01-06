@@ -47,6 +47,7 @@ class StudentController extends Controller
                     'name' => $input['institute_name'],
                     'added_by_user_id' => $user->id,
                     'country_code' => 'IN',
+                    'is_verified' => false,
                 ]);
             }
 

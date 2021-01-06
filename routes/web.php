@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,7 +38,22 @@ Route::post('notifications/{id}/dismiss', 'NotificationController@dismiss');
 // Push Subscriptions
 Route::post('subscriptions', 'PushSubscriptionController@update');
 Route::post('subscriptions/delete', 'PushSubscriptionController@destroy');
+//get image files
+Route::get('/storage/{filename}', function ($filename)
+{
+    $path = storage_path('public/' . $filename);
+    if (!File::exists($path)) {
+        abort(404);
+    }
 
+    $file = File::get($path);
+    $type = File::mimeType($path);
+
+    $response = Response::make($file, 200);
+    $response->header("Content-Type", $type);
+
+    return $response;
+});
 // Manifest file (optional if VAPID is used)
 Route::get('manifest.json', function () {
     return [

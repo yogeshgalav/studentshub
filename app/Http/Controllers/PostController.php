@@ -41,11 +41,6 @@ class PostController extends Controller
                 ],[
                 'subject_name'=>$subject_name
                 ]);
-
-                CourseSubject::firstOrCreate([
-                  'course_id'=>$student->courseId,
-                  'subject_id'=>$subject->id
-                ]);
             }else{
                 $subject=Subject::findOrFail($data['subject_id']);
             }

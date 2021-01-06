@@ -32,22 +32,25 @@ Vue.use(VueAxios, axios);
 import NotificationsDemo from '../components/NotificationsDemo';
 import NotificationsDropdown from '../components/NotificationsDropdown';
 //error tracking 
-import * as Sentry from "@sentry/browser";
-import { Integrations } from "@sentry/tracing";
+import * as Sentry from '@sentry/browser';
+import { Integrations } from '@sentry/tracing';
+if(window.App.mode==='production'){
+	Sentry.init({
+		Vue,
+		dsn: 'https://82c7fe80c97f4826818ae008c4d22c7d@o499194.ingest.sentry.io/5577443',
+		autoSessionTracking: true,
+		integrations: [
+			new Integrations.BrowserTracing(),
+		],
 
-Sentry.init({
-  Vue,
-  dsn: "https://82c7fe80c97f4826818ae008c4d22c7d@o499194.ingest.sentry.io/5577443",
-  autoSessionTracking: true,
-  integrations: [
-    new Integrations.BrowserTracing(),
-  ],
-
-  // We recommend adjusting this value in production, or using tracesSampler
-  // for finer control
-  tracesSampleRate: 1.0,
-});
-
+		// We recommend adjusting this value in production, or using tracesSampler
+		// for finer control
+		tracesSampleRate: 1.0,
+	});
+	Vue.config.devtools = false;
+	Vue.config.debug = false;
+	Vue.config.silent = true;
+}
 Vue.mixin({
 	components:{
 		NotificationsDemo,

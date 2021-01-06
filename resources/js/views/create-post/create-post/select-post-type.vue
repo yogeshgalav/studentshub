@@ -30,9 +30,9 @@
                 <option value="article">
                   Article
                 </option>
-                <option value="fact">
+                <!-- <option value="fact">
                   Fact
-                </option>
+                </option> -->
                 <option value="video">
                   Youtube video
                 </option>

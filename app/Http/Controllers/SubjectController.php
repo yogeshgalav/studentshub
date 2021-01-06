@@ -19,7 +19,7 @@ class SubjectController extends Controller
     }
 
     public function subjectList($category_id){
-        $subjects=Subject::where('parent_subject_id',$category_id)->limit(10)->get();
+        $subjects=Subject::where('category_id',$category_id)->limit(10)->get();
         return response()->json([
             'success'=>[
                 'subjects'=>$subjects

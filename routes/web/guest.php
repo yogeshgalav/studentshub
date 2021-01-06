@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 Route::get('/login','PagesController@loginPage');
 Route::get('/membership-plan','PagesController@membershipPlan');
 Route::get('/get-started','PagesController@registerPage');
