@@ -96,10 +96,10 @@ class AuthController extends Controller
         //log info
         Log::info($user->full_name." (User ID # ".$user->id.") logged in from IP Address ".$request->ip());
 
-        $success['redirectUrl'] = '/';
-        if($user->joinedClassoomCount()>0 || Auth::teacher()){
-            $success['redirectUrl'] = '/classrooms';
-        }
+        $success['redirectUrl'] = '/classrooms';
+        // if($user->joinedClassoomCount()>0 || Auth::teacher()){
+        //     $success['redirectUrl'] = '/classrooms';
+        // }
         $success['redirectUrl'] = session('url.intended') ?? $success['redirectUrl'];
 
         $success['student'] = Auth::student();

@@ -4,6 +4,7 @@ namespace App\Facades;
 
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 
 /***
  * Class Sthub
@@ -25,6 +26,17 @@ class Sthub extends Facade
             $str = str_replace(ucwords($noCap), strtolower($noCap), $str);
         }
         return ucfirst($str);
+    }
+
+    public static function currentTab($tab){
+        if(request()->path() === '/' && $tab==='post'){
+            return true;
+        }
+        if(false !== strpos(request()->path(), $tab)){
+            return true;
+        }
+
+        return false;
     }
 
     public static function generateAlias($string)
