@@ -1,48 +1,56 @@
 <template>
-  <transition name="fade">
+  <div
+    :id="name"
+    class="modal fade"
+    role="dialog"
+  >
     <div
-      v-show="show"
-      class="modal"
-    >
-      <div
-        class="modal__backdrop"
-        @click="closeModal()"
-      />
+      class="modal__backdrop"
+      @click="closeModal()"
+    />
 
-      <div class="modal__dialog">
-        <div class="modal__header">
-          <slot name="header" />
+    <div class="modal__dialog">
+      <div class="modal__header">
+        <slot name="header" />
+        <button
+          type="button"
+          class="btn-close"
+          @click="closeModal"
+        >
+          x
+        </button>
+      </div>
+
+      <div class="modal__body">
+        <slot name="body" />
+      </div>
+
+      <div class="modal__footer">
+        <slot name="footer">
           <button
             type="button"
-            class="modal__close"
-            @click="closeModal()"
+            class="btn btn-secondary"
+            data-dismiss="modal"
+            @click="closeModal"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 352 512"
-            >
-              <path
-                fill="currentColor"
-                d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
-              />
-            </svg>
+            Close
           </button>
-        </div>
-
-        <div class="modal__body">
-          <slot name="body" />
-        </div>
-
-        <div class="modal__footer">
-          <slot name="footer" />
-        </div>
+          <button
+            type="button"
+            class="btn btn-primary"
+            @click="$emit('submit')"
+          >
+            Submit
+          </button>
+        </slot>
       </div>
     </div>
-  </transition>
+  </div>
 </template>
 
 <script>
 export default {
+	props:['name'],
 	data() {
 		return {
 			show: false
@@ -50,11 +58,10 @@ export default {
 	},
 	methods: {
 		closeModal() {
-			this.show = false;
 			document.querySelector('body').classList.remove('overflow-hidden');
 		},
 		openModal() {
-			this.show = true;
+			$('#'+this.name).modal('show');
 			document.querySelector('body').classList.add('overflow-hidden');
 		}
 	}
@@ -63,6 +70,15 @@ export default {
 
 
 <style lang="scss" scoped>
+.btn-close {
+  border: none;
+  font-size: 20px;
+  padding: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #4AAE9B;
+  background: transparent;
+}
 .modal {
   overflow-x: hidden;
   overflow-y: auto;
@@ -71,7 +87,6 @@ export default {
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 9;
   &__backdrop {
     background-color: rgba(0, 0, 0, 0.3);
     position: fixed;

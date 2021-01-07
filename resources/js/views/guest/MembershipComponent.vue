@@ -93,6 +93,8 @@
 
     <modal
       ref="memberModal"
+      name="memberModal"
+      @submit="memberRequest"
     >
       <template v-slot:header>
         <h4>Enter Details:</h4>
@@ -150,24 +152,6 @@
                   class="form-control"
                 >
                 <span class="error">{{ formErrors('phone_no') }}</span>
-              </div>
-            </div>
-            <div class="col-md-12">
-              <div class="model_btn">
-                <button
-                  type="submit"
-                  class="btn btn-primary"
-                  @click="$refs.memberModal.closeModal()"
-                >
-                  Submit
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-danger"
-                  @click="$refs.memberModal.closeModal()"
-                >
-                  Cancel
-                </button>
               </div>
             </div>
           </div>
