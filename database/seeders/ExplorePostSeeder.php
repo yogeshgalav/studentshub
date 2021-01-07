@@ -92,9 +92,9 @@ class ExplorePostSeeder extends Seeder
         (58, 'Universe', 'universe',5, NULL, NULL),
         (59, 'Igloo', 'igloo',5, NULL, NULL);");
 
-        ExplorePagePost::factory(3)->create(['page_section'=>'ExploreTopPost']);
-        ExplorePagePost::factory(6)->create(['page_section'=>'HomePostContainer']);
-        ExplorePagePost::factory(3)->create(['page_section'=>'ExploreSidebar']);
-        ExplorePagePost::factory(3)->create(['page_section'=>'ExploreBottomPost']);
+        // ExplorePagePost::factory(3)->create(['page_section'=>'ExploreTopPost']);
+        // ExplorePagePost::factory(6)->create(['page_section'=>'HomePostContainer']);
+        // ExplorePagePost::factory(3)->create(['page_section'=>'ExploreSidebar']);
+        // ExplorePagePost::factory(3)->create(['page_section'=>'ExploreBottomPost']);
     }
 }
