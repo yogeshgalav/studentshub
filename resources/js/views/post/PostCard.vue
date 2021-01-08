@@ -18,21 +18,21 @@
         <hr>
         <div class="row mb-1 mt-1">
           <div class="col-md-12 cat_sub_name mb-0">
-            <p class="text-muted">
+            <p class="text-muted btn-category">
               {{ post.category_name }}
             </p>
-            <p class="text-muted">
+            <p class="text-muted btn-category">
               {{ post.subject_name }}
             </p>
           </div>
           <div class="col-md-12 dash_board_title">
-            <h3 class="card-title weight-600 text-black">
+            <h3 class="card-title weight-600 text-black mb-2">
               {{ post.heading }}
             </h3>
           </div>
           <div
             v-if="post.image_path"
-            class="col-md-12"
+            class="col-md-12 post_img mb-2"
           >
             <img
               v-lazy="post.image_path"
@@ -40,7 +40,7 @@
             >
           </div>  
           <div
-            class="col-md-9 col-8"
+            class="col-md-9 col-12"
             @click="setPostView(post)"
           >
             <p class="dash_post_content">
@@ -95,6 +95,23 @@
     </div>
   </div>
 </template>
+<style scoped>
+.btn-category {
+  background: #eee;
+  border-radius: 20px;
+  padding: 5px 15px;
+}
+.post_img img{
+  width: 100%;
+  height: 500px !important;
+}
+@media (max-width: 768px) {
+  .post_img img{
+  width: 100%;
+  height: auto !important;
+}
+}
+</style>
 <script>
 import ProfileImage from './ProfileImage.vue';
 // import ImageSlider from './ImageSlider.vue';

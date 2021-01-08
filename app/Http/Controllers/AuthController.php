@@ -116,6 +116,7 @@ class AuthController extends Controller
      */
     public function register(RegisterRequest $request)
     {
+       
         $input = $request->all();
         
         $input['full_name']=trim($input['full_name']);
@@ -124,6 +125,7 @@ class AuthController extends Controller
 
         DB::beginTransaction();
     try{
+       
             $user = User::create([
                 'full_name'=>$input['full_name'],
                 'email'=>$input['email'],
@@ -140,7 +142,7 @@ class AuthController extends Controller
     
             $success['redirectUrl'] = '/education-details';
             \App\Models\ScheduledJob::scheduleNewUserNotification($user);
-        
+            
         DB::commit();
         } catch (\Exception $e) {
             DB::rollback();

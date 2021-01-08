@@ -1771,11 +1771,7 @@ display: flex;
 .cat_sub_name {
     display: flex;
 }
-p.dash_post_content {
-    font-size: 18px;
-    color: #868686;
-        margin: 0;
-}
+
 
 p.usernamedash.mb-0 {
     font-size: 13px;
@@ -2531,15 +2527,15 @@ justify-content: space-between;
     .social-network_singlepage {justify-content: center;}
     p.usernamedash.mb-0{font-size: 12px;}
     p.dash_post_content {
-        font-size: 18px;
+        font-size: 14px;
         display: block;
         /* white-space: nowrap; */
         text-overflow: ellipsis;
-        word-wrap: break-word;
         overflow: hidden;
         max-height: 3.6em;
-        line-height: 1.8em;
+        line-height: 20px;
         position: relative;
+        color:#000;
     }  
 
     .dash_post_content::after {
@@ -2550,8 +2546,7 @@ justify-content: space-between;
         font-size: 14px;
       }
       .dash_board_title h3 {
-        margin-bottom: 0;
-        white-space: nowrap;
+        margin-top: 0;
         width: auto;
         overflow: hidden;
         text-overflow: ellipsis;
