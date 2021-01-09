@@ -25,6 +25,7 @@ class CreateInstitutesTable extends Migration
             $table->string('regno_slug')->nullable();
             $table->string('alias')->nullable();
             $table->integer('added_by_user_id')->unsigned();
+            $table->boolean('is_verified')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });

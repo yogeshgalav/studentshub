@@ -123,6 +123,27 @@
                 v-if="!subjectId"
                 class="col-md-12"
               >
+                <div class="model_input">
+                  <label>Subject</label>
+                  <auto-complete
+                    v-validate="'required'"
+                    class="width-100"
+                    :items="subject_list"
+                    :value="'subject_name'"
+                    name="program_name"
+                    :placeholder="'eg. Biology,Chemistry'"
+                    :is-async="true"
+                    :is-loading="subjectLoading"
+                    @input="getSubjects"
+                    @selected="setSubject"
+                    @selectNew="setNewSubject"
+                  />
+                </div>
+              </div>
+              <!-- <div
+                v-if="!subjectId && show_category"
+                class="col-md-12"
+              >
                 <div class="form-group">
                   <label for="category"> {{ 'Category' }} </label>
                   <div class="inner-addon left-addon">
@@ -151,28 +172,7 @@
                     <span class="error">{{ errors.first('category') }}</span>
                   </div>
                 </div>
-              </div>
-              <div
-                v-if="!subjectId"
-                class="col-md-12"
-              >
-                <div class="model_input">
-                  <label>Subject</label>
-                  <auto-complete
-                    v-validate="'required'"
-                    class="width-100"
-                    :items="subject_list"
-                    :value="'subject_name'"
-                    name="program_name"
-                    :placeholder="'eg. Biology,Chemistry'"
-                    :is-async="true"
-                    :is-loading="subjectLoading"
-                    @input="getSubjects"
-                    @selected="setSubject"
-                    @selectNew="setNewSubject"
-                  />
-                </div>
-              </div>
+              </div> -->
               <div class="col-md-12">
                 <div class="model_btn">
                   <button
@@ -238,6 +238,7 @@ export default {
 			debounce:null,
 			subject_list:[],
 			subjectLoading: false,
+			show_category: false,
 			selected_category: '',
 			selected_subject: {
 				'id': null,
@@ -342,11 +343,18 @@ export default {
     	},
     	setSubject(result) {
     		this.selected_subject = result;
+    		// if(result.category_id){
+    		// 	this.selected_category = result.category_id;
+    		// }else if(this.AuthStudent.categoryId){
+    		// 	this.selected_category = this.AuthStudent.categoryId;
+    		// }
+    		// this.show_category = true;
     	},
     	setNewSubject(name) {
     		this.selected_subject = {
     			'id': 0,
     			'subject_name': name,
+    			'category_id': '',
     		};
     	},
     }

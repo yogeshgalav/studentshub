@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 Route::group(['middleware'=>['auth:api']],function(){
     //classroom common routes
     Route::get('/get-classroom-detail/{classroomId}','ClassroomController@getClassroomDetails');

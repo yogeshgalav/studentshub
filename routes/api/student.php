@@ -1,6 +1,8 @@
 
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 Route::group(['middleware'=>['auth:api']],function(){
     Route::post('/submit-post','PostController@create');
     Route::get('/get-student-posts','PostController@getStudentPosts');

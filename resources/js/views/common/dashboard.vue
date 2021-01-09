@@ -1,7 +1,7 @@
 <template>
   <main>
-    <div class="container">
-      <div class="col-md-10 center-col">
+    <div>
+      <div class="col-md-7 col-12 center-col">
         <div class="row">
           <div class="col-md-12">
             <div class="card mb-3">
@@ -25,7 +25,7 @@
         </div>
 
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-12 p-0">
             <home-post-container />
           </div>
         </div>

@@ -19,6 +19,7 @@ class CreateSubjectsTable extends Migration
             $table->string('subject_url');
             $table->integer('category_id')->unsigned()->nullable();
             $table->string('alias')->nullable();
+            $table->boolean('is_verified')->default(false);
             $table->timestamps();
         });
     }

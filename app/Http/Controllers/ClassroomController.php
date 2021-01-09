@@ -190,7 +190,8 @@ class ClassroomController extends Controller
             $subject= \App\Models\Subject::create([
                 'subject_url'=>\Str::slug($subject_name),
                 'subject_name'=>$subject_name,
-                'category_id'=>$course->category_id ?? null
+                'category_id'=>$course->category_id ?? null,
+                'is_verified'=>true,
             ]);
         }
 

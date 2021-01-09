@@ -50,10 +50,12 @@ class InstituteController extends Controller
         ],200);
     }
 
+    //only admin access
     public function create(Request $request){
         $institute=Institute::create([
             'name'=>$request->form_data['client_name'],
-            'added_by_user_id'=>Auth::id()
+            'added_by_user_id'=>Auth::id(),
+            'is_verified'=>true,
         ]);
 
         return response()->json(['success'=>[

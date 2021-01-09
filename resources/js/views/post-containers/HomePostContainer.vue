@@ -7,8 +7,8 @@
       <post-card :post="post" />
     </div>
 
-    <div class="card border-0">
-      <p @click="loadPosts">
+    <div class="dash_card card mb-1 border-0 text-center">
+      <p @click="loadPosts" class="mb-0">
         Load More...
       </p>
       <loading

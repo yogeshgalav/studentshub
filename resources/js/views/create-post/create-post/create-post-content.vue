@@ -33,7 +33,7 @@
         class="login_btn"
         @click="nextTab"
       >
-        Next <span><i
+        Finish <span><i
           class="fa fa-arrow-right"
           aria-hidden="true"
         /></span>
