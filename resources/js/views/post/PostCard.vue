@@ -103,7 +103,7 @@
 }
 .post_img img{
   width: 100%;
-  height: 500px !important;
+  height: 450px !important;
 }
 @media (max-width: 768px) {
   .post_img img{
@@ -118,6 +118,7 @@ import ProfileImage from './ProfileImage.vue';
 
 export default {
 	components: {
+		ProfileImage,
 		// ImageSlider
 	},
 	props:['post'],
