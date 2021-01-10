@@ -36,6 +36,7 @@ class AuthController extends Controller
     public function login(LoginRequest $request){
         $user=User::where('email',$request->email)->first();
         if (!$user || !Hash::check($request->password, $user->password)) {
+            Log::warning("Login Failed",['user'=>$user ?? 'not found']);
             return redirect('/login')->with('srvError401',true);
         }
 
