@@ -96,7 +96,7 @@
               <div
                 v-for="(interest,index) in interests"
                 :key="index"
-                class="cojl"
+                class="cojl text-center"
               >
                 <radial-progress-bar
                   :diameter="150"
@@ -106,9 +106,9 @@
                   :stop-color="'#000080'"
                   :inner-stroke-color="'#B0E0E6'"
                 >
-                  <animate-number :number="interest_enable ? interest.percent :0" />
-                  <p>{{ interest.name }}</p>
+                  <p>{{ interest_enable ? parseInt(interest.percent) :0 }}%</p>
                 </radial-progress-bar>
+                <p>{{ interest.name }}</p>
               </div>
             </div> 
           </div>

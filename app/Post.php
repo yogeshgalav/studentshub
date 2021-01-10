@@ -11,11 +11,6 @@ use PHPHtmlParser\Dom;
 
 class Post extends PostModel
 {
-    protected $student;
-
-    public function __construct(){
-        $this->student=Auth::student();
-    }
 
     public function getSubjectPosts(Request $request){
         $post_query=$this->getAuthUserPostTabels();     
@@ -100,7 +95,7 @@ class Post extends PostModel
     }
 
     public function getAuthUserPostTabels(){
-        return DB::table('sthub_posts as sp')
+        $post_query = DB::table('sthub_posts as sp')
         ->join('posts as po','po.id','=','sp.post_id')
         ->leftJoin('articles as ar',function($join){
             $join->on('po.postable_id','=','ar.id')->where('po.postable_type','=','App\Models\Article');
@@ -108,24 +103,31 @@ class Post extends PostModel
         ->leftJoin('videos as vd',function($join){
             $join->on('po.postable_id','=','vd.id')->where('po.postable_type','=','App\Models\Video');
         })
-        ->leftJoin('likes as uli',function($join){
-            $join->on('po.id','=','uli.likable_id')->where('uli.likable_type','=','App\Models\Post')->where('uli.user_id','=',Auth::user()->id);
-        })
-        ->leftJoin('subjects as sub','sub.id','=','po.subject_id')
-        ->leftJoin('categories as cat','cat.id','=','sub.category_id')
-        ->leftJoin('users as us','us.id','=','po.user_id')
-        ->leftJoin('institutes as inst','inst.id','=','sp.institute_id')
-        ->leftJoin('courses as course','course.id','=','sp.course_id')
         ->leftJoin('facts as fc',function($join){
             $join->on('po.postable_id','=','fc.id')->where('po.postable_type','=','App\Models\Fact');
         })
         ->leftJoin('documents as do',function($join){
             $join->on('po.postable_id','=','do.id')->where('po.postable_type','=','App\Models\Document');
         })
-        ->select(['po.id as id','po.post_heading as heading','po.post_description as description','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','po.primary_image_path as image_path',
-        'sub.subject_url','sub.subject_name','course.id as course_id','course.course_name','uli.like_status as user_like',
+        ->leftJoin('subjects as sub','sub.id','=','po.subject_id')
+        ->leftJoin('categories as cat','cat.id','=','sub.category_id')
+        ->leftJoin('users as us','us.id','=','po.user_id')
+        ->leftJoin('institutes as inst','inst.id','=','sp.institute_id')
+        ->leftJoin('courses as course','course.id','=','sp.course_id');
+        
+        $columns = ['po.id as id','po.post_heading as heading','po.post_description as description','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','po.primary_image_path as image_path',
+        'sub.subject_url','sub.subject_name','course.id as course_id','course.course_name',
         'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','inst.name as institute_name','ar.html_content as article_content',
-        'vd.video_id as video_id','fc.image_path as fact_image_path','do.link as document_link']);
+        'vd.video_id as video_id','fc.image_path as fact_image_path','do.link as document_link'];
+        
+        if(Auth::check()){
+            $post_query->leftJoin('likes as uli',function($join){
+                $join->on('po.id','=','uli.likable_id')->where('uli.likable_type','=','App\Models\Post')->where('uli.user_id','=',Auth::user()->id);
+            });
+            array_push($columns,'uli.like_status as user_like');
+        }
+        
+        return $post_query->select($columns);
     }
 
     public function getPostType($post_type){

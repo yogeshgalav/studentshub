@@ -8,7 +8,10 @@
         ><i class="fa fa-arrow-left" />
         </a>
       </div>
-      <div class="dropdown">
+      <div 
+        v-if="AuthUser"
+        class="dropdown"
+      >
         <button
           id="dropdownMenuButton"
           class="btn btn-white  dropdown-toggle"
@@ -122,13 +125,6 @@
             <h3 class="post_main_title">
               {{ postContent.heading }}
             </h3>
-            <div v-if="postContent.post_type==='article'">
-              <div class="post_s_c">
-                <div class="post_content">
-                  <div v-html="postContent.article_content" />
-                </div>
-              </div>
-            </div>
             <div v-if="postContent.post_type==='video'">
               <div class="post_video">
                 <iframe
@@ -137,12 +133,8 @@
                   :src="'https://www.youtube.com/embed/'+postContent.video_id"
                 />
               </div>
-              <div class="post_s_c">
-                <div class="post_content">
-                  <p>{{ postContent.video_content }}</p>
-                </div>
-              </div>
             </div>
+
             <div v-if="postContent.post_type==='fact'">
               <div class="post_video">
                 <img
@@ -152,15 +144,20 @@
                 >
               </div>
             </div>
-            <div class="post_s_c">
-              <div class="post_content">
-                <p>{{ postContent.fact_content }}</p>
+            <div v-if="postContent.post_type==='article'">
+              <div class="post_s_c">
+                <div class="post_content">
+                  <div v-html="postContent.article_content" />
+                </div>
               </div>
-              <div
-                v-if="postContent.post_type==='mcq'"
-                class="col-md-12"
-              >
-                <mcq-post-view :post-content="postContent" />
+            </div>
+            <div 
+              v-else
+            >
+              <div class="post_s_c">
+                <div class="post_content">
+                  <p>{{ postContent.description }}</p>
+                </div>
               </div>
             </div>
           </div>
@@ -211,7 +208,7 @@
       </div>
     </div>
     <div
-      v-if="role!=='guest'"
+      v-if="AuthUser"
       class="single_page_user_like"
     >
       <button
@@ -333,7 +330,7 @@
         </div>
       </div>
     </div>
-    <site-footer v-if="role==='guest'" />
+    <site-footer v-if="AuthUser===null" />
   </section>
 </template>
 <style scoped>
