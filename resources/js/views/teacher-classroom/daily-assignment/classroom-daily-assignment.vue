@@ -27,6 +27,7 @@
         :assignment="daily"
         :unit-list="unitList"
         @deleteAssignment="deleteAssignment(index)"
+        @loader="changeLoader"
       />
     </div>
   </div>
@@ -75,6 +76,9 @@ export default {
 		this.getDailyDetails();
 	},
 	methods: {
+		changeLoader(status){
+			this.showLoader=status;
+		},
 		getDailyDetails() {
 			this.axios
 				.get('/api/classroom/' + this.$route.params.classroomId + '/daily-questions')

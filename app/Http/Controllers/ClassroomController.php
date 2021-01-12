@@ -212,7 +212,7 @@ class ClassroomController extends Controller
         DB::commit();
     } catch (\Exception $e) {
         DB::rollback();
-        Log::critical('classroom create failure: with data ',$request->all());
+        Log::critical('classroom create failure',['data'=>$request->all(),'error'=>$e->getMessage()]);
         return response()->$e;
     }
         return response()->json(['success'=>[

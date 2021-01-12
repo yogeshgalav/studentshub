@@ -350,6 +350,7 @@ export default {
 		saveQuestion() {
 			this.$validator.validate().then(valid => {
 				if (valid) {
+					this.$emit('loader',true);
 					this.axios.post('/api/classroom/update-daily-question', {
 						daily_assignment_id:this.assignmentId,
 						question: this.current_question_edit,
@@ -365,6 +366,7 @@ export default {
 								return node;
 							});
 						}
+						this.$emit('loader',false);
 						this.resetEditQuestion();
 					});
 
