@@ -50,42 +50,54 @@
               class="weight-500"
               for="subject"
             >Subject</label>
-            <div class="input_icon_frm">
-              <span class="icon_design_input"><i
-                class="fa fa-file"
-                aria-hidden="true"
-              /></span>
-              <input
-                type="text"
-                name="subject"
-                class="form-control"
-                @input="editSubject"
-              >
-              <span class="error">{{ errors.first('subject') }}</span>
+            <div class="inner-addon left-addon">
+              <div class="input_icon_frm">
+                <span
+                  class="icon_design_input"
+                  style="height: 44px"
+                >
+                  <i
+                    class="fa fa-certificate"
+                    aria-hidden="true"
+                  /></span>
+                <auto-complete
+                  v-validate="'required'"
+                  class="width-100"
+                  :items="subject_list"
+                  :value="'subject_name'"
+                  name="subject_name"
+                  :is-async="true"
+                  :is-loading="subjectLoading"
+                  @input="getSubjects"
+                  @selected="setSubject"
+                  @selectNew="setNewSubject"
+                />
+                <span class="error">{{ errors.first('subject') }}</span>
+              </div>
             </div>
-          </div>
-          <!--  -->
-          <div class="creat_post_btn">
-            <button
-              type="button"
-              class="login_btn"
-              @click="prevTab"
-            >
-              <span><i
-                class="fa fa-arrow-left"
-                aria-hidden="true"
-              /></span> Back
-            </button>
-            <button
-              type="button"
-              class="login_btn"
-              @click="nextTab"
-            >
-              Next <span><i
-                class="fa fa-arrow-right"
-                aria-hidden="true"
-              /></span>
-            </button>
+            <!--  -->
+            <div class="creat_post_btn">
+              <button
+                type="button"
+                class="login_btn"
+                @click="prevTab"
+              >
+                <span><i
+                  class="fa fa-arrow-left"
+                  aria-hidden="true"
+                /></span> Back
+              </button>
+              <button
+                type="button"
+                class="login_btn"
+                @click="nextTab"
+              >
+                Next <span><i
+                  class="fa fa-arrow-right"
+                  aria-hidden="true"
+                /></span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -129,28 +141,33 @@ button.login_btn span {
 <script>
 import {mapState} from 'vuex';
 import EventBus from '../event-bus';
+import AutoComplete from '../../../components/AutoComplete.vue';
+
 export default {
+	components:{AutoComplete},
 	props:['newPost'],
+	data(){
+		return {
+			subject_list: [],
+			subjectLoading: false,
+			selected_subject: {
+				'id': null,
+				'subject_name': this.newPost.subject_name,
+			},
+			selected_category:this.newPost.category_id,
+		};
+	},
 	computed:{
 		...mapState({
 			'categories': state=>state.categories,
-			'subject': state=>state.new_post.subject,
 		}),
-	},
-	data(){
-		return {
-			is_course_subject:this.newPost.subject_course ?'yes' :'no',
-			selected_category:this.newPost.category_id,
-			subject_name:this.newPost.subject_name,
-		};
 	},
 	mounted(){
 		EventBus.$on('validateStep3',()=>{
 			this.$validator.validate().then(valid => {
 				if(valid){
 					this.$store.commit('set_post_subject',{
-						'is_course_subject':this.is_course_subject,
-						'subject_name':this.subject_name,
+						'subject_name':this.selected_subject.subject_name,
 						'selected_category':this.selected_category
 					});
 					EventBus.$emit('validateWizard',3,true);
@@ -163,11 +180,39 @@ export default {
 		this.selected_category= (this.AuthStudent && this.AuthStudent.categoryId) ? this.AuthStudent.categoryId : '';
 	},
 	methods:{
-		editSubject(event){
-			this.subject_name=event.target.value;
+		getSubjects	(search) {
+			this.selected_subject = {
+				'id': null,
+				'subject_name': search,
+			};
+			this.subjectLoading = true;
+			this.axios
+				.post(this.baseUrl + '/api/search-subject', {
+					searchTerm: search
+				})
+				.then(resp => {
+					this.subject_list = resp.data.success.subjects;
+					this.subject_list.find(node => {
+						if (node.subject_name.toLowerCase() === this.selected_subject.subject_name
+							.toLowerCase()) {
+							this.selected_subject = node;
+							return true;
+						}
+					});
+					this.subjectLoading = false;
+				}).catch(() => {
+					this.subjectLoading = false;
+				});
+
 		},
-		getSubject(subject_id){
-			this.$store.dispatch('getSubjectList',{subject_id:subject_id});
+		setSubject(result) {
+			this.selected_subject = result;
+		},
+		setNewSubject(name) {
+			this.selected_subject = {
+				'id': 0,
+				'subject_name': name,
+			};
 		},
 		nextTab(){
 			EventBus.$emit('nextTab');

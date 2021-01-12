@@ -184,16 +184,18 @@ class ClassroomController extends Controller
             ]);
         }
 
-        if($subject_id){
-            $subject = \App\Models\Subject::findOrFail($subject_id);
-        }else{
-            $subject= \App\Models\Subject::create([
-                'subject_url'=>\Str::slug($subject_name),
-                'subject_name'=>$subject_name,
-                'category_id'=>$course->category_id ?? null,
-                'is_verified'=>true,
-            ]);
-        }
+        $subject= \App\Models\Subject::firstOrCreate([
+            'subject_url'=>\Str::slug($subject_name),
+            'category_id'=>$course->category_id ?? null,
+        ],[
+            'subject_name'=>$subject_name,
+            'is_verified'=>true,
+        ]);
+
+        \App\Models\CourseSubject::firstOrCreate([
+            'subject_id'=>$subject->id,
+            'course_id'=>$course->id,
+        ]);
 
         $batch =Batch::firstOrCreate([
             'institute_id'=>Auth::teacher()->instituteId,
