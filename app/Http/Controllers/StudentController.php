@@ -87,7 +87,7 @@ class StudentController extends Controller
             Log::critical('Student Registeration failure',['error'=>$e->getMessage()]);
             return response()->$e;
         }
-        $success['redirectUrl'] = '/';
+        $success['redirectUrl'] = '/classrooms';
         return response()->json(['success' => $success]);
     }
 

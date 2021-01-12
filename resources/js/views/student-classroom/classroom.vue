@@ -15,7 +15,7 @@
                     {{ 'Daily Assignment' }}
                   </h2>
                   <p>
-                    {{ 'daily-assignment' }}
+                    {{ 'View and attempt daily assignment.' }}
                   </p>
                 </div>
               </div>
@@ -36,7 +36,7 @@
                     {{ 'Classmates' }}
                   </h2>
                   <p>
-                    {{ 'classmates report' }}
+                    {{ 'See your classmates report.' }}
                   </p>
                 </div>
               </div>
@@ -78,7 +78,7 @@
                     {{ 'Resources' }}
                   </h2>
                   <p>
-                    {{ 'resources' }}
+                    {{ 'View Classroom resources.' }}
                   </p>
                 </div>
               </div>
@@ -99,7 +99,7 @@
                     {{ 'Message' }}
                   </h2>
                   <p>
-                    {{ 'message' }}
+                    {{ 'View classroom messages.' }}
                   </p>
                 </div>
               </div>
@@ -120,7 +120,7 @@
                     {{ 'Doubts' }}
                   </h2>
                   <p>
-                    {{ 'doubts' }}
+                    {{ 'Ask and answer doubts.' }}
                   </p>
                 </div>
               </div>

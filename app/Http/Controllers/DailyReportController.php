@@ -52,11 +52,15 @@ class DailyReportController extends Controller
         return response()->json(['success'=>[
             'daily_report'=>$daily_report,
             'daily_assignment'=>$daily_assignment,
-            'is_available'=>$daily_assignment->isCurrentlyAvailable()
+            'is_available'=>$daily_assignment ? $daily_assignment->isCurrentlyAvailable() : false
         ]]);
     }
 
     public function saveDailyAnswer(Request $request){
+        $my_report = DailyReport::where('user_id',Auth::id())->where('daily_assignment_id',$request->daily_assignment_id)->exists();
+        if($my_report){
+            return redirect('/classroom/'.$request->classroom_id.'/daily-assignment');
+        }
         $daily_questions = DailyQuestion::where('daily_assignment_id',$request->daily_assignment_id)->get();
         $rank = DailyReport::where('daily_assignment_id',$request->daily_assignment_id)->count();
         
@@ -89,7 +93,7 @@ class DailyReportController extends Controller
         DB::commit();
     } catch (\Exception $e) {
         DB::rollback();
-        \Log::critical('daily report save failure: with data ',$request->all());
+        \Log::critical('daily report save failure',['data'=>$request->all(),'error'=>$e->getMessage()]);
         return response()->$e;
     }
         return redirect('/classroom/'.$request->classroom_id.'/daily-assignment');

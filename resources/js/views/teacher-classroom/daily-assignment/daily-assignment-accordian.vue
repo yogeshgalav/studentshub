@@ -64,6 +64,7 @@
                     />
                   </div>
                   <span class="text-danger">{{ formErrors('attempt_date') }}</span>
+                  <span class="text-danger">{{ assignment_error }}</span>
                 </div>
               </div>
             </div>
@@ -217,6 +218,7 @@ export default {
 			currentDate:new Date(),
 			daily: this.assignment,
 			total: 0,
+			assignment_error: '',
 		};
 	},
 	computed:{
@@ -253,7 +255,7 @@ export default {
 			if (!daily.unit_id || !daily.attempt_date) {
 				return false;
 			}
-
+			this.$emit('loader',true);
 			this.axios
 				.post('/api/update-daily-assignment', {
 					assignment_id: daily.id,
@@ -263,12 +265,15 @@ export default {
 					end_time: daily.end_time,
 				})
 				.then((resp) => {
-					this.daily = resp.data.success.assignment;            
+					this.daily = resp.data.success.assignment;           
 					this.daily['daily_questions']=[];
-
-				})
-				.catch((error) => {
-
+					this.$emit('loader',false);
+					this.assignment_error='';
+				}).catch(err => {
+					console.log(err.response.status,err.response.data);
+					if(422 === err.response.status){
+						this.assignment_error=err.response.data;
+					}
 				});
 		},
             

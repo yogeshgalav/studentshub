@@ -78,7 +78,7 @@ class ClassroomUnitController extends Controller
         DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
-            Log::critical('Unit Activation failure: for user id#'.Auth::user()->id,$request->all());
+            Log::critical('Unit Activation failure',['data'=>$request->all(),'error'=>$e->getMessage()]);
             dd($e->getMessage(),$e->getLine());
             return response()->$e;
         }

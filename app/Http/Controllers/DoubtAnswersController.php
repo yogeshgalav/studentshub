@@ -57,7 +57,7 @@ class DoubtAnswersController extends Controller
     DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
-            Log::critical('Doubt Creation failure',['user_id'=>Auth::id(),'data'=>$request->all()]);
+            Log::critical('Doubt Answer Creation failure',['data'=>$request->all(),'error'=>$e->getMessage()]);
             // dd($e->getMessage(),$e->getLine());
             return response()->$e;
         }

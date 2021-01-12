@@ -113,9 +113,6 @@
                           />
                         </div>
                         <span
-                          v-if="selected_course.totalBatch"
-                        >{{ selected_course.totalBatch }} batch found.</span>
-                        <span
                           v-if="no_course_found"
                         >Please enter your full Program name followed by
                           branch name(if any).Please make sure that program
@@ -142,7 +139,7 @@
                             class="width-100"
                             :items="subject_list"
                             :value="'subject_name'"
-                            name="program_name"
+                            name="subject_name"
                             :placeholder="'eg. Biology,Chemistry'"
                             :is-async="true"
                             :is-loading="subjectLoading"

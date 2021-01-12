@@ -40,13 +40,17 @@ class DailyAssignmentController extends Controller
     public function updateDailyAssignment(Request $request)
     {    
         $unit=Unit::findOrFail($request->unit_id);
-
+        $is_assignment_duplicate = DailyAssignment::where('attempt_date',$request->attempt_date)
+        ->where('classroom_id',$unit->classroom_id)
+        ->where('id','!=',$request->assignment_id)
+        ->exists();
+        if($is_assignment_duplicate){
+            return response()->json('Assignment with same date already exists.',422);
+        }
         DB::beginTransaction();
     try{
         if($request->assignment_id){
             $dailyAssignment = DailyAssignment::find($request->assignment_id);     
-        }else if(DailyAssignment::where('attempt_date',$request->attempt_date)->exists()){
-                abort(422);
         }else{
             $dailyAssignment = new DailyAssignment;
         }   
@@ -61,7 +65,7 @@ class DailyAssignmentController extends Controller
         DB::commit();
     } catch (\Exception $e) {
         DB::rollback();
-        Log::critical('daily assignment update failure: with data ',$request->all());dd($e->getMessage());
+        Log::critical('daily assignment update failure',['data'=>$request->all(),'error'=>$e->getMessage()]);
         return response()->$e; 
     }
         return response()->json(['success'=>[
@@ -75,6 +79,7 @@ class DailyAssignmentController extends Controller
         $dailyAssignmentData=DailyAssignment::where('classroom_id',$request->classroomId)
         ->doesntHave('dailyReport')
         ->with('dailyQuestions.multipleChoice')
+        ->orderBy('attempt_date','DESC')
         ->get();
 
         return response()->json([

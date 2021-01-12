@@ -164,7 +164,7 @@
                       {{ 'Message' }}
                     </h2>
                     <p>
-                      {{ 'Coming soon...' }}
+                      {{ 'Add Message for classroom.' }}
                     </p>
                   </div>
                 </div>
@@ -185,7 +185,7 @@
                       {{ 'Doubts' }}
                     </h2>
                     <p>
-                      {{ 'Coming soon...' }}
+                      {{ 'Answer Doubts.' }}
                     </p>
                   </div>
                 </div>
