@@ -216,23 +216,6 @@ export default {
 			remember:true,
 		};
 	},
-	mounted(){
-		var self=this;
-		this.$validator.localize('en', {custom: {
-			email: {
-				required: self.trans('emailOrPhone.invalid','You must provide a valid email address.')
-			}}});
-		this.$validator.extend('email', {
-			getMessage() {
-				return self.trans('emailOrPhone.invalid','You must provide a valid email address.');
-			},
-			validate: function(value) {
-				const email = /\S+@\S+\.\S+/;
-				const phone = /^\+?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
-				return !!(value.match(email) || value.match(phone));
-			}
-		});
-	},
 	methods:{
 		trans: function (string,defaultString) {
 			return this.$trans('auth',string,defaultString);

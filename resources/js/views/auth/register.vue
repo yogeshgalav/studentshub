@@ -36,10 +36,10 @@
                       @submit.prevent="handleSubmit"
                     >
                       <div
-                        v-if="email_error"
+                        v-if="emailError"
                         class="form-group row alert alert-warning"
                       >
-                        <span>{{ email_error }}</span>
+                        <span>{{ emailError }}</span>
                       </div>
                       <div class="form-group">
                         <input
@@ -239,10 +239,10 @@ import swal from '../../components/swal';
 
 export default {
 	mixins: [FormMixin],
+	props:['emailError'],
 	data() {
 		return {
 			showLoader: false,
-			email_error: '',
 			full_name: '',
 			email: '',
 			password: '',

@@ -6,7 +6,10 @@
         <div class="card-header">
           Complete Daily Assignments
         </div>
-        <div class="card-body">
+        <div
+          v-if="answers.length"
+          class="card-body"
+        >
           <form
             action="/save-daily-answers"
             method="POST"
@@ -191,11 +194,16 @@ export default {
 		};
 	},
 	mounted(){
+		this.answers=this.dailyAssignment.daily_questions.map(node=>{
+			return {
+				'question_id': node.id,
+				'answer': '',
+			};
+		});
 		window.addEventListener('pageshow',( event ) => {
 			var historyTraversal = event.persisted || 
 			                   ( typeof window.performance !== 'undefined' && 
                               window.performance.navigation.type === 2 );
-			console.log(historyTraversal);
 			if ( historyTraversal ) {
 				// Handle page restore.
 				window.location.href = '/classroom/'+this.dailyAssignment.classroom_id;
@@ -204,12 +212,7 @@ export default {
 		this.interval=setInterval(()=>{
 			this.timer=dayjs(this.timer,'mm:ss').add(1,'seconds').format('mm:ss');
 		}, 1000);
-		this.answers=this.dailyAssignment.daily_questions.map(node=>{
-			return {
-				'question_id': node.id,
-				'answer': '',
-			};
-		});
+		
 
 		// PREVENT CONTEXT MENU FROM OPENING
 		window.addEventListener('contextmenu', function(evt){
