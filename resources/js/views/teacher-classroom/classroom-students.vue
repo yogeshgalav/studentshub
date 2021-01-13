@@ -176,14 +176,15 @@ export default {
 							return acc+ currVal.marks_obtained;
 						},0)/assignment.length).toFixed(2);
 						//get avg millisecond
-						let avg_ms= parseFloat(assignment.reduce((acc,currVal)=>{
-							return acc+ dayjs(currVal.duration).millisecond();
-						},0)/assignment.length).toFixed(2);
+						let total_seconds= assignment.reduce((acc,currVal)=>{
+							return acc+ dayjs(currVal.duration,'HH:mm:ss').second();
+						},0);
 						//convert millisecond to min and sec
-						if(avg_ms!=='NaN'){
-							let m2 = dayjs(dayjs().millisecond(avg_ms)).minute();
-							let s2 = dayjs(dayjs().millisecond(avg_ms)).second();
-							node.daily_average_time  = m2+' min '+s2+' sec ';
+						if(total_seconds!==0){
+							let avg_sec = total_seconds/assignment.length;
+							let m2 = avg_sec/60;
+							let s2 = avg_sec%60;
+							node.daily_average_time  = (m2>=1 ? m2 : 0)+' min '+s2+' sec ';
 						}else{
 							node.daily_average_time  = null;
 						}

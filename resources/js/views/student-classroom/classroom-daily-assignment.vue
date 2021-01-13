@@ -211,6 +211,11 @@ export default {
 		}
 	},
 	mounted() {
+		history.pushState(null, null);
+		window.addEventListener('popstate', (event)=> {
+			window.location='/classroom/' + this.$route.params.classroomId;
+			return false;
+		});
 		this.getDailyReports();
 		this.axios.get('/api/classroom/' + this.$route.params.classroomId + '/get-todays-report').then((
 			resp) => {

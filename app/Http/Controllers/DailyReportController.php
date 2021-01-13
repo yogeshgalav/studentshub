@@ -78,7 +78,7 @@ class DailyReportController extends Controller
         $report = DailyReport::create([
             'user_id'=>Auth::id(),
             'daily_assignment_id'=>$request->daily_assignment_id,
-            'duration'=>$request->time,
+            'duration'=>'00:'.$request->time,
             'rank'=>$rank+1,
             'marks_obtained'=>$total_marks
         ]);
