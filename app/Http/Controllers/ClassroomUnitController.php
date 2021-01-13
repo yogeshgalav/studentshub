@@ -36,10 +36,10 @@ class ClassroomUnitController extends Controller
 
     public function updateUnit($classroomId,Request $request){
         $unit = Unit::updateOrCreate([
-            'unit_name'=>$request->unit_name
-        ],[
             'classroom_id'=>$classroomId,
             'unit_no'=>$request->unit_no
+        ],[
+            'unit_name'=>$request->unit_name
         ]);
 
         return response()->json([

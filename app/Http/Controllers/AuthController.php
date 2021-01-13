@@ -37,14 +37,14 @@ class AuthController extends Controller
         $user=User::where('email',$request->email)->first();
         if (!$user || !Hash::check($request->password, $user->password)) {
             Log::warning("Login Failed",['user'=>$user ?? 'not found']);
-            return redirect('/login')->with('srvError401',true);
+            return view('guest.auth.login')->with('srvError401',true);
         }
 
         try{
             $success = $this->getLoginSuccessData('page',$user,$request);
         }catch(\Exception $e){
             Log::warning("An invalid attempt to login was made for user ".$request->email." from IP Address ".$request->ip());
-            return redirect('/login')->with('srvErrorUnknown',true);
+            return view('guest.auth.login')->with('srvErrorUnknown',true);
         }
 
         return redirect($success['redirectUrl']);

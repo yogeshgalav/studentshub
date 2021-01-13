@@ -191,6 +191,16 @@ export default {
 		};
 	},
 	mounted(){
+		window.addEventListener('pageshow',( event ) => {
+			var historyTraversal = event.persisted || 
+			                   ( typeof window.performance !== 'undefined' && 
+                              window.performance.navigation.type === 2 );
+			console.log(historyTraversal);
+			if ( historyTraversal ) {
+				// Handle page restore.
+				window.location.href = '/classroom/'+this.dailyAssignment.classroom_id;
+			}
+		});
 		this.interval=setInterval(()=>{
 			this.timer=dayjs(this.timer,'mm:ss').add(1,'seconds').format('mm:ss');
 		}, 1000);
@@ -200,15 +210,14 @@ export default {
 				'answer': '',
 			};
 		});
-		var target = document.getElementById('no-copy');
-        
+
 		// PREVENT CONTEXT MENU FROM OPENING
-		target.addEventListener('contextmenu', function(evt){
+		window.addEventListener('contextmenu', function(evt){
 			evt.preventDefault();
 		}, false);
  
 		// PREVENT CLIPBOARD COPYING
-		target.addEventListener('copy', function(evt){
+		window.addEventListener('copy', function(evt){
 			// Change the copied text if you want
 			evt.clipboardData.setData('text/plain', '');
 			// Prevent the default copy action

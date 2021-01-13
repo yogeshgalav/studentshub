@@ -8,6 +8,11 @@
 <meta name="author" content="Yogesh Galav"/>
 <meta name="description" content="Educational App to boost productivity of Students, Teachers and Institutes. Learn about your progress, pain points and student's field of interest."/>
 <meta name="keywords" content="studenthub, studentshub, student, hub, education,knowledge,curiosity,institute information"/>
+@if(isset($nocache) && $nocache)
+<meta http-equiv='cache-control' content='no-cache'>
+<meta http-equiv='expires' content='0'>
+<meta http-equiv='pragma' content='no-cache'>
+@endif
 @if('production' === config('app.env'))
 <!-- Hotjar Tracking Code for www.studentshub.in -->
 <script>
