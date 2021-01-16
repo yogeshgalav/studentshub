@@ -162,9 +162,6 @@ export default {
 			return this.$trans('auth', string, defaultString);
 		},
 		onChange() {
-			if(this.search.length<3){
-				return false;
-			}
 			if(this.isAsync===false){
 				this.results = this.results.filter(node=>node.name.indexOf(this.search) !== -1);
 				return true;

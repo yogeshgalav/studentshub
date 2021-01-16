@@ -23,6 +23,7 @@ class Auth extends AuthUser
                 'inst.name as instituteName',
                 'courses.id as courseId',
                 'courses.course_name as courseName',
+                'courses.course_url as courseUrl',
                 'pbt.id as batchId',
                 'pbt.start_year as start_year',
                 'pbt.end_year as end_year',

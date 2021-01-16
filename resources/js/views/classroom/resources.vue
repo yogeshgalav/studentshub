@@ -142,7 +142,19 @@
                   </div>
                 </div>
               </div>
-
+              <!-- <div class="col-md-12">
+                <div class="form-group">
+                  <label for="shareAsPost">
+                    <input
+                      id="shareAsPost"
+                      v-model="share_as_post"
+                      v-validate="'required'"
+                      name="shareAsPost"
+                      type="checkbox"
+                      class="form-control"
+                    >Share as post</label>
+                </div>
+              </div> -->
               <div class="mt-1 row text-right">
                 <div class="col-md-12">
                   <hr>
@@ -182,6 +194,7 @@ export default {
 			description: '',
 			resource_error: '',
 			resource_type: '',
+			share_as_post: '',
 		};
 	},
 	computed:{
@@ -218,6 +231,7 @@ export default {
 						resource_link: this.resource_link,
 						resource_type: this.resource_type,
 						description: this.description,
+						share_as_post: this.share_as_post,
 					}).then(()=>{
 						let resource = this.resourceUnitData.find(node=>node.id===this.current_unit);
 						resource.classroom_resources.push({

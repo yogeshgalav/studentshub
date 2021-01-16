@@ -362,8 +362,11 @@ class AuthController extends Controller
         }catch(\Exception $e){
 
         }
+        $rememberMeCookie = Auth::getRecallerName();
+        $cookie = \Cookie::forget($rememberMeCookie);
         Auth::logout();
-        return redirect('/');
+        \Session::flush();
+        return redirect('/')->withCookie($cookie);
     }
 
     public function refresh(Request $request){

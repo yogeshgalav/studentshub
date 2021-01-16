@@ -29,7 +29,6 @@ Vue.use(VueLazyload, {
 Vue.use(VModal, { dynamic: true, injectModalsContainer: true, scrollable:true });
 Vue.use(VueAxios, axios);
 
-import NotificationsDemo from '../components/NotificationsDemo';
 import NotificationsDropdown from '../components/NotificationsDropdown';
 //error tracking 
 import * as Sentry from '@sentry/browser';
@@ -53,7 +52,6 @@ if(window.App.mode==='production'){
 }
 Vue.mixin({
 	components:{
-		NotificationsDemo,
 		NotificationsDropdown,
 		Loading
 	},
