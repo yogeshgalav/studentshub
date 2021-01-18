@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Classroom;
 use App\Models\ClassroomUser;
 use App\Models\ClassroomMessage;
+use App\Notifications\MessageAdded;
 use Illuminate\Http\Request;
 use Auth;
 use App\Http\Requests\JoinClassroomRequest;
@@ -60,6 +61,7 @@ class ClassroomUserController extends Controller
 
     public function listmessage($classroomId){
         $messages = ClassroomMessage::where('classroom_id',$classroomId)
+        ->orderBy('created_at','DESC')
         ->get();
 
         return response()->json(['success'=>[
@@ -67,11 +69,15 @@ class ClassroomUserController extends Controller
         ]]);
     }
     public function addmessage(Request $request, $classroomId){
+        $classroom = Classroom::findOrFail($classroomId);
+
         $message = ClassroomMessage::create([
             'sender_user_id'=>Auth::id(),
             'classroom_id'=>$classroomId,
             'content'=>$request->content,
         ]);
+
+        \Notification::send($classroom->users,new MessageAdded);
 
         return response()->json(['success'=>[
             'message'=>$message

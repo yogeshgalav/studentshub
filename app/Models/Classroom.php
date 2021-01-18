@@ -91,4 +91,7 @@ class Classroom extends Model
     public function subject(){
         return $this->belongsTo('App\Models\Subject');
     }
+    public function users(){
+        return $this->belongsToMany('App\Models\User','classroom_users');
+    }
 }

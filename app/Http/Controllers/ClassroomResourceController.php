@@ -11,6 +11,7 @@ use App\Models\Post;
 use App\Models\SthubPost;
 use App\Models\Video;
 use App\Models\Unit;
+use App\Notifications\ResourceAdded;
 use Auth;
 use DB;
 
@@ -19,7 +20,9 @@ class ClassroomResourceController extends Controller
     //
     public function listResource(Request $request,$classroomId){
         $resourceUnitData = Unit::where('classroom_id',$classroomId)
-        ->with('classroomResources')
+        ->with(array('classroomResources' => function($query) {
+            $query->orderBy('created_at', 'DESC');
+        }))
         ->get();
 
         return response()->json(['success'=>[
@@ -88,6 +91,7 @@ class ClassroomResourceController extends Controller
         Log::critical('classroom resources Creation failure',['data'=>$request->all(),'error'=>$e->getMessage()]);
         return response()->$e;
     }
+        \Notification::send($classroom->users,new ResourceAdded);
         return response()->json(['success'=>[
             'resource_id'=>$classroom_resource->id
         ]]);
