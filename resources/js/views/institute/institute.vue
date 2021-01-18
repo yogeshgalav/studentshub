@@ -14,8 +14,8 @@
         <div class="row">
           <div class="col-md-12">
             <vue-table-component
-              :columns="columns"
-              :rows="users"
+              :columns="memberColumns"
+              :rows="memberRows"
             />
           </div>   
       
@@ -34,12 +34,22 @@
       <template slot="tab-heading-classrooms">
         {{ 'Classrooms' }}
       </template>
-      <template slot="tab-panel-classrooms" />
+      <template slot="tab-panel-classrooms">
+        <vue-table-component
+          :columns="classroomColumns"
+          :rows="classroomRows"
+        />
+      </template>
       
       <template slot="tab-heading-students">
         {{ 'Students' }}
       </template>
-      <template slot="tab-panel-students" />
+      <template slot="tab-panel-students">
+        <vue-table-component
+          :columns="studentColumns"
+          :rows="studentRows"
+        />
+      </template>
     </NavTabs>
     
     <div class="col-md-12">
@@ -153,7 +163,9 @@ export default {
 		return {
 			initialTab:'members',
 			tabs:['members','classrooms','students'],
-			users:[],
+			memberRows:[],
+			studentRows:[],
+			classroomRows:[],
 			institute_detail:{},
 			new_member:{
 				user_id:0,
@@ -162,7 +174,7 @@ export default {
 				password:'',
 				role:'',
 			},
-			columns: [
+			memberColumns: [
 				{
 					label: 'Member Name',
 					field: 'full_name',
@@ -176,11 +188,67 @@ export default {
 					field: 'role',
 				},
 			],
+			studentColumns: [
+				{
+					label: 'Student Name',
+					field: 'full_name',
+				},
+				{
+					label: 'Institute id',
+					field: 'institute_id',
+				},
+				{
+					label: 'Email',
+					field: 'email',
+				},
+				{
+					label: 'Course',
+					field: 'course_alias',
+				},
+				{
+					label: 'Average score',
+					field: 'avg_score',
+				},
+			],
+			classroomColumns: [
+				{
+					label: 'Name',
+					field: 'classroom_name',
+				},
+				{
+					label: 'Teacher',
+					field: 'teacher_name',
+				},
+				{
+					label: 'Total students',
+					field: 'total_students',
+				},
+				{
+					label: 'Total assignments',
+					field: 'total_assignments',
+				},
+				{
+					label: 'Average score',
+					field: 'avg_score',
+				},
+			],
 		};
 	},
 	mounted(){
 		this.axios.get('/api/institute/'+this.instituteId+'/get-institute-details').then((resp)=>{
-			this.users=resp.data.success.users;
+			this.memberRows=resp.data.success.members;
+			this.studentRows=resp.data.success.students.map(node=>{
+				if(node.avg_score){
+					node.avg_score = parseFloat(node.avg_score).toFixed(2);
+				}
+				return node;
+			});
+			this.classroomRows=resp.data.success.classrooms.map(node=>{
+				if(node.avg_score){
+					node.avg_score = parseFloat(node.avg_score).toFixed(2);
+				}
+				return node;
+			});
 			this.institute_detail=resp.data.success.institute_detail;
 		});
 	},
@@ -191,7 +259,7 @@ export default {
 					this.$modal.hide('add_member');
 					this.axios.post('/api/institute/'+this.instituteId+'/update-user',this.new_member).then((resp)=>{
 						const new_member = this.new_member;
-						this.users.push(new_member);
+						this.memberRows.push(new_member);
 					});
 				}
 			});
