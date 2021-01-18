@@ -38,7 +38,22 @@
         <vue-table-component
           :columns="classroomColumns"
           :rows="classroomRows"
-        />
+        >
+          <template
+            slot="table-row"
+            slot-scope="props"
+          >
+            <span v-if="props.column.field==='classroom_name'">
+              <a
+                :href="'/classroom/'+props.row.id"
+                class="text-underline"
+              >{{ props.row['classroom_name'] }}</a>
+            </span>
+            <span v-else>
+              <span>{{ props.row[props.column.field] }}</span>
+            </span>
+          </template>
+        </vue-table-component>
       </template>
       
       <template slot="tab-heading-students">
