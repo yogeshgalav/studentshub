@@ -44,7 +44,7 @@ class GuestController extends Controller
         $member->institute_name = $request->institute_name;
         $member->plan = $request->plan;
         $member->save();
-
+        Log::critical('New member request with details.',['member'=>$member]);
         return response()->json([],204);
     }
 }

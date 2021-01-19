@@ -13,21 +13,35 @@
       <template slot="tab-panel-members">
         <div class="row">
           <div class="col-md-12">
-            <vue-table-component
-              :columns="memberColumns"
-              :rows="memberRows"
-            />
-          </div>   
+            <div class="card mt-5">
+              <div class="card-header">
+                <h2 class="weight-800 text-black font-size-18 mb-0">
+                  {{ 'Members' }}
+                </h2>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-12">
+                    <vue-table-component
+                      :columns="memberColumns"
+                      :rows="memberRows"
+                      :footer="memberFooter"
+                    />
+                  </div>   
       
-          <div class="col-md-12">
-            <button 
-              class="btn btn-success" 
-              type="button"
-              @click="$modal.show('add_member')"
-            >
-              Add Member
-            </button>
-          </div> 
+                  <div class="col-md-12">
+                    <button 
+                      class="btn btn-success" 
+                      type="button"
+                      @click="$modal.show('add_member')"
+                    >
+                      Add Member
+                    </button>
+                  </div> 
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </template>
       
@@ -35,35 +49,71 @@
         {{ 'Classrooms' }}
       </template>
       <template slot="tab-panel-classrooms">
-        <vue-table-component
-          :columns="classroomColumns"
-          :rows="classroomRows"
-        >
-          <template
-            slot="table-row"
-            slot-scope="props"
-          >
-            <span v-if="props.column.field==='classroom_name'">
-              <a
-                :href="'/classroom/'+props.row.id"
-                class="text-underline"
-              >{{ props.row['classroom_name'] }}</a>
-            </span>
-            <span v-else>
-              <span>{{ props.row[props.column.field] }}</span>
-            </span>
-          </template>
-        </vue-table-component>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card mt-5">
+              <div class="card-header">
+                <h2 class="weight-800 text-black font-size-18 mb-0">
+                  {{ 'Classrooms' }}
+                </h2>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-12">
+                    <vue-table-component
+                      :columns="classroomColumns"
+                      :rows="classroomRows"
+                      :footer="classroomFooter"
+                    >
+                      <template
+                        slot="table-row"
+                        slot-scope="props"
+                      >
+                        <span v-if="props.column.field==='classroom_name'">
+                          <a
+                            :href="'/classroom/'+props.row.id"
+                            class="text-underline"
+                          >{{ props.row['classroom_name'] }}</a>
+                        </span>
+                        <span v-else>
+                          <span>{{ props.row[props.column.field] }}</span>
+                        </span>
+                      </template>
+                    </vue-table-component>
+                  </div> 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </template>
       
       <template slot="tab-heading-students">
         {{ 'Students' }}
       </template>
       <template slot="tab-panel-students">
-        <vue-table-component
-          :columns="studentColumns"
-          :rows="studentRows"
-        />
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card mt-5">
+              <div class="card-header">
+                <h2 class="weight-800 text-black font-size-18 mb-0">
+                  {{ 'Students' }}
+                </h2>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-12">
+                    <vue-table-component
+                      :columns="studentColumns"
+                      :rows="studentRows"
+                      :footer="studentFooter"
+                    />
+                  </div> 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </template>
     </NavTabs>
     
@@ -179,8 +229,11 @@ export default {
 			initialTab:'members',
 			tabs:['members','classrooms','students'],
 			memberRows:[],
+			memberFooter:{},
 			studentRows:[],
+			studentFooter:{},
 			classroomRows:[],
+			classroomFooter:{},
 			institute_detail:{},
 			new_member:{
 				user_id:0,
@@ -252,18 +305,38 @@ export default {
 	mounted(){
 		this.axios.get('/api/institute/'+this.instituteId+'/get-institute-details').then((resp)=>{
 			this.memberRows=resp.data.success.members;
+			this.memberFooter={
+				'full_name':this.memberRows.length +' Members'
+			};
+			let total_avg1 = 0;
+			let count1 = 0;
 			this.studentRows=resp.data.success.students.map(node=>{
 				if(node.avg_score){
 					node.avg_score = parseFloat(node.avg_score).toFixed(2);
+					total_avg1 = total_avg1 + node.avg_score;
+					count1 = count1 + 1;
 				}
 				return node;
 			});
+			this.studentFooter={
+				'full_name':this.studentRows.length +' Students',
+				'avg_score':parseFloat(total_avg1/count1).toFixed(2)
+			};
+
+			let total_avg2 = 0;
+			let count2 = 0;
 			this.classroomRows=resp.data.success.classrooms.map(node=>{
 				if(node.avg_score){
 					node.avg_score = parseFloat(node.avg_score).toFixed(2);
+					total_avg2 = total_avg2 + node.avg_score;
+					count2 = count2 + 1;
 				}
 				return node;
 			});
+			this.classroomFooter={
+				'classroom_name':this.classroomRows.length +' Classrooms',
+				'avg_score':parseFloat(total_avg2/count2).toFixed(2)
+			};
 			this.institute_detail=resp.data.success.institute_detail;
 		});
 	},
