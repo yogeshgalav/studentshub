@@ -111,25 +111,24 @@
                     class="form-control"
                     name="question_text"
                   />
+                  <button
+                    v-if="filter_recovery_text"
+                    type="button"
+                    class="btn-link"
+                    @click="undoFilterOptions"
+                  >
+                    Undo
+                  </button>
+                  <button
+                    v-else
+                    type="button"
+                    class="btn-link"
+                    @click="filterOptions"
+                  >
+                    Filter Options
+                  </button>
                   <span class="error">{{ formErrors('question_text') }}</span>
                 </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label class="control-label font-size-14">Question Type</label>
-              <div class="cl_q_type">
-                <select
-                  v-model="current_question_edit.question_type"
-                  v-validate="'required'"
-                  class="form-control"
-                  name="question_type"
-                >
-                  <option value="multiple_choice">
-                    Multiple Choice
-                  </option>
-                </select>
               </div>
             </div>
           </div>
@@ -347,6 +346,35 @@ export default {
 			this.avail_marks = this.total_marks<11 ? (10-this.total_marks) : 0;
 			this.$modal.show('addDailyQuestionModal');
 		},
+		filterOptions(){
+			const text = this.current_question_edit.question_text;
+			this.filter_recovery_text = text;
+			let question_array = text.match(/[^\r\n]+/g);
+			this.current_question_edit.question_text = question_array[0];
+			this.current_question_edit.multiple_choice = [];
+			question_array.forEach((element, index) => {
+				if(index===0){
+					return true;
+				}
+				this.current_question_edit.multiple_choice.push({
+					id:0,
+					option_text: element,
+				});
+			});
+		},
+		undoFilterOptions(){
+			this.current_question_edit.question_text = this.filter_recovery_text;
+			this.current_question_edit.multiple_choice =[{
+				id:0,
+				option_text: null,
+			},
+			{
+				id:0,
+				option_text: null,
+			},
+			];
+			this.filter_recovery_text = '';
+		},
 		saveQuestion() {
 			this.$validator.validate().then(valid => {
 				if (valid) {
@@ -410,6 +438,7 @@ export default {
 				},
 				],
 			};
+			this.filter_recovery_text = '';
 		},
 		addOption() {
 			let data = this.current_question_edit.multiple_choice;
