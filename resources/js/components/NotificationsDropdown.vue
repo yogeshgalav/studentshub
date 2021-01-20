@@ -1,70 +1,164 @@
 <template>
-<div class="notification-system">
-  <div class="dropdown">
-    <button
-      id="dropdownMenuButton"
-      class="btn btn-sm btn-default border-radius-12 dropdown-toggle"
-      type="button"
-      data-toggle="dropdown"
-      aria-haspopup="true"
-      aria-expanded="false"
-    >
-      <span><i
-        :data-count="total"
-        class="fa fa-bell "
-        :class="{ 'hide-count': !hasUnread }"
-      /></span>
-    </button>
-    <div
-      class="dropdown-menu noti_design"
-      aria-labelledby="dropdownMenuButton"
-    >
+  <div style="width:20px; margin-left:20px">
+    <div class="btn-group dropdown dropdown-notifications sw-open">
+      <button
+        class="btn btn-default dropdown-toggle"
+        data-toggle="dropdown"
+      >
+        <i
+          class="fa fa-bell notification-icon"
+        />
+        <span class="caret" />
+      </button>
+
       <div class="dropdown-container">
-        <div class="dropdown-toolbar">
-          <div
-            v-show="hasUnread"
-            class="dropdown-toolbar-actions"
-          >
-            <a
-              href="#"
-              @click.prevent="markAllRead"
-            >Mark all as read</a>
-          </div>
+        <ul class="dropdown-menu notifications">
+          <li class="notification">
+            <div class="media">
+              <div class="media-left">
+                <div class="media-object">
+                  <img
+                    data-src="holder.js/50x50?bg=cccccc"
+                    class="img-circle"
+                    alt="Name"
+                  >
+                </div>
+              </div>
+              <div class="media-body">
+                <strong class="notification-title"><a href="#">Dave Lister</a> commented on <a href="#">DWARF-13 - Maintenance</a></strong>
+                <p class="notification-desc">
+                  I totally don't wanna do it. Rimmer can do it.
+                </p>
 
-          <h3 class="dropdown-toolbar-title">
-            Notifications ({{ total }})
-          </h3>
-        </div>
+                <div class="notification-meta">
+                  <small class="timestamp">27. 11. 2015, 15:00</small>
+                </div>
+              </div>
+            </div>
+          </li>
 
-        <ul class="dropdown-menu">
-          <notification
+          <li class="notification">
+            <div class="media">
+              <div class="media-left">
+                <div class="media-object">
+                  <img
+                    data-src="holder.js/50x50?bg=cccccc"
+                    class="img-circle"
+                    alt="Name"
+                  >
+                </div>
+              </div>
+              <div class="media-body">
+                <strong class="notification-title"><a href="#">Nikola Tesla</a> resolved <a href="#">T-14 - Awesome stuff</a></strong>
+
+                <p class="notification-desc">
+                  Resolution: Fixed, Work log: 4h
+                </p>
+
+                <div class="notification-meta">
+                  <small class="timestamp">27. 10. 2015, 08:00</small>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <li class="notification">
+            <div class="media">
+              <div class="media-left">
+                <div class="media-object">
+                  <img
+                    data-src="holder.js/50x50?bg=cccccc"
+                    class="img-circle"
+                    alt="Name"
+                  >
+                </div>
+              </div>
+              <div class="media-body">
+                <strong class="notification-title"><a href="#">James Bond</a> resolved <a href="#">B-007 - Desolve Spectre organization</a></strong>
+
+                <div class="notification-meta">
+                  <small class="timestamp">1. 9. 2015, 08:00</small>
+                </div>
+              </div>
+            </div>
+          </li>
+          <!-- <notification
             v-for="notification in notifications"
             :key="notification.id"
             :notification="notification"
             @read="markAsRead(notification)"
-          />
-
-          <li
-            v-if="!hasUnread"
-            class="notification"
-          >
-            You don't have any unread notifications.
-          </li>
+          /> -->
         </ul>
-
-        <div
-          v-if="hasUnread"
-          class="dropdown-footer text-center"
-        >
-          <a
-            href="#"
-            @click.prevent="fetch(null)"
-          >View All</a>
-        </div>
       </div>
     </div>
   </div>
-</div>
+<!-- 
+  <div class="notification-system">
+    <div class="dropdown">
+      <button
+        id="dropdownMenuButton"
+        class="btn btn-sm btn-default border-radius-12 dropdown-toggle"
+        type="button"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <span><i
+          :data-count="total"
+          class="fa fa-bell "
+          :class="{ 'hide-count': !hasUnread }"
+        /></span>
+      </button>
+      <div
+        class="dropdown-menu noti_design"
+        aria-labelledby="dropdownMenuButton"
+      >
+        <div class="dropdown-container">
+          <div class="dropdown-toolbar">
+            <div
+              v-show="hasUnread"
+              class="dropdown-toolbar-actions"
+            >
+              <a
+                href="#"
+                @click.prevent="markAllRead"
+              >Mark all as read</a>
+            </div>
+
+            <h3 class="dropdown-toolbar-title">
+              Notifications ({{ total }})
+            </h3>
+          </div>
+
+          <ul class="dropdown-menu">
+            <notification
+              v-for="notification in notifications"
+              :key="notification.id"
+              :notification="notification"
+              @read="markAsRead(notification)"
+            />
+
+            <li
+              v-if="!hasUnread"
+              class="notification"
+            >
+              You don't have any unread notifications.
+            </li>
+          </ul>
+
+          <div
+            v-if="hasUnread"
+            class="dropdown-footer text-center"
+          >
+            <a
+              href="#"
+              @click.prevent="fetch(null)"
+            >View All</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
 </template>
 <style  scoped>
 /*!
@@ -295,8 +389,8 @@ a.notification:hover {
 }
 .dropdown-notifications > .dropdown-container,
 .dropdown-notifications > .dropdown-menu {
-  width: 450px;
-  max-width: 450px;
+  width: 250px;
+  max-width: 250px;
 }
 .dropdown-notifications .dropdown-menu {
   padding: 0;
@@ -437,7 +531,7 @@ export default {
      * Listen for Echo push notifications.
      */
 		listen () {
-			window.Echo.private(`App.User.` + AuthUser.id)
+			window.Echo.private('App.User.' + AuthUser.id)
 				.notification(notification => {
 					this.total++;
 					this.notifications.unshift(notification);

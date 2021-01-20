@@ -14,13 +14,14 @@
       <li class="nav-item  search_box ">
       @include('includes.search-form')
       </li>
-      <li class="nav-item">
-          <notifications-dropdown></notifications-dropdown>
-      </li>
+    
       <li class="nav-item">
         @include('includes.profile-dropdown')
       </li>
     </ul>
+  </div>
+  <div>
+  <notifications-dropdown></notifications-dropdown>
   </div>
 </nav>
 </div>
