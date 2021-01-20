@@ -1,70 +1,104 @@
 <template>
-<div class="notification-system">
-  <div class="dropdown">
-    <button
-      id="dropdownMenuButton"
-      class="btn btn-sm btn-default border-radius-12 dropdown-toggle"
-      type="button"
-      data-toggle="dropdown"
-      aria-haspopup="true"
-      aria-expanded="false"
-    >
-      <span><i
-        :data-count="total"
-        class="fa fa-bell "
-        :class="{ 'hide-count': !hasUnread }"
-      /></span>
-    </button>
-    <div
-      class="dropdown-menu noti_design"
-      aria-labelledby="dropdownMenuButton"
-    >
+  <div style="width:20px; margin-left:20px">
+    <div class="btn-group dropdown dropdown-notifications sw-open">
+      <button
+        class="btn btn-default dropdown-toggle"
+        data-toggle="dropdown"
+      >
+        <i
+          class="fa fa-bell notification-icon"
+        />
+        <span class="caret" />
+      </button>
+
       <div class="dropdown-container">
-        <div class="dropdown-toolbar">
-          <div
-            v-show="hasUnread"
-            class="dropdown-toolbar-actions"
-          >
-            <a
-              href="#"
-              @click.prevent="markAllRead"
-            >Mark all as read</a>
-          </div>
-
-          <h3 class="dropdown-toolbar-title">
-            Notifications ({{ total }})
-          </h3>
-        </div>
-
-        <ul class="dropdown-menu">
+        <ul class="dropdown-menu notifications">
           <notification
             v-for="notification in notifications"
             :key="notification.id"
             :notification="notification"
             @read="markAsRead(notification)"
           />
-
-          <li
-            v-if="!hasUnread"
-            class="notification"
-          >
-            You don't have any unread notifications.
+          <li class="notification">
+            <div class="media">
+              <div class="media-body">
+                <p class="notification-desc">
+                  There is not notification
+                </p>
+              </div>
+            </div>
           </li>
         </ul>
-
-        <div
-          v-if="hasUnread"
-          class="dropdown-footer text-center"
-        >
-          <a
-            href="#"
-            @click.prevent="fetch(null)"
-          >View All</a>
-        </div>
       </div>
     </div>
   </div>
-</div>
+<!-- 
+  <div class="notification-system">
+    <div class="dropdown">
+      <button
+        id="dropdownMenuButton"
+        class="btn btn-sm btn-default border-radius-12 dropdown-toggle"
+        type="button"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <span><i
+          :data-count="total"
+          class="fa fa-bell "
+          :class="{ 'hide-count': !hasUnread }"
+        /></span>
+      </button>
+      <div
+        class="dropdown-menu noti_design"
+        aria-labelledby="dropdownMenuButton"
+      >
+        <div class="dropdown-container">
+          <div class="dropdown-toolbar">
+            <div
+              v-show="hasUnread"
+              class="dropdown-toolbar-actions"
+            >
+              <a
+                href="#"
+                @click.prevent="markAllRead"
+              >Mark all as read</a>
+            </div>
+
+            <h3 class="dropdown-toolbar-title">
+              Notifications ({{ total }})
+            </h3>
+          </div>
+
+          <ul class="dropdown-menu">
+            <notification
+              v-for="notification in notifications"
+              :key="notification.id"
+              :notification="notification"
+              @read="markAsRead(notification)"
+            />
+
+            <li
+              v-if="!hasUnread"
+              class="notification"
+            >
+              You don't have any unread notifications.
+            </li>
+          </ul>
+
+          <div
+            v-if="hasUnread"
+            class="dropdown-footer text-center"
+          >
+            <a
+              href="#"
+              @click.prevent="fetch(null)"
+            >View All</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
 </template>
 <style  scoped>
 /*!
@@ -295,8 +329,8 @@ a.notification:hover {
 }
 .dropdown-notifications > .dropdown-container,
 .dropdown-notifications > .dropdown-menu {
-  width: 450px;
-  max-width: 450px;
+  width: 250px;
+  max-width: 250px;
 }
 .dropdown-notifications .dropdown-menu {
   padding: 0;
@@ -437,7 +471,7 @@ export default {
      * Listen for Echo push notifications.
      */
 		listen () {
-			window.Echo.private(`App.User.` + AuthUser.id)
+			window.Echo.private('App.User.' + AuthUser.id)
 				.notification(notification => {
 					this.total++;
 					this.notifications.unshift(notification);
