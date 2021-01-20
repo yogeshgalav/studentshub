@@ -20,7 +20,7 @@
       </li>
     </ul>
   </div>
-  <div>
+  <div class="mr-2">
   <notifications-dropdown></notifications-dropdown>
   </div>
 </nav>
