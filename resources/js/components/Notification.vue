@@ -1,11 +1,11 @@
 <template>
   <li class="notification">
     <div class="media">
-      <div class="media-left">
+      <!-- <div class="media-left">
         <div class="media-object">
           <img src="/notification-icon.png">
         </div>
-      </div>
+      </div> -->
 
       <div class="media-body">
         <a
@@ -28,11 +28,11 @@
           {{ notification.body }}
         </p>
 
-        <div class="notification-meta">
+        <!-- <div class="notification-meta">
           <small class="timestamp">
-          
+    
           </small>
-        </div>
+        </div> -->
       </div>
     </div>
   </li>
