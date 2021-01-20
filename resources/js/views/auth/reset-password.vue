@@ -92,10 +92,11 @@ export default {
 		handleSubmit(){
 			this.$validator.validate().then(valid => {
 				if (valid) {
-					this.axios.post('/api/reset-password',{
+					let api_path= '/api/reset-password';
+					api_path = this.token ? (api_path+'/'+this.token) : api_path;
+					this.axios.post(api_path,{
 						password:this.password,
-						confirm_password:this.confirm_password,
-						token:this.token
+						confirm_password:this.confirm_password
 					}).then((resp)=>{
 						window.location.href = this.token ? '/' : '/login';
 					}).catch((err)=>{

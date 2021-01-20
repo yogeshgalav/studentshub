@@ -86,7 +86,7 @@ class UserController extends Controller
     }
 
     public function resetPassword(Request $request){
-        $token = $request->route('token');
+        $token = $request->token;
         return view('guest.auth.reset-password')
         ->with('token',$token);
     }

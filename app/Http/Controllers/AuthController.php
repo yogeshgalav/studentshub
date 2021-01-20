@@ -309,7 +309,7 @@ class AuthController extends Controller
     public function resetPassword2(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'password'=>'required|min:6',
+            'password'=>'required|min:8',
             'confirm_password'=>'required|same:password',
         ]);
 
@@ -327,7 +327,7 @@ class AuthController extends Controller
     public function resetPassword($token,Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'password'=>'required|min:6',
+            'password'=>'required|min:8',
             'confirm_password'=>'required|same:password',
         ]);
 
@@ -343,8 +343,9 @@ class AuthController extends Controller
             return response()->json(['error'=>'Wrong Token.'], 403);
         }
 
-        $user=User::where('id', $dbToken->user_id);
-        $user->update(['password'=>Hash::make($request->input('password'))]);
+        $user=User::where('id', $dbToken->user_id)->first();
+        $user->password = Hash::make($request->input('password'));
+        $user->save();
 
         return response()->json(['success'=>'Password Changed.'], 200);
     }
