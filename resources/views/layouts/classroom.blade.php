@@ -19,7 +19,7 @@
     </div>
 
     <div class="container-fluid">
-        <div class="row">
+        <div class="row custom-width">
             <div class="width-250px mr-3">
                 <div class="main-sidebar">
                 @include('includes.sidebar')
