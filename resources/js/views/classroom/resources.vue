@@ -141,20 +141,23 @@
                     </div>
                   </div>
                 </div>
-              </div>
-              <!-- <div class="col-md-12">
-                <div class="form-group">
-                  <label for="shareAsPost">
+                <div
+                  v-if="resource_type==='documentLink' || resource_type==='youtubeVideo'" 
+                  class="mt-1 forget_rember_pass"
+                >
+                  <div class="rem_pass">
                     <input
                       id="shareAsPost"
                       v-model="share_as_post"
-                      v-validate="'required'"
                       name="shareAsPost"
                       type="checkbox"
-                      class="form-control"
-                    >Share as post</label>
+                    >
+                    <label for="shareAsPost">
+                      {{ 'Share as post' }}
+                    </label>
+                  </div>
                 </div>
-              </div> -->
+              </div>
               <div class="mt-1 row text-right">
                 <div class="col-md-12">
                   <hr>

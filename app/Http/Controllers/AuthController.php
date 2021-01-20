@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Mail\ResetPasswordMail;
+use App\Mails\ResetPasswordMail;
+use App\Models\PasswordReset;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Classroom;
@@ -16,7 +17,6 @@ use Laravel\Passport\Passport;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\ForgotPasswordRequest;
 use Illuminate\Support\Facades\URL;
-use App\PasswordReset;
 use App\Http\Requests\RegisterRequest;
 use Carbon\Carbon;
 use Sthub;
@@ -291,12 +291,13 @@ class AuthController extends Controller
     // Handling the forgot password email request
     public function processForgotPassword(ForgotPasswordRequest $request)
     {
-        $user=User::whereContact($request->input('email'))->first();
+        $user=User::where('email',$request->input('email'))->first();
         if ($user) {
             $token = PasswordReset::create([
                 'user_id'=>$user->id,
                 'token'=>uniqid(),
-                'expires_at'=>Carbon::now()->addHour(),
+                'expires_at'=>Carbon::now()->addHour()->toDateTimeString(),
+                'created_at'=>Carbon::now()->toDateTimeString(),
             ]);
 
             Mail::to($request->input('email'))->send(new ResetPasswordMail($token, $request));

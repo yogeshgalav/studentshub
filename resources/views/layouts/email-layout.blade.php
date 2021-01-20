@@ -90,16 +90,14 @@ margin: 0;
 <div class="container">
     <div class="email-template">
     <table>
-    @if(!$theme['hide_email_logo'])
         <tr>
             <td>
                 <a
-                    href="/"
+                    href="www.studentshub.in"
                     class="logo"
                 >
                     <img
-                        src="{{ $theme['dark_logo_url'] }}"
-                        alt="{{ $theme['alt_src'] }}"
+                        src="{{config('url.site_url').'/images/logo.png' }}"
                         class="navbar-brand logo-height-49"
                     >
                 </a>
@@ -108,7 +106,6 @@ margin: 0;
         <tr>
             <td> <div class="divider">&nbsp;</div></td>
         </tr>
-    @endif
     @yield('content')
     </table>
     </div>
@@ -117,7 +114,7 @@ margin: 0;
             <td>
             @yield('notification_setting')
                 <p class="text-center">
-                    {{ __('layout.copyright-statement', ['year' => date('Y')]) }}
+                    {{ __('notification.copyright-statement', ['year' => date('Y')]) }}
                 </p>
             </td>
         </tr>

@@ -600,6 +600,7 @@ export default {
 	},
 	mounted() {
 		this.$store.dispatch('common/getPostContent', this.$route.params.id);
+		window.scrollTo(0, 0);
 	},
 	methods: {
 		sendUserLike() {

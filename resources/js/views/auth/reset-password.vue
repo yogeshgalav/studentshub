@@ -21,7 +21,7 @@
                       id="password"
                       ref="password"
                       v-model="password"
-                      v-validate="'required|min:6'"
+                      v-validate="'required|min:8'"
                       type="password"
                       class="form-control"
                       name="password"
@@ -92,11 +92,10 @@ export default {
 		handleSubmit(){
 			this.$validator.validate().then(valid => {
 				if (valid) {
-					let api_path= '/api/reset-password';
-					api_path = this.token ? (api_path+'/'+this.token) : api_path;
-					this.axios.post(api_path,{
+					this.axios.post('/api/reset-password',{
 						password:this.password,
-						confirm_password:this.confirm_password
+						confirm_password:this.confirm_password,
+						token:this.token
 					}).then((resp)=>{
 						window.location.href = this.token ? '/' : '/login';
 					}).catch((err)=>{

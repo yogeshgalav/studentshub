@@ -2,8 +2,8 @@
 
 return [    
     'hi' => 'Hi',
-    'contactUs' => 'If you have any technical questions please contact us at <span class="text-primary">help@studentshub.in</span>.',
-
+    'contactUs' => 'If you have any technical questions please contact us at <span class="text-primary">info@studentshub.in</span>.',
+    'copyright-statement' => "Copyright © :year Studentshub.in. All Rights Reserved.",
     'SystemOwnerOnboardingNotification' => [
         'btnCreateAccount' => 'ACTIVATE ACCOUNT',
         'hi' => 'Hi :first_name',
@@ -14,7 +14,7 @@ return [
     ],
     'forgotPassword' => [
         'btnLabel' => 'Reset Password',
-        'message_line_1' => 'Password troubles? We’re here to help. Click below to reset your password. Please note that this notification will expire in 24 hours.',
+        'message_line_1' => 'Password troubles? We’re here to help. Click below to reset your password. Please note that this notification will expire in 1 hour.',
         'subject' => 'Reset Password',
     ],
 ];
