@@ -50,7 +50,10 @@ class DoubtAnswersController extends Controller
         SthubPost::create([
             'post_id'=>$post->id,
             'institute_id'=>$student->instituteId,
-            'course_id'=>$student->courseId,
+            'classroom_id'=>$doubt->classroom_id ?? null,
+            'course_id'=>$doubt->batch_id ? $doubt->batch->course_id : null,
+            'batch_id'=>$classroom->batch_id,
+            'category_id'=>$classroom->subject->category_id ?? null,
             'shared_by'=>Auth::id(),
         ]);
 

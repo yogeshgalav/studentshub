@@ -51,7 +51,8 @@ class DoubtController extends Controller
         $q->user_id = Auth::user()->id;
         $q->question = $request->doubt;
         $q->subject_id = $subject->id;
-        $q->batch_id = $student->batchId;
+        //batch id to get institute and course id
+        $q->batch_id = $request->classroomId ? $student->batchId : null;
         $q->classroom_id = $request->classroomId ?? null;
         $q->save();
 
@@ -70,8 +71,6 @@ class DoubtController extends Controller
     {
         $student=Auth::student();
         $doubt_query=Doubt::join('users as us','us.id','=','doubts.user_id')
-        ->join('batches as pbt','pbt.id','=','doubts.batch_id')
-        ->join('institutes as inst','inst.id','=','pbt.institute_id')
         ->join('subjects as sub','sub.id','=','doubts.subject_id');
         
         if(!empty($request->classroomId)){
@@ -82,7 +81,7 @@ class DoubtController extends Controller
         }
 
         $doubts = $doubt_query
-        ->select('us.full_name as user_name','us.avatar_url as profile_image','sub.subject_name','inst.name as inst_name',
+        ->select('us.full_name as user_name','us.avatar_url as profile_image','sub.subject_name',
         'doubts.question','doubts.created_at','doubts.id')
         ->get();
 
@@ -93,7 +92,8 @@ class DoubtController extends Controller
                 $join->on('doubts.id','=','li.likable_id')->where('li.likable_type','=','App\Models\Doubt')->where('li.like_status','=',1);
             })
             ->select(DB::raw('COUNT(distinct li.user_id) as total_likes'),DB::raw('COUNT(distinct ans.user_id) as total_answers'))
-            ->groupBy(['doubts.id'])
+            ->groupBy('us.full_name','us.avatar_url','sub.subject_name',
+            'doubts.question','doubts.created_at','doubts.id')
             ->first();
             $doubt->total_likes=$doubt_content->total_likes;
             $doubt->total_answers=$doubt_content->total_answers;

@@ -64,9 +64,6 @@
                   <p class="usernamedash mb-0 dash_user_date">
                     {{ doubt.user_name }}<span> {{ doubt.time }}</span>
                   </p>
-                  <p class="usernamedash mb-0">
-                    {{ doubt.inst_name }}
-                  </p>
                 </div>
               </div>
               <div class="d-flex mt-2">
