@@ -11,6 +11,9 @@ class Doubt extends Model
     public function subject(){
         return $this->belongsTo('App\Models\Subject');
     }
+    public function course(){
+        return $this->belongsTo('App\Models\Course');
+    }
 
     public function setQuestionAttribute($value)
     {

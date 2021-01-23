@@ -33,17 +33,17 @@ class DoubtController extends Controller
         DB::beginTransaction();
     try{
 
+        $classroom = null;
         if($request->classroomId){
-            $subject = Classroom::findOrFail($request->classroomId)->subject;
-        }else if($selected_subject['id']){
-            $subject = Subject::findOrFail($selected_subject['id']);
+            $classroom = Classroom::findOrFail($request->classroomId);
+            $classroom = $classroom->subject;
         }else{
             $subject_name=strtolower($selected_subject['subject_name']);
             $subject=Subject::firstOrCreate([
                 'subject_url'=>\Str::slug($subject_name),
+                'category_id'=>Auth::student()->categoryId,
                 ],[
                 'subject_name'=>$subject_name,
-                'category_id'=>$request->category,
                 ]);
         }
 
@@ -51,9 +51,9 @@ class DoubtController extends Controller
         $q->user_id = Auth::user()->id;
         $q->question = $request->doubt;
         $q->subject_id = $subject->id;
-        //batch id to get institute and course id
-        $q->batch_id = $request->classroomId ? $student->batchId : null;
-        $q->classroom_id = $request->classroomId ?? null;
+        $q->institute_id = $student->instituteId;
+        $q->course_id = $student->courseId;
+        $q->classroom_id = $classroom ? $classroom->id : null;
         $q->save();
 
 
@@ -69,9 +69,17 @@ class DoubtController extends Controller
 
     public function getDoubts(Request $request)
     {
-        $student=Auth::student();
-        $doubt_query=Doubt::join('users as us','us.id','=','doubts.user_id')
-        ->join('subjects as sub','sub.id','=','doubts.subject_id');
+        $course_id = null;
+        if($request->classroomId){
+            $course_id = Classroom::findOrFail($request->classroomId)->course_id;
+        }else if(Auth::student()){
+            $course_id = Auth::student()->courseId;
+        }
+
+        $doubt_query=Doubt::where('course_id',$course_id)
+        ->join('users as us','us.id','=','doubts.user_id')
+        ->join('subjects as sub','sub.id','=','doubts.subject_id')
+        ->join('institutes as inst','inst.id','=','doubts.institute_id');
         
         if(!empty($request->classroomId)){
             $doubt_query = $doubt_query->where('classroom_id',$request->classroomId);
@@ -81,7 +89,7 @@ class DoubtController extends Controller
         }
 
         $doubts = $doubt_query
-        ->select('us.full_name as user_name','us.avatar_url as profile_image','sub.subject_name',
+        ->select('us.full_name as user_name','us.avatar_url as profile_image','sub.subject_name','inst.name as institute_name',
         'doubts.question','doubts.created_at','doubts.id')
         ->get();
 
@@ -92,8 +100,6 @@ class DoubtController extends Controller
                 $join->on('doubts.id','=','li.likable_id')->where('li.likable_type','=','App\Models\Doubt')->where('li.like_status','=',1);
             })
             ->select(DB::raw('COUNT(distinct li.user_id) as total_likes'),DB::raw('COUNT(distinct ans.user_id) as total_answers'))
-            ->groupBy('us.full_name','us.avatar_url','sub.subject_name',
-            'doubts.question','doubts.created_at','doubts.id')
             ->first();
             $doubt->total_likes=$doubt_content->total_likes;
             $doubt->total_answers=$doubt_content->total_answers;

@@ -46,14 +46,19 @@ class DoubtAnswersController extends Controller
         $answer->post_id=$post->id;
         $answer->save();
 
-        $student = Auth::student();
+        $institute_id = null;
+        if($student = Auth::student()){
+            $institute_id = $student->instituteId;
+        }
+        if($teacher = Auth::teacher()){
+            $institute_id = $teacher->instituteId;
+        }
         SthubPost::create([
             'post_id'=>$post->id,
-            'institute_id'=>$student->instituteId,
+            'institute_id'=>$institute_id,
             'classroom_id'=>$doubt->classroom_id ?? null,
-            'course_id'=>$doubt->batch_id ? $doubt->batch->course_id : null,
-            'batch_id'=>$classroom->batch_id,
-            'category_id'=>$classroom->subject->category_id ?? null,
+            'course_id'=>$doubt->course_id,
+            'category_id'=>$doubt->course->category_id,
             'shared_by'=>Auth::id(),
         ]);
 
@@ -71,8 +76,7 @@ class DoubtAnswersController extends Controller
     {
         $doubt=\DB::table('doubts')->where('doubts.id',$doubtId)
         ->join('users as us','us.id','=','doubts.user_id')
-        ->join('batches as pbt','pbt.id','=','doubts.batch_id')
-        ->join('institutes as inst','inst.id','=','pbt.institute_id')
+        ->join('institutes as inst','inst.id','=','doubts.institute_id')
         ->join('subjects as sub','sub.id','=','doubts.subject_id')
         ->select('us.full_name as user_name','us.avatar_url as profile_image','sub.subject_name','inst.name as inst_name',
         'doubts.question','doubts.created_at','doubts.id')
