@@ -12,7 +12,7 @@
       </button>
 
       <div class="dropdown-container">
-        <ul class="dropdown-menu notifications">
+        <ul class="dropdown-menu notifications mobile_hide">
           <notification
             v-for="notification in notifications"
             :key="notification.id"
@@ -388,6 +388,11 @@ a.notification:hover {
 }
 .btn-xs .notification-icon {
   margin-right: 3.43875px;
+}
+@media (max-width: 640px) {
+  .mobile_hide {
+    display: none;
+  }
 }
 
 </style>

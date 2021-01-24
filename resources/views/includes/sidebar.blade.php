@@ -25,16 +25,21 @@
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 @include('includes.search-form')
                             </div>
+                          
                         </div>
                     </li>
-                    <li>
-                        <notifications-dropdown></notifications-dropdown>
+                    <li class="nav-item"> 
+                    <div class="dropdown" style="margin-right:40px">
+                    <notifications-dropdown></notifications-dropdown>
+                    </div>
                     </li>
                     <li class="nav-item">
                        
                         @include('includes.profile-dropdown')
                     </li>
+               
                 </ul>
+               
             </div>
         </div>
 
