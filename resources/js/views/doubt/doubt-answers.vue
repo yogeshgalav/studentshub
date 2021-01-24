@@ -4,18 +4,26 @@
       <div class="row">
         <div class="col-md-9 center-col">
           <div class="answer_main_card"> 
-            <div class="anser_deails">  
-              <div class="ans_user_img">
-                <img v-lazy="'/images/user-img.jpg'">
+            <div class="dashboard_post">
+              <div
+                v-if="doubt"
+                class="avatar doubt_user_img"
+              >
+                <profile-image :post="doubt" />
               </div>
-              <div class="ans_user_text ml-2">
-                <h6 class="answer_cat">
-                  {{ doubt.subject_name }}  <span>3 Daays</span>
-                </h6>
-                <h6>{{ doubt.user_name }}</h6>
+              <div class="info-post ml-2 dash_insititue_name">
+                <p class="usernamedash mb-0 dash_user_date">
+                  {{ doubt.user_name }}<span> {{ doubt.time }}</span>
+                </p>
+                <p class="usernamedash mb-0">
+                  {{ doubt.inst_name }}
+                </p>
               </div>
             </div>
             <div class="answer_que">
+              <p class="text-muted btn-category">
+                {{ doubt.subject_name }}
+              </p>
               <h4 class="main_que">
                 {{ doubt.question }}
               </h4>
@@ -93,11 +101,13 @@ import { ImageDrop } from 'quill-image-drop-module';
 Quill.register('modules/imageDrop', ImageDrop);
 Quill.register('modules/imageResize', ImageResize);
 import DoubtCard from '../post/DoubtCard.vue';
+import ProfileImage from '../post/ProfileImage';
 
 export default {
 	components:{
 		VueEditor,
-		DoubtCard
+		DoubtCard,
+		ProfileImage
 	},
 	data() {
 		return {
@@ -140,15 +150,18 @@ export default {
 		}
 	},
 	mounted() {
-		axios.get('/api/doubt/' + this.$route.params.doubtId + '/get-answers/')
-			.then(response => {
-				this.doubt = response.data.success.doubt;
-				this.posts = response.data.success.answerList;
-				this.isAnswered = response.data.success.isAnswered;
-			}); 
-
+		this.getDoubtAnswerData();
 	},
 	methods: {
+		getDoubtAnswerData(){
+      		axios.get('/api/doubt/' + this.$route.params.doubtId + '/get-answers/')
+				.then(response => {
+					this.doubt = response.data.success.doubt;
+					this.posts = response.data.success.answerList;
+					this.isAnswered = response.data.success.isAnswered;
+				}); 
+
+		},
 		submitAnswer() {
 			if(this.countContent<100){
 				this.error='An answer should be of minimum 100 words.';
@@ -159,6 +172,7 @@ export default {
 				answer_text: this.description
 			})
 				.then(resp => {
+					this.getDoubtAnswerData();
 					this.add_answer = false;
 					this.new_answer = '';
 					this.error = '';

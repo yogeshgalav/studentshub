@@ -36,7 +36,7 @@ class DoubtController extends Controller
         $classroom = null;
         if($request->classroomId){
             $classroom = Classroom::findOrFail($request->classroomId);
-            $classroom = $classroom->subject;
+            $subject = $classroom->subject;
         }else{
             $subject_name=strtolower($selected_subject['subject_name']);
             $subject=Subject::firstOrCreate([
@@ -71,7 +71,7 @@ class DoubtController extends Controller
     {
         $course_id = null;
         if($request->classroomId){
-            $course_id = Classroom::findOrFail($request->classroomId)->course_id;
+            $course_id = Classroom::findOrFail($request->classroomId)->batch->course_id;
         }else if(Auth::student()){
             $course_id = Auth::student()->courseId;
         }
@@ -91,6 +91,7 @@ class DoubtController extends Controller
         $doubts = $doubt_query
         ->select('us.full_name as user_name','us.avatar_url as profile_image','sub.subject_name','inst.name as institute_name',
         'doubts.question','doubts.created_at','doubts.id')
+        ->orderBy('doubts.created_at','DESC')
         ->get();
 
         foreach($doubts as $doubt){

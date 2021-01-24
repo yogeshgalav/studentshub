@@ -1,5 +1,5 @@
 <template>
-  <div style="width:20px; margin-left:20px">
+  <div style="width:20px;">
     <div class="btn-group dropdown dropdown-notifications sw-open">
       <button
         class="btn btn-default dropdown-toggle border-radius-12 custom-pad"
@@ -19,7 +19,10 @@
             :notification="notification"
             @read="markAsRead(notification)"
           />
-          <li class="notification">
+          <li
+            v-if="!notifications.length"
+            class="notification"
+          >
             <div class="media">
               <div class="media-body">
                 <p class="notification-desc">
@@ -32,73 +35,6 @@
       </div>
     </div>
   </div>
-<!-- 
-  <div class="notification-system">
-    <div class="dropdown">
-      <button
-        id="dropdownMenuButton"
-        class="btn btn-sm btn-default border-radius-12 dropdown-toggle"
-        type="button"
-        data-toggle="dropdown"
-        aria-haspopup="true"
-        aria-expanded="false"
-      >
-        <span><i
-          :data-count="total"
-          class="fa fa-bell "
-          :class="{ 'hide-count': !hasUnread }"
-        /></span>
-      </button>
-      <div
-        class="dropdown-menu noti_design"
-        aria-labelledby="dropdownMenuButton"
-      >
-        <div class="dropdown-container">
-          <div class="dropdown-toolbar">
-            <div
-              v-show="hasUnread"
-              class="dropdown-toolbar-actions"
-            >
-              <a
-                href="#"
-                @click.prevent="markAllRead"
-              >Mark all as read</a>
-            </div>
-
-            <h3 class="dropdown-toolbar-title">
-              Notifications ({{ total }})
-            </h3>
-          </div>
-
-          <ul class="dropdown-menu">
-            <notification
-              v-for="notification in notifications"
-              :key="notification.id"
-              :notification="notification"
-              @read="markAsRead(notification)"
-            />
-
-            <li
-              v-if="!hasUnread"
-              class="notification"
-            >
-              You don't have any unread notifications.
-            </li>
-          </ul>
-
-          <div
-            v-if="hasUnread"
-            class="dropdown-footer text-center"
-          >
-            <a
-              href="#"
-              @click.prevent="fetch(null)"
-            >View All</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> -->
 </template>
 <style  scoped>
 /*!

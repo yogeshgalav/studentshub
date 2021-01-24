@@ -52,12 +52,6 @@
         <div class="row">
           <div class="col-md-8 center-col">
             <div class="doubt_lsit">
-              <div class="cat_sub_name">
-                <p class="mb-0 text-muted">
-                  {{ doubt.subject_name }}
-                </p>
-              </div>
-
               <div class="dashboard_post">
                 <div class="avatar doubt_user_img">
                   <profile-image :post="doubt" />
@@ -80,6 +74,9 @@
                   >
                 </div>
                 <div class="info-post ml-2">
+                  <p class="text-muted btn-category">
+                    {{ doubt.subject_name }}
+                  </p>
                   <h3 class="card-title font-size-16">
                     <router-link
                       :to="'/doubt/'+doubt.id"
@@ -312,7 +309,6 @@ export default {
     	},
     	addDoubt()
     	{
-
     		this.axios.post(this.baseUrl + '/api/add-doubt/',{
     			doubt:this.question,
     			category:this.selected_category,

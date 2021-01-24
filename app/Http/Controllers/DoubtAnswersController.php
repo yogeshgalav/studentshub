@@ -81,6 +81,7 @@ class DoubtAnswersController extends Controller
         ->select('us.full_name as user_name','us.avatar_url as profile_image','sub.subject_name','inst.name as inst_name',
         'doubts.question','doubts.created_at','doubts.id')
         ->first();
+        $doubt->time=\Carbon\Carbon::createFromTimeStamp(strtotime($doubt->created_at))->diffForHumans();
 
         $post = new \App\Post;
         $answers=$post->getDoubtPosts($doubtId);

@@ -1,10 +1,22 @@
 <template>
-<div>
-    <div class="avatar" v-if="post.profile_image">
-    <img class="card-img-top img-responsive" v-lazy="post.profile_image" alt="Card image cap">
+  <div>
+    <div
+      v-if="post.profile_image"
+      class="avatar"
+    >
+      <img
+        v-lazy="post.profile_image"
+        class="card-img-top img-responsive"
+        alt="Card image cap"
+      >
     </div>
-    <div id="profileImage" v-if="!post.profile_image">{{ getNameImage(post.user_name)}}</div>
-</div>
+    <div
+      v-if="!post.profile_image"
+      id="profileImage"
+    >
+      {{ getNameImage(post.user_name) }}
+    </div>
+  </div>
 </template>
 <style scoped>
 #profileImage {
@@ -21,11 +33,11 @@
 </style>
 <script>
 export default {
-    props:['post'],
-    methods:{
-        getNameImage(name){
-            return name.charAt(0);
-        }
-    }
-}
+	props:['post'],
+	methods:{
+		getNameImage(name){
+			return name.charAt(0);
+		}
+	}
+};
 </script>

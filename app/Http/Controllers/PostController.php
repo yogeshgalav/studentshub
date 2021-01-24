@@ -56,7 +56,7 @@ class PostController extends Controller
                 $article=new Article;
                 $post_content_id=$article->createFromContent($data);
                 $post->postable_type="App\Models\Article";
-                $post->primary_image_path='/storage/article-default.png';
+                $post->primary_image_path=null;
                 $post->postable_id=$post_content_id;
 
             break;
@@ -105,7 +105,7 @@ class PostController extends Controller
             'post_id'=>$post->id,
             'institute_id'=>$student->instituteId,
             'course_id'=>Auth::student()->courseId,
-            'batch_id'=>$student->prefferred_batch,
+            'batch_id'=>$student->batchId,
             'category_id'=>$request->category_id,
             'shared_by'=>Auth::id(),
         ]);
