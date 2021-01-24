@@ -396,7 +396,6 @@ export default {
 		}
 	},
 	mounted(){
-		this.registerServiceWorker();
 		if(this.studentDetails){
 			this.selected_course['id']=this.studentDetails.courseId;
 			this.selected_course['course_name']=this.studentDetails.courseName;

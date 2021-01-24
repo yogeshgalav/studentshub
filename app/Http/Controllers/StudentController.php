@@ -31,10 +31,10 @@ class StudentController extends Controller
         try {
             //create or get course id
             if ($input['course_id'] == 0) {
-                $category = Category::findOrFail($input['category_id']);
+                Log::critical('New course created',['course_id'=>$course->id]);
                 $course = Course::create([
                     'course_name' => $input['course_name'],
-                    'category_id' => $category->id,
+                    'category_id' => null,
                 ]);
             } else {
                 $course = Course::findOrFail($input['course_id']);

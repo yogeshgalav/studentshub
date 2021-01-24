@@ -16,34 +16,6 @@
               Select catergory and subject of your post.
             </p>
           </div>
-          <div class="form-group">
-            <label for="category"> {{ 'Category' }} </label>
-            <div class="inner-addon left-addon">
-              <div class="input_icon_frm">
-                <span class="icon_design_input"><i
-                  class="fa fa-file"
-                  aria-hidden="true"
-                /></span>
-                <select
-                  v-model="selected_category"
-                  name="category"
-                  class="form-control"
-                >
-                  <option value="">
-                    Select Category
-                  </option>
-                  <option
-                    v-for="category in categories"
-                    :key="category.id"
-                    :value="category.id"
-                  >
-                    {{ category.name }}
-                  </option>
-                </select>
-              </div>
-              <span class="error">{{ errors.first('category') }}</span>
-            </div>
-          </div>
 
           <div class="form-group">
             <label
@@ -73,6 +45,35 @@
                   @selectNew="setNewSubject"
                 />
                 <span class="error">{{ errors.first('subject') }}</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="category"> {{ 'Category' }} </label>
+              <div class="inner-addon left-addon">
+                <div class="input_icon_frm">
+                  <span class="icon_design_input"><i
+                    class="fa fa-file"
+                    aria-hidden="true"
+                  /></span>
+                  <select
+                    v-model="selected_category"
+                    name="category"
+                    class="form-control"
+                  >
+                    <option value="">
+                      Select Category
+                    </option>
+                    <option
+                      v-for="category in categories"
+                      :key="category.id"
+                      :value="category.id"
+                    >
+                      {{ category.name }}
+                    </option>
+                  </select>
+                </div>
+                <span class="error">{{ errors.first('category') }}</span>
               </div>
             </div>
             <!--  -->
@@ -207,6 +208,9 @@ export default {
 		},
 		setSubject(result) {
 			this.selected_subject = result;
+			if(this.selected_subject.category_id){
+				this.selected_category = this.selected_subject.category_id;
+			}
 		},
 		setNewSubject(name) {
 			this.selected_subject = {

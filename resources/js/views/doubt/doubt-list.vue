@@ -14,13 +14,16 @@
                 type="text"
                 name="doubt"
                 class="form-control"
-                placeholder="Ask Question"
+                placeholder="Search Question"
                 @input="debounceSearch"
               >
             </div>
           </div>
 
-          <div class="col-md-4 custom_btn pl-0">
+          <div
+            v-if="AuthStudent"
+            class="col-md-4 custom_btn pl-0"
+          >
             <button
               type="button"
               class="btn btn-primary"
@@ -65,7 +68,7 @@
                     {{ doubt.user_name }}<span> {{ doubt.time }}</span>
                   </p>
                   <p class="usernamedash mb-0">
-                    {{ doubt.inst_name }}
+                    {{ doubt.institute_name }}
                   </p>
                 </div>
               </div>
@@ -97,6 +100,7 @@
         </div>
       </div>
       <modal
+        v-if="AuthStudent"
         name="add_doubt_modal"
         class="doubt_model"
       >
@@ -107,6 +111,17 @@
                 <p class="model_box_head">
                   Ask Doubt
                 </p>
+              </div>
+              <div class="form-group col-md-12">
+                <label class="text-black font-size-14">Course
+                </label>
+                <input
+                  id="course"
+                  type="text"
+                  class="form-control"
+                  disabled
+                  :value="AuthStudent.courseName"
+                >
               </div>
               <div class="col-md-12">
                 <div class="model_input">

@@ -182,6 +182,7 @@ class ClassroomController extends Controller
                 'course_name'=>$course_name,
                 'category_id'=>null
             ]);
+            Log::critical('New course created',['course_id'=>$course->id]);
         }
 
         $subject= \App\Models\Subject::firstOrCreate([
