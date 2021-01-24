@@ -2,13 +2,13 @@
   <div style="width:20px; margin-left:20px">
     <div class="btn-group dropdown dropdown-notifications sw-open">
       <button
-        class="btn btn-default dropdown-toggle"
+        class="btn btn-default dropdown-toggle border-radius-12 custom-pad"
         data-toggle="dropdown"
       >
         <i
           class="fa fa-bell notification-icon"
         />
-        <span class="caret" />
+        <span class="fa fa-angle-down" />
       </button>
 
       <div class="dropdown-container">
@@ -125,6 +125,11 @@
   -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   background-clip: padding-box;
+}
+.custom-pad {
+  padding: 0.25rem 0.5rem !important;
+    font-size: 0.7875rem !important;
+    line-height: 1.5;
 }
 .notification-system .dropdown-container > .dropdown-menu {
   position: static;
@@ -391,6 +396,9 @@ a.notification:hover {
 }
 @media (max-width: 640px) {
   .mobile_hide {
+    display: none;
+  }
+  .fa-angle-down {
     display: none;
   }
 }
