@@ -123,7 +123,10 @@ class PostController extends Controller
 
     public function getPosts(Request $request){
         $post=new \App\Post;
-        return $post->getAuthUserPosts($request);
+        $posts = $post->getAuthUserPosts($request);
+        return response()->json(['success'=>[
+          'posts'=>$posts
+      ]]);
     }
 
     public function show($post_id){

@@ -8,7 +8,27 @@
     />
     <classroom-header />
     <div>
-      <div class="row">
+      <div
+        v-if="!resourceUnitData.length && AuthTeacher"
+        class="card"
+      >
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <p>
+                {{ 'No unit created.This page will populate once unit setup is done. ' }}
+                <router-link :to="'/classroom/'+$route.params.classroomId+'/setup'">
+                  Click here to to create unit
+                </router-link>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        v-else
+        class="row"
+      >
         <div class="col-md-6">
           <select
             v-model="current_unit"

@@ -14,7 +14,7 @@ router.beforeEach((to, from, next) => {
 	if(from.name !== null){
 	//close menu in mobile
 		var menu = document.querySelector('.navbar-collapse');
-		menu.classList.toggle('show');
+		menu.classList.remove('show');
 	}
   
 	if(to.meta.title){

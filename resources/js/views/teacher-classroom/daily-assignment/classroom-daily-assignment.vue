@@ -11,7 +11,27 @@
         <classroom-header />
       </div>
     </div>
-    <div class="mt-2">
+    <div
+      v-if="!unitList.length"
+      class="card"
+    >
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+            <p>
+              {{ 'No unit created.This page will populate once unit setup is done. ' }}
+              <router-link :to="'/classroom/'+$route.params.classroomId+'/setup'">
+                Click here to to create unit
+              </router-link>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      v-else
+      class="mt-2"
+    >
       <add-button
         name="Add Assignment"
         size="lg"

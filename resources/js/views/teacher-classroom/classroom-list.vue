@@ -6,6 +6,22 @@
       :width="250"
       :is-full-page="true"
     />
+    <div
+      v-if="!AuthStudent && !AuthTeacher"
+      class="card"
+    >
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+            <p>
+              <a :href="'/education-details'">
+                Please fill out education details
+              </a>{{ ' to join classrooms from your institute.' }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
     <div>
       <add-button
         v-if="AuthTeacher"

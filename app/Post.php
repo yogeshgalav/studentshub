@@ -89,9 +89,7 @@ class Post extends PostModel
 
         $this->formatPostData($posts);
         
-        return response()->json(['success'=>[
-            'posts'=>$posts
-        ]]);
+        return $posts;
     }
 
     public function getAuthUserPostTabels(){

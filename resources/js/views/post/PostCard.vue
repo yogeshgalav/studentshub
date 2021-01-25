@@ -30,49 +30,50 @@
               {{ post.heading }}
             </h3>
           </div>
-          <div
-            v-if="post.image_path"
-            class="col-md-12 post_img mb-2"
-          >
-            <img
-              v-lazy="post.image_path"
-              alt="Card image cap"
+          <div @click="setPostView(post)">
+            <div
+              v-if="post.image_path"
+              class="col-md-12 post_img mb-2"
             >
-          </div>  
-          <div
-            class="col-md-9 col-12"
-            @click="setPostView(post)"
-          >
-            <p class="dash_post_content">
-              {{ post.description }}
-            </p>
-            <div v-if="post.post_type==='document'">
-              <a
-                :href="post.document_link"
-                target="_blank"
-                class="btn p-0 btn-link font-size-12"
-                style="text-decoration: underline;"
+              <img
+                v-lazy="post.image_path"
+                alt="Card image cap"
               >
-                Open Link &nbsp;<i class="fa fa-arrow-right" />
-              </a>
-            </div>
-            <div v-else-if="post.post_type==='video'">
-              <router-link
-                :to="'/post/'+post.id"
-                class="btn p-0 btn-link font-size-12"
-                style="text-decoration: underline;"
-              >
-                Watch Continue &nbsp;<i class="fa fa-arrow-right" />
-              </router-link>
-            </div>
-            <div v-else>
-              <router-link
-                :to="'/post/'+post.id"
-                class="btn p-0 btn-link font-size-12"
-                style="text-decoration: underline;"
-              >
-                Read Continue &nbsp;<i class="fa fa-arrow-right" />
-              </router-link>
+            </div>  
+            <div
+              class="col-md-9 col-12"
+            >
+              <p class="dash_post_content">
+                {{ post.description }}
+              </p>
+              <div v-if="post.post_type==='document'">
+                <a
+                  :href="post.document_link"
+                  target="_blank"
+                  class="btn p-0 btn-link font-size-12"
+                  style="text-decoration: underline;"
+                >
+                  Open Link &nbsp;<i class="fa fa-arrow-right" />
+                </a>
+              </div>
+              <div v-else-if="post.post_type==='video'">
+                <router-link
+                  :to="'/post/'+post.id"
+                  class="btn p-0 btn-link font-size-12"
+                  style="text-decoration: underline;"
+                >
+                  Watch Continue &nbsp;<i class="fa fa-arrow-right" />
+                </router-link>
+              </div>
+              <div v-else>
+                <router-link
+                  :to="'/post/'+post.id"
+                  class="btn p-0 btn-link font-size-12"
+                  style="text-decoration: underline;"
+                >
+                  Read Continue &nbsp;<i class="fa fa-arrow-right" />
+                </router-link>
+              </div>
             </div>
           </div>
         </div>
@@ -126,6 +127,7 @@ export default {
 		setPostView(post){
 			document.title = post.heading;
 			this.$store.commit('common/set_post_initial',post);
+			this.$router.push({ path: `/post/${post.id}` });
 		},
 	}
 };
