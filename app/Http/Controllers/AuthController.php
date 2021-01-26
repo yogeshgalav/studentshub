@@ -319,7 +319,7 @@ class AuthController extends Controller
 
         $user=Auth::user();    
         $user->must_reset_password=0;
-        $user->password=$request->input('password');
+        $user->password=Hash::make($request->input('password'));
         $user->save();
         return response()->json(['success'=>'Password Changed.'], 200);
     }
