@@ -12,7 +12,7 @@
           <div class="logn_right login_card">
             <div class="card_title text-center">
               <h3 class="weight-800 text-black font-size-18">
-                {{ trans('Check-In') }}
+                {{ trans('Education Details') }}
               </h3>
             </div>
 
@@ -20,8 +20,7 @@
               <div class="row justify-content-center">
                 <div class="col-md-12">
                   <p class="text-grey">
-                    Please enter Education details of your preferred Program and Batch to avail
-                    full benefits from our platform.
+                    Please enter your Education details to join classrooms and create posts.
                   </p>
                 </div>
                 <div class="col-md-12 mt-2">
@@ -127,7 +126,7 @@
                     </div>
                     <div class="row">
                       <div class="col-md-12 form-group">
-                        <label for="college_id">Unique Institute Id/Registration no.</label>
+                        <label for="college_id">Institute Id</label>
                         <div class="input_icon_frm">
                           <span
                             id="basic-addon1"
@@ -142,6 +141,7 @@
                             v-validate="'required'"
                             name="institute_id"
                             type="text"
+                            placeholder="ID on your Institute ID card"
                             class="form-control u_input"
                           >
                         </div>
