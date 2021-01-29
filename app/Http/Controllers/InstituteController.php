@@ -47,12 +47,27 @@ class InstituteController extends Controller
         ->groupBy('cls.id','cls.name','us.id','us.full_name')
         ->get();
 
+        $batches = DB::table('classrooms as cls')
+        ->join('batches as bt','bt.id','=','cls.batch_id')
+        ->leftJoin('classroom_users as cus','cus.classroom_id','=','cls.id')
+        ->leftJoin('daily_assignments as da','da.classroom_id','=','cls.id')
+        ->leftJoin('daily_reports as dr','dr.daily_assignment_id','=','da.id')
+        ->select('bt.id','bt.start_year','bt.end_year',
+        DB::raw('Count(cus.user_id) as total_students'),
+        DB::raw('Count(da.id
+        ) as total_assignments'),
+        DB::raw('AVG(dr.marks_obtained) as avg_score')
+        )
+        ->groupBy('bt.id','bt.start_year','bt.end_year')
+        ->get();
+
         return response()->json([
             'success'=>[
                 'institute_detail'=>$institute_detail,
                 'members'=>$members,
                 'students'=>$students,
                 'classrooms'=>$classrooms,
+                'batches'=>$batches,
             ]
         ],200);
     }

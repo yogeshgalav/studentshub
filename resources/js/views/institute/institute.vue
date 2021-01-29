@@ -115,6 +115,46 @@
           </div>
         </div>
       </template>
+      
+      <template slot="tab-heading-batches">
+        {{ 'Batches' }}
+      </template>
+      <template slot="tab-panel-batches">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card mt-5">
+              <div class="card-header">
+                <h2 class="weight-800 text-black font-size-18 mb-0">
+                  {{ 'Batches' }}
+                </h2>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-12">
+                    <vue-table-component
+                      :columns="batchColumns"
+                      :rows="batchRows"
+                      :footer="batchFooter"
+                    >
+                      <template
+                        slot="table-row"
+                        slot-scope="props"
+                      >
+                        <span v-if="props.column.field==='session'">
+                          {{ props.row.start_year }}-{{ props.row.end_year }}
+                        </span>
+                        <span v-else>
+                          <span>{{ props.row[props.column.field] }}</span>
+                        </span>
+                      </template>
+                    </vue-table-component>
+                  </div> 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </template>
     </nav-tabs>
     
     <div class="col-md-12">
@@ -227,13 +267,15 @@ export default {
 	data(){
 		return {
 			initialTab:'members',
-			tabs:['members','classrooms','students'],
+			tabs:['members','classrooms','students','batches'],
 			memberRows:[],
 			memberFooter:{},
 			studentRows:[],
 			studentFooter:{},
 			classroomRows:[],
 			classroomFooter:{},
+			batchRows:[],
+			batchFooter:{},
 			institute_detail:{},
 			new_member:{
 				user_id:0,
@@ -300,6 +342,24 @@ export default {
 					field: 'avg_score',
 				},
 			],
+			batchColumns: [
+				{
+					label: 'session',
+					field: 'session',
+				},
+				{
+					label: 'Total students',
+					field: 'total_students',
+				},
+				{
+					label: 'Total assignments',
+					field: 'total_assignments',
+				},
+				{
+					label: 'Average score',
+					field: 'avg_score',
+				},
+			],
 		};
 	},
 	mounted(){
@@ -336,6 +396,21 @@ export default {
 			this.classroomFooter={
 				'classroom_name':this.classroomRows.length +' Classrooms',
 				'avg_score':parseFloat(total_avg2/count2).toFixed(2)
+			};
+
+			let total_avg3 = 0;
+			let count3 = 0;
+			this.batchRows=resp.data.success.batches.map(node=>{
+				if(node.avg_score){
+					node.avg_score = parseFloat(node.avg_score).toFixed(2);
+					total_avg3 = total_avg3 + node.avg_score;
+					count3 = count3 + 1;
+				}
+				return node;
+			});
+			this.batchFooter={
+				'batch_name':this.batchRows.length +' Batches',
+				'avg_score':parseFloat(total_avg3/count3).toFixed(2)
 			};
 			this.institute_detail=resp.data.success.institute_detail;
 		});
