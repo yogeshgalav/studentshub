@@ -125,7 +125,7 @@ class PostController extends Controller
         $post=new \App\Post;
         $posts = $post->getAuthUserPosts($request);
         return response()->json(['success'=>[
-          'posts'=>$posts
+          'posts'=>\Sthub::convert_from_latin1_to_utf8_recursively($posts)
       ]]);
     }
 
@@ -157,19 +157,21 @@ class PostController extends Controller
 
     public function searchPosts(Request $request){
       $post=new \App\Post;
-      $response = $post->getSearchPosts($request);
+      $posts = $post->getSearchPosts($request);
 
         $search=new \App\Models\Search;
         $search->query=$request->input('query');
         // $search->type='query';
-        if($response){
+        if(!empty($posts)){
           $search->success=true;
         }else{
           $search->success=false;
         }
         $search->save();
 
-        return $response;
+        return response()->json(['success'=>[
+          'posts'=>$posts
+        ]]);
       }
 
       public function coursePosts(Request $request){

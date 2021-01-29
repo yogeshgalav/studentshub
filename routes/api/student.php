@@ -17,5 +17,5 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::post('/doubt/{doubtId}/add-answer','DoubtAnswersController@addDoubtAnswer');
     Route::get('/doubt/{doubtId}/get-answers','DoubtAnswersController@getDoubtAnswers');
     //profile
-    Route::get('/get-interests','UserController@getInterests');
+    Route::get('/get-profile','UserController@getProfile');
 });

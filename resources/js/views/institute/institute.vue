@@ -3,7 +3,7 @@
     <h2 class="font-size-40 text-black weight-800 mb-2 line-height-25-px">
       {{ institute_detail.name }}
     </h2>
-    <NavTabs
+    <nav-tabs
       :tabs="tabs"
       :initial-tab="initialTab"
     >
@@ -115,7 +115,7 @@
           </div>
         </div>
       </template>
-    </NavTabs>
+    </nav-tabs>
     
     <div class="col-md-12">
       <modal
@@ -214,7 +214,7 @@ import VModal from 'vue-js-modal';
 import swal from '../../components/swal';
 import VueTableComponent from '../../components/vue-table-component';
 import FormMixin from '../../components/mixins/form-mixin';
-import NavTabs from '../../components/NavTabs';
+import NavTabs from '../../components/NavTabs.vue';
 
 export default {
 	components:{

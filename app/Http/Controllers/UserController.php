@@ -11,14 +11,10 @@ use DB;
 class UserController extends Controller
 {
     //
-    public function getInterests(){
+    public function getProfile(){
         $user=Auth::user();
-        if($user->post()->count()<4){
-            return response()->json(['success'=>[
-                'interests'=>[]
-            ]]);
-        }
-
+        $post = new \App\Post;
+        
         $categories=DB::table('categories as cat')->leftJoin('subjects as sub','sub.category_id','=','cat.id')
         ->leftJoin('posts as po','po.subject_id','=','sub.id')
         ->leftJoin('post_views as pv',function($join){
@@ -43,7 +39,8 @@ class UserController extends Controller
             $category->percent=($category->total/$total)*100;
         }
         return response()->json(['success'=>[
-            'interests'=>$categories
+            'interests'=>$categories,
+            'posts'=>$post->getUserPosts($user->id)
         ]]);
     }
 
