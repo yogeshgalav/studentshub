@@ -421,10 +421,10 @@ button[disabled="disabled"] {
     border-style: solid
 }
 
-// .card {
-//     box-shadow: 0px 2px 50px rgba(0, 0, 0, 0.15) !important;
+.card {
+    box-shadow: 0px 2px 50px rgba(0, 0, 0, 0.15) !important;
 
-// }
+}
 
 // border-radius
 .border-radius-8 {
@@ -1853,11 +1853,11 @@ button:focus{ outline: none;}
       background-color: #EBECF0;
 
   }
-  .active {
+  .menu-dropdown .active {
     background-color: #EBECF0;
     color: #0052CC;
 } 
-.active .icon i {
+.menu-dropdown .active .icon i {
     color: #0052CC !important; 
 }
   .menu ul li:hover a {
