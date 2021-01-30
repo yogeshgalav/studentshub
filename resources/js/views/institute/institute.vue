@@ -44,7 +44,34 @@
           </div>
         </div>
       </template>
-      
+
+      <template slot="tab-heading-teachers">
+        {{ 'Teachers' }}
+      </template>
+      <template slot="tab-panel-teachers">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card mt-5">
+              <div class="card-header">
+                <h2 class="weight-800 text-black font-size-18 mb-0">
+                  {{ 'Teachers' }}
+                </h2>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-12">
+                    <vue-table-component
+                      :columns="teacherColumns"
+                      :rows="teacherRows"
+                      :footer="teacherFooter"
+                    />
+                  </div> 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </template>
       <template slot="tab-heading-classrooms">
         {{ 'Classrooms' }}
       </template>
@@ -267,9 +294,11 @@ export default {
 	data(){
 		return {
 			initialTab:'members',
-			tabs:['members','classrooms','students','batches'],
+			tabs:['members','teachers','classrooms','students','batches'],
 			memberRows:[],
 			memberFooter:{},
+			teacherRows:[],
+			teacherFooter:{},
 			studentRows:[],
 			studentFooter:{},
 			classroomRows:[],
@@ -296,6 +325,24 @@ export default {
 				{
 					label: 'Role',
 					field: 'role',
+				},
+			],
+			teacherColumns: [
+				{
+					label: 'Teacher Name',
+					field: 'full_name',
+				},
+				{
+					label: 'Email',
+					field: 'email',
+				},
+				{
+					label: 'Total Classroom',
+					field: 'total_classrooms',
+				},
+				{
+					label: 'Average Score',
+					field: 'avg_score',
 				},
 			],
 			studentColumns: [
@@ -411,6 +458,21 @@ export default {
 			this.batchFooter={
 				'batch_name':this.batchRows.length +' Batches',
 				'avg_score':parseFloat(total_avg3/count3).toFixed(2)
+			};
+      
+			let total_avg4 = 0;
+			let count4 = 0;
+			this.teacherRows=resp.data.success.teachers.map(node=>{
+				if(node.avg_score){
+					node.avg_score = parseFloat(node.avg_score).toFixed(2);
+					total_avg4 = total_avg4 + node.avg_score;
+					count4 = count4 + 1;
+				}
+				return node;
+			});
+			this.teacherFooter={
+				'full_name':this.teacherRows.length +' Teachers',
+				'avg_score':parseFloat(total_avg4/count4).toFixed(2)
 			};
 			this.institute_detail=resp.data.success.institute_detail;
 		});

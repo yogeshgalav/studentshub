@@ -18,6 +18,20 @@ class InstituteController extends Controller
         ->select('us.id','us.full_name','us.email','inu.role')
         ->get();
 
+        $teachers=DB::table('users as us')
+        ->join('teachers as tch',function($join)use($instituteId){
+            $join->on('us.id','=','tch.user_id')->where('tch.institute_id',$instituteId);
+        })
+        ->leftJoin('classrooms as cls','cls.teacher_id','=','tch.id')
+        ->leftJoin('daily_assignments as da','da.classroom_id','=','cls.id')
+        ->leftJoin('daily_reports as dr','dr.daily_assignment_id','=','da.id')
+        ->select('us.id','us.full_name','us.email',
+        DB::raw('AVG(dr.marks_obtained) as avg_score'),
+        DB::raw('COUNT(distinct cls.id) as total_classrooms')
+        )
+        ->groupBy('us.id','us.full_name','us.email')
+        ->get();
+
         $students=DB::table('users as us')
         ->join('students as st','us.id','=','st.user_id')
         ->join('batches as bt',function($join)use($instituteId){
@@ -67,6 +81,7 @@ class InstituteController extends Controller
                 'members'=>$members,
                 'students'=>$students,
                 'classrooms'=>$classrooms,
+                'teachers'=>$teachers,
                 'batches'=>$batches,
             ]
         ],200);
