@@ -89,7 +89,7 @@
               </div>
             </div>
             <div
-              v-if="!posts.length"
+              v-else
               class="row"
             >
               <div class="col-md-5 center-col">

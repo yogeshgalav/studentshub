@@ -33,6 +33,10 @@ class DailyQuestionController extends Controller
 
         $dailyQuestion->save();
         $daily_question=$dailyQuestion->toArray();
+        foreach($request->removed_options as $key=>$optionId){
+            $multiple_choice = MultipleChoice::find($optionId);
+            $multiple_choice->delete();
+        }
         foreach($question['multiple_choice'] as $key=>$choice){
             if(!empty($choice['id'])){
                 $multiple_choice = MultipleChoice::find($choice['id']);    

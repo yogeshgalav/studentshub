@@ -47,8 +47,8 @@
           </div>
 
           <div
-            v-for="(choice,index) in question.multiple_choice"
-            :key="index"
+            v-for="(choice, index2) in question.multiple_choice"
+            :key="index2"
             class="row"
           >
             <div class="col-md-9 mb-1 mt-1 ">
@@ -188,6 +188,7 @@
                       <button
                         v-if="current_question_edit.multiple_choice.length>2"
                         class="btn btn-default btn-sm ml-2 delete_btn"
+                        type="button"
                         @click="removeOption(index)"
                       >
                         <i class="fa fa-trash-alt" />
@@ -300,12 +301,14 @@ export default {
 	props:['assignmentId','dailyQuestions'],
 	data() {
 		return {
+			filter_recovery_text:'',
 			daily_questions:[],
 			options: {
 				height: '400px',
 				overflow:scroll
 			},
 			avail_marks:10,
+			removed_options:[],
 			current_question_edit: {
 				id: 0,
 				question_text: null,
@@ -382,6 +385,7 @@ export default {
 					this.axios.post('/api/classroom/update-daily-question', {
 						daily_assignment_id:this.assignmentId,
 						question: this.current_question_edit,
+						removed_options: this.removed_options,
 					}).then((resp)=>{
 						const question = resp.data.success.question;
 						if(!this.current_question_edit.id){
@@ -403,6 +407,7 @@ export default {
 		},
 		editQuestion(question_id) {
 			this.current_question_edit = this.daily_questions.find(node => node.id === question_id);
+			this.removed_options = [];
 			this.avail_marks = (10 - this.daily_questions.reduce((acc, currVal) => {
 				if(currVal.id === question_id){
 					return acc;
@@ -421,6 +426,7 @@ export default {
 			});
 		},
 		resetEditQuestion() {
+			thi.removed_options=[];
 			this.current_question_edit = {
 				daily_assignment_id: null,
 				question_text: null,
@@ -451,8 +457,10 @@ export default {
 		},
 		removeOption(index) {
 			let data = this.current_question_edit.multiple_choice;
+			if(data[index].id){
+				this.removed_options.push(data[index].id);
+			}
 			data.splice(index, 1);
-
 			this.current_question_edit.multiple_choice = data;
 		},
 	}

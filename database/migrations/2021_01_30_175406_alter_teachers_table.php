@@ -13,7 +13,9 @@ class AlterTeachersTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::table('teachers', function (Blueprint $table) {
+            $table->boolean('is_verified')->default(false);
+        });
     }
 
     /**
