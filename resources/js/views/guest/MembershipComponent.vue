@@ -13,10 +13,28 @@
           </h2>
           <ul class="pricing-features">
             <li class="pricing-features-item">
-              Daily Assignments
+              Evaluation (NEP 2020 feature)
             </li>
             <li class="pricing-features-item">
-              Student's subject report
+              Daily Assignments (Objective)
+            </li>
+            <li class="pricing-features-item">
+              Unit Assignments (Subjective)
+            </li>
+            <li class="pricing-features-item">
+              Daily Assignment Report
+            </li>
+            <li class="pricing-features-item">
+              Unit Assignment Report
+            </li>
+            <li class="pricing-features-item">
+              Classroom Student Report
+            </li>
+            <li class="pricing-features-item">
+              Resource Sharing
+            </li>
+            <li class="pricing-features-item">
+              Messages
             </li>
             <li class="pricing-features-item">
               Doubts
@@ -43,19 +61,25 @@
           </h2>
           <ul class="pricing-features">
             <li class="pricing-features-item">
-              Private branding
+              Scale Features +
             </li>
             <li class="pricing-features-item">
-              Notifications
+              500+ Active students
             </li>
             <li class="pricing-features-item">
-              Student Evaluation
+              Teacher Report
             </li>
             <li class="pricing-features-item">
               Classroom Report
             </li>
             <li class="pricing-features-item">
-              Teacher Report
+              Student Report
+            </li>
+            <li class="pricing-features-item">
+              Batch Report
+            </li>
+            <li class="pricing-features-item">
+              Automated Report Notifications
             </li>
           </ul>
           <span class="pricing-price">$95</span>

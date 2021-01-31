@@ -319,6 +319,7 @@ class AuthController extends Controller
 
         $user=Auth::user();    
         $user->must_reset_password=0;
+        $user->email_verified_at=Carbon::now()->toDateTimeString();
         $user->password=Hash::make($request->input('password'));
         $user->save();
         return response()->json(['success'=>'Password Changed.'], 200);
@@ -344,6 +345,7 @@ class AuthController extends Controller
         }
 
         $user=User::where('id', $dbToken->user_id)->first();
+        $user->email_verified_at=Carbon::now()->toDateTimeString();
         $user->password = Hash::make($request->input('password'));
         $user->save();
 
