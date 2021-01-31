@@ -111,22 +111,24 @@
                     class="form-control"
                     name="question_text"
                   />
-                  <button
-                    v-if="filter_recovery_text"
-                    type="button"
-                    class="btn-link"
-                    @click="undoFilterOptions"
-                  >
-                    Undo
-                  </button>
-                  <button
-                    v-else
-                    type="button"
-                    class="btn-link"
-                    @click="filterOptions"
-                  >
-                    Filter Options
-                  </button>
+                  <div v-if="!current_question_edit.id">
+                    <button
+                      v-if="filter_recovery_text"
+                      type="button"
+                      class="btn-link"
+                      @click="undoFilterOptions"
+                    >
+                      Undo
+                    </button>
+                    <button
+                      v-else
+                      type="button"
+                      class="btn-link"
+                      @click="filterOptions"
+                    >
+                      Filter Options
+                    </button>
+                  </div>
                   <span class="error">{{ formErrors('question_text') }}</span>
                 </div>
               </div>
