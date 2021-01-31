@@ -352,7 +352,7 @@ export default {
 		filterOptions(){
 			const text = this.current_question_edit.question_text;
 			this.filter_recovery_text = text;
-			let question_array = text.match(/[^\r\n]+/g);
+			let question_array = text.replace(/\((.+?)\)/g, '#--#').split('#--#');
 			this.current_question_edit.question_text = question_array[0];
 			this.current_question_edit.multiple_choice = [];
 			question_array.forEach((element, index) => {
