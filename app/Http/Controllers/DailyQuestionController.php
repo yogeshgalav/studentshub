@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use DB;
 use App\Models\DailyAssignment;
 use App\Models\DailyQuestion;
 use App\Models\MultipleChoice;
@@ -18,7 +19,8 @@ class DailyQuestionController extends Controller
     public function updateDailyQuestion(Request $request)
     {    
         $question=$request->question;
-
+    DB::beginTransaction();
+    try{
         if(!empty($question['id'])){
             $dailyQuestion = DailyQuestion::find($question['id']);    
         }else{
@@ -49,7 +51,11 @@ class DailyQuestionController extends Controller
             $multiple_choice->save();
             $daily_question['multiple_choice'][]=$multiple_choice->toArray();
         }
-
+    } catch (\Exception $e) {
+        DB::rollback();
+        \Log::critical('daily question update failure',['data'=>$request->all(),'error'=>$e->getMessage()]);
+        return response()->$e;
+    }
         return response()->json(['success'=>[
             'question'=>$daily_question
         ]]);

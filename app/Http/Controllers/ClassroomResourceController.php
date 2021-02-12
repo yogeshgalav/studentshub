@@ -91,7 +91,7 @@ class ClassroomResourceController extends Controller
         Log::critical('classroom resources Creation failure',['data'=>$request->all(),'error'=>$e->getMessage()]);
         return response()->$e;
     }
-        \Notification::send($classroom->users,new ResourceAdded);
+        // \Notification::send($classroom->users,new ResourceAdded);
         return response()->json(['success'=>[
             'resource_id'=>$classroom_resource->id
         ]]);

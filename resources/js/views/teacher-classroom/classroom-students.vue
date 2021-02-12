@@ -175,19 +175,24 @@ export default {
 						node.daily_average_score = parseFloat(assignment.reduce((acc,currVal)=>{
 							return acc+ currVal.marks_obtained;
 						},0)/assignment.length).toFixed(2);
-						//get avg millisecond
+						//get avg time
 						let total_seconds= assignment.reduce((acc,currVal)=>{
 							return acc+ dayjs(currVal.duration,'HH:mm:ss').second();
 						},0);
+						let total_minutes= assignment.reduce((acc,currVal)=>{
+							return acc+ dayjs(currVal.duration,'HH:mm:ss').minute();
+						},0);
 						//convert millisecond to min and sec
+						let avg_min = 0;
+						let avg_sec = 0;
 						if(total_seconds!==0){
-							let avg_sec = total_seconds/assignment.length;
-							let m2 = avg_sec/60;
-							let s2 = avg_sec%60;
-							node.daily_average_time  = (m2>=1 ? m2 : 0)+' min '+s2+' sec ';
-						}else{
-							node.daily_average_time  = null;
+							avg_min = total_minutes/assignment.length;
 						}
+						if(total_seconds!==0){
+							avg_sec = total_seconds/assignment.length;
+						}
+						node.daily_average_time  = avg_min+' min '+avg_sec+' sec ';
+
 						node.daily_average_rank = parseFloat(assignment.reduce((acc,currVal)=>{
 							return acc+ currVal.rank;
 						},0)/assignment.length).toFixed(2);

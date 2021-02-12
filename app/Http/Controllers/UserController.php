@@ -36,11 +36,11 @@ class UserController extends Controller
             $total += $category->total;
         }
         foreach($categories as $category){
-            $category->percent=($category->total/$total)*100;
+            $category->percent=$total>0 ? (($category->total/$total)*100) : 0;
         }
         return response()->json(['success'=>[
             'interests'=>$categories,
-            'posts'=>$post->getUserPosts($user->id)
+            'posts'=>\Sthub::convert_from_latin1_to_utf8_recursively($post->getUserPosts($user->id))
         ]]);
     }
 

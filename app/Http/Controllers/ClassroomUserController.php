@@ -8,6 +8,7 @@ use App\Notifications\MessageAdded;
 use Illuminate\Http\Request;
 use Auth;
 use App\Http\Requests\JoinClassroomRequest;
+use Carbon\Carbon;
 
 class ClassroomUserController extends Controller
 {
@@ -61,9 +62,15 @@ class ClassroomUserController extends Controller
 
     public function listmessage($classroomId){
         $messages = ClassroomMessage::where('classroom_id',$classroomId)
-        ->orderBy('created_at','DESC')
+        ->leftJoin('users as us','us.id','=','classroom_messages.sender_user_id')
+        ->leftJoin('classrooms as cs','cs.id','=','classroom_messages.classroom_id')
+        ->select('classroom_messages.content','classroom_messages.created_at','us.full_name as user_name','us.avatar_url','cs.name as classroom_name')
+        ->orderBy('classroom_messages.created_at','DESC')
         ->get();
 
+        foreach($messages as $message){
+            $message->time = Carbon::createFromTimeStamp(strtotime($message->created_at))->diffForHumans();
+        }
         return response()->json(['success'=>[
             'messages'=>$messages
         ]]);
@@ -77,7 +84,7 @@ class ClassroomUserController extends Controller
             'content'=>$request->content,
         ]);
 
-        \Notification::send($classroom->users,new MessageAdded);
+        // \Notification::send($classroom->users,new MessageAdded);
 
         return response()->json(['success'=>[
             'message'=>$message

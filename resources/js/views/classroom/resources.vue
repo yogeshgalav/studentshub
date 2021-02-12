@@ -60,7 +60,19 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-          <div class="row add_cl_q">
+          <div class="row add_cl_q mt-2">
+            <div
+              v-if="!resources.length" 
+              class="card"
+            >
+              <div class="card-body">
+                <div class="col-md-12">
+                  <p>
+                    {{ 'Currently no resource has been added to this unit.' }}
+                  </p>
+                </div>
+              </div>
+            </div>
             <div 
               v-for="(resource,index2) in resources"
               :key="index2"

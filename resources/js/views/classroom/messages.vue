@@ -11,7 +11,6 @@
       <div class="row">
         <div class="col-md-12">
           <div
-            v-if="AuthTeacher && AuthTeacher.id===classroomDetail.teacher_id"
             class="row add_cl_q"
           >
             <div class="col-md-3 col-12">
@@ -25,7 +24,19 @@
             </div>
             <div class="col-md-3 col-12" />
           </div>
-          <div class="row add_cl_q">
+          <div class="row add_cl_q mt-2">
+            <div
+              v-if="!messages.length" 
+              class="card"
+            >
+              <div class="card-body">
+                <div class="col-md-12">
+                  <p>
+                    {{ 'Currently no message has been added.' }}
+                  </p>
+                </div>
+              </div>
+            </div>
             <div 
               v-for="(message,index2) in messages"
               :key="index2"
@@ -34,7 +45,19 @@
               <div 
                 class="card-body"
               >
-                <p>{{ $dayjs(message.created_at).format('D MMMM, YYYY') }}</p>
+                <div class="dashboard_post">
+                  <div class="avatar">
+                    <profile-image :post="message" />
+                  </div>
+                  <div class="info-post ml-2 dash_insititue_name">
+                    <p class="usernamedash mb-0 dash_user_date">
+                      {{ message.user_name }}  <span>  {{ message.time }}</span>
+                    </p>
+                    <p class="usernamedash mb-0">
+                      {{ message.classroom_name }}
+                    </p>
+                  </div>   
+                </div> 
                 <hr>
                 <p>{{ message.content }}</p>
               </div>
@@ -108,13 +131,15 @@
 <script>
 import FormMixin from '../../components/mixins/form-mixin.js';
 import AddButton from '../../components/AddButton';
+import ProfileImage from '../post/ProfileImage.vue';
     
 import ClassroomHeader from '../../components/ClassroomHeader';
     
 export default {
 	components: {
 		AddButton,
-		ClassroomHeader
+		ClassroomHeader,
+		ProfileImage
 	},
 	mixins:[FormMixin],
 	data() {

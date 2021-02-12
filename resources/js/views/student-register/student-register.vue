@@ -126,7 +126,7 @@
                     </div>
                     <div class="row">
                       <div class="col-md-12 form-group">
-                        <label for="college_id">Institute Id</label>
+                        <label for="college_id">Registration/Roll number</label>
                         <div class="input_icon_frm">
                           <span
                             id="basic-addon1"
@@ -141,7 +141,7 @@
                             v-validate="'required'"
                             name="institute_id"
                             type="text"
-                            placeholder="ID on your Institute ID card"
+                            placeholder="unique institute id"
                             class="form-control u_input"
                           >
                         </div>

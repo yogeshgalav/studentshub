@@ -54,8 +54,8 @@ class InstituteController extends Controller
         ->leftJoin('daily_assignments as da','da.classroom_id','=','cls.id')
         ->leftJoin('daily_reports as dr','dr.daily_assignment_id','=','da.id')
         ->select('cls.id','cls.name as classroom_name','us.id as teacher_user_id','us.full_name as teacher_name',
-        DB::raw('Count(cus.user_id) as total_students'),
-        DB::raw('Count(da.id) as total_assignments'),
+        DB::raw('Count(distinct cus.user_id) as total_students'),
+        DB::raw('Count(distinct da.id) as total_assignments'),
         DB::raw('AVG(dr.marks_obtained) as avg_score')
         )
         ->groupBy('cls.id','cls.name','us.id','us.full_name')
@@ -67,9 +67,8 @@ class InstituteController extends Controller
         ->leftJoin('daily_assignments as da','da.classroom_id','=','cls.id')
         ->leftJoin('daily_reports as dr','dr.daily_assignment_id','=','da.id')
         ->select('bt.id','bt.start_year','bt.end_year',
-        DB::raw('Count(cus.user_id) as total_students'),
-        DB::raw('Count(da.id
-        ) as total_assignments'),
+        DB::raw('Count(distinct cus.user_id) as total_students'),
+        DB::raw('Count(distinct da.id) as total_assignments'),
         DB::raw('AVG(dr.marks_obtained) as avg_score')
         )
         ->groupBy('bt.id','bt.start_year','bt.end_year')
