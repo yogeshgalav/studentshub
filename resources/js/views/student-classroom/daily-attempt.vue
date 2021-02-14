@@ -201,9 +201,12 @@ export default {
 				'answer': '',
 			};
 		});
-		if( !ifvisible.now() ){
+    if(!ifvisible.now()){
+      			this.axios.post('/api/decline-attempt/'+this.dailyAssignment.id);
+    }
+		window.addEventListener('unload',( event ) => {
 			this.axios.post('/api/decline-attempt/'+this.dailyAssignment.id);
-		}
+		});
 		window.addEventListener('pageshow',( event ) => {
 			var historyTraversal = event.persisted || 
 			                   ( typeof window.performance !== 'undefined' && 

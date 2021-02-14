@@ -134,4 +134,17 @@ class DailyReportController extends Controller
             'daily_assignment'=>$daily_assignment
         ]]);
     }
+    public function declineAttempt($daily_assignment_id){
+        
+        $report = DailyReport::create([
+            'user_id'=>Auth::id(),
+            'daily_assignment_id'=>$daily_assignment_id,
+            'duration'=>'00:00:00',
+            'rank'=>0,
+            'marks_obtained'=>0,
+            'status'=>'declined'
+        ]);
+
+        return true;
+    }
 }
