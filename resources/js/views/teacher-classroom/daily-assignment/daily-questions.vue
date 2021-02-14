@@ -111,7 +111,7 @@
                     class="form-control"
                     name="question_text"
                   />
-                  <div v-if="!current_question_edit.id">
+                  <div v-if="!current_question_edit.id && filter_available">
                     <button
                       v-if="filter_recovery_text"
                       type="button"
@@ -313,7 +313,7 @@ export default {
 			removed_options:[],
 			current_question_edit: {
 				id: 0,
-				question_text: null,
+				question_text: '',
 				marks: null,
 				question_type: 'multiple_choice',
 				question_order: 0,
@@ -337,6 +337,9 @@ export default {
 			}, 0);
 			this.$emit('totalUpdate',total);
 			return total;
+		},
+		filter_available(){
+			return this.current_question_edit.question_text.match(/\n+/g);
 		}
 	},
 	mounted(){
@@ -354,7 +357,10 @@ export default {
 		filterOptions(){
 			const text = this.current_question_edit.question_text;
 			this.filter_recovery_text = text;
-			let question_array = text.replace(/\((.+?)\)/g, '#--#').split('#--#');
+			let question_array = text.replace(/\n\((.)\)\s/g, '#--#').replace(/\n.\.\s/g, '#--#').split('#--#');
+			if(typeof question_array[1] ==='undefined'){
+				question_array = text.replace(/\n+/g,  '#--#').split('#--#');
+			}
 			this.current_question_edit.question_text = question_array[0];
 			this.current_question_edit.multiple_choice = [];
 			question_array.forEach((element, index) => {
@@ -431,7 +437,7 @@ export default {
 			this.removed_options=[];
 			this.current_question_edit = {
 				daily_assignment_id: null,
-				question_text: null,
+				question_text: '',
 				marks: null,
 				question_type: 'multiple_choice',
 				question_order: 0,

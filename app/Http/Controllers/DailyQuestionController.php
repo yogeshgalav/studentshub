@@ -51,6 +51,8 @@ class DailyQuestionController extends Controller
             $multiple_choice->save();
             $daily_question['multiple_choice'][]=$multiple_choice->toArray();
         }
+
+        DB::commit();
     } catch (\Exception $e) {
         DB::rollback();
         \Log::critical('daily question update failure',['data'=>$request->all(),'error'=>$e->getMessage()]);

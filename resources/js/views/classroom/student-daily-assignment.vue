@@ -18,7 +18,10 @@
           {{ user_detail.full_name }}
         </h2>
       </div>
-      <div class="col-md-8 col-center">
+      <div
+        v-if="!$router.currentRoute.params.userId"
+        class="col-md-8 col-center"
+      >
         <div v-if="today_report!==null">
           <div
             id="reflection-complete"

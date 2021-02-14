@@ -1,10 +1,9 @@
 import ClassroomComponent from '../../views/student-classroom/classroom.vue';
 import ClassroomUnitAssignmentComponent from '../../views/student-classroom/classroom-unit-assignment.vue';
-import ClassroomDailyAssignmentComponent from '../../views/student-classroom/classroom-daily-assignment.vue';
 import ClassroomResourceComponent from '../../views/classroom/resources.vue';
 import ClassroomMessageComponent from '../../views/classroom/messages.vue';
 import ClassroomDoubtComponent from '../../views/classroom/doubts.vue';
-import ClassroomStudentPanelComponent from '../../views/teacher-classroom/classroom-student-panel.vue';
+import ClassroomStudentPanelComponent from '../../views/classroom/student-daily-assignment.vue';
 import ClassmatesComponent from '../../views/student-classroom/classmates.vue';
 
 const StudentClassroomRoutes = [
@@ -18,7 +17,7 @@ const StudentClassroomRoutes = [
 	},
 	{
 		path: '/classroom/:classroomId/daily-assignment',
-		component: ClassroomDailyAssignmentComponent,
+		component: ClassroomStudentPanelComponent,
 	},
 	{
 		path: '/classroom/:classroomId/classmates',

@@ -17,6 +17,7 @@ class DailyAssignmentController extends Controller
         $daily = DailyAssignment::findOrFail($request->daily_assignment_id);
         $marks=DailyQuestion::where('daily_assignment_id',$daily->id)->pluck('marks')->toArray();
         if(array_sum($marks)!==10){
+            \Log::error('marks total error while activating daily assignment',['user_id'=>Auth::id(),'assignment'=>$daily]);
             abort(403);
         }
         if($request->status==="activate"){

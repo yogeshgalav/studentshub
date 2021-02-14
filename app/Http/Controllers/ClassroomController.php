@@ -98,8 +98,31 @@ class ClassroomController extends Controller
             return view('classroom.classroom');
         }
 
-        // $is_classroom_student=ClassroomUser::where('user_id',Auth::id())
-        // ->where('classroom_id',$classroom->id)->where('joined_at','!=',null)->exists();
+        $is_classroom_student=ClassroomUser::where('user_id',Auth::id())
+        ->where('classroom_id',$classroom->id)->exists();
+        if(!$is_classroom_student){
+            \Log::warning('invalid classroom access',['user_id'=>Auth::id(),'classroom_id'=>$classroom->id]);
+            abort(403);
+        }
+
+        $daily_assignment=\App\Models\DailyAssignment::where('attempt_date','=',now(Auth::user()->timezone)->toDateString())
+        ->where('activated_at','!=',null)->where('classroom_id','=',$classroom->id)
+        ->with('dailyQuestions.multipleChoice')->first();
+        $daily_assignment->dailyQuestions->makeHidden('correct_answer');
+        
+        // check if assignment is not already attempted
+        $daily_report=null;
+        if($daily_assignment){            
+            $daily_report = \App\Models\DailyReport::where('user_id',Auth::id())
+            ->where('daily_assignment_id',$daily_assignment->id)->first();
+        }
+
+        if($daily_assignment && $daily_assignment->isCurrentlyAvailable() && empty($daily_report)){
+            return view('student-panel.daily-attempt')
+            ->with('nocache',true)
+            ->with('daily_assignment',$daily_assignment);
+        }
+
         return view('student-panel.my-panel');
     }
 

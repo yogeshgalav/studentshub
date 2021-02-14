@@ -36,27 +36,6 @@ class DailyReportController extends Controller
         return redirect('/classroom/'.$classroom_id.'/daily-assignment');
     }
 
-    public function getTodaysReport($classroomId){
-        $daily_assignment = DailyAssignment::where('attempt_date',Carbon::now(Auth::user()->timezone)->toDateString())
-        ->where('activated_at','!=',null)
-        ->where('classroom_id',$classroomId)
-        ->with('dailyQuestions.multipleChoice')
-        ->with('dailyQuestions.myDailyAnswer')
-        ->first();
-        
-        $daily_report=null;
-        if($daily_assignment){
-            $daily_report = DailyReport::where('user_id',Auth::id())
-            ->where('daily_assignment_id',$daily_assignment->id)->first();
-        }
-
-        return response()->json(['success'=>[
-            'daily_report'=>$daily_report,
-            'daily_assignment'=>$daily_assignment,
-            'is_available'=>$daily_assignment ? $daily_assignment->isCurrentlyAvailable() : false
-        ]]);
-    }
-
     public function saveDailyAnswer(Request $request){
         $my_report = DailyReport::where('user_id',Auth::id())->where('daily_assignment_id',$request->daily_assignment_id)->exists();
         if($my_report){
@@ -100,6 +79,7 @@ class DailyReportController extends Controller
         return redirect('/classroom/'.$request->classroom_id.'/daily-assignment');
     }
 
+    //api end point for getting student's daily assignment report page
     public function getDailyReports($classroom_id, $user_id=null){
         $student_id = $user_id ? $user_id : Auth::id();
         $user_detail = $user_id ? User::findOrFail($user_id) : null;
@@ -109,6 +89,7 @@ class DailyReportController extends Controller
             $join->on('dr.daily_assignment_id','=','da.id')->where('user_id','=',$student_id);
         })
         ->select('dr.*','da.attempt_date')
+        ->orderBy('da.attempt_date','DESC')
         ->get();
 
         $current_report = null;
@@ -118,10 +99,29 @@ class DailyReportController extends Controller
             ->first();
         }
 
+        $today_report=null;
+        $today_assignment=null;
+        if(!$user_id){
+            $today_assignment = DailyAssignment::where('attempt_date',Carbon::now(Auth::user()->timezone)->toDateString())
+            ->where('activated_at','!=',null)
+            ->where('classroom_id',$classroom_id)
+            ->with('dailyQuestions.multipleChoice')
+            ->with('dailyQuestions.myDailyAnswer')
+            ->first();
+            
+            if($today_assignment){
+                $today_report = DailyReport::where('user_id',Auth::id())
+                ->where('daily_assignment_id',$today_assignment->id)->first();
+            }
+        }
+
         return response()->json(['success'=>[
             'daily_reports'=>$daily_reports,
             'user_detail'=>$user_detail,
-            'current_report'=>$current_report
+            'current_report'=>$current_report,
+            'today_assignment'=>$today_assignment,
+            'today_report'=>$today_report,
+            'is_available'=>$today_assignment ? $today_assignment->isCurrentlyAvailable() : false
         ]]);
     }
 

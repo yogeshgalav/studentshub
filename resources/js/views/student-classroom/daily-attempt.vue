@@ -180,6 +180,7 @@
 <script>
 import FormMixin from '../../components/mixins/form-mixin.js';
 import dayjs from 'dayjs';
+import ifvisible from 'ifvisible.js';
 var customParseFormat = require('dayjs/plugin/customParseFormat');
 dayjs.extend(customParseFormat);
 
@@ -200,6 +201,9 @@ export default {
 				'answer': '',
 			};
 		});
+		if( !ifvisible.now() ){
+			this.axios.post('/api/decline-attempt/'+this.dailyAssignment.id);
+		}
 		window.addEventListener('pageshow',( event ) => {
 			var historyTraversal = event.persisted || 
 			                   ( typeof window.performance !== 'undefined' && 

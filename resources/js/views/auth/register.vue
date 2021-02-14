@@ -39,7 +39,9 @@
                         v-if="emailError"
                         class="form-group row alert alert-warning"
                       >
-                        <span>{{ emailError }}</span>
+                        <span>{{ 'You are already registered.' }}
+                          <router-link :to="'/login'"> Please Login</router-link>
+                        </span>
                       </div>
                       <div class="form-group">
                         <input
