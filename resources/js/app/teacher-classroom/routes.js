@@ -7,7 +7,7 @@ import ClassroomDailyReportComponent from '../../views/teacher-classroom/classro
 import ClassroomResourceComponent from '../../views/classroom/resources.vue';
 import ClassroomMessageComponent from '../../views/classroom/messages.vue';
 import ClassroomDoubtComponent from '../../views/classroom/doubts.vue';
-import ClassroomStudentsComponent from '../../views/teacher-classroom/classroom-students.vue';
+import ClassroomStudentsComponent from '../../views/classroom/students-report.vue';
 import ClassroomStudentPanelComponent from '../../views/classroom/student-daily-assignment.vue';
 import DoubtAnswer from '../../views/doubt/doubt-answers.vue';
 const TeacherClassroomRoutes = [

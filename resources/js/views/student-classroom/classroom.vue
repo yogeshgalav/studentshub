@@ -27,16 +27,16 @@
         <div class="selection-box-default">
           <router-link
             class="card h-card"
-            :to="'/classroom/'+$route.params.classroomId+'/classmates'"
+            :to="'/classroom/'+$route.params.classroomId+'/students'"
           >
             <div class="card-body">
               <div class="row">
                 <div class="col-lg-12">
                   <h2 class="font-size-18">
-                    {{ 'Classmates' }}
+                    {{ 'Report' }}
                   </h2>
                   <p>
-                    {{ 'See your classmates report.' }}
+                    {{ 'View classroom report.' }}
                   </p>
                 </div>
               </div>

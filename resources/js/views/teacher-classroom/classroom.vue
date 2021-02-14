@@ -34,10 +34,10 @@
                 <div class="row">
                   <div class="col-lg-12">
                     <h2 class="font-size-18">
-                      {{ 'Students' }}
+                      {{ 'Report' }}
                     </h2>
                     <p>
-                      {{ 'Students details and join requests.' }}
+                      {{ 'View classroom report.' }}
                     </p>
                   </div>
                 </div>

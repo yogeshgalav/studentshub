@@ -108,11 +108,11 @@ class ClassroomController extends Controller
         $daily_assignment=\App\Models\DailyAssignment::where('attempt_date','=',now(Auth::user()->timezone)->toDateString())
         ->where('activated_at','!=',null)->where('classroom_id','=',$classroom->id)
         ->with('dailyQuestions.multipleChoice')->first();
-        $daily_assignment->dailyQuestions->makeHidden('correct_answer');
         
         // check if assignment is not already attempted
         $daily_report=null;
-        if($daily_assignment){            
+        if($daily_assignment){       
+            $daily_assignment->dailyQuestions->makeHidden('correct_answer');     
             $daily_report = \App\Models\DailyReport::where('user_id',Auth::id())
             ->where('daily_assignment_id',$daily_assignment->id)->first();
         }

@@ -4,7 +4,7 @@ import ClassroomResourceComponent from '../../views/classroom/resources.vue';
 import ClassroomMessageComponent from '../../views/classroom/messages.vue';
 import ClassroomDoubtComponent from '../../views/classroom/doubts.vue';
 import ClassroomStudentPanelComponent from '../../views/classroom/student-daily-assignment.vue';
-import ClassmatesComponent from '../../views/student-classroom/classmates.vue';
+import ClassmatesComponent from '../../views/classroom/students-report.vue';
 
 const StudentClassroomRoutes = [
 	{
@@ -20,7 +20,7 @@ const StudentClassroomRoutes = [
 		component: ClassroomStudentPanelComponent,
 	},
 	{
-		path: '/classroom/:classroomId/classmates',
+		path: '/classroom/:classroomId/students',
 		component: ClassmatesComponent,
 	},
 	{
