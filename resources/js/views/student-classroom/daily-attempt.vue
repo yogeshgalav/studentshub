@@ -201,12 +201,19 @@ export default {
 				'answer': '',
 			};
 		});
-    if(!ifvisible.now()){
-      			this.axios.post('/api/decline-attempt/'+this.dailyAssignment.id);
-    }
-		window.addEventListener('unload',( event ) => {
-			this.axios.post('/api/decline-attempt/'+this.dailyAssignment.id);
-		});
+		// window.addEventListener('beforeunload', function (e) {
+		// 	var confirmationMessage = 'Your attempt will be declined if you leave this page.'
+		//                         + 'Are you sure?';
+
+		// 	(e || window.event).returnValue = confirmationMessage; //Gecko + IE
+		// 	return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
+		// });
+		// if(ifvisible.now('hidden')){
+		//   			this.axios.post('/api/decline-attempt/'+this.dailyAssignment.id);
+		// }
+		// window.addEventListener('unload',( event ) => {
+		// 	this.axios.post('/api/decline-attempt/'+this.dailyAssignment.id);
+		// });
 		window.addEventListener('pageshow',( event ) => {
 			var historyTraversal = event.persisted || 
 			                   ( typeof window.performance !== 'undefined' && 

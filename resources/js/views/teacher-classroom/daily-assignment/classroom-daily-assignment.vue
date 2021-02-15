@@ -44,6 +44,7 @@
       class="card mt-5"
     >
       <daily-assignment-accordian
+        :key="daily.id"
         :assignment="daily"
         :unit-list="unitList"
         @deleteAssignment="deleteAssignment(index)"

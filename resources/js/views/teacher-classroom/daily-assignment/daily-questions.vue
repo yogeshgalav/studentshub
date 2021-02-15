@@ -75,7 +75,7 @@
       />
     </div>
     <modal
-      name="addDailyQuestionModal"
+      :name="'addDailyQuestionModal'+assignmentId"
       class="doubt_model model-md"
       :click-to-close="false"
     >
@@ -347,12 +347,12 @@ export default {
 	},
 	methods: {
 		close() {
-			this.$modal.hide('addDailyQuestionModal');
+			this.$modal.hide('addDailyQuestionModal'+this.assignmentId);
 		},
 		addQuestion() {
 			this.resetEditQuestion();
 			this.avail_marks = this.total_marks<11 ? (10-this.total_marks) : 0;
-			this.$modal.show('addDailyQuestionModal');
+			this.$modal.show('addDailyQuestionModal'+this.assignmentId);
 		},
 		filterOptions(){
 			const text = this.current_question_edit.question_text;
@@ -387,6 +387,8 @@ export default {
 			this.filter_recovery_text = '';
 		},
 		saveQuestion() {
+                console.log(this.assignmentId);
+
 			this.$validator.validate().then(valid => {
 				if (valid) {
 					this.$emit('loader',true);
@@ -410,7 +412,7 @@ export default {
 						this.resetEditQuestion();
 					});
 
-					this.$modal.hide('addDailyQuestionModal');
+					this.$modal.hide('addDailyQuestionModal'+this.assignmentId);
 				}});
 		},
 		editQuestion(question_id) {
@@ -422,7 +424,7 @@ export default {
 				}
 				return acc + currVal.marks;
 			}, 0));
-			this.$modal.show('addDailyQuestionModal');
+			this.$modal.show('addDailyQuestionModal'+this.assignmentId);
 		},
 		deleteQuestion(question_id) {
 			this.axios.post('/api/classroom/delete-daily-question', {

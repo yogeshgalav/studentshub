@@ -152,6 +152,7 @@
                 </div>
 
                 <daily-questions
+                  :key="daily.id"
                   :daily-questions="daily.daily_questions"
                   :assignment-id="daily.id"
                   @totalUpdate="totalUpdate"
