@@ -4,7 +4,7 @@
     <div id="no-copy">
       <div class="card col-md-8 col-center p-0">
         <div class="card-header">
-          Attempt Daily Assignment
+          Attempt Daily Assignment<br>
           <small>Your attempt will be decline if you close this page.</small>
         </div>
         <div
@@ -108,7 +108,6 @@
               <button
                 type="submit"
                 class="btn btn-primary"
-                @click="clearInterval(interval)"
               >
                 Submit
               </button>
@@ -196,15 +195,17 @@ export default {
 		};
 	},
 	mounted(){
+		//reload page if attemp localStorage present
 		if(localStorage.getItem('attemptSubmitted') && localStorage.getItem('attemptSubmitted')===this.dailyAssignment.id){
 			localStorage.removeItem('attemptSubmitted');
 			window.location.reload;
 		}
-
-		window.addEventListener('beforeunload', (e)=>{
+		//alert before exit
+		window.addEventListener('beforeunload', function (e){
 			let attemptSubmitted = localStorage.getItem('attemptSubmitted');
 			if(attemptSubmitted && attemptSubmitted===this.dailyAssignment.id){
-				return true;
+				console.log('hre');
+				delete e['returnValue'];
 			}
 			var confirmationMessage = 'Your attempt will be declined if you leave this page.'
 		                        + 'Are you sure?';
@@ -212,9 +213,11 @@ export default {
 			(e || window.event).returnValue = confirmationMessage;
 			return confirmationMessage;
 		});
+		//ifvisible not working
 		if(ifvisible.now('hidden')){
 		  			this.axios.post('/api/decline-attempt/'+this.dailyAssignment.id);
 		}
+		//decline attempt
 		window.addEventListener('unload',( event ) => {
 			this.axios.post('/api/decline-attempt/'+this.dailyAssignment.id);
 		});
@@ -248,6 +251,7 @@ export default {
 		sumbitAttempt(e){
 			this.$validator.validate().then(valid => {
 				if (valid) {
+					clearInterval(this.interval);
 					localStorage.setItem('attemptSubmitted',this.dailyAssignment.id);
 					return true;
 				}else{
