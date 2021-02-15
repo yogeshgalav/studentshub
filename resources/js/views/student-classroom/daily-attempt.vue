@@ -4,7 +4,8 @@
     <div id="no-copy">
       <div class="card col-md-8 col-center p-0">
         <div class="card-header">
-          Complete Daily Assignments
+          Attempt Daily Assignment
+          <small>Your attempt will be decline if you close this page.</small>
         </div>
         <div
           v-if="answers.length"
@@ -195,33 +196,34 @@ export default {
 		};
 	},
 	mounted(){
+		if(localStorage.getItem('attemptSubmitted') && localStorage.getItem('attemptSubmitted')===this.dailyAssignment.id){
+			localStorage.removeItem('attemptSubmitted');
+			window.location.reload;
+		}
+
+		window.addEventListener('beforeunload', (e)=>{
+			let attemptSubmitted = localStorage.getItem('attemptSubmitted');
+			if(attemptSubmitted && attemptSubmitted===this.dailyAssignment.id){
+				return true;
+			}
+			var confirmationMessage = 'Your attempt will be declined if you leave this page.'
+		                        + 'Are you sure?';
+
+			(e || window.event).returnValue = confirmationMessage;
+			return confirmationMessage;
+		});
+		if(ifvisible.now('hidden')){
+		  			this.axios.post('/api/decline-attempt/'+this.dailyAssignment.id);
+		}
+		window.addEventListener('unload',( event ) => {
+			this.axios.post('/api/decline-attempt/'+this.dailyAssignment.id);
+		});
+
 		this.answers=this.dailyAssignment.daily_questions.map(node=>{
 			return {
 				'question_id': node.id,
 				'answer': '',
 			};
-		});
-		// window.addEventListener('beforeunload', function (e) {
-		// 	var confirmationMessage = 'Your attempt will be declined if you leave this page.'
-		//                         + 'Are you sure?';
-
-		// 	(e || window.event).returnValue = confirmationMessage; //Gecko + IE
-		// 	return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
-		// });
-		// if(ifvisible.now('hidden')){
-		//   			this.axios.post('/api/decline-attempt/'+this.dailyAssignment.id);
-		// }
-		// window.addEventListener('unload',( event ) => {
-		// 	this.axios.post('/api/decline-attempt/'+this.dailyAssignment.id);
-		// });
-		window.addEventListener('pageshow',( event ) => {
-			var historyTraversal = event.persisted || 
-			                   ( typeof window.performance !== 'undefined' && 
-                              window.performance.navigation.type === 2 );
-			if ( historyTraversal ) {
-				// Handle page restore.
-				window.location.href = '/classroom/'+this.dailyAssignment.classroom_id;
-			}
 		});
 		this.interval=setInterval(()=>{
 			this.timer=dayjs(this.timer,'mm:ss').add(1,'seconds').format('mm:ss');
@@ -244,9 +246,9 @@ export default {
 	},
 	methods:{
 		sumbitAttempt(e){
-
 			this.$validator.validate().then(valid => {
 				if (valid) {
+					localStorage.setItem('attemptSubmitted',this.dailyAssignment.id);
 					return true;
 				}else{
 					e.preventDefault();

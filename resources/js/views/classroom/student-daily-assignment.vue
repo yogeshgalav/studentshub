@@ -100,7 +100,7 @@
                       <a
                         id="reflection-link"
                         class="btn btn-success text-white"
-                        :href="'/classroom/' + $route.params.classroomId +'/daily-attempt'"
+                        :href="'/classroom/' + $route.params.classroomId"
                       >
                         {{ 'Attempt now' }}
                       </a>

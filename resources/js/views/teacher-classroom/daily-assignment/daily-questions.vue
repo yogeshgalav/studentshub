@@ -387,8 +387,6 @@ export default {
 			this.filter_recovery_text = '';
 		},
 		saveQuestion() {
-                console.log(this.assignmentId);
-
 			this.$validator.validate().then(valid => {
 				if (valid) {
 					this.$emit('loader',true);
