@@ -9,15 +9,14 @@
     <div class="container pb-100">
       <div class="row justify-content-center register">
         <div class="col-md-8">
-          <nav-tabs
-            :tabs="tabs"
-            :initial-tab="initialTab"
-          >
-            <template slot="tab-heading-student">
-              {{ 'Student' }}
-            </template>
+          <div class="logn_right login_card">
+            <div class="card_title text-center">
+              <h3 class="weight-800 text-black font-size-18">
+                {{ trans('Education Details') }}
+              </h3>
+            </div>
 
-            <template slot="tab-panel-student">
+            <div class="card-body edu_det_page">
               <div class="row justify-content-center">
                 <div class="col-md-12">
                   <p class="text-grey">
@@ -50,6 +49,13 @@
                             @selected="setInstitute"
                           />
                         </div>
+                        <span
+                          v-if="selected_institute.totalBatch"
+                        >{{ selected_institute.totalBatch }} batch found.</span>
+                        <span
+                          v-if="selected_institute.id===0"
+                        >{{ selected_institute.description }}</span>
+                        <span v-if="institute_list.length===0 && selected_institute.id===0">Please Enter Full Institute name.</span>
                         <span class="text-danger">{{ formErrors('institute_name') }}</span>
                       </div>
                     </div>
@@ -236,72 +242,8 @@
                   </form>
                 </div>
               </div>
-            </template>
-
-            <template slot="tab-heading-teacher">
-              {{ 'Teacher' }}
-            </template>
-
-            <template slot="tab-panel-teacher">
-              <div class="row justify-content-center">
-                <div class="col-md-12">
-                  <p class="text-grey">
-                    Please enter Institute name in which you are teaching to create classrooms.
-                  </p>
-                </div>
-
-                <div class="col-md-12 mt-2">
-                  <form @submit.prevent="handleSubmit">
-                    <div class="form-group">
-                      <label> {{ trans('Institute Name') }} </label>
-                      <div class="inner-addon left-addon">
-                        <div class="input_icon_frm">
-                          <span
-                            class="icon_design_input"
-                            style="height: 43px;"
-                          ><i
-                            class="fa fa-university"
-                            aria-hidden="true"
-                          /></span>
-                          <auto-complete
-                            :key="'institute2'"
-                            v-validate="'required'"
-                            :items="institute_list"
-                            :value="'name'"
-                            name="institute_name"
-                            :is-async="true"
-                            :initial-value="selected_institute"
-                            :is-loading="instituteLoading"
-                            @input="getInstitutes"
-                            @selected="setInstitute"
-                          />
-                        </div>
-                        <span class="text-danger">{{ formErrors('institute_name') }}</span>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <button
-                        type="submit"
-                        class="login_btn"
-                      >
-                        {{ trans('Submit') }} <span><i
-                          class="fa fa-arrow-right"
-                          aria-hidden="true"
-                        /></span>
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </template>
-
-            <template slot="tab-heading-institute">
-              {{ 'Institute' }}
-            </template>
-
-            <template slot="tab-panel-institute">
-            </template>
-          </nav-tabs>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -401,20 +343,16 @@ import AutoComplete from '../../components/AutoComplete.vue';
 import swal from '../../components/swal';
 import DatePicker from 'vue2-datepicker';
 import 'vue2-datepicker/index.css';
-import NavTabs from '../../components/NavTabs.vue';
 
 export default {
 	components: {
 		DatePicker,
-		AutoComplete,
-		NavTabs
+		AutoComplete
 	},
 	mixins: [FormMixin],
 	props: ['courseLevels','studentDetails', 'batches'],
 	data() {
 		return {
-			initialTab:'student',
-			tabs:['student','teacher','institute'],
 			showLoader: false,
 			show_courses: false,
 			course_list: [],
