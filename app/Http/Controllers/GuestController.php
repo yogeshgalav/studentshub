@@ -47,4 +47,10 @@ class GuestController extends Controller
         Log::critical('New member request with details.',['member'=>$member]);
         return response()->json([],204);
     }
+    public function feedback(){
+        return view('guest.feedback');
+    }
+    public function feedbackPage(){
+        return view('guest.feedback');
+    }
 }
