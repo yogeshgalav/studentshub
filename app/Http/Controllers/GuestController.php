@@ -53,4 +53,16 @@ class GuestController extends Controller
     public function feedbackPage(){
         return view('guest.feedback');
     }
+    public function contactUs(){
+        return view('guest.contactus');
+    }
+    public function contactUsPage(){
+        return view('guest.contactus');
+    }
+    public function faq(){
+        return view('guest.faq');
+    }
+    public function faqPage(){
+        return view('guest.faq');
+    }
 }

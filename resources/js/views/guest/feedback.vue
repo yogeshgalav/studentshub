@@ -21,7 +21,7 @@
                       name="email"
                     >
                     <span class="text-danger">
-                      {{ formError("email") }}</span>
+                      {{ formErrors("email") }}</span>
                   </div>
                 </div>
                 <div class="form-group row">
@@ -33,7 +33,7 @@
                   </label>
 
                   <div class="col-md-6">
-                    <text-area
+                    <textarea
                       id="feedback"
                       v-model="feedback"
                       v-validate="'required'"
@@ -42,7 +42,7 @@
                       name="feedback"
                     />
                     <span class="text-danger">
-                      {{ formError("feedback") }}</span>
+                      {{ formErrors("feedback") }}</span>
                   </div>
                 </div>
                 <div class="form-group row mb-0">
@@ -71,14 +71,13 @@
 </style>
 
 <script>
-import FormMixin from '../../components/mixins/form-mixin';
+import FormMixin from '../../components/mixins/form-mixin.js';
 export default {
-	mixins: {
-		FormMixin
-	},
+	mixins: [ FormMixin ],
 	data() {
 		return {
-			email
+			email: "",
+            feedback:'',
 		};
 	},
 	methods: {
