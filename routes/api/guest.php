@@ -15,6 +15,7 @@ Route::post('/reset-password','AuthController@resetPassword2')->middleware('auth
 Route::post('/reset-password/{token}','AuthController@resetPassword');
 Route::post('/feedback','GuestController@feedback');
 Route::post('/contactus','GuestController@contactus');
+Route::post('/faq','GuestController@faq');
 // Route::get('/get-view-post/{ViewPostId}', 'PostController@viewPost');
 Route::get('/get-explore-posts', 'ExploreController@index');
 

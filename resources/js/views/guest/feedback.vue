@@ -29,7 +29,7 @@
                       class="form-control"
                       name="email"
                     >
-                    <span class="error">{{ formErrors('email') }}</span>
+                    <span class="text-danger">{{ formErrors('email') }}</span>
                   </div>
                 </div>
                 <div class="form-group row">
@@ -79,7 +79,7 @@
 </style>
 
 <script>
-import FormMixin from '../../components/mixins/form-mixin';
+import FormMixin from '../../components/mixins/form-mixin.js';
 export default {
 	mixins: [
 		FormMixin

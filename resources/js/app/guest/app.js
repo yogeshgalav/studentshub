@@ -29,6 +29,11 @@ const store = new Vuex.Store({
 Vue.component('ResetPasswordComponent', require('../../views/auth/reset-password.vue').default);
 Vue.component('FeedbackComponent', require('../../views/user/feedback.vue').default);
 Vue.component('contactusComponent', require('../../views/user/contactus.vue').default);
+Vue.component('FeedbackComponent', require('../../views/guest/feedback.vue').default);
+Vue.component('ContactusComponent', require('../../views/guest/Contactus.vue').default);
+Vue.component('FaqComponent', require('../../views/guest/Faq.vue').default);
+
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
