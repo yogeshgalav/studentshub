@@ -1,58 +1,99 @@
 <template>
-    <section class="home-newsletter">
-<div class="container">
-<div class="row">
-<div class="col-sm-12">
-	<form class="single" @submit.prevent="subscribe">
-		<h2>Subscribe to our Newsletter</h2>
-	<div class="input-group">
-         <input type="email" class="form-control" placeholder="Enter your email"
-		 name="email" 
-		 v-model="subscribe_email"
-		 v-validate="'email|required'">
-         <span class="input-group-btn">
-         <button class="btn btn-theme" type="submit"><span><i class="fas fa-caret-right"></i></span></button>
-         </span>
-		 <div class="sub_text">
-			 <input type="checkbox" value="">
-			 <span>By Checking this box, you confrim that you have read and are agreeing to our  terms of use regarding  the storage of the data submitting  through  this form</span>
-          </div>
-          </div>
-	</form>
-</div>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <div class="divider mt-5"></div>
-    </div>
-    <div class="col-md-12 text-center mb-2 mt-2">
-                    <ul class="social-network social-circle">
-                        <li><a target="_blank" href='https://www.facebook.com/studentshub.in' class="icoFacebook" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
-                        <li><a target="_blank" href='https://www.twitter.com/studentshub_in'  class="icoTwitter" title="Twitter"><i class="fab fa-twitter"></i></a></li>
-                        <li><a  target="_blank" href='https://www.instagram.com/studentshub.in' class="icoInstagram" title="Instagram"><i class="fab fa-instagram"></i></a></li>
-                        <li><a href="#" target="_blank" class="icoLinkedin" title="Linkedin"><i class="fab fa-linkedin"></i></a></li>
-                    </ul>				
-				</div>
-                <div class="col-md-12 text-center">
-                    <ul class="foote_bottom_ul_amrc">
-<li><a href="#">Home</a></li>
-<li><a href="#">About</a></li>
-<li><a href="#">Services</a></li>
-<li><a href="#">Pricing</a></li>
-<li><a href="#">Blog</a></li>
-<li><a href="#">Contact</a></li>
-</ul>
-                    </div>
-					<div class="col-md-12">
-        <div class="divider mt-5"></div>
-    </div>
+  <section class="home-newsletter">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <form
+            class="single"
+            @submit.prevent="subscribe"
+          >
+            <h2>Subscribe to our Newsletter</h2>
+            <div class="input-group">
+              <input
+                v-model="subscribe_email"
+                v-validate="'email|required'"
+                type="email"
+                class="form-control" 
+                placeholder="Enter your email"
+                name="email"
+              >
+              <span class="input-group-btn">
+                <button
+                  class="btn btn-theme"
+                  type="submit"
+                ><span><i class="fas fa-caret-right" /></span></button>
+              </span>
+              <div class="sub_text">
+                <input
+                  type="checkbox"
+                  value=""
+                >
+                <span>By Checking this box, you confrim that you have read and are agreeing to our  terms of use regarding  the storage of the data submitting  through  this form</span>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="divider mt-5" />
+        </div>
+        <div class="col-md-12 text-center mb-2 mt-2">
+          <ul class="social-network social-circle">
+            <li>
+              <a
+                target="_blank"
+                href="https://www.facebook.com/studentshub.in"
+                class="icoFacebook"
+                title="Facebook"
+              ><i class="fab fa-facebook-f" /></a>
+            </li>
+            <li>
+              <a
+                target="_blank"
+                href="https://www.twitter.com/studentshub_in"
+                class="icoTwitter"
+                title="Twitter"
+              ><i class="fab fa-twitter" /></a>
+            </li>
+            <li>
+              <a
+                target="_blank"
+                href="https://www.instagram.com/studentshub.in"
+                class="icoInstagram"
+                title="Instagram"
+              ><i class="fab fa-instagram" /></a>
+            </li>
+            <li>
+              <a
+                href="#"
+                target="_blank"
+                class="icoLinkedin"
+                title="Linkedin"
+              ><i class="fab fa-linkedin" /></a>
+            </li>
+          </ul>				
+        </div>
+        <div class="col-md-12 text-center">
+          <ul class="foote_bottom_ul_amrc">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Pricing</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-md-12">
+          <div class="divider mt-5" />
+        </div>
 
-					<div class="col-md-12 text-center copy_right">
-						<p>Copyright&copy;studentshub-2019-All Rights Reserved </p>
-					</div>	
-</div>
-</div>
-</section>
+        <div class="col-md-12 text-center copy_right">
+          <p>Copyright&copy;studentshub-2019-All Rights Reserved </p>
+        </div>	
+      </div>
+    </div>
+  </section>
 </template>
 <style scoped>
 .home-newsletter {
@@ -198,19 +239,19 @@ a.socialIcon:hover, .socialHoverClass {
 
 
 <script>
-import formMixin from '../../components/mixins/form-mixin.js'
+import formMixin from '../../components/mixins/form-mixin.js';
 export default {
 	mixins:['formMixin'],
 	data(){
 		return{
 			subscribe_email:'',
-		}
+		};
 	},
-    methods:{
+	methods:{
 		subscribe(){
 			this.$store.dispatch('common/subscribe',{email:this.subscribe_email});
 		}
 	}
-}
+};
 </script>
 
