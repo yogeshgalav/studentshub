@@ -1,8 +1,19 @@
+<style scoped>
+.col-md-8{
+    margin-left: 17%;
+}
+.feedback{
+    font-size: 40px;
+    color: #929090;
+}
+</style>
+
 <template>
   <main>
     <div class="col-md-12">
       <div class="row justify-content-center">
         <div class="col-md-6 mt-100 p-2">
+            <h1 class="feedback">Feedback</h1>
           <div class="card">
             <div class="card-body">
               <form @submit.prevent="handleSubmit">
@@ -49,7 +60,7 @@
                   <div class="col-md-8 offset-md-4">
                     <button
                       type="submit"
-                      class="btn btn-primary"
+                      class="btn btn-primary btn-block"
                     >
                       {{ "Submit" }}
                     </button>
@@ -61,6 +72,7 @@
         </div>
       </div>
     </div>
+    <site-footer />
   </main>
 </template>
 
@@ -72,8 +84,13 @@
 
 <script>
 import FormMixin from '../../components/mixins/form-mixin.js';
+import SiteFooter from "../footer/SiteFooter";
 export default {
 	mixins: [ FormMixin ],
+    name: "feedback",
+  components: {
+    SiteFooter,
+  },
 	data() {
 		return {
 			email: "",

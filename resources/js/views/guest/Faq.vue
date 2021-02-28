@@ -1,5 +1,6 @@
 <template>
   <main>
+      <div class="space"></div>
     <h3>  Frequently Asked Questions</h3>
     <div class="col-md-12">
 
@@ -27,6 +28,7 @@
         </div>
       </div>
     </div>
+    <site-footer />
   </main>
 </template>
 <style scoped>
@@ -41,19 +43,25 @@ strong{
 }
 h3 {
     font-size: 24px;
-    margin-top: 6%;
-    position: absolute;
-    margin-left: 26%;
+    margin-bottom: -142px;
+    margin-top: 4%;
+    text-align: center;
 }
-
+.space{
+    min-height: 60px;
+}
 
 </style>
 
  <script>
  import FormMixin from "../../components/mixins/form-mixin.js";
+ import SiteFooter from "../footer/SiteFooter";
  export default {
  mixins: [ FormMixin ],
  name: 'faq',
+  components: {
+    SiteFooter,
+  },
      	data() {
  		return {
  			email: '',
