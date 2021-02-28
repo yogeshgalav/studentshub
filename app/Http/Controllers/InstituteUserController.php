@@ -9,6 +9,9 @@ use App\Models\Institute;
 use App\Models\Teacher;
 use App\Models\ScheduledJob;
 use DB;
+use Auth;
+use Log;
+use Carbon\Carbon;
 
 class InstituteUserController extends Controller
 {
@@ -51,4 +54,47 @@ class InstituteUserController extends Controller
 
         return response()->json('success');
     }
+
+    public function teacherCheckin(Request $request)
+    {
+        $input = $request->all();
+        $user = Auth::user();
+
+        DB::beginTransaction();
+        try {
+            //create or get institute id
+            if(!empty($input['institute_id'])){
+                $institute = Institute::find($input['institute_id']);
+            }else{
+                $institute = Institute::create([
+                    'name' => $input['institute_name'],
+                    'added_by_user_id' => $user->id,
+                    'country_code' => 'IN',
+                    'is_verified' => false,
+                ]);
+            }
+
+
+            $teacher = Teacher::updateOrCreate([
+                'user_id' => Auth::user()->id,
+                'institute_id' => $institute->id,
+            ],[
+                'is_verified' => false
+            ]);
+
+            $user->onboarded_at = Carbon::now()->toDateTimeString();
+            $user->role_intended = 'teacher';
+            $user->save();
+            
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            // dd($e->getLine(),$e->getMessage());
+            Log::critical('Teacher Registeration failure',['error'=>$e->getMessage()]);
+            return response()->$e;
+        }
+        $success['redirectUrl'] = '/classrooms';
+        return response()->json(['success' => $success]);
+    }
+
 }

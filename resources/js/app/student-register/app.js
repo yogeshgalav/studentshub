@@ -9,7 +9,8 @@ require('../../bootstrap');
 
 // window.Vue = require('vue').default;
 import Vue from '../app';
-Vue.component('StudentRegister', require('../../views/student-register/student-register').default);
+Vue.component('CheckIn', require('../../views/student-register/checkin').default);
+Vue.component('EducationDetail', require('../../views/student-register/education-detail').default);
 
 //Vue App Initialisation
 const app = new Vue({

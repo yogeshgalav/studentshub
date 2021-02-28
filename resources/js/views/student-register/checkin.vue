@@ -12,6 +12,7 @@
           <nav-tabs
             :tabs="tabs"
             :initial-tab="initialTab"
+            @changeTab="changeTab"
           >
             <template slot="tab-heading-student">
               {{ 'Student' }}
@@ -25,9 +26,12 @@
                   </p>
                 </div>
                 <div class="col-md-12 mt-2">
-                  <form @submit.prevent="handleSubmit">
+                  <form
+                    data-vv-scope="student"
+                    @submit.prevent="handleSubmit('student')"
+                  >
                     <div class="form-group">
-                      <label> {{ trans('Institute Name') }} </label>
+                      <label> {{ ('Institute Name') }} </label>
                       <div class="inner-addon left-addon">
                         <div class="input_icon_frm">
                           <span
@@ -50,7 +54,7 @@
                             @selected="setInstitute"
                           />
                         </div>
-                        <span class="text-danger">{{ formErrors('institute_name') }}</span>
+                        <span class="text-danger">{{ formErrors('student.institute_name') }}</span>
                       </div>
                     </div>
                     <div class="form-group">
@@ -77,7 +81,7 @@
                             @selected="setCourseLevel"
                           />
                         </div>
-                        <span class="error">{{ formErrors('course_level') }}</span>
+                        <span class="error">{{ formErrors('student.course_level') }}</span>
                       </div>
                     </div>
                     <div
@@ -115,7 +119,7 @@
                         <span v-if="no_course_found">Please enter your full Program name
                           followed by branch name(if any).Please make sure that program
                           details you are entering is correct.</span>
-                        <span class="error">{{ formErrors('program_name') }}</span>
+                        <span class="error">{{ formErrors('student.program_name') }}</span>
                       </div>
                     </div>
                     <div class="row">
@@ -139,7 +143,7 @@
                             class="form-control u_input"
                           >
                         </div>
-                        <span class="error">{{ formErrors('institute_id') }}</span>
+                        <span class="error">{{ formErrors('student.institute_id') }}</span>
                       </div>
                     </div>
 
@@ -151,7 +155,7 @@
                             class="text-black"
                             for="event_date_input"
                           >
-                            {{ trans('Batch Starting Year') }}
+                            {{ ('Batch Starting Year') }}
                           </label>
                           <div class="input-group-prepend ">
                             <div
@@ -188,7 +192,7 @@
                           class="text-black"
                           for="event_date_input"
                         >
-                          {{ trans('Batch Ending Year') }}
+                          {{ ('Batch Ending Year') }}
                         </label>
                         <div class="input-group-prepend ">
                           <div
@@ -218,8 +222,8 @@
                           </div>
                         </div>
                       </div>
-                      <span class="error">{{ formErrors('start_year') }}</span>
-                      <span class="error">{{ formErrors('end_year') }}</span>
+                      <span class="error">{{ formErrors('student.start_year') }}</span>
+                      <span class="error">{{ formErrors('student.end_year') }}</span>
                       <span class="error">{{ yearError }}</span>
                     </div>
                     <div class="row">
@@ -227,7 +231,7 @@
                         type="submit"
                         class="login_btn"
                       >
-                        {{ trans('Submit') }} <span><i
+                        {{ ('Submit') }} <span><i
                           class="fa fa-arrow-right"
                           aria-hidden="true"
                         /></span>
@@ -251,9 +255,12 @@
                 </div>
 
                 <div class="col-md-12 mt-2">
-                  <form @submit.prevent="handleSubmit">
+                  <form
+                    data-vv-scope="teacher"
+                    @submit.prevent="handleSubmit('teacher')"
+                  >
                     <div class="form-group">
-                      <label> {{ trans('Institute Name') }} </label>
+                      <label> {{ ('Institute Name') }} </label>
                       <div class="inner-addon left-addon">
                         <div class="input_icon_frm">
                           <span
@@ -276,7 +283,31 @@
                             @selected="setInstitute"
                           />
                         </div>
-                        <span class="text-danger">{{ formErrors('institute_name') }}</span>
+                        <span class="text-danger">{{ formErrors('teacher.institute_name') }}</span>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12 form-group">
+                        <label for="contact_number">Contact number</label>
+                        <div class="input_icon_frm">
+                          <span
+                            id="basic-addon1"
+                            class="icon_design_input"
+                          ><i
+                            class="fa fa-id-card"
+                            aria-hidden="true"
+                          /></span>
+                          <input
+                            id="contact_number"
+                            v-model="contact_number"
+                            v-validate="'required'"
+                            name="contact_number"
+                            type="text"
+                            placeholder="Phone number"
+                            class="form-control u_input"
+                          >
+                        </div>
+                        <span class="error">{{ formErrors('teacher.contact_number') }}</span>
                       </div>
                     </div>
                     <div class="row">
@@ -284,7 +315,7 @@
                         type="submit"
                         class="login_btn"
                       >
-                        {{ trans('Submit') }} <span><i
+                        {{ ('Submit') }} <span><i
                           class="fa fa-arrow-right"
                           aria-hidden="true"
                         /></span>
@@ -300,6 +331,106 @@
             </template>
 
             <template slot="tab-panel-institute">
+              <div class="row justify-content-center">
+                <div class="col-md-12">
+                  <p class="text-grey">
+                    Please enter Your Institute details and we will contact you ASAP.
+                  </p>
+                </div>
+
+                <div class="col-md-12 mt-2">
+                  <form
+                    data-vv-scope="institute"
+                    @submit.prevent="handleSubmit('institute')"
+                  >
+                    <div class="form-group">
+                      <label> {{ ('Institute Name') }} </label>
+                      <div class="inner-addon left-addon">
+                        <div class="input_icon_frm">
+                          <span
+                            class="icon_design_input"
+                            style="height: 43px;"
+                          ><i
+                            class="fa fa-university"
+                            aria-hidden="true"
+                          /></span>
+                          <auto-complete
+                            :key="'institute2'"
+                            v-validate="'required'"
+                            :items="institute_list"
+                            :value="'name'"
+                            name="institute_name"
+                            :is-async="true"
+                            :initial-value="selected_institute"
+                            :is-loading="instituteLoading"
+                            @input="getInstitutes"
+                            @selected="setInstitute"
+                          />
+                        </div>
+                        <span class="text-danger">{{ formErrors('institute.institute_name') }}</span>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12 form-group">
+                        <label for="contact_number">Contact number</label>
+                        <div class="input_icon_frm">
+                          <span
+                            id="basic-addon1"
+                            class="icon_design_input"
+                          ><i
+                            class="fa fa-id-card"
+                            aria-hidden="true"
+                          /></span>
+                          <input
+                            id="contact_number"
+                            v-model="contact_number"
+                            v-validate="'required'"
+                            name="contact_number"
+                            type="text"
+                            placeholder="Phone number"
+                            class="form-control u_input"
+                          >
+                        </div>
+                        <span class="error">{{ formErrors('institute.contact_number') }}</span>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12 form-group">
+                        <label for="students">Number of Students</label>
+                        <div class="input_icon_frm">
+                          <span
+                            id="basic-addon1"
+                            class="icon_design_input"
+                          ><i
+                            class="fa fa-id-card"
+                            aria-hidden="true"
+                          /></span>
+                          <input
+                            id="students"
+                            v-model="students"
+                            v-validate="'required'"
+                            name="students"
+                            type="text"
+                            class="form-control u_input"
+                          >
+                        </div>
+                        <span class="error">{{ formErrors('institute.students') }}</span>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <button
+                        type="submit"
+                        class="login_btn"
+                      >
+                        {{ ('Submit') }} <span><i
+                          class="fa fa-arrow-right"
+                          aria-hidden="true"
+                        /></span>
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
             </template>
           </nav-tabs>
         </div>
@@ -443,6 +574,9 @@ export default {
 			is_prefferred: true,
 			college_id: '',
 			current_date:new Date(),
+			currentTab:'student',
+			students:'',
+			contact_number:'',
 		};
 	},
 	computed:{
@@ -495,9 +629,6 @@ export default {
 		}
 	},
 	methods: {
-		trans: function (string, defaultString) {
-			return this.$trans('auth', string, defaultString);
-		},
 		getCourses(search) {
 			this.selected_course = {
 				'id': null,
@@ -566,29 +697,59 @@ export default {
 		setInstitute(result) {
 			this.selected_institute = result;
 		},
-		handleSubmit(e) {
-			this.$validator.validate().then(valid => {
+		handleSubmit(scope) {console.log(scope);
+			this.$validator.validateAll(scope).then(valid => {
 				if (valid) {
 					this.form_errors=[];
-					this.register();
+					if(this.currentTab==='student'){
+						this.studentRegister();
+					}
+					if(this.currentTab==='teacher'){
+						this.teacherRegister();
+					}
+					if(this.currentTab==='institute'){
+						this.instituteRegister();
+					}
 				}
 			});
 			return true;
 		},
-		register() {
-			// if (this.selected_institute.name.trim() === '') {
-			//     this.errors.institute_name = 'Institute Name is required.';
-			//     return false;
-			// }
-			// if (this.selected_course.course_name.trim() === '') {
-			//     this.errors.program_name = 'Program Name is required.';
-			//     return false;
-			// }
+		changeTab(tab){
+			this.currentTab= tab;
+		},
+		teacherRegister() {
+			this.showLoader = true;
+			axios.post('/api/checkin/teacher', {
+				institute_id: this.selected_institute.id,
+				institute_name: this.selected_institute.name,
+				contact_number: this.contact_number,
+			}).then((resp) => {
+				this.showLoader = false;
+				if (resp.data.success) {
+					swal.successDialog('Check-In', 'Success!', 'success');
+					window.location.href = resp.data.success.redirectUrl;
+				}
+			}).catch(() => {
+				this.showLoader = false;
+			});
+		},
+		instituteRegister() {
+			this.showLoader = true;
+			this.axios.post('/api/member-request',{
+				institute_name:this.selected_institute.name,
+				phone_no:this.contact_number,
+				students:this.students,
+			}).then(()=>{
+				this.showLoader =false;
+				swal.infoDialog('Thank you for connecting with us.');
+			});
+		},
+		studentRegister() {
 			if(this.yearError!==''){
 				return false;
 			}
 			this.showLoader = true;
-			axios.post('/api/checkin', {
+			axios.post('/api/checkin/student', {
 				course_id: this.selected_course.id,
 				course_name: this.selected_course.course_name,
 				category_id: this.selected_course.category_id,

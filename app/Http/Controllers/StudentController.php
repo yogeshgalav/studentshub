@@ -31,7 +31,7 @@ class StudentController extends Controller
         try {
             //create or get course id
             if ($input['course_id'] == 0) {
-                Log::critical('New course created',['course_id'=>$course->id]);
+                Log::info('New course created',['course_id'=>$course->id]);
                 $course = Course::create([
                     'course_name' => $input['course_name'],
                     'category_id' => null,
@@ -75,9 +75,13 @@ class StudentController extends Controller
                 'is_preffered' => true,
             ]);
 
+            $user->role_intended = 'student';
+            $user->onboarded_at = \Carbon\Carbon::now()->toDateTimeString();
+            $user->save();
+            
             $batch_users = $batch->users()->whereNotIn('id', [$user->id]);
             // Notification::send($batch_users, new BatchNewUserNotification($user,$batch));
-            Notification::send($user, new StudentOnboardingNotification(count($batch_users)));
+            // Notification::send($user, new StudentOnboardingNotification(count($batch_users)));
 
 
             DB::commit();
