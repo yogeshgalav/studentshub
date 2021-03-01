@@ -126,14 +126,17 @@ h1 {
                       >
                     </div>
                   </div>
-                  <div class="form-group row">
+                  <div
+                    v-if="!AuthUser"
+                    class="form-group row"
+                  >
                     <label
                       for="email"
                       class="col-md-4 col-form-label text-md-right"
                     >Email</label>
 
                     <div class="col-md-6">
-                      <input
+                      <input 
                         id="email"
                         v-model="email"
                         v-validate="'required|email'"
@@ -210,7 +213,7 @@ export default {
 					this.axios
 						.post('/api/contactus', {
 							name: this.name,
-							email: this.email,
+							email:(this.AuthUser ? this.AuthUser.email : this.email),
 							description: this.description,
 						})
 						.then((resp) => {
