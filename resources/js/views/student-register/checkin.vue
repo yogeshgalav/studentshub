@@ -300,7 +300,7 @@
                           <input
                             id="contact_number"
                             v-model="contact_number"
-                            v-validate="'required'"
+                            v-validate="'required|digits:10'"
                             name="contact_number"
                             type="text"
                             placeholder="Phone number"
@@ -384,7 +384,7 @@
                           <input
                             id="contact_number"
                             v-model="contact_number"
-                            v-validate="'required'"
+                            v-validate="'required|digits:10'"
                             name="contact_number"
                             type="text"
                             placeholder="Phone number"
