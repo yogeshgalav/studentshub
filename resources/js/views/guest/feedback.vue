@@ -1,15 +1,14 @@
-<style scoped>
-.col-md-8{
-    margin-left: 17%;
-}
-.feedback{
-    font-size: 40px;
-    color: #929090;
-}
-</style>
+
 
 <template>
   <main>
+      <div class="blank">
+      </div>
+      <div class="heading">
+          <h1>
+              Your feedback is valuable for us, hence we would love to listen what you think about us.
+          </h1>
+      </div>
     <div class="col-md-12">
       <div class="row justify-content-center">
         <div class="col-md-6 mt-100 p-2">
@@ -56,8 +55,8 @@
                       {{ formErrors("feedback") }}</span>
                   </div>
                 </div>
-                <div class="form-group row mb-0">
-                  <div class="col-md-8 offset-md-4">
+                <div>
+                  <div>
                     <button
                       type="submit"
                       class="btn btn-primary btn-block"
@@ -79,6 +78,29 @@
 <style scoped>
 .mt-100 {
     margin-top: 200px;
+}
+.col-md-8{
+    margin-left: 17%;
+}
+.feedback{
+    font-size: 40px;
+    color: #929090;
+}
+.blank{
+    height: 100px;
+}
+.heading h1{
+    font-size: 40px;
+    color: white;
+    font-weight: 700;
+    width: 80%;
+    margin: auto;
+}
+.heading{
+    min-height: 500px;
+    background: black;
+    text-align: center;
+    padding-top: 100px;
 }
 </style>
 
