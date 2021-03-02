@@ -142,7 +142,7 @@
 
 
                       <div class="form-group">
-                        <label> {{ 'Join ID (optional)' }} </label>
+                        <label> {{ 'Join Id (optional)' }} </label>
                         <div class="inner-addon left-addon">
                           <div class="input_icon_frm">
                             <span class="icon_design_input"><i
@@ -151,7 +151,6 @@
                             <input
                               id="join_id"
                               v-model="join_id"
-                              v-validate="'required'"
                               type="text"
                               class="form-control"
                               name="join_id"

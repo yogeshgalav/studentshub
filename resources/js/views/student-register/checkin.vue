@@ -736,6 +736,8 @@ export default {
 		instituteRegister() {
 			this.showLoader = true;
 			this.axios.post('/api/member-request',{
+				full_name:this.AuthUser.full_name,
+				email:this.AuthUser.email,
 				institute_name:this.selected_institute.name,
 				phone_no:this.contact_number,
 				students:this.students,

@@ -83,6 +83,7 @@ class InstituteUserController extends Controller
             ]);
 
             $user->onboarded_at = Carbon::now()->toDateTimeString();
+            $user->phone_no = $request->contact_number;
             $user->role_intended = 'teacher';
             $user->save();
             
