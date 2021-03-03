@@ -132,7 +132,7 @@ h2 {
   font-weight: 500;
   text-align: center;
   color: white;
-  margin-top: 40px;
+  margin-top: 50px;
 }
 input {
   border-radius: 0%;
