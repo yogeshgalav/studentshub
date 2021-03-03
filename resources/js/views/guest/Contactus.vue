@@ -2,6 +2,12 @@
 <template>
   <div>
     <div class="blank" />
+    <loading
+      :active.sync="showLoader"
+      :color="'#10069F'"
+      :width="250"
+      :is-full-page="true"
+    />
     <header class="heading">
       <h1>Contact Us</h1>
       <h2>
@@ -49,21 +55,27 @@
     <main>
       <div class="form">
         <form @submit.prevent="handleSubmit">
-          <div class="field">
+          <div
+            v-if="!AuthUser"
+            class="field"
+          >
             <label for="Name">{{ "Name" }}</label>
             <div>
               <input
                 id="name"
                 ref="name"
                 v-model="name"
-                v-validate="'required|max:30'"
+                v-validate="'required|max:255'"
                 type="name"
                 class="form-control"
                 name="name"
               >
             </div>
           </div>
-          <div class="field">
+          <div
+            v-if="!AuthUser"
+            class="field"
+          >
             <label for="email">Email</label>
             <div>
               <input
@@ -198,6 +210,7 @@ export default {
 			name: '',
 			email: '',
 			description: '',
+			showLoader:false,
 		};
 	},
 	methods: {
@@ -206,8 +219,8 @@ export default {
 				if (valid) {
 					this.axios
 						.post('/api/contactus', {
-							name: this.name,
-							email: this.email,
+							name: (this.AuthUser ? this.AuthUser.full_name : this.name),
+							email:(this.AuthUser ? this.AuthUser.email : this.email),
 							description: this.description,
 						})
 						.then((resp) => {

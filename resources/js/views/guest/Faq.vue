@@ -2,26 +2,36 @@
   <main>
     <h3>  Frequently Asked Questions</h3>
     <div class="col-md-12">
-
       <div class="row justify-content-center">
         <div class="col-md-6 mt-100 p-2">
-
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title"><strong>Q.</strong> How to access portel</h5>
-              <p class="card-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+              <h5 class="card-title">
+                <strong>Q.</strong> How to access portel
+              </h5>
+              <p class="card-text">
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+              </p>
             </div>
           </div>
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title"><strong>Q.</strong> how to reschdule class </h5>
-              <p class="card-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+              <h5 class="card-title">
+                <strong>Q.</strong> how to reschdule class
+              </h5>
+              <p class="card-text">
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+              </p>
             </div>
           </div>
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title"><strong>Q.</strong> How to get accress to course</h5>
-              <p class="card-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+              <h5 class="card-title">
+                <strong>Q.</strong> How to get accress to course
+              </h5>
+              <p class="card-text">
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+              </p>
             </div>
           </div>
         </div>
@@ -49,15 +59,15 @@ h3 {
 
 </style>
 
- <script>
- import FormMixin from "../../components/mixins/form-mixin.js";
- export default {
- mixins: [ FormMixin ],
- name: 'faq',
+<script>
+import FormMixin from '../../components/mixins/form-mixin.js';
+export default {
+	name: 'Faq',
+	mixins: [ FormMixin ],
      	data() {
  		return {
  			email: '',
-      description: ''
+			description: ''
  		};
  	},
  	methods: {
@@ -65,7 +75,7 @@ h3 {
  			this.$validator.validate().then(valid => {
  				if (valid) {
 					this.axios
- 						.post("/api/faq", {
+ 						.post('/api/faq', {
  							email: this.email,
  							description: this.description,
  						})
@@ -77,5 +87,5 @@ h3 {
  			});
  		}
  	}
- };
- </script>
+};
+</script>

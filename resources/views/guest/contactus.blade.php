@@ -14,12 +14,12 @@
 <body>
     <div id="app">
         <main class="flex-center position-ref full-height">   
-<div class="main-header">
-    @include('includes.logo-navbar')
-</div>
-<contactus-component></contactus-component>
-</main>
-</div>
+            <div class="main-header">
+                @include('includes.logo-navbar')
+            </div>
+            <contactus-component></contactus-component>
+        </main>
+    </div>
     @include('includes.jsVariables')
 </body>
 </html>

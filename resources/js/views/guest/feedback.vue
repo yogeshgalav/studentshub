@@ -1,16 +1,25 @@
 <template>
   <main>
+    <loading
+      :active.sync="showLoader"
+      :color="'#10069F'"
+      :width="250"
+      :is-full-page="true"
+    />
     <div class="col-md-12">
       <div class="row justify-content-center">
         <div class="col-md-6 mt-100 p-2">
           <div class="card">
             <div class="card-body">
               <form @submit.prevent="handleSubmit">
-                <div class="form-group row">
+                <div
+                  v-if="!AuthUser"
+                  class="form-group row"
+                >
                   <label
                     for="email"
                     class="col-md-4 col-form-label text-md-right"
-                  >{{ "email" }}</label>
+                  >{{ "Email" }}</label>
                   <div class="col-md-6">
                     <input
                       id="email"
@@ -20,8 +29,7 @@
                       class="form-control"
                       name="email"
                     >
-                    <span class="text-danger">
-                      {{ formErrors("email") }}</span>
+                    <span class="error">{{ formErrors('email') }}</span>
                   </div>
                 </div>
                 <div class="form-group row">
@@ -42,7 +50,7 @@
                       name="feedback"
                     />
                     <span class="text-danger">
-                      {{ formErrors("feedback") }}</span>
+                      {{ formErrors('feedback') }}</span>
                   </div>
                 </div>
                 <div class="form-group row mb-0">
@@ -51,7 +59,7 @@
                       type="submit"
                       class="btn btn-primary"
                     >
-                      {{ "Submit" }}
+                      {{ 'Submit' }}
                     </button>
                   </div>
                 </div>
@@ -71,22 +79,28 @@
 </style>
 
 <script>
-import FormMixin from '../../components/mixins/form-mixin.js';
+import FormMixin from '../../components/mixins/form-mixin';
 export default {
-	mixins: [ FormMixin ],
+	mixins: [
+		FormMixin
+	],
 	data() {
 		return {
-			email: "",
-            feedback:'',
+			email:'',
+			showLoader:false,
+			feedback:'',
 		};
 	},
 	methods: {
 		handleSubmit() {
 			this.$validator.validate().then(valid => {
 				if (valid) {
+					this.showLoader = true;
+					console.log(this.showLoader);
 					this.axios
 						.post('/api/feedback', {
-							email: this.email
+							email: (this.AuthUser ? this.AuthUser.email : this.email),
+							feedback : this.feedback,
 						})
 						.then(resp => {
 							window.location.href = '/';
