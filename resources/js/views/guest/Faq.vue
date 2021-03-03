@@ -1,9 +1,29 @@
 <template>
   <main>
-    <h3>  Frequently Asked Questions</h3>
+    <div class="space" />
+    <h3>Frequently Asked Questions</h3>
+
     <div class="col-md-12">
       <div class="row justify-content-center">
         <div class="col-md-6 mt-100 p-2">
+          <div>
+            <div class="query">
+              <div>
+                <label for="email">Email</label>
+                <input
+                  id="email"
+                  type="text"
+                >
+              </div>
+              <div>
+                <label for="question">Query</label>
+                <input
+                  id="question"
+                  type="text"
+                >
+              </div>
+            </div>
+          </div>
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">
@@ -61,31 +81,35 @@ h3 {
 
 <script>
 import FormMixin from '../../components/mixins/form-mixin.js';
+import SiteFooter from '../footer/SiteFooter';
 export default {
 	name: 'Faq',
-	mixins: [ FormMixin ],
-     	data() {
- 		return {
- 			email: '',
-			description: ''
- 		};
- 	},
- 	methods: {
- 		handleSubmit() {
- 			this.$validator.validate().then(valid => {
- 				if (valid) {
+	components: {
+		SiteFooter,
+	},
+	mixins: [FormMixin],
+	data() {
+		return {
+			email: '',
+			description: '',
+		};
+	},
+	methods: {
+		handleSubmit() {
+			this.$validator.validate().then((valid) => {
+				if (valid) {
 					this.axios
- 						.post('/api/faq', {
- 							email: this.email,
- 							description: this.description,
- 						})
- 						.then(resp => {
- 							window.location.href = '/';
- 						})
- 						.catch(err => {});
- 				}
- 			});
- 		}
- 	}
+						.post('/api/faq', {
+							email: this.email,
+							description: this.description,
+						})
+						.then((resp) => {
+							window.location.href = '/';
+						})
+						.catch((err) => {});
+				}
+			});
+		},
+	},
 };
 </script>

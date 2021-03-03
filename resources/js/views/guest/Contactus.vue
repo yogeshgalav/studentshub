@@ -1,4 +1,3 @@
-
 <template>
   <div>
     <div class="blank" />
@@ -147,7 +146,6 @@
   padding: 12% 0 2% 5%;
   font-size: 20px;
 }
-
 input {
   border-radius: 0%;
 }
@@ -176,14 +174,10 @@ hr {
   height: 500px;
   width: 100%;
 }
-
 .heading .main_heading {
   font-size: 60px;
   margin-bottom: 20px;
 }
-
-
-
 </style>
 <script>
 import FormMixin from '../../components/mixins/form-mixin.js';
