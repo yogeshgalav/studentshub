@@ -3,29 +3,36 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
-          <form class="single" @submit.prevent="subscribe">
+          <form
+            class="single"
+            @submit.prevent="subscribe"
+          >
             <h2>Subscribe to our Newsletter</h2>
             <div class="input-group">
               <input
+                v-model="subscribe_email"
+                v-validate="'email|required'"
                 type="email"
                 class="form-control"
                 placeholder="Enter your email"
                 name="email"
-                v-model="subscribe_email"
-                v-validate="'email|required'"
-              />
+              >
               <span class="input-group-btn">
-                <button class="btn btn-theme" type="submit">
-                  <span><i class="fas fa-caret-right"></i></span>
+                <button
+                  class="btn btn-theme"
+                  type="submit"
+                >
+                  <span><i class="fas fa-caret-right" /></span>
                 </button>
               </span>
               <div class="sub_text">
-                <input type="checkbox" value="" />
-                <span
-                  >By Checking this box, you confrim that you have read and are
-                  agreeing to our terms of use regarding the storage of the data
-                  submitting through this form</span
+                <input
+                  type="checkbox"
+                  value=""
                 >
+                <span>By Checking this box, you confrim that you have read and are
+                  agreeing to our terms of use regarding the storage of the data
+                  submitting through this form</span>
               </div>
             </div>
           </form>
@@ -33,7 +40,7 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-          <div class="divider mt-5"></div>
+          <div class="divider mt-5" />
         </div>
         <div class="col-md-12 text-center mb-2 mt-2">
           <ul class="social-network social-circle">
@@ -43,8 +50,7 @@
                 href="https://www.facebook.com/studentshub.in"
                 class="icoFacebook"
                 title="Facebook"
-                ><i class="fab fa-facebook-f"></i
-              ></a>
+              ><i class="fab fa-facebook-f" /></a>
             </li>
             <li>
               <a
@@ -52,8 +58,7 @@
                 href="https://www.twitter.com/studentshub_in"
                 class="icoTwitter"
                 title="Twitter"
-                ><i class="fab fa-twitter"></i
-              ></a>
+              ><i class="fab fa-twitter" /></a>
             </li>
             <li>
               <a
@@ -61,13 +66,15 @@
                 href="https://www.instagram.com/studentshub.in"
                 class="icoInstagram"
                 title="Instagram"
-                ><i class="fab fa-instagram"></i
-              ></a>
+              ><i class="fab fa-instagram" /></a>
             </li>
             <li>
-              <a href="#" target="_blank" class="icoLinkedin" title="Linkedin"
-                ><i class="fab fa-linkedin"></i
-              ></a>
+              <a
+                href="#"
+                target="_blank"
+                class="icoLinkedin"
+                title="Linkedin"
+              ><i class="fab fa-linkedin" /></a>
             </li>
           </ul>
         </div>
@@ -78,11 +85,11 @@
             <li><a href="#">Services</a></li>
             <li><a href="#">Pricing</a></li>
             <li><a href="#">Blog</a></li>
-            <li><a href="#">contact</a></li>
+            <li><a href="/contactus">contact</a></li>
           </ul>
         </div>
         <div class="col-md-12">
-          <div class="divider mt-5"></div>
+          <div class="divider mt-5" />
         </div>
 
         <div class="col-md-12 text-center copy_right">
@@ -248,19 +255,19 @@ a.socialIcon:hover,
 
 
 <script>
-import formMixin from "../../components/mixins/form-mixin.js";
+import formMixin from '../../components/mixins/form-mixin.js';
 export default {
-  mixins: ["formMixin"],
-  data() {
-    return {
-      subscribe_email: "",
-    };
-  },
-  methods: {
-    subscribe() {
-      this.$store.dispatch("common/subscribe", { email: this.subscribe_email });
-    },
-  },
+	mixins: ['formMixin'],
+	data() {
+		return {
+			subscribe_email: '',
+		};
+	},
+	methods: {
+		subscribe() {
+			this.$store.dispatch('common/subscribe', { email: this.subscribe_email });
+		},
+	},
 };
 </script>
 

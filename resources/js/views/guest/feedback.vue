@@ -1,18 +1,17 @@
-
-
 <template>
   <main>
-      <div class="blank">
-      </div>
-      <div class="heading">
-          <h1>
-              Your feedback is valuable for us, hence we would love to listen what you think about us.
-          </h1>
-      </div>
+    <div class="blank" />
+    <div class="heading">
+      <h1>
+        Your feedback is valuable for us, hence we would love to listen what you think about us.
+      </h1>
+    </div>
     <div class="col-md-12">
       <div class="row justify-content-center">
         <div class="col-md-6 mt-100 p-2">
-            <h1 class="feedback">Feedback</h1>
+          <h1 class="feedback">
+            Feedback
+          </h1>
           <div class="card">
             <div class="card-body">
               <form @submit.prevent="handleSubmit">
@@ -106,17 +105,17 @@
 
 <script>
 import FormMixin from '../../components/mixins/form-mixin.js';
-import SiteFooter from "../footer/SiteFooter";
+import SiteFooter from '../footer/SiteFooter';
 export default {
+	name: 'Feedback',
+	components: {
+		SiteFooter,
+	},
 	mixins: [ FormMixin ],
-    name: "feedback",
-  components: {
-    SiteFooter,
-  },
 	data() {
 		return {
-			email: "",
-            feedback:'',
+			email: '',
+			feedback:'',
 		};
 	},
 	methods: {
