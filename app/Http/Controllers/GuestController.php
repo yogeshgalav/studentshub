@@ -83,9 +83,10 @@ class GuestController extends Controller
 
     public function faq(Request $request)
     {
+        // dd($request->email,$request->quer);
         Faq::create([
             'email'=>$request->email,
-            'query'=>$request->query,
+            'query'=>$request->quer,
         ]);
         return response()->json([], 204);
     }

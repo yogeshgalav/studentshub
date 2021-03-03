@@ -15,14 +15,12 @@
           <div class="card">
             <div class="card-body">
               <form @submit.prevent="handleSubmit">
-                <div
-                  v-if="!AuthUser"
-                  class="form-group row"
-                >
+                <div v-if="!AuthUser" class="form-group row">
                   <label
                     for="email"
                     class="col-md-4 col-form-label text-md-right"
-                  >{{ "Email" }}</label>
+                    >{{ "Email" }}</label
+                  >
                   <div class="col-md-6">
                     <input
                       id="email"
@@ -31,9 +29,8 @@
                       type="email"
                       class="form-control"
                       name="email"
-                    >
-                    <span class="text-danger">
-                      {{ formErrors("email") }}</span>
+                    />
+                    <span class="text-danger"> {{ formErrors("email") }}</span>
                   </div>
                 </div>
                 <div class="form-group row">
@@ -53,16 +50,12 @@
                       class="form-control"
                       name="query"
                     />
-                    <span class="text-danger">
-                      {{ formErrors("query") }}</span>
+                    <span class="text-danger"> {{ formErrors("query") }}</span>
                   </div>
                 </div>
                 <div>
                   <div>
-                    <button
-                      type="submit"
-                      class="btn btn-primary btn-block"
-                    >
+                    <button type="submit" class="btn btn-primary btn-block">
                       {{ "Submit" }}
                     </button>
                   </div>
@@ -145,8 +138,8 @@ h3 {
   margin-top: 4%;
   text-align: center;
 }
-.query div{
-    margin: 10px;
+.query div {
+  margin: 10px;
 }
 .space {
   min-height: 60px;
@@ -161,42 +154,42 @@ input {
 </style>
 
 <script>
-import FormMixin from '../../components/mixins/form-mixin.js';
-import SiteFooter from '../footer/SiteFooter';
+import FormMixin from "../../components/mixins/form-mixin.js";
+import SiteFooter from "../footer/SiteFooter";
 export default {
-	name: 'Faq',
-	components: {
-		SiteFooter,
-	},
-	mixins: [FormMixin],
-	props:['faqs'],
-	data() {
-		return {
-			email: '',
-			query: '',
-			showLoader:false,
-		};
-	},
-	methods: {
-		handleSubmit() {
-			this.$validator.validate().then(valid => {
-				if (valid) {
-					this.showLoader = true;
-					console.log(this.showLoader);
-					this.axios
-						.post('/api/faq', {
-							email: (this.AuthUser ? this.AuthUser.email : this.email),
-							query : this.query,
-						})
-						.then(resp => {
-							window.location.href = '/';
-						})
-						.catch(err => {
-							console.log(err);
-						});
-				}
-			});
-		}
-	},
+  name: "Faq",
+  components: {
+    SiteFooter,
+  },
+  mixins: [FormMixin],
+  props: ["faqs"],
+  data() {
+    return {
+      email: "",
+      query: "",
+      showLoader: false,
+    };
+  },
+  methods: {
+    handleSubmit() {
+      this.$validator.validate().then((valid) => {
+        if (valid) {
+          this.showLoader = true;
+          console.log(this.showLoader);
+          this.axios
+            .post("/api/faq", {
+              email: this.AuthUser ? this.AuthUser.email : this.email,
+              quer: this.query,
+            })
+            .then((resp) => {
+              window.location.href = "/";
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
+      });
+    },
+  },
 };
 </script>
