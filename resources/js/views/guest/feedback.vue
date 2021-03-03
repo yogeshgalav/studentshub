@@ -6,69 +6,72 @@
       :width="250"
       :is-full-page="true"
     />
-    <div class="col-md-12">
-      <div class="row justify-content-center">
-        <div class="col-md-6 mt-100 p-2">
-          <div class="card">
-            <div class="card-body">
-              <form @submit.prevent="handleSubmit">
-                <div
-                  v-if="!AuthUser"
-                  class="form-group row"
-                >
-                  <label
-                    for="email"
-                    class="col-md-4 col-form-label text-md-right"
-                  >{{ "Email" }}</label>
-                  <div class="col-md-6">
-                    <input
-                      id="email"
-                      v-model="email"
-                      v-validate="'required|email'"
-                      type="email"
-                      class="form-control"
-                      name="email"
-                    >
-                    <span class="error">{{ formErrors('email') }}</span>
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label
-                    for="feedback"
-                    class="col-md-4 col-form-label text-md-right"
-                  >
-                    Please enter your feedback
-                  </label>
-
-                  <div class="col-md-6">
-                    <textarea
-                      id="feedback"
-                      v-model="feedback"
-                      v-validate="'required'"
-                      type="text"
-                      class="form-control"
-                      name="feedback"
-                    />
-                    <span class="text-danger">
-                      {{ formErrors('feedback') }}</span>
-                  </div>
-                </div>
-                <div class="form-group row mb-0">
-                  <div class="col-md-8 offset-md-4">
-                    <button
-                      type="submit"
-                      class="btn btn-primary"
-                    >
-                      {{ 'Submit' }}
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>
+    <div class="blank" />
+    <div class="heading">
+      <h1 class="main_heading">
+        Feedback
+      </h1>
+      <h2 class="second_heading">
+        Your feedback is valuable for us, hence we would love to listen what you think about us.
+      </h2>
+    </div>
+    <div class="form">
+      <form @submit.prevent="handleSubmit">
+        <div
+          v-if="!AuthUser"
+          class="form-group row"
+        >
+          <label
+            for="email"
+            class="col-md-4 col-form-label text-md-right"
+          >{{ "Email" }}</label>
+          <div class="col-md-6">
+            <input
+              id="email"
+              v-model="email"
+              v-validate="'required|email'"
+              type="email"
+              class="form-control"
+              name="email"
+            >
+            <span class="error">{{ formErrors('email') }}</span>
           </div>
         </div>
-      </div>
+        <div class="form-group row">
+          <label
+            for="feedback"
+            class="col-md-4 col-form-label text-md-right"
+          >
+            Please enter your feedback
+          </label>
+
+          <div class="col-md-6">
+            <textarea
+              id="feedback"
+              v-model="feedback"
+              v-validate="'required'"
+              type="text"
+              class="form-control"
+              name="feedback"
+              rows="10"
+            />
+            <span class="text-danger">
+              {{ formErrors('feedback') }}</span>
+          </div>
+        </div>
+        <div class="form-group row mb-0">
+          <div class="col-md-8 offset-md-4">
+            <button
+              type="submit"
+              class="btn btn-primary"
+            >
+              {{ 'Submit' }}
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
+    <site-footer />
   </main>
 </template>
 
@@ -80,7 +83,11 @@
 
 <script>
 import FormMixin from '../../components/mixins/form-mixin';
+import SiteFooter from '../footer/SiteFooter';
 export default {
+	components: {
+		SiteFooter,
+	},
 	mixins: [
 		FormMixin
 	],

@@ -9,8 +9,10 @@
       :is-full-page="true"
     />
     <header class="heading">
-      <h1>Contact Us</h1>
-      <h2>
+      <h1 class="main_heading">
+        Contact Us
+      </h1>
+      <h2 class="second_heading">
         We help Students, Teachers and Institutes to Find Pain Points and Boost
         Productivity.
       </h2>
@@ -57,10 +59,13 @@
         <form @submit.prevent="handleSubmit">
           <div
             v-if="!AuthUser"
-            class="field"
+            class="form-group row"
           >
-            <label for="Name">{{ "Name" }}</label>
-            <div>
+            <label
+              for="Name"
+              class="col-md-4 col-form-label text-md-right"
+            >{{ "Name" }}</label>
+            <div class="col-md-6">
               <input
                 id="name"
                 ref="name"
@@ -74,10 +79,13 @@
           </div>
           <div
             v-if="!AuthUser"
-            class="field"
+            class="form-group row"
           >
-            <label for="email">Email</label>
-            <div>
+            <label
+              for="email"
+              class="col-md-4 col-form-label text-md-right"
+            >Email</label>
+            <div class="col-md-6">
               <input
                 id="email"
                 v-model="email"
@@ -89,9 +97,12 @@
               <span class="error">{{ formErrors("email") }}</span>
             </div>
           </div>
-          <div class="field">
-            <label for="descrption">Description</label>
-            <div>
+          <div class="form-group row">
+            <label
+              for="descrption"
+              class="col-md-4 col-form-label text-md-right"
+            >Description</label>
+            <div class="col-md-6">
               <textarea
                 id="discription"
                 v-model="description"
@@ -103,13 +114,15 @@
               />
             </div>
           </div>
-          <div class="button">
-            <button
-              type="submit"
-              class="btn btn-primary"
-            >
-              {{ "Send" }}
-            </button>
+          <div class="form-group row mb-0">
+            <div class="col-md-8 offset-md-4">
+              <button
+                type="submit"
+                class="btn btn-primary"
+              >
+                {{ 'Submit' }}
+              </button>
+            </div>
           </div>
         </form>
       </div>
@@ -125,7 +138,6 @@
 .mt-100 {
   margin-top: 200px;
 }
-
 .right {
   text-align: left;
   height: 500px;
@@ -135,21 +147,11 @@
   padding: 12% 0 2% 5%;
   font-size: 20px;
 }
-.form{
-    max-width: 90%;
-    margin: auto;
-    margin-top: 40px;
-}
-h2 {
-  font-weight: 500;
-  text-align: center;
-  color: white;
-  margin-top: 50px;
-}
+
 input {
   border-radius: 0%;
 }
-.field{
+.input_field{
     margin: 20px 0 20px 0;
 }
 .field input{
@@ -174,27 +176,14 @@ hr {
   height: 500px;
   width: 100%;
 }
-.heading {
-  min-height: 500px;
-  padding: 5%;
-  background: linear-gradient(#5f2c82, #49a09d);
-  width: 100%;
-}
-.heading h1 {
+
+.heading .main_heading {
   font-size: 60px;
   margin-bottom: 20px;
 }
 
-h1 {
-  text-align: center;
-  color: white;
-  font-weight: 600;
-  letter-spacing: 2px;
-  height: 90px;
-}
-.blank {
-  height: 60px;
-}
+
+
 </style>
 <script>
 import FormMixin from '../../components/mixins/form-mixin.js';
