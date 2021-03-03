@@ -1,6 +1,6 @@
 <template>
   <main>
-    <div class="space"></div>
+    <div class="space" />
     <h3>Frequently Asked Questions</h3>
 
     <div class="col-md-12">
@@ -10,11 +10,17 @@
             <div class="query">
               <div>
                 <label for="email">Email</label>
-                <input type="text" id="email" />
+                <input
+                  id="email"
+                  type="text"
+                >
               </div>
               <div>
                 <label for="question">Query</label>
-                <input type="text" id="question" />
+                <input
+                  id="question"
+                  type="text"
+                >
               </div>
             </div>
           </div>
@@ -108,37 +114,37 @@ input {
 }
 </style>
 
- <script>
-import FormMixin from "../../components/mixins/form-mixin.js";
-import SiteFooter from "../footer/SiteFooter";
+<script>
+import FormMixin from '../../components/mixins/form-mixin.js';
+import SiteFooter from '../footer/SiteFooter';
 export default {
-  mixins: [FormMixin],
-  name: "faq",
-  components: {
-    SiteFooter,
-  },
-  data() {
-    return {
-      email: "",
-      description: "",
-    };
-  },
-  methods: {
-    handleSubmit() {
-      this.$validator.validate().then((valid) => {
-        if (valid) {
-          this.axios
-            .post("/api/faq", {
-              email: this.email,
-              description: this.description,
-            })
-            .then((resp) => {
-              window.location.href = "/";
-            })
-            .catch((err) => {});
-        }
-      });
-    },
-  },
+	name: 'Faq',
+	components: {
+		SiteFooter,
+	},
+	mixins: [FormMixin],
+	data() {
+		return {
+			email: '',
+			description: '',
+		};
+	},
+	methods: {
+		handleSubmit() {
+			this.$validator.validate().then((valid) => {
+				if (valid) {
+					this.axios
+						.post('/api/faq', {
+							email: this.email,
+							description: this.description,
+						})
+						.then((resp) => {
+							window.location.href = '/';
+						})
+						.catch((err) => {});
+				}
+			});
+		},
+	},
 };
 </script>
