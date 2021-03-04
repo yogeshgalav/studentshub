@@ -1,33 +1,79 @@
 <template>
   <main>
-    <div class="space" />
-    <h3>Frequently Asked Questions</h3>
+    <loading
+      :active.sync="showLoader"
+      :color="'#10069F'"
+      :width="250"
+      :is-full-page="true"
+    />
+    <div class="blank" />
+    <div class="heading">
+      <h1 class="main_heading">
+        Frequently Asked Questions
+      </h1>
+    </div>
 
     <div class="col-md-12">
       <div class="row justify-content-center">
         <div class="col-md-6 mt-100 p-2">
-          <div>
-            <div class="query">
-              <div>
-                <label for="email">Email</label>
-                <input
-                  id="email"
-                  type="text"
-                >
+          <div class="form">
+            <form @submit.prevent="handleSubmit">
+              <div
+                v-if="!AuthUser"
+                class="form-group row"
+              >
+                <label
+                  for="email"
+                  class="col-md-4 col-form-label text-md-right"
+                >{{ "Email" }}</label>
+                <div class="col-md-6">
+                  <input
+                    id="email"
+                    v-model="email"
+                    v-validate="'required|email'"
+                    type="email"
+                    class="form-control"
+                    name="email"
+                  >
+                  <span class="text-danger"> {{ formErrors("email") }}</span>
+                </div>
               </div>
-              <div>
-                <label for="question">Query</label>
-                <input
-                  id="question"
-                  type="text"
+              <div class="form-group row">
+                <label
+                  for="query"
+                  class="col-md-4 col-form-label text-md-right"
                 >
+                  Query
+                </label>
+
+                <div class="col-md-6">
+                  <textarea
+                    id="query"
+                    v-model="query"
+                    v-validate="'required'"
+                    type="text"
+                    class="form-control"
+                    name="query"
+                  />
+                  <span class="text-danger"> {{ formErrors("query") }}</span>
+                </div>
               </div>
-            </div>
+              <div class="form-group row mb-0">
+                <div class="col-md-8 offset-md-4">
+                  <button
+                    type="submit"
+                    class="btn btn-primary"
+                  >
+                    {{ "Submit" }}
+                  </button>
+                </div>
+              </div>
+            </form>
           </div>
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">
-                <strong>Q.</strong> How to access portel
+                <strong>Q.</strong> How to access portal
               </h5>
               <p class="card-text">
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -59,7 +105,7 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">
-                <strong>Q.</strong> How to get accress to course
+                <strong>Q.</strong> How to get access to course
               </h5>
               <p class="card-text">
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -88,30 +134,12 @@ strong {
 .card {
   margin-top: 20px;
 }
-.query {
-  background: whitesmoke;
-  height: 200px;
-  padding: 30px;
+.heading{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-h3 {
-  font-size: 24px;
-  margin-bottom: -142px;
-  margin-top: 4%;
-  text-align: center;
-}
-.query div{
-    margin: 10px;
-}
-.space {
-  min-height: 60px;
-}
-.position {
-  position: relative;
-}
-input {
-  width: 100%;
-  outline: none;
-}
+
 </style>
 
 <script>
@@ -123,25 +151,31 @@ export default {
 		SiteFooter,
 	},
 	mixins: [FormMixin],
+	props: ['faqs'],
 	data() {
 		return {
 			email: '',
-			description: '',
+			query: '',
+			showLoader: false,
 		};
 	},
 	methods: {
 		handleSubmit() {
 			this.$validator.validate().then((valid) => {
 				if (valid) {
+					this.showLoader = true;
+					console.log(this.showLoader);
 					this.axios
 						.post('/api/faq', {
-							email: this.email,
-							description: this.description,
+							email: this.AuthUser ? this.AuthUser.email : this.email,
+							quer: this.query,
 						})
 						.then((resp) => {
 							window.location.href = '/';
 						})
-						.catch((err) => {});
+						.catch((err) => {
+							console.log(err);
+						});
 				}
 			});
 		},
