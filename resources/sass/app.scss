@@ -2701,9 +2701,12 @@ ul.menu-dropdown li {
 //himanshu
 .heading {
     min-height: 500px;
-    padding: 5%;
     background: linear-gradient(#5f2c82, #49a09d);
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .blank {
     height: 60px;
@@ -2713,8 +2716,7 @@ ul.menu-dropdown li {
     color: white;
     font-weight: 600;
     letter-spacing: 2px;
-    height: 90px;
-    font-size: 60px;
+    font-size: 40px;
 }
 .form{
     max-width: 90%;
@@ -2726,5 +2728,7 @@ ul.menu-dropdown li {
     font-weight: 500;
     text-align: center;
     color: white;
-    margin-top: 50px;
+}
+form{
+    background: #f8f9fa;
 }

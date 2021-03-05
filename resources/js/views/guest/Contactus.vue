@@ -12,8 +12,8 @@
         Contact Us
       </h1>
       <h2 class="second_heading">
-        We help Students, Teachers and Institutes to Find Pain Points and Boost
-        Productivity.
+        We help Students, Teachers and Institutes to Find Pain Points
+        and Boost Productivity.
       </h2>
     </header>
     <div
@@ -53,7 +53,8 @@
 
     <main>
       <div class="form justify-content-center">
-        <form class="col-md-6"
+        <form
+          class="col-md-6"
           @submit.prevent="handleSubmit"
         >
           <div>
@@ -94,7 +95,9 @@
                   class="form-control"
                   name="email"
                 >
-                <span class="error">{{ formErrors("email") }}</span>
+                <span class="error">{{
+                  formErrors("email")
+                }}</span>
               </div>
             </div>
             <div class="form-group row">
@@ -120,7 +123,7 @@
                   type="submit"
                   class="btn btn-primary"
                 >
-                  {{ 'Submit' }}
+                  {{ "Submit" }}
                 </button>
               </div>
             </div>
@@ -137,42 +140,53 @@
 </template>
 <style scoped>
 .mt-100 {
-  margin-top: 200px;
+    margin-top: 200px;
 }
 .right {
-  text-align: left;
-  height: 500px;
-  background: black;
-  color: azure;
-  padding-left: 2%;
-  padding: 12% 0 2% 5%;
-  font-size: 20px;
+    text-align: left;
+    height: 500px;
+    background: black;
+    color: azure;
+    padding-left: 2%;
+    padding: 12% 0 2% 5%;
+    font-size: 20px;
 }
 input {
-  border-radius: 0%;
+    border-radius: 0%;
 }
 hr {
-  color: black;
-  height: 10px;
-  margin-top: -2px;
-  background: royalblue;
-  margin-bottom: auto;
+    color: black;
+    height: 10px;
+    margin-top: -2px;
+    background: royalblue;
+    margin-bottom: auto;
 }
 .mapouter {
-  position: relative;
-  text-align: right;
-  height: 500px;
-  width: 100%;
+    position: relative;
+    text-align: right;
+    height: 500px;
+    width: 100%;
 }
 .gmap_canvas {
-  overflow: hidden;
-  background: none !important;
-  height: 500px;
-  width: 100%;
+    overflow: hidden;
+    background: none !important;
+    height: 500px;
+    width: 100%;
 }
 .heading .main_heading {
-  font-size: 60px;
-  margin-bottom: 20px;
+    font-size: 60px;
+    margin-bottom: 20px;
+}
+@media (max-width: 800px) {
+    .row {
+        display: flex;
+        flex-direction: column;
+    }
+    .col-6 {
+        -webkit-box-flex: 0;
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
 }
 </style>
 <script>
@@ -181,7 +195,7 @@ import SiteFooter from '../footer/SiteFooter';
 export default {
 	name: 'Contactus',
 	components: {
-		SiteFooter,
+		SiteFooter
 	},
 	mixins: [FormMixin],
 	data() {
@@ -189,26 +203,30 @@ export default {
 			name: '',
 			email: '',
 			description: '',
-			showLoader:false,
+			showLoader: false
 		};
 	},
 	methods: {
 		handleSubmit() {
-			this.$validator.validate().then((valid) => {
+			this.$validator.validate().then(valid => {
 				if (valid) {
 					this.axios
 						.post('/api/contactus', {
-							name: (this.AuthUser ? this.AuthUser.full_name : this.name),
-							email:(this.AuthUser ? this.AuthUser.email : this.email),
-							description: this.description,
+							name: this.AuthUser
+								? this.AuthUser.full_name
+								: this.name,
+							email: this.AuthUser
+								? this.AuthUser.email
+								: this.email,
+							description: this.description
 						})
-						.then((resp) => {
+						.then(resp => {
 							window.location.href = '/';
 						})
-						.catch((err) => {});
+						.catch(err => {});
 				}
 			});
-		},
-	},
+		}
+	}
 };
 </script>
