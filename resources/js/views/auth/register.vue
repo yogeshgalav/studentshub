@@ -28,7 +28,7 @@
               <div class="card_body">
                 <div class="row justify-content-center">
                   <div class="col-md-12">
-                    <form 
+                    <form
                       id="register_form"
                       name="register"
                       method="POST"
@@ -142,7 +142,23 @@
 
 
                       <div class="form-group">
-                        <label> {{ 'Join Id (optional)' }} </label>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                          <label> {{ 'Join Id (optional)' }} </label>
+                          <i
+                            class="fa fa-exclamation-circle"
+                            aria-hidden="true"
+                            onclick="hello()"
+                          />
+                        </div>
+                        <div
+                          style="display: flex; justify-content: flex-end;"
+                          class="data"
+                        >
+                          <p class="on-hover">
+                            "Join id is provide by teacher to students to join classroom directly with correct education details. Ignore this field if you are a teacher or institute."
+                          </p>
+                        </div>
+
                         <div class="inner-addon left-addon">
                           <div class="input_icon_frm">
                             <span class="icon_design_input"><i
@@ -194,7 +210,7 @@
               :to="'/membership-plan'"
               class="font-size-40 text-black weight-800 mb-2 line-height-25-px text-center"
             >
-              {{ trans('New Institute or Teacher?') }} 
+              {{ trans('New Institute or Teacher?') }}
             </router-link>
           </div>
         </div>
@@ -207,7 +223,16 @@
         position: relative;
         top: 15%;
     }
-
+    .fa-exclamation-circle{
+        cursor: pointer;
+    }
+    .fa-exclamation-circle:hover{
+        color: blue;
+    }
+    .on-hover{
+        width: 300px;
+        font-size: 13px;
+    }
     .register .btn {
         width: 100%;
         border-radius: 0;
@@ -253,6 +278,10 @@
 <script>
 import FormMixin from '../../components/mixins/form-mixin.js';
 import swal from '../../components/swal';
+// document.querySelector('.fa-exclamation-circle').addEventListener('click', function () {
+// 	//document.getElementsByClassName('data').style.display = 'block';
+// 	alert('hello');
+// });
 
 export default {
 	mixins: [FormMixin],
@@ -284,7 +313,7 @@ export default {
 			}
 		};
 	},
-	mounted(){  
+	mounted(){
 		this.$validator.localize('en', this.dict);
 	},
 	methods: {
@@ -303,4 +332,5 @@ export default {
 		},
 	}
 };
+
 </script>
