@@ -16,17 +16,20 @@
     <div class="col-md-12">
       <div class="row justify-content-center">
         <div class="col-md-6 mt-100 p-2">
-          <div class="form">
-            <form @submit.prevent="handleSubmit">
+          <div class="form justify-content-center">
+            <form
+              class="col-md-12"
+              @submit.prevent="handleSubmit"
+            >
               <div
                 v-if="!AuthUser"
                 class="form-group row"
               >
-                <label
-                  for="email"
-                  class="col-md-4 col-form-label text-md-right"
-                >{{ "Email" }}</label>
-                <div class="col-md-6">
+                <div class="col-md-12">
+                  <label
+                    for="email"
+                    class="col-form-label text-md-right"
+                  >{{ "Email" }}</label>
                   <input
                     id="email"
                     v-model="email"
@@ -39,19 +42,19 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label
-                  for="query"
-                  class="col-md-4 col-form-label text-md-right"
-                >
-                  Query
-                </label>
-
-                <div class="col-md-6">
+                <div class="col-md-12">
+                  <label
+                    for="query"
+                    class="col-form-label text-md-right"
+                  >
+                    Query
+                  </label>
                   <textarea
                     id="query"
                     v-model="query"
                     v-validate="'required'"
                     type="text"
+                    rows="10"
                     class="form-control"
                     name="query"
                   />
@@ -59,7 +62,7 @@
                 </div>
               </div>
               <div class="form-group row mb-0">
-                <div class="col-md-8 offset-md-4">
+                <div class="col-md-8">
                   <button
                     type="submit"
                     class="btn btn-primary"

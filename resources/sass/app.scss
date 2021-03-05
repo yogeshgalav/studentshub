@@ -2715,9 +2715,10 @@ ul.menu-dropdown li {
     height: 90px;
 }
 .form{
-    max-width: 90%;
+    max-width: 100%;
     margin: auto;
     margin-top: 40px;
+    display: flex;
 }
 .second_heading {
     font-weight: 500;
