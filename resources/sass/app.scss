@@ -2716,7 +2716,7 @@ ul.menu-dropdown li {
     color: white;
     font-weight: 600;
     letter-spacing: 2px;
-    font-size: 40px;
+    font-size: 60px;
 }
 .form{
     max-width: 90%;
@@ -2731,4 +2731,12 @@ ul.menu-dropdown li {
 }
 form{
     background: #f8f9fa;
+}
+@media (max-width: 500px){
+    .main_heading{
+        font-size: 40px;
+    }
+    .second_heading{
+        font-size: 25px;
+    }
 }

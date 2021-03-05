@@ -173,10 +173,6 @@ hr {
     height: 500px;
     width: 100%;
 }
-.heading .main_heading {
-    font-size: 60px;
-    margin-bottom: 20px;
-}
 @media (max-width: 800px) {
     .row {
         display: flex;
