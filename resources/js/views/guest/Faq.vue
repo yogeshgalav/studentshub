@@ -143,6 +143,9 @@ strong {
 .card {
   margin-top: 20px;
 }
+input {
+  border-radius: 0%;
+}
 .heading{
   display: flex;
   align-items: center;
