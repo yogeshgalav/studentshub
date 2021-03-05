@@ -16,111 +16,113 @@
         Productivity.
       </h2>
     </header>
-    <div class="">
-      <div
-        class="row"
-        style="background: black"
-      >
-        <div class="col-6">
-          <div class="mapouter">
-            <div class="gmap_canvas">
-              <iframe
-                id="gmap_canvas"
-                width="100%"
-                height="500"
-                src="https://maps.google.com/maps?q=26.9024375%2075.78706249999999&t=&z=11&ie=UTF8&iwloc=&output=embed"
-                frameborder="0"
-                scrolling="no"
-                marginheight="0"
-                marginwidth="0"
-              /><a
-                href="https://yt2.org/youtube-to-mp3-ALeKk00qEW0sxByTDSpzaRvl8WxdMAeMytQ1611842368056QMMlSYKLwAsWUsAfLipqwCA2ahUKEwiikKDe5L7uAhVFCuwKHUuFBoYQ8tMDegUAQCSAQCYAQCqAQdnd3Mtd2l6"
-              /><br>
-            </div>
+    <div
+      class="row"
+      style="background: black"
+    >
+      <div class="col-6">
+        <div class="mapouter">
+          <div class="gmap_canvas">
+            <iframe
+              id="gmap_canvas"
+              width="100%"
+              height="500"
+              src="https://maps.google.com/maps?q=26.9024375%2075.78706249999999&t=&z=11&ie=UTF8&iwloc=&output=embed"
+              frameborder="0"
+              scrolling="no"
+              marginheight="0"
+              marginwidth="0"
+            /><a
+              href="https://yt2.org/youtube-to-mp3-ALeKk00qEW0sxByTDSpzaRvl8WxdMAeMytQ1611842368056QMMlSYKLwAsWUsAfLipqwCA2ahUKEwiikKDe5L7uAhVFCuwKHUuFBoYQ8tMDegUAQCSAQCYAQCqAQdnd3Mtd2l6"
+            /><br>
           </div>
         </div>
-        <div class="col right">
-          <p>
-            1, Patel Nagar<br>
-            22 Godam, Hawa Sadak,<br>
-            Jaipur, Rajasthan, 302006
-          </p>
-          <p>
-            Mobile: +91 8003345821<br>
-            Email: info@studentshub.in
-          </p>
-        </div>
+      </div>
+      <div class="col right">
+        <p>
+          1, Patel Nagar<br>
+          22 Godam, Hawa Sadak,<br>
+          Jaipur, Rajasthan, 302006
+        </p>
+        <p>
+          Mobile: +91 8003345821<br>
+          Email: info@studentshub.in
+        </p>
       </div>
     </div>
 
     <main>
-      <div class="form">
-        <form @submit.prevent="handleSubmit">
-          <div
-            v-if="!AuthUser"
-            class="form-group row"
-          >
-            <label
-              for="Name"
-              class="col-md-4 col-form-label text-md-right"
-            >{{ "Name" }}</label>
-            <div class="col-md-6">
-              <input
-                id="name"
-                ref="name"
-                v-model="name"
-                v-validate="'required|max:255'"
-                type="name"
-                class="form-control"
-                name="name"
-              >
+      <div class="form justify-content-center">
+        <form class="col-md-6"
+          @submit.prevent="handleSubmit"
+        >
+          <div>
+            <div
+              v-if="!AuthUser"
+              class="form-group row"
+            >
+              <div class="col-md-12">
+                <label
+                  for="Name"
+                  class="col-form-label text-md-right"
+                >{{ "Name" }}</label>
+                <input
+                  id="name"
+                  ref="name"
+                  v-model="name"
+                  v-validate="'required|max:255'"
+                  type="name"
+                  class="form-control"
+                  name="name"
+                >
+              </div>
             </div>
-          </div>
-          <div
-            v-if="!AuthUser"
-            class="form-group row"
-          >
-            <label
-              for="email"
-              class="col-md-4 col-form-label text-md-right"
-            >Email</label>
-            <div class="col-md-6">
-              <input
-                id="email"
-                v-model="email"
-                v-validate="'required|email'"
-                type="email"
-                class="form-control"
-                name="email"
-              >
-              <span class="error">{{ formErrors("email") }}</span>
+            <div
+              v-if="!AuthUser"
+              class="form-group row"
+            >
+              <div class="col-md-12">
+                <label
+                  for="email"
+                  class="col-form-label text-md-right"
+                >Email</label>
+                <input
+                  id="email"
+                  v-model="email"
+                  v-validate="'required|email'"
+                  type="email"
+                  class="form-control"
+                  name="email"
+                >
+                <span class="error">{{ formErrors("email") }}</span>
+              </div>
             </div>
-          </div>
-          <div class="form-group row">
-            <label
-              for="descrption"
-              class="col-md-4 col-form-label text-md-right"
-            >Description</label>
-            <div class="col-md-6">
-              <textarea
-                id="discription"
-                v-model="description"
-                type="description"
-                class="form-control"
-                name="description"
-                rows="8"
-                cols="80"
-              />
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label
+                  for="descrption"
+                  class="col-form-label text-md-right"
+                >Description</label>
+                <textarea
+                  id="discription"
+                  v-model="description"
+                  type="description"
+                  class="form-control"
+                  name="description"
+                  rows="8"
+                  cols="80"
+                />
+              </div>
             </div>
-          </div>
-          <div class="form-group row mb-0">
-            <div class="col-md-8 offset-md-4">
-              <button
-                type="submit"
-                class="btn btn-primary"
-              >
-                {{ 'Submit' }}
-              </button>
+            <div class="form-group row mb-0">
+              <div class="col-md-8">
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                >
+                  {{ 'Submit' }}
+                </button>
+              </div>
             </div>
           </div>
         </form>
@@ -148,12 +150,6 @@
 }
 input {
   border-radius: 0%;
-}
-.input_field{
-    margin: 20px 0 20px 0;
-}
-.field input{
-    font-size: 20px;
 }
 hr {
   color: black;
