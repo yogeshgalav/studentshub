@@ -129,8 +129,8 @@
           </div>
         </div>
       </div>
+      <site-footer />
     </div>
-    <site-footer />
   </main>
 </template>
 <style scoped>
@@ -148,7 +148,6 @@ strong {
   align-items: center;
   justify-content: center;
 }
-
 </style>
 
 <script>

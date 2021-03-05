@@ -17,7 +17,7 @@
 <div class="main-header">
     @include('includes.logo-navbar')
 </div>
-<faq-component></faq-component>
+<faq-component :faqs={{ $faqs }} ></faq-component>
 </main>
 </div>
     @include('includes.jsVariables')
