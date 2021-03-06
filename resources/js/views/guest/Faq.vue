@@ -12,8 +12,6 @@
         Frequently Asked Questions
         <h2 class="second_heading">
           Need Help?
-        </h2>
-        <h2 class="second_heading">
           We've got You covered
         </h2>
       </h1>
