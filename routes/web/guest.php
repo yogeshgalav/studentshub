@@ -8,6 +8,9 @@ Route::get('/get-started','PagesController@registerPage');
 Route::get('/forgot-password','PagesController@forgotPasswordPage');
 Route::get('/reset-password/{token}','UserController@resetPassword');
 Route::get('/reset-password','UserController@resetPassword');
+Route::get('/feedback','GuestController@feedbackPage');
+Route::get('/contactus','GuestController@contactusPage');
+Route::get('/faq','GuestController@faqPage');
 Route::get('/logout','AuthController@logout');
 
 Route::post('/login','AuthController@login');
