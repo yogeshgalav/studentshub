@@ -60,13 +60,16 @@ class ClassroomUserController extends Controller
         ]]);
     }
 
-    public function listmessage($classroomId){
-        $messages = ClassroomMessage::where('classroom_id',$classroomId)
-        ->leftJoin('users as us','us.id','=','classroom_messages.sender_user_id')
+    public function listmessage($classroomId = null){
+        $messagequery = ClassroomMessage::
+        leftJoin('users as us','us.id','=','classroom_messages.sender_user_id')
         ->leftJoin('classrooms as cs','cs.id','=','classroom_messages.classroom_id')
-        ->select('classroom_messages.content','classroom_messages.created_at','us.full_name as user_name','us.avatar_url','cs.name as classroom_name')
-        ->orderBy('classroom_messages.created_at','DESC')
-        ->get();
+        ->select('classroom_messages.content','classroom_messages.created_at','us.full_name as user_name','us.avatar_url','cs.name as classroom_name');
+        if($classroomId)
+        {
+            $messagequery = $messagequery->where('classroom_id',$classroomId);
+        }
+        $messages = $messagequery->orderBy('classroom_messages.created_at','DESC')->get();
 
         foreach($messages as $message){
             $message->time = Carbon::createFromTimeStamp(strtotime($message->created_at))->diffForHumans();

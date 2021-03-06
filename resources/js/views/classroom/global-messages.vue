@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 <template>
   <div>
     <loading
@@ -6,7 +7,6 @@
       :width="250"
       :is-full-page="true"
     />
-    <classroom-header />
     <div>
       <div class="row">
         <div class="col-md-12">
@@ -145,12 +145,10 @@ export default {
   },
   methods: {
     getMessages() {
-      this.axios
-        .get("/api/get-classroom-messages/" + this.$route.params.classroomId)
-        .then((resp) => {
-          this.messages = resp.data.success.messages;
-          this.showLoader = false;
-        });
+      this.axios.get("/api/get-classroom-messages/").then((resp) => {
+        this.messages = resp.data.success.messages;
+        this.showLoader = false;
+      });
     },
     addMessage() {
       this.$modal.show("addMessageModal");
