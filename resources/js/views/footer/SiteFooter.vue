@@ -76,16 +76,16 @@
                 title="Linkedin"
               ><i class="fab fa-linkedin" /></a>
             </li>
-          </ul>				
+          </ul>
         </div>
         <div class="col-md-12 text-center">
           <ul class="foote_bottom_ul_amrc">
-            <li><a href="#">Home</a></li>
+            <li><a href="/">Home</a></li>
             <li><a href="#">About</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Pricing</a></li>
-            <li><a href="#">Blog</a></li>
+            <li><a href="/membership-plan">Pricing</a></li>
             <li><a href="/contactus">Contact</a></li>
+            <li><a href="/feedback">Feedback</a></li>
+            <li><a href="/faq">FAQ</a></li>
           </ul>
         </div>
         <div class="col-md-12">
@@ -94,7 +94,7 @@
 
         <div class="col-md-12 text-center copy_right">
           <p>Copyright&copy;studentshub-2019-All Rights Reserved </p>
-        </div>	
+        </div>
       </div>
     </div>
   </section>

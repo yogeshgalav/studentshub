@@ -2729,8 +2729,12 @@ ul.menu-dropdown li {
     text-align: center;
     color: white;
 }
-form{
-    background: #f8f9fa;
+.form {
+    max-width: 100%;
+    margin: auto;
+    display: flex;
+    background: #f6f6f6;
+    padding: 50px 0;
 }
 @media (max-width: 500px){
     .main_heading{

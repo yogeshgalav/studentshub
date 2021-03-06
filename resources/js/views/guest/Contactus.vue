@@ -17,8 +17,8 @@
       </h2>
     </header>
     <div
-      class="row"
-      style="background: black"
+      class="flex"
+      style="background: #fff"
     >
       <div class="col-6">
         <div class="mapouter">
@@ -26,19 +26,15 @@
             <iframe
               id="gmap_canvas"
               width="100%"
-              height="500"
+              height="500px"
               src="https://maps.google.com/maps?q=26.9024375%2075.78706249999999&t=&z=11&ie=UTF8&iwloc=&output=embed"
-              frameborder="0"
-              scrolling="no"
-              marginheight="0"
-              marginwidth="0"
             /><a
               href="https://yt2.org/youtube-to-mp3-ALeKk00qEW0sxByTDSpzaRvl8WxdMAeMytQ1611842368056QMMlSYKLwAsWUsAfLipqwCA2ahUKEwiikKDe5L7uAhVFCuwKHUuFBoYQ8tMDegUAQCSAQCYAQCqAQdnd3Mtd2l6"
             /><br>
           </div>
         </div>
       </div>
-      <div class="col right">
+      <div class="right col-lg-6">
         <p>
           1, Patel Nagar<br>
           22 Godam, Hawa Sadak,<br>
@@ -143,16 +139,29 @@
     margin-top: 200px;
 }
 .right {
-    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     height: 500px;
     background: black;
     color: azure;
-    padding-left: 2%;
-    padding: 12% 0 2% 5%;
     font-size: 20px;
 }
 input {
     border-radius: 0%;
+}
+.form {
+    max-width: 100%;
+    margin: auto;
+    display: flex;
+    margin-bottom: -48px;
+    background: #f6f6f6;
+    padding: 50px 0;
+}
+.flex{
+    display: flex;
+    margin-left: -14px;
 }
 hr {
     color: black;
@@ -166,6 +175,8 @@ hr {
     text-align: right;
     height: 500px;
     width: 100%;
+    min-width: 103%;
+    max-block-size: 105%;
 }
 .gmap_canvas {
     overflow: hidden;
@@ -174,7 +185,7 @@ hr {
     width: 100%;
 }
 @media (max-width: 800px) {
-    .row {
+    .flex {
         display: flex;
         flex-direction: column;
     }
