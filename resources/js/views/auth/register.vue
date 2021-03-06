@@ -142,20 +142,23 @@
 
 
                       <div class="form-group">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div
+                          style="display: flex; justify-content: space-between; align-items: center;"
+                          @click="joinIdInfoVisible = !joinIdInfoVisible"
+                        >
                           <label> {{ 'Join Id (optional)' }} </label>
                           <i
                             class="fa fa-exclamation-circle"
-                            aria-hidden="true"
-                            onclick="hello()"
+                            aria-hidden=""
                           />
                         </div>
                         <div
+                          v-if="joinIdInfoVisible"
                           style="display: flex; justify-content: flex-end;"
                           class="data"
                         >
-                          <p class="on-hover">
-                            "Join id is provide by teacher to students to join classroom directly with correct education details. Ignore this field if you are a teacher or institute."
+                          <p class="on-hover text-grey">
+                            Join id is provide by teacher to students to join classroom directly with correct education details. Ignore this field if you are a teacher or institute.
                           </p>
                         </div>
 
@@ -229,10 +232,10 @@
     .fa-exclamation-circle:hover{
         color: blue;
     }
-    .on-hover{
+    /* .on-hover{
         width: 300px;
         font-size: 13px;
-    }
+    } */
     .register .btn {
         width: 100%;
         border-radius: 0;
@@ -278,10 +281,7 @@
 <script>
 import FormMixin from '../../components/mixins/form-mixin.js';
 import swal from '../../components/swal';
-// document.querySelector('.fa-exclamation-circle').addEventListener('click', function () {
-// 	//document.getElementsByClassName('data').style.display = 'block';
-// 	alert('hello');
-// });
+
 
 export default {
 	mixins: [FormMixin],
@@ -293,6 +293,7 @@ export default {
 			email: '',
 			password: '',
 			join_id: '',
+			joinIdInfoVisible: false,
 			dict: {
 				custom: {
 					full_name: {
