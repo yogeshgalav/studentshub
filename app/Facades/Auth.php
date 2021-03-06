@@ -12,7 +12,9 @@ class Auth extends AuthUser
         if (!self::check()) {
             return null;
         }
-
+        if (self::user()->role_intended!=='student') {
+            return null;
+        }
         return DB::table('students as st')->where('st.user_id', '=', self::user()->id)
             ->join('batches as pbt', 'pbt.id', '=', 'st.prefferred_batch')
             ->join('institutes as inst', 'inst.id', '=', 'pbt.institute_id')
@@ -39,7 +41,9 @@ class Auth extends AuthUser
         if (!self::check()) {
             return null;
         }
-
+        if (self::user()->role_intended!=='teacher') {
+            return null;
+        }
         return DB::table('teachers as th')->where('th.user_id', '=', self::user()->id)
             ->leftJoin('institutes as inst', 'inst.id', '=', 'th.institute_id')
             ->select(
