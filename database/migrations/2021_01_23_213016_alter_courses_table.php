@@ -16,7 +16,8 @@ class AlterCoursesTable extends Migration
     {
         $category_id = DB::table('categories')->insertGetId([
             'name'=>'General Knowledge',
-            'category_url'=>'gk'
+            'category_url'=>'gk',
+            'id' => 14
         ]);
         DB::table('courses')->whereIn('id',['1001','1002','1003'])
         ->update([
