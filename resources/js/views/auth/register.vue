@@ -51,13 +51,6 @@
                           name="_token"
                           :value="csrfToken"
                         >
-                        <input
-                          id="token"
-                          type="hidden"
-                          class="form-control"
-                          name="join_id"
-                          :value="join_id"
-                        >
                       </div>
                       <div class="form-group">
                         <label> {{ trans('Full Name') }} </label>
@@ -144,6 +137,28 @@
                             >
                           </div>
                           <span class="error">{{ errors.first('password_confirmation') }}</span>
+                        </div>
+                      </div>
+
+
+                      <div class="form-group">
+                        <label> {{ 'Join Id (optional)' }} </label>
+                        <div class="inner-addon left-addon">
+                          <div class="input_icon_frm">
+                            <span class="icon_design_input"><i
+                              class="fa fa-user"
+                            /></span>
+                            <input
+                              id="join_id"
+                              v-model="join_id"
+                              type="text"
+                              class="form-control"
+                              name="join_id"
+                              placeholder="Classroom Join ID"
+                              autofocus
+                            >
+                          </div>
+                          <span class="error">{{ errors.first('join_id') }}</span>
                         </div>
                       </div>
 
@@ -270,7 +285,7 @@ export default {
 		};
 	},
 	mounted(){  
-		this.join_id = this.$route.query.joinId ? this.$route.query.joinId : '';
+		this.join_id = this.$route.params.joinId;
 		this.$validator.localize('en', this.dict);
 	},
 	methods: {

@@ -67,7 +67,15 @@ class PagesController extends Controller
     {
         $course_levels = CourseLevel::get();
         $student = Auth::student();
-        return view('student-register.student-register')
+        return view('user-onboarding.checkin')
+            ->with('student_details', $student)
+            ->with('course_levels', $course_levels);
+    }
+    public function educationDetail()
+    {
+        $course_levels = CourseLevel::get();
+        $student = Auth::student();
+        return view('user-onboarding.education-detail')
             ->with('student_details', $student)
             ->with('course_levels', $course_levels);
     }
