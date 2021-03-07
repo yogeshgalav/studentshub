@@ -49,7 +49,7 @@
     <nav role="navigation" class="menu">
 
 
-        <div class="overflow-container">
+        <div class="overflow-container" id="sidebarContainer">
             <div class="row mb-2">
                 <div class="pl-3">
                     <img src="{{asset('/images/default-avatar.png') }}" alt="Student'sHUB" width="40" class="pl-2"/>
