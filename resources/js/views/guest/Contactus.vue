@@ -1,19 +1,19 @@
 <template>
   <div>
-    <div class="blank" />
     <loading
       :active.sync="showLoader"
       :color="'#10069F'"
       :width="250"
       :is-full-page="true"
     />
+    <div class="blank" />
     <header class="heading">
       <h1 class="main_heading">
         Contact Us
       </h1>
       <h2 class="second_heading">
-        We help Students, Teachers and Institutes to Find Pain Points
-        and Boost Productivity.
+        We help Students, Teachers and Institutes to Find Pain Points and Boost
+        Productivity.
       </h2>
     </header>
     <div
@@ -62,7 +62,9 @@
                 <label
                   for="Name"
                   class="col-form-label text-md-right"
-                >{{ "Name" }}</label>
+                >{{
+                  "Name"
+                }}</label>
                 <input
                   id="name"
                   ref="name"
@@ -72,6 +74,7 @@
                   class="form-control"
                   name="name"
                 >
+                <span class="error">{{ formErrors('name') }}</span>
               </div>
             </div>
             <div
@@ -91,9 +94,7 @@
                   class="form-control"
                   name="email"
                 >
-                <span class="error">{{
-                  formErrors("email")
-                }}</span>
+                <span class="error">{{ formErrors('email') }}</span>
               </div>
             </div>
             <div class="form-group row">
@@ -103,14 +104,16 @@
                   class="col-form-label text-md-right"
                 >Description</label>
                 <textarea
-                  id="discription"
+                  id="description"
                   v-model="description"
-                  type="description"
+                  v-validate="'required'"
+                  type="text"
                   class="form-control"
                   name="description"
-                  rows="8"
-                  cols="80"
+                  rows="10"
                 />
+                <span class="text-danger">
+                  {{ formErrors('description') }}</span>
               </div>
             </div>
             <div class="form-group row mb-0">
@@ -136,64 +139,64 @@
 </template>
 <style scoped>
 .mt-100 {
-    margin-top: 200px;
+  margin-top: 200px;
 }
 .right {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 500px;
-    background: black;
-    color: azure;
-    font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 500px;
+  background: black;
+  color: azure;
+  font-size: 20px;
 }
 input {
-    border-radius: 0%;
+  border-radius: 0%;
 }
 .form {
-    max-width: 100%;
-    margin: auto;
-    display: flex;
-    margin-bottom: -48px;
-    background: #f6f6f6;
-    padding: 50px 0;
+  max-width: 100%;
+  margin: auto;
+  display: flex;
+  margin-bottom: -48px;
+  background: #f6f6f6;
+  padding: 50px 0;
 }
-.flex{
-    display: flex;
-    margin-left: -14px;
+.flex {
+  display: flex;
+  margin-left: -14px;
 }
 hr {
-    color: black;
-    height: 10px;
-    margin-top: -2px;
-    background: royalblue;
-    margin-bottom: auto;
+  color: black;
+  height: 10px;
+  margin-top: -2px;
+  background: royalblue;
+  margin-bottom: auto;
 }
 .mapouter {
-    position: relative;
-    text-align: right;
-    height: 500px;
-    width: 100%;
-    min-width: 103%;
-    max-block-size: 105%;
+  position: relative;
+  text-align: right;
+  height: 500px;
+  width: 100%;
+  min-width: 103%;
+  max-block-size: 105%;
 }
 .gmap_canvas {
-    overflow: hidden;
-    background: none !important;
-    height: 500px;
-    width: 100%;
+  overflow: hidden;
+  background: none !important;
+  height: 500px;
+  width: 100%;
 }
 @media (max-width: 800px) {
-    .flex {
-        display: flex;
-        flex-direction: column;
-    }
-    .col-6 {
-        -webkit-box-flex: 0;
-        flex: 0 0 100%;
-        max-width: 100%;
-    }
+  .flex {
+    display: flex;
+    flex-direction: column;
+  }
+  .col-6 {
+    -webkit-box-flex: 0;
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
 }
 </style>
 <script>
@@ -202,7 +205,7 @@ import SiteFooter from '../footer/SiteFooter';
 export default {
 	name: 'Contactus',
 	components: {
-		SiteFooter
+		SiteFooter,
 	},
 	mixins: [FormMixin],
 	data() {
@@ -210,30 +213,27 @@ export default {
 			name: '',
 			email: '',
 			description: '',
-			showLoader: false
+			showLoader: false,
 		};
 	},
 	methods: {
 		handleSubmit() {
-			this.$validator.validate().then(valid => {
+			this.$validator.validate().then((valid) => {
 				if (valid) {
+					this.showLoader=true;
 					this.axios
 						.post('/api/contactus', {
-							name: this.AuthUser
-								? this.AuthUser.full_name
-								: this.name,
-							email: this.AuthUser
-								? this.AuthUser.email
-								: this.email,
-							description: this.description
+							name: this.AuthUser ? this.AuthUser.full_name : this.name,
+							email: this.AuthUser ? this.AuthUser.email : this.email,
+							description: this.description,
 						})
-						.then(resp => {
+						.then((resp) => {
 							window.location.href = '/';
 						})
-						.catch(err => {});
+						.catch((err) => {});
 				}
 			});
-		}
-	}
+		},
+	},
 };
 </script>
