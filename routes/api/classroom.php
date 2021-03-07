@@ -25,8 +25,8 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::post('/classroom/{classroomId}/delete-resource','ClassroomResourceController@deleteresource');
     //messages
     Route::get('/get-classroom-messages/{classroomId?}','ClassroomUserController@listmessage');
-    Route::post('/classroom/{classroomId}/add-message','ClassroomUserController@addmessage');
-    Route::post('/classroom/{classroomId}/delete-message','ClassroomUserController@deletemessage');
+    Route::post('/add-message','ClassroomUserController@addmessage');
+    Route::post('/delete-message','ClassroomUserController@deletemessage');
     
     //student classroom routes
     Route::post('/classroom/join','ClassroomUserController@joinClassroom');

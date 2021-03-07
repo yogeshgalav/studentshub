@@ -10,7 +10,6 @@ import ClassroomDoubtComponent from '../../views/classroom/doubts.vue';
 import ClassroomStudentsComponent from '../../views/classroom/students-report.vue';
 import ClassroomStudentPanelComponent from '../../views/classroom/student-daily-assignment.vue';
 import DoubtAnswer from '../../views/doubt/doubt-answers.vue';
-import GlobalMessages from '../../views/classroom/global-messages.vue';
 
 const TeacherClassroomRoutes = [
 	{
@@ -65,8 +64,9 @@ const TeacherClassroomRoutes = [
 		name: 'DoubtAnswer',
 	},
 	{
-		path : '/messages', component:GlobalMessages
-	}
+		path: '/messages',
+		component: ClassroomMessageComponent,
+	},
 ];
 
 export default TeacherClassroomRoutes;

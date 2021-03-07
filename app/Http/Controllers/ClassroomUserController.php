@@ -68,6 +68,20 @@ class ClassroomUserController extends Controller
         if($classroomId)
         {
             $messagequery = $messagequery->where('classroom_id',$classroomId);
+        }else{
+            $classroomIdArray = \DB::table('classrooms')
+            ->leftJoin('teachers as tc',function($join){
+                $join->on('tc.id','=','classrooms.teacher_id')->where('user_id','=',Auth::id());
+            })
+            ->leftJoin('classroom_users as cu',function($join){
+                $join->on('cu.classroom_id','=','classrooms.id')->where('cu.user_id','=',Auth::id());
+            })
+            ->where('tc.id','!=',null)
+            ->orWhere('cu.id','!=',null)
+            ->pluck('classrooms.id')
+            ->toArray();
+            
+            $messagequery = $messagequery->whereIn('classroom_id',$classroomIdArray);
         }
         $messages = $messagequery->orderBy('classroom_messages.created_at','DESC')->get();
 
@@ -78,12 +92,12 @@ class ClassroomUserController extends Controller
             'messages'=>$messages
         ]]);
     }
-    public function addmessage(Request $request, $classroomId){
-        $classroom = Classroom::findOrFail($classroomId);
+    public function addmessage(Request $request){
+        $classroom = Classroom::findOrFail($request->classroom_id);
 
         $message = ClassroomMessage::create([
             'sender_user_id'=>Auth::id(),
-            'classroom_id'=>$classroomId,
+            'classroom_id'=>$classroom->id,
             'content'=>$request->content,
         ]);
 

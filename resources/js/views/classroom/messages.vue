@@ -6,20 +6,29 @@
       :width="250"
       :is-full-page="true"
     />
-    <classroom-header />
+    <classroom-header v-if="routeClassroomId" />
     <div>
       <div class="row">
         <div class="col-md-12">
           <div class="row add_cl_q">
             <div class="col-md-3 col-12">
               <div class="mt-2">
-                <add-button name="Add Message" size="lg" @submit="addMessage" />
+                <button
+                  type="button"
+                  class="btn btn-primary btn-lg"
+                  @click="addMessage"
+                >
+                  Add Message
+                </button>
               </div>
             </div>
             <div class="col-md-3 col-12" />
           </div>
           <div class="row add_cl_q mt-2">
-            <div v-if="!messages.length" class="card">
+            <div
+              v-if="!messages.length"
+              class="card"
+            >
               <div class="card-body">
                 <div class="col-md-12">
                   <p>
@@ -47,7 +56,7 @@
                     </p>
                   </div>
                 </div>
-                <hr />
+                <hr>
                 <p>{{ message.content }}</p>
               </div>
             </div>
@@ -90,7 +99,7 @@
                         name="content"
                         class="form-control"
                         placeholder="write message here"
-                      />
+                      >
                       <span class="text-danger">{{
                         formErrors("content")
                       }}</span>
@@ -101,8 +110,11 @@
 
               <div class="mt-1 row text-right">
                 <div class="col-md-12">
-                  <hr />
-                  <button type="submit" class="btn btn-outline-primary mb-2">
+                  <hr>
+                  <button
+                    type="submit"
+                    class="btn btn-outline-primary mb-2"
+                  >
                     Submit
                   </button>
                 </div>
@@ -115,67 +127,71 @@
   </div>
 </template>
 <script>
-import FormMixin from "../../components/mixins/form-mixin.js";
-import AddButton from "../../components/AddButton";
-import ProfileImage from "../post/ProfileImage.vue";
+import FormMixin from '../../components/mixins/form-mixin.js';
+import AddButton from '../../components/AddButton';
+import ProfileImage from '../post/ProfileImage.vue';
 
-import ClassroomHeader from "../../components/ClassroomHeader";
+import ClassroomHeader from '../../components/ClassroomHeader';
 
 export default {
-  components: {
-    AddButton,
-    ClassroomHeader,
-    ProfileImage,
-  },
-  mixins: [FormMixin],
-  data() {
-    return {
-      showLoader: true,
-      messages: [],
-      content: "",
-    };
-  },
-  computed: {
-    classroomDetail() {
-      return this.$store.state.classroom.classroomDetail;
-    },
-  },
-  mounted() {
-    this.getMessages();
-  },
-  methods: {
-    getMessages() {
-      this.axios
-        .get("/api/get-classroom-messages/" + this.$route.params.classroomId)
-        .then((resp) => {
-          this.messages = resp.data.success.messages;
-          this.showLoader = false;
-        });
-    },
-    addMessage() {
-      this.$modal.show("addMessageModal");
-    },
-    saveMessage() {
-      this.$validator.validate().then((valid) => {
-        if (valid) {
-          //call api and update field
-          this.axios
-            .post(
-              "/api/classroom/" +
-                this.$route.params.classroomId +
-                "/add-message",
-              {
-                content: this.content,
-              }
-            )
-            .then((resp) => {
-              this.messages.push(resp.data.success.message);
-              this.$modal.hide("addMessageModal");
-              this.content = "";
-            });
-        }
-      });
-    },
-  },
+	components: {
+		AddButton,
+		ClassroomHeader,
+		ProfileImage,
+	},
+	mixins: [FormMixin],
+	props:['classrooms'],
+	data() {
+		return {
+			routeClassroomId: this.$route.params.classroomId,
+			selectedClassroomId: '',
+			showLoader: true,
+			messages: [],
+			content: '',
+		};
+	},
+	computed: {
+		classroomDetail() {
+			return this.$store.state.classroom.classroomDetail;
+		},
+	},
+	mounted() {
+		this.getMessages();
+	},
+	methods: {
+		getMessages() {
+			let api = '/api/get-classroom-messages/';
+			if(this.routeClassroomId){
+				api = api + this.routeClassroomId;
+			}
+			this.axios.get(api).then((resp) => {
+				this.messages = resp.data.success.messages;
+				this.showLoader = false;
+			});
+		},
+		addMessage() {
+			this.$modal.show('addMessageModal');
+		},
+		saveMessage() {
+			this.$validator.validate().then((valid) => {
+				if (valid) {
+					//call api and update field
+					this.axios
+						.post(
+							'/api/add-message',
+							{
+								classroom_id: this.routeClassroomId ? this.routeClassroomId :this.selectedClassroomId,
+								content: this.content,
+							}
+						)
+						.then((resp) => {
+							this.messages.push(resp.data.success.message);
+							this.$modal.hide('addMessageModal');
+							this.content = '';
+						});
+				}
+			});
+		},
+	},
 };
 </script>
