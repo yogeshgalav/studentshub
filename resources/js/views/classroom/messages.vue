@@ -88,6 +88,30 @@
                 </div>
               </div>
 
+              <div
+                v-if="classrooms && classrooms.length"
+                class="col-md-12"
+              >
+                <div class="form-group">
+                  <div class="inner-addon left-addon">
+                    <div class="cl_input">
+                      <select
+                        v-model="selectedClassroomId"
+                        class="form-control custom-select"
+                      >
+                        <option
+                          v-for="(classroom, index) in classrooms"
+                          :key="index"
+                          :value="classroom.id"
+                        >
+                          {{ classroom.name }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <div class="col-md-12">
                 <div class="form-group">
                   <div class="inner-addon left-addon">
