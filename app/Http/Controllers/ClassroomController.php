@@ -270,8 +270,4 @@ class ClassroomController extends Controller
     public function classroomMessagePage(){
         return view('classroom.messages');
     }
-
-    public function globalMessagePage(){
-        return view('classroom.messages');
-    }
 }
