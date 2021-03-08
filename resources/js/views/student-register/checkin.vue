@@ -435,6 +435,10 @@
               </div>
             </template>
           </nav-tabs>
+          <a
+            href="#"
+            class="skip"
+          >Skip</a>
         </div>
       </div>
     </div>
@@ -461,6 +465,9 @@
     .register .btn {
         width: 100%;
         border-radius: 0;
+    }
+    .skip{
+
     }
 
     /* enable absolute positioning */
@@ -528,6 +535,12 @@
     button.login_btn span {
         color: white;
         margin-left: 10px;
+    }
+    .skip{
+        display: block;
+        text-align: center;
+        text-decoration: underline;
+        color: gray;
     }
 
 </style>
