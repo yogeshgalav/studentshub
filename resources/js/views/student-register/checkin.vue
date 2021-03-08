@@ -6,9 +6,11 @@
       :width="250"
       :is-full-page="true"
     />
+    <div class="blank" />
     <div class="container pb-100">
       <div class="row justify-content-center register">
         <div class="col-md-8">
+          <h1>I'm a</h1>
           <nav-tabs
             :tabs="tabs"
             :initial-tab="initialTab"
@@ -443,7 +445,6 @@
         position: relative;
         top: 15%;
     }
-
     .autocomplete {
         position: relative;
         width: 100%;
@@ -452,7 +453,11 @@
     .autocomplete input {
         border-radius: 0;
     }
-
+    h1{
+        text-align: center;
+        margin-top: 10px;
+        margin-bottom: 0px;
+        }
     .register .btn {
         width: 100%;
         border-radius: 0;
