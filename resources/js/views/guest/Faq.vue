@@ -108,7 +108,12 @@ export default {
 		SiteFooter,
 	},
 	mixins: [FormMixin],
-	props: ['faqs'],
+	props: {
+		faqs:{
+			required: true,
+			type: Object,
+		}
+	},
 	data() {
 		return {
 			email: '',
