@@ -419,7 +419,7 @@
                         <span class="error">{{ formErrors('institute.students') }}</span>
                       </div>
                     </div>
-                    <div class="row">
+                    <div class="row mt-2">
                       <button
                         type="submit"
                         class="login_btn"
@@ -461,15 +461,14 @@
         text-align: center;
         margin-top: 10px;
         margin-bottom: 0px;
+        color: #de2f1b;
+        font-size: 56px;
+        margin-bottom: -30px;
         }
     .register .btn {
         width: 100%;
         border-radius: 0;
     }
-    .skip{
-
-    }
-
     /* enable absolute positioning */
     .inner-addon {
         position: relative;
