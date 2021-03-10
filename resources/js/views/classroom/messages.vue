@@ -66,12 +66,12 @@
                   type="text"
                   placeholder="Type your answer"
                   class="col-11"
-                  style="font-size: 20px;border-radius: 10px; border: gray solid; margin-right: 20px"
+                  style="font-size: 20px;border-radius: 10px; border: gray solid; margin-right: 20px; outline: none;"
                 >
                 <i
                   class="fa fa-reply ml-2"
                   aria-hidden="true"
-                  style="font-size: 25px; color: gray;"
+                  style="font-size: 25px; color: gray; cursor: pointer;"
                 />
               </div>
             </div>
