@@ -6,9 +6,11 @@
       :width="250"
       :is-full-page="true"
     />
+    <div class="blank" />
     <div class="container pb-100">
       <div class="row justify-content-center register">
         <div class="col-md-8">
+          <h1>I'm a</h1>
           <nav-tabs
             :tabs="tabs"
             :initial-tab="initialTab"
@@ -417,7 +419,7 @@
                         <span class="error">{{ formErrors('institute.students') }}</span>
                       </div>
                     </div>
-                    <div class="row">
+                    <div class="row mt-2">
                       <button
                         type="submit"
                         class="login_btn"
@@ -433,6 +435,10 @@
               </div>
             </template>
           </nav-tabs>
+          <a
+            href="#"
+            class="skip"
+          >Skip</a>
         </div>
       </div>
     </div>
@@ -443,7 +449,6 @@
         position: relative;
         top: 15%;
     }
-
     .autocomplete {
         position: relative;
         width: 100%;
@@ -452,12 +457,18 @@
     .autocomplete input {
         border-radius: 0;
     }
-
+    h1{
+        text-align: center;
+        margin-top: 10px;
+        margin-bottom: 0px;
+        color: #de2f1b;
+        font-size: 56px;
+        margin-bottom: -30px;
+        }
     .register .btn {
         width: 100%;
         border-radius: 0;
     }
-
     /* enable absolute positioning */
     .inner-addon {
         position: relative;
@@ -523,6 +534,12 @@
     button.login_btn span {
         color: white;
         margin-left: 10px;
+    }
+    .skip{
+        display: block;
+        text-align: center;
+        text-decoration: underline;
+        color: gray;
     }
 
 </style>
