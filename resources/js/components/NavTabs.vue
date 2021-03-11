@@ -47,6 +47,12 @@
     // .tabbed-nav1  ul   {
     //     border-bottom: 1px solid #000 !important;
     // }
+    .tabbed-nav ul{
+        justify-content: center;
+    }
+    .tabbed-nav{
+        margin-top: 0px;
+    }
     .tabbed-nav ul li a {
         text-align: center;
         color: #000;
@@ -104,7 +110,7 @@
         border-bottom: none;
     }
 .tabbed-nav  {
-  
+
     padding: 15px;
 }
     // Nav Tab 1
@@ -132,7 +138,7 @@
         cursor: pointer;
         margin-right: 20px;
     }
-    
+
 @media (max-width: 640px) {
     .tabbed-nav .nav-item a {
         text-align: center;
@@ -142,7 +148,7 @@
         font-weight: 500;
         cursor: pointer;
         margin-right: 0px;
-        
+
     }
 }
 </style>

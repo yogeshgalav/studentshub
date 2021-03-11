@@ -150,6 +150,17 @@ class PagesController extends Controller
         return view('institute.institute')
         ->with('instituteId',$instituteId ?? $institute->institute_id);
     }
+    public function seeker()
+    {
+        $user = Auth::user();
+        if($user && empty($user->onboarded_at)){
+            $user->role_intended = 'seeker';
+            $user->onboarded_at = \Carbon\Carbon::now()->toDateTimeString();
+            $user->save();
+        }
+
+        return redirect('/');
+    }
 
     //     {
     //         var list= document.getElementsByClassName("index")[0].getElementsByTagName("A");
