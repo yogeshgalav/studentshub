@@ -6,6 +6,7 @@ import ClassroomDoubtComponent from '../../views/classroom/doubts.vue';
 import ClassroomStudentPanelComponent from '../../views/classroom/student-daily-assignment.vue';
 import ClassmatesComponent from '../../views/classroom/students-report.vue';
 
+
 const StudentClassroomRoutes = [
 	{
 		path: '/classroom/:classroomId',
