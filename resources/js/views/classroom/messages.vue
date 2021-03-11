@@ -61,19 +61,6 @@
                 <hr>
                 <p>{{ message.content }}</p>
               </div>
-              <div class="mb-2">
-                <input
-                  type="text"
-                  placeholder="Type your answer"
-                  class="col-11"
-                  style="font-size: 20px;border-radius: 10px; border: gray solid; margin-right: 20px"
-                >
-                <i
-                  class="fa fa-reply ml-2"
-                  aria-hidden="true"
-                  style="font-size: 25px; color: gray;"
-                />
-              </div>
             </div>
             <div class="col-md-3 col-12" />
           </div>
