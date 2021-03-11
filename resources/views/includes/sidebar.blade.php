@@ -25,21 +25,21 @@
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 @include('includes.search-form')
                             </div>
-                          
+
                         </div>
                     </li>
-                    <li class="nav-item"> 
+                    <li class="nav-item">
                     <div class="dropdown" style="margin-right:40px">
                     <notifications-dropdown></notifications-dropdown>
                     </div>
                     </li>
                     <li class="nav-item">
-                       
+
                         @include('includes.profile-dropdown')
                     </li>
-               
+
                 </ul>
-               
+
             </div>
         </div>
 
@@ -64,20 +64,20 @@
                     @endif
                 </div>
             </div>
-          
+
             <ul class="menu-dropdown">
-            <li><a href="/classrooms" class="{{\App\Facades\Sthub::currentTab('classroom') ? 'active' : ''}}">	<span class="icon">  <img src="{{asset('/images/whiteboard.png') }}" alt="Student'sHUB" width="20"/></span>Classrooms</a></li>
+            <li><a href="/classrooms" class="{{\App\Facades\Sthub::currentTab('classroom') ? 'active' : ''}}"><i class="fa fa-desktop sidebar" aria-hidden="true"></i></i>classroom</a></li>
             @if(Auth::user()->isInstituteMember())
             <li> <a href="/my-institute" class="{{\App\Facades\Sthub::currentTab('institute') ? 'active' : ''}}"><span class="icon"><img src="{{asset('/images/university.png') }}" alt="Student'sHUB" width="20"/></span> My Institute</a></li>
             @endif
-                <li> <a href="/" class="{{\App\Facades\Sthub::currentTab('post') ? 'active' : ''}}"> <span class="icon"><img src="{{asset('/images/home.png') }}" alt="Student'sHUB" width="20"/></span> Home</a></li>
+                <li> <a href="/" class="{{\App\Facades\Sthub::currentTab('post') ? 'active' : ''}}"> <i class="fa fa-home sidebar" aria-hidden="true"></i> Home</a></li>
             @if(Auth::student())
-                <li> <a href="/doubts" class="{{\App\Facades\Sthub::currentTab('doubt') ? 'active' : ''}}"> <span class="icon"><img src="{{asset('/images/home.png') }}" alt="Student'sHUB" width="20"/></span> Doubts</a></li>
+                <li> <a href="/doubts" class="{{\App\Facades\Sthub::currentTab('doubt') ? 'active' : ''}}"> <i class="fa fa-question-circle sidebar" aria-hidden="true"></i>Doubts</a></li>
                 {{-- <li> <a href="/course/{{Auth::student()->courseUrl}}" class="{{\App\Facades\Sthub::currentTab(Auth::student()->courseUrl) ? 'active' : ''}}"> <span class="icon"><img src="{{asset('/images/home.png') }}" alt="Student'sHUB" width="20"/></span> My Course</a></li> --}}
             @endif
-                <li> <a href="/profile/{{Auth::id()}}"  class="{{\App\Facades\Sthub::currentTab('profile') ? 'active' : ''}}"> <span class="icon"><img src="{{asset('/images/user.png') }}" alt="Student'sHUB" width="20"/></span> Profile</a></li>
+                <li><a href="/profile/{{Auth::id()}}"  class="{{\App\Facades\Sthub::currentTab('profile') ? 'active' : ''}}"><i class="fa fa-user sidebar" aria-hidden="true"></i>Profile</a></li>
 
-                <li><a href="/logout"> <span class="icon"><img src="{{asset('/images/logout.png') }}" alt="Student'sHUB" width="20"/></span> Logout</a></li>
+                <li><a href="/logout"><i class="fa fa-sign-in sidebar" aria-hidden="true"></i>Logout</a></li>
 
             </ul>
 
