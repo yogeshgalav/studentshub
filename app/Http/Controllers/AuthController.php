@@ -131,6 +131,7 @@ class AuthController extends Controller
                 'full_name'=>$input['full_name'],
                 'email'=>$input['email'],
                 'password'=>$input['password'],
+                'role_intended'=>'seeker',
             ]);
 
             Auth::login($user);

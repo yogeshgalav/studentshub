@@ -2697,7 +2697,51 @@ ul.menu-dropdown li {
     width: 70%;
 }
 }
+<<<<<<< HEAD
 .blank{
     height: 60px;
 }
 
+=======
+// himanshu
+//himanshu
+.heading {
+    min-height: 500px;
+    background: linear-gradient(#5f2c82, #49a09d);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.blank {
+    height: 60px;
+}
+.main_heading {
+    text-align: center;
+    color: white;
+    font-weight: 600;
+    letter-spacing: 2px;
+    font-size: 60px;
+}
+.second_heading {
+    font-weight: 500;
+    text-align: center;
+    color: white;
+}
+.form {
+    max-width: 100%;
+    margin: auto;
+    display: flex;
+    background: #f6f6f6;
+    padding: 50px 0;
+}
+@media (max-width: 500px){
+    .main_heading{
+        font-size: 40px;
+    }
+    .second_heading{
+        font-size: 25px;
+    }
+}
+>>>>>>> e7135f26f3e2727f395605de3882ac73ff00a0c1

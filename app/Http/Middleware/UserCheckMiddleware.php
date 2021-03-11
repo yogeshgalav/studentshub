@@ -17,10 +17,10 @@ class UserCheckMiddleware
     public function handle($request, Closure $next)
     {
         $user=Auth::user();  
-        if($user && $user->must_reset_password && !in_array($request->path(),['reset-password','login','get-started'])){
+        if($user && $user->must_reset_password && !in_array($request->path(),['reset-password','login','get-started','logout'])){
             return redirect('/reset-password');
         }
-        if($user && !$user->onboarded_at && !in_array($request->path(),['reset-password','login','get-started','check-in'])){
+        if($user && !$user->onboarded_at && !in_array($request->path(),['reset-password','login','get-started','check-in','logout'])){
             return redirect('/check-in');
         }
         return $next($request);
