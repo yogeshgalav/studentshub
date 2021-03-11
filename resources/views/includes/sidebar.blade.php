@@ -66,18 +66,18 @@
             </div>
 
             <ul class="menu-dropdown">
-            <li><a href="/classrooms" class="{{\App\Facades\Sthub::currentTab('classroom') ? 'active' : ''}}"><i class="fa fa-desktop sidebar" aria-hidden="true"></i></i>classroom</a></li>
+            <li><a href="/classrooms" class="{{\App\Facades\Sthub::currentTab('classroom') ? 'active' : ''}}"><i class="fa fa-desktop sidebar" aria-hidden="true"></i><span class="text">Classroom</span></a></li>
             @if(Auth::user()->isInstituteMember())
             <li> <a href="/my-institute" class="{{\App\Facades\Sthub::currentTab('institute') ? 'active' : ''}}"><span class="icon"><img src="{{asset('/images/university.png') }}" alt="Student'sHUB" width="20"/></span> My Institute</a></li>
             @endif
-                <li> <a href="/" class="{{\App\Facades\Sthub::currentTab('post') ? 'active' : ''}}"> <i class="fa fa-home sidebar" aria-hidden="true"></i> Home</a></li>
+                <li> <a href="/" class="{{\App\Facades\Sthub::currentTab('post') ? 'active' : ''}}"> <i class="fa fa-home sidebar" aria-hidden="true"></i><span class="text">Home</span></a></li>
             @if(Auth::student())
-                <li> <a href="/doubts" class="{{\App\Facades\Sthub::currentTab('doubt') ? 'active' : ''}}"> <i class="fa fa-question-circle sidebar" aria-hidden="true"></i>Doubts</a></li>
+                <li> <a href="/doubts" class="{{\App\Facades\Sthub::currentTab('doubt') ? 'active' : ''}}"> <i class="fa fa-question-circle sidebar" aria-hidden="true"></i><span class="text">Doubts</span></a></li>
                 {{-- <li> <a href="/course/{{Auth::student()->courseUrl}}" class="{{\App\Facades\Sthub::currentTab(Auth::student()->courseUrl) ? 'active' : ''}}"> <span class="icon"><img src="{{asset('/images/home.png') }}" alt="Student'sHUB" width="20"/></span> My Course</a></li> --}}
             @endif
-                <li><a href="/profile/{{Auth::id()}}"  class="{{\App\Facades\Sthub::currentTab('profile') ? 'active' : ''}}"><i class="fa fa-user sidebar" aria-hidden="true"></i>Profile</a></li>
+                <li><a href="/profile/{{Auth::id()}}"  class="{{\App\Facades\Sthub::currentTab('profile') ? 'active' : ''}}"><i class="fa fa-user sidebar" aria-hidden="true"></i><span class="text">Profile</span></a></li>
 
-                <li><a href="/logout"><i class="fa fa-sign-in sidebar" aria-hidden="true"></i>Logout</a></li>
+                <li><a href="/logout"><i class="fas fa-sign-out-alt sidebar" aria-hidden="true"></i><span class="text">Logout</span></a></li>
 
             </ul>
 
