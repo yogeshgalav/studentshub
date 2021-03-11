@@ -10,6 +10,7 @@ use App\Mails\SubscriptionFirstMail;
 use Mail;
 use DB;
 use Illuminate\Support\Facades\Log;
+use App\Models\Faq;
 use Auth;
 use App\Models\Feedback;
 use App\Models\Contactus;
@@ -50,7 +51,9 @@ class GuestController extends Controller
         Log::critical('New member request with details.',['member'=>$member]);
         return response()->json([],204);
     }
-    public function feedback(Request $request){
+
+    public function feedback(Request $request)
+    {
         Feedback::create([
             'email'=>$request->email,
             'user_id'=>Auth::id() ?? null,
@@ -58,10 +61,14 @@ class GuestController extends Controller
         ]);
         return response()->json([],204);
     }
-    public function feedbackPage(){
+
+    public function feedbackPage()
+    {
         return view('guest.feedback');
     }
-    public function contactus(Request $request){
+
+    public function contactus(Request $request)
+    {
         Contactus::create([
             'name'=>$request->name,
             'email'=>$request->email,
@@ -69,13 +76,24 @@ class GuestController extends Controller
         ]);
         return response()->json([],204);
     }
-    public function contactusPage(){
+
+    public function contactusPage()
+    {
         return view('guest.contactus');
     }
-    public function faq(){
-        return view('guest.faq');
+
+    public function faq(Request $request)
+    {
+        // dd($request->email,$request->quer);
+        Faq::create([
+            'email'=>$request->email,
+            'query'=>$request->quer,
+        ]);
+        return response()->json([], 204);
     }
+    
     public function faqPage(){
-        return view('guest.faq');
+        $faq = Faq::where('answer','!=', null)->get();
+        return view('guest.faq')->with('faqs',$faq);
     }
 }
