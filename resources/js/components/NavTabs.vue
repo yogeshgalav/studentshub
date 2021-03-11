@@ -197,6 +197,7 @@ export default {
 	},
 	methods: {
 		switchTab(tabName, event){
+			this.$emit('changeTab',tabName);
 			this.activeTab = tabName;
 			event.target.blur();
 			if (window.innerWidth>= 768)

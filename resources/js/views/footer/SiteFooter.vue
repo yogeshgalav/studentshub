@@ -80,12 +80,12 @@
         </div>
         <div class="col-md-12 text-center">
           <ul class="foote_bottom_ul_amrc">
-            <li><a href="#">Home</a></li>
+            <li><a href="/">Home</a></li>
             <li><a href="#">About</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Pricing</a></li>
-            <li><a href="#">Blog</a></li>
-            <li><a href="/contactus">contact</a></li>
+            <li><a href="/membership-plan">Pricing</a></li>
+            <li><a href="/contactus">Contact</a></li>
+            <li><a href="/feedback">Feedback</a></li>
+            <li><a href="/faq">FAQ</a></li>
           </ul>
         </div>
         <div class="col-md-12">
@@ -93,7 +93,7 @@
         </div>
 
         <div class="col-md-12 text-center copy_right">
-          <p>Copyright&copy;studentshub-2019-All Rights Reserved</p>
+          <p>Copyright&copy;studentshub-2019-All Rights Reserved </p>
         </div>
       </div>
     </div>
@@ -257,17 +257,17 @@ a.socialIcon:hover,
 <script>
 import formMixin from '../../components/mixins/form-mixin.js';
 export default {
-	mixins: ['formMixin'],
-	data() {
-		return {
-			subscribe_email: '',
+	mixins:['formMixin'],
+	data(){
+		return{
+			subscribe_email:'',
 		};
 	},
-	methods: {
-		subscribe() {
-			this.$store.dispatch('common/subscribe', { email: this.subscribe_email });
-		},
-	},
+	methods:{
+		subscribe(){
+			this.$store.dispatch('common/subscribe',{email:this.subscribe_email});
+		}
+	}
 };
 </script>
 

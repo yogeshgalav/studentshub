@@ -62,7 +62,9 @@ class InstituteController extends Controller
         ->get();
 
         $batches = DB::table('classrooms as cls')
-        ->join('batches as bt','bt.id','=','cls.batch_id')
+        ->join('batches as bt',function($join)use($instituteId){
+            $join->on('bt.id','=','cls.batch_id')->where('bt.institute_id',$instituteId);
+        })
         ->leftJoin('classroom_users as cus','cus.classroom_id','=','cls.id')
         ->leftJoin('daily_assignments as da','da.classroom_id','=','cls.id')
         ->leftJoin('daily_reports as dr','dr.daily_assignment_id','=','da.id')

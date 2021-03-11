@@ -179,6 +179,19 @@
                 <span class="error">{{ formErrors('phone_no') }}</span>
               </div>
             </div>
+            <div class="col-md-6 col-12">
+              <div class="model_input">
+                <label class="text-gray">Number of students</label>
+                <input
+                  v-model="students"
+                  v-validate="'required'"
+                  name="students"
+                  type="text"
+                  class="form-control"
+                >
+                <span class="error">{{ formErrors('students') }}</span>
+              </div>
+            </div>
             <div class="col-md-12">
               <div class="model_btn">
                 <button
@@ -380,6 +393,7 @@ export default {
 			full_name:'',
 			email:'',
 			phone_no:'',
+			students:'',
 			plan:'',
 		};
 	},
@@ -398,7 +412,7 @@ export default {
 						full_name:this.full_name,
 						email:this.email,
 						phone_no:this.email,
-						plan:this.email,
+						students:this.students,
 					}).then(()=>{
 						this.showLoader =false;
 						swal.infoDialog('Thank you for connecting with us.');

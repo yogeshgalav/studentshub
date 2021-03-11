@@ -11,6 +11,7 @@ use Mail;
 use DB;
 use Illuminate\Support\Facades\Log;
 use App\Models\Faq;
+use Auth;
 use App\Models\Feedback;
 use App\Models\Contactus;
 
@@ -45,7 +46,7 @@ class GuestController extends Controller
         $member->email = $request->email;
         $member->phone_no = $request->phone_no;
         $member->institute_name = $request->institute_name;
-        $member->plan = $request->plan;
+        $member->total_students = $request->students;
         $member->save();
         Log::critical('New member request with details.',['member'=>$member]);
         return response()->json([],204);
