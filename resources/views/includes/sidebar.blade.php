@@ -25,21 +25,21 @@
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 @include('includes.search-form')
                             </div>
-                          
+
                         </div>
                     </li>
-                    <li class="nav-item"> 
+                    <li class="nav-item">
                     <div class="dropdown" style="margin-right:40px">
                     <notifications-dropdown></notifications-dropdown>
                     </div>
                     </li>
                     <li class="nav-item">
-                       
+
                         @include('includes.profile-dropdown')
                     </li>
-               
+
                 </ul>
-               
+
             </div>
         </div>
 
@@ -64,7 +64,7 @@
                     @endif
                 </div>
             </div>
-          
+
             <ul class="menu-dropdown">
             <li><a href="/classrooms" class="{{\App\Facades\Sthub::currentTab('classroom') ? 'active' : ''}}">	<span class="icon">  <img src="{{asset('/images/whiteboard.png') }}" alt="Student'sHUB" width="20"/></span>Classrooms</a></li>
             @if(Auth::user()->isInstituteMember())
@@ -76,7 +76,7 @@
                 {{-- <li> <a href="/course/{{Auth::student()->courseUrl}}" class="{{\App\Facades\Sthub::currentTab(Auth::student()->courseUrl) ? 'active' : ''}}"> <span class="icon"><img src="{{asset('/images/home.png') }}" alt="Student'sHUB" width="20"/></span> My Course</a></li> --}}
                 @endif
             @if(Auth::user()->hasClassroom())
-            <li> <a href="/messages" class="{{\App\Facades\Sthub::currentTab('messages') ? 'active' : ''}}"> <span class="icon"><img src="{{asset('/images/home.png') }}" alt="Student'sHUB" width="20"/></span> Messages </a></li>
+            <li> <a href="/messages" class="{{\App\Facades\Sthub::currentTab('messages') ? 'active' : ''}}"><span class="icon"><i class="far fa-comment-alt"></i></span> Messages </a></li>
             @endif
                 <li> <a href="/profile/{{Auth::id()}}"  class="{{\App\Facades\Sthub::currentTab('profile') ? 'active' : ''}}"> <span class="icon"><img src="{{asset('/images/user.png') }}" alt="Student'sHUB" width="20"/></span> Profile</a></li>
                 <li><a href="/logout"> <span class="icon"><img src="{{asset('/images/logout.png') }}" alt="Student'sHUB" width="20"/></span> Logout</a></li>
