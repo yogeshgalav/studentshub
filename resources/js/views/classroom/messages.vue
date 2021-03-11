@@ -61,15 +61,18 @@
                 <hr>
                 <p>{{ message.content }}</p>
               </div>
-              <div class="mb-2">
+              <div
+                class="mb-2"
+                style="padding-left: inherit;"
+              >
                 <input
                   type="text"
-                  placeholder="Type your answer"
+                  placeholder="Reply to this message"
                   class="col-11"
-                  style="font-size: 20px;border-radius: 10px; border: gray solid; margin-right: 20px; outline: none;"
+                  style="font-size: 20px; border-radius: 20px; border: 0; margin-right: 20px; outline: none; box-shadow: #80808069 2px 2px 2px, #80808094 2px 2px 2px inset;"
                 >
                 <i
-                  class="fa fa-reply ml-2"
+                  class="fa fa-paper-plane ml-2"
                   aria-hidden="true"
                   style="font-size: 25px; color: gray; cursor: pointer;"
                 />
