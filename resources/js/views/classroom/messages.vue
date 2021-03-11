@@ -40,7 +40,7 @@
             <div
               v-for="(message,index2) in messages"
               :key="index2"
-              class="col-md-10 col-12 mt-2 card"
+              class="col-md-12 col-12 mt-2 card"
             >
               <div
                 class="card-body"
