@@ -436,7 +436,7 @@
             </template>
           </nav-tabs>
           <a
-            href="#"
+            href="/seeker"
             class="skip"
           >Skip</a>
         </div>

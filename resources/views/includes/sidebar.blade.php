@@ -77,6 +77,9 @@
             @endif
                 <li> <a href="/profile/{{Auth::id()}}"  class="{{\App\Facades\Sthub::currentTab('profile') ? 'active' : ''}}"> <span class="icon"><img src="{{asset('/images/user.png') }}" alt="Student'sHUB" width="20"/></span> Profile</a></li>
 
+            @if(Auth::user()->role_intended === 'seeker')
+                <li><a href="/check-in"> <span class="icon"><img src="{{asset('/images/logout.png') }}" alt="Student'sHUB" width="20"/></span> Checkin</a></li>
+            @endif
                 <li><a href="/logout"> <span class="icon"><img src="{{asset('/images/logout.png') }}" alt="Student'sHUB" width="20"/></span> Logout</a></li>
 
             </ul>

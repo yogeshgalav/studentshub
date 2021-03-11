@@ -314,12 +314,8 @@ export default {
 			}
 		};
 	},
-<<<<<<< HEAD
-	mounted(){
-=======
 	mounted(){  
 		this.join_id = this.$route.params.joinId;
->>>>>>> e7135f26f3e2727f395605de3882ac73ff00a0c1
 		this.$validator.localize('en', this.dict);
 	},
 	methods: {
