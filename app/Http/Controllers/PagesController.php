@@ -40,12 +40,6 @@ class PagesController extends Controller
             return view('guest.welcome');
         }
     }
-
-    public function editPost()
-    {
-        return view('student.edit-post');
-    }
-
     public function searchPage(Request $request)
     {
         return view('explore.search')->with('query', $request->query);
@@ -113,10 +107,6 @@ class PagesController extends Controller
     public function registerPage()
     {
         return view('guest.auth.register');
-    }
-    public function sharePost()
-    {
-        return view('create-post.share-post');
     }
     public function viewPost()
     {
