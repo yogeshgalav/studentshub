@@ -71,5 +71,14 @@ class StudentController extends Controller
     }
         return redirect('/classroom/'.$request->classroom_id.'/daily-assignment');
     }
+    public function sharePost()
+    {
+        return view('create-post.share-post');
+    }
+    public function editPost()
+    {
+        return view('student.edit-post');
+    }
+
 
 }
