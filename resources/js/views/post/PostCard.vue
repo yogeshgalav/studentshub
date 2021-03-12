@@ -78,7 +78,10 @@
           </div>
         </div>
         <hr>  
-        <like-component :post="post" />
+        <like-component
+          :post="post"
+          likable-type="post"
+        />
       </div>
     </div>
   </div>

@@ -27,7 +27,7 @@
 
 <script>
 export default {
-	props:['post'],
+	props:['post', 'likableType'],
 	data(){
 		return {
 			user_like:'',
@@ -51,8 +51,8 @@ export default {
 			this.like_active = !this.like_active;
 			console.log(this.like_active);
 			this.dislike_active = false;
-			this.axios.post('/api/post-like', {
-				post_id: this.post.id,
+			this.axios.post('/api/user-like/'+this.likableType, {
+				likable_id: this.post.id,
 				type: 'like',
 				method,
 			}).then(resp => {
@@ -67,11 +67,10 @@ export default {
 		},
 		sendUserDislike() {
 			let method = (this.dislike_active === true) ? 'delete' : 'add';
-			// this.user_like = this.user_like === 0 ? null : 0;
 			this.dislike_active = !this.dislike_active;
 			this.like_active = false;
-			this.axios.post('/api/post-like', {
-				post_id: this.post.id,
+			this.axios.post('/api/user-like/'+this.likableType, {
+				likable_id: this.post.id,
 				type: 'dislike',
 				method,
 			}).then(resp => {
