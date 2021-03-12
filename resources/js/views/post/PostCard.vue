@@ -78,20 +78,7 @@
           </div>
         </div>
         <hr>  
-        <div class="dash_post_likes mt-1">
-          <div class="post_like">
-            <i class="fa fa-eye" />
-            <span class="badge-text"> <span> {{ post.total_views }} Views</span></span>
-          </div>
-          <div class="post_like">
-            <i class="fa fa-thumbs-up" />
-            <span class="badge-text"> <span>{{ post.total_likes }} Likes</span></span>
-          </div>
-          <div class="post_like">
-            <i class="fa fa-thumbs-down" />
-            <span class="badge-text"> <span>{{ post.total_dislikes }} Dislikes</span></span>
-          </div>
-        </div>
+        <like-component :post="post" />
       </div>
     </div>
   </div>
@@ -116,10 +103,12 @@
 <script>
 import ProfileImage from './ProfileImage.vue';
 // import ImageSlider from './ImageSlider.vue';
+import LikeComponent from '../common/LikeComponent.vue';
 
 export default {
 	components: {
 		ProfileImage,
+		LikeComponent,
 		// ImageSlider
 	},
 	props:['post'],
@@ -129,6 +118,7 @@ export default {
 			this.$store.commit('common/set_post_initial',post);
 			this.$router.push({ path: `/post/${post.id}` });
 		},
-	}
+	},
+  
 };
 </script>

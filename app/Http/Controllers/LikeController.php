@@ -43,7 +43,7 @@ class LikeController extends Controller
             
         }
         return response()->json(['success'=>[
-            'user_like'=>$like ? $like->like_status : null,
+            'user_like'=> $request->input('method') === 'add' ? $like->like_status : null,
         ]]);
     }
 }
