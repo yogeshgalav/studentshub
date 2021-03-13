@@ -35,14 +35,6 @@
                       action="/register"
                       @submit.prevent="handleSubmit"
                     >
-                      <div
-                        v-if="emailError"
-                        class="form-group row alert alert-warning"
-                      >
-                        <span>{{ 'You are already registered.' }}
-                          <router-link :to="'/login'"> Please Login</router-link>
-                        </span>
-                      </div>
                       <div class="form-group">
                         <input
                           id="token"
@@ -285,7 +277,6 @@ import swal from '../../components/swal';
 
 export default {
 	mixins: [FormMixin],
-	props:['emailError'],
 	data() {
 		return {
 			showLoader: false,
