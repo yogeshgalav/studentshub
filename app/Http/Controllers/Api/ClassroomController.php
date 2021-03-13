@@ -110,6 +110,10 @@ class ClassroomController extends Controller
         $classroom->batch_id=$batch->id;
         $classroom->save();
 
+        Log::info('New classroom created',[
+            'name'=>$classroom->name,
+            'user'=>Auth::id(),
+            'join_id'=>$classroom->join_id]);
         DB::commit();
     } catch (\Exception $e) {
         DB::rollback();

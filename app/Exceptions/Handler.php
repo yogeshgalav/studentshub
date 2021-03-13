@@ -10,6 +10,7 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
+use Illuminate\Support\Facades\Log;
 
 /***
  * Class Handler
@@ -56,7 +57,12 @@ class Handler extends ExceptionHandler
      */
     public function report(Throwable $exception)
     {
-        parent::report($exception);
+        Log::error($exception->getMessage(), [
+            'url' => Request::url(),
+            'input' => Request::all()
+        ]);
+
+        return parent::report($exception);
     }
 
     /**
