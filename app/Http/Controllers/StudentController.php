@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\DailyAssignment;
+use App\Models\DailyReport;
+use App\Models\DailyQuestion;
+use App\Models\DailyAnswer;
+use DB;
 class StudentController extends Controller
 {
     //
     public function dailyAssignmentAttemptPage($classroom_id){
-        $daily_assignment=\App\Models\DailyAssignment::where('attempt_date','=',now(Auth::user()->timezone)->toDateString())
+        $daily_assignment=DailyAssignment::where('attempt_date','=',now(Auth::user()->timezone)->toDateString())
         ->where('activated_at','!=',null)->where('classroom_id','=',$classroom_id)
         ->with('dailyQuestions.multipleChoice')->first();
         
@@ -79,6 +83,14 @@ class StudentController extends Controller
     {
         return view('student.edit-post');
     }
+    public function classroomList()
+    {
+        return view('student.classroomList');
+    }
 
+    public function classroom()
+    {
+        return view('student.classroom');
+    }
 
 }

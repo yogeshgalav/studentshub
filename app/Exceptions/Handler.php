@@ -25,6 +25,16 @@ class Handler extends ExceptionHandler
     protected $dontReport = [
         // \App\Exceptions\EmailAddressAlreadyExistsException::class,
     ];
+    protected $internalDontReport = [
+        // AuthenticationException::class,
+        // AuthorizationException::class,
+        // HttpException::class,
+        // HttpResponseException::class,
+        // ModelNotFoundException::class,
+        // SuspiciousOperationException::class,
+        // TokenMismatchException::class,
+        // ValidationException::class,    
+    ];
 
     /**
      * A list of the inputs that are never flashed for validation exceptions.
