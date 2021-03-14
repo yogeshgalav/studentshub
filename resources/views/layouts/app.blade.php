@@ -15,7 +15,7 @@
     <div id="app">
         <main class="flex-center position-ref full-height">   
 <div class="main-header">
-     @include('includes.guest-navbar')
+     @include('includes.navbar')
 </div>
 
 @yield('content')  
