@@ -118,12 +118,12 @@ class ClassroomController extends Controller
         }
 
         if($daily_assignment && $daily_assignment->isCurrentlyAvailable() && empty($daily_report)){
-            return view('student-panel.daily-attempt')
+            return view('student-classroom.daily-attempt')
             ->with('nocache',true)
             ->with('daily_assignment',$daily_assignment);
         }
 
-        return view('student-panel.my-panel');
+        return view('student-classroom.my-panel');
     }
 
     public function classroomOverviewPage($classroomId){
@@ -143,7 +143,7 @@ class ClassroomController extends Controller
             return view('classroom.classroom-unit-assignment');
         }
 
-        return view('student-panel.classroom-unit-assignment');
+        return view('student-classroom.classroom-unit-assignment');
     }
     public function classroomDailyAssignmentPage($classroomId){
         $classroom=Classroom::findOrFail($classroomId);
@@ -154,7 +154,7 @@ class ClassroomController extends Controller
 
         // $is_classroom_student=ClassroomUser::where('user_id',Auth::id())
         // ->where('classroom_id',$classroom->id)->where('joined_at','!=',null)->exists();
-        return view('student-panel.classroom-daily-assignment');
+        return view('student-classroom.classroom-daily-assignment');
     }
     public function classroomDailyReportPage($classroomId){
         $classroom=Classroom::findOrFail($classroomId);
@@ -165,7 +165,7 @@ class ClassroomController extends Controller
 
         // $is_classroom_student=ClassroomUser::where('user_id',Auth::id())
         // ->where('classroom_id',$classroom->id)->where('joined_at','!=',null)->exists();
-        return view('student-panel.classroom-daily-report');
+        return view('student-classroom.classroom-daily-report');
     }
     public function classroomStudentPage($classroomId){
         $classroom = Classroom::findOrFail($classroomId);
@@ -173,7 +173,7 @@ class ClassroomController extends Controller
     }
 
     public function unitAttemptPage(){
-        return view('student-panel.unit-attempt');
+        return view('student-classroom.unit-attempt');
     }
 
     public function studentPanelPage($classroom_id,$user_id=null){
@@ -181,7 +181,7 @@ class ClassroomController extends Controller
             return view('classroom.student-panel');
         }
 
-        return view('student-panel.my-panel');
+        return view('student-classroom.my-panel');
     }
 
     public function createClassroomPage(Request $request){

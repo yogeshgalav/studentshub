@@ -28,7 +28,7 @@ class DailyReportController extends Controller
         }
 
         if($daily_assignment && $daily_assignment->isCurrentlyAvailable() && empty($daily_report)){
-            return view('student-panel.daily-attempt')
+            return view('student-classroom.daily-attempt')
             ->with('nocache',true)
             ->with('daily_assignment',$daily_assignment);
         }

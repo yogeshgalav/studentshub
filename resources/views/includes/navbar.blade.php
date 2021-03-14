@@ -1,9 +1,9 @@
 <div class="container">
-@if(in_array(request()->path(),['reset-password','check-in']))
+@if(in_array(request()->path(),['reset-password','check-in']) || request()->is('*daily-attempt'))
 <div class="row">
-    <div class="col-md-3 col-12">
+    <div class="col-md-3 col-12 text-center">
         <a href="/">
-            <img src="{{asset('/images/logo.png') }}" alt="Student Hub"/>
+            <img src="{{asset('/images/logo.png') }}" alt="Student'sHub"/>
         </a>
     </div>
 </div>
