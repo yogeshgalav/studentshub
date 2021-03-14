@@ -1,5 +1,5 @@
 <div class="container">
-@if(in_array(request()->path(),['reset-password','check-in']))
+@if(in_array(request()->path(),['reset-password','check-in']) || request()->is('*daily-attempt'))
 <div class="row">
     <div class="col-md-3 col-12">
         <a href="/">
