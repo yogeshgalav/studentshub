@@ -1,6 +1,6 @@
 <div class="dropdown">
-    <button class="btn btn-sm btn-default border-radius-12 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-     <i class="fa fa-user"></i> {{$AuthUser->full_name}}
+    <button class="btn btn-sm btn-default border-radius-12 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style= "border-radius: 50%;">
+     <i class="fa fa-user"></i>
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <div class="d-flex p-2">
