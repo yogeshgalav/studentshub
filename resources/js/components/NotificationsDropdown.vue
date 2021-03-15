@@ -4,7 +4,6 @@
       <button
         class="btn btn-default dropdown-toggle border-radius-12 custom-pad"
         data-toggle="dropdown"
-        style="margin-left: 50px"
       >
         <i
           class="fa fa-bell notification-icon"
