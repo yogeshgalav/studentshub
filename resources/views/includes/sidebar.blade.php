@@ -3,7 +3,7 @@
 <div class="primary-nav">
     <!-- mobile header -->
     <div class="Dsfdad">
-        <div class="header_mobile">
+        <div class="header_mobile" id="header_mobile">
             <div class="logo mobile_logo">
                 <a href="/">
                     <img src="{{asset('/images/logo.png') }}" alt="Student'sHUB" />
@@ -25,21 +25,21 @@
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 @include('includes.search-form')
                             </div>
-                          
+
                         </div>
                     </li>
-                    <li class="nav-item"> 
+                    <li class="nav-item">
                     <div class="dropdown" style="margin-right:40px">
                     <notifications-dropdown></notifications-dropdown>
                     </div>
                     </li>
                     <li class="nav-item">
-                       
+
                         @include('includes.profile-dropdown')
                     </li>
-               
+
                 </ul>
-               
+
             </div>
         </div>
 
@@ -64,7 +64,7 @@
                     @endif
                 </div>
             </div>
-          
+
             <ul class="menu-dropdown">
             <li><a href="/classrooms" class="{{\App\Facades\Sthub::currentTab('classroom') ? 'active' : ''}}">	<span class="icon">  <img src="{{asset('/images/whiteboard.png') }}" alt="Student'sHUB" width="20"/></span>Classrooms</a></li>
             @if(Auth::user()->isInstituteMember())

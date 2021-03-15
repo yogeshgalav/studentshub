@@ -1020,9 +1020,7 @@ i {
     /* IE7-8 doesn't have border-radius, so don't indent the padding */
 
     margin-bottom: 0;
-    -webkit-border-radius: 0px;
-    -moz-border-radius: 0px;
-    border-radius: 0px;
+    border-radius: 25px;
 }
 
 #custom-search-input button {
@@ -2290,8 +2288,12 @@ p.answer_like {
     box-shadow: 0 0 10px rgba(0,0,0,0.12);
     padding: 5px 0 0 0;
 }
+
+
+
 .header_mobile_login {
     width: 100%;
+    background-color:#80808059;
 }
 .header_mobile_login ul {
     display: flex;
@@ -2319,7 +2321,9 @@ div#preview img {
     width: 34%;
     height: 250px;
 }
-
+.dropdown-toggle::after{
+    display: none;
+}
 .dash_search .dropdown-toggle::after
 {
     display: none;
@@ -2740,3 +2744,11 @@ ul.menu-dropdown li {
 }
 
 
+@media (max-width: 700px){
+    .onMobile-hide{
+        display: none;
+    }
+    .main-header{
+        display: none;
+    }
+}
