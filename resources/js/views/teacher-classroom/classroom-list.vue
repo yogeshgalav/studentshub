@@ -145,16 +145,21 @@
             >
               <div class="clss_username">
                 <p>
-                  <img
+                  <!-- <img
                     src="/images/Group.svg"
                     alt=""
-                  >
+                  > -->
+                  <profile-image
+                    :post="{user_name:classroom.teacher_name}"
+                  />
                 </p>
-                <h5 class="mt-3">{{ classroom.teacher_name }}</h5>
-              </div>
+                <h5
+                  class="
+                    mt-3"
+                >{{ classroom.teacher_name }}</h5>
+                </profile-image></p></div>
               <div class="classroom_content">
                 <p>{{ classroom.subject_name }} <br> <span>{{ classroom.name }}</span></p>
-               
               </div>
             </a>
           </div>
@@ -187,10 +192,12 @@ color:#333;
 import VModal from 'vue-js-modal';
 import swal from '../../components/swal';
 import AddButton from '../../components/AddButton';
+import profileImage from '../post/ProfileImage';
 export default {
 	components:{
 		VModal,
-		AddButton
+		AddButton,
+		profileImage
 	},
 	props: ['myClassrooms', 'classroomList'],
 	data(){
