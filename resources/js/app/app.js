@@ -30,7 +30,7 @@ Vue.use(VModal, { dynamic: true, injectModalsContainer: true, scrollable:true })
 Vue.use(VueAxios, axios);
 Vue.component('NotificationsDropdown', require('../components/NotificationsDropdown.vue').default);
 
-//error tracking 
+//error tracking
 import * as Sentry from '@sentry/browser';
 import { Integrations } from '@sentry/tracing';
 if(window.App.mode==='production'){
@@ -120,6 +120,16 @@ Vue.mixin({
 		window.axios.defaults.headers.common = {
 			'X-CSRF-TOKEN': this.csrfToken,
 			'X-Requested-With': 'XMLHttpRequest'
+		};
+		var prevScrollpos = window.pageYOffset;
+		window.onscroll = function() {
+			var currentScrollPos = window.pageYOffset;
+			if (prevScrollpos > currentScrollPos) {
+				document.getElementById('header_mobile').style.top = '0';
+			} else {
+				document.getElementById('header_mobile').style.top = '-50px';
+			}
+			prevScrollpos = currentScrollPos;
 		};
 	},
 	methods: {

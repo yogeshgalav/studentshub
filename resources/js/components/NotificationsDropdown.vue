@@ -2,13 +2,12 @@
   <div style="width:20px;">
     <div class="btn-group dropdown dropdown-notifications sw-open">
       <button
-        class="btn btn-default dropdown-toggle border-radius-12 custom-pad"
+        class="btn dropdown-toggle border-radius-12 custom-pad"
         data-toggle="dropdown"
       >
         <i
           class="fa fa-bell notification-icon"
         />
-        <span class="fa fa-angle-down" />
       </button>
 
       <div class="dropdown-container">
