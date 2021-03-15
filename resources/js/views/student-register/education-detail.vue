@@ -39,6 +39,7 @@
                           <auto-complete
                             :key="'institute'"
                             v-validate="'required'"
+                            :disabled="disableFields"
                             :items="institute_list"
                             :value="'name'"
                             name="institute_name"
@@ -74,6 +75,7 @@
                             :key="'courseLevel'"
                             v-validate="'required'"
                             :initial-value="selected_level"
+                            :disabled="disableFields"
                             class="width-100"
                             :items="courseLevels"
                             :value="'name'"
@@ -105,6 +107,7 @@
                             ref="courseList"
                             v-validate="'required'"
                             :items="course_list"
+                            :disabled="disableFields"
                             :value="'course_name'"
                             name="program_name"
                             :placeholder="'eg. Bachelor of Arts'"
@@ -178,6 +181,7 @@
                                 v-validate="'required'"
                                 name="start_year"
                                 value-type="format"
+                                :disabled="disableFields"
                                 :typeable="true"
                                 :type="'year'"
                                 :lang="'en'"
@@ -214,6 +218,7 @@
                               v-validate="'required'"
                               value-type="format"
                               name="end_year"
+                              :disabled="disableFields"
                               :typeable="true"
                               :type="'year'"
                               :lang="'en'"
@@ -230,13 +235,18 @@
                     </div>
                     <div class="row">
                       <button
+                        class="btn btn-primary mt-3"
                         type="submit"
-                        class="login_btn"
                       >
-                        {{ trans('Submit') }} <span><i
-                          class="fa fa-arrow-right"
-                          aria-hidden="true"
-                        /></span>
+                        {{ 'Update' }}
+                      </button>  
+                      <button
+                        ref="cancelButton"
+                        type="button"
+                        class="btn btn-white mt-3"
+                        @click="cancel"
+                      >
+                        {{ 'Cancel' }}
                       </button>
                     </div>
                   </form>
@@ -353,6 +363,7 @@ export default {
 	props: ['courseLevels','studentDetails', 'batches'],
 	data() {
 		return {
+			disableFields: false,
 			showLoader: false,
 			show_courses: false,
 			course_list: [],
@@ -430,6 +441,7 @@ export default {
 				};
 				this.show_courses=true;
 			}
+			this.disableFields = true;
 		}
 	},
 	methods: {
@@ -526,7 +538,7 @@ export default {
 				return false;
 			}
 			this.showLoader = true;
-			axios.post('/api/checkin', {
+			axios.post('/api/checkin/student', {
 				course_id: this.selected_course.id,
 				course_name: this.selected_course.course_name,
 				category_id: this.selected_course.category_id,
@@ -539,7 +551,7 @@ export default {
 			}).then((resp) => {
 				this.showLoader = false;
 				if (resp.data.success) {
-					swal.successDialog('Check-In', 'Success!', 'success');
+					swal.successDialog('Details updated', '', 'success');
 					window.location.href = resp.data.success.redirectUrl;
 				}
 			}).catch(() => {
@@ -576,6 +588,9 @@ export default {
 				break;
 			}
 		},
+		cancel(){
+			window.location.href='/classrooms';
+		}
 	},
 };
 
