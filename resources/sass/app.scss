@@ -2290,6 +2290,7 @@ p.answer_like {
 }
 .header_mobile_login {
     width: 100%;
+    background-color:gray
 }
 .header_mobile_login ul {
     display: flex;
@@ -2317,7 +2318,9 @@ div#preview img {
     width: 34%;
     height: 250px;
 }
-
+.dropdown-toggle::after{
+    display: none;
+}
 .dash_search .dropdown-toggle::after
 {
     display: none;
