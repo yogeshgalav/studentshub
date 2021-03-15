@@ -38,128 +38,30 @@
         type="button"
         size="lg"
         name="Join Classroom"
-        @submit="$modal.show('join_classroom_modal')"
+        data-toggle="modal"
+        data-target="#joinClassroomModal"
+        @submit="joinClassroomModal"
       />
       <modal
-        name="join_classroom_modal"
-        class="doubt_model"
+        ref="joinClassroomModal"
+        name="joinClassroomModal"
+        heading="Join Classroom"
+        @submit="joinClassroom"
       >
-        <form @submit.prevent="joinClassroom">
-          <div class="model_box_inner card p-0">
-            <div class="card-header">
-              <div class="edit_profile_head">
-                <h4>Join Classroom</h4>
-              </div> 
+        <template slot="modalBody">
+          <form>
+            <div class="model_input">
+              <label class="text-gray">Enter Classroom Name</label>
+              <input
+                v-model="join_classroom_name"
+                type="text"
+                class="form-control uc"
+              >
+              <span class="error">{{ id_error }}</span>
             </div>
-            <div class="row card-body">
-              <div class="col-md-12">
-                <div class="model_input">
-                  <label class="text-gray">Enter Classroom Name</label>
-                  <input
-                    v-model="join_classroom_name"
-                    type="text"
-                    class="form-control"
-                  >
-                  <span class="error">{{ id_error }}</span>
-                </div>
-              </div>
-              <div class="col-md-12">
-                <div class="model_btn">
-                  <button
-                    type="submit"
-                    class="btn btn-primary"
-                  >
-                    Request
-                  </button>
-                  <button
-                    type="button"
-                    class="btn btn-danger"
-                    @click="$modal.hide('join_classroom_modal')"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
+          </form>
+        </template>
       </modal>
-    </div>
-    <div v-if="myClassrooms.length">
-      <div class="row">
-        <div class="col-md-12 mt-3">
-          <h3>My Classrooms </h3>
-          <hr>
-        </div>
-      </div>
-      <div class="row">
-        <div
-          v-for="(classroom,index) in myClassrooms"
-          :key="index"
-          class="col-md-4"
-        >
-          <div class="clas_roo_main_box">
-            <div class="cl_box_top">
-              <p>{{ classroom.classroom_join_id }}</p>
-            </div>
-            <a
-              :href="'/classroom/'+classroom.id"
-              class="classroom_box"
-            >
-              <div class="clss_username">
-                <p>
-                  <img
-                    src="/images/Group.svg"
-                    alt=""
-                  >
-                </p>
-                <h5 class="mt-3">{{ classroom.teacher_name }}</h5>
-              </div>
-              <div class="classroom_content">
-                <p>{{ classroom.subject_name }} <br> <span>{{ classroom.name }}</span></p>
-               
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div v-if="classroomList.length">
-      <div class="col-md-12 mt-3">
-        <h3>Joined Classrooms </h3>
-        <hr>
-      </div>
-      <div class="row">
-        <div
-          v-for="(classroom,index) in classroomList"
-          :key="index"
-          class="col-md-4"
-        >
-          <div class="clas_roo_main_box">
-            <div class="cl_box_top">
-              <p>{{ classroom.classroom_join_id }}</p>
-            </div>
-            <a
-              :href="'/classroom/'+classroom.id"
-              class="classroom_box"
-            >
-              <div class="clss_username">
-                <p>
-                  <img
-                    src="/images/Group.svg"
-                    alt=""
-                  >
-                </p>
-                <h5 class="mt-3">{{ classroom.teacher_name }}</h5>
-              </div>
-              <div class="classroom_content">
-                <p>{{ classroom.subject_name }} <br> <span>{{ classroom.name }}</span></p>
-               
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </template>
@@ -182,14 +84,17 @@ color:#333;
   font-size: 16px;
   font-weight: normal;
 }
+.uc{
+  text-transform:uppercase;
+}
 </style>
 <script>
-import VModal from 'vue-js-modal';
+import Modal from '../../components/VueNiceModal';
 import swal from '../../components/swal';
 import AddButton from '../../components/AddButton';
 export default {
 	components:{
-		VModal,
+		Modal,
 		AddButton
 	},
 	props: ['myClassrooms', 'classroomList'],
@@ -206,7 +111,7 @@ export default {
 			this.axios.post('/api/classroom/join',{
 				name:this.join_classroom_name
 			}).then(()=>{
-				this.$modal.hide('join_classroom_modal');
+				this.$refs.joinClassroomModal.closeModal();
 				this.showLoader=false;
 				swal.successDialog('Classroom joined', 'Successfully!', 'success');
 				location.reload();

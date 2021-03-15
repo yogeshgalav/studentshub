@@ -70,6 +70,10 @@
           </div>
         </div>
       </div>
+      <like-component
+        :post="post"
+        likable-type="doubt"
+      />
     </div>
   </div>
 </template>
@@ -80,7 +84,7 @@ export default {
 	components: {
 		ProfileImage
 	},
-	props:['post'],
+	props:['post', 'likableType'],
 	methods:{
 		setPostView(post){
 			document.title = post.heading;
