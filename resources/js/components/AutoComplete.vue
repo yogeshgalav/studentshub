@@ -22,7 +22,7 @@
           v-if="isLoading"
           class="loading"
         >
-          {{ trans('loading...') }}
+          {{ ('loading...') }}
         </li>
         <li
           v-for="(currentResult, i) in results"
@@ -43,7 +43,7 @@
           class="autocomplete-result"
           @click="createNew"
         >
-          {{ trans('Create New') }}
+          {{ ('Create New') }}
         </li>
       </ul>
     </transition>
@@ -158,9 +158,6 @@ export default {
 		document.removeEventListener('click', this.handleClickOutside);
 	},
 	methods: {
-		trans: function(string, defaultString) {
-			return this.$trans('auth', string, defaultString);
-		},
 		onChange() {
 			if(this.isAsync===false){
 				this.results = this.results.filter(node=>node.name.indexOf(this.search) !== -1);

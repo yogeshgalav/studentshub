@@ -11,7 +11,10 @@
                     <p class="username">{{$AuthUser->full_name}}</p>
                     </div>
             </div>
-            <a href="/education-details" class="center-block ml-3 mt-1"><i class="fa fa-graduation-cap ml-2"> </i> Education Details</a>
+            <p><a href="/education-details" class="center-block ml-3 mt-1">Education Details</a></p>
+            <p><a href="/contactus" class="center-block ml-3 mt-1">Contactus</a></p>
+            <p><a href="/faq" class="center-block ml-3 mt-1">FAQ</a></p>
+            <p><a href="/feedback" class="center-block ml-3 mt-1">Feedback</a></p>
             <div class="dropdown-divider"></div>
       <a href="/logout" class="center-block ml-3 mt-1 btn btn-sm btn-default logout_btn">Logout</a>
     </div>
