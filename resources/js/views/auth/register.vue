@@ -28,7 +28,7 @@
               <div class="card_body">
                 <div class="row justify-content-center">
                   <div class="col-md-12">
-                    <form 
+                    <form
                       id="register_form"
                       name="register"
                       method="POST"
@@ -50,13 +50,6 @@
                           class="form-control"
                           name="_token"
                           :value="csrfToken"
-                        >
-                        <input
-                          id="token"
-                          type="hidden"
-                          class="form-control"
-                          name="join_id"
-                          :value="join_id"
                         >
                       </div>
                       <div class="form-group">
@@ -147,6 +140,47 @@
                         </div>
                       </div>
 
+
+                      <div class="form-group">
+                        <div
+                          style="display: flex; justify-content: space-between; align-items: center;"
+                          @click="joinIdInfoVisible = !joinIdInfoVisible"
+                        >
+                          <label> {{ 'Join Id (optional)' }} </label>
+                          <i
+                            class="fa fa-exclamation-circle"
+                            aria-hidden=""
+                          />
+                        </div>
+                        <div
+                          v-if="joinIdInfoVisible"
+                          style="display: flex; justify-content: flex-end;"
+                          class="data"
+                        >
+                          <p class="on-hover text-grey">
+                            Join id is provide by teacher to students to join classroom directly with correct education details. Ignore this field if you are a teacher or institute.
+                          </p>
+                        </div>
+
+                        <div class="inner-addon left-addon">
+                          <div class="input_icon_frm">
+                            <span class="icon_design_input"><i
+                              class="fa fa-user"
+                            /></span>
+                            <input
+                              id="join_id"
+                              v-model="join_id"
+                              type="text"
+                              class="form-control"
+                              name="join_id"
+                              placeholder="Classroom Join ID"
+                              autofocus
+                            >
+                          </div>
+                          <span class="error">{{ errors.first('join_id') }}</span>
+                        </div>
+                      </div>
+
                       <div class="form-group mb-0">
                         <div class="login_btn_part">
                           <button
@@ -179,7 +213,7 @@
               :to="'/membership-plan'"
               class="font-size-40 text-black weight-800 mb-2 line-height-25-px text-center"
             >
-              {{ trans('New Institute or Teacher?') }} 
+              {{ trans('New Institute or Teacher?') }}
             </router-link>
           </div>
         </div>
@@ -192,7 +226,16 @@
         position: relative;
         top: 15%;
     }
-
+    .fa-exclamation-circle{
+        cursor: pointer;
+    }
+    .fa-exclamation-circle:hover{
+        color: blue;
+    }
+    /* .on-hover{
+        width: 300px;
+        font-size: 13px;
+    } */
     .register .btn {
         width: 100%;
         border-radius: 0;
@@ -239,6 +282,7 @@
 import FormMixin from '../../components/mixins/form-mixin.js';
 import swal from '../../components/swal';
 
+
 export default {
 	mixins: [FormMixin],
 	props:['emailError'],
@@ -249,6 +293,7 @@ export default {
 			email: '',
 			password: '',
 			join_id: '',
+			joinIdInfoVisible: false,
 			dict: {
 				custom: {
 					full_name: {
@@ -270,7 +315,7 @@ export default {
 		};
 	},
 	mounted(){  
-		this.join_id = this.$route.query.joinId ? this.$route.query.joinId : '';
+		this.join_id = this.$route.params.joinId;
 		this.$validator.localize('en', this.dict);
 	},
 	methods: {
@@ -289,4 +334,5 @@ export default {
 		},
 	}
 };
+
 </script>

@@ -5,7 +5,7 @@
         <div class="col-md-6 mt-100 p-2">
           <div class="card">
             <div class="card-header">
-              {{ 'Reset Password' }}
+              {{ "Reset Password" }}
             </div>
 
             <div class="card-body">
@@ -14,20 +14,22 @@
                   <label
                     for="password"
                     class="col-md-4 col-form-label text-md-right"
-                  >{{ 'Password' }}</label>
+                  >{{ "Password" }}</label>
 
                   <div class="col-md-6">
                     <input
                       id="password"
                       ref="password"
                       v-model="password"
-                      v-validate="'required|min:8'"
+                      v-validate="'required|min:6'"
                       type="password"
                       class="form-control"
                       name="password"
                       autocomplete
                     >
-                    <span class="error">{{ errors.first('password') }}</span>
+                    <span class="error">{{
+                      errors.first("password")
+                    }}</span>
                   </div>
                 </div>
                 <div class="form-group row">
@@ -40,12 +42,16 @@
                     <input
                       id="confirm-password"
                       v-model="confirm_password"
-                      v-validate="'required|confirmed:password'"
+                      v-validate="
+                        'required|confirmed:password'
+                      "
                       type="password"
                       class="form-control"
                       name="confirm-password"
                     >
-                    <span class="error">{{ errors.first('confirm-password') }}</span>
+                    <span class="error">{{
+                      errors.first("confirm-password")
+                    }}</span>
                   </div>
                 </div>
                 <div class="form-group row mb-0">
@@ -54,7 +60,7 @@
                       type="submit"
                       class="btn btn-primary"
                     >
-                      {{ 'Reset Password' }}
+                      {{ "Reset Password" }}
                     </button>
                   </div>
                 </div>
@@ -68,43 +74,44 @@
 </template>
 <style scoped>
 .mt-100 {
-  margin-top: 200px;
+    margin-top: 200px;
 }
 </style>
 <script>
 import Vue from 'vue';
-import VeeValidate  from 'vee-validate';
-
+import VeeValidate from 'vee-validate';
 Vue.use(VeeValidate);
-
 export default {
-	components:{
+	components: {
 		VeeValidate
 	},
-	props:['token'],
-	data(){
-		return{
-			password:'',
-			confirm_password:'',
+	props: ['token'],
+	data() {
+		return {
+			password: '',
+			confirm_password: ''
 		};
 	},
-	methods:{
-		handleSubmit(){
+	methods: {
+		handleSubmit() {
 			this.$validator.validate().then(valid => {
 				if (valid) {
-					let api_path= '/api/reset-password';
-					api_path = this.token ? (api_path+'/'+this.token) : api_path;
-					this.axios.post(api_path,{
-						password:this.password,
-						confirm_password:this.confirm_password
-					}).then((resp)=>{
-						window.location.href = this.token ? '/' : '/login';
-					}).catch((err)=>{
-
-					});
+					let api_path = '/api/reset-password';
+					api_path = this.token
+						? api_path + '/' + this.token
+						: api_path;
+					this.axios
+						.post(api_path, {
+							password: this.password,
+							confirm_password: this.confirm_password
+						})
+						.then(resp => {
+							window.location.href = this.token ? '/' : '/login';
+						})
+						.catch(err => {});
 				}
 			});
-		},
-	} 
+		}
+	}
 };
 </script>
