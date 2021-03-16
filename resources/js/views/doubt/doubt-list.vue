@@ -56,7 +56,10 @@
             <div class="doubt_lsit">
               <div class="dashboard_post">
                 <div class="avatar doubt_user_img">
-                  <profile-image :post="doubt" />
+                  <profile-image
+                    :user-name="doubt.user_name"
+                    :avatar="doubt.profile_image"
+                  />
                   <!-- <span>Y</span> -->
                 </div>
                 <div class="info-post ml-2 dash_insititue_name">
@@ -223,7 +226,6 @@
 import Modal from '../../components/VueNiceModal.vue';
 import Loading from 'vue-loading-overlay';
 import AutoComplete from '../../components/AutoComplete.vue';
-import ProfileImage from '../post/ProfileImage';
 
 
 export default {
@@ -231,7 +233,7 @@ export default {
 		Modal,
 		Loading,
 		AutoComplete,
-		ProfileImage
+	
 	},
 	props:['classroomId','subjectId','categories'],
 	data()

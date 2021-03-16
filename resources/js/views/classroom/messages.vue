@@ -45,9 +45,12 @@
               <div class="card-body">
                 <div class="dashboard_post">
                   <div class="avatar">
-                    <profile-image :post="message" />
+                    <profile-image
+                      :avatar="message.avatar_url"
+                      :user-name="message.user_name"
+                    />
                   </div>
-                  <div class="info-post ml-2 dash_insititue_name">
+                  <div class="info-post ml-2 dash_insititue_name"> 
                     <p class="usernamedash mb-0 dash_user_date">
                       {{ message.user_name }} <span> {{ message.time }}</span>
                     </p>
@@ -153,15 +156,14 @@
 <script>
 import FormMixin from '../../components/mixins/form-mixin.js';
 import AddButton from '../../components/AddButton';
-import ProfileImage from '../post/ProfileImage.vue';
 
+    
 import ClassroomHeader from '../../components/ClassroomHeader';
 
 export default {
 	components: {
 		AddButton,
 		ClassroomHeader,
-		ProfileImage,
 	},
 	mixins: [FormMixin],
 	props:['classrooms'],

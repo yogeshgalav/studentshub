@@ -12,7 +12,10 @@
           >
             <div>
               <div class="d-flex mt-2">
-                <profile-image :post="post" />
+                <profile-image
+                  :user-name="post.user_name"
+                  :avatar="post.profile_image"
+                />
                 <div class="info-post ml-2">
                   <p class="username mb-1">
                     {{ post.user_name }}
@@ -89,12 +92,8 @@
 </style>
 <script>
 import {mapState} from 'vuex';
-import ProfileImage from '../post/ProfileImage.vue';
 
 export default {
-	components:{
-		ProfileImage
-	},
 	computed:{
 		...mapState({
 			'posts': state=>state.guest.posts.HomePostContainer,

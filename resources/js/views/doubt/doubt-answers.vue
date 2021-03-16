@@ -9,7 +9,10 @@
                 v-if="doubt"
                 class="avatar doubt_user_img"
               >
-                <profile-image :post="doubt" />
+                <profile-image
+                  :user-name="doubt.user_name"
+                  :avatar="doubt.profile_image"
+                />
               </div>
               <div class="info-post ml-2 dash_insititue_name">
                 <p class="usernamedash mb-0 dash_user_date">
@@ -101,13 +104,13 @@ import { ImageDrop } from 'quill-image-drop-module';
 Quill.register('modules/imageDrop', ImageDrop);
 Quill.register('modules/imageResize', ImageResize);
 import DoubtCard from '../post/DoubtCard.vue';
-import ProfileImage from '../post/ProfileImage';
+
 
 export default {
 	components:{
 		VueEditor,
 		DoubtCard,
-		ProfileImage
+	
 	},
 	data() {
 		return {
