@@ -19,41 +19,31 @@ require_once('web/student.php');
 require_once('web/classroom.php');
 require_once('web/admin.php');
 require_once('web/institute.php');
-Route::get('/', 'PagesController@root');
-Route::get('/report', 'PagesController@report');
-Route::get('/privacy-policy', 'PagesController@privacyPolicy');
-Route::get('/terms-of-service', 'PagesController@termOfUse');
+Route::get('/', 'GuestController@root');
+Route::get('/report', 'GuestController@report');
+Route::get('/privacy-policy', 'GuestController@privacyPolicy');
+Route::get('/terms-of-service', 'GuestController@termOfUse');
 
 
-Route::get('/post-images/{filename}','PagesController@postImage');
-Route::get('/profile-images/{filename}','PagesController@profileImage');
+Route::get('/post-images/{filename}','GuestController@postImage');
+Route::get('/profile-images/{filename}','GuestController@profileImage');
 
-
-// Notifications
-Route::get('notifications', 'NotificationController@index');
-Route::patch('notifications/{id}/read', 'NotificationController@markAsRead');
-Route::post('notifications/mark-all-read', 'NotificationController@markAllRead');
-Route::post('notifications/{id}/dismiss', 'NotificationController@dismiss');
-
-// Push Subscriptions
-Route::post('subscriptions', 'PushSubscriptionController@update');
-Route::post('subscriptions/delete', 'PushSubscriptionController@destroy');
 //get image files
-Route::get('/storage/{filename}', function ($filename)
-{
-    $path = storage_path('public/' . $filename);
-    if (!File::exists($path)) {
-        abort(404);
-    }
+// Route::get('/storage/{filename}', function ($filename)
+// {
+//     $path = storage_path('public/' . $filename);
+//     if (!File::exists($path)) {
+//         abort(404);
+//     }
 
-    $file = File::get($path);
-    $type = File::mimeType($path);
+//     $file = File::get($path);
+//     $type = File::mimeType($path);
 
-    $response = Response::make($file, 200);
-    $response->header("Content-Type", $type);
+//     $response = Response::make($file, 200);
+//     $response->header("Content-Type", $type);
 
-    return $response;
-});
+//     return $response;
+// });
 // Manifest file (optional if VAPID is used)
 Route::get('manifest.json', function () {
     return [

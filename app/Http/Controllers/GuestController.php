@@ -3,97 +3,93 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Guest;
-use App\Models\Subscriber;
-use App\Models\MemberRequest;
-use App\Mails\SubscriptionFirstMail;
-use Mail;
-use DB;
-use Illuminate\Support\Facades\Log;
-use App\Models\Faq;
 use Auth;
-use App\Models\Feedback;
-use App\Models\Contactus;
 
 class GuestController extends Controller
 {
     //
-    public function update(Request $request)
+
+    public function loginPage()
     {
-        $email=$request->input('email');
-        DB::beginTransaction();
-    try{
-        $guest=Guest::where('ip',$request->ip())->first();
-        $subcriber=new Subscriber;
-        $subcriber->email=$email;
-        $subcriber->guest_id=$guest_id;
-        $subcriber->save();
-
-        Mail::to($email)->send(new SubscriptionFirstMail());
-        DB::commit();
-        } catch (\Exception $e) {
-            DB::rollback();
-            Log::critical('user subscription failure: for email id#'.$email);
-            // dd($e->getMessage(),$e->getLine());
-            return response()->$e;
-        }
-        return 'success';
+        return view('guest.auth.login');
     }
-
-    public function memberRequest(Request $request){
-        $member =new MemberRequest;
-        $member->full_name = $request->full_name;
-        $member->email = $request->email;
-        $member->phone_no = $request->phone_no;
-        $member->institute_name = $request->institute_name;
-        $member->total_students = $request->students;
-        $member->save();
-        Log::critical('New member request with details.',['member'=>$member]);
-        return response()->json([],204);
-    }
-
-    public function feedback(Request $request)
+    public function membershipPlan()
     {
-        Feedback::create([
-            'email'=>$request->email,
-            'user_id'=>Auth::id() ?? null,
-            'description'=>$request->feedback,
-        ]);
-        return response()->json([],204);
+        return view('guest.membership-plan');
+    }
+    public function forgotPasswordPage()
+    {
+        return view('guest.auth.forgot-password');
+    }
+    public function registerPage()
+    {
+        return view('guest.auth.register');
     }
 
     public function feedbackPage()
     {
         return view('guest.feedback');
     }
-
-    public function contactus(Request $request)
-    {
-        Contactus::create([
-            'name'=>$request->name,
-            'email'=>$request->email,
-            'description'=>$request->description,
-        ]);
-        return response()->json([],204);
-    }
-
-    public function contactusPage()
-    {
+    public function contactusPage(){
         return view('guest.contactus');
     }
-
-    public function faq(Request $request)
-    {
-        // dd($request->email,$request->quer);
-        Faq::create([
-            'email'=>$request->email,
-            'query'=>$request->quer,
-        ]);
-        return response()->json([], 204);
-    }
-    
     public function faqPage(){
         $faq = Faq::where('answer','!=', null)->get();
         return view('guest.faq')->with('faqs',$faq);
+    }
+
+    public function privacyPolicy(){
+        return view('guest.privacy-policy');
+    }
+    public function termOfUse(){
+        return view('guest.term-of-use');
+    }
+    public function viewPost()
+    {
+        if (Auth::check()) {
+            return view('seeker.post-view');
+        }
+        return view('guest.post-view');
+    }
+    public function coursePage()
+    {
+        return view('explore.course');
+    }
+    public function subjectPage()
+    {
+        return view('explore.subject');
+    }
+    public function categoryPage()
+    {
+        return view('explore.category');
+    }
+    public function postImage($filename)
+    {
+        $path = storage_path('/app/post-images/' . $filename);
+
+        if (!\File::exists($path)) {
+            abort(404);
+        }
+
+        return response()->file($path);
+    }
+
+    public function profileImage($filename)
+    {
+        $path = storage_path('app/profile-images/' . $filename);
+
+        if (!\File::exists($path)) {
+            abort(404);
+        }
+
+        return response()->file($path);
+    }
+    public function  root()
+    {
+        if (Auth::check()) {
+            return view('seeker.posts');
+        } else {
+            return view('guest.welcome');
+        }
     }
 }

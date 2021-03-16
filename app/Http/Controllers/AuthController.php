@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Mails\ResetPasswordMail;
 use App\Models\PasswordReset;
 use Illuminate\Http\Request;

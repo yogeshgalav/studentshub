@@ -376,7 +376,7 @@ export default {
      * @param {Number} limit
      */
 		fetch (limit = 5) {
-			axios.get('/notifications', { params: { limit } })
+			axios.get('/api/notifications', { params: { limit } })
 				.then(({ data: { total, notifications } }) => {
 					this.total = total;
 					this.notifications = notifications.map(({ id, data, created }) => {
@@ -402,7 +402,7 @@ export default {
 			if (index > -1) {
 				this.total--;
 				this.notifications.splice(index, 1);
-				axios.patch(`/notifications/${id}/read`);
+				axios.patch(`/api/notifications/${id}/read`);
 			}
 		},
 
@@ -413,7 +413,7 @@ export default {
 			this.total = 0;
 			this.notifications = [];
 
-			axios.post('/notifications/mark-all-read');
+			axios.post('/api/notifications/mark-all-read');
 		},
 
 		/**
