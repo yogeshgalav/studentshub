@@ -121,6 +121,7 @@ Vue.mixin({
 			'X-CSRF-TOKEN': this.csrfToken,
 			'X-Requested-With': 'XMLHttpRequest'
 		};
+		document.addEventListener('click', this.closeSidebar);
 	},
 	methods: {
 		'$trans':function(file,string,defaultString){
@@ -132,9 +133,15 @@ Vue.mixin({
 		toggleSidebar(e){
 			e.preventDefault();
 			document.documentElement.classList.toggle('openNav');
-			var menu = document.querySelector('.nav-toggle'); // Using a class instead, see note below.
-			menu.classList.toggle('active');
 		},
+		closeSidebar(e){
+			e.preventDefault();
+			var container = document.getElementById('sidebarContainer');
+			var container2 = document.getElementById('nav-toggle');
+			if (!container.contains(e.target) && !container2.contains(e.target) && document.documentElement.classList.contains('openNav')) {
+				document.documentElement.classList.remove('openNav');
+			}
+		}
 	}
 });
 
