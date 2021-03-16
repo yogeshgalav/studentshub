@@ -150,14 +150,14 @@
                     alt=""
                   > -->
                   <profile-image
-                    :post="{user_name:classroom.teacher_name}"
+                    :user-name="classroom.teacher_name"
+                    :size="large"
                   />
                 </p>
                 <h5
-                  class="
-                    mt-3"
+                  class="mt-3"
                 >{{ classroom.teacher_name }}</h5>
-                </profile-image></p></div>
+              </div>
               <div class="classroom_content">
                 <p>{{ classroom.subject_name }} <br> <span>{{ classroom.name }}</span></p>
               </div>
@@ -189,15 +189,14 @@ color:#333;
 }
 </style>
 <script>
-import VModal from 'vue-js-modal';
+// import VModal from 'vue-js-modal';
 import swal from '../../components/swal';
 import AddButton from '../../components/AddButton';
-import profileImage from '../post/ProfileImage';
+
 export default {
 	components:{
-		VModal,
+		// VModal,
 		AddButton,
-		profileImage
 	},
 	props: ['myClassrooms', 'classroomList'],
 	data(){

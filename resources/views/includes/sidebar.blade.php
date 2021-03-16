@@ -52,7 +52,15 @@
         <div class="overflow-container">
             <div class="row mb-2">
                 <div class="pl-3">
-                    <img src="{{asset('/images/default-avatar.png') }}" alt="Student'sHUB" width="40" class="pl-2"/>
+                    <!-- <img src="{{asset('/images/default-avatar.png') }}" alt="Student'sHUB" width="40" class="pl-2"/> -->
+                    @if(Auth::teacher())
+                    <profile-image :user-name="{{json_encode(Auth::teacher()->instituteName)}}" avatar="/images/default-avatar.png" size="small" />
+                    @elseif(Auth::student())
+                    <profile-image :user-name="{{json_encode(Auth::student()->instituteName)}}" avatar="/images/default-avatar.png" size="small" />
+                    @else
+                    <span class="sidebar_heading ml-1">Student's Hub </span>
+                    @endif
+                    
                 </div>
                 <div class="pl-1 pr-2">
                     @if(Auth::teacher())
