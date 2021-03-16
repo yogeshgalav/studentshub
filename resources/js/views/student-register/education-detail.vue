@@ -233,13 +233,13 @@
                       <span class="error">{{ formErrors('end_year') }}</span>
                       <span class="error">{{ yearError }}</span>
                     </div>
-                    <div class="row">
+                    <div class="row buttons">
                       <button
                         class="btn btn-primary mt-3"
                         type="submit"
                       >
                         {{ 'Update' }}
-                      </button>  
+                      </button>
                       <button
                         ref="cancelButton"
                         type="button"
@@ -269,14 +269,19 @@
         position: relative;
         width: 100%;
     }
-
+    .buttons{
+        display: flex;
+    justify-content: space-between;
+    margin: auto;
+    }
     .autocomplete input {
         border-radius: 0;
     }
 
     .register .btn {
-        width: 100%;
         border-radius: 0;
+        width: 45%;
+        padding: 10px 40px;
     }
 
     /* enable absolute positioning */
