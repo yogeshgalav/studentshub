@@ -270,4 +270,20 @@ class ClassroomController extends Controller
     public function classroomMessagePage(){
         return view('classroom.messages');
     }
+    public function GlobalMessagePage(){
+        $classrooms = \DB::table('classrooms')
+        ->leftJoin('teachers as tc',function($join){
+            $join->on('tc.id','=','classrooms.teacher_id')->where('user_id','=',Auth::id());
+        })
+        ->leftJoin('classroom_users as cu',function($join){
+            $join->on('cu.classroom_id','=','classrooms.id')->where('cu.user_id','=',Auth::id());
+        })
+        ->where('tc.id','!=',null)
+        ->orWhere('cu.id','!=',null)
+        ->select('classrooms.id','classrooms.name')
+        ->get();
+        
+        return view('classroom.global-messages')
+        ->with('classrooms',$classrooms);
+    }
 }

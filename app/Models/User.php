@@ -90,7 +90,9 @@ class User extends Authenticatable
         })
         ->count();
     }
-    
+    public function hasClassroom(){
+        return $this->joinedClassoomCount()>0 || $this->createdClassoomCount()>0;
+    }
     public function isInstituteMember(){
         return \DB::table('institute_users')
             ->where('user_id',$this->id)
