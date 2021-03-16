@@ -162,6 +162,7 @@ class ClassroomController extends Controller
 
     public function doubtAnswersPage(){
         return view('doubt.answer');
+    }
     public function GlobalMessagePage(){
         $classrooms = \DB::table('classrooms')
         ->leftJoin('teachers as tc',function($join){
