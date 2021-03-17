@@ -32,7 +32,7 @@ Vue.use(VModal, { dynamic: true, injectModalsContainer: true, scrollable:true })
 Vue.use(VueAxios, axios);
 Vue.component('NotificationsDropdown', require('../components/NotificationsDropdown.vue').default);
 
-//error tracking 
+//error tracking
 import * as Sentry from '@sentry/browser';
 import { Integrations } from '@sentry/tracing';
 if(window.App.mode==='production'){
@@ -138,7 +138,7 @@ Vue.mixin({
 			document.documentElement.classList.toggle('openNav');
 		},
 		closeSidebar(e){
-			e.preventDefault();
+			//e.preventDefault();
 			var container = document.getElementById('sidebarContainer');
 			var container2 = document.getElementById('nav-toggle');
 			if (!container.contains(e.target) && !container2.contains(e.target) && document.documentElement.classList.contains('openNav')) {

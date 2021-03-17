@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="profileImage">
     <div
       v-if="avatar"
       class="avatar"
@@ -8,11 +8,11 @@
         v-lazy="avatar"
         class="card-img-top img-responsive"
         alt="Card image cap"
+        style="border-radius: 50%;"
       >
     </div>
     <div
       v-if="!avatar"
-      id="profileImage"
     >
       {{ getNameImage(userName) }}
     </div>

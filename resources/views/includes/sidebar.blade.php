@@ -50,7 +50,7 @@
 
 
         <div class="overflow-container" id="sidebarContainer">
-            <div class="row mb-2">
+            <div class="row mb-2" style="margin-left: -7px; align-items: center;">
                 <div class="pl-3">
                     <!-- <img src="{{asset('/images/default-avatar.png') }}" alt="Student'sHUB" width="40" class="pl-2"/> -->
                     @if(Auth::teacher())
@@ -60,15 +60,15 @@
                     @else
                     <span class="sidebar_heading ml-1">Student's Hub </span>
                     @endif
-                    
+
                 </div>
                 <div class="pl-1 pr-2">
                     @if(Auth::teacher())
-                    <span class="sidebar_heading ml-1">{{ Auth::teacher()->instituteName }} </span>
+                    <span class="sidebar_heading ml-1" style="font-weight: 600">{{ Auth::teacher()->instituteName }} </span>
                     @elseif(Auth::student())
-                    <span class="sidebar_heading ml-1">{{ Auth::student()->instituteName }} </span>
+                    <span class="sidebar_heading ml-1" style="font-weight: 600">{{ Auth::student()->instituteName }} </span>
                     @else
-                    <span class="sidebar_heading ml-1">Student's Hub </span>
+                    <span class="sidebar_heading ml-1" style="font-weight: 600">Student's Hub </span>
                     @endif
                 </div>
             </div>
@@ -84,7 +84,7 @@
                 {{-- <li> <a href="/course/{{Auth::student()->courseUrl}}" class="{{\App\Facades\Sthub::currentTab(Auth::student()->courseUrl) ? 'active' : ''}}"> <span class="icon"><img src="{{asset('/images/home.png') }}" alt="Student'sHUB" width="20"/></span> My Course</a></li> --}}
                 @endif
             @if(Auth::user()->hasClassroom())
-            <li> <a href="/messages" class="{{\App\Facades\Sthub::currentTab('messages') ? 'active' : ''}}"><span class="icon"><i class="far fa-comment-alt"></i></span> Messages </a></li>
+            <li> <a href="/messages" class="{{\App\Facades\Sthub::currentTab('messages') ? 'active' : ''}}"><i class="far fa-comment-alt sidebar" aria-hidden="true"></i><span class="text"> Messages </span></a></li>
             @endif
                 <li> <a href="/profile/{{Auth::id()}}"  class="{{\App\Facades\Sthub::currentTab('profile') ? 'active' : ''}}"> <span class="icon"><img src="{{asset('/images/user.png') }}" alt="Student'sHUB" width="20"/></span> Profile</a></li>
 
