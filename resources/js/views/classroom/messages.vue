@@ -59,6 +59,22 @@
                 <hr>
                 <p>{{ message.content }}</p>
               </div>
+              <div class="card-body">
+                <div class="reply">
+                  <div class="avatar">
+                    <profile-image :avatar="messages.avatar_url" />
+                  </div>
+                  <div class="info-post ml-2 dash_institute_name">
+                    <p
+                      v-for="replies in message.replies"
+                      :key="replies.id"
+                      class="usernamedash mb-0 dash_user_date"
+                    >
+                      {{ replies.content }} <span>{{ replies.sender.full_name }}</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
               <div
                 class="mb-2"
                 style="padding-left: inherit;"
@@ -68,6 +84,7 @@
                   placeholder="Reply to this message"
                   class="col-11"
                   style="font-size: 20px; border-radius: 20px; border: 0; margin-right: 20px; outline: none; box-shadow: #80808069 2px 2px 2px, #80808094 2px 2px 2px inset;"
+                  @keyup.enter="saveReply($event, message)"
                 >
                 <i
                   class="fa fa-paper-plane ml-2"
@@ -168,14 +185,14 @@
 </template>
 <script>
 import FormMixin from '../../components/mixins/form-mixin.js';
-import AddButton from '../../components/AddButton';
+// import AddButton from '../../components/AddButton';
 import ProfileImage from '../post/ProfileImage.vue';
 
 import ClassroomHeader from '../../components/ClassroomHeader';
 
 export default {
 	components: {
-		AddButton,
+		// AddButton,
 		ClassroomHeader,
 		ProfileImage,
 	},
@@ -211,6 +228,20 @@ export default {
 		},
 		addMessage() {
 			this.$modal.show('addMessageModal');
+		},
+		saveReply(e, message){
+			console.log(e);
+			console.log(message); 
+			this.$validator.validate().then((valid) => {
+        	if(valid){
+					this.axios.post('/api/add-message',
+						{
+							parent_message_id:message.id,
+							content:e.target.value,
+							classroom_id:message.classroom_id,
+						});
+				}
+			});
 		},
 		saveMessage() {
 			this.$validator.validate().then((valid) => {

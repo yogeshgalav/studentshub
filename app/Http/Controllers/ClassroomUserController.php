@@ -61,10 +61,10 @@ class ClassroomUserController extends Controller
     }
 
     public function listmessage($classroomId = null){
-        $messagequery = ClassroomMessage::
-        leftJoin('users as us','us.id','=','classroom_messages.sender_user_id')
+        $messagequery = ClassroomMessage::where('parent_message_id','=',null)
+        ->leftJoin('users as us','us.id','=','classroom_messages.sender_user_id')
         ->leftJoin('classrooms as cs','cs.id','=','classroom_messages.classroom_id')
-        ->select('classroom_messages.content','classroom_messages.created_at','us.full_name as user_name','us.avatar_url','cs.name as classroom_name');
+        ->select('classroom_messages.classroom_id', 'classroom_messages.id','classroom_messages.content','classroom_messages.created_at','us.full_name as user_name','us.avatar_url','cs.name as classroom_name');
         if($classroomId)
         {
             $messagequery = $messagequery->where('classroom_id',$classroomId);
@@ -83,7 +83,7 @@ class ClassroomUserController extends Controller
             
             $messagequery = $messagequery->whereIn('classroom_id',$classroomIdArray);
         }
-        $messages = $messagequery->orderBy('classroom_messages.created_at','DESC')->get();
+        $messages = $messagequery->with('replies.sender')->orderBy('classroom_messages.created_at','DESC')->get();
 
         foreach($messages as $message){
             $message->time = Carbon::createFromTimeStamp(strtotime($message->created_at))->diffForHumans();
@@ -99,6 +99,7 @@ class ClassroomUserController extends Controller
             'sender_user_id'=>Auth::id(),
             'classroom_id'=>$classroom->id,
             'content'=>$request->content,
+            'parent_message_id'=>$request->parent_message_id,
         ]);
 
         // \Notification::send($classroom->users,new MessageAdded);
