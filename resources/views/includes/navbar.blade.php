@@ -49,12 +49,14 @@
         <li class="nav-item  search_box">
           @include('includes.search-form')
         </li>
-        <li class="nav-item">
+        <div class="nav-login-get-started">
+        <li class="nav-item nav-login">
           <router-link class="btn btn-link text-blue" :to="'/login'">Login</router-link>
         </li>
         <li class="nav-item">
-          <router-link class="btn btn-primary weight-400" :to="'/get-started'">Get Started <i class="fas fa-arrow-right text-white"></i> </router-link>
+          <router-link class="btn btn-primary weight-400" :to="'/get-started'">Get Started <i class="fas fa-arrow-right text-white"></i></router-link>
         </li>
+        </div>
       </ul>
     </div>
 </nav>
