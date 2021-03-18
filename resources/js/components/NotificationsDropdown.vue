@@ -1,34 +1,37 @@
 <template>
-    <div style="width:20px;">
-        <div class="btn-group dropdown dropdown-notifications sw-open">
-            <button
-                class="btn dropdown-toggle border-radius-12 custom-pad"
-                data-toggle="dropdown"
-            >
-                <i class="far fa-bell notification-icon" />
-            </button>
+  <div style="width:20px;">
+    <div class="btn-group dropdown dropdown-notifications sw-open">
+      <button
+        class="btn dropdown-toggle border-radius-12 custom-pad"
+        data-toggle="dropdown"
+      >
+        <i class="far fa-bell notification-icon" />
+      </button>
 
-            <div class="dropdown-container">
-                <ul class="dropdown-menu notifications mobile_hide">
-                    <notification
-                        v-for="notification in notifications"
-                        :key="notification.id"
-                        :notification="notification"
-                        @read="markAsRead(notification)"
-                    />
-                    <li v-if="!notifications.length" class="notification">
-                        <div class="media">
-                            <div class="media-body">
-                                <p class="notification-desc">
-                                    There is not notification
-                                </p>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+      <div class="dropdown-container">
+        <ul class="dropdown-menu notifications mobile_hide">
+          <notification
+            v-for="notification in notifications"
+            :key="notification.id"
+            :notification="notification"
+            @read="markAsRead(notification)"
+          />
+          <li
+            v-if="!notifications.length"
+            class="notification"
+          >
+            <div class="media">
+              <div class="media-body">
+                <p class="notification-desc">
+                  There is not notification
+                </p>
+              </div>
             </div>
-        </div>
+          </li>
+        </ul>
+      </div>
     </div>
+  </div>
 </template>
 <style scoped>
 /*!
@@ -340,134 +343,134 @@ a.notification:hover {
 }
 </style>
 <script>
-import $ from "jquery";
-import axios from "axios";
-import Notification from "./Notification";
+import $ from 'jquery';
+import axios from 'axios';
+import Notification from './Notification';
 
 export default {
-    components: { Notification },
+	components: { Notification },
 
-    data: () => ({
-        total: 0,
-        notifications: []
-    }),
+	data: () => ({
+		total: 0,
+		notifications: []
+	}),
 
-    computed: {
-        hasUnread() {
-            return this.total > 0;
-        }
-    },
+	computed: {
+		hasUnread() {
+			return this.total > 0;
+		}
+	},
 
-    mounted() {
-        this.fetch();
+	mounted() {
+		this.fetch();
 
-        if (window.Echo) {
-            this.listen();
-        }
+		if (window.Echo) {
+			this.listen();
+		}
 
-        this.initDropdown();
-    },
+		this.initDropdown();
+	},
 
-    methods: {
-        /**
+	methods: {
+		/**
          * Fetch notifications.
          *
          * @param {Number} limit
          */
-        fetch(limit = 5) {
-            axios
-                .get("/api/notifications", { params: { limit } })
-                .then(({ data: { total, notifications } }) => {
-                    this.total = total;
-                    this.notifications = notifications.map(
-                        ({ id, data, created }) => {
-                            return {
-                                id: id,
-                                title: data.title,
-                                body: data.body,
-                                created: created,
-                                action_url: data.action_url
-                            };
-                        }
-                    );
-                });
-        },
+		fetch(limit = 5) {
+			axios
+				.get('/api/notifications', { params: { limit } })
+				.then(({ data: { total, notifications } }) => {
+					this.total = total;
+					this.notifications = notifications.map(
+						({ id, data, created }) => {
+							return {
+								id: id,
+								title: data.title,
+								body: data.body,
+								created: created,
+								action_url: data.action_url
+							};
+						}
+					);
+				});
+		},
 
-        /**
+		/**
          * Mark the given notification as read.
          *
          * @param {Object} notification
          */
-        markAsRead({ id }) {
-            const index = this.notifications.findIndex(n => n.id === id);
+		markAsRead({ id }) {
+			const index = this.notifications.findIndex(n => n.id === id);
 
-            if (index > -1) {
-                this.total--;
-                this.notifications.splice(index, 1);
-                axios.patch(`/api/notifications/${id}/read`);
-            }
-        },
+			if (index > -1) {
+				this.total--;
+				this.notifications.splice(index, 1);
+				axios.patch(`/api/notifications/${id}/read`);
+			}
+		},
 
-        /**
+		/**
          * Mark all notifications as read.
          */
-        markAllRead() {
-            this.total = 0;
-            this.notifications = [];
+		markAllRead() {
+			this.total = 0;
+			this.notifications = [];
 
-            axios.post("/api/notifications/mark-all-read");
-        },
+			axios.post('/api/notifications/mark-all-read');
+		},
 
-        /**
+		/**
          * Listen for Echo push notifications.
          */
-        listen() {
-            window.Echo.private("App.User." + AuthUser.id)
-                .notification(notification => {
-                    this.total++;
-                    this.notifications.unshift(notification);
-                })
-                .listen("NotificationRead", ({ notificationId }) => {
-                    this.total--;
+		listen() {
+			window.Echo.private('App.User.' + AuthUser.id)
+				.notification(notification => {
+					this.total++;
+					this.notifications.unshift(notification);
+				})
+				.listen('NotificationRead', ({ notificationId }) => {
+					this.total--;
 
-                    const index = this.notifications.findIndex(
-                        n => n.id === notificationId
-                    );
-                    if (index > -1) {
-                        this.notifications.splice(index, 1);
-                    }
-                })
-                .listen("NotificationReadAll", () => {
-                    this.total = 0;
-                    this.notifications = [];
-                });
-        },
+					const index = this.notifications.findIndex(
+						n => n.id === notificationId
+					);
+					if (index > -1) {
+						this.notifications.splice(index, 1);
+					}
+				})
+				.listen('NotificationReadAll', () => {
+					this.total = 0;
+					this.notifications = [];
+				});
+		},
 
-        /**
+		/**
          * Initialize the notifications dropdown.
          */
-        initDropdown() {
-            const dropdown = $(this.$refs.dropdown);
+		initDropdown() {
+			const dropdown = $(this.$refs.dropdown);
 
-            $(document).on("click", e => {
-                if (
-                    !dropdown.is(e.target) &&
+			$(document).on('click', e => {
+				if (
+					!dropdown.is(e.target) &&
                     dropdown.has(e.target).length === 0 &&
                     !$(e.target)
-                        .parent()
-                        .hasClass("notification-mark-read")
-                ) {
-                    dropdown.removeClass("open");
-                }
-            });
-        },
+                    	.parent()
+                    	.hasClass('notification-mark-read')
+				) {
+					dropdown.removeClass('open');
+				}
+			});
+		},
 
-        /**
+		/**
          * Toggle the notifications dropdown.
          */
-        toggleDropdown() {
-            $(this.$refs.dropdown).toggleClass("open");
-        }
-    }
+		toggleDropdown() {
+			$(this.$refs.dropdown).toggleClass('open');
+		}
+	}
 };
 </script>
