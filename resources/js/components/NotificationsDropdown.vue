@@ -130,7 +130,7 @@
 }
 @media (max-width: 500px) {
     .notification-icon {
-        font-size: 23px;
+        font-size: 25px;
     }
 }
 @media (min-width: 992px) {
