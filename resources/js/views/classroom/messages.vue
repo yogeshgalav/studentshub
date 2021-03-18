@@ -60,11 +60,11 @@
                 <p>{{ message.content }}</p>
               </div>
               <div class="card-body">
-                <div class="reply">
-                  <div class="avatar">
-                    <profile-image :avatar="messages.avatar_url" />
-                  </div>
-                  <div class="info-post ml-2 dash_institute_name">
+                <div class="dashboard_post">
+                  <!-- <div class="avatar">
+                    <profile-image :post="message" />
+                  </div> -->
+                  <div class="info-post ml-2 dash_insititue_name">
                     <p
                       v-for="replies in message.replies"
                       :key="replies.id"
