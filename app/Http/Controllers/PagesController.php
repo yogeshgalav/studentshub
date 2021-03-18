@@ -67,7 +67,15 @@ class PagesController extends Controller
     {
         $course_levels = CourseLevel::get();
         $student = Auth::student();
-        return view('student-register.student-register')
+        return view('user-onboarding.checkin')
+            ->with('student_details', $student)
+            ->with('course_levels', $course_levels);
+    }
+    public function educationDetail()
+    {
+        $course_levels = CourseLevel::get();
+        $student = Auth::student();
+        return view('user-onboarding.education-detail')
             ->with('student_details', $student)
             ->with('course_levels', $course_levels);
     }
@@ -141,6 +149,17 @@ class PagesController extends Controller
         
         return view('institute.institute')
         ->with('instituteId',$instituteId ?? $institute->institute_id);
+    }
+    public function seeker()
+    {
+        $user = Auth::user();
+        if($user && empty($user->onboarded_at)){
+            $user->role_intended = 'seeker';
+            $user->onboarded_at = \Carbon\Carbon::now()->toDateTimeString();
+            $user->save();
+        }
+
+        return redirect('/');
     }
 
     //     {

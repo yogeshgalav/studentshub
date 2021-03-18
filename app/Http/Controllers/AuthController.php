@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Mails\ResetPasswordMail;
 use App\Models\PasswordReset;
 use Illuminate\Http\Request;
@@ -131,18 +130,20 @@ class AuthController extends Controller
                 'full_name'=>$input['full_name'],
                 'email'=>$input['email'],
                 'password'=>$input['password'],
+                'role_intended'=>'seeker',
             ]);
 
             Auth::login($user);
             //log info
             Log::info('new User '.$user->full_name." (User ID # ".$user->id.") registered and logged in from IP Address ".$request->ip());
                 
+            $success['redirectUrl'] = '/check-in';
             if($request->join_id){
                 $this->registerWithClassrrom($user,$request->join_id);
+                $success['redirectUrl'] = '/education-details';
             }
     
-            $success['redirectUrl'] = '/education-details';
-            \App\Models\ScheduledJob::scheduleNewUserNotification($user);
+            // \App\Models\ScheduledJob::scheduleNewUserNotification($user);
             
         DB::commit();
         } catch (\Exception $e) {
@@ -182,18 +183,18 @@ class AuthController extends Controller
         //log info
         Log::info('new User '.$user->full_name." (User ID # ".$user->id.") registered and logged in from IP Address ".$request->ip());
 
+        $success['redirectUrl'] = '/check-in';
         if($request->join_id){
             $this->registerWithClassrrom($user,$request->join_id);
+            $success['redirectUrl'] = '/education-details';
         }
-
-        $success['redirectUrl'] = '/education-details';
-        \App\Models\ScheduledJob::scheduleNewUserNotification($user);
+        // \App\Models\ScheduledJob::scheduleNewUserNotification($user);
         
     DB::commit();
     } catch (\Exception $e) {
         DB::rollback();
-        Log::critical('user Registeration failure: with data '.implode(',',$input));(
-        dd($e->getMessage(),$e->getLine()));
+        Log::critical('user Registeration failure.',['input'=>$input]);
+        // dd($e->getMessage(),$e->getLine()));
         return response()->$e;
     }        
         return response()->json(['success' => $success]);
@@ -345,7 +346,9 @@ class AuthController extends Controller
         }
 
         $user=User::where('id', $dbToken->user_id)->first();
-        $user->email_verified_at=Carbon::now()->toDateTimeString();
+        if(empty($user->email_verified_at)){
+            $user->email_verified_at=Carbon::now()->toDateTimeString();
+        }
         $user->password = Hash::make($request->input('password'));
         $user->save();
 

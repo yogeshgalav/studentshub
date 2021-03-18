@@ -57,7 +57,10 @@
 
             <div class="info-post ml-2">
               <div class="user_img_singe">
-                <profile-image :post="postContent" />
+                <profile-image
+                  :user-name="postContent.user_name"
+                  :avatar="postContent.profile_image"
+                />
               </div>
 
               <h6 class="username weight-600">
@@ -561,7 +564,6 @@ import RecentPost from '../post/RecentPost';
 import SiteFooter from '../footer/SiteFooter';
 import PostInteraction from '../post/PostInteraction';
 import PostViewHeader from '../post/PostViewHeader';
-import ProfileImage from '../post/ProfileImage';
 import swal from '../../components/swal';
 import McqPostView from './McqPostView';
 
@@ -573,7 +575,6 @@ export default {
 		PostInteraction,
 		PostViewHeader,
 		SocialSharing,
-		ProfileImage,
 		McqPostView
 	},
 	props: ['role'],

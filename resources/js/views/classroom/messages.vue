@@ -45,9 +45,12 @@
               <div class="card-body">
                 <div class="dashboard_post">
                   <div class="avatar">
-                    <profile-image :post="message" />
+                    <profile-image
+                      :avatar="message.avatar_url"
+                      :user-name="message.user_name"
+                    />
                   </div>
-                  <div class="info-post ml-2 dash_insititue_name">
+                  <div class="info-post ml-2 dash_insititue_name"> 
                     <p class="usernamedash mb-0 dash_user_date">
                       {{ message.user_name }} <span> {{ message.time }}</span>
                     </p>
@@ -58,39 +61,6 @@
                 </div>
                 <hr>
                 <p>{{ message.content }}</p>
-              </div>
-              <div class="card-body">
-                <div class="dashboard_post">
-                  <!-- <div class="avatar">
-                    <profile-image :post="message" />
-                  </div> -->
-                  <div class="info-post ml-2 dash_insititue_name">
-                    <p
-                      v-for="replies in message.replies"
-                      :key="replies.id"
-                      class="usernamedash mb-0 dash_user_date"
-                    >
-                      {{ replies.content }} <span>{{ replies.sender.full_name }}</span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="mb-2"
-                style="padding-left: inherit;"
-              >
-                <input
-                  type="text"
-                  placeholder="Reply to this message"
-                  class="col-11"
-                  style="font-size: 20px; border-radius: 20px; border: 0; margin-right: 20px; outline: none; box-shadow: #80808069 2px 2px 2px, #80808094 2px 2px 2px inset;"
-                  @keyup.enter="saveReply($event, message)"
-                >
-                <i
-                  class="fa fa-paper-plane ml-2"
-                  aria-hidden="true"
-                  style="font-size: 25px; color: gray; cursor: pointer;"
-                />
               </div>
             </div>
             <div class="col-md-3 col-12" />
@@ -187,14 +157,15 @@
 import FormMixin from '../../components/mixins/form-mixin.js';
 // import AddButton from '../../components/AddButton';
 import ProfileImage from '../post/ProfileImage.vue';
+import AddButton from '../../components/AddButton';
 
+    
 import ClassroomHeader from '../../components/ClassroomHeader';
 
 export default {
 	components: {
 		// AddButton,
 		ClassroomHeader,
-		ProfileImage,
 	},
 	mixins: [FormMixin],
 	props:['classrooms'],

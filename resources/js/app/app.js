@@ -10,6 +10,7 @@ import VModal from 'vue-js-modal';
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import Dayjs from 'vue-dayjs';
+import ProfileImage from '../components/ProfileImage';
 
 import VueLazyload from 'vue-lazyload';
 Vue.use(VueLazyload);
@@ -19,6 +20,7 @@ Vue.use(Dayjs, {
 		ago: 'ago',
 	}
 });
+
 // or with options
 Vue.use(VueLazyload, {
 	preLoad: 1.3,
@@ -30,7 +32,7 @@ Vue.use(VModal, { dynamic: true, injectModalsContainer: true, scrollable:true })
 Vue.use(VueAxios, axios);
 Vue.component('NotificationsDropdown', require('../components/NotificationsDropdown.vue').default);
 
-//error tracking 
+//error tracking
 import * as Sentry from '@sentry/browser';
 import { Integrations } from '@sentry/tracing';
 if(window.App.mode==='production'){
@@ -52,7 +54,8 @@ if(window.App.mode==='production'){
 }
 Vue.mixin({
 	components:{
-		Loading
+		Loading,
+		ProfileImage
 	},
 	computed: {
 		baseUrl() {
@@ -121,6 +124,7 @@ Vue.mixin({
 			'X-CSRF-TOKEN': this.csrfToken,
 			'X-Requested-With': 'XMLHttpRequest'
 		};
+		document.addEventListener('click', this.closeSidebar);
 	},
 	methods: {
 		'$trans':function(file,string,defaultString){
@@ -132,9 +136,15 @@ Vue.mixin({
 		toggleSidebar(e){
 			e.preventDefault();
 			document.documentElement.classList.toggle('openNav');
-			var menu = document.querySelector('.nav-toggle'); // Using a class instead, see note below.
-			menu.classList.toggle('active');
 		},
+		closeSidebar(e){
+			//e.preventDefault();
+			var container = document.getElementById('sidebarContainer');
+			var container2 = document.getElementById('nav-toggle');
+			if (!container.contains(e.target) && !container2.contains(e.target) && document.documentElement.classList.contains('openNav')) {
+				document.documentElement.classList.remove('openNav');
+			}
+		}
 	}
 });
 
