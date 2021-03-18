@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
+use App\Http\Controllers\Controller;
 use App\Models\Doubt;
 use App\Models\DoubtRequest;
 use App\Models\Subject;
@@ -15,11 +16,6 @@ use Illuminate\Support\Facades\Log;
 
 class DoubtController extends Controller
 {
-    public function indexPage()
-    {
-        $categories = Category::all();
-        return view('student.doubts')->with('categories',$categories);
-    }
 
     public function addDoubt (Request $request)
     {

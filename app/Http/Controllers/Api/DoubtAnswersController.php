@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
+use App\Http\Controllers\Controller;
 use App\Models\Doubt;
 use App\Models\DoubtAnswer;
 use App\Models\Post;
@@ -93,9 +94,5 @@ class DoubtAnswersController extends Controller
                 'isAnswered'=>DoubtAnswer::where('doubt_id',$doubtId)->where('user_id',Auth::id())->exists()
             ]
         ]);
-    }
-
-    public function getDoubtAnswersPage(){
-        return view('doubt.answer');
     }
 }

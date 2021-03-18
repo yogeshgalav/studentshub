@@ -1931,7 +1931,7 @@ button:focus{ outline: none;}
       font-size: 15px;
     letter-spacing: -0.003em;
     font-weight: 500;
-    color: #42526E ! important;
+    color: #42526E;
   }
 
   .menu a {
@@ -2743,6 +2743,7 @@ ul.menu-dropdown li {
     }
 }
 
+// sidebar
 
 @media (max-width: 700px){
     .onMobile-hide{
@@ -2752,3 +2753,11 @@ ul.menu-dropdown li {
         display: none;
     }
 }
+.sidebar {
+    margin-right: 20px;
+}
+.menu-dropdown a.active{
+    color: #0052CC !important;
+    border-right: solid #0052CC;
+}
+

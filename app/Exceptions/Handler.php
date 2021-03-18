@@ -10,6 +10,7 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
+use Illuminate\Support\Facades\Log;
 
 /***
  * Class Handler
@@ -24,6 +25,16 @@ class Handler extends ExceptionHandler
      */
     protected $dontReport = [
         // \App\Exceptions\EmailAddressAlreadyExistsException::class,
+    ];
+    protected $internalDontReport = [
+        // AuthenticationException::class,
+        // AuthorizationException::class,
+        // HttpException::class,
+        // HttpResponseException::class,
+        // ModelNotFoundException::class,
+        // SuspiciousOperationException::class,
+        // TokenMismatchException::class,
+        // ValidationException::class,    
     ];
 
     /**
@@ -46,7 +57,12 @@ class Handler extends ExceptionHandler
      */
     public function report(Throwable $exception)
     {
-        parent::report($exception);
+        Log::error($exception->getMessage(), [
+            'url' => request()->url(),
+            'input' => request()->all()
+        ]);
+
+        return parent::report($exception);
     }
 
     /**

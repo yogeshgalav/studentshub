@@ -25,7 +25,7 @@
     <div id="studentRegisterApp">
         <main class="flex-center position-ref full-height">   
 <div class="main-header">
-     @include('includes.logo-navbar')
+     @include('includes.navbar')
 </div>
 
 @yield('content')  

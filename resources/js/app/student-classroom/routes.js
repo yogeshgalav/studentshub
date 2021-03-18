@@ -39,6 +39,10 @@ const StudentClassroomRoutes = [
 		path: '/classroom/:classroomId/student-panel',
 		component: ClassroomStudentPanelComponent,
 	},
+	{
+		path: '/messages',
+		component: ClassroomMessageComponent,
+	},
 ];
 
 export default StudentClassroomRoutes;

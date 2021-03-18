@@ -33,7 +33,9 @@
                     <button 
                       class="btn btn-success" 
                       type="button"
-                      @click="$modal.show('add_member')"
+                      data-toggle="modal"
+                      data-target="#addMemberModal"
+                      @click="addNewMember"
                     >
                       Add Member
                     </button>
@@ -186,17 +188,14 @@
     
     <div class="col-md-12">
       <modal
-        name="add_member"
-        class="doubt_model"
+        ref="addMemberModal"
+        name="addMemberModal"
+        heading="Add Member"
+        @submit="addNewMember"
       >
-        <form @submit.prevent="addNewMember">
-          <div class="model_box_inner card p-0">
-            <div class="card-header">
-              <div class="edit_profile_head">
-                <h4>Add Member</h4>
-              </div> 
-            </div>
-            <div class="row card-body">
+        <template slot="modalBody">
+          <form>
+            <div class="row">
               <div class="col-md-12">
                 <div class="model_input">
                   <label class="text-gray">Enter Full Name</label>
@@ -261,23 +260,15 @@
                   </select>
                 </div>
               </div>
-              <div class="col-md-12">
-                <button 
-                  class="btn btn-primary" 
-                  type="submit"
-                >
-                  Add
-                </button>
-              </div>
             </div>
-          </div>
-        </form>
+          </form>
+        </template>
       </modal>
     </div>
   </div>
 </template>
 <script>
-import VModal from 'vue-js-modal';
+import Modal from '../../components/VueNiceModal';
 import swal from '../../components/swal';
 import VueTableComponent from '../../components/vue-table-component';
 import FormMixin from '../../components/mixins/form-mixin';
@@ -285,7 +276,7 @@ import NavTabs from '../../components/NavTabs.vue';
 
 export default {
 	components:{
-		VModal,
+		Modal,
 		NavTabs,
 		VueTableComponent
 	},
@@ -481,7 +472,7 @@ export default {
 		addNewMember(){
 			this.$validator.validate().then(valid => {
 				if (valid) {
-					this.$modal.hide('add_member');
+					this.$refs.addMemberModal.closeModal();
 					this.axios.post('/api/institute/'+this.instituteId+'/update-user',this.new_member).then((resp)=>{
 						const new_member = this.new_member;
 						this.memberRows.push(new_member);

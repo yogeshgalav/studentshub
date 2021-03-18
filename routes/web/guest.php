@@ -2,10 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/login','PagesController@loginPage');
-Route::get('/membership-plan','PagesController@membershipPlan');
-Route::get('/get-started','PagesController@registerPage');
-Route::get('/forgot-password','PagesController@forgotPasswordPage');
+Route::get('/login','GuestController@loginPage');
+Route::get('/membership-plan','GuestController@membershipPlan');
+Route::get('/get-started','GuestController@registerPage');
+Route::get('/forgot-password','GuestController@forgotPasswordPage');
 Route::get('/reset-password/{token}','UserController@resetPassword');
 Route::get('/reset-password','UserController@resetPassword');
 Route::get('/feedback','GuestController@feedbackPage');
@@ -16,11 +16,10 @@ Route::get('/logout','AuthController@logout');
 Route::post('/login','AuthController@login');
 Route::post('/register','AuthController@register');
 
-Route::get('/post/{ViewPostId}', 'PagesController@viewPost');
+Route::get('/post/{ViewPostId}', 'GuestController@viewPost');
 Route::get('/social-auth/{provider}', 'AuthController@redirectToProvider');
 Route::get('/callback/{provider}', 'AuthController@handleProviderCallback');
 //explore routes
-Route::get('/search', 'PagesController@searchPage');
-Route::get('/course/{courseUrl}', 'PagesController@coursePage');
-Route::get('/subject/{subjectUrl}', 'PagesController@subjectPage');
-Route::get('/category/{categoryUrl}', 'PagesController@categoryPage');
+Route::get('/course/{courseUrl}', 'GuestController@coursePage');
+Route::get('/subject/{subjectUrl}', 'GuestController@subjectPage');
+Route::get('/category/{categoryUrl}', 'GuestController@categoryPage');
