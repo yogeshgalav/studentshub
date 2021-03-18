@@ -116,7 +116,7 @@ export default {
 		disabled: {
 			type: Boolean,
 			required: false,
-			default: true,
+			default: false,
 		},
 		initialValue: {
 			type: Object,
