@@ -7,8 +7,8 @@
         </a>
     </div>
 </div>
-@else
-<nav class="navbar navbar-expand-lg navbar-light ">
+@elseif(Auth::check())
+<nav class="navbar navbar-expand-lg navbar-light auth-navbar">
   <div class="logo">
     <a href='/'>
       <img src="{{asset('/images/logo.png') }}" alt="Student'sHUB"/>
@@ -18,7 +18,6 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
-    @if(Auth::check())
       <ul class="navbar-nav menu_head dash_search">
         <li class="nav-item  search_box ">
         @include('includes.search-form')
@@ -32,7 +31,20 @@
           @include('includes.profile-dropdown')
         </li>
       </ul>
-    @else
+
+  </div>
+</nav>
+@else
+<nav class="navbar navbar-expand-lg navbar-light">
+  <div class="logo">
+    <a href='/'>
+      <img src="{{asset('/images/logo.png') }}" alt="Student'sHUB"/>
+    </a>
+  </div>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav menu_head">
         <li class="nav-item  search_box">
           @include('includes.search-form')
@@ -44,8 +56,7 @@
           <router-link class="btn btn-primary weight-400" :to="'/get-started'">Get Started <i class="fas fa-arrow-right text-white"></i> </router-link>
         </li>
       </ul>
-    @endif
-  </div>
+    </div>
 </nav>
 @endif
 </div>

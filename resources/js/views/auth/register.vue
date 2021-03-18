@@ -193,7 +193,7 @@
                           </button>
                         </div>
                       </div>
-                      <div>
+                      <div style="text-align: center; margin-top: 20px;">
                         <router-link :to="'/login'">
                           Already have an account?
                         </router-link>
@@ -314,7 +314,7 @@ export default {
 			}
 		};
 	},
-	mounted(){  
+	mounted(){
 		this.join_id = this.$route.params.joinId;
 		this.$validator.localize('en', this.dict);
 	},

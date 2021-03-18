@@ -126,13 +126,16 @@ Vue.mixin({
 		};
 		var prevScrollpos = window.pageYOffset;
 		window.onscroll = function() {
-			var currentScrollPos = window.pageYOffset;
-			if (prevScrollpos > currentScrollPos) {
-				document.getElementById('header_mobile').style.top = '0';
-			} else {
-				document.getElementById('header_mobile').style.top = '-50px';
+			let headerMobile = document.getElementById('header_mobile');
+			if (headerMobile){
+				var currentScrollPos = window.pageYOffset;
+				if (prevScrollpos > currentScrollPos) {
+					headerMobile.style.top = '0';
+				} else {
+					headerMobile.style.top = '-50px';
+				}
+				prevScrollpos = currentScrollPos;
 			}
-			prevScrollpos = currentScrollPos;
 		};
 		document.addEventListener('click', this.closeSidebar);
 	},
