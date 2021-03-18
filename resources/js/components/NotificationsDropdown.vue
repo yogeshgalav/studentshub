@@ -317,7 +317,6 @@ a.notification:hover {
     margin-left: -8.253px;
     margin-top: -8.253px;
     min-width: 16.506px;
-    height: 16.506px;
     line-height: 16.506px;
     font-size: 13.755px;
 }
@@ -326,7 +325,6 @@ a.notification:hover {
     margin-left: -4.1265px;
     margin-top: -2.06325px;
     min-width: 6.25227273px;
-    height: 6.25227273px;
     line-height: 6.25227273px;
     padding: 0;
 }
