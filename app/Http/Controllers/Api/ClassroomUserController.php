@@ -109,7 +109,17 @@ class ClassroomUserController extends Controller
             'message'=>$message
         ]]);
     }
-    public function deletemessage(){
+    public function editmessage(Request $request){
+        
+        $message=ClassroomMessage::findOrFail($request->message_id);
+
+        $message->content= $request->content;
+        $message->save();
+
+
+        return response()->json(['success' => ['message'=>$message]]);
+    }
+    public function deletemessage(Request $request){
         $classroom_message = ClassroomMessage::findOrFail($request->message_id);
         $classroom_message->delete();
 

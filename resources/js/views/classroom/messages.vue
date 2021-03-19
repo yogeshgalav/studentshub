@@ -16,7 +16,8 @@
                 <button
                   type="button"
                   class="btn btn-primary btn-lg"
-                  @click="addMessage"
+                  data-toggle="modal"
+                  data-target="#addMessageModal"
                 >
                   Add Message
                 </button>
@@ -24,6 +25,28 @@
             </div>
             <div class="col-md-3 col-12" />
           </div>
+          <modal
+            ref="editMessageModal"
+            name="editMessageModal"
+            heading="Edit Message"
+            @submit="editMessage"
+          >
+            <template slot="modalBody">
+              <form data-vv-scope="edit_message_form">
+                <label class="text-black font-size-14">Edit Message </label>
+                <input
+                  id="edit_message"
+                  v-model="edit_message.content"
+                  v-validate="'required'"
+                  name="edit_message"
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter your Message"
+                >
+                <span class="error">{{ formErrors('edit_message_form.edit_message') }}</span>
+              </form>
+            </template>
+          </modal>
           <div class="row add_cl_q mt-2">
             <div
               v-if="!messages.length"
@@ -61,6 +84,20 @@
                 </div>
                 <hr>
                 <p>{{ message.content }}</p>
+                <span>
+                  <button
+                    type="button"
+                    class="btn-default"
+                    @click="deleteMessage(message.id)"
+                  >Delete</button>
+                  <button
+                    type="button"
+                    class="btn-default"
+                    data-toggle="modal"
+                    data-target="#editMessageModal"
+                    @click="edit_message=message"
+                  >Edit</button> 
+                </span>
               </div>
               <div class="card-body">
                 <div class="dashboard_post">
@@ -71,6 +108,9 @@
                     />
                   </div>
                   <div class="info-post ml-2 dash_insititue_name"> 
+                    <p class="usernamedash mb-0">
+                      {{ message.user_name }}
+                    </p>
                     <p
                       v-for="replies in message.replies"
                       :key="replies.id"
@@ -78,13 +118,9 @@
                     >
                       {{ replies.content }} <span> {{ message.time }} </span>
                     </p>
-                    <p class="usernamedash mb-0">
-                      {{ replies.sender.full_name }}
-                    </p>
                   </div>
                 </div>
                 <hr>
-                <p>{{ message.content }}</p>
               </div>
               <div
                 class="mb-2"
@@ -109,86 +145,78 @@
         </div>
 
         <modal
+          ref="addMessageModal"
           name="addMessageModal"
           class="doubt_model model-md"
-          :click-to-close="false"
+          heading="Add Message"
+          @submit="saveMessage"
         >
-          <form @submit.prevent="saveMessage()">
-            <div class="row">
-              <div class="col-md-12 mt-2">
-                <div class="row">
-                  <div class="col-md-6">
-                    <h4>Add Message to this classroom.</h4>
-                  </div>
-                  <div class="col-md-6 text-right">
-                    <button
-                      type="button"
-                      class="btn btn-lg btn-link font-size-24"
-                      @click="$modal.hide('addMessageModal')"
-                    >
-                      &times;
-                    </button>
+          <template slot="modalBody">
+            <form>
+              <div class="row">
+                <div class="col-md-12 mt-2">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <h4>Add Message to this classroom.</h4>
+                    </div>
+                    <div class="col-md-6 text-right">
+                      <button
+                        type="button"
+                        class="btn btn-lg btn-link font-size-24"
+                        @click="$modal.hide('addMessageModal')"
+                      >
+                        &times;
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div
-                v-if="classrooms && classrooms.length"
-                class="col-md-12"
-              >
-                <div class="form-group">
-                  <div class="inner-addon left-addon">
-                    <div class="cl_input">
-                      <select
-                        v-model="selectedClassroomId"
-                        class="form-control custom-select"
-                      >
-                        <option
-                          v-for="(classroom, index) in classrooms"
-                          :key="index"
-                          :value="classroom.id"
+                <div
+                  v-if="classrooms && classrooms.length"
+                  class="col-md-12"
+                >
+                  <div class="form-group">
+                    <div class="inner-addon left-addon">
+                      <div class="cl_input">
+                        <select
+                          v-model="selectedClassroomId"
+                          class="form-control custom-select"
                         >
-                          {{ classroom.name }}
-                        </option>
-                      </select>
+                          <option
+                            v-for="(classroom, index) in classrooms"
+                            :key="index"
+                            :value="classroom.id"
+                          >
+                            {{ classroom.name }}
+                          </option>
+                        </select>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <div class="col-md-12">
-                <div class="form-group">
-                  <div class="inner-addon left-addon">
-                    <div class="cl_input">
-                      <input
-                        id="messageContent"
-                        v-model="content"
-                        v-validate="'required'"
-                        name="content"
-                        class="form-control"
-                        placeholder="write message here"
-                      >
-                      <span class="text-danger">{{
-                        formErrors("content")
-                      }}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="mt-1 row text-right">
                 <div class="col-md-12">
-                  <hr>
-                  <button
-                    type="submit"
-                    class="btn btn-outline-primary mb-2"
-                  >
-                    Submit
-                  </button>
+                  <div class="form-group">
+                    <div class="inner-addon left-addon">
+                      <div class="cl_input">
+                        <input
+                          id="messageContent"
+                          v-model="content"
+                          v-validate="'required'"
+                          name="content"
+                          class="form-control"
+                          placeholder="write message here"
+                        >
+                        <span class="text-danger">{{
+                          formErrors("content")
+                        }}</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </form>
+            </form>
+          </template>
         </modal>
       </div>
     </div>
@@ -197,8 +225,9 @@
 <script>
 import FormMixin from '../../components/mixins/form-mixin.js';
 // import AddButton from '../../components/AddButton';
-import ProfileImage from '../post/ProfileImage.vue';
+import ProfileImage from '../../components/ProfileImage.vue';
 import AddButton from '../../components/AddButton';
+import Modal from '../../components/VueNiceModal.vue';
 
     
 import ClassroomHeader from '../../components/ClassroomHeader';
@@ -207,6 +236,8 @@ export default {
 	components: {
 		// AddButton,
 		ClassroomHeader,
+		ProfileImage,
+		Modal,
 	},
 	mixins: [FormMixin],
 	props:['classrooms'],
@@ -217,6 +248,10 @@ export default {
 			showLoader: true,
 			messages: [],
 			content: '',
+			edit_message:{
+				id:'',
+				content:'',
+			}
 		};
 	},
 	computed: {
@@ -275,6 +310,30 @@ export default {
 				}
 			});
 		},
+		editMessage(e, message){
+			console.log('clicked');
+			this.$validator.validateAll('edit_message_form').then((valid)=>{
+			  if(valid){
+			    this.axios.post('/api/edit-message',{
+						message_id:this.edit_message.id,
+						content:this.edit_message.content
+			    }).then((resp) => {
+						window.location.reload();
+					});
+			  }
+			});
+		},
+		deleteMessage(messageId){
+			this.$validator.validate().then((valid)=>{
+				if(valid){
+					this.axios.post('/api/delete-message',{
+						message_id:messageId,
+					}).then((resp)=>{
+						window.location.reload();
+					});
+				}
+			});
+		}
 	},
 };
 </script>

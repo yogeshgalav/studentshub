@@ -82,7 +82,7 @@
 </template>
 <script>
 
-
+import ProfileImage from '../../components/ProfileImage';
 export default {
 	components: {
 		ProfileImage

@@ -109,100 +109,105 @@
         </div>
 
         <modal
+          ref="addResourceModal"
           name="addResourceModal"
           class="doubt_model model-md"
           :click-to-close="false"
+          heading="add resource"
+          @submit="saveResource()"
         >
-          <form
-            @submit.prevent="saveResource()"
-          >
-            <div class="row">
-              <div class="col-md-12 mt-2">
-                <div class="row">
-                  <div class="col-md-6">
-                    <h4>Add Resource Link</h4>
+          <template slot="modalBody">
+            <form>
+              <div class="row">
+                <div class="col-md-12 mt-2">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <h4>Add Resource Link</h4>
+                    </div>
+                    <div class="col-md-6 text-right">
+                      <button
+                        type="button"
+                        data-toggle="modal"
+                        data-target="#addResourceModal"
+                        class="btn btn-lg btn-link font-size-24"
+                        @click="$modal.hide('addResourceModal')"
+                      >
+                        &times;
+                      </button>
+                    </div>
                   </div>
-                  <div class="col-md-6 text-right">
+                </div>
+
+
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="resourceLink">Online Resource Link</label>
+                    <div class="inner-addon left-addon">
+                      <div class="cl_input">
+                        <input
+                          id="resourceLink"
+                          v-model="resource_link"
+                          v-validate="'required'"
+                          type="text"
+                          name="resource_link"
+                          class="form-control"
+                          @blur="embedresource"
+                        >
+                        <span class="text-danger">{{ formErrors('resource_link') }}</span>
+                        <span class="text-danger">{{ resource_error }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="resourceDescription">Description:</label>
+                    <div class="inner-addon left-addon">
+                      <div class="cl_input">
+                        <input
+                          id="resourceDescription"
+                          v-model="description"
+                          v-validate="'required'"
+                          name="description"
+                          class="form-control"
+                          placeholder="say something about this resource..."
+                        >
+                        <span class="text-danger">{{ formErrors('description') }}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    v-if="resource_type==='documentLink' || resource_type==='youtubeVideo'" 
+                    class="mt-1 forget_rember_pass"
+                  >
+                    <div class="rem_pass">
+                      <input
+                        id="shareAsPost"
+                        v-model="share_as_post"
+                        name="shareAsPost"
+                        type="checkbox"
+                      >
+                      <label for="shareAsPost">
+                        {{ 'Share as post' }}
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-1 row text-right">
+                  <div class="col-md-12">
+                    <hr>
                     <button
-                      type="button"
-                      class="btn btn-lg btn-link font-size-24"
-                      @click="$modal.hide('addResourceModal')"
+                      type="submit"
+                      class="btn btn-outline-primary mb-2"
                     >
-                      &times;
+                      Submit
                     </button>
                   </div>
                 </div>
               </div>
-
-
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label for="resourceLink">Online Resource Link</label>
-                  <div class="inner-addon left-addon">
-                    <div class="cl_input">
-                      <input
-                        id="resourceLink"
-                        v-model="resource_link"
-                        v-validate="'required'"
-                        type="text"
-                        name="resource_link"
-                        class="form-control"
-                        @blur="embedresource"
-                      >
-                      <span class="text-danger">{{ formErrors('resource_link') }}</span>
-                      <span class="text-danger">{{ resource_error }}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label for="resourceDescription">Description:</label>
-                  <div class="inner-addon left-addon">
-                    <div class="cl_input">
-                      <input
-                        id="resourceDescription"
-                        v-model="description"
-                        v-validate="'required'"
-                        name="description"
-                        class="form-control"
-                        placeholder="say something about this resource..."
-                      >
-                      <span class="text-danger">{{ formErrors('description') }}</span>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  v-if="resource_type==='documentLink' || resource_type==='youtubeVideo'" 
-                  class="mt-1 forget_rember_pass"
-                >
-                  <div class="rem_pass">
-                    <input
-                      id="shareAsPost"
-                      v-model="share_as_post"
-                      name="shareAsPost"
-                      type="checkbox"
-                    >
-                    <label for="shareAsPost">
-                      {{ 'Share as post' }}
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div class="mt-1 row text-right">
-                <div class="col-md-12">
-                  <hr>
-                  <button
-                    type="submit"
-                    class="btn btn-outline-primary mb-2"
-                  >
-                    Submit
-                  </button>
-                </div>
-              </div>
-            </div>
-          </form>
+            </form>
+          </template>
         </modal>
       </div>
     </div>
@@ -211,13 +216,14 @@
 <script>
 import FormMixin from '../../components/mixins/form-mixin.js';
 import AddButton from '../../components/AddButton';
-    
+import Modal from '../../components/VueNiceModal';
 import ClassroomHeader from '../../components/ClassroomHeader';
     
 export default {
 	components: {
 		AddButton,
-		ClassroomHeader
+		ClassroomHeader,
+		Modal
 	},
 	mixins:[FormMixin],
 	data() {
