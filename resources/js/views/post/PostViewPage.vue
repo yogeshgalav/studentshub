@@ -215,14 +215,14 @@
       class="single_page_user_like"
     >
       <button
-        :class="user_like===1 ? 'like_active' : 'like_inactive'"
+        :class="like_active===true ? 'like_active' : 'like_inactive'"
         @click="sendUserLike()"
       >
         <p><span><i class="fas fa-thumbs-up" /></span></p>
-        <p>{{ postContent.total_likes }}</p>
+        <p>{{ like_active ? (postContent.total_likes + 1) : postContent.total_likes }}</p>
       </button>
       <button
-        :class="user_like===0 ? 'like_active' : 'like_inactive'"
+        :class="dislike_active===true ? 'like_active' : 'like_inactive'"
         @click="sendUserDislike()"
       >
         <p>
@@ -231,7 +231,7 @@
             aria-hidden="true"
           /></span>
         </p>
-        <p>{{ postContent.total_dislikes }}</p>
+        <p>{{ dislike_active ? (postContent.total_dislikes + 1) : postContent.total_dislikes }}</p>
       </button>
     </div>
     <div class="single_page_post_card">
@@ -566,6 +566,7 @@ import PostInteraction from '../post/PostInteraction';
 import PostViewHeader from '../post/PostViewHeader';
 import swal from '../../components/swal';
 import McqPostView from './McqPostView';
+import TableRowVue from '../../components2/base/base-table/components/TableRow.vue';
 
 export default {
 	components: {
@@ -583,11 +584,19 @@ export default {
 			user_like: '',
 			post_save: '',
 			post_report: '',
+			like_active:false,
+			dislike_active:false
 		};
 	},
 	watch: {
 		postContent(val) {
-			this.user_like = this.postContent.user_like;
+			if(val.user_like === 1){
+				this.like_active = true;
+			}
+			else if(val.user_like === 0){
+				this.dislike_active = true;
+			}
+			// this.user_like = this.postContent.user_like;
 			this.post_save = this.postContent.post_save ? true : false;
 			this.post_report = this.postContent.post_report ? true : false;
 		}
@@ -605,23 +614,27 @@ export default {
 	},
 	methods: {
 		sendUserLike() {
-			this.user_like = this.user_like === 1 ? null : 1;
+			let method = (this.like_active === true) ? 'delete' : 'add';
+			// this.user_like = this.user_like === 1 ? null : 1;
 			this.axios.post('/api/post-like', {
 				post_id: this.postContent.id,
 				type: 'like',
-				method: this.user_like === 1 ? 'delete' : 'add'
+				method,
 			}).then(resp => {
-				this.user_like = resp.data.success.user_like;
+				this.like_active = resp.data.success.user_like===1 ? true : false;
+				this.dislike_active = false;
 			});
 		},
 		sendUserDislike() {
-			this.user_like = this.user_like === 0 ? null : 0;
+			let method = (this.dislike_active === true) ? 'delete' : 'add';
+			// this.user_like = this.user_like === 0 ? null : 0;
 			this.axios.post('/api/post-like', {
 				post_id: this.postContent.id,
-				type: 'like',
-				method: this.user_like === 0 ? 'delete' : 'add'
+				type: 'dislike',
+				method,
 			}).then(resp => {
-				this.user_like = resp.data.success.user_like;
+				this.dislike_active = resp.data.success.user_like===0 ? true : false;
+				this.like_active = false;
 			});
 		},
 		postSave() {
