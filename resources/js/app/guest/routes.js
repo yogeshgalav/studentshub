@@ -16,9 +16,30 @@ const routes = [
 	},
 	{ path: '/explore/:subject', component: ExploreComponent },
 	{ path: '/explore', component: ExploreComponent },
-	{ path: '/login', name:'login', component: LoginComponent },
-	{ path: '/get-started', name:'register', component: RegisterComponent },
-	{ path: '/membership-plan', name:'membership', component: MembershipComponent },
+	{ 
+		path: '/login', 
+		name:'login', 
+		component: LoginComponent,
+		meta: {
+			title: 'Login | Student\'sHUB',
+		} 
+	},
+	{ 
+		path: '/get-started', 
+		name:'register', 
+		component: RegisterComponent,
+		meta: {
+			title: 'Get Started | Student\'sHUB',
+		}
+	 },
+	{ 
+		path: '/membership-plan', 
+		name:'membership', 
+		component: MembershipComponent,
+		meta: {
+			title: 'Membership | Student\'sHUB',
+		} 
+	},
 	{ path: '/forgot-password', name:'forgot-password', component: ForgotPasswordComponent },
 	{
 		path: '/auth/:provider/callback',

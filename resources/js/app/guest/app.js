@@ -25,7 +25,12 @@ const store = new Vuex.Store({
 		common: CommonStore,
 	}
 });
-
+import VueGtag from 'vue-gtag';
+if(window.App.mode==='production'){
+	Vue.use(VueGtag, {
+		config: { id: 'UA-1234567-1' }
+	});
+}
 Vue.component('ResetPasswordComponent', require('../../views/auth/reset-password.vue').default);
 // Vue.component('FeedbackComponent', require('../../views/user/feedback.vue').default);
 // Vue.component('contactusComponent', require('../../views/user/contactus.vue').default);
