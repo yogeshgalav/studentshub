@@ -59,7 +59,7 @@ export default {
 				this.user_like = resp.data.success.user_like;
 				this.like_active = this.user_like===1 ? true : false;
 				this.dislike_active = this.user_like===0 ? true : false;
-			}).catch(err => { 
+			}).catch(err => {
 				console.log(err);
 				this.like_active = this.user_like===1 ? true : false;
 				this.dislike_active = this.user_like===0 ? true : false;
@@ -88,5 +88,16 @@ export default {
 </script>
 
 <style>
+button{
+    border: none;
+    display: flex;
+    width: 40px;
+    justify-content: space-between;
+    height: 25px;
+}
+.single_page_user_like{
+    display: flex;
+}
+
 
 </style>
