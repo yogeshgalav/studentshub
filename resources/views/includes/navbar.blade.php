@@ -14,9 +14,9 @@
       <img src="{{asset('/images/logo.png') }}" alt="Student'sHUB"/>
     </a>
   </div>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+  <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
-  </button>
+  </button> -->
   <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav menu_head dash_search">
         <li class="nav-item  search_box ">
@@ -51,7 +51,7 @@
         </li>
         <div class="nav-login-get-started">
         <li class="nav-item nav-login">
-          <router-link class="btn btn-link text-blue" :to="'/login'">Login</router-link>
+          <router-link class="btn btn-link text-blue" :to="'/login'">Login <i class="fas fa-arrow-right"></i></router-link>
         </li>
         <li class="nav-item">
           <router-link class="btn btn-primary weight-400" :to="'/get-started'">Get Started <i class="fas fa-arrow-right text-white"></i></router-link>
