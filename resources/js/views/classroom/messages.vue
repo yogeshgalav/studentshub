@@ -228,8 +228,6 @@ import FormMixin from '../../components/mixins/form-mixin.js';
 import ProfileImage from '../../components/ProfileImage.vue';
 import AddButton from '../../components/AddButton';
 import Modal from '../../components/VueNiceModal.vue';
-
-    
 import ClassroomHeader from '../../components/ClassroomHeader';
 
 export default {
