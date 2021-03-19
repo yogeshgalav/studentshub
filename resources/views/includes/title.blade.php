@@ -1,1 +1,1 @@
-<title>Student'sHUB</title>
+<title>{{ isset($title) ? $title : "Student's Hub" }}</title>

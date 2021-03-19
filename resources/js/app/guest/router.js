@@ -16,12 +16,6 @@ router.beforeEach((to, from, next) => {
 		var menu = document.querySelector('.navbar-collapse');
 		menu.classList.remove('show');
 	}
-  
-	if(to.meta.title){
-		document.title = to.meta.title;
-	}else{
-		document.title = 'Student\'sHUB';
-	}
 	// This goes through the matched routes from last to first, finding the closest route with a title.
 	// eg. if we have /some/deep/nested/route and /some, /deep, and /nested have titles, nested's will be chosen.
 	const nearestWithTitle = to.matched.slice().reverse().find(r => r.meta && r.meta.title);
