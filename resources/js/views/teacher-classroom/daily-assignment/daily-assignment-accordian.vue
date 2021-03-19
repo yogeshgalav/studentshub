@@ -177,7 +177,7 @@
                   class="btn btn-primary btn-md mt-1"
                   @click="activateDailyAssignment(daily)"
                 >
-                  {{ daily.activated_at ? 'Deactivate' : 'Activate' }}
+                  {{ daily.status!=='activated' ? 'Activate' : 'Deactivate' }}
                 </button>
               </div>
             </div>
@@ -314,9 +314,8 @@ export default {
 					if (result.value) {
 						this.axios.post('/api/activate-daily-assignment', {
 							daily_assignment_id: this.daily.id,
-							status: this.daily.activated_at ? 'deactivate' : 'activate'
 						}).then(() => {
-							this.daily.activated_at = new Date();
+							this.daily.status = 'activated';
 						});
 					}
 				});

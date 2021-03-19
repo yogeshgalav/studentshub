@@ -46,6 +46,9 @@
                     <span class="error">{{ formErrors('unit_name' + index) }}</span>
                   </div>
                 </div>
+                <div>
+                  <doughnut-graph :graph-data="dailyAssignmentStatusGraphData(unit)" />
+                </div>
               </div>
             </accordion>
           </div>
@@ -58,6 +61,7 @@
 import FormMixin from '../../components/mixins/form-mixin.js';
 import Accordion from '../../components/accordion';
 import AddButton from '../../components/AddButton';
+import DoughnutGraph from '../../components/graphs/PieGraph';
     
 import ClassroomHeader from '../../components/ClassroomHeader';
     
@@ -65,13 +69,15 @@ export default {
 	components: {
 		Accordion,
 		AddButton,
-		ClassroomHeader
+		ClassroomHeader,
+		DoughnutGraph
 	},
 	mixins:[FormMixin],
 	data() {
 		return {
 			showLoader:true,
 			unitData: [],
+			daily_assignment_status: [],
 		};
 	},
 	computed:{
@@ -86,6 +92,7 @@ export default {
 		getUnitDetails(){
 			this.axios.get('/api/classroom/' + this.$route.params.classroomId + '/unit-details').then((resp) => {
 				this.unitData = resp.data.success.unitData;
+				this.daily_assignment_status = resp.data.success.daily_assignment_status;
 				this.showLoader=false;
 			});
 		},
@@ -101,6 +108,13 @@ export default {
 			this.axios.post('/api/classroom/'+this.$route.params.classroomId+'/update-unit',{
 				unit_no: unit_no,
 				unit_name: event.target.value
+			});
+		},
+		dailyAssignmentStatusGraphData(unit){
+			return this.daily_assignment_status.map(node=>{
+				node.count = node.assignmentCount;
+				node.label = node.status;
+				return node;
 			});
 		}
 	}

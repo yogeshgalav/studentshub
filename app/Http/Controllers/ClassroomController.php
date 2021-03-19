@@ -106,7 +106,7 @@ class ClassroomController extends Controller
         }
 
         $daily_assignment=\App\Models\DailyAssignment::where('attempt_date','=',now(Auth::user()->timezone)->toDateString())
-        ->where('activated_at','!=',null)->where('classroom_id','=',$classroom->id)
+        ->where('status','=','activated')->where('classroom_id','=',$classroom->id)
         ->with('dailyQuestions.multipleChoice')->first();
         
         // check if assignment is not already attempted

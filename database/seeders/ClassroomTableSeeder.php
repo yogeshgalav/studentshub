@@ -32,8 +32,6 @@ class ClassroomTableSeeder extends Seeder
             'classroom_id' => 1,
             'unit_no' => 0,
             'unit_name' => 'first lesson',
-            'activated_at'=>$time,
-            'deactivated_at'=>$time
             ]);
 
         // DB::table('topics')->insert([

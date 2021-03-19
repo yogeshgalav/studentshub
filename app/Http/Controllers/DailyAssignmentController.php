@@ -19,15 +19,19 @@ class DailyAssignmentController extends Controller
             DailyAttempt::where('daily_assignment_id',$request->daily_assignment_id)->exists() ? abort(403) : '';
         }
         $daily = DailyAssignment::findOrFail($request->daily_assignment_id);
+        if($daily->status = 'imported'){
+            \Log::error('unauthorized action to change imported status',['user_id'=>Auth::id(),'assignment'=>$daily]);
+            abort(403);
+        }
         $marks=DailyQuestion::where('daily_assignment_id',$daily->id)->pluck('marks')->toArray();
         if(array_sum($marks)!==10){
             \Log::error('marks total error while activating daily assignment',['user_id'=>Auth::id(),'assignment'=>$daily]);
             abort(403);
         }
-        if($request->status==="activate"){
-            $daily->activated_at = now()->toDateTimeString();
+        if($daily->status = 'activated'){
+            $daily->status = 'deactivated';
         }else{
-            $daily->activated_at = null;
+            $daily->status = 'activated';
         }
         $daily->save();
 
