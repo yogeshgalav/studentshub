@@ -4,21 +4,24 @@
     class="single_page_user_like"
   >
     <button
-      :class="like_active===true ? 'like_active' : 'like_inactive'"
       @click="sendUserLike()"
     >
-      <p><span><i class="far fa-thumbs-up" /></span></p>
+      <p v-if="like_active">
+        <span><i class="fas fa-thumbs-up" /></span>
+      </p>
+      <p v-else>
+        <span><i class="far fa-thumbs-up" /></span>
+      </p>
       <p>{{ like_active ? (post.total_likes + 1) : post.total_likes }}</p>
     </button>
     <button
-      :class="dislike_active===true ? 'like_active' : 'like_inactive'"
       @click="sendUserDislike()"
     >
-      <p>
-        <span><i
-          class="far fa-thumbs-down"
-          aria-hidden="true"
-        /></span>
+      <p v-if="dislike_active">
+        <span><i class="fas fa-thumbs-down" /></span>
+      </p>
+      <p v-else>
+        <span><i class="far fa-thumbs-down" /></span>
       </p>
       <p>{{ dislike_active ? (post.total_dislikes + 1) : post.total_dislikes }}</p>
     </button>
@@ -49,7 +52,6 @@ export default {
 		sendUserLike() {
 			let method = (this.like_active === true) ? 'delete' : 'add';
 			this.like_active = !this.like_active;
-			console.log(this.like_active);
 			this.dislike_active = false;
 			this.axios.post('/api/user-like/'+this.likableType, {
 				likable_id: this.post.id,
@@ -60,7 +62,6 @@ export default {
 				this.like_active = this.user_like===1 ? true : false;
 				this.dislike_active = this.user_like===0 ? true : false;
 			}).catch(err => { 
-				console.log(err);
 				this.like_active = this.user_like===1 ? true : false;
 				this.dislike_active = this.user_like===0 ? true : false;
 			});
@@ -78,7 +79,6 @@ export default {
 				this.dislike_active = this.user_like===0 ? true : false;
 				this.like_active = this.user_like === 1 ? true : false;
 			}).catch(err => {
-				console.log(err);
 				this.dislike_active = this.user_like===0 ? true : false;
 				this.like_active = this.user_like === 1 ? true : false;
 			});
