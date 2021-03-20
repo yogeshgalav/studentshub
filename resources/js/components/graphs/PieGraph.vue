@@ -2,25 +2,8 @@
 import { Doughnut } from 'vue-chartjs';
 
 export default {
-	// components: {
-	// 	PieChart
-	// },
 	extends: Doughnut,
 	props:{ width:{ type:Number, default: 200 }, height:{ type:Number, default: 200 }, graphData:{ type:Array, default: () => [] } },
-	data(){
-		return {
-			reportColorCodes: ['#10069F', '#963CBD', '#00C1D5', '#F39C12', '#1D7BB9', '#95A5A6', '#EABD0A'],
-			reportColorClasses: [
-				'text-blue',
-				'text-accent',
-				'text-dark-cyan',
-				'text-dark-yellow',
-				'text-nice-blue',
-				'text-metal',
-				'text-light-yellow',
-			],
-		};
-	},
 	computed:{
 		chartData(){
 			const self = this;
@@ -57,13 +40,15 @@ export default {
 					enabled: true,
 					mode: 'single',
 					callbacks: {
-						label: function(tooltipItems, data) {
-							return data.labels[tooltipItems.index].label;
+						label: function(tooltipItem, data) {
+							var dataset = data.datasets[tooltipItem.datasetIndex];
+							var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
+								return previousValue + currentValue;
+							});
+							var currentValue = dataset.data[tooltipItem.index];
+							var percentage = Math.floor(((currentValue/total) * 100)+0.5);         
+							return percentage + '%';
 						},
-						title: function(tooltipItems, data) {
-							// console.log(data.datasets);
-							return data.datasets[0].data[tooltipItems[0].index];
-						}
 					}
 				},
 			};
