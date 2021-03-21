@@ -21,7 +21,7 @@
     </div>
     <div>
       <div
-        v-show="active"
+        v-if="active"
         class="tab__content p-2"
       >
         <slot />
@@ -69,18 +69,22 @@
 </style>
 <script>
 export default {
-	props:
-        { title:
-                {type:String, default:''
-                },
-        ariaExpanded:
-                { type:Boolean, default:false
-                },
-        tab : {  type:String, default:'tab'}
-        },
+	props:{ 
+		title:{
+			type:String, 
+			default:''
+		},
+		ariaExpanded:{ 
+			type:Boolean, 
+			default:false
+		},
+		tab : {  
+			type:String, 
+			default:'tab'}
+	},
 	data() {
-		return { active:false,
-
+		return { 
+			active:false,
 		};
 	},
 	watch :{

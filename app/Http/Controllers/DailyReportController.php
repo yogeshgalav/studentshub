@@ -16,7 +16,7 @@ class DailyReportController extends Controller
 {
     public function dailyAssignmentAttemptPage($classroom_id){
         $daily_assignment=\App\Models\DailyAssignment::where('attempt_date','=',now(Auth::user()->timezone)->toDateString())
-        ->where('status','=','activated')->where('classroom_id','=',$classroom_id)
+        ->where('activated_at','!=',NULL)->where('classroom_id','=',$classroom_id)
         ->with('dailyQuestions.multipleChoice')->first();
         
         // check if assignment is not already attempted
@@ -103,7 +103,7 @@ class DailyReportController extends Controller
         $today_assignment=null;
         if(!$user_id){
             $today_assignment = DailyAssignment::where('attempt_date',Carbon::now(Auth::user()->timezone)->toDateString())
-            ->where('status','=','activated')
+            ->where('activated_at','!=',NULL)
             ->where('classroom_id',$classroom_id)
             ->with('dailyQuestions.multipleChoice')
             ->with('dailyQuestions.myDailyAnswer')

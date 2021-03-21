@@ -11,8 +11,24 @@
         <classroom-header />
       </div>
     </div>
+    <div class="row">
+      <div class="col-md-12">
+        <select
+          v-model="current_unit_id"
+          class="form-control minimal"
+        >
+          <option
+            v-for="(unit,index) in unitList"
+            :key="index"
+            :value="unit.id"
+          >
+            {{ 'Unit '+unit.unit_no+': '+unit.unit_name }}
+          </option>
+        </select>
+      </div>
+    </div>
     <div
-      v-for="(daily,index) in dailyAssignmentData"
+      v-for="(assignment,index) in currentUnit.daily_assignments"
       :key="index"
       class="card mt-5"
     >
@@ -20,70 +36,11 @@
         <div class="row">
           <div class="col-md-12">
             <accordion
-              :title="daily.attempt_date"
+              :title="assignment.attempt_date"
               :aria-expanded="true"
-              tab="accordion_status_unit_active"
+              :tab="'daily_assignment_'+assignment.id"
             >
-              <div class="row add_cl_q">
-                <div class="col-md-12">
-                  <div class="text-grey col-md-12">
-                    <p>
-                      Students have attempted this unit.
-                    </p>
-                  </div>
-
-                  <div
-                    v-for="(question,index) in daily.daily_questions"
-                    :key="index"
-                    class="col-md-6 border-bottom-1px ml-3 p-3 mb-3"
-                  >
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="row">
-                          <div class="col-md-9">
-                            <div class="weight-800">
-                              {{ 'Question' + ' ' + (index+1) }} 
-                              
-                            </div>
-                          </div>
-                          <div class="col-md-3">
-                            <label class="btn btn-white ">
-                              {{ 'Marks:'+ ' ' + question.marks }}
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div class="row mt-2">
-                      <div class="col-md-12">
-                        <div class="row">
-                          <div class="col-md-12">
-                            <div class="mb-2 weight-500">
-                              {{ question.question_text }}
-                            </div>
-                          </div>
-                        </div>
-
-                        <div
-                          v-for="(choice,index) in question.multiple_choice"
-                          :key="index"
-                          class="row"
-                        >
-                          <div class="col-md-9 mb-1 mt-1 ">
-                            <div :class="['row line-height-30', choice.option_order === question.correct_answer ? 'bg-card-green text-white' : 'bg-card-gray', 'p-2']">
-                              <div :class="[choice.option_order === question.correct_answer ? 'bg-circle-white' : 'bg-circle']">
-                                {{ letters[index] }}
-                              </div>
-                              <span class="pl-2">  {{ choice.option_text }}  </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <completed-daily-assignment :assignment="assignment" />
             </accordion>
           </div>
         </div>
@@ -128,22 +85,29 @@ import Vue from 'vue';
 import Accordion from '../../components/accordion';
 
 import ClassroomHeader from '../../components/ClassroomHeader';
+import CompletedDailyAssignment from './completed-daily-assignment';
 
 export default {
 	components: {
 		Accordion,
-		ClassroomHeader
+		ClassroomHeader,
+		CompletedDailyAssignment,
 	},
 	data() {
 		return {
 			showLoader:true,
-			dailyAssignmentData: {},
+			current_unit_id: '',
+			unitList: [],
+			dailyAssignmentList: [],
 			marks: 10,
 		};
 	},
 	computed: {
-		classroomDetail() {
-			return this.$store.state.classroom.classroomDetail;
+		currentUnit() {
+			if(this.unitList.length && this.current_unit_id){
+				return this.unitList.find(node=>node.id===this.current_unit_id);
+			}
+			return {daily_assignments:[]};
 		},
 	},
 	mounted() {
@@ -155,7 +119,8 @@ export default {
 				.get('/api/classroom/' + this.$route.params.classroomId + '/daily-assignment-reports')
 				.then((resp) => {
 					this.unitList = resp.data.success.unitList;
-					this.dailyAssignmentData = resp.data.success.dailyAssignmentData;
+					this.current_unit_id = this.unitList.length ? this.unitList[0].id : 0;
+					// this.dailyAssignmentData = resp.data.success.dailyAssignmentData;
 					this.showLoader=false;
 				});
 		},

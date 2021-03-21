@@ -37,6 +37,7 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::get('/get-previous-unit-answers','ClassroomController@getPreviousUnitAnswers');
     
     Route::get('/classroom/{classroomId}/daily-questions','DailyAssignmentController@getDailyAssismentDetails');
+    Route::get('/daily-assignment-details/{assignmentId}','DailyAssignmentController@getDailyAssismentDetails2');
     Route::get('/classroom/{classroomId}/daily-assignment-reports','DailyAssignmentController@getDailyAssismentReports');
     
     //student panel

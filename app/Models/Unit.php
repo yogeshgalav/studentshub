@@ -12,7 +12,7 @@ class Unit extends Model
         return $this->hasMany('App\Models\DescriptiveQuestion');
     }
     
-    public function dailyAssignment(){
+    public function dailyAssignments(){
         return $this->hasMany('App\Models\DailyAssignment');
     }
     public function classroomResources(){

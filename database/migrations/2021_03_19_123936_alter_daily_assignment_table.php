@@ -15,7 +15,7 @@ class AlterDailyAssignmentTable extends Migration
     public function up()
     {
         Schema::table('daily_assignments', function (Blueprint $table) {
-            $table->enum('status',['draft','activated','deactivated','completed','imported'])->default('draft');
+            $table->enum('status',['draft','activated','deactivated','attempted','imported'])->default('draft');
         });
         Schema::table('units', function (Blueprint $table) {
             $table->dropColumn('is_activated');

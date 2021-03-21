@@ -28,9 +28,11 @@ class DailyAssignmentController extends Controller
             \Log::error('marks total error while activating daily assignment',['user_id'=>Auth::id(),'assignment'=>$daily]);
             abort(403);
         }
-        if($daily->status = 'activated'){
+        if($daily->activated_at){
+            $daily->activated_at = NULL;
             $daily->status = 'deactivated';
         }else{
+            $daily->activated_at = \Carbon\Carbon::now()->toDateTimeString();
             $daily->status = 'activated';
         }
         $daily->save();
@@ -89,7 +91,18 @@ class DailyAssignmentController extends Controller
         
     }
 
-    public function getDailyAssismentDetails(Request $request){
+    public function getDailyAssismentDetails2($assignmentId){
+        $dailyAssignmentData=DailyAssignment::where('id',$assignmentId)
+        ->with('dailyQuestions.multipleChoice')
+        ->first();
+
+        return response()->json([
+            'success'=>[
+                'dailyAssignmentData'=>$dailyAssignmentData
+            ]
+        ]);
+    }
+    public function getDailyAssismentDetails(Request $request,$ass){
         $unitList=Unit::where('classroom_id',$request->classroomId)->get();
         $dailyAssignmentData=DailyAssignment::where('classroom_id',$request->classroomId)
         ->doesntHave('dailyReport')
@@ -105,16 +118,13 @@ class DailyAssignmentController extends Controller
         ]);
     }   
     public function getDailyAssismentReports(Request $request){
-        $unitList=Unit::where('classroom_id',$request->classroomId)->get();
-        $dailyAssignmentData=DailyAssignment::where('classroom_id',$request->classroomId)
-        ->has('dailyReport')
-        ->with('dailyQuestions.multipleChoice')
+        $unitList=Unit::where('classroom_id',$request->classroomId)
+        ->with('dailyAssignments')
         ->get();
 
         return response()->json([
             'success'=>[
                 'unitList'=>$unitList,
-                'dailyAssignmentData'=>$dailyAssignmentData
             ]
         ]);
     }   

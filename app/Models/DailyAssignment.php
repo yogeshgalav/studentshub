@@ -17,6 +17,9 @@ class DailyAssignment extends Model
     public function dailyReport(){
         return $this->hasMany('App\Models\DailyReport');
     }
+    public function hasDailyReport(){
+        return $this->dailyReport()->exists();
+    }
     public function unit(){
         return $this->belongsTo('App\Models\Unit');
     }
