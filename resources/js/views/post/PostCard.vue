@@ -33,7 +33,10 @@
               {{ post.heading }}
             </h3>
           </div>
-          <div @click="setPostView(post)">
+          <div
+            class="post_width"
+            @click="setPostView(post)"
+          >
             <div
               v-if="post.image_path"
               class="col-md-12 post_img mb-2"
