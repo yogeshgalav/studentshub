@@ -60,6 +60,11 @@
                 </div> 
                 <hr>
                 <p>{{ message.content }}</p>
+                <hr>
+                <like-component
+                  :post="message"
+                  likable-type="message"
+                />
               </div>
             </div>
             <div class="col-md-3 col-12" />
@@ -132,14 +137,15 @@
 import FormMixin from '../../components/mixins/form-mixin.js';
 import AddButton from '../../components/AddButton';
 import ProfileImage from '../post/ProfileImage.vue';
-    
 import ClassroomHeader from '../../components/ClassroomHeader';
+import LikeComponent from '../common/LikeComponent';
     
 export default {
 	components: {
 		AddButton,
 		ClassroomHeader,
-		ProfileImage
+		ProfileImage,
+		LikeComponent,
 	},
 	mixins:[FormMixin],
 	data() {

@@ -103,6 +103,10 @@
                   />
                 </div>
               </div>
+              <like-component
+                :post="resource"
+                likable-type="resource"
+              />
             </div>
             <div class="col-md-3 col-12" />
           </div>
@@ -211,13 +215,14 @@
 <script>
 import FormMixin from '../../components/mixins/form-mixin.js';
 import AddButton from '../../components/AddButton';
-    
+import LikeComponent from '../common/LikeComponent';
 import ClassroomHeader from '../../components/ClassroomHeader';
     
 export default {
 	components: {
 		AddButton,
-		ClassroomHeader
+		ClassroomHeader,
+		LikeComponent,
 	},
 	mixins:[FormMixin],
 	data() {
