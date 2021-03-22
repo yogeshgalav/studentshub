@@ -26,6 +26,8 @@
           >
             <button
               type="button"
+              data-toggle="modal"
+              data-target="#addDoubtModal"
               class="btn btn-primary"
               @click="addDoubtModal"
             >
@@ -39,7 +41,7 @@
         :active.sync="loading"
         :color="'#10069F'"
         :width="100"
-        :is-full-page="false"
+        :is-full-page="true"
         :opacity="0.7"
         loader="dots"
         :name="'vue-table-loading' + Math.random()"
@@ -54,7 +56,10 @@
             <div class="doubt_lsit">
               <div class="dashboard_post">
                 <div class="avatar doubt_user_img">
-                  <profile-image :post="doubt" />
+                  <profile-image
+                    :user-name="doubt.user_name"
+                    :avatar="doubt.profile_image"
+                  />
                   <!-- <span>Y</span> -->
                 </div>
                 <div class="info-post ml-2 dash_insititue_name">
@@ -99,58 +104,62 @@
       </div>
       <modal
         v-if="AuthStudent"
-        name="add_doubt_modal"
-        class="doubt_model"
+        ref="addDoubtModal"
+        name="addDoubtModal"
+        heading="Ask doubt:"
+        @submit="addDoubt"
       >
-        <form @submit.prevent="addDoubt">
-          <div class="model_box_inner">
-            <div class="row">
-              <div class="col-md-12">
-                <p class="model_box_head">
-                  Ask Doubt
-                </p>
-              </div>
-              <div class="form-group col-md-12">
-                <label class="text-black font-size-14">Course
-                </label>
-                <input
-                  id="course"
-                  type="text"
-                  class="form-control"
-                  disabled
-                  :value="AuthStudent.courseName"
-                >
-              </div>
-              <div class="col-md-12">
-                <div class="model_input">
-                  <label>Doubt</label>
+        <template slot="modalBody">
+          <form>
+            <div class="model_box_inner">
+              <div class="row">
+                <div class="col-md-12">
+                  <p class="model_box_head">
+                    Ask Doubt
+                  </p>
+                </div>
+                <div class="form-group col-md-12">
+                  <label class="text-black font-size-14">Course
+                  </label>
                   <input
-                    v-model="question"
-                    class="form-control"
+                    id="course"
                     type="text"
-                    placeholder="Enter Your Doubt"
+                    class="form-control"
+                    disabled
+                    :value="AuthStudent.courseName"
                   >
                 </div>
-              </div>
-              <div
-                v-if="!subjectId"
-                class="col-md-12"
-              >
-                <div class="model_input">
-                  <label>Subject</label>
-                  <auto-complete
-                    v-validate="'required'"
-                    class="width-100"
-                    :items="subject_list"
-                    :value="'subject_name'"
-                    name="program_name"
-                    :placeholder="'eg. Biology,Chemistry'"
-                    :is-async="true"
-                    :is-loading="subjectLoading"
-                    @input="getSubjects"
-                    @selected="setSubject"
-                    @selectNew="setNewSubject"
-                  />
+                <div class="col-md-12">
+                  <div class="model_input">
+                    <label>Doubt</label>
+                    <input
+                      v-model="question"
+                      class="form-control"
+                      type="text"
+                      placeholder="Enter Your Doubt"
+                    >
+                  </div>
+                </div>
+                <div
+                  v-if="!subjectId"
+                  class="col-md-12"
+                >
+                  <div class="model_input">
+                    <label>Subject</label>
+                    <auto-complete
+                      v-validate="'required'"
+                      class="width-100"
+                      :items="subject_list"
+                      :value="'subject_name'"
+                      name="program_name"
+                      :placeholder="'eg. Biology,Chemistry'"
+                      :is-async="true"
+                      :is-loading="subjectLoading"
+                      @input="getSubjects"
+                      @selected="setSubject"
+                      @selectNew="setNewSubject"
+                    />
+                  </div>
                 </div>
               </div>
               <div class="col-md-12">
@@ -164,8 +173,8 @@
                 </div>
               </div>
             </div>
-          </div>
-        </form>
+          </form>
+        </template>
       </modal>
     </div>
   </main>
@@ -192,16 +201,16 @@
 }
 </style>
 <script>
-import VModal from 'vue-js-modal';
+import Modal from '../../components/VueNiceModal.vue';
 import Loading from 'vue-loading-overlay';
 import AutoComplete from '../../components/AutoComplete.vue';
 import LikeComponent from '../common/LikeComponent.vue';
-import ProfileImage from '../post/ProfileImage';
+import ProfileImage from '../../components/ProfileImage';
 
 
 export default {
   	components:{
-		VModal,
+		Modal,
 		Loading,
 		AutoComplete,
 		ProfileImage,
@@ -271,7 +280,7 @@ export default {
     	},
     	addDoubtModal(){
     		this.question=this.search_doubt;
-    		this.$modal.show('add_doubt_modal');
+    		// this.$modal.show('add_doubt_modal');
     	},
     	searchDoubt(){
     		this.axios.post(this.baseUrl + '/api/search-doubts/',{query:this.search_doubt})
@@ -286,8 +295,8 @@ export default {
     			classroomId:this.classroomId ?this.classroomId :''
     		} )
     			.then(resp => {
-
-    				this.$modal.hide('add_doubt_modal');
+    				// this.$modal.hide('add_doubt_modal');
+    				this.$refs.addDoubtModal.closeModal();
     				this.question='';
     				this.subject='';
     				this.getdata();

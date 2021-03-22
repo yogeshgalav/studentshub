@@ -4,6 +4,7 @@
       v-model="search"
       type="text"
       class="form-control"
+      :disabled="disabled"
       :placeholder="placeholder"
       :readonly="!isAsync"
       @input="onChange"
@@ -108,6 +109,11 @@ export default {
 			default: false,
 		},
 		createNewItem: {
+			type: Boolean,
+			required: false,
+			default: true,
+		},
+		disabled: {
 			type: Boolean,
 			required: false,
 			default: true,

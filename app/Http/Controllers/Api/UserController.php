@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
+use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -62,7 +63,7 @@ class UserController extends Controller
             $me->avatar_url="/storage/profile-images/".$file_name;
             $me->save();
         }
-        if($request->introduction){
+        if($request->intro){
             $profile->introduction=$request->intro;
         }
         if($request->fb_url){
@@ -71,8 +72,8 @@ class UserController extends Controller
         if($request->insta_url){
             $profile->insta_url=$request->insta_url;
         }
-        if($request->linkedin_url){
-            $profile->linkedin_url=$request->linkedin_url;
+        if($request->linked_url){
+            $profile->linkedin_url=$request->linked_url;
         }
 
         $profile->save();

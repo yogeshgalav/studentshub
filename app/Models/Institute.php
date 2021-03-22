@@ -10,7 +10,7 @@ class Institute extends Model
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
     public function setNameAttribute($value)
-    {
+    {dd(Sthub::ucWordSome($value));
         $this->attributes['name'] = Sthub::ucWordSome($value);
         $this->attributes['alias'] = Sthub::generateAlias($value);
     }

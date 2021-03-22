@@ -3,7 +3,7 @@
 <nav class="navbar navbar-expand-lg navbar-light ">
     <div class="logo">
     <a href='/'>
-                <img src="{{asset('/images/logo.png') }}" alt="Student'sHUB"/>
+      <img src="{{asset('/images/logo.png') }}" alt="Student'sHUB"/>
     </a>
 </div>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

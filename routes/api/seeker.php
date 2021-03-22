@@ -8,6 +8,8 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('/user-like/{type}', 'LikeController@updateOrDelete');
     Route::post('/post-save', 'PostController@savePost');
     Route::post('/post-report', 'PostController@reportPost');
+        //profile
+    Route::get('/get-profile','UserController@getProfile');
     Route::post('/save-profile', 'UserController@saveProfile');
     Route::get('/get-categories', 'CategoryController@index');
     Route::post('/checkin/student', 'StudentController@create');
@@ -15,4 +17,15 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('/search-course', 'StudentController@courseList');
     Route::post('/search-subject', 'StudentController@subjectList');
     Route::post('/search-institute', 'StudentController@instituteList');
+
+    // Notifications
+    Route::get('/notifications', 'NotificationController@index');
+    Route::patch('/notifications/{id}/read', 'NotificationController@markAsRead');
+    Route::post('/notifications/mark-all-read', 'NotificationController@markAllRead');
+    Route::post('/notifications/{id}/dismiss', 'NotificationController@dismiss');
+
+    // Push Subscriptions
+    Route::post('/subscriptions', 'PushSubscriptionController@update');
+    Route::post('/subscriptions/delete', 'PushSubscriptionController@destroy');
+
 });

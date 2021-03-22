@@ -19,13 +19,15 @@ class Sthub extends Facade
      */
     public static function ucWordSome($string)
     {
-        $str = ucwords($string);
+        $str = strtolower($string);
+        $str_arr = preg_split('/\s+/', $str);
+        $result_arr = [];
         $exclude = 'a,an,the,for,and,nor,but,or,yet,so,such,as,at,around,by,after,along,for,from,of,on,in,to,with,without';
         $excluded = explode(",", $exclude);
-        foreach ($excluded as $noCap) {
-            $str = str_replace(ucwords($noCap), strtolower($noCap), $str);
+        foreach ($str_arr as $word) {
+            $result_arr[] = !in_array($word,$excluded) ? ucfirst($word) : $word;
         }
-        return ucfirst($str);
+        return implode(' ', $result_arr);
     }
 
     public static function currentTab($tab){

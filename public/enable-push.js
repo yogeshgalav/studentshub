@@ -80,7 +80,7 @@ function urlBase64ToUint8Array (base64String) {
 function storePushSubscription(pushSubscription) {
 	const token = document.querySelector('meta[name=csrf-token]').getAttribute('content');
 
-	fetch('/subscriptions', {
+	fetch('/api/subscriptions', {
 		method: 'POST',
 		body: JSON.stringify(pushSubscription),
 		headers: {

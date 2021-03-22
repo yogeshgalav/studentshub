@@ -87,7 +87,7 @@
 			data.append('endpoint', endpoint);
   
 			// Send a request to the server to mark the notification as read.
-			fetch(`/notifications/${notification.data.id}/dismiss`, {
+			fetch(`/api/notifications/${notification.data.id}/dismiss`, {
 				method: 'POST',
 				body: data
 			});

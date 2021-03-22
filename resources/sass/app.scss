@@ -1933,7 +1933,7 @@ button:focus{ outline: none;}
       font-size: 15px;
     letter-spacing: -0.003em;
     font-weight: 500;
-    color: #42526E ! important;
+    color: #42526E;
   }
 
   .menu a {
@@ -2697,7 +2697,6 @@ ul.menu-dropdown li {
     width: 70%;
 }
 }
-// himanshu
 //himanshu
 .heading {
     min-height: 500px;
@@ -2723,6 +2722,7 @@ ul.menu-dropdown li {
     text-align: center;
     color: white;
 }
+
 .form {
     max-width: 100%;
     margin: auto;
@@ -2737,4 +2737,14 @@ ul.menu-dropdown li {
     .second_heading{
         font-size: 25px;
     }
+}
+
+// sidebar
+
+.sidebar {
+    margin-right: 20px;
+}
+.menu-dropdown a.active{
+    color: #0052CC !important;
+    border-right: solid #0052CC;
 }

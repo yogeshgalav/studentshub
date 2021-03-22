@@ -4,7 +4,10 @@
       <div class="card_box">
         <div class="dashboard_post">
           <div class="avatar">
-            <profile-image :post="post" />
+            <profile-image
+              :user-name="post.user_name"
+              :avatar="post.profile_image"
+            />  
           </div>
           <div class="info-post ml-2 dash_insititue_name">
             <p class="usernamedash mb-0 dash_user_date">
@@ -104,7 +107,7 @@
 }
 </style>
 <script>
-import ProfileImage from './ProfileImage.vue';
+
 // import ImageSlider from './ImageSlider.vue';
 import LikeComponent from '../common/LikeComponent.vue';
 

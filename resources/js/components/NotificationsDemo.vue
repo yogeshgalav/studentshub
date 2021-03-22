@@ -174,7 +174,7 @@ export default {
 
 			this.loading = true;
 
-			axios.post('/subscriptions', data)
+			axios.post('/api/subscriptions', data)
 				.then(() => { this.loading = false; });
 		},
 
@@ -186,7 +186,7 @@ export default {
 		deleteSubscription (subscription) {
 			this.loading = true;
 
-			axios.post('/subscriptions/delete', { endpoint: subscription.endpoint })
+			axios.post('/api/subscriptions/delete', { endpoint: subscription.endpoint })
 				.then(() => { this.loading = false; });
 		},
 
@@ -196,7 +196,7 @@ export default {
 		sendNotification () {
 			this.loading = true;
 
-			axios.post('/notifications')
+			axios.post('/api/notifications')
 				.catch(error => console.log(error))
 				.then(() => { this.loading = false; });
 		},
