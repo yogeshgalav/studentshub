@@ -84,60 +84,21 @@
                 </div>
                 <hr>
                 <p>{{ message.content }}</p>
+                <messages-reply :message="message" />
                 <span>
                   <button
                     type="button"
-                    class="btn-default"
+                    class="btn-link"
                     @click="deleteMessage(message.id)"
                   >Delete</button>
                   <button
                     type="button"
-                    class="btn-default"
+                    class="btn-link"
                     data-toggle="modal"
                     data-target="#editMessageModal"
                     @click="edit_message=message"
                   >Edit</button> 
                 </span>
-              </div>
-              <div class="card-body">
-                <div class="dashboard_post">
-                  <div class="avatar">
-                    <profile-image
-                      :avatar="message.avatar_url"
-                      :user-name="message.user_name"
-                    />
-                  </div>
-                  <div class="info-post ml-2 dash_insititue_name"> 
-                    <p class="usernamedash mb-0">
-                      {{ message.user_name }}
-                    </p>
-                    <p
-                      v-for="replies in message.replies"
-                      :key="replies.id"
-                      class="usernamedash mb-0 dash_user_date"
-                    >
-                      {{ replies.content }} <span> {{ message.time }} </span>
-                    </p>
-                  </div>
-                </div>
-                <hr>
-              </div>
-              <div
-                class="mb-2"
-                style="padding-left: inherit;"
-              >
-                <input
-                  type="text"
-                  placeholder="Reply to this message"
-                  class="col-11"
-                  style="font-size: 20px; border-radius: 20px; border: 0; margin-right: 20px; outline: none; box-shadow: #80808069 2px 2px 2px, #80808094 2px 2px 2px inset;"
-                  @keyup.enter="saveReply($event, message)"
-                >
-                <i
-                  class="fa fa-paper-plane ml-2"
-                  aria-hidden="true"
-                  style="font-size: 25px; color: gray; cursor: pointer;"
-                />
               </div>
             </div>
             <div class="col-md-3 col-12" />
@@ -229,6 +190,7 @@ import ProfileImage from '../../components/ProfileImage.vue';
 import AddButton from '../../components/AddButton';
 import Modal from '../../components/VueNiceModal.vue';
 import ClassroomHeader from '../../components/ClassroomHeader';
+import messagesReply from './messages-reply';
 
 export default {
 	components: {
@@ -236,6 +198,7 @@ export default {
 		ClassroomHeader,
 		ProfileImage,
 		Modal,
+		messagesReply,
 	},
 	mixins: [FormMixin],
 	props:['classrooms'],
@@ -249,7 +212,7 @@ export default {
 			edit_message:{
 				id:'',
 				content:'',
-			}
+			},
 		};
 	},
 	computed: {
@@ -273,20 +236,6 @@ export default {
 		},
 		addMessage() {
 			this.$modal.show('addMessageModal');
-		},
-		saveReply(e, message){
-			console.log(e);
-			console.log(message); 
-			this.$validator.validate().then((valid) => {
-        	if(valid){
-					this.axios.post('/api/add-message',
-						{
-							parent_message_id:message.id,
-							content:e.target.value,
-							classroom_id:message.classroom_id,
-						});
-				}
-			});
 		},
 		saveMessage() {
 			this.$validator.validate().then((valid) => {
@@ -322,14 +271,10 @@ export default {
 			});
 		},
 		deleteMessage(messageId){
-			this.$validator.validate().then((valid)=>{
-				if(valid){
-					this.axios.post('/api/delete-message',{
-						message_id:messageId,
-					}).then((resp)=>{
-						window.location.reload();
-					});
-				}
+			this.axios.post('/api/delete-message',{
+				message_id:messageId,
+			}).then((resp)=>{
+				window.location.reload();
 			});
 		}
 	},

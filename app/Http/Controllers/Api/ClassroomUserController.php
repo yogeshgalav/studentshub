@@ -84,7 +84,7 @@ class ClassroomUserController extends Controller
             
             $messagequery = $messagequery->whereIn('classroom_id',$classroomIdArray);
         }
-        $messages = $messagequery->with('replies.sender')->orderBy('classroom_messages.created_at','DESC')->get();
+        $messages = $messagequery->orderBy('classroom_messages.created_at','DESC')->get();
 
         foreach($messages as $message){
             $message->time = Carbon::createFromTimeStamp(strtotime($message->created_at))->diffForHumans();
@@ -107,6 +107,20 @@ class ClassroomUserController extends Controller
 
         return response()->json(['success'=>[
             'message'=>$message
+        ]]);
+    }
+    public function replymessage($messageId){
+        $messagequery = ClassroomMessage::where('parent_message_id','=',$messageId)
+        ->leftJoin('users as us','us.id','=','classroom_messages.sender_user_id')
+        ->leftJoin('classrooms as cs','cs.id','=','classroom_messages.classroom_id')
+        ->select('classroom_messages.classroom_id', 'classroom_messages.id','classroom_messages.content','classroom_messages.created_at','us.full_name as user_name','us.avatar_url','cs.name as classroom_name');
+        $messages = $messagequery->orderBy('classroom_messages.created_at','DESC')->get();
+
+        foreach($messages as $message){
+            $message->time = Carbon::createFromTimeStamp(strtotime($message->created_at))->diffForHumans();
+        }
+        return response()->json(['success'=>[
+            'messages'=>$messages
         ]]);
     }
     public function editmessage(Request $request){
