@@ -26,7 +26,7 @@
           </div>
           <div class="row add_cl_q mt-2">
             <div
-              v-if="!messages.length" 
+              v-if="!messages.length"
               class="card"
             >
               <div class="card-body">
@@ -37,12 +37,12 @@
                 </div>
               </div>
             </div>
-            <div 
+            <div
               v-for="(message,index2) in messages"
               :key="index2"
               class="col-md-10 col-12 mt-2 card"
             >
-              <div 
+              <div
                 class="card-body"
               >
                 <div class="dashboard_post">
@@ -56,8 +56,8 @@
                     <p class="usernamedash mb-0">
                       {{ message.classroom_name }}
                     </p>
-                  </div>   
-                </div> 
+                  </div>
+                </div>
                 <hr>
                 <p>{{ message.content }}</p>
                 <hr>
@@ -69,6 +69,10 @@
             </div>
             <div class="col-md-3 col-12" />
           </div>
+          <like-component
+            :post="message"
+            likable-type="post"
+          />
         </div>
 
         <modal
