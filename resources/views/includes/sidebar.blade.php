@@ -45,8 +45,8 @@
 
 
     </div>
-    <!-- web header -->
-    <nav role="navigation" class="menu">
+    <!-- sideBar -->
+    <nav role="navigation" class="menu" id="openNav">
 
 
         <div class="overflow-container" id="sidebarContainer">

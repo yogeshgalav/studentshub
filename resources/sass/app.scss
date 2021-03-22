@@ -1185,7 +1185,7 @@ input:focus {
 textarea:focus {
     border: solid 1px blue !important;
 }
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 768px) {
     .btn-label {
         margin-right: 10px !important;
     }
@@ -2380,7 +2380,7 @@ select.form-control.custom-select {
         max-width: 100%;
     }
 }
-@media (max-width: 769px) {
+@media (max-width: 768px) {
     .custom-width .col-md-9 {
         -webkit-box-flex: 0;
         flex: 0 0 100%;
@@ -2391,7 +2391,7 @@ select.form-control.custom-select {
         width: 100%;
     }
     .menu {
-        display: none;
+        display: block;
     }
     .primary-nav {
         top: 0;
@@ -2400,7 +2400,7 @@ select.form-control.custom-select {
         display: block;
     }
 }
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 768px) {
     .search_box {
         width: 100%;
         margin-top: 25px;
@@ -2710,3 +2710,16 @@ div.nav-login-get-started {
     color: #0052cc !important;
     border-right: solid #0052cc;
 }
+// @media (max-width: 768px) {
+//     .primary-nav {
+//         top: 0;
+//         width: 100%;
+//         z-index: 9999;
+//     }
+//     .primary-nav .header_mobile{
+//         display: block !important;
+//     }
+//     .menu {
+//         display: block;
+//     }
+// }
