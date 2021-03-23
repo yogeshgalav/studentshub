@@ -13,7 +13,6 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/app/guest/app.js', 'public/js/app.js')
 .js('resources/js/app/seeker/app.js', 'public/js/seekerApp.js')
-.js('resources/js/app/explore/app.js', 'public/js/exploreApp.js')
 .js('resources/js/app/student/app.js', 'public/js/studentApp.js')
 .js('resources/js/app/profile/app.js', 'public/js/profileApp.js')
 .js('resources/js/app/create-post/app.js', 'public/js/createPostApp.js')

@@ -25,7 +25,7 @@ class Post extends PostModel
     public function getSubjectPosts(Request $request){
         $post_query=$this->getAuthUserPostTabels();     
 
-        $posts=$post_query->where('sub.subject_url',$request->route('subjectUrl'))
+        $posts=$post_query->where('sub.id',$request->route('subjectUrl'))
         ->orderBy('po.created_at','DESC')
         ->paginate();
 
@@ -35,7 +35,7 @@ class Post extends PostModel
     public function getCategoryPosts(Request $request){
         $post_query=$this->getAuthUserPostTabels();     
 
-        $posts=$post_query->where('cat.category_url',$request->route('categoryUrl'))
+        $posts=$post_query->where('cat.id',$request->route('categoryUrl'))
         ->orderBy('po.created_at','DESC')
         ->paginate();
 
