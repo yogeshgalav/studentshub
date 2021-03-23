@@ -17,7 +17,7 @@
     <div class="main-header">
     @include('includes.navbar')
     </div>
-    
+
     <div class="container-fluid">
         <div class="row">
         @if(!request()->is('*daily-attempt'))
@@ -27,8 +27,8 @@
                 </div>
             </div>
         @endif
-            <div class="col-md-9">    
-                <div class="content pt-100-px">
+            <div class="col-md-9">
+                <div class="content">
                     @yield('content')
                 </div>
             </div>

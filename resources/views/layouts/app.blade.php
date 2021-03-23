@@ -1,5 +1,5 @@
 
- 
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -13,12 +13,12 @@
 </head>
 <body>
     <div id="app">
-        <main class="flex-center position-ref full-height">   
+        <main class="flex-center position-ref full-height">
 <div class="main-header">
      @include('includes.navbar')
 </div>
 
-@yield('content')  
+@yield('content')
 </main>
 </div>
     @include('includes.jsVariables')
