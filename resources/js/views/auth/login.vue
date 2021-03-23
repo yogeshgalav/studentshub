@@ -225,6 +225,7 @@ export default {
 				if (valid) {
 					this.form_errors=[];
 					this.showLoader=true;
+					this.$gtag.event('login');
 					document.getElementById('login_form').submit();
 				}
 			});

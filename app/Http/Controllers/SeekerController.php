@@ -8,7 +8,14 @@ use Auth;
 class SeekerController extends Controller
 {
     //
+    public function seekerCheckin(){
+        $user = Auth::user();
+        $user->role_intended = 'seeker';
+        $user->onboarded_at = \Carbon\Carbon::now()->toDateTimeString();
+        $user->save();
 
+        return redirect('/');
+    }
     public function profile($profileId)
     {
         $user = \App\Models\User::where('users.id', $profileId)
