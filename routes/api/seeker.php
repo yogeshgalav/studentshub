@@ -28,4 +28,5 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('/subscriptions', 'PushSubscriptionController@update');
     Route::post('/subscriptions/delete', 'PushSubscriptionController@destroy');
 
+    Route::get('/search-user', 'UserController@searchUser');
 });
