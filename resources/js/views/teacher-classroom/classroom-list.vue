@@ -15,8 +15,7 @@
           <div class="col-md-12">
             <p>
               <a :href="'/education-details'">
-                Please fill out education details
-              </a>{{ ' to join classrooms from your institute.' }}
+                Please fill out education details </a>{{ " to join classrooms from your institute." }}
             </p>
           </div>
         </div>
@@ -66,13 +65,13 @@
     <div v-if="myClassrooms.length">
       <div class="row">
         <div class="col-md-12 mt-3">
-          <h3>My Classrooms </h3>
+          <h3>My Classrooms</h3>
           <hr>
         </div>
       </div>
       <div class="row">
         <div
-          v-for="(classroom,index) in myClassrooms"
+          v-for="(classroom, index) in myClassrooms"
           :key="index"
           class="col-md-4"
         >
@@ -81,7 +80,7 @@
               <p>{{ classroom.classroom_join_id }}</p>
             </div>
             <a
-              :href="'/classroom/'+classroom.id"
+              :href="'/classroom/' + classroom.id"
               class="classroom_box"
             >
               <div class="clss_username">
@@ -91,11 +90,15 @@
                     alt=""
                   >
                 </p>
-                <h5 class="mt-3">{{ classroom.teacher_name }}</h5>
+                <h5 class="mt-3">
+                  {{ classroom.teacher_name }}
+                </h5>
               </div>
               <div class="classroom_content">
-                <p>{{ classroom.subject_name }} <br> <span>{{ classroom.name }}</span></p>
-               
+                <p>
+                  {{ classroom.subject_name }} <br>
+                  <span>{{ classroom.name }}</span>
+                </p>
               </div>
             </a>
           </div>
@@ -104,12 +107,12 @@
     </div>
     <div v-if="classroomList.length">
       <div class="col-md-12 mt-3">
-        <h3>Joined Classrooms </h3>
+        <h3>Joined Classrooms</h3>
         <hr>
       </div>
       <div class="row">
         <div
-          v-for="(classroom,index) in classroomList"
+          v-for="(classroom, index) in classroomList"
           :key="index"
           class="col-md-4"
         >
@@ -118,7 +121,7 @@
               <p>{{ classroom.classroom_join_id }}</p>
             </div>
             <a
-              :href="'/classroom/'+classroom.id"
+              :href="'/classroom/' + classroom.id"
               class="classroom_box"
             >
               <div class="clss_username">
@@ -132,12 +135,15 @@
                     :size="large"
                   />
                 </p>
-                <h5
-                  class="mt-3"
-                >{{ classroom.teacher_name }}</h5>
+                <h5 class="mt-3">
+                  {{ classroom.teacher_name }}
+                </h5>
               </div>
               <div class="classroom_content">
-                <p>{{ classroom.subject_name }} <br> <span>{{ classroom.name }}</span></p>
+                <p>
+                  {{ classroom.subject_name }} <br>
+                  <span>{{ classroom.name }}</span>
+                </p>
               </div>
             </a>
           </div>
@@ -148,22 +154,22 @@
 </template>
 <style scoped>
 .clss_username h5 {
-color:#333;
+    color: #333;
 }
 
 .classroom_content p {
-  font-size: 20px;
-  font-weight: bold;
+    font-size: 20px;
+    font-weight: bold;
 }
 .clas_roo_main_box a:hover {
-  text-decoration: none;
+    text-decoration: none;
 }
 .classroom_content p:hover {
-  text-decoration: none;
+    text-decoration: none;
 }
 .classroom_content p span {
-  font-size: 16px;
-  font-weight: normal;
+    font-size: 16px;
+    font-weight: normal;
 }
 .uc{
   text-transform:uppercase;
@@ -180,11 +186,11 @@ export default {
 		AddButton
 	},
 	props: ['myClassrooms', 'classroomList'],
-	data(){
+	data() {
 		return {
-			id_error:'',
-			showLoader:false,
-			join_classroom_name:'',
+			id_error: '',
+			showLoader: false,
+			join_classroom_name: ''
 		};
 	},
 	methods:{
@@ -201,82 +207,88 @@ export default {
 				if(err.response.status===422){
 					let error_data = err.response.data.error;
 					if(error_data.field==='classroom_id'){
-						this.id_error = error_data.message; 
+						this.id_error = error_data.message;
 					};
 				}
 				this.showLoader=false;
 			});
 		},
-		createClassroom(){
-			window.location.href='/create-classroom';
+		createClassroom() {
+			window.location.href = '/create-classroom';
 		}
 	}
 };
-
 </script>
 
 <style>
-    .clas_roo_main_box {
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.16);
-        margin-bottom: 30px;
-        border-radius: 4px;
-    }
+.clas_roo_main_box {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.16);
+    margin-bottom: 30px;
+    border-radius: 4px;
+}
 
-    .cl_box_top p {
-        color: white;
-        font-size: 24px;
-        font-weight: 700;
-    }
+.cl_box_top p {
+    color: white;
+    font-size: 24px;
+    font-weight: 700;
+}
 
-    .cl_box_top {
-        padding: 50px;
-        text-align: center;
-        background-color: #0f6bff;
-        background: linear-gradient(90deg, #020024 0%, #090979 0%, #0475c0 0%, #00d4ff 79%);
-    }
+.cl_box_top {
+    padding: 50px;
+    text-align: center;
+    background: #bdc3c7;
+    background: -webkit-linear-gradient(
+        to right,
+        #2c3e50,
+        #bdc3c7
+    );
+    background: linear-gradient(
+        #2c3e50,
+        #bdc3c7
+    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
 
-    .classroom_box p {
-        color: #868686;
-    }
+.classroom_box p {
+    color: #868686;
+}
 
-    .classroom_box a {
-        font-size: 20px;
-        color: black;
-        font-weight: 700;
-    }
+.classroom_box a {
+    font-size: 20px;
+    color: black;
+    font-weight: 700;
+}
 
-    .classroom_box {
-        position: relative;
-    }
+.classroom_box {
+    position: relative;
+}
 
-    .clss_username {
-        display: flex;
-        align-items: center;
-        position: absolute;
-        top: -52px;
-        width: 100%;
-        padding: 0px 15px;
-    }
+.clss_username {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: -52px;
+    width: 100%;
+    padding: 0px 15px;
+}
 
-    .clss_username img {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        background: #f6f6f6;
-        border: solid 1px #ccc;
-    }
+.clss_username img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: #f6f6f6;
+    border: solid 1px #ccc;
+}
 
-    .classroom_content {
-        padding: 44px 0 0;
-    }
+.classroom_content {
+    padding: 44px 0 0;
+}
 
-    .clss_username h5 {
-        /* padding: 25px 12px; */
-        margin: 20px 10px 0;
-    }
+.clss_username h5 {
+    /* padding: 25px 12px; */
+    margin: 20px 10px 0;
+}
 
-    .classroom_content {
-        padding: 60px 18px 10px;
-    }
-
+.classroom_content {
+    padding: 60px 18px 10px;
+}
 </style>

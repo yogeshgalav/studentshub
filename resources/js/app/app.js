@@ -124,6 +124,19 @@ Vue.mixin({
 			'X-CSRF-TOKEN': this.csrfToken,
 			'X-Requested-With': 'XMLHttpRequest'
 		};
+		var prevScrollpos = window.pageYOffset;
+		window.onscroll = function() {
+			let headerMobile = document.getElementById('header_mobile');
+			if (headerMobile){
+				var currentScrollPos = window.pageYOffset;
+				if (prevScrollpos > currentScrollPos) {
+					headerMobile.style.top = '0';
+				} else {
+					headerMobile.style.top = '-50px';
+				}
+				prevScrollpos = currentScrollPos;
+			}
+		};
 		document.addEventListener('click', this.closeSidebar);
 	},
 	methods: {

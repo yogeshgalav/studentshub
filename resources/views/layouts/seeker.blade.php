@@ -1,5 +1,5 @@
 
- 
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -13,7 +13,7 @@
 </head>
 <body>
     <div id="seekerApp">
-        <main class="flex-center position-ref full-height">   
+        <main class="flex-center position-ref full-height">
 <div class="main-header">
      @include('includes.navbar')
 </div>
@@ -25,13 +25,13 @@
                 @include('includes.sidebar')
                 </div>
             </div>
-            <div class="col-md-9">    
-                <div class="content pt-100-px">
+            <div class="col-md-9">
+                <div class="content">
                     @yield('content')
                 </div>
             </div>
         </div>
-    </div> 
+    </div>
 </main>
 </div>
     @include('includes.jsVariables')

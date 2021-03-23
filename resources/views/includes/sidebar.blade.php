@@ -3,7 +3,7 @@
 <div class="primary-nav">
     <!-- mobile header -->
     <div class="Dsfdad">
-        <div class="header_mobile">
+        <div class="header_mobile" id="header_mobile">
             <div class="logo mobile_logo">
                 <a href="/">
                     <img src="{{asset('/images/logo.png') }}" alt="Student'sHUB" />
@@ -45,8 +45,8 @@
 
 
     </div>
-    <!-- web header -->
-    <nav role="navigation" class="menu">
+    <!-- sideBar -->
+    <nav role="navigation" class="menu" id="openNav">
 
 
         <div class="overflow-container" id="sidebarContainer">
