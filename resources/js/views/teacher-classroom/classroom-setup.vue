@@ -46,6 +46,29 @@
                     <span class="error">{{ formErrors('unit_name' + index) }}</span>
                   </div>
                 </div>
+                <div class="col-md-12">
+                  <doughnut-graph :graph-data="unit.pieGraphData" />
+
+                  <div
+                    class="ml-3 mt-5"
+                  >
+                    <div
+                      v-for="(status, index) in unit.pieGraphData"
+                      :key="index"
+                      class="session-report"
+                    >
+                      <p :class="[reportColorClasses[index] ,'weight-800 font-size-20 mb-0 mt-0']">
+                        {{ status.assignmentCount }}
+                        <span class="font-size-12 weight-400">{{ status.status }}</span>
+                      </p>
+                    </div>
+                    <div class="divider mt-0 mb-0" />
+                    <p class="text-black weight-800 font-size-12 mb-1 mt-0">
+                      {{ unit.assignment_total }}
+                      <span class="font-size-12">{{ 'Assignments' }}</span>
+                    </p>
+                  </div>
+                </div>
               </div>
             </accordion>
           </div>
@@ -58,6 +81,7 @@
 import FormMixin from '../../components/mixins/form-mixin.js';
 import Accordion from '../../components/accordion';
 import AddButton from '../../components/AddButton';
+import DoughnutGraph from '../../components/graphs/PieGraph';
     
 import ClassroomHeader from '../../components/ClassroomHeader';
     
@@ -65,7 +89,8 @@ export default {
 	components: {
 		Accordion,
 		AddButton,
-		ClassroomHeader
+		ClassroomHeader,
+		DoughnutGraph
 	},
 	mixins:[FormMixin],
 	data() {
@@ -86,6 +111,16 @@ export default {
 		getUnitDetails(){
 			this.axios.get('/api/classroom/' + this.$route.params.classroomId + '/unit-details').then((resp) => {
 				this.unitData = resp.data.success.unitData;
+				const daily_assignment_status = resp.data.success.daily_assignment_status;
+				this.unitData.map((node)=>{
+					node.pieGraphData = daily_assignment_status.filter(node2=>node2.unit_id===node.id).map(node2=>{
+						node2.label = node2.status; 
+						node2.count = node2.assignmentCount;
+						return node2;
+					});
+					node.assignment_total = daily_assignment_status.reduce((acc,currVal)=>acc+currVal.assignmentCount,0);
+					return node;
+				});
 				this.showLoader=false;
 			});
 		},
@@ -102,7 +137,14 @@ export default {
 				unit_no: unit_no,
 				unit_name: event.target.value
 			});
-		}
+		},
+		// dailyAssignmentStatusGraphData(unit){
+		// 	let unit_data = daily_assignment_status.find(node=>node.key===unit.id);
+		// 	if(unit_data && unit_data.subgroup.length){
+		// 		return unit_data.subgroup;
+		// 	}
+		// 	return [];
+		// }
 	}
 };
 

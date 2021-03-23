@@ -10,7 +10,6 @@ import VModal from 'vue-js-modal';
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import Dayjs from 'vue-dayjs';
-import ProfileImage from '../components/ProfileImage';
 
 import VueLazyload from 'vue-lazyload';
 Vue.use(VueLazyload);
@@ -20,7 +19,6 @@ Vue.use(Dayjs, {
 		ago: 'ago',
 	}
 });
-
 // or with options
 Vue.use(VueLazyload, {
 	preLoad: 1.3,
@@ -32,7 +30,7 @@ Vue.use(VModal, { dynamic: true, injectModalsContainer: true, scrollable:true })
 Vue.use(VueAxios, axios);
 Vue.component('NotificationsDropdown', require('../components/NotificationsDropdown.vue').default);
 
-//error tracking
+//error tracking 
 import * as Sentry from '@sentry/browser';
 import { Integrations } from '@sentry/tracing';
 if(window.App.mode==='production'){
@@ -54,8 +52,21 @@ if(window.App.mode==='production'){
 }
 Vue.mixin({
 	components:{
-		Loading,
-		ProfileImage
+		Loading
+	},
+	data(){
+		return {
+			reportColorCodes: ['#10069F', '#963CBD', '#00C1D5', '#F39C12', '#1D7BB9', '#95A5A6', '#EABD0A'],
+			reportColorClasses: [
+				'text-blue',
+				'text-accent',
+				'text-dark-cyan',
+				'text-dark-yellow',
+				'text-nice-blue',
+				'text-metal',
+				'text-light-yellow',
+			],
+		};
 	},
 	computed: {
 		baseUrl() {
@@ -124,20 +135,6 @@ Vue.mixin({
 			'X-CSRF-TOKEN': this.csrfToken,
 			'X-Requested-With': 'XMLHttpRequest'
 		};
-		var prevScrollpos = window.pageYOffset;
-		window.onscroll = function() {
-			let headerMobile = document.getElementById('header_mobile');
-			if (headerMobile){
-				var currentScrollPos = window.pageYOffset;
-				if (prevScrollpos > currentScrollPos) {
-					headerMobile.style.top = '0';
-				} else {
-					headerMobile.style.top = '-50px';
-				}
-				prevScrollpos = currentScrollPos;
-			}
-		};
-		document.addEventListener('click', this.closeSidebar);
 	},
 	methods: {
 		'$trans':function(file,string,defaultString){
@@ -149,14 +146,26 @@ Vue.mixin({
 		toggleSidebar(e){
 			e.preventDefault();
 			document.documentElement.classList.toggle('openNav');
+			var menu = document.querySelector('.nav-toggle'); // Using a class instead, see note below.
+			menu.classList.toggle('active');
 		},
-		closeSidebar(e){
-			//e.preventDefault();
-			var container = document.getElementById('sidebarContainer');
-			var container2 = document.getElementById('nav-toggle');
-			if (!container.contains(e.target) && !container2.contains(e.target) && document.documentElement.classList.contains('openNav')) {
-				document.documentElement.classList.remove('openNav');
-			}
+		divideArrayIntoSubgroups(array,label){
+			return array.map(node=>{
+				new_node=[];
+				let label_index = new_node.findIndex(node2=>node2[label]===node[label]);
+				if(label_index > -1){
+					new_node[label_index]['subgroup'] = [];
+					new_node[label_index]['subgroup'].push(node);
+				}else{
+					let subgroup = [];
+					subgroup.push(node);
+					new_node.push({
+						'key':node[label],
+						'subgroup':subgroup,
+					});
+				}
+				return new_node;
+			});
 		}
 	}
 });
