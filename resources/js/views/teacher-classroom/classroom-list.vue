@@ -116,7 +116,28 @@
           :key="index"
           class="col-md-4"
         >
-          <div class="clas_roo_main_box">
+          <div
+            class="card rounded-lg pt-3 pb-3 bg-light"
+            style="text-align: -webkit-center;"
+          >
+            <div style="text-align: -webkit-center;">
+              <profile-image
+                :user-name="classroom.teacher_name"
+                :size="large"
+              />
+            </div>
+
+            <h3 class="mt-2 text-info font-weight-bold">
+              {{ classroom.teacher_name }}
+            </h3>
+            <h4 class="font-weight-bold text-black-50">
+              {{ classroom.name }}
+            </h4>
+            <h4 class="font-weight-normal text-muted">
+              {{ classroom.subject_name }}
+            </h4>
+          </div>
+          <!-- <div class="clas_roo_main_box">
             <div class="cl_box_top">
               <p>{{ classroom.classroom_join_id }}</p>
             </div>
@@ -124,12 +145,25 @@
               :href="'/classroom/' + classroom.id"
               class="classroom_box"
             >
-              <div class="clss_username">
+            <div class="card">
+              <profile-image
+                    :user-name="classroom.teacher_name"
+                    :size="large"
+                  />
+                <h5 class="mt-3">
+                  {{ classroom.teacher_name }}
+                </h5>
+                <p>
+                  {{ classroom.subject_name }} <br>
+                  <span>{{ classroom.name }}</span>
+                </p>
+            </div>
+           <!--   <div class="clss_username">
                 <p>
                   <!-- <img
                     src="/images/Group.svg"
                     alt=""
-                  > -->
+                  >
                   <profile-image
                     :user-name="classroom.teacher_name"
                     :size="large"
@@ -146,14 +180,14 @@
                 </p>
               </div>
             </a>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
   </div>
 </template>
 <style scoped>
-.clss_username h5 {
+/* .clss_username h5 {
     color: #333;
 }
 
@@ -173,7 +207,7 @@
 }
 .uc{
   text-transform:uppercase;
-}
+} */
 </style>
 <script>
 import Modal from '../../components/VueNiceModal';
