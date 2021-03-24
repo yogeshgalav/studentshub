@@ -127,12 +127,12 @@
               />
             </div>
 
-            <h3 class="mt-2 text-info font-weight-bold">
+            <h4 class="mt-2 font-weight-normal text-muted">
               {{ classroom.teacher_name }}
-            </h3>
-            <h4 class="font-weight-bold text-black-50">
-              {{ classroom.name }}
             </h4>
+            <h3 class="font-weight-bold text-info font-weight-bold">
+              {{ classroom.name }}
+            </h3>
             <h4 class="font-weight-normal text-muted">
               {{ classroom.subject_name }}
             </h4>
