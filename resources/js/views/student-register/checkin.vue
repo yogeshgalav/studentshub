@@ -231,7 +231,7 @@
                     <div class="row">
                       <button
                         type="submit"
-                        class="login_btn"
+                        class="btn-primary btn-lg m-0-a"
                       >
                         {{ ('Submit') }} <span><i
                           class="fa fa-arrow-right"
@@ -315,7 +315,7 @@
                     <div class="row">
                       <button
                         type="submit"
-                        class="login_btn"
+                        class="btn-primary btn-lg"
                       >
                         {{ ('Submit') }} <span><i
                           class="fa fa-arrow-right"
@@ -422,7 +422,7 @@
                     <div class="row mt-2">
                       <button
                         type="submit"
-                        class="login_btn"
+                        class="btn-primary btn-lg"
                       >
                         {{ ('Submit') }} <span><i
                           class="fa fa-arrow-right"
@@ -528,10 +528,10 @@
     margin-right: 10px;
     color: r;
     }
-    button.login_btn i {
+    button.btn-primary btn-lg i {
         color: white;
     }
-    button.login_btn span {
+    button.btn-primary btn-lg span {
         color: white;
         margin-left: 10px;
     }

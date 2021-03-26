@@ -182,12 +182,12 @@
                       </div>
 
                       <div class="form-group mb-0">
-                        <div class="login_btn_part">
+                        <div>
                           <button
                             type="submit"
-                            class="login_btn"
+                            class="btn-primary btn-lg m-0-a"
                           >
-                            {{ trans('Register') }} <i
+                            {{ trans('Register') }}&nbsp;<i
                               class="fa fa-arrow-right text-white"
                             />
                           </button>

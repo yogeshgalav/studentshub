@@ -72,13 +72,14 @@
                 </div>
               </div>
               <div class="mt-2">
-                <add-button
-                  name="Add Question"
-                  size="md"
+                <button
+                  class="btn-primary btn-lg"
                   @submit="addQuestion(unit.unit_no)"
-                />
+                >
+                  <i class="fas fa-plus" />&nbsp;&nbsp;Add Question
+                </button>
               </div>
-                                
+
               <div class="mt-5">
                 <hr>
                 <button
@@ -123,7 +124,7 @@ export default {
 			activated_unit:null,
 		};
 	},
-	computed:{  
+	computed:{
 		classroomDetail(){
 			return this.$store.state.classroom.classroomDetail;
 		}
@@ -137,7 +138,7 @@ export default {
 				this.unitData = resp.data.success.unitData;
 				this.activate_unit=this.classroomDetail.activated_unit;
 			});
-		},      
+		},
 		activateUnit(unit_no) {
 			let activation_text='';
 			if(this.activated_unit===unit_no){
@@ -171,7 +172,7 @@ export default {
 
 		},
 		removeQuestion($event,unit_no){
-                
+
 		}
 	}
 };
