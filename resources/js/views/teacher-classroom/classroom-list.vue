@@ -75,33 +75,27 @@
           :key="index"
           class="col-md-4"
         >
-          <div class="clas_roo_main_box">
-            <div class="cl_box_top">
-              <p>{{ classroom.classroom_join_id }}</p>
+          <a
+            class="card rounded-lg pt-3 pb-3 bg-light"
+            style="text-align: -webkit-center;"
+          >
+            <div style="text-align: -webkit-center;">
+              <profile-image
+                :user-name="classroom.teacher_name"
+                size="large"
+              />
             </div>
-            <a
-              :href="'/classroom/' + classroom.id"
-              class="classroom_box"
-            >
-              <div class="clss_username">
-                <p>
-                  <img
-                    src="/images/Group.svg"
-                    alt=""
-                  >
-                </p>
-                <h5 class="mt-3">
-                  {{ classroom.teacher_name }}
-                </h5>
-              </div>
-              <div class="classroom_content">
-                <p>
-                  {{ classroom.subject_name }} <br>
-                  <span>{{ classroom.name }}</span>
-                </p>
-              </div>
-            </a>
-          </div>
+
+            <h4 class="mt-2 font-weight-normal text-muted">
+              {{ classroom.teacher_name }}
+            </h4>
+            <h3 class="font-weight-bold text-info font-weight-bold">
+              {{ classroom.name }}
+            </h3>
+            <h4 class="font-weight-normal text-muted">
+              {{ classroom.subject_name }}
+            </h4>
+          </a>
         </div>
       </div>
     </div>
@@ -116,65 +110,33 @@
           :key="index"
           class="col-md-4"
         >
-          <div class="clas_roo_main_box">
-            <div class="cl_box_top">
-              <p>{{ classroom.classroom_join_id }}</p>
+          <a
+            class="card rounded-lg pt-3 pb-3 bg-light"
+            style="text-align: -webkit-center;"
+          >
+            <div style="text-align: -webkit-center;">
+              <profile-image
+                :user-name="classroom.teacher_name"
+                size="large"
+              />
             </div>
-            <a
-              :href="'/classroom/' + classroom.id"
-              class="classroom_box"
-            >
-              <div class="clss_username">
-                <p>
-                  <!-- <img
-                    src="/images/Group.svg"
-                    alt=""
-                  > -->
-                  <profile-image
-                    :user-name="classroom.teacher_name"
-                    :size="large"
-                  />
-                </p>
-                <h5 class="mt-3">
-                  {{ classroom.teacher_name }}
-                </h5>
-              </div>
-              <div class="classroom_content">
-                <p>
-                  {{ classroom.subject_name }} <br>
-                  <span>{{ classroom.name }}</span>
-                </p>
-              </div>
-            </a>
-          </div>
+
+            <h4 class="mt-2 font-weight-normal text-muted">
+              {{ classroom.teacher_name }}
+            </h4>
+            <h3 class="font-weight-bold text-info font-weight-bold">
+              {{ classroom.name }}
+            </h3>
+            <h4 class="font-weight-normal text-muted">
+              {{ classroom.subject_name }}
+            </h4>
+          </a>
         </div>
       </div>
     </div>
   </div>
 </template>
-<style scoped>
-.clss_username h5 {
-    color: #333;
-}
 
-.classroom_content p {
-    font-size: 20px;
-    font-weight: bold;
-}
-.clas_roo_main_box a:hover {
-    text-decoration: none;
-}
-.classroom_content p:hover {
-    text-decoration: none;
-}
-.classroom_content p span {
-    font-size: 16px;
-    font-weight: normal;
-}
-.uc{
-  text-transform:uppercase;
-}
-</style>
 <script>
 import Modal from '../../components/VueNiceModal';
 import swal from '../../components/swal';
@@ -220,75 +182,3 @@ export default {
 };
 </script>
 
-<style>
-.clas_roo_main_box {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.16);
-    margin-bottom: 30px;
-    border-radius: 4px;
-}
-
-.cl_box_top p {
-    color: white;
-    font-size: 24px;
-    font-weight: 700;
-}
-
-.cl_box_top {
-    padding: 50px;
-    text-align: center;
-    background: #bdc3c7;
-    background: -webkit-linear-gradient(
-        to right,
-        #2c3e50,
-        #bdc3c7
-    );
-    background: linear-gradient(
-        #2c3e50,
-        #bdc3c7
-    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-}
-
-.classroom_box p {
-    color: #868686;
-}
-
-.classroom_box a {
-    font-size: 20px;
-    color: black;
-    font-weight: 700;
-}
-
-.classroom_box {
-    position: relative;
-}
-
-.clss_username {
-    display: flex;
-    align-items: center;
-    position: absolute;
-    top: -52px;
-    width: 100%;
-    padding: 0px 15px;
-}
-
-.clss_username img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background: #f6f6f6;
-    border: solid 1px #ccc;
-}
-
-.classroom_content {
-    padding: 44px 0 0;
-}
-
-.clss_username h5 {
-    /* padding: 25px 12px; */
-    margin: 20px 10px 0;
-}
-
-.classroom_content {
-    padding: 60px 18px 10px;
-}
-</style>
