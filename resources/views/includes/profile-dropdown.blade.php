@@ -1,6 +1,6 @@
 <div class="dropdown">
     <button class="btn btn-sm border-radius-12 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-     <profile-image avatar="{{$AuthUser->avatar_url}}" user-name="{{$AuthUser->full_name}}" size="small" />
+     <profile-image avatar="{{$AuthUser->avatar_url}}" user-name="{{$AuthUser->full_name}}" />
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <div class="d-flex p-2">
