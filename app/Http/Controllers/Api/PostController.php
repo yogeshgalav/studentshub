@@ -209,21 +209,15 @@ class PostController extends Controller
         return $response;
       }
 
-      public function categoryPosts(Request $request){
+      public function categoryDetails(Request $request){
+        $category=\App\Models\Category::where('category_url', $request->route('id'))->firstOrFail();
         $post=new \App\Post;
-        $response = $post->getCategoryPosts($request);
+        $posts = $post->getCategoryPosts($category->id);
 
-        $search=new \App\Models\Search;
-        $search->query=$request->route('categoryId');
-        // $search->type='category';
-        if($response){
-          $search->success=true;
-        }else{
-          $search->success=false;
-        }
-        $search->save();
-
-        return $response;
+        return response()->json(['success'=>[
+            'posts'=>$posts,
+            'category'=>$category,
+        ]]);
       }
 
       public function savePost(Request $request){
