@@ -41,10 +41,10 @@ class Post extends PostModel
 
         return $this->formatPostData($posts);
     }
-    public function getCoursePosts(Request $request){
+    public function getCoursePosts($course_id){
         $post_query=$this->getAuthUserPostTabels();
 
-        $posts=$post_query->where('course.id',$request->route('courseUrl'))
+        $posts=$post_query->where('course.id',$course_id)
         ->orderBy('po.created_at','DESC')
         ->paginate();
 

@@ -176,11 +176,11 @@ class PostController extends Controller
       }
 
       public function coursePosts(Request $request){
-        $post=new \App\Post;
+        $post=\App\Post\Course::where('course_id', $request->route('id'))->firstOrFail();
         $response = $post->getCoursePosts($request);
 
-        $search=new \App\Models\Search;
-        $search->query=$request->route('courseId');
+        $post=new \App\Post;
+        $posts->query=$request->route('courseId');
         // $search->type='course';
         if($response){
           $search->success=true;
@@ -189,7 +189,7 @@ class PostController extends Controller
         }
         $search->save();
 
-        return $response;
+        return 'success';
       }
 
       public function subjectPosts(Request $request){
