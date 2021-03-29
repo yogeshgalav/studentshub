@@ -22,10 +22,10 @@ class Post extends PostModel
         return $this->formatPostData($posts);
     }
 
-    public function getSubjectPosts(Request $request){
+    public function getSubjectPosts($subject_id){
         $post_query=$this->getAuthUserPostTabels();
 
-        $posts=$post_query->where('sub.id',$request->route('subjectUrl'))
+        $posts=$post_query->where('sub.id',$subject_id)
         ->orderBy('po.created_at','DESC')
         ->paginate();
 

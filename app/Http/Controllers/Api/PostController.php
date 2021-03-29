@@ -193,10 +193,9 @@ class PostController extends Controller
       }
 
       public function subjectPosts(Request $request){
-        $post=new \App\Post;
+        $post=\App\Post\Course::where('subject_id', $request->route('id'))->firstOrFail();
         $response = $post->getSubjectPosts($request);
-
-        $search=new \App\Models\Search;
+        $search=new \App\Post;
         $search->query=$request->route('subjectId');
         // $search->type='subject';
         if($response){
@@ -206,7 +205,7 @@ class PostController extends Controller
         }
         $search->save();
 
-        return $response;
+        return 'success';
       }
 
       public function categoryDetails(Request $request){

@@ -63,6 +63,10 @@ const routes = [
     {
         path: "/course/:id",
         component: CourseComponent
+    },
+    {
+        path: "/subject/:id",
+        component: SubjectComponent
     }
 ];
 
