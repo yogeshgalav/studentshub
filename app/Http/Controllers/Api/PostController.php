@@ -174,22 +174,15 @@ class PostController extends Controller
           'posts'=>$posts
         ]]);
       }
-
-      public function coursePosts(Request $request){
-        $post=\App\Post\Course::where('course_id', $request->route('id'))->firstOrFail();
-        $response = $post->getCoursePosts($request);
-
+      public function courseDetails(Request $request){
+        $subject=\App\Models\Course::where('course_url', $request->route('id'))->firstOrFail();
         $post=new \App\Post;
-        $posts->query=$request->route('courseId');
-        // $search->type='course';
-        if($response){
-          $search->success=true;
-        }else{
-          $search->success=false;
-        }
-        $search->save();
+        $posts = $post->getCoursePosts($course->id);
 
-        return 'success';
+        return response()->json(['success'=>[
+            'posts'=>$posts,
+            'subject'=>$course,
+        ]]);
       }
       public function subjectDetails(Request $request){
         $subject=\App\Models\Subject::where('subject_url', $request->route('id'))->firstOrFail();
