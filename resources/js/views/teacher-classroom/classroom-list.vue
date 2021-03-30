@@ -76,6 +76,7 @@
           class="col-md-4"
         >
           <a
+            :href="'/classroom/'+classroom.id"
             class="card rounded-lg pt-3 pb-3 bg-light"
             style="text-align: -webkit-center;"
           >
@@ -111,6 +112,7 @@
           class="col-md-4"
         >
           <a
+            :href="'/classroom/'+classroom.id"
             class="card rounded-lg pt-3 pb-3 bg-light"
             style="text-align: -webkit-center;"
           >
