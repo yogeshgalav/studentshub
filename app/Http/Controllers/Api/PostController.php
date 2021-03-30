@@ -191,21 +191,15 @@ class PostController extends Controller
 
         return 'success';
       }
+      public function subjectDetails(Request $request){
+        $subject=\App\Models\Subject::where('subject_url', $request->route('id'))->firstOrFail();
+        $post=new \App\Post;
+        $posts = $post->getSubjectPosts($subject->id);
 
-      public function subjectPosts(Request $request){
-        $post=\App\Post\Course::where('subject_id', $request->route('id'))->firstOrFail();
-        $response = $post->getSubjectPosts($request);
-        $search=new \App\Post;
-        $search->query=$request->route('subjectId');
-        // $search->type='subject';
-        if($response){
-          $search->success=true;
-        }else{
-          $search->success=false;
-        }
-        $search->save();
-
-        return 'success';
+        return response()->json(['success'=>[
+            'posts'=>$posts,
+            'subject'=>$subject,
+        ]]);
       }
 
       public function categoryDetails(Request $request){

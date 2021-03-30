@@ -21,5 +21,5 @@ Route::get('/get-explore-posts', 'ExploreController@index');
 
 Route::get('/get-search-posts', 'PostController@searchPosts');
 Route::get('/get-course-posts/{id}', 'PostController@coursePosts');
-Route::get('/get-subject-posts/{id}', 'PostController@subjectPosts');
+Route::get('/get-subject-details/{id}', 'PostController@subjectDetails');
 Route::get('/get-category-details/{id}', 'PostController@categoryDetails');
