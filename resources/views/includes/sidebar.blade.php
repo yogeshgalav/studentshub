@@ -4,15 +4,19 @@
     <!-- mobile header -->
     <div class="Dsfdad">
         <div class="header_mobile" id="header_mobile">
-            <div class="logo mobile_logo">
+            <div class="logo mobile_logo" v-if="showMobileLogoBar">
                 <a href="/">
                     <img src="{{asset('/images/logo.png') }}" alt="Student'sHUB" />
                 </a>
             </div>
             <div class="header_mobile_login">
                 <ul>
-                    <li><button class="hamburger open-panel togle_mobile" id="nav-toggle"
-                            @click="toggleSidebar($event)">
+                    <li><button 
+                            type="button" 
+                            id="nav-toggle"
+                            class="btn btn-sm btn-default border-radius-12"
+                            @click="toggleSidebar($event)"
+                        ><i class="fa fa-bars" aria-hidden="true"></i>
                         </button>
                     </li>
                     <li class="nav-item">
@@ -91,7 +95,6 @@
             @if(Auth::user()->role_intended === 'seeker')
                 <li><a href="/check-in"> <span class="icon"><img src="{{asset('/images/logout.png') }}" alt="Student'sHUB" width="20"/></span> Checkin</a></li>
             @endif
-                <li><a href="/logout"> <span class="icon"><img src="{{asset('/images/logout.png') }}" alt="Student'sHUB" width="20"/></span> Logout</a></li>
             </ul>
 
         </div>

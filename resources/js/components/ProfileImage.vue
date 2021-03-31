@@ -15,7 +15,7 @@
       >
     </div>
     <div v-if="!avatar">
-      {{ getNameImage(userName) }}
+      {{ userName | getFirstChar }}
     </div>
   </div>
 </template>
@@ -47,6 +47,11 @@
 </style>
 <script>
 export default {
+	filters: {
+		getFirstChar(name) {
+			return name ? name.charAt(0) : '';
+		}
+	},
 	props: {
 		avatar: {
 			type: String,
@@ -61,11 +66,6 @@ export default {
 			type: String,
 			default: 'normal',
 			required: false
-		}
-	},
-	methods: {
-		getNameImage(name) {
-			return name.charAt(0);
 		}
 	}
 };

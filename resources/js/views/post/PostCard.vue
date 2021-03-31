@@ -115,6 +115,9 @@
 import LikeComponent from '../common/LikeComponent.vue';
 
 export default {
+	components:{
+		LikeComponent
+	},
 	props:['post'],
 	methods:{
 		setPostView(post){
