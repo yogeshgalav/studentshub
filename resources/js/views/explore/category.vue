@@ -21,9 +21,11 @@
           :key="index"
         >
           <div class="card mt-2">
-            {{ course.course_name }}<br>
-            {{ course.duration }}<br>
-            {{ course.eligibility }}
+            <h2>{{ index+1 }}. &nbsp;{{ course.course_name }}</h2>
+            <h4 class="text-muted">
+              {{ course.duration }}
+              {{ course.eligibility }}
+            </h4>
           </div>
         </div>
       </template>
