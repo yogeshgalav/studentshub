@@ -22,25 +22,6 @@
       </div>
     </div>
     <div>
-      <add-button
-        v-if="AuthTeacher"
-        button-class="btn-primary mb-1"
-        type="button"
-        size="lg"
-        name="Create Classroom"
-        bg-class="bg-primary-accent"
-        @submit="createClassroom()"
-      />
-      <add-button
-        v-if="AuthStudent"
-        button-class="btn-success mb-1"
-        type="button"
-        size="lg"
-        name="Join Classroom"
-        data-toggle="modal"
-        data-target="#joinClassroomModal"
-        @submit="joinClassroomModal"
-      />
       <modal
         ref="joinClassroomModal"
         name="joinClassroomModal"
@@ -136,6 +117,25 @@
         </div>
       </div>
     </div>
+    <hr>
+    <button
+      v-if="AuthTeacher"
+      type="button"
+      class="btn-lg btn-primary"
+      @submit="createClassroom()"
+    >
+      <i class="fas fa-plus" />&nbsp;&nbsp;Create Classroom
+    </button>
+    <button
+      v-if="AuthStudent"
+      type="button"
+      class="btn-primary btn-lg mb-1"
+      data-toggle="modal"
+      data-target="#joinClassroomModal"
+      @submit="joinClassroomModal"
+    >
+      <i class="fas fa-plus" />&nbsp;&nbsp;Join Classroom
+    </button>
   </div>
 </template>
 

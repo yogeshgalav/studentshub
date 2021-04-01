@@ -32,11 +32,12 @@
       v-else
       class="mt-2"
     >
-      <add-button
-        name="Add Assignment"
-        size="lg"
+      <button
+        class="btn-primary btn-lg"
         @submit="addAssignment"
-      />
+      >
+        <i class="fas fa-plus" />&nbsp;&nbsp;Add Assignment
+      </button>
     </div>
     <div
       v-for="(daily,index) in dailyAssignmentData"

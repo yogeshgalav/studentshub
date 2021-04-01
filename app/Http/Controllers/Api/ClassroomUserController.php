@@ -8,6 +8,7 @@ use App\Models\ClassroomMessage;
 use App\Notifications\MessageAdded;
 use Illuminate\Http\Request;
 use Auth;
+use DB;
 use App\Http\Requests\JoinClassroomRequest;
 use Carbon\Carbon;
 
@@ -65,7 +66,15 @@ class ClassroomUserController extends Controller
         $messagequery = ClassroomMessage::
         leftJoin('users as us','us.id','=','classroom_messages.sender_user_id')
         ->leftJoin('classrooms as cs','cs.id','=','classroom_messages.classroom_id')
-        ->select('classroom_messages.content','classroom_messages.created_at','us.full_name as user_name','us.avatar_url','cs.name as classroom_name');
+        ->leftJoin('likes as li',function($join){
+                $join->on('classroom_messages.id','=','li.likable_id')->where('li.likable_type','=','App\Models\ClassroomMessage')->where('li.like_status','=',1);
+            })
+            ->leftJoin('likes as dli',function($join){
+                $join->on('classroom_messages.id','=','dli.likable_id')->where('dli.likable_type','=','App\Models\ClassroomMessage')->where('dli.like_status','=',0);
+            })
+        ->select('classroom_messages.id','classroom_messages.content','classroom_messages.created_at','us.full_name as user_name','us.avatar_url','cs.name as classroom_name', DB::raw('COUNT(distinct li.user_id) as total_likes'),DB::raw('COUNT(distinct dli.user_id) as total_dislikes'));
+        
+        
         if($classroomId)
         {
             $messagequery = $messagequery->where('classroom_id',$classroomId);
@@ -84,7 +93,7 @@ class ClassroomUserController extends Controller
             
             $messagequery = $messagequery->whereIn('classroom_id',$classroomIdArray);
         }
-        $messages = $messagequery->orderBy('classroom_messages.created_at','DESC')->get();
+        $messages = $messagequery->orderBy('classroom_messages.created_at','DESC')->groupBy(['classroom_messages.id','classroom_messages.content','classroom_messages.created_at','us.full_name','us.avatar_url','cs.name'])->get();
 
         foreach($messages as $message){
             $message->time = Carbon::createFromTimeStamp(strtotime($message->created_at))->diffForHumans();

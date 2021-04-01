@@ -343,10 +343,10 @@
     margin-right: 10px;
     color: r;
     }
-    button.login_btn i {
+    button.btn-primary btn-lg i {
         color: white;
     }
-    button.login_btn span {
+    button.btn-primary btn-lg span {
         color: white;
         margin-left: 10px;
     }

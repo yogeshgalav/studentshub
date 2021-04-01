@@ -235,7 +235,7 @@
                     <div class="form-group d-flex s_register_btn">
                       <button
                         type="submit"
-                        class="login_btn"
+                        class="btn-primary btn-lg m-0-a"
                       >
                         {{ 'Create' }}
                       </button>
