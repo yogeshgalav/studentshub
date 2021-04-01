@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div>
     <h1>{{ category_name }}</h1>
     <hr>
     <nav-tabs
@@ -10,40 +10,64 @@
         {{ 'About' }}
       </template>
       <template slot="tab-panel-about">
+        <h3 class="mb-2">
+          About
+        </h3>
         <div v-html="about" />
       </template>
       <template slot="tab-heading-courses">
         {{ 'Courses' }}
       </template>
       <template slot="tab-panel-courses">
+        <h3 class="mb-2">
+          Courses
+        </h3>
         <div
           v-for="(course,index) in courses"
           :key="index"
         >
-          <div class="card mt-2">
-            <h2>{{ index+1 }}. &nbsp;{{ course.course_name }}</h2>
-            <h4 class="text-muted">
-              {{ course.duration }}
-              {{ course.eligibility }}
-            </h4>
-          </div>
+          <router-link
+            :to="'/course/'+course.course_url"
+            class="card mt-2"
+          >
+            <p class="mt-4 explore-name ml-2">
+              {{ index+1 }}. &nbsp;{{ course.course_name }}
+            </p>
+            <p class="text-muted explore-content ml-4 pl-2">
+              Duration: {{ course.duration ? course.duration : 'N/A' }}<br>
+              Eligibility: {{ course.eligibility ? course.eligibility : 'N/A' }}
+            </p>
+          </router-link>
         </div>
       </template>
       <template slot="tab-heading-subjects">
         {{ 'Subjects' }}
       </template>
       <template slot="tab-panel-subjects">
+        <h3 class="mb-2">
+          Subjects
+        </h3>
         <div
           v-for="(subject,index) in subjects"
           :key="index"
         >
-          {{ subject.subject_name }}
+          <router-link
+            :to="'/subject/'+subject.subject_url"
+            class="card mt-2"
+          >
+            <p class="mt-4 explore-name ml-2">
+              {{ index+1 }}. &nbsp;{{ subject.subject_name }}
+            </p>
+          </router-link>
         </div>
       </template>
       <template slot="tab-heading-posts">
         {{ 'Posts' }}
       </template>
       <template slot="tab-panel-posts">
+        <h3 class="mb-2">
+          Posts
+        </h3>
         <div
           v-if="!posts.length"
           class="row"
@@ -75,7 +99,16 @@
     <site-footer />
   </div>
 </template>
-<style scoped></style>
+<style scoped>
+.explore-name{
+    line-height: 1;
+    font-size: large;
+    font-weight: 600;
+}
+.explore-content{
+    font-size: larger;
+}
+</style>
 <script>
 import SiteFooter from '../footer/SiteFooter';
 import NavTabs from '../../components/NavTabs';
