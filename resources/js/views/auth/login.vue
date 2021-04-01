@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <loading 
+    <loading
       :active.sync="showLoader"
       :color="'#10069F'"
       :width="250"
@@ -14,7 +14,7 @@
               src="/images/Group.svg"
               alt=""
             >
-          </div>   
+          </div>
         </div>
         <div class="col-md-6 ">
           <div class="logn_right">
@@ -108,19 +108,19 @@
                     </div>
                     <div class="forget_pass">
                       <router-link :to="'/forgot-password'">
-                        {{ trans('Forgot Your Password') }} 
-                      </router-link>    
-                    </div>   
+                        {{ trans('Forgot Your Password') }}
+                      </router-link>
+                    </div>
                   </div>
                 </div>
 
                 <div class="form-group  mb-0">
-                  <div class="login_btn_part">
+                  <div>
                     <button
                       type="submit"
-                      class="login_btn"
+                      class="btn-lg btn-primary m-0-a"
                     >
-                      {{ trans('Login') }} <i class="fa fa-arrow-right text-white" />
+                      {{ trans('Login') }}&nbsp;<i class="fa fa-arrow-right text-white" />
                     </button>
                   </div>
                 </div>
@@ -142,7 +142,7 @@
                     ><i><img src="/icons/facebook.png"></i> Sign up with Facebook</a>
                   </div>
                 </div> -->
-                            
+
                 <div class="text-center center-col pt-2">
                   <span
                     class="text-gray"
@@ -164,7 +164,7 @@
             :to="'/membership-plan'"
             class="font-size-40 text-black weight-800 mb-2 line-height-25-px text-center"
           >
-            {{ trans('New Institute or Teacher?') }} 
+            {{ trans('New Institute or Teacher?') }}
           </router-link>
         </div>
       </div>
@@ -172,7 +172,7 @@
   </div>
 </template>
 <style scoped>
- 
+
     /* enable absolute positioning */
 
 .inner-addon {
@@ -206,7 +206,7 @@ import FormMixin from '../../components/mixins/form-mixin.js' ;
 
 export default {
 	mixins: [FormMixin],
-	props: { 
+	props: {
 		srvError401:{
 			default:false,
 		},

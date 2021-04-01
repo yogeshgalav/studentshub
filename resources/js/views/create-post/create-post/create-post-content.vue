@@ -20,7 +20,7 @@
     <div class="creat_post_btn">
       <button
         type="button"
-        class="login_btn"
+        class="btn-primary btn-lg m-0-a"
         @click="prevTab"
       >
         <span><i
@@ -30,7 +30,7 @@
       </button>
       <button
         type="button"
-        class="login_btn"
+        class="btn-primary btn-lg m-0-a"
         @click="nextTab"
       >
         Finish <span><i
@@ -81,7 +81,7 @@ export default {
 .creat_post_card {
     padding: 20px;
 }
-button.login_btn span {
+button.btn-primary btn-lg span {
     margin: 0px 5px;
 }
 .creat_post_card .form-control

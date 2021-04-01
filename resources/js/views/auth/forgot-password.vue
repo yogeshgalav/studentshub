@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <loading 
+    <loading
       :active.sync="showLoader"
       :color="'#10069F'"
       :width="250"
@@ -14,7 +14,7 @@
               src="/images/Forgot-pass.svg"
               alt=""
             >
-          </div>   
+          </div>
         </div>
         <div class="col-md-6 ">
           <div class="logn_right">
@@ -55,12 +55,12 @@
                   </div>
                 </div>
                 <div class="form-group  mb-0">
-                  <div class="login_btn_part">
+                  <div>
                     <button
                       type="submit"
-                      class="login_btn"
+                      class="btn-primary btn-lg m-0-a"
                     >
-                      Submit<i class="fa fa-arrow-right text-white" />
+                      Submit&nbsp;<i class="fa fa-arrow-right text-white" />
                     </button>
                   </div>
                 </div>
