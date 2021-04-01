@@ -1,5 +1,8 @@
 <template>
-  <div id="profileImage">
+  <div
+    id="profileImage"
+    :class="size"
+  >
     <div
       v-if="avatar"
       class="avatar"
@@ -11,47 +14,58 @@
         style="border-radius: 50%;"
       >
     </div>
-    <div
-      v-if="!avatar"
-    >
-      {{ getNameImage(userName) }}
+    <div v-if="!avatar">
+      {{ userName | getFirstChar }}
     </div>
   </div>
 </template>
 <style scoped>
 #profileImage {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: #512DA8;
-  font-size: 22px;
-  color: #fff;
-  text-align: center;
-  line-height: 40px;
-  margin: 5px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px !important;
+    margin: 0 !important;
+    border-radius: 50%;
+    background: #512da8;
+    color: #fff;
+    text-align: center;
+    line-height: 40px;
+}
+.normal {
+    width: 40px;
+    height: 40px;
+}
+.large {
+    width: 60px;
+    height: 60px;
+}
+.small {
+    width: 20px;
+    height: 20px;
 }
 </style>
 <script>
 export default {
-	props:{
-		'avatar':{
-			type:String,
-			default:'',
-			required:false,
-		},
-		'userName':{
-			type:String,
-			required:true,
-		},
-		size:{
-			type:String,
-			default:'normal',
-			required:false,
+	filters: {
+		getFirstChar(name) {
+			return name ? name.charAt(0) : '';
 		}
 	},
-	methods:{
-		getNameImage(name){
-			return name.charAt(0);
+	props: {
+		avatar: {
+			type: String,
+			default: '',
+			required: false
+		},
+		userName: {
+			type: String,
+			required: true
+		},
+		size: {
+			type: String,
+			default: 'normal',
+			required: false
 		}
 	}
 };

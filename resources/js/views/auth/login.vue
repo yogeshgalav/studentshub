@@ -36,6 +36,12 @@
                   <span>{{ trans('Invalid login credentials. Please try again.') }}</span>
                 </div>
                 <div
+                  v-if="emailError"
+                  class="form-group row alert alert-warning"
+                >
+                  <span>{{ 'You are already registered. Please Login.' }}</span>
+                </div>
+                <div
                   v-if="srvErrorUnknown"
                   class="form-group row alert alert-danger"
                 >
@@ -206,7 +212,10 @@ export default {
 		},
 		srvErrorUnknown:{
 			default:false,
-		}
+		}, 
+		emailError:{
+			default:false,
+		} 
 	},
 	data(){
 		return{
