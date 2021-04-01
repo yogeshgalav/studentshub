@@ -18,7 +18,7 @@
                   class="btn btn-primary btn-lg"
                   @click="addMessage"
                 >
-                  Add Message
+                  <i class="fas fa-plus" />&nbsp;&nbsp;Add Message
                 </button>
               </div>
             </div>
@@ -50,7 +50,7 @@
                       :user-name="message.user_name"
                     />
                   </div>
-                  <div class="info-post ml-2 dash_insititue_name"> 
+                  <div class="info-post ml-2 dash_insititue_name">
                     <p class="usernamedash mb-0 dash_user_date">
                       {{ message.user_name }} <span> {{ message.time }}</span>
                     </p>
@@ -160,14 +160,12 @@
 </template>
 <script>
 import FormMixin from '../../components/mixins/form-mixin.js';
-// import AddButton from '../../components/AddButton';
 import ProfileImage from '../../components/ProfileImage';
 import ClassroomHeader from '../../components/ClassroomHeader';
 import LikeComponent from '../common/LikeComponent';
     
 export default {
 	components: {
-		// AddButton,
 		ClassroomHeader,
 		ProfileImage,
 		LikeComponent,

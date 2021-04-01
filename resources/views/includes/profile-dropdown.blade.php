@@ -1,6 +1,6 @@
 <div class="dropdown">
-    <button class="btn btn-sm btn-default border-radius-12 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-     <profile-image avatar="{{$AuthUser->avatar_url}}" user-name="{{$AuthUser->full_name}}" size="small" />
+    <button class="btn btn-sm border-radius-12 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+     <profile-image avatar="{{$AuthUser->avatar_url}}" user-name="{{$AuthUser->full_name}}" />
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <div class="d-flex p-2">
@@ -11,11 +11,14 @@
                     <p class="username">{{$AuthUser->full_name}}</p>
                     </div>
             </div>
-            <p><a href="/education-details" class="center-block ml-3 mt-1">Education Details</a></p>
-            <p><a href="/contactus" class="center-block ml-3 mt-1">Contactus</a></p>
-            <p><a href="/faq" class="center-block ml-3 mt-1">FAQ</a></p>
-            <p><a href="/feedback" class="center-block ml-3 mt-1">Feedback</a></p>
+            <hr>
+            <p><a href="/education-details" class="center-block ml-3 mt-1 text-black-50">Education Details</a></p>
+            <p><a href="/contactus" class="center-block ml-3 mt-1 text-black-50">Contactus</a></p>
+            <p><a href="/faq" class="center-block ml-3 mt-1 text-black-50">FAQ</a></p>
+            <p><a href="/feedback" class="center-block ml-3 mt-1 text-black-50">Feedback</a></p>
             <div class="dropdown-divider"></div>
-      <a href="/logout" class="center-block ml-3 mt-1 btn btn-sm btn-default logout_btn">Logout</a>
+            <div>
+            <a href="/logout" class="center-block mt-1 btn btn-sm btn-default logout_btn" style="margin: 0 auto; width:50%;display: block;">Logout</a>
+            </div>
     </div>
   </div>

@@ -28,8 +28,8 @@ const store = new Vuex.Store({
 import VueGtag from 'vue-gtag';
 if(window.App.mode==='production'){
 	Vue.use(VueGtag, {
-		config: { id: 'UA-1234567-1' }
-	});
+		config: { id: 'G-W2Z76KH2R6' }
+	}, router);
 }
 Vue.component('ResetPasswordComponent', require('../../views/auth/reset-password.vue').default);
 // Vue.component('FeedbackComponent', require('../../views/user/feedback.vue').default);

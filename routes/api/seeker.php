@@ -4,7 +4,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['auth:api']], function () {
-    Route::get('/get-posts', [App\Http\Controllers\PostController::class, 'getPosts']);
+    Route::get('/get-posts', [App\Http\Controllers\Api\PostController::class, 'getPosts']);
     Route::post('/user-like/{type}', 'LikeController@updateOrDelete');
     Route::post('/post-save', 'PostController@savePost');
     Route::post('/post-report', 'PostController@reportPost');
@@ -28,4 +28,5 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('/subscriptions', 'PushSubscriptionController@update');
     Route::post('/subscriptions/delete', 'PushSubscriptionController@destroy');
 
+    Route::get('/search-user', 'UserController@searchUser');
 });

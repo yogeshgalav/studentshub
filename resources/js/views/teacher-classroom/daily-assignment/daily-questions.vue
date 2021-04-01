@@ -10,14 +10,14 @@
           <div class="row">
             <div class="col-md-9">
               <div class="weight-800">
-                {{ 'Question' + ' ' + (index+1) }} 
+                {{ 'Question' + ' ' + (index+1) }}
                 <button
                   title="Edit"
                   class="btn btn-link"
                   @click="editQuestion(question.id)"
                 >
                   <i class="fa fa-edit" />
-                </button> 
+                </button>
                 <button
                   title="Delete"
                   class="btn btn-link p-0"
@@ -35,7 +35,7 @@
           </div>
         </div>
       </div>
-                    
+
       <div class="row mt-2">
         <div class="col-md-12">
           <div class="row">
@@ -63,16 +63,17 @@
         </div>
       </div>
     </div>
-        
+
     <div
       v-if="assignmentId && total_marks<10"
       class="mt-3 mb-2 col-md-12 pl-0"
     >
-      <add-button
-        name="Add Question"
-        size="md"
+      <button
+        class="btn-primary btn-lg"
         @submit="addQuestion"
-      />
+      >
+        <i class="fas fa-plus" />&nbsp;&nbsp;Add Question
+      </button>
     </div>
     <modal
       :name="'addDailyQuestionModal'+assignmentId"
@@ -186,7 +187,7 @@
                           class="form-control col-md-12"
                         >
                       </div>
-            
+
                       <button
                         v-if="current_question_edit.multiple_choice.length>2"
                         class="btn btn-default btn-sm ml-2 delete_btn"
@@ -216,12 +217,12 @@
                     <span class="error">{{ formErrors('correct_answer') }}</span>
                   </div>
                   <div class="col-md-12">
-                    <add-button
-                      type="button"
-                      size="sm"
-                      name="Add Option"
+                    <button
+                      class="btn-lg btn-primary"
                       @submit="addOption()"
-                    />
+                    >
+                      <i class="fas fa-plus" />&nbsp;&nbsp;Add Option
+                    </button>
                   </div>
                 </div>
               </div>

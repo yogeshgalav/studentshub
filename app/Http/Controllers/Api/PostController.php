@@ -180,7 +180,7 @@ class PostController extends Controller
         $response = $post->getCoursePosts($request);
 
         $search=new \App\Models\Search;
-        $search->query=$request->route('courseUrl');
+        $search->query=$request->route('courseId');
         // $search->type='course';
         if($response){
           $search->success=true;
@@ -197,7 +197,7 @@ class PostController extends Controller
         $response = $post->getSubjectPosts($request);
 
         $search=new \App\Models\Search;
-        $search->query=$request->route('subjectUrl');
+        $search->query=$request->route('subjectId');
         // $search->type='subject';
         if($response){
           $search->success=true;
@@ -214,7 +214,7 @@ class PostController extends Controller
         $response = $post->getCategoryPosts($request);
 
         $search=new \App\Models\Search;
-        $search->query=$request->route('categoryUrl');
+        $search->query=$request->route('categoryId');
         // $search->type='category';
         if($response){
           $search->success=true;

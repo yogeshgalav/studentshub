@@ -57,6 +57,11 @@ Vue.mixin({
 		Loading,
 		ProfileImage
 	},
+	data(){
+		return {
+			showMobileLogoBar:true,
+		};
+	},
 	computed: {
 		baseUrl() {
 			return window.App.baseUrl;
@@ -124,6 +129,19 @@ Vue.mixin({
 			'X-CSRF-TOKEN': this.csrfToken,
 			'X-Requested-With': 'XMLHttpRequest'
 		};
+		var prevScrollpos = window.pageYOffset;
+		window.addEventListener('scroll', ()=>{
+			let headerMobile = document.getElementById('header_mobile');
+			if (headerMobile){
+				var currentScrollPos = window.pageYOffset;
+				if (prevScrollpos > currentScrollPos) {
+					this.showMobileLogoBar = true;
+				} else {
+					this.showMobileLogoBar = false;
+				}
+				prevScrollpos = currentScrollPos;
+			}
+		});
 		document.addEventListener('click', this.closeSidebar);
 	},
 	methods: {
@@ -138,11 +156,15 @@ Vue.mixin({
 			document.documentElement.classList.toggle('openNav');
 		},
 		closeSidebar(e){
-			//e.preventDefault();
 			var container = document.getElementById('sidebarContainer');
 			var container2 = document.getElementById('nav-toggle');
+			if(!container || !container2){
+				return false;
+			}
 			if (!container.contains(e.target) && !container2.contains(e.target) && document.documentElement.classList.contains('openNav')) {
 				document.documentElement.classList.remove('openNav');
+				e.preventDefault();
+				return false;
 			}
 		}
 	}

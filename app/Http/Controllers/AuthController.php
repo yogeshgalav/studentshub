@@ -116,6 +116,9 @@ class AuthController extends Controller
      */
     public function register(RegisterRequest $request)
     {
+        if(User::whereEmail($request->email)->exists()){
+            return view('guest.auth.login')->with('emailError',true);
+        }
        
         $input = $request->all();
         
