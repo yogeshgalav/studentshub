@@ -61,109 +61,114 @@
                 </div>
                 <hr>
                 <p>{{ message.content }}</p>
+                <hr>
+                <like-component
+                  :post="message"
+                  likable-type="message"
+                />
               </div>
+              <div class="col-md-3 col-12" />
             </div>
-            <div class="col-md-3 col-12" />
           </div>
-        </div>
 
-        <modal
-          name="addMessageModal"
-          class="doubt_model model-md"
-          :click-to-close="false"
-        >
-          <form @submit.prevent="saveMessage()">
-            <div class="row">
-              <div class="col-md-12 mt-2">
-                <div class="row">
-                  <div class="col-md-6">
-                    <h4>Add Message to this classroom.</h4>
+          <modal
+            name="addMessageModal"
+            class="doubt_model model-md"
+            :click-to-close="false"
+          >
+            <form @submit.prevent="saveMessage()">
+              <div class="row">
+                <div class="col-md-12 mt-2">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <h4>Add Message to this classroom.</h4>
+                    </div>
+                    <div class="col-md-6 text-right">
+                      <button
+                        type="button"
+                        class="btn btn-lg btn-link font-size-24"
+                        @click="$modal.hide('addMessageModal')"
+                      >
+                        &times;
+                      </button>
+                    </div>
                   </div>
-                  <div class="col-md-6 text-right">
+                </div>
+
+                <div
+                  v-if="classrooms && classrooms.length"
+                  class="col-md-12"
+                >
+                  <div class="form-group">
+                    <div class="inner-addon left-addon">
+                      <div class="cl_input">
+                        <select
+                          v-model="selectedClassroomId"
+                          class="form-control custom-select"
+                        >
+                          <option
+                            v-for="(classroom, index) in classrooms"
+                            :key="index"
+                            :value="classroom.id"
+                          >
+                            {{ classroom.name }}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <div class="inner-addon left-addon">
+                      <div class="cl_input">
+                        <input
+                          id="messageContent"
+                          v-model="content"
+                          v-validate="'required'"
+                          name="content"
+                          class="form-control"
+                          placeholder="write message here"
+                        >
+                        <span class="text-danger">{{
+                          formErrors("content")
+                        }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mt-1 row text-right">
+                  <div class="col-md-12">
+                    <hr>
                     <button
-                      type="button"
-                      class="btn btn-lg btn-link font-size-24"
-                      @click="$modal.hide('addMessageModal')"
+                      type="submit"
+                      class="btn btn-outline-primary mb-2"
                     >
-                      &times;
+                      Submit
                     </button>
                   </div>
                 </div>
               </div>
-
-              <div
-                v-if="classrooms && classrooms.length"
-                class="col-md-12"
-              >
-                <div class="form-group">
-                  <div class="inner-addon left-addon">
-                    <div class="cl_input">
-                      <select
-                        v-model="selectedClassroomId"
-                        class="form-control custom-select"
-                      >
-                        <option
-                          v-for="(classroom, index) in classrooms"
-                          :key="index"
-                          :value="classroom.id"
-                        >
-                          {{ classroom.name }}
-                        </option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-12">
-                <div class="form-group">
-                  <div class="inner-addon left-addon">
-                    <div class="cl_input">
-                      <input
-                        id="messageContent"
-                        v-model="content"
-                        v-validate="'required'"
-                        name="content"
-                        class="form-control"
-                        placeholder="write message here"
-                      >
-                      <span class="text-danger">{{
-                        formErrors("content")
-                      }}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="mt-1 row text-right">
-                <div class="col-md-12">
-                  <hr>
-                  <button
-                    type="submit"
-                    class="btn btn-outline-primary mb-2"
-                  >
-                    Submit
-                  </button>
-                </div>
-              </div>
-            </div>
-          </form>
-        </modal>
+            </form>
+          </modal>
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script>
 import FormMixin from '../../components/mixins/form-mixin.js';
-import AddButton from '../../components/AddButton';
-
-
+import ProfileImage from '../../components/ProfileImage';
 import ClassroomHeader from '../../components/ClassroomHeader';
-
+import LikeComponent from '../common/LikeComponent';
+    
 export default {
 	components: {
-		AddButton,
 		ClassroomHeader,
+		ProfileImage,
+		LikeComponent,
 	},
 	mixins: [FormMixin],
 	props:['classrooms'],

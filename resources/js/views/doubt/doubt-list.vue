@@ -92,6 +92,7 @@
                   </h3>
                 </div>
               </div>
+              <like-component :post="doubt" likable-type="doubt" />
             </div>
           </div>
         </div>
@@ -160,39 +161,16 @@
                     />
                   </div>
                 </div>
-              <!-- <div
-                v-if="!subjectId && show_category"
-                class="col-md-12"
-              >
-                <div class="form-group">
-                  <label for="category"> {{ 'Category' }} </label>
-                  <div class="inner-addon left-addon">
-                    <div class="input_icon_frm">
-                      <span class="icon_design_input"><i
-                        class="fa fa-file"
-                        aria-hidden="true"
-                      /></span>
-                      <select
-                        v-model="selected_category"
-                        name="category"
-                        class="form-control"
-                      >
-                        <option value="">
-                          Select Category
-                        </option>
-                        <option
-                          v-for="category in categories"
-                          :key="category.id"
-                          :value="category.id"
-                        >
-                          {{ category.name }}
-                        </option>
-                      </select>
-                    </div>
-                    <span class="error">{{ errors.first('category') }}</span>
-                  </div>
+              </div>
+              <div class="col-md-12">
+                <div class="model_btn">
+                  <button
+                    type="submit"
+                    class="ask_doubt_btn"
+                  >
+                    submit
+                  </button>
                 </div>
-              </div> -->
               </div>
             </div>
           </form>
@@ -226,6 +204,8 @@
 import Modal from '../../components/VueNiceModal.vue';
 import Loading from 'vue-loading-overlay';
 import AutoComplete from '../../components/AutoComplete.vue';
+import LikeComponent from '../common/LikeComponent.vue';
+import ProfileImage from '../../components/ProfileImage';
 
 
 export default {
@@ -233,7 +213,8 @@ export default {
 		Modal,
 		Loading,
 		AutoComplete,
-	
+		ProfileImage,
+		LikeComponent
 	},
 	props:['classroomId','subjectId','categories'],
 	data()

@@ -2,6 +2,7 @@
     "/js/app.js": "/js/app.js",
     "/css/guest.css": "/css/guest.css",
     "/css/seekerApp.css": "/css/seekerApp.css",
+    "/css/exploreApp.css": "/css/exploreApp.css",
     "/css/studentApp.css": "/css/studentApp.css",
     "/css/profileApp.css": "/css/profileApp.css",
     "/css/createPostApp.css": "/css/createPostApp.css",
