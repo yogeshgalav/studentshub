@@ -16,8 +16,8 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 //Vue Router Initialisation
 const router = new VueRouter({
-    routes:TeacherClassroomRoutes,
-    mode:'history'
+	routes:TeacherClassroomRoutes,
+	mode:'history'
 });
 Vue.component('ClassroomComponent', require('../../views/teacher-classroom/classroom.vue').default);
 Vue.component('ClassroomListComponent', require('../../views/teacher-classroom/classroom-list.vue').default);
@@ -29,13 +29,13 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 //Vue Router Initialisation
 const store = new Vuex.Store({
-    modules: {
-        classroom: TeacherClassroomStore,
-      }
+	modules: {
+		classroom: TeacherClassroomStore,
+	}
 });
 //Vue App Initialisation
 const app = new Vue({
-    el: '#classroomApp',
-    store,
-    router,
+	el: '#classroomApp',
+	store,
+	router,
 });
