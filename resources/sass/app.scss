@@ -74,6 +74,12 @@ $container-max-widths: (
     padding-top: 5px;
     padding-bottom: 5px;
 }
+html.openNav {
+    pointer-events: none;
+}
+#sidebarContainer {
+    pointer-events: all !important;
+}
 body {
     background-color: white;
 }
