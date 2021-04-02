@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Log;
 use Auth;
 use App\Models\Feedback;
 use App\Models\Contactus;
+use App\Http\Requests\ContactusRequest;
 
 class GuestController extends Controller
 {
@@ -59,7 +60,7 @@ class GuestController extends Controller
         ]);
         return response()->json([],204);
     }
-    public function contactus(Request $request){
+    public function contactus(ContactusRequest $request){
         Contactus::create([
             'name'=>$request->name,
             'email'=>$request->email,
