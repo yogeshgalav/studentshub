@@ -1221,7 +1221,7 @@ textarea:focus {
         text-transform: uppercase;
     }
     .notification-icon {
-        font-size: 23px !important;
+        font-size: 20px !important;
     }
     .custom-select-btn .btn {
         padding: 15px;
@@ -2221,6 +2221,9 @@ p.answer_like {
     justify-content: space-between;
     width: 100%;
     align-items: center;
+}
+.alignment{
+    vertical-align: text-bottom;
 }
 .header_mobile_login li {
     list-style: none;
