@@ -196,7 +196,7 @@ class PostController extends Controller
       }
 
       public function categoryDetails(Request $request){
-        $category=\App\Models\Category::where('category_url', $request->route('id'))->firstOrFail();
+        $category=\App\Models\Category::where('category_url', $request->route('id'))->with('courses')->with('subjects')->firstOrFail();
         $post=new \App\Post;
         $posts = $post->getCategoryPosts($category->id);
 
