@@ -1,13 +1,6 @@
 <template>
   <div style="width:20px;">
     <div class="btn-group dropdown dropdown-notifications sw-open">
-      <button
-        class="btn dropdown-toggle border-radius-12 custom-pad"
-        data-toggle="dropdown"
-      >
-        <i class="far fa-bell notification-icon" />
-      </button>
-
       <div class="dropdown-container">
         <ul class="dropdown-menu notifications mobile_hide">
           <notification

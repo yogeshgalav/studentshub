@@ -23,15 +23,22 @@
         @include('includes.search-form')
         </li>
         <li>
-          <div class="mr-2">
-            <notifications-dropdown></notifications-dropdown>
-          </div>
+        <li><button 
+                type="button" 
+                data-toggle="dropdown"
+                class="btn btn-sm btn-default border-radius-12 dropdown-toggle"
+                @click="showNotificationDropdown=!showNotificationDropdown"
+            ><i class="far fa-bell" aria-hidden="true"></i>
+            </button>
+        </li>
         </li>
         <li class="nav-item">
           @include('includes.profile-dropdown')
         </li>
       </ul>
-
+  </div>
+  <div>
+    <notifications-dropdown v-if="showNotificationDropdown"></notifications-dropdown>
   </div>
 </nav>
 @else

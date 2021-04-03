@@ -60,6 +60,7 @@ Vue.mixin({
 	data(){
 		return {
 			showMobileLogoBar:true,
+			showNotificationDropdown:true,
 		};
 	},
 	computed: {

@@ -32,18 +32,23 @@
 
                         </div>
                     </li>
-                    <li class="nav-item">
-                    <div class="dropdown" style="margin-right:40px">
-                    <notifications-dropdown></notifications-dropdown>
-                    </div>
+                    <li><button 
+                            type="button" 
+                            data-toggle="dropdown"
+                            class="btn btn-sm btn-default border-radius-12 dropdown-toggle"
+                            @click="showNotificationDropdown=!showNotificationDropdown"
+                        ><i class="far fa-bell" aria-hidden="true"></i>
+                        </button>
                     </li>
                     <li class="nav-item">
-
                         @include('includes.profile-dropdown')
                     </li>
 
                 </ul>
 
+            </div>
+            <div>
+            <notifications-dropdown v-if="showNotificationDropdown"></notifications-dropdown>
             </div>
         </div>
 
