@@ -58,7 +58,7 @@
         >
           <a
             :href="'/classroom/'+classroom.id"
-            class="card rounded-lg pt-3 pb-3 bg-light"
+            class="card rounded-lg pt-3 pb-3 mb-2"
             style="text-align: -webkit-center;"
           >
             <div style="text-align: -webkit-center;">
