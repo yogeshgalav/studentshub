@@ -70,7 +70,7 @@
     >
       <button
         class="btn-primary btn-lg"
-        @submit="addQuestion"
+        @click="addQuestion"
       >
         <i class="fas fa-plus" />&nbsp;&nbsp;Add Question
       </button>
@@ -218,8 +218,8 @@
                   </div>
                   <div class="col-md-12">
                     <button
-                      class="btn-lg btn-primary"
-                      @submit="addOption()"
+                      class="btn-lg btn-secondary"
+                      @click="addOption()"
                     >
                       <i class="fas fa-plus" />&nbsp;&nbsp;Add Option
                     </button>

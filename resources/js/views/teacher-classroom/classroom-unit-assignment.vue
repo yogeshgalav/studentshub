@@ -74,7 +74,7 @@
               <div class="mt-2">
                 <button
                   class="btn-primary btn-lg"
-                  @submit="addQuestion(unit.unit_no)"
+                  @click="addQuestion(unit.unit_no)"
                 >
                   <i class="fas fa-plus" />&nbsp;&nbsp;Add Question
                 </button>
