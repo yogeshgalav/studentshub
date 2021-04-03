@@ -80,8 +80,8 @@
             @endif
                 <li> <a href="/" class="{{\App\Facades\Sthub::currentTab('post') ? 'active' : ''}}"> <i class="fa fa-home sidebar" aria-hidden="true"></i><span class="text">Home</span></a></li>
             @if(Auth::student())
-                <li> <a href="/doubts" class="{{\App\Facades\Sthub::currentTab('doubt') ? 'active' : ''}}"> <i class="fa fa-question-circle sidebar" aria-hidden="true"></i><span class="text">Doubts</span></a></li>
-                {{-- <li> <a href="/course/{{Auth::student()->courseUrl}}" class="{{\App\Facades\Sthub::currentTab(Auth::student()->courseUrl) ? 'active' : ''}}"> <span class="icon"><img src="{{asset('/images/home.png') }}" alt="Student'sHUB" width="20"/></span> My Course</a></li> --}}
+                <li><a href="/doubts" class="{{\App\Facades\Sthub::currentTab('doubt') ? 'active' : ''}}"> <i class="fa fa-question-circle sidebar" aria-hidden="true"></i><span class="text">Doubts</span></a></li>
+                <li> <a href="/course/{{Auth::student()->courseUrl}}" class="{{\App\Facades\Sthub::currentTab(Auth::student()->courseUrl) ? 'active' : ''}}"> <span class="icon"><img src="{{asset('/images/home.png') }}" alt="Student'sHUB" width="20"/></span> My Course</a></li>
                 @endif
             @if(Auth::user()->hasClassroom())
             <li> <a href="/messages" class="{{\App\Facades\Sthub::currentTab('messages') ? 'active' : ''}}"><i class="far fa-comment-alt sidebar" aria-hidden="true"></i><span class="text"> Messages </span></a></li>

@@ -65,7 +65,7 @@ export default {
 		this.axios
 			.get('/api/get-course-details/' + this.$route.params.url)
 			.then(resp => {
-				this.course_name = resp.data.success.course.course_name;
+				this.courses_name = resp.data.success.category.courses.course_name;
 				this.posts = resp.data.success.posts.data;
 			});
 	},
