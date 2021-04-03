@@ -1,5 +1,5 @@
 <div class="dropdown">
-    <button class="btn btn-sm border-radius-12 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <button class="btn btn-sm border-radius-12 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="height: 50px;">
      <profile-image avatar="{{$AuthUser->avatar_url}}" user-name="{{$AuthUser->full_name}}" />
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">

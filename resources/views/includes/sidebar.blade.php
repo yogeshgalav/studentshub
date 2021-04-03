@@ -11,12 +11,12 @@
             </div>
             <div class="header_mobile_login">
                 <ul>
-                    <li><button 
-                            type="button" 
+                    <li><button
+                            type="button"
                             id="nav-toggle"
                             class="btn btn-sm btn-default border-radius-12"
                             @click="toggleSidebar($event)"
-                        ><i class="fa fa-bars" aria-hidden="true"></i>
+                        ><i class="fa fa-bars alignment ml-2" aria-hidden="true"></i>
                         </button>
                     </li>
                     <li class="nav-item">
@@ -24,7 +24,7 @@
                             <button class="btn btn-sm btn-default border-radius-12 dropdown-toggle" type="button"
                                 id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false">
-                                <span><i class="fa fa-search" aria-hidden="true"></i></span>
+                                <span><i class="fa fa-search alignment" aria-hidden="true"></i></span>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 @include('includes.search-form')
