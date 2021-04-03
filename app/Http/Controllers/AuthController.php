@@ -215,7 +215,7 @@ class AuthController extends Controller
             'start_year' => $classroom->batch->start_year,
             'end_year' => $classroom->batch->end_year,
         ]);
-        $student_controller =new StudentController;
+        $student_controller =new \App\Http\Controllers\Api\StudentController;
         $student_controller->create($request);
 
         ClassroomUser::create([
