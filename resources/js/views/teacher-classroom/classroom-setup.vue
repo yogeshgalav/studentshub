@@ -10,8 +10,10 @@
     <div class="mt-2">
       <button
         class="btn-primary btn-lg"
-        @submit="addUnit"
-      ><i class="fas fa-plus" />&nbsp;&nbsp;Add Unit</button>
+        @click="addUnit"
+      >
+        <i class="fas fa-plus" />&nbsp;&nbsp;Add Unit
+      </button>
     </div>
     <div
       v-for="(unit,index) in unitData"

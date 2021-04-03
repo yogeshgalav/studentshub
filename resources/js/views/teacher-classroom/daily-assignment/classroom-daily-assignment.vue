@@ -34,7 +34,7 @@
     >
       <button
         class="btn-primary btn-lg"
-        @submit="addAssignment"
+        @click="addAssignment"
       >
         <i class="fas fa-plus" />&nbsp;&nbsp;Add Assignment
       </button>

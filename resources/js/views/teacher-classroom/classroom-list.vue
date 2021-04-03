@@ -122,7 +122,7 @@
       v-if="AuthTeacher"
       type="button"
       class="btn-lg btn-primary"
-      @submit="createClassroom()"
+      @click="createClassroom()"
     >
       <i class="fas fa-plus" />&nbsp;&nbsp;Create Classroom
     </button>
@@ -132,7 +132,7 @@
       class="btn-primary btn-lg mb-1"
       data-toggle="modal"
       data-target="#joinClassroomModal"
-      @submit="joinClassroomModal"
+      @click="joinClassroomModal"
     >
       <i class="fas fa-plus" />&nbsp;&nbsp;Join Classroom
     </button>

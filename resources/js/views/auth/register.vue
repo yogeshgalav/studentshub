@@ -306,7 +306,7 @@ export default {
 		};
 	},
 	mounted(){
-		this.join_id = this.$route.params.joinId;
+		this.join_id = this.$route.query.joinId;
 		this.$validator.localize('en', this.dict);
 	},
 	methods: {

@@ -51,8 +51,10 @@
             <div class="text-right">
               <button
                 class="btn-lg btn-primary"
-                @submit="addResource"
-              ><i class="fas fa-plus" />&nbsp;&nbsp;Add Resource</button>
+                @click="addResource"
+              >
+                <i class="fas fa-plus" />&nbsp;&nbsp;Add Resource
+              </button>
             </div>
           </div>
         </div>
