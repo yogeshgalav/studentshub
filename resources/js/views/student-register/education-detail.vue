@@ -160,7 +160,7 @@
                             class="text-black"
                             for="event_date_input"
                           >
-                            {{ trans('Batch Starting Year') }}
+                            {{ 'Course Starting Year' }}
                           </label>
                           <div class="input-group-prepend ">
                             <div
@@ -198,7 +198,7 @@
                           class="text-black"
                           for="event_date_input"
                         >
-                          {{ trans('Batch Ending Year') }}
+                          {{ 'Course Ending Year' }}
                         </label>
                         <div class="input-group-prepend ">
                           <div
