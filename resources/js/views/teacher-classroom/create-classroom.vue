@@ -289,17 +289,15 @@
 </style>
 <script>
 import FormMixin from '../../components/mixins/form-mixin.js';
+import BatchMixin from '../../components/mixins/batch-mixin.js';
 import AutoComplete from '../../components/AutoComplete.vue';
 import swal from '../../components/swal';
-import DatePicker from 'vue2-datepicker';
-import 'vue2-datepicker/index.css';
 
 export default {
 	components: {
 		AutoComplete,
-		DatePicker
 	},
-	mixins: [FormMixin],
+	mixins: [FormMixin, BatchMixin],
 	props: ['courseLevels'],
 	data() {
 		return {
@@ -328,18 +326,6 @@ export default {
 				'subject_name': '',
 			},
 		};
-	},
-	computed:{
-		yearError(){
-			var d = new Date();
-			var n = d.getFullYear();
-			if(this.start_year>n){
-				return 'Please enter currect start year.';
-			}else if(this.end_year && this.end_year<this.start_year){
-				return 'Please enter currect start and end year.';
-			}
-			return '';
-		}
 	},
 	methods: {
 		createClassroom() {

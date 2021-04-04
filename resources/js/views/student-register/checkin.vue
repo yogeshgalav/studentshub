@@ -545,20 +545,18 @@
 </style>
 <script>
 import FormMixin from '../../components/mixins/form-mixin.js';
+import BatchMixin from '../../components/mixins/batch-mixin.js';
 import AutoComplete from '../../components/AutoComplete.vue';
 import swal from '../../components/swal';
-import DatePicker from 'vue2-datepicker';
-import 'vue2-datepicker/index.css';
 import NavTabs from '../../components/NavTabs.vue';
 
 export default {
 	components: {
-		DatePicker,
 		AutoComplete,
 		NavTabs
 	},
-	mixins: [FormMixin],
-	props: ['courseLevels','studentDetails', 'batches'],
+	mixins: [FormMixin, BatchMixin],
+	props: ['courseLevels', 'studentDetails', 'batches'],
 	data() {
 		return {
 			initialTab:'student',
@@ -577,7 +575,7 @@ export default {
 			},
 			selected_institute: {
 				'id': null,
-				'name': name,
+				'name': '',
 				'place_id': '',
 				'address': '',
 				'description': ''
@@ -586,8 +584,6 @@ export default {
 				'id': null,
 				'subject_name': '',
 			},
-			end_year: '',
-			start_year: '',
 			is_prefferred: true,
 			college_id: '',
 			current_date:new Date(),
@@ -595,18 +591,6 @@ export default {
 			students:'',
 			contact_number:'',
 		};
-	},
-	computed:{
-		yearError(){
-			var d = new Date();
-			var n = d.getFullYear();
-			if(this.start_year>n){
-				return 'Please enter currect start year.';
-			}else if(this.end_year && this.end_year<this.start_year){
-				return 'Please enter currect start and end year.';
-			}
-			return '';
-		}
 	},
 	mounted(){
 		if(this.studentDetails){

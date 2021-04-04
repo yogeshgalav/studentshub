@@ -30,6 +30,7 @@ class SeekerController extends Controller
         $student = Auth::student();
         return view('user-onboarding.education-detail')
             ->with('student_details', $student)
+            ->with('classroom_count', Auth::user()->joinedClassroomCount())
             ->with('course_levels', $course_levels);
     }
 
