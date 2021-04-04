@@ -233,10 +233,7 @@
                         type="submit"
                         class="btn-primary btn-lg m-0-a"
                       >
-                        {{ ('Submit') }} <span><i
-                          class="fa fa-arrow-right"
-                          aria-hidden="true"
-                        /></span>
+                        {{ ('Submit') }}
                       </button>
                     </div>
                   </form>
@@ -315,12 +312,9 @@
                     <div class="row">
                       <button
                         type="submit"
-                        class="btn-primary btn-lg"
+                        class="btn-primary btn-lg m-0-a"
                       >
-                        {{ ('Submit') }} <span><i
-                          class="fa fa-arrow-right"
-                          aria-hidden="true"
-                        /></span>
+                        {{ ('Submit') }}
                       </button>
                     </div>
                   </form>
@@ -422,12 +416,9 @@
                     <div class="row mt-2">
                       <button
                         type="submit"
-                        class="btn-primary btn-lg"
+                        class="btn-primary btn-lg m-0-a"
                       >
-                        {{ ('Submit') }} <span><i
-                          class="fa fa-arrow-right"
-                          aria-hidden="true"
-                        /></span>
+                        {{ ('Submit') }}
                       </button>
                     </div>
                   </form>
