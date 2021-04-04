@@ -27,6 +27,9 @@ class StudentController extends Controller
     {
         $input = $request->all();
         $user = Auth::user();
+        if($user->joinedClassroom()>0){
+            return response([], 409);
+        }
         $course = '';
         DB::beginTransaction();
         try {
