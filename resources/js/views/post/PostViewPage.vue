@@ -56,7 +56,10 @@
             </div>
 
             <div class="info-post ml-2">
-              <div class="user_img_singe">
+              <div
+                v-if="postContent.user_name"
+                class="user_img_singe"
+              >
                 <profile-image
                   :user-name="postContent.user_name"
                   :avatar="postContent.profile_image"
@@ -191,7 +194,10 @@
                     </h5>
                     <div class="d-flex">
                       <div class="recent_post_img">
-                        <profile-image :post="post" />
+                        <profile-image 
+                          :user-name="post.user_name"
+                          :avatar="post.profile_image"
+                        />
                       </div>
                       <div class="info-post ml-2">
                         <p class="username">

@@ -8,11 +8,12 @@
     />
     <classroom-header />
     <div class="mt-2">
-      <add-button
-        name="Add Unit"
-        size="lg"
-        @submit="addUnit"
-      />
+      <button
+        class="btn-primary btn-lg"
+        @click="addUnit"
+      >
+        <i class="fas fa-plus" />&nbsp;&nbsp;Add Unit
+      </button>
     </div>
     <div
       v-for="(unit,index) in unitData"
@@ -58,9 +59,9 @@
 import FormMixin from '../../components/mixins/form-mixin.js';
 import Accordion from '../../components/accordion';
 import AddButton from '../../components/AddButton';
-    
+
 import ClassroomHeader from '../../components/ClassroomHeader';
-    
+
 export default {
 	components: {
 		Accordion,

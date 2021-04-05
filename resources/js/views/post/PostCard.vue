@@ -113,8 +113,14 @@
 
 // import ImageSlider from './ImageSlider.vue';
 import LikeComponent from '../common/LikeComponent.vue';
+import ProfileImage from '../../components/ProfileImage';
 
 export default {
+	components: {
+		ProfileImage,
+		LikeComponent,
+		// ImageSlider
+	},
 	props:['post'],
 	methods:{
 		setPostView(post){

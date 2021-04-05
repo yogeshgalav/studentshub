@@ -35,14 +35,6 @@
                       action="/register"
                       @submit.prevent="handleSubmit"
                     >
-                      <div
-                        v-if="emailError"
-                        class="form-group row alert alert-warning"
-                      >
-                        <span>{{ 'You are already registered.' }}
-                          <router-link :to="'/login'"> Please Login</router-link>
-                        </span>
-                      </div>
                       <div class="form-group">
                         <input
                           id="token"
@@ -182,12 +174,12 @@
                       </div>
 
                       <div class="form-group mb-0">
-                        <div class="login_btn_part">
+                        <div>
                           <button
                             type="submit"
-                            class="login_btn"
+                            class="btn-primary btn-lg m-0-a"
                           >
-                            {{ trans('Register') }} <i
+                            {{ trans('Register') }}&nbsp;<i
                               class="fa fa-arrow-right text-white"
                             />
                           </button>
@@ -285,7 +277,6 @@ import swal from '../../components/swal';
 
 export default {
 	mixins: [FormMixin],
-	props:['emailError'],
 	data() {
 		return {
 			showLoader: false,
@@ -315,7 +306,7 @@ export default {
 		};
 	},
 	mounted(){
-		this.join_id = this.$route.params.joinId;
+		this.join_id = this.$route.query.joinId;
 		this.$validator.localize('en', this.dict);
 	},
 	methods: {

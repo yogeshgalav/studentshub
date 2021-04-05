@@ -74,6 +74,12 @@ $container-max-widths: (
     padding-top: 5px;
     padding-bottom: 5px;
 }
+html.openNav {
+    pointer-events: none;
+}
+#sidebarContainer {
+    pointer-events: all !important;
+}
 body {
     background-color: white;
 }
@@ -162,7 +168,6 @@ button[disabled="disabled"] {
 .color-placeholder {
     color: $disabled;
 }
-.btn-lg,
 .btn-group-lg > .btn {
     padding: 10.5rem 1rem;
     font-size: 1.125rem;
@@ -196,7 +201,7 @@ button[disabled="disabled"] {
 }
 
 .bg-primary {
-    background: #3498db !important;
+    background: #3646C5 !important;
 }
 
 .bg-success-accent {
@@ -220,11 +225,26 @@ button[disabled="disabled"] {
 }
 
 .btn-primary {
-    // background: $primary !important;
+    background: $primary !important;
     font-weight: $btn-font-weight;
     // border: $border-0;
 }
-
+.btn-lg{
+    border: none;
+    padding: 10px 30px !important;
+    text-align: center;
+    font-size: large !important;
+    border-radius: 5px;
+    color: white;
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    width: 300px;
+    justify-content: center;
+}
+.m-0-a{
+    margin: 0 auto;
+}
 .btn-accent {
     background: $accent !important;
     font-weight: $btn-font-weight;
@@ -373,7 +393,7 @@ button[disabled="disabled"] {
 
 // text-color
 .text-primary {
-    color: #3498db !important;
+    color: #3646C5 !important;
 }
 .text-blue {
     color: #10069f !important;
@@ -800,7 +820,7 @@ i {
     background: #fff;
     border: 1px solid #707070;
     border-bottom: none !important;
-    color: #3498db !important;
+    color: #3646C5 !important;
     position: relative;
     margin-bottom: -1px;
 }
@@ -1201,7 +1221,7 @@ textarea:focus {
         text-transform: uppercase;
     }
     .notification-icon {
-        font-size: 23px !important;
+        font-size: 20px !important;
     }
     .custom-select-btn .btn {
         padding: 15px;
@@ -1609,20 +1629,7 @@ a.btn.btn-white.cat_btn:after {
     right: -25px;
     /* margin: 0 auto; */
 }
-.login_btn {
-    background-color: #3646c5;
-    border: none;
-    padding: 10px 30px;
-    text-align: center;
-    border-radius: 5px;
-    color: white;
-    display: flex;
-    align-items: center;
-    font-weight: 700;
-    margin: 0 auto;
-    width: 50%;
-    justify-content: center;
-}
+
 .mt-1.forget_rember_pass {
     display: flex;
     justify-content: space-between;
@@ -1633,10 +1640,6 @@ a.btn.btn-white.cat_btn:after {
 }
 .forget_pass a {
     color: #868686;
-}
-
-.login_btn_part svg {
-    margin-left: 5px;
 }
 
 .input_icon_frm {
@@ -2210,6 +2213,7 @@ p.answer_like {
     width: 100%;
     background-color: #80808059;
     height: 65px;
+    margin-top: -4px;
 }
 .header_mobile_login ul {
     display: flex;
@@ -2217,6 +2221,9 @@ p.answer_like {
     justify-content: space-between;
     width: 100%;
     align-items: center;
+}
+.alignment{
+    vertical-align: text-bottom;
 }
 .header_mobile_login li {
     list-style: none;

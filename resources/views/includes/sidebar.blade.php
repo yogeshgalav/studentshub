@@ -4,15 +4,19 @@
     <!-- mobile header -->
     <div class="Dsfdad">
         <div class="header_mobile" id="header_mobile">
-            <div class="logo mobile_logo">
+            <div class="logo mobile_logo" v-if="showMobileLogoBar">
                 <a href="/">
                     <img src="{{asset('/images/logo.png') }}" alt="Student'sHUB" />
                 </a>
             </div>
             <div class="header_mobile_login">
                 <ul>
-                    <li><button class="hamburger open-panel togle_mobile" id="nav-toggle"
-                            @click="toggleSidebar($event)">
+                    <li><button
+                            type="button"
+                            id="nav-toggle"
+                            class="btn btn-sm btn-default border-radius-12"
+                            @click="toggleSidebar($event)"
+                        ><i class="fa fa-bars alignment ml-2" aria-hidden="true"></i>
                         </button>
                     </li>
                     <li class="nav-item">
@@ -20,7 +24,7 @@
                             <button class="btn btn-sm btn-default border-radius-12 dropdown-toggle" type="button"
                                 id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false">
-                                <span><i class="fa fa-search" aria-hidden="true"></i></span>
+                                <span><i class="fa fa-search alignment" aria-hidden="true"></i></span>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 @include('includes.search-form')
@@ -76,7 +80,7 @@
             <ul class="menu-dropdown">
             <li><a href="/classrooms" class="{{\App\Facades\Sthub::currentTab('classroom') ? 'active' : ''}}"><i class="fa fa-desktop sidebar" aria-hidden="true"></i><span class="text">Classroom</span></a></li>
             @if(Auth::user()->isInstituteMember())
-            <li> <a href="/my-institute" class="{{\App\Facades\Sthub::currentTab('institute') ? 'active' : ''}}"><span class="icon"><img src="{{asset('/images/university.png') }}" alt="Student'sHUB" width="20"/></span> My Institute</a></li>
+            <li> <a href="/my-institute" class="{{\App\Facades\Sthub::currentTab('institute') ? 'active' : ''}}"><i class="fas fa-university sidebar" aria-hidden="true"></i><span class="text"> My Institute</span></a></li>
             @endif
                 <li> <a href="/" class="{{\App\Facades\Sthub::currentTab('post') ? 'active' : ''}}"> <i class="fa fa-home sidebar" aria-hidden="true"></i><span class="text">Home</span></a></li>
             @if(Auth::student())
@@ -86,12 +90,11 @@
             @if(Auth::user()->hasClassroom())
             <li> <a href="/messages" class="{{\App\Facades\Sthub::currentTab('messages') ? 'active' : ''}}"><i class="far fa-comment-alt sidebar" aria-hidden="true"></i><span class="text"> Messages </span></a></li>
             @endif
-                <li> <a href="/profile/{{Auth::id()}}"  class="{{\App\Facades\Sthub::currentTab('profile') ? 'active' : ''}}"> <span class="icon"><img src="{{asset('/images/user.png') }}" alt="Student'sHUB" width="20"/></span> Profile</a></li>
+                <li> <a href="/profile/{{Auth::id()}}"  class="{{\App\Facades\Sthub::currentTab('profile') ? 'active' : ''}}"><i class="far fa-user sidebar" aria-hidden="true"></i><span class="text"> Profile</span></a></li>
 
             @if(Auth::user()->role_intended === 'seeker')
                 <li><a href="/check-in"> <span class="icon"><img src="{{asset('/images/logout.png') }}" alt="Student'sHUB" width="20"/></span> Checkin</a></li>
             @endif
-                <li><a href="/logout"> <span class="icon"><img src="{{asset('/images/logout.png') }}" alt="Student'sHUB" width="20"/></span> Logout</a></li>
             </ul>
 
         </div>

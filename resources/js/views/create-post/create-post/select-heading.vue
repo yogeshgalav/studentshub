@@ -7,7 +7,7 @@
             src="/images/undraw_post_online_dkuk.svg"
             alt=""
           >
-        </div>   
+        </div>
       </div>
       <div class="col-md-6">
         <div class="logn_right">
@@ -31,7 +31,7 @@
           <div class="creat_post_btn">
             <button
               type="button"
-              class="login_btn"
+              class="btn-primary btn-lg m-0-a"
               @click="prevTab"
             >
               <span><i
@@ -41,7 +41,7 @@
             </button>
             <button
               type="button"
-              class="login_btn"
+              class="btn-primary btn-lg m-0-a"
               @click="nextTab"
             >
               Next <span><i
@@ -63,7 +63,7 @@
 .creat_post_btn button {
     margin: 0px 15px 0px 0;
 }
-button.login_btn span {
+button.btn-primary btn-lg span {
     margin: 0px 5px;
 }
 .creat_post_btn {

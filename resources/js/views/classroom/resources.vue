@@ -49,11 +49,12 @@
             class="row add_cl_q"
           >
             <div class="text-right">
-              <add-button
-                name="Add Resource"
-                size="lg"
-                @submit="addResource"
-              />
+              <button
+                class="btn-lg btn-primary"
+                @click="addResource"
+              >
+                <i class="fas fa-plus" />&nbsp;&nbsp;Add Resource
+              </button>
             </div>
           </div>
         </div>
@@ -62,7 +63,7 @@
         <div class="col-md-12">
           <div class="row add_cl_q mt-2">
             <div
-              v-if="!resources.length" 
+              v-if="!resources.length"
               class="card"
             >
               <div class="card-body">
@@ -73,12 +74,12 @@
                 </div>
               </div>
             </div>
-            <div 
+            <div
               v-for="(resource,index2) in resources"
               :key="index2"
               class="col-md-10 col-12 mt-2 ml-3 card"
             >
-              <div 
+              <div
                 class="card-body"
               >
                 <p>{{ $dayjs(resource.created_at).format('D MMMM, YYYY') }}</p>
@@ -103,6 +104,10 @@
                   />
                 </div>
               </div>
+              <like-component
+                :post="resource"
+                likable-type="resource"
+              />
             </div>
             <div class="col-md-3 col-12" />
           </div>
@@ -174,7 +179,7 @@
                   </div>
                 </div>
                 <div
-                  v-if="resource_type==='documentLink' || resource_type==='youtubeVideo'" 
+                  v-if="resource_type==='documentLink' || resource_type==='youtubeVideo'"
                   class="mt-1 forget_rember_pass"
                 >
                   <div class="rem_pass">
@@ -210,14 +215,13 @@
 </template>
 <script>
 import FormMixin from '../../components/mixins/form-mixin.js';
-import AddButton from '../../components/AddButton';
-    
+import LikeComponent from '../common/LikeComponent';
 import ClassroomHeader from '../../components/ClassroomHeader';
-    
+
 export default {
 	components: {
-		AddButton,
-		ClassroomHeader
+		ClassroomHeader,
+		LikeComponent,
 	},
 	mixins:[FormMixin],
 	data() {
@@ -289,14 +293,14 @@ export default {
 				return false;
 			}
 			let link = this.matchResourceUrl(url);
-        
+
 			if(link!==false){
 				this.resource_link=link;
 				return true;
 			}else{
 				this.resource_error='This resource link is not supported';
 				return false;
-			}        
+			}
 		},
 		matchResourceUrl(link){
 			var p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;

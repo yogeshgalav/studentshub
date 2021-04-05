@@ -22,25 +22,6 @@
       </div>
     </div>
     <div>
-      <add-button
-        v-if="AuthTeacher"
-        button-class="btn-primary mb-1"
-        type="button"
-        size="lg"
-        name="Create Classroom"
-        bg-class="bg-primary-accent"
-        @submit="createClassroom()"
-      />
-      <add-button
-        v-if="AuthStudent"
-        button-class="btn-success mb-1"
-        type="button"
-        size="lg"
-        name="Join Classroom"
-        data-toggle="modal"
-        data-target="#joinClassroomModal"
-        @submit="joinClassroomModal"
-      />
       <modal
         ref="joinClassroomModal"
         name="joinClassroomModal"
@@ -76,7 +57,8 @@
           class="col-md-4"
         >
           <a
-            class="card rounded-lg pt-3 pb-3 bg-light"
+            :href="'/classroom/'+classroom.id"
+            class="card rounded-lg pt-3 pb-3 mb-2"
             style="text-align: -webkit-center;"
           >
             <div style="text-align: -webkit-center;">
@@ -111,6 +93,7 @@
           class="col-md-4"
         >
           <a
+            :href="'/classroom/'+classroom.id"
             class="card rounded-lg pt-3 pb-3 bg-light"
             style="text-align: -webkit-center;"
           >
@@ -134,6 +117,25 @@
         </div>
       </div>
     </div>
+    <hr>
+    <button
+      v-if="AuthTeacher"
+      type="button"
+      class="btn-lg btn-primary"
+      @click="createClassroom()"
+    >
+      <i class="fas fa-plus" />&nbsp;&nbsp;Create Classroom
+    </button>
+    <button
+      v-if="AuthStudent"
+      type="button"
+      class="btn-primary btn-lg mb-1"
+      data-toggle="modal"
+      data-target="#joinClassroomModal"
+      @click="joinClassroomModal"
+    >
+      <i class="fas fa-plus" />&nbsp;&nbsp;Join Classroom
+    </button>
   </div>
 </template>
 
