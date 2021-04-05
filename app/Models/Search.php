@@ -12,29 +12,19 @@ class Search extends Model
     {
         return $this;
     }
-    public function subjectResult($subject_name){
-        $subject=Subject::where('subject_url',$subject_name)->first();
-        $subjects=Subject::where('category_id',$subject->id)->get();
+    // public function queryResult($query){
+    //     $query_params=explode(' ',$query);
+    //     $posts=SthubPost::whereHas('post',function($query)use($query_params){
+    //         $query->where('post_heading','LIKE',implode('%',$query_params).'%');
+    //     })->get();
         
-        $posts= SthubPost::whereHas('post',function($query)use($subject){
-            $query->where('subject_id',$subject->id);
-        })->get();
-        
-        return ['posts'=>$posts,'subjects'=>$subjects];
-    }
-    public function queryResult($query){
-        $query_params=explode(' ',$query);
-        $posts=SthubPost::whereHas('post',function($query)use($query_params){
-            $query->where('post_heading','LIKE',implode('%',$query_params).'%');
-        })->get();
-        
-        if(is_null($posts)){
-            foreach($query_params as $param){
-                $subject=Subject::where('subject_name',$param)->first();
-                if($subject){break;}
-            }
-            $posts=$subject->posts->sthubPost;
-        }
-        return $posts;
-    }
+    //     if(is_null($posts)){
+    //         foreach($query_params as $param){
+    //             $subject=Subject::where('subject_name',$param)->first();
+    //             if($subject){break;}
+    //         }
+    //         $posts=$subject->posts->sthubPost;
+    //     }
+    //     return $posts;
+    // }
 }

@@ -113,11 +113,6 @@
           <form>
             <div class="model_box_inner">
               <div class="row">
-                <div class="col-md-12">
-                  <p class="model_box_head">
-                    Ask Doubt
-                  </p>
-                </div>
                 <div class="form-group col-md-12">
                   <label class="text-black font-size-14">Course
                   </label>
@@ -160,16 +155,6 @@
                       @selectNew="setNewSubject"
                     />
                   </div>
-                </div>
-              </div>
-              <div class="col-md-12">
-                <div class="model_btn">
-                  <button
-                    type="submit"
-                    class="ask_doubt_btn"
-                  >
-                    submit
-                  </button>
                 </div>
               </div>
             </div>

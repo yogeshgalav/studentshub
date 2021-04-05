@@ -318,7 +318,6 @@ export default {
 			subject_list: [],
 			subjectLoading: false,
 			selected_subject: {
-				'id': null,
 				'subject_name': '',
 			},
 			selected_level: {
@@ -398,7 +397,6 @@ export default {
 		},
 		getSubjects	(search) {
 			this.selected_subject = {
-				'id': null,
 				'subject_name': search,
 			};
 			this.subjectLoading = true;
@@ -426,7 +424,6 @@ export default {
 		},
 		setNewSubject(name) {
 			this.selected_subject = {
-				'id': 0,
 				'subject_name': name,
 			};
 		},

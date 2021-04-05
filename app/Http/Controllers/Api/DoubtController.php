@@ -34,13 +34,7 @@ class DoubtController extends Controller
             $classroom = Classroom::findOrFail($request->classroomId);
             $subject = $classroom->subject;
         }else{
-            $subject_name=strtolower($selected_subject['subject_name']);
-            $subject=Subject::firstOrCreate([
-                'subject_url'=>\Str::slug($subject_name),
-                'category_id'=>Auth::student()->categoryId,
-                ],[
-                'subject_name'=>$subject_name,
-                ]);
+            $subject=Subject::getOrCreate(null, $selected_subject['subject_name'], Auth::student()->categoryId);
         }
 
         $q = new Doubt();

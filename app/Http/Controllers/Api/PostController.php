@@ -34,17 +34,7 @@ class PostController extends Controller
         }
         DB::beginTransaction();
         try{
-            if(intval($data['subject_id'])===0){
-                $subject_name=strtolower($data['subject_name']);
-                $subject=Subject::firstOrCreate([
-                  'subject_url'=>\Str::slug($subject_name),
-                  'category_id'=>$data['category_id']
-                ],[
-                'subject_name'=>$subject_name
-                ]);
-            }else{
-                $subject=Subject::findOrFail($data['subject_id']);
-            }
+        $subject=Subject::getOrCreate($data['subject_id'], $data['subject_name'], $data['category_id']);
 
         $post=new Post;
         $post->user_id=Auth::user()->id;

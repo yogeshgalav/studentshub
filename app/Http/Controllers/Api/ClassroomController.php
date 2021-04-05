@@ -65,11 +65,10 @@ class ClassroomController extends Controller
 
     
     public function createClassroom(Request $request){
-        $subject_id = $request->subject['id'];
         $subject_name = $request->subject['subject_name'];
         $course_id = $request->course['id'];
         $course_name = $request->course['course_name'];
-
+        
         DB::beginTransaction();
     try{
         if($course_id){
@@ -80,29 +79,34 @@ class ClassroomController extends Controller
                 'course_name'=>$course_name,
                 'category_id'=>null
             ]);
-            Log::critical('New course created',['course_id'=>$course->id]);
+            Log::warning('New course created',['course_id'=>$course->id]);
         }
 
-        $subject= \App\Models\Subject::firstOrCreate([
-            'subject_url'=>\Str::slug($subject_name),
-            'category_id'=>$course->category_id ?? null,
-        ],[
-            'subject_name'=>$subject_name,
-            'is_verified'=>true,
-        ]);
+        $subject= \App\Models\Subject::getOrCreate(null, $subject_name, $course->category_id, true);
 
         \App\Models\CourseSubject::firstOrCreate([
             'subject_id'=>$subject->id,
             'course_id'=>$course->id,
         ]);
 
-        $batch =Batch::firstOrCreate([
+        $batch = Batch::firstOrCreate([
             'institute_id'=>Auth::teacher()->instituteId,
             'course_id'=>$course->id,
             'start_year'=>$request->start_year,
             'end_year'=>$request->end_year,
         ]);
 
+        $classroom_exist = Classroom::where([
+            'name'=>$request->name,
+            'batch_id'=>$batch->id,
+        ])->exists();
+
+        if($classroom_exist){
+            return response()->json(['error'=>[
+                'name'=>'Classroom name already exists in batch.Try other name.'
+            ]], 422);
+        }
+        
         $classroom=new Classroom;
         $classroom->name=$request->name;
         $classroom->teacher_id=Auth::teacher()->id;
