@@ -92,7 +92,10 @@
                   </h3>
                 </div>
               </div>
-              <like-component :post="doubt" likable-type="doubt" />
+              <like-component
+                :post="doubt"
+                likable-type="doubt"
+              />
             </div>
           </div>
         </div>
