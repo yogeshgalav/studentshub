@@ -1,13 +1,27 @@
 <template>
   <div>
     <div class="blank" />
-    <!-- add ther as video section blank -->
-    <!-- main input box as other places -->
+    <!-- add ther as video section blank  #####completed -->
+    <!-- main input box as other places #####completed -->
     <!-- make input as vue -->
-    <!-- replces the text from drive fil -->
-    <!-- add div link to request a demo -->
-    Earn more from your Students.
-    A new approach to LMS.
+    <!-- replces the text from drive fil ####completed-->
+    <!-- add div link to request a demo #####completed -->
+    <div class="p-5 container">
+      <div class="row">
+        <div class="col-12 col-sm-6">
+          <h3 class="text-center pb-4 pt-4">
+            Earn more from your Students. <br>
+            A new approach to LMS.
+          </h3>
+        </div>
+        <div class="col-12 col-sm-6">
+          <img
+            src=""
+            alt=""
+          >
+        </div>
+      </div>
+    </div>
 
     <div class="p-5 container">
       <h3 class="text-center pb-4 pt-4">
@@ -15,23 +29,15 @@
       </h3>
       <div class="row">
         <p class="col-12 col-sm-6">
-          With StudentsHub you get more than just a assignment tool. Our
-          reporting Platform delivers powerful analytics built on a modern data
-          stack -- as well as embedded analytics, valuable connected services,
-          customizable data applications, comprehensive professional services,
-          and world-class support.
+          With StudentsHub you get more than just an assignment tool. Our reporting Platform delivers powerful analytics built on a modern data stack -- as well as embedded analytics, valuable connected services, customizable data applications, comprehensive professional services, and world-class support.
         </p>
         <p class="col-12 col-sm-6">
-          StudentsHub pricing is customized for you, based on factors such as
-          number of students and the scale of your deployment. Pricing is
-          designed to fit Educational Institutes large and small. Sthub’s
-          pricing specialists work directly with you to ensure the ideal pricing
-          structure for your institute.
+          StudentsHub pricing is customized for you, based on factors such as number of students and the scale of your deployment. Pricing is designed to fit Educational Institutes large and small. Sthub’s pricing specialists work directly with you to ensure the ideal pricing structure for your institute.
         </p>
       </div>
       <div class="text-center">
         <a
-          href="#"
+          href="#demo"
           class="demo"
         >Request a demo <i class="fas fa-arrow-right" /></a>
       </div>
@@ -50,16 +56,10 @@
     </div>
     <div class="p-5 container">
       <h3 class="text-center pb-4 pt-4">
-        More than just a Assignment tool, Student's Hub is a modern data
-        platform
+        More than just a Assignment tool, Student's Hub is a modern data platform
       </h3>
       <p>
-        Student's Hub provides the foundation you need to build a data strategy
-        to grow you Institute. With Student's Hub at the center of your data
-        strategy, you can go beyond standard reporting (although it is great for
-        that too). From dashboards to reporting, Student's Hub is your
-        one-stop-shop for Assignment, analytics, visualization and data
-        management.
+        Student's Hub provides the foundation you need to build a data strategy to grow your Institute. With Student's Hub at the center of your data strategy, you can go beyond standard reporting (although it is great for that too). From dashboards to reporting, Student's Hub is your one-stop-shop for Assignment, analytics, visualization and data management.
       </p>
       <div>
         <h4 class="text-center pb-4 pt-4">
@@ -73,7 +73,7 @@
             <p>Batch Report</p>
           </div>
           <div class="col-12 col-sm-6 text-center">
-            <p>Gaurdian Report Email</p>
+            <p>Parent Report Notification</p>
             <p>Private branding</p>
             <p>24/7 live chat support</p>
             <p>API access</p>
@@ -107,9 +107,7 @@
             Create a Data-Driven Decision-Making Culture
           </h5>
           <p>
-            With data analytics, there’s no need to rely on blind faith when
-            making decisions. You’ll have numbers and statistics to back up your
-            decisions, which can lead to more successful outcomes.
+            With data analytics, there’s no need to rely on blind faith when making decisions. You’ll have numbers and statistics to back up your decisions, which can lead to more successful outcomes.
           </p>
         </div>
         <div class="col-12  col-sm-4">
@@ -117,9 +115,7 @@
             Access Data Easier
           </h5>
           <p>
-            Data analytics tools depend on the same type of technological
-            infrastructure to capture, store and organize information, so it’s
-            easy to find what you need.
+            Data analytics tools depend on the same type of technological infrastructure to capture, store and organize information, so it’s easy to find what you need.
           </p>
         </div>
         <div class="col-12 col-sm-4">
@@ -127,15 +123,13 @@
             Find Information More Quickly
           </h5>
           <p>
-            Since your data lives in one place, there’s no need to search
-            through dozens of files and folders to find one report, making the
-            process much quicker.
+            Since your data lives in one place, there’s no need to search through dozens of files and folders to find one report, making the process much quicker.
           </p>
         </div>
       </div>
       <div class="text-center">
         <a
-          href="#"
+          href="#demo"
           role="button"
           class="demo"
         >Request a demo <i class="fas fa-arrow-right" /></a>
@@ -147,7 +141,7 @@
     <div class="p-5 container">
       <div>
         <h3 class="text-center p-4">
-          How does it benifits you?
+          How does it benefit you?
         </h3>
         <div class="row p-4">
           <div class="col-12 col-sm-4">
@@ -155,12 +149,7 @@
               Real time analysis
             </h5>
             <p>
-              Instead of waiting for exam results and conveying single report to
-              gaurdians you will be able to see daily progress of your Students,
-              Teachers and Institute. And schedule these reports to gaurdians to
-              keep them updated with your work. The real time data helps
-              teachers, student and gaurdains to take immidiate action for
-              better results.
+              Instead of waiting for exam results and conveying a single report to parents you will be able to see daily progress of your Students, Teachers and Institute. And schedule these reports to parents to keep them updated with your work. The real time data helps teachers, student and parents to take immediate action for better results.
             </p>
           </div>
           <div class="col-12 col-sm-4">
@@ -168,11 +157,7 @@
               Boost Enrollements
             </h5>
             <p>
-              Deciding on where we pursue our education is one of the biggest
-              decisions we make in our lives, and Students/Gaurdians spend
-              months — if not years — researching their options. Assembling data
-              sets on your website is a great way to share information that your
-              audience need to make a decision.
+              Deciding on where we pursue our education is one of the biggest decisions we make in our lives, and Students/Parents spend months — if not years — researching their options. Assembling data sets on your website is a great way to share information that your audience needs to make a decision.
             </p>
           </div>
           <div class="col-12 col-sm-4">
@@ -180,19 +165,14 @@
               Effective Learning
             </h5>
             <p>
-              Student'sHub with help of Learning Analytics work with educational
-              environments data, and convert there data into relevant
-              information with the aim of improving the learning process.
-              Learning Analytics further includes other methods, such as
-              statistical and visualization tools and puts them into practice
-              for studying their actual effectiveness on the improvement of
-              teaching and learning.
+              Student'sHub with help of Learning Analytics work with educational environments data, and convert their data into relevant information with the aim of improving the learning process. Learning Analytics further includes other methods, such as statistical and visualization
+              tools and puts them into practice for studying their actual effectiveness on the improvement of teaching and learning.
             </p>
           </div>
         </div>
         <div class="text-center">
           <a
-            href="#"
+            href="#demo"
             role="button"
             class="demo"
           >Request a demo <i class="fas fa-arrow-right" /></a>
@@ -210,15 +190,10 @@
         <div class="row p-4">
           <div class="col-12 col-sm-4">
             <h5 class="pb-2 pt-2">
-              Watch thier progress
+              Classroom Report Analysis
             </h5>
             <p>
-              Students love to see there daily progress in context with
-              subject and units. They can explore thier attempted daily
-              assignment questions and answers. It helps them to focus more on
-              weak points.Students can compare there report with there batch
-              and can seek help from batchmates who had achived higher score
-              in perticular subject or unit.
+              Students love to see their daily progress in context with subjects and units. Furthermore, students can compare their report with their batch and can seek help from batchmates who have achieved a higher score in a particular subject or unit.
             </p>
           </div>
           <div class="col-12 col-sm-4">
@@ -226,9 +201,7 @@
               Ask Doubts
             </h5>
             <p>
-              We don't belive in keeping any barrier to knowledge for students
-              hence they can ask doubts not only from teachers but also from
-              students with same course globally over platform.
+              We don't believe in keeping any barrier to knowledge for students hence they can ask doubts not only from teachers but also from students with the same course globally over platform.
             </p>
           </div>
           <div class="col-12 col-sm-4">
@@ -236,10 +209,7 @@
               Find Interest field
             </h5>
             <p>
-              Finding interest field was near to impossible till now. We offer
-              data of interest field generated through the interaction of
-              posts for free. Further more it helps institutes to decide there
-              new course curriculam accordingly.
+              Finding an interest field was near to impossible till now. We offer data of interest fields generated through the interaction of posts for free. Furthermore it helps institutes to decide their new course curriculum accordingly.
             </p>
           </div>
         </div>
@@ -255,10 +225,7 @@
               Watch students progress
             </h5>
             <p>
-              Knowing student's weak and strong point is key pathway for
-              learning process to be followed by teacher. Knowing which
-              student need more focus in which topic help them achive better
-              classroom score.
+              Knowing a student's weak and strong points is a key pathway for the learning process to be followed by the teacher. Knowing which students need more focus in which topic helps them achieve better classroom scores.
             </p>
           </div>
           <div class="col-12 col-sm-4">
@@ -266,10 +233,7 @@
               Colleague Report Analysis
             </h5>
             <p>
-              Teachers performance is always been identified by classroom
-              score till now. We offer a better way to visualize which teacher
-              gets more engagment with students.And sharing report amoung
-              teahcers gives a compitive advantage to institute.
+              Teachers' performance has always been identified by classroom score till now. We offer a better way to visualize which teacher gets more engagement with students.And sharing report among teachers gives a competitive advantage to the institute.
             </p>
           </div>
           <div class="col-12 col-sm-4">
@@ -277,10 +241,7 @@
               Share classroom message
             </h5>
             <p>
-              Managing messaging for multiple batches through messaging
-              platforms like whatsapp can be a very hard job when it comes to
-              informative messages. Classroom messages keeps the student
-              updated with institute and classroom specific messages.
+              Managing messaging for multiple batches through messaging platforms like whatsapp can be a very hard job when it comes to informative messages. Classroom messages keep the student updated with institute and classroom specific messages.
             </p>
           </div>
         </div>
@@ -288,79 +249,130 @@
     </div>
     <div class="p-5 highlighter">
       <h3 class="text-center pb-4 pt-4">
-        Get more value out of your data See how Institutes are making profit.
+        Get more value out of your data<br>See how Institutes are making profit.
       </h3>
     </div>
     <div
+      id="demo"
       class="p-5"
-      style="background: #f8f9fa"
+      style="background: #f6f6f6"
     >
       <h3 class="text-center pb-4 pt-4">
         Request a Demo
       </h3>
-      <div class="center">
+      <div class="form justify-content-center">
         <form
           action=""
-          class="form"
+          class="col-md-6"
         >
-          <input
-            type="text"
-            name="firstname"
-            placeholder="First name*"
-          >
-          <input
-            type="text"
-            name="lastname"
-            placeholder="Last name*"
-          >
-          <input
-            type="email"
-            name="email"
-            placeholder="Email*"
-          >
-          <input
-            type="text"
-            name="institutename"
-            placeholder="Institute name*"
-          >
-          <input
-            type="number"
-            name="number of students"
-            placeholder="Number of Students"
-          >
-          <input
-            type="tel"
-            name="tel"
-            placeholder="Phone Number*"
-          >
-          <button
-            href="#"
-            class="btn btn-primary m-0-a mt-2"
-          >
-            Request a Demo
-          </button>
+          <div>
+            <div class="form-group row">
+              <div class="col-md-12 mb-2">
+                <label
+                  for="firstname"
+                  class="col-form-label text-md-right"
+                >Firstname*</label>
+                <input
+                  id="firstname"
+                  ref="firstname"
+                  v-model="firstname"
+                  v-validate="'required|max:255'"
+                  class="form-control"
+                  type="name"
+                  name="firstname"
+                >
+              </div>
+              <div class="col-md-12 mb-2">
+                <label
+                  for="lastname"
+                  class="col-form-label text-md-right"
+                >Lastname*</label>
+                <input
+                  id="lastname"
+                  ref="lastname"
+                  v-model="lastname"
+                  v-validate="'required|max:255'"
+                  class="form-control"
+                  type="name"
+                  name="lastname"
+                >
+              </div>
+              <div class="col-md-12 mb-2">
+                <label
+                  for="email"
+                  class="col-form-label text-md-right"
+                >Email*</label>
+                <input
+                  id="email"
+                  ref="email"
+                  v-model="email"
+                  v-validate="'required|max:255'"
+                  class="form-control"
+                  type="email"
+                  name="email"
+                >
+              </div>
+              <div class="col-md-12 mb-2">
+                <label
+                  for="institute"
+                  class="col-form-label text-md-right"
+                >Institute Name*</label>
+                <input
+                  id="institute"
+                  ref="institute"
+                  v-model="institute"
+                  v-validate="'required|max:255'"
+                  class="form-control"
+                  type="name"
+                  name="institute"
+                >
+              </div>
+              <div class="col-md-12 mb-2">
+                <label
+                  for="students"
+                  class="col-form-label text-md-right"
+                >Number Of Students</label>
+                <input
+                  id="students"
+                  ref="students"
+                  v-model="students"
+                  v-validate="'required|max:255'"
+                  class="form-control"
+                  type="number"
+                  name="students"
+                >
+              </div>
+              <div class="col-md-12 mb-2">
+                <label
+                  for="phone"
+                  class="col-form-label text-md-right"
+                >Phone Number*</label>
+                <input
+                  id="phone"
+                  ref="phone"
+                  v-model="phone"
+                  v-validate="'required|max:255'"
+                  class="form-control"
+                  type="tel"
+                  name="phone"
+                >
+              </div>
+              <div class="col-md-8">
+                <button
+                  href="#"
+                  class="btn btn-primary"
+                >
+                  Request a Demo
+                </button>
+              </div>
+            </div>
+          </div>
         </form>
       </div>
     </div>
   </div>
 </template>
 <style scoped>
-.form {
-  width: 400px;
-  text-align: -webkit-center;
-  background: #fff;
-  box-shadow: 2px 4px 12px rgb(0 0 0 / 8%);
-  padding-bottom: 20px;
-  flex-direction: column;
-}
-.form input {
-  margin: 10px;
-  width: 90%;
-  border: none;
-  border-bottom: solid gray 1px;
-  padding-bottom: 7px;
-  outline: none;
-}
 .center {
   text-align: -webkit-center;
 }
@@ -401,10 +413,11 @@ export default {
     return {
       showLoader: false,
       institute_name: '',
-      full_name: '',
+      first_name: '',
+      last_name: '',
       email: '',
-      phone_no: '',
-      students: '',
+      phone_number: '',
+      student_number: '',
       plan: '',
     };
   },
@@ -420,11 +433,12 @@ export default {
           this.showLoader = true;
           this.axios
             .post('/api/member-request', {
-              institute_name: this.institute_name,
-              full_name: this.full_name,
+              first_name: this.firstname,
+              last_name: this.lastname,
+              institute_name: this.institute,
               email: this.email,
-              phone_no: this.email,
-              students: this.students,
+              phone_number: this.phone,
+              student_number: this.students,
             })
             .then(() => {
               this.showLoader = false;
