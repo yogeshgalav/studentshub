@@ -1,23 +1,32 @@
 <template>
-    <div class="bg-gray">
-        <div class="container category-filter cat_pad">
-            <div class="category_head">
-                <h3> What is your field of Interest ?</h3>
-            </div>
-            <div class="cat_menu">
-                <div class="cat_menu_list">
-                    <a :href="'/category/'+category.category_url"
-                        :class="['btn btn-white cat_btn',category.category_url]" v-for="(category,index) in categories"
-                        :key="index">{{category.name}}</a>
-                </div>
-            </div>
-
-            <div class="category_btn">
-                <router-link :to="'/get-started'">Find Out <span><i class="fa fa-arrow-right"
-                            aria-hidden="true"></i></span></router-link>
-            </div>
+  <div class="bg-gray">
+    <div class="container category-filter cat_pad">
+      <div class="category_head">
+        <h3> What is your field of Interest ?</h3>
+      </div>
+      <div class="cat_menu">
+        <div class="cat_menu_list">
+          <router-link
+            v-for="(category,index) in categories"
+            :key="index"
+            :to="'/category/'+category.category_url"
+            :class="['btn btn-white cat_btn',category.category_url]"
+          >
+            {{ category.name }}
+          </router-link>
         </div>
+      </div>
+
+      <div class="category_btn">
+        <router-link :to="'/get-started'">
+          Find Out <span><i
+            class="fa fa-arrow-right"
+            aria-hidden="true"
+          /></span>
+        </router-link>
+      </div>
     </div>
+  </div>
 </template>
 <style scoped>
     .cat_pad {
@@ -102,47 +111,47 @@
 </style>
 
 <script>
-    // //import VueSlickCarousel from 'vue-slick-carousel'
-    // // optional style for arrows & dots
-    // //import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
+// //import VueSlickCarousel from 'vue-slick-carousel'
+// // optional style for arrows & dots
+// //import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
 
-    // // import VueSlickCarousel from 'vue-slick-carousel'
-    // import 'vue-slick-carousel/dist/vue-slick-carousel.css'
-    // // optional style for arrows & dots
-    // import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css';
+// // import VueSlickCarousel from 'vue-slick-carousel'
+// import 'vue-slick-carousel/dist/vue-slick-carousel.css'
+// // optional style for arrows & dots
+// import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css';
 
-    export default {
-        components: {
-            // VueSlickCarousel,
-        },
-        props: ['categories'],
+export default {
+	components: {
+		// VueSlickCarousel,
+	},
+	props: ['categories'],
 
-        data() {
-            return {
-                colors: ['001f3f/39CCCC', '0074D9/7FDBFF', '2ECC40/01FF70', 'FF4136\FF851B', '85144b\F012BE',
-                    '111111\AAAAAA'
-                ],
-                slickOptions: {
-                    dots: false,
-                    arrows: true,
-                    mobileFirst: true,
-                    centerPadding: '60px',
-                    prevArrow: '<button type="button" class="slick-prev"><i class="fas fa-arrow-left"></i></button>',
-                    nextArrow: '<button type="button" class="slick-next"><i class="fa fa-arrow-right"></i></button>',
-                    variableWidth: true,
-                    infinite: false,
-                    responsive: [{
-                        breakpoint: 768,
-                        settings: {
-                            arrows: true,
-                            slidesToShow: 1,
-                            slidesToScroll: 1,
-                            width: 200,
-                        }
-                    }]
-                },
-            }
-        },
-    }
+	data() {
+		return {
+			colors: ['001f3f/39CCCC', '0074D9/7FDBFF', '2ECC40/01FF70', 'FF4136\FF851B', '85144b\F012BE',
+				'111111\AAAAAA'
+			],
+			slickOptions: {
+				dots: false,
+				arrows: true,
+				mobileFirst: true,
+				centerPadding: '60px',
+				prevArrow: '<button type="button" class="slick-prev"><i class="fas fa-arrow-left"></i></button>',
+				nextArrow: '<button type="button" class="slick-next"><i class="fa fa-arrow-right"></i></button>',
+				variableWidth: true,
+				infinite: false,
+				responsive: [{
+					breakpoint: 768,
+					settings: {
+						arrows: true,
+						slidesToShow: 1,
+						slidesToScroll: 1,
+						width: 200,
+					}
+				}]
+			},
+		};
+	},
+};
 
 </script>

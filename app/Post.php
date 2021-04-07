@@ -13,7 +13,7 @@ class Post extends PostModel
 {
 
     public function getUserPosts($userId){
-        $post_query=$this->getAuthUserPostTabels();     
+        $post_query=$this->getAuthUserPostTabels();
 
         $posts=$post_query->where('po.user_id',$userId)
         ->orderBy('po.created_at','DESC')
@@ -22,29 +22,29 @@ class Post extends PostModel
         return $this->formatPostData($posts);
     }
 
-    public function getSubjectPosts(Request $request){
-        $post_query=$this->getAuthUserPostTabels();     
+    public function getSubjectPosts($subject_id){
+        $post_query=$this->getAuthUserPostTabels();
 
-        $posts=$post_query->where('sub.id',$request->route('subjectUrl'))
+        $posts=$post_query->where('sub.id',$subject_id)
         ->orderBy('po.created_at','DESC')
         ->paginate();
 
         return $this->formatPostData($posts);
     }
 
-    public function getCategoryPosts(Request $request){
-        $post_query=$this->getAuthUserPostTabels();     
+    public function getCategoryPosts($category_id){
+        $post_query=$this->getAuthUserPostTabels();
 
-        $posts=$post_query->where('cat.id',$request->route('categoryUrl'))
+        $posts=$post_query->where('cat.id',$category_id)
         ->orderBy('po.created_at','DESC')
         ->paginate();
 
         return $this->formatPostData($posts);
     }
-    public function getCoursePosts(Request $request){
-        $post_query=$this->getAuthUserPostTabels();     
+    public function getCoursePosts($course_id){
+        $post_query=$this->getAuthUserPostTabels();
 
-        $posts=$post_query->where('course.id',$request->route('courseUrl'))
+        $posts=$post_query->where('course.id',$course_id)
         ->orderBy('po.created_at','DESC')
         ->paginate();
 
@@ -102,19 +102,19 @@ class Post extends PostModel
         ->leftJoin('users as us','us.id','=','po.user_id')
         ->leftJoin('institutes as inst','inst.id','=','sp.institute_id')
         ->leftJoin('courses as course','course.id','=','sp.course_id');
-        
+
         $columns = ['po.id as id','po.post_heading as heading','po.post_description as description','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','po.primary_image_path as image_path',
         'sub.subject_url','sub.subject_name','course.id as course_id','course.course_name',
         'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','inst.name as institute_name','ar.html_content as article_content',
         'vd.video_id as video_id','fc.image_path as fact_image_path','do.link as document_link'];
-        
+
         if(Auth::check()){
             $post_query->leftJoin('likes as uli',function($join){
                 $join->on('po.id','=','uli.likable_id')->where('uli.likable_type','=','App\Models\Post')->where('uli.user_id','=',Auth::user()->id);
             });
             array_push($columns,'uli.like_status as user_like');
         }
-        
+
         return $post_query->select($columns);
     }
 
@@ -158,7 +158,7 @@ class Post extends PostModel
             $post->image_path=$post->image_path ?? '';
             $post->time=Carbon::createFromTimeStamp(strtotime($post->time))->diffForHumans();
         }
-        
+
         return $posts;
     }
 

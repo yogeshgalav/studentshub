@@ -164,56 +164,36 @@ class PostController extends Controller
           'posts'=>$posts
         ]]);
       }
-
-      public function coursePosts(Request $request){
+      public function courseDetails(Request $request){
+        $subject=\App\Models\Course::where('course_url', $request->route('id'))->firstOrFail();
         $post=new \App\Post;
-        $response = $post->getCoursePosts($request);
+        $posts = $post->getCoursePosts($course->id);
 
-        $search=new \App\Models\Search;
-        $search->query=$request->route('courseId');
-        // $search->type='course';
-        if($response){
-          $search->success=true;
-        }else{
-          $search->success=false;
-        }
-        $search->save();
+        return response()->json(['success'=>[
+            'posts'=>$posts,
+            'subject'=>$course,
+        ]]);
+      }
+      public function subjectDetails(Request $request){
+        $subject=\App\Models\Subject::where('subject_url', $request->route('id'))->firstOrFail();
+        $post=new \App\Post;
+        $posts = $post->getSubjectPosts($subject->id);
 
-        return $response;
+        return response()->json(['success'=>[
+            'posts'=>$posts,
+            'subject'=>$subject,
+        ]]);
       }
 
-      public function subjectPosts(Request $request){
+      public function categoryDetails(Request $request){
+        $category=\App\Models\Category::where('category_url', $request->route('id'))->with('courses')->with('subjects')->firstOrFail();
         $post=new \App\Post;
-        $response = $post->getSubjectPosts($request);
+        $posts = $post->getCategoryPosts($category->id);
 
-        $search=new \App\Models\Search;
-        $search->query=$request->route('subjectId');
-        // $search->type='subject';
-        if($response){
-          $search->success=true;
-        }else{
-          $search->success=false;
-        }
-        $search->save();
-
-        return $response;
-      }
-
-      public function categoryPosts(Request $request){
-        $post=new \App\Post;
-        $response = $post->getCategoryPosts($request);
-
-        $search=new \App\Models\Search;
-        $search->query=$request->route('categoryId');
-        // $search->type='category';
-        if($response){
-          $search->success=true;
-        }else{
-          $search->success=false;
-        }
-        $search->save();
-
-        return $response;
+        return response()->json(['success'=>[
+            'posts'=>$posts,
+            'category'=>$category,
+        ]]);
       }
 
       public function savePost(Request $request){

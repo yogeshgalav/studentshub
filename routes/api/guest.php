@@ -20,6 +20,6 @@ Route::post('/faq','GuestController@faq');
 Route::get('/get-explore-posts', 'ExploreController@index');
 
 Route::get('/get-search-posts', 'PostController@searchPosts');
-Route::get('/get-course-posts/{courseId}', 'PostController@coursePosts');
-Route::get('/get-subject-posts/{subjectId}', 'PostController@subjectPosts');
-Route::get('/get-category-posts/{categoryId}', 'PostController@categoryPosts');
+Route::get('/get-course-details/{id}', 'PostController@courseDetails');
+Route::get('/get-subject-details/{id}', 'PostController@subjectDetails');
+Route::get('/get-category-details/{id}', 'PostController@categoryDetails');
