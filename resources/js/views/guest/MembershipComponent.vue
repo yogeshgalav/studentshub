@@ -1,28 +1,23 @@
 <template>
   <div>
+    <loading
+      :active.sync="showLoader"
+      :color="'#10069F'"
+      :width="250"
+      :is-full-page="true"
+    />
     <div class="blank" />
-    <!-- add ther as video section blank  #####completed -->
-    <!-- main input box as other places #####completed -->
-    <!-- make input as vue -->
-    <!-- replces the text from drive fil ####completed-->
-    <!-- add div link to request a demo #####completed -->
     <div class="p-5 container">
-      <div class="row">
-        <div class="col-12 col-sm-6">
-          <h3 class="text-center pb-4 pt-4">
-            Earn more from your Students. <br>
-            A new approach to LMS.
-          </h3>
-        </div>
-        <div class="col-12 col-sm-6">
-          <img
-            src=""
-            alt=""
-          >
-        </div>
-      </div>
+      <h3 class="pb-4 display-4 text-center">
+        Earn more from your Students
+      </h3>
+      <p class="text-center">
+        A new approach to LMS.
+      </p>
     </div>
-
+    <div class="container">
+      <hr>
+    </div>
     <div class="p-5 container">
       <h3 class="text-center pb-4 pt-4">
         Our pricing fits your strength
@@ -263,7 +258,7 @@
       <div class="form justify-content-center">
         <form
           action=""
-          class="col-md-6"
+          class="col-md-4"
         >
           <div>
             <div class="form-group row">
@@ -271,11 +266,11 @@
                 <label
                   for="firstname"
                   class="col-form-label text-md-right"
-                >Firstname*</label>
+                >Your Name</label>
                 <input
                   id="firstname"
                   ref="firstname"
-                  v-model="firstname"
+                  v-model="full_name"
                   v-validate="'required|max:255'"
                   class="form-control"
                   type="name"
@@ -284,24 +279,9 @@
               </div>
               <div class="col-md-12 mb-2">
                 <label
-                  for="lastname"
-                  class="col-form-label text-md-right"
-                >Lastname*</label>
-                <input
-                  id="lastname"
-                  ref="lastname"
-                  v-model="lastname"
-                  v-validate="'required|max:255'"
-                  class="form-control"
-                  type="name"
-                  name="lastname"
-                >
-              </div>
-              <div class="col-md-12 mb-2">
-                <label
                   for="email"
                   class="col-form-label text-md-right"
-                >Email*</label>
+                >Email</label>
                 <input
                   id="email"
                   ref="email"
@@ -316,11 +296,11 @@
                 <label
                   for="institute"
                   class="col-form-label text-md-right"
-                >Institute Name*</label>
+                >Institute Name</label>
                 <input
                   id="institute"
                   ref="institute"
-                  v-model="institute"
+                  v-model="institute_name"
                   v-validate="'required|max:255'"
                   class="form-control"
                   type="name"
@@ -335,8 +315,8 @@
                 <input
                   id="students"
                   ref="students"
-                  v-model="students"
-                  v-validate="'required|max:255'"
+                  v-model="student_number"
+                  v-validate="'required|numeric'"
                   class="form-control"
                   type="number"
                   name="students"
@@ -346,12 +326,12 @@
                 <label
                   for="phone"
                   class="col-form-label text-md-right"
-                >Phone Number*</label>
+                >Phone Number</label>
                 <input
                   id="phone"
                   ref="phone"
-                  v-model="phone"
-                  v-validate="'required|max:255'"
+                  v-model="phone_number"
+                  v-validate="'required|numeric'"
                   class="form-control"
                   type="tel"
                   name="phone"
@@ -405,48 +385,41 @@ import swal from '../../components/swal';
 import Modal from '../../components/VueNiceModal.vue';
 
 export default {
-  components: {
-    Modal,
-  },
-  mixins: [FormMixin],
-  data() {
-    return {
-      showLoader: false,
-      institute_name: '',
-      first_name: '',
-      last_name: '',
-      email: '',
-      phone_number: '',
-      student_number: '',
-      plan: '',
-    };
-  },
-  methods: {
-    choosePlan(plan) {
-      this.plan = plan;
-      this.$modal.show('memberModal');
-    },
-    memberRequest() {
-      this.$validator.validate().then((valid) => {
-        if (valid) {
-          this.$refs.memberModal.closeModal();
-          this.showLoader = true;
-          this.axios
-            .post('/api/member-request', {
-              first_name: this.firstname,
-              last_name: this.lastname,
-              institute_name: this.institute,
-              email: this.email,
-              phone_number: this.phone,
-              student_number: this.students,
-            })
-            .then(() => {
-              this.showLoader = false;
-              swal.infoDialog('Thank you for connecting with us.');
-            });
-        }
-      });
-    },
-  },
+	components: {
+		Modal,
+	},
+	mixins: [FormMixin],
+	data() {
+		return {
+			showLoader: false,
+			institute_name: '',
+			full_name: '',
+			email: '',
+			phone_number: '',
+			student_number: '',
+		};
+	},
+	methods: {
+		memberRequest() {
+			this.$validator.validate().then((valid) => {
+				if (valid) {
+					this.$refs.memberModal.closeModal();
+					this.showLoader = true;
+					this.axios
+						.post('/api/member-request', {
+							full_name: this.full_name,
+							institute_name: this.institute_name,
+							email: this.email,
+							phone_no: this.phone_number,
+							students: this.student_number,
+						})
+						.then(() => {
+							this.showLoader = false;
+							swal.infoDialog('Thank you for connecting with us.');
+						});
+				}
+			});
+		},
+	},
 };
 </script>
