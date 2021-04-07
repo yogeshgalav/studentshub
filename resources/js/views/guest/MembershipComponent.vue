@@ -32,8 +32,9 @@
       </div>
       <div class="text-center">
         <a
-          href="#demo"
+          
           class="demo"
+          @click="scrollMeTo('requestDemo')"
         >Request a demo <i class="fas fa-arrow-right" /></a>
       </div>
     </div>
@@ -42,11 +43,13 @@
         Student's Hub is free for individual students and teachers
       </h3>
       <div class="text-center">
-        <a
-          href="#"
+        <router-link
+          :to="'/get-started'" 
           type="button"
           class="btn btn-outline-secondary"
-        >Get Started</a>
+        >
+          Get Started
+        </router-link>
       </div>
     </div>
     <div class="p-5 container">
@@ -124,9 +127,10 @@
       </div>
       <div class="text-center">
         <a
-          href="#demo"
+          
           role="button"
           class="demo"
+          @click="scrollMeTo('requestDemo')"
         >Request a demo <i class="fas fa-arrow-right" /></a>
       </div>
     </div>
@@ -167,9 +171,10 @@
         </div>
         <div class="text-center">
           <a
-            href="#demo"
+            
             role="button"
             class="demo"
+            @click="scrollMeTo('requestDemo')"
           >Request a demo <i class="fas fa-arrow-right" /></a>
         </div>
       </div>
@@ -249,23 +254,24 @@
     </div>
     <div
       id="demo"
+      ref="requestDemo"
       class="p-5"
       style="background: #f6f6f6"
     >
-      <h3 class="text-center pb-4 pt-4">
+      <h3 class="text-center mb-0 pt-4">
         Request a Demo
       </h3>
-      <div class="form justify-content-center">
+      <div class="form justify-content-center pt-4">
         <form
-          action=""
           class="col-md-4"
+          @submit.prevent="memberRequest"
         >
           <div>
             <div class="form-group row">
               <div class="col-md-12 mb-2">
                 <label
                   for="firstname"
-                  class="col-form-label text-md-right"
+                  class="mb-0 col-form-label text-md-right"
                 >Your Name</label>
                 <input
                   id="firstname"
@@ -280,7 +286,7 @@
               <div class="col-md-12 mb-2">
                 <label
                   for="email"
-                  class="col-form-label text-md-right"
+                  class="mb-0 col-form-label text-md-right"
                 >Email</label>
                 <input
                   id="email"
@@ -295,7 +301,7 @@
               <div class="col-md-12 mb-2">
                 <label
                   for="institute"
-                  class="col-form-label text-md-right"
+                  class="col-form-label text-md-right mb-0"
                 >Institute Name</label>
                 <input
                   id="institute"
@@ -310,7 +316,7 @@
               <div class="col-md-12 mb-2">
                 <label
                   for="students"
-                  class="col-form-label text-md-right"
+                  class="col-form-label text-md-right mb-0"
                 >Number Of Students</label>
                 <input
                   id="students"
@@ -325,7 +331,7 @@
               <div class="col-md-12 mb-2">
                 <label
                   for="phone"
-                  class="col-form-label text-md-right"
+                  class="col-form-label text-md-right mb-0"
                 >Phone Number</label>
                 <input
                   id="phone"
@@ -337,9 +343,9 @@
                   name="phone"
                 >
               </div>
-              <div class="col-md-8">
+              <div class="col-md-12 text-center">
                 <button
-                  href="#"
+                  type="submit"
                   class="btn btn-primary"
                 >
                   Request a Demo
@@ -350,6 +356,7 @@
         </form>
       </div>
     </div>
+    <site-footer />
   </div>
 </template>
 <style scoped>
@@ -375,6 +382,7 @@
   text-decoration: none;
 }
 .demo:hover {
+  cursor: pointer;
   color: purple;
   text-decoration: none;
 }
@@ -383,10 +391,11 @@
 import FormMixin from '../../components/mixins/form-mixin.js';
 import swal from '../../components/swal';
 import Modal from '../../components/VueNiceModal.vue';
+import SiteFooter from '../footer/SiteFooter';
 
 export default {
 	components: {
-		Modal,
+		SiteFooter
 	},
 	mixins: [FormMixin],
 	data() {
@@ -403,7 +412,6 @@ export default {
 		memberRequest() {
 			this.$validator.validate().then((valid) => {
 				if (valid) {
-					this.$refs.memberModal.closeModal();
 					this.showLoader = true;
 					this.axios
 						.post('/api/member-request', {
@@ -420,6 +428,12 @@ export default {
 				}
 			});
 		},
+		scrollMeTo(refName) {
+			var element = this.$refs[refName];
+			element.scrollIntoView({ behavior: 'smooth' });
+			// var top = element.offsetTop;
+			// window.scrollTo(0, top);
+		}
 	},
 };
 </script>
