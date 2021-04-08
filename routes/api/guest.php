@@ -13,9 +13,9 @@ Route::post('/member-request','GuestController@memberRequest');
 Route::post('/forgot-password','AuthController@processForgotPassword');
 Route::post('/reset-password','AuthController@resetPassword2')->middleware('auth:api');
 Route::post('/reset-password/{token}','AuthController@resetPassword');
-Route::post('/feedback','GuestController@feedback');
+Route::post('/feedback',[App\Http\Controllers\Api\GuestController::class, 'feedback']);
 Route::post('/contactus', [App\Http\Controllers\Api\GuestController::class, 'contactus']);
-Route::post('/faq','GuestController@faq');
+Route::post('/faq',[App\Http\Controllers\Api\GuestController::class, 'faq']);
 // Route::get('/get-view-post/{ViewPostId}', 'PostController@viewPost');
 Route::get('/get-explore-posts', 'ExploreController@index');
 
