@@ -93,7 +93,7 @@
         </div>
 
         <div class="col-md-12 text-center copy_right">
-          <p>Copyright&copy;studentshub-2019-All Rights Reserved </p>
+          <p>Copyright&copy;studentshub-{{ new Date().getFullYear() }}-All Rights Reserved </p>
         </div>
       </div>
     </div>
