@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use App\Models\Faq;
 
 class GuestController extends Controller
 {
@@ -12,6 +13,9 @@ class GuestController extends Controller
 
     public function loginPage()
     {
+        if(Auth::check()){
+            return redirect('/');
+        }
         return view('guest.auth.login')->with('title','Login' . $this->title);
     }
     public function membershipPlan()
@@ -24,6 +28,9 @@ class GuestController extends Controller
     }
     public function registerPage()
     {
+        if(Auth::check()){
+            return redirect('/');
+        }
         return view('guest.auth.register')->with('title','Get Started' . $this->title);
     }
 
