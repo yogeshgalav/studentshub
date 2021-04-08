@@ -44,6 +44,8 @@
           <button
             type="button"
             class="pricing-button"
+            data-toggle="modal"
+            data-target="#memberModal"
             @click="choosePlan('Accelarate')"
           >
             Get Started
@@ -86,6 +88,8 @@
           <button
             type="button"
             class="pricing-button is-featured"
+            data-toggle="modal"
+            data-target="#memberModal"
             @click="choosePlan('scale')"
           >
             Free trial
@@ -116,102 +120,84 @@
     </div>
 
     <modal
+      ref="memberModal"
       name="memberModal"
-      class="doubt_model"
+      heading="Enter Details:"
+      @submit="memberRequest"
     >
-      <form @submit.prevent="memberRequest">
-        <div class="model_box_inner card p-0">
-          <div class="card-header">
-            <div class="edit_profile_head">
-              <h4>Enter Details:</h4>
-            </div> 
-          </div>
-          <div class="row card-body">
-            <div class="col-md-6 col-12">
-              <div class="model_input">
-                <label class="text-gray">Institute name</label>
-                <input
-                  v-model="institute_name"
-                  v-validate="'required'"
-                  name="institute_name"
-                  type="text"
-                  class="form-control"
-                >
-                <span class="error">{{ formErrors('institute_name') }}</span>
+      <template slot="modalBody">
+        <form>
+          <div>
+            <div class="row card-body">
+              <div class="col-md-6 col-12">
+                <div class="model_input">
+                  <label class="text-gray">Institute name</label>
+                  <input
+                    v-model="institute_name"
+                    v-validate="'required'"
+                    name="institute_name"
+                    type="text"
+                    class="form-control"
+                  >
+                  <span class="error">{{ formErrors('institute_name') }}</span>
+                </div>
               </div>
-            </div>
-            <div class="col-md-6 col-12">
-              <div class="model_input">
-                <label class="text-gray">Your full name</label>
-                <input
-                  v-model="full_name"
-                  v-validate="'required'"
-                  name="full_name"
-                  type="text"
-                  class="form-control"
-                >
-                <span class="error">{{ formErrors('full_name') }}</span>
+              <div class="col-md-6 col-12">
+                <div class="model_input">
+                  <label class="text-gray">Your full name</label>
+                  <input
+                    v-model="full_name"
+                    v-validate="'required'"
+                    name="full_name"
+                    type="text"
+                    class="form-control"
+                  >
+                  <span class="error">{{ formErrors('full_name') }}</span>
+                </div>
               </div>
-            </div>
-            <div class="col-md-6 col-12">
-              <div class="model_input">
-                <label class="text-gray">Email</label>
-                <input
-                  v-model="email"
-                  v-validate="'required|email'"
-                  name="email"
-                  type="text"
-                  class="form-control"
-                >
-                <span class="error">{{ formErrors('email') }}</span>
+              <div class="col-md-6 col-12">
+                <div class="model_input">
+                  <label class="text-gray">Email</label>
+                  <input
+                    v-model="email"
+                    v-validate="'required|email'"
+                    name="email"
+                    type="text"
+                    class="form-control"
+                  >
+                  <span class="error">{{ formErrors('email') }}</span>
+                </div>
               </div>
-            </div>
-            <div class="col-md-6 col-12">
-              <div class="model_input">
-                <label class="text-gray">Contact number</label>
-                <input
-                  v-model="phone_no"
-                  v-validate="'required'"
-                  name="phone_no"
-                  type="text"
-                  class="form-control"
-                >
-                <span class="error">{{ formErrors('phone_no') }}</span>
+              <div class="col-md-6 col-12">
+                <div class="model_input">
+                  <label class="text-gray">Contact number</label>
+                  <input
+                    v-model="phone_no"
+                    v-validate="'required'"
+                    name="phone_no"
+                    type="text"
+                    class="form-control"
+                  >
+                  <span class="error">{{ formErrors('phone_no') }}</span>
+                </div>
               </div>
-            </div>
-            <div class="col-md-6 col-12">
-              <div class="model_input">
-                <label class="text-gray">Number of students</label>
-                <input
-                  v-model="students"
-                  v-validate="'required'"
-                  name="students"
-                  type="text"
-                  class="form-control"
-                >
-                <span class="error">{{ formErrors('students') }}</span>
-              </div>
-            </div>
-            <div class="col-md-12">
-              <div class="model_btn">
-                <button
-                  type="submit"
-                  class="btn btn-primary"
-                >
-                  Submit
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-danger"
-                  @click="$modal.hide('memberModal')"
-                >
-                  Cancel
-                </button>
+              <div class="col-md-6 col-12">
+                <div class="model_input">
+                  <label class="text-gray">Number of students</label>
+                  <input
+                    v-model="students"
+                    v-validate="'required'"
+                    name="students"
+                    type="text"
+                    class="form-control"
+                  >
+                  <span class="error">{{ formErrors('students') }}</span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </form>
+        </form>
+      </template>
     </modal>
     <loading 
       :active.sync="showLoader"
@@ -379,11 +365,11 @@ html {
 
 import FormMixin from '../../components/mixins/form-mixin.js' ;
 import swal from '../../components/swal';
-import VModal from 'vue-js-modal';
+import Modal from '../../components/VueNiceModal.vue';
 
 export default {
 	components:{
-		VModal,
+		Modal,
 	},
 	mixins: [FormMixin],
 	data(){
@@ -405,7 +391,7 @@ export default {
 		memberRequest(){
 			this.$validator.validate().then(valid => {
 				if (valid) {
-					this.$modal.hide('memberModal');
+					this.$refs.memberModal.closeModal();
 					this.showLoader = true;
 					this.axios.post('/api/member-request',{
 						institute_name:this.institute_name,
