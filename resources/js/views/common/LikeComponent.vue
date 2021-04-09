@@ -20,7 +20,7 @@
       </p>
     </button>
     <button
-      v-if="!onlyLike"
+      v-if="showDislike"
       type="button"
       @click="sendUserDislike()"
     >
@@ -34,6 +34,16 @@
       <p v-else>
         <span><i class="far fa-thumbs-down" />&nbsp;</span>
         {{ post.total_likes }} Dislike
+      </p>
+    </button>
+    <button      
+	  v-if="showReply"
+      type="button"
+      @click="$emit('reply')"
+    >
+      <p>
+        <span><i class="far fa-thumbs-up" />&nbsp;</span>
+        Reply
       </p>
     </button>
   </div>
@@ -50,7 +60,12 @@ export default {
 			'type':String,
 			'required':true,
 		},
-		'onlyLike':{
+		'showDislike':{
+			'type':Boolean,
+			'default':true,
+			'required':false,
+		},
+		'showReply':{
 			'type':Boolean,
 			'default':false,
 			'required':false,

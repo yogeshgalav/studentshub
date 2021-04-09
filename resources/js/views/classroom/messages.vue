@@ -84,13 +84,7 @@
                 </div>
                 <hr>
                 <p>{{ message.content }}</p>
-                <messages-reply :message="message" />
                 <span>
-                  <button
-                    type="button"
-                    class="btn-link"
-                    @click="deleteMessage(message.id)"
-                  >Delete</button>
                   <button
                     type="button"
                     class="btn-link"
@@ -98,12 +92,23 @@
                     data-target="#editMessageModal"
                     @click="edit_message=message"
                   >Edit</button> 
+                  <button
+                    type="button"
+                    class="btn-link"
+                    @click="deleteMessage(message.id)"
+                  >Delete</button>
                 </span>
                 <hr>
                 <like-component
                   :post="message"
                   likable-type="message"
-                  only-like="true"
+                  :show-dislike="false"
+                  :show-reply="true"
+                  @reply="reply(message)"
+                />
+                <messages-reply
+                  v-if="message.show_reply" 
+                  :message="message"
                 />
               </div>
               <div class="col-md-3 col-12" />
@@ -220,7 +225,10 @@ export default {
 				api = api + this.routeClassroomId;
 			}
 			this.axios.get(api).then((resp) => {
-				this.messages = resp.data.success.messages;
+				this.messages = resp.data.success.messages.map(node=>{
+					node.show_reply= false;
+					return node;
+				});
 				this.showLoader = false;
 			});
 		},
@@ -252,6 +260,7 @@ export default {
 								'created_at':resp.data.success.message.created_at,
 								'user_name':this.AuthUser.full_name,
 								'avatar_url':this.AuthUser.avatar_url,
+								'classroom_id': this.routeClassroomId ? this.routeClassroomId :this.selectedClassroomId,
 								'classroom_name':classroom_name,
 								'total_likes':0,
 								'time':'Just now'});
@@ -279,6 +288,9 @@ export default {
 			}).then((resp)=>{
 				window.location.reload();
 			});
+		},
+		reply(message){
+			message['show_reply'] =true;
 		}
 	},
 };
