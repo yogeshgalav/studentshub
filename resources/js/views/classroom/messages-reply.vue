@@ -80,7 +80,18 @@ export default {
 							parent_message_id:message.id,
 							content:e.target.value,
 							classroom_id:message.classroom_id,
-						});
+						}).then((resp)=>{
+						this.replies.push({
+							'id':resp.data.success.message.id,
+							'content':resp.data.success.message.content,
+							'created_at':resp.data.success.message.created_at,
+							'user_name':this.AuthUser.full_name,
+							'avatar_url':this.AuthUser.avatar_url,
+							'classroom_id': this.message.classroom_id,
+							'classroom_name': this.message.classroom_name,
+							'total_likes':0,
+							'time':'Just now'});
+					});
 				}
 			});
 		},
