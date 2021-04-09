@@ -4,6 +4,7 @@
     class="single_page_user_like"
   >
     <button
+      type="button"
       @click="sendUserLike()"
     >
       <p
@@ -17,9 +18,10 @@
         <span><i class="far fa-thumbs-up" />&nbsp;</span>
         {{ post.total_likes }} Like
       </p>
-      <!-- <p>{{ like_active ? (post.total_likes + 1) : post.total_likes }} Like</p> -->
     </button>
     <button
+      v-if="!onlyLike"
+      type="button"
       @click="sendUserDislike()"
     >
       <p
@@ -33,14 +35,27 @@
         <span><i class="far fa-thumbs-down" />&nbsp;</span>
         {{ post.total_likes }} Dislike
       </p>
-      <!-- <p>{{ dislike_active ? (post.total_dislikes + 1) : post.total_dislikes }} Dislike</p> -->
     </button>
   </div>
 </template>
 
 <script>
 export default {
-	props:['post', 'likableType'],
+	props:{
+		'post':{
+			'type':Object,
+			'required':true,
+		},
+		'likableType':{
+			'type':String,
+			'required':true,
+		},
+		'onlyLike':{
+			'type':Boolean,
+			'default':false,
+			'required':false,
+		},
+	},
 	data(){
 		return {
 			user_like:'',

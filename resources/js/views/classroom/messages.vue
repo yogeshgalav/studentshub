@@ -103,6 +103,7 @@
                 <like-component
                   :post="message"
                   likable-type="message"
+                  only-like="true"
                 />
               </div>
               <div class="col-md-3 col-12" />
