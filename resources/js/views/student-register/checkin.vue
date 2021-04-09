@@ -157,7 +157,7 @@
                             class="text-black"
                             for="event_date_input"
                           >
-                            {{ ('Batch Starting Year') }}
+                            {{ ('Course Starting Year') }}
                           </label>
                           <div class="input-group-prepend ">
                             <div
@@ -194,7 +194,7 @@
                           class="text-black"
                           for="event_date_input"
                         >
-                          {{ ('Batch Ending Year') }}
+                          {{ ('Course Ending Year') }}
                         </label>
                         <div class="input-group-prepend ">
                           <div
@@ -231,12 +231,9 @@
                     <div class="row">
                       <button
                         type="submit"
-                        class="login_btn"
+                        class="btn-primary btn-lg m-0-a"
                       >
-                        {{ ('Submit') }} <span><i
-                          class="fa fa-arrow-right"
-                          aria-hidden="true"
-                        /></span>
+                        {{ ('Submit') }}
                       </button>
                     </div>
                   </form>
@@ -315,12 +312,9 @@
                     <div class="row">
                       <button
                         type="submit"
-                        class="login_btn"
+                        class="btn-primary btn-lg m-0-a"
                       >
-                        {{ ('Submit') }} <span><i
-                          class="fa fa-arrow-right"
-                          aria-hidden="true"
-                        /></span>
+                        {{ ('Submit') }}
                       </button>
                     </div>
                   </form>
@@ -422,12 +416,9 @@
                     <div class="row mt-2">
                       <button
                         type="submit"
-                        class="login_btn"
+                        class="btn-primary btn-lg m-0-a"
                       >
-                        {{ ('Submit') }} <span><i
-                          class="fa fa-arrow-right"
-                          aria-hidden="true"
-                        /></span>
+                        {{ ('Submit') }}
                       </button>
                     </div>
                   </form>
@@ -528,10 +519,10 @@
     margin-right: 10px;
     color: r;
     }
-    button.login_btn i {
+    button.btn-primary btn-lg i {
         color: white;
     }
-    button.login_btn span {
+    button.btn-primary btn-lg span {
         color: white;
         margin-left: 10px;
     }
@@ -545,20 +536,18 @@
 </style>
 <script>
 import FormMixin from '../../components/mixins/form-mixin.js';
+import BatchMixin from '../../components/mixins/batch-mixin.js';
 import AutoComplete from '../../components/AutoComplete.vue';
 import swal from '../../components/swal';
-import DatePicker from 'vue2-datepicker';
-import 'vue2-datepicker/index.css';
 import NavTabs from '../../components/NavTabs.vue';
 
 export default {
 	components: {
-		DatePicker,
 		AutoComplete,
 		NavTabs
 	},
-	mixins: [FormMixin],
-	props: ['courseLevels','studentDetails', 'batches'],
+	mixins: [FormMixin, BatchMixin],
+	props: ['courseLevels', 'studentDetails', 'batches'],
 	data() {
 		return {
 			initialTab:'student',
@@ -577,7 +566,7 @@ export default {
 			},
 			selected_institute: {
 				'id': null,
-				'name': name,
+				'name': '',
 				'place_id': '',
 				'address': '',
 				'description': ''
@@ -586,8 +575,6 @@ export default {
 				'id': null,
 				'subject_name': '',
 			},
-			end_year: '',
-			start_year: '',
 			is_prefferred: true,
 			college_id: '',
 			current_date:new Date(),
@@ -595,18 +582,6 @@ export default {
 			students:'',
 			contact_number:'',
 		};
-	},
-	computed:{
-		yearError(){
-			var d = new Date();
-			var n = d.getFullYear();
-			if(this.start_year>n){
-				return 'Please enter currect start year.';
-			}else if(this.end_year && this.end_year<this.start_year){
-				return 'Please enter currect start and end year.';
-			}
-			return '';
-		}
 	},
 	mounted(){
 		if(this.studentDetails){

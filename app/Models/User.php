@@ -77,13 +77,13 @@ class User extends Authenticatable
         $this->attributes['full_name'] = ucwords($value);
     }
 
-    public function joinedClassoomCount(){
+    public function joinedClassroomCount(){
         return \DB::table('classroom_users')
             ->where('user_id',$this->id)
             ->count();
     }
 
-    public function createdClassoomCount(){
+    public function createdClassroomCount(){
         return \DB::table('classrooms')
         ->join('teachers as tc',function($join){
             $join->on('tc.id','=','classrooms.teacher_id')->where('user_id','=',$this->id);
@@ -91,7 +91,7 @@ class User extends Authenticatable
         ->count();
     }
     public function hasClassroom(){
-        return $this->joinedClassoomCount()>0 || $this->createdClassoomCount()>0;
+        return $this->joinedClassroomCount()>0 || $this->createdClassroomCount()>0;
     }
     public function isInstituteMember(){
         return \DB::table('institute_users')

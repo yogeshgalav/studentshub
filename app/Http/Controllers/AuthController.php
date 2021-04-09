@@ -116,6 +116,9 @@ class AuthController extends Controller
      */
     public function register(RegisterRequest $request)
     {
+        if(User::whereEmail($request->email)->exists()){
+            return view('guest.auth.login')->with('emailError',true);
+        }
        
         $input = $request->all();
         
@@ -212,7 +215,7 @@ class AuthController extends Controller
             'start_year' => $classroom->batch->start_year,
             'end_year' => $classroom->batch->end_year,
         ]);
-        $student_controller =new StudentController;
+        $student_controller =new \App\Http\Controllers\Api\StudentController;
         $student_controller->create($request);
 
         ClassroomUser::create([

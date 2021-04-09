@@ -19,7 +19,7 @@
                   data-toggle="modal"
                   data-target="#addMessageModal"
                 >
-                  Add Message
+                  <i class="fas fa-plus" />&nbsp;&nbsp;Add Message
                 </button>
               </div>
             </div>
@@ -73,7 +73,7 @@
                       :user-name="message.user_name"
                     />
                   </div>
-                  <div class="info-post ml-2 dash_insititue_name"> 
+                  <div class="info-post ml-2 dash_insititue_name">
                     <p class="usernamedash mb-0 dash_user_date">
                       {{ message.user_name }} <span> {{ message.time }}</span>
                     </p>
@@ -99,86 +99,74 @@
                     @click="edit_message=message"
                   >Edit</button> 
                 </span>
+                <hr>
+                <like-component
+                  :post="message"
+                  likable-type="message"
+                />
               </div>
+              <div class="col-md-3 col-12" />
             </div>
-            <div class="col-md-3 col-12" />
           </div>
-        </div>
 
-        <modal
-          ref="addMessageModal"
-          name="addMessageModal"
-          class="doubt_model model-md"
-          heading="Add Message"
-          @submit="saveMessage"
-        >
-          <template slot="modalBody">
-            <form>
-              <div class="row">
-                <div class="col-md-12 mt-2">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <h4>Add Message to this classroom.</h4>
-                    </div>
-                    <div class="col-md-6 text-right">
-                      <button
-                        type="button"
-                        class="btn btn-lg btn-link font-size-24"
-                        @click="$modal.hide('addMessageModal')"
-                      >
-                        &times;
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                <div
-                  v-if="classrooms && classrooms.length"
-                  class="col-md-12"
-                >
-                  <div class="form-group">
-                    <div class="inner-addon left-addon">
-                      <div class="cl_input">
-                        <select
-                          v-model="selectedClassroomId"
-                          class="form-control custom-select"
-                        >
-                          <option
-                            v-for="(classroom, index) in classrooms"
-                            :key="index"
-                            :value="classroom.id"
+          <modal
+            ref="addMessageModal"
+            name="addMessageModal"
+            class="doubt_model model-md"
+            heading="Add Message"
+            @submit="saveMessage"
+          >
+            <template slot="modalBody">
+              <form data-vv-scope="add_message_form">
+                <div class="row">
+                  <div
+                    v-if="classrooms && classrooms.length"
+                    class="col-md-12"
+                  >
+                    <div class="form-group">
+                      <div class="inner-addon left-addon">
+                        <div class="cl_input">
+                          <select
+                            v-model="selectedClassroomId"
+                            class="form-control custom-select"
                           >
-                            {{ classroom.name }}
-                          </option>
-                        </select>
+                            <option
+                              v-for="(classroom, index) in classrooms"
+                              :key="index"
+                              :value="classroom.id"
+                            >
+                              {{ classroom.name }}
+                            </option>
+                          </select>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
 
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <div class="inner-addon left-addon">
-                      <div class="cl_input">
-                        <input
-                          id="messageContent"
-                          v-model="content"
-                          v-validate="'required'"
-                          name="content"
-                          class="form-control"
-                          placeholder="write message here"
-                        >
-                        <span class="text-danger">{{
-                          formErrors("content")
-                        }}</span>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <div class="inner-addon left-addon">
+                        <div class="cl_input">
+                          <input
+                            id="messageContent"
+                            v-model="content"
+                            v-validate="'required'"
+                            name="content"
+                            class="form-control"
+                            placeholder="write message here"
+                          >
+                          <span class="text-danger">{{
+                            formErrors("add_message_form.content")
+                          }}</span>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </form>
-          </template>
-        </modal>
+              </form>
+            </template>
+          </modal>
+        </div>
       </div>
     </div>
   </div>
@@ -187,10 +175,10 @@
 import FormMixin from '../../components/mixins/form-mixin.js';
 // import AddButton from '../../components/AddButton';
 import ProfileImage from '../../components/ProfileImage.vue';
-import AddButton from '../../components/AddButton';
 import Modal from '../../components/VueNiceModal.vue';
 import ClassroomHeader from '../../components/ClassroomHeader';
 import messagesReply from './messages-reply';
+import LikeComponent from '../common/LikeComponent';
 
 export default {
 	components: {
@@ -199,6 +187,7 @@ export default {
 		ProfileImage,
 		Modal,
 		messagesReply,
+		LikeComponent,
 	},
 	mixins: [FormMixin],
 	props:['classrooms'],
@@ -238,7 +227,7 @@ export default {
 			this.$modal.show('addMessageModal');
 		},
 		saveMessage() {
-			this.$validator.validate().then((valid) => {
+			this.$validator.validateAll('add_message_form').then((valid) => {
 				if (valid) {
 					//call api and update field
 					this.axios
@@ -250,15 +239,28 @@ export default {
 							}
 						)
 						.then((resp) => {
-							this.messages.push(resp.data.success.message);
-							this.$modal.hide('addMessageModal');
+							let classroom_name ='';
+							if(this.classrooms && this.classrooms.length){
+								classroom_name = this.classrooms.find(node=>node.id===this.selectedClassroomId)['name'];
+							}else{
+								classroom_name = this.classroomDetail.name;
+							}
+							this.messages.push({
+								'id':resp.data.success.message.id,
+								'content':resp.data.success.message.content,
+								'created_at':resp.data.success.message.created_at,
+								'user_name':this.AuthUser.full_name,
+								'avatar_url':this.AuthUser.avatar_url,
+								'classroom_name':classroom_name,
+								'total_likes':0,
+								'time':'Just now'});
+							this.$refs.addMessageModal.closeModal();
 							this.content = '';
 						});
 				}
 			});
 		},
 		editMessage(e, message){
-			console.log('clicked');
 			this.$validator.validateAll('edit_message_form').then((valid)=>{
 			  if(valid){
 			    this.axios.post('/api/edit-message',{

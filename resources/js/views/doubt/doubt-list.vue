@@ -91,6 +91,7 @@
                   </h3>
                 </div>
               </div>
+              <like-component :post="doubt" likable-type="doubt" />
             </div>
           </div>
         </div>
@@ -111,11 +112,6 @@
           <form>
             <div class="model_box_inner">
               <div class="row">
-                <div class="col-md-12">
-                  <p class="model_box_head">
-                    Ask Doubt
-                  </p>
-                </div>
                 <div class="form-group col-md-12">
                   <label class="text-black font-size-14">Course
                   </label>
@@ -192,6 +188,8 @@
 import Modal from '../../components/VueNiceModal.vue';
 import Loading from 'vue-loading-overlay';
 import AutoComplete from '../../components/AutoComplete.vue';
+import LikeComponent from '../common/LikeComponent.vue';
+import ProfileImage from '../../components/ProfileImage';
 
 
 export default {
@@ -199,7 +197,8 @@ export default {
 		Modal,
 		Loading,
 		AutoComplete,
-	
+		ProfileImage,
+		LikeComponent
 	},
 	props:['classroomId','subjectId','categories'],
 	data()

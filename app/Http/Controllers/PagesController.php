@@ -48,19 +48,19 @@ class PagesController extends Controller
 
     public function searchPage(Request $request)
     {
-        return view('explore.search')->with('query', $request->query);
+        return view('guest.search')->with('query', $request->query);
     }
     public function coursePage()
     {
-        return view('explore.course');
+        return view('guest.course');
     }
     public function subjectPage()
     {
-        return view('explore.subject');
+        return view('guest.subject');
     }
     public function categoryPage()
     {
-        return view('explore.category');
+        return view('guest.category');
     }
 
     public function checkin()

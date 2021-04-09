@@ -7,7 +7,7 @@
             <profile-image
               :user-name="post.user_name"
               :avatar="post.profile_image"
-            />  
+            />
           </div>
           <div class="info-post ml-2 dash_insititue_name">
             <p class="usernamedash mb-0 dash_user_date">
@@ -16,8 +16,8 @@
             <p class="usernamedash mb-0">
               {{ post.institute_name }}
             </p>
-          </div>   
-        </div> 
+          </div>
+        </div>
         <hr>
         <div class="row mb-1 mt-1">
           <div class="col-md-12 cat_sub_name mb-0">
@@ -33,7 +33,10 @@
               {{ post.heading }}
             </h3>
           </div>
-          <div @click="setPostView(post)">
+          <div
+            class="post_width"
+            @click="setPostView(post)"
+          >
             <div
               v-if="post.image_path"
               class="col-md-12 post_img mb-2"
@@ -42,7 +45,7 @@
                 v-lazy="post.image_path"
                 alt="Card image cap"
               >
-            </div>  
+            </div>
             <div
               class="col-md-9 col-12"
             >
@@ -80,21 +83,11 @@
             </div>
           </div>
         </div>
-        <hr>  
-        <div class="dash_post_likes mt-1">
-          <div class="post_like">
-            <i class="fa fa-eye" />
-            <span class="badge-text"> <span> {{ post.total_views }} Views</span></span>
-          </div>
-          <div class="post_like">
-            <i class="fa fa-thumbs-up" />
-            <span class="badge-text"> <span>{{ post.total_likes }} Likes</span></span>
-          </div>
-          <div class="post_like">
-            <i class="fa fa-thumbs-down" />
-            <span class="badge-text"> <span>{{ post.total_dislikes }} Dislikes</span></span>
-          </div>
-        </div>
+        <hr>
+        <like-component
+          :post="post"
+          likable-type="post"
+        />
       </div>
     </div>
   </div>
@@ -119,8 +112,15 @@
 <script>
 
 // import ImageSlider from './ImageSlider.vue';
+import LikeComponent from '../common/LikeComponent.vue';
+import ProfileImage from '../../components/ProfileImage';
 
 export default {
+	components: {
+		ProfileImage,
+		LikeComponent,
+		// ImageSlider
+	},
 	props:['post'],
 	methods:{
 		setPostView(post){
@@ -128,6 +128,7 @@ export default {
 			this.$store.commit('common/set_post_initial',post);
 			this.$router.push({ path: `/post/${post.id}` });
 		},
-	}
+	},
+
 };
 </script>

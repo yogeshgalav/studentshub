@@ -49,11 +49,12 @@
             class="row add_cl_q"
           >
             <div class="text-right">
-              <add-button
-                name="Add Resource"
-                size="lg"
-                @submit="addResource"
-              />
+              <button
+                class="btn-lg btn-primary"
+                @click="addResource"
+              >
+                <i class="fas fa-plus" />&nbsp;&nbsp;Add Resource
+              </button>
             </div>
           </div>
         </div>
@@ -62,7 +63,7 @@
         <div class="col-md-12">
           <div class="row add_cl_q mt-2">
             <div
-              v-if="!resources.length" 
+              v-if="!resources.length"
               class="card"
             >
               <div class="card-body">
@@ -73,12 +74,12 @@
                 </div>
               </div>
             </div>
-            <div 
+            <div
               v-for="(resource,index2) in resources"
               :key="index2"
               class="col-md-10 col-12 mt-2 ml-3 card"
             >
-              <div 
+              <div
                 class="card-body"
               >
                 <p>{{ $dayjs(resource.created_at).format('D MMMM, YYYY') }}</p>
@@ -103,6 +104,10 @@
                   />
                 </div>
               </div>
+              <like-component
+                :post="resource"
+                likable-type="resource"
+              />
             </div>
             <div class="col-md-3 col-12" />
           </div>
@@ -111,34 +116,12 @@
         <modal
           ref="addResourceModal"
           name="addResourceModal"
-          class="doubt_model model-md"
-          :click-to-close="false"
-          heading="add resource"
+          heading="Add Resource"
           @submit="saveResource()"
         >
           <template slot="modalBody">
             <form>
               <div class="row">
-                <div class="col-md-12 mt-2">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <h4>Add Resource Link</h4>
-                    </div>
-                    <div class="col-md-6 text-right">
-                      <button
-                        type="button"
-                        data-toggle="modal"
-                        data-target="#addResourceModal"
-                        class="btn btn-lg btn-link font-size-24"
-                        @click="$modal.hide('addResourceModal')"
-                      >
-                        &times;
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-
                 <div class="col-md-12">
                   <div class="form-group">
                     <label for="resourceLink">Online Resource Link</label>
@@ -194,17 +177,6 @@
                     </div>
                   </div>
                 </div>
-                <div class="mt-1 row text-right">
-                  <div class="col-md-12">
-                    <hr>
-                    <button
-                      type="submit"
-                      class="btn btn-outline-primary mb-2"
-                    >
-                      Submit
-                    </button>
-                  </div>
-                </div>
               </div>
             </form>
           </template>
@@ -215,15 +187,15 @@
 </template>
 <script>
 import FormMixin from '../../components/mixins/form-mixin.js';
-import AddButton from '../../components/AddButton';
 import Modal from '../../components/VueNiceModal';
+import LikeComponent from '../common/LikeComponent';
 import ClassroomHeader from '../../components/ClassroomHeader';
-    
+
 export default {
 	components: {
-		AddButton,
 		ClassroomHeader,
-		Modal
+		Modal,
+		LikeComponent,
 	},
 	mixins:[FormMixin],
 	data() {
@@ -260,9 +232,6 @@ export default {
 				this.showLoader=false;
 			});
 		},
-		addResource() {
-			this.$modal.show('addResourceModal');
-		},
 		saveResource() {
 			this.$validator.validate().then(valid => {
 				if(valid  && this.resource_link && this.resource_error===''){
@@ -280,7 +249,7 @@ export default {
 							type:this.resource_type,
 							description:this.description,
 						});
-			      this.$modal.hide('addResourceModal');
+						this.$refs.addResourceModal.closeModal();
 						this.resource_link = '';
 						this.description = '';
 					});
@@ -295,14 +264,14 @@ export default {
 				return false;
 			}
 			let link = this.matchResourceUrl(url);
-        
+
 			if(link!==false){
 				this.resource_link=link;
 				return true;
 			}else{
 				this.resource_error='This resource link is not supported';
 				return false;
-			}        
+			}
 		},
 		matchResourceUrl(link){
 			var p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;

@@ -19,7 +19,7 @@ Route::post('/faq','GuestController@faq');
 // Route::get('/get-view-post/{ViewPostId}', 'PostController@viewPost');
 Route::get('/get-explore-posts', 'ExploreController@index');
 
-Route::get('/search', 'PostController@searchPosts');
-Route::get('/course/{courseUrl}', 'PostController@coursePosts');
-Route::get('/subject/{subjectUrl}', 'PostController@subjectPosts');
-Route::get('/category/{categoryUrl}', 'PostController@categoryPosts');
+Route::get('/get-search-posts', 'PostController@searchPosts');
+Route::get('/get-course-details/{id}', 'PostController@courseDetails');
+Route::get('/get-subject-details/{id}', 'PostController@subjectDetails');
+Route::get('/get-category-details/{id}', 'PostController@categoryDetails');

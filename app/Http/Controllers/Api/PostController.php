@@ -34,17 +34,7 @@ class PostController extends Controller
         }
         DB::beginTransaction();
         try{
-            if(intval($data['subject_id'])===0){
-                $subject_name=strtolower($data['subject_name']);
-                $subject=Subject::firstOrCreate([
-                  'subject_url'=>\Str::slug($subject_name),
-                  'category_id'=>$data['category_id']
-                ],[
-                'subject_name'=>$subject_name
-                ]);
-            }else{
-                $subject=Subject::findOrFail($data['subject_id']);
-            }
+        $subject=Subject::getOrCreate($data['subject_id'], $data['subject_name'], $data['category_id']);
 
         $post=new Post;
         $post->user_id=Auth::user()->id;
@@ -174,56 +164,36 @@ class PostController extends Controller
           'posts'=>$posts
         ]]);
       }
-
-      public function coursePosts(Request $request){
+      public function courseDetails(Request $request){
+        $subject=\App\Models\Course::where('course_url', $request->route('id'))->firstOrFail();
         $post=new \App\Post;
-        $response = $post->getCoursePosts($request);
+        $posts = $post->getCoursePosts($course->id);
 
-        $search=new \App\Models\Search;
-        $search->query=$request->route('courseUrl');
-        // $search->type='course';
-        if($response){
-          $search->success=true;
-        }else{
-          $search->success=false;
-        }
-        $search->save();
+        return response()->json(['success'=>[
+            'posts'=>$posts,
+            'subject'=>$course,
+        ]]);
+      }
+      public function subjectDetails(Request $request){
+        $subject=\App\Models\Subject::where('subject_url', $request->route('id'))->firstOrFail();
+        $post=new \App\Post;
+        $posts = $post->getSubjectPosts($subject->id);
 
-        return $response;
+        return response()->json(['success'=>[
+            'posts'=>$posts,
+            'subject'=>$subject,
+        ]]);
       }
 
-      public function subjectPosts(Request $request){
+      public function categoryDetails(Request $request){
+        $category=\App\Models\Category::where('category_url', $request->route('id'))->with('courses')->with('subjects')->firstOrFail();
         $post=new \App\Post;
-        $response = $post->getSubjectPosts($request);
+        $posts = $post->getCategoryPosts($category->id);
 
-        $search=new \App\Models\Search;
-        $search->query=$request->route('subjectUrl');
-        // $search->type='subject';
-        if($response){
-          $search->success=true;
-        }else{
-          $search->success=false;
-        }
-        $search->save();
-
-        return $response;
-      }
-
-      public function categoryPosts(Request $request){
-        $post=new \App\Post;
-        $response = $post->getCategoryPosts($request);
-
-        $search=new \App\Models\Search;
-        $search->query=$request->route('categoryUrl');
-        // $search->type='category';
-        if($response){
-          $search->success=true;
-        }else{
-          $search->success=false;
-        }
-        $search->save();
-
-        return $response;
+        return response()->json(['success'=>[
+            'posts'=>$posts,
+            'category'=>$category,
+        ]]);
       }
 
       public function savePost(Request $request){
