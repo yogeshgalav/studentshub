@@ -107,6 +107,7 @@
               <like-component
                 :post="resource"
                 likable-type="resource"
+                only-like="true"
               />
             </div>
             <div class="col-md-3 col-12" />
