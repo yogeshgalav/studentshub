@@ -16,7 +16,9 @@ class GuestController extends Controller
         if(Auth::check()){
             return redirect('/');
         }
-        return view('guest.auth.login')->with('title','Login' . $this->title);
+        return view('guest.auth.login')
+        ->with('emailError', session('emailError'))
+        ->with('title','Login' . $this->title);
     }
     public function membershipPlan()
     {
