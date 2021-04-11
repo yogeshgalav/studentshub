@@ -17,6 +17,72 @@
         </div>
       </div>
     </div>
+    <div style="background-color:#f2f2f2;">
+      <div
+        class="container p-0 text-div"
+      >
+        <div class="pt-5 pl-5 pb-2 mb-1 row justify-content-md-between align-items-center">
+          <div class="col-md-6">
+            <div class="sections">
+              <h2 class="font-weight-bold">
+                Your institute, like you've never seen it before
+              </h2>
+            </div>
+            <div class="sections">
+              <p class="font-weight-normal">
+                Our industry-leading educational analytics makes exploring your
+                data
+                and uncovering insights a
+                cinch! Understand the dynamics of your institute and see where you need to focus your
+                efforts.
+              </p>
+            </div>
+          </div>
+          <div class="sections col-md-4">
+            <a
+              href=""
+              class="btn btn-primary"
+            >
+              Learn More
+            </a>
+          </div>
+        </div>
+        <div class="d-flex justify-content-around pt-2 container graph-div">
+          <div class="image-div">
+            <img
+              src="./line.png"
+              alt="dual-line-graph"
+              height="200px"
+              width="200px"
+            >
+          </div>
+          <div class="image-div">
+            <img
+              src="./barline1.png"
+              alt="line-graph"
+              height="200px"
+              width="200px"
+            >
+          </div>
+          <div class="image-div">
+            <img
+              src="./Dought.png"
+              alt="line-graph"
+              height="200px"
+              width="200px"
+            >
+          </div>
+          <div class="image-div">
+            <img
+              src="./Multiple bar.png"
+              alt="line-graph"
+              height="200px"
+              width="200px"
+            >
+          </div>
+        </div>
+      </div>
+    </div>
     <div style="background-color: #2727cced;">
       <div class="container row m-auto">
         <div class="right col-md-4 m-0">
@@ -74,6 +140,28 @@
   </main>
 </template>
 <style scoped>
+        .image-div {
+            height: 200px;
+            width: 200px;
+            padding: 10px;
+            box-shadow: 0 0 10px #969696;
+        }
+
+        .image-div img {
+            height: 100%;
+            width: 100%;
+        }
+
+        .graph-div {
+            position: absolute;
+            bottom: -110px;
+        }
+
+        .text-div {
+            background-color: #f2f2f2;
+            position: relative;
+            min-height: 500px;
+        }
 h1 {
             font-family: 'Josefin Sans', sans-serif;
             color: #fff;
