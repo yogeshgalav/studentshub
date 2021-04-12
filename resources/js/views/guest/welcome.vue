@@ -6,19 +6,23 @@
       class="main"
       style="background-image: url(/images/istockphoto-948623158-612x612.jpg);"
     >
-      <div class="container row flex-coloumn m-auto">
+      <div class="container row flex-coloumn m-auto justify-content-center align-items-center">
         <div class="welcome_banner">
-          <h1>Use the power of data to drive your growth </h1>
+          <h1 class="mb-2">
+            Use the power of data to drive your growth
+          </h1>
           <div>
             <button class="btn btn-outline-light">
-              Learn More
+              Learn More <i class="fas fa-arrow-right" />
             </button>
           </div>
         </div>
       </div>
     </div>
-    <div style="background-color:#f2f2f2;">
+    <div class="white-space" />
+    <div>
       <div
+        style="background-color:#f2f2f2;"
         class="container p-0 text-div"
       >
         <div class="pt-5 pl-5 pb-2 mb-1 row justify-content-md-between align-items-center">
@@ -41,9 +45,9 @@
           <div class="sections col-md-4">
             <a
               href=""
-              class="btn btn-primary"
+              class="btn btn-outline-dark"
             >
-              Learn More
+              Learn More <i class="fas fa-arrow-right" />
             </a>
           </div>
         </div>
@@ -83,6 +87,8 @@
         </div>
       </div>
     </div>
+    <div class="white-space" />
+    <div class="white-space" />
     <div style="background-color: #2727cced;">
       <div class="container row m-auto">
         <div class="right col-md-4 m-0">
@@ -111,18 +117,18 @@
         </div>
       </div>
     </div>
-    <div class="bg-dark">
+    <div style="background: #f2f2f2;">
       <div
         class="row align-items-center container m-auto"
-        style="height: 100px; max-width: 90%;"
+        style="max-width: 90%; padding: 25px 0;"
       >
         <div class="col-md-3 p-0">
-          <h3 class="text-white">
+          <h3>
             Add Your Institute
           </h3>
         </div>
         <div class="col-md-6 p-0">
-          <p class="text-white">
+          <p>
             Join the thousands of other institutes who benefits from our data analytics and digital classroom services.
           </p>
         </div>
@@ -131,7 +137,7 @@
             href="#"
             class="btn btn-primary"
           >
-            Request a Demo
+            Request a Demo <i class="fas fa-arrow-right" />
           </a>
         </div>
       </div>
@@ -140,10 +146,13 @@
   </main>
 </template>
 <style scoped>
+.white-space{
+  height: 150px;
+  background: #fff;
+}
         .image-div {
             height: 200px;
             width: 200px;
-            padding: 10px;
             box-shadow: 0 0 10px #969696;
         }
 
@@ -160,7 +169,7 @@
         .text-div {
             background-color: #f2f2f2;
             position: relative;
-            min-height: 500px;
+            min-height: 400px;
         }
 h1 {
             font-family: 'Josefin Sans', sans-serif;
@@ -173,7 +182,7 @@ h1 {
             display: flex;
             flex-direction: column;
             justify-content: center;
-            height: 60vh;
+            height: 50vh;
             align-items: center;
         }
 
