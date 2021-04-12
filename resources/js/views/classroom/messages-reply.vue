@@ -1,7 +1,31 @@
 <template>
   <div>
     <div
-      class="mb-2"
+      v-for="reply in replies"
+      :key="reply.id"
+      class="card-body"
+    >
+      <div class="dashboard_post">
+        <div class="avatar">
+          <profile-image
+            :avatar="reply.avatar_url"
+            :user-name="reply.user_name"
+          />
+        </div>
+        <div class="info-post ml-2 dash_insititue_name"> 
+          <p class="usernamedash mb-0 dash_user_date">
+            {{ reply.user_name }} <span> {{ reply.time }}</span>
+          </p>
+          <p class="usernamedash mb-0">
+            {{ reply.classroom_name }}
+          </p>
+        </div>
+      </div>
+      <hr>
+      <p>{{ reply.content }}</p>
+    </div>
+    <div
+      class="mt-2"
       style="padding-left: inherit;"
     >
       <div class="dashboard_post">
@@ -32,30 +56,6 @@
         aria-hidden="true"
         style="font-size: 25px; color: gray; cursor: pointer;"
       />
-    </div>
-    <div
-      v-for="reply in replies"
-      :key="reply.id"
-      class="card-body"
-    >
-      <div class="dashboard_post">
-        <div class="avatar">
-          <profile-image
-            :avatar="reply.avatar_url"
-            :user-name="reply.user_name"
-          />
-        </div>
-        <div class="info-post ml-2 dash_insititue_name"> 
-          <p class="usernamedash mb-0 dash_user_date">
-            {{ reply.user_name }} <span> {{ reply.time }}</span>
-          </p>
-          <p class="usernamedash mb-0">
-            {{ reply.classroom_name }}
-          </p>
-        </div>
-      </div>
-      <hr>
-      <p>{{ reply.content }}</p>
     </div>
   </div>
 </template>

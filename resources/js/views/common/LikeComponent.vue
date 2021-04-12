@@ -37,12 +37,14 @@
       </p>
     </button>
     <button      
-	  v-if="showReply"
+      v-if="showReply"
       type="button"
       @click="$emit('reply')"
     >
       <p>
-        <span><i class="far fa-thumbs-up" />&nbsp;</span>
+        <span><i
+          class="far fa-comment-alt"
+        />&nbsp;</span>
         Reply
       </p>
     </button>
