@@ -51,7 +51,7 @@
             </a>
           </div>
         </div>
-        <div class="d-flex justify-content-around pt-2 container graph-div">
+        <div class="d-flex justify-content-around pt-2 container graph-div flex-wrap">
           <div class="image-div">
             <img
               src="./line.png"
@@ -93,7 +93,7 @@
       <div class="container row m-auto">
         <div class="right col-md-4 m-0">
           <img
-            src="http://103.93.17.146/clickheld/assets/site/images/app.png"
+            src="/images/mobile.png"
             alt="Right Image"
           >
         </div>
@@ -151,8 +151,7 @@
   background: #fff;
 }
         .image-div {
-            height: 200px;
-            width: 200px;
+            width: 22%;
             box-shadow: 0 0 10px #969696;
         }
 
@@ -163,7 +162,7 @@
 
         .graph-div {
             position: absolute;
-            bottom: -110px;
+            bottom: -100px;
         }
 
         .text-div {
