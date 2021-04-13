@@ -51,38 +51,32 @@
             </a>
           </div>
         </div>
-        <div class="d-flex justify-content-around pt-2 container graph-div flex-wrap">
-          <div class="image-div">
-            <img
-              src="./line.png"
-              alt="dual-line-graph"
-              height="200px"
-              width="200px"
-            >
-          </div>
-          <div class="image-div">
-            <img
-              src="./barline1.png"
-              alt="line-graph"
-              height="200px"
-              width="200px"
-            >
-          </div>
-          <div class="image-div">
-            <img
-              src="./Dought.png"
-              alt="line-graph"
-              height="200px"
-              width="200px"
-            >
-          </div>
-          <div class="image-div">
-            <img
-              src="./Multiple bar.png"
-              alt="line-graph"
-              height="200px"
-              width="200px"
-            >
+        <div class="pt-2 container graph-div">
+          <div class="row">
+            <div class="col-12 col-md-3 image-div">
+              <img
+                src="./line.jpg"
+                alt="dual-line-graph"
+              >
+            </div>
+            <div class="col-12 col-md-3 image-div">
+              <img
+                src="./barline.jpg"
+                alt="line-graph"
+              >
+            </div>
+            <div class="col-12 col-md-3 image-div">
+              <img
+                src="./Dought.jpg"
+                alt="line-graph"
+              >
+            </div>
+            <div class="col-12 col-md-3 image-div">
+              <img
+                src="./multibar.jpg"
+                alt="line-graph"
+              >
+            </div>
           </div>
         </div>
       </div>
@@ -91,7 +85,7 @@
     <div class="white-space" />
     <div style="background-color: #2727cced;">
       <div class="container row m-auto">
-        <div class="right col-md-4 m-0">
+        <div class="right col-md-4">
           <img
             src="/images/mobile.png"
             alt="Right Image"
@@ -150,19 +144,19 @@
   height: 150px;
   background: #fff;
 }
-        .image-div {
-            width: 22%;
+        .image-div img{
             box-shadow: 0 0 10px #969696;
         }
 
         .image-div img {
-            height: 100%;
-            width: 100%;
+            width: 90%;
+            display: block;
+            margin: 0 auto;
         }
 
         .graph-div {
             position: absolute;
-            bottom: -100px;
+            bottom: -55px;
         }
 
         .text-div {
@@ -186,17 +180,31 @@ h1 {
         }
 
         .right img {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 400px;
-            height: 537px;
+                        width: 100%;
+            height: auto;
         }
 
         .right {
             position: relative;
-            height: 436px;
+            margin-top: -50px;
         }
+@media (max-width: 768px){
+  .right img {
+            width: 60%;
+            height: auto;
+        }
+        .right {
+            position: relative;
+            text-align: center;
+        }
+        .left{
+          margin-top: 20px;
+          text-align: center;
+        }
+        .graph-div {
+            position: static;
+        }
+}        
 </style>
 <script>
 import {mapState} from 'vuex';
