@@ -3,51 +3,53 @@
     <div
       v-for="reply in replies"
       :key="reply.id"
-      class="card-body"
+      class="card-body mt-2"
     >
-      <div class="dashboard_post">
-        <div class="avatar">
-          <profile-image
-            :avatar="reply.avatar_url"
-            :user-name="reply.user_name"
-          />
+      <div class="row">
+        <div class="dashboard_post">
+          <div class="avatar">
+            <profile-image
+              :avatar="reply.avatar_url"
+              :user-name="reply.user_name"
+            />
+          </div>
         </div>
-        <div class="info-post ml-2 dash_insititue_name"> 
-          <p class="usernamedash mb-0 dash_user_date">
-            {{ reply.user_name }} <span> {{ reply.time }}</span>
-          </p>
-          <p class="usernamedash mb-0">
-            {{ reply.classroom_name }}
-          </p>
+        <div
+          class="col-md-10 ml-2"
+          style="background-color: #f2f2f2; border-radius: 10px;"
+        >
+          <h5>{{ reply.user_name }}</h5>
+          <p>{{ reply.content }}</p>
         </div>
       </div>
-      <hr>
-      <p>{{ reply.content }}</p>
     </div>
     <div
-      class="mt-2"
+      class="mt-3"
       style="padding-left: inherit;"
     >
-      <div class="dashboard_post">
-        <div class="avatar">
+      <div
+        class="dashboard_post"
+        style="display: inline-block;"
+      >
+        <div class="avatar mr-2">
           <profile-image
             :avatar="AuthUser.avatar_url"
             :user-name="AuthUser.full_name"
           />
         </div>
-        <div class="info-post ml-2 dash_insititue_name"> 
+        <!-- <div class="info-post ml-2 dash_insititue_name"> 
           <p class="usernamedash mb-0 dash_user_date">
             {{ AuthUser.full_name }}
           </p>
           <p class="usernamedash mb-0">
             {{ message.classroom_name }}
           </p>
-        </div>
+        </div> -->
       </div>
       <input
         type="text"
         placeholder="Reply to this message"
-        class="col-11"
+        class="col-10"
         style="font-size: 20px; border-radius: 20px; border: 0; margin-right: 20px; outline: none; box-shadow: #80808069 2px 2px 2px, #80808094 2px 2px 2px inset;"
         @keyup.enter="saveReply($event, message)"
       >

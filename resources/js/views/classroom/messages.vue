@@ -66,24 +66,26 @@
               class="col-md-12 col-12 mt-2 card"
             >
               <div class="card-body">
-                <div class="dashboard_post">
-                  <div class="avatar">
-                    <profile-image
-                      :avatar="message.avatar_url"
-                      :user-name="message.user_name"
-                    />
+                <div>
+                  <div class="dashboard_post">
+                    <div class="avatar">
+                      <profile-image
+                        :avatar="message.avatar_url"
+                        :user-name="message.user_name"
+                      />
+                    </div>
+                    <div class="info-post ml-2 dash_insititue_name">
+                      <p class="usernamedash mb-0 dash_user_date">
+                        {{ message.user_name }} <span> {{ message.time }}</span>
+                      </p>
+                      <p class="usernamedash mb-0">
+                        {{ message.classroom_name }}
+                      </p>
+                    </div>
                   </div>
-                  <div class="info-post ml-2 dash_insititue_name">
-                    <p class="usernamedash mb-0 dash_user_date">
-                      {{ message.user_name }} <span> {{ message.time }}</span>
-                    </p>
-                    <p class="usernamedash mb-0">
-                      {{ message.classroom_name }}
-                    </p>
-                  </div>
+                  <hr>
+                  <p>{{ message.content }}</p>
                 </div>
-                <hr>
-                <p>{{ message.content }}</p>
                 <span>
                   <button
                     type="button"
