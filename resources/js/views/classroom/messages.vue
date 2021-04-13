@@ -132,9 +132,11 @@
                     <div class="form-group">
                       <div class="inner-addon left-addon">
                         <div class="cl_input">
+                          <label for="classroom">Classroom</label>
                           <select
                             v-model="selectedClassroomId"
                             class="form-control custom-select"
+                            name="classroom"
                           >
                             <option
                               v-for="(classroom, index) in classrooms"
@@ -153,11 +155,12 @@
                     <div class="form-group">
                       <div class="inner-addon left-addon">
                         <div class="cl_input">
+                          <label for="message">Message</label>
                           <input
                             id="messageContent"
                             v-model="content"
                             v-validate="'required'"
-                            name="content"
+                            name="message"
                             class="form-control"
                             placeholder="write message here"
                           >
