@@ -9,12 +9,15 @@
       <div class="container row flex-coloumn m-auto justify-content-center align-items-center">
         <div class="welcome_banner">
           <h1 class="mb-2">
-            Use the power of data to drive your growth
+            Use the Power of Data to Drive your Growth
           </h1>
           <div>
-            <button class="btn btn-outline-light">
+            <a
+              class="btn btn-outline-light"
+              href="/membership-plan"
+            >
               Learn More <i class="fas fa-arrow-right" />
-            </button>
+            </a>
           </div>
         </div>
       </div>
@@ -44,7 +47,7 @@
           </div>
           <div class="sections col-md-4">
             <a
-              href=""
+              href="/membership-plan"
               class="btn btn-outline-dark"
             >
               Learn More <i class="fas fa-arrow-right" />
@@ -128,7 +131,7 @@
         </div>
         <div class="col-md-3 text-right p-0">
           <a
-            href="#"
+            href="/membership-plan#requestDemo"
             class="btn btn-primary"
           >
             Request a Demo <i class="fas fa-arrow-right" />

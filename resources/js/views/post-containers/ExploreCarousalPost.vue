@@ -10,7 +10,62 @@
             <div class="col-md-6">
               <div class="slider-caption">
                 <h2 class="banner_title">
-                  Are you a Student?
+                  Are you a Institute?
+                </h2>
+                <p>
+                  Modernize your institute by combining benifits of physical classes
+                  and Digital classrooms. View, analyse and share daily progress of 
+                  Students, Batches, Subjects and Teachers.
+                </p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="slider-caption">
+                <img
+                  v-lazy="'/images/institute.svg'"
+                  class="slide_img_home"
+                >
+              </div>
+            </div>
+          </div>
+        </template>
+        <template
+          slot="step2"
+          class="home_slide"
+        >
+          <div class="row">
+            <div class="col-md-6">
+              <div class="slider-caption">
+                <h2 class="banner_title">
+                  Teacher ?
+                </h2>
+                <p>
+                  Get More Clear Insights about Your Student's Progress. 
+                  Digitalize Your Classrooms, Create Your Lessons,
+                  Daily assignments, Share Resources and Notify your Students.
+                </p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="slider-caption">
+                <img
+                  v-lazy="'/images/teacher.svg'"
+                  class="slide_img_home"
+                >
+              </div>
+            </div>
+          </div>
+        </template>
+
+        <template
+          slot="step3"
+          class="home_slide"
+        >
+          <div class="row">
+            <div class="col-md-6">
+              <div class="slider-caption">
+                <h2 class="banner_title">
+                  Student ?
                 </h2>
                 <p>
                   Meet Students from Your Batch, Course and Institute.
@@ -31,41 +86,14 @@
           </div>
         </template>
         <template
-          slot="step2"
+          slot="step4"
           class="home_slide"
         >
           <div class="row">
             <div class="col-md-6">
               <div class="slider-caption">
                 <h2 class="banner_title">
-                  Institute or Teacher?
-                </h2>
-                <p>
-                  Get More Clear Insights about Your Student's Progress. 
-                  Make Your Classrooms, Create Your Lessons,
-                  Daily assignments, Share Resources and Notify your Students.
-                </p>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="slider-caption">
-                <img
-                  v-lazy="'/images/teacher.svg'"
-                  class="slide_img_home"
-                >
-              </div>
-            </div>
-          </div>
-        </template>
-        <template
-          slot="step3"
-          class="home_slide"
-        >
-          <div class="row">
-            <div class="col-md-6">
-              <div class="slider-caption">
-                <h2 class="banner_title">
-                  Knowledge Seeker?
+                  Knowledge Seeker ?
                 </h2>
                 <p>
                   Explore Educational content from variety of courses, categories

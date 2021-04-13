@@ -142,7 +142,7 @@ export default {
 	data() {
 		return {
 			currentStep:1,
-			total_steps:3,
+			total_steps:4,
 		};
 	},
 	computed:{
