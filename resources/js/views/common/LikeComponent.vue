@@ -41,8 +41,8 @@
     <button      
       v-if="showReply"
       type="button"
-      class="btn"
-      @click="$emit('reply')"
+      :class="['btn', reply_active ? 'text-primary' : '']"
+      @click="reply()"
     >
       <p>
         <span><i
@@ -81,6 +81,7 @@ export default {
 			user_like:'',
 			like_active:false,
 			dislike_active:false,
+			reply_active:false,
 		};
 	},
 	watch: {
@@ -94,6 +95,10 @@ export default {
 		}
 	},
 	methods:{
+		reply(){
+			this.$emit('reply');
+			this.reply_active = !this.reply_active;
+		},
 		sendUserLike() {
 			let method = (this.like_active === true) ? 'delete' : 'add';
 			this.like_active = !this.like_active;
