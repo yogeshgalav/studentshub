@@ -10,6 +10,8 @@ import VModal from 'vue-js-modal';
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import Dayjs from 'vue-dayjs';
+import ProfileImage from '../components/ProfileImage';
+import NotificationsDropdown from '../components/NotificationsDropdown.vue';
 
 import VueLazyload from 'vue-lazyload';
 Vue.use(VueLazyload);
@@ -28,7 +30,6 @@ Vue.use(VueLazyload, {
 });
 Vue.use(VModal, { dynamic: true, injectModalsContainer: true, scrollable:true });
 Vue.use(VueAxios, axios);
-Vue.component('NotificationsDropdown', require('../components/NotificationsDropdown.vue').default);
 
 //error tracking 
 import * as Sentry from '@sentry/browser';
@@ -52,6 +53,8 @@ if(window.App.mode==='production'){
 }
 Vue.mixin({
 	components:{
+		NotificationsDropdown,
+		ProfileImage,
 		Loading
 	},
 	data(){

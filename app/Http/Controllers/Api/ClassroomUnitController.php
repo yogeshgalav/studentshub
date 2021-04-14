@@ -16,10 +16,16 @@ class ClassroomUnitController extends Controller
     //api end point for getting unit assisment data for students and teachers
     public function getClassroomUnitDetails(Request $request){
         $unitData=Unit::where('classroom_id',$request->classroomId)->get();
+        $daily_assignment_status = DB::table('daily_assignments')
+        ->where('classroom_id',$request->classroomId)
+        ->select(DB::raw('COUNT(distinct daily_assignments.id) as assignmentCount'),'daily_assignments.status','unit_id')
+        ->groupBy('status','unit_id')
+        ->get();
 
         return response()->json([
             'success'=>[
-                'unitData'=>$unitData
+                'unitData'=>$unitData,
+                'daily_assignment_status'=>$daily_assignment_status
             ]
         ]);
     }   

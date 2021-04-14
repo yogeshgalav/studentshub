@@ -22,7 +22,7 @@ class AlterDailyAssignmentTable extends Migration
             $table->dropColumn('activated_at');
             $table->dropColumn('deactivated_at');
         });
-        $sql = 'UPDATE `daily_assignments` SET `status` = activated where activated_at IS NOT NULL';
+        $sql = "UPDATE `daily_assignments` SET `status` = 'activated' where activated_at IS NOT NULL";
         DB::unprepared($sql);
     }
 

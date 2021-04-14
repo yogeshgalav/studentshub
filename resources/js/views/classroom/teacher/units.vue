@@ -69,6 +69,13 @@
                     </p>
                   </div>
                 </div>
+
+                <div class="col-md-12">
+                  <!-- <bar-line-graph :graph-data="unit.pieGraphData" /> -->
+                </div>
+                <div class="col-md-12">
+                  <multi-bar-graph :graph-data="unit.pieGraphData" />
+                </div>
               </div>
             </accordion>
           </div>
@@ -78,19 +85,23 @@
   </div>
 </template>
 <script>
-import FormMixin from '../../components/mixins/form-mixin.js';
-import Accordion from '../../components/accordion';
-import AddButton from '../../components/AddButton';
-import DoughnutGraph from '../../components/graphs/PieGraph';
+import FormMixin from '../../../components/mixins/form-mixin.js';
+import Accordion from '../../../components/accordion';
+import AddButton from '../../../components/AddButton';
+import DoughnutGraph from '../../../components/graphs/DoughnutGraph';
+import MultiBarGraph from '../../../components/graphs/MultiBarGraph';
+import BarLineGraph from '../../../components/graphs/BarLineGraph';
     
-import ClassroomHeader from '../../components/ClassroomHeader';
+import ClassroomHeader from '../../../components/ClassroomHeader';
     
 export default {
 	components: {
 		Accordion,
 		AddButton,
 		ClassroomHeader,
-		DoughnutGraph
+		DoughnutGraph,
+		MultiBarGraph,
+		BarLineGraph
 	},
 	mixins:[FormMixin],
 	data() {

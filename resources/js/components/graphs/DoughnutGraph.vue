@@ -3,7 +3,20 @@ import { Doughnut } from 'vue-chartjs';
 
 export default {
 	extends: Doughnut,
-	props:{ width:{ type:Number, default: 200 }, height:{ type:Number, default: 200 }, graphData:{ type:Array, default: () => [] } },
+	props:{ 
+		width:{ 
+			type:Number, 
+			default: 200 
+		}, 
+		height:{ 
+			type:Number, 
+			default: 200 
+		}, 
+		graphData:{ 
+			type:Array, 
+			default: () => [] 
+		} 
+	},
 	computed:{
 		chartData(){
 			const self = this;
