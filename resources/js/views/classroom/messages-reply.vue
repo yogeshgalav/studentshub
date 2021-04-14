@@ -1,9 +1,10 @@
 <template>
   <div>
+    <hr>
     <div
       v-for="reply in replies"
       :key="reply.id"
-      class="card-body mt-2"
+      class="card-body"
     >
       <div class="row">
         <div class="dashboard_post">
@@ -11,24 +12,29 @@
             <profile-image
               :avatar="reply.avatar_url"
               :user-name="reply.user_name"
+              size="small"
             />
           </div>
         </div>
         <div
-          class="col-md-10 ml-2"
+          class="col-md-10 ml-2 row row-cols-1 pt-2 pb-2"
           style="background-color: #f2f2f2; border-radius: 10px;"
         >
-          <h5>{{ reply.user_name }}</h5>
-          <p>{{ reply.content }}</p>
+          <h5 class="pb-0 mb-0">
+            {{ reply.user_name }}
+          </h5>
+          <p class="mb-0">
+            {{ reply.content }}
+          </p>
         </div>
       </div>
     </div>
     <div
-      class="mt-3"
+      class="mt-3 row"
       style="padding-left: inherit;"
     >
       <div
-        class="dashboard_post"
+        class="dashboard_post col-md-1"
         style="display: inline-block;"
       >
         <div class="avatar mr-2">
@@ -46,22 +52,33 @@
           </p>
         </div> -->
       </div>
-      <input
-        type="text"
-        placeholder="Reply to this message"
-        class="col-10"
-        style="font-size: 20px; border-radius: 20px; border: 0; margin-right: 20px; outline: none; box-shadow: #80808069 2px 2px 2px, #80808094 2px 2px 2px inset;"
-        @keyup.enter="saveReply($event, message)"
+      <div
+        class="row col-md-10 align-items-center p-0"
+        style="background-color: #f0f2f5; border-radius: 20px;"
       >
-      <i
-        class="fa fa-paper-plane ml-2"
-        aria-hidden="true"
-        style="font-size: 25px; color: gray; cursor: pointer;"
-      />
+        <input
+          type="text"
+          placeholder="Reply to this message"
+          class="col-11 col-md-11 message-reply"
+          @keyup.enter="saveReply($event, message)"
+        >
+        <i
+          class="far fa-paper-plane col-md-1"
+          style="font-size: 25px; color: gray; cursor: pointer;"
+        />
+      </div>
     </div>
   </div>
 </template>
-
+<style scoped>
+.message-reply, .message-reply:focus{
+  font-size: 20px; border-radius: 20px; border: none !important; outline: none; background-color: #f0f2f5;
+}
+.card-body{
+  padding-top: 0;
+  padding-bottom: 20px;
+}
+</style>
 <script>
 export default {
 	props:['message'],
@@ -107,6 +124,3 @@ export default {
 };
 </script>
 
-<style>
-
-</style>

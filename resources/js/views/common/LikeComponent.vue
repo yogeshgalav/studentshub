@@ -5,6 +5,7 @@
   >
     <button
       type="button"
+      class="btn"
       @click="sendUserLike()"
     >
       <p
@@ -22,6 +23,7 @@
     <button
       v-if="showDislike"
       type="button"
+      class="btn"
       @click="sendUserDislike()"
     >
       <p
@@ -39,6 +41,7 @@
     <button      
       v-if="showReply"
       type="button"
+      class="btn"
       @click="$emit('reply')"
     >
       <p>
@@ -135,11 +138,19 @@ button{
     color: gray;
     display: flex;
     height: 25px;
-    font-size: x-large;
+	margin-bottom: 10px;
+	margin-top: -10px;
     background-color: #fff;
 }
 .single_page_user_like{
     display: flex;
+}
+p{
+	padding: 5px 20px;
+	margin-bottom: 10px;
+}
+p:hover{
+	background-color: #f0f2f5;
 }
 
 
