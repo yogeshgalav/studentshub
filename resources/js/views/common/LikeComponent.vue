@@ -5,6 +5,7 @@
   >
     <button
       type="button"
+      class="btn"
       @click="sendUserLike()"
     >
       <p
@@ -22,6 +23,7 @@
     <button
       v-if="showDislike"
       type="button"
+      class="btn"
       @click="sendUserDislike()"
     >
       <p
@@ -37,12 +39,15 @@
       </p>
     </button>
     <button      
-	  v-if="showReply"
+      v-if="showReply"
       type="button"
-      @click="$emit('reply')"
+      :class="['btn', reply_active ? 'text-primary' : '']"
+      @click="reply()"
     >
       <p>
-        <span><i class="far fa-thumbs-up" />&nbsp;</span>
+        <span><i
+          class="far fa-comment-alt"
+        />&nbsp;</span>
         Reply
       </p>
     </button>
@@ -76,6 +81,7 @@ export default {
 			user_like:'',
 			like_active:false,
 			dislike_active:false,
+			reply_active:false,
 		};
 	},
 	watch: {
@@ -89,6 +95,10 @@ export default {
 		}
 	},
 	methods:{
+		reply(){
+			this.$emit('reply');
+			this.reply_active = !this.reply_active;
+		},
 		sendUserLike() {
 			let method = (this.like_active === true) ? 'delete' : 'add';
 			this.like_active = !this.like_active;
@@ -133,11 +143,19 @@ button{
     color: gray;
     display: flex;
     height: 25px;
-    font-size: x-large;
+	margin-bottom: 10px;
+	margin-top: -10px;
     background-color: #fff;
 }
 .single_page_user_like{
     display: flex;
+}
+p{
+	padding: 5px 20px;
+	margin-bottom: 10px;
+}
+p:hover{
+	background-color: #f0f2f5;
 }
 
 

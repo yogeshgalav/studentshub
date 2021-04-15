@@ -66,38 +66,55 @@
               class="col-md-12 col-12 mt-2 card"
             >
               <div class="card-body">
-                <div class="dashboard_post">
-                  <div class="avatar">
-                    <profile-image
-                      :avatar="message.avatar_url"
-                      :user-name="message.user_name"
-                    />
+                <div>
+                  <div class="dashboard_post">
+                    <div class="avatar">
+                      <profile-image
+                        :avatar="message.avatar_url"
+                        :user-name="message.user_name"
+                      />
+                    </div>
+                    <div class="info-post ml-2 dash_insititue_name">
+                      <p class="usernamedash mb-0 dash_user_date">
+                        {{ message.user_name }} <span> {{ message.time }} &nbsp; <div class="dropdown d-inline">
+                          <button
+                            id="dropdownMenuButton"
+                            class="btn btn-secondary dropdown-toggle p-0"
+                            type="button"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                          >
+                            <i class="fas fa-ellipsis-v" />
+                          </button>
+                          <div
+                            class="dropdown-menu dropdown-menu-right"
+                            style="min-width: max-content;"
+                            aria-labelledby="dropdownMenuButton"
+                          >
+                            <button
+                              type="button"
+                              class="dropdown-item"
+                              data-toggle="modal"
+                              data-target="#editMessageModal"
+                              @click="edit_message=message"
+                            >Edit</button> 
+                            <button
+                              type="button"
+                              class="dropdown-item"
+                              @click="deleteMessage(message.id)"
+                            >Delete</button>
+                          </div>
+                        </div></span>
+                      </p>
+                      <p class="usernamedash mb-0">
+                        {{ message.classroom_name }}
+                      </p>
+                    </div>
                   </div>
-                  <div class="info-post ml-2 dash_insititue_name">
-                    <p class="usernamedash mb-0 dash_user_date">
-                      {{ message.user_name }} <span> {{ message.time }}</span>
-                    </p>
-                    <p class="usernamedash mb-0">
-                      {{ message.classroom_name }}
-                    </p>
-                  </div>
+                  <hr>
+                  <p>{{ message.content }}</p>
                 </div>
-                <hr>
-                <p>{{ message.content }}</p>
-                <span>
-                  <button
-                    type="button"
-                    class="btn-link"
-                    data-toggle="modal"
-                    data-target="#editMessageModal"
-                    @click="edit_message=message"
-                  >Edit</button> 
-                  <button
-                    type="button"
-                    class="btn-link"
-                    @click="deleteMessage(message.id)"
-                  >Delete</button>
-                </span>
                 <hr>
                 <like-component
                   :post="message"
@@ -180,6 +197,11 @@
     </div>
   </div>
 </template>
+<style scoped>
+#dropdownMenuButton{
+  border: none;
+}
+</style>
 <script>
 import FormMixin from '../../components/mixins/form-mixin.js';
 // import AddButton from '../../components/AddButton';
