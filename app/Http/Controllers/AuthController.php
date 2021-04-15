@@ -61,7 +61,8 @@ class AuthController extends Controller
             
             $success = $this->getLoginSuccessData('api',$user,$request);
             
-        }catch(\Exception $e){dd($e->getMessage());
+        }catch(\Exception $e){
+            // dd($e->getMessage());
             Log::warning("An invalid attempt to login was made for user ".$request->email." from IP Address ".$request->ip());
             return response()->json(['error'=>'Unauthorised'], 401);
         }
