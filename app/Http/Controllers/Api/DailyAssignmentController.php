@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 
 use App\Http\Requests\TeacherDailyAssignment\StoreRequest;
 use App\Models\DailyAssignment;
+use App\Models\DailyReport;
 use App\Models\DailyQuestion;
 use App\Models\Unit;
 use DB;
@@ -17,7 +18,7 @@ class DailyAssignmentController extends Controller
     public function activateDailyAssignment(Request $request)
     {
         if($request->daily_assignment_id){
-            DailyAttempt::where('daily_assignment_id',$request->daily_assignment_id)->exists() ? abort(403) : '';
+            DailyReport::where('daily_assignment_id',$request->daily_assignment_id)->exists() ? abort(403) : '';
         }
         $daily = DailyAssignment::findOrFail($request->daily_assignment_id);
         $marks=DailyQuestion::where('daily_assignment_id',$daily->id)->pluck('marks')->toArray();
@@ -37,7 +38,7 @@ class DailyAssignmentController extends Controller
 
     public function deleteDailyAssignment(Request $request){
         if($request->daily_assignment_id){
-            DailyAttempt::where('daily_assignment_id',$request->daily_assignment_id)->exists() ? abort(403) : '';
+            DailyReport::where('daily_assignment_id',$request->daily_assignment_id)->exists() ? abort(403) : '';
         }
         $daily = DailyAssignment::findOrFail($request->daily_assignment_id);
 
@@ -49,7 +50,7 @@ class DailyAssignmentController extends Controller
     public function updateDailyAssignment(Request $request)
     {    
         if($request->assignment_id){
-            DailyAttempt::where('daily_assignment_id',$request->assignment_id)->exists() ? abort(403) : '';
+            DailyReport::where('daily_assignment_id',$request->assignment_id)->exists() ? abort(403) : '';
         }
         $unit=Unit::findOrFail($request->unit_id);
         $is_assignment_duplicate = DailyAssignment::where('attempt_date',$request->attempt_date)

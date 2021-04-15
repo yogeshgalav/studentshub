@@ -61,7 +61,8 @@ class AuthController extends Controller
             
             $success = $this->getLoginSuccessData('api',$user,$request);
             
-        }catch(\Exception $e){dd($e->getMessage());
+        }catch(\Exception $e){
+            // dd($e->getMessage());
             Log::warning("An invalid attempt to login was made for user ".$request->email." from IP Address ".$request->ip());
             return response()->json(['error'=>'Unauthorised'], 401);
         }
@@ -117,7 +118,7 @@ class AuthController extends Controller
     public function register(RegisterRequest $request)
     {
         if(User::whereEmail($request->email)->exists()){
-            return view('guest.auth.login')->with('emailError',true);
+            return redirect('/login')->with('emailError',true);
         }
        
         $input = $request->all();

@@ -33,7 +33,7 @@
           class="arrow_right"
           :to="'/get-started'"
         >
-          <span class="c_get_start">Get Started<i class="fas fa-arrow-right" /></span>
+          <span class="c_get_start">Get Started&nbsp;&nbsp;<i class="fas fa-arrow-right" /></span>
         </router-link>
       </div>
     </div>

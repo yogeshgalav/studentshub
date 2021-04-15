@@ -7,7 +7,9 @@ use App\Models\DailyAssignment;
 use App\Models\DailyReport;
 use App\Models\DailyQuestion;
 use App\Models\DailyAnswer;
+use Auth;
 use DB;
+
 class StudentController extends Controller
 {
     //
