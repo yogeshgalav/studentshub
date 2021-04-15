@@ -304,23 +304,30 @@ export default {
 					.infoDialog('Total marks for Daily Assignment should be 10.');
 				return false;
 			}
-			swal
-				.confirmDialog(
-					'Are you sure you want to Activate Assignment for date ' +
+			if(this.daily.activated_at){
+				this.activateApi();
+			}else{
+				swal
+					.confirmDialog(
+						'Are you sure you want to Activate Assignment for date ' +
                         this.daily.attempt_date +
                         '?'
-				)
-				.then((result) => {
-					if (result.value) {
-						this.axios.post('/api/activate-daily-assignment', {
-							daily_assignment_id: this.daily.id,
-							status: this.daily.activated_at ? 'deactivate' : 'activate'
-						}).then(() => {
-							this.daily.activated_at = new Date();
-						});
-					}
-				});
+					)
+					.then((result) => {
+						if (result.value) {
+							this.activateApi();
+						}
+					});
+			}
 		},
+		activateApi(){
+			this.axios.post('/api/activate-daily-assignment', {
+				daily_assignment_id: this.daily.id,
+				status: this.daily.activated_at ? 'deactivate' : 'activate'
+			}).then(() => {
+				this.daily.activated_at = this.daily.activated_at ? null : new Date();
+			});
+		}
 	}
 };
 

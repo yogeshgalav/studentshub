@@ -98,10 +98,13 @@ export default {
 
 		},
 		updateUnitName(unit_no,event) {
+			this.showLoader = true;
 			//call api and update field
 			this.axios.post('/api/classroom/'+this.$route.params.classroomId+'/update-unit',{
 				unit_no: unit_no,
 				unit_name: event.target.value
+			}).then(()=>{
+				this.showLoader = false;
 			});
 		}
 	}
