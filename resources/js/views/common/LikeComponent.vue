@@ -97,7 +97,7 @@ export default {
 	methods:{
 		reply(){
 			this.$emit('reply');
-			this.reply_active = !this.reply_active;
+			this.reply_active = true;
 		},
 		sendUserLike() {
 			let method = (this.like_active === true) ? 'delete' : 'add';
