@@ -29,7 +29,6 @@
               data-toggle="modal"
               data-target="#addDoubtModal"
               class="btn btn-primary"
-              @click="addDoubtModal"
             >
               Ask new Doubt
             </button>

@@ -63,16 +63,13 @@ class ClassroomUserController extends Controller
     }
 
     public function listmessage($classroomId = null){
-        $messagequery = ClassroomMessage::
-        leftJoin('users as us','us.id','=','classroom_messages.sender_user_id')
+        $messagequery = ClassroomMessage::where('parent_message_id','=',null)
+        ->leftJoin('users as us','us.id','=','classroom_messages.sender_user_id')
         ->leftJoin('classrooms as cs','cs.id','=','classroom_messages.classroom_id')
         ->leftJoin('likes as li',function($join){
-                $join->on('classroom_messages.id','=','li.likable_id')->where('li.likable_type','=','App\Models\ClassroomMessage')->where('li.like_status','=',1);
-            })
-            ->leftJoin('likes as dli',function($join){
-                $join->on('classroom_messages.id','=','dli.likable_id')->where('dli.likable_type','=','App\Models\ClassroomMessage')->where('dli.like_status','=',0);
-            })
-        ->select('classroom_messages.id','classroom_messages.content','classroom_messages.created_at','us.full_name as user_name','us.avatar_url','cs.name as classroom_name', DB::raw('COUNT(distinct li.user_id) as total_likes'),DB::raw('COUNT(distinct dli.user_id) as total_dislikes'));
+            $join->on('classroom_messages.id','=','li.likable_id')->where('li.likable_type','=','App\Models\ClassroomMessage')->where('li.like_status','=',1);
+        })
+        ->select('classroom_messages.id', 'classroom_messages.classroom_id','classroom_messages.content','classroom_messages.created_at','us.full_name as user_name','us.avatar_url','cs.name as classroom_name', DB::raw('COUNT(distinct li.user_id) as total_likes'));
         
         
         if($classroomId)
@@ -93,7 +90,7 @@ class ClassroomUserController extends Controller
             
             $messagequery = $messagequery->whereIn('classroom_id',$classroomIdArray);
         }
-        $messages = $messagequery->orderBy('classroom_messages.created_at','DESC')->groupBy(['classroom_messages.id','classroom_messages.content','classroom_messages.created_at','us.full_name','us.avatar_url','cs.name'])->get();
+        $messages = $messagequery->orderBy('classroom_messages.created_at','DESC')->groupBy(['classroom_messages.id','classroom_messages.classroom_id','classroom_messages.content','classroom_messages.created_at','us.full_name','us.avatar_url','cs.name'])->get();
 
         foreach($messages as $message){
             $message->time = Carbon::createFromTimeStamp(strtotime($message->created_at))->diffForHumans();
@@ -109,6 +106,7 @@ class ClassroomUserController extends Controller
             'sender_user_id'=>Auth::id(),
             'classroom_id'=>$classroom->id,
             'content'=>$request->content,
+            'parent_message_id'=>$request->parent_message_id,
         ]);
 
         // \Notification::send($classroom->users,new MessageAdded);
@@ -117,7 +115,31 @@ class ClassroomUserController extends Controller
             'message'=>$message
         ]]);
     }
-    public function deletemessage(){
+    public function replymessage($messageId){
+        $messagequery = ClassroomMessage::where('parent_message_id','=',$messageId)
+        ->leftJoin('users as us','us.id','=','classroom_messages.sender_user_id')
+        ->leftJoin('classrooms as cs','cs.id','=','classroom_messages.classroom_id')
+        ->select('classroom_messages.classroom_id', 'classroom_messages.id','classroom_messages.content','classroom_messages.created_at','us.full_name as user_name','us.avatar_url','cs.name as classroom_name');
+        $messages = $messagequery->orderBy('classroom_messages.created_at','DESC')->get();
+
+        foreach($messages as $message){
+            $message->time = Carbon::createFromTimeStamp(strtotime($message->created_at))->diffForHumans();
+        }
+        return response()->json(['success'=>[
+            'messages'=>$messages
+        ]]);
+    }
+    public function editmessage(Request $request){
+        
+        $message=ClassroomMessage::findOrFail($request->message_id);
+
+        $message->content= $request->content;
+        $message->save();
+
+
+        return response()->json(['success' => ['message'=>$message]]);
+    }
+    public function deletemessage(Request $request){
         $classroom_message = ClassroomMessage::findOrFail($request->message_id);
         $classroom_message->delete();
 

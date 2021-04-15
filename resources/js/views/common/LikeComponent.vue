@@ -4,6 +4,8 @@
     class="single_page_user_like"
   >
     <button
+      type="button"
+      class="btn"
       @click="sendUserLike()"
     >
       <p
@@ -17,9 +19,11 @@
         <span><i class="far fa-thumbs-up" />&nbsp;</span>
         {{ post.total_likes }} Like
       </p>
-      <!-- <p>{{ like_active ? (post.total_likes + 1) : post.total_likes }} Like</p> -->
     </button>
     <button
+      v-if="showDislike"
+      type="button"
+      class="btn"
       @click="sendUserDislike()"
     >
       <p
@@ -33,19 +37,51 @@
         <span><i class="far fa-thumbs-down" />&nbsp;</span>
         {{ post.total_likes }} Dislike
       </p>
-      <!-- <p>{{ dislike_active ? (post.total_dislikes + 1) : post.total_dislikes }} Dislike</p> -->
+    </button>
+    <button      
+      v-if="showReply"
+      type="button"
+      :class="['btn', reply_active ? 'text-primary' : '']"
+      @click="reply()"
+    >
+      <p>
+        <span><i
+          class="far fa-comment-alt"
+        />&nbsp;</span>
+        Reply
+      </p>
     </button>
   </div>
 </template>
 
 <script>
 export default {
-	props:['post', 'likableType'],
+	props:{
+		'post':{
+			'type':Object,
+			'required':true,
+		},
+		'likableType':{
+			'type':String,
+			'required':true,
+		},
+		'showDislike':{
+			'type':Boolean,
+			'default':true,
+			'required':false,
+		},
+		'showReply':{
+			'type':Boolean,
+			'default':false,
+			'required':false,
+		},
+	},
 	data(){
 		return {
 			user_like:'',
 			like_active:false,
 			dislike_active:false,
+			reply_active:false,
 		};
 	},
 	watch: {
@@ -59,6 +95,10 @@ export default {
 		}
 	},
 	methods:{
+		reply(){
+			this.$emit('reply');
+			this.reply_active = true;
+		},
 		sendUserLike() {
 			let method = (this.like_active === true) ? 'delete' : 'add';
 			this.like_active = !this.like_active;
@@ -103,11 +143,19 @@ button{
     color: gray;
     display: flex;
     height: 25px;
-    font-size: x-large;
+	margin-bottom: 10px;
+	margin-top: -10px;
     background-color: #fff;
 }
 .single_page_user_like{
     display: flex;
+}
+p{
+	padding: 5px 20px;
+	margin-bottom: 10px;
+}
+p:hover{
+	background-color: #f0f2f5;
 }
 
 
