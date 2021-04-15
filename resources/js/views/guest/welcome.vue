@@ -4,7 +4,7 @@
     <category-filter :categories="categories" />
     <div
       class="main"
-      style="background-image: url(/images/istockphoto-948623158-612x612.jpg);"
+      style="background-image: url(/images/welcome/study-background.jpg);"
     >
       <div class="container row flex-coloumn m-auto justify-content-center align-items-center">
         <div class="welcome_banner">
@@ -28,7 +28,7 @@
         style="background-color:#f2f2f2;"
         class="container p-0 text-div"
       >
-        <div class="pt-5 pl-5 pb-2 mb-1 row justify-content-md-between align-items-center">
+        <div class="pt-5 pl-5 pb-2 mb-1 row justify-content-md-between align-items-center mr-0 ml-0">
           <div class="col-md-6">
             <div class="sections">
               <h2 class="font-weight-bold">
@@ -58,25 +58,25 @@
           <div class="row">
             <div class="col-12 col-md-3 image-div">
               <img
-                src="./line.jpg"
+                src="/images/welcome/line.jpg"
                 alt="dual-line-graph"
               >
             </div>
             <div class="col-12 col-md-3 image-div">
               <img
-                src="./barline.jpg"
+                src="/images/welcome/barline.jpg"
                 alt="line-graph"
               >
             </div>
             <div class="col-12 col-md-3 image-div">
               <img
-                src="./Dought.jpg"
+                src="/images/welcome/Dought.jpg"
                 alt="line-graph"
               >
             </div>
             <div class="col-12 col-md-3 image-div">
               <img
-                src="./multibar.jpg"
+                src="/images/welcome/multibar.jpg"
                 alt="line-graph"
               >
             </div>
@@ -84,8 +84,7 @@
         </div>
       </div>
     </div>
-    <div class="white-space" />
-    <div class="white-space" />
+    <div class="white-space-bottom" />
     <div style="background-color: #2727cced;">
       <div class="container row m-auto">
         <div class="right col-md-4">
@@ -103,7 +102,7 @@
           </p>
           <a
             href="https://play.google.com/store/apps/details?id=webviewgold.studentshub"
-            class=""
+            class="play-store"
           ><img
             src="/images/googleplay.png"
             alt="play store"
@@ -165,7 +164,7 @@
         .text-div {
             background-color: #f2f2f2;
             position: relative;
-            min-height: 400px;
+            min-height: 350px;
         }
 h1 {
             font-family: 'Josefin Sans', sans-serif;
@@ -174,6 +173,9 @@ h1 {
             font-weight: 700;
             text-align: center;
         }
+		.play-store{
+			margin-left: -22px;
+		}
         .welcome_banner {
             display: flex;
             flex-direction: column;
@@ -191,6 +193,9 @@ h1 {
             position: relative;
             margin-top: -50px;
         }
+		.white-space-bottom{
+			height: 220px;
+		}
 @media (max-width: 768px){
   .right img {
             width: 60%;
@@ -200,6 +205,9 @@ h1 {
             position: relative;
             text-align: center;
         }
+		.white-space-bottom{
+			height: 120px;
+		}
         .left{
           margin-top: 20px;
           text-align: center;
@@ -207,6 +215,15 @@ h1 {
         .graph-div {
             position: static;
         }
+		.image-div{
+			margin-bottom: 20px;
+		}
+		.text-right{
+			text-align: left !important;
+		}
+		.white-space{
+			display: none;
+		}
 }        
 </style>
 <script>
