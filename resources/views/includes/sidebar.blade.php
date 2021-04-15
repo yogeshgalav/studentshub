@@ -58,9 +58,9 @@
                 <div class="pl-3">
                     <!-- <img src="{{asset('/images/default-avatar.png') }}" alt="Student'sHUB" width="40" class="pl-2"/> -->
                     @if(Auth::teacher())
-                    <profile-image :user-name="{{json_encode(Auth::teacher()->instituteName)}}" avatar="/images/default-avatar.png" />
+                    <profile-image :user-name="{{json_encode(Auth::teacher()->instituteName)}}" avatar="/images/vector.png" />
                     @elseif(Auth::student())
-                    <profile-image :user-name="{{json_encode(Auth::student()->instituteName)}}" avatar="/images/default-avatar.png" />
+                    <profile-image :user-name="{{json_encode(Auth::student()->instituteName)}}" avatar="/images/vector.png" />
                     @else
                     <span class="sidebar_heading ml-1">Student's Hub </span>
                     @endif
