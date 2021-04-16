@@ -46,9 +46,9 @@
         <router-link
           :to="'/get-started'" 
           type="button"
-          class="btn btn-outline-secondary"
+          class="btn btn-outline-secondary btn-round"
         >
-          Get Started
+          Get Started &nbsp;<i class="fas fa-arrow-right" />
         </router-link>
       </div>
     </div>

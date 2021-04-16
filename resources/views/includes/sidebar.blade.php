@@ -88,7 +88,7 @@
                 {{-- <li> <a href="/course/{{Auth::student()->courseUrl}}" class="{{\App\Facades\Sthub::currentTab(Auth::student()->courseUrl) ? 'active' : ''}}"> <span class="icon"><img src="{{asset('/images/home.png') }}" alt="Student'sHUB" width="20"/></span> My Course</a></li> --}}
                 @endif
             @if(Auth::user()->hasClassroom())
-            <li> <a href="/messages" class="{{\App\Facades\Sthub::currentTab('messages') ? 'active' : ''}}"><i class="far fa-comment-alt sidebar" aria-hidden="true"></i><span class="text"> Messages </span></a></li>
+            <li> <a href="/messages" class="{{\App\Facades\Sthub::currentTab('messages') ? 'active' : ''}}"><i class="far fa-comment-dots sidebar" aria-hidden="true"></i><span class="text"> Messages </span></a></li>
             @endif
                 <li> <a href="/profile/{{Auth::id()}}"  class="{{\App\Facades\Sthub::currentTab('profile') ? 'active' : ''}}"><i class="far fa-user sidebar" aria-hidden="true"></i><span class="text"> Profile</span></a></li>
 
