@@ -83,7 +83,7 @@
     <modal
       :ref="'addDailyQuestionModal'+assignmentId"
       :name="'addDailyQuestionModal'+assignmentId"
-      heading="Question"
+      :heading="(current_question_edit.id ? 'Edit' : 'Add')+' Question'"
       size="modal-xl"
       @submit="saveQuestion"
     >

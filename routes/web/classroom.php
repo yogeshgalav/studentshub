@@ -13,6 +13,7 @@ Route::group(['middleware'=>['AuthorizeUser']],function(){
     //classrrom pages
     Route::get('/classroom/{classroomId}','ClassroomController@classroomPage');
     Route::get('/classroom/{classroomId}/overview','ClassroomController@classroomOverviewPage');
+    Route::get('/classroom/{classroomId}/attendance','ClassroomController@classroomAttendancePage');
     Route::get('/classroom/{classroomId}/setup','ClassroomController@classroomSetupPage');
     Route::get('/classroom/{classroomId}/unit-assignment','ClassroomController@classroomUnitAssignmentPage');
     Route::get('/classroom/{classroomId}/daily-assignment','ClassroomController@classroomDailyAssignmentPage');

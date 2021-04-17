@@ -60,6 +60,16 @@ class ClassroomController extends Controller
 
         return view('classroom.classroom-setup');
     }
+
+    public function classroomAttendancePage($classroomId){
+        $classroom=Classroom::findOrFail($classroomId);
+                
+        if(Auth::teacher() && $classroom->teacher_id===Auth::teacher()->id){
+            return view('classroom.classroom-attendance-page');
+        }
+
+        return view('student-panel.classroom-attendance-page');
+    }
     public function classroomUnitAssignmentPage($classroomId){
         $classroom=Classroom::findOrFail($classroomId);
                 
