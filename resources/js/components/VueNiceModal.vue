@@ -2,7 +2,7 @@
   <div
     :id="name"
     :ref="name"
-    class="modal fade"
+    :class="['modal fade', size]"
     role="dialog"
     tabindex="-1"
     :aria-labelledby="name"
@@ -51,6 +51,10 @@ export default {
 		heading:{
 			default:'',
 			required:true,
+		},
+		size:{
+			default:'',
+			required:false,
 		},
 	},
 	data(){
