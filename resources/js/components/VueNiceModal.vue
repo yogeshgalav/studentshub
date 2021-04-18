@@ -2,13 +2,15 @@
   <div
     :id="name"
     :ref="name"
-    :class="['modal fade', size]"
+    class="modal fade"
     role="dialog"
     tabindex="-1"
     :aria-labelledby="name"
     aria-hidden="true"
   >
-    <div class="modal-dialog">
+    <div
+      :class="['modal-dialog', size]"
+    >
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header pt-3 pb-2">

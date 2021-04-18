@@ -72,7 +72,7 @@
       class="mt-3 mb-2 col-md-12 pl-0"
     >
       <button
-        class="btn btn-primary"
+        class="btn btn-success"
         data-toggle="modal"
         :data-target="'#addDailyQuestionModal'+assignmentId"
         @click="addQuestion"
@@ -84,7 +84,7 @@
       :ref="'addDailyQuestionModal'+assignmentId"
       :name="'addDailyQuestionModal'+assignmentId"
       :heading="(current_question_edit.id ? 'Edit' : 'Add')+' Question'"
-      size="modal-xl"
+      size="modal-lg"
       @submit="saveQuestion"
     >
       <template slot="modalBody">
@@ -209,7 +209,7 @@
                     <div class="col-md-12">
                       <button
                         type="button"
-                        class="btn btn-sm btn-primary"
+                        class="btn btn-sm btn-success"
                         @click="addOption()"
                       >
                         <i class="fas fa-plus" />&nbsp;&nbsp;Add Option

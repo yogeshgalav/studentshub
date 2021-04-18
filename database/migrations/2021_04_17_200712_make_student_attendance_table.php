@@ -16,6 +16,8 @@ class MakeStudentAttendanceTable extends Migration
         Schema::create('student_attendance', function (Blueprint $table) {
             $table->id();
             $table->date('meet_date');
+            $table->time('meet_time');
+            $table->time('present_at');
             $table->integer('user_id');
             $table->timestamps();
         });

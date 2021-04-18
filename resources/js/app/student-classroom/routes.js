@@ -3,7 +3,7 @@ import ClassroomUnitAssignmentComponent from '../../views/student-classroom/clas
 import ClassroomResourceComponent from '../../views/classroom/resources.vue';
 import ClassroomMessageComponent from '../../views/classroom/messages.vue';
 import ClassroomDoubtComponent from '../../views/classroom/doubts.vue';
-import ClassroomStudentPanelComponent from '../../views/classroom/student-daily-assignment.vue';
+import ClassroomStudentPanelComponent from '../../views/student-classroom/classroom-daily-assignment.vue';
 import ClassroomReportComponent from '../../views/classroom/report.vue';
 import ClassroomAttendanceComponent from '../../views/classroom/student/attendance.vue';
 
