@@ -11,7 +11,7 @@
         <vue-table-component
           key="joinedStudents"
           :columns="joinedColumns"
-          :rows="joinedStudents"
+          :rows="student_details"
         >
           <template
             slot="table-row"
@@ -91,9 +91,6 @@ export default {
 	computed: {
 		classroomDetail(){
 			return this.$store.state.classroom.classroomDetail;
-		},
-		joinedStudents(){
-			return this.student_details;
 		},
 	},
 	mounted(){
