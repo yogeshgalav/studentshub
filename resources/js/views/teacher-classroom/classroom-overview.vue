@@ -123,10 +123,20 @@
         </div>
       </div>
     </div>
-    <div class="row mt-2">
+    <div class="row mt-5 mb-2">
       <div class="col-md-12">
         <div class="card">
-          <div class="card-body row">
+          <div class="card-header bg-white">
+            <h4 class="mb-1 mt-1">
+              Join Id
+            </h4>
+          </div>
+          <div class="card-body pb-0">
+            <p class="mb-0">
+              Share Registration Link or Join Id with your students to directly join this classroom.
+            </p>
+          </div>
+          <div class="card-body row pt-0">
             <div
               v-if="classroomDetail.id"
               class="col-md-4  col-12 mt-3 mb-3"
@@ -135,6 +145,7 @@
                 class="join_id_box"
                 @click="copyText('joinId')"
               >
+                <p class="tooltip">Copied</p>
                 <i class="fa  text-blue  fa-arrow-right mr-3" />  <span
                   class="text-blue font-size-14 weight-800 join-id line-height-25-px"
                 >
@@ -170,17 +181,21 @@
 .delete_btn .btn {
   padding: 10px 35px;
 }
-.card {
-  box-shadow: 0px 2px 50px rgba(0,0,0,0.15) !important;
+.tooltip{
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 15px;
 }
-.row{
-  box-shadow: 0px 2px 50px rgba(0,0,0,0.15) !important;
+.tooltip:active{
+  
 }
 .join_id_box {
  border:1px solid #eee;
  border-radius: 5px;
  padding: 8px 5px 8px 15px;
  cursor: pointer;
+ position: relative;
 }
 .join_id_box:hover {
  background-color: #f3f9e8;
