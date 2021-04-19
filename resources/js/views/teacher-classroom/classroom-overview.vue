@@ -1,159 +1,167 @@
 <template>
-  <div class="row">
-    <div class="col-md-12">
-      <classroom-header />
-    </div>
-    <div class="col-md-12">
-      <div class="card mt-2">
-        <div class="card-header bg-white">
-          <h4 class="mb-1 mt-1">
-            {{ 'Classroom Overview' }}
-          </h4>
-        </div>
-        <div class="card-body">
-          <div class="col-md-6 col-12">
-            <form>
-              <div class="form-group">
-                <label class="text-black font-size-14">Course
-                </label>
-                <input
-                  id="course"
-                  type="text"
-                  class="form-control"
-                  disabled
-                  :value="classroomDetail.course_name"
-                >
-              </div>
-              <div class="form-group">
-                <label class="text-black font-size-14">Subject
-                </label>
-                <input
-                  id="subject"
-                  type="text"
-                  class="form-control"
-                  disabled
-                  :value="classroomDetail.subject_name"
-                >
-              </div>
-              <div class="form-group">
-                <label class="text-black font-size-14">Batch:
-                </label>
-                {{ classroomDetail.batch_start_year }} - {{ classroomDetail.batch_end_year }}
-              </div>
-              <div class="form-group">
-                <label class="text-black font-size-14">Classroom
-                  Name
-                </label>
-                <input
-                  id="duration"
-                  v-model="form_data.name"
-                  type="text"
-                  class="form-control"
-                  @blur="updateClassroomDetail"
-                >
-              </div>
-         
-              <div class="form-group">
-                <label class="text-black font-size-14">Number of expected participants </label>
-                <div class="row">
-                  <div class="col-md-3 col-6">
-                    <input
-                      id="expected_students"
-                      v-model="form_data.expected_students"
-                      type="text"
-                      class="form-control"
-                      @blur="updateClassroomDetail"
-                    >
-                  </div>
+  <div>
+    <div class="row">
+      <div class="col-md-12">
+        <classroom-header />
+      </div>
+      <div class="col-md-12">
+        <div class="card mt-2">
+          <div class="card-header bg-white">
+            <h4 class="mb-1 mt-1">
+              {{ 'Classroom Overview' }}
+            </h4>
+          </div>
+          <div class="card-body">
+            <div class="col-md-6 col-12">
+              <form>
+                <div class="form-group">
+                  <label class="text-black font-size-14">Course
+                  </label>
+                  <input
+                    id="course"
+                    type="text"
+                    class="form-control"
+                    disabled
+                    :value="classroomDetail.course_name"
+                  >
                 </div>
-              </div>
-              <div class="form-group">
-                <label class="text-black font-size-14">Classroom
-                  duration </label>
-                <div class="row">
-                  <div class="col-md-3 col-6 pr-0">
-                    <input
-                      id="duration"
-                      v-model="form_data.duration"
-                      type="text"
-                      class="form-control"
-                      @blur="updateClassroomDetail"
-                    >
-                  </div>
-                  <div class="col-md-3 col-6 text-black">
-                    <div class="mt-2 weight-800">
-                      Days
+                <div class="form-group">
+                  <label class="text-black font-size-14">Subject
+                  </label>
+                  <input
+                    id="subject"
+                    type="text"
+                    class="form-control"
+                    disabled
+                    :value="classroomDetail.subject_name"
+                  >
+                </div>
+                <div class="form-group">
+                  <label class="text-black font-size-14">Batch:
+                  </label>
+                  {{ classroomDetail.batch_start_year }} - {{ classroomDetail.batch_end_year }}
+                </div>
+                <div class="form-group">
+                  <label class="text-black font-size-14">Classroom
+                    Name
+                  </label>
+                  <input
+                    id="duration"
+                    v-model="form_data.name"
+                    type="text"
+                    class="form-control"
+                    @blur="updateClassroomDetail"
+                  >
+                </div>
+         
+                <div class="form-group">
+                  <label class="text-black font-size-14">Number of expected participants </label>
+                  <div class="row">
+                    <div class="col-md-3 col-6">
+                      <input
+                        id="expected_students"
+                        v-model="form_data.expected_students"
+                        type="text"
+                        class="form-control"
+                        @blur="updateClassroomDetail"
+                      >
                     </div>
                   </div>
                 </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-
-      <div
-        v-if="classroomDetail.total_students===0"
-        class="card mt-5"
-      >
-        <div class="card-header bg-white">
-          <h4 class="mb-1 mt-1">
-            {{ 'Delete Classroom' }}
-          </h4>
-        </div>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-12">
-              {{ 'Click the button below to delete this classroom. You can delete this classroom until any student has joined. This will permanently delete the classroom.' }}
+                <div class="form-group">
+                  <label class="text-black font-size-14">Classroom
+                    duration </label>
+                  <div class="row">
+                    <div class="col-md-3 col-6 pr-0">
+                      <input
+                        id="duration"
+                        v-model="form_data.duration"
+                        type="text"
+                        class="form-control"
+                        @blur="updateClassroomDetail"
+                      >
+                    </div>
+                    <div class="col-md-3 col-6 text-black">
+                      <div class="mt-2 weight-800">
+                        Days
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
-          <div class="row">
-            <div class="col-md-12 mt-2 delete_btn">
-              <button
-                type="button"
-                class="btn btn-white"
-                @click="deleteClassroom"
-              >
-                {{ 'Delete' }}
-              </button>
+        </div>
+
+        <div
+          v-if="classroomDetail.total_students===0"
+          class="card mt-5"
+        >
+          <div class="card-header bg-white">
+            <h4 class="mb-1 mt-1">
+              {{ 'Delete Classroom' }}
+            </h4>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-12">
+                {{ 'Click the button below to delete this classroom. You can delete this classroom until any student has joined. This will permanently delete the classroom.' }}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 mt-2 delete_btn">
+                <button
+                  type="button"
+                  class="btn btn-white"
+                  @click="deleteClassroom"
+                >
+                  {{ 'Delete' }}
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="card-body col-md-12 row mt-2"> 
-      <div
-        v-if="classroomDetail.id"
-        class="col-md-4  col-12 mt-3 mb-3"
-      >
-        <div
-          class="join_id_box"
-          @click="copyText('joinId')"
-        >
-          <i class="fa  text-blue  fa-arrow-right mr-3" />  <span
-            class="text-blue font-size-14 weight-800 join-id line-height-25-px"
-          >
-            {{ 'Copy Join Id' }}: {{ classroomDetail.classroom_join_id }}
-            <strong class="right_positions hide"><i class="fa fa-copy text-success font-size-15" /> </strong>  
-          </span>
+    <div class="row mt-2">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-body row">
+            <div
+              v-if="classroomDetail.id"
+              class="col-md-4  col-12 mt-3 mb-3"
+            >
+              <div
+                class="join_id_box"
+                @click="copyText('joinId')"
+              >
+                <i class="fa  text-blue  fa-arrow-right mr-3" />  <span
+                  class="text-blue font-size-14 weight-800 join-id line-height-25-px"
+                >
+                  {{ 'Copy Join Id' }}: {{ classroomDetail.classroom_join_id }}
+                  <strong class="right_positions hide"><i class="fa fa-copy text-success font-size-15" /> </strong>  
+                </span>
+              </div>
+            </div>
+            <div
+              v-if="classroomDetail.batch_id"
+              class="col-md-4  col-12 mt-3 mb-3"
+            >
+              <div
+                class="join_id_box"
+                @click="copyText('RegisterationLink')"
+              >
+                <i class="fa  text-blue  fa-arrow-right mr-3" />  <span
+                  class="text-blue font-size-14 weight-800 join-id line-height-25-px"
+                >
+                  {{ 'Copy Registration Link' }}
+                  <strong class="right_positions hide"><i class="fa fa-copy text-success font-size-15" /> </strong>
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div
-        v-if="classroomDetail.batch_id"
-        class="col-md-4  col-12 mt-3 mb-3"
-      >
-        <div
-          class="join_id_box"
-          @click="copyText('RegisterationLink')"
-        >
-          <i class="fa  text-blue  fa-arrow-right mr-3" />  <span
-            class="text-blue font-size-14 weight-800 join-id line-height-25-px"
-          >
-            {{ 'Copy Registration Link' }}
-            <strong class="right_positions hide"><i class="fa fa-copy text-success font-size-15" /> </strong>
-          </span>
-        </div>
-      </div>
+      </div> 
     </div>
   </div>
 </template>
