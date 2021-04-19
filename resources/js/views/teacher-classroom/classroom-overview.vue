@@ -145,7 +145,6 @@
                 class="join_id_box"
                 @click="copyText('joinId')"
               >
-                <p class="tooltip">Copied</p>
                 <i class="fa  text-blue  fa-arrow-right mr-3" />  <span
                   class="text-blue font-size-14 weight-800 join-id line-height-25-px"
                 >
@@ -188,7 +187,7 @@
   height: 15px;
 }
 .tooltip:active{
-  
+
 }
 .join_id_box {
  border:1px solid #eee;
