@@ -157,18 +157,6 @@
         </div>
       </div>
     </div>
-    <div class="login_card">
-      <div class="row">
-        <div class="col-md-12 text-center mt-3">
-          <router-link
-            :to="'/membership-plan'"
-            class="font-size-40 text-black weight-800 mb-2 line-height-25-px text-center"
-          >
-            {{ trans('New Institute or Teacher?') }}
-          </router-link>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 <style scoped>

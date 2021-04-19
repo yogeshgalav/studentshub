@@ -12,8 +12,11 @@
               <div class="weight-800">
                 {{ 'Question' + ' ' + (index+1) }}
                 <button
+                  type="button"
                   title="Edit"
                   class="btn btn-link"
+                  data-toggle="modal"
+                  :data-target="'#addDailyQuestionModal'+assignmentId"
                   @click="editQuestion(question.id)"
                 >
                   <i class="fa fa-edit" />
@@ -69,179 +72,156 @@
       class="mt-3 mb-2 col-md-12 pl-0"
     >
       <button
-        class="btn-primary btn-lg"
+        class="btn btn-primary"
+        data-toggle="modal"
+        :data-target="'#addDailyQuestionModal'+assignmentId"
         @click="addQuestion"
       >
         <i class="fas fa-plus" />&nbsp;&nbsp;Add Question
       </button>
     </div>
     <modal
+      :ref="'addDailyQuestionModal'+assignmentId"
       :name="'addDailyQuestionModal'+assignmentId"
-      class="doubt_model model-md"
-      :click-to-close="false"
+      heading="Question"
+      size="modal-xl"
+      @submit="saveQuestion"
     >
-      <form
-        @submit.prevent="saveQuestion()"
-      >
-        <div class="row">
-          <div class="col-md-12 mt-2">
-            <div class="row">
-              <div class="col-md-6">
-                <h4>Add Question</h4>
-              </div>
-              <div class="col-md-6 text-right">
-                <button
-                  type="button"
-                  class="btn btn-lg btn-link font-size-24"
-                  @click="close()"
-                >
-                  &times;
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-12">
-            <div class="form-group">
-              <label class="control-label font-size-14">Question text</label>
-              <div class="inner-addon left-addon">
-                <div class="cl_input">
-                  <textarea
-                    id="topic_title"
-                    v-model="current_question_edit.question_text"
-                    v-validate="'required'"
-                    class="form-control"
-                    name="question_text"
-                  />
-                  <div v-if="!current_question_edit.id && filter_available">
-                    <button
-                      v-if="filter_recovery_text"
-                      type="button"
-                      class="btn-link"
-                      @click="undoFilterOptions"
-                    >
-                      Undo
-                    </button>
-                    <button
-                      v-else
-                      type="button"
-                      class="btn-link"
-                      @click="filterOptions"
-                    >
-                      Filter Options
-                    </button>
+      <template slot="modalBody">
+        <form>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="control-label font-size-14">Question text</label>
+                <div class="inner-addon left-addon">
+                  <div class="cl_input">
+                    <textarea
+                      id="topic_title"
+                      v-model="current_question_edit.question_text"
+                      v-validate="'required'"
+                      class="form-control"
+                      name="question_text"
+                    />
+                    <div v-if="!current_question_edit.id && filter_available">
+                      <button
+                        v-if="filter_recovery_text"
+                        type="button"
+                        class="btn-link"
+                        @click="undoFilterOptions"
+                      >
+                        Undo
+                      </button>
+                      <button
+                        v-else
+                        type="button"
+                        class="btn-link"
+                        @click="filterOptions"
+                      >
+                        Filter Options
+                      </button>
+                    </div>
+                    <span class="error">{{ formErrors('question_text') }}</span>
                   </div>
-                  <span class="error">{{ formErrors('question_text') }}</span>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label class="control-label font-size-14">Marks</label>
-              <select
-                v-model="current_question_edit.marks"
-                v-validate="'required'"
-                class="form-control"
-                name="marks"
-              >
-                <option value="">
-                  Select Marks
-                </option>
-                <option
-                  v-for="mark in avail_marks"
-                  :key="mark"
-                  :value="mark"
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label font-size-14">Marks</label>
+                <select
+                  v-model="current_question_edit.marks"
+                  v-validate="'required'"
+                  class="form-control"
+                  name="marks"
                 >
-                  {{ mark }}
-                </option>
-              </select>
+                  <option value="">
+                    Select Marks
+                  </option>
+                  <option
+                    v-for="mark in avail_marks"
+                    :key="mark"
+                    :value="mark"
+                  >
+                    {{ mark }}
+                  </option>
+                </select>
+              </div>
             </div>
-          </div>
-          <div class="col-md-12">
-            <span class="error">{{ formErrors('marks') }}</span>
-          </div>
-          <div class="col-md-12 mt-2">
-            <div class="row">
-              <div class="col-md-12">
-                <h4>Answers</h4>
+            <div class="col-md-12">
+              <span class="error">{{ formErrors('marks') }}</span>
+            </div>
+            <div class="col-md-12 mt-2">
+              <div class="row">
+                <div class="col-md-12">
+                  <h4>Options</h4>
 
-                <div class="row">
-                  <div class="col-md-12">
-                    <div
-                      v-for="(choice,index) in current_question_edit.multiple_choice"
-                      :key="index"
-                      class="form-group d-flex"
-                    >
-                      <div class="input-group mr-2">
-                        <div class="input-group-prepend">
-                          <span
-                            id="basic-addon1"
-                            class="input-group-text"
-                          ><i class="fa fa-list" /></span>
-                        </div>
-                        <input
-                          v-model="choice.option_text"
-                          v-validate="'required'"
-                          type="text"
-                          name="option_text"
-                          class="form-control col-md-12"
-                        >
-                      </div>
-
-                      <button
-                        v-if="current_question_edit.multiple_choice.length>2"
-                        class="btn btn-default btn-sm ml-2 delete_btn"
-                        type="button"
-                        @click="removeOption(index)"
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div
+                        v-for="(choice,index) in current_question_edit.multiple_choice"
+                        :key="index"
+                        class="form-group d-flex"
                       >
-                        <i class="fa fa-trash-alt" />
-                      </button>
+                        <div class="input-group mr-2">
+                          <div class="input-group-prepend">
+                            <span
+                              id="basic-addon1"
+                              class="input-group-text"
+                            ><i class="fa fa-list" /></span>
+                          </div>
+                          <input
+                            v-model="choice.option_text"
+                            v-validate="'required'"
+                            type="text"
+                            name="option_text"
+                            class="form-control col-md-12"
+                          >
+                        </div>
 
-                      <div class="form-check ml-0 mt-2">
-                        <input
-                          :id="'correctAnswer'+index"
-                          v-validate="'required'"
-                          :checked="current_question_edit.correct_answer===index"
-                          class="form-check-input"
-                          type="radio"
-                          name="correct_answer"
-                          :value="true"
-                          @change="current_question_edit.correct_answer=index"
+                        <button
+                          v-if="current_question_edit.multiple_choice.length>2"
+                          class="btn btn-default btn-sm ml-2 delete_btn"
+                          type="button"
+                          @click="removeOption(index)"
                         >
-                        <label class="form-check-label">Mark as correct answer</label>
+                          <i class="fa fa-trash-alt" />
+                        </button>
+
+                        <div class="form-check ml-0 mt-2">
+                          <input
+                            :id="'correctAnswer'+index"
+                            v-validate="'required'"
+                            :checked="current_question_edit.correct_answer===index"
+                            class="form-check-input"
+                            type="radio"
+                            name="correct_answer"
+                            :value="true"
+                            @change="current_question_edit.correct_answer=index"
+                          >
+                          <label class="form-check-label">Mark as correct answer</label>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="col-md-12">
-                    <span class="error">{{ formErrors('option_text') }}</span>
-                    <span class="error">{{ formErrors('correct_answer') }}</span>
-                  </div>
-                  <div class="col-md-12">
-                    <button
-                      class="btn-lg btn-secondary"
-                      @click="addOption()"
-                    >
-                      <i class="fas fa-plus" />&nbsp;&nbsp;Add Option
-                    </button>
+                    <div class="col-md-12">
+                      <span class="error">{{ formErrors('option_text') }}</span>
+                      <span class="error">{{ formErrors('correct_answer') }}</span>
+                    </div>
+                    <div class="col-md-12">
+                      <button
+                        type="button"
+                        class="btn btn-sm btn-primary"
+                        @click="addOption()"
+                      >
+                        <i class="fas fa-plus" />&nbsp;&nbsp;Add Option
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-
-        <div class="mt-1 row text-right">
-          <div class="col-md-12">
-            <hr>
-            <button
-              type="submit"
-              class="btn btn-outline-primary mb-2"
-            >
-              Submit
-            </button>
-          </div>
-        </div>
-      </form>
+        </form>
+      </template>
     </modal>
   </div>
 </template>
@@ -295,10 +275,12 @@
 <script>
 import AddButton from '../../../components/AddButton';
 import FormMixin from '../../../components/mixins/form-mixin.js';
+import Modal from '../../../components/VueNiceModal.vue';
 
 export default {
 	components: {
 		AddButton,
+		Modal
 	},
 	mixins: [FormMixin],
 	props:['assignmentId','dailyQuestions'],
@@ -347,13 +329,9 @@ export default {
 		this.daily_questions =this.dailyQuestions ? this.dailyQuestions :[];
 	},
 	methods: {
-		close() {
-			this.$modal.hide('addDailyQuestionModal'+this.assignmentId);
-		},
 		addQuestion() {
 			this.resetEditQuestion();
 			this.avail_marks = this.total_marks<11 ? (10-this.total_marks) : 0;
-			this.$modal.show('addDailyQuestionModal'+this.assignmentId);
 		},
 		filterOptions(){
 			const text = this.current_question_edit.question_text;
@@ -410,8 +388,7 @@ export default {
 						this.$emit('loader',false);
 						this.resetEditQuestion();
 					});
-
-					this.$modal.hide('addDailyQuestionModal'+this.assignmentId);
+					this.$refs['addDailyQuestionModal'+this.assignmentId].closeModal();
 				}});
 		},
 		editQuestion(question_id) {
@@ -423,7 +400,6 @@ export default {
 				}
 				return acc + currVal.marks;
 			}, 0));
-			this.$modal.show('addDailyQuestionModal'+this.assignmentId);
 		},
 		deleteQuestion(question_id) {
 			this.axios.post('/api/classroom/delete-daily-question', {

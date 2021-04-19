@@ -57,6 +57,7 @@
         style="background-color: #f0f2f5; border-radius: 20px;"
       >
         <input
+          id="reply-input"
           type="text"
           placeholder="Reply to this message"
           class="col-11 col-md-11 message-reply"
@@ -100,6 +101,7 @@ export default {
 							content:e.target.value,
 							classroom_id:message.classroom_id,
 						}).then((resp)=>{
+						document.getElementById('#reply-input').value = '';
 						this.replies.push({
 							'id':resp.data.success.message.id,
 							'content':resp.data.success.message.content,

@@ -14,8 +14,6 @@ const BatchMixin = {
 				return 'Please enter currect start year.';
 			}else if(this.end_year && this.end_year<this.start_year){
 				return 'Please enter currect start and end year.';
-			}else if(this.end_year-this.start_year===1){
-				return 'Course duration of 1 year is not supported.';
 			}
 			return '';
 		}
