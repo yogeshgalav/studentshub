@@ -121,36 +121,38 @@
         </div>
       </div>
     </div>
-    <div
-      v-if="classroomDetail.id"
-      class="col-md-4  col-12 mt-3 mb-3"
-    >
+    <div class="card-body col-md-12 row mt-2"> 
       <div
-        class="join_id_box"
-        @click="copyText('joinId')"
+        v-if="classroomDetail.id"
+        class="col-md-4  col-12 mt-3 mb-3"
       >
-        <i class="fa  text-blue  fa-arrow-right mr-3" />  <span
-          class="text-blue font-size-14 weight-800 join-id line-height-25-px"
+        <div
+          class="join_id_box"
+          @click="copyText('joinId')"
         >
-          {{ 'Copy Join Id' }}: {{ classroomDetail.classroom_join_id }}
-          <strong class="right_positions hide"><i class="fa fa-copy text-success font-size-15" /> </strong>  
-        </span>
+          <i class="fa  text-blue  fa-arrow-right mr-3" />  <span
+            class="text-blue font-size-14 weight-800 join-id line-height-25-px"
+          >
+            {{ 'Copy Join Id' }}: {{ classroomDetail.classroom_join_id }}
+            <strong class="right_positions hide"><i class="fa fa-copy text-success font-size-15" /> </strong>  
+          </span>
+        </div>
       </div>
-    </div>
-    <div
-      v-if="classroomDetail.batch_id"
-      class="col-md-4  col-12 mt-3 mb-3"
-    >
       <div
-        class="join_id_box"
-        @click="copyText('RegisterationLink')"
+        v-if="classroomDetail.batch_id"
+        class="col-md-4  col-12 mt-3 mb-3"
       >
-        <i class="fa  text-blue  fa-arrow-right mr-3" />  <span
-          class="text-blue font-size-14 weight-800 join-id line-height-25-px"
+        <div
+          class="join_id_box"
+          @click="copyText('RegisterationLink')"
         >
-          {{ 'Copy Registration Link' }}
-          <strong class="right_positions hide"><i class="fa fa-copy text-success font-size-15" /> </strong>
-        </span>
+          <i class="fa  text-blue  fa-arrow-right mr-3" />  <span
+            class="text-blue font-size-14 weight-800 join-id line-height-25-px"
+          >
+            {{ 'Copy Registration Link' }}
+            <strong class="right_positions hide"><i class="fa fa-copy text-success font-size-15" /> </strong>
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -161,6 +163,9 @@
   padding: 10px 35px;
 }
 .card {
+  box-shadow: 0px 2px 50px rgba(0,0,0,0.15) !important;
+}
+.row{
   box-shadow: 0px 2px 50px rgba(0,0,0,0.15) !important;
 }
 .join_id_box {
