@@ -2,7 +2,7 @@
   <div>
     <div v-if="!attempt_started">
       <button
-        class="btn btn-primary btn-lg m-0-a btn-round"
+        class="btn btn-primary btn-lg m-0-a"
         @click="startAttempt"
       >
         Start Attempt
