@@ -92,6 +92,63 @@
             </div>
           </div>
         </div>
+        <div class="row mt-5 mb-2">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header bg-white">
+                <h4 class="mb-1 mt-1">
+                  Join Id
+                </h4>
+              </div>
+        
+              <div class="card-body row">
+                <div class="col-md-12">
+                  Share Registration Link or Join Id with your students to directly join this classroom.
+                </div>
+                <div
+                  v-if="showCopied"
+                  class="col-md-12 copied"
+                >
+                  <div class="alert alert-success">
+                    <strong><i class="fas fa-check" /> &nbsp;Copied to clipboard!</strong>
+                  </div>
+                </div>
+                <div
+                  v-if="classroomDetail.id"
+                  class="col-md-4  col-12 mt-2 mb-3"
+                >
+                  <div
+                    class="join_id_box"
+                    @click="copyText('joinId')"
+                  >
+                    <i class="fa  text-blue  fa-arrow-right mr-3" />  <span
+                      class="text-blue font-size-14 weight-800 join-id line-height-25-px"
+                    >
+                      {{ 'Copy Join Id' }}: {{ classroomDetail.classroom_join_id }}
+                      <strong class="right_positions hide"><i class="fa fa-copy text-success font-size-15" /> </strong>  
+                    </span>
+                  </div>
+                </div>
+                <div
+                  v-if="classroomDetail.batch_id"
+                  class="col-md-4  col-12 mt-2 mb-3"
+                >
+                  <div
+                    class="join_id_box"
+                    @click="copyText('RegisterationLink')"
+                  >
+                    <i class="fa  text-blue  fa-arrow-right mr-3" />  <span
+                      class="text-blue font-size-14 weight-800 join-id line-height-25-px"
+                    >
+                      {{ 'Copy Registration Link' }}
+                      <strong class="right_positions hide"><i class="fa fa-copy text-success font-size-15" /> </strong>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> 
+        </div>
 
         <div
           v-if="classroomDetail.total_students===0"
@@ -123,56 +180,6 @@
         </div>
       </div>
     </div>
-    <div class="row mt-5 mb-2">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="card-header bg-white">
-            <h4 class="mb-1 mt-1">
-              Join Id
-            </h4>
-          </div>
-          <div class="card-body pb-0">
-            <p class="mb-0">
-              Share Registration Link or Join Id with your students to directly join this classroom.
-            </p>
-          </div>
-          <div class="card-body row pt-0">
-            <div
-              v-if="classroomDetail.id"
-              class="col-md-4  col-12 mt-3 mb-3"
-            >
-              <div
-                class="join_id_box"
-                @click="copyText('joinId')"
-              >
-                <i class="fa  text-blue  fa-arrow-right mr-3" />  <span
-                  class="text-blue font-size-14 weight-800 join-id line-height-25-px"
-                >
-                  {{ 'Copy Join Id' }}: {{ classroomDetail.classroom_join_id }}
-                  <strong class="right_positions hide"><i class="fa fa-copy text-success font-size-15" /> </strong>  
-                </span>
-              </div>
-            </div>
-            <div
-              v-if="classroomDetail.batch_id"
-              class="col-md-4  col-12 mt-3 mb-3"
-            >
-              <div
-                class="join_id_box"
-                @click="copyText('RegisterationLink')"
-              >
-                <i class="fa  text-blue  fa-arrow-right mr-3" />  <span
-                  class="text-blue font-size-14 weight-800 join-id line-height-25-px"
-                >
-                  {{ 'Copy Registration Link' }}
-                  <strong class="right_positions hide"><i class="fa fa-copy text-success font-size-15" /> </strong>
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> 
-    </div>
   </div>
 </template>
 
@@ -180,15 +187,17 @@
 .delete_btn .btn {
   padding: 10px 35px;
 }
-.tooltip{
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 15px;
+.copied{
+  margin-top: -20px;
+  animation-name: alert;
+  animation-duration: 0.3s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
 }
-.tooltip:active{
-
-}
+@keyframes alert {
+  from {margin-top: -20px;}
+  to {margin-top: 0px;}
+} 
 .join_id_box {
  border:1px solid #eee;
  border-radius: 5px;
@@ -227,6 +236,7 @@ export default {
 				expected_students: 0,
 				duration: 0
 			},
+			showCopied: false
 		};
 	},
 	computed:{
@@ -266,6 +276,8 @@ export default {
                
 			document.execCommand('copy');
 			document.body.removeChild(el);
+			this.showCopied = true;
+			setTimeout(() => this.showCopied = false , 3000);
 		},     
 	},
 };
