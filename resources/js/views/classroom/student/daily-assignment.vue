@@ -18,10 +18,7 @@
           {{ user_detail.full_name }}
         </h2>
       </div>
-      <div
-        v-if="!$router.currentRoute.params.userId"
-        class="col-md-8 col-center"
-      >
+      <div class="col-md-8 col-center">
         <div v-if="today_report!==null">
           <div
             id="reflection-complete"
@@ -75,7 +72,7 @@
         <div v-if="today_report===null && today_assignment!==null">
           <div
             id="reflection-incomplete"
-            class="card mt-3 mb-3 bg-primary border-primary"
+            :class="['card mt-3 mb-3', cardColor]"
           >
             <div class="card-header ">
               <h3 class="text-center font-size-18 text-white">
@@ -176,8 +173,8 @@
     }
 </style>
 <script>
-import ClassroomHeader from '../../components/ClassroomHeader';
-import DailyAssignmentReport from '../../components/DailyAssignmentReport';
+import ClassroomHeader from '../../../components/ClassroomHeader';
+import DailyAssignmentReport from '../../../components/DailyAssignmentReport';
 import dayjs from 'dayjs';
 
 export default {
@@ -204,6 +201,14 @@ export default {
 	computed:{
 		isAssignmentEnded(){
 			return dayjs().isAfter(dayjs(this.today_assignment.end_time,'hh:mm:ss'));
+		},
+		cardColor(){
+			if(this.is_available){
+				return 'bg-success';
+			}else if(this.isAssignmentEnded){
+				return 'bg-danger';
+			}
+			return 'bg-warning';
 		}
 	},
 	mounted() {

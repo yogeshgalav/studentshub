@@ -52,40 +52,18 @@
                   @blur="updateClassroomDetail"
                 >
               </div>
-         
               <div class="form-group">
-                <label class="text-black font-size-14">Number of expected participants </label>
-                <div class="row">
-                  <div class="col-md-3 col-6">
-                    <input
-                      id="expected_students"
-                      v-model="form_data.expected_students"
-                      type="text"
-                      class="form-control"
-                      @blur="updateClassroomDetail"
-                    >
-                  </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="text-black font-size-14">Classroom
-                  duration </label>
-                <div class="row">
-                  <div class="col-md-3 col-6 pr-0">
-                    <input
-                      id="duration"
-                      v-model="form_data.duration"
-                      type="text"
-                      class="form-control"
-                      @blur="updateClassroomDetail"
-                    >
-                  </div>
-                  <div class="col-md-3 col-6 text-black">
-                    <div class="mt-2 weight-800">
-                      Days
-                    </div>
-                  </div>
-                </div>
+                <label class="text-black font-size-14">
+                  Meeting Link
+                </label>
+                <input
+                  id="duration"
+                  v-model="form_data.meet_link"
+                  type="text"
+                  class="form-control"
+                  placeholder="Paste Google meet or zoom link here"
+                  @blur="updateClassroomDetail"
+                >
               </div>
             </form>
           </div>
@@ -197,8 +175,7 @@ export default {
 		return {
 			form_data:{
 				name: '',
-				expected_students: 0,
-				duration: 0
+				meet_link: '',
 			},
 		};
 	},
@@ -212,8 +189,7 @@ export default {
 			if(val.id){
 				this.form_data={
 					name: val.name,
-					expected_students: val.expected_students,
-					duration: val.classroom_duration
+					meet_link: val.meet_link,
 			  };
 			}
 		}

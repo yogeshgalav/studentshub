@@ -1773,7 +1773,7 @@ button:focus {
 
 .primary-nav {
     position: fixed;
-    z-index: 999;
+    z-index: 500;
     top: 84px;
 }
 
@@ -2392,7 +2392,7 @@ select.form-control.custom-select {
     .primary-nav {
         top: 0;
         width: 100%;
-        z-index: 9999;
+        z-index: 500;
         display: block;
     }
 }
@@ -2519,7 +2519,7 @@ select.form-control.custom-select {
     .primary-nav {
         top: 0;
         width: 100%;
-        z-index: 9999;
+        z-index: 500;
     }
     .creat_post_card.img_der .row {
         flex-direction: column-reverse;
@@ -2763,7 +2763,7 @@ select.form-control.custom-select {
     .primary-nav {
         top: 0;
         width: 100%;
-        z-index: 9999;
+        z-index: 500;
     }
     .creat_post_card.img_der .row {
         flex-direction: column-reverse;
@@ -3008,7 +3008,7 @@ select.form-control.custom-select {
     .primary-nav {
         top: 0;
         width: 100%;
-        z-index: 9999;
+        z-index: 500;
     }
     .creat_post_card.img_der .row {
         flex-direction: column-reverse;
