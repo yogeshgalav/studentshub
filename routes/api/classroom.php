@@ -46,4 +46,12 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::post('/classroom/{classroomId}/get-daily-answers','DailyReportController@getDailyAnswers');
     Route::post('/decline-attempt/{assignmentId}','DailyReportController@declineAttempt');
     
+    //attendance
+    Route::get('/classroom/{classroomId}/start-meeting','AttendanceController@startMeeting');
+    Route::get('/classroom/{classroomId}/join-meeting','AttendanceController@joinMeeting');
+    Route::get('/classroom/{classroomId}/start-attendance','AttendanceController@startAttendance');
+    Route::get('/classroom/{classroomId}/mark-present','AttendanceController@markPresent');
+    Route::get('/classroom/{classroomId}/get-attendance-data','AttendanceController@getAttendanceData');
+    Route::get('/classroom/{classroomId}/get-attendance-dates','AttendanceController@getAttendanceDates');
+    Route::get('/classroom/{classroomId}/get-student-attendance','AttendanceController@getStudentAttendance');
 });

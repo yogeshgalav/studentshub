@@ -1,13 +1,46 @@
 <template>
   <div>
+    <loading
+      :active.sync="loading"
+      :color="'#10069F'"
+      :width="100"
+      :is-full-page="true"
+      :opacity="0.7"
+    />
     <classroom-header />
     <div class="row">
-      <div class="col-md-12">
-        <h4 class="text-black mb-0">
-          Smart Attendance
-        </h4>
+      <div
+        v-if="classroomDetail.meet_link"
+        class="col-md-6 col-12"
+      >
+        <a
+          :href="classroomDetail.meet_link"
+          target="_blank"
+          class="btn btn-primary btn-lg"
+          @click="joinMeeting"
+        >Start Meeting
+        </a>
       </div>
-      <div class="col-md-12">
+      <div
+        class="col-md-6 col-12"
+      >
+        <button
+          v-if="showPresentButton"
+          class="btn btn-success btn-lg"
+          @click="markPresent"
+        >
+          Mark Present
+        </button>
+        <button
+          v-else
+          class="btn btn-white btn-lg"
+          @click="getAttendanceDetails"
+        >
+          Refresh
+        </button>
+      </div>
+
+      <div class="col-md-12 mt-2">
         <div class="card">
           <div class="card-header">
             Smart Attendance
@@ -32,9 +65,8 @@
               </template>
               <div slot="emptystate">
                 <p class="mt-3">
-                  {{ 'Currently no student has joined this classroom' }}
+                  {{ 'Currently no attendance data to show here.' }}
                 </p>
-                <p>{{ 'Share join Id and accept their request to join here.' }}</p>
               </div>
             </vue-table-component>
           </div>
@@ -54,15 +86,19 @@ export default {
 	},
 	data() {
 		return {
+			attendance: {
+				present_at:'',
+				ended_at:''
+			},
 			attendRow: [],
 			attendColumn: [
 				{
 					label: 'Date',
-					field: 'date',
+					field: 'meet_date',
 				},
 				{
 					label: 'Joined at',
-					field: 'meet_time',
+					field: 'joined_at',
 				},
 				
 				{
@@ -78,19 +114,42 @@ export default {
 		classroomDetail(){
 			return this.$store.state.classroom.classroomDetail;
 		},
-		joinedStudents(){
-			return this.student_details;
-		},
+		showPresentButton(){
+			let ended_at = dayjs(this.attendance.ended_at,'HH:mm:ss');
+			let current_time = dayjs();
+			if(!this.attendance.present_at && ended_at && current_time.isBefore(ended_at) ){
+				return true;
+			}
+			return false;
+		}
 	},
 	mounted(){
 		this.getAttendanceDetails();
 	},
 	methods: {
 		getAttendanceDetails(){
-			this.axios('/api/classroom/'+ this.$route.params.classroomId +'/teacher-attendance-data').then((resp)=>{
-				
+			this.loading=true;
+			this.axios('/api/classroom/'+ this.$route.params.classroomId +'/get-student-attendance').then((resp)=>{
+				this.attendance = resp.data.success.attendance;
+				this.attendRow = resp.data.success.attend_rows.map(node=>{
+					node.joined_at = dayjs(node.joined_at, 'hh:mm:ss').format('hh:mm A');
+					node.present_at = node.present_at ? dayjs(node.present_at, 'hh:mm:ss').format('hh:mm A') : '';
+					node.meet_date = dayjs(node.meet_date, 'YYYY-MM-DD').format('D MMMM, YYYY');
+					return node;
+				});;
+				this.loading=false;
+
 			});
 		},
+		joinMeeting(){
+			this.axios('/api/classroom/'+ this.$route.params.classroomId +'/join-meeting');
+		},
+		markPresent(){
+			this.loading=true;
+			this.axios('/api/classroom/'+ this.$route.params.classroomId +'/mark-present').then(()=>{
+				this.loading =false;
+			});
+		}
 	},
 
 };

@@ -15,12 +15,15 @@ class MakeStudentAttendanceTable extends Migration
     {
         Schema::create('student_attendance', function (Blueprint $table) {
             $table->id();
-            $table->date('meet_date');
-            $table->time('meet_time');
-            $table->time('present_at');
-            $table->integer('user_id');
+            $table->integer('attendance_id')->unsigned();
+            $table->time('joined_at');
+            $table->time('present_at')->nullable();
+            $table->integer('user_id')->unsigned();
             $table->timestamps();
         });
+        Schema::table('student_attendance', function (Blueprint $table) {
+            $table->foreign('attendance_id')->references('id')->on('attendance')->onDelete('cascade');
+        }); 
     }
 
     /**
