@@ -13,7 +13,7 @@ class CreateForeignKeysForStudentsTable extends Migration
      */
     public function up()
     {
-        \App\Models\Student::destroy([3,13,16]);
+        \App\Models\Student::destroy([5,6,7]);
         Schema::table('students', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('prefferred_batch')->references('id')->on('batches')->onDelete('cascade');
