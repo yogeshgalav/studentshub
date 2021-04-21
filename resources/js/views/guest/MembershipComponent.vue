@@ -32,7 +32,7 @@
       </div>
       <div class="text-center">
         <a
-          
+
           class="demo"
           @click="scrollMeTo('requestDemo')"
         >Request a demo <i class="fas fa-arrow-right" /></a>
@@ -44,7 +44,7 @@
       </h3>
       <div class="text-center">
         <router-link
-          :to="'/get-started'" 
+          :to="'/get-started'"
           type="button"
           class="btn btn-outline-secondary"
         >
@@ -127,7 +127,7 @@
       </div>
       <div class="text-center">
         <a
-          
+
           role="button"
           class="demo"
           @click="scrollMeTo('requestDemo')"
@@ -171,7 +171,7 @@
         </div>
         <div class="text-center">
           <a
-            
+
             role="button"
             class="demo"
             @click="scrollMeTo('requestDemo')"
@@ -277,7 +277,7 @@
                   id="firstname"
                   ref="firstname"
                   v-model="full_name"
-                  v-validate="'required|max:255'"
+                  v-validate="'required'"
                   class="form-control"
                   type="name"
                   name="firstname"
@@ -292,7 +292,7 @@
                   id="email"
                   ref="email"
                   v-model="email"
-                  v-validate="'required|max:255'"
+                  v-validate="'required'"
                   class="form-control"
                   type="email"
                   name="email"
@@ -307,7 +307,7 @@
                   id="institute"
                   ref="institute"
                   v-model="institute_name"
-                  v-validate="'required|max:255'"
+                  v-validate="'required'"
                   class="form-control"
                   type="name"
                   name="institute"
@@ -322,7 +322,7 @@
                   id="students"
                   ref="students"
                   v-model="student_number"
-                  v-validate="'required|numeric'"
+                  v-validate="'required'"
                   class="form-control"
                   type="number"
                   name="students"
@@ -337,7 +337,7 @@
                   id="phone"
                   ref="phone"
                   v-model="phone_number"
-                  v-validate="'required|numeric'"
+                  v-validate="'required'"
                   class="form-control"
                   type="tel"
                   name="phone"
