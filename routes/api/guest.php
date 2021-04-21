@@ -11,8 +11,8 @@ Route::post('/register','AuthController@registerViaApi');
 Route::post('/member-request','GuestController@memberRequest');
 
 Route::post('/forgot-password','AuthController@processForgotPassword');
-Route::post('/reset-password','AuthController@resetPassword2')->middleware('auth:api');
-Route::post('/reset-password/{token}','AuthController@resetPassword');
+Route::post('/reset-password',[App\Http\Controllers\AuthController::class,'resetPassword2'])->middleware('auth:api');
+Route::post('/reset-password/{token}',[App\Http\Controllers\AuthController::class,'resetPassword']);
 Route::post('/feedback','GuestController@feedback');
 Route::post('/contactus','GuestController@contactus');
 Route::post('/faq','GuestController@faq');

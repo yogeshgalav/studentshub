@@ -1,22 +1,6 @@
 <template>
   <div>
     <div class="row">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="mobile_header">
-            <a
-              class="btn btn-link ml-2 mb-2 font-size-18"
-              @click="$router.back()"
-            >
-              <i
-                class="fa fa-arrow-left"
-                aria-hidden="true"
-              />
-              Back
-            </a>
-          </div>
-        </div>
-      </div>
       <div class="col-md-12 custom-margin">
         <h2 class="font-size-40 text-black weight-800 mb-2 line-height-25-px">
           {{ classroomDetail.name }}

@@ -150,7 +150,12 @@ export default {
 		},
 		markPresent(){
 			this.loading=true;
-			this.axios('/api/classroom/'+ this.$route.params.classroomId +'/mark-present').then(()=>{
+			this.axios('/api/classroom/'+ this.$route.params.classroomId +'/mark-present').then((resp)=>{
+				//make showPresentButton true
+				this.attendance.present_at = resp.data.success.present_at; 
+				let myAttendance = this.attendRow.find(node=>node.meet_date === this.attendance.meet_date);
+				myAttendance.present_at = this.attendance.present_at;
+
 				this.loading =false;
 			});
 		}
