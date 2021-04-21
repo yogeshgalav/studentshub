@@ -33,7 +33,10 @@ class SeekerController extends Controller
             ->with('classroom_count', Auth::user()->joinedClassroomCount())
             ->with('course_levels', $course_levels);
     }
-
+    public function accountSetting()
+    {
+        return view('profile.account-setting');
+    }
     public function checkin()
     {
         $course_levels = \App\Models\CourseLevel::get();
@@ -46,5 +49,5 @@ class SeekerController extends Controller
     {
         return view('explore.search')->with('query', $request->query);
     }
-    
+
 }

@@ -34,7 +34,7 @@
                   </h3>
                   <p>{{ user.introduction }}</p>
                   <p v-if="!user.introduction && user.id===AuthUser.id">
-                    Write Something about yourself. What are your hobbies. 
+                    Write Something about yourself. What are your hobbies.
                     What field are you most interested in.Which is your favriout subject.
                     Why do you love it and what motivates you to pursue it.
                   </p>
@@ -134,7 +134,7 @@
                       </radial-progress-bar>
                       <p>{{ interest.name }}</p>
                     </div>
-                  </div> 
+                  </div>
                 </div>
               </div>
             </div>
@@ -150,7 +150,7 @@
         <div class="model_box_inner">
           <div class="edit_profile_head">
             <h4>Edit Your Profile</h4>
-          </div> 
+          </div>
           <div class="row">
             <div class="col-md-12">
               <div class="user_edit_profile_img">
@@ -244,7 +244,7 @@
                 >
                 <span class="text-danger">{{ errors.linked_url }}</span>
               </div>
-            </div>   
+            </div>
             <div class="col-md-12">
               <div class="model_btn">
                 <button
@@ -394,17 +394,17 @@ export default {
 
 /* Track */
 .model_box_inner::-webkit-scrollbar-track {
-  background: #f1f1f1; 
+  background: #f1f1f1;
 }
- 
+
 /* Handle */
 .model_box_inner::-webkit-scrollbar-thumb {
-  background: #888; 
+  background: #888;
 }
 
 /* Handle on hover */
 .model_box_inner::-webkit-scrollbar-thumb:hover {
-  background: #555; 
+  background: #555;
 }
 .progess_bar circle {
     stroke-width: 8px !important;
