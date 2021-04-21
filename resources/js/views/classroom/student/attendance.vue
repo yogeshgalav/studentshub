@@ -40,7 +40,7 @@
         </button>
       </div>
 
-      <div class="col-md-12 mt-2">
+      <div class="col-md-12 mt-2 mb-2">
         <div class="card">
           <div class="card-header">
             Smart Attendance
@@ -108,6 +108,7 @@ export default {
 				
 			],
 			hover: false,
+			loading: false,
 		};
 	},
 	computed: {
@@ -115,9 +116,12 @@ export default {
 			return this.$store.state.classroom.classroomDetail;
 		},
 		showPresentButton(){
-			let ended_at = dayjs(this.attendance.ended_at,'HH:mm:ss');
+			if(!this.attendance.ended_at){
+				return false;
+			}
+			let ended_at = dayjs(this.attendance.ended_at);
 			let current_time = dayjs();
-			if(!this.attendance.present_at && ended_at && current_time.isBefore(ended_at) ){
+			if(!this.attendance.present_at && current_time.isBefore(ended_at) ){
 				return true;
 			}
 			return false;

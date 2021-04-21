@@ -81,7 +81,7 @@
         </div>
       </div>
 
-      <div class="col-md-12 mt-2">
+      <div class="col-md-12 mt-2 mb-2">
         <div class="card">
           <div class="card-header">
             Previous Attendance
@@ -90,8 +90,8 @@
             <div class="row">
               <div class="col-md-6">
                 <select 
+                  v-model="selected_date"
                   class="form-control"
-				  v-model="selected_date"
                   @change="getAttendanceForDate()"
                 >
                   <option value="">
@@ -108,7 +108,7 @@
               </div>
             </div>  
             <vue-table-component
-			v-if="selected_date"
+              v-if="selected_date"
               key="today_attendance"
               :columns="attendColumn"
               :rows="PreviousAttendRow"
