@@ -124,7 +124,7 @@
           </h3>
         </div>
         <div class="col-md-6 p-0">
-          <p>
+          <p class="mb-0">
             Join the thousands of other institutes who benefits from our data analytics and digital classroom services.
           </p>
         </div>
