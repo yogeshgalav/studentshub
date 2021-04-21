@@ -233,8 +233,7 @@ export default {
 		return {
 			form_data:{
 				name: '',
-				expected_students: 0,
-				duration: 0
+				meet_link: '',
 			},
 			showCopied: false
 		};
@@ -249,8 +248,7 @@ export default {
 			if(val.id){
 				this.form_data={
 					name: val.name,
-					expected_students: val.expected_students,
-					duration: val.classroom_duration
+					meet_link: val.meet_link,
 			  };
 			}
 		}
