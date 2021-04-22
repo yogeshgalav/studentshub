@@ -29,7 +29,7 @@
         v-else
         class="row"
       >
-        <div class="col-md-6">
+        <div class="col-md-6 mb-2">
           <select
             v-model="current_unit"
             class="form-control minimal"
@@ -46,11 +46,12 @@
         <div class="col-md-6 ">
           <div
             v-if="AuthTeacher && AuthTeacher.id===classroomDetail.teacher_id"
-            class="row add_cl_q"
           >
             <div class="text-right">
               <button
                 class="btn-lg btn-primary"
+                data-toggle="modal"
+                data-target="#addResourceModal"
                 @click="addResource"
               >
                 <i class="fas fa-plus" />&nbsp;&nbsp;Add Resource
@@ -104,11 +105,11 @@
                   />
                 </div>
               </div>
-              <like-component
+              <!-- <like-component
                 :post="resource"
                 likable-type="resource"
                 :show-dislike="false"
-              />
+              /> -->
             </div>
             <div class="col-md-3 col-12" />
           </div>

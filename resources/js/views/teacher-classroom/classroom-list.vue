@@ -58,8 +58,8 @@
         >
           <a
             :href="'/classroom/'+classroom.id"
-            class="card rounded-lg pt-3 pb-3 mb-2"
-            style="text-align: -webkit-center;"
+            class="card rounded-lg pt-3 pb-3 mb-2 text-center"
+            style="text-center"
           >
             <div style="text-align: -webkit-center;">
               <profile-image
@@ -94,8 +94,8 @@
         >
           <a
             :href="'/classroom/'+classroom.id"
-            class="card rounded-lg pt-3 pb-3 bg-light"
-            style="text-align: -webkit-center;"
+            class="card rounded-lg pt-3 pb-3 bg-light text-center"
+            style="text-center"
           >
             <div style="text-align: -webkit-center;">
               <profile-image
@@ -138,7 +138,11 @@
     </button>
   </div>
 </template>
-
+<style scoped>
+#profileImage{
+  margin:auto !important;
+}
+</style>
 <script>
 import Modal from '../../components/VueNiceModal';
 import swal from '../../components/swal';

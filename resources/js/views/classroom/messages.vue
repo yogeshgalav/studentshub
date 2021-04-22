@@ -76,36 +76,40 @@
                     </div>
                     <div class="info-post ml-2 dash_insititue_name">
                       <p class="usernamedash mb-0 dash_user_date">
-                        {{ message.user_name }} <span> {{ message.time }} &nbsp; <div class="dropdown d-inline">
-                          <button
-                            id="dropdownMenuButton"
-                            class="btn btn-secondary dropdown-toggle p-0"
-                            type="button"
-                            data-toggle="dropdown"
-                            aria-haspopup="true"
-                            aria-expanded="false"
-                          >
-                            <i class="fas fa-ellipsis-v" />
-                          </button>
+                        {{ message.user_name }} <span> {{ message.time }} &nbsp; 
                           <div
-                            class="dropdown-menu dropdown-menu-right"
-                            style="min-width: max-content;"
-                            aria-labelledby="dropdownMenuButton"
+                            v-if="message.user_id===AuthUser.id"
+                            class="dropdown d-inline"
                           >
                             <button
+                              id="dropdownMenuButton"
+                              class="btn btn-secondary dropdown-toggle p-0"
                               type="button"
-                              class="dropdown-item"
-                              data-toggle="modal"
-                              data-target="#editMessageModal"
-                              @click="edit_message=message"
-                            >Edit</button> 
-                            <button
-                              type="button"
-                              class="dropdown-item"
-                              @click="deleteMessage(message.id)"
-                            >Delete</button>
-                          </div>
-                        </div></span>
+                              data-toggle="dropdown"
+                              aria-haspopup="true"
+                              aria-expanded="false"
+                            >
+                              <i class="fas fa-ellipsis-v" />
+                            </button>
+                            <div
+                              class="dropdown-menu dropdown-menu-right"
+                              style="min-width: max-content;"
+                              aria-labelledby="dropdownMenuButton"
+                            >
+                              <button
+                                type="button"
+                                class="dropdown-item"
+                                data-toggle="modal"
+                                data-target="#editMessageModal"
+                                @click="edit_message=message"
+                              >Edit</button> 
+                              <button
+                                type="button"
+                                class="dropdown-item"
+                                @click="deleteMessage(message.id)"
+                              >Delete</button>
+                            </div>
+                          </div></span>
                       </p>
                       <p class="usernamedash mb-0">
                         {{ message.classroom_name }}

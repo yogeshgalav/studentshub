@@ -100,7 +100,7 @@
                   <option
                     v-for="(date, index) in attendDates"
                     :key="index"
-                    :value="date.meet_date"
+                    :value="date.original_date"
                   >
                     {{ date.meet_date }}
                   </option>
@@ -216,6 +216,7 @@ export default {
 			});
 			this.axios('/api/classroom/'+ this.$route.params.classroomId +'/get-attendance-dates').then((resp)=>{
 				this.attendDates = resp.data.success.attend_dates.map(node=>{
+					node.original_date = node.meet_date;
 					node.meet_date = dayjs(node.meet_date, 'YYYY-MM-DD').format('D MMMM, YYYY');
 					return node;
 				});
@@ -223,7 +224,9 @@ export default {
 		},
 		getAttendanceForDate(){
 			this.loading =true;
-			this.axios('/api/classroom/'+ this.$route.params.classroomId +'/get-attendance-data?date='+this.selected_date).then((resp)=>{
+			let date = dayjs(this.selected_date, 'D MMMM, YYYY').format('YYYY-MM-DD');
+			console.log(date);
+			this.axios('/api/classroom/'+ this.$route.params.classroomId +'/get-attendance-data?date='+date).then((resp)=>{
 				this.PreviousAttendRow = resp.data.success.today_attendance.map(node=>{
 					node.joined_at = dayjs(node.joined_at, 'hh:mm:ss').format('hh:mm A');
 					node.present_at = node.present_at ? dayjs(node.present_at, 'hh:mm:ss').format('hh:mm A') : '';
