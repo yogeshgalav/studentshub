@@ -21,7 +21,7 @@ const StudentClassroomRoutes = [
 		component: ClassroomStudentPanelComponent,
 	},
 	{
-		path: '/classroom/:classroomId/students',
+		path: '/classroom/:classroomId/report',
 		component: ClassroomReportComponent,
 	},
 

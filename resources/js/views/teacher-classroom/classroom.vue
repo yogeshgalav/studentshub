@@ -49,7 +49,7 @@
           <div class="selection-box-default">
             <router-link
               class="card h-card"
-              :to="'/classroom/'+$route.params.classroomId+'/students'"
+              :to="'/classroom/'+$route.params.classroomId+'/report'"
             >
               <div class="card-body">
                 <div class="row">

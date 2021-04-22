@@ -24,7 +24,7 @@
         </div>
       </div>
 
-      <div class="col-md-4 mb-3">
+      <div class="col-md-4">
         <div class="selection-box-default">
           <router-link
             class="card h-card"
@@ -49,7 +49,7 @@
         <div class="selection-box-default">
           <router-link
             class="card h-card"
-            :to="'/classroom/'+$route.params.classroomId+'/students'"
+            :to="'/classroom/'+$route.params.classroomId+'/report'"
           >
             <div class="card-body">
               <div class="row">
