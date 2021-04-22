@@ -32,7 +32,7 @@
       </div>
       <div class="text-center">
         <a
-          
+
           class="demo"
           @click="scrollMeTo('requestDemo')"
         >Request a demo <i class="fas fa-arrow-right" /></a>
@@ -44,7 +44,7 @@
       </h3>
       <div class="text-center">
         <router-link
-          :to="'/get-started'" 
+          :to="'/get-started'"
           type="button"
           class="btn btn-outline-secondary"
         >
@@ -127,7 +127,7 @@
       </div>
       <div class="text-center">
         <a
-          
+
           role="button"
           class="demo"
           @click="scrollMeTo('requestDemo')"
@@ -171,7 +171,7 @@
         </div>
         <div class="text-center">
           <a
-            
+
             role="button"
             class="demo"
             @click="scrollMeTo('requestDemo')"
@@ -333,7 +333,7 @@
                   for="phone"
                   class="col-form-label text-md-right mb-0"
                 >Phone Number</label>
-                <input
+                <vue-tel-input
                   id="phone"
                   ref="phone"
                   v-model="phone_number"
@@ -342,6 +342,7 @@
                   type="tel"
                   name="phone"
                 >
+                </vue-tel-input>
               </div>
               <div class="col-md-12 text-center">
                 <button
@@ -392,9 +393,12 @@ import FormMixin from '../../components/mixins/form-mixin.js';
 import swal from '../../components/swal';
 import Modal from '../../components/VueNiceModal.vue';
 import SiteFooter from '../footer/SiteFooter';
+import { VueTelInput } from 'vue-tel-input';
+import 'vue-tel-input/dist/vue-tel-input.css';
 
 export default {
 	components: {
+        VueTelInput,
 		SiteFooter
 	},
 	mixins: [FormMixin],
@@ -436,4 +440,5 @@ export default {
 		}
 	},
 };
+
 </script>
