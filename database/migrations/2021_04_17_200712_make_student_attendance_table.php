@@ -15,7 +15,7 @@ class MakeStudentAttendanceTable extends Migration
     {
         Schema::create('student_attendance', function (Blueprint $table) {
             $table->id();
-            $table->integer('attendance_id')->unsigned();
+            $table->bigInteger('attendance_id')->unsigned();
             $table->time('joined_at');
             $table->time('present_at')->nullable();
             $table->integer('user_id')->unsigned();
@@ -23,6 +23,7 @@ class MakeStudentAttendanceTable extends Migration
         });
         Schema::table('student_attendance', function (Blueprint $table) {
             $table->foreign('attendance_id')->references('id')->on('attendance')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         }); 
     }
 
