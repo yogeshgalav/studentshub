@@ -116,7 +116,7 @@ export default {
 			return this.$store.state.classroom.classroomDetail;
 		},
 		showPresentButton(){
-			if(!this.attendance.ended_at){
+			if(!this.attendance){
 				return false;
 			}
 			let ended_at = dayjs(this.attendance.ended_at);

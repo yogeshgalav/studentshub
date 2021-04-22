@@ -272,7 +272,7 @@ export default {
     	},
     	addDoubt()
     	{
-    		this.axios.post(this.baseUrl + '/api/add-doubt/',{
+    		this.axios.post(this.baseUrl + '/api/add-doubt',{
     			doubt:this.question,
     			category:this.selected_category,
     			subject:this.selected_subject,
