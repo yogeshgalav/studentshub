@@ -139,4 +139,14 @@ class ClassroomController extends Controller
             'answers'=>$answers
         ]]);
     }
+    public function classroomReport(Request $request){
+        $report_data=DB::table('daily_reports')
+                ->avg('marks_obtained')
+                ->get();
+        return response()->json([
+            'report_average'=>[
+                'average_score'=>$report_data
+            ]
+        ]);
+    }   
 }

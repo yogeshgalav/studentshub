@@ -114,5 +114,6 @@ class DailyAssignmentController extends Controller
                 'dailyAssignmentData'=>$dailyAssignmentData
             ]
         ]);
-    }   
+    }
+    
 }
