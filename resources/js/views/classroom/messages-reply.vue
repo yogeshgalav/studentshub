@@ -64,11 +64,12 @@
           class="col-11 col-md-11 message-reply"
           @keyup.enter="saveReply($event, message)"
         >
-        <i
-          class="far fa-paper-plane col-md-1"
-          style="font-size: 25px; color: gray; cursor: pointer;"
-          @click="saveReply"
-        />
+        <div @click="saveReply">
+          <i
+            class="far fa-paper-plane col-md-1"
+            style="font-size: 25px; color: gray; cursor: pointer;"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -96,6 +97,9 @@ export default {
 	},
 	methods:{
 		saveReply(){
+			if(!this.reply_text){
+				return false;
+			}
 			this.$validator.validate().then((valid) => {
         	if(valid){
 					this.axios.post('/api/add-message',
