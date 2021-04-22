@@ -55,13 +55,23 @@ class AttendanceController extends Controller
         ->where('classroom_id',$classroomId)
         ->first();
 
-        StudentAttendance::where([
+        $student_attend = StudentAttendance::where([
             'attendance_id'=>$attendance->id,
             'user_id'=>Auth::id(),
-        ])->update([
-            'present_at'=>$this->currentTime->toDateTimeString(),
-        ]);
-        
+        ])->first();
+
+        if(empty($student_attend)){
+            StudentAttendance::create([
+                'attendance_id'=>$attendance->id,
+                'user_id'=>Auth::id(),
+                'present_at'=> $this->currentTime->toDateTimeString(),
+                'joined_at'=> $this->currentTime->toDateTimeString(),
+            ]);
+        }else{
+            $student_attend->present_at= $this->currentTime->toDateTimeString();
+            $student_attend->save();
+        }
+
         return $this->getStudentAttendance($classroomId);
     }
 
