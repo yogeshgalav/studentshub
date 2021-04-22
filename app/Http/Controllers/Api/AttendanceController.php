@@ -62,9 +62,7 @@ class AttendanceController extends Controller
             'present_at'=>$this->currentTime->toDateTimeString(),
         ]);
         
-        return response()->json(['success'=>[
-            'present_at'=>$this->currentTime->toDateTimeString(),
-        ]], 200);
+        return $this->getStudentAttendance($classroomId);
     }
 
     public function getAttendanceData($classroomId){

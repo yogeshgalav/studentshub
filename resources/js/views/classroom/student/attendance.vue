@@ -78,6 +78,8 @@
 <script>
 import ClassroomHeader from '../../../components/ClassroomHeader';
 import VueTableComponent from '../../../components/vue-table-component';
+import swal from '../../../components/swal';
+
 import dayjs from 'dayjs';
 export default {
 	components: {
@@ -151,12 +153,15 @@ export default {
 		markPresent(){
 			this.loading=true;
 			this.axios('/api/classroom/'+ this.$route.params.classroomId +'/mark-present').then((resp)=>{
-				//make showPresentButton true
-				this.attendance.present_at = resp.data.success.present_at; 
-				let myAttendance = this.attendRow.find(node=>node.meet_date === this.attendance.meet_date);
-				myAttendance.present_at = this.attendance.present_at;
-
-				this.loading =false;
+				this.attendance = resp.data.success.attendance;
+				this.attendRow = resp.data.success.attend_rows.map(node=>{
+					node.joined_at = dayjs(node.joined_at, 'hh:mm:ss').format('hh:mm A');
+					node.present_at = node.present_at ? dayjs(node.present_at, 'hh:mm:ss').format('hh:mm A') : '';
+					node.meet_date = dayjs(node.meet_date, 'YYYY-MM-DD').format('D MMMM, YYYY');
+					return node;
+				});;
+				this.loading=false;
+				swal.infoDialog('Present Marked!');
 			});
 		}
 	},
