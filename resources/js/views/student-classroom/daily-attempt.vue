@@ -5,7 +5,7 @@
         class="btn btn-primary btn-lg m-0-a"
         @click="startAttempt"
       >
-        Start Attempt
+        Start Attempt <i class="fas fa-arrow-right" />
       </button>
     </div>
     <div v-else>
