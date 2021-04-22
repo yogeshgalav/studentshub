@@ -16,7 +16,7 @@ class AttendanceController extends Controller
     private $currentTime;
 
     public function __construct(){
-        $this->currentTime = Carbon::now(Auth::user()->timezone);
+        $this->currentTime = Carbon::now(request()->user('api')->timezone);
     }
 
     public function startMeeting($classroomId){
