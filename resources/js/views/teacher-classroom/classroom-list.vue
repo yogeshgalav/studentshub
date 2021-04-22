@@ -7,7 +7,7 @@
       :is-full-page="true"
     />
     <div
-      v-if="!AuthStudent && !AuthTeacher"
+      v-if="AuthUser.role_intended==='seeker'"
       class="card"
     >
       <div class="card-body">
@@ -31,7 +31,7 @@
         <template slot="modalBody">
           <form>
             <div class="model_input">
-              <label class="text-gray">Enter Classroom Name</label>
+              <label class="text-gray">Enter Join Id</label>
               <input
                 v-model="join_classroom_name"
                 type="text"
