@@ -49,9 +49,9 @@
                 </div>
               </div>
                 <div class="row justify-content-center">
-                  <single-value :value="'5'" label="daily assignments" />
-                  <single-value :value="'5'" label="daily assignments" />
-                  <single-value :value="'5'" label="daily assignments" />
+                  <single-value :value="unit.assignmentCount" label="Daily Assignments" />
+                  <single-value :value="unit.averageScore" label="Average Score" />
+                  <single-value :value="unit.resources" label="Resources" />
                 </div>
             </accordion>
           </div>
@@ -94,6 +94,14 @@ export default {
 		getUnitDetails(){
 			this.axios.get('/api/classroom/' + this.$route.params.classroomId + '/unit-details').then((resp) => {
 				this.unitData = resp.data.success.unitData;
+                let summaryData = resp.data.success.summary;
+                this.unitData.map((node)=>{
+                    let summary = summaryData.find(node2=>node2.id===node.id);
+                    node.assignmentCount=summary.assignmentCount;
+                    node.averageScore=summary.averageScore;
+                    node.resources=summary.resources;
+                    return node;
+                })
 				this.showLoader=false;
 			});
 		},
