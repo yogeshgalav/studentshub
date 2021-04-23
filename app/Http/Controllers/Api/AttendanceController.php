@@ -77,7 +77,6 @@ class AttendanceController extends Controller
 
     public function getAttendanceData($classroomId, Request $request){
         $selected_date = $request->date ?? $this->currentTime->toDateString();
-        // dd($selected_date,)
         $today = DB::table('classroom_users as cu')->where('cu.classroom_id',$classroomId)
         ->join('users as us','us.id','=','cu.user_id')
         ->join('students as st','st.user_id','=','us.id')
