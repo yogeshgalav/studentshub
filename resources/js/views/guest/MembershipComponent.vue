@@ -48,7 +48,7 @@
           type="button"
           class="btn btn-outline-secondary"
         >
-          Get Started
+          Get Started &nbsp;<i class="fas fa-arrow-right" />
         </router-link>
       </div>
     </div>
