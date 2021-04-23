@@ -80,17 +80,19 @@
             </div>
         
             <div class="card-body row">
-              <div class="col-md-12">
+              <div class="col-md-12 link-share">
                 Share Registration Link or Join Id with your students to directly join this classroom.
               </div>
-              <div
-                v-if="showCopied"
-                class="col-md-12 copied"
-              >
-                <div class="alert alert-success">
-                  <strong><i class="fas fa-check" /> &nbsp;Copied to clipboard!</strong>
+              <transition name="fade">
+                <div
+                  v-if="showCopied"
+                  class="col-md-12 copied"
+                >
+                  <div class="alert alert-success">
+                    <strong><i class="fas fa-check" /> &nbsp;Copied to clipboard!</strong>
+                  </div>
                 </div>
-              </div>
+              </transition>
               <div
                 v-if="classroomDetail.id"
                 class="col-md-4  col-12 mt-2 mb-3"
@@ -167,18 +169,21 @@
 .card {
   box-shadow: 0px 2px 50px rgba(0,0,0,0.15) !important;
 }
-
-.copied{
-  margin-top: -20px;
-  animation-name: alert;
-  animation-duration: 0.3s;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
+.link-share{
+  z-index: 10;
+  background-color: #fff;
+  padding: 10px;
 }
-@keyframes alert {
-  from {margin-top: -20px;}
-  to {margin-top: 0px;}
-} 
+.fade-enter-active, .fade-leave-active {
+  margin-top: 0px;
+  transition: margin-top .5s;
+}
+.fade-enter {
+  margin-top: -40px;
+}
+.fade-leave-to{
+  margin-top: -40px;
+}
 .join_id_box {
  border:1px solid #eee;
  border-radius: 5px;
@@ -256,7 +261,7 @@ export default {
 			document.execCommand('copy');
 			document.body.removeChild(el);
 			this.showCopied = true;
-			setTimeout(() => this.showCopied = false , 3000);
+			setTimeout(() => this.showCopied = false , 2000);
 		},     
 	},
 };
