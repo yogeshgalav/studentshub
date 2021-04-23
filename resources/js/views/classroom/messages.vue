@@ -10,7 +10,7 @@
     <div>
       <div class="row">
         <div class="col-md-12">
-          <div class="row add_cl_q">
+          <div class="">
             <div class="col-md-3 col-12">
               <div class="mt-2">
                 <button
@@ -47,7 +47,7 @@
               </form>
             </template>
           </modal>
-          <div class="row add_cl_q mt-2">
+          <div class=" mt-2">
             <div
               v-if="!messages.length"
               class="card"

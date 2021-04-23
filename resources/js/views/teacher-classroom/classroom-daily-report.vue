@@ -24,7 +24,7 @@
               :aria-expanded="true"
               tab="accordion_status_unit_active"
             >
-              <div class="row add_cl_q">
+              <div class="">
                 <div class="col-md-12">
                   <div class="text-grey col-md-12">
                     <p>
