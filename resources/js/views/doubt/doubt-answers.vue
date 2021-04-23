@@ -54,7 +54,11 @@
                   :editor-options="editorSettings"
                   :height="'100%'"
                 />
-                <span>{{ countContent }}/100</span>&nbsp;<span class="text-danger">{{ error }}</span>
+                <br>
+                <span>{{ countContent }}/100</span>
+                <br>
+                <span class="text-danger">{{ error }}</span>
+                <br>
                 <button
                   type="submit"
                   class="ans_btn"
@@ -166,8 +170,8 @@ export default {
 
 		},
 		submitAnswer() {
-			if(this.countContent<100){
-				this.error='An answer should be of minimum 100 words.';
+			if(this.countContent<10){
+				this.error='An answer should be of minimum 10 words.';
 				return false;
 			}
 			this.axios.post('/api/doubt/' + this.$route.params.doubtId + '/add-answer/', {
