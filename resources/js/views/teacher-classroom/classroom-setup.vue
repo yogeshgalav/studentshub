@@ -48,6 +48,11 @@
                   </div>
                 </div>
               </div>
+                <div class="row justify-content-center">
+                  <single-value :value="'5'" label="daily assignments" />
+                  <single-value :value="'5'" label="daily assignments" />
+                  <single-value :value="'5'" label="daily assignments" />
+                </div>
             </accordion>
           </div>
         </div>
@@ -61,12 +66,14 @@ import Accordion from '../../components/accordion';
 import AddButton from '../../components/AddButton';
 
 import ClassroomHeader from '../../components/ClassroomHeader';
+import SingleValue from '../../components/SingleValue';
 
 export default {
 	components: {
 		Accordion,
 		AddButton,
-		ClassroomHeader
+		ClassroomHeader,
+        SingleValue
 	},
 	mixins:[FormMixin],
 	data() {
