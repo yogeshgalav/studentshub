@@ -55,23 +55,23 @@
                   :height="'100%'"
                 />
                 <br>
-                <span>{{ countContent }}/100</span>
+                <span>{{ countContent }}/10</span>
                 <br>
                 <span class="text-danger">{{ error }}</span>
                 <br>
                 <button
                   type="submit"
-                  class="ans_btn"
-                  @click="cancelAnswer"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  class="ans_btn"
+                  class="btn btn-primary"
                   @click="submitAnswer"
                 >
                   Submit
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-white"
+                  @click="cancelAnswer"
+                >
+                  Cancel
                 </button>
               </div>
             </div>
