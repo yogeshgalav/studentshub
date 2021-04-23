@@ -11,11 +11,11 @@
       <div class="row">
         <div class="col-md-12">
           <div class="">
-            <div class="col-md-3 col-12">
+            <div class="col-md-3 col-12 pl-0">
               <div class="mt-2">
                 <button
                   type="button"
-                  class="btn btn-primary btn-lg"
+                  class="btn btn-primary btn-lg "
                   data-toggle="modal"
                   data-target="#addMessageModal"
                 >
