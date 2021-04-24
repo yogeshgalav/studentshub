@@ -1,6 +1,8 @@
 <template>
   <div>
-    <classroom-header />
+    <classroom-header 
+      title="Report"
+    />
     <div class="row">
       <div class="col-md-12">
         <h4 class="text-black mb-0">

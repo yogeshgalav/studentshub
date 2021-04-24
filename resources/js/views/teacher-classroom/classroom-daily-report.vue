@@ -8,7 +8,9 @@
     />
     <div class="row">
       <div class="col-md-12">
-        <classroom-header />
+        <classroom-header 
+          title="Daily Report"
+        />
       </div>
     </div>
     <div
@@ -42,8 +44,7 @@
                         <div class="row">
                           <div class="col-md-9">
                             <div class="weight-800">
-                              {{ 'Question' + ' ' + (index+1) }} 
-                              
+                              {{ 'Question' + ' ' + (index+1) }}
                             </div>
                           </div>
                           <div class="col-md-3">

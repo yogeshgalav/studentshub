@@ -1,6 +1,8 @@
 <template>
   <div>
-    <classroom-header />
+    <classroom-header 
+      title="Unit Assignment"
+    />
     <div class="row">
       <div class="col-md-12">
         <div class="mt-2">

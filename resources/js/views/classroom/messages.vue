@@ -6,7 +6,10 @@
       :width="250"
       :is-full-page="true"
     />
-    <classroom-header v-if="routeClassroomId" />
+    <classroom-header
+      v-if="routeClassroomId" 
+      title="Message"
+    />
     <div>
       <div class="row">
         <div class="col-md-12">

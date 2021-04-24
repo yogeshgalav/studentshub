@@ -6,7 +6,9 @@
       :width="250"
       :is-full-page="true"
     />
-    <classroom-header />
+    <classroom-header 
+      title="Unit Setup"
+    />
     <div class="mt-2">
       <button
         class="btn-primary btn-lg"
