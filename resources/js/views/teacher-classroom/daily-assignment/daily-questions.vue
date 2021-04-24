@@ -160,9 +160,9 @@
                       <div
                         v-for="(choice,index) in current_question_edit.multiple_choice"
                         :key="index"
-                        class="form-group d-flex"
+                        class="form-group row"
                       >
-                        <div class="input-group mr-2">
+                        <div class="input-group mr-2 col-12">
                           <div class="input-group-prepend">
                             <span
                               id="basic-addon1"
@@ -177,17 +177,7 @@
                             class="form-control col-md-12"
                           >
                         </div>
-
-                        <button
-                          v-if="current_question_edit.multiple_choice.length>2"
-                          class="btn btn-default btn-sm ml-2 delete_btn"
-                          type="button"
-                          @click="removeOption(index)"
-                        >
-                          <i class="fa fa-trash-alt" />
-                        </button>
-
-                        <div class="form-check ml-0 mt-2">
+                        <div class="form-check ml-0 mt-2 col-5">
                           <input
                             :id="'correctAnswer'+index"
                             v-validate="'required'"
@@ -200,6 +190,14 @@
                           >
                           <label class="form-check-label">Mark as correct answer</label>
                         </div>
+                        <button
+                          v-if="current_question_edit.multiple_choice.length>2"
+                          class="btn btn-default btn-sm ml-2 delete_btn col-5"
+                          type="button"
+                          @click="removeOption(index)"
+                        >
+                          <i class="fa fa-trash-alt" />
+                        </button>
                       </div>
                     </div>
                     <div class="col-md-12">
