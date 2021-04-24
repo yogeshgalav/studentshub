@@ -72,10 +72,10 @@
               {{ classroom.teacher_name }}
             </h4>
             <h3 class="font-weight-bold text-info font-weight-bold">
-              {{ classroom.name }}
+              {{ classroom.subject_name }}
             </h3>
             <h4 class="font-weight-normal text-muted">
-              {{ classroom.subject_name }}
+              {{ classroom.name }}
             </h4>
           </a>
         </div>
@@ -108,10 +108,10 @@
               {{ classroom.teacher_name }}
             </h4>
             <h3 class="font-weight-bold text-info font-weight-bold">
-              {{ classroom.name }}
+              {{ classroom.subject_name }}
             </h3>
             <h4 class="font-weight-normal text-muted">
-              {{ classroom.subject_name }}
+              {{ classroom.name }}
             </h4>
           </a>
         </div>

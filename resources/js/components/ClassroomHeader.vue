@@ -18,17 +18,17 @@
         </div>
       </div>
       <div class="col-md-12">
-        <h2 class="font-size-40 text-black weight-800 mb-2 line-height-25-px">
+        <h2 class="font-size-40 text-black weight-800 mb-2 line-height-25-px mobile-size-heading">
           {{ title ? title : classroomDetail.name }}
         </h2>       
       </div>      
       <div class="col-md-12">
-        <h2
+        <h3
           v-if="title"
           class="font-size-18 text-black mb-0 line-height-25-px"
         >
           {{ 'Classroom:' + " "+ classroomDetail.name }}
-        </h2>
+        </h3>
         <p class="font-size-18 text-black mb-0 line-height-25-px">
           {{ 'Teacher:' +' '+classroomDetail.teacher_name }}  
         </p>
