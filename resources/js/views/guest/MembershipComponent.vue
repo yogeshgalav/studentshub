@@ -32,7 +32,7 @@
       </div>
       <div class="text-center">
         <a
-          
+
           class="demo"
           @click="scrollMeTo('requestDemo')"
         >Request a demo <i class="fas fa-arrow-right" /></a>
@@ -44,7 +44,7 @@
       </h3>
       <div class="text-center">
         <router-link
-          :to="'/get-started'" 
+          :to="'/get-started'"
           type="button"
           class="btn btn-outline-secondary"
         >
@@ -127,7 +127,7 @@
       </div>
       <div class="text-center">
         <a
-          
+
           role="button"
           class="demo"
           @click="scrollMeTo('requestDemo')"
@@ -171,7 +171,7 @@
         </div>
         <div class="text-center">
           <a
-            
+
             role="button"
             class="demo"
             @click="scrollMeTo('requestDemo')"
@@ -274,14 +274,15 @@
                   class="mb-0 col-form-label text-md-right"
                 >Your Name</label>
                 <input
-                  id="firstname"
-                  ref="firstname"
+                  id="fullname"
+                  ref="fullname"
                   v-model="full_name"
                   v-validate="'required|max:255'"
                   class="form-control"
                   type="name"
-                  name="firstname"
+                  name="fullname"
                 >
+                <span class="text-danger">{{ formErrors('fullname') }}</span>
               </div>
               <div class="col-md-12 mb-2">
                 <label
@@ -297,6 +298,7 @@
                   type="email"
                   name="email"
                 >
+                <span class="text-danger">{{ formErrors('email') }}</span>
               </div>
               <div class="col-md-12 mb-2">
                 <label
@@ -312,6 +314,8 @@
                   type="name"
                   name="institute"
                 >
+                <span class="text-danger">{{ formErrors('institute') }}</span>
+
               </div>
               <div class="col-md-12 mb-2">
                 <label
@@ -327,6 +331,7 @@
                   type="number"
                   name="students"
                 >
+                <span class="text-danger">{{ formErrors('students') }}</span>
               </div>
               <div class="col-md-12 mb-2">
                 <label
@@ -342,6 +347,7 @@
                   type="tel"
                   name="phone"
                 >
+                <span class="text-danger">{{ formErrors('phone') }}</span>
               </div>
               <div class="col-md-12 text-center">
                 <button
