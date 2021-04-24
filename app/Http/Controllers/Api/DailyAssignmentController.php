@@ -108,12 +108,12 @@ class DailyAssignmentController extends Controller
         ->has('dailyReport')
         ->with('dailyQuestions.multipleChoice')
         ->get();
-        $scores = DB::table('daily_assignments as da')
+        $summary = DB::table('daily_assignments as da')
         ->where('da.classroom_id',$request->classroomId)
         ->leftjoin('daily_reports as dr','da.id','=','dr.daily_assignment_id')
-        ->select(DB::raw("SUM(CASE WHEN (dr.marks_obtained < 4) THEN 1 ELSE 0 END) as low_count"),
-        DB::raw("SUM(CASE WHEN (dr.marks_obtained > 3 and dr.marks_obtained < 8) THEN 1 ELSE 0 END) as medium_count"),
-        DB::raw("SUM(CASE WHEN (dr.marks_obtained > 7) THEN 1 ELSE 0 END) as high_count")        
+        ->select(DB::raw('COUNT(distinct dr.user_id) as total_attende'),
+                DB::raw('AVG(dr.marks_obtained) as average_score'),
+                DB::raw('AVG(dr.duration) as average_duration')     
         )
         ->groupBy('da.id')
         ->get();
@@ -121,7 +121,7 @@ class DailyAssignmentController extends Controller
             'success'=>[
                 'unitList'=>$unitList,
                 'dailyAssignmentData'=>$dailyAssignmentData,
-                'summary'=>$scores
+                'summary'=>$summary
             ]
         ]);
     }   
