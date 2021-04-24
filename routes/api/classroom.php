@@ -46,4 +46,6 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::post('/classroom/{classroomId}/get-daily-answers','DailyReportController@getDailyAnswers');
     Route::post('/decline-attempt/{assignmentId}','DailyReportController@declineAttempt');
     
+    Route::get('/classroom-list-details','ClassroomController@classroomListDetails');
+    
 });
