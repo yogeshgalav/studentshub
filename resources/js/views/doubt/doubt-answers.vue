@@ -174,7 +174,7 @@ export default {
 				this.error='An answer should be of minimum 10 words.';
 				return false;
 			}
-			this.axios.post('/api/doubt/' + this.$route.params.doubtId + '/add-answer/', {
+			this.axios.post('/api/doubt/' + this.$route.params.doubtId + '/add-answer', {
 				answer_html: this.new_answer,
 				answer_text: this.description
 			})

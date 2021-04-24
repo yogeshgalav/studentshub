@@ -94,7 +94,8 @@ class ClassroomUserController extends Controller
             
             $messagequery = $messagequery->whereIn('classroom_id',$classroomIdArray);
         }
-        $messages = $messagequery->orderBy('classroom_messages.created_at','DESC')->groupBy(['classroom_messages.id','classroom_messages.classroom_id','classroom_messages.content','classroom_messages.created_at','us.full_name','us.avatar_url','cs.name'])->get();
+        $messages = $messagequery->orderBy('classroom_messages.created_at','DESC')
+        ->groupBy(['classroom_messages.id', 'classroom_messages.sender_user_id', 'classroom_messages.classroom_id','classroom_messages.content','classroom_messages.created_at','us.full_name','us.avatar_url','cs.name'])->get();
 
         foreach($messages as $message){
             $message->time = Carbon::createFromTimeStamp(strtotime($message->created_at))->diffForHumans();

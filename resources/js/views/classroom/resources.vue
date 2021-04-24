@@ -52,7 +52,6 @@
                 class="btn-lg btn-primary"
                 data-toggle="modal"
                 data-target="#addResourceModal"
-                @click="addResource"
               >
                 <i class="fas fa-plus" />&nbsp;&nbsp;Add Resource
               </button>
@@ -78,7 +77,7 @@
             <div
               v-for="(resource,index2) in resources"
               :key="index2"
-              class="col-md-10 col-12 mt-2 ml-3 card"
+              class="col-md-10 col-12 mt-2 card"
             >
               <div
                 class="card-body"
@@ -246,6 +245,7 @@ export default {
 						share_as_post: this.share_as_post,
 					}).then(()=>{
 						let resource = this.resourceUnitData.find(node=>node.id===this.current_unit);
+            console.log(this.resourceUnitData, this.current_unit, resource);
 						resource.classroom_resources.push({
 							link:this.resource_link,
 							type:this.resource_type,
