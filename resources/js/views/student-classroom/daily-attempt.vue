@@ -100,7 +100,7 @@
                           @click="selectAnswer(index,index2)"
                         >
                           <div
-                            :class="[choice.option_order === answers[index]['answer'] ? 'bg-circle-white' : 'bg-circle']"
+                            class="bg-circle"
                           >
                             {{ letters[index2] }}
                           </div>
