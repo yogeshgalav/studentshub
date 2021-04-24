@@ -242,7 +242,7 @@ export default {
 						description: this.description,
 						share_as_post: this.share_as_post,
 					}).then(()=>{
-						this.resources.push({
+						this.resources.unshift({
 							link:this.resource_link,
 							type:this.resource_type,
 							description:this.description,
