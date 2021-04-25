@@ -6,11 +6,11 @@ use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
+use NotificationChannels\WebPush\HasPushSubscriptions;
 class User extends Authenticatable
 {
     use HasApiTokens, Notifiable;
-
+    use HasPushSubscriptions;
     /**
      * The attributes that are mass assignable.
      *
@@ -77,21 +77,22 @@ class User extends Authenticatable
         $this->attributes['full_name'] = ucwords($value);
     }
 
-    public function joinedClassoomCount(){
+    public function joinedClassroomCount(){
         return \DB::table('classroom_users')
             ->where('user_id',$this->id)
-            ->where('joined_at','!=',null)
             ->count();
     }
 
-    public function createdClassoomCount(){
+    public function createdClassroomCount(){
         return \DB::table('classrooms')
         ->join('teachers as tc',function($join){
             $join->on('tc.id','=','classrooms.teacher_id')->where('user_id','=',$this->id);
         })
         ->count();
     }
-    
+    public function hasClassroom(){
+        return $this->joinedClassroomCount()>0 || $this->createdClassroomCount()>0;
+    }
     public function isInstituteMember(){
         return \DB::table('institute_users')
             ->where('user_id',$this->id)

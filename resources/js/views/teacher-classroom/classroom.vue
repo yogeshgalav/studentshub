@@ -28,16 +28,37 @@
           <div class="selection-box-default">
             <router-link
               class="card h-card"
-              :to="'/classroom/'+$route.params.classroomId+'/students'"
+              :to="'/classroom/'+$route.params.classroomId+'/attendance'"
             >
               <div class="card-body">
                 <div class="row">
                   <div class="col-lg-12">
                     <h2 class="font-size-18">
-                      {{ 'Students' }}
+                      {{ 'Smart Attendance' }}
                     </h2>
                     <p>
-                      {{ 'Students details and join requests.' }}
+                      {{ 'check presence of students.' }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </router-link>
+          </div>
+        </div>
+        <div class="col-md-4 mb-3">
+          <div class="selection-box-default">
+            <router-link
+              class="card h-card"
+              :to="'/classroom/'+$route.params.classroomId+'/report'"
+            >
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <h2 class="font-size-18">
+                      {{ 'Report' }}
+                    </h2>
+                    <p>
+                      {{ 'View classroom report.' }}
                     </p>
                   </div>
                 </div>
@@ -79,7 +100,7 @@
                       {{ 'Daily Assignment' }}
                     </h2>
                     <p>
-                      {{ 'Create daily assisment test for students.' }}
+                      {{ 'Create daily assignment test for students.' }}
                     </p>
                   </div>
                 </div>
@@ -143,7 +164,7 @@
                       {{ 'Resources' }}
                     </h2>
                     <p>
-                      {{ 'Coming soon...' }}
+                      {{ 'Add document or video links.' }}
                     </p>
                   </div>
                 </div>
@@ -164,7 +185,7 @@
                       {{ 'Message' }}
                     </h2>
                     <p>
-                      {{ 'Coming soon...' }}
+                      {{ 'Add Message for classroom.' }}
                     </p>
                   </div>
                 </div>
@@ -185,7 +206,7 @@
                       {{ 'Doubts' }}
                     </h2>
                     <p>
-                      {{ 'Coming soon...' }}
+                      {{ 'Answer Doubts.' }}
                     </p>
                   </div>
                 </div>

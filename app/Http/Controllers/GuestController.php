@@ -3,36 +3,103 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Guest;
-use App\Models\Subscriber;
-use App\Mails\SubscriptionFirstMail;
-use Mail;
-use DB;
-use Illuminate\Support\Facades\Log;
+use Auth;
+use App\Models\Faq;
 
 class GuestController extends Controller
 {
     //
-    public function update(Request $request)
-    {
-        $email=$request->input('email');
-        DB::beginTransaction();
-    try{
-        $guest=Guest::where('ip',$request->ip())->first();
-        $subcriber=new Subscriber;
-        $subcriber->email=$email;
-        $subcriber->guest_id=$guest_id;
-        $subcriber->save();
+    private $title = " | Student's Hub";
 
-        Mail::to($email)->send(new SubscriptionFirstMail());
-        DB::commit();
-        } catch (\Exception $e) {
-            DB::rollback();
-            Log::critical('user subscription failure: for email id#'.$email);
-            // dd($e->getMessage(),$e->getLine());
-            return response()->$e;
+    public function loginPage()
+    {
+        if(Auth::check()){
+            return redirect('/');
         }
-        return 'success';
+        return view('guest.auth.login')
+        ->with('emailError', session('emailError'))
+        ->with('title','Login' . $this->title);
+    }
+    public function membershipPlan()
+    {
+        return view('guest.membership-plan')->with('title','Membership' . $this->title);
+    }
+    public function forgotPasswordPage()
+    {
+        return view('guest.auth.forgot-password')->with('title','Fogot Password' . $this->title);
+    }
+    public function registerPage()
+    {
+        if(Auth::check()){
+            return redirect('/');
+        }
+        return view('guest.auth.register')->with('title','Get Started' . $this->title);
     }
 
+    public function feedbackPage()
+    {
+        return view('guest.feedback')->with('title','Feedback' . $this->title);
+    }
+    public function contactusPage(){
+        return view('guest.contactus')->with('title','Contact' . $this->title);
+    }
+    public function faqPage(){
+        $faq = Faq::where('answer','!=', null)->get();
+        return view('guest.faq')->with('faqs',$faq)->with('title','FAQ' . $this->title);
+    }
+
+    public function privacyPolicy(){
+        return view('guest.privacy-policy')->with('title','Privacy Policy' . $this->title);
+    }
+    public function termOfUse(){
+        return view('guest.term-of-use')->with('title','Term of Use' . $this->title);
+    }
+    public function viewPost()
+    {
+        if (Auth::check()) {
+            return view('seeker.post-view');
+        }
+        return view('guest.post-view');
+    }
+    public function coursePage()
+    {
+        return view('explore.course');
+    }
+    public function subjectPage()
+    {
+        return view('explore.subject');
+    }
+    public function categoryPage()
+    {
+        return view('explore.category');
+    }
+    public function postImage($filename)
+    {
+        $path = storage_path('/app/post-images/' . $filename);
+
+        if (!\File::exists($path)) {
+            abort(404);
+        }
+
+        return response()->file($path);
+    }
+
+    public function profileImage($filename)
+    {
+        $path = storage_path('app/profile-images/' . $filename);
+
+        if (!\File::exists($path)) {
+            abort(404);
+        }
+
+        return response()->file($path);
+    }
+    public function  root()
+    {
+        if (Auth::check()) {
+            return view('seeker.posts');
+        } else {
+            return view('guest.welcome');
+        }
+    }
 }

@@ -7,7 +7,6 @@
       :is-full-page="true"
     />
 
-
     <div class="container pb-100">
       <div class="row justify-content-center register">
         <div class="col-md-8">
@@ -25,7 +24,7 @@
                     Please Enter Following Details to Create Classroom.
                   </p>
                 </div>
-                               
+
                 <div class="col-md-12 mt-2">
                   <form @submit.prevent="createClassroom">
                     <div class="form-group">
@@ -34,33 +33,38 @@
                         <div class="input_icon_frm">
                           <span
                             class="icon_design_input"
-                            style="height: 44px;"
-                          > <i
-                            class="fa fa-certificate"
-                            aria-hidden="true"
-                          /></span>
+                            style="height: 44px"
+                          >
+                            <i
+                              class="fa fa-certificate"
+                              aria-hidden="true"
+                            /></span>
                           <input
                             v-model="classroom_name"
                             v-validate="'required'"
                             type="text"
+                            placeholder="2nd Year Section B"
                             name="classroom_name"
                             class="form-control"
                           >
                         </div>
-                        <span class="error">{{ formErrors('classroom_name') }}</span>
+                        <span
+                          class="error"
+                        >{{ formErrors('classroom_name') }}</span>
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="mb-1"> {{ 'Program/Course Level.' }} </label>
+                      <label class="mb-1"> {{ 'Program/Course Level' }} </label>
                       <div class="inner-addon left-addon">
                         <div class="input_icon_frm">
                           <span
                             class="icon_design_input"
-                            style="height: 44px;"
-                          > <i
-                            class="fa fa-certificate"
-                            aria-hidden="true"
-                          /></span>
+                            style="height: 44px"
+                          >
+                            <i
+                              class="fa fa-certificate"
+                              aria-hidden="true"
+                            /></span>
                           <auto-complete
                             v-validate="'required'"
                             class="width-100"
@@ -73,23 +77,28 @@
                             @selected="setCourseLevel"
                           />
                         </div>
-                        <span class="error">{{ formErrors('course_level') }}</span>
+                        <span
+                          class="error"
+                        >{{ formErrors('course_level') }}</span>
                       </div>
                     </div>
                     <div
                       v-if="show_courses"
                       class="form-group"
                     >
-                      <label class="mb-1"> {{ 'Program/Course of classroom.' }} </label>
+                      <label class="mb-1">
+                        {{ 'Program/Course of classroom' }}
+                      </label>
                       <div class="inner-addon left-addon">
                         <div class="input_icon_frm">
                           <span
                             class="icon_design_input"
-                            style="height: 44px;"
-                          > <i
-                            class="fa fa-certificate"
-                            aria-hidden="true"
-                          /></span>
+                            style="height: 44px"
+                          >
+                            <i
+                              class="fa fa-certificate"
+                              aria-hidden="true"
+                            /></span>
                           <auto-complete
                             v-validate="'required'"
                             class="width-100"
@@ -104,31 +113,34 @@
                             @selectNew="setNewCourse"
                           />
                         </div>
-                        <span v-if="selected_course.totalBatch">{{ selected_course.totalBatch }}
-                          batch found.</span>
-                        <span v-if="no_course_found">Please enter your full Program name
-                          followed by branch name(if any).Please make sure that program
+                        <span
+                          v-if="no_course_found"
+                        >Please enter your full Program name followed by
+                          branch name(if any).Please make sure that program
                           details you are entering is correct.</span>
-                        <span class="error">{{ formErrors('program_name') }}</span>
+                        <span
+                          class="error"
+                        >{{ formErrors('program_name') }}</span>
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="mb-1"> {{ 'Subject of Classroom.' }} </label>
+                      <label class="mb-1"> {{ 'Subject of Classroom' }} </label>
                       <div class="inner-addon left-addon">
                         <div class="input_icon_frm">
                           <span
                             class="icon_design_input"
-                            style="height: 44px;"
-                          > <i
-                            class="fa fa-certificate"
-                            aria-hidden="true"
-                          /></span>
+                            style="height: 44px"
+                          >
+                            <i
+                              class="fa fa-certificate"
+                              aria-hidden="true"
+                            /></span>
                           <auto-complete
                             v-validate="'required'"
                             class="width-100"
                             :items="subject_list"
                             :value="'subject_name'"
-                            name="program_name"
+                            name="subject_name"
                             :placeholder="'eg. Biology,Chemistry'"
                             :is-async="true"
                             :is-loading="subjectLoading"
@@ -137,25 +149,94 @@
                             @selectNew="setNewSubject"
                           />
                         </div>
-                        <span class="error">{{ formErrors('subject_name') }}</span>
+                        <span
+                          class="error"
+                        >{{ formErrors('subject_name') }}</span>
                       </div>
                     </div>
-                                        
-                    <div class="form-group">
-                      <label> {{ 'Classroom Id.' }} </label>
-                                            
-                      <input
-                        v-model="classroom_id"
-                        type="text"
-                        name="classroom_id"
-                        class="form-control"
-                      >
-                      <span class="error">{{ id_error }}</span>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label
+                            class="text-black"
+                            for="event_date_input"
+                          >
+                            {{ ('Course Starting Year') }}
+                          </label>
+                          <div class="input-group-prepend">
+                            <div
+                              class="input-group-prepend date"
+                              data-provide="datepicker"
+                            />
+                            <div class="input_icon_frm">
+                              <span
+                                id="basic-addon1"
+                                class="icon_design_input"
+                              ><i
+                                class="fa fa-calendar"
+                              /></span>
+
+                              <date-picker
+                                id="start_year"
+                                v-model="start_year"
+                                v-validate="'required'"
+                                name="start_year"
+                                value-type="format"
+                                :typeable="true"
+                                :type="'year'"
+                                :lang="'en'"
+                                default-value="2019"
+                                :input-attr="{id: 'start_year_input', value: start_year}"
+                                placeholder="Start Year"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label
+                            class="text-black"
+                            for="event_date_input"
+                          >
+                            {{ ('Course Ending Year') }}
+                          </label>
+                          <div class="input-group-prepend ">
+                            <div
+                              class="input-group-prepend date"
+                              data-provide="datepicker"
+                            />
+                            <div class="input_icon_frm">
+                              <span
+                                id="basic-addon1"
+                                class="icon_design_input"
+                              ><i
+                                class="fa fa-calendar"
+                              /></span>
+                              <date-picker
+                                id="end_year"
+                                v-model="end_year"
+                                v-validate="'required'"
+                                value-type="format"
+                                name="end_year"
+                                :typeable="true"
+                                :type="'year'"
+                                :lang="'en'"
+                                default-value="2019"
+                                :input-attr="{id: 'end_year_input', value: end_year}"
+                                placeholder="End Year"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <span class="error">{{ yearError }}</span>
                     </div>
                     <div class="form-group d-flex s_register_btn">
                       <button
                         type="submit"
-                        class="login_btn"
+                        class="btn-primary btn-lg m-0-a"
                       >
                         {{ 'Create' }}
                       </button>
@@ -171,59 +252,59 @@
   </div>
 </template>
 <style scoped>
-    .form-group label,
-    .form-check label {
-        margin-bottom: 0rem;
-    }
-    .width-100 {
-        width: 100% !important;
-    }
+.form-group label,
+.form-check label {
+  margin-bottom: 0rem;
+}
+.width-100 {
+  width: 100% !important;
+}
 
-    .hide-program {
-        display: none
-    }
+.hide-program {
+  display: none;
+}
 
-    .main-habit-builder li {
-        list-style: none;
-        padding: 5px;
-    }
+.main-habit-builder li {
+  list-style: none;
+  padding: 5px;
+}
 
-    .main-habit-builder ul {
-        padding-left: 0px;
-    }
+.main-habit-builder ul {
+  padding-left: 0px;
+}
 
-    .main-habit-builder .card {
-        padding: 20px !important;
-    }
+.main-habit-builder .card {
+  padding: 20px !important;
+}
 
-    .main-habit-builder .form-group {
-        padding-bottom: 5px;
-        padding-top: 5px;
-    }
+.main-habit-builder .form-group {
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
 
-    @media (max-width: 768px) {
-        .btn-footer .btn {
-            width: 100%;
-        }
-    }
-
+@media (max-width: 768px) {
+  .btn-footer .btn {
+    width: 100%;
+  }
+}
 </style>
 <script>
 import FormMixin from '../../components/mixins/form-mixin.js';
+import BatchMixin from '../../components/mixins/batch-mixin.js';
 import AutoComplete from '../../components/AutoComplete.vue';
 import swal from '../../components/swal';
 
 export default {
 	components: {
-		AutoComplete
+		AutoComplete,
 	},
-	mixins: [FormMixin],
+	mixins: [FormMixin, BatchMixin],
 	props: ['courseLevels'],
 	data() {
 		return {
-			id_error: '',
-			classroom_id: '',
 			classroom_name: '',
+			start_year: '',
+			end_year: '',
 			step: 'step1',
 			show_courses: false,
 			showLoader: false,
@@ -238,7 +319,6 @@ export default {
 			subject_list: [],
 			subjectLoading: false,
 			selected_subject: {
-				'id': null,
 				'subject_name': '',
 			},
 			selected_level: {
@@ -248,13 +328,10 @@ export default {
 		};
 	},
 	methods: {
-		getFirstChar(str){
-			var matches = str.match(/\b(\w)/g);
-			var acronym = matches.join('');
-			return acronym.toUpperCase();
-		},
 		createClassroom() {
-			this.id_error='';
+			if(this.yearError!==''){
+				return false;
+			}
 			this.$validator.validate().then(valid => {
 				if (valid) {
 					this.form_errors=[];
@@ -262,7 +339,8 @@ export default {
 						course: this.selected_course,
 						subject: this.selected_subject,
 						name: this.classroom_name,
-						classroom_id: this.classroom_id,
+						start_year: this.start_year,
+						end_year: this.end_year,
 					}).then((resp)=>{
 						if (resp.data.success) {
 							swal.successDialog('Classroom create', 'Success!', 'success');
@@ -271,9 +349,6 @@ export default {
 					}).catch((err)=>{
 						if(err.response.status===422){
 							let error_data = err.response.data.error;
-							if(error_data.field==='classroom_id'){
-								this.id_error = error_data.message; 
-							}
 							// this.form_errors[error_data.field]=[];
 							// this.form_errors[error_data.field][0] = error_data.message;
 							// console.log(error_data,this.form_errors);
@@ -321,12 +396,10 @@ export default {
 			};
 			this.categoryDisabled = false;
 		},
-		getSubjects(search) {
+		getSubjects	(search) {
 			this.selected_subject = {
-				'id': null,
 				'subject_name': search,
 			};
-			this.classroom_id = this.getFirstChar(search)+'BY'+this.getFirstChar(this.AuthUser.full_name);
 			this.subjectLoading = true;
 			this.axios
 				.post(this.baseUrl + '/api/search-subject', {
@@ -349,11 +422,9 @@ export default {
 		},
 		setSubject(result) {
 			this.selected_subject = result;
-			this.classroom_id=this.getFirstChar(result.subject_name)+'BY'+this.getFirstChar(this.AuthUser.full_name);
 		},
 		setNewSubject(name) {
 			this.selected_subject = {
-				'id': 0,
 				'subject_name': name,
 			};
 		},
@@ -385,5 +456,4 @@ export default {
 		}
 	}
 };
-
 </script>

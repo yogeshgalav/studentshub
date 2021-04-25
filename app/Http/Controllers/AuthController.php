@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Mail\ResetPasswordMail;
+use App\Mails\ResetPasswordMail;
+use App\Models\PasswordReset;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Classroom;
@@ -16,7 +16,6 @@ use Laravel\Passport\Passport;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\ForgotPasswordRequest;
 use Illuminate\Support\Facades\URL;
-use App\PasswordReset;
 use App\Http\Requests\RegisterRequest;
 use Carbon\Carbon;
 use Sthub;
@@ -33,7 +32,24 @@ class AuthController extends Controller
      *
      * @return Response
      */
-    public function login(LoginRequest $request)
+    public function login(LoginRequest $request){
+        $user=User::where('email',$request->email)->first();
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            Log::warning("Login Failed",['user'=>$user ?? 'not found']);
+            return view('guest.auth.login')->with('srvError401',true);
+        }
+
+        try{
+            $success = $this->getLoginSuccessData('page',$user,$request);
+        }catch(\Exception $e){
+            Log::warning("An invalid attempt to login was made for user ".$request->email." from IP Address ".$request->ip());
+            return view('guest.auth.login')->with('srvErrorUnknown',true);
+        }
+
+        return redirect($success['redirectUrl']);
+    }
+
+    public function loginViaApi(LoginRequest $request)
     {        
 
         $user=User::where('email',$request->email)->first();
@@ -42,6 +58,21 @@ class AuthController extends Controller
         }
         
         try{
+            
+            $success = $this->getLoginSuccessData('api',$user,$request);
+            
+        }catch(\Exception $e){
+            // dd($e->getMessage());
+            Log::warning("An invalid attempt to login was made for user ".$request->email." from IP Address ".$request->ip());
+            return response()->json(['error'=>'Unauthorised'], 401);
+        }
+        return response()->json(['success' => $success]);
+    }
+
+    public function getLoginSuccessData($method,$user,$request){
+        $success = [];
+        
+        if('api' === $method){
             if ($request->remember) {
                 Passport::tokensExpireIn(now()->addDay(30));
                 // Passport::refreshTokensExpireIn(now()->addDay(30));
@@ -50,9 +81,6 @@ class AuthController extends Controller
                 // Passport::refreshTokensExpireIn(now()->addHour());
             }
 
-            $user->last_login_at=\Carbon\Carbon::now()->toDateTimeString();
-            $user->save();
-            
             $content=$this->getPassportTokens($request);
             if(empty($content->access_token) || empty($content->refresh_token)){
                 $success['access_token'] = $user->createToken('sthub')->accessToken;;
@@ -61,27 +89,25 @@ class AuthController extends Controller
                 $success['access_token'] = $content->access_token;
                 $success['refresh_token'] = $content->refresh_token;
             }
-
-            Auth::login($user, $request->remember);
-            //log info
-            Log::info($user->full_name." (User ID # ".$user->id.") logged in from IP Address ".$request->ip());
-
-            $success['redirectUrl'] = '/';
-            if($user->joinedClassoomCount()>0 || Auth::teacher()){
-                $success['redirectUrl'] = '/classrooms';
-            }
-            $success['redirectUrl'] = session('url.intended') ?? $success['redirectUrl'];
-
-            $success['student'] = Auth::student();
-            $success['full_name'] = $user->full_name;
-            
-        }catch(\Exception $e){dd($e->getMessage());
-            Log::warning("An invalid attempt to login was made for user ".$request->email." from IP Address ".$request->ip());
-            return response()->json(['error'=>'Unauthorised'], 401);
         }
-        return response()->json(['success' => $success]);
-    }
+        $user->last_login_at=\Carbon\Carbon::now()->toDateTimeString();
+        $user->save();
+    
+        Auth::login($user, $request->remember);
+        //log info
+        Log::info($user->full_name." (User ID # ".$user->id.") logged in from IP Address ".$request->ip());
 
+        $success['redirectUrl'] = '/classrooms';
+        // if($user->joinedClassoomCount()>0 || Auth::teacher()){
+        //     $success['redirectUrl'] = '/classrooms';
+        // }
+        $success['redirectUrl'] = session('url.intended') ?? $success['redirectUrl'];
+
+        $success['student'] = Auth::student();
+        $success['full_name'] = $user->full_name;
+    
+        return $success;
+    }
     /**
      * Register api
      *
@@ -90,6 +116,50 @@ class AuthController extends Controller
      * @return Response
      */
     public function register(RegisterRequest $request)
+    {
+        if(User::whereEmail($request->email)->exists()){
+            return redirect('/login')->with('emailError',true);
+        }
+       
+        $input = $request->all();
+        
+        $input['full_name']=trim($input['full_name']);
+        //hash password
+        $input['password'] = bcrypt($input['password']);
+
+        DB::beginTransaction();
+    try{
+       
+            $user = User::create([
+                'full_name'=>$input['full_name'],
+                'email'=>$input['email'],
+                'password'=>$input['password'],
+                'role_intended'=>'seeker',
+            ]);
+
+            Auth::login($user);
+            //log info
+            Log::info('new User '.$user->full_name." (User ID # ".$user->id.") registered and logged in from IP Address ".$request->ip());
+                
+            $success['redirectUrl'] = '/check-in';
+            if($request->join_id){
+                $this->registerWithClassrrom($user,$request->join_id);
+                $success['redirectUrl'] = '/education-details';
+            }
+    
+            // \App\Models\ScheduledJob::scheduleNewUserNotification($user);
+            
+        DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            Log::critical('user Registeration failure',['request_data'=>$input,'error'=>$e->getMessage()]);
+            return redirect('/get-started');
+        }  
+
+        return redirect($success['redirectUrl']);
+    }
+
+    public function registerViaApi(RegisterRequest $request)
     {
         $input = $request->all();
         
@@ -117,40 +187,41 @@ class AuthController extends Controller
         //log info
         Log::info('new User '.$user->full_name." (User ID # ".$user->id.") registered and logged in from IP Address ".$request->ip());
 
+        $success['redirectUrl'] = '/check-in';
         if($request->join_id){
             $this->registerWithClassrrom($user,$request->join_id);
+            $success['redirectUrl'] = '/education-details';
         }
-
-        $success['redirectUrl'] = '/education-details';
-        \Notification::send($user, new \App\Notifications\NewUserWelcomeNotification());
-    
+        // \App\Models\ScheduledJob::scheduleNewUserNotification($user);
+        
     DB::commit();
     } catch (\Exception $e) {
         DB::rollback();
-        Log::critical('user Registeration failure: with data '.implode(',',$input));(
-        dd($e->getMessage(),$e->getLine()));
+        Log::critical('user Registeration failure.',['input'=>$input]);
+        // dd($e->getMessage(),$e->getLine()));
         return response()->$e;
     }        
         return response()->json(['success' => $success]);
     }
 
     public function registerWithClassrrom($user,$joinId){
-        $classroom = Classroom::where('classroom_live_id',$joinId)->first();
-
+        $classroom = Classroom::where('classroom_join_id',$joinId)->first();
+        if(empty($classroom)){
+            return false;
+        }
         $request = new Request([
-            'course_id' => $classroom->course_id,
+            'course_id' => $classroom->batch->course_id,
             'institute_id' => $classroom->teacher->institute_id, 
             'institute_name' => '', 
-            'start_year' => $classroom->batch_start_year,
-            'end_year' => $classroom->batch_end_year,
+            'start_year' => $classroom->batch->start_year,
+            'end_year' => $classroom->batch->end_year,
         ]);
-        $student_controller =new StudentController;
+        $student_controller =new \App\Http\Controllers\Api\StudentController;
         $student_controller->create($request);
 
         ClassroomUser::create([
             'classroom_id'=>$classroom->id,
             'user_id'=>$user->id,
-            'joined_at'=>now(),
         ]);
     }
     /**
@@ -225,12 +296,13 @@ class AuthController extends Controller
     // Handling the forgot password email request
     public function processForgotPassword(ForgotPasswordRequest $request)
     {
-        $user=User::whereContact($request->input('email'))->first();
+        $user=User::where('email',$request->input('email'))->first();
         if ($user) {
             $token = PasswordReset::create([
                 'user_id'=>$user->id,
                 'token'=>uniqid(),
-                'expires_at'=>Carbon::now()->addHour(),
+                'expires_at'=>Carbon::now()->addHour()->toDateTimeString(),
+                'created_at'=>Carbon::now()->toDateTimeString(),
             ]);
 
             Mail::to($request->input('email'))->send(new ResetPasswordMail($token, $request));
@@ -241,8 +313,13 @@ class AuthController extends Controller
     // Handling the request to reset the password
     public function resetPassword2(Request $request)
     {
+        $user=Auth::user();    
+        if(empty($user)){
+            abort(401);
+        }
+
         $validator = Validator::make($request->all(), [
-            'password'=>'required|min:6',
+            'password'=>'required|min:8',
             'confirm_password'=>'required|same:password',
         ]);
 
@@ -250,17 +327,20 @@ class AuthController extends Controller
             return response()->json(['error'=>$validator->errors()], 422);
         }
 
-        $user=Auth::user();    
+        $current_time=Carbon::now()->toDateTimeString();
         $user->must_reset_password=0;
-        $user->password=$request->input('password');
+        $user->onboarded_at=$current_time;
+        $user->email_verified_at=$current_time;
+        $user->password=Hash::make($request->input('password'));
         $user->save();
+
         return response()->json(['success'=>'Password Changed.'], 200);
     }
 
     public function resetPassword($token,Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'password'=>'required|min:6',
+            'password'=>'required|min:8',
             'confirm_password'=>'required|same:password',
         ]);
 
@@ -276,8 +356,19 @@ class AuthController extends Controller
             return response()->json(['error'=>'Wrong Token.'], 403);
         }
 
-        $user=User::where('id', $dbToken->user_id);
-        $user->update(['password'=>Hash::make($request->input('password'))]);
+        $user=User::where('id', $dbToken->user_id)->first();
+
+        $current_time=Carbon::now()->toDateTimeString();
+
+        $user->must_reset_password=0;
+        if(empty($user->email_verified_at)){
+            $user->email_verified_at=$current_time;
+        }
+        if(empty($user->onboarded_at)){
+            $user->onboarded_at=$current_time;
+        }
+        $user->password = Hash::make($request->input('password'));
+        $user->save();
 
         return response()->json(['success'=>'Password Changed.'], 200);
     }
@@ -296,8 +387,11 @@ class AuthController extends Controller
         }catch(\Exception $e){
 
         }
+        $rememberMeCookie = Auth::getRecallerName();
+        $cookie = \Cookie::forget($rememberMeCookie);
         Auth::logout();
-        return redirect('/');
+        \Session::flush();
+        return redirect('/')->withCookie($cookie);
     }
 
     public function refresh(Request $request){
@@ -343,5 +437,11 @@ class AuthController extends Controller
 
         $request = Request::create('/oauth/token', 'POST', $data);
         return json_decode(app()->handle($request)->getContent());
+    }
+
+    public function resetPasswordPage(Request $request){
+        $token = $request->token;
+        return view('guest.auth.reset-password')
+        ->with('token',$token);
     }
 }

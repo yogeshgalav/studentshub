@@ -6,13 +6,16 @@
       :width="250"
       :is-full-page="true"
     />
-    <classroom-header />
+    <classroom-header 
+      title="Unit Setup"
+    />
     <div class="mt-2">
-      <add-button
-        name="Add Unit"
-        size="lg"
-        @submit="addUnit"
-      />
+      <button
+        class="btn-primary btn-lg"
+        @click="addUnit"
+      >
+        <i class="fas fa-plus" />&nbsp;&nbsp;Add Unit
+      </button>
     </div>
     <div
       v-for="(unit,index) in unitData"
@@ -27,7 +30,7 @@
               :aria-expanded="true"
               tab="accordion_status_unit_active"
             >
-              <div class="row add_cl_q">
+              <div class="">
                 <div class="col-md-3 col-12">
                   <div class="form-group pl-0">
                     <label
@@ -58,9 +61,9 @@
 import FormMixin from '../../components/mixins/form-mixin.js';
 import Accordion from '../../components/accordion';
 import AddButton from '../../components/AddButton';
-    
+
 import ClassroomHeader from '../../components/ClassroomHeader';
-    
+
 export default {
 	components: {
 		Accordion,
@@ -97,10 +100,13 @@ export default {
 
 		},
 		updateUnitName(unit_no,event) {
+			this.showLoader = true;
 			//call api and update field
 			this.axios.post('/api/classroom/'+this.$route.params.classroomId+'/update-unit',{
 				unit_no: unit_no,
 				unit_name: event.target.value
+			}).then(()=>{
+				this.showLoader = false;
 			});
 		}
 	}

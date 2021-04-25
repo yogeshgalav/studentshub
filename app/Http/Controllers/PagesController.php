@@ -6,24 +6,10 @@ use Illuminate\Http\Request;
 use App\Facades\Auth;
 use App\Models\Batch;
 use App\Models\CourseLevel;
-use App\Models\NotificationText;
 use App\Models\Student;
 
 class PagesController extends Controller
 {
-    public $AuthUserType = 'guest';
-    public function __construct()
-    {
-        $AuthUser = Auth::user();
-        if ($AuthUser == null) {
-            $this->AuthUserType = 'guest';
-        } else if ($AuthUser->student()->count() > 0) {
-            $this->AuthUserType = 'student';
-        } else {
-            $this->AuthUserType = 'seeker';
-        }
-    }
-
     public function postImage($filename)
     {
         $path = storage_path('/app/post-images/' . $filename);
@@ -49,7 +35,7 @@ class PagesController extends Controller
     public function  root()
     {
         if (Auth::check()) {
-            return view($this->AuthUserType . '.home');
+            return view('seeker.posts');
         } else {
             return view('guest.welcome');
         }
@@ -62,26 +48,34 @@ class PagesController extends Controller
 
     public function searchPage(Request $request)
     {
-        return view('explore.search')->with('query', $request->query);
+        return view('guest.search')->with('query', $request->query);
     }
     public function coursePage()
     {
-        return view('explore.course');
+        return view('guest.course');
     }
     public function subjectPage()
     {
-        return view('explore.subject');
+        return view('guest.subject');
     }
     public function categoryPage()
     {
-        return view('explore.category');
+        return view('guest.category');
     }
 
     public function checkin()
     {
         $course_levels = CourseLevel::get();
         $student = Auth::student();
-        return view('student-register.student-register')
+        return view('user-onboarding.checkin')
+            ->with('student_details', $student)
+            ->with('course_levels', $course_levels);
+    }
+    public function educationDetail()
+    {
+        $course_levels = CourseLevel::get();
+        $student = Auth::student();
+        return view('user-onboarding.education-detail')
             ->with('student_details', $student)
             ->with('course_levels', $course_levels);
     }
@@ -108,6 +102,10 @@ class PagesController extends Controller
     {
         return view('guest.auth.login');
     }
+    public function membershipPlan()
+    {
+        return view('guest.membership-plan');
+    }
     public function forgotPasswordPage()
     {
         return view('guest.auth.forgot-password');
@@ -116,17 +114,16 @@ class PagesController extends Controller
     {
         return view('guest.auth.register');
     }
-    public function askQuestion()
-    {
-        return view('student.ask-question');
-    }
     public function sharePost()
     {
         return view('create-post.share-post');
     }
     public function viewPost()
     {
-        return view($this->AuthUserType . '.view-post');
+        if (Auth::check()) {
+            return view('seeker.post-view');
+        }
+        return view('guest.post-view');
     }
     public function report()
     {
@@ -139,12 +136,30 @@ class PagesController extends Controller
             ->with('total_posts', $total_posts);
     }
 
+    public function privacyPolicy(){
+        return view('guest.privacy-policy');
+    }
+    public function termOfUse(){
+        return view('guest.term-of-use');
+    }
+
     public function Institute($instituteId = null)
     {
         $institute = \App\Models\InstituteUser::where('user_id',Auth::id())->first();
         
         return view('institute.institute')
         ->with('instituteId',$instituteId ?? $institute->institute_id);
+    }
+    public function seeker()
+    {
+        $user = Auth::user();
+        if($user && empty($user->onboarded_at)){
+            $user->role_intended = 'seeker';
+            $user->onboarded_at = \Carbon\Carbon::now()->toDateTimeString();
+            $user->save();
+        }
+
+        return redirect('/');
     }
 
     //     {

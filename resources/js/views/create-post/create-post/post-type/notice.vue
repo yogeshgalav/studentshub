@@ -49,16 +49,16 @@ export default {
         }
     },
     mounted(){
-        EventBus.$on('validateStep2',()=>{
+        EventBus.$on('validateStep4',()=>{
 			this.$validator.validate().then(valid => {
 				if(valid){
                     this.$store.commit('set_post_notice_content',{
                         postContent:this.content,
                         expiry_date:this.expiry_date
                         });
-					EventBus.$emit('validateWizard',2,true);
+					EventBus.$emit('validateWizard',4,true);
 				}else{
-					EventBus.$emit('validateWizard',2,false);
+					EventBus.$emit('validateWizard',4,false);
 				}
 			});
 		});

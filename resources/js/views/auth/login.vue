@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <loading 
+    <loading
       :active.sync="showLoader"
       :color="'#10069F'"
       :width="250"
@@ -14,7 +14,7 @@
               src="/images/Group.svg"
               alt=""
             >
-          </div>   
+          </div>
         </div>
         <div class="col-md-6 ">
           <div class="logn_right">
@@ -22,12 +22,24 @@
               <h3>{{ trans('Login') }}</h3>
             </div>
             <div class="card_body">
-              <form @submit.prevent="handleSubmit">
+              <form
+                id="login_form"
+                name="login"
+                method="POST"
+                action="/login"
+                @submit.prevent="handleSubmit"
+              >
                 <div
                   v-if="srvError401"
                   class="form-group row alert alert-danger"
                 >
                   <span>{{ trans('Invalid login credentials. Please try again.') }}</span>
+                </div>
+                <div
+                  v-if="emailError"
+                  class="form-group row alert alert-warning"
+                >
+                  <span>{{ 'You are already registered. Please Login.' }}</span>
                 </div>
                 <div
                   v-if="srvErrorUnknown"
@@ -52,7 +64,7 @@
                       <span class="icon_design_input"><i class="fa fa-user" /></span>
                       <input
                         id="email"
-                        v-model.lazy="email"
+                        v-model="email"
                         v-validate="'required|email'"
                         type="text"
                         name="email"
@@ -96,19 +108,19 @@
                     </div>
                     <div class="forget_pass">
                       <router-link :to="'/forgot-password'">
-                        {{ trans('Forgot Your Password') }} 
-                      </router-link>    
-                    </div>   
+                        {{ trans('Forgot Your Password') }}
+                      </router-link>
+                    </div>
                   </div>
                 </div>
 
                 <div class="form-group  mb-0">
-                  <div class="login_btn_part">
+                  <div>
                     <button
                       type="submit"
-                      class="login_btn"
+                      class="btn-lg btn-primary m-0-a"
                     >
-                      {{ trans('Login') }} <i class="fa fa-arrow-right text-white" />
+                      {{ trans('Login') }}&nbsp;<i class="fa fa-arrow-right text-white" />
                     </button>
                   </div>
                 </div>
@@ -130,12 +142,12 @@
                     ><i><img src="/icons/facebook.png"></i> Sign up with Facebook</a>
                   </div>
                 </div> -->
-                            
+
                 <div class="text-center center-col pt-2">
                   <span
                     class="text-gray"
                     style="color:#868686;"
-                  >Dont't have an account ?</span> <router-link :to="'/get-started'">
+                  >Dont't have an account?</span> <router-link :to="'/get-started'">
                     Sign Up
                   </router-link>
                 </div>
@@ -148,7 +160,7 @@
   </div>
 </template>
 <style scoped>
- 
+
     /* enable absolute positioning */
 
 .inner-addon {
@@ -179,36 +191,27 @@
 <script>
 import { mapState } from 'vuex';
 import FormMixin from '../../components/mixins/form-mixin.js' ;
-import swal from '../../components/swal';
 
 export default {
 	mixins: [FormMixin],
+	props: {
+		srvError401:{
+			default:false,
+		},
+		srvErrorUnknown:{
+			default:false,
+		}, 
+		emailError:{
+			default:false,
+		} 
+	},
 	data(){
 		return{
 			showLoader:false,
 			email:'',
 			password:'',
-			remember:false,
-			srvError401:'',
-			srvErrorUnknown:'',
+			remember:true,
 		};
-	},
-	mounted(){
-		var self=this;
-		this.$validator.localize('en', {custom: {
-			email: {
-				required: self.trans('emailOrPhone.invalid','You must provide a valid email address or phone number.')
-			}}});
-		this.$validator.extend('email', {
-			getMessage() {
-				return self.trans('emailOrPhone.invalid','You must provide a valid email address or phone number.');
-			},
-			validate: function(value) {
-				const email = /\S+@\S+\.\S+/;
-				const phone = /^\+?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
-				return !!(value.match(email) || value.match(phone));
-			}
-		});
 	},
 	methods:{
 		trans: function (string,defaultString) {
@@ -219,33 +222,11 @@ export default {
 				if (valid) {
 					this.form_errors=[];
 					this.showLoader=true;
-					this.login();
+					// this.$gtag.event('login');
+					document.getElementById('login_form').submit();
 				}
 			});
 			return true;
-		},
-		login: function () {
-			let email = this.email;
-			let password = this.password;
-			let remember = this.remember;
-			this.$store.dispatch('auth/login', { email, password, remember})
-				.then((resp) => {
-					this.showLoader=false;
-					swal.successDialog('Login','Success!','success')
-					({redirectUrl: window.location.href} = resp.data.success);
-				})
-				.catch(err => {
-					this.showLoader=false;
-					if( 401 === err.response.status){
-						this.srvError401=true;
-						this.srvErrorUnknown=false;
-						this.form_errors=[];
-					} else {
-						this.srvErrorUnknown=true;
-						this.srvError401 = false;
-						this.form_errors=err.response.data.errors;
-					}
-				});
 		},
 	}
 };

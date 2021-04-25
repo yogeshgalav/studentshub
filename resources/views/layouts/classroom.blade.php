@@ -19,14 +19,14 @@
     </div>
 
     <div class="container-fluid">
-        <div class="row">
+        <div class="row custom-width">
             <div class="width-250px mr-3">
                 <div class="main-sidebar">
                 @include('includes.sidebar')
                 </div>
             </div>
-            <div class="col-md-9">    
-                <div class="content pt-100-px">
+            <div class="col-md-9">
+                <div class="content">
                     @yield('content')
                 </div>
             </div>

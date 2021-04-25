@@ -1,19 +1,25 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 
 
 Route::post('/subscribe','GuestController@update');
 Route::get('/get-post-content/{post_id}','PostController@show');
-Route::post('/login','AuthController@login');
-Route::post('/register','AuthController@register');
+Route::post('/login',[App\Http\Controllers\AuthController::class,'loginViaApi']);
+Route::post('/register',[App\Http\Controllers\AuthController::class,'registerViaApi']);
+Route::post('/member-request','GuestController@memberRequest');
 
-Route::post('/forgot-password','AuthController@processForgotPassword');
-Route::post('/reset-password/{token}','AuthController@resetPassword');
-Route::post('/reset-password','AuthController@resetPassword2')->middleware('auth:api');
+Route::post('/forgot-password',[App\Http\Controllers\AuthController::class,'processForgotPassword']);
+Route::post('/reset-password',[App\Http\Controllers\AuthController::class,'resetPassword2'])->middleware('auth:api');
+Route::post('/reset-password/{token}',[App\Http\Controllers\AuthController::class,'resetPassword']);
+Route::post('/feedback','GuestController@feedback');
+Route::post('/contactus','GuestController@contactus');
+Route::post('/faq','GuestController@faq');
 // Route::get('/get-view-post/{ViewPostId}', 'PostController@viewPost');
 Route::get('/get-explore-posts', 'ExploreController@index');
 
-Route::get('/search', 'PostController@searchPosts');
-Route::get('/course/{courseUrl}', 'PostController@coursePosts');
-Route::get('/subject/{subjectUrl}', 'PostController@subjectPosts');
-Route::get('/category/{categoryUrl}', 'PostController@categoryPosts');
+Route::get('/get-search-posts', 'PostController@searchPosts');
+Route::get('/get-course-details/{id}', 'PostController@courseDetails');
+Route::get('/get-subject-details/{id}', 'PostController@subjectDetails');
+Route::get('/get-category-details/{id}', 'PostController@categoryDetails');

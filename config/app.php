@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'http://localhost:8000'),
 
     'asset_url' => env('ASSET_URL', null),
 
@@ -175,6 +175,10 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\BladeServiceProvider::class,
+
+        NotificationChannels\WebPush\WebPushServiceProvider::class,
+        Arcanedev\LogViewer\LogViewerServiceProvider::class,
+
     ],
 
     /*

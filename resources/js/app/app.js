@@ -9,11 +9,18 @@ import VModal from 'vue-js-modal';
 
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
+import Dayjs from 'vue-dayjs';
+import ProfileImage from '../components/ProfileImage';
 
-import VueSlimScroll from 'vue-slimscroll';
 import VueLazyload from 'vue-lazyload';
 Vue.use(VueLazyload);
-Vue.use(VueSlimScroll);
+Vue.use(Dayjs, {
+	lang:'en',
+	filters: {
+		ago: 'ago',
+	}
+});
+
 // or with options
 Vue.use(VueLazyload, {
 	preLoad: 1.3,
@@ -23,10 +30,37 @@ Vue.use(VueLazyload, {
 });
 Vue.use(VModal, { dynamic: true, injectModalsContainer: true, scrollable:true });
 Vue.use(VueAxios, axios);
+Vue.component('NotificationsDropdown', require('../components/NotificationsDropdown.vue').default);
 
+//error tracking
+// import * as Sentry from '@sentry/browser';
+// import { Integrations } from '@sentry/tracing';
+if(window.App.mode==='production'){
+	// Sentry.init({
+	// 	Vue,
+	// 	dsn: 'https://82c7fe80c97f4826818ae008c4d22c7d@o499194.ingest.sentry.io/5577443',
+	// 	autoSessionTracking: true,
+	// 	integrations: [
+	// 		new Integrations.BrowserTracing(),
+	// 	],
+
+	// 	// We recommend adjusting this value in production, or using tracesSampler
+	// 	// for finer control
+	// 	tracesSampleRate: 1.0,
+	// });
+	Vue.config.devtools = false;
+	Vue.config.debug = false;
+	Vue.config.silent = true;
+}
 Vue.mixin({
 	components:{
-		Loading
+		Loading,
+		ProfileImage
+	},
+	data(){
+		return {
+			showMobileLogoBar:true,
+		};
 	},
 	computed: {
 		baseUrl() {
@@ -40,6 +74,9 @@ Vue.mixin({
 		},
 		AuthUser(){
 			return window.App.AuthUser;
+		},
+		AuthStudent(){
+			return window.App.AuthStudent;
 		},
 		AuthTeacher(){
 			return window.App.AuthTeacher;
@@ -77,6 +114,7 @@ Vue.mixin({
 				console.error(err.response.data); // eslint-disable-line no-console
 				break;
 			}
+			return true;
 		},
 		letters() {
 			let letters = [];
@@ -89,9 +127,22 @@ Vue.mixin({
 	mounted(){
 		window.axios.defaults.headers.common = {
 			'X-CSRF-TOKEN': this.csrfToken,
-			'X-Requested-With': 'XMLHttpRequest',
-			'Authorization' : 'Bearer '+this.accessToken,
+			'X-Requested-With': 'XMLHttpRequest'
 		};
+		var prevScrollpos = window.pageYOffset;
+		window.addEventListener('scroll', ()=>{
+			let headerMobile = document.getElementById('header_mobile');
+			if (headerMobile){
+				var currentScrollPos = window.pageYOffset;
+				if (prevScrollpos > currentScrollPos) {
+					this.showMobileLogoBar = true;
+				} else {
+					this.showMobileLogoBar = false;
+				}
+				prevScrollpos = currentScrollPos;
+			}
+		});
+		document.addEventListener('click', this.closeSidebar);
 	},
 	methods: {
 		'$trans':function(file,string,defaultString){
@@ -103,16 +154,19 @@ Vue.mixin({
 		toggleSidebar(e){
 			e.preventDefault();
 			document.documentElement.classList.toggle('openNav');
-			var menu = document.querySelector('.nav-toggle'); // Using a class instead, see note below.
-			menu.classList.toggle('active');
 		},
-		bottomVisible() {
-			const scrollY = window.scrollY;
-			const visible = document.documentElement.clientHeight;
-			const pageHeight = document.documentElement.scrollHeight;
-			const bottomOfPage = visible + scrollY >= pageHeight;
-			return bottomOfPage || pageHeight < visible;
-		},
+		closeSidebar(e){
+			var container = document.getElementById('sidebarContainer');
+			var container2 = document.getElementById('nav-toggle');
+			if(!container || !container2){
+				return false;
+			}
+			if (!container.contains(e.target) && !container2.contains(e.target) && document.documentElement.classList.contains('openNav')) {
+				document.documentElement.classList.remove('openNav');
+				e.preventDefault();
+				return false;
+			}
+		}
 	}
 });
 

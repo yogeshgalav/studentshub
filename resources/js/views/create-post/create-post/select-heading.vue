@@ -1,31 +1,59 @@
 <template>
   <div class="creat_post_card img_der">
-<div class="row">
-    <div class="col-md-6">
-                <div class="login_img">
-                    <img src="/images/undraw_post_online_dkuk.svg" alt="">
-                </div>   
+    <div class="row">
+      <div class="col-md-6">
+        <div class="login_img">
+          <img
+            src="/images/undraw_post_online_dkuk.svg"
+            alt=""
+          >
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="logn_right">
+          <div class="form-group">
+            <div class="text-center">
+              <p class="title weight-600 font-size-16 text-black">
+                Give an attractive Heading to your Post.
+              </p>
             </div>
-     <div class="col-md-6">
-                 <div class="logn_right">
-                
-                <div class="form-group">
-                   <div class="text-center"> <p class="title weight-600 font-size-16 text-black">Give an attractive Heading to your Post.</p></div>
-                    <label class="weight-500">Heading</label>
-                    <div class="input_icon_frm">
-                        <span class="icon_design_input"><i class="fa fa-user"></i></span>
-                    <input type="text" class="form-control" :disabled="newPost.post_type==='mcq'" v-model="heading">
-                    </div>
-                </div>
-                 <div class="creat_post_btn">
-                     <button type="button" @click="prevTab" class="login_btn"><span><i class="fa fa-arrow-left" aria-hidden="true"></i></span> Back </button>
-                <button type="button" @click="nextTab" class="login_btn">Finish <span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></button>
-                </div>
-                 </div>
+            <label class="weight-500">Heading</label>
+            <div class="input_icon_frm">
+              <span class="icon_design_input"><i class="fa fa-user" /></span>
+              <input
+                v-model="heading"
+                type="text"
+                class="form-control"
+                :disabled="newPost.post_type==='mcq'"
+              >
             </div>
-</div>
+          </div>
+          <div class="creat_post_btn">
+            <button
+              type="button"
+              class="btn-primary btn-lg m-0-a"
+              @click="prevTab"
+            >
+              <span><i
+                class="fa fa-arrow-left"
+                aria-hidden="true"
+              /></span> Back
+            </button>
+            <button
+              type="button"
+              class="btn-primary btn-lg m-0-a"
+              @click="nextTab"
+            >
+              Next <span><i
+                class="fa fa-arrow-right"
+                aria-hidden="true"
+              /></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  
 </template>
 <style  scoped>
 .login_img img {
@@ -35,7 +63,7 @@
 .creat_post_btn button {
     margin: 0px 15px 0px 0;
 }
-button.login_btn span {
+button.btn-primary btn-lg span {
     margin: 0px 5px;
 }
 .creat_post_btn {
@@ -55,31 +83,31 @@ button.login_btn span {
 <script>
 import EventBus from '../event-bus';
 export default {
-    props:['newPost'],
-    mounted(){
-        EventBus.$on('validateStep4',()=>{
+	props:['newPost'],
+	data(){
+		return{
+			heading:this.newPost.heading,
+		};
+	},
+	mounted(){
+		EventBus.$on('validateStep2',()=>{
 			this.$validator.validate().then(valid => {
 				if(valid){
-                    this.$store.commit('set_post_heading',{'post_heading': this.heading});
-					EventBus.$emit('validateWizard',4,true);
+					this.$store.commit('set_post_heading',{'post_heading': this.heading});
+					EventBus.$emit('validateWizard',2,true);
 				}else{
-					EventBus.$emit('validateWizard',4,false);
+					EventBus.$emit('validateWizard',2,false);
 				}
 			});
 		});
-    },
-    data(){
-        return{
-            heading:this.newPost.heading,
-        };
-    },
-    methods:{
-        nextTab(){
-            EventBus.$emit('nextTab');
-        },
-        prevTab(){
-            EventBus.$emit('prevTab');
-        },
-    }
-}
+	},
+	methods:{
+		nextTab(){
+			EventBus.$emit('nextTab');
+		},
+		prevTab(){
+			EventBus.$emit('prevTab');
+		},
+	}
+};
 </script>

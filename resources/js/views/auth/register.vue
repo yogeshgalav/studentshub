@@ -21,20 +21,20 @@
             <div class="logn_right">
               <div class="card_title text-center">
                 <h3 class="weight-800 text-black font-size-18">
-                  {{ trans('Register') }}
+                  {{ ('Register') }}
                 </h3>
               </div>
 
               <div class="card_body">
                 <div class="row justify-content-center">
                   <div class="col-md-12">
-                    <form @submit.prevent="handleSubmit">
-                      <div
-                        v-if="email_error"
-                        class="form-group row alert alert-warning"
-                      >
-                        <span>{{ email_error }}</span>
-                      </div>
+                    <form
+                      id="register_form"
+                      name="register"
+                      method="POST"
+                      action="/register"
+                      @submit.prevent="handleSubmit"
+                    >
                       <div class="form-group">
                         <input
                           id="token"
@@ -43,10 +43,9 @@
                           name="_token"
                           :value="csrfToken"
                         >
-                        <span class="error">{{ formErrors('_token') }}</span>
                       </div>
                       <div class="form-group">
-                        <label> {{ trans('Full Name') }} </label>
+                        <label> {{ ('Full Name') }} </label>
                         <div class="inner-addon left-addon">
                           <div class="input_icon_frm">
                             <span class="icon_design_input"><i
@@ -68,7 +67,7 @@
                       </div>
 
                       <div class="form-group">
-                        <label for="email"> {{ trans('E-Mail Address') }}</label>
+                        <label for="email"> {{ ('E-Mail Address') }}</label>
 
                         <div class="inner-addon left-addon">
                           <div class="input_icon_frm">
@@ -90,7 +89,7 @@
                       </div>
 
                       <div class="form-group">
-                        <label for="password"> {{ trans('Password') }}</label>
+                        <label for="password"> {{ ('Password') }}</label>
 
                         <div class="inner-addon left-addon ">
                           <div class="input_icon_frm">
@@ -101,7 +100,7 @@
                               id="password"
                               ref="password"
                               v-model="password"
-                              v-validate="'required|min:6'"
+                              v-validate="'required|min:8'"
                               type="password"
                               class="form-control"
                               name="password"
@@ -113,7 +112,7 @@
                       </div>
 
                       <div class="form-group">
-                        <label for="password-confirm"> {{ trans('Confirm Password') }}</label>
+                        <label for="password-confirm"> {{ ('Confirm Password') }}</label>
 
                         <div class="inner-addon left-addon">
                           <div class="input_icon_frm">
@@ -133,19 +132,60 @@
                         </div>
                       </div>
 
+
+                      <div class="form-group">
+                        <div
+                          style="display: flex; justify-content: space-between; align-items: center;"
+                          @click="joinIdInfoVisible = !joinIdInfoVisible"
+                        >
+                          <label> {{ 'Join Id (optional)' }} </label>
+                          <i
+                            class="fa fa-exclamation-circle"
+                            aria-hidden=""
+                          />
+                        </div>
+                        <div
+                          v-if="joinIdInfoVisible"
+                          style="display: flex; justify-content: flex-end;"
+                          class="data"
+                        >
+                          <p class="on-hover text-grey">
+                            Join id is provide by teacher to students to join classroom directly with correct education details. Ignore this field if you are a teacher or institute.
+                          </p>
+                        </div>
+
+                        <div class="inner-addon left-addon">
+                          <div class="input_icon_frm">
+                            <span class="icon_design_input"><i
+                              class="fa fa-user"
+                            /></span>
+                            <input
+                              id="join_id"
+                              v-model="join_id"
+                              type="text"
+                              class="form-control"
+                              name="join_id"
+                              placeholder="Classroom Join ID"
+                              autofocus
+                            >
+                          </div>
+                          <span class="error">{{ errors.first('join_id') }}</span>
+                        </div>
+                      </div>
+
                       <div class="form-group mb-0">
-                        <div class="login_btn_part">
+                        <div>
                           <button
                             type="submit"
-                            class="login_btn"
+                            class="btn-primary btn-lg m-0-a"
                           >
-                            {{ trans('Register') }} <i
+                            {{ ('Register') }}&nbsp;<i
                               class="fa fa-arrow-right text-white"
                             />
                           </button>
                         </div>
                       </div>
-                      <div>
+                      <div style="text-align: center; margin-top: 20px;">
                         <router-link :to="'/login'">
                           Already have an account?
                         </router-link>
@@ -166,7 +206,16 @@
         position: relative;
         top: 15%;
     }
-
+    .fa-exclamation-circle{
+        cursor: pointer;
+    }
+    .fa-exclamation-circle:hover{
+        color: blue;
+    }
+    /* .on-hover{
+        width: 300px;
+        font-size: 13px;
+    } */
     .register .btn {
         width: 100%;
         border-radius: 0;
@@ -213,15 +262,17 @@
 import FormMixin from '../../components/mixins/form-mixin.js';
 import swal from '../../components/swal';
 
+
 export default {
 	mixins: [FormMixin],
 	data() {
 		return {
 			showLoader: false,
-			email_error: '',
 			full_name: '',
 			email: '',
 			password: '',
+			join_id: '',
+			joinIdInfoVisible: false,
 			dict: {
 				custom: {
 					full_name: {
@@ -242,59 +293,22 @@ export default {
 			}
 		};
 	},
-	mounted(){  
+	mounted(){
+		this.join_id = this.$route.query.joinId;
 		this.$validator.localize('en', this.dict);
 	},
 	methods: {
-		trans: function (string, defaultString) {
-			return this.$trans('auth', string, defaultString);
-		},
 		handleSubmit(e) {
 			this.$validator.validate().then(valid => {
 				if (valid) {
 					this.form_errors = [];
 					this.showLoader = true;
-					this.register();
+					document.getElementById('register_form').submit();
 				}
 			});
 			return true;
 		},
-		register(){
-			let email = this.email;
-			let password = this.password;
-			let full_name = this.full_name;
-
-			let join_id = this.$route.query.joinId;
-			this.axios.post(window.App.baseUrl + '/api/register', {
-				full_name,
-				email,
-				password,
-				join_id: join_id ? join_id : '',
-			})
-				.then(resp => {
-					const access_token = resp.data.success.access_token;
-					const refresh_token = resp.data.success.refresh_token;
-					localStorage.setItem('access_token', access_token);
-					localStorage.setItem('refresh_token', refresh_token);
-					this.showLoader = false;
-					swal.successDialog('Register', 'Success!', 'success')
-					({
-						redirectUrl: window.location.href
-					} = resp.data.success);
-				})
-				.catch(err => {
-					this.showLoader = false;
-					if(err.response.status===422){
-						let error_data = err.response.data.errors;
-						if(error_data['email']){
-							this.email_error = error_data['email'][0]; 
-						}
-					}
-					this.catchResponse(err);
-					localStorage.removeItem('access_token');
-					localStorage.removeItem('refresh_token');
-				});
-		},
 	}
 };
+
 </script>

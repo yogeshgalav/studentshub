@@ -6,8 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use App\PasswordReset;
-use Illuminate\Http\Request;
+use App\Models\PasswordReset;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
 
@@ -16,7 +15,6 @@ class ResetPasswordMail extends Mailable
     use Queueable, SerializesModels;
 
     protected $token;
-    protected $request;
     protected $user;
 
     /**
@@ -24,11 +22,10 @@ class ResetPasswordMail extends Mailable
      *
      * @return void
      */
-    public function __construct(PasswordReset $token, Request $request)
+    public function __construct(PasswordReset $token)
     {
         $this->token=$token->token;
         $this->user=$token->user;
-        $this->request=$request;
     }
 
     /**
@@ -38,12 +35,10 @@ class ResetPasswordMail extends Mailable
      */
     public function build()
     {
-        $log = new Log();
-        $url = parse_url(URL::current());
-        return $this->from('notifications@actionable.co')
+        return $this->from('info@studentshub.in')
          ->view('mails.forgot-password')
          ->with('token', $this->token)
-         ->with('host', $url['scheme'] . '://' . $url['host'])
+         ->with('url', config('app.url').'/reset-password?token='.$this->token)
          ->with('user', $this->user);
     }
 }

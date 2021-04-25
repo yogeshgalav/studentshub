@@ -1,11 +1,11 @@
 import ClassroomComponent from '../../views/student-classroom/classroom.vue';
 import ClassroomUnitAssignmentComponent from '../../views/student-classroom/classroom-unit-assignment.vue';
-import ClassroomDailyAssignmentComponent from '../../views/student-classroom/classroom-daily-assignment.vue';
-import ClassroomResourceComponent from '../../views/student-classroom/classroom.vue';
-import ClassroomMessageComponent from '../../views/student-classroom/classroom.vue';
-import ClassroomDoubtComponent from '../../views/student-classroom/classroom-doubts.vue';
-import ClassroomStudentPanelComponent from '../../views/teacher-classroom/classroom-student-panel.vue';
-import ClassmatesComponent from '../../views/student-classroom/classmates.vue';
+import ClassroomResourceComponent from '../../views/classroom/resources.vue';
+import ClassroomMessageComponent from '../../views/classroom/messages.vue';
+import ClassroomDoubtComponent from '../../views/classroom/doubts.vue';
+import ClassroomStudentPanelComponent from '../../views/classroom/student/daily-assignment.vue';
+import ClassroomReportComponent from '../../views/classroom/report.vue';
+import ClassroomAttendanceComponent from '../../views/classroom/student/attendance.vue';
 
 const StudentClassroomRoutes = [
 	{
@@ -18,11 +18,16 @@ const StudentClassroomRoutes = [
 	},
 	{
 		path: '/classroom/:classroomId/daily-assignment',
-		component: ClassroomDailyAssignmentComponent,
+		component: ClassroomStudentPanelComponent,
 	},
 	{
-		path: '/classroom/:classroomId/classmates',
-		component: ClassmatesComponent,
+		path: '/classroom/:classroomId/report',
+		component: ClassroomReportComponent,
+	},
+
+	{
+		path: '/classroom/:classroomId/attendance',
+		component: ClassroomAttendanceComponent,
 	},
 	{
 		path: '/classroom/:classroomId/resources',
@@ -39,6 +44,10 @@ const StudentClassroomRoutes = [
 	{
 		path: '/classroom/:classroomId/student-panel',
 		component: ClassroomStudentPanelComponent,
+	},
+	{
+		path: '/messages',
+		component: ClassroomMessageComponent,
 	},
 ];
 

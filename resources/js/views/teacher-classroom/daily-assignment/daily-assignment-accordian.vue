@@ -7,7 +7,7 @@
           :aria-expanded="true"
           tab="accordion_status_unit_active"
         >
-          <div class="row add_cl_q">
+          <div class="">
             <div class="col-md-3 col-12">
               <div class="form-group pl-0">
                 <label
@@ -45,7 +45,7 @@
                       data-provide="datepicker"
                     >
                       <span class="input-group-text">
-                        <i class="icon-calendar" />
+                        <i class="fa fa-calendar" />
                       </span>
                     </div>
                     <date-picker
@@ -64,12 +64,13 @@
                     />
                   </div>
                   <span class="text-danger">{{ formErrors('attempt_date') }}</span>
+                  <span class="text-danger">{{ assignment_error }}</span>
                 </div>
               </div>
             </div>
           </div>
           <div v-if="daily.id">
-            <div class="row add_cl_q">
+            <div class="">
               <div class="col-md-6 col-12">
                 <div class="row">
                   <div class="col-md-6">
@@ -83,7 +84,7 @@
                         data-provide="datepicker"
                       >
                         <span class="input-group-text">
-                          <i class="icon-calendar" />
+                          <i class="fa fa-clock" />
                         </span>
                       </div>
                       <date-picker
@@ -116,7 +117,7 @@
                         data-provide="datepicker"
                       >
                         <span class="input-group-text">
-                          <i class="icon-calendar" />
+                          <i class="fa fa-clock" />
                         </span>
                       </div>
                       <date-picker
@@ -141,16 +142,17 @@
                 </div>
               </div>
             </div>
-            <div class="row add_cl_q">
+            <div class="">
               <div class="col-md-12">
                 <div class="text-grey col-md-12 pl-0">
-                  <p class="mt-1">
+                  <p class="mt-2">
                     Students will be asked to answer the following questions on this unit
                     attempt
                   </p>
                 </div>
 
                 <daily-questions
+                  :key="daily.id"
                   :daily-questions="daily.daily_questions"
                   :assignment-id="daily.id"
                   @totalUpdate="totalUpdate"
@@ -159,22 +161,25 @@
             </div>
 
             <div
-              class="mt-5"
+              class="mt-3 row mobile_button_view"
             >
               <hr>
-              <button
-                class="btn btn-danger btn-md"
-                @click="deleteDailyAssignment(daily)"
-              >
-                Delete Daily
-                Assignment
-              </button>
-              <button
-                class="btn btn-primary btn-md"
-                @click="activateDailyAssignment(daily)"
-              >
-                {{ daily.activated_at ? 'Deactivate Daily Assignment' : 'Activate Daily Assignment' }}
-              </button>
+              <div class="col-md-6 col-6 text-left">
+                <button
+                  class="btn btn-white btn-md mt-1 "
+                  @click="deleteDailyAssignment(daily)"
+                >
+                  <i class="fa fa-trash text-black" />
+                </button>
+              </div>
+              <div class="col-md-6 col-6 text-right">
+                <button
+                  class="btn btn-primary btn-md mt-1"
+                  @click="activateDailyAssignment(daily)"
+                >
+                  {{ daily.activated_at ? 'Deactivate' : 'Activate' }}
+                </button>
+              </div>
             </div>
           </div>
         </accordion>
@@ -182,6 +187,14 @@
     </div>
   </div>
 </template>
+<style scoped>
+
+/* @media only screen and (max-width: 600px) {
+.mobile_button_view button {
+  width: 100%;
+}
+} */
+</style>
 <script>
 import FormMixin from '../../../components/mixins/form-mixin.js';
 import Accordion from '../../../components/accordion';
@@ -206,6 +219,7 @@ export default {
 			currentDate:new Date(),
 			daily: this.assignment,
 			total: 0,
+			assignment_error: '',
 		};
 	},
 	computed:{
@@ -242,7 +256,7 @@ export default {
 			if (!daily.unit_id || !daily.attempt_date) {
 				return false;
 			}
-
+			this.$emit('loader',true);
 			this.axios
 				.post('/api/update-daily-assignment', {
 					assignment_id: daily.id,
@@ -252,12 +266,15 @@ export default {
 					end_time: daily.end_time,
 				})
 				.then((resp) => {
-					this.daily = resp.data.success.assignment;            
+					this.daily = resp.data.success.assignment;           
 					this.daily['daily_questions']=[];
-
-				})
-				.catch((error) => {
-
+					this.$emit('loader',false);
+					this.assignment_error='';
+				}).catch(err => {
+					console.log(err.response.status,err.response.data);
+					if(422 === err.response.status){
+						this.assignment_error=err.response.data;
+					}
 				});
 		},
             
@@ -287,23 +304,30 @@ export default {
 					.infoDialog('Total marks for Daily Assignment should be 10.');
 				return false;
 			}
-			swal
-				.confirmDialog(
-					'Are you sure you want to Activate Assignment for date ' +
+			if(this.daily.activated_at){
+				this.activateApi();
+			}else{
+				swal
+					.confirmDialog(
+						'Are you sure you want to Activate Assignment for date ' +
                         this.daily.attempt_date +
                         '?'
-				)
-				.then((result) => {
-					if (result.value) {
-						this.axios.post('/api/activate-daily-assignment', {
-							daily_assignment_id: this.daily.id,
-							status: this.daily.activated_at ? 'deactivate' : 'activate'
-						}).then(() => {
-							this.daily.activated_at = new Date();
-						});
-					}
-				});
+					)
+					.then((result) => {
+						if (result.value) {
+							this.activateApi();
+						}
+					});
+			}
 		},
+		activateApi(){
+			this.axios.post('/api/activate-daily-assignment', {
+				daily_assignment_id: this.daily.id,
+				status: this.daily.activated_at ? 'deactivate' : 'activate'
+			}).then(() => {
+				this.daily.activated_at = this.daily.activated_at ? null : new Date();
+			});
+		}
 	}
 };
 

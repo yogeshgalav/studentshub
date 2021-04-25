@@ -3,8 +3,19 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Throwable;
+use Illuminate\Support\Facades\Log;
 
+/***
+ * Class Handler
+ * @package App\Exceptions
+ */
 class Handler extends ExceptionHandler
 {
     /**
@@ -13,7 +24,7 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
-        //
+        // \App\Exceptions\EmailAddressAlreadyExistsException::class,
     ];
 
     /**
@@ -29,34 +40,55 @@ class Handler extends ExceptionHandler
     /**
      * Report or log an exception.
      *
-     * @param  \Exception  $exception
+     * @param Throwable $exception
+     *
      * @return void
+     * @throws Exception
      */
-    public function report(Exception $exception)
-    {
-        parent::report($exception);
-    }
+    
 
     /**
      * Render an exception into an HTTP response.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $exception
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Throwable $exception
+     *
+     * @return Response
+     * @throws Throwable
      */
-    public function render($request, Exception $exception)
+    public function render($request, Throwable $exception)
     {
-        if($request->expectsJson()){
-            if($exception instanceof ValidationException){
-                return response()->json(['error'=>[
-                    'message'=>'Validation Error',
-                    'errors'=>$exception->validator->errors()
-                ]],422);
-            }
-            if ($exception instanceof ModelNotFoundException) {
-                return response()->json(['error'=>['message'=>'Resouce not found']], 404);
-            }
+        if ($exception->getCode() == 401) {
+            Log::warning('Unauthorized',['url'=>$request->url()]);
         }
+        if ($exception->getCode() == 404) {
+            Log::warning('PageNotFound',['url'=>$request->url()]);
+        }
+        if ($exception->getCode() == 419) {
+                Log::warning('TokenMismatchException',['url'=>$request->url(), 'request'=>$request, 'exception'=>$exception]);
+        }
+        if ($exception instanceof ModelNotFoundException && $request->wantsJson()) {
+            Log::warning('ModelNotFoundException',['url'=>$request->url(), 'request'=>$request, 'exception'=>$exception]);
+            return response()->json(['error'=>[
+                'message' => 'Resource not found',
+            ]], 404);
+        }
+
+        if ($exception instanceof AuthorizationException && $request->wantsJson()) {
+            Log::warning('AuthorizationException',['url'=>$request->url(), 'request'=>$request, 'exception'=>$exception]);
+            return response()->json(['error'=>[
+                'message' => 'Forbidden',
+            ]], 403);
+        }
+
+        if ($exception instanceof ValidationException && $request->wantsJson()) {
+            Log::warnig('ValidationException',['url'=>$request->url(), 'request'=>$request, 'exception'=>$exception]);
+            return response()->json(['error'=>[
+                'message'=>'Validation Error',
+                'errors'=>$exception->validator->errors()
+            ]],422);
+        }
+
         return parent::render($request, $exception);
     }
 }

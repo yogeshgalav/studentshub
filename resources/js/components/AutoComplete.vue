@@ -4,6 +4,7 @@
       v-model="search"
       type="text"
       class="form-control"
+      :disabled="disabled"
       :placeholder="placeholder"
       :readonly="!isAsync"
       @input="onChange"
@@ -22,7 +23,7 @@
           v-if="isLoading"
           class="loading"
         >
-          {{ trans('loading...') }}
+          {{ ('loading...') }}
         </li>
         <li
           v-for="(currentResult, i) in results"
@@ -43,7 +44,7 @@
           class="autocomplete-result"
           @click="createNew"
         >
-          {{ trans('Create New') }}
+          {{ ('Create New') }}
         </li>
       </ul>
     </transition>
@@ -112,6 +113,11 @@ export default {
 			required: false,
 			default: true,
 		},
+		disabled: {
+			type: Boolean,
+			required: false,
+			default: false,
+		},
 		initialValue: {
 			type: Object,
 			required: false,
@@ -141,10 +147,14 @@ export default {
 		},
 	},
 	updated() {
-		if(this.initialValue && this.search===''){console.log('hr2',this.initialValue);
+		if(this.initialValue && this.search===''){
 			this.result = Object.assign({},this.initialValue);
 			this.search = this.result[this.value];
 		}
+	},
+	mounted() {
+		this.results = this.items;
+		document.addEventListener('click', this.handleClickOutside);
 	},
 	mounted() {
 		this.results = this.items;
@@ -154,13 +164,7 @@ export default {
 		document.removeEventListener('click', this.handleClickOutside);
 	},
 	methods: {
-		trans: function(string, defaultString) {
-			return this.$trans('auth', string, defaultString);
-		},
 		onChange() {
-			if(this.search.length<3){
-				return false;
-			}
 			if(this.isAsync===false){
 				this.results = this.results.filter(node=>node.name.indexOf(this.search) !== -1);
 				return true;

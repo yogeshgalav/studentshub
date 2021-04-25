@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use App\Models\Classroom;
+use App\Models\Batch;
 use App\Models\Unit;
+use App\Models\ClassroomUser;
 use DB;
 use Auth;
 use Illuminate\Support\Facades\Log;
@@ -12,68 +15,6 @@ use Illuminate\Support\Facades\Log;
 class ClassroomController extends Controller
 {
     //
-    public function classroomListPage(){
-        $classroom_query = DB::table('classrooms as cs')
-        ->join('courses as co','co.id','=','cs.course_id')
-        ->join('subjects as su','su.id','=','cs.subject_id')
-        ->join('teachers as th','th.id','=','cs.teacher_id')
-        ->join('users as us','us.id','=','th.user_id')
-        ->select('cs.id','cs.name','co.course_name','su.subject_name','su.alias as subject_alias','us.id as user_id','us.full_name as teacher_name');
-
-        $classroom_query2=clone $classroom_query;
-
-        $classroom_list=$classroom_query->join('classroom_users as cu',function($join){
-            $join->on('cu.classroom_id','=','cs.id')->where('cu.user_id',Auth::id())->where('joined_at','!=',null);
-        })
-        ->get();
-
-        $teacher=Auth::teacher();
-        if($teacher){
-            $my_classrooms=$classroom_query2->where('teacher_id','=',$teacher->id)->get();
-        }else{
-            $my_classrooms=[];
-        }
-
-        return view('classroom.classroom-list')
-        ->with([
-            'classroomList'=>$classroom_list,
-            'myClassrooms'=>$my_classrooms,
-            'teacher'=>$teacher ? true :false,
-        ]);
-    }
-
-    //web endpoit to classroomm vieew for teachers
-    public function getClassroomDetails($classroom_id){
-        $classroomDetail = DB::table('classrooms as cs')
-        ->where('cs.id',$classroom_id)
-        ->join('courses as co','co.id','=','cs.course_id')
-        ->join('subjects as su','su.id','=','cs.subject_id')
-        ->join('teachers as th','th.id','=','cs.teacher_id')
-        ->join('users as us','us.id','=','th.user_id')
-        ->select('cs.*','co.course_name','su.subject_name','us.id as user_id','us.full_name as teacher_name')
-        ->first();
-
-        return response()->json([
-            'success'=>[
-                'classroomDetail'=>$classroomDetail
-            ]
-        ]);
-    }
-
-    public function update($classroomId,Request $request){
-        $classroom=Classroom::findOrFail($classroomId);
-        $classroom->update([
-            'expected_students'=> $request->expected_students,
-            'classroom_duration'=> $request->duration,
-            'batch_end_year'=> $request->end_year,
-            'batch_start_year'=> $request->start_year,
-        ]);
-
-        return response(['success'=>[
-            'classroom'=>$classroom
-        ]]);
-    }
-
     public function classroomPage($classroomId){
         $classroom=Classroom::findOrFail($classroomId);
 
@@ -81,8 +22,31 @@ class ClassroomController extends Controller
             return view('classroom.classroom');
         }
 
-        // $is_classroom_student=ClassroomUser::where('user_id',Auth::id())
-        // ->where('classroom_id',$classroom->id)->where('joined_at','!=',null)->exists();
+        $is_classroom_student=ClassroomUser::where('user_id',Auth::id())
+        ->where('classroom_id',$classroom->id)->exists();
+        if(!$is_classroom_student){
+            Log::warning('invalid classroom access',['user_id'=>Auth::id(),'classroom_id'=>$classroom->id]);
+            abort(403);
+        }
+
+        $daily_assignment=\App\Models\DailyAssignment::where('attempt_date','=',now(Auth::user()->timezone)->toDateString())
+        ->where('activated_at','!=',null)->where('classroom_id','=',$classroom->id)
+        ->with('dailyQuestions.multipleChoice')->first();
+        
+        // check if assignment is not already attempted
+        $daily_report=null;
+        if($daily_assignment){       
+            $daily_assignment->dailyQuestions->makeHidden('correct_answer');     
+            $daily_report = \App\Models\DailyReport::where('user_id',Auth::id())
+            ->where('daily_assignment_id',$daily_assignment->id)->first();
+        }
+
+        if($daily_assignment && $daily_assignment->isCurrentlyAvailable() && empty($daily_report)){
+            return view('student-panel.daily-attempt')
+            ->with('nocache',true)
+            ->with('daily_assignment',$daily_assignment);
+        }
+
         return view('student-panel.my-panel');
     }
 
@@ -95,6 +59,16 @@ class ClassroomController extends Controller
         $classroom=Classroom::findOrFail($classroomId);
 
         return view('classroom.classroom-setup');
+    }
+
+    public function classroomAttendancePage($classroomId){
+        $classroom=Classroom::findOrFail($classroomId);
+                
+        if(Auth::teacher() && $classroom->teacher_id===Auth::teacher()->id){
+            return view('classroom.classroom-attendance-page');
+        }
+
+        return view('student-panel.classroom-attendance-page');
     }
     public function classroomUnitAssignmentPage($classroomId){
         $classroom=Classroom::findOrFail($classroomId);
@@ -149,72 +123,70 @@ class ClassroomController extends Controller
         return view('classroom.create-classroom')
         ->with('course_levels',$course_levels);
     }
-    public function createClassroom(Request $request){
-        $subject_id = $request->subject['id'];
-        $subject_name = $request->subject['subject_name'];
-        $course_id = $request->course['id'];
-        $course_name = $request->course['course_name'];
+    public function classroomListPage(){
+        $classroom_query = DB::table('classrooms as cs')
+        ->join('batches as bt','bt.id','=','cs.batch_id')
+        ->join('courses as co','co.id','=','bt.course_id')
+        ->join('subjects as su','su.id','=','cs.subject_id')
+        ->join('teachers as th','th.id','=','cs.teacher_id')
+        ->join('users as us','us.id','=','th.user_id')
+        ->select('cs.id','cs.name','co.course_name','su.subject_name','su.alias as subject_alias','us.id as user_id','us.full_name as teacher_name');
 
-        if(Classroom::where('classroom_live_id',$request->classroom_id)->exists()){
-            return response()->json(['error'=>[
-                'field'=>'classroom_id',
-                'message'=>'This Classroom Id is already used. Please try another.'
-            ]],422);
-        }
-        DB::beginTransaction();
-    try{
-        if($course_id){
-            $course = \App\Models\Course::findOrFail($course_id);
-        }else{
-            $course=\App\Models\Course::create([
-                'course_url'=>\Str::slug($course_name),
-                'course_name'=>$course_name,
-                'category_id'=>null
-            ]);
-        }
+        $classroom_query2=clone $classroom_query;
 
-        if($subject_id){
-            $subject = \App\Models\Subject::findOrFail($subject_id);
-        }else{
-            $subject= \App\Models\Subject::create([
-                'subject_url'=>\Str::slug($subject_name),
-                'subject_name'=>$subject_name,
-                'category_id'=>$course->category_id ?? null
-            ]);
-        }
-
-        $classroom=new Classroom;
-        $classroom->name=$request->name;
-        $classroom->classroom_live_id=$request->classroom_id;
-        $classroom->teacher_id=Auth::teacher()->id;
-        $classroom->subject_id=$subject->id;
-        $classroom->course_id=$course->id;
-        $classroom->save();
-
-        DB::commit();
-    } catch (\Exception $e) {
-        DB::rollback();
-        Log::critical('classroom create failure: with data ',$request->all());
-        return response()->$e;
-    }
-        return response()->json(['success'=>[
-            'id'=>$classroom->id,
-            'live_id'=>$classroom->classroom_live_id
-        ]]);
-    }
-
-    public function getPreviousUnitAnswers($classroom_id){
-        $answers = DB::table('classroom_answers as ca')
-        ->join('descriptive_questions as cq','cq.id','=','ca.descriptive_question_id')
-        ->join('units',function($join)use($classroom_id){
-            $join->on('units.id','=','cq.unit_id')->where('classroom_id','=',$classroom_id)->whereNotNull('unit.deactivated');
+        $classroom_list=$classroom_query->join('classroom_users as cu',function($join){
+            $join->on('cu.classroom_id','=','cs.id')->where('cu.user_id',Auth::id());
         })
-        ->select()
         ->get();
 
-        return response()->json(['success'=>[
-            'answers'=>$answers
-        ]]);
+        $teacher=Auth::teacher();
+        if($teacher){
+            $my_classrooms=$classroom_query2->where('teacher_id','=',$teacher->id)->get();
+        }else{
+            $my_classrooms=[];
+        }
+
+        return view('classroom.classroom-list')
+        ->with([
+            'classroomList'=>$classroom_list,
+            'myClassrooms'=>$my_classrooms,
+            'teacher'=>$teacher ? true :false,
+        ]);
     }
 
+    public function classroomResoucePage(){
+        return view('classroom.resources');
+    }
+    public function classroomDoubtPage(){
+        return view('classroom.doubts');
+    }
+    public function classroomMessagePage(){
+        return view('classroom.messages');
+    }
+
+    public function doubtPage()
+    {
+        $categories = \App\Models\Category::all();
+        return view('student.doubts')->with('categories',$categories);
+    }
+
+    public function doubtAnswersPage(){
+        return view('doubt.answer');
+    }
+    public function GlobalMessagePage(){
+        $classrooms = \DB::table('classrooms')
+        ->leftJoin('teachers as tc',function($join){
+            $join->on('tc.id','=','classrooms.teacher_id')->where('user_id','=',Auth::id());
+        })
+        ->leftJoin('classroom_users as cu',function($join){
+            $join->on('cu.classroom_id','=','classrooms.id')->where('cu.user_id','=',Auth::id());
+        })
+        ->where('tc.id','!=',null)
+        ->orWhere('cu.id','!=',null)
+        ->select('classrooms.id','classrooms.name')
+        ->get();
+        
+        return view('classroom.global-messages')
+        ->with('classrooms',$classrooms);
+    }
 }

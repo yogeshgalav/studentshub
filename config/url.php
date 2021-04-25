@@ -1,5 +1,5 @@
 <?php
 
     return [
-        'site_url'=>'http://www.studentshub.in'
+        'site_url'=>'https://www.studentshub.in'
     ];

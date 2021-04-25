@@ -1,22 +1,43 @@
 <template>
   <div class="creat_post_card img_der artical_page">
     <main>
-        <div v-if="postType==='article'">
-            <blog-article :new-post="newPost"/>
-        </div>
-        <div v-if="postType==='fact'">
-            <fact :new-post="newPost"/>
-        </div>
-        <div v-if="postType==='mcq'">
-            <mcq :new-post="newPost"/>
-        </div>
-        <div v-if="postType==='video'">
-            <net-video :new-post="newPost"/>
-        </div>
+      <div v-if="postType==='article'">
+        <blog-article :new-post="newPost" />
+      </div>
+      <div v-if="postType==='fact'">
+        <fact :new-post="newPost" />
+      </div>
+      <div v-if="postType==='mcq'">
+        <mcq :new-post="newPost" />
+      </div>
+      <div v-if="postType==='video'">
+        <net-video :new-post="newPost" />
+      </div>
+      <div v-if="postType==='document'">
+        <document :new-post="newPost" />
+      </div>
     </main>
     <div class="creat_post_btn">
-        <button type="button" @click="prevTab" class="login_btn"><span><i class="fa fa-arrow-left" aria-hidden="true"></i></span> Back </button>
-        <button type="button" @click="nextTab" class="login_btn">Next <span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></button>
+      <button
+        type="button"
+        class="btn-primary btn-lg m-0-a"
+        @click="prevTab"
+      >
+        <span><i
+          class="fa fa-arrow-left"
+          aria-hidden="true"
+        /></span> Back
+      </button>
+      <button
+        type="button"
+        class="btn-primary btn-lg m-0-a"
+        @click="nextTab"
+      >
+        Finish <span><i
+          class="fa fa-arrow-right"
+          aria-hidden="true"
+        /></span>
+      </button>
     </div>
   </div>
 </template>
@@ -24,28 +45,29 @@
 import BlogArticle from './post-type/blog-article';
 import Fact from './post-type/fact.vue';
 import NetVideo from './post-type/video.vue';
+import Document from './post-type/document-link.vue';
 import Mcq from './post-type/mcq.vue';
 import EventBus from '../event-bus';
 
 export default {
-    props:['newPost'],
-    components:{
-        BlogArticle,Document,Fact,Mcq,NetVideo
-    },
-    computed:{
-        postType(){
-            return this.$store.state.new_post.post_type.toLowerCase();
-        },
-    },
-    methods:{
-        nextTab(){
-            EventBus.$emit('nextTab');
-        },
-        prevTab(){
-            EventBus.$emit('prevTab');
-        },
-    }
-}
+	components:{
+		BlogArticle,Document,Fact,Mcq,NetVideo,Document
+	},
+	props:['newPost'],
+	computed:{
+		postType(){
+			return this.$store.state.new_post.post_type.toLowerCase();
+		},
+	},
+	methods:{
+		nextTab(){
+			EventBus.$emit('nextTab');
+		},
+		prevTab(){
+			EventBus.$emit('prevTab');
+		},
+	}
+};
 </script>
 <style  scoped>
 .creat_post_btn button {
@@ -59,7 +81,7 @@ export default {
 .creat_post_card {
     padding: 20px;
 }
-button.login_btn span {
+button.btn-primary btn-lg span {
     margin: 0px 5px;
 }
 .creat_post_card .form-control

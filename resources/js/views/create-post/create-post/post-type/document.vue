@@ -149,10 +149,10 @@ export default {
 	  }
   },
   mounted(){
-	  EventBus.$on('validateStep2', () => {
+	  EventBus.$on('validateStep4', () => {
 		  	const data = {files:this.files,description:this.description}
 			this.$store.commit('set_post_document_content', data);
-		  EventBus.$emit('validateWizard',2,true);
+		  EventBus.$emit('validateWizard',4,true);
 	  })
   },
 }

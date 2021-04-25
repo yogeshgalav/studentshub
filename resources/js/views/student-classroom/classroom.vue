@@ -6,27 +6,6 @@
         <div class="selection-box-default">
           <router-link
             class="card h-card"
-            :to="'/classroom/'+$route.params.classroomId+'/student-panel'"
-          >
-            <div class="card-body">
-              <div class="row">
-                <div class="col-lg-12">
-                  <h2 class="font-size-18">
-                    {{ 'Student panel' }}
-                  </h2>
-                  <p>
-                    {{ 'summary report' }}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </router-link>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="selection-box-default">
-          <router-link
-            class="card h-card"
             :to="'/classroom/'+$route.params.classroomId+'/daily-assignment'"
           >
             <div class="card-body">
@@ -36,7 +15,29 @@
                     {{ 'Daily Assignment' }}
                   </h2>
                   <p>
-                    {{ 'daily-assignment' }}
+                    {{ 'View and attempt daily assignment.' }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </router-link>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="selection-box-default">
+          <router-link
+            class="card h-card"
+            :to="'/classroom/'+$route.params.classroomId+'/attendance'"
+          >
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <h2 class="font-size-18">
+                    {{ 'Smart Attendance' }}
+                  </h2>
+                  <p>
+                    {{ 'Mark your presence.' }}
                   </p>
                 </div>
               </div>
@@ -48,16 +49,16 @@
         <div class="selection-box-default">
           <router-link
             class="card h-card"
-            :to="'/classroom/'+$route.params.classroomId+'/classmates'"
+            :to="'/classroom/'+$route.params.classroomId+'/report'"
           >
             <div class="card-body">
               <div class="row">
                 <div class="col-lg-12">
                   <h2 class="font-size-18">
-                    {{ 'Classmates' }}
+                    {{ 'Report' }}
                   </h2>
                   <p>
-                    {{ 'classmates report' }}
+                    {{ 'View classroom report.' }}
                   </p>
                 </div>
               </div>
@@ -99,7 +100,7 @@
                     {{ 'Resources' }}
                   </h2>
                   <p>
-                    {{ 'resources' }}
+                    {{ 'View Classroom resources.' }}
                   </p>
                 </div>
               </div>
@@ -120,7 +121,7 @@
                     {{ 'Message' }}
                   </h2>
                   <p>
-                    {{ 'message' }}
+                    {{ 'View classroom messages.' }}
                   </p>
                 </div>
               </div>
@@ -141,7 +142,7 @@
                     {{ 'Doubts' }}
                   </h2>
                   <p>
-                    {{ 'doubts' }}
+                    {{ 'Ask and answer doubts.' }}
                   </p>
                 </div>
               </div>

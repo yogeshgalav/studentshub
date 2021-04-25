@@ -1,0 +1,162 @@
+<template>
+  <div
+    v-if="AuthUser"
+    class="single_page_user_like"
+  >
+    <button
+      type="button"
+      class="btn pl-0"
+      @click="sendUserLike()"
+    >
+      <p
+        v-if="like_active"
+        class="text-primary pl-0 pr-0"
+      >
+        <span><i class="fas fa-thumbs-up text-primary" />&nbsp;</span>
+        {{ post.total_likes + 1 }} Like
+      </p>
+      <p v-else>
+        <span><i class="far fa-thumbs-up" />&nbsp;</span>
+        {{ post.total_likes }} Like
+      </p>
+    </button>
+    <button
+      v-if="showDislike"
+      type="button"
+      class="btn"
+      @click="sendUserDislike()"
+    >
+      <p
+        v-if="dislike_active"
+        class="text-primary pl-0 pr-0"
+      >
+        <span><i class="fas fa-thumbs-down text-primary" />&nbsp;</span>
+        {{ post.total_likes + 1 }} Dislike
+      </p>
+      <p v-else>
+        <span><i class="far fa-thumbs-down" />&nbsp;</span>
+        {{ post.total_likes }} Dislike
+      </p>
+    </button>
+    <button      
+      v-if="showReply"
+      type="button"
+      :class="['btn pl-0', reply_active ? 'text-primary' : '']"
+      @click="reply()"
+    >
+      <p>
+        <span><i
+          class="far fa-comment-alt"
+        />&nbsp;</span>
+        Reply
+      </p>
+    </button>
+  </div>
+</template>
+
+<script>
+export default {
+	props:{
+		'post':{
+			'type':Object,
+			'required':true,
+		},
+		'likableType':{
+			'type':String,
+			'required':true,
+		},
+		'showDislike':{
+			'type':Boolean,
+			'default':true,
+			'required':false,
+		},
+		'showReply':{
+			'type':Boolean,
+			'default':false,
+			'required':false,
+		},
+	},
+	data(){
+		return {
+			user_like:'',
+			like_active:false,
+			dislike_active:false,
+			reply_active:false,
+		};
+	},
+	watch: {
+		post(val) {
+			if(val.user_like === 1){
+				this.like_active = true;
+			}
+			else if(val.user_like === 0){
+				this.dislike_active = true;
+			}
+		}
+	},
+	methods:{
+		reply(){
+			this.$emit('reply');
+			this.reply_active = true;
+		},
+		sendUserLike() {
+			let method = (this.like_active === true) ? 'delete' : 'add';
+			this.like_active = !this.like_active;
+			this.dislike_active = false;
+			this.axios.post('/api/user-like/'+this.likableType, {
+				likable_id: this.post.id,
+				type: 'like',
+				method,
+			}).then(resp => {
+				this.user_like = resp.data.success.user_like;
+				this.like_active = this.user_like===1 ? true : false;
+				this.dislike_active = this.user_like===0 ? true : false;
+			}).catch(err => {
+				this.like_active = this.user_like===1 ? true : false;
+				this.dislike_active = this.user_like===0 ? true : false;
+			});
+		},
+		sendUserDislike() {
+			let method = (this.dislike_active === true) ? 'delete' : 'add';
+			this.dislike_active = !this.dislike_active;
+			this.like_active = false;
+			this.axios.post('/api/user-like/'+this.likableType, {
+				likable_id: this.post.id,
+				type: 'dislike',
+				method,
+			}).then(resp => {
+				this.user_like = resp.data.success.user_like;
+				this.dislike_active = this.user_like===0 ? true : false;
+				this.like_active = this.user_like === 1 ? true : false;
+			}).catch(err => {
+				this.dislike_active = this.user_like===0 ? true : false;
+				this.like_active = this.user_like === 1 ? true : false;
+			});
+		},
+	}
+};
+</script>
+
+<style scoped>
+button{
+    border: none;
+    color: gray;
+    display: flex;
+    height: 25px;
+	margin-bottom: 10px;
+	margin-top: -10px;
+    background-color: #fff;
+}
+.single_page_user_like{
+    display: flex;
+}
+p{
+	padding: 5px 0px;
+	margin-bottom: 10px;
+}
+p:hover{
+	background-color: #f0f2f5;
+}
+
+
+</style>

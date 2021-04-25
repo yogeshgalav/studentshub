@@ -44,8 +44,14 @@
 <style lang="scss">
     @import 'resources/sass/_variables.scss';
     /* Navigation Tabs */
-    .tabbed-nav1  ul   {
-        border-bottom: 1px solid #000 !important;
+    // .tabbed-nav1  ul   {
+    //     border-bottom: 1px solid #000 !important;
+    // }
+    .tabbed-nav ul{
+        justify-content: center;
+    }
+    .tabbed-nav{
+        margin-top: 0px;
     }
     .tabbed-nav ul li a {
         text-align: center;
@@ -54,7 +60,7 @@
         padding: 6px 60px 6px 60px;
     }
     .tabbed-nav ul li a:focus,.tabbed-nav ul li a:hover {
-        background: #deedf9;
+        background: #fff;
 
     }
     .tabbed-nav .nav-item {
@@ -95,7 +101,7 @@
         padding: 6px 60px 6px 60px;
     }
     .tabbed-nav2 ul li a:focus,.tabbed-nav ul li a:hover {
-        background: #deedf9;
+        background: #fff;
 
     }
     .tabbed-nav2 .nav-item {
@@ -103,169 +109,48 @@
         border: 0;
         border-bottom: none;
     }
+.tabbed-nav  {
 
+    padding: 15px;
+}
     // Nav Tab 1
     .tabbed-nav .nav-item .active {
         background: #fff;
-        border: 1px solid #707070;
-        border-bottom: none !important;
-        color: #2F80ED !important;
+        border-bottom:2px solid #10069f !important;
+        color: #10069f !important;
         position: relative;
         margin-bottom: -1px;
     }
     .tabbed-nav .nav-item .active:focus {
-        background: #deedf9 !important;
-        color: #000 !important;
+        background: #fff !important;
+        color: #10069f !important;
     }
     .tabbed-nav .nav {
         padding-left: 10px;
+        margin-bottom: 40px;
     }
     .tabbed-nav .nav-item a {
         text-align: center;
         color: #000;
         font-size: 14px;
-        padding: 6px 30px;
+        padding: 15px 15px;
         font-weight: 800;
         cursor: pointer;
+        margin-right: 20px;
     }
-    @media screen  and (max-width: 768px) {
-        .tabbed-nav .nav
-        {
-            position: fixed;
-            bottom:0;
-            left:0;
-            right:0;
-            z-index: 1000;
-            background: #D9D9D9;
 
-        }
-        .tabbed-nav .nav {
-            border-bottom: 0 solid #000000 !important;
-
-        }
-        .tabbed-nav .nav-item .active {
-            background: #fff;
-            border: 0 solid #707070;
-            border-bottom: none !important;
-            color: #000 !important;
-            position: static;
-            margin-bottom:0;
-            font-weight:normal;
-        }
-        .tabbed-nav  .nav {
-            padding-left:0;
-        }
-        .tabbed-nav .nav-item {
-            background: #D9D9D9;
-            border: 0;
-            border-bottom: none;
-            width: 23.33%;
-            cursor: pointer;
-        }
-
-        .tabbed-nav .nav-item a {
-            text-align: center;
-            color: #5E5E5E;
-            padding: 10px 20px;
-            font-weight: 500;
-            letter-spacing: 0.002em;
-            cursor: pointer;
-            word-wrap: break-word;
-            min-height: 100%;
-        }
-
-        // Nav Tab 2
-        .tabbed-nav2 .nav
-        {
-            position: fixed;
-            bottom:0;
-            left:0;
-            right:0;
-            z-index: 1000;
-            background: #D9D9D9;
-
-        }
-        .tabbed-nav2 .nav {
-            border-bottom: 0 solid #000000 !important;
-
-        }
-        .tabbed-nav2 .nav-item .active {
-            background: #fff;
-            border: 0 solid #707070;
-            border-bottom: none !important;
-            color: #000 !important;
-            position: static;
-            margin-bottom:0;
-            font-weight:normal;
-        }
-        .tabbed-nav2  .nav {
-            padding-left:0;
-        }
-        .tabbed-nav2 .nav-item {
-            background: #D9D9D9;
-            border: 0;
-            border-bottom: none;
-            width: 33.33%;
-            cursor: pointer;
-        }
-
-        .tabbed-nav2 .nav-item a {
-            text-align: center;
-            color: #5E5E5E;
-            padding: 10px 20px;
-            font-weight: 500;
-            letter-spacing: 0.002em;
-            cursor: pointer;
-            word-wrap: break-word;
-            min-height: 100%;
-        }
-
-        .text-underline
-        {
-            text-decoration: underline !important;
-        }
-    }
-    @media screen  and (min-width: 1024px) and (max-width:1166px) {
-        .tabbed-nav .nav-item a
-        {
-            padding: 10px 20px;
-        }
-    }
-    @media screen  and (min-width: 392px) and (max-width:460px) {
-        .tabbed-nav .nav-item a
-        {
-            padding: 5px 12px;
-            font-size:13px;
-            min-height: 100%;
-        }
-        .tabbed-nav .nav-item{
-            width: 23.33%;
-        }
-        .tabbed-nav2 .nav-item{
-            width: 33.33%;
-        }
-    }
-    @media screen  and (min-width: 375px) and (max-width:460px) {
-        .tabbed-nav2 .nav-item a
-        {
-            padding: 10px 10px;
-        }
+@media (max-width: 640px) {
+    .tabbed-nav .nav-item a {
+        text-align: center;
+        color: #000;
+        font-size: 14px;
+        padding: 15px 10px;
+        font-weight: 500;
+        cursor: pointer;
+        margin-right: 0px;
 
     }
-    @media screen  and (max-width: 392px) {
-        .tabbed-nav .nav-item a
-        {
-            padding: 5px 5px;
-            font-size:10px;
-            min-height: 100%;
-        }
-        .tabbed-nav .nav-item{
-            width: 23.33%;
-        }
-        .tabbed-nav2 .nav-item{
-            width: 33.33%;
-        }
-    }
+}
 </style>
 <script>
 export default {
@@ -318,6 +203,7 @@ export default {
 	},
 	methods: {
 		switchTab(tabName, event){
+			this.$emit('changeTab',tabName);
 			this.activeTab = tabName;
 			event.target.blur();
 			if (window.innerWidth>= 768)

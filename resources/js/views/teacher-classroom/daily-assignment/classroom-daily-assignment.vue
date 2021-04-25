@@ -8,15 +8,38 @@
     />
     <div class="row">
       <div class="col-md-12">
-        <classroom-header />
+        <classroom-header 
+          title="Daily Assignment"
+        />
       </div>
     </div>
-    <div class="mt-2">
-      <add-button
-        name="Add Assignment"
-        size="lg"
-        @submit="addAssignment"
-      />
+    <div
+      v-if="!unitList.length"
+      class="card"
+    >
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+            <p>
+              {{ 'No unit created.This page will populate once unit setup is done. ' }}
+              <router-link :to="'/classroom/'+$route.params.classroomId+'/setup'">
+                Click here to to create unit
+              </router-link>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      v-else
+      class="mt-2"
+    >
+      <button
+        class="btn-primary btn-lg"
+        @click="addAssignment"
+      >
+        <i class="fas fa-plus" />&nbsp;&nbsp;Add Assignment
+      </button>
     </div>
     <div
       v-for="(daily,index) in dailyAssignmentData"
@@ -24,9 +47,11 @@
       class="card mt-5"
     >
       <daily-assignment-accordian
+        :key="daily.id"
         :assignment="daily"
         :unit-list="unitList"
         @deleteAssignment="deleteAssignment(index)"
+        @loader="changeLoader"
       />
     </div>
   </div>
@@ -75,6 +100,9 @@ export default {
 		this.getDailyDetails();
 	},
 	methods: {
+		changeLoader(status){
+			this.showLoader=status;
+		},
 		getDailyDetails() {
 			this.axios
 				.get('/api/classroom/' + this.$route.params.classroomId + '/daily-questions')

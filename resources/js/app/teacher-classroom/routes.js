@@ -4,11 +4,13 @@ import ClassroomSetupComponent from '../../views/teacher-classroom/classroom-set
 import ClassroomUnitAssignmentComponent from '../../views/teacher-classroom/classroom-unit-assignment.vue';
 import ClassroomDailyAssignmentComponent from '../../views/teacher-classroom/daily-assignment/classroom-daily-assignment.vue';
 import ClassroomDailyReportComponent from '../../views/teacher-classroom/classroom-daily-report.vue';
-import ClassroomResourceComponent from '../../views/teacher-classroom/classroom.vue';
-import ClassroomMessageComponent from '../../views/teacher-classroom/classroom.vue';
-import ClassroomDoubtComponent from '../../views/teacher-classroom/classroom.vue';
-import ClassroomStudentsComponent from '../../views/teacher-classroom/classroom-students.vue';
-import ClassroomStudentPanelComponent from '../../views/teacher-classroom/classroom-student-panel.vue';
+import ClassroomResourceComponent from '../../views/classroom/resources.vue';
+import ClassroomMessageComponent from '../../views/classroom/messages.vue';
+import ClassroomDoubtComponent from '../../views/classroom/doubts.vue';
+import ClassroomReportComponent from '../../views/classroom/report.vue';
+import ClassroomStudentPanelComponent from '../../views/classroom/teacher/daily-assignment.vue';
+import ClassroomAttendanceComponent from '../../views/classroom/teacher/attendance.vue';
+import DoubtAnswer from '../../views/doubt/doubt-answers.vue';
 
 const TeacherClassroomRoutes = [
 	{
@@ -49,13 +51,26 @@ const TeacherClassroomRoutes = [
 		component: ClassroomDoubtComponent,
 	},
 	{
-		path: '/classroom/:classroomId/students',
-		component: ClassroomStudentsComponent,
+		path: '/classroom/:classroomId/report',
+		component: ClassroomReportComponent,
+	},
+	{
+		path: '/classroom/:classroomId/attendance',
+		component: ClassroomAttendanceComponent,
 	},
 	{
 		path: '/classroom/:classroomId/student-panel/:userId',
 		component: ClassroomStudentPanelComponent,
 		name: 'ClassroomStudentPanel'
+	},
+	{
+		path: '/doubt/:doubtId',
+		component: DoubtAnswer,
+		name: 'DoubtAnswer',
+	},
+	{
+		path: '/messages',
+		component: ClassroomMessageComponent,
 	},
 ];
 
