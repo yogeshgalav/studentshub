@@ -58,15 +58,18 @@
       >
         <input
           id="reply-input"
+          v-model="reply_text"
           type="text"
           placeholder="Reply to this message"
           class="col-11 col-md-11 message-reply"
           @keyup.enter="saveReply($event, message)"
         >
-        <i
-          class="far fa-paper-plane col-md-1"
-          style="font-size: 25px; color: gray; cursor: pointer;"
-        />
+        <div @click="saveReply">
+          <i
+            class="far fa-paper-plane col-md-1"
+            style="font-size: 25px; color: gray; cursor: pointer;"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -86,22 +89,25 @@ export default {
 	data(){
 		return {
 			replies:[],
+			reply_text:'',
 		};
 	},
 	mounted(){
 		this.getReply(this.message);
 	},
 	methods:{
-		saveReply(e, message){
+		saveReply(){
+			if(!this.reply_text){
+				return false;
+			}
 			this.$validator.validate().then((valid) => {
         	if(valid){
 					this.axios.post('/api/add-message',
 						{
-							parent_message_id:message.id,
-							content:e.target.value,
-							classroom_id:message.classroom_id,
+							parent_message_id:this.message.id,
+							content:this.reply_text,
+							classroom_id:this.message.classroom_id,
 						}).then((resp)=>{
-						document.getElementById('#reply-input').value = '';
 						this.replies.push({
 							'id':resp.data.success.message.id,
 							'content':resp.data.success.message.content,
@@ -112,6 +118,7 @@ export default {
 							'classroom_name': this.message.classroom_name,
 							'total_likes':0,
 							'time':'Just now'});
+						this.reply_text = ''; 
 					});
 				}
 			});

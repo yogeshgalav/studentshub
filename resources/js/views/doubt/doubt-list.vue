@@ -10,7 +10,7 @@
             <div class="form-group has-search">
               <span class="fa fa-search form-control-feedback" />
               <input
-                v-model="search_doubt"
+                v-model="doubt_question"
                 type="text"
                 name="doubt"
                 class="form-control"
@@ -127,7 +127,7 @@
                   <div class="model_input">
                     <label>Doubt</label>
                     <input
-                      v-model="question"
+                      v-model="doubt_question"
                       class="form-control"
                       type="text"
                       placeholder="Enter Your Doubt"
@@ -204,8 +204,7 @@ export default {
 	data()
 	{
 		return {
-			search_doubt:'',
-			question:'',
+			doubt_question:'',
 			subject:'',
 			new_doubt_type:'batch',
 			doubtList:[],
@@ -256,24 +255,20 @@ export default {
     	filterinput()
     	{
     		this.loading=true;
-    		this.axios.get(this.baseUrl + '/api/get-doubts?search='+this.search_doubt)
+    		this.axios.get(this.baseUrl + '/api/get-doubts?search='+this.doubt_question)
     			.then(response => {
     				this.doubtList= response.data.success.doubtList;
     				this.loading=false;
     			});
     	},
-    	addDoubtModal(){
-    		this.question=this.search_doubt;
-    		// this.$modal.show('add_doubt_modal');
-    	},
     	searchDoubt(){
-    		this.axios.post(this.baseUrl + '/api/search-doubts/',{query:this.search_doubt})
+    		this.axios.post(this.baseUrl + '/api/search-doubts/',{query:this.doubt_question})
     			.then(response => {this.doubtList = response.data.success.doubtList;});
     	},
     	addDoubt()
     	{
-    		this.axios.post(this.baseUrl + '/api/add-doubt/',{
-    			doubt:this.question,
+    		this.axios.post(this.baseUrl + '/api/add-doubt',{
+    			doubt:this.doubt_question,
     			category:this.selected_category,
     			subject:this.selected_subject,
     			classroomId:this.classroomId ?this.classroomId :''
@@ -281,7 +276,7 @@ export default {
     			.then(resp => {
     				// this.$modal.hide('add_doubt_modal');
     				this.$refs.addDoubtModal.closeModal();
-    				this.question='';
+    				this.doubt_question='';
     				this.subject='';
     				this.getdata();
     			})

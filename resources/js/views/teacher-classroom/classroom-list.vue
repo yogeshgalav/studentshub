@@ -7,7 +7,7 @@
       :is-full-page="true"
     />
     <div
-      v-if="!AuthStudent && !AuthTeacher"
+      v-if="AuthUser.role_intended==='seeker'"
       class="card"
     >
       <div class="card-body">
@@ -31,7 +31,7 @@
         <template slot="modalBody">
           <form>
             <div class="model_input">
-              <label class="text-gray">Enter Classroom Name</label>
+              <label class="text-gray">Enter Join Id</label>
               <input
                 v-model="join_classroom_name"
                 type="text"
@@ -58,8 +58,8 @@
         >
           <a
             :href="'/classroom/'+classroom.id"
-            class="card rounded-lg pt-3 pb-3 mb-2"
-            style="text-align: -webkit-center;"
+            class="card rounded-lg pt-3 pb-3 mb-2 text-center"
+            style="text-center"
           >
             <div style="text-align: -webkit-center;">
               <profile-image
@@ -72,10 +72,10 @@
               {{ classroom.teacher_name }}
             </h4>
             <h3 class="font-weight-bold text-info font-weight-bold">
-              {{ classroom.name }}
+              {{ classroom.subject_name }}
             </h3>
             <h4 class="font-weight-normal text-muted">
-              {{ classroom.subject_name }}
+              {{ classroom.name }}
             </h4>
           </a>
         </div>
@@ -94,8 +94,8 @@
         >
           <a
             :href="'/classroom/'+classroom.id"
-            class="card rounded-lg pt-3 pb-3 bg-light"
-            style="text-align: -webkit-center;"
+            class="card rounded-lg pt-3 pb-3 bg-light text-center"
+            style="text-center"
           >
             <div style="text-align: -webkit-center;">
               <profile-image
@@ -108,10 +108,10 @@
               {{ classroom.teacher_name }}
             </h4>
             <h3 class="font-weight-bold text-info font-weight-bold">
-              {{ classroom.name }}
+              {{ classroom.subject_name }}
             </h3>
             <h4 class="font-weight-normal text-muted">
-              {{ classroom.subject_name }}
+              {{ classroom.name }}
             </h4>
           </a>
         </div>
@@ -138,7 +138,11 @@
     </button>
   </div>
 </template>
-
+<style scoped>
+#profileImage{
+  margin:auto !important;
+}
+</style>
 <script>
 import Modal from '../../components/VueNiceModal';
 import swal from '../../components/swal';

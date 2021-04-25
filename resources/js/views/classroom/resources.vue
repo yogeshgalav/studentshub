@@ -6,10 +6,12 @@
       :width="250"
       :is-full-page="true"
     />
-    <classroom-header />
+    <classroom-header 
+      title="Resources"
+    />
     <div>
       <div
-        v-if="!resourceUnitData.length && AuthTeacher"
+        v-if="!unit_list.length && AuthTeacher"
         class="card"
       >
         <div class="card-body">
@@ -29,13 +31,14 @@
         v-else
         class="row"
       >
-        <div class="col-md-6">
+        <div class="col-md-6 mb-2">
           <select
             v-model="current_unit"
             class="form-control minimal"
+            @change="getResources"
           >
             <option
-              v-for="(unit,index) in resourceUnitData"
+              v-for="(unit,index) in unit_list"
               :key="index"
               :value="unit.id"
             >
@@ -46,12 +49,12 @@
         <div class="col-md-6 ">
           <div
             v-if="AuthTeacher && AuthTeacher.id===classroomDetail.teacher_id"
-            class="row add_cl_q"
           >
             <div class="text-right">
               <button
                 class="btn-lg btn-primary"
-                @click="addResource"
+                data-toggle="modal"
+                data-target="#addResourceModal"
               >
                 <i class="fas fa-plus" />&nbsp;&nbsp;Add Resource
               </button>
@@ -61,7 +64,7 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-          <div class="row add_cl_q mt-2">
+          <div class="mt-2">
             <div
               v-if="!resources.length"
               class="card"
@@ -77,7 +80,7 @@
             <div
               v-for="(resource,index2) in resources"
               :key="index2"
-              class="col-md-10 col-12 mt-2 ml-3 card"
+              class="col-md-10 col-12 mt-2 card"
             >
               <div
                 class="card-body"
@@ -104,11 +107,11 @@
                   />
                 </div>
               </div>
-              <like-component
+              <!-- <like-component
                 :post="resource"
                 likable-type="resource"
                 :show-dislike="false"
-              />
+              /> -->
             </div>
             <div class="col-md-3 col-12" />
           </div>
@@ -202,7 +205,8 @@ export default {
 	data() {
 		return {
 			showLoader:true,
-			resourceUnitData: [],
+			resources:[],
+			unit_list: [],
 			current_unit: '',
 			resource_link: '',
 			description: '',
@@ -212,12 +216,6 @@ export default {
 		};
 	},
 	computed:{
-		resources(){
-			if(this.current_unit){
-				return this.resourceUnitData.find(node => node.id === this.current_unit).classroom_resources;
-			}
-			return [];
-		},
 		classroomDetail(){
 			return this.$store.state.classroom.classroomDetail;
 		}
@@ -227,11 +225,13 @@ export default {
 	},
 	methods: {
 		getResources(){
-			this.axios.get('/api/classroom/' + this.$route.params.classroomId + '/get-resources').then((resp) => {
-				this.resourceUnitData = resp.data.success.resourceUnitData;
-				this.current_unit = this.resourceUnitData.length ? this.resourceUnitData[0].id : '';
-				this.showLoader=false;
-			});
+			this.axios.get('/api/classroom/' + this.$route.params.classroomId + '/get-resources?unitId='+this.current_unit)
+				.then((resp) => {
+					this.unit_list = resp.data.success.unit_list;
+					this.current_unit = resp.data.success.current_unit;
+					this.resources = resp.data.success.resources;
+					this.showLoader=false;
+				});
 		},
 		saveResource() {
 			this.$validator.validate().then(valid => {
@@ -244,8 +244,7 @@ export default {
 						description: this.description,
 						share_as_post: this.share_as_post,
 					}).then(()=>{
-						let resource = this.resourceUnitData.find(node=>node.id===this.current_unit);
-						resource.classroom_resources.push({
+						this.resources.unshift({
 							link:this.resource_link,
 							type:this.resource_type,
 							description:this.description,

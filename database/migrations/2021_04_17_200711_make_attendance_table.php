@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateForeignKeyForDailyAssignmentsTable extends Migration
+class MakeAttendanceTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,14 @@ class CreateForeignKeyForDailyAssignmentsTable extends Migration
      */
     public function up()
     {
-        Schema::table('daily_assignments', function (Blueprint $table) {
-            $table->foreign('unit_id')->references('id')->on('units')->onDelete('cascade');
+        Schema::create('attendance', function (Blueprint $table) {
+            $table->id();
+            $table->date('meet_date');
+            $table->datetime('ended_at')->nullable();
+            $table->integer('classroom_id')->unsigned();
+            $table->timestamps();
+        });
+        Schema::table('attendance', function (Blueprint $table) {
             $table->foreign('classroom_id')->references('id')->on('classrooms')->onDelete('cascade');
         });
     }
@@ -26,5 +32,6 @@ class CreateForeignKeyForDailyAssignmentsTable extends Migration
      */
     public function down()
     {
+        //
     }
 }

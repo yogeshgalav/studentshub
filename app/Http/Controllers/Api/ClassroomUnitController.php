@@ -15,7 +15,9 @@ class ClassroomUnitController extends Controller
     //
     //api end point for getting unit assisment data for students and teachers
     public function getClassroomUnitDetails(Request $request){
-        $unitData=Unit::where('classroom_id',$request->classroomId)->get();
+        $unitData=Unit::where('classroom_id',$request->classroomId)
+        ->orderBy('units.unit_no','DESC')
+        ->get();
 
         return response()->json([
             'success'=>[

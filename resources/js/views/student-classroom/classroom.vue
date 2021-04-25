@@ -23,11 +23,33 @@
           </router-link>
         </div>
       </div>
+
       <div class="col-md-4">
         <div class="selection-box-default">
           <router-link
             class="card h-card"
-            :to="'/classroom/'+$route.params.classroomId+'/students'"
+            :to="'/classroom/'+$route.params.classroomId+'/attendance'"
+          >
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <h2 class="font-size-18">
+                    {{ 'Smart Attendance' }}
+                  </h2>
+                  <p>
+                    {{ 'Mark your presence.' }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </router-link>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="selection-box-default">
+          <router-link
+            class="card h-card"
+            :to="'/classroom/'+$route.params.classroomId+'/report'"
           >
             <div class="card-body">
               <div class="row">

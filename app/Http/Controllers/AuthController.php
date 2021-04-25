@@ -313,6 +313,11 @@ class AuthController extends Controller
     // Handling the request to reset the password
     public function resetPassword2(Request $request)
     {
+        $user=Auth::user();    
+        if(empty($user)){
+            abort(401);
+        }
+
         $validator = Validator::make($request->all(), [
             'password'=>'required|min:8',
             'confirm_password'=>'required|same:password',
@@ -322,11 +327,13 @@ class AuthController extends Controller
             return response()->json(['error'=>$validator->errors()], 422);
         }
 
-        $user=Auth::user();    
+        $current_time=Carbon::now()->toDateTimeString();
         $user->must_reset_password=0;
-        $user->email_verified_at=Carbon::now()->toDateTimeString();
+        $user->onboarded_at=$current_time;
+        $user->email_verified_at=$current_time;
         $user->password=Hash::make($request->input('password'));
         $user->save();
+
         return response()->json(['success'=>'Password Changed.'], 200);
     }
 
@@ -350,8 +357,15 @@ class AuthController extends Controller
         }
 
         $user=User::where('id', $dbToken->user_id)->first();
+
+        $current_time=Carbon::now()->toDateTimeString();
+
+        $user->must_reset_password=0;
         if(empty($user->email_verified_at)){
-            $user->email_verified_at=Carbon::now()->toDateTimeString();
+            $user->email_verified_at=$current_time;
+        }
+        if(empty($user->onboarded_at)){
+            $user->onboarded_at=$current_time;
         }
         $user->password = Hash::make($request->input('password'));
         $user->save();
@@ -423,5 +437,11 @@ class AuthController extends Controller
 
         $request = Request::create('/oauth/token', 'POST', $data);
         return json_decode(app()->handle($request)->getContent());
+    }
+
+    public function resetPasswordPage(Request $request){
+        $token = $request->token;
+        return view('guest.auth.reset-password')
+        ->with('token',$token);
     }
 }
