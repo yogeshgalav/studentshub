@@ -14,6 +14,7 @@ class CreateForeignKeyForDailyReportsTable extends Migration
     public function up()
     {
         Schema::table('daily_reports', function (Blueprint $table) {
+            $table->biginteger('daily_assignment_id')->unsigned()->change();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('daily_assignment_id')->references('id')->on('daily_assignments')->onDelete('cascade');
         });

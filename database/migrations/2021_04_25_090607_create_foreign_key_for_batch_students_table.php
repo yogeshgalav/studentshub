@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateForeignKeyForClassroomsTable extends Migration
+
+class CreateForeignKeyForBatchStudentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +14,10 @@ class CreateForeignKeyForClassroomsTable extends Migration
      */
     public function up()
     {
-        Schema::table('classrooms', function (Blueprint $table) {
-            \App\Models\Classroom::destroy([1]);
-            $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');
-            $table->foreign('teacher_id')->references('id')->on('teachers')->onDelete('cascade');
+        Schema::table('batch_students', function (Blueprint $table) {
+            \App\Models\BatchStudent::destroy([1,2,5,6,7]);
             $table->foreign('batch_id')->references('id')->on('batches')->onDelete('cascade');
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
         });
     }
 

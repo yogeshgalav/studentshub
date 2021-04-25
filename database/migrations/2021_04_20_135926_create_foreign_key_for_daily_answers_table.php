@@ -14,6 +14,8 @@ class CreateForeignKeyForDailyAnswersTable extends Migration
     public function up()
     {
         Schema::table('daily_answers', function (Blueprint $table) {
+            $table->biginteger('daily_question_id')->unsigned()->change();
+            $table->biginteger('daily_report_id')->unsigned()->change();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('daily_question_id')->references('id')->on('daily_questions')->onDelete('cascade');
             $table->foreign('daily_report_id')->references('id')->on('daily_reports')->onDelete('cascade');

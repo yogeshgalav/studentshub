@@ -14,6 +14,7 @@ class CreateForeignForDailyQuestionsTable extends Migration
     public function up()
     {
         Schema::table('daily_questions', function (Blueprint $table) {
+            $table->biginteger('daily_assignment_id')->unsigned()->change();
             $table->foreign('daily_assignment_id')->references('id')->on('daily_assignments')->onDelete('cascade');
         });
     }
