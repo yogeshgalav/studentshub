@@ -6,7 +6,9 @@
       :width="250"
       :is-full-page="true"
     />
-    <classroom-header />
+    <classroom-header 
+      title="Resources"
+    />
     <div>
       <div
         v-if="!unit_list.length && AuthTeacher"

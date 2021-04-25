@@ -1,7 +1,9 @@
 <template>
   <div class="row">
     <div class="col-md-12">
-      <classroom-header />
+      <classroom-header 
+        title="Doubts"     
+      />
     </div>
     <div class="col-md-12">
       <doubt-list 
