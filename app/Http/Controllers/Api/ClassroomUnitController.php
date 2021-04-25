@@ -27,10 +27,20 @@ class ClassroomUnitController extends Controller
         $unitData=Unit::where('classroom_id',$request->classroomId)
         ->with('descriptiveQuestions')
         ->get();
-
+        $pie_details = DB::table('units as ut')
+        ->where('ut.classroom_id',$request->classroomId)
+        ->leftjoin('daily_assignments as da','ut.classroom_id','=','da.classroom_id')
+        ->leftjoin('daily_reports as dr','dr.daily_assignment_id','=','da.id')
+        ->select('ut.id','da.id',DB::raw("SUM(CASE WHEN (dr.status = 'completed') THEN 1 ELSE 0 END) as total_completed"),
+        DB::raw("SUM(CASE WHEN (dr.status = 'draft') THEN 1 ELSE 0 END) as total_draft"),
+        DB::raw("SUM(CASE WHEN (dr.status = 'activated') THEN 1 ELSE 0 END) as total_activated")     
+        )
+        ->groupBy('ut.id','da.id')
+        ->get();
         return response()->json([
             'success'=>[
-                'unitData'=>$unitData
+                'unitData'=>$unitData,
+                'pie_data'=>$pie_details
             ]
         ]);
     }   
