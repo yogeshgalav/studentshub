@@ -108,7 +108,6 @@ class DailyAssignmentController extends Controller
         ->has('dailyReport')
         ->with('dailyQuestions.multipleChoice')
         ->get();
-
         return response()->json([
             'success'=>[
                 'unitList'=>$unitList,
@@ -116,4 +115,17 @@ class DailyAssignmentController extends Controller
             ]
         ]);
     }   
+    public function getDailyAssignmentSummary(Request $request){
+        $dailyAssignmentsSummary = DB::table('daily_assignments as da')
+        ->where('da.classroom_id',$request->classroomId)
+        ->leftjoin('daily_reports as dr','da.id','=','dr.daily_assignment_id')
+        ->select(DB::raw('COUNT(distinct dr.user_id) as total_attendence'),DB::raw('AVG(dr.marks_obtained) as average_score'),DB::raw('AVG(dr.duration) as average_duration'))
+        ->groupBy('da.id')
+        ->get();
+        return response()->json([
+            'success'=>[
+                'summary'=>$dailyAssignmentsSummary
+            ]
+        ]);
+    }
 }
