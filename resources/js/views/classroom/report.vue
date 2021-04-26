@@ -3,7 +3,7 @@
     <classroom-header
       title="Report"
     />
-    <pie-chart
+    <doughnut-graph
         :graph-data="pie_graph_data"
     />
 
@@ -46,12 +46,12 @@
 import ClassroomHeader from '../../components/ClassroomHeader';
 import VueTableComponent from '../../components/vue-table-component';
 import dayjs from 'dayjs';
-import PieChart from '../../components/graphs/DoughnutGraph';
+import DoughnutGraph from '../../components/graphs/DoughnutGraph';
 export default {
 	components: {
 		ClassroomHeader,
 		VueTableComponent,
-        PieChart
+        DoughnutGraph
 	},
 	data() {
 		return {
