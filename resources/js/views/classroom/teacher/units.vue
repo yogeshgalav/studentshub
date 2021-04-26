@@ -50,11 +50,20 @@
                   </div>
                 </div>
               </div>
-                <div class="row justify-content-center">
-                  <single-value :value="unit.assignmentCount" label="Daily Assignments" />
-                  <single-value :value="unit.averageScore" label="Average Score" />
-                  <single-value :value="unit.resources" label="Resources" />
-                </div>
+              <div class="row justify-content-center">
+                <single-value
+                  :value="unit.assignmentCount"
+                  label="Daily Assignments"
+                />
+                <single-value
+                  :value="unit.averageScore"
+                  label="Average Score"
+                />
+                <single-value
+                  :value="unit.resources"
+                  label="Resources"
+                />
+              </div>
             </accordion>
           </div>
         </div>
@@ -63,19 +72,18 @@
   </div>
 </template>
 <script>
-import FormMixin from '../../components/mixins/form-mixin.js';
-import Accordion from '../../components/accordion';
-import AddButton from '../../components/AddButton';
+// import FormMixin from '../../components/mixins/form-mixin.js';
+import Accordion from '../../../components/accordion';
+// import AddButton from '../../../components/AddButton';
 
-import ClassroomHeader from '../../components/ClassroomHeader';
-import SingleValue from '../../components/SingleValue';
+import ClassroomHeader from '../../../components/ClassroomHeader';
+import SingleValue from '../../../components/SingleValue';
 
 export default {
 	components: {
 		Accordion,
-		AddButton,
 		ClassroomHeader,
-        SingleValue
+		SingleValue
 	},
 	mixins:[FormMixin],
 	data() {
@@ -96,14 +104,14 @@ export default {
 		getUnitDetails(){
 			this.axios.get('/api/classroom/' + this.$route.params.classroomId + '/unit-details').then((resp) => {
 				this.unitData = resp.data.success.unitData;
-                let summaryData = resp.data.success.summary;
-                this.unitData.map((node)=>{
-                    let summary = summaryData.find(node2=>node2.id===node.id);
-                    node.assignmentCount=summary.assignmentCount;
-                    node.averageScore=summary.averageScore;
-                    node.resources=summary.resources;
-                    return node;
-                })
+				let summaryData = resp.data.success.summary;
+				this.unitData.map((node)=>{
+					let summary = summaryData.find(node2=>node2.id===node.id);
+					node.assignmentCount=summary.assignmentCount;
+					node.averageScore=summary.averageScore;
+					node.resources=summary.resources;
+					return node;
+				});
 				this.showLoader=false;
 			});
 		},
