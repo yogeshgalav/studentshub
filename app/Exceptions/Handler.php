@@ -26,16 +26,6 @@ class Handler extends ExceptionHandler
     protected $dontReport = [
         // \App\Exceptions\EmailAddressAlreadyExistsException::class,
     ];
-    protected $internalDontReport = [
-        // AuthenticationException::class,
-        // AuthorizationException::class,
-        // HttpException::class,
-        // HttpResponseException::class,
-        // ModelNotFoundException::class,
-        // SuspiciousOperationException::class,
-        // TokenMismatchException::class,
-        // ValidationException::class,    
-    ];
 
     /**
      * A list of the inputs that are never flashed for validation exceptions.
@@ -55,15 +45,7 @@ class Handler extends ExceptionHandler
      * @return void
      * @throws Exception
      */
-    public function report(Throwable $exception)
-    {
-        Log::error($exception->getMessage(), [
-            'url' => request()->url(),
-            'input' => request()->all()
-        ]);
-
-        return parent::report($exception);
-    }
+    
 
     /**
      * Render an exception into an HTTP response.
@@ -76,19 +58,31 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        if ($exception->getCode() == 401) {
+            Log::warning('Unauthorized',['url'=>$request->url()]);
+        }
+        if ($exception->getCode() == 404) {
+            Log::warning('PageNotFound',['url'=>$request->url()]);
+        }
+        if ($exception->getCode() == 419) {
+                Log::warning('TokenMismatchException',['url'=>$request->url(), 'request'=>$request, 'exception'=>$exception]);
+        }
         if ($exception instanceof ModelNotFoundException && $request->wantsJson()) {
+            Log::warning('ModelNotFoundException',['url'=>$request->url(), 'request'=>$request, 'exception'=>$exception]);
             return response()->json(['error'=>[
                 'message' => 'Resource not found',
             ]], 404);
         }
 
         if ($exception instanceof AuthorizationException && $request->wantsJson()) {
+            Log::warning('AuthorizationException',['url'=>$request->url(), 'request'=>$request, 'exception'=>$exception]);
             return response()->json(['error'=>[
                 'message' => 'Forbidden',
             ]], 403);
         }
 
         if ($exception instanceof ValidationException && $request->wantsJson()) {
+            Log::warnig('ValidationException',['url'=>$request->url(), 'request'=>$request, 'exception'=>$exception]);
             return response()->json(['error'=>[
                 'message'=>'Validation Error',
                 'errors'=>$exception->validator->errors()

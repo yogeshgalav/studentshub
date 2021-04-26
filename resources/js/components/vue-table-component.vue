@@ -111,6 +111,9 @@
 .table-responsive table th{
 	cursor: pointer;
 }
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
 </style>
 <script>
 import dayjs from 'dayjs';

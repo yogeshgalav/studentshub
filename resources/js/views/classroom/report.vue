@@ -1,17 +1,19 @@
 <template>
   <div>
-    <classroom-header />
+    <classroom-header 
+      title="Report"
+    />
     <div class="row">
       <div class="col-md-12">
         <h4 class="text-black mb-0">
-          Classroom students report
+          Classroom report
         </h4>
       </div>
       <div class="col-md-12">
         <vue-table-component
           key="joinedStudents"
           :columns="joinedColumns"
-          :rows="joinedStudents"
+          :rows="student_details"
         >
           <template
             slot="table-row"
@@ -34,65 +36,8 @@
         </vue-table-component>
       </div>
     </div>
-    <div class="row">
-      <div
-        v-if="classroomDetail.id"
-        class="col-md-4 col-12 mt-3 mb-3"
-      >
-        <div
-          class="join_id_box"
-          @click="copyText('joinId')"
-        >
-          <i class="fa  text-blue  fa-arrow-right mr-3" />  <span
-            class="text-blue font-size-14 weight-800 join-id line-height-25-px"
-          >
-            {{ 'Copy Join Id' }}: {{ classroomDetail.classroom_join_id }}
-            <strong class="right_positions hide"><i class="fa fa-copy text-success font-size-15" /> </strong>  
-          </span>
-        </div>
-      </div>
-      <div
-        v-if="classroomDetail.batch_id"
-        class="col-md-4 col-12 mt-3 mb-3"
-      >
-        <div
-          class="join_id_box"
-          @click="copyText('RegisterationLink')"
-        >
-          <i class="fa  text-blue  fa-arrow-right mr-3" />  <span
-            class="text-blue font-size-14 weight-800 join-id line-height-25-px"
-          >
-            {{ 'Copy Registration Link' }}
-            <strong class="right_positions hide"><i class="fa fa-copy text-success font-size-15" /> </strong>
-          </span>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
-<style scoped>
-.join_id_box {
- border:1px solid #eee;
- border-radius: 5px;
- padding: 8px 5px 8px 15px;
- cursor: pointer;
-}
-.join_id_box:hover {
- background-color: #f3f9e8;
- border-color: #e1ebb3;
-}
-.right_positions {
-  position: absolute;
-  right: 40px;
-}
-.join_id_box:hover strong{
-	display: block;
-	margin-top: -20px;
-}
-.hide {
-  display: none;
-}
-</style>
 <script>
 import ClassroomHeader from '../../components/ClassroomHeader';
 import VueTableComponent from '../../components/vue-table-component';
@@ -149,9 +94,6 @@ export default {
 		classroomDetail(){
 			return this.$store.state.classroom.classroomDetail;
 		},
-		joinedStudents(){
-			return this.student_details;
-		},
 	},
 	mounted(){
 		this.getClassroomStudentDetails();
@@ -207,19 +149,6 @@ export default {
 					return node;
 				});
 			});
-		},
-		copyText(copyType){
-			const el = document.createElement('textarea');
-			if(copyType==='RegisterationLink'){
-				el.value = this.baseUrl+'/get-started?joinId='+this.classroomDetail.classroom_join_id;
-			}else{
-				el.value = this.classroomDetail.classroom_join_id;
-			}
-			document.body.appendChild(el);
-			el.select();
-               
-			document.execCommand('copy');
-			document.body.removeChild(el);
 		},
 	},
 

@@ -83,12 +83,6 @@ class UserController extends Controller
         ]]);
     }
 
-    public function resetPassword(Request $request){
-        $token = $request->token;
-        return view('guest.auth.reset-password')
-        ->with('token',$token);
-    }
-
     public function searchUser(Request $request){
         $users = DB::table('users as us')->where('us.full_name', 'LIKE', $request->searchTerm.'%')
             ->leftJoin('students as st', 'st.user_id', '=', 'us.id')

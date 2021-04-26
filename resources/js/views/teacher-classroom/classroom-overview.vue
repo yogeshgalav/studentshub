@@ -1,7 +1,9 @@
 <template>
   <div class="row">
     <div class="col-md-12">
-      <classroom-header />
+      <classroom-header
+        title="Overview"
+      />
     </div>
     <div class="col-md-12">
       <div class="card mt-2">
@@ -52,44 +54,80 @@
                   @blur="updateClassroomDetail"
                 >
               </div>
-         
               <div class="form-group">
-                <label class="text-black font-size-14">Number of expected participants </label>
-                <div class="row">
-                  <div class="col-md-3 col-6">
-                    <input
-                      id="expected_students"
-                      v-model="form_data.expected_students"
-                      type="text"
-                      class="form-control"
-                      @blur="updateClassroomDetail"
-                    >
-                  </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="text-black font-size-14">Classroom
-                  duration </label>
-                <div class="row">
-                  <div class="col-md-3 col-6 pr-0">
-                    <input
-                      id="duration"
-                      v-model="form_data.duration"
-                      type="text"
-                      class="form-control"
-                      @blur="updateClassroomDetail"
-                    >
-                  </div>
-                  <div class="col-md-3 col-6 text-black">
-                    <div class="mt-2 weight-800">
-                      Days
-                    </div>
-                  </div>
-                </div>
+                <label class="text-black font-size-14">
+                  Meeting Link
+                </label>
+                <input
+                  id="duration"
+                  v-model="form_data.meet_link"
+                  type="text"
+                  class="form-control"
+                  placeholder="Paste Google meet or zoom link here"
+                  @blur="updateClassroomDetail"
+                >
               </div>
             </form>
           </div>
         </div>
+      </div>
+
+      <div class="row mt-5 mb-2">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header bg-white">
+              <h4 class="mb-1 mt-1">
+                Join Id
+              </h4>
+            </div>
+        
+            <div class="card-body row">
+              <div class="col-md-12">
+                Share Registration Link or Join Id with your students to directly join this classroom.
+              </div>
+              <div
+                v-if="showCopied"
+                class="col-md-12 copied"
+              >
+                <div class="alert alert-success">
+                  <strong><i class="fas fa-check" /> &nbsp;Copied to clipboard!</strong>
+                </div>
+              </div>
+              <div
+                v-if="classroomDetail.id"
+                class="col-md-4  col-12 mt-2 mb-3"
+              >
+                <div
+                  class="join_id_box"
+                  @click="copyText('joinId')"
+                >
+                  <i class="fa  text-blue  fa-arrow-right mr-3" />  <span
+                    class="text-blue font-size-14 weight-800 join-id line-height-25-px"
+                  >
+                    {{ 'Copy Join Id' }}: {{ classroomDetail.classroom_join_id }}
+                    <strong class="right_positions hide"><i class="fa fa-copy text-success font-size-15" /> </strong>  
+                  </span>
+                </div>
+              </div>
+              <div
+                v-if="classroomDetail.batch_id"
+                class="col-md-4  col-12 mt-2 mb-3"
+              >
+                <div
+                  class="join_id_box"
+                  @click="copyText('RegisterationLink')"
+                >
+                  <i class="fa  text-blue  fa-arrow-right mr-3" />  <span
+                    class="text-blue font-size-14 weight-800 join-id line-height-25-px"
+                  >
+                    {{ 'Copy Registration Link' }}
+                    <strong class="right_positions hide"><i class="fa fa-copy text-success font-size-15" /> </strong>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> 
       </div>
 
       <div
@@ -121,38 +159,6 @@
         </div>
       </div>
     </div>
-    <div
-      v-if="classroomDetail.id"
-      class="col-md-4  col-12 mt-3 mb-3"
-    >
-      <div
-        class="join_id_box"
-        @click="copyText('joinId')"
-      >
-        <i class="fa  text-blue  fa-arrow-right mr-3" />  <span
-          class="text-blue font-size-14 weight-800 join-id line-height-25-px"
-        >
-          {{ 'Copy Join Id' }}: {{ classroomDetail.classroom_join_id }}
-          <strong class="right_positions hide"><i class="fa fa-copy text-success font-size-15" /> </strong>  
-        </span>
-      </div>
-    </div>
-    <div
-      v-if="classroomDetail.batch_id"
-      class="col-md-4  col-12 mt-3 mb-3"
-    >
-      <div
-        class="join_id_box"
-        @click="copyText('RegisterationLink')"
-      >
-        <i class="fa  text-blue  fa-arrow-right mr-3" />  <span
-          class="text-blue font-size-14 weight-800 join-id line-height-25-px"
-        >
-          {{ 'Copy Registration Link' }}
-          <strong class="right_positions hide"><i class="fa fa-copy text-success font-size-15" /> </strong>
-        </span>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -163,6 +169,18 @@
 .card {
   box-shadow: 0px 2px 50px rgba(0,0,0,0.15) !important;
 }
+
+.copied{
+  margin-top: -20px;
+  animation-name: alert;
+  animation-duration: 0.3s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+@keyframes alert {
+  from {margin-top: -20px;}
+  to {margin-top: 0px;}
+} 
 .join_id_box {
  border:1px solid #eee;
  border-radius: 5px;
@@ -197,9 +215,10 @@ export default {
 		return {
 			form_data:{
 				name: '',
-				expected_students: 0,
-				duration: 0
+				meet_link: '',
 			},
+
+			showCopied: false
 		};
 	},
 	computed:{
@@ -212,8 +231,7 @@ export default {
 			if(val.id){
 				this.form_data={
 					name: val.name,
-					expected_students: val.expected_students,
-					duration: val.classroom_duration
+					meet_link: val.meet_link,
 			  };
 			}
 		}
@@ -239,6 +257,8 @@ export default {
                
 			document.execCommand('copy');
 			document.body.removeChild(el);
+			this.showCopied = true;
+			setTimeout(() => this.showCopied = false , 3000);
 		},     
 	},
 };

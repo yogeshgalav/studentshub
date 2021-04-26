@@ -6,8 +6,34 @@
       :width="250"
       :is-full-page="true"
     />
+    <div class="row">
+      <div class="col-md-12">
+        <h1>Classrooms</h1>
+        <hr>
+      </div>
+    </div>
+    <div class="mb-2">
+      <button
+        v-if="AuthTeacher"
+        type="button"
+        class="btn-lg btn-primary"
+        @click="createClassroom()"
+      >
+        <i class="fas fa-plus" />&nbsp;&nbsp;Create Classroom
+      </button>
+      <button
+        v-if="AuthStudent"
+        type="button"
+        class="btn-primary btn-lg mb-1"
+        data-toggle="modal"
+        data-target="#joinClassroomModal"
+        @click="joinClassroomModal"
+      >
+        <i class="fas fa-plus" />&nbsp;&nbsp;Join Classroom
+      </button>
+    </div>
     <div
-      v-if="!AuthStudent && !AuthTeacher"
+      v-if="AuthUser.role_intended==='seeker'"
       class="card"
     >
       <div class="card-body">
@@ -31,7 +57,7 @@
         <template slot="modalBody">
           <form>
             <div class="model_input">
-              <label class="text-gray">Enter Classroom Name</label>
+              <label class="text-gray">Enter Join Id</label>
               <input
                 v-model="join_classroom_name"
                 type="text"
@@ -45,12 +71,6 @@
     </div>
     <div v-if="myClassrooms.length">
       <div class="row">
-        <div class="col-md-12 mt-3">
-          <h3>My Classrooms</h3>
-          <hr>
-        </div>
-      </div>
-      <div class="row">
         <div
           v-for="(classroom, index) in myClassrooms"
           :key="index"
@@ -58,8 +78,8 @@
         >
           <a
             :href="'/classroom/'+classroom.id"
-            class="card rounded-lg pt-3 pb-3 mb-2"
-            style="text-align: -webkit-center;"
+            class="card rounded-lg pt-3 pb-3 mb-2 text-center"
+            style="text-center"
           >
             <div style="text-align: -webkit-center;">
               <profile-image
@@ -72,20 +92,16 @@
               {{ classroom.teacher_name }}
             </h4>
             <h3 class="font-weight-bold text-info font-weight-bold">
-              {{ classroom.name }}
+              {{ classroom.subject_name }}
             </h3>
             <h4 class="font-weight-normal text-muted">
-              {{ classroom.subject_name }}
+              {{ classroom.name }}
             </h4>
           </a>
         </div>
       </div>
     </div>
     <div v-if="classroomList.length">
-      <div class="col-md-12 mt-3">
-        <h3>Joined Classrooms</h3>
-        <hr>
-      </div>
       <div class="row">
         <div
           v-for="(classroom, index) in classroomList"
@@ -94,8 +110,8 @@
         >
           <a
             :href="'/classroom/'+classroom.id"
-            class="card rounded-lg pt-3 pb-3 bg-light"
-            style="text-align: -webkit-center;"
+            class="card rounded-lg pt-3 pb-3 bg-light text-center"
+            style="text-center"
           >
             <div style="text-align: -webkit-center;">
               <profile-image
@@ -108,37 +124,22 @@
               {{ classroom.teacher_name }}
             </h4>
             <h3 class="font-weight-bold text-info font-weight-bold">
-              {{ classroom.name }}
+              {{ classroom.subject_name }}
             </h3>
             <h4 class="font-weight-normal text-muted">
-              {{ classroom.subject_name }}
+              {{ classroom.name }}
             </h4>
           </a>
         </div>
       </div>
     </div>
-    <hr>
-    <button
-      v-if="AuthTeacher"
-      type="button"
-      class="btn-lg btn-primary"
-      @click="createClassroom()"
-    >
-      <i class="fas fa-plus" />&nbsp;&nbsp;Create Classroom
-    </button>
-    <button
-      v-if="AuthStudent"
-      type="button"
-      class="btn-primary btn-lg mb-1"
-      data-toggle="modal"
-      data-target="#joinClassroomModal"
-      @click="joinClassroomModal"
-    >
-      <i class="fas fa-plus" />&nbsp;&nbsp;Join Classroom
-    </button>
   </div>
 </template>
-
+<style scoped>
+#profileImage{
+  margin:auto !important;
+}
+</style>
 <script>
 import Modal from '../../components/VueNiceModal';
 import swal from '../../components/swal';

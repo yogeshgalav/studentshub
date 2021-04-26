@@ -8,7 +8,9 @@
     />
     <div class="row">
       <div class="col-md-12">
-        <classroom-header />
+        <classroom-header 
+          title="Daily Assignment"
+        />
       </div>
       <div
         v-if="user_detail"
@@ -18,7 +20,10 @@
           {{ user_detail.full_name }}
         </h2>
       </div>
-      <div class="col-md-8 col-center">
+      <div
+        v-if="!$router.currentRoute.params.userId"
+        class="col-md-8 col-center"
+      >
         <div v-if="today_report!==null">
           <div
             id="reflection-complete"
@@ -173,8 +178,8 @@
     }
 </style>
 <script>
-import ClassroomHeader from '../../components/ClassroomHeader';
-import DailyAssignmentReport from '../../components/DailyAssignmentReport';
+import ClassroomHeader from '../../../components/ClassroomHeader';
+import DailyAssignmentReport from '../../../components/DailyAssignmentReport';
 import dayjs from 'dayjs';
 
 export default {
