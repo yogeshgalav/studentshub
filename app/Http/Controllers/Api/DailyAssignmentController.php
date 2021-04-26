@@ -111,7 +111,7 @@ class DailyAssignmentController extends Controller
         $summary = DB::table('daily_assignments as da')
         ->where('da.classroom_id',$request->classroomId)
         ->leftjoin('daily_reports as dr','da.id','=','dr.daily_assignment_id')
-        ->select(DB::raw('COUNT(distinct dr.user_id) as total_attende'),
+        ->select('da.id as daily_assignment_id',DB::raw('COUNT(distinct dr.user_id) as total_attende'),
                 DB::raw('AVG(dr.marks_obtained) as average_score'),
                 DB::raw('AVG(dr.duration) as average_duration')     
         )
