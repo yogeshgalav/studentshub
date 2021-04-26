@@ -3,6 +3,9 @@
     <classroom-header 
       title="Report"
     />
+	<pie-chart
+		:graph-data="pie_graph_data"
+	/>
     <div class="row">
       <div class="col-md-12">
         <h4 class="text-black mb-0">
@@ -41,15 +44,19 @@
 <script>
 import ClassroomHeader from '../../components/ClassroomHeader';
 import VueTableComponent from '../../components/vue-table-component';
+import PieChart from "../../components2/chartjs/DoughnutGraph"
+
 import dayjs from 'dayjs';
 export default {
 	components: {
 		ClassroomHeader,
-		VueTableComponent
+		VueTableComponent,
+		PieChart
 	},
 	data() {
 		return {
 			student_details: [],
+			pie_graph_data:[],
 			joinedColumns: [
 				{
 					label: 'Student Name',
@@ -102,6 +109,7 @@ export default {
 		getClassroomStudentDetails(){
 			this.axios('/api/classroom/'+ this.$route.params.classroomId +'/students-data').then((resp)=>{
 				this.student_details=resp.data.success.student_details;
+				this.pie_graph_data=resp.data.success.pie_graph_data;
 				this.assignment_details = resp.data.success.assignment_details;
 				this.student_details.map(node=>{
 					let assignment = this.assignment_details.filter(node2=>node2.user_id===node.user_id);
