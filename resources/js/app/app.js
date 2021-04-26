@@ -59,6 +59,7 @@ Vue.mixin({
 	},
 	data(){
 		return {
+			showMobileLogoBar:true,
 			reportColorCodes: ['#10069F', '#963CBD', '#00C1D5', '#F39C12', '#1D7BB9', '#95A5A6', '#EABD0A'],
 			reportColorClasses: [
 				'text-blue',
@@ -69,11 +70,6 @@ Vue.mixin({
 				'text-metal',
 				'text-light-yellow',
 			],
-		};
-	},
-	data(){
-		return {
-			showMobileLogoBar:true,
 		};
 	},
 	computed: {

@@ -36,11 +36,8 @@ class ClassroomUnitController extends Controller
         return response()->json([
             'success'=>[
                 'unitData'=>$unitData,
-<<<<<<< HEAD
-                'summary'=>$summary
-=======
+                'summary'=>$summary,
                 'daily_assignment_status'=>$daily_assignment_status
->>>>>>> 136d32532496e2eb56a8d79fad4e19287c98e48b
             ]
         ]);
     }   
