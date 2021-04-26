@@ -56,17 +56,17 @@ class ClassroomUserController extends Controller
         ->orderBy('da.attempt_date')
         ->get();
 
-        $total_assignments = DB::table('units as ut')
+        $pie_graph_data = DB::table('units as ut')
         ->where('ut.classroom_id',$classroom_id)
         ->leftjoin('daily_assignments as da','ut.classroom_id','=','da.classroom_id')
-        ->select('da.unit_id as unit_id',DB::raw('COUNT(distinct da.id) as total_count'))
-        ->groupBy('da.unit_id')
+        ->select("ut.unit_name as label",DB::raw('COUNT(distinct da.id) as count'))
+        ->groupBy('ut.unit_name')
         ->get();
         
         return response()->json(['success'=>[
             'student_details'=>$student_details,
             'assignment_details'=>$assignment_details,
-            'total_assignments'=>$total_assignments
+            'pie_graph_data'=>$pie_graph_data
         ]]);
     }
 

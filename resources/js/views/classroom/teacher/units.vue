@@ -72,7 +72,7 @@
   </div>
 </template>
 <script>
-// import FormMixin from '../../components/mixins/form-mixin.js';
+import FormMixin from '../../../components/mixins/form-mixin.js';
 import Accordion from '../../../components/accordion';
 // import AddButton from '../../../components/AddButton';
 
