@@ -31,7 +31,11 @@
                       Students have attempted this unit.
                     </p>
                   </div>
-
+                <div class="row">
+                    <single-value :value="'1'" label="Total Attempts" />
+                    <single-value :value="summary.average_score" label="Average Score" />
+                    <single-value :value="summary.average_duration" label="Average Duration" />
+                </div>
                   <div
                     v-for="(question,index) in daily.daily_questions"
                     :key="index"
@@ -42,8 +46,8 @@
                         <div class="row">
                           <div class="col-md-9">
                             <div class="weight-800">
-                              {{ 'Question' + ' ' + (index+1) }} 
-                              
+                              {{ 'Question' + ' ' + (index+1) }}
+
                             </div>
                           </div>
                           <div class="col-md-3">
@@ -54,7 +58,7 @@
                         </div>
                       </div>
                     </div>
-                    
+
                     <div class="row mt-2">
                       <div class="col-md-12">
                         <div class="row">
@@ -106,7 +110,7 @@
 .bg-gray {
   background-color: #eee;display: flex;
   line-height: 30px;
-  
+
 }
 .bg-circle {
   border-radius: 50%;
@@ -129,16 +133,20 @@ import Accordion from '../../components/accordion';
 
 import ClassroomHeader from '../../components/ClassroomHeader';
 
+import SingleValue from '../../components/SingleValue';
+
 export default {
 	components: {
 		Accordion,
-		ClassroomHeader
+		ClassroomHeader,
+    SingleValue
 	},
 	data() {
 		return {
 			showLoader:true,
 			dailyAssignmentData: {},
 			marks: 10,
+      summary:null
 		};
 	},
 	computed: {
@@ -156,6 +164,8 @@ export default {
 				.then((resp) => {
 					this.unitList = resp.data.success.unitList;
 					this.dailyAssignmentData = resp.data.success.dailyAssignmentData;
+                    this.summary = resp.data.success.summary;
+                    console.log(this.summary);
 					this.showLoader=false;
 				});
 		},
