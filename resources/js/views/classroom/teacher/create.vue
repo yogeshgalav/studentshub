@@ -43,6 +43,7 @@
                             v-model="classroom_name"
                             v-validate="'required'"
                             type="text"
+                            placeholder="2nd Year Section B"
                             name="classroom_name"
                             class="form-control"
                           >
@@ -161,7 +162,7 @@
                             class="text-black"
                             for="event_date_input"
                           >
-                            {{ ('Batch Starting Year') }}
+                            {{ ('Course Starting Year') }}
                           </label>
                           <div class="input-group-prepend">
                             <div
@@ -199,7 +200,7 @@
                             class="text-black"
                             for="event_date_input"
                           >
-                            {{ ('Batch Ending Year') }}
+                            {{ ('Course Ending Year') }}
                           </label>
                           <div class="input-group-prepend ">
                             <div
@@ -235,7 +236,7 @@
                     <div class="form-group d-flex s_register_btn">
                       <button
                         type="submit"
-                        class="login_btn"
+                        class="btn-primary btn-lg m-0-a"
                       >
                         {{ 'Create' }}
                       </button>
@@ -289,17 +290,15 @@
 </style>
 <script>
 import FormMixin from '../../components/mixins/form-mixin.js';
+import BatchMixin from '../../components/mixins/batch-mixin.js';
 import AutoComplete from '../../components/AutoComplete.vue';
 import swal from '../../components/swal';
-import DatePicker from 'vue2-datepicker';
-import 'vue2-datepicker/index.css';
 
 export default {
 	components: {
 		AutoComplete,
-		DatePicker
 	},
-	mixins: [FormMixin],
+	mixins: [FormMixin, BatchMixin],
 	props: ['courseLevels'],
 	data() {
 		return {
@@ -320,7 +319,6 @@ export default {
 			subject_list: [],
 			subjectLoading: false,
 			selected_subject: {
-				'id': null,
 				'subject_name': '',
 			},
 			selected_level: {
@@ -328,18 +326,6 @@ export default {
 				'subject_name': '',
 			},
 		};
-	},
-	computed:{
-		yearError(){
-			var d = new Date();
-			var n = d.getFullYear();
-			if(this.start_year>n){
-				return 'Please enter currect start year.';
-			}else if(this.end_year && this.end_year<this.start_year){
-				return 'Please enter currect start and end year.';
-			}
-			return '';
-		}
 	},
 	methods: {
 		createClassroom() {
@@ -412,7 +398,6 @@ export default {
 		},
 		getSubjects	(search) {
 			this.selected_subject = {
-				'id': null,
 				'subject_name': search,
 			};
 			this.subjectLoading = true;
@@ -440,7 +425,6 @@ export default {
 		},
 		setNewSubject(name) {
 			this.selected_subject = {
-				'id': 0,
 				'subject_name': name,
 			};
 		},
