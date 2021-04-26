@@ -7,7 +7,9 @@
       :is-full-page="true"
       :opacity="0.7"
     />
-    <classroom-header />
+    <classroom-header 
+      title="Attendance"
+    />
     <div class="row">
       <div
         v-if="classroomDetail.meet_link"

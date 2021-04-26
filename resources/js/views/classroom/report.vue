@@ -1,6 +1,10 @@
 <template>
   <div>
-    <classroom-header />
+    <classroom-header
+      title="Report"
+    />
+    <pie-chart/>
+
     <div class="row">
       <div class="col-md-12">
         <h4 class="text-black mb-0">
@@ -40,10 +44,12 @@
 import ClassroomHeader from '../../components/ClassroomHeader';
 import VueTableComponent from '../../components/vue-table-component';
 import dayjs from 'dayjs';
+import PieChart from '../../../../resources/js/components2/chartjs/PieChart';
 export default {
 	components: {
 		ClassroomHeader,
-		VueTableComponent
+		VueTableComponent,
+        PieChart
 	},
 	data() {
 		return {
@@ -105,13 +111,13 @@ export default {
 					let assignment = this.assignment_details.filter(node2=>node2.user_id===node.user_id);
 					if(assignment.length){
 						node.last_score =  assignment[0].marks_obtained;
-						
+
 						let m = dayjs(assignment[0].duration,'HH:mm:ss').minute();
 						let s = dayjs(assignment[0].duration,'HH:mm:ss').second();
 						node.last_time = m+' min '+s+' sec ';
-						
+
 						node.last_rank = assignment[0].rank;
-						
+
 						node.daily_average_score = parseFloat(assignment.reduce((acc,currVal)=>{
 							return acc+ currVal.marks_obtained;
 						},0)/assignment.length).toFixed(2);

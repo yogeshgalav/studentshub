@@ -8,7 +8,9 @@
     />
     <div class="row">
       <div class="col-md-12">
-        <classroom-header />
+        <classroom-header
+          title="Daily Report"
+        />
       </div>
     </div>
     <div
@@ -47,7 +49,6 @@
                           <div class="col-md-9">
                             <div class="weight-800">
                               {{ 'Question' + ' ' + (index+1) }}
-
                             </div>
                           </div>
                           <div class="col-md-3">
@@ -76,7 +77,7 @@
                         >
                           <div class="col-md-9 mb-1 mt-1 ">
                             <div :class="['row line-height-30', choice.option_order === question.correct_answer ? 'bg-card-green text-white' : 'bg-card-gray', 'p-2']">
-                              <div :class="[choice.option_order === question.correct_answer ? 'bg-circle-white' : 'bg-circle']">
+                              <div class="bg-circle">
                                 {{ letters[index] }}
                               </div>
                               <span class="pl-2">  {{ choice.option_text }}  </span>
