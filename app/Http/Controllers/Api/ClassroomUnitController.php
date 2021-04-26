@@ -19,9 +19,19 @@ class ClassroomUnitController extends Controller
         ->orderBy('units.unit_no','DESC')
         ->get();
 
+        $summary = DB::table('classrooms as cl')
+        ->where('cl.id',$request->classroomId)
+        ->leftJoin('units', 'cl.id', '=', 'units.classroom_id')
+        ->leftJoin('daily_assignments', 'cl.id', '=', 'daily_assignments.classroom_id')
+        ->leftJoin('classroom_resources', 'cl.id', '=', 'classroom_resources.classroom_id')
+        ->leftJoin('daily_reports', 'daily_assignments.id', '=', 'daily_reports.daily_assignment_id')
+        ->select('units.id',DB::raw('COUNT(distinct daily_assignments.id) as assignmentCount'),DB::raw('AVG(daily_reports.marks_obtained) as averageScore'),DB::raw('COUNT(distinct classroom_resources.id) as resources'))
+        ->groupBy('units.id')
+        ->get();
         return response()->json([
             'success'=>[
-                'unitData'=>$unitData
+                'unitData'=>$unitData,
+                'summary'=>$summary
             ]
         ]);
     }   
