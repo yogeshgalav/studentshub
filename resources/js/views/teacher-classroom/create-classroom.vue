@@ -43,6 +43,7 @@
                             v-model="classroom_name"
                             v-validate="'required'"
                             type="text"
+                            placeholder="2nd Year Section B"
                             name="classroom_name"
                             class="form-control"
                           >

@@ -2,14 +2,14 @@ import Vue from 'vue';
 import VueSweetalert2 from 'vue-sweetalert2';
 
 Vue.use(VueSweetalert2);
-export default { 
-	infoDialog: function(text){
+export default {
+	infoDialog: function (text) {
 		const swalWithBootstrapButtons = Vue.swal.mixin({});
 		return new swalWithBootstrapButtons({
 			text: text,
 		});
 	},
-	successDialog: function(title,text,type){
+	successDialog: function (title, text, type) {
 		const swalWithBootstrapButtons = Vue.swal.mixin({});
 		return new swalWithBootstrapButtons({
 			title: title,
@@ -19,10 +19,10 @@ export default {
 			showConfirmButton: false,
 		});
 	},
-	confirmDialog: function(title='Are you sure?',text='You wont be able to revert this change',type='warning'){
+	confirmDialog: function (title = 'Are you sure?', text = 'You wont be able to revert this change', type = 'warning') {
 		const swalWithBootstrapButtons = Vue.swal.mixin({
-			confirmButtonClass: 'btn btn-success float-right btn-lg mr-1',
-			cancelButtonClass: 'btn btn-danger floar-left  btn-lg btntext-danger',
+			confirmButtonClass: 'btn btn-success float-right btn-lg mr-1 mt-1',
+			cancelButtonClass: 'btn btn-danger floar-left  btn-lg btntext-danger mt-1',
 			buttonsStyling: false,
 		});
 		return new swalWithBootstrapButtons({
@@ -35,7 +35,7 @@ export default {
 			confirmButtonText: 'Confirm'
 		});
 	},
-	alertDialog: function(title='Are you sure?',text='You wont be able to revert this change',type='warning'){
+	alertDialog: function (title = 'Are you sure?', text = 'You wont be able to revert this change', type = 'warning') {
 		const swalWithBootstrapButtons = Vue.swal.mixin({
 			confirmButtonClass: 'btn btn-success',
 			cancelButtonClass: 'btn btn-danger',
@@ -51,7 +51,7 @@ export default {
 			confirmButtonText: 'OK'
 		});
 	},
-	errorDialog: function(title='Oops...',text){
+	errorDialog: function (title = 'Oops...', text) {
 		const swalWithBootstrapButtons = Vue.swal.mixin({});
 		return new swalWithBootstrapButtons({
 			text: text,
@@ -59,5 +59,5 @@ export default {
 			type: 'error',
 		});
 	}
-    
+
 };

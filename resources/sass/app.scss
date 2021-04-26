@@ -224,6 +224,7 @@ button[disabled="disabled"] {
     background: #ebebeb !important;
 }
 
+
 .btn-primary {
     background: $primary !important;
     font-weight: $btn-font-weight;
@@ -231,7 +232,8 @@ button[disabled="disabled"] {
 }
 .btn-lg{
     border: none;
-    padding: 10px 30px !important;
+    min-width: 300px;
+    padding: 10px 50px !important;
     text-align: center;
     font-size: large !important;
     border-radius: 5px;
@@ -239,7 +241,6 @@ button[disabled="disabled"] {
     display: flex;
     align-items: center;
     font-weight: 700;
-    width: 300px;
     justify-content: center;
 }
 .m-0-a{
@@ -1208,6 +1209,9 @@ textarea:focus {
 @media only screen and (max-width: 768px) {
     .btn-label {
         margin-right: 10px !important;
+    }
+    .mobile-size-heading{
+        font-size: 30px !important;
     }
     // Habit Builder
     .custom-nav .nav-item .active {

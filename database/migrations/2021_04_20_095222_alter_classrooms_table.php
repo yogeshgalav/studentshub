@@ -15,6 +15,10 @@ class AlterClassroomsTable extends Migration
     {
         
         Schema::table('classrooms', function (Blueprint $table) {
+            \App\Models\Classroom::destroy([1]);
+            $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');
+            $table->foreign('teacher_id')->references('id')->on('teachers')->onDelete('cascade');
+            $table->foreign('batch_id')->references('id')->on('batches')->onDelete('cascade');
             $table->dropColumn('expected_students');
             $table->dropColumn('classroom_duration');
             $table->dropColumn('estimated_start_date');

@@ -6,7 +6,14 @@
       :width="250"
       :is-full-page="true"
     />
-    <classroom-header v-if="routeClassroomId" />
+    <classroom-header
+      v-if="routeClassroomId" 
+      title="Message"
+    />
+    <div v-else>
+      <h1>Messages</h1>
+      <hr>
+    </div>
     <div>
       <div class="row">
         <div class="col-md-12">
@@ -156,6 +163,7 @@
                           <label for="classroom">Classroom</label>
                           <select
                             v-model="selectedClassroomId"
+                            v-validate="'required'"
                             class="form-control custom-select"
                             name="classroom"
                           >
@@ -167,6 +175,10 @@
                               {{ classroom.name }}
                             </option>
                           </select>
+
+                          <span class="text-danger">{{
+                            formErrors("add_message_form.classroom")
+                          }}</span>
                         </div>
                       </div>
                     </div>
@@ -186,7 +198,7 @@
                             placeholder="write message here"
                           >
                           <span class="text-danger">{{
-                            formErrors("add_message_form.content")
+                            formErrors("add_message_form.message")
                           }}</span>
                         </div>
                       </div>
