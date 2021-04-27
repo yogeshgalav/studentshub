@@ -111,7 +111,7 @@ class DailyAssignmentController extends Controller
         $scores = DB::table('daily_assignments as da')
         ->where('da.classroom_id',$request->classroomId)
         ->leftjoin('daily_reports as dr','da.id','=','dr.daily_assignment_id')
-        ->select(DB::raw("SUM(CASE WHEN (dr.marks_obtained < 4) THEN 1 ELSE 0 END) as low_count"),
+        ->select('da.id as daily_assignment_id',DB::raw("SUM(CASE WHEN (dr.marks_obtained < 4) THEN 1 ELSE 0 END) as low_count"),
                 DB::raw("SUM(CASE WHEN (dr.marks_obtained > 3 and dr.marks_obtained < 8) THEN 1 ELSE 0 END) as medium_count"),
                 DB::raw("SUM(CASE WHEN (dr.marks_obtained > 7) THEN 1 ELSE 0 END) as high_count"))
         ->groupBy('da.id')
