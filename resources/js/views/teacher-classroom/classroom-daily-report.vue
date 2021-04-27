@@ -34,9 +34,9 @@
                     </p>
                   </div>
                 <div class="row">
-                    <single-value :value="'1'" label="Total Attempts" />
-                    <single-value :value="summary.average_score" label="Average Score" />
-                    <single-value :value="summary.average_duration" label="Average Duration" />
+                    <single-value :value="summary[0].total_attende" label="Total Attempts" />
+                    <single-value :value="summary[0].average_score" label="Average Score" />
+                    <single-value :value="summary[0].average_duration" label="Average Duration" />
                 </div>
                   <div
                     v-for="(question,index) in daily.daily_questions"
@@ -165,7 +165,16 @@ export default {
 				.then((resp) => {
 					this.unitList = resp.data.success.unitList;
 					this.dailyAssignmentData = resp.data.success.dailyAssignmentData;
-                    this.summary = resp.data.success.summary;
+                    let summaryData = resp.data.success.summary;
+                    
+                    this.unitData.map((node)=>{
+                    let summary = summaryData.find(node2=>node2.id===node.id);
+                    node.assignmentCount=summary.assignmentCount;
+                    node.averageScore=summary.averageScore;
+                    node.resources=summary.resources;
+                    return node;
+                    })
+
                     console.log(this.summary);
 					this.showLoader=false;
 				});
