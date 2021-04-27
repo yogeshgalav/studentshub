@@ -113,7 +113,7 @@ class DailyAssignmentController extends Controller
         ->leftjoin('daily_reports as dr','da.id','=','dr.daily_assignment_id')
         ->select('da.id as daily_assignment_id',DB::raw('COUNT(distinct dr.user_id) as total_attende'),
                 DB::raw('AVG(dr.marks_obtained) as average_score'),
-                DB::raw('AVG(dr.duration) as average_duration')     
+                DB::raw('SEC_TO_TIME(AVG(TIME_TO_SEC(dr.duration))) as average_duration')     
         )
         ->groupBy('da.id')
         ->get();
