@@ -141,8 +141,8 @@ class PostController extends Controller
 
         return response()->json(['success'=>[
             'post_content'=>$post_content,
-            'most_viewed'=>$most_viewed,
-            'most_liked'=>$most_liked,
+            'most_viewed'=>\Sthub::convert_from_latin1_to_utf8_recursively($most_viewed),
+            'most_liked'=>\Sthub::convert_from_latin1_to_utf8_recursively($most_liked),
         ]]);
     }
 
@@ -161,7 +161,7 @@ class PostController extends Controller
         $search->save();
 
         return response()->json(['success'=>[
-          'posts'=>$posts
+          'posts'=>\Sthub::convert_from_latin1_to_utf8_recursively($posts)
         ]]);
       }
       public function courseDetails(Request $request){
@@ -170,7 +170,7 @@ class PostController extends Controller
         $posts = $post->getCoursePosts($course->id);
 
         return response()->json(['success'=>[
-            'posts'=>$posts,
+            'posts'=>\Sthub::convert_from_latin1_to_utf8_recursively($posts),
             'subject'=>$course,
         ]]);
       }
@@ -180,7 +180,7 @@ class PostController extends Controller
         $posts = $post->getSubjectPosts($subject->id);
 
         return response()->json(['success'=>[
-            'posts'=>$posts,
+            'posts'=>\Sthub::convert_from_latin1_to_utf8_recursively($posts),
             'subject'=>$subject,
         ]]);
       }
@@ -191,7 +191,7 @@ class PostController extends Controller
         $posts = $post->getCategoryPosts($category->id);
 
         return response()->json(['success'=>[
-            'posts'=>$posts,
+            'posts'=>\Sthub::convert_from_latin1_to_utf8_recursively($posts),
             'category'=>$category,
         ]]);
       }
