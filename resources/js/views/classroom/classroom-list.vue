@@ -6,6 +6,32 @@
       :width="250"
       :is-full-page="true"
     />
+    <div class="row">
+      <div class="col-md-12">
+        <h1>Classrooms</h1>
+        <hr>
+      </div>
+    </div>
+    <div class="mb-2">
+      <button
+        v-if="AuthTeacher"
+        type="button"
+        class="btn-lg btn-primary"
+        @click="createClassroom()"
+      >
+        <i class="fas fa-plus" />&nbsp;&nbsp;Create Classroom
+      </button>
+      <button
+        v-if="AuthStudent"
+        type="button"
+        class="btn-primary btn-lg mb-1"
+        data-toggle="modal"
+        data-target="#joinClassroomModal"
+        @click="joinClassroomModal"
+      >
+        <i class="fas fa-plus" />&nbsp;&nbsp;Join Classroom
+      </button>
+    </div>
     <div
       v-if="AuthUser.role_intended==='seeker'"
       class="card"
@@ -45,12 +71,6 @@
     </div>
     <div v-if="myClassrooms.length">
       <div class="row">
-        <div class="col-md-12 mt-3">
-          <h3>My Classrooms</h3>
-          <hr>
-        </div>
-      </div>
-      <div class="row">
         <div
           v-for="(classroom, index) in myClassrooms"
           :key="index"
@@ -82,10 +102,6 @@
       </div>
     </div>
     <div v-if="classroomList.length">
-      <div class="col-md-12 mt-3">
-        <h3>Joined Classrooms</h3>
-        <hr>
-      </div>
       <div class="row">
         <div
           v-for="(classroom, index) in classroomList"
@@ -117,25 +133,6 @@
         </div>
       </div>
     </div>
-    <hr>
-    <button
-      v-if="AuthTeacher"
-      type="button"
-      class="btn-lg btn-primary"
-      @click="createClassroom()"
-    >
-      <i class="fas fa-plus" />&nbsp;&nbsp;Create Classroom
-    </button>
-    <button
-      v-if="AuthStudent"
-      type="button"
-      class="btn-primary btn-lg mb-1"
-      data-toggle="modal"
-      data-target="#joinClassroomModal"
-      @click="joinClassroomModal"
-    >
-      <i class="fas fa-plus" />&nbsp;&nbsp;Join Classroom
-    </button>
   </div>
 </template>
 <style scoped>

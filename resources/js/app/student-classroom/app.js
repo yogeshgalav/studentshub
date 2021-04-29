@@ -11,6 +11,7 @@ require('../../bootstrap');
 import Vue from '../app';
 Vue.component('UnitAttemptComponent', require('../../views/student-classroom/unit-attempt/UnitAttemptWizard.vue').default);
 Vue.component('DailyAttemptComponent', require('../../views/student-classroom/daily-attempt.vue').default);
+Vue.component('ClassroomListComponent', require('../../views/classroom/classroom-list.vue').default);
 
 
 //Dependencies
