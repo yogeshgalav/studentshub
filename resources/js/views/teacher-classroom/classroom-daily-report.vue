@@ -145,7 +145,7 @@ export default {
 	data() {
 		return {
 			showLoader:true,
-			dailyAssignmentData: {},
+			dailyAssignmentData: [],
 			marks: 10
 		};
 	},
