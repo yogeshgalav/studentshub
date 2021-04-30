@@ -8,7 +8,7 @@
     />
     <div class="row">
       <div class="col-md-12">
-        <classroom-header 
+        <classroom-header
           title="Daily Report"
         />
       </div>
@@ -33,7 +33,11 @@
                       Students have attempted this unit.
                     </p>
                   </div>
-
+                <div class="row">
+                    <single-value :value="daily.total_attende" label="Total Attempts" />
+                    <single-value :value="daily.average_score" label="Average Score" />
+                    <single-value :value="daily.average_duration" label="Average Duration" />
+                </div>
                   <div
                     v-for="(question,index) in daily.daily_questions"
                     :key="index"
@@ -55,7 +59,7 @@
                         </div>
                       </div>
                     </div>
-                    
+
                     <div class="row mt-2">
                       <div class="col-md-12">
                         <div class="row">
@@ -107,7 +111,7 @@
 .bg-gray {
   background-color: #eee;display: flex;
   line-height: 30px;
-  
+
 }
 .bg-circle {
   border-radius: 50%;
@@ -130,16 +134,19 @@ import Accordion from '../../components/accordion';
 
 import ClassroomHeader from '../../components/ClassroomHeader';
 
+import SingleValue from '../../components/SingleValue';
+
 export default {
 	components: {
 		Accordion,
-		ClassroomHeader
+		ClassroomHeader,
+    SingleValue
 	},
 	data() {
 		return {
 			showLoader:true,
-			dailyAssignmentData: {},
-			marks: 10,
+			dailyAssignmentData: [],
+			marks: 10
 		};
 	},
 	computed: {
@@ -157,6 +164,24 @@ export default {
 				.then((resp) => {
 					this.unitList = resp.data.success.unitList;
 					this.dailyAssignmentData = resp.data.success.dailyAssignmentData;
+                    let summaryData = resp.data.success.summary;
+                    const countTime = (str) => {
+                        const [hh = '0', mm = '0', ss = '0'] = (str || '0:0:0').split(':');
+                        const hour = parseInt(hh, 10) || 0;
+                        const minute = parseInt(mm, 10) || 0;
+                        const second = parseInt(ss, 10) || 0;
+                        let totalSec = (hour*3600) + (minute*60) + (second);
+                        const totalHrs = Math.floor(totalSec / 60 / 60);
+                        const totalMin = Math.floor(totalSec / 60) - (totalHrs * 60);
+                        return `${totalHrs>0?totalHrs+' hr':''} ${totalMin>0?totalMin+' min':''}`
+                    };
+                    this.dailyAssignmentData.map((node)=>{
+                    let summary = summaryData.find(node2=>node2.daily_assignment_id===node.id);
+                    node.total_attende=summary.total_attende;
+                    node.average_score=parseFloat(summary.average_score).toFixed(1);
+                    node.average_duration=countTime(summary.average_duration);
+                    return node;
+                    })
 					this.showLoader=false;
 				});
 		},

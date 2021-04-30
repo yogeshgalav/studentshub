@@ -48,7 +48,7 @@ class DailyAssignmentController extends Controller
     }
 
     public function updateDailyAssignment(Request $request)
-    {    
+    {
         if($request->assignment_id){
             DailyReport::where('daily_assignment_id',$request->assignment_id)->exists() ? abort(403) : '';
         }
@@ -63,10 +63,10 @@ class DailyAssignmentController extends Controller
         DB::beginTransaction();
     try{
         if($request->assignment_id){
-            $dailyAssignment = DailyAssignment::find($request->assignment_id);     
+            $dailyAssignment = DailyAssignment::find($request->assignment_id);
         }else{
             $dailyAssignment = new DailyAssignment;
-        }   
+        }
         $dailyAssignment->attempt_date=$request->attempt_date;
         $dailyAssignment->start_time=$request->start_time;
         $dailyAssignment->end_time=$request->end_time;
@@ -79,12 +79,12 @@ class DailyAssignmentController extends Controller
     } catch (\Exception $e) {
         DB::rollback();
         Log::critical('daily assignment update failure',['data'=>$request->all(),'error'=>$e->getMessage()]);
-        return response()->$e; 
+        return response()->$e;
     }
         return response()->json(['success'=>[
             'assignment'=>$dailyAssignment
         ]]);
-        
+
     }
 
     public function getDailyAssismentDetails(Request $request){
@@ -101,19 +101,37 @@ class DailyAssignmentController extends Controller
                 'dailyAssignmentData'=>$dailyAssignmentData
             ]
         ]);
-    }   
+    }
     public function getDailyAssismentReports(Request $request){
         $unitList=Unit::where('classroom_id',$request->classroomId)->get();
         $dailyAssignmentData=DailyAssignment::where('classroom_id',$request->classroomId)
         ->has('dailyReport')
         ->with('dailyQuestions.multipleChoice')
         ->get();
-
+        $summary = DB::table('daily_assignments as da')
+        ->where('da.classroom_id',$request->classroomId)
+        ->leftjoin('daily_reports as dr','da.id','=','dr.daily_assignment_id')
+        ->select('da.id as daily_assignment_id',DB::raw('COUNT(distinct dr.user_id) as total_attende'),
+                DB::raw('AVG(dr.marks_obtained) as average_score'),
+                DB::raw('SEC_TO_TIME(AVG(TIME_TO_SEC(dr.duration))) as average_duration')
+        )
+        ->groupBy('da.id')
+        ->get();
+        $scores = DB::table('daily_assignments as da')
+        ->where('da.classroom_id',$request->classroomId)
+        ->leftjoin('daily_reports as dr','da.id','=','dr.daily_assignment_id')
+        ->select('da.id as daily_assignment_id',DB::raw("SUM(CASE WHEN (dr.marks_obtained < 4) THEN 1 ELSE 0 END) as low_count"),
+                DB::raw("SUM(CASE WHEN (dr.marks_obtained > 3 and dr.marks_obtained < 8) THEN 1 ELSE 0 END) as medium_count"),
+                DB::raw("SUM(CASE WHEN (dr.marks_obtained > 7) THEN 1 ELSE 0 END) as high_count"))
+        ->groupBy('da.id')
+        ->get();
         return response()->json([
             'success'=>[
                 'unitList'=>$unitList,
-                'dailyAssignmentData'=>$dailyAssignmentData
+                'dailyAssignmentData'=>$dailyAssignmentData,
+                'scores'=>$scores,
+                'summary'=>$summary
             ]
         ]);
-    }   
+    }
 }
