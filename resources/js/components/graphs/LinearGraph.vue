@@ -1,15 +1,6 @@
 <template>
-  <div>
-    <div class="col-md-12 mt-2">
-      <div class="row">
-        <div class="col-md-12 text-center">
-          <p class="weight-800 text-black mb-1">
-            <span class="font-size-20"> {{ average_score }} </span> <span class="font-size-12 weight-500"> {{ currentRangeSet['gtop'] }}</span>
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="row justify-center mb-3">
+  <div class="mt-3 mb-2">
+    <div class="row justify-center mb-2">
       <div
         v-if="lowPer"
         class="flex_text pr-2"
@@ -40,7 +31,7 @@
         v-if="lowPer"
         class="flex bg-danger justify-center"
         :style="'width:'+lowPer+'%'"
-      >	
+      >
         <span
           v-if="lowPer>5"
           class="text-white"
@@ -96,7 +87,7 @@ padding: 2px 9px;
 }
 .br-0 {
 	border-right: 0px !important;
-} 
+}
 .flex_text {
 	border-right: 1px solid #ccc;
 	height: 20px;
@@ -108,7 +99,7 @@ padding: 2px 9px;
 </style>
 <script>
 export default {
-	props: ['rangeData'],
+	props: ['lowCount','medCount', 'highCount'],
 	data(){
 		return {
 			lowPer:0,
@@ -123,7 +114,7 @@ export default {
 	},
 	computed:{
 		currentRangeSet(){
-			return this.scaleColorSet[this.rangeData[0].range_high];
+			return this.scaleColorSet[10];
 		},
 		yPresent(){
 			return this.currentRangeSet['ylow']!==undefined;
@@ -134,44 +125,16 @@ export default {
 	},
 	methods: {
 		calPercent(){
-			var total_answers=this.rangeData.reduce((a,b)=>{ return a+b.total_answers;},0);
-			var sum_of_all_answers=this.rangeData.reduce((a,b)=>{ return a + (b.answer*b.total_answers);},0);
-			var low_answers=this.rangeData.reduce((a,b)=>{
-				if(parseInt(b.answer)<=this.currentRangeSet['rtop']){
-					return a+b.total_answers;
-				}
-				return a;
-			},0);
+            let lowestCount = parseInt(this.lowCount);
+            let mediumCount = parseInt(this.medCount);
+            let highCount = parseInt(this.highCount);
+            let totalCount = lowestCount+mediumCount+highCount;
+            this.lowPer = Math.floor(lowestCount/totalCount*100);
+            this.medPer = Math.floor(mediumCount/totalCount*100);
+            this.highPer = Math.floor(highCount/totalCount*100);
+            console.log(totalCount);
 
-			var med_answers=this.rangeData.reduce((a,b)=>{
-				if(this.currentRangeSet['ylow'] === undefined){
-					return a;
-				}
-
-				if(parseInt(b.answer)>=this.currentRangeSet['ylow'] && parseInt(b.answer)<=this.currentRangeSet['ytop']){
-					return a+b.total_answers;
-				}
-
-				return a;
-			},0);
-
-			var high_answers=this.rangeData.reduce((a,b)=>{
-				if(parseInt(b.answer)>=this.currentRangeSet['glow'] && parseInt(b.answer)<=this.currentRangeSet['gtop']){
-					return a+b.total_answers;
-				}
-
-				return a;
-			},0);
-
-			this.lowPer= Math.round((low_answers/total_answers)*100);
-			this.medPer= Math.round((med_answers/total_answers)*100);
-			this.highPer= Math.round((high_answers/total_answers)*100);
-			let sum = this.lowPer + this.medPer + this.highPer;
-			if (sum > 100) {
-				this.highPer =  this.highPer-(sum-100);
-			}
-			this.average_score=parseFloat(sum_of_all_answers/total_answers).toFixed(1);
-		}
-	}
+	    }
+    }
 };
 </script>
