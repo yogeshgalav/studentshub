@@ -108,11 +108,18 @@ class DailyAssignmentController extends Controller
         ->has('dailyReport')
         ->with('dailyQuestions.multipleChoice')
         ->get();
-
+        $questions_data = DB::table('daily_assignments as da')
+        ->where('da.classroom_id',$request->classroomId)
+        ->leftjoin('daily_questions as dq','da.id','=','dq.daily_assignment_id')
+        ->leftjoin('daily_answers as dans','dq.id','=','dans.daily_question_id')
+        ->select(DB::raw('COUNT(distinct dq.id) as count'))
+        ->get()
+        ->groupBy(['dq.daily_assignment_id','dq.id','dans.selected_answer']);
         return response()->json([
             'success'=>[
                 'unitList'=>$unitList,
-                'dailyAssignmentData'=>$dailyAssignmentData
+                'dailyAssignmentData'=>$dailyAssignmentData,
+                'questions-data'=>$questions_data
             ]
         ]);
     }   
