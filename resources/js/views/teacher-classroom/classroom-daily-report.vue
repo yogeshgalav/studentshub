@@ -174,6 +174,7 @@ export default {
 					this.dailyAssignmentData = resp.data.success.dailyAssignmentData;
                     let summaryData = resp.data.success.summary;
                     let scoresData = resp.data.success.scores;
+                    let questionsData = resp.data.success.questionsdata;
                     const countTime = (str) => {
                         const [hh = '0', mm = '0', ss = '0'] = (str || '0:0:0').split(':');
                         const hour = parseInt(hh, 10) || 0;
@@ -194,6 +195,11 @@ export default {
                     node.high_count = scores.high_count;
                     node.low_count = scores.low_count;
                     node.medium_count = scores.medium_count;
+
+                    node.daily_questions.map(question => {
+                      question.pie_data = questionsData.filter(node2 => node2.question_id === question.id);
+                      
+                    });
                     return node;
                     })
 
