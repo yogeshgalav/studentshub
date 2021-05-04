@@ -38,6 +38,11 @@
                     <single-value :value="daily.average_score" label="Average Score" />
                     <single-value :value="daily.average_duration" label="Average Duration" />
                 </div>
+                <linear-graph
+                    :lowCount ="daily.low_count"
+                    :medCount = "daily.medium_count"
+                    :highCount = "daily.high_count"
+                />
                   <div
                     v-for="(question,index) in daily.daily_questions"
                     :key="index"
@@ -136,11 +141,14 @@ import ClassroomHeader from '../../components/ClassroomHeader';
 
 import SingleValue from '../../components/SingleValue';
 
+import LinearGraph from '../../components/graphs/LinearGraph';
+
 export default {
 	components: {
 		Accordion,
 		ClassroomHeader,
-    SingleValue
+        SingleValue,
+        LinearGraph
 	},
 	data() {
 		return {
@@ -165,6 +173,7 @@ export default {
 					this.unitList = resp.data.success.unitList;
 					this.dailyAssignmentData = resp.data.success.dailyAssignmentData;
                     let summaryData = resp.data.success.summary;
+                    let scoresData = resp.data.success.scores;
                     const countTime = (str) => {
                         const [hh = '0', mm = '0', ss = '0'] = (str || '0:0:0').split(':');
                         const hour = parseInt(hh, 10) || 0;
@@ -180,8 +189,16 @@ export default {
                     node.total_attende=summary.total_attende;
                     node.average_score=parseFloat(summary.average_score).toFixed(1);
                     node.average_duration=countTime(summary.average_duration);
+                // making new nodes for scores in linearGraph
+                    let scores = scoresData.find(node2=>node2.daily_assignment_id===node.id);
+                    node.high_count = scores.high_count;
+                    node.low_count = scores.low_count;
+                    node.medium_count = scores.medium_count;
                     return node;
                     })
+
+                    console.log(this.dailyAssignmentData);
+
 					this.showLoader=false;
 				});
 		},
