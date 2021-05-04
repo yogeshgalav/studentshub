@@ -8,7 +8,7 @@ import ClassroomResourceComponent from '../../views/classroom/resources.vue';
 import ClassroomMessageComponent from '../../views/classroom/messages.vue';
 import ClassroomDoubtComponent from '../../views/classroom/doubts.vue';
 import ClassroomReportComponent from '../../views/classroom/report.vue';
-import ClassroomStudentPanelComponent from '../../views/classroom/teacher/daily-assignment.vue';
+import ClassroomStudentPanelComponent from '../../views/classroom/teacher/student-panel.vue';
 import ClassroomAttendanceComponent from '../../views/classroom/teacher/attendance.vue';
 import DoubtAnswer from '../../views/doubt/doubt-answers.vue';
 
