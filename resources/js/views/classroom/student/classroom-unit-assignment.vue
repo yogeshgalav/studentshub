@@ -26,11 +26,11 @@
 
 </style>
 <script>
-import FormMixin from '../../components/mixins/form-mixin.js';
-import Accordion from '../../components/accordion';
-import AddButton from '../../components/AddButton';
-import swal from '../../components/swal.js';
-import ClassroomHeader from '../../components/ClassroomHeader';
+import FormMixin from '../../../components/mixins/form-mixin.js';
+import Accordion from '../../../components/accordion';
+import AddButton from '../../../components/AddButton';
+import swal from '../../../components/swal.js';
+import ClassroomHeader from '../../../components/ClassroomHeader';
 
 export default {
 	components: {
