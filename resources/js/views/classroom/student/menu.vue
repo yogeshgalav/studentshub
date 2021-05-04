@@ -6,16 +6,16 @@
         <div class="selection-box-default">
           <router-link
             class="card h-card"
-            :to="'/classroom/'+$route.params.classroomId+'/daily-assignment'"
+            :to="'/classroom/'+$route.params.classroomId+'/overview'"
           >
             <div class="card-body">
               <div class="row">
                 <div class="col-lg-12">
                   <h2 class="font-size-18">
-                    {{ 'Daily Assignment' }}
+                    {{ 'Overview' }}
                   </h2>
                   <p>
-                    {{ 'View and attempt daily assignment.' }}
+                    {{ 'overview' }}
                   </p>
                 </div>
               </div>
