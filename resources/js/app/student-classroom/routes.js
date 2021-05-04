@@ -1,5 +1,5 @@
-import ClassroomComponent from '../../views/student-classroom/classroom.vue';
-import ClassroomUnitAssignmentComponent from '../../views/student-classroom/classroom-unit-assignment.vue';
+import ClassroomComponent from '../../views/classroom/student/menu.vue';
+import ClassroomUnitAssignmentComponent from '../../views/classroom/student/classroom-unit-assignment.vue';
 import ClassroomResourceComponent from '../../views/classroom/resources.vue';
 import ClassroomMessageComponent from '../../views/classroom/messages.vue';
 import ClassroomDoubtComponent from '../../views/classroom/doubts.vue';

@@ -1,80 +1,80 @@
 <template>
-<form @submit.prevent="()=>{}">
-  <div class="vue-form-wizard">
-    <loading 
-      :active.sync="showLoader"
-      :color="'#10069F'"
-      :width="250"
-      :is-full-page="true"
-    />
-    <div class="row">
-      <div class="col-md-11 center-col">
-        <div
-          v-if="show_back_button"
-          class=" custom-link mb-2 ml-2 "
-        >
-          <button
-            type="button"
-            class="btn btn-link"
-            @click="prevTab()"
+  <form @submit.prevent="()=>{}">
+    <div class="vue-form-wizard">
+      <loading 
+        :active.sync="showLoader"
+        :color="'#10069F'"
+        :width="250"
+        :is-full-page="true"
+      />
+      <div class="row">
+        <div class="col-md-11 center-col">
+          <div
+            v-if="show_back_button"
+            class=" custom-link mb-2 ml-2 "
           >
-            <i
-              class="fa fa-angle-left"
-              aria-hidden="true"
-            />
-            {{ 'Back' }}
-          </button>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      {{'Unit :0'}}
-      {{'Subject Name'}}
-      {{'Classroom Name'}}
-    </div>
-
-    <div
-      v-for="step in totalSteps"
-      :key="step"
-      class="row"
-    >
-      <div class="col-md-11 center-col">
-        {{step}}
-      </div>
-    </div>
-
-    <div class="wizard-card-footer">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-8 col-6 pt-2">
-            <progress-bar
-              :progress="progress"
-            />
-          </div>
-
-          <div class="col-md-4 col-2 text-right">
             <button
-              v-if="show_next_button && !isLastStep"
-              type="submit"
-              class="btn btn-primary wizard-btn"
-              @click="nextTab()"
+              type="button"
+              class="btn btn-link"
+              @click="prevTab()"
             >
-              {{ 'Next' }}
-            </button>
-
-            <button
-              v-if="isLastStep"
-              type="submit"
-              class="btn btn-primary wizard-btn"
-              @click="completeWizard"
-            >
-              {{ 'Next' }}
+              <i
+                class="fa fa-angle-left"
+                aria-hidden="true"
+              />
+              {{ 'Back' }}
             </button>
           </div>
         </div>
       </div>
+      <div class="row">
+        {{ 'Unit :0' }}
+        {{ 'Subject Name' }}
+        {{ 'Classroom Name' }}
+      </div>
+
+      <div
+        v-for="step in totalSteps"
+        :key="step"
+        class="row"
+      >
+        <div class="col-md-11 center-col">
+          {{ step }}
+        </div>
+      </div>
+
+      <div class="wizard-card-footer">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-8 col-6 pt-2">
+              <progress-bar
+                :progress="progress"
+              />
+            </div>
+
+            <div class="col-md-4 col-2 text-right">
+              <button
+                v-if="show_next_button && !isLastStep"
+                type="submit"
+                class="btn btn-primary wizard-btn"
+                @click="nextTab()"
+              >
+                {{ 'Next' }}
+              </button>
+
+              <button
+                v-if="isLastStep"
+                type="submit"
+                class="btn btn-primary wizard-btn"
+                @click="completeWizard"
+              >
+                {{ 'Next' }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
   </form>
 </template>
 <style>
@@ -203,7 +203,7 @@ import ProgressBar from './ProgressBar';
 import EventBus from './event-bus';
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
-import swal from '../../../components/swal';
+import swal from '../../../../components/swal';
 
 export default {
 	components: {
@@ -211,7 +211,7 @@ export default {
 	},
 	data(){
 		return{
-      stepData:[],
+			stepData:[],
 			showLoader:false,
 			step_valid:true,
 			stepIndex:0,
@@ -251,7 +251,7 @@ export default {
 		}
 	},
 	mounted(){
-    this.getCurrentUnitQuestions();
+		this.getCurrentUnitQuestions();
 		var self=this;
 		window.addEventListener('hashchange', ()=>{
 			let stepHash=parseInt(window.location.hash.replace('#',''));
@@ -289,22 +289,22 @@ export default {
 		});
 	},
 	methods:{
-    getCurrentUnitQuestions(){
-      for (let i = 1; i <= 3; i++) {
-						this.step_data.push({
-							backbutton: true,
-							stepskip: false,
-							nextTab: true,
-							validation: true,
-							emit: '',
-							name: 'step' + i,
-							step: i
-						});
-					}
-    },
-    completeWizard(){
+		getCurrentUnitQuestions(){
+			for (let i = 1; i <= 3; i++) {
+				this.step_data.push({
+					backbutton: true,
+					stepskip: false,
+					nextTab: true,
+					validation: true,
+					emit: '',
+					name: 'step' + i,
+					step: i
+				});
+			}
+		},
+		completeWizard(){
 
-    },
+		},
 		nextTab(){
 			if(this.stepData[this.stepIndex].validation===true){
 				EventBus.$emit('validateStep'+this.activeStep);

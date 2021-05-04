@@ -193,7 +193,7 @@
 
 </style>
 <script>
-import ClassroomHeader from '../../components/ClassroomHeader';
+import ClassroomHeader from '../../../components/ClassroomHeader';
 export default {
 	components:{
 		ClassroomHeader
