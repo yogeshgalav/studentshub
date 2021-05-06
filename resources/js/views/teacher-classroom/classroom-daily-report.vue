@@ -97,6 +97,24 @@
                         <doughnut-graph
                             :graph-data="question.pie_data"
                         />
+                        <div class="ml-3 mt-5" >
+                  <div
+
+                    v-for="(status, index) in question.pie_data"
+                    :key="index"
+                    class="session-report"
+                  >
+                    <p :class="[reportColorClasses[index] ,'weight-800 font-size-20 mb-0 mt-0']">
+                      {{ status.count }}
+                      <span class="font-size-12 weight-400">Option {{ letters[index] }}</span>
+                    </p>
+                  </div>
+                  <div class="divider mt-0 mb-0" />
+                  <p class="text-black weight-800 font-size-12 mb-1 mt-0">
+                    {{ }}
+                    <span class="font-size-12">{{ 'Assignments' }}</span>
+                  </p>
+                </div>
                     </div>
                   </div>
                 </div>
