@@ -54,7 +54,7 @@
                   {{ choice.option_text }}
                 </div>
                 <div 
-                  v-else-if="choice.option_order===answer.selected_answer"
+                  v-else-if="choice.id===answer.selected_answer"
                   class="bg-warning  option_box outline-warning text-white"
                 >
                   <span 
