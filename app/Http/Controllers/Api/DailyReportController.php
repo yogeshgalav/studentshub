@@ -50,6 +50,15 @@ class DailyReportController extends Controller
                 ->where('daily_assignment_id',$today_assignment->id)->first();
             }
         }
+        $assignments_attemps = DB::table('daily_assignments as da')
+        ->where('da.classroom_id',$classroom_id)
+        ->leftjoin('daily_questions as dq','dq.daily_assignment_id','=','da.id')
+        ->leftjoin('daily_answers as dans','dans.daily_question_id','=','dq.id')
+        ->leftjoin('users','users.id','=','dans.user_id')
+        ->where('user_id',$student_id)
+        ->select(DB::raw('COUNT(distinct da.id) as total_assignments_attempted'),'da.unit_id as unit_id')
+        ->groupBy('da.unit_id')
+        ->get();
 
         return response()->json(['success'=>[
             'daily_reports'=>$daily_reports,
@@ -57,7 +66,8 @@ class DailyReportController extends Controller
             'current_report'=>$current_report,
             'today_assignment'=>$today_assignment,
             'today_report'=>$today_report,
-            'is_available'=>$today_assignment ? $today_assignment->isCurrentlyAvailable() : false
+            'is_available'=>$today_assignment ? $today_assignment->isCurrentlyAvailable() : false,
+            'assignments_attemps' => $assignments_attemps
         ]]);
     }
 
