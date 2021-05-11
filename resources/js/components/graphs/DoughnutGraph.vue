@@ -3,18 +3,18 @@ import { Doughnut } from 'vue-chartjs';
 
 export default {
 	extends: Doughnut,
-	props:{ 
-		width:{ 
-			type:Number, 
-			default: 200 
-		}, 
-		height:{ 
-			type:Number, 
-			default: 200 
-		}, 
-		graphData:{ 
-			type:Array, 
-			default: () => [] 
+	props:{
+		width:{
+			type:Number,
+			default: 200
+		},
+		height:{
+			type:Number,
+			default: 200
+		},
+		graphData:{
+			type:Array,
+			default: () => []
 		} 
 	},
 	computed:{
@@ -59,7 +59,7 @@ export default {
 								return previousValue + currentValue;
 							});
 							var currentValue = dataset.data[tooltipItem.index];
-							var percentage = Math.floor(((currentValue/total) * 100)+0.5);         
+							var percentage = Math.floor(((currentValue/total) * 100)+0.5);
 							return percentage + '%';
 						},
 					}

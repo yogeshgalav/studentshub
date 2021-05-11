@@ -8,9 +8,7 @@
     />
     <div class="row">
       <div class="col-md-12">
-        <classroom-header 
-          title="Student Panel"
-        />
+        <classroom-header title="Student Panel" />
       </div>
       <div
         v-if="user_detail"
@@ -26,7 +24,7 @@
         :initial-tab="initialTab"
       >
         <template slot="tab-heading-daily">
-          {{ 'Daily Assignment' }}
+          {{ "Daily Assignment" }}
         </template>
         <template slot="tab-panel-daily">
           <div class="col-md-10 col-center">
@@ -59,44 +57,51 @@
         </template>
 
         <template slot="tab-heading-report">
-          {{ 'Report' }}
+          {{ "Report" }}
         </template>
-        <template slot="tab-panel-report" />
+        <template slot="tab-panel-report">
+          <div class="col-md-12 col-center">
+            <student-report />
+          </div>
+        </template>
       </nav-tabs>
     </div>
   </div>
 </template>
 <style scoped>
-    .col-center {
-        margin: auto;
-    }
+.col-center {
+  margin: auto;
+}
 </style>
 <script>
 import ClassroomHeader from '../../../components/ClassroomHeader';
 import DailyAssignmentReport from '../../../components/DailyAssignmentReport';
 import dayjs from 'dayjs';
 import NavTabs from '../../../components/NavTabs';
+import studentReport from '../student-report';
+import StudentReport from '../student-report.vue';
 
 export default {
 	components: {
 		ClassroomHeader,
 		DailyAssignmentReport,
-		NavTabs
+		NavTabs,
+		studentReport,
 	},
-	filters:{
-		timeFormat(time){
-			return dayjs(time,'hh:mm:ss').format('hh:mm A');
-		}
+	filters: {
+		timeFormat(time) {
+			return dayjs(time, 'hh:mm:ss').format('hh:mm A');
+		},
 	},
 	data() {
 		return {
-			showLoader:true,
+			showLoader: true,
 			today_report: null,
 			today_assignment: null,
 			is_available: false,
-			user_detail:null,
-			current_report:null,
-			daily_reports:[],
+			user_detail: null,
+			current_report: null,
+			daily_reports: [],
 			initialTab: 'daily',
 			tabs: ['daily', 'report'],
 		};
@@ -104,14 +109,16 @@ export default {
 	mounted() {
 		this.getDailyReports();
 	},
-	methods:{
-		getDailyReports(){
-			let url='/api/classroom/' + this.$route.params.classroomId + '/get-student-daily-reports';
-			if(this.$route.name==='ClassroomStudentPanel'){
-				url=url+'/'+this.$router.currentRoute.params.userId;
+	methods: {
+		getDailyReports() {
+			let url =
+        '/api/classroom/' +
+        this.$route.params.classroomId +
+        '/get-student-daily-reports';
+			if (this.$route.name === 'ClassroomStudentPanel') {
+				url = url + '/' + this.$router.currentRoute.params.userId;
 			}
-			this.axios.get(url).then((
-				resp) => {
+			this.axios.get(url).then((resp) => {
 				this.daily_reports = resp.data.success.daily_reports;
 				this.today_report = resp.data.success.today_report;
 				this.current_report = resp.data.success.current_report;
@@ -119,19 +126,25 @@ export default {
 				this.today_assignment = resp.data.success.today_assignment;
 				this.is_available = resp.data.success.is_available;
 				this.showLoader = false;
-			});    
+			});
 		},
-		getDailyAnswer(event){
+		getDailyAnswer(event) {
 			this.showLoader = true;
-			this.axios.post('/api/classroom/' + this.$route.params.classroomId + '/get-daily-answers',{
-				'report_id':event.target.value,
-			}).then((
-				resp) => {
-				this.current_report = resp.data.success.daily_assignment;     
-				this.showLoader = false;         
-			});    
-		}
-	}
-};
+			this.axios
 
+				.post(
+					'/api/classroom/' +
+            this.$route.params.classroomId +
+            '/get-daily-answers',
+					{
+						report_id: event.target.value,
+					}
+				)
+				.then((resp) => {
+					this.current_report = resp.data.success.daily_assignment;
+					this.showLoader = false;
+				});
+		},
+	},
+};
 </script>
