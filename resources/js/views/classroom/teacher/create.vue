@@ -289,10 +289,10 @@
 }
 </style>
 <script>
-import FormMixin from '../../components/mixins/form-mixin.js';
-import BatchMixin from '../../components/mixins/batch-mixin.js';
-import AutoComplete from '../../components/AutoComplete.vue';
-import swal from '../../components/swal';
+import FormMixin from '../../../components/mixins/form-mixin.js';
+import BatchMixin from '../../../components/mixins/batch-mixin.js';
+import AutoComplete from '../../../components/AutoComplete.vue';
+import swal from '../../../components/swal';
 
 export default {
 	components: {

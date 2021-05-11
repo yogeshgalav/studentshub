@@ -21,7 +21,7 @@ export default {
 		chartData(){
 			const self = this;
 			return  {
-				labels: this.graphData.map(node=>node),
+				labels: this.graphData.map(node=>node.label),
 				datasets: [
 					{
 						label: 'label',
@@ -42,7 +42,7 @@ export default {
 					}
 				},
 				legend: {
-					display: false,
+					display: true,
 				},
 				plugins: {
 					datalabels: {
@@ -52,17 +52,6 @@ export default {
 				tooltips: {
 					enabled: true,
 					mode: 'single',
-					callbacks: {
-						label: function(tooltipItem, data) {
-							var dataset = data.datasets[tooltipItem.datasetIndex];
-							var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
-								return previousValue + currentValue;
-							});
-							var currentValue = dataset.data[tooltipItem.index];
-							var percentage = Math.floor(((currentValue/total) * 100)+0.5);         
-							return percentage + '%';
-						},
-					}
 				},
 			};
 		}
