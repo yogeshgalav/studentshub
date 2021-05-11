@@ -88,7 +88,7 @@
                 </div>
               </div>
               <div class="col-md-12">
-                <!-- <bar-line-graph :graph-data="unit.pieGraphData" /> -->
+                <bar-line-graph :graph-data="unit.pieGraphData" />
               </div>
               <div class="col-md-12">
                 <multi-bar-graph :graph-data="unit.pieGraphData" />

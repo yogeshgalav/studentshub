@@ -1,4 +1,4 @@
-import ClassroomComponent from '../../views/teacher-classroom/classroom.vue';
+import ClassroomComponent from '../../views/classroom/teacher/menu.vue';
 import ClassroomOverviewComponent from '../../views/classroom/teacher/overview.vue';
 import ClassroomSetupComponent from '../../views/classroom/teacher/units.vue';
 import ClassroomUnitAssignmentComponent from '../../views/teacher-classroom/classroom-unit-assignment.vue';
