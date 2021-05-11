@@ -4,7 +4,7 @@
       title="Report"
     />
     <doughnut-graph
-        :graph-data="pie_graph_data"
+      :graph-data="pie_graph_data"
     />
 
     <div class="row">
@@ -51,12 +51,12 @@ export default {
 	components: {
 		ClassroomHeader,
 		VueTableComponent,
-        DoughnutGraph
+		DoughnutGraph
 	},
 	data() {
 		return {
 			student_details: [],
-            pie_graph_data:[],
+			pie_graph_data:[],
 			joinedColumns: [
 				{
 					label: 'Student Name',
@@ -109,7 +109,7 @@ export default {
 		getClassroomStudentDetails(){
 			this.axios('/api/classroom/'+ this.$route.params.classroomId +'/students-data').then((resp)=>{
 				this.student_details=resp.data.success.student_details;
-                this.pie_graph_data=resp.data.success.pie_graph_data;
+				this.pie_graph_data=resp.data.success.pie_graph_data;
 				this.assignment_details = resp.data.success.assignment_details;
 				this.student_details.map(node=>{
 					let assignment = this.assignment_details.filter(node2=>node2.user_id===node.user_id);

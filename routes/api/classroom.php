@@ -44,6 +44,7 @@ Route::group(['middleware'=>['auth:api']],function(){
     //student panel
     Route::get('/classroom/{classroomId}/get-student-daily-reports/{userId?}','DailyReportController@getDailyReports');
     Route::post('/classroom/{classroomId}/get-daily-answers','DailyReportController@getDailyAnswers');
+    Route::get('/classroom/{classroomId}/get-student-report-data/{userId?}','DailyReportController@studentReports');
     Route::post('/decline-attempt/{assignmentId}','DailyReportController@declineAttempt');
 
     //attendance
