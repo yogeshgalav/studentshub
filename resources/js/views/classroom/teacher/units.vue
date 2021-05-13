@@ -67,25 +67,6 @@
 
               <div class="col-md-12">
                 <doughnut-graph :graph-data="unit.pieGraphData" />
-                <div
-                  class="ml-3 mt-5"
-                >
-                  <div
-                    v-for="(status, index) in unit.pieGraphData"
-                    :key="index"
-                    class="session-report"
-                  >
-                    <p :class="[reportColorClasses[index] ,'weight-800 font-size-20 mb-0 mt-0']">
-                      {{ status.assignmentCount }}
-                      <span class="font-size-12 weight-400">{{ status.status }}</span>
-                    </p>
-                  </div>
-                  <div class="divider mt-0 mb-0" />
-                  <p class="text-black weight-800 font-size-12 mb-1 mt-0">
-                    {{ unit.assignment_total }}
-                    <span class="font-size-12">{{ 'Assignments' }}</span>
-                  </p>
-                </div>
               </div>
               <div class="col-md-12">
                 <bar-line-graph :graph-data="unit.pieGraphData" />
