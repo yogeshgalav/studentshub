@@ -6,7 +6,7 @@
       :width="250"
       :is-full-page="true"
     />
-    <classroom-header 
+    <classroom-header
       title="Unit Setup"
     />
     <div class="mt-2">
@@ -131,7 +131,7 @@ export default {
 				const daily_assignment_status = resp.data.success.daily_assignment_status;
 				this.unitData.map((node)=>{
 					node.pieGraphData = daily_assignment_status.filter(node2=>node2.unit_id===node.id).map(node2=>{
-						node2.label = node2.status; 
+						node2.label = node2.status;
 						node2.count = node2.assignmentCount;
 						return node2;
 					});
