@@ -29,6 +29,20 @@ class CreateStudentReportTable extends Migration
         LEFT JOIN daily_assignments as da
         ON dr.daily_assignment_id=da.id";
         DB::unprepared($sql);
+
+        $sql = "INSERT INTO `student_reports` (`user_id`, `unit_id`, `score_type`,`score`)
+        SELECT dr.user_id,da.unit_id,'last',dr.marks_obtained
+        FROM daily_reports as dr
+        LEFT JOIN daily_assignments as da
+        ON dr.daily_assignment_id=da.id";
+        DB::unprepared($sql);
+
+        $sql = "INSERT INTO `student_reports` (`user_id`, `unit_id`, `score_type`,`score`)
+        SELECT dr.user_id,da.unit_id,'average',dr.marks_obtained
+        FROM daily_reports as dr
+        LEFT JOIN daily_assignments as da
+        ON dr.daily_assignment_id=da.id";
+        DB::unprepared($sql);
     }
 
     /**
