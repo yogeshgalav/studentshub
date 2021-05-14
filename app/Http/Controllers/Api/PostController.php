@@ -121,6 +121,7 @@ class PostController extends Controller
     }
 
     public function show($post_id){
+        \App\Models\Post::findOrFail($post_id);
         $user=Auth::user();
         if($user){
             \App\Models\PostView::firstOrCreate([
