@@ -93,25 +93,18 @@ class DailyReportController extends Controller
 
         $average_scores = DB::table('daily_assignments as da')
         ->where('da.classroom_id',$classroom_id)
-        ->leftjoin('daily_reports as dr','dr.daily_assignment_id','=','da.id')
-        ->select(DB::raw('AVG(marks_obtained) as average_score'),'da.attempt_date')
-        ->groupBy('da.attempt_date')
-        ->get();
-
-        $student_average_scores = DB::table('daily_assignments as da')
-        ->where('da.classroom_id',$classroom_id)
+        ->leftjoin('daily_reports as dr2','dr2.daily_assignment_id','=','da.id')
         ->leftjoin('daily_reports as dr',function($join)use($user_id){
             $join->on('dr.daily_assignment_id','=','da.id')
             ->where('dr.user_id',$user_id);
         })
-        ->select('marks_obtained','da.attempt_date')
-        ->groupBy('da.attempt_date','marks_obtained')
-        ->get();
+        ->select(DB::raw('AVG(dr2.marks_obtained) as classroom_score'),'da.attempt_date','dr.marks_obtained as student_score')
+        ->groupBy('da.attempt_date','dr.marks_obtained')
+        ->get();    
 
         return response()->json(['success'=>[
             'assignments_attemps' => $assignments_attemps,
-            'average_scores' => $average_scores,
-            'student_average_scores' => $student_average_scores
+            'average_scores' => $average_scores
         ]]);
     }
 }
