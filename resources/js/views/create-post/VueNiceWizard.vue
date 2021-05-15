@@ -1,56 +1,18 @@
 <template>
   <div class="vue-form-wizard">
-     <div class="wizard-card-foter">
-      <div class="container">
-        <!-- <div class="row">
-          <div class="col-md-8 col-6 pt-2">
-            <progress-bar
-              :progress="progress"
-            />
-          </div>
-
-          <div class="col-md-4 col-2 text-right">
-            <button
-              v-if="show_next_button"
-              type="submit"
-              class="btn btn-primary wizard-btn"
-              @click="nextTab()"
-            >
-              <span v-if="isLastStep">{{ trans('Done') }}</span>
-              <span v-else >{{ trans('Next') }}</span>
-            </button>
-          </div>
-        </div> -->
-      </div>
-    </div>
     <div class="hey">
-  <ul class="list-unstyled multi-steps">
-    <li :class="activeStep===1 ? 'is-active' : ''">Type</li>
-    <li :class="activeStep===2 ? 'is-active' : ''">Content</li>
-    <li :class="activeStep===3 ? 'is-active' : ''">Category</li>
-    <li :class="activeStep===4 ? 'is-active' : ''">Finish</li>
-  </ul>
+      <ul class="list-unstyled multi-steps">
+        <li :class="activeStep===1 ? 'is-active' : ''">
+          Type
+        </li>
+        <li :class="activeStep===2 ? 'is-active' : ''">
+          Content
+        </li>
+        <li :class="activeStep===3 ? 'is-active' : ''">
+          Description
+        </li>
+      </ul>
     </div>
-    <!-- <div class="row">
-      <div class="col-md-12">
-        <div
-          v-if="show_back_button"
-          class=" custom-link mb-2 ml-2 "
-        >
-          <button
-            type="button"
-            class="btn btn-link"
-            @click="prevTab()"
-          >
-            <i
-              class="fa fa-angle-left"
-              aria-hidden="true"
-            />
-            {{ trans('back') }}
-          </button>
-        </div>
-      </div>
-    </div> -->
     <div class="row">
       <slot name="header-row" />
     </div>
@@ -67,8 +29,6 @@
         />
       </div>
     </div>
-
-   
   </div>
 </template>
 <script>
@@ -122,15 +82,15 @@ export default {
 		}
 	},
 	mounted(){
-		EventBus.$on('nextTab', () => { this.nextTab() });
-		EventBus.$on('prevTab', () => { this.prevTab() });
+		EventBus.$on('nextTab', () => { this.nextTab(); });
+		EventBus.$on('prevTab', () => { this.prevTab(); });
 		EventBus.$on('validateWizard', (step,valid) => {
 			if(step===this.activeStep && valid===true){
-        if(this.isLastStep){
-          this.$emit('onComplete');
-        }else{
-          this.nextStep();
-        }
+				if(this.isLastStep){
+					this.$emit('onComplete');
+				}else{
+					this.nextStep();
+				}
 				window.scrollTo(0, 0);
 			}
 			let emit_function=this.stepData[this.stepIndex].emit;
@@ -148,9 +108,9 @@ export default {
 		});
 	},
 	methods:{
-    trans: function (string, defaultString) {
-      return this.$trans('home', string, defaultString);
-    },
+		trans: function (string, defaultString) {
+			return this.$trans('home', string, defaultString);
+		},
 		nextTab(){
 			if(this.stepData[this.stepIndex].validation===true){
 				EventBus.$emit('validateStep'+this.activeStep);

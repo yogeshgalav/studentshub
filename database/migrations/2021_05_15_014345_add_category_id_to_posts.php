@@ -19,6 +19,8 @@ class AddCategoryIdToPosts extends Migration
             $sql = "update posts set category_id = (select category_id from subjects where subjects.id = posts.subject_id)";
             DB::unprepared($sql);
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->integer('subject_id')->nullable()->change();
+            //$table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');
         });
     }
 
