@@ -7,7 +7,7 @@
           :aria-expanded="true"
           tab="accordion_status_unit_active"
         >
-          <div class="row add_cl_q">
+          <div class="">
             <div class="col-md-3 col-12">
               <div class="form-group pl-0">
                 <label
@@ -70,7 +70,7 @@
             </div>
           </div>
           <div v-if="daily.id">
-            <div class="row add_cl_q">
+            <div class="">
               <div class="col-md-6 col-12">
                 <div class="row">
                   <div class="col-md-6">
@@ -142,7 +142,7 @@
                 </div>
               </div>
             </div>
-            <div class="row add_cl_q">
+            <div class="">
               <div class="col-md-12">
                 <div class="text-grey col-md-12 pl-0">
                   <p class="mt-2">

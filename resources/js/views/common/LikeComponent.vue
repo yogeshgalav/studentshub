@@ -5,12 +5,12 @@
   >
     <button
       type="button"
-      class="btn"
+      class="btn pl-0"
       @click="sendUserLike()"
     >
       <p
         v-if="like_active"
-        class="text-primary"
+        class="text-primary pl-0 pr-0"
       >
         <span><i class="fas fa-thumbs-up text-primary" />&nbsp;</span>
         {{ post.total_likes + 1 }} Like
@@ -28,7 +28,7 @@
     >
       <p
         v-if="dislike_active"
-        class="text-primary"
+        class="text-primary pl-0 pr-0"
       >
         <span><i class="fas fa-thumbs-down text-primary" />&nbsp;</span>
         {{ post.total_likes + 1 }} Dislike
@@ -41,7 +41,7 @@
     <button      
       v-if="showReply"
       type="button"
-      :class="['btn', reply_active ? 'text-primary' : '']"
+      :class="['btn pl-0', reply_active ? 'text-primary' : '']"
       @click="reply()"
     >
       <p>
@@ -151,7 +151,7 @@ button{
     display: flex;
 }
 p{
-	padding: 5px 20px;
+	padding: 5px 0px;
 	margin-bottom: 10px;
 }
 p:hover{

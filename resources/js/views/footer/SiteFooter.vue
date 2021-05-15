@@ -70,7 +70,7 @@
             </li>
             <li>
               <a
-                href="#"
+                href="https://www.linkedin.com/company/student-shub"
                 target="_blank"
                 class="icoLinkedin"
                 title="Linkedin"

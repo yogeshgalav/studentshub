@@ -98,7 +98,7 @@ class Post extends PostModel
             $join->on('po.postable_id','=','do.id')->where('po.postable_type','=','App\Models\Document');
         })
         ->leftJoin('subjects as sub','sub.id','=','po.subject_id')
-        ->leftJoin('categories as cat','cat.id','=','sub.category_id')
+        ->leftJoin('categories as cat','cat.id','=','po.category_id')
         ->leftJoin('users as us','us.id','=','po.user_id')
         ->leftJoin('institutes as inst','inst.id','=','sp.institute_id')
         ->leftJoin('courses as course','course.id','=','sp.course_id');
@@ -172,7 +172,7 @@ class Post extends PostModel
             $join->on('po.postable_id','=','vd.id')->where('po.postable_type','=','App\Models\Video');
         })
         ->leftJoin('subjects as sub','sub.id','=','po.subject_id')
-        ->leftJoin('categories as cat','cat.id','=','sub.category_id')
+        ->leftJoin('categories as cat','cat.id','=','po.category_id')
         ->leftJoin('users as us','us.id','=','po.user_id')
         // ->leftJoin('facts as fa','po.id','=','fa.post_id')
         ->select(['po.id as id','po.post_heading as heading','po.post_description as description','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','sub.subject_name','po.primary_image_path as image_path',
@@ -200,7 +200,7 @@ class Post extends PostModel
             $join->on('po.id','=','uli.likable_id')->where('uli.likable_type','=','App\Models\Post')->where('uli.user_id','=',Auth::user()->id);
         })
         ->leftJoin('subjects as sub','sub.id','=','po.subject_id')
-        ->leftJoin('categories as cat','cat.id','=','sub.category_id')
+        ->leftJoin('categories as cat','cat.id','=','po.category_id')
         ->leftJoin('users as us','us.id','=','po.user_id')
         // ->leftJoin('facts as fa','po.id','=','fa.post_id')
         ->select(['po.id as id','po.post_heading as heading','po.post_description as description','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','sub.subject_name','po.primary_image_path as image_path',
@@ -225,7 +225,7 @@ class Post extends PostModel
             $join->on('po.postable_id','=','do.id')->where('po.postable_type','=','App\Models\Document');
         })
         ->leftJoin('subjects as sub','sub.id','=','po.subject_id')
-        ->leftJoin('categories as cat','cat.id','=','sub.category_id')
+        ->leftJoin('categories as cat','cat.id','=','po.category_id')
         ->leftJoin('users as us','us.id','=','po.user_id')
         // ->leftJoin('facts as fa','po.id','=','fa.post_id')
         ->select(['po.id as id','po.post_heading as heading','po.post_description as description','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','sub.subject_name','po.primary_image_path as image_path',
