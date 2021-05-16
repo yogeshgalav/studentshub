@@ -188,7 +188,7 @@
 }
 </style>
 <script>
-import FormMixin from '../../components/mixins/form-mixin.js';
+import FormMixin from '../../../components/mixins/form-mixin.js';
 import dayjs from 'dayjs';
 import ifvisible from 'ifvisible.js';
 var customParseFormat = require('dayjs/plugin/customParseFormat');

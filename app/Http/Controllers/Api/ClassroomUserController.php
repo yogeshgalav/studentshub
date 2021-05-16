@@ -60,13 +60,13 @@ class ClassroomUserController extends Controller
         ->where('ut.classroom_id',$classroom_id)
         ->leftjoin('daily_assignments as da','ut.classroom_id','=','da.classroom_id')
         ->select('ut.unit_name as label',DB::raw('COUNT(distinct da.id) as count'))
-        ->groupBy('da.unit_id','ut.unit_name')
+        ->groupBy('ut.id','ut.unit_name')
         ->get();
         
         return response()->json(['success'=>[
             'student_details'=>$student_details,
             'assignment_details'=>$assignment_details,
-            'total_assignments'=>$pie_graph_data
+            'pie_graph_data'=>$pie_graph_data
         ]]);
     }
 

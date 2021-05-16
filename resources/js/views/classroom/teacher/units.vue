@@ -6,7 +6,7 @@
       :width="250"
       :is-full-page="true"
     />
-    <classroom-header 
+    <classroom-header
       title="Unit Setup"
     />
     <div class="mt-2">
@@ -64,6 +64,16 @@
                   label="Resources"
                 />
               </div>
+
+              <div class="col-md-12">
+                <doughnut-graph :graph-data="unit.pieGraphData" />
+              </div>
+              <div class="col-md-12">
+                <bar-line-graph :graph-data="unit.pieGraphData" />
+              </div>
+              <div class="col-md-12">
+                <multi-bar-graph :graph-data="unit.pieGraphData" />
+              </div>
             </accordion>
           </div>
         </div>
@@ -72,10 +82,13 @@
   </div>
 </template>
 <script>
-import FormMixin from '../../components/mixins/form-mixin.js';
+import FormMixin from '../../../components/mixins/form-mixin.js';
 import Accordion from '../../../components/accordion';
 import AddButton from '../../../components/AddButton';
 
+import DoughnutGraph from '../../../components/graphs/DoughnutGraph';
+import MultiBarGraph from '../../../components/graphs/MultiBarGraph';
+import BarLineGraph from '../../../components/graphs/BarLineGraph';
 import ClassroomHeader from '../../../components/ClassroomHeader';
 import SingleValue from '../../../components/SingleValue';
 
@@ -83,7 +96,10 @@ export default {
 	components: {
 		Accordion,
 		ClassroomHeader,
-		SingleValue
+		SingleValue,
+		DoughnutGraph,
+		MultiBarGraph,
+		BarLineGraph
 	},
 	mixins:[FormMixin],
 	data() {
@@ -110,6 +126,16 @@ export default {
 					node.assignmentCount=summary.assignmentCount;
 					node.averageScore=summary.averageScore;
 					node.resources=summary.resources;
+					return node;
+				});
+				const daily_assignment_status = resp.data.success.daily_assignment_status;
+				this.unitData.map((node)=>{
+					node.pieGraphData = daily_assignment_status.filter(node2=>node2.unit_id===node.id).map(node2=>{
+						node2.label = node2.status;
+						node2.count = node2.assignmentCount;
+						return node2;
+					});
+					node.assignment_total = daily_assignment_status.reduce((acc,currVal)=>acc+currVal.assignmentCount,0);
 					return node;
 				});
 				this.showLoader=false;

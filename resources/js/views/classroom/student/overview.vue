@@ -8,8 +8,8 @@
     />
     <div class="row">
       <div class="col-md-12">
-        <classroom-header 
-          title="Daily Assignment"
+        <classroom-header
+          title="Daily Assignment" 
         />
       </div>
       <div
@@ -20,10 +20,7 @@
           {{ user_detail.full_name }}
         </h2>
       </div>
-      <div
-        v-if="!$router.currentRoute.params.userId"
-        class="col-md-8 col-center"
-      >
+      <div class="col-md-8 col-center">
         <div v-if="today_report!==null">
           <div
             id="reflection-complete"
@@ -77,7 +74,7 @@
         <div v-if="today_report===null && today_assignment!==null">
           <div
             id="reflection-incomplete"
-            class="card mt-3 mb-3 bg-primary border-primary"
+            :class="['card mt-3 mb-3', cardColor]"
           >
             <div class="card-header ">
               <h3 class="text-center font-size-18 text-white">
@@ -142,33 +139,48 @@
           </div>
         </div>
       </div>
-      <div class="col-md-10 col-center">
-        <div class="row">
-          <div
-            v-if="daily_reports.length"
-            class="col-md-4"
-          >
-            <select
-              class="form-control minimal"
-              @change="getDailyAnswer($event)"
-            >
-              <option
-                v-for="report in daily_reports"
-                :key="report.id"
-                :value="report.id"
+      <nav-tabs
+        :tabs="tabs"
+        :initial-tab="initialTab"
+      >
+        <template slot="tab-heading-daily">
+          {{ 'Daily Assignment' }}
+        </template>
+        <template slot="tab-panel-daily">
+          <div class="col-md-10 col-center">
+            <div class="row">
+              <div
+                v-if="daily_reports.length"
+                class="col-md-4"
               >
-                {{ report.attempt_date }}
-              </option>
-            </select>
+                <select
+                  class="form-control minimal"
+                  @change="getDailyAnswer($event)"
+                >
+                  <option
+                    v-for="report in daily_reports"
+                    :key="report.id"
+                    :value="report.id"
+                  >
+                    {{ report.attempt_date }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div
+              v-if="current_report"
+              class="row"
+            >
+              <daily-assignment-report :current-report="current_report" />
+            </div>
           </div>
-        </div>
-        <div
-          v-if="current_report"
-          class="row"
-        >
-          <daily-assignment-report :current-report="current_report" />
-        </div>
-      </div>
+        </template>
+
+        <template slot="tab-heading-report">
+          {{ 'Report' }}
+        </template>
+        <template slot="tab-panel-report" />
+      </nav-tabs>
     </div>
   </div>
 </template>
@@ -181,11 +193,13 @@
 import ClassroomHeader from '../../../components/ClassroomHeader';
 import DailyAssignmentReport from '../../../components/DailyAssignmentReport';
 import dayjs from 'dayjs';
+import NavTabs from '../../../components/NavTabs';
 
 export default {
 	components: {
 		ClassroomHeader,
 		DailyAssignmentReport,
+		NavTabs,
 	},
 	filters:{
 		timeFormat(time){
@@ -194,6 +208,8 @@ export default {
 	},
 	data() {
 		return {
+			initialTab: 'daily',
+			tabs: ['daily', 'report'],
 			showLoader:true,
 			today_report: null,
 			today_assignment: null,
@@ -206,6 +222,14 @@ export default {
 	computed:{
 		isAssignmentEnded(){
 			return dayjs().isAfter(dayjs(this.today_assignment.end_time,'hh:mm:ss'));
+		},
+		cardColor(){
+			if(this.is_available){
+				return 'bg-success';
+			}else if(this.isAssignmentEnded){
+				return 'bg-danger';
+			}
+			return 'bg-warning';
 		}
 	},
 	mounted() {

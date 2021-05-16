@@ -28,7 +28,28 @@
           <div class="selection-box-default">
             <router-link
               class="card h-card"
-              :to="'/classroom/'+$route.params.classroomId+'/students'"
+              :to="'/classroom/'+$route.params.classroomId+'/attendance'"
+            >
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <h2 class="font-size-18">
+                      {{ 'Smart Attendance' }}
+                    </h2>
+                    <p>
+                      {{ 'check presence of students.' }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </router-link>
+          </div>
+        </div>
+        <div class="col-md-4 mb-3">
+          <div class="selection-box-default">
+            <router-link
+              class="card h-card"
+              :to="'/classroom/'+$route.params.classroomId+'/report'"
             >
               <div class="card-body">
                 <div class="row">
@@ -237,7 +258,7 @@
 
 </style>
 <script>
-import ClassroomHeader from '../../components/ClassroomHeader';
+import ClassroomHeader from '../../../components/ClassroomHeader';
 export default {
 	components: {
 		ClassroomHeader
