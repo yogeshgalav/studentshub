@@ -53,7 +53,7 @@
             <label
               class="weight-500"
               for="subject"
-            >Subject</label>
+            >Subject (optional)</label>
             <div class="inner-addon left-addon">
               <div class="input_icon_frm">
                 <span
@@ -65,7 +65,6 @@
                     aria-hidden="true"
                   /></span>
                 <auto-complete
-                  v-validate="'required'"
                   class="width-100"
                   :items="subject_list"
                   :value="'subject_name'"
