@@ -51,17 +51,7 @@ class DailyReportController extends Controller
             }
         }
 
-        $user_ka_id = $user_id ? $user_id : Auth::id();
-        $multi_bar = DB::table('student_reports as sr')
-        ->leftjoin('units','units.id','=','sr.unit_id')
-        ->where('units.classroom_id',$classroom_id)
-        ->where('sr.user_id',$user_ka_id)
-        ->select('sr.unit_id','score_type','score')
-        ->groupBy('sr.unit_id','score_type','score')
-        ->get();
-
         return response()->json(['success'=>[
-            'reports_summary'=>$multi_bar,
             'daily_reports'=>$daily_reports,
             'user_detail'=>$user_detail,
             'current_report'=>$current_report,
@@ -119,7 +109,17 @@ class DailyReportController extends Controller
         ->groupBy('da.unit_id')
         ->get();
 
+        $user_ka_id = $user_id ? $user_id : Auth::id();
+        $multi_bar = DB::table('student_reports as sr')
+        ->leftjoin('units','units.id','=','sr.unit_id')
+        ->where('units.classroom_id',$classroom_id)
+        ->where('sr.user_id',$user_ka_id)
+        ->select('sr.unit_id','score_type','score')
+        ->groupBy('sr.unit_id','score_type','score')
+        ->get();
+
         return response()->json(['success'=>[
+            'reports_summary'=>$multi_bar,
             'assignments_attemps' => $assignments_attemps,
             'average_scores' => $average_scores,
             'student_average_scores' => $student_average_scores
