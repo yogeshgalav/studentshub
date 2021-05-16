@@ -2,7 +2,7 @@
   <div class="creat_post_card img_der">
     <div class="row">
       <div class="col-md-12 ml-2">
-        <div class="logn_right">
+        <div class="">
           <div class="form-group">
             <div class="text-center">
               <p class="title weight-600 font-size-16 text-black">

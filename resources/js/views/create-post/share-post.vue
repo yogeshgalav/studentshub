@@ -111,7 +111,7 @@ export default {
 	data() {
 		return {
 			step_data: [],
-			total_steps: 4,
+			total_steps: 3,
 			showLoader:false,
 		};
 	},
