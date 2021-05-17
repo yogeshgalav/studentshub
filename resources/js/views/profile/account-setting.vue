@@ -1,16 +1,15 @@
 <template>
   <div>
     <div
-      class="card"
       style="width: 100%"
     >
-      <div class="card-header">
-        <h4>Account Settings</h4>
+      <div class="">
+        <h3>Account Settings</h3>
       </div>
 
       <!-- general info -->
-      <div class="card-body">
-        <div class="edit_profile_head">
+      <div class="card mt-3">
+        <div class="card-header">
           <h4>General info</h4>
         </div>
 
@@ -56,7 +55,6 @@
               <input
                 class="form-control"
                 type="text"
-                disabled
                 :value="AuthUser.full_name"
               >
             </div>
@@ -69,12 +67,6 @@
                 :value="AuthUser.email"
               >
             </div>
-            <button
-              type="button"
-              class="btn btn-primary mt-3 my-auto"
-            >
-              Edit
-            </button>
             <a href="/reset-password">
               <button
                 type="button"
@@ -87,16 +79,27 @@
         </div>
       </div>
 
-
       <!-- profile info -->
-      <div class="card-body">
-        <div class="edit_profile_head">
+      <div class="card mt-3">
+        <div class="card-header">
           <h4>Profile info</h4>
         </div>
 
         <div class="row card-body">
           <form @submit.prevent="saveProfile">
             <div class="row">
+              <div class="col-md-12">
+                <div class="model_input">
+                  <label>Introduction</label>
+                  <textarea
+                    id="introduction"
+                    v-model="profile_data.intro"
+                    name="introduction"
+                    class="form-control"
+                  />
+                  <span class="text-danger">{{ errors.intro }}</span>
+                </div>
+              </div>
               <div class="col-md-12">
                 <div class="model_input">
                   <label>Facebook Profile Url</label>
@@ -136,10 +139,11 @@
               <div class="col-md-12">
                 <div class="model_btn">
                   <button
-                    type="submit"
+                    type="button"
                     class="save_profile_btn"
+                    @click="saveProfile"
                   >
-                    Reset
+                    Update
                   </button>
                   <button
                     type="button"
@@ -155,8 +159,8 @@
       </div>
 
       <!-- education details -->
-      <div class="card-body">
-        <div class="edit_profile_head">
+      <div class="card mt-3 mb-2">
+        <div class="card-header">
           <h4>Education details</h4>
         </div>
 
@@ -219,7 +223,7 @@ export default {
 			},
 			profile_data: {
 				profile_pic: '',
-				intro: '',
+				intro:'',
 				fb_url: '',
 				insta_url: '',
 				linked_url: '',
@@ -227,10 +231,6 @@ export default {
 		};
 	},
 	methods: {
-
-		openProfileEditModal(){
-			this.$modal.show('edit_profile_modal');
-		},
 		async saveProfile() {
 			if(this.profile_data.fb_url && !this.profile_data.fb_url.includes('facebook.com')){
 				this.errors.fb_url='This is not valid Facebook url.';
@@ -244,15 +244,15 @@ export default {
 				this.errors.linked_url='This is not valid Linkedin url.';
 				return false;
 			}
-			if(this.image.file){
-				await this.getBase64(this.image.file).then(file=>{
-					this.profile_data.profile_pic=file;
-				});
-			}
+			// if(this.image.file){
+			// 	await this.getBase64(this.image.file).then(file=>{
+			// 		this.profile_data.profile_pic=file;
+			// 	});
+			// }
 
 			await this.axios.post('/api/save-profile', this.profile_data).then((resp) => {
 				this.setProfile(resp.data.success.profile);
-				this.$modal.hide('edit_profile_modal');
+				console.log(resp);
 			});
 
 			this.errors={
