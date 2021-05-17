@@ -34,12 +34,18 @@ class PostController extends Controller
         }
         DB::beginTransaction();
         try{
-        $subject=Subject::getOrCreate($data['subject_id'], $data['subject_name'], $data['category_id']);
+          $subject = NULL;
+          if($data['subject_name']){
+            $subject=Subject::getOrCreate($data['subject_id'], $data['subject_name'], $data['category_id']);
+          }
+      
+        
 
         $post=new Post;
         $post->user_id=Auth::user()->id;
         $post->post_heading=$heading;
-        $post->subject_id=$subject->id;
+        $post->subject_id=$subject?$subject->id:NULL;
+        $post->category_id = $data['category_id'];
 
 
         switch(strToLower($request->post_type)){
@@ -97,8 +103,8 @@ class PostController extends Controller
             'institute_id'=>$student->instituteId,
             'course_id'=>Auth::student()->courseId,
             'batch_id'=>$student->batchId,
-            'category_id'=>$request->category_id,
-            'shared_by'=>Auth::id(),
+            'shared_by'=>Auth::id(),            'category_id'=>$request->category_id,
+
         ]);
 
         DB::commit();
