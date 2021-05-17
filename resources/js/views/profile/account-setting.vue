@@ -1,71 +1,102 @@
 <template>
   <div>
-    <div class="card" style="width: 30rem">
+    <div
+      class="card"
+      style="width: 100%"
+    >
       <div class="card-header">
-        <h4>ACCOUNT SETTINGS</h4>
+        <h4>Account Settings</h4>
       </div>
-      <div class="card-body"></div>
-    </div>
-    <div class="card" style="width: 18rem">
-      <div class="card-header">
-        <h4>Profile Info</h4>
-      </div>
+
+      <!-- general info -->
       <div class="card-body">
-        <form @submit.prevent="saveProfile">
-          <div class="model_box_inner">
-            <div class="edit_profile_head">
-              <h4>Edit Your Profile</h4>
+        <div class="edit_profile_head">
+          <h4>General info</h4>
+        </div>
+
+        <div class="row card-body">
+          <div class="col-md-12">
+            <div class="user_edit_profile_img">
+              <div class="u_e_img">
+                <img
+                  v-if="AuthUser.avatar_url"
+                  :src="AuthUser.avatar_url"
+                  alt=""
+                >
+                <img
+                  v-else-if="profile_image_url"
+                  :src="profile_image_url"
+                  alt=""
+                >
+                <img
+                  v-else
+                  src="/images/default-avatar.png"
+                  alt=""
+                >
+              </div>
+              <file-upload
+                id="documentUpload"
+                ref="upload"
+                class="edit_img_btn"
+                post-action="/upload/post"
+                extensions="jpg,jpeg,png"
+                accept="image/*"
+                :drop="true"
+                :size="1024 * 1024 * 10"
+                @input="inputUpdate"
+              >
+                UPLOAD
+              </file-upload>
             </div>
+          </div>
+
+          <div class="col-md-12">
+            <div class="model_input">
+              <label>Full Name</label>
+              <input
+                class="form-control"
+                type="text"
+                disabled
+                :value="AuthUser.full_name"
+              >
+            </div>
+            <div class="model_input">
+              <label>Email Id</label>
+              <input
+                class="form-control"
+                type="text"
+                disabled
+                :value="AuthUser.email"
+              >
+            </div>
+            <button
+              type="button"
+              class="btn btn-primary mt-3 my-auto"
+            >
+              Edit
+            </button>
+            <a href="/reset-password">
+              <button
+                type="button"
+                class="btn btn-primary mt-3 my-auto"
+              >
+                Password reset
+              </button>
+            </a>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- profile info -->
+      <div class="card-body">
+        <div class="edit_profile_head">
+          <h4>Profile info</h4>
+        </div>
+
+        <div class="row card-body">
+          <form @submit.prevent="saveProfile">
             <div class="row">
-              <div class="col-md-12">
-                <div class="user_edit_profile_img">
-                  <div class="u_e_img">
-                    <img v-if="AuthUser.avatar_url" :src="AuthUser.avatar_url" alt="" />
-                    <img
-                      v-else-if="profile_image_url"
-                      :src="profile_image_url"
-                      alt=""
-                    />
-                    <img v-else src="/images/default-avatar.png" alt="" />
-                  </div>
-                  <file-upload
-                    id="documentUpload"
-                    ref="upload"
-                    class="edit_img_btn"
-                    post-action="/upload/post"
-                    extensions="jpg,jpeg,png"
-                    accept="image/*"
-                    :drop="true"
-                    :size="1024 * 1024 * 10"
-                    @input="inputUpdate"
-                  >
-                    UPLOAD
-                  </file-upload>
-                </div>
-              </div>
-              <div class="col-md-12">
-                <div class="model_input">
-                  <label>Introduction</label>
-                  <textarea
-                    id="introduction"
-                    v-model="profile_data.intro"
-                    name="introduction"
-                    class="form-control"
-                  />
-                  <span class="text-danger">{{ errors.intro }}</span>
-                </div>
-              </div>
-              <div class="col-md-12">
-                <div class="model_input">
-                  <label>Email Id</label>
-                  <input
-                    class="form-control"
-                    type="text"
-                    disabled
-                    :value="AuthUser.email"
-                  />
-                </div>
-              </div>
               <div class="col-md-12">
                 <div class="model_input">
                   <label>Facebook Profile Url</label>
@@ -74,7 +105,7 @@
                     class="form-control"
                     type="text"
                     placeholder="http://facebook.com/profile-id"
-                  />
+                  >
                   <span class="text-danger">{{ errors.fb_url }}</span>
                 </div>
               </div>
@@ -86,7 +117,7 @@
                     class="form-control"
                     type="text"
                     placeholder="http://instagram.com/username"
-                  />
+                  >
                   <span class="text-danger">{{ errors.insta_url }}</span>
                 </div>
               </div>
@@ -98,60 +129,106 @@
                     class="form-control"
                     type="text"
                     placeholder="http://linked.com/profile-id"
-                  />
+                  >
                   <span class="text-danger">{{ errors.linked_url }}</span>
                 </div>
               </div>
               <div class="col-md-12">
                 <div class="model_btn">
-                  <button type="submit" class="save_profile_btn">Submit</button>
-                  <button type="button" class="cancel_profile_btn">
+                  <button
+                    type="submit"
+                    class="save_profile_btn"
+                  >
+                    Reset
+                  </button>
+                  <button
+                    type="button"
+                    class="cancel_profile_btn"
+                  >
                     Cancel
                   </button>
                 </div>
               </div>
             </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- education details -->
+      <div class="card-body">
+        <div class="edit_profile_head">
+          <h4>Education details</h4>
+        </div>
+
+        <div class="card-body">
+          <div class="row my-auto">
+            <div class="col-sm-4 col-md-6">
+              <h5>Course name</h5>
+              <label>{{ AuthStudent.courseName }}</label>
+            </div>
+            <div class="col-sm-4 col-md-6">
+              <h5>Institute name</h5>
+              <label>{{ AuthStudent.instituteName }}</label>
+            </div>
           </div>
-        </form>
+
+          <div class="row mt-2">
+            <div class="col-sm-4 col-md-6">
+              <h5>Start year</h5>
+              <label>{{ AuthStudent.start_year }}</label>
+            </div>
+            <div class="col-sm-4 col-md-6">
+              <h5>End year</h5>
+              <label>{{ AuthStudent.end_year }}</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <button
+              type="button"
+              class="btn btn-primary mt-3 my-auto"
+            >
+              Edit
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="card" style="width: 18rem">
-      <div class="card-header">
-        <h4>Education Details</h4>
-      </div>
-      <div class="card-body"></div>
     </div>
   </div>
 </template>
 
+<style scoped>
+
+</style>
+
 <script>
 import FileUpload from 'vue-upload-component';
 export default {
-    components:{
-        FileUpload
-    },
-    data() {
+	components:{
+		FileUpload
+	},
+	data() {
 		return {
-            profile_image_url:'',
-            errors:{
+			profile_image_url:'',
+			errors:{
 				intro: '',
 				profile_pic: '',
 				fb_url: '',
 				insta_url: '',
 				linked_url: '',
 			},
-            profile_data: {
+			profile_data: {
 				profile_pic: '',
 				intro: '',
 				fb_url: '',
 				insta_url: '',
 				linked_url: '',
 			}
-        }
-    },
-    methods: {
+		};
+	},
+	methods: {
 
-        openProfileEditModal(){
+		openProfileEditModal(){
 			this.$modal.show('edit_profile_modal');
 		},
 		async saveProfile() {
@@ -194,7 +271,7 @@ export default {
 			this.image = files[0];
 			this.profile_image_url = URL.createObjectURL(files[0].file);
 		},
-        getBase64(file) {
+		getBase64(file) {
 			return new Promise((resolve, reject) => {
 				const reader = new FileReader();
 				reader.readAsDataURL(file);
@@ -202,6 +279,6 @@ export default {
 				reader.onerror = error => reject(error);
 			});
 		}
-    }
+	}
 };
 </script>
