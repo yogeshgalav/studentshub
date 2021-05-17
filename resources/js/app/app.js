@@ -11,6 +11,7 @@ import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import Dayjs from 'vue-dayjs';
 import ProfileImage from '../components/ProfileImage';
+import NotificationsDropdown from '../components/NotificationsDropdown.vue';
 
 import VueLazyload from 'vue-lazyload';
 Vue.use(VueLazyload);
@@ -20,7 +21,6 @@ Vue.use(Dayjs, {
 		ago: 'ago',
 	}
 });
-
 // or with options
 Vue.use(VueLazyload, {
 	preLoad: 1.3,
@@ -30,7 +30,6 @@ Vue.use(VueLazyload, {
 });
 Vue.use(VModal, { dynamic: true, injectModalsContainer: true, scrollable:true });
 Vue.use(VueAxios, axios);
-Vue.component('NotificationsDropdown', require('../components/NotificationsDropdown.vue').default);
 
 //error tracking
 // import * as Sentry from '@sentry/browser';
@@ -54,12 +53,23 @@ if(window.App.mode==='production'){
 }
 Vue.mixin({
 	components:{
-		Loading,
-		ProfileImage
+		NotificationsDropdown,
+		ProfileImage,
+		Loading
 	},
 	data(){
 		return {
 			showMobileLogoBar:true,
+			reportColorCodes: ['#10069F', '#963CBD', '#00C1D5', '#F39C12', '#1D7BB9', '#95A5A6', '#EABD0A'],
+			reportColorClasses: [
+				'text-blue',
+				'text-accent',
+				'text-dark-cyan',
+				'text-dark-yellow',
+				'text-nice-blue',
+				'text-metal',
+				'text-light-yellow',
+			],
 		};
 	},
 	computed: {
@@ -154,6 +164,8 @@ Vue.mixin({
 		toggleSidebar(e){
 			e.preventDefault();
 			document.documentElement.classList.toggle('openNav');
+			var menu = document.querySelector('.nav-toggle'); // Using a class instead, see note below.
+			menu.classList.toggle('active');
 		},
 		closeSidebar(e){
 			var container = document.getElementById('sidebarContainer');
@@ -166,6 +178,24 @@ Vue.mixin({
 				e.preventDefault();
 				return false;
 			}
+		},
+		divideArrayIntoSubgroups(array,label){
+			return array.map(node=>{
+				new_node=[];
+				let label_index = new_node.findIndex(node2=>node2[label]===node[label]);
+				if(label_index > -1){
+					new_node[label_index]['subgroup'] = [];
+					new_node[label_index]['subgroup'].push(node);
+				}else{
+					let subgroup = [];
+					subgroup.push(node);
+					new_node.push({
+						'key':node[label],
+						'subgroup':subgroup,
+					});
+				}
+				return new_node;
+			});
 		}
 	}
 });
