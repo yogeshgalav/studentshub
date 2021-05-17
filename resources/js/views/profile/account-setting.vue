@@ -159,7 +159,10 @@
       </div>
 
       <!-- education details -->
-      <div class="card mt-3 mb-2">
+      <div 
+        v-if="AuthStudent"
+        class="card mt-3 mb-2"
+      >
         <div class="card-header">
           <h4>Education details</h4>
         </div>
@@ -188,15 +191,16 @@
           </div>
 
           <div class="row">
-            <button
-              type="button"
-              class="btn btn-primary mt-3 my-auto"
+            <a
+              class="btn btn-primary mt-3"
+              href="\education-details"
             >
               Edit
-            </button>
+            </a>
           </div>
         </div>
       </div>
+      <div class="mb-3"/>
     </div>
   </div>
 </template>

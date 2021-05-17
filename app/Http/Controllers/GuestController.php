@@ -102,4 +102,10 @@ class GuestController extends Controller
             return view('guest.welcome');
         }
     }
+
+    public function resetPassword(Request $request){
+        $token = $request->token;
+        return view('guest.auth.reset-password')
+        ->with('token',$token);
+    }
 }
