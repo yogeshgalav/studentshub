@@ -103,8 +103,8 @@ class PostController extends Controller
             'institute_id'=>$student->instituteId,
             'course_id'=>Auth::student()->courseId,
             'batch_id'=>$student->batchId,
-            'category_id'=>$request->category_id,
-            'shared_by'=>Auth::id(),
+            'shared_by'=>Auth::id(),            'category_id'=>$request->category_id,
+
         ]);
 
         DB::commit();
