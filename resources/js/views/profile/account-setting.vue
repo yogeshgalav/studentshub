@@ -53,9 +53,10 @@
             <div class="model_input">
               <label>Full Name</label>
               <input
+                v-model="profile_data.full_name"
                 class="form-control"
                 type="text"
-                :value="AuthUser.full_name"
+                @input="dataUpdated"
               >
             </div>
             <div class="model_input">
@@ -96,6 +97,7 @@
                     v-model="profile_data.intro"
                     name="introduction"
                     class="form-control"
+                    @input="dataUpdated"
                   />
                   <span class="text-danger">{{ errors.intro }}</span>
                 </div>
@@ -108,6 +110,7 @@
                     class="form-control"
                     type="text"
                     placeholder="http://facebook.com/profile-id"
+                    @input="dataUpdated"
                   >
                   <span class="text-danger">{{ errors.fb_url }}</span>
                 </div>
@@ -120,6 +123,7 @@
                     class="form-control"
                     type="text"
                     placeholder="http://instagram.com/username"
+                    @input="dataUpdated"
                   >
                   <span class="text-danger">{{ errors.insta_url }}</span>
                 </div>
@@ -136,32 +140,15 @@
                   <span class="text-danger">{{ errors.linked_url }}</span>
                 </div>
               </div>
-              <div class="col-md-12">
-                <div class="model_btn">
-                  <button
-                    type="button"
-                    class="save_profile_btn"
-                    @click="saveProfile"
-                  >
-                    Update
-                  </button>
-                  <button
-                    type="button"
-                    class="cancel_profile_btn"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </div>
             </div>
           </form>
         </div>
       </div>
 
       <!-- education details -->
-      <div 
+      <div
         v-if="AuthStudent"
-        class="card mt-3 mb-2"
+        class="card mt-3 mb-6"
       >
         <div class="card-header">
           <h4>Education details</h4>
@@ -200,13 +187,110 @@
           </div>
         </div>
       </div>
-      <div class="mb-3"/>
+
+      <!-- fotter for update chnges -->
+      <div
+        v-if="data_updated"
+        class="habit-footer"
+      >
+        <div class="col-md-12">
+          <div
+            class="row habit-footer_1 mt-1 ml-280"
+          >
+            <div class="col-md-6   text-right">
+              <div class="mr-3">
+                <button
+                  class="btn btn-primary"
+                  type="button"
+                  @click="saveProfile"
+                >
+                  update
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-secondary"
+                  @click="initiateData"
+                >
+                  discard
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
+.ml-280 {
+	margin-left:300px !important;
+}
+@media only screen and (max-width: 1024px) {
 
+  .habit-footer .btn-primary, .btn-white {
+    padding: 15px 5%;
+    margin: 20px 0px;
+  }
+  .habit-footer .btn-primary, .btn-white {
+    padding: 9px 5%;
+
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 1240px) {
+
+  .habit-footer .btn-primary {
+    padding: 15px 5%;
+    margin: 20px 0px;
+  }
+   .habit-footer .btn-primary, .btn-white {
+    padding: 15px 5%;
+
+  }
+  .habit-footer .offset-2 {
+    margin-left: 30.6666666667% !important;
+  }
+}
+@media (max-width: 1024px) and (min-width: 768px)
+{
+	.habit-footer .col-md-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+}
+@media only screen and (max-width: 991px) {
+	.ml-280 {
+	margin-left:30px !important;
+}
+}
+@media only screen and (max-width: 768px) {
+  .habit-footer .btn-primary {
+    padding: 12px 5%;
+    margin: 5px 19px;
+    font-size: 0.7rem;
+  }
+  .habit-footer .btn-white {
+
+    font-size: 0.7rem;
+  }
+  .habit-footer .text-right {
+	  text-align: left !important;
+  }
+
+  .habit-footer .font-siz-16 {
+    font-size: 13px;
+  }
+  .habit-footer {
+    padding-bottom: 5px;
+  }
+}
+
+
+@media only screen and (max-width: 374px) {
+  .habit-footer {
+    padding-bottom: 25px;
+  }
+}
 </style>
 
 <script>
@@ -215,6 +299,7 @@ export default {
 	components:{
 		FileUpload
 	},
+	props:['profile'],
 	data() {
 		return {
 			profile_image_url:'',
@@ -226,15 +311,34 @@ export default {
 				linked_url: '',
 			},
 			profile_data: {
+				full_name:'',
 				profile_pic: '',
-				intro:'',
+				introduction:'',
 				fb_url: '',
 				insta_url: '',
 				linked_url: '',
-			}
+			},
+			data_updated:false,
 		};
 	},
+	mounted(){
+		this.initiateData();
+	},
 	methods: {
+		dataUpdated(){
+			this.data_updated = true;
+		},
+		initiateData(){
+			const profile = this.profile;
+			this.profile_data = profile;
+			this.profile_data.full_name = this.AuthUser.full_name;
+		},
+		discard(){
+			const profile = this.profile;
+			this.profile_data = profile;
+			this.profile_data.full_name = this.AuthUser.full_name;
+			this.data_updated = false;
+		},
 		async saveProfile() {
 			if(this.profile_data.fb_url && !this.profile_data.fb_url.includes('facebook.com')){
 				this.errors.fb_url='This is not valid Facebook url.';
@@ -264,6 +368,7 @@ export default {
 				fb_url: '',
 				insta_url: '',
 				linked_url: '',
+				introduction:'',
 			};
 		},
 		setProfile(profile) {
