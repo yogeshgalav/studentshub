@@ -12150,8 +12150,7 @@ button[disabled=disabled] {
 .btn-lg,
 .btn-group-lg > .btn {
   border: none;
-  min-width: 300px;
-  padding: 10px 50px !important;
+  padding: 10px 30px !important;
   text-align: center;
   font-size: large !important;
   border-radius: 5px;
@@ -12161,6 +12160,7 @@ button[disabled=disabled] {
   -webkit-box-align: center;
           align-items: center;
   font-weight: 700;
+  width: 300px;
   -webkit-box-pack: center;
           justify-content: center;
 }
@@ -13173,10 +13173,6 @@ textarea:focus {
 @media only screen and (max-width: 768px) {
   .btn-label {
     margin-right: 10px !important;
-  }
-
-  .mobile-size-heading {
-    font-size: 30px !important;
   }
 
   .custom-nav .nav-item .active {
@@ -14579,7 +14575,7 @@ select.form-control.custom-select {
   .primary-nav {
     top: 0;
     width: 100%;
-    z-index: 500;
+    z-index: 9999;
     display: block;
   }
 }
@@ -15044,7 +15040,7 @@ select.form-control.custom-select {
   .primary-nav {
     top: 0;
     width: 100%;
-    z-index: 500;
+    z-index: 9999;
   }
 
   .creat_post_card.img_der .row {
@@ -15353,7 +15349,7 @@ select.form-control.custom-select {
   .primary-nav {
     top: 0;
     width: 100%;
-    z-index: 500;
+    z-index: 9999;
   }
 
   .creat_post_card.img_der .row {
@@ -15562,10 +15558,6 @@ select.form-control.custom-select {
   .second_heading {
     font-size: 25px;
   }
-}
-
-.post_width {
-  width: 100%;
 }
 
 @media (max-width: 768px) {
