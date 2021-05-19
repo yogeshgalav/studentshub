@@ -29,7 +29,7 @@ class DailyReportController extends Controller
         ->get();
 
         $current_report = null;
-        if(count($daily_reports)){            
+        if(count($daily_reports)){
             $current_report = DailyReport::where('id',$daily_reports[0]->id)
             ->with('DailyAnswer.dailyQuestion.multipleChoice')
             ->first();
@@ -44,13 +44,12 @@ class DailyReportController extends Controller
             ->with('dailyQuestions.multipleChoice')
             ->with('dailyQuestions.myDailyAnswer')
             ->first();
-            
+
             if($today_assignment){
                 $today_report = DailyReport::where('user_id',Auth::id())
                 ->where('daily_assignment_id',$today_assignment->id)->first();
             }
         }
-
         return response()->json(['success'=>[
             'daily_reports'=>$daily_reports,
             'user_detail'=>$user_detail,
@@ -71,7 +70,7 @@ class DailyReportController extends Controller
         ]]);
     }
     public function declineAttempt($daily_assignment_id){
-        
+
         $report = DailyReport::create([
             'user_id'=>Auth::id(),
             'daily_assignment_id'=>$daily_assignment_id,
@@ -82,5 +81,37 @@ class DailyReportController extends Controller
         ]);
 
         return true;
+    }
+    public function studentReports($classroom_id,$user_id){
+
+        $assignments_attemps = DB::table('daily_assignments as da')
+        ->where('da.classroom_id',$classroom_id)
+        ->leftjoin('daily_reports as dr','dr.daily_assignment_id','=','da.id')
+        ->select(DB::raw('COUNT(distinct dr.id) as count'),'da.unit_id as label')
+        ->groupBy('da.unit_id')
+        ->get();
+
+        $average_scores = DB::table('daily_assignments as da')
+        ->where('da.classroom_id',$classroom_id)
+        ->leftjoin('daily_reports as dr','dr.daily_assignment_id','=','da.id')
+        ->select(DB::raw('AVG(marks_obtained) as average_score'),'da.attempt_date')
+        ->groupBy('da.attempt_date')
+        ->get();
+
+        $student_average_scores = DB::table('daily_assignments as da')
+        ->where('da.classroom_id',$classroom_id)
+        ->leftjoin('daily_reports as dr',function($join)use($user_id){
+            $join->on('dr.daily_assignment_id','=','da.id')
+            ->where('dr.user_id',$user_id);
+        })
+        ->select('marks_obtained','da.attempt_date')
+        ->groupBy('da.attempt_date','marks_obtained')
+        ->get();
+
+        return response()->json(['success'=>[
+            'assignments_attemps' => $assignments_attemps,
+            'average_scores' => $average_scores,
+            'student_average_scores' => $student_average_scores
+        ]]);
     }
 }

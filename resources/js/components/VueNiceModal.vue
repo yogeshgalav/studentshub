@@ -2,13 +2,15 @@
   <div
     :id="name"
     :ref="name"
-    :class="['modal fade', size]"
+    class="modal fade"
     role="dialog"
     tabindex="-1"
     :aria-labelledby="name"
     aria-hidden="true"
   >
-    <div class="modal-dialog">
+    <div
+      :class="['modal-dialog', size]"
+    >
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header pt-3 pb-2">
@@ -40,6 +42,17 @@
     </div>
   </div>
 </template>
+<style>
+.modal-dialog{
+  position: absolute;
+    width: 90%;
+    /* margin-top: 50%; */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) !important;
+    margin: 0 !important;
+}
+</style>
 
 <script>
 export default {

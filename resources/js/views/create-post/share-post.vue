@@ -19,13 +19,10 @@
               <select-post-type :new-post="newPost" />
             </template>
             <template slot="step2">
-              <select-heading :new-post="newPost" />
+              <create-post-content :new-post="newPost" />
             </template>
             <template slot="step3">
-              <select-subject :new-post="newPost" />
-            </template>
-            <template slot="step4">
-              <create-post-content :new-post="newPost" />
+              <create-post-description :new-post="newPost" />
             </template>
           </form-wizard>
         </form>
@@ -100,8 +97,7 @@ import FormMixin from '../../components/mixins/form-mixin.js';
 import FormWizard from './VueNiceWizard';
 import SelectPostType from './create-post/select-post-type';
 import CreatePostContent from './create-post/create-post-content';
-import SelectSubject from './create-post/select-subject';
-import SelectHeading from './create-post/select-heading';
+import CreatePostDescription from './create-post/create-post-description';
 import swal from '../../components/swal';
 import EventBus from './event-bus';
 
@@ -110,13 +106,12 @@ export default {
 		FormWizard,
 		SelectPostType,
 		CreatePostContent,
-		SelectSubject,
-		SelectHeading
+		CreatePostDescription
 	},
 	data() {
 		return {
 			step_data: [],
-			total_steps: 4,
+			total_steps: 3,
 			showLoader:false,
 		};
 	},

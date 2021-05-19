@@ -8,7 +8,9 @@
     />
     <div class="row">
       <div class="col-md-12">
-        <classroom-header />
+        <classroom-header 
+          title="Daily Assignment"
+        />
       </div>
     </div>
     <div

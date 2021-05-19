@@ -13288,7 +13288,7 @@ textarea:focus {
   min-height: 60px;
   width: 100%;
   position: fixed;
-  z-index: 1001;
+  z-index: 500;
   box-shadow: 0px 0px 5px rgba(18, 23, 39, 0.5);
 }
 
@@ -13856,7 +13856,7 @@ button:focus {
 
 .primary-nav {
   position: fixed;
-  z-index: 999;
+  z-index: 500;
   top: 84px;
 }
 
@@ -14731,7 +14731,7 @@ select.form-control.custom-select {
   .primary-nav {
     top: 0;
     width: 100%;
-    z-index: 9999;
+    z-index: 500;
   }
 
   .creat_post_card.img_der .row {

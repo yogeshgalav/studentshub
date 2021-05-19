@@ -20,14 +20,21 @@ class ClassroomResourceController extends Controller
 {
     //
     public function listResource(Request $request,$classroomId){
-        $resourceUnitData = Unit::where('classroom_id',$classroomId)
-        ->with(array('classroomResources' => function($query) {
-            $query->orderBy('created_at', 'DESC');
-        }))
+        $unit_list = Unit::where('classroom_id',$classroomId)
+        ->orderBy('unit_no', 'DESC')
+        ->get();
+
+        $current_unit = $request->unitId ?? (count($unit_list) ? $unit_list[0]->id : 0);
+        
+        $resources = ClassroomResource::where('classroom_id',$classroomId)
+        ->where('unit_id', $current_unit)
+        ->orderBy('created_at', 'DESC')
         ->get();
 
         return response()->json(['success'=>[
-            'resourceUnitData'=>$resourceUnitData
+            'unit_list'=>$unit_list,
+            'current_unit'=>$current_unit,
+            'resources'=>$resources,
         ]]);
     }
     public function addResource(Request $request,$classroomId){
@@ -73,6 +80,7 @@ class ClassroomResourceController extends Controller
             }
 
             $post->post_description = $request->description;
+            $post->category_id=$classroom->batch()->course()->category_id;
             $post->save();
 
             SthubPost::create([
@@ -81,7 +89,6 @@ class ClassroomResourceController extends Controller
                 'institute_id'=>$classroom->teacher->institute_id,
                 'course_id'=>$classroom->batch->course_id,
                 'batch_id'=>$classroom->batch_id,
-                'category_id'=>$classroom->batch()->course()->category_id,
                 'shared_by'=>Auth::id(),
             ]);
         }

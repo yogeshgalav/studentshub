@@ -32,11 +32,11 @@ class ClassroomController extends Controller
         $daily_assignment=\App\Models\DailyAssignment::where('attempt_date','=',now(Auth::user()->timezone)->toDateString())
         ->where('activated_at','!=',null)->where('classroom_id','=',$classroom->id)
         ->with('dailyQuestions.multipleChoice')->first();
-        
+
         // check if assignment is not already attempted
         $daily_report=null;
-        if($daily_assignment){       
-            $daily_assignment->dailyQuestions->makeHidden('correct_answer');     
+        if($daily_assignment){
+            $daily_assignment->dailyQuestions->makeHidden('correct_answer');
             $daily_report = \App\Models\DailyReport::where('user_id',Auth::id())
             ->where('daily_assignment_id',$daily_assignment->id)->first();
         }
@@ -60,9 +60,19 @@ class ClassroomController extends Controller
 
         return view('classroom.classroom-setup');
     }
+
+    public function classroomAttendancePage($classroomId){
+        $classroom=Classroom::findOrFail($classroomId);
+
+        if(Auth::teacher() && $classroom->teacher_id===Auth::teacher()->id){
+            return view('classroom.classroom-attendance-page');
+        }
+
+        return view('student-panel.classroom-attendance-page');
+    }
     public function classroomUnitAssignmentPage($classroomId){
         $classroom=Classroom::findOrFail($classroomId);
-                
+
         if(Auth::teacher() && $classroom->teacher_id===Auth::teacher()->id){
             return view('classroom.classroom-unit-assignment');
         }
@@ -71,7 +81,7 @@ class ClassroomController extends Controller
     }
     public function classroomDailyAssignmentPage($classroomId){
         $classroom=Classroom::findOrFail($classroomId);
-        
+
         if(Auth::teacher() && $classroom->teacher_id===Auth::teacher()->id){
             return view('classroom.classroom-daily-assignment');
         }
@@ -82,7 +92,7 @@ class ClassroomController extends Controller
     }
     public function classroomDailyReportPage($classroomId){
         $classroom=Classroom::findOrFail($classroomId);
-        
+
         if(Auth::teacher() && $classroom->teacher_id===Auth::teacher()->id){
             return view('classroom.classroom-daily-report');
         }
@@ -160,6 +170,11 @@ class ClassroomController extends Controller
         return view('student.doubts')->with('categories',$categories);
     }
 
+    public function myReports()
+    {
+        return view('classroom.my-reports');
+    }
+
     public function doubtAnswersPage(){
         return view('doubt.answer');
     }
@@ -175,7 +190,7 @@ class ClassroomController extends Controller
         ->orWhere('cu.id','!=',null)
         ->select('classrooms.id','classrooms.name')
         ->get();
-        
+
         return view('classroom.global-messages')
         ->with('classrooms',$classrooms);
     }

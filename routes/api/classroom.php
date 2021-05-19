@@ -29,7 +29,7 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::post('/add-message','ClassroomUserController@addmessage');
     Route::post('/delete-message','ClassroomUserController@deletemessage');
     Route::post('/edit-message', 'ClassroomUserController@editmessage');
-    
+
     //student classroom routes
     Route::post('/classroom/join','ClassroomUserController@joinClassroom');
     Route::get('/classroom/{classroomId}/students-data','ClassroomUserController@getClassrromUserData');
@@ -37,13 +37,26 @@ Route::group(['middleware'=>['auth:api']],function(){
     //unit assignment
     Route::get('/classroom/{classroomId}/unit-assignment-details','ClassroomUnitController@getUnitAssismentDetails');
     Route::get('/get-previous-unit-answers','ClassroomController@getPreviousUnitAnswers');
-    
+
     Route::get('/classroom/{classroomId}/daily-questions','DailyAssignmentController@getDailyAssismentDetails');
     Route::get('/classroom/{classroomId}/daily-assignment-reports','DailyAssignmentController@getDailyAssismentReports');
-    
+    Route::get('/classroom/{classroomId}/daily-assignments-summary','DailyAssignmentController@getDailyAssignmentSummary');
     //student panel
     Route::get('/classroom/{classroomId}/get-student-daily-reports/{userId?}','DailyReportController@getDailyReports');
     Route::post('/classroom/{classroomId}/get-daily-answers','DailyReportController@getDailyAnswers');
+    Route::get('/classroom/{classroomId}/get-student-report-data/{userId?}','DailyReportController@studentReports');
     Route::post('/decline-attempt/{assignmentId}','DailyReportController@declineAttempt');
-    
+
+    //attendance
+    Route::get('/classroom/{classroomId}/start-meeting','AttendanceController@startMeeting');
+    Route::get('/classroom/{classroomId}/join-meeting','AttendanceController@joinMeeting');
+    Route::get('/classroom/{classroomId}/start-attendance','AttendanceController@startAttendance');
+    Route::get('/classroom/{classroomId}/mark-present','AttendanceController@markPresent');
+    Route::get('/classroom/{classroomId}/get-attendance-data','AttendanceController@getAttendanceData');
+    Route::get('/classroom/{classroomId}/get-attendance-dates','AttendanceController@getAttendanceDates');
+    Route::get('/classroom/{classroomId}/get-student-attendance','AttendanceController@getStudentAttendance');
+
+    // my-report
+    Route::get('/my-reports','ClassroomController@myReports');
+
 });

@@ -54,8 +54,9 @@ class GuestController extends Controller
     public function termOfUse(){
         return view('guest.term-of-use')->with('title','Term of Use' . $this->title);
     }
-    public function viewPost()
+    public function viewPost($post_id)
     {
+        \App\Models\Post::findOrFail($post_id);
         if (Auth::check()) {
             return view('seeker.post-view');
         }
