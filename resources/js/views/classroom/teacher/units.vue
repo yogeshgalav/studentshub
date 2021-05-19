@@ -50,10 +50,11 @@
                   </div>
                 </div>
               </div>
-              <div class="row justify-content-center">
+              <div class="row justify-content-center col-md-12">
                 <single-value
                   :value="unit.assignmentCount"
                   label="Daily Assignments"
+                  :link="'/classroom/'+$route.params.classroomId+'/daily-assignment'"
                 />
                 <single-value
                   :value="unit.averageScore"
@@ -62,6 +63,7 @@
                 <single-value
                   :value="unit.resources"
                   label="Resources"
+                  :link="'/classroom/'+$route.params.classroomId+'/resources'"
                 />
               </div>
 
