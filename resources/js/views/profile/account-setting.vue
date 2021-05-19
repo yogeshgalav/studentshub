@@ -94,12 +94,12 @@
                   <label>Introduction</label>
                   <textarea
                     id="introduction"
-                    v-model="profile_data.intro"
+                    v-model="profile_data.introduction"
                     name="introduction"
                     class="form-control"
                     @input="dataUpdated"
                   />
-                  <span class="text-danger">{{ errors.intro }}</span>
+                  <span class="text-danger">{{ errors.introduction }}</span>
                 </div>
               </div>
               <div class="col-md-12">
@@ -204,14 +204,14 @@
                   type="button"
                   @click="saveProfile"
                 >
-                  update
+                  Update
                 </button>
                 <button
-                  type="submit"
+                  type="button"
                   class="btn btn-secondary"
-                  @click="initiateData"
+                  @click="discard"
                 >
-                  discard
+                  Discard
                 </button>
               </div>
             </div>
@@ -302,9 +302,10 @@ export default {
 	props:['profile'],
 	data() {
 		return {
+			image:{},
 			profile_image_url:'',
 			errors:{
-				intro: '',
+				introduction: '',
 				profile_pic: '',
 				fb_url: '',
 				insta_url: '',
@@ -329,14 +330,23 @@ export default {
 			this.data_updated = true;
 		},
 		initiateData(){
-			const profile = this.profile;
-			this.profile_data = profile;
+			if(this.profile){
+			  this.profile_data = Object.assign({}, this.profile);
+			}else{
+				this.profile_data= {
+					full_name:'',
+					profile_pic: '',
+					introduction:'',
+					fb_url: '',
+					insta_url: '',
+					linked_url: '',
+				};
+			}
+
 			this.profile_data.full_name = this.AuthUser.full_name;
 		},
 		discard(){
-			const profile = this.profile;
-			this.profile_data = profile;
-			this.profile_data.full_name = this.AuthUser.full_name;
+			this.initiateData();
 			this.data_updated = false;
 		},
 		async saveProfile() {
@@ -352,11 +362,11 @@ export default {
 				this.errors.linked_url='This is not valid Linkedin url.';
 				return false;
 			}
-			// if(this.image.file){
-			// 	await this.getBase64(this.image.file).then(file=>{
-			// 		this.profile_data.profile_pic=file;
-			// 	});
-			// }
+			if(this.image.file){
+				await this.getBase64(this.image.file).then(file=>{
+					this.profile_data.profile_pic=file;
+				});
+			}
 
 			await this.axios.post('/api/save-profile', this.profile_data).then((resp) => {
 				this.setProfile(resp.data.success.profile);
