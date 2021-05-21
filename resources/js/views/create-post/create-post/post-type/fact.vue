@@ -179,7 +179,7 @@ export default {
 		};
 	},
 	mounted() {
-		EventBus.$on('validateStep4', () => {
+		EventBus.$on('validateStep2', () => {
 			this.$validator.validate().then(valid => {
 				if (valid) {
 					this.getBase64(this.image.file).then(file => {

@@ -54,8 +54,9 @@ class GuestController extends Controller
     public function termOfUse(){
         return view('guest.term-of-use')->with('title','Term of Use' . $this->title);
     }
-    public function viewPost()
+    public function viewPost($post_id)
     {
+        \App\Models\Post::findOrFail($post_id);
         if (Auth::check()) {
             return view('seeker.post-view');
         }
@@ -101,5 +102,11 @@ class GuestController extends Controller
         } else {
             return view('guest.welcome');
         }
+    }
+
+    public function resetPassword(Request $request){
+        $token = $request->token;
+        return view('guest.auth.reset-password')
+        ->with('token',$token);
     }
 }

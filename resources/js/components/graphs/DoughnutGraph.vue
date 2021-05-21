@@ -3,34 +3,21 @@ import { Doughnut } from 'vue-chartjs';
 
 export default {
 	extends: Doughnut,
-	props:{ 
-		width:{ 
-			type:Number, 
-			default: 200 
-		}, 
-		height:{ 
-			type:Number, 
-			default: 200 
-		}, 
-		graphData:{ 
-			type:Array, 
-			default: () => [] 
-		} 
+	props:{
+		width:{
+			type:Number,
+			default: 200
+		},
+		height:{
+			type:Number,
+			default: 200
+		},
+		graphData:{
+			type:Array,
+			default: () => []
+		}
 	},
 	computed:{
-		chartData(){
-			const self = this;
-			return  {
-				labels: this.graphData.map(node=>node),
-				datasets: [
-					{
-						label: 'label',
-						backgroundColor: this.graphData.map((node,index)=>this.reportColorCodes[index]),
-						data: this.graphData.map(node=>node.count)
-					}
-				]
-			};
-		},
 		chartOptions() {
 			var self = this;
 			return{
@@ -42,7 +29,7 @@ export default {
 					}
 				},
 				legend: {
-					display: false,
+					display: true,
 				},
 				plugins: {
 					datalabels: {
@@ -52,25 +39,32 @@ export default {
 				tooltips: {
 					enabled: true,
 					mode: 'single',
-					callbacks: {
-						label: function(tooltipItem, data) {
-							var dataset = data.datasets[tooltipItem.datasetIndex];
-							var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
-								return previousValue + currentValue;
-							});
-							var currentValue = dataset.data[tooltipItem.index];
-							var percentage = Math.floor(((currentValue/total) * 100)+0.5);         
-							return percentage + '%';
-						},
-					}
 				},
 			};
 		}
 	},
-	mounted() {
-		// this.chartData is created in the mixin.
-		// If you want to pass options please create a local options object
-		this.renderChart(this.chartData,this.chartOptions);
+	watch:{
+		graphData(val){
+			if(val && val.length){
+				// this.chartData is created in the mixin.
+				// If you want to pass options please create a local options object
+				this.renderChart(this.getChartData(val),this.chartOptions);
+			}
+		}
+	},
+	methods:{
+		getChartData(val){
+			return  {
+				labels: val.map(node=>node.label),
+				datasets: [
+					{
+						label: 'label',
+						backgroundColor: val.map((node,index)=>this.reportColorCodes[index]),
+						data: val.map(node=>node.count)
+					}
+				]
+			};
+		}
 	}
 };
 </script>

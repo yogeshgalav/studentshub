@@ -34,12 +34,18 @@ class PostController extends Controller
         }
         DB::beginTransaction();
         try{
-        $subject=Subject::getOrCreate($data['subject_id'], $data['subject_name'], $data['category_id']);
+          $subject = NULL;
+          if($data['subject_name']){
+            $subject=Subject::getOrCreate($data['subject_id'], $data['subject_name'], $data['category_id']);
+          }
+      
+        
 
         $post=new Post;
         $post->user_id=Auth::user()->id;
         $post->post_heading=$heading;
-        $post->subject_id=$subject->id;
+        $post->subject_id=$subject?$subject->id:NULL;
+        $post->category_id = $data['category_id'];
 
 
         switch(strToLower($request->post_type)){
@@ -97,8 +103,8 @@ class PostController extends Controller
             'institute_id'=>$student->instituteId,
             'course_id'=>Auth::student()->courseId,
             'batch_id'=>$student->batchId,
-            'category_id'=>$request->category_id,
-            'shared_by'=>Auth::id(),
+            'shared_by'=>Auth::id(),            'category_id'=>$request->category_id,
+
         ]);
 
         DB::commit();
@@ -121,6 +127,7 @@ class PostController extends Controller
     }
 
     public function show($post_id){
+        \App\Models\Post::findOrFail($post_id);
         $user=Auth::user();
         if($user){
             \App\Models\PostView::firstOrCreate([
@@ -141,8 +148,8 @@ class PostController extends Controller
 
         return response()->json(['success'=>[
             'post_content'=>$post_content,
-            'most_viewed'=>$most_viewed,
-            'most_liked'=>$most_liked,
+            'most_viewed'=>\Sthub::convert_from_latin1_to_utf8_recursively($most_viewed),
+            'most_liked'=>\Sthub::convert_from_latin1_to_utf8_recursively($most_liked),
         ]]);
     }
 
@@ -161,7 +168,7 @@ class PostController extends Controller
         $search->save();
 
         return response()->json(['success'=>[
-          'posts'=>$posts
+          'posts'=>\Sthub::convert_from_latin1_to_utf8_recursively($posts)
         ]]);
       }
       public function courseDetails(Request $request){
@@ -170,7 +177,7 @@ class PostController extends Controller
         $posts = $post->getCoursePosts($course->id);
 
         return response()->json(['success'=>[
-            'posts'=>$posts,
+            'posts'=>\Sthub::convert_from_latin1_to_utf8_recursively($posts),
             'subject'=>$course,
         ]]);
       }
@@ -180,7 +187,7 @@ class PostController extends Controller
         $posts = $post->getSubjectPosts($subject->id);
 
         return response()->json(['success'=>[
-            'posts'=>$posts,
+            'posts'=>\Sthub::convert_from_latin1_to_utf8_recursively($posts),
             'subject'=>$subject,
         ]]);
       }
@@ -191,7 +198,7 @@ class PostController extends Controller
         $posts = $post->getCategoryPosts($category->id);
 
         return response()->json(['success'=>[
-            'posts'=>$posts,
+            'posts'=>\Sthub::convert_from_latin1_to_utf8_recursively($posts),
             'category'=>$category,
         ]]);
       }

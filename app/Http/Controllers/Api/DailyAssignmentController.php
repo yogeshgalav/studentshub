@@ -108,21 +108,14 @@ class DailyAssignmentController extends Controller
         ->has('dailyReport')
         ->with('dailyQuestions.multipleChoice')
         ->get();
-/*
-        $query->leftJoin('daily_answers as da',function($join){
-            $join->on('da.daily_question_id', '=','multiple_choices.daily_question_id')
-            ->where('da.selected_answer','=','multiple_choices.option_order');
-        })
-        ->select('multiple_choices.option_order',DB::raw('COUNT(da.id)'))
-        ->groupBy('multiple_choices.option_order');
-        */
 
         $questions_data = DB::table('daily_assignments as da')
         ->where('da.classroom_id',$request->classroomId)
-        ->leftjoin('daily_questions as dq','da.id','=','dq.daily_assignment_id')
+        ->rightjoin('daily_questions as dq','da.id','=','dq.daily_assignment_id')
         ->rightjoin('multiple_choices as mq','dq.id', '=','mq.daily_question_id')
         ->leftjoin('daily_answers as dans','mq.id','=','dans.selected_answer')
-        ->select('mq.id as label','dq.daily_assignment_id as daily_assignment_id','dq.id as question_id',DB::raw('COUNT(distinct dans.id) as count'))
+        ->select('mq.id as label','dq.daily_assignment_id as daily_assignment_id',
+        'dq.id as question_id',DB::raw('COUNT(distinct dans.id) as count'))
         ->groupBy('dq.daily_assignment_id','dq.id','mq.id')
         ->get();
         
