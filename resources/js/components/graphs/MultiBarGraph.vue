@@ -3,62 +3,66 @@ import { Bar } from 'vue-chartjs';
 
 export default {
 	extends: Bar,
-	props:{ 
-		width:{ 
-			type:Number, 
-			default: 200 
-		}, 
-		height:{ 
-			type:Number, 
-			default: 200 
-		}, 
-		graphData:{ 
-			type:Array, 
-			default: () => [] 
-		} 
+	props:{
+		width:{
+			type:Number,
+			default: 200
+		},
+		height:{
+			type:Number,
+			default: 200
+		},
+		graphData:{
+			type:Array,
+			default: () => []
+		},
+		xAxisLabels:{
+			type:Array,
+			default: () => []
+		},
+		barLabels:{
+			type:Array,
+			default: () => []
+		},
+		barOneData:{
+			type:Array,
+			default: () => []
+		},
+		barTwoData:{
+			type:Array,
+			default: () => []
+		},
+		barThreeData:{
+			type:Array,
+			default: () => []
+		}
 	},
 	computed:{
 		chartData(){
 			const self = this;
 			return  {
-				labels: [
-					'Absence of OB',
-					'Closeness',
-					'Credibility',
-					'Heritage',
-					'M Disclosure',
-					'Provenance',
-					'Reliability',
-					'Transparency'
-				],
+				labels: this.xAxisLabels,
 				datasets: [
 					{
-						label: 'American Express',
+						label: this.barLabels[0],
 						backgroundColor: 'pink',
 						borderColor: 'red',
 						borderWidth: 1,
-						data: [3, 5, 6, 7,3, 5, 6, 7]
+						data: this.barOneData
 					},
 					{
-						label: 'Mastercard',
+						label: this.barLabels[1],
 						backgroundColor: 'lightblue',
 						borderColor: 'blue',
 						borderWidth: 1,
-						data: [4, 7, 3, 6, 10,7,4,6]
+						data: this.barTwoData
 					},
 					{
-						label: 'Paypal',
+						label: this.barLabels[2],
 						backgroundColor: 'lightgreen',
 						borderColor: 'green',
 						borderWidth: 1,
-						data: [10,7,4,6,9,7,3,10]
-					},
-					{
-						label: 'Visa',
-						backgroundColor: 'yellow',
-						borderColor: 'orange',
-						borderWidth: 1,
-						data: [6,9,7,3,10,7,4,6]
+						data: this.barThreeData
 					}
 				]
 			};

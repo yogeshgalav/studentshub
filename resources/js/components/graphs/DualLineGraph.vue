@@ -51,14 +51,12 @@ export default {
 				borderColor: 'blue'
 			};
 
-			const self = this;
 			return  {
 				labels: this.labels,
 				datasets: [dataFirst, dataSecond]
 			};
 		},
 		chartOptions() {
-			var self = this;
 			return{
 				legend: {
 					display: true,
