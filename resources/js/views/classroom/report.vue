@@ -110,6 +110,7 @@ export default {
 			this.axios('/api/classroom/'+ this.$route.params.classroomId +'/students-data').then((resp)=>{
 				this.student_details=resp.data.success.student_details;
 				this.pie_graph_data=resp.data.success.pie_graph_data;
+                console.log(this.pie_graph_data);
 				this.assignment_details = resp.data.success.assignment_details;
 				this.student_details.map(node=>{
 					let assignment = this.assignment_details.filter(node2=>node2.user_id===node.user_id);

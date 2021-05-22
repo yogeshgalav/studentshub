@@ -3,29 +3,29 @@ import { Bar } from 'vue-chartjs';
 
 export default {
 	extends: Bar,
-	props:{ 
-		width:{ 
-			type:Number, 
-			default: 200 
-		}, 
-		height:{ 
-			type:Number, 
-			default: 200 
-		}, 
-		graphData:{ 
-			type:Array, 
-			default: () => [] 
-		} 
+	props:{
+		width:{
+			type:Number,
+			default: 200
+		},
+		height:{
+			type:Number,
+			default: 200
+		},
+		graphData:{
+			type:Array,
+			default: () => []
+		}
 	},
 	computed:{
 		chartData(){
 			const self = this;
 			return  {
-				labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+				labels:this.graphData.map(node=>node.attempt_date),
 				datasets: [ {
-					label: 'Sales',
+					label: this.graphData.map(node=>node.lineLabel),
 					type:'line',
-					data: [51, 65, 40, 49, 60, 37, 40],
+					data: this.graphData.map(node=>node.lineData),
 					fill: false,
 					borderColor: '#EC932F',
 					backgroundColor: '#EC932F',
@@ -36,8 +36,8 @@ export default {
 					yAxisID: 'y-axis-2'
 				}, {
 					type: 'bar',
-					label: 'Visitor',
-					data: [200, 185, 590, 621, 250, 400, 95],
+					label:  this.graphData.map(node=>node.barLabel),
+					data: this.graphData.map(node=>node.barData),
 					backgroundColor: '#71B37C',
 					borderColor: '#71B37C',
 					hoverBackgroundColor: '#71B37C',

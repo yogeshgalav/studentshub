@@ -66,10 +66,13 @@
               </div>
 
               <div class="col-md-12">
-                <doughnut-graph :graph-data="unit.pieGraphData" />
+                <doughnut-graph
+                    v-if="pieGraphData.length"
+                    :graph-data="pieGraphData"
+                />
               </div>
               <div class="col-md-12">
-                <bar-line-graph :graph-data="unit.pieGraphData" />
+                <bar-line-graph :graph-data="barLineData" />
               </div>
               <div class="col-md-12">
                 <multi-bar-graph :graph-data="unit.pieGraphData" />
@@ -106,6 +109,8 @@ export default {
 		return {
 			showLoader:true,
 			unitData: [],
+			pieData:[],
+			barLineData:[]
 		};
 	},
 	computed:{
@@ -128,16 +133,66 @@ export default {
 					node.resources=summary.resources;
 					return node;
 				});
-				const daily_assignment_status = resp.data.success.daily_assignment_status;
-				this.unitData.map((node)=>{
-					node.pieGraphData = daily_assignment_status.filter(node2=>node2.unit_id===node.id).map(node2=>{
-						node2.label = node2.status;
-						node2.count = node2.assignmentCount;
-						return node2;
+
+				// DoughnutGraph data
+				const pie_graph_data = resp.data.success.pie_data;
+				const bar_line_data = resp.data.success.bar_data;
+				this.unitData.map(node=>{
+					let pieGraphData = [];
+
+					pie_graph_data.filter(node2=>node.id===node2.unit_id).map(node=>{
+						for(let property in node){
+							if(property==='total_activated'){
+								pieGraphData.push({
+									label:'Activated',
+									count:parseInt(node[property])
+								});
+							}
+							if(property==='total_draft'){
+								pieGraphData.push({
+									label:'Total drafts',
+									count:parseInt(node[property])
+								});
+							}
+							if(property==='total_completed'){
+								pieGraphData.push({
+									label:'Completed assignments',
+									count:parseInt(node[property])
+								});
+							}
+						}
 					});
-					node.assignment_total = daily_assignment_status.reduce((acc,currVal)=>acc+currVal.assignmentCount,0);
-					return node;
+					this.pieGraphData = pieGraphData;
+
+					this.barLineData = bar_line_data.filter(node2=>node.id===node2.unit_id).map(node=>{
+						node.label = node.attempt_date;
+						node.lineLabel = 'Average score';
+						node.barLabel = 'Total students attendee';
+						node.lineData = node.total_attendes;
+						node.barData = node.average_score;
+						return node;
+					});
+					console.log(this.barLineData);
 				});
+				console.log(this.pieGraphData);
+
+				// BarLineGraphdata
+
+
+
+				// const daily_assignment_status = resp.data.success.daily_assignment_status;
+
+				// this.unitData.map((node)=>{
+
+				// 	node.pieGraphData = daily_assignment_status.filter(node2=>node2.unit_id===node.id).map(node2=>{
+				// 		node2.label = node2.status;
+				// 		node2.count = node2.assignmentCount;
+				// 		return node2;
+				// 	});
+				// 	node.assignment_total = daily_assignment_status.reduce((acc,currVal)=>acc+currVal.assignmentCount,0);
+				// 	return node;
+				// });
+				console.log(this.unitData);
 				this.showLoader=false;
 			});
 		},
