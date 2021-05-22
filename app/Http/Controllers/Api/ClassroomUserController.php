@@ -56,9 +56,17 @@ class ClassroomUserController extends Controller
         ->orderBy('da.attempt_date')
         ->get();
 
+        $pie_graph_data = DB::table('units as ut')
+        ->where('ut.classroom_id',$classroom_id)
+        ->leftjoin('daily_assignments as da','ut.classroom_id','=','da.classroom_id')
+        ->select("ut.unit_name as label",DB::raw('COUNT(distinct da.id) as count'))
+        ->groupBy('ut.unit_name')
+        ->get();
+        
         return response()->json(['success'=>[
             'student_details'=>$student_details,
-            'assignment_details'=>$assignment_details
+            'assignment_details'=>$assignment_details,
+            'pie_graph_data'=>$pie_graph_data
         ]]);
     }
 
@@ -69,7 +77,11 @@ class ClassroomUserController extends Controller
         ->leftJoin('likes as li',function($join){
             $join->on('classroom_messages.id','=','li.likable_id')->where('li.likable_type','=','App\Models\ClassroomMessage')->where('li.like_status','=',1);
         })
-        ->select('classroom_messages.id', 'classroom_messages.classroom_id','classroom_messages.content','classroom_messages.created_at','us.full_name as user_name','us.avatar_url','cs.name as classroom_name', DB::raw('COUNT(distinct li.user_id) as total_likes'));
+        // ->leftJoin('likes as uli',function($join){
+        //     $join->on('classroom_messages.id','=','uli.likable_id')->where('uli.likable_type','=','App\Models\ClassroomMessage')->where('uli.user_id','=',Auth::id());
+        // })
+        ->select('classroom_messages.id', 'classroom_messages.sender_user_id as user_id', 'classroom_messages.classroom_id','classroom_messages.content','classroom_messages.created_at','us.full_name as user_name','us.avatar_url',
+        'cs.name as classroom_name', DB::raw('COUNT(distinct li.user_id) as total_likes'));
         
         
         if($classroomId)
@@ -90,7 +102,8 @@ class ClassroomUserController extends Controller
             
             $messagequery = $messagequery->whereIn('classroom_id',$classroomIdArray);
         }
-        $messages = $messagequery->orderBy('classroom_messages.created_at','DESC')->groupBy(['classroom_messages.id','classroom_messages.classroom_id','classroom_messages.content','classroom_messages.created_at','us.full_name','us.avatar_url','cs.name'])->get();
+        $messages = $messagequery->orderBy('classroom_messages.created_at','DESC')
+        ->groupBy(['classroom_messages.id', 'classroom_messages.sender_user_id', 'classroom_messages.classroom_id','classroom_messages.content','classroom_messages.created_at','us.full_name','us.avatar_url','cs.name'])->get();
 
         foreach($messages as $message){
             $message->time = Carbon::createFromTimeStamp(strtotime($message->created_at))->diffForHumans();
@@ -132,7 +145,9 @@ class ClassroomUserController extends Controller
     public function editmessage(Request $request){
         
         $message=ClassroomMessage::findOrFail($request->message_id);
-
+        if($message->sender_user_id!==Auth::id()){
+            abort(401);
+        }
         $message->content= $request->content;
         $message->save();
 
@@ -141,6 +156,10 @@ class ClassroomUserController extends Controller
     }
     public function deletemessage(Request $request){
         $classroom_message = ClassroomMessage::findOrFail($request->message_id);
+        if($classroom_message->sender_user_id!==Auth::id()){
+            abort(401);
+        }
+        ClassroomMessage::where('parent_message_id',$classroom_message->id)->delete();
         $classroom_message->delete();
 
         return response()->json([],204);

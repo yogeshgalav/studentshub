@@ -56,7 +56,7 @@
           >
             <div class="col-md-9 mb-1 mt-1 ">
               <div :class="['row line-height-30', choice.option_order === question.correct_answer ? 'bg-card-green text-white' : 'bg-card-gray', 'p-2']">
-                <div :class="[choice.option_order === question.correct_answer ? 'bg-circle-white' : 'bg-circle']">
+                <div class="bg-circle">
                   {{ letters[index2] }}
                 </div>
                 <span class="pl-2">  {{ choice.option_text }}  </span>
@@ -72,7 +72,7 @@
       class="mt-3 mb-2 col-md-12 pl-0"
     >
       <button
-        class="btn btn-primary"
+        class="btn btn-success"
         data-toggle="modal"
         :data-target="'#addDailyQuestionModal'+assignmentId"
         @click="addQuestion"
@@ -83,8 +83,8 @@
     <modal
       :ref="'addDailyQuestionModal'+assignmentId"
       :name="'addDailyQuestionModal'+assignmentId"
-      heading="Question"
-      size="modal-xl"
+      :heading="(current_question_edit.id ? 'Edit' : 'Add')+' Question'"
+      size="modal-lg"
       @submit="saveQuestion"
     >
       <template slot="modalBody">
@@ -156,13 +156,13 @@
                   <h4>Options</h4>
 
                   <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-12 col-12">
                       <div
                         v-for="(choice,index) in current_question_edit.multiple_choice"
                         :key="index"
-                        class="form-group d-flex"
+                        class="form-group row"
                       >
-                        <div class="input-group mr-2">
+                        <div class="input-group col-12 col-md-7 mr-0">
                           <div class="input-group-prepend">
                             <span
                               id="basic-addon1"
@@ -174,31 +174,30 @@
                             v-validate="'required'"
                             type="text"
                             name="option_text"
-                            class="form-control col-md-12"
+                            class="form-control col-12"
                           >
                         </div>
-
-                        <button
-                          v-if="current_question_edit.multiple_choice.length>2"
-                          class="btn btn-default btn-sm ml-2 delete_btn"
-                          type="button"
-                          @click="removeOption(index)"
-                        >
-                          <i class="fa fa-trash-alt" />
-                        </button>
-
-                        <div class="form-check ml-0 mt-2">
+                        <div class="form-check ml-0 mt-2 col-12 col-md-5">
                           <input
                             :id="'correctAnswer'+index"
                             v-validate="'required'"
                             :checked="current_question_edit.correct_answer===index"
-                            class="form-check-input"
+                            class="form-check-input mt-2"
                             type="radio"
                             name="correct_answer"
                             :value="true"
                             @change="current_question_edit.correct_answer=index"
                           >
                           <label class="form-check-label">Mark as correct answer</label>
+                          <button
+                            v-if="current_question_edit.multiple_choice.length>2"
+                            cla
+                            type="button"
+                            class="btn btn-white btn-md mt-1 ml-2"
+                            @click="removeOption(index)"
+                          >
+                            <i class="fa fa-trash-alt" />
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -209,7 +208,7 @@
                     <div class="col-md-12">
                       <button
                         type="button"
-                        class="btn btn-sm btn-primary"
+                        class="btn btn-sm btn-success"
                         @click="addOption()"
                       >
                         <i class="fas fa-plus" />&nbsp;&nbsp;Add Option
@@ -226,13 +225,9 @@
   </div>
 </template>
 <style scoped>
-.delete_btn {
-  padding: 0 22px 0 22px;
-  font-size: 18px;
-}
 .btn-white {
-  border-radius: 15px;
-  border: 1px solid #000;
+  border-radius: 0.25rem;
+  border:1px solid #d2d2d2d2;
 }
 .border-1px  {
   border:1px solid #ccc;
@@ -270,6 +265,11 @@
 }
 .line-height-55  {
   line-height: 55px;
+}
+@media (max-width: 768px){
+  .form-check{
+    padding-left: 10%;
+  }
 }
 </style>
 <script>

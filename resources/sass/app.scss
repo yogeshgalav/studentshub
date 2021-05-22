@@ -224,6 +224,7 @@ button[disabled="disabled"] {
     background: #ebebeb !important;
 }
 
+
 .btn-primary {
     background: $primary !important;
     font-weight: $btn-font-weight;
@@ -231,7 +232,8 @@ button[disabled="disabled"] {
 }
 .btn-lg{
     border: none;
-    padding: 10px 30px !important;
+    min-width: 300px;
+    padding: 10px 50px !important;
     text-align: center;
     font-size: large !important;
     border-radius: 5px;
@@ -239,7 +241,6 @@ button[disabled="disabled"] {
     display: flex;
     align-items: center;
     font-weight: 700;
-    width: 300px;
     justify-content: center;
 }
 .m-0-a{
@@ -1209,6 +1210,9 @@ textarea:focus {
     .btn-label {
         margin-right: 10px !important;
     }
+    .mobile-size-heading{
+        font-size: 30px !important;
+    }
     // Habit Builder
     .custom-nav .nav-item .active {
         background: $white;
@@ -1310,7 +1314,7 @@ textarea:focus {
     min-height: 60px;
     width: 100%;
     position: fixed;
-    z-index: 1001;
+    z-index: 500;
     box-shadow: 0px 0px 5px rgba(18, 23, 39, 0.5);
 }
 .slides .row {
@@ -1773,7 +1777,7 @@ button:focus {
 
 .primary-nav {
     position: fixed;
-    z-index: 999;
+    z-index: 500;
     top: 84px;
 }
 
@@ -2392,7 +2396,7 @@ select.form-control.custom-select {
     .primary-nav {
         top: 0;
         width: 100%;
-        z-index: 9999;
+        z-index: 500;
         display: block;
     }
 }
@@ -2519,7 +2523,7 @@ select.form-control.custom-select {
     .primary-nav {
         top: 0;
         width: 100%;
-        z-index: 9999;
+        z-index: 500;
     }
     .creat_post_card.img_der .row {
         flex-direction: column-reverse;
@@ -2763,7 +2767,7 @@ select.form-control.custom-select {
     .primary-nav {
         top: 0;
         width: 100%;
-        z-index: 9999;
+        z-index: 500;
     }
     .creat_post_card.img_der .row {
         flex-direction: column-reverse;
@@ -3008,7 +3012,7 @@ select.form-control.custom-select {
     .primary-nav {
         top: 0;
         width: 100%;
-        z-index: 9999;
+        z-index: 500;
     }
     .creat_post_card.img_der .row {
         flex-direction: column-reverse;
@@ -3170,6 +3174,9 @@ select.form-control.custom-select {
     .second_heading {
         font-size: 25px;
     }
+}
+.post_width {
+    width: 100%;
 }
 
 // sidebar

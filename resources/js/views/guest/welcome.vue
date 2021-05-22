@@ -28,7 +28,7 @@
         style="background-color:#f2f2f2;"
         class="container p-0 text-div"
       >
-        <div class="pt-5 pl-5 pb-2 mb-1 row justify-content-md-between align-items-center mr-0 ml-0">
+        <div class="pt-5 pl-4 pb-2 mb-1 row justify-content-md-between align-items-center mr-0 ml-0">
           <div class="col-md-6">
             <div class="sections">
               <h2 class="font-weight-bold">
@@ -124,7 +124,7 @@
           </h3>
         </div>
         <div class="col-md-6 p-0">
-          <p>
+          <p class="mb-0">
             Join the thousands of other institutes who benefits from our data analytics and digital classroom services.
           </p>
         </div>

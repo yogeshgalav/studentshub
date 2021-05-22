@@ -3,7 +3,7 @@
     <div class="row">
       <div class="row">
         <div class="col-md-12">
-          <div class="mobile_header">
+          <div class="">
             <a
               class="btn btn-link ml-2 mb-2 font-size-18"
               @click="$router.back()"
@@ -17,10 +17,18 @@
           </div>
         </div>
       </div>
-      <div class="col-md-12 custom-margin">
-        <h2 class="font-size-40 text-black weight-800 mb-2 line-height-25-px">
-          {{ classroomDetail.name }}
-        </h2>
+      <div class="col-md-12">
+        <h2 class="font-size-40 text-black weight-800 mb-2 line-height-25-px mobile-size-heading">
+          {{ title ? title : classroomDetail.name }}
+        </h2>       
+      </div>      
+      <div class="col-md-12">
+        <h3
+          v-if="title"
+          class="font-size-18 text-black mb-0 line-height-25-px"
+        >
+          {{ 'Classroom:' + " "+ classroomDetail.name }}
+        </h3>
         <p class="font-size-18 text-black mb-0 line-height-25-px">
           {{ 'Teacher:' +' '+classroomDetail.teacher_name }}  
         </p>
@@ -67,6 +75,9 @@ margin-top: 3rem !important;
 </style>
 <script>
 export default {
+	props: {
+		title: String
+	}, 
 	data() {
 		return {
 			displayText: false,

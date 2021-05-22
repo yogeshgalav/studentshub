@@ -15,7 +15,15 @@ class ClassroomUnitController extends Controller
     //
     //api end point for getting unit assisment data for students and teachers
     public function getClassroomUnitDetails(Request $request){
-        $unitData=Unit::where('classroom_id',$request->classroomId)->get();
+        $unitData=Unit::where('classroom_id',$request->classroomId)
+        ->orderBy('units.unit_no','DESC')->get();
+
+        $daily_assignment_status = DB::table('daily_assignments')
+        ->where('classroom_id',$request->classroomId)
+        ->select(DB::raw('COUNT(distinct daily_assignments.id) as assignmentCount'),'daily_assignments.status','unit_id')
+        ->groupBy('status','unit_id')
+        ->get();
+
         $summary = DB::table('classrooms as cl')
         ->where('cl.id',$request->classroomId)
         ->leftJoin('units', 'cl.id', '=', 'units.classroom_id')
@@ -28,10 +36,11 @@ class ClassroomUnitController extends Controller
         return response()->json([
             'success'=>[
                 'unitData'=>$unitData,
-                'summary'=>$summary
+                'summary'=>$summary,
+                'daily_assignment_status'=>$daily_assignment_status
             ]
         ]);
-    }   
+    }
     public function getUnitAssismentDetails(Request $request){
         $unitData=Unit::where('classroom_id',$request->classroomId)
         ->with('descriptiveQuestions')
@@ -42,7 +51,7 @@ class ClassroomUnitController extends Controller
                 'unitData'=>$unitData
             ]
         ]);
-    }   
+    }
 
     public function updateUnit($classroomId,Request $request){
         $unit = Unit::updateOrCreate([
