@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
+use App\Http\Controllers\Controller;
 
 use App\Mails\ResetPasswordMail;
 use App\Models\PasswordReset;
@@ -25,30 +26,7 @@ use Socialite;
 use DB;
 class AuthController extends Controller
 {
-    /**
-     * login api
-     *
-     * @param LoginRequest $request The HTTP request object
-     *
-     * @return Response
-     */
-    public function login(LoginRequest $request){
-        $user=User::where('email',$request->email)->first();
-        if (!$user || !Hash::check($request->password, $user->password)) {
-            Log::warning("Login Failed",['user'=>$user ?? 'not found']);
-            return view('guest.auth.login')->with('srvError401',true);
-        }
-
-        try{
-            $success = $this->getLoginSuccessData('page',$user,$request);
-        }catch(\Exception $e){
-            Log::warning("An invalid attempt to login was made for user ".$request->email." from IP Address ".$request->ip());
-            return view('guest.auth.login')->with('srvErrorUnknown',true);
-        }
-
-        return redirect($success['redirectUrl']);
-    }
-
+    
     public function loginViaApi(LoginRequest $request)
     {        
 
@@ -108,57 +86,7 @@ class AuthController extends Controller
     
         return $success;
     }
-    /**
-     * Register api
-     *
-     * @param Request $request The HTTP request object
-     *
-     * @return Response
-     */
-    public function register(RegisterRequest $request)
-    {
-        if(User::whereEmail($request->email)->exists()){
-            return redirect('/login')->with('emailError',true);
-        }
-       
-        $input = $request->all();
-        
-        $input['full_name']=trim($input['full_name']);
-        //hash password
-        $input['password'] = bcrypt($input['password']);
-
-        DB::beginTransaction();
-    try{
-       
-            $user = User::create([
-                'full_name'=>$input['full_name'],
-                'email'=>$input['email'],
-                'password'=>$input['password'],
-                'role_intended'=>'seeker',
-            ]);
-
-            Auth::login($user);
-            //log info
-            Log::info('new User '.$user->full_name." (User ID # ".$user->id.") registered and logged in from IP Address ".$request->ip());
-                
-            $success['redirectUrl'] = '/check-in';
-            if($request->join_id){
-                $this->registerWithClassrrom($user,$request->join_id);
-                $success['redirectUrl'] = '/education-details';
-            }
     
-            // \App\Models\ScheduledJob::scheduleNewUserNotification($user);
-            
-        DB::commit();
-        } catch (\Exception $e) {
-            DB::rollback();
-            Log::critical('user Registeration failure',['request_data'=>$input,'error'=>$e->getMessage()]);
-            return redirect('/get-started');
-        }  
-
-        return redirect($success['redirectUrl']);
-    }
-
     public function registerViaApi(RegisterRequest $request)
     {
         $input = $request->all();
@@ -313,11 +241,6 @@ class AuthController extends Controller
     // Handling the request to reset the password
     public function resetPassword2(Request $request)
     {
-        $user=Auth::user();    
-        if(empty($user)){
-            abort(401);
-        }
-
         $validator = Validator::make($request->all(), [
             'password'=>'required|min:8',
             'confirm_password'=>'required|same:password',
@@ -327,13 +250,11 @@ class AuthController extends Controller
             return response()->json(['error'=>$validator->errors()], 422);
         }
 
-        $current_time=Carbon::now()->toDateTimeString();
+        $user=Auth::user();    
         $user->must_reset_password=0;
-        $user->onboarded_at=$current_time;
-        $user->email_verified_at=$current_time;
+        $user->email_verified_at=Carbon::now()->toDateTimeString();
         $user->password=Hash::make($request->input('password'));
         $user->save();
-
         return response()->json(['success'=>'Password Changed.'], 200);
     }
 
@@ -357,15 +278,8 @@ class AuthController extends Controller
         }
 
         $user=User::where('id', $dbToken->user_id)->first();
-
-        $current_time=Carbon::now()->toDateTimeString();
-
-        $user->must_reset_password=0;
         if(empty($user->email_verified_at)){
-            $user->email_verified_at=$current_time;
-        }
-        if(empty($user->onboarded_at)){
-            $user->onboarded_at=$current_time;
+            $user->email_verified_at=Carbon::now()->toDateTimeString();
         }
         $user->password = Hash::make($request->input('password'));
         $user->save();
@@ -373,26 +287,6 @@ class AuthController extends Controller
         return response()->json(['success'=>'Password Changed.'], 200);
     }
 
-    public function logout(){
-        try{
-            
-        $access_token=DB::table('oauth_access_tokens')
-        ->where('user_id',Auth::user()->id)
-        ->update(['revoked'=>true]);
-
-        $refreshToken=DB::table('oauth_refresh_tokens')
-        ->where('access_token_id',$access_token->id)
-        ->update(['revoked'=>true]);
-
-        }catch(\Exception $e){
-
-        }
-        $rememberMeCookie = Auth::getRecallerName();
-        $cookie = \Cookie::forget($rememberMeCookie);
-        Auth::logout();
-        \Session::flush();
-        return redirect('/')->withCookie($cookie);
-    }
 
     public function refresh(Request $request){
         $client = \DB::table('oauth_clients')

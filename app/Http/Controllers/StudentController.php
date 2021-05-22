@@ -38,7 +38,7 @@ class StudentController extends Controller
     public function saveDailyAnswer(Request $request){
         $my_report = DailyReport::where('user_id',Auth::id())->where('daily_assignment_id',$request->daily_assignment_id)->exists();
         if($my_report){
-            return redirect('/classroom/'.$request->classroom_id.'/daily-assignment');
+            return redirect('/classroom/'.$request->classroom_id.'/overview');
         }
         $daily_questions = DailyQuestion::where('daily_assignment_id',$request->daily_assignment_id)->get();
         $rank = DailyReport::where('daily_assignment_id',$request->daily_assignment_id)->count();
@@ -101,7 +101,7 @@ class StudentController extends Controller
         \Log::critical('daily report save failure',['data'=>$request->all(),'error'=>$e->getMessage()]);
         return response()->$e;
     }
-        return redirect('/classroom/'.$request->classroom_id.'/daily-assignment');
+        return redirect('/classroom/'.$request->classroom_id.'/overview');
     }
     public function sharePost()
     {
