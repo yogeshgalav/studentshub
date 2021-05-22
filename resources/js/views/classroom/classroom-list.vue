@@ -133,6 +133,18 @@
         </div>
       </div>
     </div>
+
+    <div class="card mt-3 mb-3">
+      <div class="card-header">
+        Details
+      </div>
+      <div class="card-body">
+        <vue-table-component
+          :columns="classroomColumns"
+          :rows="classroomRows"
+        />
+      </div>
+    </div>
   </div>
 </template>
 <style scoped>
@@ -143,20 +155,68 @@
 <script>
 import Modal from '../../components/VueNiceModal';
 import swal from '../../components/swal';
-import AddButton from '../../components/AddButton';
+import VueTableComponent from '../../../../resources/js/components/vue-table-component';
 
 export default {
 	components:{
 		Modal,
-		AddButton
+		VueTableComponent
 	},
 	props: ['myClassrooms', 'classroomList'],
 	data() {
 		return {
 			id_error: '',
 			showLoader: false,
-			join_classroom_name: ''
+			join_classroom_name: '',
+			classroomRows:[],
+			classroomColumns: [
+				{
+					label: 'Classroom',
+					field: 'classroom_name',
+				},
+				{
+					label: 'Teacher',
+					field: 'teacher',
+				},
+				{
+					label: 'Subject',
+					field: 'subject_name',
+				},
+				{
+					label: 'Students',
+					field: 'total_students',
+				},
+				{
+					label: 'Join Id',
+					field: 'join_id',
+				},
+				{
+					label: 'Daily Assignments',
+					field: 'total_daily_assignments',
+				},
+				{
+					label: 'Avg. Score',
+					field: 'average_score',
+				},
+				{
+					label: 'Doubts',
+					field: 'total_doubts',
+				},
+				{
+					label: 'Resources',
+					field: 'total_resources',
+				},
+				{
+					label: 'Messages',
+					field: 'total_messages',
+				},
+			]
 		};
+	},
+	mounted(){
+		this.axios.get('/api/classroom-list-details').then((resp)=>{
+			this.classroomRows=resp.data.success.classrooms;
+		});
 	},
 	methods:{
 		joinClassroom(){

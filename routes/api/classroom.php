@@ -45,6 +45,9 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::get('/classroom/{classroomId}/get-assignment-report/{userId?}','ReportController@getAssignmentReport');
     Route::get('/classroom/{classroomId}/get-student-report/{userId?}','ReportController@getStudentReport');
     Route::post('/decline-attempt/{assignmentId}','DailyReportController@declineAttempt');
+    
+    Route::get('/classroom-list-details','ClassroomController@classroomListDetails');
+    
 
     //attendance
     Route::get('/classroom/{classroomId}/start-meeting','AttendanceController@startMeeting');
