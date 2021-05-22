@@ -96,7 +96,7 @@
                     >
                       <div class="col-md-9 mb-1 mt-1 ">
                         <div
-                          :class="['row line-height-30', choice.option_order === answers[index]['answer'] ? 'bg-card-green text-white' : 'bg-card-gray', 'p-2']"
+                          :class="['row line-height-30', choice.id === answers[index]['answer'] ? 'bg-card-green text-white' : 'bg-card-gray', 'p-2']"
                           @click="selectAnswer(index,index2)"
                         >
                           <div
@@ -273,7 +273,7 @@ export default {
 			});
 		},
 		selectAnswer(index,index2){
-			this.answers[index]['answer']= this.dailyAssignment.daily_questions[index].multiple_choice[index2].option_order;
+			this.answers[index]['answer']= this.dailyAssignment.daily_questions[index].multiple_choice[index2].id;
 		}
 	}
 };
