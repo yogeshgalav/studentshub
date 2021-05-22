@@ -242,7 +242,7 @@ export default {
 	},
 	methods:{
 		getDailyReports(){
-			let url='/api/classroom/' + this.$route.params.classroomId + '/get-student-daily-reports';
+			let url='/api/classroom/' + this.$route.params.classroomId + '/get-assignment-report';
 			if(this.$route.name==='ClassroomStudentPanel'){
 				url=url+'/'+this.$router.currentRoute.params.userId;
 			}

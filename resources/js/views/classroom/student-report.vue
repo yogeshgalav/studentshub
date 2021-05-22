@@ -1,19 +1,7 @@
 <template>
   <div>
     <div class="col-md-12">
-      <doughnut-graph :graph-data="pieChartData" />
-    </div>
-    <div class="col-md-12">
-      <multiBar-graph
-        v-if="lastData.length"
-        :bar-labels="['first','average','last']"
-        :bar-one-data="firstData"
-        :bar-two-data="averageData"
-        :bar-three-data="lastData"
-        :x-axis-labels="['unit:1']"
-      />
-    </div>
-    <div class="col-md-12">
+      <p>What is the overall progress of student w.r.t others in this classroom?</p>
       <dualLine-graph
         v-if="dualLineChartData.length"
         :line-one-data="dualLineChartData.map(node=>node.classroom_score)"
@@ -21,6 +9,24 @@
         :labels="dualLineChartData.map(node=>node.attempt_date)"
         line-one-label="Classroom score"
         line-two-label="Student score"
+      />
+    </div>
+    <div class="col-md-12 mt-2">
+      <p>How many assignments have been attempted in each unit?</p>
+      <doughnut-graph 
+        v-if="pieChartData.length" 
+        :graph-data="pieChartData" 
+      />
+    </div>
+    <div class="col-md-12 mt-2">
+      <p>What is the first, average and last score in each unit?</p>
+      <multiBar-graph
+        v-if="lastData.length"
+        :bar-labels="['first','average','last']"
+        :bar-one-data="firstData"
+        :bar-two-data="averageData"
+        :bar-three-data="lastData"
+        :x-axis-labels="pieChartData.map(node=>node.label)"
       />
     </div>
   </div>
@@ -51,12 +57,12 @@ export default {
 		let url =
       '/api/classroom/' +
       this.$route.params.classroomId +
-      '/get-student-report-data';
+      '/get-student-report';
 		if (this.$route.name === 'ClassroomStudentPanel') {
 			url = url + '/' + this.$router.currentRoute.params.userId;
 		}
 		this.axios.get(url).then((resp) => {
-			this.pieChartData = resp.data.success.assignments_attemps;
+			this.pieChartData = resp.data.success.assignments_attempts;
 			this.dualLineChartData = resp.data.success.average_scores;
 			let MultiBarGraph = resp.data.success.reports_summary;
 			this.firstData = MultiBarGraph.filter(node=>node.score_type === 'first')

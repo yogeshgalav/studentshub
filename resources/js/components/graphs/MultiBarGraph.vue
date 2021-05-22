@@ -45,23 +45,17 @@ export default {
 				datasets: [
 					{
 						label: this.barLabels[0],
-						backgroundColor: 'pink',
-						borderColor: 'red',
-						borderWidth: 1,
+						backgroundColor: this.reportColorCodes[0],
 						data: this.barOneData
 					},
 					{
 						label: this.barLabels[1],
-						backgroundColor: 'lightblue',
-						borderColor: 'blue',
-						borderWidth: 1,
+						backgroundColor: this.reportColorCodes[1],
 						data: this.barTwoData
 					},
 					{
 						label: this.barLabels[2],
-						backgroundColor: 'lightgreen',
-						borderColor: 'green',
-						borderWidth: 1,
+						backgroundColor: this.reportColorCodes[2],
 						data: this.barThreeData
 					}
 				]

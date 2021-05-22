@@ -114,7 +114,7 @@ export default {
 			let url =
         '/api/classroom/' +
         this.$route.params.classroomId +
-        '/get-student-daily-reports';
+        '/get-assignment-report';
 			if (this.$route.name === 'ClassroomStudentPanel') {
 				url = url + '/' + this.$router.currentRoute.params.userId;
 			}
