@@ -67,8 +67,8 @@
 
               <div class="col-md-12">
                 <doughnut-graph
-                    v-if="pieGraphData.length"
-                    :graph-data="pieGraphData"
+                  v-if="pieData.length"
+                  :graph-data="pieData"
                 />
               </div>
               <div class="col-md-12">
@@ -162,7 +162,7 @@ export default {
 							}
 						}
 					});
-					this.pieGraphData = pieGraphData;
+					this.pieData = pieGraphData;
 
 					this.barLineData = bar_line_data.filter(node2=>node.id===node2.unit_id).map(node=>{
 						node.label = node.attempt_date;
@@ -174,7 +174,7 @@ export default {
 					});
 					console.log(this.barLineData);
 				});
-				console.log(this.pieGraphData);
+				console.log(this.pieData);
 
 				// BarLineGraphdata
 
