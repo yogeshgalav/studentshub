@@ -104,6 +104,7 @@
                     </div>
                     <div class="col-md-4 border-bottom-1px ml-3 p-3 mb-3">
                       <doughnut-graph
+                        v-if="question && question.pie_data"
                         :graph-data="question.pie_data"
                       />
                     </div>
@@ -210,14 +211,14 @@ export default {
 						node.medium_count = scores.medium_count;
 
 						node.daily_questions.map(question => {
-							question.pie_data = questionsData.filter(node2 => node2.question_id === question.id);
+							question.pie_data = questionsData.filter(node2 => node2.question_id === question.id).map(node2=>{
+								node2.label = 'Option '+this.letters[node2.label];
+								return node2;
+							});
 
 						});
 						return node;
 					});
-
-					console.log(this.dailyAssignmentData);
-
 					this.showLoader=false;
 				});
 		},

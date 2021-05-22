@@ -53,7 +53,11 @@ class ClassroomController extends Controller
     public function classroomOverviewPage($classroomId){
         $classroom=Classroom::findOrFail($classroomId);
 
-        return view('classroom.classroom-overview');
+        if(Auth::teacher() && $classroom->teacher_id===Auth::teacher()->id){
+            return view('classroom.overview');
+        }
+
+        return view('student-panel.overview');
     }
     public function classroomSetupPage($classroomId){
         $classroom=Classroom::findOrFail($classroomId);
