@@ -142,4 +142,51 @@ class ClassroomController extends Controller
             'answers'=>$answers
         ]]);
     }
+    public function classroomListDetails(){
+
+        $classroom_query = DB::table('classrooms as cl')
+        ->leftjoin('classroom_users','classroom_users.classroom_id','=','cl.id')
+        ->leftjoin('daily_assignments','cl.id','=','daily_assignments.classroom_id')
+        ->leftjoin('teachers','cl.teacher_id','=','teachers.id')
+        ->leftjoin('users','teachers.user_id','=','users.id')
+        ->leftjoin('subjects','cl.subject_id','=','subjects.id')
+        ->leftjoin('classroom_resources','cl.id','=','classroom_resources.classroom_id')
+        ->leftjoin('classroom_messages','cl.id','=','classroom_messages.classroom_id')
+        ->leftjoin('doubts','cl.id','=','doubts.classroom_id')
+        ->leftjoin('daily_reports','daily_assignments.id','=','daily_reports.daily_assignment_id')
+        ->select(DB::raw('COUNT(classroom_resources.id) as total_resources'),
+                'subjects.subject_name as subject_name',
+                'users.full_name AS teacher',
+                'cl.classroom_join_id as join_id',
+                'cl.name as classroom_name',
+                DB::raw('COUNT(distinct classroom_users.user_id) AS total_students'),
+                DB::raw('COUNT(distinct daily_assignments.id) AS total_daily_assignments'),
+                DB::raw('COUNT(classroom_messages.id) as total_messages'),
+                DB::raw('COUNT(doubts.id) as total_doubts'),
+                DB::raw('FORMAT(AVG(daily_reports.marks_obtained),2) as average_score')
+                )
+        ->groupBy('cl.id','users.full_name','subjects.subject_name','cl.name','cl.classroom_join_id');
+        $classrooms = [];
+
+        $teacher=Auth::teacher();
+        if($teacher){
+            $classrooms=$classroom_query->where('cl.teacher_id','=',$teacher->id)->get();
+            
+        }else if(Auth::student()){
+            $classrooms=$classroom_query->join('classroom_users as cu',function($join){
+                $join->on('cu.classroom_id','=','cl.id')->where('cu.user_id',Auth::id());
+            })
+            ->get();
+        }else if(Auth::instituteAdmin()){
+            $classrooms=$classroom_query->join('batches as bt',function($join){
+                $join->on('bt.id','=','cl.batch_id')->where('bt.institute_id',Auth::instituteAdmin()->institute_id);
+            })
+            ->get();
+        }
+        return response()->json([
+            'success'=>[
+                'classrooms' => $classrooms
+            ]
+        ]);
+    }
 }

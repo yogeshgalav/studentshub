@@ -52,4 +52,21 @@ class Auth extends AuthUser
                 'th.id as id', 'th.user_id'
             )->first();
     }
+    public static function instituteAdmin()
+    {
+        if (!self::check()) {
+            return null;
+        }
+        if (self::user()->role_intended!=='instituteAdmin') {
+            return null;
+        }
+        return DB::table('institute_users as iu')
+            ->where('iu.user_id', '=', self::user()->id)
+            ->where('iu.role', '=', 'admin')
+            ->leftJoin('institutes as inst', 'inst.id', '=', 'iu.institute_id')
+            ->select(
+                'inst.id as instituteId',
+                'inst.name as instituteName',
+            )->first();
+    }
 }
