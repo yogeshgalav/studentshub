@@ -63,10 +63,17 @@ class ClassroomUserController extends Controller
         ->groupBy('ut.id','ut.unit_name')
         ->get();
         
+        $bar_data = DB::table('student_reports as sr')
+        ->leftjoin('units','units.id','=','sr.unit_id')
+        ->where('units.classroom_id',$classroom_id)
+        ->select('sr.unit_id','sr.score_type',DB::raw('AVG(sr.score) as score'))
+        ->groupBy('sr.unit_id','sr.score_type')
+        ->get();
         return response()->json(['success'=>[
             'student_details'=>$student_details,
             'assignment_details'=>$assignment_details,
-            'pie_graph_data'=>$pie_graph_data
+            'pie_graph_data'=>$pie_graph_data,
+            'bar_data'=>$bar_data
         ]]);
     }
 
