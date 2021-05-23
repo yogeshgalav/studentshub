@@ -20,6 +20,14 @@ export default {
 			type:Array,
 			default: () => []
 		},
+		lineOneLabel:{
+			type:String,
+			default:''
+		},
+		lineTwoLabel:{
+			type:String,
+			default:''
+		},
 		labels:{
 			type:Array,
 			default: () => []
@@ -28,29 +36,27 @@ export default {
 	computed:{
 		chartData(){
 			var dataFirst = {
-				label: 'Car A - Speed (mph)',
-				data: [0, 59, 75, 20, 20, 55, 40],
+				label: this.lineOneLabel,
+				data: this.lineOneData,
 				lineTension: 0,
 				fill: false,
 				borderColor: 'red'
 			};
 
 			var dataSecond = {
-				label: 'Car B - Speed (mph)',
-				data: [20, 15, 60, 60, 65, 30, 70],
+				label: this.lineTwoLabel,
+				data: this.lineTwoData,
 				lineTension: 0,
 				fill: false,
 				borderColor: 'blue'
 			};
 
-			const self = this;
 			return  {
-				labels: ['0s', '10s', '20s', '30s', '40s', '50s', '60s'],
+				labels: this.labels,
 				datasets: [dataFirst, dataSecond]
 			};
 		},
 		chartOptions() {
-			var self = this;
 			return{
 				legend: {
 					display: true,
