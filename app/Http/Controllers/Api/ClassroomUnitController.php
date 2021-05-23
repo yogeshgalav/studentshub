@@ -33,11 +33,22 @@ class ClassroomUnitController extends Controller
         ->select('units.id',DB::raw('COUNT(distinct daily_assignments.id) as assignmentCount'),DB::raw('AVG(daily_reports.marks_obtained) as averageScore'),DB::raw('COUNT(distinct classroom_resources.id) as resources'))
         ->groupBy('units.id')
         ->get();
+
+        $bar_data = DB::table('daily_assignments as da')
+        ->where('da.classroom_id',$request->classroomId)
+        ->leftjoin('daily_reports as dr','dr.daily_assignment_id','=','da.id')
+        ->select('da.unit_id',DB::raw('COUNT(distinct dr.user_id) as total_attendes'),DB::raw('AVG(dr.marks_obtained) as average_score'),
+        'da.attempt_date')
+        ->groupBy('da.unit_id','da.id','da.attempt_date')
+        ->get();
+
         return response()->json([
             'success'=>[
                 'unitData'=>$unitData,
                 'summary'=>$summary,
-                'daily_assignment_status'=>$daily_assignment_status
+                'daily_assignment_status'=>$daily_assignment_status,
+                'pie_data'=>$pie_data,
+                'bar_data'=>$bar_data
             ]
         ]);
     }

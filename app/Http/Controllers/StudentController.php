@@ -38,7 +38,7 @@ class StudentController extends Controller
     public function saveDailyAnswer(Request $request){
         $my_report = DailyReport::where('user_id',Auth::id())->where('daily_assignment_id',$request->daily_assignment_id)->exists();
         if($my_report){
-            return redirect('/classroom/'.$request->classroom_id.'/daily-assignment');
+            return redirect('/classroom/'.$request->classroom_id.'/overview');
         }
         $daily_questions = DailyQuestion::where('daily_assignment_id',$request->daily_assignment_id)->get();
         $rank = DailyReport::where('daily_assignment_id',$request->daily_assignment_id)->count();
@@ -52,7 +52,33 @@ class StudentController extends Controller
                 $total_marks=$total_marks+$question->marks;
             }
         }
-
+        $unit_id = DailyAssignment::find($request->daily_assignment_id)->unit_id;
+        StudentReport::firstOrCreate([
+            'score_type'=> "first"
+        ],[
+            'user_id'=>Auth::id(),
+            'unit_id'=> $unit_id,
+            'score'=> $total_marks
+        ]);
+        StudentReport::updateOrCreate([
+            'score_type' => "last"
+        ],[
+            'user_id'=>Auth::id(),
+            'unit_id'=> $unit_id,
+            'score'=> $total_marks
+        ]);
+        $student_avg_report = StudentReport::firstOrNew([
+            'score_type' => "average",
+            'user_id'=>Auth::id(),
+            'unit_id'=> $unit_id
+        ]);
+        if($student_avg_report){
+            $student_avg_report->score = ($student_avg_report->score + $total_marks) / 2;
+        }
+        else{
+            $student_avg_report->score = $total_marks;
+        }
+        $student_avg_report->save();
         $report = DailyReport::create([
             'user_id'=>Auth::id(),
             'daily_assignment_id'=>$request->daily_assignment_id,
@@ -75,7 +101,7 @@ class StudentController extends Controller
         \Log::critical('daily report save failure',['data'=>$request->all(),'error'=>$e->getMessage()]);
         return response()->$e;
     }
-        return redirect('/classroom/'.$request->classroom_id.'/daily-assignment');
+        return redirect('/classroom/'.$request->classroom_id.'/overview');
     }
     public function sharePost()
     {

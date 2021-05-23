@@ -15,9 +15,9 @@ class UserController extends Controller
     public function getProfile(){
         $user=Auth::user();
         $post = new \App\Post;
-        
-        $categories=DB::table('categories as cat')->leftJoin('subjects as sub','sub.category_id','=','cat.id')
-        ->leftJoin('posts as po','po.subject_id','=','sub.id')
+
+        $categories=DB::table('categories as cat')
+        ->leftJoin('posts as po','po.category_id','=','cat.id')
         ->leftJoin('post_views as pv',function($join){
             $join->on('pv.post_id','=','po.id')->where('pv.user_id','=',Auth::id());
         })
@@ -30,7 +30,7 @@ class UserController extends Controller
         ->select('cat.name',DB::raw('COUNT(distinct li.likable_id) as total_likes'),DB::raw('COUNT(distinct pv.post_id) as total_views'),DB::raw('COUNT(distinct upo.id) as total_posts'))
         ->groupBy('cat.id','cat.name')
         ->get();
-        
+
         $total=0;
         foreach($categories as $category){
             $category->total=$category->total_views+($category->total_likes*3)+($category->total_posts*7);
@@ -77,6 +77,11 @@ class UserController extends Controller
         }
 
         $profile->save();
+
+        if($request->full_name){
+            $me->full_name=$request->full_name;
+            $me->save();
+        }
 
         return response()->json(['success'=>[
             'profile'=>$profile

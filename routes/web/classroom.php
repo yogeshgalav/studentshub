@@ -27,7 +27,6 @@ Route::group(['middleware'=>['AuthorizeUser']],function(){
     Route::get('/doubt/{id}','ClassroomController@doubtAnswersPage');
     Route::get('/messages', 'ClassroomController@GlobalMessagePage');
     
-    //student page for unit-attempt
-    Route::get('/classroom/{classroomId}/unit-attempt','ClassroomController@unitAttemptPage');
-    Route::get('/classroom/{classroomId}/question/{questionId}','ClassroomController@topicAnswersPage');
+    Route::get('/my-reports','ClassroomController@myReports');
+
 });
