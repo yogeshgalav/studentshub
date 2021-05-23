@@ -61,7 +61,7 @@
           </template>
           <template slot="tab-panel-report">
             <div class="col-md-12 col-center">
-              <student-report />
+              <student-report :classroom-id="$route.params.classroomId" />
             </div>
           </template>
         </nav-tabs>
@@ -79,7 +79,6 @@ import ClassroomHeader from '../../../components/ClassroomHeader';
 import DailyAssignmentReport from '../../../components/DailyAssignmentReport';
 import dayjs from 'dayjs';
 import NavTabs from '../../../components/NavTabs';
-import studentReport from '../student-report';
 import StudentReport from '../student-report.vue';
 
 export default {
@@ -87,7 +86,7 @@ export default {
 		ClassroomHeader,
 		DailyAssignmentReport,
 		NavTabs,
-		studentReport,
+		StudentReport,
 	},
 	filters: {
 		timeFormat(time) {

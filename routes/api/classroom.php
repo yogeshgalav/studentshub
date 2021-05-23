@@ -58,7 +58,4 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::get('/classroom/{classroomId}/get-attendance-dates','AttendanceController@getAttendanceDates');
     Route::get('/classroom/{classroomId}/get-student-attendance','AttendanceController@getStudentAttendance');
 
-    // my-report
-    Route::get('/my-reports','ClassroomController@myReports');
-
 });

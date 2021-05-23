@@ -49,6 +49,7 @@ export default {
 		MultiBarGraph,
 		DualLineGraph,
 	},
+	props:['classroomId'],
 	data() {
 		return {
 			showLoader: true,
@@ -62,7 +63,7 @@ export default {
 	mounted() {
 		let url =
       '/api/classroom/' +
-      this.$route.params.classroomId +
+      this.classroomId +
       '/get-student-report';
 		if (this.$route.name === 'ClassroomStudentPanel') {
 			url = url + '/' + this.$router.currentRoute.params.userId;

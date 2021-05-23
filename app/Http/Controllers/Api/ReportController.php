@@ -57,7 +57,8 @@ class ReportController extends Controller
             'is_available'=>$today_assignment ? $today_assignment->isCurrentlyAvailable() : false
         ]]);
     }
-    public function getStudentReport($classroom_id,$user_id){
+
+    public function getStudentReport($classroom_id,$user_id = null){
         $user_id = $user_id ? $user_id : Auth::id();
 
         $assignments_attempts = DB::table('daily_assignments as da')
