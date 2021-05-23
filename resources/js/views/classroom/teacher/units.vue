@@ -69,15 +69,19 @@
 
               <div class="col-md-12 mt-3">
                 <doughnut-graph
-                  v-if="pieData.length"
-                  :graph-data="pieData"
+                  v-if="unit.pieGraphData.length"
+                  :graph-data="unit.pieGraphData"
                 />
               </div>
               <div class="col-md-12 mt-3">
-                <bar-line-graph :graph-data="barLineData" />
-              </div>
-              <div class="col-md-12 mt-3">
-                <multi-bar-graph :graph-data="unit.pieGraphData" />
+                <bar-line-graph 
+                  v-if="unit.barLineData.length"
+                  line-label="Average score"
+                  bar-label="Total attempts"
+                  :line-data="unit.barLineData.map(node=>node.average_score)"
+                  :bar-data="unit.barLineData.map(node=>node.total_attendes)"
+                  :x-axis-labels="unit.barLineData.map(node=>node.attempt_date)"
+                />
               </div>
             </accordion>
           </div>
@@ -134,13 +138,14 @@ export default {
 					return node;
 				});
 				const daily_assignment_status = resp.data.success.daily_assignment_status;
+				const bar_data = resp.data.success.bar_data;
 				this.unitData.map((node)=>{
 					node.pieGraphData = daily_assignment_status.filter(node2=>node2.unit_id===node.id).map(node2=>{
 						node2.label = node2.status;
 						node2.count = node2.assignmentCount;
 						return node2;
 					});
-					node.assignment_total = daily_assignment_status.reduce((acc,currVal)=>acc+currVal.assignmentCount,0);
+					node.barLineData = bar_data.filter(node2=>node2.unit_id===node.id);
 					return node;
 				});
 				this.showLoader=false;

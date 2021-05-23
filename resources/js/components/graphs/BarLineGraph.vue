@@ -12,36 +12,52 @@ export default {
 			type:Number,
 			default: 100
 		},
-		graphData:{
+		lineLabel:{
+			type:String,
+			default: ''
+		},
+		barLabel:{
+			type:String,
+			default: ''
+		},
+		lineData:{
 			type:Array,
 			default: () => []
-		}
+		},
+		barData:{
+			type:Array,
+			default: () => []
+		},
+		xAxisLabels:{
+			type:Array,
+			default: () => []
+		},
 	},
 	computed:{
 		chartData(){
 			const self = this;
 			return  {
-				labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+				labels: this.xAxisLabels,
 				datasets: [ {
-					label: 'Sales',
+					label: this.lineLabel,
 					type:'line',
-					data: [51, 65, 40, 49, 60, 37, 40],
+					data: this.lineData,
 					fill: false,
-					borderColor: '#EC932F',
-					backgroundColor: '#EC932F',
-					pointBorderColor: '#EC932F',
-					pointBackgroundColor: '#EC932F',
-					pointHoverBackgroundColor: '#EC932F',
-					pointHoverBorderColor: '#EC932F',
+					borderColor: this.reportColorCodes[1],
+					backgroundColor: this.reportColorCodes[1],
+					pointBorderColor: this.reportColorCodes[1],
+					pointBackgroundColor: this.reportColorCodes[1],
+					pointHoverBackgroundColor: this.reportColorCodes[1],
+					pointHoverBorderColor: this.reportColorCodes[1],
 					yAxisID: 'y-axis-2'
 				}, {
 					type: 'bar',
-					label: 'Visitor',
-					data: [200, 185, 590, 621, 250, 400, 95],
-					backgroundColor: '#71B37C',
-					borderColor: '#71B37C',
-					hoverBackgroundColor: '#71B37C',
-					hoverBorderColor: '#71B37C',
+					label: this.barLabel,
+					data: this.barData,
+					backgroundColor: this.reportColorCodes[0],
+					borderColor: this.reportColorCodes[0],
+					hoverBackgroundColor: this.reportColorCodes[0],
+					hoverBorderColor: this.reportColorCodes[0],
 					yAxisID: 'y-axis-1'
 				} ]
 			};
