@@ -1,27 +1,26 @@
 <template>
-  <div class="card col-sm-5 col-md-3">
-    <div class="card-body text-center mx-auto">
-      <router-link
-        v-if="link"
-        :to="link"
-      >
-        {{ value }}
-        <br>
-        {{ label }}
-      </router-link>
-      <div v-else>
-        {{ value }}
-        <br>
-        {{ label }}
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-body text-center mx-auto">
+        <router-link
+          v-if="link"
+          :to="link"
+        >
+          {{ value }}
+          <br>
+          {{ label }}
+        </router-link>
+        <div v-else>
+          {{ value }}
+          <br>
+          {{ label }}
+        </div>
       </div>
     </div>
   </div>
 </template>
 <style scoped>
-.card{
-    margin: 5px 5px;
-    width: 200px;
-}
+
 </style>
 <script>
 export default {

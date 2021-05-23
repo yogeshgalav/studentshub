@@ -1,7 +1,9 @@
 <template>
-  <div>
+  <div class="text-center">
     <div class="col-md-12">
-      <p>What is the overall progress of student w.r.t others in this classroom?</p>
+      <p class="font-weight-bold font-size-14 text-grey">
+        What is the overall progress of student w.r.t others in this classroom?
+      </p>
       <dualLine-graph
         v-if="dualLineChartData.length"
         :line-one-data="dualLineChartData.map(node=>node.classroom_score)"
@@ -11,15 +13,19 @@
         line-two-label="Student score"
       />
     </div>
-    <div class="col-md-12 mt-2">
-      <p>How many assignments have been attempted in each unit?</p>
+    <div class="col-md-12 mt-5">
+      <p class="font-weight-bold font-size-14 text-grey">
+        How many assignments have been attempted in each unit?
+      </p>
       <doughnut-graph 
         v-if="pieChartData.length" 
         :graph-data="pieChartData" 
       />
     </div>
-    <div class="col-md-12 mt-2">
-      <p>What is the first, average and last score in each unit?</p>
+    <div class="col-md-12 mt-5">
+      <p class="font-weight-bold font-size-14 text-grey">
+        What is the first, average and last score in each unit?
+      </p>
       <multiBar-graph
         v-if="lastData.length"
         :bar-labels="['first','average','last']"

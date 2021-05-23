@@ -31,7 +31,7 @@
               tab="accordion_status_unit_active"
             >
               <div class="">
-                <div class="col-md-3 col-12">
+                <div class="col-md-6 col-12">
                   <div class="form-group pl-0">
                     <label
                       class="text-black mb-1"
@@ -67,13 +67,16 @@
                 />
               </div>
 
-              <div class="col-md-12">
-                <doughnut-graph :graph-data="unit.pieGraphData" />
+              <div class="col-md-12 mt-3">
+                <doughnut-graph
+                  v-if="pieData.length"
+                  :graph-data="pieData"
+                />
               </div>
-              <div class="col-md-12">
-                <bar-line-graph :graph-data="unit.pieGraphData" />
+              <div class="col-md-12 mt-3">
+                <bar-line-graph :graph-data="barLineData" />
               </div>
-              <div class="col-md-12">
+              <div class="col-md-12 mt-3">
                 <multi-bar-graph :graph-data="unit.pieGraphData" />
               </div>
             </accordion>

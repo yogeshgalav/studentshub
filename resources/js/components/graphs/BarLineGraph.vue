@@ -3,19 +3,19 @@ import { Bar } from 'vue-chartjs';
 
 export default {
 	extends: Bar,
-	props:{ 
-		width:{ 
-			type:Number, 
-			default: 200 
-		}, 
-		height:{ 
-			type:Number, 
-			default: 200 
-		}, 
-		graphData:{ 
-			type:Array, 
-			default: () => [] 
-		} 
+	props:{
+		width:{
+			type:Number,
+			default: 200
+		},
+		height:{
+			type:Number,
+			default: 100
+		},
+		graphData:{
+			type:Array,
+			default: () => []
+		}
 	},
 	computed:{
 		chartData(){

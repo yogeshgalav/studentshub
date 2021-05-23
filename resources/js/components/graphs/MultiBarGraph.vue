@@ -10,7 +10,7 @@ export default {
 		},
 		height:{
 			type:Number,
-			default: 200
+			default: 100
 		},
 		graphData:{
 			type:Array,
@@ -67,10 +67,6 @@ export default {
 				responsive: true,
 				legend: {
 					position: 'top'
-				},
-				title: {
-					display: true,
-					text: 'Chart.js Bar Chart'
 				},
 				scales: {
 					yAxes: [{
