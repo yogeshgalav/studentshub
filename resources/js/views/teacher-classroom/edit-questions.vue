@@ -273,13 +273,11 @@
 }
 </style>
 <script>
-import AddButton from '../../../components/AddButton';
-import FormMixin from '../../../components/mixins/form-mixin.js';
-import Modal from '../../../components/VueNiceModal.vue';
+import FormMixin from '../../components/mixins/form-mixin.js';
+import Modal from '../../components/VueNiceModal.vue';
 
 export default {
 	components: {
-		AddButton,
 		Modal
 	},
 	mixins: [FormMixin],

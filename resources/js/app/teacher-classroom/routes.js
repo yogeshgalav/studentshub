@@ -2,7 +2,7 @@ import ClassroomComponent from '../../views/classroom/teacher/menu.vue';
 import ClassroomOverviewComponent from '../../views/classroom/teacher/overview.vue';
 import ClassroomSetupComponent from '../../views/classroom/teacher/unit-plan.vue';
 import ClassroomUnitAssignmentComponent from '../../views/teacher-classroom/classroom-unit-assignment.vue';
-import ClassroomDailyAssignmentComponent from '../../views/teacher-classroom/daily-assignment/classroom-daily-assignment.vue';
+import ClassroomDailyAssignmentComponent from '../../views/teacher-classroom/daily-assignment.vue';
 import ClassroomDailyReportComponent from '../../views/teacher-classroom/classroom-daily-report.vue';
 import ClassroomResourceComponent from '../../views/classroom/resources.vue';
 import ClassroomMessageComponent from '../../views/classroom/messages.vue';

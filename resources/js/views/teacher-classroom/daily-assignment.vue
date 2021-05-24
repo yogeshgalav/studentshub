@@ -212,7 +212,7 @@
                     </p>
                   </div>
 
-                  <daily-questions
+                  <edit-questions
                     :key="assignment.id"
                     :daily-questions="assignment.daily_questions"
                     :assignment-id="assignment.id"
@@ -260,10 +260,10 @@
 }
 </style>
 <script>
-import FormMixin from '../../../components/mixins/form-mixin.js';
-import ClassroomHeader from '../../../components/ClassroomHeader';
-import swal from '../../../components/swal.js';
-import DailyQuestions from './daily-questions';
+import FormMixin from '../../components/mixins/form-mixin.js';
+import ClassroomHeader from '../../components/ClassroomHeader';
+import swal from '../../components/swal.js';
+import EditQuestions from './edit-questions';
 import DatePicker from 'vue2-datepicker';
 import 'vue2-datepicker/index.css';
 import dayjs from 'dayjs';
@@ -274,7 +274,7 @@ export default {
 	components: {
 		ClassroomHeader,
 		DatePicker,
-		DailyQuestions
+		EditQuestions
 	},
 	mixins: [FormMixin],
 	data() {
