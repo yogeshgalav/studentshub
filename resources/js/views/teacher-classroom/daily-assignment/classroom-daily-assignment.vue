@@ -63,9 +63,9 @@
         </select>
       </div>
     </div>
-    <div class="row">
+    <div class="row col-md-12">
       <div class="col-md-12">
-        <div class="card">
+        <div class="card mt-5">
           <div class="card-header">
             {{ assignment.attempt_date }}
           </div>
@@ -130,106 +130,107 @@
                 </div>
               </div>
             </div>
-          </div>
-          <div v-if="assignment.id">
-            <div class="">
-              <div class="col-md-6 col-12">
-                <div class="row">
-                  <div class="col-md-6">
-                    <label
-                      class="text-black mb-1"
-                      :for="'start_time'"
-                    >{{ 'Start Time' }}</label>
-                    <div class="input-group-prepend">
-                      <div
-                        class="input-group-prepend date"
-                        data-provide="datepicker"
-                      >
-                        <span class="input-group-text">
-                          <i class="fa fa-clock" />
-                        </span>
+            <div v-if="assignment.id">
+              <div class="">
+                <div class="col-md-6 col-12">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label
+                        class="text-black mb-1"
+                        :for="'start_time'"
+                      >{{ 'Start Time' }}</label>
+                      <div class="input-group-prepend">
+                        <div
+                          class="input-group-prepend date"
+                          data-provide="datepicker"
+                        >
+                          <span class="input-group-text">
+                            <i class="fa fa-clock" />
+                          </span>
+                        </div>
+                        <date-picker
+                          :id="'start_time'"
+                          v-validate="'required'"
+                          :value="assignmentStartTime"
+                          :name="'start_time'"
+                          value-type="format"
+                          :typeable="true"
+                          :type="'time'"
+                          :format="'hh:mm a'"
+                          :lang="'en'"
+                          placeholder
+                          :time-picker-options="{ start: currentUserStartTime, step: '00:15', end: '23:45' }"
+                          @input="timeFormat('start',$event)"
+                          @change="updateAssignment"
+                        />
                       </div>
-                      <date-picker
-                        :id="'start_time'"
-                        v-validate="'required'"
-                        :value="assignmentStartTime"
-                        :name="'start_time'"
-                        value-type="format"
-                        :typeable="true"
-                        :type="'time'"
-                        :format="'hh:mm a'"
-                        :lang="'en'"
-                        placeholder
-                        :time-picker-options="{ start: currentUserStartTime, step: '00:15', end: '23:45' }"
-                        @input="timeFormat('start',$event)"
-                        @change="updateAssignment"
-                      />
+                      <span class="text-danger">{{ formErrors('start_time') }}</span>
                     </div>
-                    <span class="text-danger">{{ formErrors('start_time') }}</span>
-                  </div>
                 
-                  <div class="col-md-6">
-                    <label
-                      class="text-black mb-1"
-                      :for="'start_time'"
-                    >{{ 'End Time' }}</label>
-                    <div class="input-group-prepend">
-                      <div
-                        class="input-group-prepend date"
-                        data-provide="datepicker"
-                      >
-                        <span class="input-group-text">
-                          <i class="fa fa-clock" />
-                        </span>
+                    <div class="col-md-6">
+                      <label
+                        class="text-black mb-1"
+                        :for="'start_time'"
+                      >{{ 'End Time' }}</label>
+                      <div class="input-group-prepend">
+                        <div
+                          class="input-group-prepend date"
+                          data-provide="datepicker"
+                        >
+                          <span class="input-group-text">
+                            <i class="fa fa-clock" />
+                          </span>
+                        </div>
+                        <date-picker
+                          :id="'end_time'"
+                          v-validate="'required'"
+                          :value="assignmentEndTime"
+                          :name="'end_time'"
+                          value-type="format"
+                          :typeable="true"
+                          :type="'time'"
+                          :format="'hh:mm a'"
+                          :lang="'en'"
+                          placeholder
+                          :disabled="assignmentStartTime==='Invalid Date'"
+                          :time-picker-options="{ start: currentUserEndTime, step: '00:15', end: '23:45' }"
+                          @input="timeFormat('end',$event)"
+                          @change="updateAssignment"
+                        />
                       </div>
-                      <date-picker
-                        :id="'end_time'"
-                        v-validate="'required'"
-                        :value="assignmentEndTime"
-                        :name="'end_time'"
-                        value-type="format"
-                        :typeable="true"
-                        :type="'time'"
-                        :format="'hh:mm a'"
-                        :lang="'en'"
-                        placeholder
-                        :disabled="assignmentStartTime==='Invalid Date'"
-                        :time-picker-options="{ start: currentUserEndTime, step: '00:15', end: '23:45' }"
-                        @input="timeFormat('end',$event)"
-                        @change="updateAssignment"
-                      />
+                      <span class="text-danger">{{ formErrors('end_time') }}</span>
                     </div>
-                    <span class="text-danger">{{ formErrors('end_time') }}</span>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="">
-              <div class="col-md-12">
-                <div class="text-grey col-md-12 pl-0">
-                  <p class="mt-2">
-                    Students will be asked to answer the following questions on this unit
-                    attempt
-                  </p>
-                </div>
+              <div class="">
+                <div class="col-md-12">
+                  <div class="text-grey col-md-12 pl-0">
+                    <p class="mt-2">
+                      Students will be asked to answer the following questions on this unit
+                      attempt
+                    </p>
+                  </div>
 
-                <daily-questions
-                  :key="assignment.id"
-                  :daily-questions="assignment.daily_questions"
-                  :assignment-id="assignment.id"
-                  @totalUpdate="totalUpdate"
-                />
+                  <daily-questions
+                    :key="assignment.id"
+                    :daily-questions="assignment.daily_questions"
+                    :assignment-id="assignment.id"
+                    @totalUpdate="totalUpdate"
+                  />
+                </div>
               </div>
             </div>
-
+          </div>
+          <div class="card-footer">
             <div
-              class="mt-3 row mobile_button_view"
+              class="row mobile_button_view"
             >
               <hr>
               <div class="col-md-6 col-6 text-left">
                 <button
                   class="btn btn-white btn-md mt-1 "
-                  @click="deleteDailyAssignment(assignment)"
+                  @click="deleteDailyAssignment()"
                 >
                   <i class="fa fa-trash text-black" />
                 </button>
@@ -237,7 +238,7 @@
               <div class="col-md-6 col-6 text-right">
                 <button
                   class="btn btn-primary btn-md mt-1"
-                  @click="activateDailyAssignment(assignment)"
+                  @click="activateDailyAssignment()"
                 >
                   {{ assignment.activated_at ? 'Deactivate' : 'Activate' }}
                 </button>
@@ -412,6 +413,7 @@ export default {
 						this.axios.post('/api/delete-daily-assignment', {
 							daily_assignment_id: this.assignment.id,
 						}).then(()=>{
+							let assignmentIndex = this.assignment_list.findIndex(node=>node.id===this.assignment.id);
 							this.assignment_list.splice(assignmentIndex,1);
 							if(this.assignment_list.length){
 								this.current_assignment_id = this.assignment_list[0].id;
