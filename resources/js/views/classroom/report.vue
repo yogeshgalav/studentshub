@@ -3,10 +3,6 @@
     <classroom-header
       title="Report"
     />
-    <doughnut-graph
-      :graph-data="pie_graph_data"
-    />
-
     <div class="row">
       <div class="col-md-12">
         <h4 class="text-black mb-0">
@@ -39,26 +35,55 @@
           </div>
         </vue-table-component>
       </div>
+
+      <div class="col-md-12 mt-3">
+        <p class="font-weight-bold font-size-14 text-grey">
+          Average score comparison by unit.
+        </p>
+        <doughnut-graph
+          v-if="pie_graph_data.length"
+          :graph-data="pie_graph_data"
+        />
+      </div>
+
+      <div class="col-md-12 mt-3">
+        <p class="font-weight-bold font-size-14 text-grey">
+          First, Average and Last score in each unit.
+        </p>
+        <multi-bar-graph
+          v-if="bar_data.length"
+          :x-axis-label="bar_data.map(node=>node.unit_id)"
+          :bar-labels="['First', 'Average', 'Last']"
+          :bar-one-data="first_data"
+          :bar-two-data="average_data"
+          :bar-three-data="last_data"
+        />
+      </div>
     </div>
   </div>
 </template>
 <script>
 import ClassroomHeader from '../../components/ClassroomHeader';
 import VueTableComponent from '../../components/vue-table-component';
-import PieChart from "../../components2/chartjs/DoughnutGraph"
-
 import dayjs from 'dayjs';
 import DoughnutGraph from '../../components/graphs/DoughnutGraph';
+import MultiBarGraph from '../../components/graphs/MultiBarGraph.vue';
+
 export default {
 	components: {
 		ClassroomHeader,
 		VueTableComponent,
-		DoughnutGraph
+		DoughnutGraph,
+		MultiBarGraph
 	},
 	data() {
 		return {
 			student_details: [],
 			pie_graph_data:[],
+			bar_data:[],
+			first_data:[],
+			average_data:[],
+			last_data:[],
 			joinedColumns: [
 				{
 					label: 'Student Name',
@@ -112,6 +137,10 @@ export default {
 			this.axios('/api/classroom/'+ this.$route.params.classroomId +'/students-data').then((resp)=>{
 				this.student_details=resp.data.success.student_details;
 				this.pie_graph_data=resp.data.success.pie_graph_data;
+				this.bar_data=resp.data.success.bar_data;
+				this.first_data=this.bar_data.filter(node=>node.score_type==='first').map(node=>node.score);
+				this.average_data=this.bar_data.filter(node=>node.score_type==='average').map(node=>node.score);
+				this.last_data=this.bar_data.filter(node=>node.score_type==='last').map(node=>node.score);
 				this.assignment_details = resp.data.success.assignment_details;
 				this.student_details.map(node=>{
 					let assignment = this.assignment_details.filter(node2=>node2.user_id===node.user_id);
