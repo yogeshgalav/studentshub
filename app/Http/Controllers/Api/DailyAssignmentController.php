@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 class DailyAssignmentController extends Controller
 {
     //
-    public function activateDailyAssignment(Request $request)
+    public function activate(Request $request)
     {
         if($request->daily_assignment_id){
             DailyReport::where('daily_assignment_id',$request->daily_assignment_id)->exists() ? abort(403) : '';
@@ -36,7 +36,7 @@ class DailyAssignmentController extends Controller
         return response()->json('success');
     }
 
-    public function deleteDailyAssignment(Request $request){
+    public function delete(Request $request){
         if($request->daily_assignment_id){
             DailyReport::where('daily_assignment_id',$request->daily_assignment_id)->exists() ? abort(403) : '';
         }
@@ -47,7 +47,7 @@ class DailyAssignmentController extends Controller
         return response()->json('success');
     }
 
-    public function updateDailyAssignment(Request $request)
+    public function update(Request $request)
     {
         if($request->assignment_id){
             DailyReport::where('daily_assignment_id',$request->assignment_id)->exists() ? abort(403) : '';
@@ -87,18 +87,28 @@ class DailyAssignmentController extends Controller
 
     }
 
-    public function getDailyAssismentDetails(Request $request){
+    public function getAssignmentList(Request $request){
         $unitList=Unit::where('classroom_id',$request->classroomId)->get();
-        $dailyAssignmentData=DailyAssignment::where('classroom_id',$request->classroomId)
-        ->doesntHave('dailyReport')
-        ->with('dailyQuestions.multipleChoice')
+        $assignment_list=DailyAssignment::where('classroom_id',$request->classroomId)
         ->orderBy('attempt_date','DESC')
         ->get();
 
         return response()->json([
             'success'=>[
                 'unitList'=>$unitList,
-                'dailyAssignmentData'=>$dailyAssignmentData
+                'assignment_list'=>$assignment_list
+            ]
+        ]);
+    }
+
+    public function getAssignmentDetails($assignmentId, Request $request){
+        $assignment_detail=DailyAssignment::where('id',$assignmentId)
+        ->with('dailyQuestions.multipleChoice')
+        ->first();
+
+        return response()->json([
+            'success'=>[
+                'assignment_detail'=>$assignment_detail
             ]
         ]);
     }
