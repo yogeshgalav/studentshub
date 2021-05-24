@@ -34,16 +34,6 @@ class ClassroomUnitController extends Controller
         ->groupBy('units.id')
         ->get();
 
-        $pie_data = DB::table('daily_assignments as da')
-        ->where('da.classroom_id',$request->classroomId)
-        //->select(DB::raw("SUM(CASE WHEN (da.status == 'activated') THEN 1 ELSE 0 END) as count"))
-        ->select( DB::raw('SUM(CASE WHEN da.status = "activated" THEN 1 ELSE 0 END) AS total_activated'),
-        DB::raw('SUM(CASE WHEN da.status = "draft" THEN 1 ELSE 0 END) AS total_draft'),
-        DB::raw('SUM(CASE WHEN da.status = "completed" THEN 1 ELSE 0 END) AS total_completed'),
-        'da.unit_id')
-        ->groupBy('da.unit_id')
-        ->get();
-
         $bar_data = DB::table('daily_assignments as da')
         ->where('da.classroom_id',$request->classroomId)
         ->leftjoin('daily_reports as dr','dr.daily_assignment_id','=','da.id')

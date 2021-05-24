@@ -176,7 +176,13 @@ class ClassroomController extends Controller
 
     public function myReports()
     {
-        return view('classroom.my-reports');
+        $classrooms = DB::table('classroom_users as cu')
+        ->where('cu.user_id',Auth::id())
+        ->leftJoin('classrooms as cl', 'cl.id', '=', 'cu.classroom_id')
+        ->select('cl.id','cl.name')
+        ->get();
+
+        return view('student-panel.my-reports')->with('classrooms',$classrooms);
     }
 
     public function doubtAnswersPage(){

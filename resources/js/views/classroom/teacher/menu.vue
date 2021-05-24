@@ -49,37 +49,16 @@
           <div class="selection-box-default">
             <router-link
               class="card h-card"
-              :to="'/classroom/'+$route.params.classroomId+'/report'"
-            >
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-lg-12">
-                    <h2 class="font-size-18">
-                      {{ 'Report' }}
-                    </h2>
-                    <p>
-                      {{ 'View classroom report.' }}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </router-link>
-          </div>
-        </div>
-        <div class="col-md-4 mb-3">
-          <div class="selection-box-default">
-            <router-link
-              class="card h-card"
               :to="'/classroom/'+$route.params.classroomId+'/setup'"
             >
               <div class="card-body">
                 <div class="row">
                   <div class="col-lg-12">
                     <h2 class="font-size-18">
-                      {{ 'Unit Setup' }}
+                      {{ 'Unit Planning' }}
                     </h2>
                     <p>
-                      {{ 'Divide your subject in units.' }}
+                      {{ 'Plan your subject in units.' }}
                     </p>
                   </div>
                 </div>
@@ -101,6 +80,28 @@
                     </h2>
                     <p>
                       {{ 'Create daily assignment test for students.' }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </router-link>
+          </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+          <div class="selection-box-default">
+            <router-link
+              class="card h-card"
+              :to="'/classroom/'+$route.params.classroomId+'/report'"
+            >
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <h2 class="font-size-18">
+                      {{ 'Report' }}
+                    </h2>
+                    <p>
+                      {{ 'View classroom report.' }}
                     </p>
                   </div>
                 </div>

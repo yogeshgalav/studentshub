@@ -6,11 +6,11 @@ export default {
 	props:{
 		width:{
 			type:Number,
-			default: 200
+			default: 300
 		},
 		height:{
 			type:Number,
-			default: 200
+			default: 300
 		},
 		graphData:{
 			type:Array,

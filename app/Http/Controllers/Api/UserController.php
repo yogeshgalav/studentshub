@@ -16,8 +16,8 @@ class UserController extends Controller
         $user=Auth::user();
         $post = new \App\Post;
 
-        $categories=DB::table('categories as cat')->leftJoin('subjects as sub','sub.category_id','=','cat.id')
-        ->leftJoin('posts as po','po.subject_id','=','sub.id')
+        $categories=DB::table('categories as cat')
+        ->leftJoin('posts as po','po.category_id','=','cat.id')
         ->leftJoin('post_views as pv',function($join){
             $join->on('pv.post_id','=','po.id')->where('pv.user_id','=',Auth::id());
         })

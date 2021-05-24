@@ -31,7 +31,7 @@
               tab="accordion_status_unit_active"
             >
               <div class="">
-                <div class="col-md-3 col-12">
+                <div class="col-md-6 col-12">
                   <div class="form-group pl-0">
                     <label
                       class="text-black mb-1"
@@ -50,10 +50,11 @@
                   </div>
                 </div>
               </div>
-              <div class="row justify-content-center">
+              <div class="row justify-content-center col-md-12">
                 <single-value
                   :value="unit.assignmentCount"
                   label="Daily Assignments"
+                  :link="'/classroom/'+$route.params.classroomId+'/daily-assignment'"
                 />
                 <single-value
                   :value="unit.averageScore"
@@ -62,9 +63,11 @@
                 <single-value
                   :value="unit.resources"
                   label="Resources"
+                  :link="'/classroom/'+$route.params.classroomId+'/resources'"
                 />
               </div>
 
+<<<<<<< HEAD:resources/js/views/classroom/teacher/units.vue
               <div class="col-md-12">
                 <doughnut-graph
                   v-if="pieData.length"
@@ -73,9 +76,23 @@
               </div>
               <div class="col-md-12">
                 <bar-line-graph :graph-data="barLineData" />
+=======
+              <div class="col-md-12 mt-3">
+                <doughnut-graph
+                  v-if="unit.pieGraphData.length"
+                  :graph-data="unit.pieGraphData"
+                />
+>>>>>>> 85c508e530816484186371bcfda16e7f75827b5d:resources/js/views/classroom/teacher/unit-plan.vue
               </div>
-              <div class="col-md-12">
-                <multi-bar-graph :graph-data="unit.pieGraphData" />
+              <div class="col-md-12 mt-3">
+                <bar-line-graph 
+                  v-if="unit.barLineData.length"
+                  line-label="Average score"
+                  bar-label="Total attempts"
+                  :line-data="unit.barLineData.map(node=>node.average_score)"
+                  :bar-data="unit.barLineData.map(node=>node.total_attendes)"
+                  :x-axis-labels="unit.barLineData.map(node=>node.attempt_date)"
+                />
               </div>
             </accordion>
           </div>
@@ -133,6 +150,7 @@ export default {
 					node.resources=summary.resources;
 					return node;
 				});
+<<<<<<< HEAD:resources/js/views/classroom/teacher/units.vue
 
 				// DoughnutGraph data
 				const pie_graph_data = resp.data.success.pie_data;
@@ -173,6 +191,18 @@ export default {
 						return node;
 					});
 					console.log(this.barLineData);
+=======
+				const daily_assignment_status = resp.data.success.daily_assignment_status;
+				const bar_data = resp.data.success.bar_data;
+				this.unitData.map((node)=>{
+					node.pieGraphData = daily_assignment_status.filter(node2=>node2.unit_id===node.id).map(node2=>{
+						node2.label = node2.status;
+						node2.count = node2.assignmentCount;
+						return node2;
+					});
+					node.barLineData = bar_data.filter(node2=>node2.unit_id===node.id);
+					return node;
+>>>>>>> 85c508e530816484186371bcfda16e7f75827b5d:resources/js/views/classroom/teacher/unit-plan.vue
 				});
 				console.log(this.pieData);
 
