@@ -93,7 +93,7 @@
 <script>
 import FormMixin from '../../../components/mixins/form-mixin.js';
 import Accordion from '../../../components/accordion';
-// import AddButton from '../../../components/AddButton';
+import AddButton from '../../../components/AddButton';
 
 import DoughnutGraph from '../../../components/graphs/DoughnutGraph';
 import MultiBarGraph from '../../../components/graphs/MultiBarGraph';
