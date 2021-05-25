@@ -118,7 +118,7 @@
                       value-type="format"
                       :typeable="true"
                       :type="'date'"
-                      :format="'YYYY-MM-DD'"
+                      :format="'DD-MM-YYYY'"
                       :lang="'en'"
                       placeholder
                       :not-before="currentDate.setDate(currentDate.getDate() + 1)"
@@ -248,6 +248,69 @@
         </div>
       </div>
     </div>
+
+    <modal
+      ref="addAssignmentModal"
+      name="addAssignmentModal"
+      heading="Add Assignment"
+      @submit="addAssignment()"
+    >
+      <template slot="modalBody">
+        <form data-vv-scope="newAssignment">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label
+                  class="control-label mb-1"
+                  :for="'new_unit'"
+                >Select Unit</label>
+                <select
+                  id="new_unit"
+                  v-model="new_unit"
+                  name="new_unit"
+                  class="form-control"
+                >
+                  <option
+                    v-for="(unit,index2) in unitList"
+                    :key="index2"
+                    :value="unit.id"
+                  >
+                    {{ 'Unit '+unit.unit_no + ':' +unit.unit_name }}
+                  </option>
+                </select>
+                <div class="error">
+                  {{ formErrors('newAssignment.new_unit') }}
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="assignment_date">Assignment Date:</label>
+                <div class="inner-addon left-addon">
+                  <div class="cl_input">
+                    <date-picker
+                      id="assignment_date"
+                      v-model="new_assignment_date"
+                      v-validate="'required'"
+                      :name="'assignment_date'"
+                      value-type="format"
+                      :typeable="true"
+                      :type="'date'"
+                      :format="'DD-MM-YYYY'"
+                      :lang="'en'"
+                      placeholder
+                      :not-before="currentDate.setDate(currentDate.getDate() + 1)"
+                    />
+                    <span class="text-danger">{{ formErrors('newAssignment.assignment_date') }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </template>
+    </modal>
   </div>
 </template>
 <style scoped>
@@ -260,6 +323,7 @@
 }
 </style>
 <script>
+import Modal from '../../components/VueNiceModal';
 import FormMixin from '../../components/mixins/form-mixin.js';
 import ClassroomHeader from '../../components/ClassroomHeader';
 import swal from '../../components/swal.js';
@@ -274,12 +338,15 @@ export default {
 	components: {
 		ClassroomHeader,
 		DatePicker,
-		EditQuestions
+		EditQuestions,
+		Modal
 	},
 	mixins: [FormMixin],
 	data() {
 		return {
 			showLoader:true,
+			new_unit:'',
+			new_assignment_date:'',
 			current_assignment_id: [],
 			assignment: {
 				unit_id: '',
@@ -344,7 +411,10 @@ export default {
 				.get('/api/classroom/' + this.$route.params.classroomId + '/get-assignment-list')
 				.then((resp) => {
 					this.unitList = resp.data.success.unitList;
-					this.assignment_list = resp.data.success.assignment_list;
+					this.assignment_list = resp.data.success.assignment_list.map(node=>{
+						node.attempt_date = dayjs(node.attempt_date, 'YYYY-MM-DD').format('D MMM, YYYY');
+						return node;
+					});
 					if(this.assignment_list.length){
 						this.current_assignment_id = this.assignment_list[0].id;
 						this.getAssignmentDetails();
@@ -356,14 +426,23 @@ export default {
 				.get('/api/classroom/' + this.$route.params.classroomId + '/assignment/' + this.current_assignment_id + '/details')
 				.then((resp) => {
 					this.assignment=resp.data.success.assignment_detail;
+					this.assignment.attempt_date = dayjs(this.assignment.attempt_date, 'YYYY-MM-DD').format('DD-MM-YYYY');
 					this.showLoader=false;
 				});
 		},
 		addAssignment() {
-			this.assignment_list.unshift({
-				unit_id: '',
-				attempt_date: '',
-				daily_questions: [],
+			this.$validator.validateAll('newAssignment').then(valid => {
+				if(valid){
+					this.showLoader=true;
+					this.assignment= {
+						id: '',
+						unit_id: this.new_unit,
+						attempt_date: this.new_assignment_date,
+						daily_questions: [],
+					},
+					this.updateAssignment('add');
+					this.$refs.addAssignmentModal.closeModal();
+				}
 			});
 		},
 		timeFormat(type,newValue){
@@ -374,23 +453,28 @@ export default {
 				this.assignment.end_time = dayjs(newValue,'hh:mm a').format('HH:mm:ss'); 
 			}
 		},
-		updateAssignment() {
+		updateAssignment(type='edit') {
 			this.form_errors = [];
-			if (!this.assignment.unit_id || !this.assignment.attempt_date) {
-				return false;
-			}
 			this.showLoader=true;
 			this.axios
 				.post('/api/update-daily-assignment', {
 					assignment_id: this.assignment.id,
 					unit_id: this.assignment.unit_id,
-					attempt_date: this.assignment.attempt_date,
+					attempt_date: dayjs(this.assignment.attempt_date, 'DD-MM-YYYY').format('YYYY-MM-DD'),
 					start_time: this.assignment.start_time,
 					end_time: this.assignment.end_time,
 				})
 				.then((resp) => {
-					this.assignment = resp.data.success.assignment;           
-					this.assignment['daily_questions']=[];
+					let assignmen_id = resp.data.success.assignment.id;
+					if('add'===type){
+						this.assignment_list.unshift({
+							id:assignmen_id,
+							unit_id: this.new_unit,
+							attempt_date: this.new_assignment_date,
+							questions:[],
+						});
+					}
+					this.current_assignment_id = assignmen_id;
 					this.showLoader=false;
 					this.assignment_error='';
 				}).catch(err => {

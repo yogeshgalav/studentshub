@@ -76,7 +76,7 @@ class DailyAssignmentController extends Controller
         $dailyAssignment->save();
 
         DB::commit();
-    } catch (\Exception $e) {
+    } catch (\Exception $e) {dd($e->getMessage());
         DB::rollback();
         Log::critical('daily assignment update failure',['data'=>$request->all(),'error'=>$e->getMessage()]);
         return response()->$e;
