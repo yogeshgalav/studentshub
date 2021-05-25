@@ -92,10 +92,36 @@ class ReportController extends Controller
         ->groupBy('sr.unit_id','score_type','score')
         ->get();
 
+        $summary_data1 = DB::table('daily_assignments as da')
+        ->leftjoin('daily_reports as dr','dr.daily_assignment_id','=','da.id')
+        ->where([
+            ['da.classroom_id',$classroom_id],
+            ['dr.user_id' ,$user_id],
+            ])
+        ->select('da.unit_id',
+                DB::raw('AVG(dr.marks_obtained) as average_score'),
+                DB::raw('AVG(dr.rank) as average_rank'),
+                DB::raw('SEC_TO_TIME(AVG(TIME_TO_SEC(dr.duration))) as average_duration'))
+        ->groupBy('da.unit_id')
+        ->get();
+
+        $summary_data2 = DB::table('daily_assignments as da')
+        ->leftjoin('student_reports as sr','sr.unit_id','=','da.unit_id')
+        ->where([
+            ['da.classroom_id',$classroom_id],
+            ['sr.user_id' ,$user_id],
+            ])
+        ->select('da.unit_id','sr.score_type',
+                DB::raw('AVG(sr.score) as average_score'))
+        ->groupBy('da.unit_id','sr.score_type')
+        ->get();
+
         return response()->json(['success'=>[
             'reports_summary'=>$multi_bar,
             'assignments_attempts' => $assignments_attempts,
-            'average_scores' => $average_scores
+            'average_scores' => $average_scores,
+            'summary_data_1'=>$summary_data1,
+            'summary_data_2'=>$summary_data2
         ]]);
     }
 }
