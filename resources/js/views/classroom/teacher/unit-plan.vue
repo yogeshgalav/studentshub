@@ -67,25 +67,14 @@
                 />
               </div>
 
-<<<<<<< HEAD:resources/js/views/classroom/teacher/units.vue
-              <div class="col-md-12">
-                <doughnut-graph
-                  v-if="pieData.length"
-                  :graph-data="pieData"
-                />
-              </div>
-              <div class="col-md-12">
-                <bar-line-graph :graph-data="barLineData" />
-=======
               <div class="col-md-12 mt-3">
                 <doughnut-graph
                   v-if="unit.pieGraphData.length"
                   :graph-data="unit.pieGraphData"
                 />
->>>>>>> 85c508e530816484186371bcfda16e7f75827b5d:resources/js/views/classroom/teacher/unit-plan.vue
               </div>
               <div class="col-md-12 mt-3">
-                <bar-line-graph 
+                <bar-line-graph
                   v-if="unit.barLineData.length"
                   line-label="Average score"
                   bar-label="Total attempts"
@@ -150,48 +139,6 @@ export default {
 					node.resources=summary.resources;
 					return node;
 				});
-<<<<<<< HEAD:resources/js/views/classroom/teacher/units.vue
-
-				// DoughnutGraph data
-				const pie_graph_data = resp.data.success.pie_data;
-				const bar_line_data = resp.data.success.bar_data;
-				this.unitData.map(node=>{
-					let pieGraphData = [];
-
-					pie_graph_data.filter(node2=>node.id===node2.unit_id).map(node=>{
-						for(let property in node){
-							if(property==='total_activated'){
-								pieGraphData.push({
-									label:'Activated',
-									count:parseInt(node[property])
-								});
-							}
-							if(property==='total_draft'){
-								pieGraphData.push({
-									label:'Total drafts',
-									count:parseInt(node[property])
-								});
-							}
-							if(property==='total_completed'){
-								pieGraphData.push({
-									label:'Completed assignments',
-									count:parseInt(node[property])
-								});
-							}
-						}
-					});
-					this.pieData = pieGraphData;
-
-					this.barLineData = bar_line_data.filter(node2=>node.id===node2.unit_id).map(node=>{
-						node.label = node.attempt_date;
-						node.lineLabel = 'Average score';
-						node.barLabel = 'Total students attendee';
-						node.lineData = node.total_attendes;
-						node.barData = node.average_score;
-						return node;
-					});
-					console.log(this.barLineData);
-=======
 				const daily_assignment_status = resp.data.success.daily_assignment_status;
 				const bar_data = resp.data.success.bar_data;
 				this.unitData.map((node)=>{
@@ -202,7 +149,6 @@ export default {
 					});
 					node.barLineData = bar_data.filter(node2=>node2.unit_id===node.id);
 					return node;
->>>>>>> 85c508e530816484186371bcfda16e7f75827b5d:resources/js/views/classroom/teacher/unit-plan.vue
 				});
 				console.log(this.pieData);
 
