@@ -50,6 +50,7 @@
                   </div>
                 </div>
               </div>
+              <div v-if="unit.id">
               <div class="row justify-content-center col-md-12">
                 <single-value
                   :value="unit.assignmentCount"
@@ -82,6 +83,7 @@
                   :bar-data="unit.barLineData.map(node=>node.total_attendes)"
                   :x-axis-labels="unit.barLineData.map(node=>node.attempt_date)"
                 />
+              </div>
               </div>
             </accordion>
           </div>

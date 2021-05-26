@@ -47,8 +47,8 @@ class ClassroomUnitController extends Controller
                 'unitData'=>$unitData,
                 'summary'=>$summary,
                 'daily_assignment_status'=>$daily_assignment_status,
-                'pie_data'=>$pie_data,
-                'bar_data'=>$bar_data,
+                //'pie_data'=>$pie_data,
+                'bar_data'=>$bar_data
             ]
         ]);
     }
