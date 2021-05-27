@@ -55,7 +55,7 @@
             class="row"
           >
             <div class="col-md-9 mb-1 mt-1 ">
-              <div :class="['row line-height-30', choice.option_order === question.correct_answer ? 'bg-card-green text-white' : 'bg-card-gray', 'p-2']">
+              <div :class="['row line-height-30', choice.is_correct ? 'bg-card-green text-white' : 'bg-card-gray', 'p-2']">
                 <div class="bg-circle">
                   {{ letters[index2] }}
                 </div>
@@ -181,12 +181,11 @@
                           <input
                             :id="'correctAnswer'+index"
                             v-validate="'required'"
-                            :checked="current_question_edit.correct_answer===index"
+                            :checked="choice.is_correct"
                             class="form-check-input mt-2"
                             type="radio"
                             name="correct_answer"
-                            :value="true"
-                            @change="current_question_edit.correct_answer=index"
+                            @change="setCurrectAnswer(choice)"
                           >
                           <label class="form-check-label">Mark as correct answer</label>
                           <button
@@ -273,8 +272,8 @@
 }
 </style>
 <script>
-import FormMixin from '../../components/mixins/form-mixin.js';
-import Modal from '../../components/VueNiceModal.vue';
+import FormMixin from '../../../components/mixins/form-mixin.js';
+import Modal from '../../../components/VueNiceModal.vue';
 
 export default {
 	components: {
@@ -298,14 +297,15 @@ export default {
 				marks: null,
 				question_type: 'multiple_choice',
 				question_order: 0,
-				correct_answer: 0,
 				multiple_choice: [{
 					id: 0,
 					option_text: null,
+					is_correct: true,
 				},
 				{
 					id: 0,
 					option_text: null,
+					is_correct: false,
 				},
 				],
 			},
@@ -416,18 +416,25 @@ export default {
 				marks: null,
 				question_type: 'multiple_choice',
 				question_order: 0,
-				correct_answer: 0,
 				multiple_choice: [{
 					id:0,
 					option_text: null,
+					is_correct: true,
 				},
 				{
 					id:0,
 					option_text: null,
+					is_correct: false,
 				},
 				],
 			};
 			this.filter_recovery_text = '';
+		},
+		setCurrectAnswer(choice){
+			this.current_question_edit.multiple_choice.map(node=>{
+				node.is_correct = (node.option_order === choice.option_order) ? true :false;
+				return node;
+			});
 		},
 		addOption() {
 			let data = this.current_question_edit.multiple_choice;

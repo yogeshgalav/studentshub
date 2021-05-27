@@ -123,7 +123,7 @@ class DailyAssignmentController extends Controller
         ->where('da.classroom_id',$request->classroomId)
         ->rightjoin('daily_questions as dq','da.id','=','dq.daily_assignment_id')
         ->rightjoin('multiple_choices as mq','dq.id', '=','mq.daily_question_id')
-        ->leftjoin('daily_answers as dans','mq.id','=','dans.selected_answer')
+        ->leftjoin('daily_answers as dans','mq.id','=','dans.selected_option_id')
         ->select('mq.option_order as label','dq.daily_assignment_id as daily_assignment_id',
         'dq.id as question_id',DB::raw('COUNT(distinct dans.id) as count'))
         ->groupBy('dq.daily_assignment_id','dq.id','mq.option_order')

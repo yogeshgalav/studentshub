@@ -91,7 +91,7 @@
                             class="row"
                           >
                             <div class="col-md-9 mb-1 mt-1 ">
-                              <div :class="['row line-height-30', choice.option_order === question.correct_answer ? 'bg-card-green text-white' : 'bg-card-gray', 'p-2']">
+                              <div :class="['row line-height-30', choice.is_correct ? 'bg-card-green text-white' : 'bg-card-gray', 'p-2']">
                                 <div class="bg-circle">
                                   {{ letters[index] }}
                                 </div>

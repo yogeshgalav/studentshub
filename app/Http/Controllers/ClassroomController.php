@@ -36,7 +36,7 @@ class ClassroomController extends Controller
         // check if assignment is not already attempted
         $daily_report=null;
         if($daily_assignment){
-            $daily_assignment->dailyQuestions->makeHidden('correct_answer');
+            // $daily_assignment->dailyQuestions->makeHidden('correct_answer');
             $daily_report = \App\Models\DailyReport::where('user_id',Auth::id())
             ->where('daily_assignment_id',$daily_assignment->id)->first();
         }

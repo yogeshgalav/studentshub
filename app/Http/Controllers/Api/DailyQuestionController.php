@@ -32,14 +32,14 @@ class DailyQuestionController extends Controller
         $dailyQuestion->marks = $question['marks']; 
         $dailyQuestion->question_order = $question['question_order']; 
         $dailyQuestion->question_text = $question['question_text']; 
-        $dailyQuestion->correct_answer = $question['correct_answer']; 
-
         $dailyQuestion->save();
         $daily_question=$dailyQuestion->toArray();
+
         foreach($request->removed_options as $key=>$optionId){
             $multiple_choice = MultipleChoice::find($optionId);
             $multiple_choice->delete();
         }
+
         foreach($question['multiple_choice'] as $key=>$choice){
             if(!empty($choice['id'])){
                 $multiple_choice = MultipleChoice::find($choice['id']);    
@@ -49,12 +49,17 @@ class DailyQuestionController extends Controller
             }
             $multiple_choice->option_order = $key;
             $multiple_choice->option_text = $choice['option_text'];
+            if($choice['is_correct']===true){
+                $multiple_choice->is_correct = 1;
+            }else{
+                $multiple_choice->is_correct = 0;
+            }
             $multiple_choice->save();
             $daily_question['multiple_choice'][]=$multiple_choice->toArray();
         }
 
         DB::commit();
-    } catch (\Exception $e) {
+    } catch (\Exception $e) {dd($e->getMessage());
         DB::rollback();
         \Log::critical('daily question update failure',['data'=>$request->all(),'error'=>$e->getMessage()]);
         return response()->$e;
