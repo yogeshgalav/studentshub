@@ -1,5 +1,11 @@
 <template>
   <div>
+    <div class="text-grey col-md-12 pl-0">
+      <p class="mt-2">
+        Students will be asked to answer the following questions on this unit
+        attempt
+      </p>
+    </div>
     <div
       v-for="(question,index) in daily_questions"
       :key="index"

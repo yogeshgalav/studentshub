@@ -91,6 +91,8 @@ class DailyAssignmentController extends Controller
         $unitList=Unit::where('classroom_id',$request->classroomId)->get();
         $assignment_list=DailyAssignment::where('classroom_id',$request->classroomId)
         ->orderBy('attempt_date','DESC')
+        ->select('id','unit_id','attempt_date', 'start_time', 'end_time','activated_at')
+        ->withCount('dailyReports')
         ->get();
 
         return response()->json([

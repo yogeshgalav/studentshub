@@ -49,16 +49,15 @@
       </div>
       <div class="col-md-6">
         <select
-          v-model="current_assignment_id"
           class="form-control minimal"
-          @change="getAssignmentDetails"
+          @change="setCurrentAssignment"
         >
           <option
             v-for="(daily,index) in assignment_list"
             :key="index"
             :value="daily.id"
           >
-            {{ daily.attempt_date }}
+            {{ daily.show_date }}
           </option>
         </select>
       </div>
@@ -67,7 +66,7 @@
       <div class="col-md-12">
         <div class="card mt-5">
           <div class="card-header">
-            {{ assignment.attempt_date }}
+            {{ current_assignment.show_date }}
           </div>
           <div class="card-body">
             <div class="col-md-3 col-12">
@@ -77,8 +76,9 @@
                   :for="'start_date'"
                 >Select Unit</label>
                 <select
-                  v-model="assignment.unit_id"
+                  v-model="current_assignment.unit_id"
                   class="form-control"
+                  :disabled="current_assignment.daily_reports_count>0"
                   @change="updateAssignment"
                 >
                   <option
@@ -112,9 +112,10 @@
                     </div>
                     <date-picker
                       :id="'attempt_date'"
-                      v-model="assignment.attempt_date"
+                      v-model="current_assignment.attempt_date"
                       v-validate="'required'"
                       :name="'attempt_date'"
+                      :disabled="current_assignment.daily_reports_count>0"
                       value-type="format"
                       :typeable="true"
                       :type="'date'"
@@ -130,7 +131,7 @@
                 </div>
               </div>
             </div>
-            <div v-if="assignment.id">
+            <div v-if="current_assignment.id">
               <div class="">
                 <div class="col-md-6 col-12">
                   <div class="row">
@@ -153,6 +154,7 @@
                           v-validate="'required'"
                           :value="assignmentStartTime"
                           :name="'start_time'"
+                          :disabled="current_assignment.daily_reports_count>0"
                           value-type="format"
                           :typeable="true"
                           :type="'time'"
@@ -161,7 +163,6 @@
                           placeholder
                           :time-picker-options="{ start: currentUserStartTime, step: '00:15', end: '23:45' }"
                           @input="timeFormat('start',$event)"
-                          @change="updateAssignment"
                         />
                       </div>
                       <span class="text-danger">{{ formErrors('start_time') }}</span>
@@ -192,10 +193,9 @@
                           :format="'hh:mm a'"
                           :lang="'en'"
                           placeholder
-                          :disabled="assignmentStartTime==='Invalid Date'"
+                          :disabled="assignmentStartTime==='Invalid Date' || current_assignment.daily_reports_count>0"
                           :time-picker-options="{ start: currentUserEndTime, step: '00:15', end: '23:45' }"
                           @input="timeFormat('end',$event)"
-                          @change="updateAssignment"
                         />
                       </div>
                       <span class="text-danger">{{ formErrors('end_time') }}</span>
@@ -203,21 +203,17 @@
                   </div>
                 </div>
               </div>
-              <div class="">
-                <div class="col-md-12">
-                  <div class="text-grey col-md-12 pl-0">
-                    <p class="mt-2">
-                      Students will be asked to answer the following questions on this unit
-                      attempt
-                    </p>
-                  </div>
-
+              <div class="col-md-12">
+                <div v-if="!current_assignment.daily_reports_count">
                   <edit-questions
-                    :key="assignment.id"
-                    :daily-questions="assignment.daily_questions"
-                    :assignment-id="assignment.id"
+                    :assignment-id="current_assignment.id"
                     @totalUpdate="totalUpdate"
                   />
+                </div>
+                <div v-else>
+                  <!-- <question-report
+                    :assignment-id="current_assignment.id"
+                  /> -->
                 </div>
               </div>
             </div>
@@ -240,7 +236,7 @@
                   class="btn btn-primary btn-md mt-1"
                   @click="activateDailyAssignment()"
                 >
-                  {{ assignment.activated_at ? 'Deactivate' : 'Activate' }}
+                  {{ current_assignment.activated_at ? 'Deactivate' : 'Activate' }}
                 </button>
               </div>
             </div>
@@ -258,6 +254,30 @@
       <template slot="modalBody">
         <form data-vv-scope="newAssignment">
           <div class="row">
+
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="assignment_date">Assignment Date:</label>
+                <div class="inner-addon left-addon">
+                  <div class="cl_input">
+                    <date-picker
+                      id="assignment_date"
+                      v-model="new_assignment_date"
+                      v-validate="'required'"
+                      :name="'assignment_date'"
+                      value-type="format"
+                      :typeable="true"
+                      :type="'date'"
+                      :format="'DD-MM-YYYY'"
+                      :lang="'en'"
+                      placeholder
+                      :not-before="currentDate.setDate(currentDate.getDate() + 1)"
+                    />
+                    <span class="text-danger">{{ formErrors('newAssignment.assignment_date') }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div class="col-md-12">
               <div class="form-group">
                 <label
@@ -283,30 +303,6 @@
                 </div>
               </div>
             </div>
-
-            <div class="col-md-12">
-              <div class="form-group">
-                <label for="assignment_date">Assignment Date:</label>
-                <div class="inner-addon left-addon">
-                  <div class="cl_input">
-                    <date-picker
-                      id="assignment_date"
-                      v-model="new_assignment_date"
-                      v-validate="'required'"
-                      :name="'assignment_date'"
-                      value-type="format"
-                      :typeable="true"
-                      :type="'date'"
-                      :format="'DD-MM-YYYY'"
-                      :lang="'en'"
-                      placeholder
-                      :not-before="currentDate.setDate(currentDate.getDate() + 1)"
-                    />
-                    <span class="text-danger">{{ formErrors('newAssignment.assignment_date') }}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </form>
       </template>
@@ -328,6 +324,7 @@ import FormMixin from '../../../components/mixins/form-mixin.js';
 import ClassroomHeader from '../../../components/ClassroomHeader';
 import swal from '../../../components/swal.js';
 import EditQuestions from './edit-questions';
+import QuestionReport from './question-report';
 import DatePicker from 'vue2-datepicker';
 import 'vue2-datepicker/index.css';
 import dayjs from 'dayjs';
@@ -339,19 +336,21 @@ export default {
 		ClassroomHeader,
 		DatePicker,
 		EditQuestions,
-		Modal
+		Modal,
+		QuestionReport,
 	},
 	mixins: [FormMixin],
 	data() {
 		return {
-			showLoader:true,
+			showLoader:false,
 			new_unit:'',
 			new_assignment_date:'',
-			current_assignment_id: '',
-			assignment: {
+			current_assignment: {
+				id:'',
 				unit_id: '',
 				attempt_date: '',
-				daily_questions: [],
+				start_time: '',
+				end_time: '',
 			},
 			assignment_list: [],
 			unitList: [],
@@ -369,28 +368,28 @@ export default {
 			return this.$store.state.classroom.classroomDetail;
 		},
 		assignmentStartTime(){
-			if(!this.assignment){
+			if(!this.current_assignment){
 				return '';
 			}
-			return dayjs(this.assignment.start_time,'HH:mm:ss').format('hh:mm a');
+			return dayjs(this.current_assignment.start_time,'HH:mm:ss').format('hh:mm a');
 		},
 		assignmentEndTime(){
-			if(!this.assignment){
+			if(!this.current_assignment){
 				return '';
 			}
-			return dayjs(this.assignment.end_time,'HH:mm:ss').format('hh:mm a');
+			return dayjs(this.current_assignment.end_time,'HH:mm:ss').format('hh:mm a');
 		},
 		currentUserStartTime(){
-			if(!this.assignment){
+			if(!this.current_assignment){
 				return '';
 			}
-			if(this.assignment.attempt_date!==dayjs().format('YYYY-MM-DD')){
+			if(this.current_assignment.attempt_date!==dayjs().format('YYYY-MM-DD')){
 				return '00:00';
 			}
 			return  dayjs().add(15 - dayjs().minute() % 15, 'minutes').format('HH:mm');
 		},
 		currentUserEndTime(){
-			if(!this.assignment){
+			if(!this.current_assignment){
 				return '';
 			}
 			if(this.assignmentStartTime){
@@ -403,43 +402,45 @@ export default {
 		this.getAssignmentList();
 	},
 	methods: {
-		changeLoader(status){
-			this.showLoader=status;
-		},
 		getAssignmentList() {
+			this.showLoader=true;
 			this.axios
 				.get('/api/classroom/' + this.$route.params.classroomId + '/get-assignment-list')
 				.then((resp) => {
 					this.unitList = resp.data.success.unitList;
 					this.assignment_list = resp.data.success.assignment_list.map(node=>{
-						node.attempt_date = dayjs(node.attempt_date, 'YYYY-MM-DD').format('D MMM, YYYY');
+						node.show_date = dayjs(node.attempt_date, 'YYYY-MM-DD').format('D MMM, YYYY');
 						return node;
 					});
-					if(this.assignment_list.length){
-						this.current_assignment_id = this.assignment_list[0].id;
-						this.getAssignmentDetails();
-					}
-				});
-		},
-		getAssignmentDetails(){
-			this.axios
-				.get('/api/classroom/' + this.$route.params.classroomId + '/assignment/' + this.current_assignment_id + '/details')
-				.then((resp) => {
-					this.assignment=resp.data.success.assignment_detail;
-					this.assignment.attempt_date = dayjs(this.assignment.attempt_date, 'YYYY-MM-DD').format('DD-MM-YYYY');
+					this.setCurrentAssignment();
 					this.showLoader=false;
 				});
+		},
+		setCurrentAssignment(event = null){
+			let assignment = null;
+
+			if(null!==event && event.target.value){
+				assignment = this.assignment_list.find(node=>node.id===parseInt(event.target.value));
+			}else if(null===event && this.assignment_list.length){
+				assignment = this.assignment_list[0];
+			}else{
+				return false;
+			}
+
+			this.current_assignment={
+				id: assignment.id,
+				unit_id: assignment.unit_id,
+				attempt_date: dayjs(assignment.attempt_date, 'YYYY-MM-DD').format('DD-MM-YYYY'),
+				show_date: assignment.show_date,
+				start_time: assignment.start_time,
+				end_time: assignment.end_time,
+				daily_reports_count: assignment.daily_reports_count,
+				activated_at: assignment.activated_at,
+			};
 		},
 		addAssignment() {
 			this.$validator.validateAll('newAssignment').then(valid => {
 				if(valid){
-					this.showLoader=true;
-					this.assignment= {
-						id: '',
-						unit_id: this.new_unit,
-						attempt_date: this.new_assignment_date,
-						daily_questions: [],
-					},
 					this.updateAssignment('add');
 					this.$refs.addAssignmentModal.closeModal();
 				}
@@ -447,34 +448,31 @@ export default {
 		},
 		timeFormat(type,newValue){
 			if(type==='start'){
-				this.assignment.start_time = dayjs(newValue,'hh:mm a').format('HH:mm:ss');
+				this.current_assignment.start_time = dayjs(newValue,'hh:mm a').format('HH:mm:ss');
 			}
 			if(type==='end'){
-				this.assignment.end_time = dayjs(newValue,'hh:mm a').format('HH:mm:ss'); 
+				this.current_assignment.end_time = dayjs(newValue,'hh:mm a').format('HH:mm:ss'); 
 			}
+			this.updateAssignment();
 		},
 		updateAssignment(type='edit') {
 			this.form_errors = [];
 			this.showLoader=true;
 			this.axios
 				.post('/api/update-daily-assignment', {
-					assignment_id: this.assignment.id,
-					unit_id: this.assignment.unit_id,
-					attempt_date: dayjs(this.assignment.attempt_date, 'DD-MM-YYYY').format('YYYY-MM-DD'),
-					start_time: this.assignment.start_time,
-					end_time: this.assignment.end_time,
+					assignment_id: this.current_assignment.id,
+					unit_id: this.current_assignment.unit_id,
+					attempt_date: dayjs(this.current_assignment.attempt_date, 'DD-MM-YYYY').format('YYYY-MM-DD'),
+					start_time: this.current_assignment.start_time,
+					end_time: this.current_assignment.end_time,
 				})
 				.then((resp) => {
-					let assignmen_id = resp.data.success.assignment.id;
 					if('add'===type){
-						this.assignment_list.unshift({
-							id:assignmen_id,
-							unit_id: this.new_unit,
-							attempt_date: this.new_assignment_date,
-							questions:[],
-						});
+						new_assignment =resp.data.success.assignment;
+						new_assignment['daily_report_count'] = 0;
+						this.assignment_list.unshift(new_assignment);
+						this.current_assignment = new_assignment;
 					}
-					this.current_assignment_id = assignmen_id;
 					this.showLoader=false;
 					this.assignment_error='';
 				}).catch(err => {
@@ -490,7 +488,7 @@ export default {
 			swal
 				.confirmDialog(
 					'Are you sure you want to Delete Assignment for date ' +
-            this.assignment.attempt_date +
+            this.current_assignment.show_date +
             '?'
 				)
 				.then((result) => {
@@ -500,10 +498,7 @@ export default {
 						}).then(()=>{
 							let assignmentIndex = this.assignment_list.findIndex(node=>node.id===this.assignment.id);
 							this.assignment_list.splice(assignmentIndex,1);
-							if(this.assignment_list.length){
-								this.current_assignment_id = this.assignment_list[0].id;
-								this.getAssignmentDetails();
-							}
+							this.setCurrentAssignment();
 						});
 					}
 				});
@@ -517,13 +512,13 @@ export default {
 					.infoDialog('Total marks for Daily Assignment should be 10.');
 				return false;
 			}
-			if(this.assignment.activated_at){
+			if(this.current_assignment.activated_at){
 				this.activateApi();
 			}else{
 				swal
 					.confirmDialog(
 						'Are you sure you want to Activate Assignment for date ' +
-                        this.assignment.attempt_date +
+                        this.current_assignment.show_date +
                         '?'
 					)
 					.then((result) => {
@@ -535,10 +530,10 @@ export default {
 		},
 		activateApi(){
 			this.axios.post('/api/activate-daily-assignment', {
-				daily_assignment_id: this.assignment.id,
-				status: this.assignment.activated_at ? 'deactivate' : 'activate'
+				daily_assignment_id: this.current_assignment.id,
+				status: this.current_assignment.activated_at ? 'deactivate' : 'activate'
 			}).then(() => {
-				this.assignment.activated_at = this.assignment.activated_at ? null : new Date();
+				this.current_assignment.activated_at = this.current_assignment.activated_at ? null : new Date();
 			});
 		}
 	}
