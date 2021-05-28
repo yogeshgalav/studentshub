@@ -347,7 +347,7 @@ export default {
 			showLoader:true,
 			new_unit:'',
 			new_assignment_date:'',
-			current_assignment_id: [],
+			current_assignment_id: '',
 			assignment: {
 				unit_id: '',
 				attempt_date: '',

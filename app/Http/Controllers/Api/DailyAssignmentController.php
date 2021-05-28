@@ -101,7 +101,7 @@ class DailyAssignmentController extends Controller
         ]);
     }
 
-    public function getAssignmentDetails($assignmentId, Request $request){
+    public function getAssignmentDetails($classroomId, $assignmentId, Request $request){
         $assignment_detail=DailyAssignment::where('id',$assignmentId)
         ->with('dailyQuestions.multipleChoice')
         ->first();

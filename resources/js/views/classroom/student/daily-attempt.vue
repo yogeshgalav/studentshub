@@ -225,16 +225,14 @@ export default {
 		startAttempt(){
       		//reload page if attemp localStorage present
 			if(localStorage.getItem('attemptSubmitted') && localStorage.getItem('attemptSubmitted')===this.dailyAssignment.id){
-				localStorage.removeItem('attemptSubmitted');
 				window.location.reload;
 			}
 			//alert before exit
-			window.addEventListener('beforeunload', function (e){
-				let attemptSubmitted = localStorage.getItem('attemptSubmitted');
-				if(attemptSubmitted && attemptSubmitted===this.dailyAssignment.id){
-					console.log('hre');
-					delete e['returnValue'];
-				}
+			window.addEventListener('beforeunload', (e)=>{
+				// let attemptSubmitted = localStorage.getItem('attemptSubmitted');
+				// if(attemptSubmitted && attemptSubmitted===this.dailyAssignment.id){
+				// 	delete e['returnValue'];
+				// }
 				var confirmationMessage = 'Your attempt will be declined if you leave this page.'
 		                        + 'Are you sure?';
 
