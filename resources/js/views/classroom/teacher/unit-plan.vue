@@ -50,6 +50,7 @@
                   </div>
                 </div>
               </div>
+              <div v-if="unit.id">
               <div class="row justify-content-center col-md-12">
                 <single-value
                   :value="unit.assignmentCount"
@@ -83,6 +84,7 @@
                   :x-axis-labels="unit.barLineData.map(node=>node.attempt_date)"
                 />
               </div>
+              </div>
             </accordion>
           </div>
         </div>
@@ -93,7 +95,7 @@
 <script>
 import FormMixin from '../../../components/mixins/form-mixin.js';
 import Accordion from '../../../components/accordion';
-// import AddButton from '../../../components/AddButton';
+import AddButton from '../../../components/AddButton';
 
 import DoughnutGraph from '../../../components/graphs/DoughnutGraph';
 import MultiBarGraph from '../../../components/graphs/MultiBarGraph';
