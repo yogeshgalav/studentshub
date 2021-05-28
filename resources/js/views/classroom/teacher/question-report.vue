@@ -4,7 +4,7 @@
       :active.sync="showLoader"
       :color="'#10069F'"
       :width="250"
-      :is-full-page="true"
+      :is-full-page="false"
     />
     
     <div class="">
@@ -16,25 +16,25 @@
         </div>
         <div class="row">
           <single-value
-            :value="daily.total_attende"
+            :value="assignment.total_attempt"
             label="Total Attempts"
           />
           <single-value
-            :value="daily.average_score"
+            :value="assignment.average_score"
             label="Average Score"
           />
           <single-value
-            :value="daily.average_duration"
+            :value="assignment.average_duration"
             label="Average Duration"
           />
         </div>
         <linear-graph
-          :low-count="daily.low_count"
-          :med-count="daily.medium_count"
-          :high-count="daily.high_count"
+          :low-count="assignment.low_count"
+          :med-count="assignment.medium_count"
+          :high-count="assignment.high_count"
         />
         <div
-          v-for="(question,index) in daily.daily_questions"
+          v-for="(question,index) in daily_questions"
           :key="index"
           class="row"
         >
@@ -136,10 +136,12 @@ export default {
 		LinearGraph,
 		DoughnutGraph
 	},
+	props:['assignmentId'],
 	data() {
 		return {
 			showLoader:true,
-			dailyAssignmentData: [],
+			assignment: [],
+			daily_questions: [],
 			marks: 10
 		};
 	},
@@ -154,46 +156,42 @@ export default {
 	methods: {
 		getDailyDetails() {
 			this.axios
-				.get('/api/classroom/' + this.$route.params.classroomId + '/daily-assignment-reports')
+				.get('/api/classroom/' + this.$route.params.classroomId + '/assignment/'+this.assignmentId+'/reports')
 				.then((resp) => {
-					this.unitList = resp.data.success.unitList;
-					this.dailyAssignmentData = resp.data.success.dailyAssignmentData;
-					let summaryData = resp.data.success.summary;
-					let scoresData = resp.data.success.scores;
-					let questionsData = resp.data.success.questionsdata;
-					const countTime = (str) => {
-						const [hh = '0', mm = '0', ss = '0'] = (str || '0:0:0').split(':');
-						const hour = parseInt(hh, 10) || 0;
-						const minute = parseInt(mm, 10) || 0;
-						const second = parseInt(ss, 10) || 0;
-						let totalSec = (hour*3600) + (minute*60) + (second);
-						const totalHrs = Math.floor(totalSec / 60 / 60);
-						const totalMin = Math.floor(totalSec / 60) - (totalHrs * 60);
-						return `${totalHrs>0?totalHrs+' hr':''} ${totalMin>0?totalMin+' min':''}`;
-					};
-					this.dailyAssignmentData.map((node)=>{
-						let summary = summaryData.find(node2=>node2.daily_assignment_id===node.id);
-						node.total_attende=summary.total_attende;
-						node.average_score=parseFloat(summary.average_score).toFixed(1);
-						node.average_duration=countTime(summary.average_duration);
+					let summary_data = resp.data.success.summary_data;
+					let score_data = resp.data.success.score_data;
+					this.assignment={
+						total_attempt:summary_data.total_attempt,
+					  average_score:parseFloat(summary_data.average_score).toFixed(1),
+					  average_duration:this.countTime(summary_data.average_duration),
 						// making new nodes for scores in linearGraph
-						let scores = scoresData.find(node2=>node2.daily_assignment_id===node.id);
-						node.high_count = scores.high_count;
-						node.low_count = scores.low_count;
-						node.medium_count = scores.medium_count;
+						high_count: score_data.high_count,
+						low_count: score_data.low_count,
+						medium_count: score_data.medium_count,
+					};
 
-						node.daily_questions.map(question => {
-							question.pie_data = questionsData.filter(node2 => node2.question_id === question.id).map(node2=>{
-								node2.label = 'Option '+this.letters[node2.label];
-								return node2;
-							});
-
+					this.daily_questions = resp.data.success.daily_questions;
+					let questions_data = resp.data.success.questions_data;
+					this.daily_questions.map(question => {
+						question.pie_data = questions_data.filter(node2 => node2.question_id === question.id).map(node2=>{
+							node2.label = 'Option '+this.letters[node2.label];
+							return node2;
 						});
-						return node;
 					});
+
 					this.showLoader=false;
 				});
 		},
+		countTime(str){
+			const [hh = '0', mm = '0', ss = '0'] = (str || '0:0:0').split(':');
+			const hour = parseInt(hh, 10) || 0;
+			const minute = parseInt(mm, 10) || 0;
+			const second = parseInt(ss, 10) || 0;
+			let totalSec = (hour*3600) + (minute*60) + (second);
+			const totalHrs = Math.floor(totalSec / 60 / 60);
+			const totalMin = Math.floor(totalSec / 60) - (totalHrs * 60);
+			return `${totalHrs>0?totalHrs+' hr':''} ${totalMin>0?totalMin+' min':''}`;
+		}
 	},
 };
 </script>

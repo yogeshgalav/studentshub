@@ -211,14 +211,17 @@
                   />
                 </div>
                 <div v-else>
-                  <!-- <question-report
+                  <question-report
                     :assignment-id="current_assignment.id"
-                  /> -->
+                  />
                 </div>
               </div>
             </div>
           </div>
-          <div class="card-footer">
+          <div 
+            v-if="!current_assignment.daily_reports_count"
+            class="card-footer"
+          >
             <div
               class="row mobile_button_view"
             >
@@ -254,7 +257,6 @@
       <template slot="modalBody">
         <form data-vv-scope="newAssignment">
           <div class="row">
-
             <div class="col-md-12">
               <div class="form-group">
                 <label for="assignment_date">Assignment Date:</label>
