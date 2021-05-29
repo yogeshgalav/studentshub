@@ -1,5 +1,4 @@
 import ClassroomComponent from '../../views/classroom/student/menu.vue';
-import ClassroomUnitAssignmentComponent from '../../views/classroom/student/classroom-unit-assignment.vue';
 import ClassroomResourceComponent from '../../views/classroom/resources.vue';
 import ClassroomMessageComponent from '../../views/classroom/messages.vue';
 import ClassroomDoubtComponent from '../../views/classroom/doubts.vue';
@@ -11,10 +10,6 @@ const StudentClassroomRoutes = [
 	{
 		path: '/classroom/:classroomId',
 		component: ClassroomComponent,
-	},
-	{
-		path: '/classroom/:classroomId/unit-assignment',
-		component: ClassroomUnitAssignmentComponent,
 	},
 	{
 		path: '/classroom/:classroomId/overview',

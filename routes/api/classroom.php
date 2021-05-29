@@ -41,9 +41,6 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::post('/classroom/join','ClassroomUserController@joinClassroom');
     Route::get('/classroom/{classroomId}/report','ReportController@getClassroomReport');
     Route::post('/classroom/user-request-action','ClassroomUserController@userRequestAction');
-    //unit assignment
-    // Route::get('/classroom/{classroomId}/unit-assignment-details','ClassroomUnitController@getUnitAssismentDetails');
-    // Route::get('/get-previous-unit-answers','ClassroomController@getPreviousUnitAnswers');
 
     //student panel
     Route::get('/classroom/{classroomId}/get-assignment-report/{userId?}','ReportController@getAssignmentReport');
