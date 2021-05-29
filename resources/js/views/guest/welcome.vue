@@ -246,11 +246,6 @@ export default {
 		ExploreCarousalPost,
 		SiteFooter
 	},
-	methods:{
-		getData(){
-			this.$store.dispatch('guest/getWelcomePageContent');
-		},
-	},
 	computed:{
 		...mapState({
 			'categories': state=>state.guest.categories,
@@ -259,56 +254,62 @@ export default {
 	},
 	mounted(){
 		this.getData();
-		// text transition
-		const transitionText = document.querySelectorAll('.fade-in-out');
-		const transitionTextObserver = new IntersectionObserver((entries,observer)=>{
-			const [entry] = entries;
-			if(!entry.isIntersecting) return;
-			else{
-				entry.target.classList.remove('showText');
-			}
-			observer.unobserve(entry.target);
-		},{
-			root:null,
-			threshold:0.10,
-		});
-		transitionText.forEach(el=>{
-			transitionTextObserver.observe(el);
-			el.classList.add('showText');
-		});
-
-		// image transitions one by one
-		const transitionImg = document.querySelector('.img-transition');
-
-		const transitionImgObserver = new IntersectionObserver((entries,observer)=>{
-			let [entry] = entries;
-			if(!entry.isIntersecting) return;
-
-			let i = 0;
-			let animationInterval = setInterval(() => {
-				if(entry.target.childNodes[i] && entry.target.childNodes[i].nodeName !== '#text'){
-					entry.target.childNodes[i].classList.remove('showText');
+		this.startAnimation();
+	},
+	methods:{
+		getData(){
+			this.$store.dispatch('guest/getWelcomePageContent');
+		},
+		startAnimation(){
+			// text transition
+			const transitionText = document.querySelectorAll('.fade-in-out');
+			const transitionTextObserver = new IntersectionObserver((entries,observer)=>{
+				const [entry] = entries;
+				if(!entry.isIntersecting) return;
+				else{
+					entry.target.classList.remove('showText');
 				}
-				if(i===10){
-					clearInterval(animationInterval);
-				}
-				i++;
-			}, 200);
+				observer.unobserve(entry.target);
+			},{
+				root:null,
+				threshold:0.10,
+			});
+			transitionText.forEach(el=>{
+				transitionTextObserver.observe(el);
+				el.classList.add('showText');
+			});
 
-			console.log(entry);
-			observer.unobserve(entry.target);
-		},{
-			root:null,
-			threshold:0.30,
-		});
-		transitionImgObserver.observe(transitionImg);
-		transitionImg.childNodes.forEach(node=>{
-			if(node.nodeName === '#text') return;
-			node.classList.add('showText');
-		});
+			// image transitions one by one
+			const transitionImg = document.querySelector('.img-transition');
 
+			const transitionImgObserver = new IntersectionObserver((entries,observer)=>{
+				let [entry] = entries;
+				if(!entry.isIntersecting) return;
 
-	}
+				let i = 0;
+				let animationInterval = setInterval(() => {
+					if(entry.target.childNodes[i] && entry.target.childNodes[i].nodeName !== '#text'){
+						entry.target.childNodes[i].classList.remove('showText');
+					}
+					if(i===10){
+						clearInterval(animationInterval);
+					}
+					i++;
+				}, 200);
+
+				observer.unobserve(entry.target);
+			},{
+				root:null,
+				threshold:0.30,
+			});
+			transitionImgObserver.observe(transitionImg);
+			transitionImg.childNodes.forEach(node=>{
+				if(node.nodeName === '#text') return;
+				node.classList.add('showText');
+			});
+
+		}
+	},
 };
 </script>
 
