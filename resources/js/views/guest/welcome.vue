@@ -285,8 +285,13 @@ export default {
 			if(!entry.isIntersecting) return;
 
 			let i = 0;
-			setInterval(() => {
-				if(entry.target.childNodes[i].nodeName !== '#text') entry.target.childNodes[i].classList.remove('showText');
+			let animationInterval = setInterval(() => {
+				if(entry.target.childNodes[i] && entry.target.childNodes[i].nodeName !== '#text'){
+					entry.target.childNodes[i].classList.remove('showText');
+				}
+				if(i===10){
+					clearInterval(animationInterval);
+				}
 				i++;
 			}, 200);
 
