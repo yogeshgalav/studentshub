@@ -27,8 +27,8 @@ class ClassroomUnitController extends Controller
         $summary = DB::table('classrooms as cl')
         ->where('cl.id',$request->classroomId)
         ->leftJoin('units', 'cl.id', '=', 'units.classroom_id')
-        ->leftJoin('daily_assignments', 'cl.id', '=', 'daily_assignments.classroom_id')
-        ->leftJoin('classroom_resources', 'cl.id', '=', 'classroom_resources.classroom_id')
+        ->leftJoin('daily_assignments', 'units.id', '=', 'daily_assignments.unit_id')
+        ->leftJoin('classroom_resources', 'units.id', '=', 'classroom_resources.unit_id')
         ->leftJoin('daily_reports', 'daily_assignments.id', '=', 'daily_reports.daily_assignment_id')
         ->select('units.id',DB::raw('COUNT(distinct daily_assignments.id) as assignmentCount'),DB::raw('AVG(daily_reports.marks_obtained) as averageScore'),DB::raw('COUNT(distinct classroom_resources.id) as resources'))
         ->groupBy('units.id')
@@ -47,7 +47,7 @@ class ClassroomUnitController extends Controller
                 'unitData'=>$unitData,
                 'summary'=>$summary,
                 'daily_assignment_status'=>$daily_assignment_status,
-                'pie_data'=>$pie_data,
+                //'pie_data'=>$pie_data,
                 'bar_data'=>$bar_data
             ]
         ]);
