@@ -5,11 +5,12 @@
       :color="'#10069F'"
       :width="250"
       :is-full-page="false"
+      loader="dots"
     />
     
     <div class="">
       <div class="col-md-12">
-        <div class="text-grey col-md-12">
+        <div class="text-grey col-md-12 pl-0">
           <p>
             Students have attempted this unit.
           </p>

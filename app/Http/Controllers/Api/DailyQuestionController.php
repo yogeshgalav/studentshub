@@ -14,10 +14,21 @@ use Illuminate\Support\Facades\Log;
 
 class DailyQuestionController extends Controller
 {
-    //
-    //api end point for getting daily assisment data for students and teachers
-    
-    public function updateDailyQuestion(Request $request)
+    //get questions to edit for teachers
+    public function getAssignmentQuestions($classroomId, $assignmentId, Request $request){
+        $daily_questions=DailyQuestion::where('daily_assignment_id',$assignmentId)
+        ->with('multipleChoice')
+        ->get();
+
+        return response()->json([
+            'success'=>[
+                'daily_questions'=>$daily_questions
+            ]
+        ]);
+    }
+
+    //update question by teacher
+    public function update(Request $request)
     {    
         $question=$request->question;
     DB::beginTransaction();
@@ -71,7 +82,7 @@ class DailyQuestionController extends Controller
     }
 
     
-    public function deleteDailyQuestion(Request $request){
+    public function delete(Request $request){
         DailyQuestion::where('id',$request->question_id)->delete();
         return 'success';
     }

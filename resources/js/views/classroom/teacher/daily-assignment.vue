@@ -203,6 +203,7 @@
                   </div>
                 </div>
               </div>
+              <hr>
               <div class="col-md-12">
                 <div v-if="!current_assignment.daily_reports_count">
                   <edit-questions

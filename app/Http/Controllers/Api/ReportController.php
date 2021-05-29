@@ -171,7 +171,7 @@ class ReportController extends Controller
                 DB::raw('SEC_TO_TIME(AVG(TIME_TO_SEC(dr.duration))) as average_duration')
         )
         ->groupBy('da.id')
-        ->get();
+        ->first();
 
         $score_data = DB::table('daily_assignments as da')
         ->where('da.id',$assignmentId)
@@ -180,7 +180,7 @@ class ReportController extends Controller
                 DB::raw("SUM(CASE WHEN (dr.marks_obtained > 3 and dr.marks_obtained < 8) THEN 1 ELSE 0 END) as medium_count"),
                 DB::raw("SUM(CASE WHEN (dr.marks_obtained > 7) THEN 1 ELSE 0 END) as high_count"))
         ->groupBy('da.id')
-        ->get();
+        ->first();
         return response()->json([
             'success'=>[
                 'daily_questions'=>$daily_questions,

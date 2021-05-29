@@ -102,16 +102,4 @@ class DailyAssignmentController extends Controller
             ]
         ]);
     }
-
-    public function getAssignmentDetails($classroomId, $assignmentId, Request $request){
-        $assignment_detail=DailyAssignment::where('id',$assignmentId)
-        ->with('dailyQuestions.multipleChoice')
-        ->first();
-
-        return response()->json([
-            'success'=>[
-                'assignment_detail'=>$assignment_detail
-            ]
-        ]);
-    }
 }

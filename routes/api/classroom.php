@@ -20,12 +20,12 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::post('/activate-daily-assignment','DailyAssignmentController@activate');
     Route::post('/delete-daily-assignment','DailyAssignmentController@delete');
     Route::get('/classroom/{classroomId}/get-assignment-list','DailyAssignmentController@getAssignmentList');
-    Route::get('/classroom/{classroomId}/assignment/{assignmentId}/details','DailyAssignmentController@getAssignmentDetails');
     Route::get('/classroom/{classroomId}/assignment/{assignmentId}/reports','ReportController@getQuestionsReports');
+    Route::get('/classroom/{classroomId}/assignment/{assignmentId}/questions','DailyQuestionController@getAssignmentQuestions');
     Route::get('/classroom/{classroomId}/daily-assignments-summary','DailyAssignmentController@getDailyAssignmentSummary');
     ///question routes
-    Route::post('/classroom/update-daily-question','DailyQuestionController@updateDailyQuestion');
-    Route::post('/classroom/delete-daily-question','DailyQuestionController@deleteDailyQuestion');
+    Route::post('/classroom/update-daily-question','DailyQuestionController@update');
+    Route::post('/classroom/delete-daily-question','DailyQuestionController@delete');
    //resources
     Route::get('/classroom/{classroomId}/get-resources','ClassroomResourceController@listresource');
     Route::post('/classroom/{classroomId}/add-resource','ClassroomResourceController@addresource');

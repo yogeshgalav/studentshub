@@ -1,5 +1,12 @@
 <template>
   <div>
+    <loading
+      :active.sync="showLoader"
+      :color="'#10069F'"
+      :width="250"
+      :is-full-page="false"
+      loader="dots"
+    />
     <div class="text-grey col-md-12 pl-0">
       <p class="mt-2">
         Students will be asked to answer the following questions on this unit
@@ -286,9 +293,10 @@ export default {
 		Modal
 	},
 	mixins: [FormMixin],
-	props:['assignmentId','dailyQuestions'],
+	props:['assignmentId'],
 	data() {
 		return {
+			showLoader:false,
 			filter_recovery_text:'',
 			daily_questions:[],
 			options: {
@@ -330,9 +338,16 @@ export default {
 		}
 	},
 	mounted(){
-		this.daily_questions =this.dailyQuestions ? this.dailyQuestions :[];
+		this.getQuestions();
 	},
 	methods: {
+		getQuestions() {
+			this.axios
+				.get('/api/classroom/' + this.$route.params.classroomId + '/assignment/'+this.assignmentId+'/questions')
+				.then((resp) => {
+					this.daily_questions =resp.data.success.daily_questions;
+				});
+		},
 		addQuestion() {
 			this.resetEditQuestion();
 			this.avail_marks = this.total_marks<11 ? (10-this.total_marks) : 0;
