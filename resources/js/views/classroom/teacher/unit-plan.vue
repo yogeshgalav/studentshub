@@ -75,7 +75,7 @@
                 />
               </div>
               <div class="col-md-12 mt-3">
-                <bar-line-graph 
+                <bar-line-graph
                   v-if="unit.barLineData.length"
                   line-label="Average score"
                   bar-label="Total attempts"
@@ -117,6 +117,8 @@ export default {
 		return {
 			showLoader:true,
 			unitData: [],
+			pieData:[],
+			barLineData:[]
 		};
 	},
 	computed:{
@@ -150,6 +152,25 @@ export default {
 					node.barLineData = bar_data.filter(node2=>node2.unit_id===node.id);
 					return node;
 				});
+				console.log(this.pieData);
+
+				// BarLineGraphdata
+
+
+
+				// const daily_assignment_status = resp.data.success.daily_assignment_status;
+
+				// this.unitData.map((node)=>{
+
+				// 	node.pieGraphData = daily_assignment_status.filter(node2=>node2.unit_id===node.id).map(node2=>{
+				// 		node2.label = node2.status;
+				// 		node2.count = node2.assignmentCount;
+				// 		return node2;
+				// 	});
+				// 	node.assignment_total = daily_assignment_status.reduce((acc,currVal)=>acc+currVal.assignmentCount,0);
+				// 	return node;
+				// });
+				console.log(this.unitData);
 				this.showLoader=false;
 			});
 		},
