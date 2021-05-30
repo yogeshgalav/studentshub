@@ -229,10 +229,9 @@ export default {
 				window.location.reload;
 			}
 			//alert before exit
-			window.addEventListener('beforeunload', function (e){
+			window.addEventListener('beforeunload', (e)=>{
 				let attemptSubmitted = localStorage.getItem('attemptSubmitted');
 				if(attemptSubmitted && attemptSubmitted===this.dailyAssignment.id){
-					console.log('hre');
 					delete e['returnValue'];
 				}
 				var confirmationMessage = 'Your attempt will be declined if you leave this page.'
