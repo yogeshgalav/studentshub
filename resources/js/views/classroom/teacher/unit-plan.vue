@@ -57,7 +57,7 @@
                   :link="'/classroom/'+$route.params.classroomId+'/daily-assignment'"
                 />
                 <single-value
-                  :value="unit.averageScore"
+                  :value="unit.average_score"
                   label="Average Score"
                 />
                 <single-value
@@ -66,22 +66,52 @@
                   :link="'/classroom/'+$route.params.classroomId+'/resources'"
                 />
               </div>
+              <div class="row justify-content-center col-md-12">
+                <single-value
+                  :value="unit.first_score"
+                  label="First score"
+                />
+                <single-value
+                  :value="unit.last_score"
+                  label="Last Score"
+                />
+                <single-value
+                  :value="unit.progress + '%'"
+                  label="Progress"
+                />
+              </div>
 
               <div class="col-md-12 mt-3">
                 <doughnut-graph
                   v-if="unit.pieGraphData.length"
+                  :key="unit.id"
                   :graph-data="unit.pieGraphData"
                 />
               </div>
               <div class="col-md-12 mt-3">
                 <bar-line-graph 
-                  v-if="unit.barLineData.length"
+                  v-if="unit.assignment_data.length"
+                  :key="unit.id"
                   line-label="Average score"
                   bar-label="Total attempts"
-                  :line-data="unit.barLineData.map(node=>node.average_score)"
-                  :bar-data="unit.barLineData.map(node=>node.total_attendes)"
-                  :x-axis-labels="unit.barLineData.map(node=>node.attempt_date)"
+                  :line-data="unit.assignment_data.map(node=>node.average_score)"
+                  :bar-data="unit.assignment_data.map(node=>node.total_attempt)"
+                  :x-axis-labels="unit.assignment_data.map(node=>node.attempt_date)"
                 />
+              </div>
+
+              <div class="col-md-12">
+                <vue-table-component
+                  :key="unit.id"
+                  :columns="assignmentColumn"
+                  :rows="unit.assignment_data"
+                >
+                  <div slot="emptystate">
+                    <p class="mt-3">
+                      {{ 'Currently no assignments has been added to this unit.' }}
+                    </p>
+                  </div>
+                </vue-table-component>
               </div>
             </accordion>
           </div>
@@ -93,13 +123,11 @@
 <script>
 import FormMixin from '../../../components/mixins/form-mixin.js';
 import Accordion from '../../../components/accordion';
-// import AddButton from '../../../components/AddButton';
-
 import DoughnutGraph from '../../../components/graphs/DoughnutGraph';
-import MultiBarGraph from '../../../components/graphs/MultiBarGraph';
 import BarLineGraph from '../../../components/graphs/BarLineGraph';
 import ClassroomHeader from '../../../components/ClassroomHeader';
 import SingleValue from '../../../components/SingleValue';
+import VueTableComponent from '../../../components/vue-table-component.vue';
 
 export default {
 	components: {
@@ -107,14 +135,36 @@ export default {
 		ClassroomHeader,
 		SingleValue,
 		DoughnutGraph,
-		MultiBarGraph,
-		BarLineGraph
+		BarLineGraph,
+		VueTableComponent
 	},
 	mixins:[FormMixin],
 	data() {
 		return {
 			showLoader:true,
 			unitData: [],
+			assignmentColumn: [
+				{
+					label: 'Attempt Date',
+					field: 'attempt_date',
+				},
+				{
+					label: 'Total attempt',
+					field: 'total_attempt',
+				},
+				{
+					label: 'Average score',
+					field: 'average_score',
+				},
+				{
+					label: 'Average duration',
+					field: 'average_duration',
+				},
+				{
+					label: 'Total questions',
+					field: 'total_questions',
+				},
+			],
 		};
 	},
 	computed:{
@@ -130,22 +180,23 @@ export default {
 			this.axios.get('/api/classroom/' + this.$route.params.classroomId + '/unit-details').then((resp) => {
 				this.unitData = resp.data.success.unitData;
 				let summaryData = resp.data.success.summary;
+
+				const daily_assignment_status = resp.data.success.daily_assignment_status;
+				const assignment_data = resp.data.success.assignment_data;
 				this.unitData.map((node)=>{
 					let summary = summaryData.find(node2=>node2.id===node.id);
 					node.assignmentCount=summary.assignmentCount;
-					node.averageScore=summary.averageScore;
+					node.first_score=summary.first_score;
+					node.last_score=summary.last_score;
+					node.average_score=summary.average_score;
+					node.progress=((summary.last_score-summary.first_score)/summary.last_score)*100;
 					node.resources=summary.resources;
-					return node;
-				});
-				const daily_assignment_status = resp.data.success.daily_assignment_status;
-				const bar_data = resp.data.success.bar_data;
-				this.unitData.map((node)=>{
 					node.pieGraphData = daily_assignment_status.filter(node2=>node2.unit_id===node.id).map(node2=>{
 						node2.label = node2.status;
 						node2.count = node2.assignmentCount;
 						return node2;
 					});
-					node.barLineData = bar_data.filter(node2=>node2.unit_id===node.id);
+					node.assignment_data = assignment_data.filter(node2=>node2.unit_id===node.id);
 					return node;
 				});
 				this.showLoader=false;
