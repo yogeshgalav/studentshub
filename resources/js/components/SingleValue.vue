@@ -1,5 +1,5 @@
 <template>
-  <div class="col-md-4">
+  <div class="col-md-4 mt-1">
     <div class="card">
       <div class="card-body text-center mx-auto">
         <router-link

@@ -61,9 +61,9 @@
           </template>
           <div slot="emptystate">
             <p class="mt-3">
-              {{ 'Currently no student has joined this classroom' }}
+              {{ 'Currently no student has joined this classroom.' }}
             </p>
-            <p>{{ 'Share join Id and accept their request to join here.' }}</p>
+            <p>{{ 'Share join Id to onboard your students to this classroom.' }}</p>
           </div>
         </vue-table-component>
       </div>
