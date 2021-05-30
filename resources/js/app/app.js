@@ -179,6 +179,14 @@ Vue.mixin({
 				return false;
 			}
 		},
+		formatDuration(time){
+			let arr = time.split(':');
+			let min = arr[1];
+			let sec = arr[2];
+			sec = sec.substr(0,2);
+			
+			return min+'min '+sec+'sec';
+		},
 		divideArrayIntoSubgroups(array,label){
 			return array.map(node=>{
 				new_node=[];
