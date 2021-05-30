@@ -27,8 +27,8 @@ class ClassroomUnitController extends Controller
         $summary = DB::table('classrooms as cl')
         ->where('cl.id',$request->classroomId)
         ->leftJoin('units', 'cl.id', '=', 'units.classroom_id')
-        ->leftJoin('daily_assignments', 'cl.id', '=', 'daily_assignments.classroom_id')
-        ->leftJoin('classroom_resources', 'cl.id', '=', 'classroom_resources.classroom_id')
+        ->leftJoin('daily_assignments', 'units.id', '=', 'daily_assignments.unit_id')
+        ->leftJoin('classroom_resources', 'units.id', '=', 'classroom_resources.unit_id')
         ->leftJoin('daily_reports', 'daily_assignments.id', '=', 'daily_reports.daily_assignment_id')
         ->select('units.id',DB::raw('COUNT(distinct daily_assignments.id) as assignmentCount'),DB::raw('AVG(daily_reports.marks_obtained) as averageScore'),DB::raw('COUNT(distinct classroom_resources.id) as resources'))
         ->groupBy('units.id')
@@ -47,8 +47,8 @@ class ClassroomUnitController extends Controller
                 'unitData'=>$unitData,
                 'summary'=>$summary,
                 'daily_assignment_status'=>$daily_assignment_status,
-                'pie_data'=>$pie_data,
-                'bar_data'=>$bar_data,
+                //'pie_data'=>$pie_data,
+                'bar_data'=>$bar_data
             ]
         ]);
     }
@@ -56,10 +56,20 @@ class ClassroomUnitController extends Controller
         $unitData=Unit::where('classroom_id',$request->classroomId)
         ->with('descriptiveQuestions')
         ->get();
-
+        $pie_details = DB::table('units as ut')
+        ->where('ut.classroom_id',$request->classroomId)
+        ->leftjoin('daily_assignments as da','ut.classroom_id','=','da.classroom_id')
+        ->leftjoin('daily_reports as dr','dr.daily_assignment_id','=','da.id')
+        ->select('ut.id','da.id',DB::raw("SUM(CASE WHEN (dr.status = 'completed') THEN 1 ELSE 0 END) as total_completed"),
+        DB::raw("SUM(CASE WHEN (dr.status = 'draft') THEN 1 ELSE 0 END) as total_draft"),
+        DB::raw("SUM(CASE WHEN (dr.status = 'activated') THEN 1 ELSE 0 END) as total_activated")     
+        )
+        ->groupBy('ut.id','da.id')
+        ->get();
         return response()->json([
             'success'=>[
-                'unitData'=>$unitData
+                'unitData'=>$unitData,
+                'pie_data'=>$pie_details
             ]
         ]);
     }
