@@ -10,18 +10,12 @@
         {{ 'About' }}
       </template>
       <template slot="tab-panel-about">
-        <h3 class="mb-2">
-          About
-        </h3>
-        <div v-html="about" />
+        <div id="about-html" />
       </template>
       <template slot="tab-heading-courses">
         {{ 'Courses' }}
       </template>
       <template slot="tab-panel-courses">
-        <h3 class="mb-2">
-          Courses
-        </h3>
         <div
           v-for="(course,index) in courses"
           :key="index"
@@ -44,9 +38,6 @@
         {{ 'Subjects' }}
       </template>
       <template slot="tab-panel-subjects">
-        <h3 class="mb-2">
-          Subjects
-        </h3>
         <div
           v-for="(subject,index) in subjects"
           :key="index"
@@ -65,9 +56,6 @@
         {{ 'Posts' }}
       </template>
       <template slot="tab-panel-posts">
-        <h3 class="mb-2">
-          Posts
-        </h3>
         <div
           v-if="!posts.length"
           class="row"
@@ -99,7 +87,7 @@
     <site-footer />
   </div>
 </template>
-<style scoped>
+<style>
 .explore-name{
     line-height: 1;
     font-size: large;
@@ -107,6 +95,24 @@
 }
 .explore-content{
     font-size: larger;
+}
+.about-info-panel p{
+    line-height: 30px;
+    font-family: "Proxima Nova", sans-serif !important;
+    margin-top: 24px;
+    letter-spacing: -0.003em;
+    font-size: 1.2rem;
+    text-align:justify;
+}
+.about-info-panel .head{
+    font-size: 1.7rem;
+    line-height: 40px;
+    font-weight: bold;
+}
+.about-info-panel .sub-head{
+    font-size: 1.5rem;
+    margin:20px 0px;
+    font-weight:inherit;
 }
 </style>
 <script>
@@ -142,9 +148,20 @@ export default {
 				this.about = resp.data.success.category.about;
 				this.courses = resp.data.success.category.courses;
 				this.subjects = resp.data.success.category.subjects;
+				this.addRow();
 			});
 	},
 	methods: {
+		addRow() {
+			const div = document.createElement('div');
+
+			div.className = 'row';
+
+			div.innerHTML =this.about;
+
+			document.getElementById('about-html').appendChild(div);
+		}
+
 	}
 };
 </script>

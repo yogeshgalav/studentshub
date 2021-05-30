@@ -12,10 +12,6 @@ export default {
 			type:Number,
 			default: 100
 		},
-		graphData:{
-			type:Array,
-			default: () => []
-		},
 		xAxisLabels:{
 			type:Array,
 			default: () => []

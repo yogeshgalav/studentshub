@@ -7,6 +7,7 @@ use App\Models\DailyAssignment;
 use App\Models\DailyReport;
 use App\Models\DailyQuestion;
 use App\Models\DailyAnswer;
+use App\Models\StudentReport;
 use Auth;
 use DB;
 
@@ -46,6 +47,7 @@ class StudentController extends Controller
         DB::beginTransaction();
     try{
         $total_marks = 0;
+        //dd($request->answers);
         foreach($request->answers as $answer){
             $question=$daily_questions->where('id',$answer['question_id'])->first();
             if($question->correct_answer==$answer['answer']){
@@ -54,18 +56,18 @@ class StudentController extends Controller
         }
         $unit_id = DailyAssignment::find($request->daily_assignment_id)->unit_id;
         StudentReport::firstOrCreate([
-            'score_type'=> "first"
-        ],[
+            'score_type'=> "first",
             'user_id'=>Auth::id(),
             'unit_id'=> $unit_id,
-            'score'=> $total_marks
+        ],[
+            'score'=> $total_marks,
         ]);
         StudentReport::updateOrCreate([
-            'score_type' => "last"
-        ],[
+            'score_type' => "last",
             'user_id'=>Auth::id(),
             'unit_id'=> $unit_id,
-            'score'=> $total_marks
+        ],[
+            'score'=> $total_marks,
         ]);
         $student_avg_report = StudentReport::firstOrNew([
             'score_type' => "average",

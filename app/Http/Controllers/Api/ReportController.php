@@ -124,4 +124,51 @@ class ReportController extends Controller
             'summary_data_2'=>$summary_data2
         ]]);
     }
+
+
+    public function getClassroomReport($classroom_id){
+        $student_details = DB::table('classroom_users as csu')
+        ->where('csu.classroom_id',$classroom_id)
+        ->join('users','users.id','=','csu.user_id')
+        ->leftJoin('students as st','st.user_id','=','users.id')
+        ->select('users.id as user_id','users.full_name as user_name','st.unique_college_id')
+        ->get();
+
+        $assignment_details = DB::table('daily_assignments as da')
+        ->where('da.classroom_id',$classroom_id)
+        ->rightJoin('daily_reports as dr','dr.daily_assignment_id','=','da.id')
+        ->select('dr.*','da.attempt_date')
+        ->orderBy('da.attempt_date')
+        ->get();
+
+        $pie_graph_data = DB::table('units as ut')
+        ->where('ut.classroom_id',$classroom_id)
+        ->leftjoin('daily_assignments as da','ut.classroom_id','=','da.classroom_id')
+        ->select('ut.unit_name as label',DB::raw('COUNT(distinct da.id) as count'))
+        ->groupBy('ut.id','ut.unit_name')
+        ->get();
+        
+        $bar_data = DB::table('student_reports as sr')
+        ->leftjoin('units','units.id','=','sr.unit_id')
+        ->where('units.classroom_id',$classroom_id)
+        ->select('sr.unit_id','sr.score_type',DB::raw('AVG(sr.score) as score'))
+        ->groupBy('sr.unit_id','sr.score_type')
+        ->get();
+
+        $bar_line_data = DB::table('daily_assignments as da')
+        ->where('da.classroom_id',$classroom_id)
+        ->leftjoin('daily_reports as dr','dr.daily_assignment_id','=','da.id')
+        ->select(DB::raw('MONTHNAME(da.attempt_date) as attempt_month'),DB::raw('AVG(dr.marks_obtained) as average_score'),
+        DB::raw('FORMAT(COUNT(distinct dr.user_id)/COUNT(distinct da.id),0) as average_attempt'))
+        ->groupBy(DB::raw('MONTHNAME(da.attempt_date)'))
+        ->get();
+
+        return response()->json(['success'=>[
+            'student_details'=>$student_details,
+            'assignment_details'=>$assignment_details,
+            'pie_graph_data'=>$pie_graph_data,
+            'bar_data'=>$bar_data,
+            'bar_line_data'=>$bar_line_data
+        ]]);
+    }
 }
