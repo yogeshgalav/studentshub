@@ -31,17 +31,17 @@
         <div class="pt-5 pl-4 pb-2 mb-1 row justify-content-md-between align-items-center mr-0 ml-0">
           <div class="col-md-6">
             <div class="sections">
-              <h2 class="font-weight-bold">
-                Your institute, like you've never seen it before
+              <h2 class="font-weight-bold fade-in-out">
+                Want your Institute to outstand from others?
               </h2>
             </div>
             <div class="sections">
-              <p class="font-weight-normal">
-                Our industry-leading educational analytics makes exploring your
-                data
-                and uncovering insights a
-                cinch! Understand the dynamics of your institute and see where you need to focus your
-                efforts.
+              <p class="font-weight-normal fade-in-out">
+                Our next generation reporting system will give your Institute new superpowers,
+                <br>
+                And will provide meaningfull insights to your teachers, students and their parents.
+                <br>
+                Book a demo now and get started with free account.
               </p>
             </div>
           </div>
@@ -238,11 +238,6 @@ export default {
 		ExploreCarousalPost,
 		SiteFooter
 	},
-	methods:{
-		getData(){
-			this.$store.dispatch('guest/getWelcomePageContent');
-		}
-	},
 	computed:{
 		...mapState({
 			'categories': state=>state.guest.categories,
@@ -250,7 +245,12 @@ export default {
 	},
 	mounted(){
 		this.getData();
-	}
+	},
+	methods:{
+		getData(){
+			this.$store.dispatch('guest/getWelcomePageContent');
+		}
+	},
 };
 </script>
 
