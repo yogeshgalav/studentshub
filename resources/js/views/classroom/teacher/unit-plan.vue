@@ -182,7 +182,13 @@ export default {
 				let summaryData = resp.data.success.summary;
 
 				const daily_assignment_status = resp.data.success.daily_assignment_status;
-				const assignment_data = resp.data.success.assignment_data;
+				const assignment_data = resp.data.success.assignment_data.map(node=>{
+					// node.attempt_date = dayjs(node.attempt_date,'YYYY-MM-DD').format('D MMM, YYYY');
+					if(node.average_duration){
+						node.average_duration =  this.formatDuration(node.average_duration);
+					}
+					return node;
+				});
 				this.unitData.map((node)=>{
 					let summary = summaryData.find(node2=>node2.id===node.id);
 					node.assignmentCount=summary.assignmentCount;
