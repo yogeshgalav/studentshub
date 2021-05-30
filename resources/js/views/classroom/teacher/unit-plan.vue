@@ -50,68 +50,70 @@
                   </div>
                 </div>
               </div>
-              <div class="row justify-content-center col-md-12">
-                <single-value
-                  :value="unit.assignmentCount"
-                  label="Daily Assignments"
-                  :link="'/classroom/'+$route.params.classroomId+'/daily-assignment'"
-                />
-                <single-value
-                  :value="unit.average_score"
-                  label="Average Score"
-                />
-                <single-value
-                  :value="unit.resources"
-                  label="Resources"
-                  :link="'/classroom/'+$route.params.classroomId+'/resources'"
-                />
-              </div>
-              <div class="row justify-content-center col-md-12">
-                <single-value
-                  :value="unit.first_score"
-                  label="First score"
-                />
-                <single-value
-                  :value="unit.last_score"
-                  label="Last Score"
-                />
-                <single-value
-                  :value="unit.progress + '%'"
-                  label="Progress"
-                />
-              </div>
+              <div v-if="unit.id">
+                <div class="row justify-content-center col-md-12">
+                  <single-value
+                    :value="unit.assignmentCount"
+                    label="Daily Assignments"
+                    :link="'/classroom/'+$route.params.classroomId+'/daily-assignment'"
+                  />
+                  <single-value
+                    :value="unit.average_score"
+                    label="Average Score"
+                  />
+                  <single-value
+                    :value="unit.resources"
+                    label="Resources"
+                    :link="'/classroom/'+$route.params.classroomId+'/resources'"
+                  />
+                </div>
+                <div class="row justify-content-center col-md-12">
+                  <single-value
+                    :value="unit.first_score"
+                    label="First score"
+                  />
+                  <single-value
+                    :value="unit.last_score"
+                    label="Last Score"
+                  />
+                  <single-value
+                    :value="unit.progress + '%'"
+                    label="Progress"
+                  />
+                </div>
 
-              <div class="col-md-12 mt-3">
-                <doughnut-graph
-                  v-if="unit.pieGraphData.length"
-                  :key="unit.id"
-                  :graph-data="unit.pieGraphData"
-                />
-              </div>
-              <div class="col-md-12 mt-3">
-                <bar-line-graph 
-                  v-if="unit.assignment_data.length"
-                  :key="unit.id"
-                  line-label="Average score"
-                  bar-label="Total attempts"
-                  :line-data="unit.assignment_data.map(node=>node.average_score)"
-                  :bar-data="unit.assignment_data.map(node=>node.total_attempt)"
-                  :x-axis-labels="unit.assignment_data.map(node=>node.attempt_date)"
-                />
-              </div>
+                <div class="col-md-12 mt-3">
+                  <doughnut-graph
+                    v-if="unit.pieGraphData.length"
+                    :key="unit.id"
+                    :graph-data="unit.pieGraphData"
+                  />
+                </div>
+                <div class="col-md-12 mt-3">
+                  <bar-line-graph 
+                    v-if="unit.assignment_data.length"
+                    :key="unit.id"
+                    line-label="Average score"
+                    bar-label="Total attempts"
+                    :line-data="unit.assignment_data.map(node=>node.average_score)"
+                    :bar-data="unit.assignment_data.map(node=>node.total_attempt)"
+                    :x-axis-labels="unit.assignment_data.map(node=>node.attempt_date)"
+                  />
+                </div>
 
-              <div class="col-md-12">
-                <vue-table-component
-                  :key="unit.id"
-                  :columns="assignmentColumn"
-                  :rows="unit.assignment_data"
-                >
-                  <div slot="emptystate">
-                    <p class="mt-3">
-                      {{ 'Currently no assignments has been added to this unit.' }}
-                    </p>
-                  </div>
-                </vue-table-component>
+                <div class="col-md-12">
+                  <vue-table-component
+                    :key="unit.id"
+                    :columns="assignmentColumn"
+                    :rows="unit.assignment_data"
+                  >
+                    <div slot="emptystate">
+                      <p class="mt-3">
+                        {{ 'Currently no assignments has been added to this unit.' }}
+                      </p>
+                    </div>
+                  </vue-table-component>
+                </div>
               </div>
             </accordion>
           </div>
@@ -205,6 +207,25 @@ export default {
 					node.assignment_data = assignment_data.filter(node2=>node2.unit_id===node.id);
 					return node;
 				});
+				console.log(this.pieData);
+
+				// BarLineGraphdata
+
+
+
+				// const daily_assignment_status = resp.data.success.daily_assignment_status;
+
+				// this.unitData.map((node)=>{
+
+				// 	node.pieGraphData = daily_assignment_status.filter(node2=>node2.unit_id===node.id).map(node2=>{
+				// 		node2.label = node2.status;
+				// 		node2.count = node2.assignmentCount;
+				// 		return node2;
+				// 	});
+				// 	node.assignment_total = daily_assignment_status.reduce((acc,currVal)=>acc+currVal.assignmentCount,0);
+				// 	return node;
+				// });
+				console.log(this.unitData);
 				this.showLoader=false;
 			});
 		},
