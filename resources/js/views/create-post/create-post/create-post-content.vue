@@ -1,4 +1,4 @@
-<template>
+    <template>
   <div class="creat_post_card img_der artical_page">
     <main>
       <div v-if="postType==='article'">
@@ -71,15 +71,18 @@ export default {
 </script>
 <style  scoped>
 .creat_post_btn button {
-    margin: 20px 15px 0px 0;
-    width: auto;
+    margin: 5px 10px;
+    min-width:40%;
 }
 
 .creat_post_btn {
     display: flex;
+    align-items: center;
+    justify-content: space-evenly;
 }
 .creat_post_card {
     padding: 20px;
+    width: 100%;
 }
 button.btn-primary btn-lg span {
     margin: 0px 5px;
