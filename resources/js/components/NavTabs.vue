@@ -47,6 +47,10 @@
     // .tabbed-nav1  ul   {
     //     border-bottom: 1px solid #000 !important;
     // }
+    .nav{
+        border-bottom:1px solid rgb(185, 185, 185);
+        padding-bottom:0px;
+    }
     .tabbed-nav ul{
         justify-content: center;
     }
@@ -114,12 +118,15 @@
     padding: 15px;
 }
     // Nav Tab 1
+
     .tabbed-nav .nav-item .active {
         background: #fff;
-        border-bottom:2px solid #10069f !important;
+        border-bottom:4px solid #10069f !important;
+        border-radius: 5% !important;
         color: #10069f !important;
         position: relative;
         margin-bottom: -1px;
+        
     }
     .tabbed-nav .nav-item .active:focus {
         background: #fff !important;
