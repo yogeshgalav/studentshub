@@ -15,9 +15,7 @@ Route::group(['middleware'=>['AuthorizeUser']],function(){
     Route::get('/classroom/{classroomId}/overview','ClassroomController@classroomOverviewPage');
     Route::get('/classroom/{classroomId}/attendance','ClassroomController@classroomAttendancePage');
     Route::get('/classroom/{classroomId}/setup','ClassroomController@classroomSetupPage');
-    Route::get('/classroom/{classroomId}/unit-assignment','ClassroomController@classroomUnitAssignmentPage');
     Route::get('/classroom/{classroomId}/daily-assignment','ClassroomController@classroomDailyAssignmentPage');
-    Route::get('/classroom/{classroomId}/daily-report','ClassroomController@classroomDailyReportPage');
     Route::get('/classroom/{classroomId}/report','ClassroomController@classroomStudentPage');
     Route::get('/classroom/{classroomId}/resources','ClassroomController@classroomResoucePage');
     Route::get('/classroom/{classroomId}/doubts','ClassroomController@classroomDoubtPage');

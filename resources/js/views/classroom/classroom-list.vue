@@ -27,7 +27,6 @@
         class="btn-primary btn-lg mb-1"
         data-toggle="modal"
         data-target="#joinClassroomModal"
-        @click="joinClassroomModal"
       >
         <i class="fas fa-plus" />&nbsp;&nbsp;Join Classroom
       </button>
