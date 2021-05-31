@@ -343,11 +343,9 @@
   </section>
 </template>
 <style scoped>
-    /* #dropdownMenuButton{
-        position: fixed;
-        top:100px;
-        right:100px;
-    } */
+    .single_post{
+        width:107%;
+    }
     .post_img {
         width: 100%;
     }
@@ -565,6 +563,7 @@
 
       section.single_post {
         padding: 0px 0;
+        width: 100%;
     }
 
 }
