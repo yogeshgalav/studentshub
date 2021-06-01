@@ -14,9 +14,9 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::get('/classroom/{classroomId}/unit-details','ClassroomUnitController@getClassroomUnitDetails');
     Route::post('/classroom/{classroomId}/update-unit','ClassroomUnitController@updateUnit');
     Route::post('/classroom/{classroomId}/activate-unit','ClassroomUnitController@activateUnit');
-    Route::post('/update-daily-assignment','DailyAssignmentController@updateDailyAssignment');
-    Route::post('/activate-daily-assignment','DailyAssignmentController@activateDailyAssignment');
-    Route::post('/delete-daily-assignment','DailyAssignmentController@deleteDailyAssignment');
+    Route::post('/update-daily-assignment',[App\Http\Controllers\Api\DailyAssignmentController::class,'updateDailyAssignment']);
+    Route::post('/activate-daily-assignment',[App\Http\Controllers\Api\DailyAssignmentController::class,'activateDailyAssignment']);
+    Route::post('/delete-daily-assignment',[App\Http\Controllers\Api\DailyAssignmentController::class,'deleteDailyAssignment']);
     Route::post('/classroom/update-daily-question','DailyQuestionController@updateDailyQuestion');
     Route::post('/classroom/delete-daily-question','DailyQuestionController@deleteDailyQuestion');
    //resources

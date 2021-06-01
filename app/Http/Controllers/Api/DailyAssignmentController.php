@@ -11,7 +11,7 @@ use App\Models\Unit;
 use DB;
 use Log;
 use Illuminate\Http\Request;
-
+use App\Http\Requests\DailyAssignmentRequest;
 class DailyAssignmentController extends Controller
 {
     //
@@ -47,7 +47,7 @@ class DailyAssignmentController extends Controller
         return response()->json('success');
     }
 
-    public function updateDailyAssignment(Request $request)
+    public function updateDailyAssignment(DailyAssignmentRequest $request)
     {
         if($request->assignment_id){
             DailyReport::where('daily_assignment_id',$request->assignment_id)->exists() ? abort(403) : '';
