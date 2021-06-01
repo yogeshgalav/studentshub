@@ -8,7 +8,7 @@ Route::group(['middleware'=>['auth:api']],function(){
 
     //teacher classroom routes
     Route::post('/classroom/create','ClassroomController@createClassroom');
-    Route::post('/classroom/{classroomId}/update-detail','ClassroomController@update');
+    Route::post('/classroom/{classroomId}/update-detail',[App\Http\Controllers\Api\ClassroomController::class, 'update']);
     Route::delete('/classroom/{classroomId}/delete','ClassroomController@delete');
     //unit setup
     Route::get('/classroom/{classroomId}/unit-details','ClassroomUnitController@getClassroomUnitDetails');
@@ -24,7 +24,7 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::get('/classroom/{classroomId}/assignment/{assignmentId}/questions','DailyQuestionController@getAssignmentQuestions');
     Route::get('/classroom/{classroomId}/daily-assignments-summary','DailyAssignmentController@getDailyAssignmentSummary');
     ///question routes
-    Route::post('/classroom/update-daily-question','DailyQuestionController@update');
+    Route::post('/classroom/update-daily-question',[App\Http\Controllers\Api\DailyQuestionController::class, 'update']);
     Route::post('/classroom/delete-daily-question','DailyQuestionController@delete');
    //resources
     Route::get('/classroom/{classroomId}/get-resources','ClassroomResourceController@listresource');
@@ -33,9 +33,9 @@ Route::group(['middleware'=>['auth:api']],function(){
     //messages
     Route::get('/get-classroom-messages/{classroomId?}','ClassroomUserController@listmessage');
     Route::get('/message/{messageId}/get-replies', 'ClassroomUserController@replymessage');
-    Route::post('/add-message','ClassroomUserController@addmessage');
+    Route::post('/add-message',[App\Http\Controllers\Api\ClassroomUserController::class, 'addmessage']);
     Route::post('/delete-message','ClassroomUserController@deletemessage');
-    Route::post('/edit-message', 'ClassroomUserController@editmessage');
+    Route::post('/edit-message', [App\Http\Controllers\Api\ClassroomUserController::class, 'editmessage']);
 
     //student classroom routes
     Route::post('/classroom/join','ClassroomUserController@joinClassroom');
