@@ -12,7 +12,7 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::delete('/classroom/{classroomId}/delete','ClassroomController@delete');
     //unit setup
     Route::get('/classroom/{classroomId}/unit-details','ClassroomUnitController@getClassroomUnitDetails');
-    Route::post('/classroom/{classroomId}/update-unit','ClassroomUnitController@updateUnit');
+    Route::post('/classroom/{classroomId}/update-unit',[App\Http\Controllers\Api\ClassroomUnitController::class, 'updateUnit']);
     // Route::post('/classroom/{classroomId}/activate-unit','ClassroomUnitController@activateUnit');
 
     //daily-assignment routes for teachers
@@ -28,7 +28,7 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::post('/classroom/delete-daily-question','DailyQuestionController@delete');
    //resources
     Route::get('/classroom/{classroomId}/get-resources','ClassroomResourceController@listresource');
-    Route::post('/classroom/{classroomId}/add-resource','ClassroomResourceController@addresource');
+    Route::post('/classroom/{classroomId}/add-resource',[App\Http\Controllers\Api\ClassroomResourceController::class, 'addresource']);
     Route::post('/classroom/{classroomId}/delete-resource','ClassroomResourceController@deleteresource');
     //messages
     Route::get('/get-classroom-messages/{classroomId?}','ClassroomUserController@listmessage');
