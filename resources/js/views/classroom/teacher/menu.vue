@@ -109,49 +109,7 @@
             </router-link>
           </div>
         </div>
-        <div class="col-md-4 mb-3">
-          <div class="selection-box-default">
-            <router-link
-              class="card h-card"
-              :to="'/classroom/'+$route.params.classroomId+'/daily-report'"
-            >
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-lg-12">
-                    <h2 class="font-size-18">
-                      {{ 'Daily Report' }}
-                    </h2>
-                    <p>
-                      {{ 'Daily assignment report for attempted tests.' }}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </router-link>
-          </div>
-        </div>
-         
-        <div class="col-md-4 mb-3">
-          <div class="selection-box-default">
-            <router-link
-              class="card h-card"
-              :to="'/classroom/'+$route.params.classroomId+'/unit-assignment'"
-            >
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-lg-12">
-                    <h2 class="font-size-18">
-                      {{ 'Unit Assignment' }}
-                    </h2>
-                    <p>
-                      {{ 'Coming soon...' }}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </router-link>
-          </div>
-        </div>       
+           
         <div class="col-md-4 mb-3">
           <div class="selection-box-default">
             <router-link

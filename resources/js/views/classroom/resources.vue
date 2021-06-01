@@ -31,22 +31,7 @@
         v-else
         class="row"
       >
-        <div class="col-md-6 mb-2">
-          <select
-            v-model="current_unit"
-            class="form-control minimal"
-            @change="getResources"
-          >
-            <option
-              v-for="(unit,index) in unit_list"
-              :key="index"
-              :value="unit.id"
-            >
-              {{ 'Unit '+unit.unit_no+': '+unit.unit_name }}
-            </option>
-          </select>
-        </div>
-        <div class="col-md-6 ">
+        <div class="col-md-6  mb-2">
           <div
             v-if="AuthTeacher && AuthTeacher.id===classroomDetail.teacher_id"
           >
@@ -60,6 +45,21 @@
               </button>
             </div>
           </div>
+        </div>
+        <div class="col-md-6">
+          <select
+            v-model="current_unit"
+            class="form-control minimal"
+            @change="getResources"
+          >
+            <option
+              v-for="(unit,index) in unit_list"
+              :key="index"
+              :value="unit.id"
+            >
+              {{ 'Unit '+unit.unit_no+': '+unit.unit_name }}
+            </option>
+          </select>
         </div>
       </div>
       <div class="row">

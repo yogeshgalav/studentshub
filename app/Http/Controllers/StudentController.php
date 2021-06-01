@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\DailyAssignment;
 use App\Models\DailyReport;
 use App\Models\DailyQuestion;
+use App\Models\MultipleChoice;
 use App\Models\DailyAnswer;
 use App\Models\StudentReport;
 use Auth;
@@ -22,7 +23,7 @@ class StudentController extends Controller
         // check if assignment is not already attempted
         $daily_report=null;
         if($daily_assignment){      
-            $daily_assignment->dailyQuestions->makeHidden('correct_answer');      
+            // $daily_assignment->dailyQuestions->makeHidden('correct_answer');      
             $daily_report = DailyReport::where('user_id',Auth::id())
             ->where('daily_assignment_id',$daily_assignment->id)->first();
         }
@@ -50,7 +51,8 @@ class StudentController extends Controller
         //dd($request->answers);
         foreach($request->answers as $answer){
             $question=$daily_questions->where('id',$answer['question_id'])->first();
-            if($question->correct_answer==$answer['answer']){
+            $choice=MultipleChoice::where('id',$answer['answer'])->first();
+            if($choice->is_correct){
                 $total_marks=$total_marks+$question->marks;
             }
         }
@@ -94,7 +96,7 @@ class StudentController extends Controller
                 'user_id'=>Auth::id(),
                 'daily_question_id'=>$answer['question_id'],
                 'daily_report_id'=>$report->id,
-                'selected_answer'=>$answer['answer'],
+                'selected_option_id'=>$answer['answer'],
             ]);
         }
         DB::commit();
