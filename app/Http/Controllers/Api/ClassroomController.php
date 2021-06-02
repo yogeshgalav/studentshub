@@ -27,10 +27,10 @@ class ClassroomController extends Controller
         ->join('teachers as th','th.id','=','cs.teacher_id')
         ->join('users as us','us.id','=','th.user_id')
         ->leftJoin('classroom_users as cus','cus.classroom_id','=','cs.id')
-        ->select('cs.id','cs.name','cs.classroom_join_id','cs.teacher_id','cs.subject_id','cs.batch_id','cs.expected_students','cs.classroom_duration','co.course_name','su.subject_name','us.id as user_id','us.full_name as teacher_name',
+        ->select('cs.id','cs.name','cs.classroom_join_id','cs.teacher_id','cs.subject_id','cs.meet_link', 'cs.batch_id','co.course_name','su.subject_name','us.id as user_id','us.full_name as teacher_name',
         'bt.start_year as batch_start_year', 'bt.end_year as batch_end_year',
         DB::raw('COUNT(cus.id) as total_students'))
-        ->groupBy('cs.id','cs.name','cs.classroom_join_id','cs.teacher_id','cs.subject_id','cs.batch_id','cs.expected_students','cs.classroom_duration','co.course_name','su.subject_name','us.id','us.full_name',
+        ->groupBy('cs.id','cs.name','cs.classroom_join_id','cs.teacher_id','cs.subject_id','cs.meet_link','cs.batch_id','co.course_name','su.subject_name','us.id','us.full_name',
         'bt.start_year', 'bt.end_year')
         ->first();
 
@@ -45,8 +45,7 @@ class ClassroomController extends Controller
         $classroom=Classroom::findOrFail($classroomId);
         $classroom->update([
             'name'=> $request->name,
-            'expected_students'=> $request->expected_students,
-            'classroom_duration'=> $request->duration,
+            'meet_link'=> $request->meet_link,
         ]);
 
         return response(['success'=>[
@@ -65,11 +64,10 @@ class ClassroomController extends Controller
 
     
     public function createClassroom(Request $request){
-        $subject_id = $request->subject['id'];
         $subject_name = $request->subject['subject_name'];
         $course_id = $request->course['id'];
         $course_name = $request->course['course_name'];
-
+        
         DB::beginTransaction();
     try{
         if($course_id){
@@ -80,29 +78,34 @@ class ClassroomController extends Controller
                 'course_name'=>$course_name,
                 'category_id'=>null
             ]);
-            Log::critical('New course created',['course_id'=>$course->id]);
+            Log::warning('New course created',['course_id'=>$course->id]);
         }
 
-        $subject= \App\Models\Subject::firstOrCreate([
-            'subject_url'=>\Str::slug($subject_name),
-            'category_id'=>$course->category_id ?? null,
-        ],[
-            'subject_name'=>$subject_name,
-            'is_verified'=>true,
-        ]);
+        $subject= \App\Models\Subject::getOrCreate(null, $subject_name, $course->category_id, true);
 
         \App\Models\CourseSubject::firstOrCreate([
             'subject_id'=>$subject->id,
             'course_id'=>$course->id,
         ]);
 
-        $batch =Batch::firstOrCreate([
+        $batch = Batch::firstOrCreate([
             'institute_id'=>Auth::teacher()->instituteId,
             'course_id'=>$course->id,
             'start_year'=>$request->start_year,
             'end_year'=>$request->end_year,
         ]);
 
+        $classroom_exist = Classroom::where([
+            'name'=>$request->name,
+            'batch_id'=>$batch->id,
+        ])->exists();
+
+        if($classroom_exist){
+            return response()->json(['error'=>[
+                'name'=>'Classroom name already exists in batch.Try other name.'
+            ]], 422);
+        }
+        
         $classroom=new Classroom;
         $classroom->name=$request->name;
         $classroom->teacher_id=Auth::teacher()->id;
@@ -138,5 +141,52 @@ class ClassroomController extends Controller
         return response()->json(['success'=>[
             'answers'=>$answers
         ]]);
+    }
+    public function classroomListDetails(){
+
+        $classroom_query = DB::table('classrooms as cl')
+        ->leftjoin('classroom_users','classroom_users.classroom_id','=','cl.id')
+        ->leftjoin('daily_assignments','cl.id','=','daily_assignments.classroom_id')
+        ->leftjoin('teachers','cl.teacher_id','=','teachers.id')
+        ->leftjoin('users','teachers.user_id','=','users.id')
+        ->leftjoin('subjects','cl.subject_id','=','subjects.id')
+        ->leftjoin('classroom_resources','cl.id','=','classroom_resources.classroom_id')
+        ->leftjoin('classroom_messages','cl.id','=','classroom_messages.classroom_id')
+        ->leftjoin('doubts','cl.id','=','doubts.classroom_id')
+        ->leftjoin('daily_reports','daily_assignments.id','=','daily_reports.daily_assignment_id')
+        ->select(DB::raw('COUNT(classroom_resources.id) as total_resources'),
+                'subjects.subject_name as subject_name',
+                'users.full_name AS teacher',
+                'cl.classroom_join_id as join_id',
+                'cl.name as classroom_name',
+                DB::raw('COUNT(distinct classroom_users.user_id) AS total_students'),
+                DB::raw('COUNT(distinct daily_assignments.id) AS total_daily_assignments'),
+                DB::raw('COUNT(classroom_messages.id) as total_messages'),
+                DB::raw('COUNT(doubts.id) as total_doubts'),
+                DB::raw('FORMAT(AVG(daily_reports.marks_obtained),2) as average_score')
+                )
+        ->groupBy('cl.id','users.full_name','subjects.subject_name','cl.name','cl.classroom_join_id');
+        $classrooms = [];
+
+        $teacher=Auth::teacher();
+        if($teacher){
+            $classrooms=$classroom_query->where('cl.teacher_id','=',$teacher->id)->get();
+            
+        }else if(Auth::student()){
+            $classrooms=$classroom_query->join('classroom_users as cu',function($join){
+                $join->on('cu.classroom_id','=','cl.id')->where('cu.user_id',Auth::id());
+            })
+            ->get();
+        }else if(Auth::instituteAdmin()){
+            $classrooms=$classroom_query->join('batches as bt',function($join){
+                $join->on('bt.id','=','cl.batch_id')->where('bt.institute_id',Auth::instituteAdmin()->institute_id);
+            })
+            ->get();
+        }
+        return response()->json([
+            'success'=>[
+                'classrooms' => $classrooms
+            ]
+        ]);
     }
 }

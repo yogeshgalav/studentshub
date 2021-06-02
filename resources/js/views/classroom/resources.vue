@@ -6,10 +6,12 @@
       :width="250"
       :is-full-page="true"
     />
-    <classroom-header />
+    <classroom-header 
+      title="Resources"
+    />
     <div>
       <div
-        v-if="!resourceUnitData.length && AuthTeacher"
+        v-if="!unit_list.length && AuthTeacher"
         class="card"
       >
         <div class="card-body">
@@ -29,13 +31,29 @@
         v-else
         class="row"
       >
+        <div class="col-md-6  mb-2">
+          <div
+            v-if="AuthTeacher && AuthTeacher.id===classroomDetail.teacher_id"
+          >
+            <div class="text-right">
+              <button
+                class="btn-lg btn-primary"
+                data-toggle="modal"
+                data-target="#addResourceModal"
+              >
+                <i class="fas fa-plus" />&nbsp;&nbsp;Add Resource
+              </button>
+            </div>
+          </div>
+        </div>
         <div class="col-md-6">
           <select
             v-model="current_unit"
             class="form-control minimal"
+            @change="getResources"
           >
             <option
-              v-for="(unit,index) in resourceUnitData"
+              v-for="(unit,index) in unit_list"
               :key="index"
               :value="unit.id"
             >
@@ -43,23 +61,10 @@
             </option>
           </select>
         </div>
-        <div class="col-md-6 ">
-          <div
-            v-if="AuthTeacher && AuthTeacher.id===classroomDetail.teacher_id"
-            class="row add_cl_q"
-          >
-            <div class="text-right">
-              <button
-                class="btn-lg btn-primary"
-                @submit="addResource"
-              ><i class="fas fa-plus" />&nbsp;&nbsp;Add Resource</button>
-            </div>
-          </div>
-        </div>
       </div>
       <div class="row">
         <div class="col-md-12">
-          <div class="row add_cl_q mt-2">
+          <div class="mt-2">
             <div
               v-if="!resources.length"
               class="card"
@@ -75,7 +80,7 @@
             <div
               v-for="(resource,index2) in resources"
               :key="index2"
-              class="col-md-10 col-12 mt-2 ml-3 card"
+              class="col-md-10 col-12 mt-2 card"
             >
               <div
                 class="card-body"
@@ -102,110 +107,83 @@
                   />
                 </div>
               </div>
-              <like-component
+              <!-- <like-component
                 :post="resource"
                 likable-type="resource"
-              />
+                :show-dislike="false"
+              /> -->
             </div>
             <div class="col-md-3 col-12" />
           </div>
         </div>
 
         <modal
+          ref="addResourceModal"
           name="addResourceModal"
-          class="doubt_model model-md"
-          :click-to-close="false"
+          heading="Add Resource"
+          @submit="saveResource()"
         >
-          <form
-            @submit.prevent="saveResource()"
-          >
-            <div class="row">
-              <div class="col-md-12 mt-2">
-                <div class="row">
-                  <div class="col-md-6">
-                    <h4>Add Resource Link</h4>
-                  </div>
-                  <div class="col-md-6 text-right">
-                    <button
-                      type="button"
-                      class="btn btn-lg btn-link font-size-24"
-                      @click="$modal.hide('addResourceModal')"
-                    >
-                      &times;
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label for="resourceLink">Online Resource Link</label>
-                  <div class="inner-addon left-addon">
-                    <div class="cl_input">
-                      <input
-                        id="resourceLink"
-                        v-model="resource_link"
-                        v-validate="'required'"
-                        type="text"
-                        name="resource_link"
-                        class="form-control"
-                        @blur="embedresource"
-                      >
-                      <span class="text-danger">{{ formErrors('resource_link') }}</span>
-                      <span class="text-danger">{{ resource_error }}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label for="resourceDescription">Description:</label>
-                  <div class="inner-addon left-addon">
-                    <div class="cl_input">
-                      <input
-                        id="resourceDescription"
-                        v-model="description"
-                        v-validate="'required'"
-                        name="description"
-                        class="form-control"
-                        placeholder="say something about this resource..."
-                      >
-                      <span class="text-danger">{{ formErrors('description') }}</span>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  v-if="resource_type==='documentLink' || resource_type==='youtubeVideo'"
-                  class="mt-1 forget_rember_pass"
-                >
-                  <div class="rem_pass">
-                    <input
-                      id="shareAsPost"
-                      v-model="share_as_post"
-                      name="shareAsPost"
-                      type="checkbox"
-                    >
-                    <label for="shareAsPost">
-                      {{ 'Share as post' }}
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div class="mt-1 row text-right">
+          <template slot="modalBody">
+            <form>
+              <div class="row">
                 <div class="col-md-12">
-                  <hr>
-                  <button
-                    type="submit"
-                    class="btn btn-outline-primary mb-2"
+                  <div class="form-group">
+                    <label for="resourceLink">Online Resource Link</label>
+                    <div class="inner-addon left-addon">
+                      <div class="cl_input">
+                        <input
+                          id="resourceLink"
+                          v-model="resource_link"
+                          v-validate="'required'"
+                          type="text"
+                          name="resource_link"
+                          class="form-control"
+                          @blur="embedresource"
+                        >
+                        <span class="text-danger">{{ formErrors('resource_link') }}</span>
+                        <span class="text-danger">{{ resource_error }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="resourceDescription">Description:</label>
+                    <div class="inner-addon left-addon">
+                      <div class="cl_input">
+                        <input
+                          id="resourceDescription"
+                          v-model="description"
+                          v-validate="'required'"
+                          name="description"
+                          class="form-control"
+                          placeholder="say something about this resource..."
+                        >
+                        <span class="text-danger">{{ formErrors('description') }}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    v-if="resource_type==='documentLink' || resource_type==='youtubeVideo'" 
+                    class="mt-1 forget_rember_pass"
                   >
-                    Submit
-                  </button>
+                    <div class="rem_pass">
+                      <input
+                        id="shareAsPost"
+                        v-model="share_as_post"
+                        name="shareAsPost"
+                        type="checkbox"
+                      >
+                      <label for="shareAsPost">
+                        {{ 'Share as post' }}
+                      </label>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </form>
+            </form>
+          </template>
         </modal>
       </div>
     </div>
@@ -213,19 +191,22 @@
 </template>
 <script>
 import FormMixin from '../../components/mixins/form-mixin.js';
+import Modal from '../../components/VueNiceModal';
 import LikeComponent from '../common/LikeComponent';
 import ClassroomHeader from '../../components/ClassroomHeader';
 
 export default {
 	components: {
 		ClassroomHeader,
+		Modal,
 		LikeComponent,
 	},
 	mixins:[FormMixin],
 	data() {
 		return {
 			showLoader:true,
-			resourceUnitData: [],
+			resources:[],
+			unit_list: [],
 			current_unit: '',
 			resource_link: '',
 			description: '',
@@ -235,12 +216,6 @@ export default {
 		};
 	},
 	computed:{
-		resources(){
-			if(this.current_unit){
-				return this.resourceUnitData.find(node => node.id === this.current_unit).classroom_resources;
-			}
-			return [];
-		},
 		classroomDetail(){
 			return this.$store.state.classroom.classroomDetail;
 		}
@@ -250,14 +225,13 @@ export default {
 	},
 	methods: {
 		getResources(){
-			this.axios.get('/api/classroom/' + this.$route.params.classroomId + '/get-resources').then((resp) => {
-				this.resourceUnitData = resp.data.success.resourceUnitData;
-				this.current_unit = this.resourceUnitData.length ? this.resourceUnitData[0].id : '';
-				this.showLoader=false;
-			});
-		},
-		addResource() {
-			this.$modal.show('addResourceModal');
+			this.axios.get('/api/classroom/' + this.$route.params.classroomId + '/get-resources?unitId='+this.current_unit)
+				.then((resp) => {
+					this.unit_list = resp.data.success.unit_list;
+					this.current_unit = resp.data.success.current_unit;
+					this.resources = resp.data.success.resources;
+					this.showLoader=false;
+				});
 		},
 		saveResource() {
 			this.$validator.validate().then(valid => {
@@ -270,13 +244,12 @@ export default {
 						description: this.description,
 						share_as_post: this.share_as_post,
 					}).then(()=>{
-						let resource = this.resourceUnitData.find(node=>node.id===this.current_unit);
-						resource.classroom_resources.push({
+						this.resources.unshift({
 							link:this.resource_link,
 							type:this.resource_type,
 							description:this.description,
 						});
-			      this.$modal.hide('addResourceModal');
+						this.$refs.addResourceModal.closeModal();
 						this.resource_link = '';
 						this.description = '';
 					});

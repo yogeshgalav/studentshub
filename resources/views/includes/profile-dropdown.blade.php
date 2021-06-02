@@ -1,5 +1,5 @@
 <div class="dropdown">
-    <button class="btn btn-sm border-radius-12 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <button class="btn btn-sm border-radius-12 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="height: 50px;">
      <profile-image avatar="{{$AuthUser->avatar_url}}" user-name="{{$AuthUser->full_name}}" />
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -11,8 +11,9 @@
                     <p class="username">{{$AuthUser->full_name}}</p>
                     </div>
             </div>
-            <hr>
-            <p><a href="/education-details" class="center-block ml-3 mt-1 text-black-50">Education Details</a></p>
+            <div class="dropdown-divider"></div>
+            <p><a href="/account-settings" class="center-block ml-3 mt-1 text-black-50">Account Settings</a></p>
+            <div class="dropdown-divider"></div>
             <p><a href="/contactus" class="center-block ml-3 mt-1 text-black-50">Contactus</a></p>
             <p><a href="/faq" class="center-block ml-3 mt-1 text-black-50">FAQ</a></p>
             <p><a href="/feedback" class="center-block ml-3 mt-1 text-black-50">Feedback</a></p>

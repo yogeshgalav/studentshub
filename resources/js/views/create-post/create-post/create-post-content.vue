@@ -33,7 +33,7 @@
         class="btn-primary btn-lg m-0-a"
         @click="nextTab"
       >
-        Finish <span><i
+        Next <span><i
           class="fa fa-arrow-right"
           aria-hidden="true"
         /></span>

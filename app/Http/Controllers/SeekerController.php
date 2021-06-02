@@ -30,9 +30,14 @@ class SeekerController extends Controller
         $student = Auth::student();
         return view('user-onboarding.education-detail')
             ->with('student_details', $student)
+            ->with('classroom_count', Auth::user()->joinedClassroomCount())
             ->with('course_levels', $course_levels);
     }
-
+    public function accountSetting()
+    {
+        $profile = \App\Models\UserProfile::where("user_id",Auth::id())->first();
+        return view('profile.account-setting')->with('profile',$profile);
+    }
     public function checkin()
     {
         $course_levels = \App\Models\CourseLevel::get();
@@ -45,5 +50,5 @@ class SeekerController extends Controller
     {
         return view('explore.search')->with('query', $request->query);
     }
-    
+
 }

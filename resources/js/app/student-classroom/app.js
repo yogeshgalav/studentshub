@@ -9,8 +9,10 @@ require('../../bootstrap');
 
 // window.Vue = require('vue').default;
 import Vue from '../app';
-Vue.component('UnitAttemptComponent', require('../../views/student-classroom/unit-attempt/UnitAttemptWizard.vue').default);
-Vue.component('DailyAttemptComponent', require('../../views/student-classroom/daily-attempt.vue').default);
+Vue.component('UnitAttemptComponent', require('../../views/classroom/student/unit-attempt/UnitAttemptWizard.vue').default);
+Vue.component('DailyAttemptComponent', require('../../views/classroom/student/daily-attempt.vue').default);
+Vue.component('ClassroomListComponent', require('../../views/classroom/classroom-list.vue').default);
+Vue.component('MyReportComponent', require('../../views/classroom/student/my-report.vue').default);
 
 
 //Dependencies

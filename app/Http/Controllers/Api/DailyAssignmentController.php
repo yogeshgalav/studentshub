@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 
 use App\Http\Requests\TeacherDailyAssignment\StoreRequest;
 use App\Models\DailyAssignment;
+use App\Models\DailyReport;
 use App\Models\DailyQuestion;
 use App\Models\Unit;
 use DB;
@@ -14,10 +15,10 @@ use Illuminate\Http\Request;
 class DailyAssignmentController extends Controller
 {
     //
-    public function activateDailyAssignment(Request $request)
+    public function activate(Request $request)
     {
         if($request->daily_assignment_id){
-            DailyAttempt::where('daily_assignment_id',$request->daily_assignment_id)->exists() ? abort(403) : '';
+            DailyReport::where('daily_assignment_id',$request->daily_assignment_id)->exists() ? abort(403) : '';
         }
         $daily = DailyAssignment::findOrFail($request->daily_assignment_id);
         $marks=DailyQuestion::where('daily_assignment_id',$daily->id)->pluck('marks')->toArray();
@@ -35,9 +36,9 @@ class DailyAssignmentController extends Controller
         return response()->json('success');
     }
 
-    public function deleteDailyAssignment(Request $request){
+    public function delete(Request $request){
         if($request->daily_assignment_id){
-            DailyAttempt::where('daily_assignment_id',$request->daily_assignment_id)->exists() ? abort(403) : '';
+            DailyReport::where('daily_assignment_id',$request->daily_assignment_id)->exists() ? abort(403) : '';
         }
         $daily = DailyAssignment::findOrFail($request->daily_assignment_id);
 
@@ -46,10 +47,10 @@ class DailyAssignmentController extends Controller
         return response()->json('success');
     }
 
-    public function updateDailyAssignment(Request $request)
-    {    
+    public function update(Request $request)
+    {
         if($request->assignment_id){
-            DailyAttempt::where('daily_assignment_id',$request->assignment_id)->exists() ? abort(403) : '';
+            DailyReport::where('daily_assignment_id',$request->assignment_id)->exists() ? abort(403) : '';
         }
         $unit=Unit::findOrFail($request->unit_id);
         $is_assignment_duplicate = DailyAssignment::where('attempt_date',$request->attempt_date)
@@ -62,10 +63,10 @@ class DailyAssignmentController extends Controller
         DB::beginTransaction();
     try{
         if($request->assignment_id){
-            $dailyAssignment = DailyAssignment::find($request->assignment_id);     
+            $dailyAssignment = DailyAssignment::find($request->assignment_id);
         }else{
             $dailyAssignment = new DailyAssignment;
-        }   
+        }
         $dailyAssignment->attempt_date=$request->attempt_date;
         $dailyAssignment->start_time=$request->start_time;
         $dailyAssignment->end_time=$request->end_time;
@@ -75,44 +76,30 @@ class DailyAssignmentController extends Controller
         $dailyAssignment->save();
 
         DB::commit();
-    } catch (\Exception $e) {
+    } catch (\Exception $e) {dd($e->getMessage());
         DB::rollback();
         Log::critical('daily assignment update failure',['data'=>$request->all(),'error'=>$e->getMessage()]);
-        return response()->$e; 
+        return response()->$e;
     }
         return response()->json(['success'=>[
             'assignment'=>$dailyAssignment
         ]]);
-        
+
     }
 
-    public function getDailyAssismentDetails(Request $request){
+    public function getAssignmentList(Request $request){
         $unitList=Unit::where('classroom_id',$request->classroomId)->get();
-        $dailyAssignmentData=DailyAssignment::where('classroom_id',$request->classroomId)
-        ->doesntHave('dailyReport')
-        ->with('dailyQuestions.multipleChoice')
+        $assignment_list=DailyAssignment::where('classroom_id',$request->classroomId)
         ->orderBy('attempt_date','DESC')
+        ->select('id','unit_id','attempt_date', 'start_time', 'end_time','activated_at')
+        ->withCount('dailyReports')
         ->get();
 
         return response()->json([
             'success'=>[
                 'unitList'=>$unitList,
-                'dailyAssignmentData'=>$dailyAssignmentData
+                'assignment_list'=>$assignment_list
             ]
         ]);
-    }   
-    public function getDailyAssismentReports(Request $request){
-        $unitList=Unit::where('classroom_id',$request->classroomId)->get();
-        $dailyAssignmentData=DailyAssignment::where('classroom_id',$request->classroomId)
-        ->has('dailyReport')
-        ->with('dailyQuestions.multipleChoice')
-        ->get();
-
-        return response()->json([
-            'success'=>[
-                'unitList'=>$unitList,
-                'dailyAssignmentData'=>$dailyAssignmentData
-            ]
-        ]);
-    }   
+    }
 }

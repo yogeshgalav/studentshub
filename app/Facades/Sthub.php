@@ -31,10 +31,10 @@ class Sthub extends Facade
     }
 
     public static function currentTab($tab){
-        if(request()->path() === '/' && $tab==='post'){
+        if(empty(request()->segment(1)) && $tab==='post'){
             return true;
         }
-        if(false !== strpos(request()->path(), $tab)){
+        if(false !== strpos(request()->segment(1), $tab)){
             return true;
         }
 

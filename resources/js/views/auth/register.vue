@@ -21,7 +21,7 @@
             <div class="logn_right">
               <div class="card_title text-center">
                 <h3 class="weight-800 text-black font-size-18">
-                  {{ trans('Register') }}
+                  {{ ('Register') }}
                 </h3>
               </div>
 
@@ -45,7 +45,7 @@
                         >
                       </div>
                       <div class="form-group">
-                        <label> {{ trans('Full Name') }} </label>
+                        <label> {{ ('Full Name') }} </label>
                         <div class="inner-addon left-addon">
                           <div class="input_icon_frm">
                             <span class="icon_design_input"><i
@@ -67,7 +67,7 @@
                       </div>
 
                       <div class="form-group">
-                        <label for="email"> {{ trans('E-Mail Address') }}</label>
+                        <label for="email"> {{ ('E-Mail Address') }}</label>
 
                         <div class="inner-addon left-addon">
                           <div class="input_icon_frm">
@@ -89,7 +89,7 @@
                       </div>
 
                       <div class="form-group">
-                        <label for="password"> {{ trans('Password') }}</label>
+                        <label for="password"> {{ ('Password') }}</label>
 
                         <div class="inner-addon left-addon ">
                           <div class="input_icon_frm">
@@ -112,7 +112,7 @@
                       </div>
 
                       <div class="form-group">
-                        <label for="password-confirm"> {{ trans('Confirm Password') }}</label>
+                        <label for="password-confirm"> {{ ('Confirm Password') }}</label>
 
                         <div class="inner-addon left-addon">
                           <div class="input_icon_frm">
@@ -179,7 +179,7 @@
                             type="submit"
                             class="btn-primary btn-lg m-0-a"
                           >
-                            {{ trans('Register') }}&nbsp;<i
+                            {{ ('Register') }}&nbsp;<i
                               class="fa fa-arrow-right text-white"
                             />
                           </button>
@@ -195,18 +195,6 @@
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="login_card">
-        <div class="row">
-          <div class="col-md-12 text-center mt-3">
-            <router-link
-              :to="'/membership-plan'"
-              class="font-size-40 text-black weight-800 mb-2 line-height-25-px text-center"
-            >
-              {{ trans('New Institute or Teacher?') }}
-            </router-link>
           </div>
         </div>
       </div>
@@ -306,13 +294,10 @@ export default {
 		};
 	},
 	mounted(){
-		this.join_id = this.$route.params.joinId;
+		this.join_id = this.$route.query.joinId;
 		this.$validator.localize('en', this.dict);
 	},
 	methods: {
-		trans: function (string, defaultString) {
-			return this.$trans('auth', string, defaultString);
-		},
 		handleSubmit(e) {
 			this.$validator.validate().then(valid => {
 				if (valid) {

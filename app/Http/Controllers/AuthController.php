@@ -61,7 +61,8 @@ class AuthController extends Controller
             
             $success = $this->getLoginSuccessData('api',$user,$request);
             
-        }catch(\Exception $e){dd($e->getMessage());
+        }catch(\Exception $e){
+            // dd($e->getMessage());
             Log::warning("An invalid attempt to login was made for user ".$request->email." from IP Address ".$request->ip());
             return response()->json(['error'=>'Unauthorised'], 401);
         }
@@ -117,7 +118,7 @@ class AuthController extends Controller
     public function register(RegisterRequest $request)
     {
         if(User::whereEmail($request->email)->exists()){
-            return view('guest.auth.login')->with('emailError',true);
+            return redirect('/login')->with('emailError',true);
         }
        
         $input = $request->all();
@@ -215,7 +216,7 @@ class AuthController extends Controller
             'start_year' => $classroom->batch->start_year,
             'end_year' => $classroom->batch->end_year,
         ]);
-        $student_controller =new StudentController;
+        $student_controller =new \App\Http\Controllers\Api\StudentController;
         $student_controller->create($request);
 
         ClassroomUser::create([
@@ -312,6 +313,11 @@ class AuthController extends Controller
     // Handling the request to reset the password
     public function resetPassword2(Request $request)
     {
+        $user=Auth::user();    
+        if(empty($user)){
+            abort(401);
+        }
+
         $validator = Validator::make($request->all(), [
             'password'=>'required|min:8',
             'confirm_password'=>'required|same:password',
@@ -321,11 +327,13 @@ class AuthController extends Controller
             return response()->json(['error'=>$validator->errors()], 422);
         }
 
-        $user=Auth::user();    
+        $current_time=Carbon::now()->toDateTimeString();
         $user->must_reset_password=0;
-        $user->email_verified_at=Carbon::now()->toDateTimeString();
+        $user->onboarded_at=$current_time;
+        $user->email_verified_at=$current_time;
         $user->password=Hash::make($request->input('password'));
         $user->save();
+
         return response()->json(['success'=>'Password Changed.'], 200);
     }
 
@@ -349,8 +357,15 @@ class AuthController extends Controller
         }
 
         $user=User::where('id', $dbToken->user_id)->first();
+
+        $current_time=Carbon::now()->toDateTimeString();
+
+        $user->must_reset_password=0;
         if(empty($user->email_verified_at)){
-            $user->email_verified_at=Carbon::now()->toDateTimeString();
+            $user->email_verified_at=$current_time;
+        }
+        if(empty($user->onboarded_at)){
+            $user->onboarded_at=$current_time;
         }
         $user->password = Hash::make($request->input('password'));
         $user->save();

@@ -160,7 +160,7 @@
                             class="text-black"
                             for="event_date_input"
                           >
-                            {{ trans('Batch Starting Year') }}
+                            {{ 'Course Starting Year' }}
                           </label>
                           <div class="input-group-prepend ">
                             <div
@@ -198,7 +198,7 @@
                           class="text-black"
                           for="event_date_input"
                         >
-                          {{ trans('Batch Ending Year') }}
+                          {{ 'Course Ending Year' }}
                         </label>
                         <div class="input-group-prepend ">
                           <div
@@ -354,18 +354,16 @@
 </style>
 <script>
 import FormMixin from '../../components/mixins/form-mixin.js';
+import BatchMixin from '../../components/mixins/batch-mixin.js';
 import AutoComplete from '../../components/AutoComplete.vue';
 import swal from '../../components/swal';
-import DatePicker from 'vue2-datepicker';
-import 'vue2-datepicker/index.css';
 
 export default {
 	components: {
-		DatePicker,
 		AutoComplete
 	},
-	mixins: [FormMixin],
-	props: ['courseLevels','studentDetails', 'batches'],
+	mixins: [FormMixin, BatchMixin],
+	props: ['courseLevels','studentDetails', 'batches', 'classroomCount'],
 	data() {
 		return {
 			disableFields: false,
@@ -383,7 +381,7 @@ export default {
 			},
 			selected_institute: {
 				'id': null,
-				'name': name,
+				'name': '',
 				'place_id': '',
 				'address': '',
 				'description': ''
@@ -392,24 +390,10 @@ export default {
 				'id': null,
 				'subject_name': '',
 			},
-			end_year: '',
-			start_year: '',
 			is_prefferred: true,
 			college_id: '',
 			current_date:new Date(),
 		};
-	},
-	computed:{
-		yearError(){
-			var d = new Date();
-			var n = d.getFullYear();
-			if(this.start_year>n){
-				return 'Please enter currect start year.';
-			}else if(this.end_year && this.end_year<this.start_year){
-				return 'Please enter currect start and end year.';
-			}
-			return '';
-		}
 	},
 	mounted(){
 		if(this.studentDetails){
@@ -446,7 +430,7 @@ export default {
 				};
 				this.show_courses=true;
 			}
-			this.disableFields = true;
+			this.disableFields = this.classroomCount>0;
 		}
 	},
 	methods: {

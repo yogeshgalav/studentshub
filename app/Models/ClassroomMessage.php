@@ -11,4 +11,7 @@ class ClassroomMessage extends Model
     public function sender(){
         return $this->belongsTo('App\Models\User','sender_user_id');
     }
+    public function replies(){
+        return $this->hasMany('App\Models\ClassroomMessage','parent_message_id');
+    }
 }

@@ -34,22 +34,18 @@ class PostController extends Controller
         }
         DB::beginTransaction();
         try{
-            if(intval($data['subject_id'])===0){
-                $subject_name=strtolower($data['subject_name']);
-                $subject=Subject::firstOrCreate([
-                  'subject_url'=>\Str::slug($subject_name),
-                  'category_id'=>$data['category_id']
-                ],[
-                'subject_name'=>$subject_name
-                ]);
-            }else{
-                $subject=Subject::findOrFail($data['subject_id']);
-            }
+          $subject = NULL;
+          if($data['subject_name']){
+            $subject=Subject::getOrCreate($data['subject_id'], $data['subject_name'], $data['category_id']);
+          }
+      
+        
 
         $post=new Post;
         $post->user_id=Auth::user()->id;
         $post->post_heading=$heading;
-        $post->subject_id=$subject->id;
+        $post->subject_id=$subject?$subject->id:NULL;
+        $post->category_id = $data['category_id'];
 
 
         switch(strToLower($request->post_type)){
@@ -107,8 +103,8 @@ class PostController extends Controller
             'institute_id'=>$student->instituteId,
             'course_id'=>Auth::student()->courseId,
             'batch_id'=>$student->batchId,
-            'category_id'=>$request->category_id,
-            'shared_by'=>Auth::id(),
+            'shared_by'=>Auth::id(),            'category_id'=>$request->category_id,
+
         ]);
 
         DB::commit();
@@ -131,6 +127,7 @@ class PostController extends Controller
     }
 
     public function show($post_id){
+        \App\Models\Post::findOrFail($post_id);
         $user=Auth::user();
         if($user){
             \App\Models\PostView::firstOrCreate([
@@ -151,8 +148,8 @@ class PostController extends Controller
 
         return response()->json(['success'=>[
             'post_content'=>$post_content,
-            'most_viewed'=>$most_viewed,
-            'most_liked'=>$most_liked,
+            'most_viewed'=>\Sthub::convert_from_latin1_to_utf8_recursively($most_viewed),
+            'most_liked'=>\Sthub::convert_from_latin1_to_utf8_recursively($most_liked),
         ]]);
     }
 
@@ -171,59 +168,39 @@ class PostController extends Controller
         $search->save();
 
         return response()->json(['success'=>[
-          'posts'=>$posts
+          'posts'=>\Sthub::convert_from_latin1_to_utf8_recursively($posts)
+        ]]);
+      }
+      public function courseDetails(Request $request){
+        $subject=\App\Models\Course::where('course_url', $request->route('id'))->firstOrFail();
+        $post=new \App\Post;
+        $posts = $post->getCoursePosts($course->id);
+
+        return response()->json(['success'=>[
+            'posts'=>\Sthub::convert_from_latin1_to_utf8_recursively($posts),
+            'subject'=>$course,
+        ]]);
+      }
+      public function subjectDetails(Request $request){
+        $subject=\App\Models\Subject::where('subject_url', $request->route('id'))->firstOrFail();
+        $post=new \App\Post;
+        $posts = $post->getSubjectPosts($subject->id);
+
+        return response()->json(['success'=>[
+            'posts'=>\Sthub::convert_from_latin1_to_utf8_recursively($posts),
+            'subject'=>$subject,
         ]]);
       }
 
-      public function coursePosts(Request $request){
+      public function categoryDetails(Request $request){
+        $category=\App\Models\Category::where('category_url', $request->route('id'))->with('courses')->with('subjects')->firstOrFail();
         $post=new \App\Post;
-        $response = $post->getCoursePosts($request);
+        $posts = $post->getCategoryPosts($category->id);
 
-        $search=new \App\Models\Search;
-        $search->query=$request->route('courseId');
-        // $search->type='course';
-        if($response){
-          $search->success=true;
-        }else{
-          $search->success=false;
-        }
-        $search->save();
-
-        return $response;
-      }
-
-      public function subjectPosts(Request $request){
-        $post=new \App\Post;
-        $response = $post->getSubjectPosts($request);
-
-        $search=new \App\Models\Search;
-        $search->query=$request->route('subjectId');
-        // $search->type='subject';
-        if($response){
-          $search->success=true;
-        }else{
-          $search->success=false;
-        }
-        $search->save();
-
-        return $response;
-      }
-
-      public function categoryPosts(Request $request){
-        $post=new \App\Post;
-        $response = $post->getCategoryPosts($request);
-
-        $search=new \App\Models\Search;
-        $search->query=$request->route('categoryId');
-        // $search->type='category';
-        if($response){
-          $search->success=true;
-        }else{
-          $search->success=false;
-        }
-        $search->save();
-
-        return $response;
+        return response()->json(['success'=>[
+            'posts'=>\Sthub::convert_from_latin1_to_utf8_recursively($posts),
+            'category'=>$category,
+        ]]);
       }
 
       public function savePost(Request $request){

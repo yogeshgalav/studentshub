@@ -45,7 +45,7 @@
                 :key="index2"
               >
                 <div 
-                  v-if="choice.option_order===answer.daily_question.correct_answer"
+                  v-if="choice.is_correct"
                   class="bg-success-light  option_box outline-success text-white"
                 >
                   <span 
@@ -54,7 +54,7 @@
                   {{ choice.option_text }}
                 </div>
                 <div 
-                  v-else-if="choice.option_order===answer.selected_answer"
+                  v-else-if="choice.id===answer.selected_option_id"
                   class="bg-warning  option_box outline-warning text-white"
                 >
                   <span 

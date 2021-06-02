@@ -24,10 +24,21 @@ class Subject extends Model
         return $this->hasMany('App\Models\CourseSubject');
     }
 
-    public function setSubjectNameAttribute($value)
-    {
-        $this->attributes['subject_name'] = Sthub::ucWordSome($value);
-        $this->attributes['subject_url'] = \Str::slug($value);
-        $this->attributes['alias'] = Sthub::generateAlias($value);
+    public static function getOrCreate($subject_id, $subject_name, $category_id, $is_verified=false){
+        if(!empty($subject_id)){
+            return self::findOrFail($subject_id);
+        }
+        if(empty($category_id)){
+            \Log::warning('New subject created with null category',['subject_url'=>\Str::slug($subject_name)]);
+
+        }
+        return self::firstOrCreate([
+            'subject_url'=>\Str::slug($subject_name),
+            'category_id'=>$category_id,
+        ],[
+            'subject_name'=>Sthub::ucWordSome($subject_name),
+            'alias'=>Sthub::generateAlias($subject_name),
+            'is_verified'=>$is_verified,
+        ]);
     }
 }

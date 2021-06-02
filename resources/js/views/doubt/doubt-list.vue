@@ -10,7 +10,7 @@
             <div class="form-group has-search">
               <span class="fa fa-search form-control-feedback" />
               <input
-                v-model="search_doubt"
+                v-model="doubt_question"
                 type="text"
                 name="doubt"
                 class="form-control"
@@ -29,7 +29,6 @@
               data-toggle="modal"
               data-target="#addDoubtModal"
               class="btn btn-primary"
-              @click="addDoubtModal"
             >
               Ask new Doubt
             </button>
@@ -92,7 +91,10 @@
                   </h3>
                 </div>
               </div>
-              <like-component :post="doubt" likable-type="doubt" />
+              <like-component
+                :post="doubt"
+                likable-type="doubt"
+              />
             </div>
           </div>
         </div>
@@ -113,11 +115,6 @@
           <form>
             <div class="model_box_inner">
               <div class="row">
-                <div class="col-md-12">
-                  <p class="model_box_head">
-                    Ask Doubt
-                  </p>
-                </div>
                 <div class="form-group col-md-12">
                   <label class="text-black font-size-14">Course
                   </label>
@@ -133,7 +130,7 @@
                   <div class="model_input">
                     <label>Doubt</label>
                     <input
-                      v-model="question"
+                      v-model="doubt_question"
                       class="form-control"
                       type="text"
                       placeholder="Enter Your Doubt"
@@ -160,16 +157,6 @@
                       @selectNew="setNewSubject"
                     />
                   </div>
-                </div>
-              </div>
-              <div class="col-md-12">
-                <div class="model_btn">
-                  <button
-                    type="submit"
-                    class="ask_doubt_btn"
-                  >
-                    submit
-                  </button>
                 </div>
               </div>
             </div>
@@ -220,8 +207,7 @@ export default {
 	data()
 	{
 		return {
-			search_doubt:'',
-			question:'',
+			doubt_question:'',
 			subject:'',
 			new_doubt_type:'batch',
 			doubtList:[],
@@ -272,24 +258,20 @@ export default {
     	filterinput()
     	{
     		this.loading=true;
-    		this.axios.get(this.baseUrl + '/api/get-doubts?search='+this.search_doubt)
+    		this.axios.get(this.baseUrl + '/api/get-doubts?search='+this.doubt_question)
     			.then(response => {
     				this.doubtList= response.data.success.doubtList;
     				this.loading=false;
     			});
     	},
-    	addDoubtModal(){
-    		this.question=this.search_doubt;
-    		// this.$modal.show('add_doubt_modal');
-    	},
     	searchDoubt(){
-    		this.axios.post(this.baseUrl + '/api/search-doubts/',{query:this.search_doubt})
+    		this.axios.post(this.baseUrl + '/api/search-doubts/',{query:this.doubt_question})
     			.then(response => {this.doubtList = response.data.success.doubtList;});
     	},
     	addDoubt()
     	{
-    		this.axios.post(this.baseUrl + '/api/add-doubt/',{
-    			doubt:this.question,
+    		this.axios.post(this.baseUrl + '/api/add-doubt',{
+    			doubt:this.doubt_question,
     			category:this.selected_category,
     			subject:this.selected_subject,
     			classroomId:this.classroomId ?this.classroomId :''
@@ -297,7 +279,7 @@ export default {
     			.then(resp => {
     				// this.$modal.hide('add_doubt_modal');
     				this.$refs.addDoubtModal.closeModal();
-    				this.question='';
+    				this.doubt_question='';
     				this.subject='';
     				this.getdata();
     			})

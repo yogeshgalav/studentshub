@@ -28,6 +28,7 @@ class StudentController extends Controller
     {
         $input = $request->all();
         $user = Auth::user();
+        
         $course = '';
         DB::beginTransaction();
         try {
@@ -136,7 +137,8 @@ class StudentController extends Controller
         $subjects = DB::table('subjects as sub')
             ->where('sub.subject_name', 'LIKE', '%' . $search . '%')
             ->orWhere('sub.alias', 'LIKE', $search)
-            ->select('sub.id', 'sub.subject_name')
+            ->select('sub.subject_name')
+            ->groupBy('subject_name')
             ->limit(10)->get();
 
 

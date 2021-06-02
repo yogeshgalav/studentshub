@@ -82,8 +82,11 @@
 </template>
 <script>
 
-
+import ProfileImage from '../../components/ProfileImage';
 export default {
+	components: {
+		ProfileImage
+	},
 	props:['post', 'likableType'],
 	methods:{
 		setPostView(post){
