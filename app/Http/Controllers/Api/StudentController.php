@@ -19,11 +19,12 @@ use App\Notifications\StudentOnboardingNotification;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
 use SKAgarwal\GoogleApi\PlacesApi;
+use App\Http\Requests\StudentCreateRequest;
 
 class StudentController extends Controller
 {
     //
-    public function create(Request $request)
+    public function create(StudentCreateRequest $request)
     {
         $input = $request->all();
         $user = Auth::user();
