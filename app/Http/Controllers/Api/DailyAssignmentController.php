@@ -18,6 +18,7 @@ class DailyAssignmentController extends Controller
     //
     public function activate(DailyAssignment $daily_assignment)
     {
+        $this->authorize('update', $daily_assignment);
         if($daily_assignment->activated_at){
             $daily_assignment->activated_at = now()->toDateTimeString();
             $daily_assignment->status = 'activated';
@@ -32,8 +33,9 @@ class DailyAssignmentController extends Controller
 
     public function delete(DailyAssignment $daily_assignment)
     {
-        $daily_assignment->delete();
+        $this->authorize('delete', $daily_assignment);
 
+        $daily_assignment->delete();
         return response()->json('success');
     }
 

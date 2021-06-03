@@ -496,8 +496,8 @@ export default {
 				)
 				.then((result) => {
 					if (result.value) {
-						this.axios.delete('/api/daily-assignment/'+this.assignment.id).then(()=>{
-							let assignmentIndex = this.assignment_list.findIndex(node=>node.id===this.assignment.id);
+						this.axios.delete('/api/daily-assignment/'+this.current_assignment.id).then(()=>{
+							let assignmentIndex = this.assignment_list.findIndex(node=>node.id===this.current_assignment.id);
 							this.assignment_list.splice(assignmentIndex,1);
 							this.setCurrentAssignment();
 						});
@@ -530,7 +530,7 @@ export default {
 			}
 		},
 		activateApi(){
-			this.axios.post('/api/daily-assignment/'+this.assignment.id+'/activate')
+			this.axios.post('/api/daily-assignment/'+this.current_assignment.id+'/activate')
 				.then(() => {
 					this.current_assignment.activated_at = this.current_assignment.activated_at ? null : new Date();
 				});
