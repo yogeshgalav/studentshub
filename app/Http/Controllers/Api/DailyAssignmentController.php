@@ -12,37 +12,27 @@ use DB;
 use Log;
 use Illuminate\Http\Request;
 use App\Http\Requests\DailyAssignmentRequest;
+
 class DailyAssignmentController extends Controller
 {
     //
-    public function activate(Request $request)
+    public function activate(DailyAssignment $daily_assignment)
     {
-        if($request->daily_assignment_id){
-            DailyReport::where('daily_assignment_id',$request->daily_assignment_id)->exists() ? abort(403) : '';
-        }
-        $daily = DailyAssignment::findOrFail($request->daily_assignment_id);
-        $marks=DailyQuestion::where('daily_assignment_id',$daily->id)->pluck('marks')->toArray();
-        if(array_sum($marks)!==10){
-            \Log::error('marks total error while activating daily assignment',['user_id'=>Auth::id(),'assignment'=>$daily]);
-            abort(403);
-        }
-        if($request->status==="activate"){
-            $daily->activated_at = now()->toDateTimeString();
+        if($daily_assignment->activated_at){
+            $daily_assignment->activated_at = now()->toDateTimeString();
+            $daily_assignment->status = 'activated';
         }else{
-            $daily->activated_at = null;
+            $daily_assignment->activated_at = null;
+            $daily_assignment->status = 'draft';
         }
-        $daily->save();
+        $daily_assignment->save();
 
         return response()->json('success');
     }
 
-    public function delete(Request $request){
-        if($request->daily_assignment_id){
-            DailyReport::where('daily_assignment_id',$request->daily_assignment_id)->exists() ? abort(403) : '';
-        }
-        $daily = DailyAssignment::findOrFail($request->daily_assignment_id);
-
-        $daily->delete();
+    public function delete(DailyAssignment $daily_assignment)
+    {
+        $daily_assignment->delete();
 
         return response()->json('success');
     }

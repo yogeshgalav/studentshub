@@ -27,6 +27,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::model('user', User::class);
         Route::model('classroom', Classroom::class);
+        Route::model('daily_assignment', DailyAssignment::class);
     }
 
     /**

@@ -12,13 +12,13 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::delete('/classroom/{classroomId}/delete','ClassroomController@delete');
     //unit setup
     Route::get('/classroom/{classroomId}/unit-details','ClassroomUnitController@getClassroomUnitDetails');
-    Route::post('/classroom/{classroomId}/update-unit',[App\Http\Controllers\Api\ClassroomUnitController::class, 'updateUnit']);
+    Route::post('/classroom/{classroom}/update-unit',[App\Http\Controllers\Api\ClassroomUnitController::class, 'updateUnit']);
     // Route::post('/classroom/{classroomId}/activate-unit','ClassroomUnitController@activateUnit');
 
     //daily-assignment routes for teachers
-    Route::post('/update-daily-assignment',[App\Http\Controllers\Api\DailyAssignmentController::class, 'update']);
-    Route::post('/activate-daily-assignment','DailyAssignmentController@activate');
-    Route::post('/delete-daily-assignment','DailyAssignmentController@delete');
+    Route::post('/classroom/{classroom}/update-daily-assignment',[App\Http\Controllers\Api\DailyAssignmentController::class, 'update']);
+    Route::post('/daily-assignment/{daily_assignment}/activate','DailyAssignmentController@activate');
+    Route::delete('/daily-assignment/{daily_assignment}','DailyAssignmentController@delete');
     Route::get('/classroom/{classroomId}/get-assignment-list','DailyAssignmentController@getAssignmentList');
     Route::get('/classroom/{classroomId}/assignment/{assignmentId}/reports','ReportController@getQuestionsReports');
     Route::get('/classroom/{classroomId}/assignment/{assignmentId}/questions','DailyQuestionController@getAssignmentQuestions');

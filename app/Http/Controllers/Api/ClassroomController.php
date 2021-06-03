@@ -42,8 +42,7 @@ class ClassroomController extends Controller
         ]);
     }
 
-    public function update($classroomId,UpdateClassroomDetailsRequest $request){
-        $classroom=Classroom::findOrFail($classroomId);
+    public function update(Classroom $classroom, UpdateClassroomDetailsRequest $request){
         $classroom->update([
             'name'=> $request->name,
             'meet_link'=> $request->meet_link,

@@ -92,9 +92,9 @@ class ClassroomUnitController extends Controller
         ]);
     }
 
-    public function updateUnit($classroomId,UpdateUnitDetailsRequest $request){
+    public function updateUnit(Classroom $classroom,UpdateUnitDetailsRequest $request){
         $unit = Unit::updateOrCreate([
-            'classroom_id'=>$classroomId,
+            'classroom_id'=>$classroom->id,
             'unit_no'=>$request->unit_no
         ],[
             'unit_name'=>$request->unit_name

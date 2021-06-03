@@ -13,7 +13,7 @@ class DailyAssignmentRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->user('api')->can('update', $this->route('classroom'));
     }
 
     /**
@@ -29,7 +29,6 @@ class DailyAssignmentRequest extends FormRequest
             'unit_id'=>'required|exists:units,id',
             'start_time'=>'nullable|date_format:H:i:s',
             'end_time'=>'nullable|date_format:H:i:s',
-
         ];
     }
 }

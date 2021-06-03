@@ -462,7 +462,7 @@ export default {
 			this.form_errors = [];
 			this.showLoader=true;
 			this.axios
-				.post('/api/update-daily-assignment', {
+				.post('/api/classroom/' + this.$route.params.classroomId + '/update-daily-assignment', {
 					assignment_id: this.current_assignment.id,
 					unit_id: this.current_assignment.unit_id,
 					attempt_date: dayjs(this.current_assignment.attempt_date, 'DD-MM-YYYY').format('YYYY-MM-DD'),
@@ -496,9 +496,7 @@ export default {
 				)
 				.then((result) => {
 					if (result.value) {
-						this.axios.post('/api/delete-daily-assignment', {
-							daily_assignment_id: this.assignment.id,
-						}).then(()=>{
+						this.axios.delete('/api/daily-assignment/'+this.assignment.id).then(()=>{
 							let assignmentIndex = this.assignment_list.findIndex(node=>node.id===this.assignment.id);
 							this.assignment_list.splice(assignmentIndex,1);
 							this.setCurrentAssignment();
@@ -532,12 +530,10 @@ export default {
 			}
 		},
 		activateApi(){
-			this.axios.post('/api/activate-daily-assignment', {
-				daily_assignment_id: this.current_assignment.id,
-				status: this.current_assignment.activated_at ? 'deactivate' : 'activate'
-			}).then(() => {
-				this.current_assignment.activated_at = this.current_assignment.activated_at ? null : new Date();
-			});
+			this.axios.post('/api/daily-assignment/'+this.assignment.id+'/activate')
+				.then(() => {
+					this.current_assignment.activated_at = this.current_assignment.activated_at ? null : new Date();
+				});
 		}
 	}
 };
