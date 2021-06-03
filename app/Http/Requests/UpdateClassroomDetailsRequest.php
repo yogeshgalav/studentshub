@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Classroom;
 
 class UpdateClassroomDetailsRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class UpdateClassroomDetailsRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->user('api')->can('update', $this->route('classroom'));
     }
 
     /**

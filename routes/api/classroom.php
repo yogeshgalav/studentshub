@@ -8,7 +8,7 @@ Route::group(['middleware'=>['auth:api']],function(){
 
     //teacher classroom routes
     Route::post('/classroom/create','ClassroomController@createClassroom');
-    Route::post('/classroom/{classroomId}/update-detail',[App\Http\Controllers\Api\ClassroomController::class, 'update']);
+    Route::post('/classroom/{classroom}/update-detail',[App\Http\Controllers\Api\ClassroomController::class, 'update']);
     Route::delete('/classroom/{classroomId}/delete','ClassroomController@delete');
     //unit setup
     Route::get('/classroom/{classroomId}/unit-details','ClassroomUnitController@getClassroomUnitDetails');
