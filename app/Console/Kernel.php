@@ -24,8 +24,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('sthub:cron')->everyFiveMinutes();
-
+        $schedule->command('sthub:cron')->everyMinute();
     }
 
     /**

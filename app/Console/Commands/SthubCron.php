@@ -41,6 +41,7 @@ class SthubCron extends Command
     public function handle()
     {
 
+        Log::info('Dispatching scheduled job to queue');
         /***
          * Look through the scheduled jobs table and put the jobs
          * that are due to dispatched to the queue
