@@ -463,7 +463,7 @@ export default {
 			this.showLoader=true;
 			this.axios
 				.post('/api/update-daily-assignment', {
-					assignment_id: this.current_assignment.id,
+					assignment_id: type==='edit' ? this.current_assignment.id : null,
 					unit_id: this.current_assignment.unit_id,
 					attempt_date: dayjs(this.current_assignment.attempt_date, 'DD-MM-YYYY').format('YYYY-MM-DD'),
 					start_time: this.current_assignment.start_time,

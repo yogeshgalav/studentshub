@@ -11,6 +11,7 @@ use App\Models\Unit;
 use DB;
 use Log;
 use Illuminate\Http\Request;
+use App\Notfications\NewDailyAssignmentNotification;
 
 class DailyAssignmentController extends Controller
 {
@@ -28,6 +29,8 @@ class DailyAssignmentController extends Controller
         }
         if($request->status==="activate"){
             $daily->activated_at = now()->toDateTimeString();
+            new NewDailyAssignmentNotification($daily,Auth::user()->full_name);
+            
         }else{
             $daily->activated_at = null;
         }
