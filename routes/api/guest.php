@@ -19,7 +19,7 @@ Route::post('/faq',[App\Http\Controllers\Api\GuestController::class, 'faq']);
 // Route::get('/get-view-post/{ViewPostId}', 'PostController@viewPost');
 Route::get('/get-explore-posts', 'ExploreController@index');
 
-Route::get('/get-search-posts', 'PostController@searchPosts');
+Route::get('/get-search-posts', [App\Http\Controllers\Api\SearchController::class, 'searchPosts']);
 Route::get('/get-course-details/{id}', 'PostController@courseDetails');
 Route::get('/get-subject-details/{id}', 'PostController@subjectDetails');
 Route::get('/get-category-details/{id}', 'PostController@categoryDetails');
