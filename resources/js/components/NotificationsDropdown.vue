@@ -62,6 +62,9 @@
     font-size: 0.7875rem !important;
     line-height: 1.5;
 }
+.dropdown-container {
+    display: none;
+}
 .notification-system .dropdown-container > .dropdown-menu {
     position: static;
     z-index: 1000;
