@@ -24,8 +24,7 @@ class ClassroomController extends Controller
         ->join('batches as bt','bt.id','=','cs.batch_id')
         ->join('courses as co','co.id','=','bt.course_id')
         ->join('subjects as su','su.id','=','cs.subject_id')
-        ->join('teachers as th','th.id','=','cs.teacher_id')
-        ->join('users as us','us.id','=','th.user_id')
+        ->join('users as us','us.id','=','cs.teacher_user_id')
         ->leftJoin('classroom_users as cus','cus.classroom_id','=','cs.id')
         ->select('cs.id','cs.name','cs.classroom_join_id','cs.teacher_id','cs.subject_id','cs.meet_link', 'cs.batch_id','co.course_name','su.subject_name','us.id as user_id','us.full_name as teacher_name',
         'bt.start_year as batch_start_year', 'bt.end_year as batch_end_year',
@@ -145,10 +144,10 @@ class ClassroomController extends Controller
     public function classroomListDetails(){
 
         $classroom_query = DB::table('classrooms as cl')
+        ->whereIn('cl.id',Auth::user()->getClassroomIds())
         ->leftjoin('classroom_users','classroom_users.classroom_id','=','cl.id')
         ->leftjoin('daily_assignments','cl.id','=','daily_assignments.classroom_id')
-        ->leftjoin('teachers','cl.teacher_id','=','teachers.id')
-        ->leftjoin('users','teachers.user_id','=','users.id')
+        ->leftjoin('users','cl.teacher_user_id','=','users.id')
         ->leftjoin('subjects','cl.subject_id','=','subjects.id')
         ->leftjoin('classroom_resources','cl.id','=','classroom_resources.classroom_id')
         ->leftjoin('classroom_messages','cl.id','=','classroom_messages.classroom_id')
@@ -165,7 +164,10 @@ class ClassroomController extends Controller
                 DB::raw('COUNT(doubts.id) as total_doubts'),
                 DB::raw('FORMAT(AVG(daily_reports.marks_obtained),2) as average_score')
                 )
-        ->groupBy('cl.id','users.full_name','subjects.subject_name','cl.name','cl.classroom_join_id');
+        ->groupBy('cl.id','users.full_name','subjects.subject_name','cl.name','cl.classroom_join_id')
+        ->get();
+
+        /*
         $classrooms = [];
 
         $teacher=Auth::teacher();
@@ -182,7 +184,7 @@ class ClassroomController extends Controller
                 $join->on('bt.id','=','cl.batch_id')->where('bt.institute_id',Auth::instituteAdmin()->institute_id);
             })
             ->get();
-        }
+        }*/
         return response()->json([
             'success'=>[
                 'classrooms' => $classrooms

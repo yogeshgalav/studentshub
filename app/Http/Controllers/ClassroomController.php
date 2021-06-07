@@ -121,8 +121,7 @@ class ClassroomController extends Controller
         ->join('batches as bt','bt.id','=','cs.batch_id')
         ->join('courses as co','co.id','=','bt.course_id')
         ->join('subjects as su','su.id','=','cs.subject_id')
-        ->join('teachers as th','th.id','=','cs.teacher_id')
-        ->join('users as us','us.id','=','th.user_id')
+        ->join('users as us','us.id','=','cs.teacher_user_id')
         ->select('cs.id','cs.name','co.course_name','su.subject_name','su.alias as subject_alias','us.id as user_id','us.full_name as teacher_name');
 
         $classroom_query2=clone $classroom_query;
@@ -179,13 +178,13 @@ class ClassroomController extends Controller
     }
     public function GlobalMessagePage(){
         $classrooms = \DB::table('classrooms')
-        ->leftJoin('teachers as tc',function($join){
-            $join->on('tc.id','=','classrooms.teacher_id')->where('user_id','=',Auth::id());
+        ->leftJoin('users as usr',function($join){
+            $join->on('usr.id','=','classrooms.teacher_user_id')->where('usr.id','=',Auth::id());
         })
         ->leftJoin('classroom_users as cu',function($join){
             $join->on('cu.classroom_id','=','classrooms.id')->where('cu.user_id','=',Auth::id());
         })
-        ->where('tc.id','!=',null)
+        ->where('usr.id','!=',null)
         ->orWhere('cu.id','!=',null)
         ->select('classrooms.id','classrooms.name')
         ->get();

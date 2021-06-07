@@ -85,9 +85,7 @@ class User extends Authenticatable
 
     public function createdClassroomCount(){
         return \DB::table('classrooms')
-        ->join('teachers as tc',function($join){
-            $join->on('tc.id','=','classrooms.teacher_id')->where('user_id','=',$this->id);
-        })
+        ->where('classrooms.teacher_user_id',$this->id)
         ->count();
     }
     public function hasClassroom(){
@@ -102,5 +100,18 @@ class User extends Authenticatable
         return \DB::table('admins')
             ->where('user_id',$this->id)
             ->exists();
+    }
+    public function getClassroomIds(){
+        $classrooms = \DB::table('classrooms')
+        ->leftJoin('users as usr',function($join){
+            $join->on('usr.id','=','classrooms.teacher_user_id')->where('usr.id','=',$this->id);
+        })
+        ->leftJoin('classroom_users as cu',function($join){
+            $join->on('cu.classroom_id','=','classrooms.id')->where('cu.user_id','=',$this->id);
+        })
+        ->where('usr.id','!=',null)
+        ->orWhere('cu.id','!=',null)
+        ->pluck('classrooms.id')->toArray();       
+        return $classrooms;
     }
 }

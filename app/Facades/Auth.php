@@ -44,12 +44,13 @@ class Auth extends AuthUser
         if (self::user()->role_intended!=='teacher') {
             return null;
         }
-        return DB::table('teachers as th')->where('th.user_id', '=', self::user()->id)
-            ->leftJoin('institutes as inst', 'inst.id', '=', 'th.institute_id')
+        return DB::table('institute_users as insu')->where('insu.user_id', '=', self::user()->id)
+            ->where('insu.role','teacher')
+            ->leftJoin('institutes as inst', 'inst.id', '=', 'insu.institute_id')
             ->select(
                 'inst.id as instituteId',
                 'inst.name as instituteName',
-                'th.id as id', 'th.user_id'
+                'insu.id as id', 'insu.user_id'
             )->first();
     }
     public static function instituteAdmin()
