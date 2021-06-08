@@ -18,7 +18,7 @@ class ClassroomController extends Controller
     public function classroomPage($classroomId){
         $classroom=Classroom::findOrFail($classroomId);
 
-        if(Auth::teacher() && $classroom->teacher_id===Auth::teacher()->id){
+        if(Auth::teacher() && $classroom->teacher_user_id===Auth::teacher()->id){
             return view('classroom.classroom');
         }
 
@@ -53,7 +53,7 @@ class ClassroomController extends Controller
     public function classroomOverviewPage($classroomId){
         $classroom=Classroom::findOrFail($classroomId);
 
-        if(Auth::teacher() && $classroom->teacher_id===Auth::teacher()->id){
+        if(Auth::teacher() && $classroom->teacher_user_id===Auth::teacher()->id){
             return view('classroom.overview');
         }
 
@@ -68,7 +68,7 @@ class ClassroomController extends Controller
     public function classroomAttendancePage($classroomId){
         $classroom=Classroom::findOrFail($classroomId);
 
-        if(Auth::teacher() && $classroom->teacher_id===Auth::teacher()->id){
+        if(Auth::teacher() && $classroom->teacher_user_id===Auth::teacher()->id){
             return view('classroom.classroom-attendance-page');
         }
 
@@ -77,7 +77,7 @@ class ClassroomController extends Controller
     public function classroomUnitAssignmentPage($classroomId){
         $classroom=Classroom::findOrFail($classroomId);
 
-        if(Auth::teacher() && $classroom->teacher_id===Auth::teacher()->id){
+        if(Auth::teacher() && $classroom->teacher_user_id===Auth::teacher()->id){
             return view('classroom.classroom-unit-assignment');
         }
 
@@ -86,7 +86,7 @@ class ClassroomController extends Controller
     public function classroomDailyAssignmentPage($classroomId){
         $classroom=Classroom::findOrFail($classroomId);
 
-        if(Auth::teacher() && $classroom->teacher_id===Auth::teacher()->id){
+        if(Auth::teacher() && $classroom->teacher_user_id===Auth::teacher()->id){
             return view('classroom.classroom-daily-assignment');
         }
 
@@ -133,7 +133,7 @@ class ClassroomController extends Controller
 
         $teacher=Auth::teacher();
         if($teacher){
-            $my_classrooms=$classroom_query2->where('teacher_id','=',$teacher->id)->get();
+            $my_classrooms=$classroom_query2->where('teacher_user_id','=',$teacher->id)->get();
         }else{
             $my_classrooms=[];
         }

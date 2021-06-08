@@ -35,7 +35,7 @@ class ClassroomPolicy
         if(ClassroomUser::where('user_id',$user->id)->where('classroom_id',$classroom->id)->exists()){
             return true;
         }
-        if(Auth::teacher() && $classroom->teacher_id===Auth::teacher()->id){
+        if(Auth::teacher() && $classroom->teacher_user_id===Auth::teacher()->id){
             return true;
         }
         // if($user->role==='instituteAdmin'){
@@ -76,7 +76,7 @@ class ClassroomPolicy
      */
     public function update(User $user, Classroom $classroom)
     {
-        if(Auth::teacher() && $classroom->teacher_id===Auth::teacher()->id){
+        if(Auth::teacher() && $classroom->teacher_user_id===Auth::teacher()->id){
             return true;
         }
         // if($user->role==='instituteAdmin'){
@@ -97,7 +97,7 @@ class ClassroomPolicy
      */
     public function delete(User $user, Classroom $classroom)
     {
-        if(Auth::teacher() && $classroom->teacher_id===Auth::teacher()->id){
+        if(Auth::teacher() && $classroom->teacher_user_id===Auth::teacher()->id){
             return true;
         }
         // if($user->role==='instituteAdmin'){

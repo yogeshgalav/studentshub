@@ -26,10 +26,10 @@ class ClassroomController extends Controller
         ->join('subjects as su','su.id','=','cs.subject_id')
         ->join('users as us','us.id','=','cs.teacher_user_id')
         ->leftJoin('classroom_users as cus','cus.classroom_id','=','cs.id')
-        ->select('cs.id','cs.name','cs.classroom_join_id','cs.teacher_id','cs.subject_id','cs.meet_link', 'cs.batch_id','co.course_name','su.subject_name','us.id as user_id','us.full_name as teacher_name',
+        ->select('cs.id','cs.name','cs.classroom_join_id','cs.teacher_user_id','cs.subject_id','cs.meet_link', 'cs.batch_id','co.course_name','su.subject_name','us.id as user_id','us.full_name as teacher_name',
         'bt.start_year as batch_start_year', 'bt.end_year as batch_end_year',
         DB::raw('COUNT(cus.id) as total_students'))
-        ->groupBy('cs.id','cs.name','cs.classroom_join_id','cs.teacher_id','cs.subject_id','cs.meet_link','cs.batch_id','co.course_name','su.subject_name','us.id','us.full_name',
+        ->groupBy('cs.id','cs.name','cs.classroom_join_id','cs.teacher_user_id','cs.subject_id','cs.meet_link','cs.batch_id','co.course_name','su.subject_name','us.id','us.full_name',
         'bt.start_year', 'bt.end_year')
         ->first();
 
@@ -107,7 +107,7 @@ class ClassroomController extends Controller
         
         $classroom=new Classroom;
         $classroom->name=$request->name;
-        $classroom->teacher_id=Auth::teacher()->id;
+        $classroom->teacher_user_id=Auth::teacher()->id;
         $classroom->subject_id=$subject->id;
         $classroom->batch_id=$batch->id;
         $classroom->save();
@@ -172,7 +172,7 @@ class ClassroomController extends Controller
 
         $teacher=Auth::teacher();
         if($teacher){
-            $classrooms=$classroom_query->where('cl.teacher_id','=',$teacher->id)->get();
+            $classrooms=$classroom_query->where('cl.teacher_user_id','=',$teacher->id)->get();
             
         }else if(Auth::student()){
             $classrooms=$classroom_query->join('classroom_users as cu',function($join){

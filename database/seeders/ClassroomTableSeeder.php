@@ -18,7 +18,7 @@ class ClassroomTableSeeder extends Seeder
         DB::table('classrooms')->insert([
             'classroom_join_id'=>'PPLBYAK',
             'name'=>'YOGESH',
-            'teacher_id'=>1,
+            'teacher_user_id'=>1,
             'subject_id'=>1,
             'batch_id'=>1,
             'activated_unit'=>null,
