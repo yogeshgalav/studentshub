@@ -18,7 +18,7 @@ class ClassroomController extends Controller
     public function classroomPage($classroomId){
         $classroom=Classroom::findOrFail($classroomId);
 
-        if(Auth::teacher() && $classroom->teacher_id===Auth::teacher()->id){
+        if($classroom->teacher_user_id===Auth::user()->id){
             return view('classroom.classroom');
         }
 
@@ -53,7 +53,7 @@ class ClassroomController extends Controller
     public function classroomOverviewPage($classroomId){
         $classroom=Classroom::findOrFail($classroomId);
 
-        if(Auth::teacher() && $classroom->teacher_id===Auth::teacher()->id){
+        if($classroom->teacher_user_id===Auth::user()->id){
             return view('classroom.overview');
         }
 
@@ -68,7 +68,7 @@ class ClassroomController extends Controller
     public function classroomAttendancePage($classroomId){
         $classroom=Classroom::findOrFail($classroomId);
 
-        if(Auth::teacher() && $classroom->teacher_id===Auth::teacher()->id){
+        if($classroom->teacher_user_id===Auth::user()->id){
             return view('classroom.classroom-attendance-page');
         }
 
@@ -77,7 +77,7 @@ class ClassroomController extends Controller
     public function classroomUnitAssignmentPage($classroomId){
         $classroom=Classroom::findOrFail($classroomId);
 
-        if(Auth::teacher() && $classroom->teacher_id===Auth::teacher()->id){
+        if($classroom->teacher_user_id===Auth::user()->id){
             return view('classroom.classroom-unit-assignment');
         }
 
@@ -86,7 +86,7 @@ class ClassroomController extends Controller
     public function classroomDailyAssignmentPage($classroomId){
         $classroom=Classroom::findOrFail($classroomId);
 
-        if(Auth::teacher() && $classroom->teacher_id===Auth::teacher()->id){
+        if($classroom->teacher_user_id===Auth::user()->id){
             return view('classroom.classroom-daily-assignment');
         }
 
@@ -117,32 +117,18 @@ class ClassroomController extends Controller
         ->with('course_levels',$course_levels);
     }
     public function classroomListPage(){
-        $classroom_query = DB::table('classrooms as cs')
+        $classroom_list = DB::table('classrooms as cs')
         ->join('batches as bt','bt.id','=','cs.batch_id')
         ->join('courses as co','co.id','=','bt.course_id')
         ->join('subjects as su','su.id','=','cs.subject_id')
         ->join('users as us','us.id','=','cs.teacher_user_id')
         ->select('cs.id','cs.name','co.course_name','su.subject_name','su.alias as subject_alias','us.id as user_id','us.full_name as teacher_name');
-
-        $classroom_query2=clone $classroom_query;
-
-        $classroom_list=$classroom_query->join('classroom_users as cu',function($join){
-            $join->on('cu.classroom_id','=','cs.id')->where('cu.user_id',Auth::id());
-        })
+        ->whereIn('cs.id',Auth::user()->getClassroomIds())
         ->get();
-
-        $teacher=Auth::teacher();
-        if($teacher){
-            $my_classrooms=$classroom_query2->where('teacher_id','=',$teacher->id)->get();
-        }else{
-            $my_classrooms=[];
-        }
 
         return view('classroom.classroom-list')
         ->with([
             'classroomList'=>$classroom_list,
-            'myClassrooms'=>$my_classrooms,
-            'teacher'=>$teacher ? true :false,
         ]);
     }
 

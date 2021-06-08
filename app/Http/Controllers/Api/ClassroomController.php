@@ -86,30 +86,13 @@ class ClassroomController extends Controller
             'subject_id'=>$subject->id,
             'course_id'=>$course->id,
         ]);
-
-        $batch = Batch::firstOrCreate([
-            'institute_id'=>Auth::teacher()->instituteId,
-            'course_id'=>$course->id,
-            'start_year'=>$request->start_year,
-            'end_year'=>$request->end_year,
-        ]);
-
-        $classroom_exist = Classroom::where([
-            'name'=>$request->name,
-            'batch_id'=>$batch->id,
-        ])->exists();
-
-        if($classroom_exist){
-            return response()->json(['error'=>[
-                'name'=>'Classroom name already exists in batch.Try other name.'
-            ]], 422);
-        }
         
         $classroom=new Classroom;
         $classroom->name=$request->name;
-        $classroom->teacher_id=Auth::teacher()->id;
+        $classroom->teacher_user_id=Auth::id();
         $classroom->subject_id=$subject->id;
-        $classroom->batch_id=$batch->id;
+        $classroom->institute_id=Auth::teacher()->instituteId;
+        $classroom->course_id=$course->id;
         $classroom->save();
 
         Log::info('New classroom created',[
@@ -167,24 +150,6 @@ class ClassroomController extends Controller
         ->groupBy('cl.id','users.full_name','subjects.subject_name','cl.name','cl.classroom_join_id')
         ->get();
 
-        /*
-        $classrooms = [];
-
-        $teacher=Auth::teacher();
-        if($teacher){
-            $classrooms=$classroom_query->where('cl.teacher_id','=',$teacher->id)->get();
-            
-        }else if(Auth::student()){
-            $classrooms=$classroom_query->join('classroom_users as cu',function($join){
-                $join->on('cu.classroom_id','=','cl.id')->where('cu.user_id',Auth::id());
-            })
-            ->get();
-        }else if(Auth::instituteAdmin()){
-            $classrooms=$classroom_query->join('batches as bt',function($join){
-                $join->on('bt.id','=','cl.batch_id')->where('bt.institute_id',Auth::instituteAdmin()->institute_id);
-            })
-            ->get();
-        }*/
         return response()->json([
             'success'=>[
                 'classrooms' => $classrooms

@@ -114,4 +114,13 @@ class User extends Authenticatable
         ->pluck('classrooms.id')->toArray();       
         return $classrooms;
     }
+    public function preferredInstituteId()
+    {
+        if($student = Auth::student()){
+            return $student->instituteId;
+        }
+        if($teacher = Auth::teacher()){
+            return $teacher->instituteId;
+        }
+    }
 }
