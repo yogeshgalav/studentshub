@@ -1,5 +1,18 @@
 <template>
   <div>
+    <loading
+      :active.sync="showLoader"
+      :color="'#10069F'"
+      :width="250"
+      :is-full-page="false"
+      loader="dots"
+    />
+    <div class="text-grey col-md-12 pl-0">
+      <p class="mt-2">
+        Students will be asked to answer the following questions on this unit
+        attempt
+      </p>
+    </div>
     <div
       v-for="(question,index) in daily_questions"
       :key="index"
@@ -55,7 +68,7 @@
             class="row"
           >
             <div class="col-md-9 mb-1 mt-1 ">
-              <div :class="['row line-height-30', choice.option_order === question.correct_answer ? 'bg-card-green text-white' : 'bg-card-gray', 'p-2']">
+              <div :class="['row line-height-30', choice.is_correct ? 'bg-card-green text-white' : 'bg-card-gray', 'p-2']">
                 <div class="bg-circle">
                   {{ letters[index2] }}
                 </div>
@@ -181,12 +194,11 @@
                           <input
                             :id="'correctAnswer'+index"
                             v-validate="'required'"
-                            :checked="current_question_edit.correct_answer===index"
+                            :checked="choice.is_correct"
                             class="form-check-input mt-2"
                             type="radio"
                             name="correct_answer"
-                            :value="true"
-                            @change="current_question_edit.correct_answer=index"
+                            @change="setCurrectAnswer(choice)"
                           >
                           <label class="form-check-label">Mark as correct answer</label>
                           <button
@@ -273,19 +285,18 @@
 }
 </style>
 <script>
-import AddButton from '../../../components/AddButton';
 import FormMixin from '../../../components/mixins/form-mixin.js';
 import Modal from '../../../components/VueNiceModal.vue';
 
 export default {
 	components: {
-		AddButton,
 		Modal
 	},
 	mixins: [FormMixin],
-	props:['assignmentId','dailyQuestions'],
+	props:['assignmentId'],
 	data() {
 		return {
+			showLoader:false,
 			filter_recovery_text:'',
 			daily_questions:[],
 			options: {
@@ -300,14 +311,15 @@ export default {
 				marks: null,
 				question_type: 'multiple_choice',
 				question_order: 0,
-				correct_answer: 0,
 				multiple_choice: [{
 					id: 0,
 					option_text: null,
+					is_correct: true,
 				},
 				{
 					id: 0,
 					option_text: null,
+					is_correct: false,
 				},
 				],
 			},
@@ -326,9 +338,16 @@ export default {
 		}
 	},
 	mounted(){
-		this.daily_questions =this.dailyQuestions ? this.dailyQuestions :[];
+		this.getQuestions();
 	},
 	methods: {
+		getQuestions() {
+			this.axios
+				.get('/api/classroom/' + this.$route.params.classroomId + '/assignment/'+this.assignmentId+'/questions')
+				.then((resp) => {
+					this.daily_questions =resp.data.success.daily_questions;
+				});
+		},
 		addQuestion() {
 			this.resetEditQuestion();
 			this.avail_marks = this.total_marks<11 ? (10-this.total_marks) : 0;
@@ -418,18 +437,25 @@ export default {
 				marks: null,
 				question_type: 'multiple_choice',
 				question_order: 0,
-				correct_answer: 0,
 				multiple_choice: [{
 					id:0,
 					option_text: null,
+					is_correct: true,
 				},
 				{
 					id:0,
 					option_text: null,
+					is_correct: false,
 				},
 				],
 			};
 			this.filter_recovery_text = '';
+		},
+		setCurrectAnswer(choice){
+			this.current_question_edit.multiple_choice.map(node=>{
+				node.is_correct = (node.option_order === choice.option_order) ? true :false;
+				return node;
+			});
 		},
 		addOption() {
 			let data = this.current_question_edit.multiple_choice;

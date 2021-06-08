@@ -145,7 +145,7 @@
         <div class="row p-4">
           <div class="col-12 col-sm-4">
             <h5 class="pb-2 pt-2">
-              Real time analysis
+              Increase revenue
             </h5>
             <p>
               Instead of waiting for exam results and conveying a single report to parents you will be able to see daily progress of your Students, Teachers and Institute. And schedule these reports to parents to keep them updated with your work. The real time data helps teachers, student and parents to take immediate action for better results.
@@ -164,8 +164,7 @@
               Effective Learning
             </h5>
             <p>
-              Student'sHub with help of Learning Analytics work with educational environments data, and convert their data into relevant information with the aim of improving the learning process. Learning Analytics further includes other methods, such as statistical and visualization
-              tools and puts them into practice for studying their actual effectiveness on the improvement of teaching and learning.
+              With Student'sHub your students and teachers will be able to recognize thier weak subject or topic in real time. They can compare thier score with average classroom score and also seek help from others who are performing better or seek resources curated for them.
             </p>
           </div>
         </div>

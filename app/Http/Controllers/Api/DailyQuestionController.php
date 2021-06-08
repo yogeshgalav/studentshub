@@ -14,10 +14,21 @@ use Illuminate\Support\Facades\Log;
 
 class DailyQuestionController extends Controller
 {
-    //
-    //api end point for getting daily assisment data for students and teachers
-    
-    public function updateDailyQuestion(Request $request)
+    //get questions to edit for teachers
+    public function getAssignmentQuestions($classroomId, $assignmentId, Request $request){
+        $daily_questions=DailyQuestion::where('daily_assignment_id',$assignmentId)
+        ->with('multipleChoice')
+        ->get();
+
+        return response()->json([
+            'success'=>[
+                'daily_questions'=>$daily_questions
+            ]
+        ]);
+    }
+
+    //update question by teacher
+    public function update(Request $request)
     {    
         $question=$request->question;
     DB::beginTransaction();
@@ -32,14 +43,14 @@ class DailyQuestionController extends Controller
         $dailyQuestion->marks = $question['marks']; 
         $dailyQuestion->question_order = $question['question_order']; 
         $dailyQuestion->question_text = $question['question_text']; 
-        $dailyQuestion->correct_answer = $question['correct_answer']; 
-
         $dailyQuestion->save();
         $daily_question=$dailyQuestion->toArray();
+
         foreach($request->removed_options as $key=>$optionId){
             $multiple_choice = MultipleChoice::find($optionId);
             $multiple_choice->delete();
         }
+
         foreach($question['multiple_choice'] as $key=>$choice){
             if(!empty($choice['id'])){
                 $multiple_choice = MultipleChoice::find($choice['id']);    
@@ -49,12 +60,17 @@ class DailyQuestionController extends Controller
             }
             $multiple_choice->option_order = $key;
             $multiple_choice->option_text = $choice['option_text'];
+            if($choice['is_correct']===true){
+                $multiple_choice->is_correct = 1;
+            }else{
+                $multiple_choice->is_correct = 0;
+            }
             $multiple_choice->save();
             $daily_question['multiple_choice'][]=$multiple_choice->toArray();
         }
 
         DB::commit();
-    } catch (\Exception $e) {
+    } catch (\Exception $e) {dd($e->getMessage());
         DB::rollback();
         \Log::critical('daily question update failure',['data'=>$request->all(),'error'=>$e->getMessage()]);
         return response()->$e;
@@ -66,7 +82,7 @@ class DailyQuestionController extends Controller
     }
 
     
-    public function deleteDailyQuestion(Request $request){
+    public function delete(Request $request){
         DailyQuestion::where('id',$request->question_id)->delete();
         return 'success';
     }
