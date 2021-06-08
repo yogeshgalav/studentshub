@@ -8,34 +8,34 @@ Route::group(['middleware'=>['auth:api']],function(){
 
     //teacher classroom routes
     Route::post('/classroom/create','ClassroomController@createClassroom');
-    Route::post('/classroom/{classroomId}/update-detail','ClassroomController@update');
+    Route::post('/classroom/{classroom}/update-detail',[App\Http\Controllers\Api\ClassroomController::class, 'update']);
     Route::delete('/classroom/{classroomId}/delete','ClassroomController@delete');
     //unit setup
     Route::get('/classroom/{classroomId}/unit-details','ClassroomUnitController@getClassroomUnitDetails');
-    Route::post('/classroom/{classroomId}/update-unit','ClassroomUnitController@updateUnit');
+    Route::post('/classroom/{classroom}/update-unit',[App\Http\Controllers\Api\ClassroomUnitController::class, 'updateUnit']);
     // Route::post('/classroom/{classroomId}/activate-unit','ClassroomUnitController@activateUnit');
 
     //daily-assignment routes for teachers
-    Route::post('/update-daily-assignment','DailyAssignmentController@update');
-    Route::post('/activate-daily-assignment','DailyAssignmentController@activate');
-    Route::post('/delete-daily-assignment','DailyAssignmentController@delete');
+    Route::post('/classroom/{classroom}/update-daily-assignment',[App\Http\Controllers\Api\DailyAssignmentController::class, 'update']);
+    Route::post('/daily-assignment/{daily_assignment}/activate','DailyAssignmentController@activate');
+    Route::delete('/daily-assignment/{daily_assignment}','DailyAssignmentController@delete');
     Route::get('/classroom/{classroomId}/get-assignment-list','DailyAssignmentController@getAssignmentList');
     Route::get('/classroom/{classroomId}/assignment/{assignmentId}/reports','ReportController@getQuestionsReports');
     Route::get('/classroom/{classroomId}/assignment/{assignmentId}/questions','DailyQuestionController@getAssignmentQuestions');
     Route::get('/classroom/{classroomId}/daily-assignments-summary','DailyAssignmentController@getDailyAssignmentSummary');
     ///question routes
-    Route::post('/classroom/update-daily-question','DailyQuestionController@update');
+    Route::post('/classroom/update-daily-question',[App\Http\Controllers\Api\DailyQuestionController::class, 'update']);
     Route::post('/classroom/delete-daily-question','DailyQuestionController@delete');
    //resources
     Route::get('/classroom/{classroomId}/get-resources','ClassroomResourceController@listresource');
-    Route::post('/classroom/{classroomId}/add-resource','ClassroomResourceController@addresource');
+    Route::post('/classroom/{classroomId}/add-resource',[App\Http\Controllers\Api\ClassroomResourceController::class, 'addresource']);
     Route::post('/classroom/{classroomId}/delete-resource','ClassroomResourceController@deleteresource');
     //messages
     Route::get('/get-classroom-messages/{classroomId?}','ClassroomUserController@listmessage');
     Route::get('/message/{messageId}/get-replies', 'ClassroomUserController@replymessage');
-    Route::post('/add-message','ClassroomUserController@addmessage');
+    Route::post('/add-message',[App\Http\Controllers\Api\ClassroomUserController::class, 'addmessage']);
     Route::post('/delete-message','ClassroomUserController@deletemessage');
-    Route::post('/edit-message', 'ClassroomUserController@editmessage');
+    Route::post('/edit-message', [App\Http\Controllers\Api\ClassroomUserController::class, 'editmessage']);
 
     //student classroom routes
     Route::post('/classroom/join','ClassroomUserController@joinClassroom');

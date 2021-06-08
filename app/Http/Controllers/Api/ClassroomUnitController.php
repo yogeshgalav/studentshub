@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
-
 use Illuminate\Http\Request;
+use App\Http\Requests\UpdateUnitDetailsRequest;
 use Auth;
 use DB;
 use App\Models\Unit;
@@ -92,9 +92,9 @@ class ClassroomUnitController extends Controller
         ]);
     }
 
-    public function updateUnit($classroomId,Request $request){
+    public function updateUnit(Classroom $classroom,UpdateUnitDetailsRequest $request){
         $unit = Unit::updateOrCreate([
-            'classroom_id'=>$classroomId,
+            'classroom_id'=>$classroom->id,
             'unit_no'=>$request->unit_no
         ],[
             'unit_name'=>$request->unit_name
