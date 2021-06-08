@@ -446,12 +446,9 @@ export default {
 				if(valid){
 					this.showLoader=true;
 					this.axios
-						.post('/api/update-daily-assignment', {
-							assignment_id:  null,
+				      .post('/api/classroom/' + this.$route.params.classroomId + '/create-assignment', {
 							unit_id: this.new_unit,
 							attempt_date: dayjs(this.new_assignment_date, 'DD-MM-YYYY').format('YYYY-MM-DD'),
-							start_time: null,
-							end_time: null,
 						})
 						.then((resp) => {
 							let new_assignment =resp.data.success.assignment;
@@ -486,7 +483,7 @@ export default {
 			this.form_errors = [];
 			this.showLoader=true;
 			this.axios
-				.post('/api/classroom/' + this.$route.params.classroomId + '/update-daily-assignment', {
+				.post('/api/daily-assignment/' + this.current_assignment.id + '/update', {
 					assignment_id: this.current_assignment.id,
 					unit_id: this.current_assignment.unit_id,
 					attempt_date: dayjs(this.current_assignment.attempt_date, 'DD-MM-YYYY').format('YYYY-MM-DD'),

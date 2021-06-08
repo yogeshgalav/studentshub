@@ -16,7 +16,8 @@ Route::group(['middleware'=>['auth:api']],function(){
     // Route::post('/classroom/{classroomId}/activate-unit','ClassroomUnitController@activateUnit');
 
     //daily-assignment routes for teachers
-    Route::post('/classroom/{classroom}/update-daily-assignment',[App\Http\Controllers\Api\DailyAssignmentController::class, 'update']);
+    Route::post('/classroom/{classroom}/create-assignment',[App\Http\Controllers\Api\DailyAssignmentController::class, 'create']);
+    Route::post('/daily-assignment/{daily_assignment}/update',[App\Http\Controllers\Api\DailyAssignmentController::class, 'update']);
     Route::post('/daily-assignment/{daily_assignment}/activate','DailyAssignmentController@activate');
     Route::delete('/daily-assignment/{daily_assignment}','DailyAssignmentController@delete');
     Route::get('/classroom/{classroomId}/get-assignment-list','DailyAssignmentController@getAssignmentList');

@@ -39,31 +39,38 @@ class DailyAssignmentController extends Controller
         return response()->json('success');
     }
 
-    public function update(DailyAssignmentRequest $request)
+    public function create(Classroom $classroom, CreateAssignmentRequest $request)
     {
-        if($request->assignment_id){
-            DailyReport::where('daily_assignment_id',$request->assignment_id)->exists() ? abort(403) : '';
-        }
-        $unit=Unit::findOrFail($request->unit_id);
-        $is_assignment_duplicate = DailyAssignment::where('attempt_date',$request->attempt_date)
-        ->where('classroom_id',$unit->classroom_id)
-        ->where('id','!=',$request->assignment_id)
-        ->exists();
-        if($is_assignment_duplicate){
-            return response()->json('Assignment with same date already exists.',422);
-        }
+
         DB::beginTransaction();
     try{
-        if($request->assignment_id){
-            $dailyAssignment = DailyAssignment::find($request->assignment_id);
-        }else{
-            $dailyAssignment = new DailyAssignment;
-        }
+        $dailyAssignment = new DailyAssignment;
+        $dailyAssignment->attempt_date=$request->attempt_date;
+        $dailyAssignment->unit_id=$unit->id;
+        $dailyAssignment->classroom_id=$unit->classroom_id;
+
+        $dailyAssignment->save();
+
+        DB::commit();
+    } catch (\Exception $e) {dd($e->getMessage());
+        DB::rollback();
+        Log::critical('daily assignment update failure',['data'=>$request->all(),'error'=>$e->getMessage()]);
+        return response()->$e;
+    }
+        return response()->json(['success'=>[
+            'assignment'=>$dailyAssignment
+        ]]);
+
+    }
+    public function update(DailyAssignment $dailyAssignment, UpdateAssignmentRequest $request)
+    {
+        DB::beginTransaction();
+    try{
+
         $dailyAssignment->attempt_date=$request->attempt_date;
         $dailyAssignment->start_time=$request->start_time;
         $dailyAssignment->end_time=$request->end_time;
         $dailyAssignment->unit_id=$unit->id;
-        $dailyAssignment->classroom_id=$unit->classroom_id;
 
         $dailyAssignment->save();
 
