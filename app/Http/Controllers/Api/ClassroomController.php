@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\UpdateClassroomDetailsRequest;
 use App\Models\Classroom;
 use App\Models\Batch;
 use App\Models\Unit;
@@ -41,8 +42,7 @@ class ClassroomController extends Controller
         ]);
     }
 
-    public function update($classroomId,Request $request){
-        $classroom=Classroom::findOrFail($classroomId);
+    public function update(Classroom $classroom, UpdateClassroomDetailsRequest $request){
         $classroom->update([
             'name'=> $request->name,
             'meet_link'=> $request->meet_link,
