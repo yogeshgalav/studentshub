@@ -8,6 +8,7 @@ use App\Models\Classroom;
 use App\Models\Batch;
 use App\Models\Unit;
 use App\Models\ClassroomUser;
+use App\Http\Requests\CreateClassroomRequest;
 use DB;
 use Auth;
 use Illuminate\Support\Facades\Log;
@@ -62,25 +63,11 @@ class ClassroomController extends Controller
     }
 
     
-    public function createClassroom(Request $request){
-        $subject_name = $request->subject['subject_name'];
-        $course_id = $request->course['id'];
-        $course_name = $request->course['course_name'];
-        
-        DB::beginTransaction();
-    try{
-        if($course_id){
-            $course = \App\Models\Course::findOrFail($course_id);
-        }else{
-            $course=\App\Models\Course::create([
-                'course_url'=>\Str::slug($course_name),
-                'course_name'=>$course_name,
-                'category_id'=>null
-            ]);
-            Log::warning('New course created',['course_id'=>$course->id]);
-        }
+    public function createClassroom(CreateClassroomRequest $request){
 
-        $subject= \App\Models\Subject::getOrCreate(null, $subject_name, $course->category_id, true);
+        $course = \App\Models\Course::find($request->course_id);
+
+        $subject= \App\Models\Subject::getOrCreate(null, $request->subject_name, $course->category_id, true);
 
         \App\Models\CourseSubject::firstOrCreate([
             'subject_id'=>$subject->id,
@@ -88,10 +75,10 @@ class ClassroomController extends Controller
         ]);
         
         $classroom=new Classroom;
-        $classroom->name=$request->name;
+        $classroom->name=$request->classroom_name;
         $classroom->teacher_user_id=Auth::id();
         $classroom->subject_id=$subject->id;
-        $classroom->institute_id=Auth::teacher()->instituteId;
+        $classroom->institute_id=$request->institute_id;
         $classroom->course_id=$course->id;
         $classroom->save();
 
@@ -99,12 +86,7 @@ class ClassroomController extends Controller
             'name'=>$classroom->name,
             'user'=>Auth::id(),
             'join_id'=>$classroom->join_id]);
-        DB::commit();
-    } catch (\Exception $e) {
-        DB::rollback();
-        Log::critical('classroom create failure',['data'=>$request->all(),'error'=>$e->getMessage()]);
-        return response()->$e;
-    }
+    
         return response()->json(['success'=>[
             'id'=>$classroom->id,
             'join_id'=>$classroom->classroom_join_id

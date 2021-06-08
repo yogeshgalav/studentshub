@@ -113,7 +113,20 @@ class ClassroomController extends Controller
 
     public function createClassroomPage(Request $request){
         $course_levels = \App\Models\CourseLevel::get();
+        $institute_list = DB::table('institutes as in')
+        ->join('institute_users as inu', function($join){
+            $join->on('in.id','=','inu.institute_id')->where('inu.user_id','=',Auth::id());
+        })
+        ->select('in.id','in.name')
+        ->groupBy('in.id')
+        ->get();
+
+        if(empty($institute_list)){
+            abort(403);
+        }
+
         return view('classroom.create-classroom')
+        ->with('institute_list',$institute_list)
         ->with('course_levels',$course_levels);
     }
     public function classroomListPage(){
@@ -122,7 +135,7 @@ class ClassroomController extends Controller
         ->join('courses as co','co.id','=','bt.course_id')
         ->join('subjects as su','su.id','=','cs.subject_id')
         ->join('users as us','us.id','=','cs.teacher_user_id')
-        ->select('cs.id','cs.name','co.course_name','su.subject_name','su.alias as subject_alias','us.id as user_id','us.full_name as teacher_name');
+        ->select('cs.id','cs.name','co.course_name','su.subject_name','su.alias as subject_alias','us.id as user_id','us.full_name as teacher_name')
         ->whereIn('cs.id',Auth::user()->getClassroomIds())
         ->get();
 
