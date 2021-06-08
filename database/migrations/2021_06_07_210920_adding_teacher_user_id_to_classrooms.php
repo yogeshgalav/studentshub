@@ -16,9 +16,9 @@ class AddingTeacherUserIdToClassrooms extends Migration
         Schema::table('classrooms', function (Blueprint $table) {
             $table->dropForeign(['teacher_id']);
             $table->renameColumn('teacher_id', 'teacher_user_id');
-            $table->foreign('teacher_user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->integer('institute_id')->unsigned();
         });
-        $sql = "update classrooms,teachers set teacher_user_id = teachers.user_id where teacher_user_id=teachers.id";
+        $sql = "update classrooms,teachers set classrooms.teacher_user_id = teachers.user_id,classrooms.institute_id=teachers.institute_id where teacher_user_id=teachers.id";
         DB::unprepared($sql);
     }
 
