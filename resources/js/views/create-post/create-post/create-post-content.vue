@@ -24,14 +24,14 @@
                 @click="prevTab"
             >
                 <span><i class="fa fa-arrow-left" aria-hidden="true"/></span>
-                Back
+                &nbsp; Back
             </button>
             <button
                 type="button"
                 class="btn-primary btn-lg m-0-a"
                 @click="nextTab"
             >
-                Next
+                Next &nbsp;
                 <span><i class="fa fa-arrow-right" aria-hidden="true"/></span>
             </button>
         </div>
