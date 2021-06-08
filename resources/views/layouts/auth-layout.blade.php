@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <div id="seekerApp">
+    <div id="app">
         <main class="flex-center full-height">
             <div class="header">
                 @include('includes.navbar')
