@@ -444,7 +444,31 @@ export default {
 		addAssignment() {
 			this.$validator.validateAll('newAssignment').then(valid => {
 				if(valid){
-					this.updateAssignment('add');
+					this.showLoader=true;
+					this.axios
+						.post('/api/update-daily-assignment', {
+							assignment_id:  null,
+							unit_id: this.new_unit,
+							attempt_date: dayjs(this.new_assignment_date, 'DD-MM-YYYY').format('YYYY-MM-DD'),
+							start_time: null,
+							end_time: null,
+						})
+						.then((resp) => {
+							let new_assignment =resp.data.success.assignment;
+							new_assignment.show_date = dayjs(new_assignment.attempt_date, 'YYYY-MM-DD').format('D MMM, YYYY');
+							new_assignment.attempt_date = dayjs(new_assignment.attempt_date, 'YYYY-MM-DD').format('DD-MM-YYYY');
+							new_assignment['daily_report_count'] = 0;
+							this.assignment_list.unshift(new_assignment);
+							this.current_assignment = new_assignment;
+							this.showLoader=false;
+							this.assignment_error='';
+						}).catch(err => {
+							console.log(err);
+							if(422 === err.response.status){
+								this.assignment_error=err.response.data;
+							}
+							this.showLoader=false;
+						});
 					this.$refs.addAssignmentModal.closeModal();
 				}
 			});
@@ -458,7 +482,7 @@ export default {
 			}
 			this.updateAssignment();
 		},
-		updateAssignment(type='edit') {
+		updateAssignment() {
 			this.form_errors = [];
 			this.showLoader=true;
 			this.axios
@@ -470,12 +494,6 @@ export default {
 					end_time: this.current_assignment.end_time,
 				})
 				.then((resp) => {
-					if('add'===type){
-						new_assignment =resp.data.success.assignment;
-						new_assignment['daily_report_count'] = 0;
-						this.assignment_list.unshift(new_assignment);
-						this.current_assignment = new_assignment;
-					}
 					this.showLoader=false;
 					this.assignment_error='';
 				}).catch(err => {
