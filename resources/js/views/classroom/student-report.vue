@@ -1,5 +1,33 @@
 <template>
   <div class="text-center">
+    <div class="row justify-content-center col-md-12">
+      <single-value
+        :value="summary_data.total_attempt"
+        label="Total Attempt"
+      />
+      <single-value
+        :value="summary_data.average_score"
+        label="Average Score"
+      />
+      <single-value
+        :value="summary_data.average_rank"
+        label="Average Rank"
+      />
+    </div>
+    <div class="row justify-content-center col-md-12">
+      <single-value
+        :value="first_average"
+        label="First Average Score"
+      />
+      <single-value
+        :value="last_average"
+        label="Last Average Score"
+      />
+      <single-value
+        :value="progress + '%'"
+        label="Progress"
+      />
+    </div>
     <div class="col-md-12">
       <p class="font-weight-bold font-size-14 text-grey">
         What is the overall progress of student w.r.t others in this classroom?
@@ -42,12 +70,14 @@
 import DoughnutGraph from '../../components/graphs/DoughnutGraph';
 import MultiBarGraph from '../../components/graphs/MultiBarGraph';
 import DualLineGraph from '../../components/graphs/DualLineGraph';
+import SingleValue from '../../components/SingleValue';
 
 export default {
 	components: {
 		DoughnutGraph,
 		MultiBarGraph,
 		DualLineGraph,
+		SingleValue
 	},
 	props:['classroomId'],
 	data() {
@@ -57,7 +87,11 @@ export default {
 			dualLineChartData:[],
 			firstData:[],
 			averageData:[],
-			lastData:[]
+			lastData:[],
+			summary_data:[],
+			first_average:0,
+			last_average:0,
+			progress:0,
 		};
 	},
 	mounted() {
@@ -71,7 +105,8 @@ export default {
 		this.axios.get(url).then((resp) => {
 			this.pieChartData = resp.data.success.assignments_attempts;
 			this.dualLineChartData = resp.data.success.average_scores;
-			let MultiBarGraph = resp.data.success.reports_summary;
+			this.summary_data = resp.data.success.summary_data;
+			let MultiBarGraph = resp.data.success.score_data;
 			this.firstData = MultiBarGraph.filter(node=>node.score_type === 'first')
 				.sort((a,b)=>b.unit_id-a.unit_id)
 				.map(node=>node.score);
@@ -81,7 +116,9 @@ export default {
 			this.lastData = MultiBarGraph.filter(node=>node.score_type === 'last')
 				.sort((a,b)=>b.unit_id-a.unit_id)
 				.map(node=>node.score);
-			console.log(this.firstData);
+			this.first_average = this.firstData.reduce((a,b)=>a+b,0)/this.firstData.length;
+			this.last_average = this.lastData.reduce((a,b)=>a+b,0)/this.lastData.length;
+			this.progress=((this.last_average-this.first_average)/this.last_average)*100; 
 			// let dataSet = {};
 			// MultiBarGraph.map(node=>{
 

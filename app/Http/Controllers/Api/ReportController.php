@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\DailyReport;
 use App\Models\DailyAssignment;
+use App\Models\DailyQuestion;
 
 class ReportController extends Controller
 {
@@ -67,7 +68,8 @@ class ReportController extends Controller
         ->leftJoin('daily_reports as dr',function($join)use($user_id){
             $join->on('dr.daily_assignment_id','=','da.id')->where('dr.user_id',$user_id);
         })
-        ->select(DB::raw('COUNT(distinct dr.id) as count'),'da.unit_id','un.unit_name as label')
+        ->select('da.unit_id','un.unit_name as label',
+        DB::raw('COUNT(distinct dr.id) as count'))
         ->groupBy('da.unit_id','un.unit_name')
         ->get();
 
@@ -78,11 +80,12 @@ class ReportController extends Controller
             $join->on('dr.daily_assignment_id','=','da.id')
             ->where('dr.user_id',$user_id);
         })
-        ->select(DB::raw('AVG(dr2.marks_obtained) as classroom_score'),'da.attempt_date','dr.marks_obtained as student_score')
+        ->select('da.attempt_date','dr.marks_obtained as student_score',
+        DB::raw('AVG(dr2.marks_obtained) as classroom_score'))
         ->groupBy('da.attempt_date','dr.marks_obtained')
         ->get();    
 
-        $multi_bar = DB::table('student_reports as sr')
+        $score_data = DB::table('student_reports as sr')
         ->where('sr.user_id',$user_id)
         ->leftJoin('units',function($join)use($classroom_id){
             $join->on('units.id','=','sr.unit_id')
@@ -92,10 +95,25 @@ class ReportController extends Controller
         ->groupBy('sr.unit_id','score_type','score')
         ->get();
 
+        $summary_data = DB::table('daily_assignments as da')
+        ->leftjoin('daily_reports as dr',function($join)use($user_id){
+            $join->on('dr.daily_assignment_id','=','da.id')->where('dr.user_id',$user_id);
+        })
+        ->where('da.classroom_id',$classroom_id)
+        ->select(
+                DB::raw('FORMAT(AVG(dr.marks_obtained),1) as average_score'),
+                DB::raw('FORMAT(AVG(dr.rank),0) as average_rank'),
+                DB::raw('COUNT(distinct dr.id) as total_attempt'),
+                DB::raw('COUNT(distinct da.id) as assisgment_count')
+        )
+        ->groupBy('da.classroom_id')
+        ->first();
+
         return response()->json(['success'=>[
-            'reports_summary'=>$multi_bar,
+            'score_data'=>$score_data,
             'assignments_attempts' => $assignments_attempts,
-            'average_scores' => $average_scores
+            'average_scores' => $average_scores,
+            'summary_data'=>$summary_data,
         ]]);
     }
 
@@ -144,5 +162,49 @@ class ReportController extends Controller
             'bar_data'=>$bar_data,
             'bar_line_data'=>$bar_line_data
         ]]);
+    }
+
+    public function getQuestionsReports($classroomId,$assignmentId,Request $request){
+        
+        $daily_questions=DailyQuestion::where('daily_assignment_id',$assignmentId)
+        ->with('multipleChoice')
+        ->get();
+
+        $questions_data = DB::table('daily_assignments as da')
+        ->where('da.id',$assignmentId)
+        ->rightjoin('daily_questions as dq','da.id','=','dq.daily_assignment_id')
+        ->rightjoin('multiple_choices as mq','dq.id', '=','mq.daily_question_id')
+        ->leftjoin('daily_answers as dans','mq.id','=','dans.selected_option_id')
+        ->select('mq.option_order as label','dq.daily_assignment_id as daily_assignment_id',
+        'dq.id as question_id',DB::raw('COUNT(distinct dans.id) as count'))
+        ->groupBy('dq.daily_assignment_id','dq.id','mq.option_order')
+        ->get();
+        
+        $summary_data = DB::table('daily_assignments as da')
+        ->where('da.id',$assignmentId)
+        ->leftjoin('daily_reports as dr','da.id','=','dr.daily_assignment_id')
+        ->select('da.id as daily_assignment_id',DB::raw('COUNT(distinct dr.user_id) as total_attempt'),
+                DB::raw('AVG(dr.marks_obtained) as average_score'),
+                DB::raw('SEC_TO_TIME(AVG(TIME_TO_SEC(dr.duration))) as average_duration')
+        )
+        ->groupBy('da.id')
+        ->first();
+
+        $score_data = DB::table('daily_assignments as da')
+        ->where('da.id',$assignmentId)
+        ->leftjoin('daily_reports as dr','da.id','=','dr.daily_assignment_id')
+        ->select('da.id as daily_assignment_id',DB::raw("SUM(CASE WHEN (dr.marks_obtained < 4) THEN 1 ELSE 0 END) as low_count"),
+                DB::raw("SUM(CASE WHEN (dr.marks_obtained > 3 and dr.marks_obtained < 8) THEN 1 ELSE 0 END) as medium_count"),
+                DB::raw("SUM(CASE WHEN (dr.marks_obtained > 7) THEN 1 ELSE 0 END) as high_count"))
+        ->groupBy('da.id')
+        ->first();
+        return response()->json([
+            'success'=>[
+                'daily_questions'=>$daily_questions,
+                'questions_data'=>$questions_data,
+                'score_data'=>$score_data,
+                'summary_data'=>$summary_data
+            ]
+        ]);
     }
 }

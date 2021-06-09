@@ -36,7 +36,7 @@ class ClassroomController extends Controller
         // check if assignment is not already attempted
         $daily_report=null;
         if($daily_assignment){
-            $daily_assignment->dailyQuestions->makeHidden('correct_answer');
+            // $daily_assignment->dailyQuestions->makeHidden('correct_answer');
             $daily_report = \App\Models\DailyReport::where('user_id',Auth::id())
             ->where('daily_assignment_id',$daily_assignment->id)->first();
         }
@@ -93,17 +93,6 @@ class ClassroomController extends Controller
         // $is_classroom_student=ClassroomUser::where('user_id',Auth::id())
         // ->where('classroom_id',$classroom->id)->where('joined_at','!=',null)->exists();
         return view('student-panel.classroom-daily-assignment');
-    }
-    public function classroomDailyReportPage($classroomId){
-        $classroom=Classroom::findOrFail($classroomId);
-
-        if(Auth::teacher() && $classroom->teacher_id===Auth::teacher()->id){
-            return view('classroom.classroom-daily-report');
-        }
-
-        // $is_classroom_student=ClassroomUser::where('user_id',Auth::id())
-        // ->where('classroom_id',$classroom->id)->where('joined_at','!=',null)->exists();
-        return view('student-panel.classroom-daily-report');
     }
     public function classroomStudentPage($classroomId){
         $classroom = Classroom::findOrFail($classroomId);

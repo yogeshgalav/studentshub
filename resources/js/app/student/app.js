@@ -17,8 +17,8 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 //Vue Router Initialisation
 const router = new VueRouter({
-    routes:StudentRoutes,
-    mode:'history'
+	routes:StudentRoutes,
+	mode:'history'
 });
 
 
@@ -29,15 +29,15 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 //Vue Router Initialisation
 const store = new Vuex.Store({
-    modules: {
-        seeker: SeekerStore,
-        student: StudentStore,
-        common: CommonStore,
-      }
+	modules: {
+		seeker: SeekerStore,
+		student: StudentStore,
+		common: CommonStore,
+	}
 });
 //Vue App Initialisation
 const app = new Vue({
-    el: '#studentApp',
-    store,
-    router,
+	el: '#app',
+	store,
+	router,
 });

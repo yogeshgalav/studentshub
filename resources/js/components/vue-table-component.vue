@@ -6,6 +6,7 @@
           <th
             v-for="(column,key) in table_columns"
             :key="key"
+            class="text-center"
             @click="sortFunction(column,key)"
           >
             {{ column.labelTop!==undefined? String(column.labelTop) : '' }} <br>
@@ -37,6 +38,7 @@
           <td
             v-for="(column,key2) in table_columns"
             :key="key2"
+            class="text-center"
           >
             <slot
               :row="row"
