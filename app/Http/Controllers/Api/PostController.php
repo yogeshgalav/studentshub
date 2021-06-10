@@ -152,26 +152,7 @@ class PostController extends Controller
             'most_liked'=>\Sthub::convert_from_latin1_to_utf8_recursively($most_liked),
         ]]);
     }
-
-    public function searchPosts(Request $request){
-      $post=new \App\Post;
-      $posts = $post->getSearchPosts($request);
-
-        $search=new \App\Models\Search;
-        $search->query=$request->input('query');
-        // $search->type='query';
-        if(!empty($posts)){
-          $search->success=true;
-        }else{
-          $search->success=false;
-        }
-        $search->save();
-
-        return response()->json(['success'=>[
-          'posts'=>\Sthub::convert_from_latin1_to_utf8_recursively($posts)
-        ]]);
-      }
-      public function courseDetails(Request $request){
+    public function courseDetails(Request $request){
         $subject=\App\Models\Course::where('course_url', $request->route('id'))->firstOrFail();
         $post=new \App\Post;
         $posts = $post->getCoursePosts($course->id);
