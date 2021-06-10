@@ -83,7 +83,7 @@ html.openNav {
 }
 body {
     background-color: white;
-    overflow-x: hidden;
+    // overflow-x: hidden;
 }
 
 body,
@@ -1155,12 +1155,12 @@ i {
     .width-60 {
         max-width: 100%;
     }
-}
 
 // sidebar_icon_sidebar
 .sidebar-section {
     position: sticky;
     min-width: 300px;
+    max-width: 30%;
     height: 100vh;
     z-index: 99;
     top: 66px;
@@ -1173,7 +1173,7 @@ i {
             align-items: center;
             flex-wrap: nowrap;
             width: 95%;
-            margin: 10px auto;
+            margin: 30px auto;
             .institution-name {
                 font-weight: 600;
                 letter-spacing: -0.003em;
@@ -1189,29 +1189,33 @@ i {
             list-style: none;
             width: 100%;
             padding: 0px;
+            a {
+                color: #42526e;
+                text-decoration: none;
+                font-size: 18px;
+                letter-spacing: -0.003em;
+                font-weight: 500;
+                &:hover{
+                    text-decoration: none;
+                }
+            }
+            .active{
+                background-color: rgb(219, 219, 219) !important;
+                border-right: 5px solid blue !important;
+            }
             li {
                 display: flex;
                 flex-wrap: nowrap;
                 padding: 5% 30px;
                 transition-duration: 0.3s;
-                a {
-                    color: #42526e;
-                    text-decoration: none;
-                    font-size: 18px;
-                    letter-spacing: -0.003em;
-                    font-weight: 500;
-                }
+
                 .text {
                     margin-left: 20px !important;
                 }
                 &:hover {
                     background-color: rgb(219, 219, 219);
-                    border-right: 5px solid blue;
                 }
-                .active{
-                    background-color: rgb(219, 219, 219);
-                    border-right: 5px solid blue;
-                }
+
             }
         }
     }
@@ -2447,8 +2451,8 @@ select.form-control.custom-select {
     border-radius: 2px;
 }
 .content {
-    width: 100%;
-    padding: 7%;
+    width: 70%;
+    padding: 7% 1%;
 }
 
 @media (max-width: 1200px) {
@@ -2456,7 +2460,7 @@ select.form-control.custom-select {
         display: block;
     }
     .sidebar-section {
-        width: 35%;
+        max-width: 35%;
     }
     .post_width {
         width: 100%;
@@ -2506,6 +2510,7 @@ select.form-control.custom-select {
         opacity: 0;
         transition-duration: 0.6s;
         min-width: 250px;
+        max-width: 35%;
         .sidebar {
             .institution-detail {
                 width: 98%;
@@ -2517,16 +2522,19 @@ select.form-control.custom-select {
                 ul {
                     display: block;
                     padding: 0px;
+                    a {
+                        font-size: 15px;
+                    }
+                    .active{
+                        background-color: rgb(219, 219, 219) !important;
+                        border: none !important;
+                    }
                     li {
                         display: flex;
                         flex-wrap: nowrap;
-                        padding: 10%;
+                        padding: 7%;
                         &:hover {
-                            background-color: rgb(219, 219, 219);
-                        }
-
-                        a {
-                            font-size: 15px;
+                            background-color: rgb(226, 226, 226);
                         }
                     }
                 }
@@ -2535,6 +2543,7 @@ select.form-control.custom-select {
     }
     .content {
         padding: 35% 2%;
+        width: 100%;
     }
     .menu {
         display: block;
@@ -3354,7 +3363,6 @@ div.nav-login-get-started {
 .main-area {
     width: 100%;
     display: flex;
-    position: relative;
     background-color: white;
 }
 .menu-dropdown a.active {
