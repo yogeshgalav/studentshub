@@ -28,7 +28,6 @@ class Auth extends AuthUser
                 'courses.course_name as courseName',
                 'courses.course_url as courseUrl',
                 'cat.id as categoryId',
-                'st.prefferred_category as preferred_category',
                 'st.unique_college_id as college_id'
             )->first();
     }

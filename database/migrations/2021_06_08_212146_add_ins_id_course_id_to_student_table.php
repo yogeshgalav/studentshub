@@ -17,6 +17,7 @@ class AddInsIdCourseIdToStudentTable extends Migration
             //
             $table->integer('institute_id')->unsigned();
             $table->integer('course_id')->unsigned();
+            $table->boolean('is_preferred');
             $table->dropForeign(['prefferred_batch']);
             $table->dropForeign(['prefferred_category']);
             $table->dropColumn(['prefferred_batch', 'prefferred_category']);

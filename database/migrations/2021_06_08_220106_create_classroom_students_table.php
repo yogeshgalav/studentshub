@@ -21,10 +21,11 @@ class CreateClassroomStudentsTable extends Migration
         });
         foreach(ClassroomUser::all() as $item)
         {
+            $student = Student::where('user_id',$item->user_id)->first();
             DB::table('classroom_students')->insert(
                 array(
                        'classroom_id'   =>  $item->classroom_id,
-                       'user_id' => $item->user_id
+                       'student_id' => $student->user_id
                 )
            );    
         }
