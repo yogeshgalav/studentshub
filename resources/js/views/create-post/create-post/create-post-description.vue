@@ -1,7 +1,7 @@
 <template>
   <div class="creat_post_card img_der">
     <div class="row">
-      <div class="col-md-12 ml-2">
+      <div class="col-md-12">
         <div class="">
           <div class="form-group">
             <div class="text-center">
@@ -112,23 +112,29 @@
     margin: 0 auto;
 }
 .creat_post_btn button {
-    margin: 0px 15px 0px 0;
+    margin: 5px 10px;
+    min-width:40%;
 }
 button.btn-primary btn-lg span {
     margin: 0px 5px;
 }
 .creat_post_btn {
-    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
 }
-
+.creat_post_card {
+    padding: 20px;
+    width: 100%;
+}
 .creat_post_btn {
     display: flex;
-    /* margin-top: 22px; */
     justify-content: space-between;
 }
 .creat_post_card .form-control
 {
-    border-radius: 0;transform: inherit
+    border-radius: 0;
+    transform: inherit;
     }
 </style>
 <script>
@@ -149,7 +155,7 @@ export default {
 				'subject_name': this.newPost.subject_name,
 			},
 			selected_category:this.newPost.category_id,
-		
+
 		};
 	},
 	computed:{
@@ -174,7 +180,7 @@ export default {
 		});
 
 		this.selected_category= (this.AuthStudent && this.AuthStudent.categoryId) ? this.AuthStudent.categoryId : '';
-	
+
 	},
 	methods:{
 		getSubjects	(search) {

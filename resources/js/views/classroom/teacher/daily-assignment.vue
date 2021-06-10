@@ -444,7 +444,28 @@ export default {
 		addAssignment() {
 			this.$validator.validateAll('newAssignment').then(valid => {
 				if(valid){
-					this.updateAssignment('add');
+					this.showLoader=true;
+					this.axios
+				      .post('/api/classroom/' + this.$route.params.classroomId + '/create-assignment', {
+							unit_id: this.new_unit,
+							attempt_date: dayjs(this.new_assignment_date, 'DD-MM-YYYY').format('YYYY-MM-DD'),
+						})
+						.then((resp) => {
+							let new_assignment =resp.data.success.assignment;
+							new_assignment.show_date = dayjs(new_assignment.attempt_date, 'YYYY-MM-DD').format('D MMM, YYYY');
+							new_assignment.attempt_date = dayjs(new_assignment.attempt_date, 'YYYY-MM-DD').format('DD-MM-YYYY');
+							new_assignment['daily_report_count'] = 0;
+							this.assignment_list.unshift(new_assignment);
+							this.current_assignment = new_assignment;
+							this.showLoader=false;
+							this.assignment_error='';
+						}).catch(err => {
+							console.log(err);
+							if(422 === err.response.status){
+								this.assignment_error=err.response.data;
+							}
+							this.showLoader=false;
+						});
 					this.$refs.addAssignmentModal.closeModal();
 				}
 			});
@@ -458,11 +479,11 @@ export default {
 			}
 			this.updateAssignment();
 		},
-		updateAssignment(type='edit') {
+		updateAssignment() {
 			this.form_errors = [];
 			this.showLoader=true;
 			this.axios
-				.post('/api/update-daily-assignment', {
+				.post('/api/daily-assignment/' + this.current_assignment.id + '/update', {
 					assignment_id: this.current_assignment.id,
 					unit_id: this.current_assignment.unit_id,
 					attempt_date: dayjs(this.current_assignment.attempt_date, 'DD-MM-YYYY').format('YYYY-MM-DD'),
@@ -470,12 +491,6 @@ export default {
 					end_time: this.current_assignment.end_time,
 				})
 				.then((resp) => {
-					if('add'===type){
-						new_assignment =resp.data.success.assignment;
-						new_assignment['daily_report_count'] = 0;
-						this.assignment_list.unshift(new_assignment);
-						this.current_assignment = new_assignment;
-					}
 					this.showLoader=false;
 					this.assignment_error='';
 				}).catch(err => {
@@ -496,10 +511,8 @@ export default {
 				)
 				.then((result) => {
 					if (result.value) {
-						this.axios.post('/api/delete-daily-assignment', {
-							daily_assignment_id: this.assignment.id,
-						}).then(()=>{
-							let assignmentIndex = this.assignment_list.findIndex(node=>node.id===this.assignment.id);
+						this.axios.delete('/api/daily-assignment/'+this.current_assignment.id).then(()=>{
+							let assignmentIndex = this.assignment_list.findIndex(node=>node.id===this.current_assignment.id);
 							this.assignment_list.splice(assignmentIndex,1);
 							this.setCurrentAssignment();
 						});
@@ -532,12 +545,10 @@ export default {
 			}
 		},
 		activateApi(){
-			this.axios.post('/api/activate-daily-assignment', {
-				daily_assignment_id: this.current_assignment.id,
-				status: this.current_assignment.activated_at ? 'deactivate' : 'activate'
-			}).then(() => {
-				this.current_assignment.activated_at = this.current_assignment.activated_at ? null : new Date();
-			});
+			this.axios.post('/api/daily-assignment/'+this.current_assignment.id+'/activate')
+				.then(() => {
+					this.current_assignment.activated_at = this.current_assignment.activated_at ? null : new Date();
+				});
 		}
 	}
 };

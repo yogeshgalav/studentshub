@@ -90,6 +90,7 @@ class AuthController extends Controller
                 $success['refresh_token'] = $content->refresh_token;
             }
         }
+        $user->fcm_token=$request->fcmToken ?? null;
         $user->last_login_at=\Carbon\Carbon::now()->toDateTimeString();
         $user->save();
     

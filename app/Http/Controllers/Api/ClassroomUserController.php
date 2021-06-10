@@ -7,6 +7,8 @@ use App\Models\ClassroomUser;
 use App\Models\ClassroomMessage;
 use App\Notifications\MessageAdded;
 use Illuminate\Http\Request;
+use App\Http\Requests\AddMessageRequest;
+use App\Http\Requests\EditMessageRequest;
 use Auth;
 use DB;
 use App\Http\Requests\JoinClassroomRequest;
@@ -73,7 +75,7 @@ class ClassroomUserController extends Controller
             'messages'=>$messages
         ]]);
     }
-    public function addmessage(Request $request){
+    public function addmessage(AddMessageRequest $request){
         $classroom = Classroom::findOrFail($request->classroom_id);
 
         $message = ClassroomMessage::create([
@@ -103,7 +105,7 @@ class ClassroomUserController extends Controller
             'messages'=>$messages
         ]]);
     }
-    public function editmessage(Request $request){
+    public function editmessage(EditMessageRequest $request){
         
         $message=ClassroomMessage::findOrFail($request->message_id);
         if($message->sender_user_id!==Auth::id()){

@@ -1,4 +1,4 @@
-<template>
+    <template>
   <section class="single_post">
     <div class="post_view_head back_btn ">
       <div class="back_bdtn ">
@@ -8,7 +8,7 @@
         ><i class="fa fa-arrow-left" />
         </a>
       </div>
-      <div 
+      <div
         v-if="AuthUser"
         class="dropdown"
       >
@@ -157,7 +157,7 @@
                 </div>
               </div>
             </div>
-            <div 
+            <div
               v-else
             >
               <div class="post_s_c">
@@ -194,7 +194,7 @@
                     </h5>
                     <div class="d-flex">
                       <div class="recent_post_img">
-                        <profile-image 
+                        <profile-image
                           :user-name="post.user_name"
                           :avatar="post.profile_image"
                         />
@@ -343,6 +343,11 @@
   </section>
 </template>
 <style scoped>
+    /* #dropdownMenuButton{
+        position: fixed;
+        top:100px;
+        right:100px;
+    } */
     .post_img {
         width: 100%;
     }
@@ -355,10 +360,12 @@
         background-color: #f6f6f6;
         padding: 120px 0 80px;
         text-align: center;
+        width:100%;
+        margin-top: -25px;
     }
 
     section.single_post {
-        padding: 65px 0;
+        /* padding: -30px 0; */
     }
 
 
@@ -533,12 +540,15 @@
         margin-left: 50px;
             border: none;
     }
-
+    .post_view_head{
+        position: fixed;
+        bottom: 0px;
+    }
     .post_view_head .dropdown-menu.show {
         display: block;
-        left: -130px !important;
+        left: -170px !important;
         transform: inherit !important;
-        top: 37px !important;
+        top: -37px !important;
     }
 
     .post_view_head .dropdown-menu {
@@ -552,7 +562,7 @@
     padding: 50px 0;
 }
 @media only screen and (max-width: 600px) {
-    
+
       section.single_post {
         padding: 0px 0;
     }
