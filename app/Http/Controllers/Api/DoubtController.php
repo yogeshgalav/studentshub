@@ -61,7 +61,7 @@ class DoubtController extends Controller
     {
         $course_id = null;
         if($request->classroomId){
-            $course_id = Classroom::findOrFail($request->classroomId)->batch->course_id;
+            $course_id = Classroom::findOrFail($request->classroomId)->course_id;
         }else if(Auth::student()){
             $course_id = Auth::student()->courseId;
         }

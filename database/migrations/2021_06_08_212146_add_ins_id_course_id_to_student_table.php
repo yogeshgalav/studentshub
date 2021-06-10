@@ -15,7 +15,6 @@ class AddInsIdCourseIdToStudentTable extends Migration
     {
         Schema::table('students', function (Blueprint $table) {
             //
-            $table->dropColumn(['institute_id', 'course_id']);
             $table->integer('institute_id')->unsigned();
             $table->integer('course_id')->unsigned();
             $table->dropForeign(['prefferred_batch']);

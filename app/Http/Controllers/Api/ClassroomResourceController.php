@@ -87,7 +87,7 @@ class ClassroomResourceController extends Controller
                 'post_id'=>$post->id,
                 'classroom_id'=>$classroom->id,
                 'institute_id'=>$classroom->teacher->institute_id,
-                'course_id'=>$classroom->batch->course_id,
+                'course_id'=>$classroom->course_id,
                 'batch_id'=>$classroom->batch_id,
                 'shared_by'=>Auth::id(),
             ]);

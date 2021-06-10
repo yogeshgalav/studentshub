@@ -5,7 +5,6 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\Models\Classroom;
-use App\Models\Batch;
 use App\Models\Unit;
 use App\Models\ClassroomUser;
 use DB;
@@ -21,16 +20,13 @@ class ClassroomController extends Controller
     public function getClassroomDetails($classroom_id){
         $classroomDetail = DB::table('classrooms as cs')
         ->where('cs.id',$classroom_id)
-        ->join('batches as bt','bt.id','=','cs.batch_id')
-        ->join('courses as co','co.id','=','bt.course_id')
+        ->join('courses as co','co.id','=','cs.course_id')
         ->join('subjects as su','su.id','=','cs.subject_id')
         ->join('users as us','us.id','=','cs.teacher_user_id')
         ->leftJoin('classroom_users as cus','cus.classroom_id','=','cs.id')
         ->select('cs.id','cs.name','cs.classroom_join_id','cs.teacher_user_id','cs.subject_id','cs.meet_link', 'cs.batch_id','co.course_name','su.subject_name','us.id as user_id','us.full_name as teacher_name',
-        'bt.start_year as batch_start_year', 'bt.end_year as batch_end_year',
         DB::raw('COUNT(cus.id) as total_students'))
-        ->groupBy('cs.id','cs.name','cs.classroom_join_id','cs.teacher_user_id','cs.subject_id','cs.meet_link','cs.batch_id','co.course_name','su.subject_name','us.id','us.full_name',
-        'bt.start_year', 'bt.end_year')
+        ->groupBy('cs.id','cs.name','cs.classroom_join_id','cs.teacher_user_id','cs.subject_id','cs.meet_link','cs.batch_id','co.course_name','su.subject_name','us.id','us.full_name')
         ->first();
 
         return response()->json([

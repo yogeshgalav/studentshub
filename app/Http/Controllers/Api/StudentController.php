@@ -12,8 +12,6 @@ use App\Models\Student;
 use App\Models\Course;
 use App\Models\Category;
 use App\Models\Institute;
-use App\Models\Batch;
-use App\Models\BatchStudent;
 use App\Notifications\BatchNewUserNotification;
 use App\Notifications\StudentOnboardingNotification;
 use Illuminate\Support\Arr;

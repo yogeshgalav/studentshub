@@ -138,11 +138,11 @@ class AuthController extends Controller
             return false;
         }
         $request = new Request([
-            'course_id' => $classroom->batch->course_id,
+            'course_id' => $classroom->course_id,
             'institute_id' => $classroom->teacher->institute_id, 
             'institute_name' => '', 
-            'start_year' => $classroom->batch->start_year,
-            'end_year' => $classroom->batch->end_year,
+            //'start_year' => $classroom->batch->start_year,
+            //'end_year' => $classroom->batch->end_year,
         ]);
         $student_controller =new \App\Http\Controllers\Api\StudentController;
         $student_controller->create($request);

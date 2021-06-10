@@ -16,14 +16,14 @@ class CreateClassroomStudentsTable extends Migration
         Schema::create('classroom_students', function (Blueprint $table) {
             $table->id();
             $table->integer('classroom_id')->unsigned();
-            $table->integer('user_id')->unsigned();
+            $table->integer('student_id')->unsigned();
             $table->timestamps();
         });
         foreach(ClassroomUser::all() as $item)
         {
             DB::table('classroom_students')->insert(
                 array(
-                       'classroom_id'   =>   $item->classroom_id,
+                       'classroom_id'   =>  $item->classroom_id,
                        'user_id' => $item->user_id
                 )
            );    
