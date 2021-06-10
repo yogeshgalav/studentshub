@@ -48,13 +48,8 @@ class DoubtAnswersController extends Controller
         $answer->post_id=$post->id;
         $answer->save();
 
-        $institute_id = null;
-        if($student = Auth::student()){
-            $institute_id = $student->instituteId;
-        }
-        if($teacher = Auth::teacher()){
-            $institute_id = $teacher->instituteId;
-        }
+        $institute_id = Auth::user()->preferredInstituteId();
+        
         SthubPost::create([
             'post_id'=>$post->id,
             'institute_id'=>$institute_id,

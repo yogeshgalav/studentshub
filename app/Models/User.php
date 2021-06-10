@@ -46,10 +46,6 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Post');
     }
-    public function teacher()
-    {
-        return $this->hasOne('App\Models\Teacher');
-    }
 
     /***
      * Now many new/unread notifications are
@@ -111,7 +107,17 @@ class User extends Authenticatable
         })
         ->where('usr.id','!=',null)
         ->orWhere('cu.id','!=',null)
-        ->pluck('classrooms.id')->toArray();       
+        ->pluck('classrooms.id')->toArray();
+
         return $classrooms;
+    }
+    public function preferredInstituteId()
+    {
+        if($student = Auth::student()){
+            return $student->instituteId;
+        }
+        if($teacher = Auth::teacher()){
+            return $teacher->instituteId;
+        }
     }
 }

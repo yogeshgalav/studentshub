@@ -139,10 +139,8 @@ class AuthController extends Controller
         }
         $request = new Request([
             'course_id' => $classroom->course_id,
-            'institute_id' => $classroom->teacher->institute_id, 
-            'institute_name' => '', 
-            //'start_year' => $classroom->batch->start_year,
-            //'end_year' => $classroom->batch->end_year,
+            'institute_id' => $classroom->institute_id, 
+            'institute_name' => '',
         ]);
         $student_controller =new \App\Http\Controllers\Api\StudentController;
         $student_controller->create($request);
