@@ -25,9 +25,9 @@ class ClassroomController extends Controller
         ->join('subjects as su','su.id','=','cs.subject_id')
         ->join('users as us','us.id','=','cs.teacher_user_id')
         ->leftJoin('classroom_users as cus','cus.classroom_id','=','cs.id')
-        ->select('cs.id','cs.name','cs.classroom_join_id','cs.teacher_user_id','cs.subject_id','cs.meet_link', 'cs.batch_id','co.course_name','su.subject_name','us.id as user_id','us.full_name as teacher_name',
+        ->select('cs.id','cs.name','cs.classroom_join_id','cs.teacher_user_id','cs.subject_id','cs.meet_link','co.course_name','cs.institute_id','cs.course_id','su.subject_name','us.id as user_id','us.full_name as teacher_name',
         DB::raw('COUNT(cus.id) as total_students'))
-        ->groupBy('cs.id','cs.name','cs.classroom_join_id','cs.teacher_user_id','cs.subject_id','cs.meet_link','cs.batch_id','co.course_name','su.subject_name','us.id','us.full_name')
+        ->groupBy('cs.id','cs.name','cs.classroom_join_id','cs.teacher_user_id','cs.subject_id','cs.meet_link','co.course_name','cs.institute_id','cs.course_id','su.subject_name','us.id','us.full_name')
         ->first();
 
         return response()->json([

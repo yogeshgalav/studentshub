@@ -25,7 +25,7 @@ class ClassroomUserController extends Controller
                 'field'=>'classroom_id',
                 'message'=>'This classroom join id does not exist.'
             ]],422);
-        }elseif($student->batchId !== $classroom->batch_id){
+        }elseif($student->course_id !== $classroom->course_id  ||  $student->institute_id !== $classroom->institute_id){
             return response()->json(['error'=>[
                 'field'=>'classroom_id',
                 'message'=>'You cannot join this classroom with your current preffered educational details.'

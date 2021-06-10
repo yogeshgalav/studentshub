@@ -130,8 +130,8 @@ class ClassroomController extends Controller
     }
     public function classroomListPage(){
         $classroom_list = DB::table('classrooms as cs')
-        ->join('batches as bt','bt.id','=','cs.batch_id')
-        ->join('courses as co','co.id','=','bt.course_id')
+        //->join('batches as bt','bt.id','=','cs.batch_id')
+        ->join('courses as co','co.id','=','cs.course_id')
         ->join('subjects as su','su.id','=','cs.subject_id')
         ->join('users as us','us.id','=','cs.teacher_user_id')
         ->select('cs.id','cs.name','co.course_name','su.subject_name','su.alias as subject_alias','us.id as user_id','us.full_name as teacher_name')

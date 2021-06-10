@@ -16,9 +16,10 @@ class Auth extends AuthUser
             return null;
         }
         return DB::table('students as st')->where('st.user_id', '=', self::user()->id)
-            ->join('batches as pbt', 'pbt.id', '=', 'st.prefferred_batch')
-            ->join('institutes as inst', 'inst.id', '=', 'pbt.institute_id')
-            ->join('courses', 'courses.id', '=', 'pbt.course_id')
+            //->join('batches as pbt', 'pbt.id', '=', 'st.prefferred_batch')
+            ->where('st.is_preferred',1)
+            ->join('institutes as inst', 'inst.id', '=', 'st.institute_id')
+            ->join('courses', 'courses.id', '=', 'st.course_id')
             ->leftJoin('categories as cat', 'cat.id', '=', 'courses.category_id')
             ->select(
                 'inst.id as instituteId',
@@ -26,11 +27,7 @@ class Auth extends AuthUser
                 'courses.id as courseId',
                 'courses.course_name as courseName',
                 'courses.course_url as courseUrl',
-                'pbt.id as batchId',
-                'pbt.start_year as start_year',
-                'pbt.end_year as end_year',
                 'cat.id as categoryId',
-                'st.prefferred_batch as preferred_batch',
                 'st.prefferred_category as preferred_category',
                 'st.unique_college_id as college_id'
             )->first();

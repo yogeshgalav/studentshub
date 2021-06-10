@@ -80,7 +80,7 @@ class ClassroomResourceController extends Controller
             }
 
             $post->post_description = $request->description;
-            $post->category_id=$classroom->batch()->course()->category_id;
+            $post->category_id=$classroom->course()->category_id;
             $post->save();
 
             SthubPost::create([
@@ -88,7 +88,7 @@ class ClassroomResourceController extends Controller
                 'classroom_id'=>$classroom->id,
                 'institute_id'=>$classroom->institute_id,
                 'course_id'=>$classroom->course_id,
-                'batch_id'=>$classroom->batch_id,
+                //'batch_id'=>$classroom->batch_id,
                 'shared_by'=>Auth::id(),
             ]);
         }

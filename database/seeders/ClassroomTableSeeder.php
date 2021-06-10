@@ -20,7 +20,8 @@ class ClassroomTableSeeder extends Seeder
             'name'=>'YOGESH',
             'teacher_user_id'=>1,
             'subject_id'=>1,
-            'batch_id'=>1,
+            'course_id'=>1,
+            'institute_id'=>1,
             'activated_unit'=>null,
         ]);
 

@@ -34,10 +34,10 @@ class InstituteController extends Controller
 
         $students=DB::table('users as us')
         ->join('students as st','us.id','=','st.user_id')
-        ->join('batches as bt',function($join)use($instituteId){
-            $join->on('bt.id','=','st.prefferred_batch')->where('bt.institute_id',$instituteId);
+        ->join('students as st',function($join)use($instituteId){
+            $join->on('us.id','=','st.user_id')->where('st.is_preferred',1);
         })
-        ->join('courses as cs','cs.id','=','bt.course_id')
+        ->join('courses as cs','cs.id','=','st.course_id')
         ->leftJoin('daily_reports as dr','dr.user_id','=','us.id')
         ->select('us.id','us.full_name','us.email','st.unique_college_id as institute_id','cs.alias as course_alias',
         DB::raw('AVG(dr.marks_obtained) as avg_score')

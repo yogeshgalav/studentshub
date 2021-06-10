@@ -102,7 +102,7 @@ class PostController extends Controller
             'post_id'=>$post->id,
             'institute_id'=>$student->instituteId,
             'course_id'=>Auth::student()->courseId,
-            'batch_id'=>$student->batchId,
+           // 'batch_id'=>$student->batchId,
             'shared_by'=>Auth::id(),            'category_id'=>$request->category_id,
 
         ]);
