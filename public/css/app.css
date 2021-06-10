@@ -12002,6 +12002,7 @@ html.openNav {
 
 body {
   background-color: white;
+  overflow-x: hidden;
 }
 
 body,
@@ -13166,7 +13167,7 @@ i {
   display: -webkit-box;
   display: flex;
   flex-wrap: nowrap;
-  padding: 10%;
+  padding: 5% 30px;
   -webkit-transition-duration: 0.3s;
           transition-duration: 0.3s;
 }
@@ -13188,8 +13189,8 @@ i {
   border-right: 5px solid blue;
 }
 
-.sidebar-section .sidebar .sidebar-navigation ul li:active,
-.sidebar-section .sidebar .sidebar-navigation ul li:focus {
+.sidebar-section .sidebar .sidebar-navigation ul li .active {
+  background-color: #dbdbdb;
   border-right: 5px solid blue;
 }
 
@@ -14760,6 +14761,11 @@ select.form-control.custom-select {
 }
 
 @media only screen and (max-width: 768px) {
+  .nav-tabs .tabbed-nav ul {
+    -webkit-box-pack: start !important;
+            justify-content: flex-start !important;
+  }
+
   .search_box {
     width: 100%;
     margin-top: 25px;

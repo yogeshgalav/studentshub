@@ -83,6 +83,7 @@ html.openNav {
 }
 body {
     background-color: white;
+    overflow-x: hidden;
 }
 
 body,
@@ -1191,7 +1192,7 @@ i {
             li {
                 display: flex;
                 flex-wrap: nowrap;
-                padding: 10%;
+                padding: 5% 30px;
                 transition-duration: 0.3s;
                 a {
                     color: #42526e;
@@ -1207,7 +1208,8 @@ i {
                     background-color: rgb(219, 219, 219);
                     border-right: 5px solid blue;
                 }
-                &:active, &:focus{
+                .active{
+                    background-color: rgb(219, 219, 219);
                     border-right: 5px solid blue;
                 }
             }
@@ -2546,6 +2548,11 @@ select.form-control.custom-select {
 }
 
 @media only screen and (max-width: 768px) {
+    .nav-tabs{
+        .tabbed-nav ul {
+            justify-content: flex-start !important;
+        }
+    }
     .search_box {
         width: 100%;
         margin-top: 25px;
