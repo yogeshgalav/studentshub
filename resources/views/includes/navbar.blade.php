@@ -20,7 +20,7 @@
         <div class="notification-dropdown">
             <notifications-dropdown></notifications-dropdown>
         </div>
-        <div class="profile-dropdown">
+        <div class="profile-dropdown dropleft">
             @include('includes.profile-dropdown')
         </div>
     </div>
@@ -48,7 +48,7 @@
                 <notifications-dropdown></notifications-dropdown>
             </div>
 
-            <div class="nav-item">
+            <div class="nav-item dropleft">
                 @include('includes.profile-dropdown')
             </div>
 
