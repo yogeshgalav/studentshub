@@ -8,7 +8,7 @@ use App\Models\PasswordReset;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Classroom;
-use App\Models\ClassroomUser;
+use App\Models\ClassroomStudent;
 use Illuminate\Http\Response;
 use App\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -138,18 +138,16 @@ class AuthController extends Controller
             return false;
         }
         $request = new Request([
-            'course_id' => $classroom->batch->course_id,
-            'institute_id' => $classroom->teacher->institute_id, 
-            'institute_name' => '', 
-            'start_year' => $classroom->batch->start_year,
-            'end_year' => $classroom->batch->end_year,
+            'course_id' => $classroom->course_id,
+            'institute_id' => $classroom->institute_id, 
+            'institute_name' => '',
         ]);
         $student_controller =new \App\Http\Controllers\Api\StudentController;
         $student_controller->create($request);
-
-        ClassroomUser::create([
+        $student = Student::where('user_id',$user->id)->first();
+        ClassroomStudent::create([
             'classroom_id'=>$classroom->id,
-            'user_id'=>$user->id,
+            'student_id'=>$student->id,
         ]);
     }
     /**

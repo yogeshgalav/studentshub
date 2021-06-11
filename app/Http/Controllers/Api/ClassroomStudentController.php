@@ -3,16 +3,18 @@
 namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Classroom;
-use App\Models\ClassroomUser;
+use App\Models\ClassroomStudent;
 use App\Models\ClassroomMessage;
 use App\Notifications\MessageAdded;
 use Illuminate\Http\Request;
+use App\Http\Requests\AddMessageRequest;
+use App\Http\Requests\EditMessageRequest;
 use Auth;
 use DB;
 use App\Http\Requests\JoinClassroomRequest;
 use Carbon\Carbon;
 
-class ClassroomUserController extends Controller
+class ClassroomStudentController extends Controller
 {
     //
     
@@ -25,16 +27,15 @@ class ClassroomUserController extends Controller
                 'field'=>'classroom_id',
                 'message'=>'This classroom join id does not exist.'
             ]],422);
-        }elseif($student->batchId !== $classroom->batch_id){
+        }elseif($student->course_id !== $classroom->course_id  ||  $student->institute_id !== $classroom->institute_id){
             return response()->json(['error'=>[
                 'field'=>'classroom_id',
                 'message'=>'You cannot join this classroom with your current preffered educational details.'
             ]],422);
         }
          
-
-        ClassroomUser::firstOrCreate([
-            'user_id'=>Auth::id(),
+        ClassroomStudent::firstOrCreate([
+            'student_id'=>$student->id,
             'classroom_id'=>$classroom->id
         ]);
 
@@ -59,19 +60,9 @@ class ClassroomUserController extends Controller
         {
             $messagequery = $messagequery->where('classroom_id',$classroomId);
         }else{
-            $classroomIdArray = \DB::table('classrooms')
-            ->leftJoin('teachers as tc',function($join){
-                $join->on('tc.id','=','classrooms.teacher_id')->where('user_id','=',Auth::id());
-            })
-            ->leftJoin('classroom_users as cu',function($join){
-                $join->on('cu.classroom_id','=','classrooms.id')->where('cu.user_id','=',Auth::id());
-            })
-            ->where('tc.id','!=',null)
-            ->orWhere('cu.id','!=',null)
-            ->pluck('classrooms.id')
-            ->toArray();
+           
             
-            $messagequery = $messagequery->whereIn('classroom_id',$classroomIdArray);
+            $messagequery = $messagequery->whereIn('classroom_id',Auth::user()->getClassroomIds());
         }
         $messages = $messagequery->orderBy('classroom_messages.created_at','DESC')
         ->groupBy(['classroom_messages.id', 'classroom_messages.sender_user_id', 'classroom_messages.classroom_id','classroom_messages.content','classroom_messages.created_at','us.full_name','us.avatar_url','cs.name'])->get();
@@ -83,7 +74,7 @@ class ClassroomUserController extends Controller
             'messages'=>$messages
         ]]);
     }
-    public function addmessage(Request $request){
+    public function addmessage(AddMessageRequest $request){
         $classroom = Classroom::findOrFail($request->classroom_id);
 
         $message = ClassroomMessage::create([
@@ -113,7 +104,7 @@ class ClassroomUserController extends Controller
             'messages'=>$messages
         ]]);
     }
-    public function editmessage(Request $request){
+    public function editmessage(EditMessageRequest $request){
         
         $message=ClassroomMessage::findOrFail($request->message_id);
         if($message->sender_user_id!==Auth::id()){

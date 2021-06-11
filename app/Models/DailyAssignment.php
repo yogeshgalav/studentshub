@@ -20,6 +20,9 @@ class DailyAssignment extends Model
     public function unit(){
         return $this->belongsTo('App\Models\Unit');
     }
+    public function classroom(){
+        return $this->belongsTo('App\Models\Classroom');
+    }
     public function isCurrentlyAvailable(){
         if($this->end_time===null){
             return true;

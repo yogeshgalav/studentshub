@@ -18,14 +18,6 @@ class Course extends Model
     {
         return $this->belongsToMany('App\Models\Subject', 'course_subjects');
     }
-    public function batch()
-    {
-        return $this->hasMany('App\Models\Batch');
-    }
-    public function totalBatch()
-    {
-        return $this->batch()->count();
-    }
 
     public function setCourseNameAttribute($value)
     {

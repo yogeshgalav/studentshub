@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class JoinClassroomRequest extends FormRequest
+class CreateClassroomRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class JoinClassroomRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->user('api')->can('createClassroom', Institute::find($this->input('institute_id')));
     }
 
     /**
@@ -24,7 +24,9 @@ class JoinClassroomRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'required|exists:classrooms,name'
+            'subject_name'=>'required|string|max:125',
+            'course_id'=>'required|numeric|exists:courses,id',
+            'classroom_name'=>'required|string|max:125',
         ];
     }
 }

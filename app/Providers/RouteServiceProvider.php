@@ -4,6 +4,9 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use App\Models\User;
+use App\Models\Classroom;
+use App\Models\DailyAssignment;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -23,9 +26,9 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-
-        parent::boot();
+        Route::model('user', User::class);
+        Route::model('classroom', Classroom::class);
+        Route::model('daily_assignment', DailyAssignment::class);
     }
 
     /**
