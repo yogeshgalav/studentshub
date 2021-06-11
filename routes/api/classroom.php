@@ -32,16 +32,16 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::post('/classroom/{classroomId}/add-resource',[App\Http\Controllers\Api\ClassroomResourceController::class, 'addresource']);
     Route::post('/classroom/{classroomId}/delete-resource','ClassroomResourceController@deleteresource');
     //messages
-    Route::get('/get-classroom-messages/{classroomId?}','ClassroomUserController@listmessage');
-    Route::get('/message/{messageId}/get-replies', 'ClassroomUserController@replymessage');
-    Route::post('/add-message',[App\Http\Controllers\Api\ClassroomUserController::class, 'addmessage']);
-    Route::post('/delete-message','ClassroomUserController@deletemessage');
-    Route::post('/edit-message', [App\Http\Controllers\Api\ClassroomUserController::class, 'editmessage']);
+    Route::get('/get-classroom-messages/{classroomId?}','ClassroomStudentController@listmessage');
+    Route::get('/message/{messageId}/get-replies', 'ClassroomStudentController@replymessage');
+    Route::post('/add-message',[App\Http\Controllers\Api\ClassroomStudentController::class, 'addmessage']);
+    Route::post('/delete-message','ClassroomStudentController@deletemessage');
+    Route::post('/edit-message', [App\Http\Controllers\Api\ClassroomStudentController::class, 'editmessage']);
 
     //student classroom routes
-    Route::post('/classroom/join','ClassroomUserController@joinClassroom');
+    Route::post('/classroom/join','ClassroomStudentController@joinClassroom');
     Route::get('/classroom/{classroomId}/report','ReportController@getClassroomReport');
-    Route::post('/classroom/user-request-action','ClassroomUserController@userRequestAction');
+    Route::post('/classroom/user-request-action','ClassroomStudentController@userRequestAction');
 
     //student panel
     Route::get('/classroom/{classroomId}/get-assignment-report/{userId?}','ReportController@getAssignmentReport');

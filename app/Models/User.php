@@ -120,4 +120,8 @@ class User extends Authenticatable
             return $teacher->instituteId;
         }
     }
+    
+    public function getStudentIds(){
+        return [];   
+    }
 }

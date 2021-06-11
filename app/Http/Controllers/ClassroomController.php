@@ -6,7 +6,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Classroom;
 use App\Models\Unit;
-use App\Models\ClassroomUser;
+use App\Models\ClassroomStudent;
 use DB;
 use Auth;
 use Illuminate\Support\Facades\Log;
@@ -21,12 +21,7 @@ class ClassroomController extends Controller
             return view('classroom.classroom');
         }
 
-        $is_classroom_student=ClassroomUser::where('user_id',Auth::id())
-        ->where('classroom_id',$classroom->id)->exists();
-        if(!$is_classroom_student){
-            Log::warning('invalid classroom access',['user_id'=>Auth::id(),'classroom_id'=>$classroom->id]);
-            abort(403);
-        }
+        
 
         $daily_assignment=\App\Models\DailyAssignment::where('attempt_date','=',now(Auth::user()->timezone)->toDateString())
         ->where('activated_at','!=',null)->where('classroom_id','=',$classroom->id)

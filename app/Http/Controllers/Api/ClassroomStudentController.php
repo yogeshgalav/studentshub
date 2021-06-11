@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Classroom;
-use App\Models\ClassroomUser;
+use App\Models\ClassroomStudent;
 use App\Models\ClassroomMessage;
 use App\Notifications\MessageAdded;
 use Illuminate\Http\Request;
@@ -14,7 +14,7 @@ use DB;
 use App\Http\Requests\JoinClassroomRequest;
 use Carbon\Carbon;
 
-class ClassroomUserController extends Controller
+class ClassroomStudentController extends Controller
 {
     //
     
@@ -34,9 +34,8 @@ class ClassroomUserController extends Controller
             ]],422);
         }
          
-
-        ClassroomUser::firstOrCreate([
-            'user_id'=>Auth::id(),
+        ClassroomStudent::firstOrCreate([
+            'student_id'=>$student->id,
             'classroom_id'=>$classroom->id
         ]);
 
