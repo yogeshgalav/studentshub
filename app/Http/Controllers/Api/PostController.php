@@ -34,12 +34,18 @@ class PostController extends Controller
         }
         DB::beginTransaction();
         try{
-        $subject=Subject::getOrCreate($data['subject_id'], $data['subject_name'], $data['category_id']);
+          $subject = NULL;
+          if($data['subject_name']){
+            $subject=Subject::getOrCreate($data['subject_id'], $data['subject_name'], $data['category_id']);
+          }
+      
+        
 
         $post=new Post;
         $post->user_id=Auth::user()->id;
         $post->post_heading=$heading;
-        $post->subject_id=$subject->id;
+        $post->subject_id=$subject?$subject->id:NULL;
+        $post->category_id = $data['category_id'];
 
 
         switch(strToLower($request->post_type)){
@@ -97,8 +103,8 @@ class PostController extends Controller
             'institute_id'=>$student->instituteId,
             'course_id'=>Auth::student()->courseId,
             'batch_id'=>$student->batchId,
-            'category_id'=>$request->category_id,
-            'shared_by'=>Auth::id(),
+            'shared_by'=>Auth::id(),            'category_id'=>$request->category_id,
+
         ]);
 
         DB::commit();
@@ -121,6 +127,7 @@ class PostController extends Controller
     }
 
     public function show($post_id){
+        \App\Models\Post::findOrFail($post_id);
         $user=Auth::user();
         if($user){
             \App\Models\PostView::firstOrCreate([
@@ -145,26 +152,7 @@ class PostController extends Controller
             'most_liked'=>\Sthub::convert_from_latin1_to_utf8_recursively($most_liked),
         ]]);
     }
-
-    public function searchPosts(Request $request){
-      $post=new \App\Post;
-      $posts = $post->getSearchPosts($request);
-
-        $search=new \App\Models\Search;
-        $search->query=$request->input('query');
-        // $search->type='query';
-        if(!empty($posts)){
-          $search->success=true;
-        }else{
-          $search->success=false;
-        }
-        $search->save();
-
-        return response()->json(['success'=>[
-          'posts'=>\Sthub::convert_from_latin1_to_utf8_recursively($posts)
-        ]]);
-      }
-      public function courseDetails(Request $request){
+    public function courseDetails(Request $request){
         $subject=\App\Models\Course::where('course_url', $request->route('id'))->firstOrFail();
         $post=new \App\Post;
         $posts = $post->getCoursePosts($course->id);

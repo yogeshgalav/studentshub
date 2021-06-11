@@ -8,15 +8,15 @@
     >
       <div class="container row flex-coloumn m-auto justify-content-center align-items-center">
         <div class="welcome_banner">
-          <h1 class="mb-2">
+          <h1 class="mb-2 fade-in-out">
             Use the Power of Data to Drive your Growth
           </h1>
           <div>
             <a
-              class="btn btn-outline-light"
+              class="btn btn-outline-light fade-in-out"
               href="/membership-plan"
             >
-              Learn More <i class="fas fa-arrow-right" />
+              Learn More <i class="fas fa-arrow-right fade-in-out" />
             </a>
           </div>
         </div>
@@ -31,50 +31,50 @@
         <div class="pt-5 pl-4 pb-2 mb-1 row justify-content-md-between align-items-center mr-0 ml-0">
           <div class="col-md-6">
             <div class="sections">
-              <h2 class="font-weight-bold">
-                Your institute, like you've never seen it before
+              <h2 class="font-weight-bold fade-in-out">
+                Want your Institute to outstand from others?
               </h2>
             </div>
             <div class="sections">
-              <p class="font-weight-normal">
-                Our industry-leading educational analytics makes exploring your
-                data
-                and uncovering insights a
-                cinch! Understand the dynamics of your institute and see where you need to focus your
-                efforts.
+              <p class="font-weight-normal fade-in-out">
+                Our next generation reporting system will give your Institute new superpowers,
+                <br>
+                And will provide meaningfull insights to your teachers, students and their parents.
+                <br>
+                Book a demo now and get started with free account.
               </p>
             </div>
           </div>
           <div class="sections col-md-4">
             <a
               href="/membership-plan"
-              class="btn btn-outline-dark"
+              class="btn btn-outline-dark fade-in-out"
             >
               Learn More <i class="fas fa-arrow-right" />
             </a>
           </div>
         </div>
         <div class="pt-2 container graph-div">
-          <div class="row">
-            <div class="col-12 col-md-3 image-div">
+          <div class="row img-row img-transition">
+            <div class="col-12 col-md-3 image-div fade-in-out">
               <img
                 src="/images/welcome/line.jpg"
                 alt="dual-line-graph"
               >
             </div>
-            <div class="col-12 col-md-3 image-div">
+            <div class="col-12 col-md-3 image-div fade-in-out">
               <img
                 src="/images/welcome/barline.jpg"
                 alt="line-graph"
               >
             </div>
-            <div class="col-12 col-md-3 image-div">
+            <div class="col-12 col-md-3 image-div fade-in-out">
               <img
                 src="/images/welcome/Dought.jpg"
                 alt="line-graph"
               >
             </div>
-            <div class="col-12 col-md-3 image-div">
+            <div class="col-12 col-md-3 image-div fade-in-out">
               <img
                 src="/images/welcome/multibar.jpg"
                 alt="line-graph"
@@ -87,17 +87,17 @@
     <div class="white-space-bottom" />
     <div style="background-color: #2727cced;">
       <div class="container row m-auto">
-        <div class="right col-md-4">
+        <div class="right col-md-4 fade-in-out">
           <img
             src="/images/mobile.png"
             alt="Right Image"
           >
         </div>
         <div class="left col-md-8 align-self-center pl-5">
-          <h3 class="text-white">
+          <h3 class="text-white fade-in-out">
             The Best Educational App
           </h3>
-          <p class="text-white">
+          <p class="text-white fade-in-out">
             Educational App to boost the productivity of Students, Teachers, and Institutes. Learn about your progress, pain points, and student's field of interest.
           </p>
           <a
@@ -128,7 +128,7 @@
             Join the thousands of other institutes who benefits from our data analytics and digital classroom services.
           </p>
         </div>
-        <div class="col-md-3 text-right p-0">
+        <div class="col-md-3 text-right p-0 fade-in-out">
           <a
             href="/membership-plan#requestDemo"
             class="btn btn-primary"
@@ -137,11 +137,18 @@
           </a>
         </div>
       </div>
-    </div>  
+    </div>
     <site-footer />
   </main>
 </template>
-<style scoped>
+<style >
+.showText{
+    opacity: 0;
+    transform: translateY(8rem);
+}
+.fade-in-out{
+    transition-duration: 0.7s;
+}
 .white-space{
   height: 150px;
   background: #fff;
@@ -224,33 +231,85 @@ h1 {
 		.white-space{
 			display: none;
 		}
-}        
+}
 </style>
 <script>
 import {mapState} from 'vuex';
 import CategoryFilter from '../category/CategoryFilter';
 import ExploreCarousalPost from '../post-containers/ExploreCarousalPost';
 import SiteFooter from '../footer/SiteFooter';
- 
+
+
 export default {
 	components: {
 		CategoryFilter,
 		ExploreCarousalPost,
 		SiteFooter
 	},
-	methods:{
-		getData(){
-			this.$store.dispatch('guest/getWelcomePageContent');
-		}
-	},
 	computed:{
 		...mapState({
 			'categories': state=>state.guest.categories,
 		}),
+
 	},
 	mounted(){
 		this.getData();
-	}
+		this.startAnimation();
+	},
+	methods:{
+		getData(){
+			this.$store.dispatch('guest/getWelcomePageContent');
+		},
+		startAnimation(){
+			// text transition
+			const transitionText = document.querySelectorAll('.fade-in-out');
+			const transitionTextObserver = new IntersectionObserver((entries,observer)=>{
+				const [entry] = entries;
+				if(!entry.isIntersecting) return;
+				else{
+					entry.target.classList.remove('showText');
+				}
+				observer.unobserve(entry.target);
+			},{
+				root:null,
+				threshold:0.10,
+			});
+			transitionText.forEach(el=>{
+				transitionTextObserver.observe(el);
+				el.classList.add('showText');
+			});
+
+			// image transitions one by one
+			const transitionImg = document.querySelector('.img-transition');
+
+			const transitionImgObserver = new IntersectionObserver((entries,observer)=>{
+				let [entry] = entries;
+				if(!entry.isIntersecting) return;
+
+				let i = 0;
+				let animationInterval = setInterval(() => {
+					if(entry.target.childNodes[i] && entry.target.childNodes[i].nodeName !== '#text'){
+						entry.target.childNodes[i].classList.remove('showText');
+					}
+					if(i===10){
+						clearInterval(animationInterval);
+					}
+					i++;
+				}, 200);
+
+				observer.unobserve(entry.target);
+			},{
+				root:null,
+				threshold:0.30,
+			});
+			transitionImgObserver.observe(transitionImg);
+			transitionImg.childNodes.forEach(node=>{
+				if(node.nodeName === '#text') return;
+				node.classList.add('showText');
+			});
+
+		}
+	},
 };
 </script>
 

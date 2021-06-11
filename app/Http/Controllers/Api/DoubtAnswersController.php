@@ -41,6 +41,7 @@ class DoubtAnswersController extends Controller
         $post->postable_type="App\Models\Article";
         $post->primary_image_path='/storage/article-default.png';
         $post->postable_id=$post_content_id;
+        $post->category_id=$doubt->course->category_id;
 
         $post->save();
 
@@ -59,7 +60,6 @@ class DoubtAnswersController extends Controller
             'institute_id'=>$institute_id,
             'classroom_id'=>$doubt->classroom_id ?? null,
             'course_id'=>$doubt->course_id,
-            'category_id'=>$doubt->course->category_id,
             'shared_by'=>Auth::id(),
         ]);
 

@@ -15,9 +15,9 @@ class UserController extends Controller
     public function getProfile(){
         $user=Auth::user();
         $post = new \App\Post;
-        
-        $categories=DB::table('categories as cat')->leftJoin('subjects as sub','sub.category_id','=','cat.id')
-        ->leftJoin('posts as po','po.subject_id','=','sub.id')
+
+        $categories=DB::table('categories as cat')
+        ->leftJoin('posts as po','po.category_id','=','cat.id')
         ->leftJoin('post_views as pv',function($join){
             $join->on('pv.post_id','=','po.id')->where('pv.user_id','=',Auth::id());
         })
@@ -30,7 +30,7 @@ class UserController extends Controller
         ->select('cat.name',DB::raw('COUNT(distinct li.likable_id) as total_likes'),DB::raw('COUNT(distinct pv.post_id) as total_views'),DB::raw('COUNT(distinct upo.id) as total_posts'))
         ->groupBy('cat.id','cat.name')
         ->get();
-        
+
         $total=0;
         foreach($categories as $category){
             $category->total=$category->total_views+($category->total_likes*3)+($category->total_posts*7);
@@ -78,39 +78,13 @@ class UserController extends Controller
 
         $profile->save();
 
+        if($request->full_name){
+            $me->full_name=$request->full_name;
+            $me->save();
+        }
+
         return response()->json(['success'=>[
             'profile'=>$profile
         ]]);
-    }
-
-    public function searchUser(Request $request){
-        $users = DB::table('users as us')->where('us.full_name', 'LIKE', $request->searchTerm.'%')
-            ->leftJoin('students as st', 'st.user_id', '=', 'us.id')
-            ->leftJoin('batches as pbt', 'pbt.id', '=', 'st.prefferred_batch')
-            ->leftJoin('institutes as inst', 'inst.id', '=', 'pbt.institute_id')
-            ->leftJoin('courses', 'courses.id', '=', 'pbt.course_id')
-            ->leftJoin('teachers as th', 'th.id', '=', 'th.user_id')
-            ->leftJoin('institutes as inst2', 'inst2.id', '=', 'th.institute_id')
-            ->select(
-                'inst.id as instituteId',
-                'inst.name as instituteName',
-                'courses.id as courseId',
-                'courses.course_name as courseName',
-                'courses.course_url as courseUrl',
-                'pbt.id as batchId',
-                'pbt.start_year as start_year',
-                'pbt.end_year as end_year',
-                'st.prefferred_batch as preferred_batch',
-                'st.prefferred_category as preferred_category',
-                'inst2.id as instituteId',
-                'inst2.name as instituteName',
-                'th.id as id', 'th.user_id'
-            )->limit(10)->get();
-
-            return response()->json([
-                'success'=>[
-                    'users'=>$users,
-                ]
-            ]);
     }
 }

@@ -24,7 +24,10 @@
             <p class="text-muted btn-category">
               {{ post.category_name }}
             </p>
-            <p class="text-muted btn-category">
+            <p
+              v-if="post.subject_name" 
+              class="text-muted btn-category"
+            >
               {{ post.subject_name }}
             </p>
           </div>
