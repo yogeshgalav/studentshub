@@ -27,6 +27,38 @@
 
                 <div class="col-md-12 mt-2">
                   <form @submit.prevent="createClassroom">
+                    <div 
+                      v-if="instituteList.length>1"
+                      class="form-group"
+                    >
+                      <label class="mb-1"> {{ 'Institute' }} </label>
+                      <div class="inner-addon left-addon">
+                        <div class="input_icon_frm">
+                          <span
+                            class="icon_design_input"
+                            style="height: 44px"
+                          >
+                            <i
+                              class="fa fa-certificate"
+                              aria-hidden="true"
+                            /></span>
+                          <auto-complete
+                            v-validate="'required'"
+                            class="width-100"
+                            :items="instituteList"
+                            :value="'name'"
+                            name="course_level"
+                            :placeholder="'Select Program Level'"
+                            :is-async="false"
+                            :create-new-item="false"
+                            @selected="setInstitute"
+                          />
+                        </div>
+                        <span
+                          class="error"
+                        >{{ formErrors('course_level') }}</span>
+                      </div>
+                    </div>
                     <div class="form-group">
                       <label> {{ 'Classroom Name' }} </label>
                       <div class="inner-addon left-addon">
@@ -107,6 +139,7 @@
                             name="program_name"
                             :placeholder="'eg. Bachelor of Arts'"
                             :is-async="true"
+                            :create-new-item="false"
                             :is-loading="courseLoading"
                             @input="getCourses"
                             @selected="setCourse"
@@ -155,84 +188,6 @@
                       </div>
                     </div>
 
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label
-                            class="text-black"
-                            for="event_date_input"
-                          >
-                            {{ ('Course Starting Year') }}
-                          </label>
-                          <div class="input-group-prepend">
-                            <div
-                              class="input-group-prepend date"
-                              data-provide="datepicker"
-                            />
-                            <div class="input_icon_frm">
-                              <span
-                                id="basic-addon1"
-                                class="icon_design_input"
-                              ><i
-                                class="fa fa-calendar"
-                              /></span>
-
-                              <date-picker
-                                id="start_year"
-                                v-model="start_year"
-                                v-validate="'required'"
-                                name="start_year"
-                                value-type="format"
-                                :typeable="true"
-                                :type="'year'"
-                                :lang="'en'"
-                                default-value="2019"
-                                :input-attr="{id: 'start_year_input', value: start_year}"
-                                placeholder="Start Year"
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label
-                            class="text-black"
-                            for="event_date_input"
-                          >
-                            {{ ('Course Ending Year') }}
-                          </label>
-                          <div class="input-group-prepend ">
-                            <div
-                              class="input-group-prepend date"
-                              data-provide="datepicker"
-                            />
-                            <div class="input_icon_frm">
-                              <span
-                                id="basic-addon1"
-                                class="icon_design_input"
-                              ><i
-                                class="fa fa-calendar"
-                              /></span>
-                              <date-picker
-                                id="end_year"
-                                v-model="end_year"
-                                v-validate="'required'"
-                                value-type="format"
-                                name="end_year"
-                                :typeable="true"
-                                :type="'year'"
-                                :lang="'en'"
-                                default-value="2019"
-                                :input-attr="{id: 'end_year_input', value: end_year}"
-                                placeholder="End Year"
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <span class="error">{{ yearError }}</span>
-                    </div>
                     <div class="form-group d-flex s_register_btn">
                       <button
                         type="submit"
@@ -290,7 +245,6 @@
 </style>
 <script>
 import FormMixin from '../../../components/mixins/form-mixin.js';
-import BatchMixin from '../../../components/mixins/batch-mixin.js';
 import AutoComplete from '../../../components/AutoComplete.vue';
 import swal from '../../../components/swal';
 
@@ -298,14 +252,12 @@ export default {
 	components: {
 		AutoComplete,
 	},
-	mixins: [FormMixin, BatchMixin],
-	props: ['courseLevels'],
+	mixins: [FormMixin],
+	props: ['courseLevels','instituteList'],
 	data() {
 		return {
+			institute_id: '',
 			classroom_name: '',
-			start_year: '',
-			end_year: '',
-			step: 'step1',
 			show_courses: false,
 			showLoader: false,
 			course_list: [],
@@ -327,6 +279,11 @@ export default {
 			},
 		};
 	},
+	mounted(){
+		if(this.instituteList.length===1){
+			this.institute_id = this.instituteList[0].id; 
+		}
+	},
 	methods: {
 		createClassroom() {
 			if(this.yearError!==''){
@@ -336,11 +293,10 @@ export default {
 				if (valid) {
 					this.form_errors=[];
 					this.axios.post('/api/classroom/create', {
-						course: this.selected_course,
-						subject: this.selected_subject,
-						name: this.classroom_name,
-						start_year: this.start_year,
-						end_year: this.end_year,
+						course_id: this.selected_course.id,
+						subject_name: this.selected_subject.subject_name,
+						classroom_name: this.classroom_name,
+						institute_id: this.institute_id,
 					}).then((resp)=>{
 						if (resp.data.success) {
 							swal.successDialog('Classroom create', 'Success!', 'success');
@@ -427,6 +383,9 @@ export default {
 			this.selected_subject = {
 				'subject_name': name,
 			};
+		},
+		setInstitute(result){
+			this.institute_id = result.id;
 		},
 		setCourseLevel(result){
 			this.selected_level = result;

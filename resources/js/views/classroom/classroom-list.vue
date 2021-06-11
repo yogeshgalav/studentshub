@@ -68,38 +68,6 @@
         </template>
       </modal>
     </div>
-    <div v-if="myClassrooms.length">
-      <div class="row">
-        <div
-          v-for="(classroom, index) in myClassrooms"
-          :key="index"
-          class="col-md-4"
-        >
-          <a
-            :href="'/classroom/'+classroom.id"
-            class="card rounded-lg pt-3 pb-3 mb-2 text-center"
-            style="text-center"
-          >
-            <div style="text-align: -webkit-center;">
-              <profile-image
-                :user-name="classroom.teacher_name"
-                size="large"
-              />
-            </div>
-
-            <h4 class="mt-2 font-weight-normal text-muted">
-              {{ classroom.teacher_name }}
-            </h4>
-            <h3 class="font-weight-bold text-info font-weight-bold">
-              {{ classroom.subject_name }}
-            </h3>
-            <h4 class="font-weight-normal text-muted">
-              {{ classroom.name }}
-            </h4>
-          </a>
-        </div>
-      </div>
-    </div>
     <div v-if="classroomList.length">
       <div class="row">
         <div
@@ -161,7 +129,7 @@ export default {
 		Modal,
 		VueTableComponent
 	},
-	props: ['myClassrooms', 'classroomList'],
+	props: ['classroomList'],
 	data() {
 		return {
 			id_error: '',
