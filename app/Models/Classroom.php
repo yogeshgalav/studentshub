@@ -81,17 +81,17 @@ class Classroom extends Model
     {
         $this->attributes['name'] = Sthub::ucWordSome($value);
     }
-
-    public function teacher(){
-        return $this->belongsTo('App\Models\Teacher');
-    }
-    public function batch(){
-        return $this->belongsTo('App\Models\Batch');
-    }
     public function subject(){
         return $this->belongsTo('App\Models\Subject');
     }
     public function users(){
         return $this->belongsToMany('App\Models\User','classroom_users');
+    }
+    public function institute(){
+        return $this->belongsTo('App\Models\Institute','institute_id');
+    }
+
+    public function course(){
+        return $this->belongsTo('App\Models\Course','course_id');
     }
 }

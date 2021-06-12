@@ -12,8 +12,6 @@ use App\Models\Student;
 use App\Models\Course;
 use App\Models\Category;
 use App\Models\Institute;
-use App\Models\Batch;
-use App\Models\BatchStudent;
 use App\Notifications\BatchNewUserNotification;
 use App\Notifications\StudentOnboardingNotification;
 use Illuminate\Support\Arr;
@@ -54,35 +52,22 @@ class StudentController extends Controller
                 ]);
             }
 
-            //create or get batch id
-            $batch = Batch::firstOrCreate([
-                'end_year' => $input['end_year'],
-                'institute_id' => $institute->id,
-                'course_id' => $course->id,
-            ], [
-                'start_year' => $input['start_year'],
-            ]);
-
             $student = Student::updateOrCreate([
-                'user_id' => Auth::user()->id
+                'user_id' => Auth::user()->id,
+                'institute_id' => $institute->id,
+                'course_id' => $course->id
             ], [
-                'prefferred_batch' => $batch->id,
-                'prefferred_category' => $course->category_id,
+                'is_preferred' => 1,
+                //'prefferred_category' => $course->category_id,
                 'unique_college_id' => $request->college_id ?? null,
             ]);
 
-            BatchStudent::updateOrCreate([
-                'batch_id' => $batch->id,
-                'student_id' => $student->id,
-            ], [
-                'is_preffered' => true,
-            ]);
 
             $user->role_intended = 'student';
             $user->onboarded_at = \Carbon\Carbon::now()->toDateTimeString();
             $user->save();
             
-            $batch_users = $batch->users()->whereNotIn('id', [$user->id]);
+           // $batch_users = $batch->users()->whereNotIn('id', [$user->id]);
             // Notification::send($batch_users, new BatchNewUserNotification($user,$batch));
             // Notification::send($user, new StudentOnboardingNotification(count($batch_users)));
 

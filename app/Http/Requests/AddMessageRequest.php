@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class JoinClassroomRequest extends FormRequest
+class AddMessageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,9 @@ class JoinClassroomRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'required|exists:classrooms,name'
+            'classroom_id'=>'required|exists:classrooms,id',
+            'content'=>'required',
+            'parent_message_id'=>'nullable',
         ];
     }
 }

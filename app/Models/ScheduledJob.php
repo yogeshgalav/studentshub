@@ -8,7 +8,7 @@ use App\Notifications\NewInstituteMemberNotification;
 use App\Notifications\DailyAssignmentActivateNotification;
 use App\Jobs\SendNotificationJob;
 use Carbon\Carbon;
-
+use App\Notifications\DailyAssignmentActivateNotification;
 class ScheduledJob extends Model
 {
     protected  $guarded = ['id', 'created_at', 'updated_at'];
@@ -64,6 +64,14 @@ class ScheduledJob extends Model
             'job_type' => SendNotificationJob::class,
             'notification_class_name' => NewInstituteMemberNotification::class,
             'user_id'=>$user->id
+        ]);
+    }
+    public static function dailyAssignmentActivateNotification(){
+        return self::create([
+            'run_at' => Carbon::now('UTC'),
+            'job_type' => SendNotificationJob::class,
+            'notification_class_name' => DailyAssignmentActivateNotification::class,
+            'user_id'=>Auth::id()
         ]);
     }
 }

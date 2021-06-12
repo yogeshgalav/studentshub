@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Classroom;
 
-class JoinClassroomRequest extends FormRequest
+class UpdateClassroomDetailsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +14,7 @@ class JoinClassroomRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->user('api')->can('update', $this->route('classroom'));
     }
 
     /**
@@ -24,7 +25,8 @@ class JoinClassroomRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'required|exists:classrooms,name'
+            'name'=>'required',
+            'meet_link'=>'nullable',
         ];
     }
 }

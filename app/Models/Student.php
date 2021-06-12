@@ -12,12 +12,11 @@ class Student extends Model
     {
         return $this->belongsTo('App\Models\User');
     }
-
-    public function getPrefferredCourseAttribute(){
-        return Batch::where('id',$this->prefferred_batch)->first()->course_id;
+    public function institute(){
+        return $this->belongsTo('App\Models\Institute','institute_id');
     }
 
-    public function batches(){
-        return $this->belongsToMany('App\Models\Batch','batch_students','batch_id');
+    public function course(){
+        return $this->belongsTo('App\Models\Course','course_id');
     }
 }

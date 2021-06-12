@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
-
+use App\Models\Classroom;
 use App\Http\Requests\TeacherDailyAssignment\StoreRequest;
 use App\Models\DailyAssignment;
 use App\Models\DailyReport;
@@ -11,70 +11,73 @@ use App\Models\Unit;
 use DB;
 use Log;
 use Illuminate\Http\Request;
-use App\Notfications\NewDailyAssignmentNotification;
+use App\Notfications\DailyAssignmentActivateNotification;
+use App\Http\Requests\DailyAssignmentRequest;
+use App\Http\Requests\CreateAssignmentRequest;
+use App\Http\Requests\UpdateAssignmentRequest;
 
 class DailyAssignmentController extends Controller
 {
     //
-    public function activate(Request $request)
+    public function activate(DailyAssignment $daily_assignment)
     {
-        if($request->daily_assignment_id){
-            DailyReport::where('daily_assignment_id',$request->daily_assignment_id)->exists() ? abort(403) : '';
-        }
-        $daily = DailyAssignment::findOrFail($request->daily_assignment_id);
-        $marks=DailyQuestion::where('daily_assignment_id',$daily->id)->pluck('marks')->toArray();
-        if(array_sum($marks)!==10){
-            \Log::error('marks total error while activating daily assignment',['user_id'=>Auth::id(),'assignment'=>$daily]);
-            abort(403);
-        }
-        if($request->status==="activate"){
-            $daily->activated_at = now()->toDateTimeString();
-            new NewDailyAssignmentNotification($daily,Auth::user()->full_name);
-            
+        $this->authorize('update', $daily_assignment);
+        if($daily_assignment->activated_at){
+            $daily_assignment->activated_at = now()->toDateTimeString();
+            $daily_assignment->status = 'activated';
+            ScheduleJob::dailyAssignmentActivateNotification($daily_assignment,Auth::user()->full_name);
+            //new DailyAssignmentActivateNotification($daily_assignment,Auth::user()->full_name);
+            //$classroom_users = $daily_assignment->classroom->users()->get();
+            //Notification::send($classroom_users, new DailyAssignmentActivateNotification($daily_assignment,Auth::user()->full_name));
         }else{
-            $daily->activated_at = null;
+            $daily_assignment->activated_at = null;
+            $daily_assignment->status = 'draft';
         }
-        $daily->save();
+        $daily_assignment->save();
 
         return response()->json('success');
     }
 
-    public function delete(Request $request){
-        if($request->daily_assignment_id){
-            DailyReport::where('daily_assignment_id',$request->daily_assignment_id)->exists() ? abort(403) : '';
-        }
-        $daily = DailyAssignment::findOrFail($request->daily_assignment_id);
-
-        $daily->delete();
-
-        return response()->json('success');
-    }
-
-    public function update(Request $request)
+    public function delete(DailyAssignment $daily_assignment)
     {
-        if($request->assignment_id){
-            DailyReport::where('daily_assignment_id',$request->assignment_id)->exists() ? abort(403) : '';
-        }
-        $unit=Unit::findOrFail($request->unit_id);
-        $is_assignment_duplicate = DailyAssignment::where('attempt_date',$request->attempt_date)
-        ->where('classroom_id',$unit->classroom_id)
-        ->where('id','!=',$request->assignment_id)
-        ->exists();
-        if($is_assignment_duplicate){
-            return response()->json('Assignment with same date already exists.',422);
-        }
+        $this->authorize('delete', $daily_assignment);
+
+        $daily_assignment->delete();
+        return response()->json('success');
+    }
+
+    public function create(Classroom $classroom, CreateAssignmentRequest $request)
+    {
+
         DB::beginTransaction();
     try{
-        if($request->assignment_id){
-            $dailyAssignment = DailyAssignment::find($request->assignment_id);
-        }else{
-            $dailyAssignment = new DailyAssignment;
-        }
+        $dailyAssignment = new DailyAssignment;
+        $dailyAssignment->attempt_date=$request->attempt_date;
+        $dailyAssignment->unit_id=$request->unit_id;
+        $dailyAssignment->classroom_id=$classroom->id;
+
+        $dailyAssignment->save();
+
+        DB::commit();
+    } catch (\Exception $e) {dd($e->getMessage());
+        DB::rollback();
+        Log::critical('daily assignment update failure',['data'=>$request->all(),'error'=>$e->getMessage()]);
+        return response()->$e;
+    }
+        return response()->json(['success'=>[
+            'assignment'=>$dailyAssignment
+        ]]);
+
+    }
+    public function update(DailyAssignment $dailyAssignment, UpdateAssignmentRequest $request)
+    {
+        DB::beginTransaction();
+    try{
+
         $dailyAssignment->attempt_date=$request->attempt_date;
         $dailyAssignment->start_time=$request->start_time;
         $dailyAssignment->end_time=$request->end_time;
-        $dailyAssignment->unit_id=$unit->id;
-        $dailyAssignment->classroom_id=$unit->classroom_id;
+        $dailyAssignment->unit_id=$request->unit_id;
 
         $dailyAssignment->save();
 

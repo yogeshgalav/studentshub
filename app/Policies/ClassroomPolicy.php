@@ -4,7 +4,8 @@ namespace App\Policies;
 
 use App\Models\Classroom;
 use App\Models\User;
-use App\Models\ClassroomUser;
+use App\Models\Institute;
+use App\Models\InstituteUser;
 use App\Facades\Auth;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -32,18 +33,10 @@ class ClassroomPolicy
      */
     public function view(User $user, Classroom $classroom)
     {
-        if(ClassroomUser::where('user_id',$user->id)->where('classroom_id',$classroom->id)->exists()){
+        $classroom_ids = $user->getClassroomIds();
+        if(in_array($classroom->id,$classroom_ids)){
             return true;
         }
-        if(Auth::teacher() && $classroom->teacher_id===Auth::teacher()->id){
-            return true;
-        }
-        // if($user->role==='instituteAdmin'){
-        //     return true;
-        // }
-        // if($user->role==='superAdmin'){
-        //     return true;
-        // }
         return false;
     }
 
@@ -51,11 +44,16 @@ class ClassroomPolicy
      * Determine whether the user can create models.
      *
      * @param  \App\Models\User  $user
+     * @param  \App\Models\Institute  $institute
      * @return mixed
      */
-    public function create(User $user)
+    public function createClassroom(User $user, Institute $institute)
     {
-        if(Auth::teacher()){
+        $is_teacher = InstituteUser::where('user_id',$user->id)
+        ->where('institute_id', $institute->id)
+        ->where('role', 'teacher')
+        ->exists();
+        if($is_teacher){
             return true;
         }
         // if($user->role==='instituteAdmin'){
@@ -76,7 +74,7 @@ class ClassroomPolicy
      */
     public function update(User $user, Classroom $classroom)
     {
-        if(Auth::teacher() && $classroom->teacher_id===Auth::teacher()->id){
+        if($classroom->teacher_user_id===$user->id){
             return true;
         }
         // if($user->role==='instituteAdmin'){
@@ -97,7 +95,7 @@ class ClassroomPolicy
      */
     public function delete(User $user, Classroom $classroom)
     {
-        if(Auth::teacher() && $classroom->teacher_id===Auth::teacher()->id){
+        if($classroom->teacher_user_id===$user->id){
             return true;
         }
         // if($user->role==='instituteAdmin'){

@@ -14585,6 +14585,10 @@ select.form-control.custom-select {
 }
 
 @media only screen and (max-width: 768px) {
+  .creat_post_btn button {
+    min-width: 100% !important;
+  }
+
   .search_box {
     width: 100%;
     margin-top: 25px;

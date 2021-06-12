@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class NewDailyAssignmentNotification extends Notification
+class DailyAssignmentActivateNotification extends Notification
 {
     use Queueable;
     public $daily_assignment;

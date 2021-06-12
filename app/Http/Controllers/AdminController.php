@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 use App\Models\Like;
 use App\Models\User;
 use App\Models\Post;
-use App\Models\Batch;
+//use App\Models\Batch;
 use App\Models\Student;
 use App\Models\Course;
 use App\Models\Category;
 use App\Models\Institute;
 use App\Models\ExplorePagePost;
-use App\Models\BatchStudent;
+//use App\Models\BatchStudent;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 
