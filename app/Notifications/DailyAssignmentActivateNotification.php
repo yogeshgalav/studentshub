@@ -6,21 +6,23 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use App\Models\ScheduledJob;
 
-class DailyAssignmentActivateNotification extends Notification
+class DailyAssignmentActivateNotification extends SthubAllowlistedUserNotification
+
 {
     use Queueable;
-    public $daily_assignment;
+    public $scheduled_job;
     public $user_name;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($daily_assignment,$user_name)
+    public function __construct($scheduled_job)
     {
-        $this->daily_assignment =  $daily_assignment;
-        $this->user_name = $user_name;
+        $this->scheduled_job = $scheduled_job;
+       // $this->user_id = $user_id;
     }
 
     /**
@@ -56,11 +58,10 @@ class DailyAssignmentActivateNotification extends Notification
      */
     public function toDatabase($notifiable)
     {
+       // Log::info("DA Notification");
         return [
-            'body'=$this->user_name.' has scheduled a Daily Assignment for 
-                    classroom '.$this->daily_assignment->classroom->name.' on '.$this->daily_assignment->attempt_date.' 
-                    and it will be available from '.$this->daily_assignment->start_time.' to '.$this->daily_assignment->end_time.'.',
-            'title'=>"new daily assignment",
+            'title'=>'New Assignment is created by '.$notifiable->full_name.',',
+            'body'=>$this->text,
         ];
     }
 }

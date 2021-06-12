@@ -8,6 +8,7 @@ use App\Models\DailyAssignment;
 use App\Models\DailyReport;
 use App\Models\DailyQuestion;
 use App\Models\Unit;
+use App\Models\ScheduledJob;
 use DB;
 use Log;
 use Illuminate\Http\Request;
@@ -16,6 +17,7 @@ use App\Http\Requests\DailyAssignmentRequest;
 use App\Http\Requests\CreateAssignmentRequest;
 use App\Http\Requests\UpdateAssignmentRequest;
 
+
 class DailyAssignmentController extends Controller
 {
     //
@@ -23,15 +25,12 @@ class DailyAssignmentController extends Controller
     {
         $this->authorize('update', $daily_assignment);
         if($daily_assignment->activated_at){
-            $daily_assignment->activated_at = now()->toDateTimeString();
-            $daily_assignment->status = 'activated';
-            ScheduleJob::dailyAssignmentActivateNotification($daily_assignment,Auth::user()->full_name);
-            //new DailyAssignmentActivateNotification($daily_assignment,Auth::user()->full_name);
-            //$classroom_users = $daily_assignment->classroom->users()->get();
-            //Notification::send($classroom_users, new DailyAssignmentActivateNotification($daily_assignment,Auth::user()->full_name));
-        }else{
             $daily_assignment->activated_at = null;
             $daily_assignment->status = 'draft';
+        }else{
+            $daily_assignment->activated_at = now()->toDateTimeString();
+            $daily_assignment->status = 'activated';
+            ScheduledJob::dailyAssignmentActivateNotification($daily_assignment);            
         }
         $daily_assignment->save();
 
