@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
-
+use App\Models\Classroom;
 use App\Http\Requests\TeacherDailyAssignment\StoreRequest;
 use App\Models\DailyAssignment;
 use App\Models\DailyReport;
@@ -11,8 +11,10 @@ use App\Models\Unit;
 use DB;
 use Log;
 use Illuminate\Http\Request;
-use App\Notfications\NewDailyAssignmentNotification;
+use App\Notfications\DailyAssignmentActivateNotification;
 use App\Http\Requests\DailyAssignmentRequest;
+use App\Http\Requests\CreateAssignmentRequest;
+use App\Http\Requests\UpdateAssignmentRequest;
 
 class DailyAssignmentController extends Controller
 {
@@ -23,6 +25,10 @@ class DailyAssignmentController extends Controller
         if($daily_assignment->activated_at){
             $daily_assignment->activated_at = now()->toDateTimeString();
             $daily_assignment->status = 'activated';
+            ScheduleJob::dailyAssignmentActivateNotification($daily_assignment,Auth::user()->full_name);
+            //new DailyAssignmentActivateNotification($daily_assignment,Auth::user()->full_name);
+            //$classroom_users = $daily_assignment->classroom->users()->get();
+            //Notification::send($classroom_users, new DailyAssignmentActivateNotification($daily_assignment,Auth::user()->full_name));
         }else{
             $daily_assignment->activated_at = null;
             $daily_assignment->status = 'draft';
@@ -47,8 +53,8 @@ class DailyAssignmentController extends Controller
     try{
         $dailyAssignment = new DailyAssignment;
         $dailyAssignment->attempt_date=$request->attempt_date;
-        $dailyAssignment->unit_id=$unit->id;
-        $dailyAssignment->classroom_id=$unit->classroom_id;
+        $dailyAssignment->unit_id=$request->unit_id;
+        $dailyAssignment->classroom_id=$classroom->id;
 
         $dailyAssignment->save();
 
@@ -71,7 +77,7 @@ class DailyAssignmentController extends Controller
         $dailyAssignment->attempt_date=$request->attempt_date;
         $dailyAssignment->start_time=$request->start_time;
         $dailyAssignment->end_time=$request->end_time;
-        $dailyAssignment->unit_id=$unit->id;
+        $dailyAssignment->unit_id=$request->unit_id;
 
         $dailyAssignment->save();
 
