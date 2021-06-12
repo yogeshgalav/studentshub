@@ -8,11 +8,11 @@ use App\Notifications\NewInstituteMemberNotification;
 use App\Notifications\DailyAssignmentActivateNotification;
 use App\Jobs\SendNotificationJob;
 use Carbon\Carbon;
-use App\Notifications\DailyAssignmentActivateNotification;
+
 class ScheduledJob extends Model
 {
     protected  $guarded = ['id', 'created_at', 'updated_at'];
-    public  $classroomJobs = [
+    public static $classroomJobs = [
         DailyAssignmentActivateNotification::class,
         // NewClassroomMessageNotification::class,
         // NewClassroomResourceNotification::class,
