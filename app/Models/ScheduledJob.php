@@ -5,12 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Notifications\NewUserWelcomeNotification;
 use App\Notifications\NewInstituteMemberNotification;
+use App\Notifications\DailyAssignmentActivateNotification;
 use App\Jobs\SendNotificationJob;
 use Carbon\Carbon;
 
 class ScheduledJob extends Model
 {
     protected  $guarded = ['id', 'created_at', 'updated_at'];
+    public  $classroomJobs = [
+        DailyAssignmentActivateNotification::class,
+        // NewClassroomMessageNotification::class,
+        // NewClassroomResourceNotification::class,
+        // NewClassroomDoubtNotification::class,
+    ];
      /***
      * Cast fields to native data types
      *
