@@ -42,7 +42,10 @@ class ScheduledJob extends Model
     {
         return $this->belongsTo(User::class, 'scheduled_by_user_id', 'id');
     }
-
+    public function classroom()
+    {
+        return $this->belongsTo(Classroom::class, 'classroom_id', 'id');
+    }
     public function getJobBodyAttribute($value)
     {
         return json_decode($value, true);
