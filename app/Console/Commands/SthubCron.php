@@ -58,10 +58,8 @@ class SthubCron extends Command
                 'scheduled_job_id' => $job->id,
             ]);
             if(in_array($job->notification_class_name, ScheduledJob::$classroomJobs)){
-                Log::info('reached 61');
                 $classroom_users = ClassroomStudent::where('classroom_id', $job->classroom_id)->get();
                 foreach($classroom_users as $cu){
-                    Log::info('reached 64');
                     $job_to_queue = new $job->job_type($job, $cu->student_id);
                     $job_to_queue->dispatch($job);
                 }
@@ -70,10 +68,8 @@ class SthubCron extends Command
                 $job_to_queue = new $job->job_type($job);
                 $job_to_queue->dispatch($job);
             }
-
             $job->sent_to_queue_at = Carbon::now('utc');
             $job->save();
-            
         }
         return 0;
     }

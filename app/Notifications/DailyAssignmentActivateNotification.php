@@ -60,8 +60,7 @@ class DailyAssignmentActivateNotification extends SthubAllowlistedUserNotificati
     {
        // Log::info("DA Notification");
         return [
-            'title'=>'New Assignment is created by '.$notifiable->full_name.',',
-            'body'=>$this->text,
+            'body'=>$notifiable->full_name."has scheduled a Daily Assignment for classroom ".$notifiable,
         ];
     }
 }
