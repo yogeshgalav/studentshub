@@ -55,7 +55,7 @@ class DoubtAnswersController extends Controller
             'institute_id'=>$institute_id,
             'classroom_id'=>$doubt->classroom_id ?? null,
             'course_id'=>$doubt->course_id,
-            'shared_by'=>Auth::id(),
+            'shared_by_user_id'=>Auth::id(),
         ]);
 
     DB::commit();

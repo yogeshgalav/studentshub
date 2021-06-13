@@ -138,7 +138,7 @@
                           <input
                             id="college_id"
                             v-model="college_id"
-                            v-validate="'required'"
+                            v-validate="'alpha_num'"
                             name="institute_id"
                             type="text"
                             placeholder="unique institute id"
@@ -147,86 +147,6 @@
                         </div>
                         <span class="error">{{ formErrors('student.institute_id') }}</span>
                       </div>
-                    </div>
-
-
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label
-                            class="text-black"
-                            for="event_date_input"
-                          >
-                            {{ ('Course Starting Year') }}
-                          </label>
-                          <div class="input-group-prepend ">
-                            <div
-                              class="input-group-prepend date"
-                              data-provide="datepicker"
-                            />
-                            <div class="input_icon_frm">
-                              <span
-                                id="basic-addon1"
-                                class="icon_design_input"
-                              ><i
-                                class="fa fa-calendar"
-                              /></span>
-
-                              <date-picker
-                                id="start_year"
-                                v-model="start_year"
-                                v-validate="'required'"
-                                name="start_year"
-                                value-type="format"
-                                :typeable="true"
-                                :type="'year'"
-                                :lang="'en'"
-                                default-value="2019"
-                                :input-attr="{id: 'start_year_input', value: start_year}"
-                                placeholder="Start Year"
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <label
-                          class="text-black"
-                          for="event_date_input"
-                        >
-                          {{ ('Course Ending Year') }}
-                        </label>
-                        <div class="input-group-prepend ">
-                          <div
-                            class="input-group-prepend date"
-                            data-provide="datepicker"
-                          />
-                          <div class="input_icon_frm">
-                            <span
-                              id="basic-addon1"
-                              class="icon_design_input"
-                            ><i
-                              class="fa fa-calendar"
-                            /></span>
-                            <date-picker
-                              id="end_year"
-                              v-model="end_year"
-                              v-validate="'required'"
-                              value-type="format"
-                              name="end_year"
-                              :typeable="true"
-                              :type="'year'"
-                              :lang="'en'"
-                              default-value="2019"
-                              :input-attr="{id: 'end_year_input', value: end_year}"
-                              placeholder="End Year"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      <span class="error">{{ formErrors('student.start_year') }}</span>
-                      <span class="error">{{ formErrors('student.end_year') }}</span>
-                      <span class="error">{{ yearError }}</span>
                     </div>
                     <div class="row">
                       <button
@@ -536,7 +456,6 @@
 </style>
 <script>
 import FormMixin from '../../components/mixins/form-mixin.js';
-import BatchMixin from '../../components/mixins/batch-mixin.js';
 import AutoComplete from '../../components/AutoComplete.vue';
 import swal from '../../components/swal';
 import NavTabs from '../../components/NavTabs.vue';
@@ -546,7 +465,7 @@ export default {
 		AutoComplete,
 		NavTabs
 	},
-	mixins: [FormMixin, BatchMixin],
+	mixins: [FormMixin],
 	props: ['courseLevels', 'studentDetails', 'batches'],
 	data() {
 		return {
@@ -590,8 +509,6 @@ export default {
 			this.selected_institute['id']=this.studentDetails.instituteId;
 			this.selected_institute['name']=this.studentDetails.instituteName;
 			this.college_id = this.studentDetails.college_id;
-			this.start_year = this.studentDetails.start_year;
-			this.end_year = this.studentDetails.end_year;
 			if(this.selected_course.id===1001){
 				this.selected_level={
 					id:1,
@@ -689,7 +606,7 @@ export default {
 		setInstitute(result) {
 			this.selected_institute = result;
 		},
-		handleSubmit(scope) {console.log(scope);
+		handleSubmit(scope) {
 			this.$validator.validateAll(scope).then(valid => {
 				if (valid) {
 					this.form_errors=[];
@@ -739,9 +656,6 @@ export default {
 			});
 		},
 		studentRegister() {
-			if(this.yearError!==''){
-				return false;
-			}
 			this.showLoader = true;
 			axios.post('/api/checkin/student', {
 				course_id: this.selected_course.id,
@@ -751,8 +665,6 @@ export default {
 				institute_name: this.selected_institute.name,
 				is_prefferred: this.is_prefferred,
 				college_id: this.college_id,
-				start_year: this.start_year,
-				end_year: this.end_year,
 			}).then((resp) => {
 				this.showLoader = false;
 				if (resp.data.success) {

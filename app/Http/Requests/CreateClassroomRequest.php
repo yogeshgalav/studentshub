@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Institute;
+use App\Models\Classroom;
 
 class CreateClassroomRequest extends FormRequest
 {
@@ -13,7 +15,7 @@ class CreateClassroomRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user('api')->can('createClassroom', Institute::find($this->input('institute_id')));
+        return $this->user('api')->can('create', [Classroom::class, Institute::find($this->input('institute_id'))]);
     }
 
     /**

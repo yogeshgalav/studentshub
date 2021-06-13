@@ -286,9 +286,6 @@ export default {
 	},
 	methods: {
 		createClassroom() {
-			if(this.yearError!==''){
-				return false;
-			}
 			this.$validator.validate().then(valid => {
 				if (valid) {
 					this.form_errors=[];

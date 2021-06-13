@@ -47,12 +47,12 @@ class ClassroomPolicy
      * @param  \App\Models\Institute  $institute
      * @return mixed
      */
-    public function createClassroom(User $user, Institute $institute)
+    public function create(User $user, Institute $institute)
     {
         $is_teacher = InstituteUser::where('user_id',$user->id)
         ->where('institute_id', $institute->id)
-        ->where('role', 'teacher')
         ->exists();
+
         if($is_teacher){
             return true;
         }
