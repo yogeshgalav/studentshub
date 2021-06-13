@@ -13,7 +13,6 @@ class DailyAssignmentActivateNotification extends SthubAllowlistedUserNotificati
 {
     use Queueable;
     public $scheduled_job;
-    public $user_name;
     /**
      * Create a new notification instance.
      *
@@ -60,7 +59,7 @@ class DailyAssignmentActivateNotification extends SthubAllowlistedUserNotificati
     {
        // Log::info("DA Notification");
         return [
-            'body'=>$notifiable->full_name."has scheduled a Daily Assignment for classroom ".$notifiable,
+            'body'=>$notifiable->full_name."has scheduled a Daily Assignment for classroom ",
         ];
     }
 }
