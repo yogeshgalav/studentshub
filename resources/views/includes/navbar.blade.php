@@ -20,7 +20,9 @@
             @include('includes.search-form')
         </div>
         <div class="notification-dropdown">
-            <notifications-dropdown></notifications-dropdown>
+            <a href="#" class="btn">
+                <i class="far fa-bell notification-icon"></i>
+            </a>
         </div>
         <div class="profile-dropdown dropleft">
             @include('includes.profile-dropdown')
@@ -47,11 +49,13 @@
 
         </div>
 
-        <div class="dropdown" style="margin-right:40px">
-            <notifications-dropdown></notifications-dropdown>
+        <div class="dropdown">
+            <a href="#" class="btn">
+                <i class="far fa-bell notification-icon"></i>
+            </a>
         </div>
 
-        <div class="nav-item dropleft">
+        <div class="nav-item dropleft" style="margin-right:40px">
             @include('includes.profile-dropdown')
         </div>
 
@@ -106,4 +110,4 @@
 
 
     @endif
-</div>
+    </ div>
