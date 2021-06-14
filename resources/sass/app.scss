@@ -160,13 +160,17 @@ button[disabled="disabled"] {
 .btn-success,
 .btn-warning,
 .btn-disabled,
-.btn-white {
+.btn-white,
+.btn-default {
     font-family: $font-family-sans-serif !important;
     text-transform: capitalize;
     font-size: $font-12;
     letter-spacing: $letter-spacing-01;
 }
-
+.btn-default {
+    background: lightgray !important;
+    color: black !important;
+}
 .color-placeholder {
     color: $disabled;
 }
@@ -920,6 +924,7 @@ i {
     box-shadow: 0.5px 0.5px 10px 1px rgba(53, 53, 53, 0.32);
     z-index: 999;
     position: relative;
+
     .nav-items {
         display: flex;
         flex-wrap: nowrap;
@@ -946,7 +951,39 @@ i {
         padding: 10px;
         display: none;
     }
+    .guest-navbar{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 5px 0px;
+        align-items: center;
+        button{
+            width: 55px;
+            height: 40px;
+            border: 1px solid rgb(190, 190, 190);
+            padding: 1px 2px;
+            display: none;
+            .line{
+                width: 25px;
+                border-radius: 10px;
+                height: 2px;
+                margin: 5px auto;
+                background-color: grey;
+                transition-duration: 0.4s;
+            }
+            &:hover{
+                border: 1px solid grey !important;
+            }
+        }
+        .search_box{
+            width:55%;
+        }
+    }
+    #headerProfileDropdown::before{
+        display: none;
+    }
 }
+
 .fixed-top {
     position: fixed;
     top: 0px;
@@ -2359,8 +2396,6 @@ select.form-control.custom-select {
     margin-right: 0.125rem;
 }
 .logout_btn {
-    background-color: blue;
-    color: white;
     padding: 5px 25px;
 }
 .navbar-expand-lg .dropdown-menu {
@@ -2491,6 +2526,16 @@ select.form-control.custom-select {
         -webkit-box-flex: 0;
         flex: 0 0 35%;
         max-width: 35%;
+    }
+    .guest-navbar{
+        justify-content: space-between !important;
+        padding: 5px 15px !important;
+        .navbar-toggler{
+            display: block !important;
+        }
+        .nav-item{
+            display: none !important;
+        }
     }
 }
 @media only screen and (max-width: 768px) {

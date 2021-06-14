@@ -12070,11 +12070,17 @@ button[disabled=disabled] {
 .btn-success,
 .btn-warning,
 .btn-disabled,
-.btn-white {
+.btn-white,
+.btn-default {
   font-family: "Nunito", sans-serif !important;
   text-transform: capitalize;
   font-size: 12px;
   letter-spacing: 0.1em;
+}
+
+.btn-default {
+  background: lightgray !important;
+  color: black !important;
 }
 
 .color-placeholder {
@@ -12900,6 +12906,47 @@ i {
           align-items: center;
   justify-content: space-around;
   padding: 10px;
+  display: none;
+}
+
+.navbar .guest-navbar {
+  width: 100%;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: justify;
+          justify-content: space-between;
+  padding: 5px 0px;
+  -webkit-box-align: center;
+          align-items: center;
+}
+
+.navbar .guest-navbar button {
+  width: 55px;
+  height: 40px;
+  border: 1px solid #bebebe;
+  padding: 1px 2px;
+  display: none;
+}
+
+.navbar .guest-navbar button .line {
+  width: 25px;
+  border-radius: 10px;
+  height: 2px;
+  margin: 5px auto;
+  background-color: grey;
+  -webkit-transition-duration: 0.4s;
+          transition-duration: 0.4s;
+}
+
+.navbar .guest-navbar button:hover {
+  border: 1px solid grey !important;
+}
+
+.navbar .guest-navbar .search_box {
+  width: 55%;
+}
+
+.navbar #headerProfileDropdown::before {
   display: none;
 }
 
@@ -14529,8 +14576,6 @@ select.form-control.custom-select {
 }
 
 .logout_btn {
-  background-color: blue;
-  color: white;
   padding: 5px 25px;
 }
 
@@ -14693,6 +14738,20 @@ select.form-control.custom-select {
     -webkit-box-flex: 0;
     flex: 0 0 35%;
     max-width: 35%;
+  }
+
+  .guest-navbar {
+    -webkit-box-pack: justify !important;
+            justify-content: space-between !important;
+    padding: 5px 15px !important;
+  }
+
+  .guest-navbar .navbar-toggler {
+    display: block !important;
+  }
+
+  .guest-navbar .nav-item {
+    display: none !important;
   }
 }
 
