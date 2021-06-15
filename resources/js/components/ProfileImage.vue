@@ -1,26 +1,23 @@
 <template>
-  <div
-    id="profileImage"
-    :class="size"
-  >
-    <div
-      v-if="avatar"
-      class="avatar"
-    >
-      <img
-        v-lazy="avatar"
-        class="card-img-top img-responsive"
-        alt="Card image cap"
-        style="border-radius: 50%;"
-      >
+    <div :class="[size, 'profileImage']">
+        <div v-if="avatar" class="avatar">
+            <img
+                v-lazy="avatar"
+                class="card-img-top img-responsive"
+                alt="Card image cap"
+                style="border-radius: 50%;"
+            />
+        </div>
+        <div v-if="!avatar" class="name-char">
+            {{ userName | getFirstChar }}
+        </div>
     </div>
-    <div v-if="!avatar">
-      {{ userName | getFirstChar }}
-    </div>
-  </div>
 </template>
 <style scoped>
-#profileImage {
+.small .name-char {
+    font-size: 10px !important;
+}
+.profileImage {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -47,26 +44,26 @@
 </style>
 <script>
 export default {
-	filters: {
-		getFirstChar(name) {
-			return name ? name.charAt(0) : '';
-		}
-	},
-	props: {
-		avatar: {
-			type: String,
-			default: '',
-			required: false
-		},
-		userName: {
-			type: String,
-			required: true
-		},
-		size: {
-			type: String,
-			default: 'normal',
-			required: false
-		}
-	}
+    filters: {
+        getFirstChar(name) {
+            return name ? name.charAt(0) : "";
+        }
+    },
+    props: {
+        avatar: {
+            type: String,
+            default: "",
+            required: false
+        },
+        userName: {
+            type: String,
+            required: true
+        },
+        size: {
+            type: String,
+            default: "normal",
+            required: false
+        }
+    }
 };
 </script>

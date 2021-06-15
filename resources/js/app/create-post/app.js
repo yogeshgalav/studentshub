@@ -21,6 +21,6 @@ const store = new Vuex.Store(CreatePostStore);
 
 //Vue App Initialisation
 const app = new Vue({
-    el: '#studentApp',
-    store,
+	el: '#app',
+	store,
 });

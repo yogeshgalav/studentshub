@@ -14,12 +14,26 @@
 
 <body>
     <div id="app">
-        <main class="flex-center position-ref full-height">
-            <div class="main-header">
+        <main class="flex-center full-height">
+            <div class="header">
                 @include('includes.navbar')
             </div>
 
-            @yield('content')
+
+
+            <div class="main-area">
+                <div class="sidebar-section" id="sidebar-section">
+                    @include('includes.sidebar')
+                </div>
+
+
+                <div class="content">
+                    @yield('content')
+                </div>
+            </div>
+
+
+
         </main>
     </div>
     @include('includes.jsVariables')

@@ -143,8 +143,7 @@
 }
 
 .btn-default {
-    background: lightgray !important;
-    color: black !important;
+
     &:hover, &:focus, &:disabled {
         background: $dark-color !important;
         color: $white-color !important;
