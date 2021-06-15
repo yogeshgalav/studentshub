@@ -100,11 +100,7 @@ class PostController extends Controller
 
         SthubPost::create([
             'post_id'=>$post->id,
-            'institute_id'=>$student->instituteId,
-            'course_id'=>Auth::student()->courseId,
-           // 'batch_id'=>$student->batchId,
-            'shared_by'=>Auth::id(),            'category_id'=>$request->category_id,
-
+            'shared_by_user_id'=>Auth::id(),
         ]);
 
         DB::commit();

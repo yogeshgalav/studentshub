@@ -87,10 +87,8 @@ class ClassroomResourceController extends Controller
             SthubPost::create([
                 'post_id'=>$post->id,
                 'classroom_id'=>$classroom->id,
-                'institute_id'=>$classroom->institute_id,
                 'course_id'=>$classroom->course_id,
-                //'batch_id'=>$classroom->batch_id,
-                'shared_by'=>Auth::id(),
+                'shared_by_user_id'=>Auth::id(),
             ]);
         }
 

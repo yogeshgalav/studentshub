@@ -36,6 +36,7 @@ class InstituteUserController extends Controller
                 $user->must_reset_password=true;
             }
         }
+        $user->preferred_institute_id = $instituteId;
         $user->role_intended = $request->role;
         $user->save();
 
@@ -43,13 +44,6 @@ class InstituteUserController extends Controller
         $ins_user->institute_id = $instituteId;
         $ins_user->role = $request->role;
         $ins_user->save();
-        
-        if($request->role==='teacher'){
-            $teacher = Teacher::firstOrCreate([
-                'user_id' => $user->id,
-                'institute_id' => $instituteId
-            ]);
-        }
 
         // ScheduledJob::scheduleNewInstituteMemberNotification($user);
 
@@ -75,18 +69,16 @@ class InstituteUserController extends Controller
                 ]);
             }
 
-
-            $teacher = Teacher::updateOrCreate([
-                'user_id' => Auth::user()->id,
-                'institute_id' => $institute->id,
-            ],[
-                'is_verified' => false
-            ]);
-
+            $user->preferred_institute_id = $institute->id;
             $user->onboarded_at = Carbon::now()->toDateTimeString();
             $user->phone_no = $request->contact_number;
             $user->role_intended = 'teacher';
             $user->save();
+
+            InstituteUser::firstOrCreate([
+                'institute_id'=>$institute->id,
+                'user_id'=>$user->id,
+            ]);
             
             DB::commit();
         } catch (\Exception $e) {

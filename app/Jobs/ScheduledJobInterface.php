@@ -33,8 +33,7 @@ class ScheduledJobInterface implements ShouldQueue
     public function __construct(ScheduledJob $scheduled_job)
     {
         $this->scheduled_job = $scheduled_job;
-        $this->scheduled_job->load(['user']);
-        $this->job_body = (empty($scheduled_job->job_body)) ? [] : $scheduled_job->job_body;
+        $this->job_body = (empty($scheduled_job->job_body)) ? [] : json_decode($scheduled_job->job_body);
     }
 
     /***
@@ -51,7 +50,7 @@ class ScheduledJobInterface implements ShouldQueue
 
         if ($error) {
             Log::error('Job Failed', [
-                'scheduled_job_id' => isset($this->job_body['queue_id']) ? $this->job_body['queue_id'] : null,
+                'scheduled_job_id' => $this->scheduled_job->id,
                 'reason'           => $reason,
                 'context'          => $context,
             ]);
@@ -61,7 +60,7 @@ class ScheduledJobInterface implements ShouldQueue
         }
 
         Log::info('Job Skipped', [
-            'scheduled_job_id' => isset($this->job_body['queue_id']) ? $this->job_body['queue_id'] : null,
+            'scheduled_job_id' => $this->scheduled_job->id,
             'reason' => $reason,
             'context' => $context,
         ]);
@@ -96,13 +95,11 @@ class ScheduledJobInterface implements ShouldQueue
     protected function tags(): array
     {
         $attributes = $this->scheduled_job->only([
-            'client_id',
-            'commitment_id',
-            'conversation_instance_id',
             'id',
             'job_type',
             'notification_class_name',
-            'user_id',
+            'scheduled_by_user_id',
+            'classroom_id',
         ]);
 
         $tags = [];
