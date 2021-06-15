@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Models\ScheduledJob;
-use App\Models\ClassroomUser;
+use App\Models\ClassroomStudent;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
 
@@ -53,7 +53,6 @@ class SthubCron extends Command
                             ->whereNull('sent_to_queue_at')
                             ->where('is_completed', '=', 0)
                             ->get();
-
         foreach ($jobs as $job) {
             Log::info('Dispatching scheduled job to queue', [
                 'scheduled_job_id' => $job->id,

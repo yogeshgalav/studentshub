@@ -8,16 +8,11 @@ use App\Notifications\NewInstituteMemberNotification;
 use App\Notifications\DailyAssignmentActivateNotification;
 use App\Jobs\SendNotificationJob;
 use Carbon\Carbon;
+use Auth;
 
 class ScheduledJob extends Model
 {
     protected  $guarded = ['id', 'created_at', 'updated_at'];
-    public static $classroomJobs = [
-        DailyAssignmentActivateNotification::class,
-        // NewClassroomMessageNotification::class,
-        // NewClassroomResourceNotification::class,
-        // NewClassroomDoubtNotification::class,
-    ];
      /***
      * Cast fields to native data types
      *
@@ -39,9 +34,12 @@ class ScheduledJob extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->belongsTo(User::class, 'scheduled_by_user_id', 'id');
     }
-
+    public function classroom()
+    {
+        return $this->belongsTo(Classroom::class, 'classroom_id', 'id');
+    }
     public function getJobBodyAttribute($value)
     {
         return json_decode($value, true);
@@ -66,12 +64,16 @@ class ScheduledJob extends Model
             'user_id'=>$user->id
         ]);
     }
-    public static function dailyAssignmentActivateNotification(){
+    public static function dailyAssignmentActivateNotification($daily_assignment){
         return self::create([
             'run_at' => Carbon::now('UTC'),
             'job_type' => ClassroomNotificationJob::class,
+            'job_body' => json_encode([
+                'daily_assignment'=> $daily_assignment
+            ]),
             'notification_class_name' => DailyAssignmentActivateNotification::class,
-            'user_id'=>Auth::id()
+            'scheduled_by_user_id'=>Auth::id(),
+            'classroom_id'=> $daily_assignment->classroom_id
         ]);
     }
 }
