@@ -10,8 +10,8 @@
     </div>
 
     @elseif(Auth::check())
-    <div class="row col-md-12 nav-items" id="mobileNavbar">
-        <div class="navbar-brand" v-if="showMobileLogoBar">
+    <div class="row col-md-12 nav-items">
+        <div class="navbar-brand">
             <a href="/">
                 <img src="{{asset('/images/logo.png') }}" alt="Student Hub" />
             </a>
@@ -32,39 +32,44 @@
 
     <!-- mobile header -->
 
-    <div class="mobile_navbar" id="header_mobile">
-
-        <button type="button" id="nav-toggle" class="btn border-radius-12" @click="toggleSidebar($event)"><i
-                class="fa fa-bars alignment ml-2" aria-hidden="true"></i>
-        </button>
-
-        <div class="dropdown">
-            <button class="btn border-radius-12 dropdown-toggle" type="button" id="dropdownMenuButton"
-                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span><i class="fa fa-search alignment" aria-hidden="true"></i></span>
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                @include('includes.search-form')
-            </div>
-
-        </div>
-
-        <div class="dropdown">
-            <a href="#" class="btn">
-                <i class="far fa-bell notification-icon"></i>
+    <div class="mobile_navbar" id="mobileNavbar">
+        <div class="mobile-navbar-brand" v-if="showMobileLogoBar">
+            <a href="/">
+                <img src="{{asset('/images/logo.png') }}" alt="Student Hub" />
             </a>
         </div>
+        <div class="mobile-nav-items">
+            <button type="button" id="nav-toggle" class="btn" @click="toggleSidebar($event)">
+                <i class="fa fa-bars alignment ml-2" aria-hidden="true"></i>
+            </button>
 
-        <div class="nav-item dropleft" style="margin-right:40px">
-            @include('includes.profile-dropdown')
+            <div class="dropdown">
+                <button class="dropdown-toggle btn" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    <span><i class="fa fa-search alignment" aria-hidden="true"></i></span>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    @include('includes.search-form')
+                </div>
+
+            </div>
+
+            <div class="dropdown">
+                <a href="#" class="btn">
+                    <i class="far fa-bell notification-icon"></i>
+                </a>
+            </div>
+
+            <div class="nav-item dropleft">
+                @include('includes.profile-dropdown2')
+            </div>
         </div>
-
     </div>
 
     @else
     <!-- guest navbar uathenticated navbar -->
     <div class="guest-navbar">
-        <div class="logo">
+        <div class="guest-navbar-brand">
             <a href='/'>
                 <img src="{{asset('/images/logo.png') }}" alt="Student'sHUB" />
             </a>
@@ -79,16 +84,16 @@
         <div class="nav-item search_box">
             @include('includes.search-form')
         </div>
-
-        <div class="nav-item nav-login">
-            <router-link class="btn btn-link text-blue" :to="'/login'">Login <i class="fas fa-arrow-right"></i>
-            </router-link>
+        <div class="guest-nav-items nav-items">
+            <div class="nav-item nav-login">
+                <router-link class="btn btn-link text-blue" :to="'/login'">Login <i class="fas fa-arrow-right"></i>
+                </router-link>
+            </div>
+            <div class="nav-item">
+                <router-link class="btn btn-primary weight-400" :to="'/get-started'">Get Started <i
+                        class="fas fa-arrow-right text-white"></i></router-link>
+            </div>
         </div>
-        <div class="nav-item">
-            <router-link class="btn btn-primary weight-400" :to="'/get-started'">Get Started <i
-                    class="fas fa-arrow-right text-white"></i></router-link>
-        </div>
-
     </div>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav menu_head">
@@ -102,7 +107,8 @@
                 </li>
                 <li class="nav-item">
                     <router-link class="btn btn-primary weight-400" :to="'/get-started'">Get Started <i
-                            class="fas fa-arrow-right text-white"></i></router-link>
+                            class="fas fa-arrow-right text-white"></i>
+                    </router-link>
                 </li>
             </div>
         </ul>
@@ -110,4 +116,4 @@
 
 
     @endif
-    </ div>
+</div>

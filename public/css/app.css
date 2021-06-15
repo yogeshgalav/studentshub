@@ -12877,12 +12877,16 @@ i {
   position: relative;
 }
 
+.navbar .notification-dropdown svg {
+  width: 1.4em;
+  height: auto;
+}
+
 .navbar .nav-items {
   display: -webkit-box;
   display: flex;
   flex-wrap: nowrap;
-  -webkit-box-pack: space-evenly;
-          justify-content: space-evenly;
+  justify-content: space-around;
   -webkit-box-align: center;
           align-items: center;
   width: 100%;
@@ -12895,18 +12899,34 @@ i {
 }
 
 .navbar .mobile_navbar {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  width: 100%;
+  display: none;
+}
+
+.navbar .mobile_navbar .mobile-navbar-brand img {
+  margin: 10px auto;
+  display: block;
+}
+
+.navbar .mobile_navbar .mobile-nav-items {
   width: 100%;
   display: -webkit-box;
   display: flex;
   background-color: #c7c7c7;
-  position: absolute;
-  bottom: -110%;
-  left: 0px;
   -webkit-box-align: center;
           align-items: center;
   justify-content: space-around;
   padding: 10px;
-  display: none;
+}
+
+.navbar .mobile_navbar .mobile-nav-items button {
+  border: 0px;
+  background: none !important;
 }
 
 .navbar .guest-navbar {
@@ -12920,12 +12940,18 @@ i {
           align-items: center;
 }
 
+.navbar .guest-navbar .guest-nav-items {
+  width: 20%;
+  max-width: 215px;
+}
+
 .navbar .guest-navbar button {
   width: 55px;
   height: 40px;
   border: 1px solid #bebebe;
   padding: 1px 2px;
   display: none;
+  margin: 12px 0px;
 }
 
 .navbar .guest-navbar button .line {
@@ -14750,27 +14776,49 @@ select.form-control.custom-select {
     display: block !important;
   }
 
-  .guest-navbar .nav-item {
+  .guest-navbar .nav-item,
+  .guest-navbar .guest-nav-items {
     display: none !important;
   }
 }
 
 @media only screen and (max-width: 768px) {
+  .dropdown-menu.show {
+    position: fixed !important;
+    top: 120px !important;
+    left: 0px !important;
+  }
+
   .custom-width .col-md-9 {
     -webkit-box-flex: 0;
     flex: 0 0 100%;
     max-width: 100%;
   }
 
+  .navbar {
+    padding: 0px;
+  }
+
   .navbar .notification-dropdown,
   .navbar .search-bar,
-  .navbar .profile-dropdown {
+  .navbar .profile-dropdown,
+  .navbar .navbar-brand {
     display: none;
   }
 
   .navbar .mobile_navbar {
     display: -webkit-box;
     display: flex;
+  }
+
+  .navbar #mobileNavbar {
+    margin: auto;
+    display: -webkit-box;
+    display: flex;
+  }
+
+  .navbar #mobileNavbar .navbar-brand {
+    margin: auto;
   }
 
   .sidebar-section {

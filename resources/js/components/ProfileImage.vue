@@ -8,12 +8,15 @@
                 style="border-radius: 50%;"
             />
         </div>
-        <div v-if="!avatar">
+        <div v-if="!avatar" class="name-char">
             {{ userName | getFirstChar }}
         </div>
     </div>
 </template>
 <style scoped>
+.small .name-char {
+    font-size: 10px !important;
+}
 .profileImage {
     display: flex;
     align-items: center;
