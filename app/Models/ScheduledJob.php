@@ -11,6 +11,9 @@ use Carbon\Carbon;
 class ScheduledJob extends Model
 {
     protected  $guarded = ['id', 'created_at', 'updated_at'];
+    public static $classroomJobs = [
+    ];
+
      /***
      * Cast fields to native data types
      *
@@ -32,9 +35,12 @@ class ScheduledJob extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->belongsTo(User::class, 'scheduled_by_user_id', 'id');
     }
-
+    public function classroom()
+    {
+        return $this->belongsTo(Classroom::class, 'classroom_id', 'id');
+    }
     public function getJobBodyAttribute($value)
     {
         return json_decode($value, true);
