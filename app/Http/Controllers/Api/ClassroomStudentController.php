@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Classroom;
 use App\Models\ClassroomStudent;
 use App\Models\ClassroomMessage;
+use App\Models\ScheduledJob;
 use App\Notifications\MessageAdded;
 use Illuminate\Http\Request;
 use App\Http\Requests\AddMessageRequest;
@@ -83,7 +84,7 @@ class ClassroomStudentController extends Controller
             'content'=>$request->content,
             'parent_message_id'=>$request->parent_message_id,
         ]);
-
+        ScheduledJob::newClassroomMessageNotification($classroom);
         // \Notification::send($classroom->users,new MessageAdded);
 
         return response()->json(['success'=>[
