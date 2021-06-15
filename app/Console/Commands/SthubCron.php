@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Models\ScheduledJob;
+use App\Models\ClassroomStudent;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
 
@@ -57,10 +58,17 @@ class SthubCron extends Command
             Log::info('Dispatching scheduled job to queue', [
                 'scheduled_job_id' => $job->id,
             ]);
-
-            $job_to_queue = new $job->job_type($job);
-            $job_to_queue->dispatch($job);
-
+            if(in_array($job->notification_class_name, ScheduledJob::$classroomJobs)){
+                $classroom_users = ClassroomStudent::where('classroom_id', $job->classroom_id)->get();
+                foreach($classroom_users as $cu){
+                    $job_to_queue = new $job->job_type($job, $cu->student_id);
+                    $job_to_queue->dispatch($job);
+                }
+            } else {
+                Log::info('reached 68');
+                $job_to_queue = new $job->job_type($job);
+                $job_to_queue->dispatch($job);
+            }
             $job->sent_to_queue_at = Carbon::now('utc');
             $job->save();
         }
