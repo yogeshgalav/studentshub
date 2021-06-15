@@ -7,12 +7,14 @@ use App\Models\DoubtRequest;
 use App\Models\Subject;
 use App\Models\Category;
 use App\Models\Classroom;
+use App\Models\ScheduledJob;
 use Illuminate\Http\Request;
 use Auth;
 use Arr;
 use DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
+use App\Notfications\NewClassroomDoubtNotification;
 
 class DoubtController extends Controller
 {
@@ -45,6 +47,7 @@ class DoubtController extends Controller
         $q->course_id = $student->courseId;
         $q->classroom_id = $classroom ? $classroom->id : null;
         $q->save();
+        ScheduledJob::newClassroomDoubtNotification($q->classroom_id);
 
 
     DB::commit();

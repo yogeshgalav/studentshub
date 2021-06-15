@@ -27,6 +27,9 @@ class ClassroomNotificationJob extends ScheduledJobInterface
         ->get();
 
         foreach($students as $student){
+            if($this->scheduled_job->scheduled_by_user_id === $student->user_id){
+                continue;
+            }
             $notification = new $classString($this->scheduled_job);
             $user = User::find($student->user_id);
             $user->notify($notification);
