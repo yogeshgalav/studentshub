@@ -4,11 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
-<<<<<<< HEAD
 use App\Models\Student;
 
-=======
->>>>>>> 5867defc3ef2612f27a993a845bb28cb5b7b6486
 class CreateClassroomStudentsTable extends Migration
 {
     /**
