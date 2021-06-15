@@ -5,9 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Notifications\NewUserWelcomeNotification;
 use App\Notifications\NewInstituteMemberNotification;
+use App\Notifications\NewClassroomDoubtNotification;
+use App\Notifications\DailyAssignmentActivateNotification;
 use App\Jobs\SendNotificationJob;
+use App\Jobs\ClassroomNotificationJob;
 use Carbon\Carbon;
-
+use Auth;
 class ScheduledJob extends Model
 {
     protected  $guarded = ['id', 'created_at', 'updated_at'];
@@ -63,6 +66,28 @@ class ScheduledJob extends Model
             'job_type' => SendNotificationJob::class,
             'notification_class_name' => NewInstituteMemberNotification::class,
             'user_id'=>$user->id
+        ]);
+    }
+    public static function newClassroomDoubtNotification($classroom_id){
+        return self::create([
+            'run_at' => Carbon::now('UTC'),
+            'job_type' => ClassroomNotificationJob::class,
+            'notification_class_name' => NewClassroomDoubtNotification::class,
+            'scheduled_by_user_id'=>Auth::id(),
+            'classroom_id'=> $classroom_id,
+        ]);
+    }
+
+    public static function dailyAssignmentActivateNotification($daily_assignment){
+        return self::create([
+            'run_at' => Carbon::now('UTC'),
+            'job_type' => ClassroomNotificationJob::class,
+            'job_body' => json_encode([
+                'daily_assignment'=> $daily_assignment
+            ]),
+            'notification_class_name' => DailyAssignmentActivateNotification::class,
+            'scheduled_by_user_id'=>Auth::id(),
+            'classroom_id'=> $daily_assignment->classroom_id
         ]);
     }
 }
