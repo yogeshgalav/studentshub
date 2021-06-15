@@ -69,7 +69,7 @@ class ScheduledJob extends Model
     public static function dailyAssignmentActivateNotification(){
         return self::create([
             'run_at' => Carbon::now('UTC'),
-            'job_type' => SendNotificationJob::class,
+            'job_type' => ClassroomNotificationJob::class,
             'notification_class_name' => DailyAssignmentActivateNotification::class,
             'user_id'=>Auth::id()
         ]);
