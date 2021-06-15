@@ -84,7 +84,7 @@
         <div class="nav-item search_box">
             @include('includes.search-form')
         </div>
-        <div class="guest-nav-items nav-items">
+        <div class="guest-nav-items">
             <div class="nav-item nav-login">
                 <router-link class="btn btn-link text-blue" :to="'/login'">Login <i class="fas fa-arrow-right"></i>
                 </router-link>

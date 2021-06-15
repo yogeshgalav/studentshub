@@ -12883,10 +12883,13 @@ i {
 }
 
 .navbar .nav-items {
+  margin: auto;
+  padding: 0px 20px !important;
   display: -webkit-box;
   display: flex;
   flex-wrap: nowrap;
-  justify-content: space-around;
+  -webkit-box-pack: justify;
+          justify-content: space-between;
   -webkit-box-align: center;
           align-items: center;
   width: 100%;
@@ -12908,7 +12911,7 @@ i {
   display: none;
 }
 
-.navbar .mobile_navbar .mobile-navbar-brand img {
+.navbar .mobile_navbar t .mobile-navbar-brand img {
   margin: 10px auto;
   display: block;
 }
@@ -12930,7 +12933,6 @@ i {
 }
 
 .navbar .guest-navbar {
-  width: 100%;
   display: -webkit-box;
   display: flex;
   -webkit-box-pack: justify;
@@ -12938,11 +12940,15 @@ i {
   padding: 5px 0px;
   -webkit-box-align: center;
           align-items: center;
+  width: 1200px;
+  margin: auto;
 }
 
 .navbar .guest-navbar .guest-nav-items {
   width: 20%;
   max-width: 215px;
+  display: -webkit-box;
+  display: flex;
 }
 
 .navbar .guest-navbar button {
@@ -13196,9 +13202,9 @@ i {
   height: 100vh;
   z-index: 99;
   top: 66px;
-  background-color: #f1f1f1;
-  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.15) !important;
-  border: 1px solid #dbdbdb;
+  background-color: #f7f7f7;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.15) !important;
+  border: 1px solid #e6e6e6;
 }
 
 .sidebar-section .sidebar .institution-detail {
@@ -13244,7 +13250,7 @@ i {
 }
 
 .sidebar-section .sidebar .sidebar-navigation ul .active {
-  background-color: #dbdbdb !important;
+  background-color: #e7e7e7 !important;
   border-right: 5px solid blue !important;
   color: blue !important;
 }
@@ -13265,7 +13271,7 @@ i {
 }
 
 .sidebar-section .sidebar .sidebar-navigation ul li:hover {
-  background-color: #dbdbdb;
+  background-color: #e7e7e7;
 }
 
 .sidebar_heading {
