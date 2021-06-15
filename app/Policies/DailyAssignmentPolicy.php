@@ -4,10 +4,10 @@ namespace App\Policies;
 
 use App\Models\DailyAssignment;
 use App\Models\User;
-use App\Models\Teacher;
 use App\Models\DailyReport;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
+use App\Models\InstituteUser;
 
 class DailyAssignmentPolicy
 {
@@ -60,8 +60,9 @@ class DailyAssignmentPolicy
             return Response::deny('Assignment already attempted.');
         }
 
-        $teacher = Teacher::where('user_id', $user->id)->first();
-        if($teacher && $dailyAssignment->classroom->teacher_id===$teacher->id){
+        $teacher = InstituteUser::where('user_id', $user->id)
+        ->where('institute_id',$dailyAssignment->classroom->institute_id)->first();
+        if($teacher){
             return true;
         }
         // if($user->role==='instituteAdmin'){
@@ -85,8 +86,9 @@ class DailyAssignmentPolicy
         if(DailyReport::where('daily_assignment_id',$dailyAssignment->id)->exists()){
             return Response::deny('Assignment already attempted.');
         }   
-        $teacher = Teacher::where('user_id', $user->id)->first();
-        if($teacher && $dailyAssignment->classroom->teacher_id===$teacher->id){
+        $teacher = InstituteUser::where('user_id', $user->id)
+        ->where('institute_id',$dailyAssignment->classroom->institute_id)->first();
+        if($teacher){
             return true;
         }
         // if($user->role==='instituteAdmin'){
