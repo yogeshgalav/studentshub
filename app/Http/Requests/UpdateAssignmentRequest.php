@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Rules\UniqueAttemptDateRule;
 
-class DailyAssignmentRequest extends FormRequest
+class UpdateAssignmentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -40,6 +40,6 @@ class DailyAssignmentRequest extends FormRequest
     {
         return [
             'attempt_date.UniqueAttemptDateRule'=>'Assignment with same date already exists.'
-        ]
+        ];
     }
 }

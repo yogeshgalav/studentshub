@@ -5,8 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Notifications\NewUserWelcomeNotification;
 use App\Notifications\NewInstituteMemberNotification;
+use App\Notifications\DailyAssignmentActivateNotification;
 use App\Jobs\SendNotificationJob;
 use Carbon\Carbon;
+use Auth;
 
 class ScheduledJob extends Model
 {
@@ -32,9 +34,12 @@ class ScheduledJob extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->belongsTo(User::class, 'scheduled_by_user_id', 'id');
     }
-
+    public function classroom()
+    {
+        return $this->belongsTo(Classroom::class, 'classroom_id', 'id');
+    }
     public function getJobBodyAttribute($value)
     {
         return json_decode($value, true);
@@ -57,6 +62,18 @@ class ScheduledJob extends Model
             'job_type' => SendNotificationJob::class,
             'notification_class_name' => NewInstituteMemberNotification::class,
             'user_id'=>$user->id
+        ]);
+    }
+    public static function dailyAssignmentActivateNotification($daily_assignment){
+        return self::create([
+            'run_at' => Carbon::now('UTC'),
+            'job_type' => ClassroomNotificationJob::class,
+            'job_body' => json_encode([
+                'daily_assignment'=> $daily_assignment
+            ]),
+            'notification_class_name' => DailyAssignmentActivateNotification::class,
+            'scheduled_by_user_id'=>Auth::id(),
+            'classroom_id'=> $daily_assignment->classroom_id
         ]);
     }
 }
