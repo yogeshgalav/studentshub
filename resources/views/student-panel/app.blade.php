@@ -1,4 +1,4 @@
-@extends('layouts.student-panel')
+@extends('layouts.auth-layout')
 @section('compiledJs')
 <script src="{{ asset('js/studentPanelApp.js') }}" defer></script>
 @endsection

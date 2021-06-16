@@ -141,7 +141,7 @@ Vue.mixin({
 		};
 		var prevScrollpos = window.pageYOffset;
 		window.addEventListener('scroll', ()=>{
-			let headerMobile = document.getElementById('header_mobile');
+			let headerMobile = document.getElementById('mobileNavbar');
 			if (headerMobile){
 				var currentScrollPos = window.pageYOffset;
 				if (prevScrollpos > currentScrollPos) {
@@ -175,9 +175,9 @@ Vue.mixin({
 			if(!container || !container2){
 				return false;
 			}
-			if (!container.contains(e.target) && !container2.contains(e.target) && document.documentElement.classList.contains('openNav')) {
+			if (!container.contains(e.target) && !container2.contains(e.target) && container.classList.contains('sidebar-section-active')) {
 				e.preventDefault();
-                document.documentElement.classList.remove('sidebar-section-active');
+                container.classList.remove('sidebar-section-active');
 				return false;
 			}
 		},

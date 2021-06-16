@@ -167,11 +167,6 @@
   color: #1a2035 !important;
 }
 
-.btn-default {
-  background: lightgray !important;
-  color: black !important;
-}
-
 .btn-default:hover,
 .btn-default:focus,
 .btn-default:disabled {
@@ -12075,11 +12070,17 @@ button[disabled=disabled] {
 .btn-success,
 .btn-warning,
 .btn-disabled,
-.btn-white {
+.btn-white,
+.btn-default {
   font-family: "Nunito", sans-serif !important;
   text-transform: capitalize;
   font-size: 12px;
   letter-spacing: 0.1em;
+}
+
+.btn-default {
+  background: lightgray !important;
+  color: black !important;
 }
 
 .color-placeholder {
@@ -12876,12 +12877,19 @@ i {
   position: relative;
 }
 
+.navbar .notification-dropdown svg {
+  width: 1.4em;
+  height: auto;
+}
+
 .navbar .nav-items {
+  margin: auto;
+  padding: 0px 20px !important;
   display: -webkit-box;
   display: flex;
   flex-wrap: nowrap;
-  -webkit-box-pack: space-evenly;
-          justify-content: space-evenly;
+  -webkit-box-pack: justify;
+          justify-content: space-between;
   -webkit-box-align: center;
           align-items: center;
   width: 100%;
@@ -12894,17 +12902,83 @@ i {
 }
 
 .navbar .mobile_navbar {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  width: 100%;
+  display: none;
+}
+
+.navbar .mobile_navbar t .mobile-navbar-brand img {
+  margin: 10px auto;
+  display: block;
+}
+
+.navbar .mobile_navbar .mobile-nav-items {
   width: 100%;
   display: -webkit-box;
   display: flex;
   background-color: #c7c7c7;
-  position: absolute;
-  bottom: -110%;
-  left: 0px;
   -webkit-box-align: center;
           align-items: center;
   justify-content: space-around;
   padding: 10px;
+}
+
+.navbar .mobile_navbar .mobile-nav-items button {
+  border: 0px;
+  background: none !important;
+}
+
+.navbar .guest-navbar {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: justify;
+          justify-content: space-between;
+  padding: 5px 0px;
+  -webkit-box-align: center;
+          align-items: center;
+  width: 1200px;
+  margin: auto;
+}
+
+.navbar .guest-navbar .guest-nav-items {
+  width: 20%;
+  max-width: 215px;
+  display: -webkit-box;
+  display: flex;
+}
+
+.navbar .guest-navbar button {
+  width: 55px;
+  height: 40px;
+  border: 1px solid #bebebe;
+  padding: 1px 2px;
+  display: none;
+  margin: 12px 0px;
+}
+
+.navbar .guest-navbar button .line {
+  width: 25px;
+  border-radius: 10px;
+  height: 2px;
+  margin: 5px auto;
+  background-color: grey;
+  -webkit-transition-duration: 0.4s;
+          transition-duration: 0.4s;
+}
+
+.navbar .guest-navbar button:hover {
+  border: 1px solid grey !important;
+}
+
+.navbar .guest-navbar .search_box {
+  width: 55%;
+}
+
+.navbar #headerProfileDropdown::before {
   display: none;
 }
 
@@ -13124,12 +13198,13 @@ i {
   position: -webkit-sticky;
   position: sticky;
   min-width: 300px;
+  max-width: 30%;
   height: 100vh;
   z-index: 99;
   top: 66px;
-  background-color: #f1f1f1;
-  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.15) !important;
-  border: 1px solid #dbdbdb;
+  background-color: #f7f7f7;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.15) !important;
+  border: 1px solid #e6e6e6;
 }
 
 .sidebar-section .sidebar .institution-detail {
@@ -13139,7 +13214,7 @@ i {
           align-items: center;
   flex-wrap: nowrap;
   width: 95%;
-  margin: 10px auto;
+  margin: 30px auto;
 }
 
 .sidebar-section .sidebar .institution-detail .institution-name {
@@ -13162,16 +13237,7 @@ i {
   padding: 0px;
 }
 
-.sidebar-section .sidebar .sidebar-navigation ul li {
-  display: -webkit-box;
-  display: flex;
-  flex-wrap: nowrap;
-  padding: 10%;
-  -webkit-transition-duration: 0.3s;
-          transition-duration: 0.3s;
-}
-
-.sidebar-section .sidebar .sidebar-navigation ul li a {
+.sidebar-section .sidebar .sidebar-navigation ul a {
   color: #42526e;
   text-decoration: none;
   font-size: 18px;
@@ -13179,18 +13245,33 @@ i {
   font-weight: 500;
 }
 
+.sidebar-section .sidebar .sidebar-navigation ul a:hover {
+  text-decoration: none;
+}
+
+.sidebar-section .sidebar .sidebar-navigation ul .active {
+  background-color: #e7e7e7 !important;
+  border-right: 5px solid blue !important;
+  color: blue !important;
+}
+
+.sidebar-section .sidebar .sidebar-navigation ul li {
+  display: -webkit-box;
+  display: flex;
+  flex-wrap: nowrap;
+  padding: 5% 30px;
+  -webkit-transition-duration: 0.3s;
+          transition-duration: 0.3s;
+  -webkit-box-align: center;
+          align-items: center;
+}
+
 .sidebar-section .sidebar .sidebar-navigation ul li .text {
   margin-left: 20px !important;
 }
 
 .sidebar-section .sidebar .sidebar-navigation ul li:hover {
-  background-color: #dbdbdb;
-  border-right: 5px solid blue;
-}
-
-.sidebar-section .sidebar .sidebar-navigation ul li:active,
-.sidebar-section .sidebar .sidebar-navigation ul li:focus {
-  border-right: 5px solid blue;
+  background-color: #e7e7e7;
 }
 
 .sidebar_heading {
@@ -14518,9 +14599,15 @@ select.form-control.custom-select {
   min-width: 20rem;
 }
 
+.dropleft .dropdown-menu {
+  top: 60px;
+  right: -5%;
+  left: auto;
+  margin-top: 0;
+  margin-right: 0.125rem;
+}
+
 .logout_btn {
-  background-color: blue;
-  color: white;
   padding: 5px 25px;
 }
 
@@ -14645,8 +14732,8 @@ select.form-control.custom-select {
 }
 
 .content {
-  width: 100%;
-  padding: 7%;
+  width: 70%;
+  padding: 7% 1%;
 }
 
 @media (max-width: 1200px) {
@@ -14655,7 +14742,7 @@ select.form-control.custom-select {
   }
 
   .sidebar-section {
-    width: 35%;
+    max-width: 35%;
   }
 
   .post_width {
@@ -14684,24 +14771,60 @@ select.form-control.custom-select {
     flex: 0 0 35%;
     max-width: 35%;
   }
+
+  .guest-navbar {
+    -webkit-box-pack: justify !important;
+            justify-content: space-between !important;
+    padding: 5px 15px !important;
+  }
+
+  .guest-navbar .navbar-toggler {
+    display: block !important;
+  }
+
+  .guest-navbar .nav-item,
+  .guest-navbar .guest-nav-items {
+    display: none !important;
+  }
 }
 
 @media only screen and (max-width: 768px) {
+  .dropdown-menu.show {
+    position: fixed !important;
+    top: 120px !important;
+    left: 0px !important;
+  }
+
   .custom-width .col-md-9 {
     -webkit-box-flex: 0;
     flex: 0 0 100%;
     max-width: 100%;
   }
 
+  .navbar {
+    padding: 0px;
+  }
+
   .navbar .notification-dropdown,
   .navbar .search-bar,
-  .navbar .profile-dropdown {
+  .navbar .profile-dropdown,
+  .navbar .navbar-brand {
     display: none;
   }
 
   .navbar .mobile_navbar {
     display: -webkit-box;
     display: flex;
+  }
+
+  .navbar #mobileNavbar {
+    margin: auto;
+    display: -webkit-box;
+    display: flex;
+  }
+
+  .navbar #mobileNavbar .navbar-brand {
+    margin: auto;
   }
 
   .sidebar-section {
@@ -14713,6 +14836,7 @@ select.form-control.custom-select {
     -webkit-transition-duration: 0.6s;
             transition-duration: 0.6s;
     min-width: 250px;
+    max-width: 35%;
   }
 
   .sidebar-section .sidebar .institution-detail {
@@ -14728,23 +14852,29 @@ select.form-control.custom-select {
     padding: 0px;
   }
 
+  .sidebar-section .sidebar .sidebar-navigation ul a {
+    font-size: 15px;
+  }
+
+  .sidebar-section .sidebar .sidebar-navigation ul .active {
+    background-color: #dbdbdb !important;
+    border: none !important;
+  }
+
   .sidebar-section .sidebar .sidebar-navigation ul li {
     display: -webkit-box;
     display: flex;
     flex-wrap: nowrap;
-    padding: 10%;
+    padding: 7%;
   }
 
   .sidebar-section .sidebar .sidebar-navigation ul li:hover {
-    background-color: #dbdbdb;
-  }
-
-  .sidebar-section .sidebar .sidebar-navigation ul li a {
-    font-size: 15px;
+    background-color: #e2e2e2;
   }
 
   .content {
     padding: 35% 2%;
+    width: 100%;
   }
 
   .menu {
@@ -14760,6 +14890,10 @@ select.form-control.custom-select {
 }
 
 @media only screen and (max-width: 768px) {
+  .creat_post_btn button {
+    min-width: 100% !important;
+  }
+
   .search_box {
     width: 100%;
     margin-top: 25px;
@@ -15771,12 +15905,11 @@ div.nav-login-get-started {
   width: 100%;
   display: -webkit-box;
   display: flex;
-  position: relative;
   background-color: white;
 }
 
 .menu-dropdown a.active {
   color: #0052cc !important;
-  border-right: solid #0052cc;
+  border-right: 3px solid #0052cc;
 }
 

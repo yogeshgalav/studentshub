@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Log;
 use Auth;
 use App\Models\Feedback;
 use App\Models\Contactus;
+use App\Http\Requests\ContactusRequest;
+use App\Http\Requests\FeedbackRequest;
 
 class GuestController extends Controller
 {
@@ -51,7 +53,7 @@ class GuestController extends Controller
         Log::critical('New member request with details.',['member'=>$member]);
         return response()->json([],204);
     }
-    public function feedback(Request $request){
+    public function feedback(FeedbackRequest $request){
         Feedback::create([
             'email'=>$request->email,
             'user_id'=>Auth::id() ?? null,
@@ -59,12 +61,13 @@ class GuestController extends Controller
         ]);
         return response()->json([],204);
     }
-    public function contactus(Request $request){
+    public function contactus(ContactusRequest $request){
         Contactus::create([
             'name'=>$request->name,
             'email'=>$request->email,
             'description'=>$request->description,
         ]);
+
         return response()->json([],204);
     }
 }
