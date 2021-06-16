@@ -84,7 +84,9 @@ class ClassroomStudentController extends Controller
             'content'=>$request->content,
             'parent_message_id'=>$request->parent_message_id,
         ]);
-        ScheduledJob::newClassroomMessageNotification($classroom);
+        if($request->parent_message_id == null){
+            ScheduledJob::newClassroomMessageNotification($classroom);
+        }
         // \Notification::send($classroom->users,new MessageAdded);
 
         return response()->json(['success'=>[
