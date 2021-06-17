@@ -14,7 +14,7 @@ use Auth;
 use DB;
 use App\Http\Requests\JoinClassroomRequest;
 use Carbon\Carbon;
-
+use Illuminate\Support\Facades\Log;
 class ClassroomStudentController extends Controller
 {
     //
@@ -87,8 +87,17 @@ class ClassroomStudentController extends Controller
         if($request->parent_message_id == null){
             ScheduledJob::newClassroomMessageNotification($classroom);
         }
+        else{
+            $replied_user_ids = ClassroomMessage::where('classroom_id',$classroom->id)
+            ->where('parent_message_id',$request->parent_message_id)
+            ->leftJoin('users','users.id','=','sender_user_id')
+            ->select('sender_user_id','users.full_name')->distinct()
+            ->get();
+            foreach ($replied_user_ids as $each_user) {
+                ScheduledJob::newClassroomReplyMessageNotification($each_user);
+            }
+        }
         // \Notification::send($classroom->users,new MessageAdded);
-
         return response()->json(['success'=>[
             'message'=>$message
         ]]);
