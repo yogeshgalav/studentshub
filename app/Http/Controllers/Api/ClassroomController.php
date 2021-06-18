@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UpdateClassroomDetailsRequest;
 use App\Models\Classroom;
 use App\Models\Unit;
-use App\Models\ClassroomStudent;
+use App\Models\ClassroomUser;
 use App\Http\Requests\CreateClassroomRequest;
 use DB;
 use Auth;
@@ -50,7 +50,7 @@ class ClassroomController extends Controller
     }
     public function delete($classroomId,Request $request){
         $classroom=Classroom::findOrFail($classroomId);
-        if(ClassroomStudent::where('classroom_id',$classroomId)->count()>0){
+        if(ClassroomUser::where('classroom_id',$classroomId)->count()>0){
             return response('forbidden',403);    
         }
         $classroom->delete();
@@ -151,8 +151,8 @@ class ClassroomController extends Controller
             ]],422);
         }
          
-        ClassroomStudent::firstOrCreate([
-            'student_id'=>$student->id,
+        ClassroomUser::firstOrCreate([
+            'user_id'=>Auth::id(),
             'classroom_id'=>$classroom->id
         ]);
 

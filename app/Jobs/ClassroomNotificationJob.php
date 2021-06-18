@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Models\ScheduledJob;
+use App\Models\ClassroomUser;
 
 /***
  * Class ClassroomNotificationJob
@@ -18,21 +19,15 @@ class ClassroomNotificationJob extends ScheduledJobInterface
     public function handle()
     {
         $classString = $this->scheduled_job->notification_class_name;
-        $students = DB::table('classroom_students as cs')
-        ->where('cs.classroom_id', $this->scheduled_job->classroom_id)
-        ->leftJoin('students as st', 'cs.student_id', 'st.id')
-        ->leftJoin('users as us', 'st.user_id', 'us.id')
-        ->select('us.id as user_id')
-        ->groupBy('us.id')
+        $classroom_users = ClassroomUser::where('classroom_users.classroom_id', $this->scheduled_job->classroom_id)
         ->get();
 
-        foreach($students as $student){
+        foreach($classroom_users as $c_user){
             if($this->scheduled_job->scheduled_by_user_id === $student->user_id){
                 continue;
             }
             $notification = new $classString($this->scheduled_job);
-            $user = User::find($student->user_id);
-            $user->notify($notification);
+            $c_user->user->notify($notification);
         }
 
         return true;

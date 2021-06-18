@@ -6,7 +6,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Classroom;
 use App\Models\Unit;
-use App\Models\ClassroomStudent;
+use App\Models\ClassroomUser;
 use DB;
 use Auth;
 use Illuminate\Support\Facades\Log;

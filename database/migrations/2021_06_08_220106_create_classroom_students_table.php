@@ -13,33 +13,47 @@ class CreateClassroomStudentsTable extends Migration
      *
      * @return void
      */
-    public function up()
-    {
-        Schema::create('classroom_students', function (Blueprint $table) {
-            $table->id();
-            $table->integer('classroom_id')->unsigned();
-            $table->integer('student_id')->unsigned();
-            $table->timestamps();
-        });
-        foreach(DB::table('classroom_users')->get() as $item)
-        {
-            $student = Student::where('user_id',$item->user_id)->first();
-            DB::table('classroom_students')->insert(
-                array(
-                       'classroom_id'   =>  $item->classroom_id,
-                       'student_id' => $student->id
-                )
-           );    
-        }
-    }
+    // public function up()
+    // {
+    //     Schema::create('classroom_students', function (Blueprint $table) {
+    //         $table->id();
+    //         $table->integer('classroom_id')->unsigned();
+    //         $table->integer('student_id')->unsigned();
+    //         $table->timestamps();
+    //     });
+    //     foreach(DB::table('classroom_users')->get() as $item)
+    //     {
+    //         $student = Student::where('user_id',$item->user_id)->first();
+    //         DB::table('classroom_students')->insert(
+    //             array(
+    //                    'classroom_id'   =>  $item->classroom_id,
+    //                    'student_id' => $student->id
+    //             )
+    //        );    
+    //     }
+    // }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('classroom_students');
-    }
+    // /**
+    //  * Reverse the migrations.
+    //  *
+    //  * @return void
+    //  */
+    // public function down()
+    // {
+    //     Schema::create('classroom_users', function (Blueprint $table) {
+    //         $table->id();
+    //         $table->integer('classroom_id')->unsigned();
+    //         $table->integer('user_id')->unsigned();
+    //         $table->timestamps();
+    //     });
+    //     foreach(DB::table('classroom_students')->get() as $item)
+    //     {
+    //         DB::table('classroom_students')->insert(
+    //             array(
+    //                    'classroom_id'   =>  $item->classroom_id,
+    //                    'user_id' => $student->user_id
+    //             )
+    //        );    
+    //     }
+    // }
 }

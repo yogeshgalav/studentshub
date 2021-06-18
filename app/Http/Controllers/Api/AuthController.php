@@ -8,7 +8,7 @@ use App\Models\PasswordReset;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Classroom;
-use App\Models\ClassroomStudent;
+use App\Models\ClassroomUser;
 use Illuminate\Http\Response;
 use App\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -144,10 +144,10 @@ class AuthController extends Controller
         ]);
         $student_controller =new \App\Http\Controllers\Api\StudentController;
         $student_controller->create($request);
-        $student = Student::where('user_id',$user->id)->first();
-        ClassroomStudent::create([
+        
+        ClassroomUser::create([
             'classroom_id'=>$classroom->id,
-            'student_id'=>$student->id,
+            'user_id'=>$user->id,
         ]);
     }
     /**

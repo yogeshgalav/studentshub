@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Classroom;
-use App\Models\ClassroomStudent;
+use App\Models\ClassroomUser;
 use App\Models\ClassroomMessage;
 use App\Notifications\MessageAdded;
 use Illuminate\Http\Request;
