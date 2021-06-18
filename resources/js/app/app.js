@@ -141,7 +141,7 @@ Vue.mixin({
 		};
 		var prevScrollpos = window.pageYOffset;
 		window.addEventListener('scroll', ()=>{
-			let headerMobile = document.getElementById('header_mobile');
+			let headerMobile = document.getElementById('mobileNavbar');
 			if (headerMobile){
 				var currentScrollPos = window.pageYOffset;
 				if (prevScrollpos > currentScrollPos) {
@@ -163,19 +163,21 @@ Vue.mixin({
 		},
 		toggleSidebar(e){
 			e.preventDefault();
-			document.documentElement.classList.toggle('openNav');
-			var menu = document.querySelector('.nav-toggle'); // Using a class instead, see note below.
-			menu.classList.toggle('active');
+			var sidebar_section = document.getElementById('sidebar-section');
+            sidebar_section.classList.toggle('sidebar-section-active');
+			// document.documentElement.classList.toggle('openNav');
+			// var menu = document.querySelector('.nav-toggle'); // Using a class instead, see note below.
+			// menu.classList.toggle('active');
 		},
 		closeSidebar(e){
-			var container = document.getElementById('sidebarContainer');
+			var container = document.getElementById('sidebar-section');
 			var container2 = document.getElementById('nav-toggle');
 			if(!container || !container2){
 				return false;
 			}
-			if (!container.contains(e.target) && !container2.contains(e.target) && document.documentElement.classList.contains('openNav')) {
-				document.documentElement.classList.remove('openNav');
+			if (!container.contains(e.target) && !container2.contains(e.target) && container.classList.contains('sidebar-section-active')) {
 				e.preventDefault();
+                container.classList.remove('sidebar-section-active');
 				return false;
 			}
 		},
@@ -184,7 +186,7 @@ Vue.mixin({
 			let min = arr[1];
 			let sec = arr[2];
 			sec = sec.substr(0,2);
-			
+
 			return min+'min '+sec+'sec';
 		},
 		divideArrayIntoSubgroups(array,label){

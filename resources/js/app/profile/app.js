@@ -17,8 +17,8 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 //Vue Router Initialisation
 const router = new VueRouter({
-    routes:ProfileRoutes,
-    mode:'history'
+	routes:ProfileRoutes,
+	mode:'history'
 });
 
 
@@ -27,13 +27,13 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 //Vue Router Initialisation
 const store = new Vuex.Store({
-    modules: {
-        common: ProfileStore,
-      }
+	modules: {
+		common: ProfileStore,
+	}
 });
 //Vue App Initialisation
 const app = new Vue({
-    el: '#profileApp',
-    store,
-    router,
+	el: '#app',
+	store,
+	router,
 });

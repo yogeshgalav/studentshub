@@ -17,8 +17,8 @@ Vue.use(VueRouter);
 
 //Vue Router Initialisation
 const router = new VueRouter({
-    routes:StudentRoutes,
-    mode:'history'
+	routes:StudentRoutes,
+	mode:'history'
 });
 
 import SeekerStore from '../../store/seeker';
@@ -27,15 +27,15 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 //Vue Router Initialisation
 const store = new Vuex.Store({
-    modules: {
-        seeker: SeekerStore,
-        common: CommonStore,
-      }
+	modules: {
+		seeker: SeekerStore,
+		common: CommonStore,
+	}
 });
 
 //Vue App Initialisation
 const app = new Vue({
-    el: '#seekerApp',
-    store,
-    router,
+	el: '#app',
+	store,
+	router,
 });

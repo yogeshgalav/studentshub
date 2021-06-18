@@ -14,5 +14,5 @@ Vue.component('EducationDetail', require('../../views/student-register/education
 
 //Vue App Initialisation
 const app = new Vue({
-    el: '#studentRegisterApp',
+	el: '#app',
 });
