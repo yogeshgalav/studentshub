@@ -6,20 +6,32 @@
     @include('includes.meta')
     @include('includes.title')
     @yield('compiledJs')
-    <link href="{{ asset('css/app.css') }}" type="text/css" rel="stylesheet">
     @include('includes.fonts')
     <script src="/js/lang.js"></script>
+    <link href="{{ asset('css/app.css') }}" type="text/css" rel="stylesheet">
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('favicon1.ico')}}" />
+
 </head>
 
 <body>
     <div id="app">
-        <main class="flex-center position-ref full-height">
-            <div class="main-header">
+        <main class="flex-center full-height">
+            <div class="header">
                 @include('includes.navbar')
             </div>
 
-            @yield('content')
+            <div class="main-area">
+            @if(Auth::check())
+                <div class="sidebar-section" id="sidebar-section">
+                    @include('includes.sidebar')
+                </div>
+            @endif
+
+                <div class="content">
+                    @yield('content')
+                </div>
+            </div>
+
         </main>
     </div>
     @include('includes.jsVariables')

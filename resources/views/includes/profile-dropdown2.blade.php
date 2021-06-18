@@ -2,7 +2,7 @@
     <button class="btn btn-sm border-radius-12 dropdown-toggle" type="button" id="headerProfileDropdown"
         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="height: 50px;display: flex;
     align-items: center;">
-        <profile-image avatar="{{$AuthUser->avatar_url}}" user-name="{{$AuthUser->full_name}}" />
+        <profile-image avatar="{{$AuthUser->avatar_url}}" user-name="{{$AuthUser->full_name}}" size="small" />
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         <div class="d-flex p-2">

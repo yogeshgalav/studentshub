@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Classroom;
-use App\Models\ClassroomStudent;
+use App\Models\ClassroomUser;
 use App\Models\ClassroomMessage;
 use App\Notifications\MessageAdded;
 use Illuminate\Http\Request;
@@ -14,33 +14,8 @@ use DB;
 use App\Http\Requests\JoinClassroomRequest;
 use Carbon\Carbon;
 
-class ClassroomStudentController extends Controller
+class ClassroomMessageController extends Controller
 {
-    //
-    
-    public function joinClassroom(Request $request){
-       
-        $classroom=Classroom::where('classroom_join_id',$request->name)->first();
-        $student =Auth::student();
-        if(empty($classroom)){
-            return response()->json(['error'=>[
-                'field'=>'classroom_id',
-                'message'=>'This classroom join id does not exist.'
-            ]],422);
-        }elseif($student->course_id !== $classroom->course_id  ||  $student->institute_id !== $classroom->institute_id){
-            return response()->json(['error'=>[
-                'field'=>'classroom_id',
-                'message'=>'You cannot join this classroom with your current preffered educational details.'
-            ]],422);
-        }
-         
-        ClassroomStudent::firstOrCreate([
-            'student_id'=>$student->id,
-            'classroom_id'=>$classroom->id
-        ]);
-
-        return response()->json('success');
-    }
 
     public function listmessage($classroomId = null){
         $messagequery = ClassroomMessage::where('parent_message_id','=',null)

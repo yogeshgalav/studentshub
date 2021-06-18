@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UpdateClassroomDetailsRequest;
 use App\Models\Classroom;
 use App\Models\Unit;
-use App\Models\ClassroomStudent;
+use App\Models\ClassroomUser;
 use App\Http\Requests\CreateClassroomRequest;
 use DB;
 use Auth;
@@ -50,7 +50,7 @@ class ClassroomController extends Controller
     }
     public function delete($classroomId,Request $request){
         $classroom=Classroom::findOrFail($classroomId);
-        if(ClassroomStudent::where('classroom_id',$classroomId)->count()>0){
+        if(ClassroomUser::where('classroom_id',$classroomId)->count()>0){
             return response('forbidden',403);    
         }
         $classroom->delete();
@@ -133,5 +133,29 @@ class ClassroomController extends Controller
                 'classrooms' => $classrooms
             ]
         ]);
+    }
+
+    public function joinClassroom(Request $request){
+       
+        $classroom=Classroom::where('classroom_join_id',$request->name)->first();
+        $student =Auth::student();
+        if(empty($classroom)){
+            return response()->json(['error'=>[
+                'field'=>'classroom_id',
+                'message'=>'This classroom join id does not exist.'
+            ]],422);
+        }elseif($student->course_id !== $classroom->course_id  ||  $student->institute_id !== $classroom->institute_id){
+            return response()->json(['error'=>[
+                'field'=>'classroom_id',
+                'message'=>'You cannot join this classroom with your current preffered educational details.'
+            ]],422);
+        }
+         
+        ClassroomUser::firstOrCreate([
+            'user_id'=>Auth::id(),
+            'classroom_id'=>$classroom->id
+        ]);
+
+        return response()->json('success');
     }
 }

@@ -34,7 +34,7 @@ const store = new Vuex.Store({
 });
 //Vue App Initialisation
 const app = new Vue({
-	el: '#classroomApp',
+	el: '#app',
 	store,
 	router,
 });
