@@ -50,5 +50,7 @@ class SeekerController extends Controller
     {
         return view('explore.search')->with('query', $request->query);
     }
-
+    public function myinterestPage(){
+        return view('seeker.my-interest');
+    }
 }
