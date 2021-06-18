@@ -40,7 +40,7 @@
                 </li>
             </a>
             @endif
-            @if(Auth::user()->isInstituteMember())
+            @if(0)
             <a href="/my-institute" class="{{\App\Facades\Sthub::currentTab('institute') ? 'active' : ''}}">
                 <li> <i class="fas fa-university " aria-hidden="true"></i><span class="text"> My
                         Institute</span>
