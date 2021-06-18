@@ -23,7 +23,7 @@ class ClassroomNotificationJob extends ScheduledJobInterface
         ->get();
 
         foreach($classroom_users as $c_user){
-            if($this->scheduled_job->scheduled_by_user_id === $student->user_id){
+            if($this->scheduled_job->scheduled_by_user_id === $c_user->user_id){
                 continue;
             }
             $notification = new $classString($this->scheduled_job);
