@@ -954,8 +954,9 @@ i {
         display: none;t
         .mobile-navbar-brand{
             img {
-                margin: 10px auto;
-                display: block;
+                vertical-align: middle;
+                border-style: none;
+
             }
         }
         .mobile-nav-items{
@@ -1230,7 +1231,7 @@ i {
 // sidebar_icon_sidebar
 .sidebar-section {
     position: sticky;
-    min-width: 300px;
+    min-width: 260px;
     max-width: 30%;
     height: 100vh;
     z-index: 99;
@@ -1248,7 +1249,7 @@ i {
             .institution-name {
                 font-weight: 600;
                 letter-spacing: -0.003em;
-                font-size: 1.2rem;
+                font-size: 0.9rem;
                 text-align: center;
                 margin-left: 10px;
                 color: #42526e;
@@ -1263,9 +1264,9 @@ i {
             a {
                 color: #42526e;
                 text-decoration: none;
-                font-size: 18px;
+                font-size: 16px;
                 letter-spacing: -0.003em;
-                font-weight: 500;
+                font-weight: 400;
                 &:hover{
                     text-decoration: none;
                 }
@@ -2598,6 +2599,13 @@ select.form-control.custom-select {
         }
         .mobile_navbar{
             display: flex;
+            .mobile-navbar-brand{
+                img{
+                    margin: auto !important;
+                display: block !important;
+                padding: 10px 0px !important;
+                }
+            }
         }
         #mobileNavbar {
             margin: auto;

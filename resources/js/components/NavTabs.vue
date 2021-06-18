@@ -35,10 +35,7 @@
 </template>
 <style lang="scss">
 @import "resources/sass/_variables.scss";
-/* Navigation Tabs */
-// .tabbed-nav1  ul   {
-//     border-bottom: 1px solid #000 !important;
-// }
+
 .tabbed-nav,
 .tabbed-nav1,
 .tabbed-nav2 {
@@ -52,7 +49,7 @@
 }
 .tabbed-nav ul {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     flex-wrap: nowrap;
     overflow-x: scroll;
     overflow-y: hidden;
@@ -80,9 +77,12 @@
 }
 
 // Nav Tab 2
+.nav-link.active {
+    border-color: white !important;
+}
 .tabbed-nav2 .nav-item .active {
     background: #fff;
-    border: 1px solid #707070;
+    // border: 1px solid #707070;
     border-bottom: none !important;
     color: #2f80ed !important;
     position: relative;

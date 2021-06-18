@@ -56,7 +56,7 @@
 
             <div class="dropdown">
                 <a href="#" class="btn">
-                    <i class="far fa-bell notification-icon"></i>
+                    <i class="far fa-bell notification-icon" style="margin-top:4px"></i>
                 </a>
             </div>
 
