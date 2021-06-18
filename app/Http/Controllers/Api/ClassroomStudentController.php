@@ -84,17 +84,16 @@ class ClassroomStudentController extends Controller
             'content'=>$request->content,
             'parent_message_id'=>$request->parent_message_id,
         ]);
-        if($request->parent_message_id == null){
+        if($request->parent_message_id == null ){
             ScheduledJob::newClassroomMessageNotification($classroom);
         }
         else{
-            $replied_user_ids = ClassroomMessage::where('classroom_id',$classroom->id)
-            ->where('parent_message_id',$request->parent_message_id)
-            ->leftJoin('users','users.id','=','sender_user_id')
-            ->select('sender_user_id','users.full_name')->distinct()
-            ->get();
-            foreach ($replied_user_ids as $each_user) {
-                ScheduledJob::newClassroomReplyMessageNotification($each_user);
+            $parent_message = ClassroomMessage::find($request->parent_message_id);
+            if($parent_message->sender_user_id != Auth::id())
+                {
+                    foreach ($parent_message->replies()->get() as $reply) {
+                        ScheduledJob::newClassroomReplyMessageNotification($reply->sender()->first());
+                }
             }
         }
         // \Notification::send($classroom->users,new MessageAdded);

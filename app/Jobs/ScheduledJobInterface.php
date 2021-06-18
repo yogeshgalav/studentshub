@@ -33,7 +33,7 @@ class ScheduledJobInterface implements ShouldQueue
     public function __construct(ScheduledJob $scheduled_job)
     {
         $this->scheduled_job = $scheduled_job;
-        $this->job_body = (empty($scheduled_job->job_body)) ? [] : json_decode($scheduled_job->job_body);
+        $this->job_body = (empty($scheduled_job->job_body)) ? [] : ($scheduled_job->job_body);
     }
 
     /***

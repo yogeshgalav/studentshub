@@ -8,7 +8,7 @@ use App\Notifications\NewInstituteMemberNotification;
 use App\Notifications\NewClassroomDoubtNotification;
 use App\Notifications\DailyAssignmentActivateNotification;
 use App\Notifications\NewClassroomMessageNotification;
-use App\Notifications\NewClassroomMessageReplyNotification;
+use App\Notifications\NewMessageReplyNotification;
 use App\Jobs\SendNotificationJob;
 use App\Jobs\ClassroomNotificationJob;
 use Carbon\Carbon;
@@ -109,7 +109,7 @@ class ScheduledJob extends Model
             'run_at' => Carbon::now('UTC'),
             'job_type' => SendNotificationJob::class,
             'job_body' => json_encode(['user'=> $user]),
-            'notification_class_name' => NewClassroomMessageReplyNotification::class,
+            'notification_class_name' => NewMessageReplyNotification::class,
             'scheduled_by_user_id'=>Auth::id(),
         ]);
     }

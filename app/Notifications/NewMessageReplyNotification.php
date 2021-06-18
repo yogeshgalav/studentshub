@@ -7,11 +7,11 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class NewClassroomReplyMessageNotification extends Notification
+class NewMessageReplyNotification extends Notification
 {
     use Queueable;
     public $scheduled_job;
-    public $repliers;
+    //public $repliers;
     /**
      * Create a new notification instance.
      *
@@ -20,6 +20,7 @@ class NewClassroomReplyMessageNotification extends Notification
     public function __construct($scheduled_job)
     {
         $this->scheduled_job = $scheduled_job;
+        //$repliers = $scheduled_job -> user;
         //$this->repliers = $scheduled_job->job_body['user'];
     }
 
@@ -57,7 +58,12 @@ class NewClassroomReplyMessageNotification extends Notification
     public function toDatabase($notifiable)
     {
         return [
-            'body'=>"Hello"
+            'title'=>'Hi '.$notifiable->full_name.',',
+            'body'=>$notifiable->full_name." replied to your message.",
+            'user_id'=>$notifiable->id,
+            'url'=>'/profile/'.$notifiable->id,
+            'urlName'=>'profile',
+            'urlId'=>$notifiable->id,
         ];
     }
 }
