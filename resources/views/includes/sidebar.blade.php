@@ -32,16 +32,10 @@
 
                 </li>
             </a>
-            <a href="/classrooms" class="{{\App\Facades\Sthub::currentTab('classroom') ? 'active' : ''}}">
-                <li><i class="fas fa-users" aria-hidden="true"></i><span class="text">
-                {{ Auth::user()->role_intended==='student' ? 'Classmates' : 'Students' }}</span>
-                </li>
-            </a>
             @if(Auth::user()->joinedClassroomCount()>0)
             <a href="/my-reports" class="{{\App\Facades\Sthub::currentTab('my-reports') ? 'active' : ''}}">
-                <li><i class="fas fa-chart-line" aria-hidden="true"></i><span class="text">My
-                        Reports</span>
-
+                <li><i class="fas fa-chart-line" aria-hidden="true"></i>
+                <span class="text">My Reports</span>
                 </li>
             </a>
             @endif
@@ -57,35 +51,39 @@
 
                 </li>
             </a>
-            <a href="/" class="{{\App\Facades\Sthub::currentTab('post') ? 'active' : ''}}">
-                <li> <i class="fas fa-chart-pie" aria-hidden="true"></i><span class="text">My interest</span>
-
-                </li>
-            </a>
             @if(Auth::student())
-            <a href="/doubts" class="{{\App\Facades\Sthub::currentTab('doubt') ? 'active' : ''}}">
-                <li> <i class="fa fa-question-circle " aria-hidden="true"></i><span class="text">Doubts</span>
-
+            <a href="/classmates" class="{{\App\Facades\Sthub::currentTab('classmates') ? 'active' : ''}}">
+                <li><i class="fas fa-users" aria-hidden="true"></i><span class="text">
+                Classmates</span>
                 </li>
             </a>
-            {{--<a href="/course/{{Auth::student()->courseUrl}}"
-            class="{{\App\Facades\Sthub::currentTab(Auth::student()->courseUrl) ? 'active' : ''}}"> <li> <span
-                    class="icon"><img src="{{asset('/images/home.png') }}" alt="Student'sHUB" width="20" /></span>
-                My
-                Course
-            </li> </a>--}}
+            <a href="/doubts" class="{{\App\Facades\Sthub::currentTab('doubt') ? 'active' : ''}}">
+                <li> <i class="fa fa-question-circle " aria-hidden="true"></i>
+                    <span class="text">Doubts</span>
+                </li>
+            </a>
+            <a href="/course/{{Auth::student()->courseUrl}}"
+            class="{{\App\Facades\Sthub::currentTab(Auth::student()->courseUrl) ? 'active' : ''}}"> 
+            <li><i class="fas fa-book-open" aria-hidden="true"></i>
+                <span class="text">My Course</span>
+            </li></a>
             @endif
             @if(Auth::user()->hasClassroom())
             <a href="/messages" class="{{\App\Facades\Sthub::currentTab('messages') ? 'active' : ''}}">
-                <li> <i class="far fa-comment-dots" aria-hidden="true"></i><span class="text"> Messages
-                    </span>
+                <li> <i class="far fa-comment-dots" aria-hidden="true"></i>
+                    <span class="text"> Messages</span>
                 </li>
             </a>
             @endif
-            <a href="/profile/{{Auth::id()}}" class="{{\App\Facades\Sthub::currentTab('profile') ? 'active' : ''}}">
-                <li> <i class="far fa-user" aria-hidden="true"></i><span class="text">
-                        Profile</span>
 
+            <a href="/" class="{{\App\Facades\Sthub::currentTab('my-interest') ? 'active' : ''}}">
+                <li> <i class="fas fa-chart-pie" aria-hidden="true"></i>
+                    <span class="text">My interest</span>
+                </li>
+            </a>
+            <a href="/profile/{{Auth::id()}}" class="{{\App\Facades\Sthub::currentTab('profile') ? 'active' : ''}}">
+                <li> <i class="far fa-user" aria-hidden="true"></i>
+                    <span class="text">Profile</span>
                 </li>
             </a>
 

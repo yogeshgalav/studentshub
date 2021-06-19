@@ -185,8 +185,8 @@ class ClassroomController extends Controller
         return view('classroom.global-messages')
         ->with('classrooms',$classrooms);
     }
-    public function students()
+    public function classmates()
     {
-        return view('classroom.students');
+        return view('classroom.classmates');
     }
 }
