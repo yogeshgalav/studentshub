@@ -32,9 +32,14 @@
 
                 </li>
             </a>
+            <a href="/classrooms" class="{{\App\Facades\Sthub::currentTab('classroom') ? 'active' : ''}}">
+                <li><i class="fas fa-users" aria-hidden="true"></i><span class="text">
+                {{ Auth::user()->role_intended==='student' ? 'Classmates' : 'Students' }}</span>
+                </li>
+            </a>
             @if(Auth::user()->joinedClassroomCount()>0)
             <a href="/my-reports" class="{{\App\Facades\Sthub::currentTab('my-reports') ? 'active' : ''}}">
-                <li><i class="fa fa-desktop " aria-hidden="true"></i><span class="text">My
+                <li><i class="fas fa-chart-line" aria-hidden="true"></i><span class="text">My
                         Reports</span>
 
                 </li>
@@ -49,6 +54,11 @@
             @endif
             <a href="/" class="{{\App\Facades\Sthub::currentTab('post') ? 'active' : ''}}">
                 <li> <i class="fa fa-home " aria-hidden="true"></i><span class="text">Home</span>
+
+                </li>
+            </a>
+            <a href="/" class="{{\App\Facades\Sthub::currentTab('post') ? 'active' : ''}}">
+                <li> <i class="fas fa-chart-pie" aria-hidden="true"></i><span class="text">My interest</span>
 
                 </li>
             </a>
