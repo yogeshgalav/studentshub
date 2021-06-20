@@ -20,6 +20,7 @@ Route::get('/post/{ViewPostId}', 'GuestController@viewPost');
 Route::get('/social-auth/{provider}', 'AuthController@redirectToProvider');
 Route::get('/callback/{provider}', 'AuthController@handleProviderCallback');
 //explore routes
+Route::get('/search', 'GuestController@searchPage');
 Route::get('/course/{courseUrl}', 'GuestController@coursePage');
 Route::get('/subject/{subjectUrl}', 'GuestController@subjectPage');
 Route::get('/category/{categoryUrl}', 'GuestController@categoryPage');

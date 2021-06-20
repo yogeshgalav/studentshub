@@ -8,8 +8,6 @@ Route::group(['middleware'=>['auth']],function(){
     Route::get('/education-details', 'SeekerController@educationDetail');
     Route::get('/account-settings', 'SeekerController@accountSetting');
     Route::get('/profile/{profileId}', 'SeekerController@profile');
-    Route::get('/search', 'SeekerController@searchPage');
     Route::get('/my-interest', 'SeekerController@myinterestPage');
-
     //post routes
 });

@@ -8,8 +8,6 @@ const StudentRoutes = [
 		path: '/',
 		component: DashboardComponent,
 	},
-	{ path: '/explore/:subject', component: ExploreComponent },
-	{ path: '/explore', component: ExploreComponent },
 	{ path: '/my-interest', component: MyInterestComponent },
 	{ path: '*', redirect: '/' },
 	//Post Routes
