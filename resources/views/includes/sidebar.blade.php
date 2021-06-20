@@ -35,7 +35,7 @@
             @if(Auth::user()->joinedClassroomCount()>0)
             <a href="/my-reports" class="{{\App\Facades\Sthub::currentTab('my-reports') ? 'active' : ''}}">
                 <li><i class="fas fa-chart-line" aria-hidden="true"></i>
-                <span class="text">My Reports</span>
+                    <span class="text">My Reports</span>
                 </li>
             </a>
             @endif
@@ -54,7 +54,7 @@
             @if(Auth::student())
             <a href="/classmates" class="{{\App\Facades\Sthub::currentTab('classmates') ? 'active' : ''}}">
                 <li><i class="fas fa-users" aria-hidden="true"></i><span class="text">
-                Classmates</span>
+                        Classmates</span>
                 </li>
             </a>
             <a href="/doubts" class="{{\App\Facades\Sthub::currentTab('doubt') ? 'active' : ''}}">
@@ -63,10 +63,11 @@
                 </li>
             </a>
             <a href="/course/{{Auth::student()->courseUrl}}"
-            class="{{\App\Facades\Sthub::currentTab(Auth::student()->courseUrl) ? 'active' : ''}}"> 
-            <li><i class="fas fa-book-open" aria-hidden="true"></i>
-                <span class="text">My Course</span>
-            </li></a>
+                class="{{\App\Facades\Sthub::currentTab(Auth::student()->courseUrl) ? 'active' : ''}}">
+                <li><i class="fas fa-book-open" aria-hidden="true"></i>
+                    <span class="text">My Course</span>
+                </li>
+            </a>
             @endif
             @if(Auth::user()->hasClassroom())
             <a href="/messages" class="{{\App\Facades\Sthub::currentTab('messages') ? 'active' : ''}}">
@@ -76,7 +77,7 @@
             </a>
             @endif
 
-            <a href="/" class="{{\App\Facades\Sthub::currentTab('my-interest') ? 'active' : ''}}">
+            <a href="/my-interest" class="{{\App\Facades\Sthub::currentTab('my-interest') ? 'active' : ''}}">
                 <li> <i class="fas fa-chart-pie" aria-hidden="true"></i>
                     <span class="text">My interest</span>
                 </li>
