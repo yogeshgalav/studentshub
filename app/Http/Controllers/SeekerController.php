@@ -49,4 +49,7 @@ class SeekerController extends Controller
     public function myinterestPage(){
         return view('seeker.my-interest');
     }
+    public function notifications(){
+        return view('seeker.notifications');
+    }
 }

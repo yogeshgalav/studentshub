@@ -9,5 +9,6 @@ Route::group(['middleware'=>['auth']],function(){
     Route::get('/account-settings', 'SeekerController@accountSetting');
     Route::get('/profile/{profileId}', 'SeekerController@profile');
     Route::get('/my-interest', 'SeekerController@myinterestPage');
+    Route::get('/notifications', 'SeekerController@notifications');
     //post routes
 });
