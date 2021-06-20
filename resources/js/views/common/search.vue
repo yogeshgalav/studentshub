@@ -33,7 +33,7 @@
       </template>
       <template slot="tab-panel-courses" />
       <template slot="tab-heading-institutes">
-        Subjects
+        Institutes
       </template>
       <template slot="tab-panel-institutes" />
     </nav-tabs>
@@ -83,7 +83,7 @@ export default {
 			case 'institutes':
 				this.searchInstitute();
 				break;
-			}        
+			}
 		},
 		searchPost(){
 			this.axios.get('/api/get-search-posts?search_query='+this.searchQuery).then((resp)=>{
