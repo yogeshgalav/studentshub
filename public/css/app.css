@@ -14789,6 +14789,10 @@ select.form-control.custom-select {
 }
 
 @media only screen and (max-width: 768px) {
+  .content {
+    padding: 35% 0px !important;
+  }
+
   .dropdown-menu.show {
     position: fixed !important;
     top: 120px !important;
