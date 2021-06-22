@@ -14,11 +14,14 @@ class DailyAssignment extends Model
     public function dailyQuestions(){
         return $this->hasMany('App\Models\DailyQuestion');
     }
-    public function dailyReport(){
+    public function dailyReports(){
         return $this->hasMany('App\Models\DailyReport');
     }
     public function unit(){
         return $this->belongsTo('App\Models\Unit');
+    }
+    public function classroom(){
+        return $this->belongsTo('App\Models\Classroom');
     }
     public function isCurrentlyAvailable(){
         if($this->end_time===null){

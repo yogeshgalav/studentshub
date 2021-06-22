@@ -19,9 +19,8 @@ const router = new VueRouter({
 	routes:TeacherClassroomRoutes,
 	mode:'history'
 });
-Vue.component('ClassroomComponent', require('../../views/teacher-classroom/classroom.vue').default);
 Vue.component('ClassroomListComponent', require('../../views/classroom/classroom-list.vue').default);
-Vue.component('CreateClassroomComponent', require('../../views/teacher-classroom/create-classroom.vue').default);
+Vue.component('CreateClassroomComponent', require('../../views/classroom/teacher/create.vue').default);
 
 
 import TeacherClassroomStore from '../../store/teacher-classroom';
@@ -35,7 +34,7 @@ const store = new Vuex.Store({
 });
 //Vue App Initialisation
 const app = new Vue({
-	el: '#classroomApp',
+	el: '#app',
 	store,
 	router,
 });

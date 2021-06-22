@@ -90,6 +90,7 @@ class AuthController extends Controller
                 $success['refresh_token'] = $content->refresh_token;
             }
         }
+        $user->fcm_token=$request->fcmToken ?? null;
         $user->last_login_at=\Carbon\Carbon::now()->toDateTimeString();
         $user->save();
     
@@ -437,11 +438,5 @@ class AuthController extends Controller
 
         $request = Request::create('/oauth/token', 'POST', $data);
         return json_decode(app()->handle($request)->getContent());
-    }
-
-    public function resetPasswordPage(Request $request){
-        $token = $request->token;
-        return view('guest.auth.reset-password')
-        ->with('token',$token);
     }
 }

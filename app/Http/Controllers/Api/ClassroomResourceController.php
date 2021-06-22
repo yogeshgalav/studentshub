@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\AddResourceRequest;
 use App\Models\ClassroomResource;
 use App\Models\Classroom;
 use App\Models\Resource;
@@ -37,7 +38,7 @@ class ClassroomResourceController extends Controller
             'resources'=>$resources,
         ]]);
     }
-    public function addResource(Request $request,$classroomId){
+    public function addResource(AddResourceRequest $request,$classroomId){
 
     DB::beginTransaction();
     try{
@@ -80,6 +81,7 @@ class ClassroomResourceController extends Controller
             }
 
             $post->post_description = $request->description;
+            $post->category_id=$classroom->batch()->course()->category_id;
             $post->save();
 
             SthubPost::create([
@@ -88,7 +90,6 @@ class ClassroomResourceController extends Controller
                 'institute_id'=>$classroom->teacher->institute_id,
                 'course_id'=>$classroom->batch->course_id,
                 'batch_id'=>$classroom->batch_id,
-                'category_id'=>$classroom->batch()->course()->category_id,
                 'shared_by'=>Auth::id(),
             ]);
         }

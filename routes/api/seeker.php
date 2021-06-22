@@ -12,11 +12,11 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('/get-profile','UserController@getProfile');
     Route::post('/save-profile', 'UserController@saveProfile');
     Route::get('/get-categories', 'CategoryController@index');
-    Route::post('/checkin/student', 'StudentController@create');
+    Route::post('/checkin/student', [App\Http\Controllers\Api\StudentController::class, 'create']);
     Route::post('/checkin/teacher', 'InstituteUserController@teacherCheckin');
-    Route::post('/search-course', 'StudentController@courseList');
-    Route::post('/search-subject', 'StudentController@subjectList');
-    Route::post('/search-institute', 'StudentController@instituteList');
+    Route::post('/search-course', [App\Http\Controllers\Api\SearchController::class, 'courseList']);
+    Route::post('/search-subject', [App\Http\Controllers\Api\SearchController::class, 'subjectList']);
+    Route::post('/search-institute', [App\Http\Controllers\Api\SearchController::class, 'instituteList']);
 
     // Notifications
     Route::get('/notifications', 'NotificationController@index');

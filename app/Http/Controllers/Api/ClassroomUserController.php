@@ -7,6 +7,8 @@ use App\Models\ClassroomUser;
 use App\Models\ClassroomMessage;
 use App\Notifications\MessageAdded;
 use Illuminate\Http\Request;
+use App\Http\Requests\AddMessageRequest;
+use App\Http\Requests\EditMessageRequest;
 use Auth;
 use DB;
 use App\Http\Requests\JoinClassroomRequest;
@@ -39,27 +41,6 @@ class ClassroomUserController extends Controller
         ]);
 
         return response()->json('success');
-    }
-
-    public function getClassrromUserData($classroom_id){
-        $student_details = \DB::table('classroom_users as csu')
-        ->where('csu.classroom_id',$classroom_id)
-        ->join('users','users.id','=','csu.user_id')
-        ->leftJoin('students as st','st.user_id','=','users.id')
-        ->select('users.id as user_id','users.full_name as user_name','st.unique_college_id')
-        ->get();
-
-        $assignment_details = \DB::table('daily_assignments as da')
-        ->where('da.classroom_id',$classroom_id)
-        ->rightJoin('daily_reports as dr','dr.daily_assignment_id','=','da.id')
-        ->select('dr.*','da.attempt_date')
-        ->orderBy('da.attempt_date')
-        ->get();
-
-        return response()->json(['success'=>[
-            'student_details'=>$student_details,
-            'assignment_details'=>$assignment_details
-        ]]);
     }
 
     public function listmessage($classroomId = null){
@@ -104,7 +85,7 @@ class ClassroomUserController extends Controller
             'messages'=>$messages
         ]]);
     }
-    public function addmessage(Request $request){
+    public function addmessage(AddMessageRequest $request){
         $classroom = Classroom::findOrFail($request->classroom_id);
 
         $message = ClassroomMessage::create([
@@ -134,7 +115,7 @@ class ClassroomUserController extends Controller
             'messages'=>$messages
         ]]);
     }
-    public function editmessage(Request $request){
+    public function editmessage(EditMessageRequest $request){
         
         $message=ClassroomMessage::findOrFail($request->message_id);
         if($message->sender_user_id!==Auth::id()){

@@ -7,12 +7,13 @@
 @include('includes.meta')
 @include('includes.title')
 <script src="{{ asset('js/studentRegisterApp.js') }}" defer></script>
-<link href="{{ asset('css/studentRegisterApp.css') }}" type="text/css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <script src="/js/lang.js"></script>
+<link href="{{ asset('css/app.css') }}" type="text/css" rel="stylesheet">
 <link rel="shortcut icon" type="image/x-icon" href="{{asset('favicon.ico')}}" />
 <style>
+
         body
             {
                 background-color:#fff
