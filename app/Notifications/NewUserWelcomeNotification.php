@@ -90,16 +90,4 @@ class NewUserWelcomeNotification extends SthubAllowlistedUserNotification
             'urlId'=>$notifiable->id,
         ];
     }
-
-    public function toArray($notifiable)
-    {
-        return [
-            'title'=>'Hi '.$notifiable->full_name.',',
-            'body'=>$this->text,
-            'user_id'=>$notifiable->id,
-            'url'=>'/profile/'.$notifiable->id,
-            'urlName'=>'profile',
-            'urlId'=>$notifiable->id,
-        ];
-    }
 }
