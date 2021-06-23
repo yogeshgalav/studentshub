@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Jobs;
-
+use Illuminate\Support\Facades\DB;
+use App\Models\User;
 use App\Models\ScheduledJob;
 use App\Models\ClassroomUser;
 

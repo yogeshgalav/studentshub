@@ -8,15 +8,17 @@ use App\Notifications\NewInstituteMemberNotification;
 use App\Notifications\NewClassroomDoubtNotification;
 use App\Notifications\NewClassroomResourceNotification;
 use App\Notifications\DailyAssignmentActivateNotification;
+use App\Notifications\NewClassroomMessageNotification;
+use App\Notifications\NewMessageReplyNotification;
 use App\Jobs\SendNotificationJob;
 use App\Jobs\ClassroomNotificationJob;
 use Carbon\Carbon;
 use Auth;
+use Illuminate\Support\Facades\Log;
+
 class ScheduledJob extends Model
 {
     protected  $guarded = ['id', 'created_at', 'updated_at'];
-    public static $classroomJobs = [
-    ];
 
      /***
      * Cast fields to native data types
@@ -91,6 +93,15 @@ class ScheduledJob extends Model
             'classroom_id'=> $daily_assignment->classroom_id
         ]);
     }
+    public static function newClassroomMessageNotification($classroom){
+        return self::create([
+            'run_at' => Carbon::now('UTC'),
+            'job_type' => ClassroomNotificationJob::class,
+            'notification_class_name' => NewClassroomMessageNotification::class,
+            'scheduled_by_user_id'=>Auth::id(),
+            'classroom_id'=> $classroom->id,
+        ]);
+    }
     public static function newClassroomResourceNotification($classroom){
         return self::create([
             'run_at' => Carbon::now('UTC'),
@@ -98,6 +109,16 @@ class ScheduledJob extends Model
             'notification_class_name' => NewClassroomResourceNotification::class,
             'scheduled_by_user_id'=>Auth::id(),
             'classroom_id'=> $classroom->id,
+        ]);
+    }
+    public static function newClassroomReplyMessageNotification($user){
+        Log::info($user);
+        return self::create([
+            'run_at' => Carbon::now('UTC'),
+            'job_type' => SendNotificationJob::class,
+            'job_body' => json_encode(['user'=> $user]),
+            'notification_class_name' => NewMessageReplyNotification::class,
+            'scheduled_by_user_id'=>Auth::id(),
         ]);
     }
 }
