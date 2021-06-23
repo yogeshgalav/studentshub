@@ -53,9 +53,9 @@ class Post extends PostModel
     public function getSearchPosts(Request $request){
         $post_query=$this->getAuthUserPostTabels();
 
-        $posts=$post_query->where('sub.subject_name','LIKE','%'.$request->input('query').'%')
-        ->orWhere('cat.name','LIKE','%'.$request->input('query').'%')
-        ->orWhere('po.post_heading','LIKE','%'.$request->input('query').'%')
+        $posts=$post_query->where('sub.subject_name','LIKE','%'.$request->input('search_query').'%')
+        ->orWhere('cat.name','LIKE','%'.$request->input('search_query').'%')
+        ->orWhere('po.post_heading','LIKE','%'.$request->input('search_query').'%')
         ->orderBy('po.created_at','DESC')
         ->paginate();
 

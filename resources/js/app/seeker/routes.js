@@ -2,15 +2,15 @@ import DashboardComponent from '../../views/common/dashboard.vue';
 import ViewPost from '../../views/common/student-post-view.vue';
 import ExploreComponent from '../../views/explore/explore.vue';
 import MyInterestComponent from '../../views/common/my-interest.vue';
+import NotificationsComponent from '../../views/common/notifications.vue';
 
 const StudentRoutes = [
 	{
 		path: '/',
 		component: DashboardComponent,
 	},
-	{ path: '/explore/:subject', component: ExploreComponent },
-	{ path: '/explore', component: ExploreComponent },
 	{ path: '/my-interest', component: MyInterestComponent },
+	{ path: '/notifications', component: NotificationsComponent },
 	{ path: '*', redirect: '/' },
 	//Post Routes
 	{

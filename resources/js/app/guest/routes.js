@@ -46,12 +46,12 @@ const routes = [
 		name: 'forgot-password',
 		component: ForgotPasswordComponent
 	},
-	{
-		path: '/auth/:provider/callback',
-		component: {
-			template: '<div class="auth-component"></div>'
-		}
-	},
+	// {
+	// 	path: '/auth/:provider/callback',
+	// 	component: {
+	// 		template: '<div class="auth-component"></div>'
+	// 	}
+	// },
 	{
 		path: '/post/:id',
 		component: ViewPost,
@@ -68,7 +68,7 @@ const routes = [
 	{
 		path: '/subject/:url',
 		component: SubjectComponent
-	}
+	},
 ];
 
 export default routes;

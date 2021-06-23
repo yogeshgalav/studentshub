@@ -44,11 +44,6 @@ class PagesController extends Controller
     {
         return view('student.edit-post');
     }
-
-    public function searchPage(Request $request)
-    {
-        return view('guest.search')->with('query', $request->query);
-    }
     public function coursePage()
     {
         return view('guest.course');

@@ -109,4 +109,10 @@ class GuestController extends Controller
         return view('guest.auth.reset-password')
         ->with('token',$token);
     }
+
+    public function searchPage(Request $request)
+    {
+        return view('explore.search')
+        ->with('searchQuery', $request->qu);
+    }
 }

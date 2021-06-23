@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Notifications\NewUserWelcomeNotification;
 use App\Notifications\NewInstituteMemberNotification;
 use App\Notifications\NewClassroomDoubtNotification;
+use App\Notifications\NewClassroomResourceNotification;
 use App\Notifications\DailyAssignmentActivateNotification;
 use App\Jobs\SendNotificationJob;
 use App\Jobs\ClassroomNotificationJob;
@@ -88,6 +89,15 @@ class ScheduledJob extends Model
             'notification_class_name' => DailyAssignmentActivateNotification::class,
             'scheduled_by_user_id'=>Auth::id(),
             'classroom_id'=> $daily_assignment->classroom_id
+        ]);
+    }
+    public static function newClassroomResourceNotification($classroom){
+        return self::create([
+            'run_at' => Carbon::now('UTC'),
+            'job_type' => ClassroomNotificationJob::class,
+            'notification_class_name' => NewClassroomResourceNotification::class,
+            'scheduled_by_user_id'=>Auth::id(),
+            'classroom_id'=> $classroom->id,
         ]);
     }
 }

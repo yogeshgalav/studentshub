@@ -72,5 +72,17 @@ class Post extends Model
                 return 'video';
         }
     }
+    public static function boot() {
+        parent::boot();
+        static::created(function (Post $post) {
+               Interest::where([
+               'user_id'=>$post->user_id,
+               'category_id'=>$post->category_id,
+               ])
+               ->update([
+               'total_posts'=>'total_posts'+1
+               ]);
+        });
+    }
     
 }
