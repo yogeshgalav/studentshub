@@ -13,7 +13,9 @@ use App\Models\Post;
 use App\Models\SthubPost;
 use App\Models\Video;
 use App\Models\Unit;
+use App\Models\ScheduledJob;
 use App\Notifications\ResourceAdded;
+use Illuminate\Support\Facades\Log;
 use Auth;
 use DB;
 
@@ -52,7 +54,7 @@ class ClassroomResourceController extends Controller
         $classroom_resource->unit_id = $unit->id;
         $classroom_resource->description = $request->description;
         $classroom_resource->save();
-
+        ScheduledJob::newClassroomResourceNotification($classroom);
         if($request->share_as_post && in_array($request->resource_type,['documentLink','youtubeVideo'])){
             $post=new Post;
             $post->user_id=Auth::user()->id;
