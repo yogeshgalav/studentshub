@@ -26,5 +26,7 @@ Route::group(['middleware'=>['AuthorizeUser']],function(){
     Route::get('/messages', 'ClassroomController@GlobalMessagePage');
     
     Route::get('/my-reports','ClassroomController@myReports');
+    
+    Route::get('/classmates', 'ClassroomController@classmates');
 
 });
