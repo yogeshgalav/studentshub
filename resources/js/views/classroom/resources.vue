@@ -33,7 +33,7 @@
       >
         <div class="col-md-6  mb-2">
           <div
-            v-if="AuthTeacher && AuthTeacher.id===classroomDetail.teacher_id"
+            
           >
             <div class="text-right">
               <button
