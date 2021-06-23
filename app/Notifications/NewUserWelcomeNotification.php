@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Log;
+use App\Channels\CustomDbChannel;
 use App\Models\User;
 use App\Models\Batch;
 use App\Models\student;
@@ -41,7 +42,7 @@ class NewUserWelcomeNotification extends SthubAllowlistedUserNotification
      */
     public function via($notifiable)
     {
-        return ['database', 'broadcast', WebPushChannel::class];
+        return [CustomDbChannel::class];
     }
 
     /**

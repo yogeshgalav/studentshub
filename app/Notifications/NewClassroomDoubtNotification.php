@@ -8,6 +8,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use App\Models\ScheduledJob;
 use Illuminate\Support\Facades\Log;
+use App\Channels\CustomDbChannel;
 
 class NewClassroomDoubtNotification extends Notification
 {
@@ -31,7 +32,7 @@ class NewClassroomDoubtNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return [CustomDbChannel::class];
     }
 
     /**
