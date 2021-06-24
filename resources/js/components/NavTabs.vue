@@ -53,7 +53,7 @@
 }
 .tabbed-nav ul {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     flex-wrap: nowrap;
     overflow-x: scroll;
     overflow-y: hidden;

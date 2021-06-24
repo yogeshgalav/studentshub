@@ -168,8 +168,7 @@ class ClassroomController extends Controller
         ->whereIn('interest.user_id',$classmates->id)
         ->select(DB::raw('intr.total_views + (intr.total_likes*3) + (intr.total_posts*7)'))
         ->get();
-        for($classmates_interests as $interest){
-      
-        }
+        
+        return 'success';
     }
 }

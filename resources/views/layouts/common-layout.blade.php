@@ -21,12 +21,7 @@
             </div>
 
             <div class="main-area">
-            @if(Auth::check())
-                <div class="sidebar-section" id="sidebar-section">
-                    @include('includes.sidebar')
-                </div>
-            @endif
-
+            <div class="" />
                 <div class="content">
                     @yield('content')
                 </div>

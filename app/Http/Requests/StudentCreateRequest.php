@@ -24,14 +24,11 @@ class StudentCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'course_id'=>'nullable|numeric',
+            'course_id'=>'required|numeric',
             'course_name'=>'required',
+            'institute_id'=>'nullable|numeric',
             'institute_name'=>'required',
             'college_id'=>'nullable|alpha_num',
-            'start_year'=>'required|date_format:Y',
-            'end_year'=>'required|date_format:Y',
-            'institute_id'=>'nullable|numeric',
-            'is_prefferred'=>'required|boolean',
         ];
     }
 }
