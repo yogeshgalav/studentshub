@@ -6,12 +6,14 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use App\Channels\CustomDbChannel;
 
 class NewMessageReplyNotification extends Notification
 {
     use Queueable;
     public $scheduled_job;
-    //public $repliers;
+    public $msg_creater;
+    public $classroom;
     /**
      * Create a new notification instance.
      *
@@ -19,9 +21,9 @@ class NewMessageReplyNotification extends Notification
      */
     public function __construct($scheduled_job)
     {
-        $this->scheduled_job = $scheduled_job;
-        //$repliers = $scheduled_job -> user;
-        //$this->repliers = $scheduled_job->job_body['user'];
+        $this->scheduled_job=$scheduled_job;
+        $this->msg_creater=User::find($scheduled_job->job_body['message_user_id']);
+        $this->classroom=$scheduled_job->classroom;
     }
 
     /**
@@ -32,7 +34,7 @@ class NewMessageReplyNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return [CustomDbChannel::class];
     }
 
     /**
@@ -57,13 +59,20 @@ class NewMessageReplyNotification extends Notification
      */
     public function toDatabase($notifiable)
     {
+        $body = "";
+        if($notifiable->id===$this->msg_creater->id){
+            $body = $this->msg_creater->full_name." has replied to your message in classroom " . $this->classrom->name . ".";
+        } else {
+            $body = $this->msg_creater->full_name." has also replied to message in classroom " . $this->classrom->name . ".";
+        }
         return [
-            'title'=>'Hi '.$notifiable->full_name.',',
-            'body'=>$notifiable->full_name." replied to your message.",
+            'scheduled_job_id'=>$this->scheduled_job->id,
             'user_id'=>$notifiable->id,
-            'url'=>'/profile/'.$notifiable->id,
-            'urlName'=>'profile',
-            'urlId'=>$notifiable->id,
+            'title'=>'New Message Reply.',
+            'avatar_url'=>$this->msg_creater->avatar_url,
+            'avatar_name'=>$this->msg_creater->full_name,
+            'url'=>"/classroom/".$this->classroom->id."/messages",
+            'body' => $body,
         ];
     }
 }

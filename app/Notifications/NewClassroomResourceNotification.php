@@ -6,11 +6,14 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use App\Channels\CustomDbChannel;
 
 class NewClassroomResourceNotification extends Notification
 {
     use Queueable;
     public $scheduled_job;
+    public $user;
+    public $classroom;
     /**
      * Create a new notification instance.
      *
@@ -18,7 +21,9 @@ class NewClassroomResourceNotification extends Notification
      */
     public function __construct($scheduled_job)
     {
-        $this->scheduled_job = $scheduled_job;
+        $this->scheduled_job=$scheduled_job;
+        $this->user=$scheduled_job->user;
+        $this->classroom=$scheduled_job->classroom;
     }
 
     /**
@@ -29,7 +34,7 @@ class NewClassroomResourceNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return [CustomDbChannel::class];
     }
 
     /**
@@ -55,7 +60,13 @@ class NewClassroomResourceNotification extends Notification
     public function toDatabase($notifiable)
     {
         return [
-            'body' => $this->scheduled_job->user->full_name." added a new classroom resource."
+            'scheduled_job_id'=>$this->scheduled_job->id,
+            'user_id'=>$notifiable->id,
+            'title'=>'New Classroom Resource.',
+            'avatar_url'=>$this->user->avatar_url,
+            'avatar_name'=>$this->user->full_name,
+            'url'=>"/classroom/".$this->classroom->id."/resources",
+            'body' => $this->user->full_name." has added a new resource to the classroom " . $this->classrom->name . ".",
         ];
     }
 }
