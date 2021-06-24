@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notification;
 use App\Models\ScheduledJob;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
+use App\Channels\CustomDbChannel;
 
 class DailyAssignmentActivateNotification extends SthubAllowlistedUserNotification
 
@@ -16,6 +17,7 @@ class DailyAssignmentActivateNotification extends SthubAllowlistedUserNotificati
     use Queueable;
     public $scheduled_job;
     public $classroom;
+    public $teacher;
     public $daily_assignment;
     /**
      * Create a new notification instance.
@@ -26,10 +28,8 @@ class DailyAssignmentActivateNotification extends SthubAllowlistedUserNotificati
     {
         $this->scheduled_job = $scheduled_job;
         $this->classroom = $scheduled_job->classroom;
+        $this->teacher = $scheduled_job->user;
         $this->daily_assignment = $scheduled_job->job_body['daily_assignment'];
-        //Log::info($this->daily_assignment);
-        //Log::info($scheduled_job->job_body);
-       // $this->user_id = $user_id;
     }
 
     /**
@@ -40,7 +40,7 @@ class DailyAssignmentActivateNotification extends SthubAllowlistedUserNotificati
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return [CustomDbChannel::class];
     }
 
     /**
@@ -69,7 +69,13 @@ class DailyAssignmentActivateNotification extends SthubAllowlistedUserNotificati
         $end_time = Carbon::createFromFormat('H:i:s',$this->daily_assignment['end_time'])->format('g:i A');
        // Log::info("DA Notification");
         return [
-            'body'=>$notifiable->full_name."has scheduled a Daily Assignment for classroom ".$this->classroom->name." on ".$this->daily_assignment['attempt_date']." and it will be available from ".$start_time." to ".$end_time,
+            'scheduled_job_id'=>$this->scheduled_job->id,
+            'user_id'=>$notifiable->id,
+            'title'=>'New Daily Assignment.',
+            'avatar_url'=>$this->teacher->avatar_url,
+            'avatar_name'=>$this->teacher->full_name,
+            'url'=>"/classroom/".$this->classroom->id."/daily-assignment",
+            'body'=>$this->teacher->full_name." has scheduled a Daily Assignment for classroom ".$this->classroom->name." on ".$this->daily_assignment['attempt_date']." and it will be available from ".$start_time." to ".$end_time,
         ];
     }
 }

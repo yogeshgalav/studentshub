@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Classroom;
 use App\Models\ClassroomUser;
 use App\Models\ClassroomMessage;
+use App\Models\ScheduledJob;
 use App\Notifications\MessageAdded;
 use Illuminate\Http\Request;
 use App\Http\Requests\AddMessageRequest;
@@ -58,9 +59,18 @@ class ClassroomMessageController extends Controller
             'content'=>$request->content,
             'parent_message_id'=>$request->parent_message_id,
         ]);
-
+        if($request->parent_message_id == null ){
+            ScheduledJob::newClassroomMessageNotification($classroom);
+        } else {
+            $parent_message = ClassroomMessage::find($request->parent_message_id);
+            if ($parent_message->sender_user_id != Auth::id()) {
+                foreach ($parent_message->replies()->get() as $reply) {
+                    ScheduledJob::newClassroomReplyMessageNotification($classroom, $reply->sender()->first());
+                }
+                ScheduledJob::newClassroomReplyMessageNotification($classroom, $parent_message->sender()->first());
+            }
+        }
         // \Notification::send($classroom->users,new MessageAdded);
-
         return response()->json(['success'=>[
             'message'=>$message
         ]]);

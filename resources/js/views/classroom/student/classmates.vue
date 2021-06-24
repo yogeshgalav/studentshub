@@ -90,4 +90,10 @@
     background-color: rgb(255, 0, 0);
 }
 </style>
-<script></script>
+<script>
+export default {
+    mounted(){
+    this.axios.get('/api/classmates');
+    }
+}
+</script>

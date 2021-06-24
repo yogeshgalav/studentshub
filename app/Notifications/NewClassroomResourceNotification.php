@@ -3,29 +3,27 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
+use App\Channels\CustomDbChannel;
 
-class StudentOnboardingNotification extends SthubAllowlistedUserNotification
+class NewClassroomResourceNotification extends Notification
 {
     use Queueable;
-    private $batch_user_count;
-    private $text;
+    public $scheduled_job;
+    public $user;
+    public $classroom;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($batch_user_count)
+    public function __construct($scheduled_job)
     {
-        $this->batch_user_count=$batch_user_count;
-        
-        if($batch_user_count>0){
-            $this->text='We have found '.$batch_user_count.' users in your batch.Share knowlegde of your interest with them.';
-        }else{
-            $this->text='Share knowledge of your interest. Internet is full of knowledge, How much you have gained.';
-        }
+        $this->scheduled_job=$scheduled_job;
+        $this->user=$scheduled_job->user;
+        $this->classroom=$scheduled_job->classroom;
     }
 
     /**
@@ -36,7 +34,7 @@ class StudentOnboardingNotification extends SthubAllowlistedUserNotification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return [CustomDbChannel::class];
     }
 
     /**
@@ -62,10 +60,13 @@ class StudentOnboardingNotification extends SthubAllowlistedUserNotification
     public function toDatabase($notifiable)
     {
         return [
-            'text'=>$this->text,
-            'batch_user_count'=>$this->batch_user_count,
-            'url'=>'/share-your-knowledge',
-            'urlName'=>'sharePost',
+            'scheduled_job_id'=>$this->scheduled_job->id,
+            'user_id'=>$notifiable->id,
+            'title'=>'New Classroom Resource.',
+            'avatar_url'=>$this->user->avatar_url,
+            'avatar_name'=>$this->user->full_name,
+            'url'=>"/classroom/".$this->classroom->id."/resources",
+            'body' => $this->user->full_name." has added a new resource to the classroom " . $this->classrom->name . ".",
         ];
     }
 }

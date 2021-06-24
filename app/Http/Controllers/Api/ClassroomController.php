@@ -158,4 +158,18 @@ class ClassroomController extends Controller
 
         return response()->json('success');
     }
+    public function getClassmates(){
+        $classmates = DB::table('users as us')
+        ->leftjoin('classroom_users as cu','cu.user_id','=','us.id')
+        ->whereIn('cu.classroom_id',Auth::user()->getClassroomIds())
+        ->select('us.id','us.full_name')
+        ->get();
+        $classmates_interests = DB('interest as intr')
+        ->whereIn('interest.user_id',$classmates->id)
+        ->select(DB::raw('intr.total_views + (intr.total_likes*3) + (intr.total_posts*7)'))
+        ->get();
+        for($classmates_interests as $interest){
+      
+        }
+    }
 }
