@@ -111,14 +111,14 @@ class ScheduledJob extends Model
             'classroom_id'=> $classroom->id,
         ]);
     }
-    public static function newClassroomReplyMessageNotification($user){
-        Log::info($user);
+    public static function newClassroomReplyMessageNotification($classroom, $user){
         return self::create([
             'run_at' => Carbon::now('UTC'),
             'job_type' => SendNotificationJob::class,
-            'job_body' => json_encode(['user'=> $user]),
+            'job_type' => json_encode(['message_user_id'=>Auth::id()]),
             'notification_class_name' => NewMessageReplyNotification::class,
-            'scheduled_by_user_id'=>Auth::id(),
+            'scheduled_by_user_id'=>$user->id,
+            'classroom_id'=> $classroom->id,
         ]);
     }
 }

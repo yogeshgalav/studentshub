@@ -14,6 +14,7 @@ use App\Models\ScheduledJob;
 use Carbon\Carbon;
 use NotificationChannels\WebPush\WebPushMessage;
 use NotificationChannels\WebPush\WebPushChannel;
+
 class NewUserWelcomeNotification extends SthubAllowlistedUserNotification
 {
     use Queueable;

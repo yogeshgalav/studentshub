@@ -6,11 +6,14 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use App\Channels\CustomDbChannel;
 
 class NewClassroomMessageNotification extends Notification
 {
     use Queueable;
     public $scheduled_job;
+    public $msg_user;
+    public $classroom;
     /**
      * Create a new notification instance.
      *
@@ -19,6 +22,8 @@ class NewClassroomMessageNotification extends Notification
     public function __construct($scheduled_job)
     {
         $this->scheduled_job=$scheduled_job;
+        $this->msg_user=$scheduled_job->user;
+        $this->classroom=$scheduled_job->classroom;
     }
 
     /**
@@ -29,7 +34,7 @@ class NewClassroomMessageNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return [CustomDbChannel::class];
     }
 
     /**
@@ -55,7 +60,13 @@ class NewClassroomMessageNotification extends Notification
     public function toDatabase($notifiable)
     {
         return [
-            'body' => $this->scheduled_job->user->full_name." added a new message, You can check it in Classroom Messages"
+            'scheduled_job_id'=>$this->scheduled_job->id,
+            'user_id'=>$notifiable->id,
+            'title'=>'New Classroom Message.',
+            'avatar_url'=>$this->msg_user->avatar_url,
+            'avatar_name'=>$this->msg_user->full_name,
+            'url'=>"/classroom/".$this->classroom->id."/messages",
+            'body' => $this->msg_user->full_name." has added a new message to the classroom " . $this->classrom->name . ".",
         ];
     }
 }

@@ -15,14 +15,15 @@ class AlterNotificationsTable extends Migration
     {
         Schema::dropIfExists('notifications');
 
-        Schema::table('notifications', function($table){
-            $table->integer('schedule_job_id')->unsigned();
+        Schema::create('notifications', function($table){
+            $table->integer('scheduled_job_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->string('title');
             $table->string('body');
             $table->string('avatar_url');
             $table->string('avatar_name');
             $table->string('url');
+            $table->timestamps();
         });
     }
 
