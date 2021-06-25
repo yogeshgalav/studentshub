@@ -1,7 +1,7 @@
 <template>
   <section class="single_post">
-    <div class="post_view_head back_btn ">
-      <div class="back_bdtn ">
+    <div class="post_view_head">
+      <div>
         <a
           class="btn btn-white btn-rounded btn-l"
           @click="$router.go(-1)"
@@ -566,7 +566,6 @@ h6.card-title-tag.font-size-12 a {
 }
 .post_view_head {
     position: fixed;
-    bottom: 0px;
 }
 .post_view_head .dropdown-menu.show {
     display: block;
@@ -581,6 +580,37 @@ h6.card-title-tag.font-size-12 a {
 
 .post_view_head .dropdown-toggle::after {
     display: none;
+}
+.post_view_head {
+    display: flex;
+    justify-content: space-between;
+    padding: 25px;
+    width: 100%;
+    /* left: 0;
+    right: 0; */
+    position: fixed;
+    z-index: 99;
+}
+
+.post_view_head .btn-white {
+    border-radius: 50px;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+@media only screen and (max-width: 768px){
+  .post_view_head {
+        background-color: white;
+        margin-top: 0px;
+        padding: 10px;
+        box-shadow: 0 0 7px rgba(0, 0, 0, 0.12);
+        bottom: 0px;
+    }
+    .post_view_head .btn-white {
+        border: none;
+    }
 }
 .bg-gray.s_p_c {
     padding: 50px 0;

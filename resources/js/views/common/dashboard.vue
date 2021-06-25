@@ -3,12 +3,12 @@
     <div>
       <div class="col-md-7 col-12 center-col">
         <div class="row">
-          <div class="col-md-12">
-            <div class="card mb-3">
+          <div class="col-md-12 p-0">
+            <div class="card mb-3 mt-2">
               <div class="card-body">
                 <a
                   class="h-card"
-                  :href="AuthStudent ? '/share-your-knowledge' : '/education-details'"
+                  :href="AuthUser.preferred_institute_id ? '/share-your-knowledge' : '/education-details'"
                 > 
                   <img
                     src="/images/knowledge.svg"
@@ -21,11 +21,6 @@
                 </a>
               </div>
             </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-12 p-0">
             <home-post-container />
           </div>
         </div>

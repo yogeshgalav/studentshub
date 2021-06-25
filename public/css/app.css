@@ -12240,6 +12240,10 @@ button[disabled=disabled] {
   padding: 0.6rem 0.8rem !important;
 }
 
+.font-size-10 {
+  font-size: 10px !important;
+}
+
 .font-size-12 {
   font-size: 12px !important;
 }
@@ -13975,16 +13979,6 @@ a.btn.btn-white.cat_btn:after {
   display: flex;
 }
 
-.cat_sub_name p {
-  margin: 0px 10px 0 0;
-  font-size: 12px;
-}
-
-.cat_sub_name {
-  display: -webkit-box;
-  display: flex;
-}
-
 .dash_post_likes {
   display: -webkit-box;
   display: flex;
@@ -14616,31 +14610,6 @@ select.form-control.custom-select {
   margin-left: 50px;
 }
 
-.post_view_head {
-  display: -webkit-box;
-  display: flex;
-  -webkit-box-pack: justify;
-          justify-content: space-between;
-  padding: 25px;
-  width: 100%;
-  left: 0;
-  right: 0;
-  position: fixed;
-  z-index: 99;
-}
-
-.post_view_head .btn-white {
-  border-radius: 50px;
-  width: 35px;
-  height: 35px;
-  display: -webkit-box;
-  display: flex;
-  -webkit-box-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-          justify-content: center;
-}
-
 .category_btn a {
   background: #10069f;
   padding: 12px;
@@ -14728,7 +14697,7 @@ select.form-control.custom-select {
 
 .content {
   width: 80%;
-  padding: 6% 1%;
+  padding: 7% 1%;
   margin: auto;
 }
 
@@ -15185,17 +15154,6 @@ select.form-control.custom-select {
     margin-left: 0px;
   }
 
-  .post_view_head {
-    background-color: white;
-    margin-top: 0px;
-    padding: 10px;
-    box-shadow: 0 0 7px rgba(0, 0, 0, 0.12);
-  }
-
-  .post_view_head .btn-white {
-    border: none;
-  }
-
   .edu_det_page {
     padding: 0;
   }
@@ -15490,17 +15448,6 @@ select.form-control.custom-select {
     margin-left: 0px;
   }
 
-  .post_view_head {
-    background-color: white;
-    margin-top: 0px;
-    padding: 10px;
-    box-shadow: 0 0 7px rgba(0, 0, 0, 0.12);
-  }
-
-  .post_view_head .btn-white {
-    border: none;
-  }
-
   .edu_det_page {
     padding: 0;
   }
@@ -15793,17 +15740,6 @@ select.form-control.custom-select {
 
   .back_bdtn {
     margin-left: 0px;
-  }
-
-  .post_view_head {
-    background-color: white;
-    margin-top: 0px;
-    padding: 10px;
-    box-shadow: 0 0 7px rgba(0, 0, 0, 0.12);
-  }
-
-  .post_view_head .btn-white {
-    border: none;
   }
 
   .edu_det_page {

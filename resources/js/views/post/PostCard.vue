@@ -18,9 +18,9 @@
             </p>
           </div>
         </div>
-        <hr class="mb-2 mt-2">
+        <hr class="mb-1 mt-2">
         <div class="row">
-          <div class="col-md-12 cat_sub_name mb-0">
+          <div class="col-md-12 cat_sub_name font-size-12 mb-0">
             <p class="text-muted btn-category">
               {{ post.category_name }}
             </p>
@@ -32,8 +32,11 @@
             </p>
           </div>
           <div class="col-md-12">
-            <p class="font-size-24 weight-600">
+            <p class="font-size-24 weight-600 mb-0">
               {{ post.heading }}
+            </p>
+            <p class="font-size-16 mt-0">
+              {{ post.description }}
             </p>
           </div>
           <div
@@ -51,21 +54,8 @@
             </div>
             <div
               class="col-md-9 col-12"
-            >
-              <p class="dash_post_content">
-                {{ post.description }}
-              </p>
-              <div v-if="post.post_type==='document'">
-                <a
-                  :href="post.document_link"
-                  target="_blank"
-                  class="btn p-0 btn-link font-size-12"
-                  style="text-decoration: underline;"
-                >
-                  Open Link &nbsp;<i class="fa fa-arrow-right" />
-                </a>
-              </div>
-              <div v-else-if="post.post_type==='video'">
+            > 
+              <div v-if="post.post_type==='video'">
                 <router-link
                   :to="'/post/'+post.id"
                   class="btn p-0 btn-link font-size-12"
@@ -104,6 +94,13 @@
 .post_img img{
   width: 100%;
   height: 300px !important;
+}
+.cat_sub_name p {
+    margin: 5px 5px 0px 2px;
+}
+
+.cat_sub_name {
+    display: flex;
 }
 @media (max-width: 768px) {
   .post_img img{
