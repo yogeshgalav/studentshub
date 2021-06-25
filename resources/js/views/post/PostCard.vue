@@ -10,16 +10,16 @@
             />
           </div>
           <div class="info-post ml-2 dash_insititue_name">
-            <p class="usernamedash mb-0 dash_user_date">
+            <p class="font-size-14 mb-0 dash_user_date">
               {{ post.user_name }}  <span>  {{ post.time }}</span>
             </p>
-            <p class="usernamedash mb-0">
+            <p class="font-size-14 mb-0">
               {{ post.institute_name }}
             </p>
           </div>
         </div>
-        <hr>
-        <div class="row mb-1 mt-1">
+        <hr class="mb-2 mt-2">
+        <div class="row">
           <div class="col-md-12 cat_sub_name mb-0">
             <p class="text-muted btn-category">
               {{ post.category_name }}
@@ -31,10 +31,10 @@
               {{ post.subject_name }}
             </p>
           </div>
-          <div class="col-md-12 dash_board_title">
-            <h3 class="card-title weight-600 text-black mb-2">
+          <div class="col-md-12">
+            <p class="font-size-24 weight-600">
               {{ post.heading }}
-            </h3>
+            </p>
           </div>
           <div
             class="post_width"
@@ -103,7 +103,7 @@
 }
 .post_img img{
   width: 100%;
-  height: 450px !important;
+  height: 300px !important;
 }
 @media (max-width: 768px) {
   .post_img img{

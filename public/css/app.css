@@ -13985,11 +13985,6 @@ a.btn.btn-white.cat_btn:after {
   display: flex;
 }
 
-p.usernamedash.mb-0 {
-  font-size: 13px;
-  color: #868686;
-}
-
 .dash_post_likes {
   display: -webkit-box;
   display: flex;
@@ -15026,10 +15021,6 @@ select.form-control.custom-select {
             justify-content: center;
   }
 
-  p.usernamedash.mb-0 {
-    font-size: 12px;
-  }
-
   p.dash_post_content {
     font-size: 14px;
     display: block;
@@ -15335,10 +15326,6 @@ select.form-control.custom-select {
             justify-content: center;
   }
 
-  p.usernamedash.mb-0 {
-    font-size: 12px;
-  }
-
   p.dash_post_content {
     font-size: 14px;
     display: block;
@@ -15642,10 +15629,6 @@ select.form-control.custom-select {
   .social-network_singlepage {
     -webkit-box-pack: center;
             justify-content: center;
-  }
-
-  p.usernamedash.mb-0 {
-    font-size: 12px;
   }
 
   p.dash_post_content {

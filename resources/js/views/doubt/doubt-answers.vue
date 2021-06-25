@@ -15,10 +15,10 @@
                 />
               </div>
               <div class="info-post ml-2 dash_insititue_name">
-                <p class="usernamedash mb-0 dash_user_date">
+                <p class="font-size-14 mb-0 dash_user_date">
                   {{ doubt.user_name }}<span> {{ doubt.time }}</span>
                 </p>
-                <p class="usernamedash mb-0">
+                <p class="font-size-14 mb-0">
                   {{ doubt.inst_name }}
                 </p>
               </div>

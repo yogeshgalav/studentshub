@@ -203,7 +203,7 @@ class Post extends PostModel
         ->leftJoin('categories as cat','cat.id','=','po.category_id')
         ->leftJoin('users as us','us.id','=','po.user_id')
         // ->leftJoin('facts as fa','po.id','=','fa.post_id')
-        ->select(['po.id as id','po.post_heading as heading','po.post_description as description','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','sub.subject_name','po.primary_image_path as image_path',
+        ->select(['po.id as id','po.post_heading as heading','po.post_description as description','po.post_description as content','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','sub.subject_name','po.primary_image_path as image_path',
         'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','ar.html_content as article_content','uli.like_status as user_like',
         'vd.video_id as video_id','fc.image_path as fact_image_path','do.link as document_link'
         ])->get();
