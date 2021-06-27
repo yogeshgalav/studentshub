@@ -82,21 +82,25 @@ class DoubtController extends Controller
         }
 
         $doubts = $doubt_query
+        ->leftJoin('doubt_answers as ans','doubts.id','=','ans.doubt_id')
+        ->leftJoin('likes as li',function($join){
+            $join->on('doubts.id','=','li.likable_id')->where('li.likable_type','=','App\Models\Doubt')->where('li.like_status','=',1);
+        })
+        ->leftJoin('likes as uli',function($join){
+            $join->on('doubts.id','=','uli.likable_id')
+            ->where('uli.likable_type','=','App\Models\Doubt')
+            ->where('uli.user_id','=',Auth::id());
+        })
         ->select('us.full_name as user_name','us.avatar_url as profile_image','sub.subject_name','inst.name as institute_name',
-        'doubts.question','doubts.created_at','doubts.id')
+        'doubts.question','doubts.created_at','doubts.id','uli.like_status as user_like',
+        DB::raw('COUNT(distinct li.user_id) as total_likes'),
+        DB::raw('COUNT(distinct ans.user_id) as total_answers'))
+        ->groupBy('us.full_name','us.avatar_url','sub.subject_name','inst.name',
+        'doubts.question','doubts.created_at','doubts.id','uli.like_status')
         ->orderBy('doubts.created_at','DESC')
         ->get();
 
         foreach($doubts as $doubt){
-            $doubt_content = DB::table('doubts')->where('doubts.id',$doubt->id)
-            ->leftJoin('doubt_answers as ans','doubts.id','=','ans.doubt_id')
-            ->leftJoin('likes as li',function($join){
-                $join->on('doubts.id','=','li.likable_id')->where('li.likable_type','=','App\Models\Doubt')->where('li.like_status','=',1);
-            })
-            ->select(DB::raw('COUNT(distinct li.user_id) as total_likes'),DB::raw('COUNT(distinct ans.user_id) as total_answers'))
-            ->first();
-            $doubt->total_likes=$doubt_content->total_likes;
-            $doubt->total_answers=$doubt_content->total_answers;
             $doubt->time=Carbon::createFromTimeStamp(strtotime($doubt->created_at))->diffForHumans();
         }
 

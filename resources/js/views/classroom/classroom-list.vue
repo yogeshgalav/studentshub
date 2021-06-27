@@ -73,7 +73,7 @@
         <div
           v-for="(classroom, index) in classroomList"
           :key="index"
-          class="col-md-4"
+          class="col-md-4 mb-2"
         >
           <a
             :href="'/classroom/'+classroom.id"

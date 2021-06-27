@@ -13,13 +13,13 @@ class CreateInterestTable extends Migration
      */
     public function up()
     {
-        Schema::create('interest', function (Blueprint $table) {
+        Schema::create('interests', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id')->unsigned();
             $table->integer('category_id')->unsigned();
-            $table->integer('total_views');
-            $table->integer('total_likes');
-            $table->integer('total_posts');
+            $table->integer('total_views')->default(0);
+            $table->integer('total_likes')->default(0);
+            $table->integer('total_posts')->default(0);
             $table->timestamps();
         });
     }

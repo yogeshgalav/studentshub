@@ -12367,6 +12367,21 @@ button[disabled=disabled] {
 
 .card {
   box-shadow: 0px 2px 50px rgba(0, 0, 0, 0.15) !important;
+  background-color: white;
+  border-radius: 4px;
+  padding: 10px 10px;
+}
+
+.post_category {
+  margin: 5px 5px 0px 2px;
+  background: #eee;
+  border-radius: 20px;
+  padding: 5px 15px;
+}
+
+.d-flex {
+  display: -webkit-box;
+  display: flex;
 }
 
 .border-radius-8 {
@@ -14016,13 +14031,6 @@ a.btn.btn-white.cat_btn:after {
   width: 80%;
 }
 
-.dash_card {
-  background-color: white;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
-  padding: 10px 10px;
-}
-
 .btn:focus {
   box-shadow: none;
   outline: none;
@@ -14698,7 +14706,6 @@ select.form-control.custom-select {
 .content {
   width: 80%;
   padding: 7% 1%;
-  margin: auto;
 }
 
 @media (max-width: 1200px) {
@@ -14757,10 +14764,6 @@ select.form-control.custom-select {
   .full-size .classmates-section {
     padding-left: 0px !important;
     padding-right: 0px !important;
-  }
-
-  .content {
-    padding: 35% 0px !important;
   }
 
   .dropdown-menu.show {

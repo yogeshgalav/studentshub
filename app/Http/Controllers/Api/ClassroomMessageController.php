@@ -25,23 +25,24 @@ class ClassroomMessageController extends Controller
         ->leftJoin('likes as li',function($join){
             $join->on('classroom_messages.id','=','li.likable_id')->where('li.likable_type','=','App\Models\ClassroomMessage')->where('li.like_status','=',1);
         })
-        // ->leftJoin('likes as uli',function($join){
-        //     $join->on('classroom_messages.id','=','uli.likable_id')->where('uli.likable_type','=','App\Models\ClassroomMessage')->where('uli.user_id','=',Auth::id());
-        // })
-        ->select('classroom_messages.id', 'classroom_messages.sender_user_id as user_id', 'classroom_messages.classroom_id','classroom_messages.content','classroom_messages.created_at','us.full_name as user_name','us.avatar_url',
+        ->leftJoin('likes as uli',function($join){
+            $join->on('classroom_messages.id','=','uli.likable_id')->where('uli.likable_type','=','App\Models\ClassroomMessage')->where('uli.user_id','=',Auth::id());
+        })
+        ->select('classroom_messages.id', 'classroom_messages.sender_user_id as user_id', 'classroom_messages.classroom_id','classroom_messages.content','classroom_messages.created_at',
+        'us.full_name as user_name','us.avatar_url','uli.like_status as user_like',
         'cs.name as classroom_name', DB::raw('COUNT(distinct li.user_id) as total_likes'));
         
         
-        if($classroomId)
-        {
+        if ($classroomId) {
             $messagequery = $messagequery->where('classroom_id',$classroomId);
-        }else{
-           
-            
+        } else {
             $messagequery = $messagequery->whereIn('classroom_id',Auth::user()->getClassroomIds());
         }
         $messages = $messagequery->orderBy('classroom_messages.created_at','DESC')
-        ->groupBy(['classroom_messages.id', 'classroom_messages.sender_user_id', 'classroom_messages.classroom_id','classroom_messages.content','classroom_messages.created_at','us.full_name','us.avatar_url','cs.name'])->get();
+        ->groupBy([
+        'classroom_messages.id', 'classroom_messages.sender_user_id', 'classroom_messages.classroom_id','classroom_messages.content','classroom_messages.created_at',
+        'us.full_name','us.avatar_url','cs.name','uli.like_status'])
+        ->get();
 
         foreach($messages as $message){
             $message->time = Carbon::createFromTimeStamp(strtotime($message->created_at))->diffForHumans();

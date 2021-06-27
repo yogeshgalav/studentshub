@@ -1,5 +1,5 @@
 <template>
-  <div class="dash_card card mb-2">
+  <div class=" card mb-2">
     <div class="card_post">
       <div class="card_box">
         <div class="dashboard_post">
@@ -20,41 +20,25 @@
         </div>
         <hr class="mb-1 mt-2">
         <div class="row">
-          <div class="col-md-12 cat_sub_name font-size-12 mb-0">
-            <p class="text-muted btn-category">
-              {{ post.category_name }}
-            </p>
-            <p
-              v-if="post.subject_name" 
-              class="text-muted btn-category"
-            >
-              {{ post.subject_name }}
-            </p>
-          </div>
-          <div class="col-md-12">
+          <div class="col-md-8">
+            <div class="d-flex font-size-12 mb-0">
+              <p class="text-muted post_category">
+                {{ post.category_name }}
+              </p>
+              <p
+                v-if="post.subject_name" 
+                class="text-muted post_category"
+              >
+                {{ post.subject_name }}
+              </p>
+            </div>
             <p class="font-size-24 weight-600 mb-0">
               {{ post.heading }}
             </p>
             <p class="font-size-16 mt-0">
               {{ post.description }}
             </p>
-          </div>
-          <div
-            class="post_width"
-            @click="setPostView(post)"
-          >
-            <div
-              v-if="post.image_path"
-              class="col-md-12 post_img mb-2"
-            >
-              <img
-                v-lazy="post.image_path"
-                alt="Card image cap"
-              >
-            </div>
-            <div
-              class="col-md-9 col-12"
-            > 
+            <div class="">
               <div v-if="post.post_type==='video'">
                 <router-link
                   :to="'/post/'+post.id"
@@ -75,10 +59,26 @@
               </div>
             </div>
           </div>
+          <div
+            class="col-md-4 post_width"
+            @click="setPostView(post)"
+          >
+            <div
+              v-if="post.image_path"
+              class="post_img mt-2"
+            >
+              <img
+                v-lazy="post.image_path"
+                alt="Card image cap"
+              >
+            </div>
+          </div>
         </div>
         <hr>
         <like-component
-          :post="post"
+          :user-like="post.user_like ? true : false"
+          :total-likes="post.total_likes"
+          :likable-id="post.id"
           likable-type="post"
         />
       </div>
@@ -86,21 +86,9 @@
   </div>
 </template>
 <style scoped>
-.btn-category {
-  background: #eee;
-  border-radius: 20px;
-  padding: 5px 15px;
-}
 .post_img img{
   width: 100%;
-  height: 300px !important;
-}
-.cat_sub_name p {
-    margin: 5px 5px 0px 2px;
-}
-
-.cat_sub_name {
-    display: flex;
+  height: 200px !important;
 }
 @media (max-width: 768px) {
   .post_img img{

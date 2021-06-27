@@ -10,32 +10,27 @@
     >
       <p
         v-if="like_active"
-        class="text-primary pl-0 pr-0"
+        class="text-primary"
       >
         <span><i class="fas fa-thumbs-up text-primary" />&nbsp;</span>
-        {{ post.total_likes + 1 }} Like
+        {{ totalLikes + 1 }} Like
+      </p>
+      <p 
+        v-else-if="userLike"
+        class="text-primary"
+      >
+        <span><i class="far fa-thumbs-up text-primary" />&nbsp;</span>
+        {{ totalLikes }} Like
+      </p>
+      <p 
+        v-else-if="totalLikes===0"
+      >
+        <span><i class="far fa-thumbs-up" />&nbsp;</span>
+        Like
       </p>
       <p v-else>
         <span><i class="far fa-thumbs-up" />&nbsp;</span>
-        {{ post.total_likes }} Like
-      </p>
-    </button>
-    <button
-      v-if="showDislike"
-      type="button"
-      class="btn"
-      @click="sendUserDislike()"
-    >
-      <p
-        v-if="dislike_active"
-        class="text-primary pl-0 pr-0"
-      >
-        <span><i class="fas fa-thumbs-down text-primary" />&nbsp;</span>
-        {{ post.total_likes + 1 }} Dislike
-      </p>
-      <p v-else>
-        <span><i class="far fa-thumbs-down" />&nbsp;</span>
-        {{ post.total_likes }} Dislike
+        {{ totalLikes }} Like
       </p>
     </button>
     <button      
@@ -57,18 +52,23 @@
 <script>
 export default {
 	props:{
-		'post':{
-			'type':Object,
+		'userLike':{
+			'type':Boolean,
+			'required':false,
+			'default':false,
+		},
+		'totalLikes':{
+			'type':Number,
+			'required':true,
+			'default':0,
+		},
+		'likableId':{
+			'type':Number,
 			'required':true,
 		},
 		'likableType':{
 			'type':String,
 			'required':true,
-		},
-		'showDislike':{
-			'type':Boolean,
-			'default':true,
-			'required':false,
 		},
 		'showReply':{
 			'type':Boolean,
@@ -78,21 +78,9 @@ export default {
 	},
 	data(){
 		return {
-			user_like:'',
 			like_active:false,
-			dislike_active:false,
 			reply_active:false,
 		};
-	},
-	watch: {
-		post(val) {
-			if(val.user_like === 1){
-				this.like_active = true;
-			}
-			else if(val.user_like === 0){
-				this.dislike_active = true;
-			}
-		}
 	},
 	methods:{
 		reply(){
@@ -100,37 +88,12 @@ export default {
 			this.reply_active = true;
 		},
 		sendUserLike() {
-			let method = (this.like_active === true) ? 'delete' : 'add';
 			this.like_active = !this.like_active;
-			this.dislike_active = false;
 			this.axios.post('/api/user-like/'+this.likableType, {
-				likable_id: this.post.id,
-				type: 'like',
-				method,
-			}).then(resp => {
-				this.user_like = resp.data.success.user_like;
-				this.like_active = this.user_like===1 ? true : false;
-				this.dislike_active = this.user_like===0 ? true : false;
+				likable_id: this.likableId,
+				likable_type: this.likableType,
 			}).catch(err => {
-				this.like_active = this.user_like===1 ? true : false;
-				this.dislike_active = this.user_like===0 ? true : false;
-			});
-		},
-		sendUserDislike() {
-			let method = (this.dislike_active === true) ? 'delete' : 'add';
-			this.dislike_active = !this.dislike_active;
-			this.like_active = false;
-			this.axios.post('/api/user-like/'+this.likableType, {
-				likable_id: this.post.id,
-				type: 'dislike',
-				method,
-			}).then(resp => {
-				this.user_like = resp.data.success.user_like;
-				this.dislike_active = this.user_like===0 ? true : false;
-				this.like_active = this.user_like === 1 ? true : false;
-			}).catch(err => {
-				this.dislike_active = this.user_like===0 ? true : false;
-				this.like_active = this.user_like === 1 ? true : false;
+				this.like_active = !this.like_active;
 			});
 		},
 	}

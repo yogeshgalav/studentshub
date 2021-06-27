@@ -442,9 +442,20 @@ button[disabled="disabled"] {
 
 .card {
     box-shadow: 0px 2px 50px rgba(0, 0, 0, 0.15) !important;
-    // padding: 20px 10px;
+    background-color: white;
+    border-radius: 4px;
+    padding: 10px 10px;
+}
+.post_category{
+    margin: 5px 5px 0px 2px;
+    background: #eee;
+    border-radius: 20px;
+    padding: 5px 15px;
 }
 
+.d-flex {
+    display: flex;
+}
 // border-radius
 .border-radius-8 {
     border-radius: 8px !important;
@@ -1919,12 +1930,6 @@ a.btn.btn-white.cat_btn:after {
 .dash_search.search_box {
     width: 80%;
 }
-.dash_card {
-    background-color: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-    padding: 10px 10px;
-}
 .btn:focus {
     box-shadow: none;
     outline: none;
@@ -2507,7 +2512,6 @@ select.form-control.custom-select {
 .content {
     width: 80%;
     padding: 7% 1%;
-    margin: auto;
 }
 
 @media (max-width: 1200px) {
@@ -2558,9 +2562,6 @@ select.form-control.custom-select {
         padding-right: 0px !important;
     }
 
-    .content{
-        padding: 35% 0px !important;
-    }
     .dropdown-menu.show{
         position: fixed !important;
         top: 120px !important;

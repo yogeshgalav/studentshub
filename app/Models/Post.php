@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
 use Auth;
+use DB;
 use Carbon\Carbon;
 
 class Post extends Model
@@ -75,12 +76,11 @@ class Post extends Model
     public static function boot() {
         parent::boot();
         static::created(function (Post $post) {
-               Interest::where([
+               Interest::updateOrCreate([
                'user_id'=>$post->user_id,
                'category_id'=>$post->category_id,
-               ])
-               ->update([
-               'total_posts'=>'total_posts'+1
+               ], [
+               'total_posts'=>DB::raw('total_posts+1'),
                ]);
         });
     }

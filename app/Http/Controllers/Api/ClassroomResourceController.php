@@ -31,6 +31,10 @@ class ClassroomResourceController extends Controller
         
         $resources = ClassroomResource::where('classroom_id',$classroomId)
         ->where('unit_id', $current_unit)
+        ->leftJoin('likes as uli',function($join){
+            $join->on('classroom_resources.id','=','uli.likable_id')->where('uli.likable_type','=','App\Models\ClassroomResources')->where('uli.user_id','=',Auth::id());
+        })
+        ->select('classroom_resources.*', 'uli.like_status as user_like')
         ->orderBy('created_at', 'DESC')
         ->get();
 
@@ -83,7 +87,8 @@ class ClassroomResourceController extends Controller
             }
 
             $post->post_description = $request->description;
-            $post->category_id=$classroom->course()->category_id;
+            $post->category_id=$classroom->course->category_id;
+            $post->user_institute_id=$classroom->institute_id;
             $post->save();
 
             SthubPost::create([

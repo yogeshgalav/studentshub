@@ -1,9 +1,9 @@
 <template>
   <main>
     <div>
-      <div class="col-md-7 col-12 center-col">
+      <div class="col-md-10 col-sm-12">
         <div class="row">
-          <div class="col-md-12 p-0">
+          <div class="col-md-12">
             <div class="card mb-3 mt-2">
               <div class="card-body">
                 <a
@@ -21,66 +21,68 @@
                 </a>
               </div>
             </div>
-            <home-post-container />
+            <div id="infinite-list">
+              <div
+                v-for="(post,index) in posts"
+                :key="index"
+              >
+                <post-card :post="post" />
+              </div>
+
+              <div class=" card mb-1 border-0 text-center">
+                <p
+                  class="mb-0"
+                  @click="loadPosts"
+                >
+                  Load More...
+                </p>
+                <loading
+                  :active.sync="showLoader"
+                  :color="'#10069F'"
+                  :loader="'bars'"
+                  :width="250"
+                  :is-full-page="true"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </main>
 </template>
-<style scoped>
-.main-habit-builder {
-  margin: auto;
-}
-
-.main-habit-builder .btn-default {
-  background: #fff !important;
-  box-shadow: 2px 2px 2px #bbbbcc;
-  border: 1px solid #eee;
-  font-size: 17px;
-  color: #bbbbcc !important;
-  font-weight: bold;
-  margin-right: 20px;
-  margin-bottom: 5px;
-}
-.share {
-  position: fixed;
-  z-index: 999;
-}
-.main-habit-builder input {
-  color: #bbbbcc;
-}
-
-.main-habit-builder .card {
-  padding: 20px !important;
-}
-
-.main-habit-builder h2 {
-  font-size: 36px;
-  font-weight: 600;
-  color: #000;
-}
-
-.main-habit-builder p {
-  font-weight: bold;
-  color: #000;
-  margin: 2px 0px 2px 0px;
-}
-</style>
-
 <script>
-import HomePostContainer from '../post-containers/HomePostContainer';
+import { mapState } from 'vuex';
+import PostCard from '../post/PostCard.vue';
 
 export default {
 	components: {
-		HomePostContainer
+		PostCard
 	},
 	data() {
-		return {};
+		return {
+			showLoader: false
+		};
+	},
+	computed: {
+		...mapState({
+			posts: state => state.common.dashboardPosts
+		})
+	},
+	mounted() {
+		this.loadPosts();
 	},
 	methods: {
-		trans: function(string, defaultString) {
-			return this.$trans('home', string, defaultString);
+		loadPosts(){
+			var route= '/get-posts';
+			var params='';
+			if(this.$route.name==='search'){
+				params='query='+this.$route.query.query;
+			}
+			this.showLoader = true;
+			this.$store.dispatch('common/getDashboardPosts',{route:route,params:params}).then(() => {
+				this.showLoader = false;
+			});
 		}
 	}
 };

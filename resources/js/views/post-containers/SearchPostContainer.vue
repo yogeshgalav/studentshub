@@ -17,7 +17,7 @@
 
     <div
       v-if="posts.length" 
-      class="dash_card card mb-1 border-0 text-center"
+      class=" card mb-1 border-0 text-center"
     >
       <p
         class="mb-0"
