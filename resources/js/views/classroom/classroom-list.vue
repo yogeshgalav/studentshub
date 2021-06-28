@@ -46,6 +46,23 @@
         </div>
       </div>
     </div>
+    <div
+      v-if="AuthUser.role_intended==='student' && !classroomList.length"
+      class="card"
+    >
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+            <p>
+              Ask your teacher to share Join ID to join thier classroom.
+            </p>
+            <p>
+              Classrooms will help you to visualize your progress and ease your learning.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
     <div>
       <modal
         ref="joinClassroomModal"
@@ -76,7 +93,7 @@
           class="col-md-4 mb-2"
         >
           <a
-            :href="'/classroom/'+classroom.id"
+            :href="'/classroom/'+classroom.classroom_id"
             class="card rounded-lg pt-3 pb-3 bg-light text-center"
             style="text-center"
           >
@@ -94,24 +111,22 @@
               {{ classroom.subject_name }}
             </h3>
             <h4 class="font-weight-normal text-muted">
-              {{ classroom.name }}
+              {{ classroom.classroom_name }}
             </h4>
           </a>
         </div>
       </div>
     </div>
 
-    <div class="card mt-3 mb-3">
-      <div class="card-header">
-        Details
-      </div>
-      <div class="card-body">
-        <vue-table-component
-          :columns="classroomColumns"
-          :rows="classroomRows"
-        />
-      </div>
-    </div>
+    <accordion
+      title="Details"
+      :aria-expanded="true"
+    >
+      <vue-table-component
+        :columns="classroomColumns"
+        :rows="classroomList"
+      />
+    </accordion>
   </div>
 </template>
 <style scoped>
@@ -123,19 +138,20 @@
 import Modal from '../../components/VueNiceModal';
 import swal from '../../components/swal';
 import VueTableComponent from '../../../../resources/js/components/vue-table-component';
+import Accordion from '../../components/accordion.vue';
 
 export default {
 	components:{
 		Modal,
-		VueTableComponent
+		VueTableComponent,
+		Accordion
 	},
-	props: ['classroomList'],
 	data() {
 		return {
 			id_error: '',
-			showLoader: false,
+			showLoader: true,
 			join_classroom_name: '',
-			classroomRows:[],
+			classroomList:[],
 			classroomColumns: [
 				{
 					label: 'Classroom',
@@ -143,7 +159,7 @@ export default {
 				},
 				{
 					label: 'Teacher',
-					field: 'teacher',
+					field: 'teacher_name',
 				},
 				{
 					label: 'Subject',
@@ -182,7 +198,8 @@ export default {
 	},
 	mounted(){
 		this.axios.get('/api/classroom-list-details').then((resp)=>{
-			this.classroomRows=resp.data.success.classrooms;
+			this.classroomList=resp.data.success.classrooms;
+			this.showLoader=false;
 		});
 	},
 	methods:{

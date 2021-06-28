@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <div class="card-header p-0 ">
+    <div class="card-header p-0">
       <div class="tab__header">
         <a
           href="#"
@@ -29,8 +29,11 @@
     </div>
   </div>
 </template>
-<style lang="scss">
+<style scoped lang="scss">
     @import 'resources/sass/_variables.scss';
+    .card {
+      padding:0 !important;
+    }
     .tab__header {
         background: #fbfbfb;
     }

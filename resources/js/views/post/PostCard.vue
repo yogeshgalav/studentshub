@@ -42,7 +42,7 @@
               <div v-if="post.post_type==='video'">
                 <router-link
                   :to="'/post/'+post.id"
-                  class="btn p-0 btn-link font-size-12"
+                  class="btn p-0 btn-link font-size-16"
                   style="text-decoration: underline;"
                 >
                   Watch Continue &nbsp;<i class="fa fa-arrow-right" />
@@ -51,7 +51,7 @@
               <div v-else>
                 <router-link
                   :to="'/post/'+post.id"
-                  class="btn p-0 btn-link font-size-12"
+                  class="btn p-0 btn-link font-size-16"
                   style="text-decoration: underline;"
                 >
                   Read Continue &nbsp;<i class="fa fa-arrow-right" />

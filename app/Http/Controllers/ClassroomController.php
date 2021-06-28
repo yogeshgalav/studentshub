@@ -124,19 +124,7 @@ class ClassroomController extends Controller
         ->with('course_levels',$course_levels);
     }
     public function classroomListPage(){
-        $classroom_list = DB::table('classrooms as cs')
-        //->join('batches as bt','bt.id','=','cs.batch_id')
-        ->join('courses as co','co.id','=','cs.course_id')
-        ->join('subjects as su','su.id','=','cs.subject_id')
-        ->join('users as us','us.id','=','cs.teacher_user_id')
-        ->select('cs.id','cs.name','co.course_name','su.subject_name','su.alias as subject_alias','us.id as user_id','us.full_name as teacher_name')
-        ->whereIn('cs.id',Auth::user()->getClassroomIds())
-        ->get();
-
-        return view('classroom.classroom-list')
-        ->with([
-            'classroomList'=>$classroom_list,
-        ]);
+        return view('classroom.classroom-list');
     }
 
     public function classroomResoucePage(){

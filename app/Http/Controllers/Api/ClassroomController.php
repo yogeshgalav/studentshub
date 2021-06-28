@@ -116,8 +116,9 @@ class ClassroomController extends Controller
         ->leftjoin('daily_reports','daily_assignments.id','=','daily_reports.daily_assignment_id')
         ->select(DB::raw('COUNT(classroom_resources.id) as total_resources'),
                 'subjects.subject_name as subject_name',
-                'users.full_name AS teacher',
+                'users.full_name AS teacher_name',
                 'cl.classroom_join_id as join_id',
+                'cl.id as classroom_id',
                 'cl.name as classroom_name',
                 DB::raw('COUNT(distinct classroom_users.user_id) AS total_students'),
                 DB::raw('COUNT(distinct daily_assignments.id) AS total_daily_assignments'),

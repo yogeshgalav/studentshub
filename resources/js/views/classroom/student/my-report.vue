@@ -1,13 +1,13 @@
 <template>
   <div>
     <div>
-      <h1>My Report</h1>
+      <h1>My Reports</h1>
       <hr>
     </div>
-    <accordion
+    <!-- <accordion
       :title="'Overall Classroom Report'"
       :aria-expanded="true"
-    />
+    /> -->
     <div
       v-for="(classroom, index) in classrooms"
       :key="index"

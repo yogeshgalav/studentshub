@@ -1,55 +1,60 @@
 <template>
-  <main>
-    <div>
+  <div>
+    <div class="row">
       <div class="col-md-10 col-sm-12">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="card mb-3 mt-2">
-              <div class="card-body">
-                <a
-                  class="h-card"
-                  :href="AuthUser.preferred_institute_id ? '/share-your-knowledge' : '/education-details'"
-                > 
-                  <img
-                    src="/images/knowledge.svg"
-                    alt=""
-                  >&emsp;
-                  Share Your Knowledge &emsp;<span><i
-                    class="fa fa-arrow-right"
-                    aria-hidden="true"
-                  /></span>  
-                </a>
-              </div>
+        <div class="card mb-3 mt-2 pt-0 pb-0">
+          <div class="card-body">
+            <div class="row pl-3">
+              <profile-image
+                size="small"
+                :user-name="AuthUser.full_name"
+                :avatar="AuthUser.avatar_url"
+              />&nbsp;&nbsp;
+              {{ AuthUser.full_name }}
             </div>
-            <div id="infinite-list">
-              <div
-                v-for="(post,index) in posts"
-                :key="index"
-              >
-                <post-card :post="post" />
-              </div>
+            <a
+              :href="AuthUser.preferred_institute_id ? '/share-your-knowledge' : '/education-details'"
+            > 
+              <img
+                src="/images/knowledge.svg"
+                alt=""
+              >&emsp;
+              Share Your Knowledge &emsp;<span><i
+                class="fa fa-arrow-right"
+                aria-hidden="true"
+              /></span>  
+            </a>
+            </profile-image>
+          </div>
+        </div>
+        <div id="infinite-list">
+          <div
+            v-for="(post,index) in posts"
+            :key="index"
+          >
+            <post-card :post="post" />
+          </div>
 
-              <div class=" card mb-1 border-0 text-center">
-                <p
-                  class="mb-0"
-                  @click="loadPosts"
-                >
-                  Load More...
-                </p>
-                <loading
-                  :active.sync="showLoader"
-                  :color="'#10069F'"
-                  :loader="'bars'"
-                  :width="250"
-                  :is-full-page="true"
-                />
-              </div>
-            </div>
+          <div class=" card mb-1 border-0 text-center">
+            <p
+              class="mb-0"
+              @click="loadPosts"
+            >
+              Load More...
+            </p>
+            <loading
+              :active.sync="showLoader"
+              :color="'#10069F'"
+              :loader="'bars'"
+              :width="250"
+              :is-full-page="true"
+            />
           </div>
         </div>
       </div>
     </div>
-  </main>
+  </div>
+  </div>
 </template>
 <script>
 import { mapState } from 'vuex';
