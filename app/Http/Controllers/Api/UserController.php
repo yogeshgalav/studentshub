@@ -25,20 +25,12 @@ class UserController extends Controller
             $join->on('po.id','=','li.likable_id')->where('li.likable_type','=','App\Models\Post')->where('li.user_id','=',Auth::id());
         })
         ->leftJoin('posts as upo',function($join){
-            $join->on('upo.subject_id','=','sub.id')->where('upo.user_id','=',Auth::id());
+            $join->on('upo.category_id','=','cat.id')->where('upo.user_id','=',Auth::id());
         })
         ->select('cat.name',DB::raw('COUNT(distinct li.likable_id) as total_likes'),DB::raw('COUNT(distinct pv.post_id) as total_views'),DB::raw('COUNT(distinct upo.id) as total_posts'))
         ->groupBy('cat.id','cat.name')
         ->get();
 
-        $total=0;
-        foreach($categories as $category){
-            $category->total=$category->total_views+($category->total_likes*3)+($category->total_posts*7);
-            $total += $category->total;
-        }
-        foreach($categories as $category){
-            $category->percent=$total>0 ? (($category->total/$total)*100) : 0;
-        }
         return response()->json(['success'=>[
             'interests'=>$categories,
             'posts'=>\Sthub::convert_from_latin1_to_utf8_recursively($post->getUserPosts($user->id))

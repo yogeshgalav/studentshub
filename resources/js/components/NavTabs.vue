@@ -2,7 +2,7 @@
   <div class="nav-tabs">
     <nav :class="[size === 'large' ? 'tabbed-nav2' : 'tabbed-nav', 'mt-3']">
       <div class="tabbed-nav1">
-        <ul class="nav">
+        <ul :class="['nav', align]">
           <li
             v-for="tab in tabs"
             :key="tab"
@@ -39,21 +39,11 @@
 </template>
 <style lang="scss">
 @import "resources/sass/_variables.scss";
-
-.tabbed-nav,
-.tabbed-nav1,
-.tabbed-nav2 {
-    position: sticky !important;
-    top: 70px !important;
-    background-color: white;
-    z-index: 9;
-}
 .nav {
     border-bottom: 1px solid rgb(185, 185, 185);
 }
 .tabbed-nav ul {
     display: flex;
-    justify-content: center;
     flex-wrap: nowrap;
     overflow-x: scroll;
     overflow-y: hidden;
@@ -188,7 +178,11 @@ export default {
 		page: {
 			type: String,
 			default: ''
-		}
+		},
+    align: {
+      type: String,
+      default: ''
+    }
 	},
 	data() {
 		return {

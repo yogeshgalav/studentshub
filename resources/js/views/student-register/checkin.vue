@@ -14,6 +14,7 @@
           <nav-tabs
             :tabs="tabs"
             :initial-tab="initialTab"
+            align="justify-center"
             @changeTab="changeTab"
           >
             <template slot="tab-heading-student">
