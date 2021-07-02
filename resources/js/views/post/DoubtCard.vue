@@ -16,83 +16,91 @@
             <p class="font-size-14 mb-0">
               {{ post.institute_name }}
             </p>
-          </div>   
-        </div> 
-        <hr>
-        <div class="row mb-1 mt-1">  
-          <div
-            class="col-md-9 col-8"
-            @click="setPostView(post)"
-          >
-            <p class="dash_post_content">
+          </div>
+        </div>
+        <hr class="mb-1 mt-2">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="d-flex font-size-12 mb-0">
+              <p class="text-muted post_category">
+                {{ post.category_name }}
+              </p>
+              <p
+                v-if="post.subject_name" 
+                class="text-muted post_category"
+              >
+                {{ post.subject_name }}
+              </p>
+            </div>
+            <p class="font-size-16 mt-2">
               {{ post.description }}
             </p>
-            <div v-if="post.post_type==='document'">
-              <a
-                :href="post.document_link"
-                target="_blank"
-                class="btn p-0 btn-link font-size-12"
-                style="text-decoration: underline;"
-              >
-                Open Link &nbsp;<i class="fa fa-arrow-right" />
-              </a>
-            </div>
-            <div v-else-if="post.post_type==='video'">
+            <div class="">
               <router-link
                 :to="'/post/'+post.id"
-                class="btn p-0 btn-link font-size-12"
-                style="text-decoration: underline;"
-              >
-                Watch Continue &nbsp;<i class="fa fa-arrow-right" />
-              </router-link>
-            </div>
-            <div v-else>
-              <router-link
-                :to="'/post/'+post.id"
-                class="btn p-0 btn-link font-size-12"
+                class="btn p-0 btn-link font-size-16"
                 style="text-decoration: underline;"
               >
                 Read Continue &nbsp;<i class="fa fa-arrow-right" />
               </router-link>
             </div>
           </div>
+          <div
+            class="col-md-4 post_width"
+            @click="setPostView(post)"
+          >
+            <div
+              v-if="post.image_path"
+              class="post_img mt-2"
+            >
+              <img
+                v-lazy="post.image_path"
+                alt="Card image cap"
+              >
+            </div>
+          </div>
         </div>
-        <hr>  
-        <div class="dash_post_likes mt-1">
-          <div class="post_like">
-            <i class="fa fa-eye" />
-            <span class="badge-text"> <span> {{ post.total_views }} Views</span></span>
-          </div>
-          <div class="post_like">
-            <i class="fa fa-thumbs-up" />
-            <span class="badge-text"> <span>{{ post.total_likes }} Likes</span></span>
-          </div>
-          <div class="post_like">
-            <i class="fa fa-thumbs-down" />
-            <span class="badge-text"> <span>{{ post.total_dislikes }} Dislikes</span></span>
-          </div>
-        </div>
+        <hr>
+        <like-component
+          :user-like="post.user_like ? true : false"
+          :total-likes="post.total_likes"
+          :likable-id="post.id"
+          likable-type="post"
+        />
       </div>
-      <like-component
-        :post="post"
-        likable-type="doubt"
-      />
     </div>
   </div>
 </template>
+<style scoped>
+.post_img img{
+  width: 100%;
+  height: 200px !important;
+}
+@media (max-width: 768px) {
+  .post_img img{
+  width: 100%;
+  height: auto !important;
+}
+}
+</style>
 <script>
 
-import ProfileImage from '../../components/ProfileImage';
+// import ImageSlider from './ImageSlider.vue';
+import LikeComponent from '../common/LikeComponent.vue';
+
 export default {
 	components: {
-		ProfileImage
+		LikeComponent,
+		// ImageSlider
 	},
-	props:['post', 'likableType'],
+	props:['post'],
 	methods:{
 		setPostView(post){
 			document.title = post.heading;
 			this.$store.commit('common/set_post_initial',post);
+			this.$router.push({ path: `/post/${post.id}` });
 		},
-	}
+	},
+
 };
 </script>
