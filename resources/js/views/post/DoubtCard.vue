@@ -74,13 +74,8 @@
 <style scoped>
 .post_img img{
   width: 100%;
-  height: 200px !important;
-}
-@media (max-width: 768px) {
-  .post_img img{
-  width: 100%;
+  max-height: 200px !important;
   height: auto !important;
-}
 }
 </style>
 <script>

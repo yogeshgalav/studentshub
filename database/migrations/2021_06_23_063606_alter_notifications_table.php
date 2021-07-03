@@ -23,6 +23,7 @@ class AlterNotificationsTable extends Migration
             $table->string('avatar_url');
             $table->string('avatar_name');
             $table->string('url');
+            $table->dateTime('read_at')->nullable();
             $table->timestamps();
         });
     }

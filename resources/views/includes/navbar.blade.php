@@ -20,7 +20,7 @@
             @include('includes.search-form')
         </div>
         <div class="notification-dropdown">
-            <a href="#" class="btn">
+            <a href="/notifications" class="btn">
                 <i class="far fa-bell notification-icon"></i>
             </a>
         </div>
@@ -55,7 +55,7 @@
             </div>
 
             <div class="dropdown">
-                <a href="#" class="btn">
+                <a href="/notifications" class="btn">
                     <i class="far fa-bell notification-icon" style="margin-top:4px"></i>
                 </a>
             </div>

@@ -1,73 +1,38 @@
 <template>
-    <div class="full-size">
-        <div class="classmates-section col-md-7 col-sm-12">
-            <div class="classmate card mb-2">
-                <div class="row">
-                    <div class="text-center col-md-12 notification">
-                        <!-- <a
-                    :href="'/classroom/' + classroom.id"
-                    class="card rounded-lg pt-3 pb-3 bg-light  text-center"
-                    style="text-center"
-                > -->
-                        <div style="text-align: -webkit-center" class=" pl-0">
-                            <profile-image :user-name="'M'" size="large" />
-                        </div>
+  <div class="full-size">
+    <div class="classmates-section col-md-7 col-sm-12">
+      <a
+        v-for="(notification,index) in notifications"
+        :key="index"
+        :href="notification.url"
+      >
+        <div class="classmate card mb-2">
+          <div class="row">
+            <div class="text-center col-md-12 notification">
+            
+              <div
+                style="text-align: -webkit-center"
+                class=" pl-0"
+              >
+                <profile-image
+                  :user-name="notification.avatar_name"
+                  :avatar="notification.avatar_url"
+                  size="large"
+                />
+              </div>
 
-                        <!-- </a> -->
-                        <div class="notification-text">
-                            teacher has created daily assignment has created
-                            daily assignmenthas created daily assignment
-                        </div>
-                        <div class="time-gap text-grey">
-                            12 hours ago
-                        </div>
-                    </div>
-                </div>
+              <div class="notification-text text-black">
+                {{ notification.body }}
+              </div>
+            <!-- <div class="time-gap text-grey">
+              12 hours ago
+            </div> -->
             </div>
-
-            <div class="classmate card mb-2">
-                <div class="row">
-                    <div class="text-center col-md-12 notification">
-                        <!-- <a
-                    :href="'/classroom/' + classroom.id"
-                    class="card rounded-lg pt-3 pb-3 bg-light  text-center"
-                    style="text-center"
-                > -->
-                        <div style="text-align: -webkit-center" class=" pl-0">
-                            <profile-image :user-name="'M'" size="large" />
-                        </div>
-
-                        <!-- </a> -->
-                        <div class="notification-text">
-                            teacher has created daily assignment has created
-                            daily assignmenthas created daily assignment
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="classmate card mb-2">
-                <div class="row">
-                    <div class="text-center col-md-12 notification">
-                        <!-- <a
-                    :href="'/classroom/' + classroom.id"
-                    class="card rounded-lg pt-3 pb-3 bg-light  text-center"
-                    style="text-center"
-                > -->
-                        <div style="text-align: -webkit-center" class=" pl-0">
-                            <profile-image :user-name="'M'" size="large" />
-                        </div>
-
-                        <!-- </a> -->
-                        <div class="notification-text">
-                            teacher has created daily assignment has created
-                            daily assignmenthas created daily assignment
-                        </div>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
+      </a>
     </div>
+  </div>
 </template>
 <style scoped>
 .notification {
@@ -94,4 +59,17 @@
     margin: auto;
 }
 </style>
-<script></script>
+<script>
+export default {
+	data(){
+		return {
+			notifications:[],
+		};
+	},
+	mounted(){
+		this.axios.get('/api/notifications').then(resp=>{
+			this.notifications = resp.data.success.notifications;
+		});
+	}
+};
+</script>

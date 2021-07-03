@@ -20,9 +20,6 @@ Route::group(['middleware' => ['auth:api']], function () {
 
     // Notifications
     Route::get('/notifications', 'NotificationController@index');
-    Route::patch('/notifications/{id}/read', 'NotificationController@markAsRead');
-    Route::post('/notifications/mark-all-read', 'NotificationController@markAllRead');
-    Route::post('/notifications/{id}/dismiss', 'NotificationController@dismiss');
 
     // Push Subscriptions
     Route::post('/subscriptions', 'PushSubscriptionController@update');
