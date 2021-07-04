@@ -10,10 +10,11 @@ use App\Models\ScheduledJob;
 use Illuminate\Support\Facades\Log;
 use App\Channels\CustomDbChannel;
 
-class NewClassroomDoubtNotification extends Notification
+class NewDoubtNotification extends Notification
 {
     use Queueable;
     public $scheduled_job;
+    public $doubt;
     /**
      * Create a new notification instance.
      *
@@ -22,6 +23,10 @@ class NewClassroomDoubtNotification extends Notification
     public function __construct($scheduled_job)
     {
         $this->scheduled_job = $scheduled_job;
+        $this->doubt = $scheduled_job->job_body['doubt'];
+        \Log::info('sfsffs', [
+            'doubt'=>$this->doubt
+        ]);
     }
 
     /**
@@ -57,8 +62,16 @@ class NewClassroomDoubtNotification extends Notification
      */
     public function toDatabase($notifiable)
     {
+        $rand=rand(60,100);
+        $question_text = substr($this->doubt['question'],0,$rand) . '...';
         return [
-            'body' => $this->scheduled_job->user->full_name." asked a new doubt. You can answer it in Classroom Doubts."
+            'scheduled_job_id'=>$this->scheduled_job->id,
+            'user_id'=>$notifiable->id,
+            'title'=>'New Doubt.',
+            'avatar_url'=>$this->scheduled_job->user->avatar_url,
+            'avatar_name'=>$this->scheduled_job->user->full_name,
+            'url'=>"/doubt/".$this->doubt['id'],
+            'body'=>$this->scheduled_job->user->full_name.' asked a doubt, "'.$question_text.'"',
         ];
     }
 }

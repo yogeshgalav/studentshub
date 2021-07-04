@@ -66,7 +66,7 @@ class NewClassroomMessageNotification extends Notification
             'avatar_url'=>$this->msg_user->avatar_url,
             'avatar_name'=>$this->msg_user->full_name,
             'url'=>"/classroom/".$this->classroom->id."/messages",
-            'body' => $this->msg_user->full_name." has added a new message to the classroom " . $this->classrom->name . ".",
+            'body' => $this->msg_user->full_name." has added a new message to the classroom " . $this->classroom->name . ".",
         ];
     }
 }

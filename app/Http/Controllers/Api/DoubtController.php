@@ -14,7 +14,7 @@ use Arr;
 use DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
-use App\Notfications\NewClassroomDoubtNotification;
+use App\Notfications\NewDoubtNotification;
 
 class DoubtController extends Controller
 {
@@ -39,15 +39,14 @@ class DoubtController extends Controller
             $subject=Subject::getOrCreate(null, $selected_subject['subject_name'], Auth::student()->categoryId);
         }
 
-        $q = new Doubt();
-        $q->user_id = Auth::user()->id;
-        $q->question = $request->doubt;
-        $q->subject_id = $subject->id;
-        $q->institute_id = $student->instituteId;
-        $q->course_id = $student->courseId;
-        $q->classroom_id = $classroom ? $classroom->id : null;
-        $q->save();
-        ScheduledJob::newClassroomDoubtNotification($q->classroom_id);
+        $doubt = new Doubt();
+        $doubt->user_id = Auth::user()->id;
+        $doubt->question = $request->doubt;
+        $doubt->subject_id = $subject->id;
+        $doubt->institute_id = $student->instituteId;
+        $doubt->course_id = $student->courseId;
+        $doubt->save();
+        ScheduledJob::newDoubtNotification($doubt);
 
 
     DB::commit();

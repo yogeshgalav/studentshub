@@ -5,13 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Notifications\NewUserWelcomeNotification;
 use App\Notifications\NewInstituteMemberNotification;
-use App\Notifications\NewClassroomDoubtNotification;
+use App\Notifications\NewDoubtNotification;
 use App\Notifications\NewClassroomResourceNotification;
 use App\Notifications\DailyAssignmentActivateNotification;
 use App\Notifications\NewClassroomMessageNotification;
 use App\Notifications\NewMessageReplyNotification;
 use App\Jobs\SendNotificationJob;
 use App\Jobs\ClassroomNotificationJob;
+use App\Jobs\ClassmatesNotificationJob;
 use Carbon\Carbon;
 use Auth;
 use Illuminate\Support\Facades\Log;
@@ -71,13 +72,13 @@ class ScheduledJob extends Model
             'user_id'=>$user->id
         ]);
     }
-    public static function newClassroomDoubtNotification($classroom_id){
+    public static function newDoubtNotification($doubt){
         return self::create([
             'run_at' => Carbon::now('UTC'),
-            'job_type' => ClassroomNotificationJob::class,
-            'notification_class_name' => NewClassroomDoubtNotification::class,
+            'job_body' => json_encode(['doubt'=>$doubt]),
+            'job_type' => ClassmatesNotificationJob::class,
+            'notification_class_name' => NewDoubtNotification::class,
             'scheduled_by_user_id'=>Auth::id(),
-            'classroom_id'=> $classroom_id,
         ]);
     }
 

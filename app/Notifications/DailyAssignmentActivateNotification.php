@@ -11,8 +11,7 @@ use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 use App\Channels\CustomDbChannel;
 
-class DailyAssignmentActivateNotification extends SthubAllowlistedUserNotification
-
+class DailyAssignmentActivateNotification extends Notification
 {
     use Queueable;
     public $scheduled_job;

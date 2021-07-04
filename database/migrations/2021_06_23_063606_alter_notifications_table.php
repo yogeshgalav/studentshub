@@ -20,9 +20,9 @@ class AlterNotificationsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->string('title');
             $table->string('body');
-            $table->string('avatar_url');
-            $table->string('avatar_name');
-            $table->string('url');
+            $table->string('avatar_url')->nullable();
+            $table->string('avatar_name')->nullable();
+            $table->string('url')->nullable();
             $table->dateTime('read_at')->nullable();
             $table->timestamps();
         });

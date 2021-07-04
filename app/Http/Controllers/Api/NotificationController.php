@@ -22,7 +22,8 @@ class NotificationController extends Controller
         ->orderBy('created_at', 'DESC')
         ->get();
 
-        Notification::whereNull('read_at')->update(['read_at'=>now()]);
+        Notification::where('user_id',Auth::id())->whereNull('read_at')
+        ->update(['read_at'=>now()]);
 
         return response()->json(['success'=>[
             'notifications'=>$notifications

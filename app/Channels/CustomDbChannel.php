@@ -17,8 +17,8 @@ class CustomDbChannel
     {
         $message = $notification->toDatabase($notifiable);
 
-        Notification::create([
-            'schedule_job_id'=>$message['schedule_job_id'],
+        \App\Models\Notification::create([
+            'scheduled_job_id'=>$message['scheduled_job_id'],
             'title'=>$message['title'],
             'body'=>$message['body'],
             'avatar_url'=>$message['avatar_url'],
