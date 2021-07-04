@@ -24,9 +24,6 @@ class NewDoubtNotification extends Notification
     {
         $this->scheduled_job = $scheduled_job;
         $this->doubt = $scheduled_job->job_body['doubt'];
-        \Log::info('sfsffs', [
-            'doubt'=>$this->doubt
-        ]);
     }
 
     /**

@@ -548,9 +548,7 @@ export default {
 			this.courseLoading = true;
 			this.$refs.courseList.$el.focus();
 			this.axios
-				.post(this.baseUrl + '/api/search-course', {
-					searchTerm: search
-				})
+				.get(this.baseUrl + '/api/search-course?searchTerm='+search)
 				.then(resp => {
 					this.course_list = resp.data.success.courses;
 					this.course_list.find(node => {
@@ -587,9 +585,7 @@ export default {
 			};
 			this.instituteLoading = true;
 			this.axios
-				.post(this.baseUrl + '/api/search-institute', {
-					searchTerm: search
-				})
+				.get(this.baseUrl + '/api/search-institute?searchTerm='+search)
 				.then(resp => {
 					this.institute_list = resp.data.success.institutes;
 					this.institute_list.find(node => {

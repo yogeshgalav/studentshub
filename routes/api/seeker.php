@@ -14,9 +14,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('/get-categories', 'CategoryController@index');
     Route::post('/checkin/student', [App\Http\Controllers\Api\StudentController::class, 'create']);
     Route::post('/checkin/teacher', 'InstituteUserController@teacherCheckin');
-    Route::post('/search-course', [App\Http\Controllers\Api\SearchController::class, 'courseList']);
-    Route::post('/search-subject', [App\Http\Controllers\Api\SearchController::class, 'subjectList']);
-    Route::post('/search-institute', [App\Http\Controllers\Api\SearchController::class, 'instituteList']);
+    Route::get('/search-user', [App\Http\Controllers\Api\SearchController::class, 'searchUser']);
 
     // Notifications
     Route::get('/notifications', 'NotificationController@index');
@@ -24,6 +22,4 @@ Route::group(['middleware' => ['auth:api']], function () {
     // Push Subscriptions
     Route::post('/subscriptions', 'PushSubscriptionController@update');
     Route::post('/subscriptions/delete', 'PushSubscriptionController@destroy');
-
-    Route::get('/search-user', 'UserController@searchUser');
 });

@@ -12,17 +12,25 @@ class SearchController extends Controller
 {
     
     public function searchUser(Request $request){
+        if(empty($request->searchTerm)){
+            return response()->json([
+                'success'=>[
+                    'users'=>[],
+                ]
+            ]);
+        }
         $users = DB::table('users as us')->where('us.full_name', 'LIKE', $request->searchTerm.'%')
-            ->leftJoin('students as st', 'st.user_id', '=', 'us.id')
-            ->leftJoin('courses', 'courses.id', '=', 'st.course_id')
-            ->leftJoin('teachers as th', 'th.id', '=', 'th.user_id')
+            // ->leftJoin('students as st', function($join){
+            //     $join->on('st.user_id', '=', 'us.id')->where('is_preferred', 1);
+            // })
+            // ->leftJoin('courses', 'courses.id', '=', 'st.course_id')
             ->leftJoin('institutes as inst', 'inst.id', '=', 'us.preferred_institute_id')
             ->select(
-                'us.full_name as user_name',
-                'inst.name as user_institute',
-                'courses.course_name as user_course',
-                'st.id as student_id',
-                'th.id as teacher_id'
+                'us.full_name',
+                'us.avatar_url',
+                'inst.name as institute_name',
+                // 'courses.course_name as user_course',
+                // 'st.id as student_id',
             )
             ->groupBy('us.id')
             ->limit(10)->get();
@@ -36,6 +44,13 @@ class SearchController extends Controller
 
     public function courseList(Request $request)
     {
+        if(empty($request->searchTerm)){
+            return response()->json([
+                'success'=>[
+                    'courses'=>[],
+                ]
+            ]);
+        }
         $search = str_replace('.', '', $request->searchTerm);
         $courses = DB::table('courses as cor')
             ->where('cor.course_name', 'LIKE', '%' . $search . '%')
@@ -69,6 +84,13 @@ class SearchController extends Controller
     }
     public function subjectList(Request $request)
     {
+        if(empty($request->searchTerm)){
+            return response()->json([
+                'success'=>[
+                    'subjects'=>[],
+                ]
+            ]);
+        }
         $search = str_replace('.', '', $request->searchTerm);
         $subjects = DB::table('subjects as sub')
             ->where('sub.subject_name', 'LIKE', '%' . $search . '%')
@@ -85,6 +107,13 @@ class SearchController extends Controller
 
     public function instituteList(Request $request)
     {
+        if(empty($request->searchTerm)){
+            return response()->json([
+                'success'=>[
+                    'institutes'=>[],
+                ]
+            ]);
+        }
         $input = $request->searchTerm;
 
         $institutes = DB::table('institutes as ins')
@@ -101,6 +130,13 @@ class SearchController extends Controller
     }
 
     public function searchPosts(Request $request){
+        if(empty($request->searchTerm)){
+            return response()->json([
+                'success'=>[
+                    'posts'=>[],
+                ]
+            ]);
+        }
         $post=new \App\Post;
         $posts = $post->getSearchPosts($request);
 

@@ -319,9 +319,7 @@ export default {
 			};
 			this.courseLoading = true;
 			this.axios
-				.post(this.baseUrl + '/api/search-course', {
-					searchTerm: search
-				})
+				.get(this.baseUrl + '/api/search-course?searchTerm='+search)
 				.then(resp => {
 					this.course_list = resp.data.success.courses;
 					this.course_list.find(node => {
@@ -355,9 +353,7 @@ export default {
 			};
 			this.subjectLoading = true;
 			this.axios
-				.post(this.baseUrl + '/api/search-subject', {
-					searchTerm: search
-				})
+				.get(this.baseUrl + '/api/search-subject?searchTerm='+search)
 				.then(resp => {
 					this.subject_list = resp.data.success.subjects;
 					this.subject_list.find(node => {

@@ -188,9 +188,7 @@ export default {
 			};
 			this.subjectLoading = true;
 			this.axios
-				.post(this.baseUrl + '/api/search-subject', {
-					searchTerm: search
-				})
+				.get(this.baseUrl + '/api/search-subject?searchTerm='+search)
 				.then(resp => {
 					this.subject_list = resp.data.success.subjects;
 					this.subject_list.find(node => {
