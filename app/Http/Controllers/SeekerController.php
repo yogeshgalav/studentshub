@@ -46,9 +46,6 @@ class SeekerController extends Controller
             ->with('student_details', $student)
             ->with('course_levels', $course_levels);
     }
-    public function myinterestPage(){
-        return view('seeker.my-interest');
-    }
     public function notifications(){
         return view('seeker.notifications');
     }

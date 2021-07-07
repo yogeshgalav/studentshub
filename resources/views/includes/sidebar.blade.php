@@ -15,8 +15,8 @@
                     <span class="text">Doubts</span>
                 </li>
             </a>
-            <a href="/course/{{Auth::student()->courseUrl}}"
-                class="{{\App\Facades\Sthub::currentTab(Auth::student()->courseUrl) ? 'active' : ''}}">
+            <a href="/my-course"
+                class="{{\App\Facades\Sthub::currentTab('my-course') ? 'active' : ''}}">
                 <li><i class="fas fa-book-open" aria-hidden="true"></i>
                     <span class="text">My Course</span>
                 </li>
