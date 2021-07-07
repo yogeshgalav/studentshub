@@ -97,7 +97,10 @@ class GuestController extends Controller
     }
     public function  root()
     {
-        if (Auth::check()) {
+        $me = Auth::user();
+        if ($me && 'teacher'===$me->role_intended) {
+            return view('classroom.classroom-list');
+        } elseif ($me) {
             return view('seeker.posts');
         } else {
             return view('guest.welcome');
@@ -108,5 +111,11 @@ class GuestController extends Controller
         $token = $request->token;
         return view('guest.auth.reset-password')
         ->with('token',$token);
+    }
+
+    public function searchPage(Request $request)
+    {
+        return view('explore.search')
+        ->with('searchQuery', $request->qu);
     }
 }

@@ -8,7 +8,7 @@ class MultipleChoice extends Model
 {
     //
     protected $guarded = [
-        'id'
+        'id','created_at','updated_at'
     ];
 
     public function getIsCorrectAttribute($value){

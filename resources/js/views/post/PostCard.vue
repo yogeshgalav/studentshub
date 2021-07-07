@@ -1,5 +1,5 @@
 <template>
-  <div class="dash_card card mb-2">
+  <div class=" card mb-2">
     <div class="card_post">
       <div class="card_box">
         <div class="dashboard_post">
@@ -10,65 +10,39 @@
             />
           </div>
           <div class="info-post ml-2 dash_insititue_name">
-            <p class="usernamedash mb-0 dash_user_date">
+            <p class="font-size-14 mb-0 dash_user_date">
               {{ post.user_name }}  <span>  {{ post.time }}</span>
             </p>
-            <p class="usernamedash mb-0">
+            <p class="font-size-14 mb-0">
               {{ post.institute_name }}
             </p>
           </div>
         </div>
-        <hr>
-        <div class="row mb-1 mt-1">
-          <div class="col-md-12 cat_sub_name mb-0">
-            <p class="text-muted btn-category">
-              {{ post.category_name }}
-            </p>
-            <p
-              v-if="post.subject_name" 
-              class="text-muted btn-category"
-            >
-              {{ post.subject_name }}
-            </p>
-          </div>
-          <div class="col-md-12 dash_board_title">
-            <h3 class="card-title weight-600 text-black mb-2">
-              {{ post.heading }}
-            </h3>
-          </div>
-          <div
-            class="post_width"
-            @click="setPostView(post)"
-          >
-            <div
-              v-if="post.image_path"
-              class="col-md-12 post_img mb-2"
-            >
-              <img
-                v-lazy="post.image_path"
-                alt="Card image cap"
-              >
-            </div>
-            <div
-              class="col-md-9 col-12"
-            >
-              <p class="dash_post_content">
-                {{ post.description }}
+        <hr class="mb-1 mt-2">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="d-flex font-size-12 mb-0">
+              <p class="text-muted post_category">
+                {{ post.category_name }}
               </p>
-              <div v-if="post.post_type==='document'">
-                <a
-                  :href="post.document_link"
-                  target="_blank"
-                  class="btn p-0 btn-link font-size-12"
-                  style="text-decoration: underline;"
-                >
-                  Open Link &nbsp;<i class="fa fa-arrow-right" />
-                </a>
-              </div>
-              <div v-else-if="post.post_type==='video'">
+              <p
+                v-if="post.subject_name" 
+                class="text-muted post_category"
+              >
+                {{ post.subject_name }}
+              </p>
+            </div>
+            <p class="font-size-24 weight-600 mb-0">
+              {{ post.heading }}
+            </p>
+            <p class="font-size-16 mt-0">
+              {{ post.description }}
+            </p>
+            <div class="">
+              <div v-if="post.post_type==='video'">
                 <router-link
                   :to="'/post/'+post.id"
-                  class="btn p-0 btn-link font-size-12"
+                  class="btn p-0 btn-link font-size-16"
                   style="text-decoration: underline;"
                 >
                   Watch Continue &nbsp;<i class="fa fa-arrow-right" />
@@ -77,7 +51,7 @@
               <div v-else>
                 <router-link
                   :to="'/post/'+post.id"
-                  class="btn p-0 btn-link font-size-12"
+                  class="btn p-0 btn-link font-size-16"
                   style="text-decoration: underline;"
                 >
                   Read Continue &nbsp;<i class="fa fa-arrow-right" />
@@ -85,10 +59,26 @@
               </div>
             </div>
           </div>
+          <div
+            class="col-md-4 post_width"
+            @click="setPostView(post)"
+          >
+            <div
+              v-if="post.image_path"
+              class="post_img mt-2"
+            >
+              <img
+                v-lazy="post.image_path"
+                alt="Card image cap"
+              >
+            </div>
+          </div>
         </div>
         <hr>
         <like-component
-          :post="post"
+          :user-like="post.user_like ? true : false"
+          :total-likes="post.total_likes"
+          :likable-id="post.id"
           likable-type="post"
         />
       </div>
@@ -96,20 +86,10 @@
   </div>
 </template>
 <style scoped>
-.btn-category {
-  background: #eee;
-  border-radius: 20px;
-  padding: 5px 15px;
-}
 .post_img img{
   width: 100%;
-  height: 450px !important;
-}
-@media (max-width: 768px) {
-  .post_img img{
-  width: 100%;
+  max-height: 200px !important;
   height: auto !important;
-}
 }
 </style>
 <script>

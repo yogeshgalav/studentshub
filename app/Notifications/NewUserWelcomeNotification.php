@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Log;
+use App\Channels\CustomDbChannel;
 use App\Models\User;
 use App\Models\Batch;
 use App\Models\student;
@@ -13,7 +14,9 @@ use App\Models\ScheduledJob;
 use Carbon\Carbon;
 use NotificationChannels\WebPush\WebPushMessage;
 use NotificationChannels\WebPush\WebPushChannel;
-class NewUserWelcomeNotification extends SthubAllowlistedUserNotification
+use Notification;
+
+class NewUserWelcomeNotification extends Notification
 {
     use Queueable;
 
@@ -27,8 +30,6 @@ class NewUserWelcomeNotification extends SthubAllowlistedUserNotification
      */
     public function __construct($scheduled_job)
     {
-        parent::__construct();
-
         $this->scheduled_job = $scheduled_job;
         $this->text="Welcome to Student'sHUB. You can now check your interest field in Profile section.";
     }
@@ -41,7 +42,7 @@ class NewUserWelcomeNotification extends SthubAllowlistedUserNotification
      */
     public function via($notifiable)
     {
-        return ['database', 'broadcast', WebPushChannel::class];
+        return [CustomDbChannel::class];
     }
 
     /**
@@ -82,24 +83,13 @@ class NewUserWelcomeNotification extends SthubAllowlistedUserNotification
     public function toDatabase($notifiable)
     {
         return [
-            'title'=>'Hi '.$notifiable->full_name.',',
-            'body'=>$this->text,
+            'scheduled_job_id'=>$this->scheduled_job->id,
             'user_id'=>$notifiable->id,
-            'url'=>'/profile/'.$notifiable->id,
-            'urlName'=>'profile',
-            'urlId'=>$notifiable->id,
-        ];
-    }
-
-    public function toArray($notifiable)
-    {
-        return [
             'title'=>'Hi '.$notifiable->full_name.',',
-            'body'=>$this->text,
-            'user_id'=>$notifiable->id,
+            'avatar_url'=>$notifiable->avatar_url,
+            'avatar_name'=>$notifiable->full_name,
             'url'=>'/profile/'.$notifiable->id,
-            'urlName'=>'profile',
-            'urlId'=>$notifiable->id,
+            'body' => $this->text,
         ];
     }
 }

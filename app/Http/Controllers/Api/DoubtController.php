@@ -7,12 +7,14 @@ use App\Models\DoubtRequest;
 use App\Models\Subject;
 use App\Models\Category;
 use App\Models\Classroom;
+use App\Models\ScheduledJob;
 use Illuminate\Http\Request;
 use Auth;
 use Arr;
 use DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
+use App\Notfications\NewDoubtNotification;
 
 class DoubtController extends Controller
 {
@@ -37,14 +39,14 @@ class DoubtController extends Controller
             $subject=Subject::getOrCreate(null, $selected_subject['subject_name'], Auth::student()->categoryId);
         }
 
-        $q = new Doubt();
-        $q->user_id = Auth::user()->id;
-        $q->question = $request->doubt;
-        $q->subject_id = $subject->id;
-        $q->institute_id = $student->instituteId;
-        $q->course_id = $student->courseId;
-        $q->classroom_id = $classroom ? $classroom->id : null;
-        $q->save();
+        $doubt = new Doubt();
+        $doubt->user_id = Auth::user()->id;
+        $doubt->question = $request->doubt;
+        $doubt->subject_id = $subject->id;
+        $doubt->institute_id = $student->instituteId;
+        $doubt->course_id = $student->courseId;
+        $doubt->save();
+        ScheduledJob::newDoubtNotification($doubt);
 
 
     DB::commit();
@@ -61,7 +63,7 @@ class DoubtController extends Controller
     {
         $course_id = null;
         if($request->classroomId){
-            $course_id = Classroom::findOrFail($request->classroomId)->batch->course_id;
+            $course_id = Classroom::findOrFail($request->classroomId)->course_id;
         }else if(Auth::student()){
             $course_id = Auth::student()->courseId;
         }
@@ -79,21 +81,25 @@ class DoubtController extends Controller
         }
 
         $doubts = $doubt_query
+        ->leftJoin('doubt_answers as ans','doubts.id','=','ans.doubt_id')
+        ->leftJoin('likes as li',function($join){
+            $join->on('doubts.id','=','li.likable_id')->where('li.likable_type','=','App\Models\Doubt')->where('li.like_status','=',1);
+        })
+        ->leftJoin('likes as uli',function($join){
+            $join->on('doubts.id','=','uli.likable_id')
+            ->where('uli.likable_type','=','App\Models\Doubt')
+            ->where('uli.user_id','=',Auth::id());
+        })
         ->select('us.full_name as user_name','us.avatar_url as profile_image','sub.subject_name','inst.name as institute_name',
-        'doubts.question','doubts.created_at','doubts.id')
+        'doubts.question','doubts.created_at','doubts.id','uli.like_status as user_like',
+        DB::raw('COUNT(distinct li.user_id) as total_likes'),
+        DB::raw('COUNT(distinct ans.user_id) as total_answers'))
+        ->groupBy('us.full_name','us.avatar_url','sub.subject_name','inst.name',
+        'doubts.question','doubts.created_at','doubts.id','uli.like_status')
         ->orderBy('doubts.created_at','DESC')
         ->get();
 
         foreach($doubts as $doubt){
-            $doubt_content = DB::table('doubts')->where('doubts.id',$doubt->id)
-            ->leftJoin('doubt_answers as ans','doubts.id','=','ans.doubt_id')
-            ->leftJoin('likes as li',function($join){
-                $join->on('doubts.id','=','li.likable_id')->where('li.likable_type','=','App\Models\Doubt')->where('li.like_status','=',1);
-            })
-            ->select(DB::raw('COUNT(distinct li.user_id) as total_likes'),DB::raw('COUNT(distinct ans.user_id) as total_answers'))
-            ->first();
-            $doubt->total_likes=$doubt_content->total_likes;
-            $doubt->total_answers=$doubt_content->total_answers;
             $doubt->time=Carbon::createFromTimeStamp(strtotime($doubt->created_at))->diffForHumans();
         }
 

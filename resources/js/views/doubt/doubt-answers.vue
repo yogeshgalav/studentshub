@@ -1,78 +1,79 @@
 <template>
-  <main class="ml-2">
-    <div class="container pt-100">
+  <div>
+    <div class="row">
       <div class="row">
-        <div class="col-md-9 center-col">
-          <div class="answer_main_card"> 
-            <div class="dashboard_post">
-              <div
-                v-if="doubt"
-                class="avatar doubt_user_img"
-              >
-                <profile-image
-                  :user-name="doubt.user_name"
-                  :avatar="doubt.profile_image"
-                />
-              </div>
-              <div class="info-post ml-2 dash_insititue_name">
-                <p class="usernamedash mb-0 dash_user_date">
-                  {{ doubt.user_name }}<span> {{ doubt.time }}</span>
-                </p>
-                <p class="usernamedash mb-0">
-                  {{ doubt.inst_name }}
-                </p>
-              </div>
-            </div>
-            <div class="answer_que">
-              <p class="text-muted btn-category">
-                {{ doubt.subject_name }}
-              </p>
-              <h4 class="main_que">
-                {{ doubt.question }}
-              </h4>
-            </div>
+        <div class="col-md-12">
+          <div class="">
+            <router-link
+              v-if="AuthUser"
+              class="btn btn-link ml-2 mb-2 font-size-18"
+              :to="'/doubts'"
+            >
+              <i
+                class="fa fa-arrow-left"
+                aria-hidden="true"
+              />
+              Back
+            </router-link>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <h1 class="font-size-24 text-black weight-800 mb-2 line-height-25-px mobile-size-heading">
+          {{ doubt.question }}
+        </h1>       
+      </div>      
+      <div class="col-md-12">
+        <h2 class="font-size-18 text-black mb-0 line-height-25-px">
+          {{ 'Subject:' +' '+doubt.subject_name }}  
+        </h2>
+        <p class="font-size-18 text-black mb-0 line-height-25-px">
+          {{ 'Asked by:' +' '+doubt.user_name }}  
+        </p>
+        <p class="font-size-18 text-grey mb-0 line-height-25-px">
+          {{ 'Added:' +' '+doubt.time }}  
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <hr>
+      </div>
+    </div>
+    <div class="">
+      <div class="row">
+        <div class="col-md-10">
+          <div class=""> 
             <div
               v-if="!isAnswered"
-              class="ans_input_sec"
+              class="card mb-2"
             >
-              <div
-                v-if="!add_answer"
-                class="ans_input_button"
-              >
-                <button
-                  type="submit"
-                  class="ans_btn"
-                  @click="add_answer = true"
-                >
-                  Answer this doubt
-                </button>
+              <div class="d-flex mb-1">
+                <profile-image
+                  size="small"
+                  :user-name="AuthUser.full_name"
+                  :avatar="AuthUser.avatar_url"
+                />&nbsp;
+                {{ AuthUser.full_name }}
               </div>
-              <div v-if="add_answer">
+              <div>
                 <vue-editor
                   id="ArticleEditor"
                   v-model="new_answer"
                   :editor-options="editorSettings"
                   :height="'100%'"
                 />
-                <br>
                 <span>{{ countContent }}/10</span>
-                <br>
                 <span class="text-danger">{{ error }}</span>
-                <br>
-                <button
-                  type="submit"
-                  class="btn btn-primary"
-                  @click="submitAnswer"
-                >
-                  Submit
-                </button>
-                <button
-                  type="submit"
-                  class="btn btn-white"
-                  @click="cancelAnswer"
-                >
-                  Cancel
-                </button>
+                <div class="text-right mt-1">
+                  <button
+                    type="submit"
+                    class="btn btn-primary"
+                    @click="submitAnswer"
+                  >
+                    Post Answer
+                  </button>
+                </div>
               </div>
             </div>
             <div
@@ -85,7 +86,7 @@
         </div> 
       </div>
     </div>
-  </main>
+  </div>
 </template>
 <style scoped>
 .answer_que p {

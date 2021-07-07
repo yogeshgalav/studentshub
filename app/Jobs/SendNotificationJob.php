@@ -22,7 +22,6 @@ class SendNotificationJob extends ScheduledJobInterface
         //dont send notification if it was send by notifyNow
         $dont_send = [
             \App\Notifications\ResetPasswordNotification::class,
-            \App\Notifications\ExternalUserResetPasswordNotification::class,
         ];
 
         if (in_array($classString, $dont_send)) {

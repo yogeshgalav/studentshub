@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\ClassroomMessageController;
+use App\Http\Controllers\Api\ClassroomController;
 
 Route::group(['middleware'=>['auth:api']],function(){
     //classroom common routes
@@ -32,16 +34,16 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::post('/classroom/{classroomId}/add-resource',[App\Http\Controllers\Api\ClassroomResourceController::class, 'addresource']);
     Route::post('/classroom/{classroomId}/delete-resource','ClassroomResourceController@deleteresource');
     //messages
-    Route::get('/get-classroom-messages/{classroomId?}','ClassroomUserController@listmessage');
-    Route::get('/message/{messageId}/get-replies', 'ClassroomUserController@replymessage');
-    Route::post('/add-message',[App\Http\Controllers\Api\ClassroomUserController::class, 'addmessage']);
-    Route::post('/delete-message','ClassroomUserController@deletemessage');
-    Route::post('/edit-message', [App\Http\Controllers\Api\ClassroomUserController::class, 'editmessage']);
+    Route::get('/get-classroom-messages/{classroomId?}',[ClassroomMessageController::class,'listmessage']);
+    Route::get('/message/{messageId}/get-replies', [ClassroomMessageController::class, 'replymessage']);
+    Route::post('/add-message',[ClassroomMessageController::class, 'addmessage']);
+    Route::post('/delete-message',[ClassroomMessageController::class, 'deletemessage']);
+    Route::post('/edit-message', [ClassroomMessageController::class, 'editmessage']);
 
     //student classroom routes
-    Route::post('/classroom/join','ClassroomUserController@joinClassroom');
+    Route::post('/classroom/join',[ClassroomController::class, 'joinClassroom']);
     Route::get('/classroom/{classroomId}/report','ReportController@getClassroomReport');
-    Route::post('/classroom/user-request-action','ClassroomUserController@userRequestAction');
+    Route::post('/classroom/user-request-action','ClassroomStudentController@userRequestAction');
 
     //student panel
     Route::get('/classroom/{classroomId}/get-assignment-report/{userId?}','ReportController@getAssignmentReport');
@@ -60,4 +62,6 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::get('/classroom/{classroomId}/get-attendance-dates','AttendanceController@getAttendanceDates');
     Route::get('/classroom/{classroomId}/get-student-attendance','AttendanceController@getStudentAttendance');
 
+    //classmates
+    Route::get('/classmates','ClassroomController@getClassmates');
 });

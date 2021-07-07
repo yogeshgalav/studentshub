@@ -16,19 +16,17 @@
 <body>
     <div id="app">
         <main class="flex-center full-height">
-            <div class="header">
+            <div class="header" style="margin-bottom:130px;">
                 @include('includes.navbar')
             </div>
 
             <div class="main-area">
-            @if(Auth::check())
-                <div class="sidebar-section" id="sidebar-section">
-                    @include('includes.sidebar')
-                </div>
-            @endif
-
-                <div class="content">
-                    @yield('content')
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            @yield('content')
+                        </div>
+                    </div>
                 </div>
             </div>
 

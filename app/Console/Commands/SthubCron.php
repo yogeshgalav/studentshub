@@ -52,7 +52,6 @@ class SthubCron extends Command
                             ->whereNull('sent_to_queue_at')
                             ->where('is_completed', '=', 0)
                             ->get();
-
         foreach ($jobs as $job) {
             Log::info('Dispatching scheduled job to queue', [
                 'scheduled_job_id' => $job->id,
@@ -60,7 +59,6 @@ class SthubCron extends Command
 
             $job_to_queue = new $job->job_type($job);
             $job_to_queue->dispatch($job);
-
             $job->sent_to_queue_at = Carbon::now('utc');
             $job->save();
         }

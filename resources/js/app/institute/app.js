@@ -21,7 +21,7 @@ const router = new VueRouter({
 	mode:'history'
 });
 
-Vue.component('InstituteComponent', require('../../views/institute/institute.vue').default);
+Vue.component('InstituteComponent', require('../../views/institute/my-institute.vue').default);
 Vue.component('InstitutesComponent', require('../../views/admin/institutes.vue').default);
 import InstituteStore from '../../store/seeker';
 import Vuex from 'vuex';

@@ -37,7 +37,7 @@ Vue.component('ResetPasswordComponent', require('../../views/auth/reset-password
 Vue.component('FeedbackComponent', require('../../views/guest/feedback.vue').default);
 Vue.component('ContactusComponent', require('../../views/guest/Contactus.vue').default);
 Vue.component('FaqComponent', require('../../views/guest/Faq.vue').default);
-
+Vue.component('SearchComponent', require('../../views/common/search.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

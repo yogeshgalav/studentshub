@@ -13,7 +13,9 @@ use App\Models\Post;
 use App\Models\SthubPost;
 use App\Models\Video;
 use App\Models\Unit;
+use App\Models\ScheduledJob;
 use App\Notifications\ResourceAdded;
+use Illuminate\Support\Facades\Log;
 use Auth;
 use DB;
 
@@ -29,6 +31,10 @@ class ClassroomResourceController extends Controller
         
         $resources = ClassroomResource::where('classroom_id',$classroomId)
         ->where('unit_id', $current_unit)
+        ->leftJoin('likes as uli',function($join){
+            $join->on('classroom_resources.id','=','uli.likable_id')->where('uli.likable_type','=','App\Models\ClassroomResources')->where('uli.user_id','=',Auth::id());
+        })
+        ->select('classroom_resources.*', 'uli.like_status as user_like')
         ->orderBy('created_at', 'DESC')
         ->get();
 
@@ -52,7 +58,7 @@ class ClassroomResourceController extends Controller
         $classroom_resource->unit_id = $unit->id;
         $classroom_resource->description = $request->description;
         $classroom_resource->save();
-
+        ScheduledJob::newClassroomResourceNotification($classroom);
         if($request->share_as_post && in_array($request->resource_type,['documentLink','youtubeVideo'])){
             $post=new Post;
             $post->user_id=Auth::user()->id;
@@ -81,16 +87,15 @@ class ClassroomResourceController extends Controller
             }
 
             $post->post_description = $request->description;
-            $post->category_id=$classroom->batch()->course()->category_id;
+            $post->category_id=$classroom->course->category_id;
+            $post->user_institute_id=$classroom->institute_id;
             $post->save();
 
             SthubPost::create([
                 'post_id'=>$post->id,
                 'classroom_id'=>$classroom->id,
-                'institute_id'=>$classroom->teacher->institute_id,
-                'course_id'=>$classroom->batch->course_id,
-                'batch_id'=>$classroom->batch_id,
-                'shared_by'=>Auth::id(),
+                'course_id'=>$classroom->course_id,
+                'shared_by_user_id'=>Auth::id(),
             ]);
         }
 

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Facades\Auth;
-use App\Models\Batch;
 use App\Models\CourseLevel;
 use App\Models\Student;
 
@@ -44,11 +43,6 @@ class PagesController extends Controller
     public function editPost()
     {
         return view('student.edit-post');
-    }
-
-    public function searchPage(Request $request)
-    {
-        return view('guest.search')->with('query', $request->query);
     }
     public function coursePage()
     {

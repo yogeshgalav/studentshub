@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="col-md-12">
     <loading
       :active.sync="showLoader"
       :color="'#10069F'"
@@ -19,7 +19,7 @@
         <div class="col-md-12">
           <div class="">
             <div class="col-md-3 col-12 pl-0">
-              <div class="mt-2">
+              <div class="mt-2 mb-2">
                 <button
                   type="button"
                   class="btn btn-primary btn-lg "
@@ -54,7 +54,7 @@
               </form>
             </template>
           </modal>
-          <div class=" mt-2">
+          <div class="">
             <div
               v-if="!messages.length"
               class="card"
@@ -70,7 +70,7 @@
             <div
               v-for="(message,index2) in messages"
               :key="index2"
-              class="col-md-12 col-12 mt-2 card"
+              class="card mb-2"
             >
               <div class="card-body">
                 <div>
@@ -82,7 +82,7 @@
                       />
                     </div>
                     <div class="info-post ml-2 dash_insititue_name">
-                      <p class="usernamedash mb-0 dash_user_date">
+                      <p class="font-size-14 mb-0 dash_user_date">
                         {{ message.user_name }} <span> {{ message.time }} &nbsp; 
                           <div
                             v-if="message.user_id===AuthUser.id"
@@ -118,7 +118,7 @@
                             </div>
                           </div></span>
                       </p>
-                      <p class="usernamedash mb-0">
+                      <p class="font-size-14 mb-0">
                         {{ message.classroom_name }}
                       </p>
                     </div>
@@ -128,9 +128,10 @@
                 </div>
                 <hr>
                 <like-component
-                  :post="message"
+                  :user-like="message.user_like ? true : false"
+                  :total-likes="message.total_likes"
+                  :likable-id="message.id"
                   likable-type="message"
-                  :show-dislike="false"
                   :show-reply="true"
                   @reply="reply(message)"
                 />

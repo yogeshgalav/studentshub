@@ -32,9 +32,7 @@
         class="row"
       >
         <div class="col-md-6  mb-2">
-          <div
-            v-if="AuthTeacher && AuthTeacher.id===classroomDetail.teacher_id"
-          >
+          <div>
             <div class="text-right">
               <button
                 class="btn-lg btn-primary"
@@ -107,11 +105,12 @@
                   />
                 </div>
               </div>
-              <!-- <like-component
-                :post="resource"
+              <like-component
+                :user-like="resource.user_like ? true : false"
+                :total-likes="resource.total_likes"
+                :likable-id="resource.id"
                 likable-type="resource"
-                :show-dislike="false"
-              /> -->
+              />
             </div>
             <div class="col-md-3 col-12" />
           </div>

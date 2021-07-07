@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 use Auth;
+use DB;
 use Carbon\Carbon;
 
 class Post extends Model
@@ -70,6 +72,17 @@ class Post extends Model
             case 'App\Models\Video':
                 return 'video';
         }
+    }
+    public static function boot() {
+        parent::boot();
+        static::created(function (Post $post) {
+               Interest::updateOrCreate([
+               'user_id'=>$post->user_id,
+               'category_id'=>$post->category_id,
+               ], [
+               'total_posts'=>DB::raw('total_posts+1'),
+               ]);
+        });
     }
     
 }

@@ -129,7 +129,7 @@
                     </div>
                     <div class="row">
                       <div class="col-md-12 form-group">
-                        <label for="college_id">Registration/Roll number</label>
+                        <label for="college_id">Registration/Roll number (Optional)</label>
                         <div class="input_icon_frm">
                           <span
                             id="basic-addon1"
@@ -152,87 +152,6 @@
                       </div>
                     </div>
 
-
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label
-                            class="text-black"
-                            for="event_date_input"
-                          >
-                            {{ 'Course Starting Year' }}
-                          </label>
-                          <div class="input-group-prepend ">
-                            <div
-                              class="input-group-prepend date"
-                              data-provide="datepicker"
-                            />
-                            <div class="input_icon_frm">
-                              <span
-                                id="basic-addon1"
-                                class="icon_design_input"
-                              ><i
-                                class="fa fa-calendar"
-                              /></span>
-
-                              <date-picker
-                                id="start_year"
-                                v-model="start_year"
-                                v-validate="'required'"
-                                name="start_year"
-                                value-type="format"
-                                :disabled="disableFields"
-                                :typeable="true"
-                                :type="'year'"
-                                :lang="'en'"
-                                default-value="2019"
-                                :input-attr="{id: 'start_year_input', value: start_year}"
-                                placeholder="Start Year"
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <label
-                          class="text-black"
-                          for="event_date_input"
-                        >
-                          {{ 'Course Ending Year' }}
-                        </label>
-                        <div class="input-group-prepend ">
-                          <div
-                            class="input-group-prepend date"
-                            data-provide="datepicker"
-                          />
-                          <div class="input_icon_frm">
-                            <span
-                              id="basic-addon1"
-                              class="icon_design_input"
-                            ><i
-                              class="fa fa-calendar"
-                            /></span>
-                            <date-picker
-                              id="end_year"
-                              v-model="end_year"
-                              v-validate="'required'"
-                              value-type="format"
-                              name="end_year"
-                              :disabled="disableFields"
-                              :typeable="true"
-                              :type="'year'"
-                              :lang="'en'"
-                              default-value="2019"
-                              :input-attr="{id: 'end_year_input', value: end_year}"
-                              placeholder="End Year"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      <span class="error">{{ formErrors('start_year') }}</span>
-                      <span class="error">{{ formErrors('end_year') }}</span>
-                      <span class="error">{{ yearError }}</span>
-                    </div>
                     <div class="row buttons">
                       <button
                         class="btn btn-primary mt-3"
@@ -354,7 +273,6 @@
 </style>
 <script>
 import FormMixin from '../../components/mixins/form-mixin.js';
-import BatchMixin from '../../components/mixins/batch-mixin.js';
 import AutoComplete from '../../components/AutoComplete.vue';
 import swal from '../../components/swal';
 
@@ -362,7 +280,7 @@ export default {
 	components: {
 		AutoComplete
 	},
-	mixins: [FormMixin, BatchMixin],
+	mixins: [FormMixin],
 	props: ['courseLevels','studentDetails', 'batches', 'classroomCount'],
 	data() {
 		return {
@@ -402,8 +320,6 @@ export default {
 			this.selected_institute['id']=this.studentDetails.instituteId;
 			this.selected_institute['name']=this.studentDetails.instituteName;
 			this.college_id = this.studentDetails.college_id;
-			this.start_year = this.studentDetails.start_year;
-			this.end_year = this.studentDetails.end_year;
 			if(this.selected_course.id===1001){
 				this.selected_level={
 					id:1,
@@ -446,9 +362,7 @@ export default {
 			this.courseLoading = true;
 			this.$refs.courseList.$el.focus();
 			this.axios
-				.post(this.baseUrl + '/api/search-course', {
-					searchTerm: search
-				})
+				.get(this.baseUrl + '/api/search-course?searchTerm='+search)
 				.then(resp => {
 					this.course_list = resp.data.success.courses;
 					this.course_list.find(node => {
@@ -485,9 +399,7 @@ export default {
 			};
 			this.instituteLoading = true;
 			this.axios
-				.post(this.baseUrl + '/api/search-institute', {
-					searchTerm: search
-				})
+				.get(this.baseUrl + '/api/search-institute?searchTerm='+search)
 				.then(resp => {
 					this.institute_list = resp.data.success.institutes;
 					this.institute_list.find(node => {
@@ -515,17 +427,7 @@ export default {
 			return true;
 		},
 		register() {
-			// if (this.selected_institute.name.trim() === '') {
-			//     this.errors.institute_name = 'Institute Name is required.';
-			//     return false;
-			// }
-			// if (this.selected_course.course_name.trim() === '') {
-			//     this.errors.program_name = 'Program Name is required.';
-			//     return false;
-			// }
-			if(this.yearError!==''){
-				return false;
-			}
+			
 			this.showLoader = true;
 			axios.post('/api/checkin/student', {
 				course_id: this.selected_course.id,
@@ -535,8 +437,6 @@ export default {
 				institute_name: this.selected_institute.name,
 				is_prefferred: this.is_prefferred,
 				college_id: this.college_id,
-				start_year: this.start_year,
-				end_year: this.end_year,
 			}).then((resp) => {
 				this.showLoader = false;
 				if (resp.data.success) {
