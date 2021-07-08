@@ -207,6 +207,7 @@
               <div class="col-md-12">
                 <div v-if="!current_assignment.daily_reports_count">
                   <edit-questions
+                    :key="current_assignment.id"
                     :assignment-id="current_assignment.id"
                     @totalUpdate="totalUpdate"
                   />
@@ -371,13 +372,13 @@ export default {
 			return this.$store.state.classroom.classroomDetail;
 		},
 		assignmentStartTime(){
-			if(!this.current_assignment){
+			if(this.current_assignment.start_time===''){
 				return '';
 			}
 			return dayjs(this.current_assignment.start_time,'HH:mm:ss').format('hh:mm a');
 		},
 		assignmentEndTime(){
-			if(!this.current_assignment){
+			if(this.current_assignment.end_time===''){
 				return '';
 			}
 			return dayjs(this.current_assignment.end_time,'HH:mm:ss').format('hh:mm a');
@@ -460,7 +461,6 @@ export default {
 							this.showLoader=false;
 							this.assignment_error='';
 						}).catch(err => {
-							console.log(err);
 							if(422 === err.response.status){
 								this.assignment_error=err.response.data;
 							}
@@ -494,7 +494,6 @@ export default {
 					this.showLoader=false;
 					this.assignment_error='';
 				}).catch(err => {
-					console.log(err.response.status,err.response.data);
 					if(422 === err.response.status){
 						this.assignment_error=err.response.data;
 					}
