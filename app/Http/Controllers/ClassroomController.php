@@ -112,7 +112,7 @@ class ClassroomController extends Controller
             $join->on('in.id','=','inu.institute_id')->where('inu.user_id','=',Auth::id());
         })
         ->select('in.id','in.name')
-        ->groupBy('in.id')
+        ->groupBy('in.id','in.name')
         ->get();
 
         if(empty($institute_list)){
