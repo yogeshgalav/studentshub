@@ -215,7 +215,8 @@ export default {
 	},
 	methods:{
 		trans: function (string,defaultString) {
-			return this.$trans('auth',string,defaultString);
+			// return this.$trans('auth',string,defaultString);
+			return string;
 		},
 		handleSubmit: function (e) {
 			this.$validator.validate().then(valid => {

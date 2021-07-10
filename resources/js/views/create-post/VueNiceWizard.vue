@@ -109,7 +109,8 @@ export default {
 	},
 	methods:{
 		trans: function (string, defaultString) {
-			return this.$trans('home', string, defaultString);
+			// return this.$trans('auth',string,defaultString);
+      return string;
 		},
 		nextTab(){
 			if(this.stepData[this.stepIndex].validation===true){

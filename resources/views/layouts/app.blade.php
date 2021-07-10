@@ -8,7 +8,7 @@
     @yield('compiledJs')
     <link href="{{ asset('css/app.css') }}" type="text/css" rel="stylesheet">
     @include('includes.fonts')
-    <script src="/js/lang.js"></script>
+    <!-- <script src="/js/lang.js"></script> -->
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('favicon1.ico')}}" />
 </head>
 
