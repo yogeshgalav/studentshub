@@ -47,7 +47,10 @@
           </div>
         </div>
       </div>
-      <div class="col-md-6">
+      <div
+        v-if="assignment_list.length"
+        class="col-md-6"
+      >
         <select
           class="form-control minimal"
           @change="setCurrentAssignment"
@@ -62,7 +65,10 @@
         </select>
       </div>
     </div>
-    <div class="row col-md-12">
+    <div 
+      v-if="assignment_list.length"
+      class="row col-md-12"
+    >
       <div class="col-md-12">
         <div class="card mt-5">
           <div class="card-header">
@@ -358,7 +364,8 @@ export default {
 			},
 			assignment_list: [],
 			unitList: [],
-
+			assignmentStartTime:'',
+			assignmentEndTime:'',
 			currentDate:new Date(),
 			total: 0,
 			assignment_error: '',
@@ -370,18 +377,6 @@ export default {
 		},
 		classroomDetail() {
 			return this.$store.state.classroom.classroomDetail;
-		},
-		assignmentStartTime(){
-			if(this.current_assignment.start_time===''){
-				return '';
-			}
-			return dayjs(this.current_assignment.start_time,'HH:mm:ss').format('hh:mm a');
-		},
-		assignmentEndTime(){
-			if(this.current_assignment.end_time===''){
-				return '';
-			}
-			return dayjs(this.current_assignment.end_time,'HH:mm:ss').format('hh:mm a');
 		},
 		currentUserStartTime(){
 			if(!this.current_assignment){
@@ -401,6 +396,12 @@ export default {
 			}
 			return  this.currentUserStartTime;
 		},
+	},
+	watch:{
+		current_assignment(val){
+			this.assignmentStartTime = val.start_time ? dayjs(val.start_time,'HH:mm:ss').format('hh:mm a') : '';
+			this.assignmentEndTime = val.end_time ? dayjs(val.end_time,'HH:mm:ss').format('hh:mm a') : '';
+		}
 	},
 	mounted() {
 		this.getAssignmentList();
@@ -430,7 +431,6 @@ export default {
 			}else{
 				return false;
 			}
-
 			this.current_assignment={
 				id: assignment.id,
 				unit_id: assignment.unit_id,
@@ -472,9 +472,11 @@ export default {
 		},
 		timeFormat(type,newValue){
 			if(type==='start'){
+			  this.assignmentStartTime = newValue;
 				this.current_assignment.start_time = dayjs(newValue,'hh:mm a').format('HH:mm:ss');
 			}
 			if(type==='end'){
+			  this.assignmentEndTime = newValue;
 				this.current_assignment.end_time = dayjs(newValue,'hh:mm a').format('HH:mm:ss'); 
 			}
 			this.updateAssignment();

@@ -37,7 +37,7 @@ class InstituteUserController extends Controller
             }
         }
         $user->preferred_institute_id = $instituteId;
-        $user->role_intended = $request->role;
+        $user->role_intended = $request->role==='teacher' ? 'teacher' : 'instituteAdmin';
         $user->save();
 
         $ins_user->user_id = $user->id;
