@@ -313,11 +313,13 @@ export default {
 				question_order: 0,
 				multiple_choice: [{
 					id: 0,
+					option_order: 0,
 					option_text: null,
 					is_correct: true,
 				},
 				{
-					id: 0,
+					id: 1,
+					option_order: 1,
 					option_text: null,
 					is_correct: false,
 				},
@@ -375,10 +377,12 @@ export default {
 			this.current_question_edit.question_text = this.filter_recovery_text;
 			this.current_question_edit.multiple_choice =[{
 				id:0,
+				option_order: 0,
 				option_text: null,
 			},
 			{
 				id:0,
+				option_order: 1,
 				option_text: null,
 			},
 			];
@@ -439,11 +443,13 @@ export default {
 				question_order: 0,
 				multiple_choice: [{
 					id:0,
+					option_order: 0,
 					option_text: null,
 					is_correct: true,
 				},
 				{
 					id:0,
+					option_order: 1,
 					option_text: null,
 					is_correct: false,
 				},
@@ -460,8 +466,10 @@ export default {
 		addOption() {
 			let data = this.current_question_edit.multiple_choice;
 			data.push({
-				text: null,
-				answer: false,
+				id:0,
+				option_order: data.length,
+				option_text: null,
+				is_correct: false,
 			});
 
 			this.current_question_edit.multiple_choice = data;

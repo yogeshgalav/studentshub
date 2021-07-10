@@ -14,7 +14,7 @@
     </div>
     <div class="mb-2">
       <button
-        v-if="AuthTeacher"
+        v-if="canCreateClassroom"
         type="button"
         class="btn-lg btn-primary"
         @click="createClassroom()"
@@ -22,7 +22,7 @@
         <i class="fas fa-plus" />&nbsp;&nbsp;Create Classroom
       </button>
       <button
-        v-if="AuthStudent"
+        v-if="!canCreateClassroom"
         type="button"
         class="btn-primary btn-lg mb-1"
         data-toggle="modal"
@@ -53,7 +53,7 @@
       <div class="card-body">
         <div class="row">
           <div class="col-md-12">
-            <p>
+            <p class="text-blue">
               Ask your teacher to share Join ID to join thier classroom.
             </p>
             <p>
@@ -199,6 +199,7 @@ export default {
 	mounted(){
 		this.axios.get('/api/classroom-list-details').then((resp)=>{
 			this.classroomList=resp.data.success.classrooms;
+			this.canCreateClassroom=resp.data.success.canCreateClassroom;
 			this.showLoader=false;
 		});
 	},

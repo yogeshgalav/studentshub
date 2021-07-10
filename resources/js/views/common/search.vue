@@ -31,7 +31,10 @@
               :key="index"
               class="card mb-2"
             >
-              <div class="card_post">
+              <a
+                class="text-black"
+                :href="'/profile/'+user.id"
+              >
                 <div class="card_box">
                   <div class="dashboard_post">
                     <div class="avatar">
@@ -50,7 +53,7 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </a>
             </div>
           </div>
         </div>
@@ -66,7 +69,10 @@
               :key="index"
               class="card mb-2"
             >
-              {{ subject.subject_name }}
+              <a
+                :href="'/subject/'+subject.subject_url" 
+                class="text-black font-size-18"
+              >{{ subject.subject_name }}</a>
             </div>
           </div>
         </div>
@@ -82,7 +88,12 @@
               :key="index"
               class="card mb-2"
             >
-              {{ course.course_name }}
+              <a
+                :href="'/course/'+course.course_url" 
+                class="text-black font-size-18"
+              >
+                {{ course.course_name }}
+              </a>
             </div>
           </div>
         </div>

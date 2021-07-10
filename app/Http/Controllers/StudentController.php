@@ -125,4 +125,8 @@ class StudentController extends Controller
         return view('student.classroom');
     }
 
+    public function myCoursePage(){
+        return view('student.my-course')
+        ->with('courseId', Auth::student()->courseId);
+    }
 }

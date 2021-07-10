@@ -17,11 +17,9 @@ class ClassroomController extends Controller
     public function classroomPage($classroomId){
         $classroom=Classroom::findOrFail($classroomId);
 
-        if($classroom->teacher_user_id===Auth::user()->id){
+        if(Auth::user()->can('update', $classroom)){
             return view('classroom.classroom');
         }
-
-        
 
         $daily_assignment=\App\Models\DailyAssignment::where('attempt_date','=',now(Auth::user()->timezone)->toDateString())
         ->where('activated_at','!=',null)->where('classroom_id','=',$classroom->id)
@@ -47,7 +45,7 @@ class ClassroomController extends Controller
     public function classroomOverviewPage($classroomId){
         $classroom=Classroom::findOrFail($classroomId);
 
-        if($classroom->teacher_user_id===Auth::user()->id){
+        if(Auth::user()->can('update', $classroom)){
             return view('classroom.overview');
         }
 
@@ -62,7 +60,7 @@ class ClassroomController extends Controller
     public function classroomAttendancePage($classroomId){
         $classroom=Classroom::findOrFail($classroomId);
 
-        if($classroom->teacher_user_id===Auth::user()->id){
+        if(Auth::user()->can('update', $classroom)){
             return view('classroom.classroom-attendance-page');
         }
 
@@ -71,7 +69,7 @@ class ClassroomController extends Controller
     public function classroomUnitAssignmentPage($classroomId){
         $classroom=Classroom::findOrFail($classroomId);
 
-        if($classroom->teacher_user_id===Auth::user()->id){
+        if(Auth::user()->can('update', $classroom)){
             return view('classroom.classroom-unit-assignment');
         }
 
@@ -124,7 +122,19 @@ class ClassroomController extends Controller
         ->with('course_levels',$course_levels);
     }
     public function classroomListPage(){
+        // $classroom_list = DB::table('classrooms as cs')
+        // //->join('batches as bt','bt.id','=','cs.batch_id')
+        // ->join('courses as co','co.id','=','cs.course_id')
+        // ->join('subjects as su','su.id','=','cs.subject_id')
+        // ->join('users as us','us.id','=','cs.teacher_user_id')
+        // ->select('cs.id','cs.name','co.course_name','su.subject_name','su.alias as subject_alias','us.id as user_id','us.full_name as teacher_name')
+        // ->whereIn('cs.id',Auth::user()->getClassroomIds())
+        // ->get();
+
         return view('classroom.classroom-list');
+        // ->with([
+        //     'classroomList'=>$classroom_list,
+        // ]);
     }
 
     public function classroomResoucePage(){

@@ -19,10 +19,8 @@ class InstituteController extends Controller
         ->select('us.id','us.full_name','us.email','inu.role')
         ->get();
 
-        $teachers=DB::table('users as us')
-        ->leftJoin('classrooms as cls',function($join)use($instituteId){
-            $join->on('cls.teacher_user_id','=','us.id')->where('cls.institute_id',$instituteId);
-        })
+        $teachers=DB::table('classrooms as cls')->where('cls.institute_id',$instituteId)
+        ->leftJoin('users as us','cls.teacher_user_id','=','us.id')
         ->leftJoin('daily_assignments as da','da.classroom_id','=','cls.id')
         ->leftJoin('daily_reports as dr','dr.daily_assignment_id','=','da.id')
         ->select('us.id','us.full_name','us.email',
@@ -32,10 +30,8 @@ class InstituteController extends Controller
         ->groupBy('us.id','us.full_name','us.email')
         ->get();
 
-        $students=DB::table('users as us')
-        ->join('students as st',function($join)use($instituteId){
-            $join->on('us.id','=','st.user_id')->where('st.is_preferred',1);
-        })
+        $students=DB::table('students as st')->where('st.institute_id',$instituteId)
+        ->join('users as us','us.id','=','st.user_id')
         ->join('courses as cs','cs.id','=','st.course_id')
         ->leftJoin('daily_reports as dr','dr.user_id','=','us.id')
         ->select('us.id','us.full_name','us.email','st.unique_college_id as institute_id','cs.alias as course_alias',
@@ -44,12 +40,50 @@ class InstituteController extends Controller
         ->groupBy('us.id','us.full_name','us.email','st.unique_college_id','cs.alias')
         ->get();
 
+
+        $classrooms = DB::table('classrooms as cl')
+        ->where('cl.institute_id',$instituteId)
+        ->leftjoin('classroom_users','classroom_users.classroom_id','=','cl.id')
+        ->leftjoin('daily_assignments','cl.id','=','daily_assignments.classroom_id')
+        ->leftjoin('users','cl.teacher_user_id','=','users.id')
+        ->leftjoin('subjects','cl.subject_id','=','subjects.id')
+        ->leftjoin('classroom_resources','cl.id','=','classroom_resources.classroom_id')
+        ->leftjoin('classroom_messages','cl.id','=','classroom_messages.classroom_id')
+        ->leftjoin('daily_reports','daily_assignments.id','=','daily_reports.daily_assignment_id')
+        ->select(DB::raw('COUNT(classroom_resources.id) as total_resources'),
+                'subjects.subject_name as subject_name',
+                'users.full_name AS teacher_name',
+                'cl.classroom_join_id as join_id',
+                'cl.id as classroom_id',
+                'cl.name as classroom_name',
+                DB::raw('COUNT(distinct classroom_users.user_id) AS total_students'),
+                DB::raw('COUNT(distinct daily_assignments.id) AS total_daily_assignments'),
+                DB::raw('FORMAT(AVG(daily_reports.marks_obtained),2) as average_score')
+                )
+        ->groupBy('cl.id','users.full_name','subjects.subject_name','cl.name','cl.classroom_join_id')
+        ->get();
+
+        $batches = DB::table('classrooms as cl')
+        ->where('cl.institute_id',$instituteId)
+        ->leftjoin('classroom_users','classroom_users.classroom_id','=','cl.id')
+        ->leftjoin('daily_assignments','cl.id','=','daily_assignments.classroom_id')
+        ->leftjoin('daily_reports','daily_assignments.id','=','daily_reports.daily_assignment_id')
+        ->select(
+                'cl.name as name',
+                DB::raw('COUNT(distinct cl.id) AS total_classrooms'),
+                DB::raw('COUNT(distinct daily_assignments.id) AS total_daily_assignments'),
+                DB::raw('FORMAT(AVG(daily_reports.marks_obtained),2) as average_score')
+                )
+        ->groupBy('cl.name')
+        ->get();
+        
         return response()->json([
             'success'=>[
                 'institute_detail'=>$institute_detail,
                 'members'=>$members,
                 'students'=>$students,
                 'classrooms'=>$classrooms,
+                'batches'=>$batches,
                 'teachers'=>$teachers,
             ]
         ],200);

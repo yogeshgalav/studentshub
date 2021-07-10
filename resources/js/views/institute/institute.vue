@@ -368,27 +368,35 @@ export default {
 					field: 'teacher_name',
 				},
 				{
+					label: 'Subject',
+					field: 'subject_name',
+				},
+				{
 					label: 'Total students',
 					field: 'total_students',
 				},
 				{
 					label: 'Total assignments',
-					field: 'total_assignments',
+					field: 'total_daily_assignments',
 				},
 				{
 					label: 'Average score',
-					field: 'avg_score',
+					field: 'average_score',
 				},
 			],
 			batchColumns: [
 				{
-					label: 'session',
-					field: 'session',
+					label: 'Name',
+					field: 'name',
 				},
 				{
-					label: 'Total students',
-					field: 'total_students',
+					label: 'Total Classrooms',
+					field: 'total_classrooms',
 				},
+				// {
+				// 	label: 'Total students',
+				// 	field: 'total_students',
+				// },
 				{
 					label: 'Total assignments',
 					field: 'total_assignments',
@@ -472,10 +480,10 @@ export default {
 		addNewMember(){
 			this.$validator.validate().then(valid => {
 				if (valid) {
-					this.$refs.addMemberModal.closeModal();
 					this.axios.post('/api/institute/'+this.instituteId+'/update-user',this.new_member).then((resp)=>{
 						const new_member = this.new_member;
 						this.memberRows.push(new_member);
+						this.$refs.addMemberModal.closeModal();
 					});
 				}
 			});

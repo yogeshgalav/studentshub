@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div>
     <h1>{{ course_name }}</h1>
     <hr>
     <nav-tabs
@@ -17,7 +17,7 @@
           <div class="col-md-5 center-col">
             <div class="sh_kn">
               <img src="/images/noun_knowledge.svg">
-              <h4>Share Your Knowledge</h4>
+              <h4>Be the first person to share post for this course.</h4>
               <a href="/share-your-knowledge">Get Started</a>
             </div>
           </div>

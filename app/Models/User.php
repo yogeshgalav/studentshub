@@ -98,18 +98,28 @@ class User extends Authenticatable
             ->exists();
     }
     public function getClassroomIds(){
-        $classrooms = \DB::table('classrooms')
-        ->leftJoin('users as usr',function($join){
-            $join->on('usr.id','=','classrooms.teacher_user_id')->where('usr.id','=',$this->id);
-        })
-        ->leftJoin('classroom_users as cu',function($join){
-            $join->on('cu.classroom_id','=','classrooms.id')->where('cu.user_id','=',$this->id);
-        })
-        ->where('usr.id','!=',null)
-        ->orWhere('cu.id','!=',null)
-        ->pluck('classrooms.id')->toArray();
+        $role= $this->role_intended;
+        $classroom_query = \DB::table('classrooms');
+        if ('student'===$role) {
+            $classroom_query=$classroom_query->rightJoin('classroom_users as cu',function($join){
+                $join->on('cu.classroom_id','=','classrooms.id')->where('cu.user_id','=',$this->id);
+            });
+        } elseif ('teacher'===$role || 'instituteAdmin'===$role) {
+            $classroom_query=$classroom_query->rightJoin('users as usr',function($join){
+                $join->on('usr.id','=','classrooms.teacher_user_id')->where('usr.id','=',$this->id);
+            });
+        // } elseif ('instituteAdmin'===$role) {
+        //     $classroom_query=$classroom_query->rightJoin('institutes as ins','ins.id','=','classrooms.institute_id')
+        //     ->rightJoin('institute_users as inu', function($join){
+        //         $join->on('ins.id','=','inu.institute_id')->where('inu.user_id','=',$this->id);
+        //     });
+        } elseif ('sthubAdmin'===$role) {
+            $classroom_query=$classroom_query;
+        } else {
+            $classroom_query=$classroom_query->where('0','=', '1');
+        }
 
-        return $classrooms;
+        return $classroom_query->groupBy('classrooms.id')->pluck('classrooms.id')->toArray();
     }
     public function preferredInstituteId()
     {

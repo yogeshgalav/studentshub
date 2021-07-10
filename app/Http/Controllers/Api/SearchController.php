@@ -56,8 +56,9 @@ class SearchController extends Controller
             ->where('cor.course_name', 'LIKE', '%' . $search . '%')
             ->orWhere('cor.alias', 'LIKE', '%' . $search . '%')
             ->leftJoin('students as st', 'cor.id', '=', 'st.course_id')
-            ->select('cor.id', 'cor.course_name', 'cor.category_id', DB::raw("COUNT('st.id') as totalStudent"))
-            ->groupBy('cor.id', 'cor.course_name', 'cor.category_id')
+            ->select('cor.id', 'cor.course_name', 'cor.category_id', 'cor.course_url',
+             DB::raw("COUNT('st.id') as totalStudent"))
+            ->groupBy('cor.id', 'cor.course_name', 'cor.category_id', 'cor.course_url')
             ->orderBy('totalStudent', 'DESC')->limit(10)->get();
 
         // if(count($courses)==0 && empty($request->aliasSearch)){
@@ -95,8 +96,8 @@ class SearchController extends Controller
         $subjects = DB::table('subjects as sub')
             ->where('sub.subject_name', 'LIKE', '%' . $search . '%')
             ->orWhere('sub.alias', 'LIKE', $search)
-            ->select('sub.subject_name')
-            ->groupBy('subject_name')
+            ->select('sub.subject_name', 'sub.subject_url')
+            ->groupBy('subject_name', 'sub.subject_url')
             ->limit(10)->get();
 
 
