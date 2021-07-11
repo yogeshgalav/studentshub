@@ -98,13 +98,12 @@ class GuestController extends Controller
     public function  root()
     {
         $me = Auth::user();
-        if ($me && 'teacher'===$me->role_intended) {
-            return view('classroom.classroom-list');
-        } elseif ($me) {
+        if ($me && in_array($me->role_intended,['seeker','student'])) {
             return view('seeker.posts');
-        } else {
-            return view('guest.welcome');
+        } elseif ($me) {
+            return redirect('/classrooms');
         }
+        return view('guest.welcome');
     }
 
     public function resetPassword(Request $request){
