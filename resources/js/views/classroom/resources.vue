@@ -28,6 +28,17 @@
         </div>
       </div>
       <div
+        v-else-if="!unit_list.length"
+      >
+        <div class="row">
+          <div class="col-md-12">
+            <p>
+              {{ 'No unit created.This page will populate once unit setup is done. ' }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
         v-else
         class="row"
       >
@@ -64,7 +75,7 @@
         <div class="col-md-12">
           <div class="mt-2">
             <div
-              v-if="!resources.length"
+              v-if="!resources.length && unit_list.length"
               class="card"
             >
               <div class="card-body">
@@ -112,7 +123,6 @@
                 likable-type="resource"
               />
             </div>
-            <div class="col-md-3 col-12" />
           </div>
         </div>
 
@@ -163,7 +173,7 @@
                       </div>
                     </div>
                   </div>
-                  <div
+                  <!-- <div
                     v-if="resource_type==='documentLink' || resource_type==='youtubeVideo'" 
                     class="mt-1 forget_rember_pass"
                   >
@@ -178,7 +188,7 @@
                         {{ 'Share as post' }}
                       </label>
                     </div>
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </form>
@@ -262,33 +272,39 @@ export default {
 				this.resource_error='A resource link is required.';
 				return false;
 			}
-			let link = this.matchResourceUrl(url);
-
-			if(link!==false){
-				this.resource_link=link;
-				return true;
-			}else{
-				this.resource_error='This resource link is not supported';
-				return false;
-			}
+			this.matchResourceUrl(url);
 		},
 		matchResourceUrl(link){
 			var p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
 			var matches = link.match(p);
 			if(matches){
 				this.resource_type = 'youtubeVideo';
-				return 'https://www.youtube.com/embed/' + matches[1];
+				this.resource_link = 'https://www.youtube.com/embed/' + matches[1];
+				return true;
 			}
 			let url = link.replace(/#[^#]*$/, '').replace(/\?[^\?]*$/, '');
 			if(url.indexOf('.pdf')>-1){
 				this.resource_type = 'documentLink';
-				return url;
+				this.resource_link = url;
+				return true;
 			}
-			if(url.indexOf('drive.google.com')>-1 || url.indexOf('docs.google.com')>-1){
+			if(AuthStudent){
+				this.resource_error='This resource link is not supported';
+				return false;
+			}
+			if(url.indexOf('drive.google.com')>-1){
 				this.resource_type = 'googleDrive';
-				return url;
+				this.resource_link = url;
+				return true;
 			}
-			return false;
+			if(url.indexOf('docs.google.com')>-1){
+				this.resource_type = 'googleDoc';
+				this.resource_link = url;
+				return true;
+			}
+			this.resource_type = 'other';
+			this.resource_link = url;
+			return true;
 		}
 	}
 };
