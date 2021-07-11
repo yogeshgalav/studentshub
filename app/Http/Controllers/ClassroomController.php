@@ -84,7 +84,7 @@ class ClassroomController extends Controller
 
         // $is_classroom_student=ClassroomUser::where('user_id',Auth::id())
         // ->where('classroom_id',$classroom->id)->where('joined_at','!=',null)->exists();
-        return view('student-panel.classroom-daily-assignment');
+        return view('student-panel.daily-assignment');
     }
     public function classroomStudentPage($classroomId){
         $classroom = Classroom::findOrFail($classroomId);

@@ -36,11 +36,9 @@
             v-if="!posts.length"
             class="row"
           >
-            <div class="col-md-5 center-col">
-              <div class="sh_kn">
-                <img src="/images/noun_knowledge.svg">
-                <h4>Be the first person to share post for your course.</h4>
-                <a href="/share-your-knowledge">Get Started</a>
+            <div class="col-md-10">
+              <div class="card">
+                <p>Currently no post have been shared yet to this course.</p>
               </div>
             </div>
           </div>
@@ -75,8 +73,8 @@ export default {
 		return {
 			posts: [],
 			subjects: [],
-			initialTab: 'posts',
-			tabs: ['posts'],
+			initialTab: 'subjects',
+			tabs: ['subjects','posts'],
 			email: '',
 			description: '',
 			showLoader: false
