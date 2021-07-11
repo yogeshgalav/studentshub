@@ -110,7 +110,7 @@
                 </div>
               </div>
               <div
-                v-if="classroomDetail.batch_id"
+                v-if="classroomDetail.id"
                 class="col-md-4  col-12 mt-2 mb-3"
               >
                 <div

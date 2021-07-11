@@ -104,11 +104,15 @@ class ClassroomController extends Controller
     }
 
     public function createClassroomPage(Request $request){
+        $user = Auth::user();
         $course_levels = \App\Models\CourseLevel::get();
-        $institute_list = DB::table('institutes as in')
-        ->join('institute_users as inu', function($join){
-            $join->on('in.id','=','inu.institute_id')->where('inu.user_id','=',Auth::id());
-        })
+        $institute_query = DB::table('institutes as in');
+        if($user->role_intended!=='sthubAdmin'){
+            $institute_query = $institute_query->join('institute_users as inu', function($join){
+                $join->on('in.id','=','inu.institute_id')->where('inu.user_id','=',Auth::id());
+            });
+        }
+        $institute_list=$institute_query
         ->select('in.id','in.name')
         ->groupBy('in.id')
         ->get();
