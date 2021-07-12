@@ -150,6 +150,7 @@ export default {
 		return {
 			id_error: '',
 			showLoader: true,
+			canCreateClassroom: false,
 			join_classroom_name: '',
 			classroomList:[],
 			classroomColumns: [

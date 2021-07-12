@@ -59,7 +59,8 @@ class ClassroomResourceController extends Controller
         $classroom_resource->description = $request->description;
         $classroom_resource->save();
         ScheduledJob::newClassroomResourceNotification($classroom);
-        if($request->share_as_post && in_array($request->resource_type,['documentLink','youtubeVideo'])){
+        if(in_array($request->resource_type,['documentLink','youtubeVideo'])){
+            // $request->share_as_post && 
             $post=new Post;
             $post->user_id=Auth::user()->id;
             $post->post_heading=$unit->unit_name;

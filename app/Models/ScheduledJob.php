@@ -54,14 +54,12 @@ class ScheduledJob extends Model
     }
 
     public static function scheduleNewUserNotification($user){
-        $job = self::create([
+        return self::create([
             'run_at' => Carbon::now('UTC'),
             'job_type' => SendNotificationJob::class,
             'notification_class_name' => NewUserWelcomeNotification::class,
-            'user_id'=>$user->id
+            'scheduled_by_user_id'=>$user->id
         ]);
-        // $user->notify(new NewUserWelcomeNotification);
-        return $job;
     }
 
     public static function scheduleNewInstituteMemberNotification($user){
@@ -69,7 +67,7 @@ class ScheduledJob extends Model
             'run_at' => Carbon::now('UTC'),
             'job_type' => SendNotificationJob::class,
             'notification_class_name' => NewInstituteMemberNotification::class,
-            'user_id'=>$user->id
+            'scheduled_by_user_id'=>$user->id
         ]);
     }
     public static function newDoubtNotification($doubt){

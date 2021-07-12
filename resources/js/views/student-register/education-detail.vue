@@ -351,7 +351,8 @@ export default {
 	},
 	methods: {
 		trans: function (string, defaultString) {
-			return this.$trans('auth', string, defaultString);
+			// return this.$trans('auth',string,defaultString);
+			return string;
 		},
 		getCourses(search) {
 			this.selected_course = {

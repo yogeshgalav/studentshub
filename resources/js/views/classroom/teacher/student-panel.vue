@@ -18,53 +18,35 @@
           {{ user_detail.full_name }}
         </h2>
       </div>
-      <div class="col-md-12">
-        <nav-tabs
-          :tabs="tabs"
-          :initial-tab="initialTab"
-        >
-          <template slot="tab-heading-daily">
-            {{ "Daily Assignment" }}
-          </template>
-          <template slot="tab-panel-daily">
-            <div class="col-md-10 col-center">
-              <div class="row">
-                <div
-                  v-if="daily_reports.length"
-                  class="col-md-4"
-                >
-                  <select
-                    class="form-control minimal"
-                    @change="getDailyAnswer($event)"
-                  >
-                    <option
-                      v-for="report in daily_reports"
-                      :key="report.id"
-                      :value="report.id"
-                    >
-                      {{ report.attempt_date }}
-                    </option>
-                  </select>
-                </div>
-              </div>
-              <div
-                v-if="current_report"
-                class="row"
+      <div class="col-md-12 col-center">
+        <student-report :classroom-id="$route.params.classroomId" />
+      </div>
+      <div class="col-md-12 col-center">
+        <div class="row">
+          <div
+            v-if="daily_reports.length"
+            class="col-md-4"
+          >
+            <select
+              class="form-control minimal"
+              @change="getDailyAnswer($event)"
+            >
+              <option
+                v-for="report in daily_reports"
+                :key="report.id"
+                :value="report.id"
               >
-                <daily-assignment-report :current-report="current_report" />
-              </div>
-            </div>
-          </template>
-
-          <template slot="tab-heading-report">
-            {{ "Report" }}
-          </template>
-          <template slot="tab-panel-report">
-            <div class="col-md-12 col-center">
-              <student-report :classroom-id="$route.params.classroomId" />
-            </div>
-          </template>
-        </nav-tabs>
+                {{ report.attempt_date }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div
+          v-if="current_report"
+          class="row"
+        >
+          <daily-assignment-report :current-report="current_report" />
+        </div>
       </div>
     </div>
   </div>
@@ -78,14 +60,12 @@
 import ClassroomHeader from '../../../components/ClassroomHeader';
 import DailyAssignmentReport from '../../../components/DailyAssignmentReport';
 import dayjs from 'dayjs';
-import NavTabs from '../../../components/NavTabs';
 import StudentReport from '../student-report.vue';
 
 export default {
 	components: {
 		ClassroomHeader,
 		DailyAssignmentReport,
-		NavTabs,
 		StudentReport,
 	},
 	filters: {

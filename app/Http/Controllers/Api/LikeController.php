@@ -33,38 +33,17 @@ class LikeController extends Controller
                 $likable_type='App\Models\ClassroomMessage';
         }
         $me=Auth::user();
-        $like=Like::where('likable_id','=',$likable_id)->where('likable_type','=',                $likable_type)->where('user_id','=',$me->id)->first();
-        switch($request->input('method')){
-            case 'add':
-                if(is_null($like)){
-                    $like= new Like();
-                    $like->likable_type=$likable_type;
-                    $like->likable_id=$likable_id;
-                    $like->user_id=$me->id;
-                }
-                switch($request->input('type')){
-                    case 'like':
-                        $like->like_status=1;
-                        $like->save();
-                    break;        
-                    case 'dislike':
-                        $like->like_status=0;
-                        $like->save();
-                    break;
-                }
-            break;
-            
-            case 'delete':
-            if(!is_null($like)){
-                $like->delete();
-            }else{
-                abort(403);
-            }
-            break;
-            
+        $like=Like::where('likable_id','=',$likable_id)->where('likable_type','=', $likable_type)->where('user_id','=',$me->id)->first();
+        if($like){
+            $like->delete();
+        } else {
+            Like::create([
+                'likable_id'=>$likable_id,
+                'likable_type'=>$likable_type,
+                'user_id'=>$me->id,
+                'like_status'=>1,
+            ]);
         }
-        return response()->json(['success'=>[
-            'user_like'=> $request->input('method') === 'add' ? $like->like_status : null,
-        ]]);
+        return response()->json([], 204);
     }
 }

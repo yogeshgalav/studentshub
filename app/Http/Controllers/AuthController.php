@@ -17,6 +17,7 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\ForgotPasswordRequest;
 use Illuminate\Support\Facades\URL;
 use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\StudentCreateRequest;
 use Carbon\Carbon;
 use Sthub;
 use Illuminate\Support\Facades\Mail;
@@ -210,7 +211,7 @@ class AuthController extends Controller
         if(empty($classroom)){
             return false;
         }
-        $request = new Request([
+        $request = new StudentCreateRequest([
             'course_id' => $classroom->course_id,
             'institute_id' => $classroom->institute_id, 
             'institute_name' => '',

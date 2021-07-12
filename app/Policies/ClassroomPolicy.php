@@ -33,6 +33,9 @@ class ClassroomPolicy
      */
     public function view(User $user, Classroom $classroom)
     {
+        if($user->role_intended==='sthubAdmin'){
+            return true;
+        }
         $classroom_ids = $user->getClassroomIds();
         if(in_array($classroom->id,$classroom_ids)){
             return true;
@@ -49,6 +52,9 @@ class ClassroomPolicy
      */
     public function create(User $user, Institute $institute)
     {
+        if($user->role_intended==='sthubAdmin'){
+            return true;
+        }
         $is_teacher = InstituteUser::where('user_id',$user->id)
         ->where('institute_id', $institute->id)
         ->exists();
@@ -74,6 +80,9 @@ class ClassroomPolicy
      */
     public function update(User $user, Classroom $classroom)
     {
+        if($user->role_intended==='sthubAdmin'){
+            return true;
+        }
         if($classroom->teacher_user_id===$user->id){
             return true;
         }
@@ -95,6 +104,9 @@ class ClassroomPolicy
      */
     public function delete(User $user, Classroom $classroom)
     {
+        if($user->role_intended==='sthubAdmin'){
+            return true;
+        }
         if($classroom->teacher_user_id===$user->id){
             return true;
         }

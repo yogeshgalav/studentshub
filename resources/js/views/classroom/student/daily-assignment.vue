@@ -139,48 +139,39 @@
           </div>
         </div>
       </div>
-      <nav-tabs
-        :tabs="tabs"
-        :initial-tab="initialTab"
+      <div
+        v-if="daily_reports.length"
+        class="col-md-12"
       >
-        <template slot="tab-heading-daily">
-          {{ 'Daily Assignment' }}
-        </template>
-        <template slot="tab-panel-daily">
-          <div class="col-md-10 col-center">
-            <div class="row">
-              <div
-                v-if="daily_reports.length"
-                class="col-md-4"
-              >
-                <select
-                  class="form-control minimal"
-                  @change="getDailyAnswer($event)"
-                >
-                  <option
-                    v-for="report in daily_reports"
-                    :key="report.id"
-                    :value="report.id"
-                  >
-                    {{ report.attempt_date }}
-                  </option>
-                </select>
-              </div>
-            </div>
-            <div
-              v-if="current_report"
-              class="row"
+        <student-report :classroom-id="$route.params.classroomId" />
+      </div>
+      <div class="col-md-12">
+        <div class="row">
+          <div
+            v-if="daily_reports.length"
+            class="col-md-4"
+          >
+            <select
+              class="form-control minimal"
+              @change="getDailyAnswer($event)"
             >
-              <daily-assignment-report :current-report="current_report" />
-            </div>
+              <option
+                v-for="report in daily_reports"
+                :key="report.id"
+                :value="report.id"
+              >
+                {{ report.attempt_date }}
+              </option>
+            </select>
           </div>
-        </template>
-
-        <template slot="tab-heading-report">
-          {{ 'Report' }}
-        </template>
-        <template slot="tab-panel-report" />
-      </nav-tabs>
+        </div>
+        <div
+          v-if="current_report"
+          class="row"
+        >
+          <daily-assignment-report :current-report="current_report" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -193,13 +184,13 @@
 import ClassroomHeader from '../../../components/ClassroomHeader';
 import DailyAssignmentReport from '../../../components/DailyAssignmentReport';
 import dayjs from 'dayjs';
-import NavTabs from '../../../components/NavTabs';
+import StudentReport from '../student-report.vue';
 
 export default {
 	components: {
 		ClassroomHeader,
 		DailyAssignmentReport,
-		NavTabs,
+		StudentReport,
 	},
 	filters:{
 		timeFormat(time){
