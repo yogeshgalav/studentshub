@@ -114,7 +114,7 @@ class ClassroomController extends Controller
         }
         $institute_list=$institute_query
         ->select('in.id','in.name')
-        ->groupBy('in.id')
+        ->groupBy('in.id','in.name')
         ->get();
 
         if(empty($institute_list)){
