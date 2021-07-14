@@ -73,16 +73,16 @@ class Post extends Model
                 return 'video';
         }
     }
-    public static function boot() {
-        parent::boot();
-        static::created(function (Post $post) {
-               Interest::updateOrCreate([
-               'user_id'=>$post->user_id,
-               'category_id'=>$post->category_id,
-               ], [
-               'total_posts'=>DB::raw('total_posts+1'),
-               ]);
-        });
-    }
+    // public static function boot() {
+    //     parent::boot();
+    //     static::created(function (Post $post) {
+    //            Interest::updateOrCreate([
+    //            'user_id'=>$post->user_id,
+    //            'category_id'=>$post->category_id,
+    //            ], [
+    //            'total_posts'=>DB::raw('total_posts+1'),
+    //            ]);
+    //     });
+    // }
     
 }
