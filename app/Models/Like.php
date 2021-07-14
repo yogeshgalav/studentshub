@@ -13,17 +13,17 @@ class Like extends Model
     {
         return $this->morphTo();
     }
-    public static function boot() {
-        parent::boot();
-        static::created(function (Like $like) {
-            if(Post::class===$like->likable_type){
-               Interest::updateOrCreate([
-                'user_id'=>$like->user_id,
-                'category_id'=>$like->likable->category_id,
-               ], [
-                'total_likes'=>DB::raw('total_likes+1'),
-               ]);
-            }
-        });
-    }
+    // public static function boot() {
+    //     parent::boot();
+    //     static::created(function (Like $like) {
+    //         if(Post::class===$like->likable_type){
+    //            Interest::updateOrCreate([
+    //             'user_id'=>$like->user_id,
+    //             'category_id'=>$like->likable->category_id,
+    //            ], [
+    //             'total_likes'=>DB::raw('total_likes+1'),
+    //            ]);
+    //         }
+    //     });
+    // }
 }
