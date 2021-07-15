@@ -8,45 +8,15 @@
     />
     <div class="row">
       <div class="col-md-12">
-        <classroom-header title="Student Panel" />
-      </div>
-      <div
-        v-if="user_detail"
-        class="col-md-12"
-      >
-        <h2 class="font-size-40 text-black weight-800">
-          {{ user_detail.full_name }}
-        </h2>
+        <classroom-header 
+          :title="user_detail.full_name"
+        />
       </div>
       <div class="col-md-12 col-center">
         <student-report :classroom-id="$route.params.classroomId" />
       </div>
-      <div class="col-md-12 col-center">
-        <div class="row">
-          <div
-            v-if="daily_reports.length"
-            class="col-md-4"
-          >
-            <select
-              class="form-control minimal"
-              @change="getDailyAnswer($event)"
-            >
-              <option
-                v-for="report in daily_reports"
-                :key="report.id"
-                :value="report.id"
-              >
-                {{ report.attempt_date }}
-              </option>
-            </select>
-          </div>
-        </div>
-        <div
-          v-if="current_report"
-          class="row"
-        >
-          <daily-assignment-report :current-report="current_report" />
-        </div>
+      <div class="col-md-12">
+        <daily-assignment-report :daily-reports="daily_reports" />
       </div>
     </div>
   </div>
@@ -80,7 +50,6 @@ export default {
 			today_assignment: null,
 			is_available: false,
 			user_detail: null,
-			current_report: null,
 			daily_reports: [],
 			initialTab: 'daily',
 			tabs: ['daily', 'report'],
@@ -101,29 +70,12 @@ export default {
 			this.axios.get(url).then((resp) => {
 				this.daily_reports = resp.data.success.daily_reports;
 				this.today_report = resp.data.success.today_report;
-				this.current_report = resp.data.success.current_report;
+				// this.current_report = resp.data.success.current_report;
 				this.user_detail = resp.data.success.user_detail;
 				this.today_assignment = resp.data.success.today_assignment;
 				this.is_available = resp.data.success.is_available;
 				this.showLoader = false;
 			});
-		},
-		getDailyAnswer(event) {
-			this.showLoader = true;
-			this.axios
-
-				.post(
-					'/api/classroom/' +
-            this.$route.params.classroomId +
-            '/get-daily-answers',
-					{
-						report_id: event.target.value,
-					}
-				)
-				.then((resp) => {
-					this.current_report = resp.data.success.daily_assignment;
-					this.showLoader = false;
-				});
 		},
 	},
 };

@@ -5,7 +5,7 @@
         <div class="row">
           <div class="col-md-8">
             <h3 class="font-size-18  mb-1 mt-1 light-black">
-              {{ 'Attempted Questions Status' }}
+              {{ 'Previous Assignments' }}
             </h3>
           </div>
           <div class="col-md-4 text-right">
@@ -16,6 +16,25 @@
         </div>
       </div>
       <div class="card-body bg-white border-bottom-left-8 border-bottom-right-8">
+        <div class="row">
+          <div
+            v-if="dailyReports.length"
+            class="col-md-4"
+          >
+            <select
+              class="form-control minimal"
+              @change="getDailyAnswer($event)"
+            >
+              <option
+                v-for="report in dailyReports"
+                :key="report.id"
+                :value="report.id"
+              >
+                {{ report.attempt_date }}
+              </option>
+            </select>
+          </div>
+        </div>
         <div
           v-for="(answer,index) in currentReport.daily_answer"
           :key="index"
@@ -150,6 +169,24 @@ margin: 10px 0px;
 </style>
 <script>
 export default {
-	props:['currentReport']
+	props:['dailyReports'],
+	data(){
+		return {
+			currentReport:null,
+		};
+	},
+	mounted(){
+		this.getDailyAnswer();
+	},
+	methods:{
+		getDailyAnswer(event) {
+			this.showLoader = true;
+			let report_id= event ? event.target.value : this.dailyReports[0].id;
+			this.axios.get('/api/get-daily-answers/'+report_id).then((resp) => {
+				this.current_report = resp.data.success.daily_assignment;
+				this.showLoader = false;
+			});
+		},
+	}
 };
 </script>

@@ -166,10 +166,10 @@
           </div>
         </div>
         <div
-          v-if="current_report"
+          v-if="daily_reports.length"
           class="row"
         >
-          <daily-assignment-report :current-report="current_report" />
+          <daily-assignment-report :daily-reports="daily_reports" />
         </div>
       </div>
     </div>
@@ -206,7 +206,6 @@ export default {
 			today_assignment: null,
 			is_available: false,
 			user_detail:null,
-			current_report:null,
 			daily_reports:[],
 		};
 	},
@@ -241,23 +240,12 @@ export default {
 				resp) => {
 				this.daily_reports = resp.data.success.daily_reports;
 				this.today_report = resp.data.success.today_report;
-				this.current_report = resp.data.success.current_report;
 				this.user_detail = resp.data.success.user_detail;
 				this.today_assignment = resp.data.success.today_assignment;
 				this.is_available = resp.data.success.is_available;
 				this.showLoader = false;
 			});    
 		},
-		getDailyAnswer(event){
-			this.showLoader = true;
-			this.axios.post('/api/classroom/' + this.$route.params.classroomId + '/get-daily-answers',{
-				'report_id':event.target.value,
-			}).then((
-				resp) => {
-				this.current_report = resp.data.success.daily_assignment;     
-				this.showLoader = false;         
-			});    
-		}
 	}
 };
 

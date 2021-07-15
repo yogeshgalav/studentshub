@@ -43,6 +43,7 @@ Route::group(['middleware'=>['auth:api']],function(){
     //student classroom routes
     Route::post('/classroom/join',[ClassroomController::class, 'joinClassroom']);
     Route::get('/classroom/{classroomId}/report','ReportController@getClassroomReport');
+    Route::get('/get-daily-answers/{daily_report}','ReportController@getClassroomReport');
     Route::post('/classroom/user-request-action','ClassroomStudentController@userRequestAction');
 
     //student panel

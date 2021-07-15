@@ -26,13 +26,6 @@ class ReportController extends Controller
         ->orderBy('da.attempt_date','DESC')
         ->get();
 
-        $current_report = null;
-        if(count($daily_reports)){
-            $current_report = DailyReport::where('id',$daily_reports[0]->id)
-            ->with('DailyAnswer.dailyQuestion.multipleChoice')
-            ->first();
-        }
-
         $today_report=null;
         $today_assignment=null;
         if(!$user_id){
@@ -52,7 +45,6 @@ class ReportController extends Controller
         return response()->json(['success'=>[
             'daily_reports'=>$daily_reports,
             'user_detail'=>$user_detail,
-            'current_report'=>$current_report,
             'today_assignment'=>$today_assignment,
             'today_report'=>$today_report,
             'is_available'=>$today_assignment ? $today_assignment->isCurrentlyAvailable() : false
