@@ -56,7 +56,12 @@ class StudentController extends Controller
                 $total_marks=$total_marks+$question->marks;
             }
         }
-        $unit_id = DailyAssignment::find($request->daily_assignment_id)->unit_id;
+        $daily_assignment = DailyAssignment::find($request->daily_assignment_id);
+        $unit_id = $daily_assignment->unit_id;
+        if($daily_assignment->status!=='attempted'){
+            $daily_assignment->status='attempted';
+            $daily_assignment->save();
+        }
         StudentReport::firstOrCreate([
             'score_type'=> "first",
             'user_id'=>Auth::id(),

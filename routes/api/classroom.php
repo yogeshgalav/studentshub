@@ -23,6 +23,7 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::post('/daily-assignment/{daily_assignment}/activate','DailyAssignmentController@activate');
     Route::delete('/daily-assignment/{daily_assignment}','DailyAssignmentController@delete');
     Route::get('/classroom/{classroomId}/get-assignment-list','DailyAssignmentController@getAssignmentList');
+    Route::get('/classroom/{classroomId}/get-attempted-assignment-list','DailyAssignmentController@getAttempedAssignmentList');
     Route::get('/classroom/{classroomId}/assignment/{assignmentId}/reports','ReportController@getQuestionsReports');
     Route::get('/classroom/{classroomId}/assignment/{assignmentId}/questions','DailyQuestionController@getAssignmentQuestions');
     Route::get('/classroom/{classroomId}/daily-assignments-summary','DailyAssignmentController@getDailyAssignmentSummary');
@@ -43,7 +44,7 @@ Route::group(['middleware'=>['auth:api']],function(){
     //student classroom routes
     Route::post('/classroom/join',[ClassroomController::class, 'joinClassroom']);
     Route::get('/classroom/{classroomId}/report','ReportController@getClassroomReport');
-    Route::get('/get-daily-answers/{daily_report}','ReportController@getClassroomReport');
+    Route::get('/{daily_assignment}/get-daily-answers','ReportController@getAnswerReport');
     Route::post('/classroom/user-request-action','ClassroomStudentController@userRequestAction');
 
     //student panel
