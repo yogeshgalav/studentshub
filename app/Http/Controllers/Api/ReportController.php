@@ -14,24 +14,28 @@ use App\Models\DailyQuestion;
 
 class ReportController extends Controller
 {
+    public function getAnswerReport(DailyAssignment $daily_assignment, User $user){
+        if(!$daily_report = DailyReport::where('daily_assignment_id',$daily_assignment->id)->where('user_id', $user->id)->first()){
+            return response()->json(['success'=>[
+                'daily_report'=>null,
+                'daily_questions'=>[],
+            ]]);    
+        }
+
+        $daily_questions = DailyQuestion::where('daily_assignment_id', $daily_assignment->id)
+            ->with('multipleChoice')
+            ->with('dailyAnswer', function($query)use($user){
+                $query->where('daily_answers.user_id',$user->id);
+            })->get();
+
+        return response()->json(['success'=>[
+            'daily_report'=>$daily_report,
+            'daily_questions'=>$daily_questions,
+        ]]);
+    }
     public function getAssignmentReport($classroom_id, $user_id=null){
         $student_id = $user_id ? $user_id : Auth::id();
         $user_detail = $user_id ? User::findOrFail($user_id) : null;
-        $daily_reports=DB::table('classrooms as cl')->where('cl.id',$classroom_id)
-        ->rightJoin('daily_assignments as da','da.classroom_id','=','cl.id')
-        ->rightJoin('daily_reports as dr',function($join)use($student_id){
-            $join->on('dr.daily_assignment_id','=','da.id')->where('user_id','=',$student_id);
-        })
-        ->select('dr.*','da.attempt_date')
-        ->orderBy('da.attempt_date','DESC')
-        ->get();
-
-        $current_report = null;
-        if(count($daily_reports)){
-            $current_report = DailyReport::where('id',$daily_reports[0]->id)
-            ->with('DailyAnswer.dailyQuestion.multipleChoice')
-            ->first();
-        }
 
         $today_report=null;
         $today_assignment=null;
@@ -39,8 +43,6 @@ class ReportController extends Controller
             $today_assignment = DailyAssignment::where('attempt_date',Carbon::now(Auth::user()->timezone)->toDateString())
             ->where('activated_at','!=',null)
             ->where('classroom_id',$classroom_id)
-            ->with('dailyQuestions.multipleChoice')
-            ->with('dailyQuestions.myDailyAnswer')
             ->first();
 
             if($today_assignment){
@@ -50,9 +52,7 @@ class ReportController extends Controller
         }
 
         return response()->json(['success'=>[
-            'daily_reports'=>$daily_reports,
             'user_detail'=>$user_detail,
-            'current_report'=>$current_report,
             'today_assignment'=>$today_assignment,
             'today_report'=>$today_report,
             'is_available'=>$today_assignment ? $today_assignment->isCurrentlyAvailable() : false

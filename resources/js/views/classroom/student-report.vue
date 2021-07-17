@@ -1,5 +1,12 @@
 <template>
   <div class="text-center">
+    <loading
+      :active.sync="showLoader"
+      :color="'#10069F'"
+      :width="250"
+      :is-full-page="false"
+      loader="dots"
+    />
     <div class="row justify-content-center col-md-12">
       <single-value
         :value="summary_data.total_attempt"

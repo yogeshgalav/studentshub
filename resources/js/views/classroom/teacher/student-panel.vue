@@ -1,52 +1,33 @@
 <template>
   <div>
-    <loading
-      :active.sync="showLoader"
-      :color="'#10069F'"
-      :width="250"
-      :is-full-page="true"
-    />
-    <div class="row">
-      <div class="col-md-12">
-        <classroom-header title="Student Panel" />
-      </div>
-      <div
-        v-if="user_detail"
+    <div
+      class="row"
+    >
+      <div 
         class="col-md-12"
       >
-        <h2 class="font-size-40 text-black weight-800">
-          {{ user_detail.full_name }}
-        </h2>
+        <classroom-header 
+          title="Student Dashboard"
+        />
       </div>
       <div class="col-md-12 col-center">
-        <student-report :classroom-id="$route.params.classroomId" />
-      </div>
-      <div class="col-md-12 col-center">
-        <div class="row">
-          <div
-            v-if="daily_reports.length"
-            class="col-md-4"
-          >
-            <select
-              class="form-control minimal"
-              @change="getDailyAnswer($event)"
-            >
-              <option
-                v-for="report in daily_reports"
-                :key="report.id"
-                :value="report.id"
-              >
-                {{ report.attempt_date }}
-              </option>
-            </select>
+        <div class="card mt-3 mb-3  bg-default ">
+          <div class="card-header">
+            <div class="row">
+              <div class="col-md-8">
+                <p class="font-size-18  mb-1 mt-1 light-black">
+                  Current Progress
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <student-report :classroom-id="$route.params.classroomId" />
           </div>
         </div>
-        <div
-          v-if="current_report"
-          class="row"
-        >
-          <daily-assignment-report :current-report="current_report" />
-        </div>
+      </div>
+      <div class="col-md-12">
+        <daily-answer-report />
       </div>
     </div>
   </div>
@@ -58,14 +39,14 @@
 </style>
 <script>
 import ClassroomHeader from '../../../components/ClassroomHeader';
-import DailyAssignmentReport from '../../../components/DailyAssignmentReport';
+import DailyAnswerReport from '../DailyAnswerReport';
 import dayjs from 'dayjs';
 import StudentReport from '../student-report.vue';
 
 export default {
 	components: {
 		ClassroomHeader,
-		DailyAssignmentReport,
+		DailyAnswerReport,
 		StudentReport,
 	},
 	filters: {
@@ -75,56 +56,11 @@ export default {
 	},
 	data() {
 		return {
-			showLoader: true,
 			today_report: null,
 			today_assignment: null,
 			is_available: false,
 			user_detail: null,
-			current_report: null,
-			daily_reports: [],
-			initialTab: 'daily',
-			tabs: ['daily', 'report'],
 		};
-	},
-	mounted() {
-		this.getDailyReports();
-	},
-	methods: {
-		getDailyReports() {
-			let url =
-        '/api/classroom/' +
-        this.$route.params.classroomId +
-        '/get-assignment-report';
-			if (this.$route.name === 'ClassroomStudentPanel') {
-				url = url + '/' + this.$router.currentRoute.params.userId;
-			}
-			this.axios.get(url).then((resp) => {
-				this.daily_reports = resp.data.success.daily_reports;
-				this.today_report = resp.data.success.today_report;
-				this.current_report = resp.data.success.current_report;
-				this.user_detail = resp.data.success.user_detail;
-				this.today_assignment = resp.data.success.today_assignment;
-				this.is_available = resp.data.success.is_available;
-				this.showLoader = false;
-			});
-		},
-		getDailyAnswer(event) {
-			this.showLoader = true;
-			this.axios
-
-				.post(
-					'/api/classroom/' +
-            this.$route.params.classroomId +
-            '/get-daily-answers',
-					{
-						report_id: event.target.value,
-					}
-				)
-				.then((resp) => {
-					this.current_report = resp.data.success.daily_assignment;
-					this.showLoader = false;
-				});
-		},
 	},
 };
 </script>

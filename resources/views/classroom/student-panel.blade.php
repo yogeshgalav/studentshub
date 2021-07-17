@@ -1,4 +1,4 @@
-@extends('student-panel.app')
+@extends('classroom.app')
 @section('content')
 <router-view></router-view>
 @endsection
