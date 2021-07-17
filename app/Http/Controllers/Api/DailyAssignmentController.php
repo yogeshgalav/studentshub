@@ -107,4 +107,17 @@ class DailyAssignmentController extends Controller
             ]
         ]);
     }
+    public function getAttempedAssignmentList(Request $request){
+        $assignment_list=DailyAssignment::where('classroom_id',$request->classroomId)
+        ->where('status','attempted')
+        ->orderBy('attempt_date','DESC')
+        ->select('id','attempt_date')
+        ->get();
+
+        return response()->json([
+            'success'=>[
+                'assignment_list'=>$assignment_list
+            ]
+        ]);
+    }
 }
