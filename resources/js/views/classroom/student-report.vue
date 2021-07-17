@@ -5,6 +5,7 @@
       :color="'#10069F'"
       :width="250"
       :is-full-page="false"
+      loader="dots"
     />
     <div class="row justify-content-center col-md-12">
       <single-value

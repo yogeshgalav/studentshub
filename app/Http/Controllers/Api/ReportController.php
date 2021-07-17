@@ -14,13 +14,23 @@ use App\Models\DailyQuestion;
 
 class ReportController extends Controller
 {
-    public function getAnswerReport(DailyAssignment $daily_assignment){
-        $daily_assignment = $daily_assignment
-            ->load('dailyQuestions.multipleChoice')
-            ->load('dailyQuestions.myDailyAnswer');
+    public function getAnswerReport(DailyAssignment $daily_assignment, User $user){
+        if(!$daily_report = DailyReport::where('daily_assignment_id',$daily_assignment->id)->where('user_id', $user->id)->first()){
+            return response()->json(['success'=>[
+                'daily_report'=>null,
+                'daily_questions'=>[],
+            ]]);    
+        }
+
+        $daily_questions = DailyQuestion::where('daily_assignment_id', $daily_assignment->id)
+            ->with('multipleChoice')
+            ->with('dailyAnswer', function($query)use($user){
+                $query->where('daily_answers.user_id',$user->id);
+            })->get();
 
         return response()->json(['success'=>[
-            'daily_assignment'=>$daily_assignment
+            'daily_report'=>$daily_report,
+            'daily_questions'=>$daily_questions,
         ]]);
     }
     public function getAssignmentReport($classroom_id, $user_id=null){

@@ -5,6 +5,7 @@
       :color="'#10069F'"
       :width="250"
       :is-full-page="false"
+      loader="dots"
     />
     <div class="card mt-3 mb-3  bg-default ">
       <div class="card-header">
@@ -37,78 +38,94 @@
           </div>
         </div>
         <div
-          v-if="current_report"
+          v-if="daily_report"
           class="row"
         >
-          <div class="col-md-4 text-right">
+          <div class="col-md-4 mt-5">
             <h3 class="font-size-18  mb-1 mt-1 light-black">
-              Marks obtained: <span class="text-success">{{ current_report.marks_obtained }}</span> | Rank: <span class="text-success">{{ current_report.rank }}</span>
+              Marks obtained: <span class="text-success">{{ daily_report.marks_obtained }}</span> | Rank: <span class="text-success">{{ daily_report.rank }}</span>
             </h3>
           </div>
         </div>
+        <hr>
         <div
-          v-if="current_report"
+          v-if="daily_report"
           class="row"
         >
-          <div
-            v-for="(answer,index) in current_report.daily_answer"
-            :key="index"
-            class="col-md-12 mt-2 mb-2"
-          >
-            <div class="row border-bottom">
-              <div class="col-md-10 pl-0">
-                <p class="font-16  weight-800 mb-1 mt-2 light-black">
-                  {{ 'Question:' + ' ' + (index+1) }}
-                </p>
+          <div class="col-md-7 mt-2 mb-2">
+            <div
+              v-for="(question,index) in daily_questions"
+              :key="index"
+            >
+              <div class="row border-bottom">
+                <div class="col-md-10 pl-0">
+                  <p class="font-16  weight-800 mb-1 mt-2 light-black">
+                    {{ 'Question:' + ' ' + (index+1) }}
+                  </p>
+                </div>
+                <div class="col-md-2 pl-0 text-right">
+                  <label class="btn_marks font-16 light-black">
+                    Marks: <span>{{ question.marks }}</span>
+                  </label>
+                </div>
               </div>
-              <div class="col-md-2 pl-0 text-right">
-                <label class="btn_marks font-16 light-black">
-                  Marks: <span>{{ answer.daily_question.marks }}</span>
-                </label>
-              </div>
-            </div>
                
-            <div class="row">
-              <div class="col-md-12 pl-0">
-                <p class="font-16   mt-3 light-black">
-                  {{ answer.daily_question.question_text }}
-                </p>
+              <div class="row">
+                <div class="col-md-12 pl-0">
+                  <p class="font-16   mt-3 light-black">
+                    {{ question.question_text }}
+                  </p>
 
-                <div
-                  v-for="(choice,index2) in answer.daily_question.multiple_choice"
-                  :key="index2"
-                >
-                  <div 
-                    v-if="choice.is_correct"
-                    class="bg-success-light  option_box outline-success text-white"
+                  <div
+                    v-for="(choice,index2) in question.multiple_choice"
+                    :key="index2"
                   >
-                    <span 
-                      class="weight-800 border-right-success  option_word"
-                    > {{ letters[index2] }} </span>
-                    {{ choice.option_text }}
-                  </div>
-                  <div 
-                    v-else-if="choice.id===answer.selected_option_id"
-                    class="bg-warning  option_box outline-warning text-white"
-                  >
-                    <span 
-                      class="weight-800 border-right-warning  option_word"
-                    > {{ letters[index2] }} </span>
-                    {{ choice.option_text }}
-                  </div>
-                  <div 
-                    v-else
-                    class="option_box text-black outline-gray"
-                  >
-                    <span 
-                      class="weight-800 border-right-gray option_word"
-                    > {{ letters[index2] }} </span>
-                    {{ choice.option_text }}
+                    <div 
+                      v-if="choice.is_correct"
+                      class="bg-success-light  option_box outline-success text-white"
+                    >
+                      <span 
+                        class="weight-800 border-right-success  option_word"
+                      > {{ letters[index2] }} </span>
+                      {{ choice.option_text }}
+                    </div>
+                    <div 
+                      v-else-if="choice.id===question.daily_answer[0].selected_option_id"
+                      class="bg-warning  option_box outline-warning text-white"
+                    >
+                      <span 
+                        class="weight-800 border-right-warning  option_word"
+                      > {{ letters[index2] }} </span>
+                      {{ choice.option_text }}
+                    </div>
+                    <div 
+                      v-else
+                      class="option_box text-black outline-gray"
+                    >
+                      <span 
+                        class="weight-800 border-right-gray option_word"
+                      > {{ letters[index2] }} </span>
+                      {{ choice.option_text }}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+        <div v-else>
+          <p
+            v-if="$route.name === 'ClassroomStudentPanel'"
+            class="font-size-18 weight-400"
+          >
+            Student has not attempted this assignment.
+          </p>
+          <p
+            v-else
+            class="font-size-18 weight-400"
+          >
+            You have not attempted this assignment.
+          </p>
         </div>
       </div>
     </div>
@@ -189,7 +206,8 @@ export default {
 	data(){
 		return {
 			showLoader:true,
-			current_report:null,
+			daily_report:null,
+			daily_questions:[],
 			assignment_list:[],
 		};
 	},
@@ -197,7 +215,7 @@ export default {
 		this.axios.get('/api/classroom/'+this.$route.params.classroomId+'/get-attempted-assignment-list')
 			.then(resp=>{
 				this.assignment_list=resp.data.success.assignment_list;
-        				this.showLoader = false;
+				this.showLoader = false;
 				if(this.assignment_list.length){
 					this.getDailyAnswer();
 				}
@@ -206,9 +224,17 @@ export default {
 	methods:{
 		getDailyAnswer(event) {
 			this.showLoader = true;
-			let assignment_id= event ? event.target.value : this.assigment_list[0].id;
-			this.axios.get('/api/get-daily-answers/'+assignment_id).then((resp) => {
-				this.current_report = resp.data.success.daily_assignment;
+			let assignment_id= event ? event.target.value : this.assignment_list[0].id;
+
+			let url = '/api/assignment/' +assignment_id +'/user';
+			if (this.$route.name === 'ClassroomStudentPanel') {
+				url = url + '/' + this.$router.currentRoute.params.userId;
+			}else {
+				url = url + '/' + this.AuthUser.id;
+			}
+			this.axios.get(url).then((resp) => {
+				this.daily_report = resp.data.success.daily_report;
+				this.daily_questions = resp.data.success.daily_questions;
 				this.showLoader = false;
 			});
 		},
