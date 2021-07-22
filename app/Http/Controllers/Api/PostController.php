@@ -94,7 +94,7 @@ class PostController extends Controller
             break;
         }
 
-
+        $post->created_via='dashboard';
         $post->post_description = $data['description'];
         $post->save();
 

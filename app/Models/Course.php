@@ -4,11 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Facades\Sthub;
+use Haruncpi\LaravelUserActivity\Traits\Loggable;
 
 class Course extends Model
 {
     //
     protected  $guarded = ['id', 'created_at', 'updated_at'];
+    use Loggable;
 
     public function category()
     {

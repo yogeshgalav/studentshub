@@ -90,6 +90,7 @@ class ClassroomResourceController extends Controller
             $post->post_description = $request->description;
             $post->category_id=$classroom->course->category_id;
             $post->user_institute_id=$classroom->institute_id;
+            $post->created_via='resource';
             $post->save();
 
             SthubPost::create([

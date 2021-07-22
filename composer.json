@@ -21,6 +21,7 @@
         "fruitcake/laravel-cors": "^2.0",
         "giggsey/libphonenumber-for-php": "^8.12",
         "guzzlehttp/guzzle": "^7.0.1",
+        "haruncpi/laravel-user-activity": "^1.0",
         "laravel-notification-channels/fcm": "~2.0",
         "laravel-notification-channels/pusher-push-notifications": "^2.3",
         "laravel-notification-channels/twilio": "^3.1.0",

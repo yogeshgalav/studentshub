@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Haruncpi\LaravelUserActivity\Traits\Loggable;
 
 class Category extends Model
 {
+    use Loggable;
+
     public function courses(){
         return $this->hasMany('App\Models\Course');
     }
