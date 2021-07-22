@@ -53,11 +53,11 @@
       <div class="card-body">
         <div class="row">
           <div class="col-md-12">
-            <p class="text-blue">
-              Ask your teacher to share Join ID to join thier classroom.
+            <p class="text-blue weight-600">
+              Ask your teachers to share Classroom Join Id with you.
             </p>
             <p>
-              Classrooms will help you to visualize your progress and ease your learning.
+              Classrooms will help you to visualize your progress and ease your learning process.
             </p>
           </div>
         </div>

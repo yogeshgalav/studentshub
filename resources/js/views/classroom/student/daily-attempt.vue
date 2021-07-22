@@ -9,7 +9,7 @@
       </button>
     </div>
     <div v-else>
-      <span class="text-blue">{{ timer }}</span>
+      <span class="text-blue weight-600">{{ timer }}</span>
       <div id="no-copy">
         <div class="card col-md-8 col-center p-0">
           <div class="card-header">
