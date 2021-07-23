@@ -213,7 +213,7 @@ export default {
 				this.$refs.joinClassroomModal.closeModal();
 				this.showLoader=false;
 				swal.successDialog('Classroom joined', 'Successfully!', 'success');
-				location.reload();
+				//location.reload();
 			}).catch((err)=>{
 				if(err.response.status===422){
 					let error_data = err.response.data.error;

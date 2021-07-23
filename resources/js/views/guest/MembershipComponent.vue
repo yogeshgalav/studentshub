@@ -314,7 +314,6 @@
                   name="institute"
                 >
                 <span class="text-danger">{{ formErrors('institute') }}</span>
-
               </div>
               <div class="col-md-12 mb-2">
                 <label
@@ -429,6 +428,12 @@ export default {
 						.then(() => {
 							this.showLoader = false;
 							swal.infoDialog('Thank you for connecting with us.');
+							 this.institute_name = '';
+			         this.full_name = '';
+			         this.email = '';
+			         this.phone_number = '';
+			         this.student_number = '';
+							this.$validator.reset();
 						});
 				}
 			});
