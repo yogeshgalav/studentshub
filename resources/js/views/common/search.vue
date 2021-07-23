@@ -35,7 +35,7 @@
                 class="text-black"
                 :href="'/profile/'+user.id"
               >
-                <div class="card_box">
+                <div class="card-body">
                   <div class="dashboard_post">
                     <div class="avatar">
                       <profile-image

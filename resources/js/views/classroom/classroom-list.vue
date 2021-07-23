@@ -1,132 +1,134 @@
 <template>
-  <div class="col-md-12">
-    <loading
-      :active.sync="showLoader"
-      :color="'#10069F'"
-      :width="250"
-      :is-full-page="true"
-    />
-    <div class="row">
-      <div class="col-md-12">
-        <h1>Classrooms</h1>
-        <hr>
-      </div>
-    </div>
-    <div class="mb-2">
-      <button
-        v-if="canCreateClassroom"
-        type="button"
-        class="btn-lg btn-primary"
-        @click="createClassroom()"
-      >
-        <i class="fas fa-plus" />&nbsp;&nbsp;Create Classroom
-      </button>
-      <button
-        v-if="!canCreateClassroom"
-        type="button"
-        class="btn-primary btn-lg mb-1"
-        data-toggle="modal"
-        data-target="#joinClassroomModal"
-      >
-        <i class="fas fa-plus" />&nbsp;&nbsp;Join Classroom
-      </button>
-    </div>
-    <div
-      v-if="AuthUser.role_intended==='seeker'"
-      class="card"
-    >
-      <div class="card-body">
-        <div class="row">
-          <div class="col-md-12">
-            <p>
-              <a :href="'/education-details'">
-                Please fill out education details </a>{{ " to join classrooms from your institute." }}
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      v-if="AuthUser.role_intended==='student' && !classroomList.length"
-      class="card mb-2 pl-3"
-    >
-      <div>
-        <div class="row">
-          <div class="col-md-12">
-            <p class="text-blue weight-600">
-              Ask your teachers to share Classroom Join Id with you.
-            </p>
-            <p style="line-height:1px;">
-              Classrooms will help you to visualize your progress and ease your learning process.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div>
-      <modal
-        ref="joinClassroomModal"
-        name="joinClassroomModal"
-        heading="Join Classroom"
-        @submit="joinClassroom"
-      >
-        <template slot="modalBody">
-          <form>
-            <div class="model_input">
-              <label class="text-gray">Enter Join Id</label>
-              <input
-                v-model="join_classroom_name"
-                type="text"
-                class="form-control uc"
-              >
-              <span class="error">{{ id_error }}</span>
-            </div>
-          </form>
-        </template>
-      </modal>
-    </div>
-    <div v-if="classroomList.length">
-      <div class="row">
-        <div
-          v-for="(classroom, index) in classroomList"
-          :key="index"
-          class="col-md-4 mb-2"
-        >
-          <a
-            :href="'/classroom/'+classroom.classroom_id"
-            class="card rounded-lg pt-3 pb-3 bg-light text-center"
-            style="text-center"
-          >
-            <div style="text-align: -webkit-center;">
-              <profile-image
-                :user-name="classroom.teacher_name"
-                size="large"
-              />
-            </div>
-
-            <h4 class="mt-2 font-weight-normal text-muted">
-              {{ classroom.teacher_name }}
-            </h4>
-            <h3 class="font-weight-bold text-info font-weight-bold">
-              {{ classroom.subject_name }}
-            </h3>
-            <h4 class="font-weight-normal text-muted">
-              {{ classroom.classroom_name }}
-            </h4>
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <accordion
-      title="Details"
-      :aria-expanded="true"
-    >
-      <vue-table-component
-        :columns="classroomColumns"
-        :rows="classroomList"
+  <div class="row">
+    <div class="col-md-12">
+      <loading
+        :active.sync="showLoader"
+        :color="'#10069F'"
+        :width="250"
+        :is-full-page="true"
       />
-    </accordion>
+      <div class="row">
+        <div class="col-md-12">
+          <h1>Classrooms</h1>
+          <hr>
+        </div>
+      </div>
+      <div class="mb-2">
+        <button
+          v-if="canCreateClassroom"
+          type="button"
+          class="btn-lg btn-primary"
+          @click="createClassroom()"
+        >
+          <i class="fas fa-plus" />&nbsp;&nbsp;Create Classroom
+        </button>
+        <button
+          v-if="!canCreateClassroom"
+          type="button"
+          class="btn-primary btn-lg mb-1"
+          data-toggle="modal"
+          data-target="#joinClassroomModal"
+        >
+          <i class="fas fa-plus" />&nbsp;&nbsp;Join Classroom
+        </button>
+      </div>
+      <div
+        v-if="AuthUser.role_intended==='seeker'"
+        class="card"
+      >
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <p>
+                <a :href="'/education-details'">
+                  Please fill out education details </a>{{ " to join classrooms from your institute." }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        v-if="AuthUser.role_intended==='student' && !classroomList.length"
+        class="card mb-2 pl-3"
+      >
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <p class="text-blue weight-600">
+                Ask your teachers to share Classroom Join Id with you.
+              </p>
+              <p style="line-height:1px;">
+                Classrooms will help you to visualize your progress and ease your learning process.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <modal
+          ref="joinClassroomModal"
+          name="joinClassroomModal"
+          heading="Join Classroom"
+          @submit="joinClassroom"
+        >
+          <template slot="modalBody">
+            <form>
+              <div class="model_input">
+                <label class="text-gray">Enter Join Id</label>
+                <input
+                  v-model="join_classroom_name"
+                  type="text"
+                  class="form-control uc"
+                >
+                <span class="error">{{ id_error }}</span>
+              </div>
+            </form>
+          </template>
+        </modal>
+      </div>
+      <div v-if="classroomList.length">
+        <div class="row">
+          <div
+            v-for="(classroom, index) in classroomList"
+            :key="index"
+            class="col-md-4 mb-2"
+          >
+            <a
+              :href="'/classroom/'+classroom.classroom_id"
+              class="card rounded-lg pt-3 pb-3 bg-light text-center"
+              style="text-center"
+            >
+              <div style="text-align: -webkit-center;">
+                <profile-image
+                  :user-name="classroom.teacher_name"
+                  size="large"
+                />
+              </div>
+
+              <h4 class="mt-2 font-weight-normal text-muted">
+                {{ classroom.teacher_name }}
+              </h4>
+              <h3 class="font-weight-bold text-info font-weight-bold">
+                {{ classroom.subject_name }}
+              </h3>
+              <h4 class="font-weight-normal text-muted">
+                {{ classroom.classroom_name }}
+              </h4>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <accordion
+        title="Details"
+        :aria-expanded="true"
+      >
+        <vue-table-component
+          :columns="classroomColumns"
+          :rows="classroomList"
+        />
+      </accordion>
+    </div>
   </div>
 </template>
 <style scoped>

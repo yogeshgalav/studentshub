@@ -1,7 +1,7 @@
 <template>
   <div class=" card mb-2">
     <div class="card_post">
-      <div class="card_box">
+      <div class="card-body">
         <div class="dashboard_post">
           <div class="avatar">
             <profile-image
