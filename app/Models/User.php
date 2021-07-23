@@ -7,6 +7,9 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use NotificationChannels\WebPush\HasPushSubscriptions;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
+
 class User extends Authenticatable
 {
     use HasApiTokens, Notifiable;
@@ -38,6 +41,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    use HasSlug;
+
+
+    /**
+     * Get the options for generating the slug.
+     */
+    public function getSlugOptions() : SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('full_name')
+            ->saveSlugsTo('slug');
+    }
     public function student()
     {
         return $this->hasOne('App\Models\Student');

@@ -141,7 +141,7 @@
     <site-footer />
   </main>
 </template>
-<style >
+<style scoped>
 .showText{
     opacity: 0;
     transform: translateY(8rem);

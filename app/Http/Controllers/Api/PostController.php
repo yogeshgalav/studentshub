@@ -149,7 +149,7 @@ class PostController extends Controller
         ]]);
     }
     public function courseDetails(Request $request){
-        $subject=\App\Models\Course::where('course_url', $request->route('id'))->firstOrFail();
+        $subject=\App\Models\Course::where('slug', $request->route('id'))->firstOrFail();
         $post=new \App\Post;
         $posts = $post->getCoursePosts($course->id);
 
@@ -159,7 +159,7 @@ class PostController extends Controller
         ]]);
       }
       public function subjectDetails(Request $request){
-        $subject=\App\Models\Subject::where('subject_url', $request->route('id'))->firstOrFail();
+        $subject=\App\Models\Subject::where('slug', $request->route('id'))->firstOrFail();
         $post=new \App\Post;
         $posts = $post->getSubjectPosts($subject->id);
 

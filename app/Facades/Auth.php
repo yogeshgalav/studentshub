@@ -26,7 +26,7 @@ class Auth extends AuthUser
                 'inst.name as instituteName',
                 'courses.id as courseId',
                 'courses.course_name as courseName',
-                'courses.course_url as courseUrl',
+                'courses.slug as courseUrl',
                 'cat.id as categoryId',
                 'st.unique_college_id as college_id'
             )->first();

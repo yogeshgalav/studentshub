@@ -70,7 +70,7 @@
               class="card mb-2"
             >
               <a
-                :href="'/subject/'+subject.subject_url" 
+                :href="'/subject/'+subject.slug" 
                 class="text-black font-size-18"
               >{{ subject.subject_name }}</a>
             </div>
@@ -89,7 +89,7 @@
               class="card mb-2"
             >
               <a
-                :href="'/course/'+course.course_url" 
+                :href="'/course/'+course.slug" 
                 class="text-black font-size-18"
               >
                 {{ course.course_name }}

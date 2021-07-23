@@ -21,7 +21,7 @@
                 class="card mb-2"
               >
                 <a
-                  :href="'/subject/'+subject.subject_url" 
+                  :href="'/subject/'+subject.slug" 
                   class="text-black font-size-18"
                 >{{ subject.subject_name }}</a>
               </div>

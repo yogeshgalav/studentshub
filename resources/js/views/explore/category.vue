@@ -21,7 +21,7 @@
           :key="index"
         >
           <router-link
-            :to="'/course/'+course.course_url"
+            :to="'/course/'+course.slug"
             class="card mt-2"
           >
             <p class="mt-4 explore-name ml-2">
@@ -43,7 +43,7 @@
           :key="index"
         >
           <router-link
-            :to="'/subject/'+subject.subject_url"
+            :to="'/subject/'+subject.slug"
             class="card mt-2"
           >
             <p class="mt-4 explore-name ml-2">

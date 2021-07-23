@@ -14,7 +14,7 @@ class CoursesTableSeeder extends Seeder
     public function run()
     {
         //
-        $sql = "INSERT INTO `courses` (`id`, `course_name`, `course_url`, `duration`, `eligibility`, `category_id`, `country_id`, `verified`, `alias`, `created_at`, `updated_at`) VALUES
+        $sql = "INSERT INTO `courses` (`id`, `course_name`, `slug`, `duration`, `eligibility`, `category_id`, `country_id`, `verified`, `alias`, `created_at`, `updated_at`) VALUES
         (1, 'Advanced diploma in Dredging technology', 'advanced-diploma-in-dredging-technology', 'One year', 'Bachelor\'s Degree', 1, 'IN', 1, 'ADDT', '2020-04-03 12:56:56', '2020-06-10 00:26:23'),
         (2, 'Bachelor of Architecture', 'bachelor-of-architecture', 'Five Years', '', 1, 'IN', 1, 'BA', '2020-04-03 12:56:56', '2020-06-10 00:26:23'),
         (3, 'Bachelor of Architecture Interior Design', 'bachelor-of-architecture-interior-design', 'Five years', '10+2 or equivalent in Science', 1, 'IN', 1, 'BAID', '2020-04-03 12:56:56', '2020-06-10 00:26:23'),
@@ -270,7 +270,7 @@ class CoursesTableSeeder extends Seeder
         (260, 'Bachelor of Arts Sanskrit (Honors)', 'bachelor-of-arts-sanskrit-honors', 'Four years', '10+2 or equivalent', 4, 'IN', 1, 'BAS(', '2020-04-03 13:09:33', '2020-06-10 00:26:24'),
         (261, 'Bachelor of Arts Social Work (Honors)', 'bachelor-of-arts-social-work-honors', 'Four years', '10+2 or equivalent', 4, 'IN', 1, 'BASW(', '2020-04-03 13:09:33', '2020-06-10 00:26:24'),
         (262, 'Bachelor of Arts Sociology', 'bachelor-of-arts-sociology', 'Three years', '10+2 or equivalent', 4, 'IN', 1, 'BAS', '2020-04-03 13:09:33', '2020-06-10 00:26:24');";
-        $sql2="INSERT INTO `courses` (`id`, `course_name`, `course_url`, `duration`, `eligibility`, `category_id`, `country_id`, `verified`, `alias`, `created_at`, `updated_at`) VALUES
+        $sql2="INSERT INTO `courses` (`id`, `course_name`, `slug`, `duration`, `eligibility`, `category_id`, `country_id`, `verified`, `alias`, `created_at`, `updated_at`) VALUES
         (263, 'Bachelor of Arts Sociology (Honors)', 'bachelor-of-arts-sociology-honors', 'Four years', '10+2 or equivalent', 4, 'IN', 1, 'BAS(', '2020-04-03 13:09:33', '2020-06-10 00:26:24'),
         (264, 'Bachelor of Arts Tamil', 'bachelor-of-arts-tamil', 'Three years', '10+2 or equivalent', 4, 'IN', 1, 'BAT', '2020-04-03 13:09:33', '2020-06-10 00:26:24'),
         (265, 'Bachelor of Arts Urdu (Honors)', 'bachelor-of-arts-urdu-honors', 'Four years', '10+2 or equivalent', 4, 'IN', 1, 'BAU(', '2020-04-03 13:09:33', '2020-06-10 00:26:24'),
@@ -544,7 +544,7 @@ class CoursesTableSeeder extends Seeder
         (540, 'Master of Pharmacy Herbal Drug Technology', 'master-of-pharmacy-herbal-drug-technology', 'Two years', 'Bachelor\'s Degree', 8, 'IN', 1, 'MPHDT', '2020-04-03 13:20:18', '2020-06-10 00:26:26'),
         (541, 'Master of Pharmacy Hospital Pharmacy', 'master-of-pharmacy-hospital-pharmacy', 'Two years', 'Bachelor\'s Degree', 8, 'IN', 1, 'MPHP', '2020-04-03 13:20:18', '2020-06-10 00:26:26'),
         (542, 'Master of Pharmacy Pharmaceutical Chemistry', 'master-of-pharmacy-pharmaceutical-chemistry', 'Two years', 'B.Pharm.', 8, 'IN', 1, 'MPPC', '2020-04-03 13:20:18', '2020-06-10 00:26:26');";
-        $sql3="INSERT INTO `courses` (`id`, `course_name`, `course_url`, `duration`, `eligibility`, `category_id`, `country_id`, `verified`, `alias`, `created_at`, `updated_at`) VALUES
+        $sql3="INSERT INTO `courses` (`id`, `course_name`, `slug`, `duration`, `eligibility`, `category_id`, `country_id`, `verified`, `alias`, `created_at`, `updated_at`) VALUES
         (543, 'Master of Pharmacy Pharmaceutical Management', 'master-of-pharmacy-pharmaceutical-management', 'Two years', 'Bachelor\'s Degree', 8, 'IN', 1, 'MPPM', '2020-04-03 13:20:18', '2020-06-10 00:26:26'),
         (544, 'Master of Pharmacy Pharmaceutics', 'master-of-pharmacy-pharmaceutics', 'Two years', 'Bachelor\'s Degree', 8, 'IN', 1, 'MPP', '2020-04-03 13:20:18', '2020-06-10 00:26:26'),
         (545, 'Master of Pharmacy Pharmacognosy', 'master-of-pharmacy-pharmacognosy', 'Two years', 'B.Pharm.', 8, 'IN', 1, 'MPP', '2020-04-03 13:20:18', '2020-06-10 00:26:26'),

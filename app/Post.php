@@ -104,7 +104,7 @@ class Post extends PostModel
         ->leftJoin('courses as course','course.id','=','sp.course_id');
 
         $columns = ['po.id as id','po.post_heading as heading','po.post_description as description','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','po.primary_image_path as image_path',
-        'sub.subject_url','sub.subject_name',
+        'sub.slug','sub.subject_name',
         'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','inst.name as institute_name','ar.html_content as article_content',
         'vd.video_id as video_id','fc.image_path as fact_image_path','do.link as document_link'];
 
