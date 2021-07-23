@@ -144,7 +144,7 @@ class ClassroomController extends Controller
                 'field'=>'classroom_id',
                 'message'=>'This classroom join id does not exist.'
             ]],422);
-        }elseif($student->course_id !== $classroom->course_id  ||  $student->institute_id !== $classroom->institute_id){
+        }elseif($student->courseId !== $classroom->course_id  ||  $student->instituteId !== $classroom->institute_id){
             return response()->json(['error'=>[
                 'field'=>'classroom_id',
                 'message'=>'You cannot join this classroom with your current preffered educational details.'
@@ -156,7 +156,9 @@ class ClassroomController extends Controller
             'classroom_id'=>$classroom->id
         ]);
 
-        return response()->json('success');
+        return response()->json(['success'=>[
+            'classroom_id'=>$classroom->id,
+        ]]);
     }
     public function getClassmates(){
         $classmates = DB::table('users as us')

@@ -48,15 +48,15 @@
     </div>
     <div
       v-if="AuthUser.role_intended==='student' && !classroomList.length"
-      class="card"
+      class="card mb-2 pl-3"
     >
-      <div class="card-body">
+      <div>
         <div class="row">
           <div class="col-md-12">
             <p class="text-blue weight-600">
               Ask your teachers to share Classroom Join Id with you.
             </p>
-            <p>
+            <p style="line-height:1px;">
               Classrooms will help you to visualize your progress and ease your learning process.
             </p>
           </div>
@@ -209,11 +209,11 @@ export default {
 			this.showLoader=true;
 			this.axios.post('/api/classroom/join',{
 				name:this.join_classroom_name
-			}).then(()=>{
+			}).then((resp)=>{
 				this.$refs.joinClassroomModal.closeModal();
 				this.showLoader=false;
 				swal.successDialog('Classroom joined', 'Successfully!', 'success');
-				location.reload();
+				window.location.href = '/classroom/'+resp.data.success.classroom_id;
 			}).catch((err)=>{
 				if(err.response.status===422){
 					let error_data = err.response.data.error;
