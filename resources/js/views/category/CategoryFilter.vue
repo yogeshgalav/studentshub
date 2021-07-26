@@ -1,7 +1,7 @@
 <template>
   <div class="bg-gray">
     <div class="container category-filter cat_pad">
-      <div class="category_head">
+      <div class="text-center mb-2">
         <h3> What is your field of Interest ?</h3>
       </div>
       <div class="cat_menu">
@@ -17,9 +17,9 @@
         </div>
       </div>
 
-      <div class="category_btn">
-        <router-link :to="'/get-started'">
-          Find Out <span><i
+      <div class="category_btn mt-3">
+        <router-link :to="'/get-started'" style="padding:15px 80px;">
+          Find Out &nbsp;&nbsp;<span><i
             class="fa fa-arrow-right"
             aria-hidden="true"
           /></span>
@@ -69,7 +69,7 @@
     .slick-slide {
         margin: 0 5px !important;
     }
->
+
     .cat_menu h3:before {
         position: absolute;
         content: '';
@@ -102,10 +102,6 @@
     .category_btn {
         text-align: center;
         margin-top: 25px;
-    }
-
-    .category_head {
-        text-align: center;
     }
 
 </style>

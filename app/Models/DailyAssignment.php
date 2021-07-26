@@ -5,11 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use Auth;
+use Haruncpi\LaravelUserActivity\Traits\Loggable;
 
 class DailyAssignment extends Model
 {
     //
     protected  $guarded = ['id', 'created_at', 'updated_at'];
+    use Loggable;
 
     public function dailyQuestions(){
         return $this->hasMany('App\Models\DailyQuestion');

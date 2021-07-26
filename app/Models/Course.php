@@ -4,12 +4,28 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Facades\Sthub;
+use Haruncpi\LaravelUserActivity\Traits\Loggable;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
 class Course extends Model
 {
     //
     protected  $guarded = ['id', 'created_at', 'updated_at'];
+    use Loggable;
+    use HasSlug;
 
+
+    /**
+     * Get the options for generating the slug.
+     */
+    public function getSlugOptions() : SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('course_name')
+            ->saveSlugsTo('slug');
+    }
+    
     public function category()
     {
         return $this->belongsTo('App\Models\Category');
@@ -22,7 +38,6 @@ class Course extends Model
     public function setCourseNameAttribute($value)
     {
         $this->attributes['course_name'] = Sthub::ucWordSome($value);
-        $this->attributes['course_url'] = \Str::slug($value);
         $this->attributes['alias'] = Sthub::generateAlias($value);
     }
 }

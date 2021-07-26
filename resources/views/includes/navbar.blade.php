@@ -90,7 +90,7 @@
                 </router-link>
             </div>
             <div class="nav-item">
-                <router-link class="btn btn-primary weight-400" :to="'/get-started'">Get Started <i
+                <router-link class="btn btn-primary" :to="'/get-started'">Get Started <i
                         class="fas fa-arrow-right text-white"></i></router-link>
             </div>
         </div>
@@ -106,7 +106,7 @@
                     </router-link>
                 </li>
                 <li class="nav-item">
-                    <router-link class="btn btn-primary weight-400" :to="'/get-started'">Get Started <i
+                    <router-link class="btn btn-primary" :to="'/get-started'">Get Started <i
                             class="fas fa-arrow-right text-white"></i>
                     </router-link>
                 </li>

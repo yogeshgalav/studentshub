@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="row">
     <div class="col-md-12">
       <h1>Doubts</h1>
     </div>
@@ -58,47 +58,49 @@
               :key="index"
             >
               <div class="card mb-2">
-                <div class="dashboard_post">
-                  <div class="avatar doubt_user_img">
-                    <profile-image
-                      :user-name="doubt.user_name"
-                      :avatar="doubt.profile_image"
-                    />
+                <div class="card-body">
+                  <div class="dashboard_post">
+                    <div class="avatar doubt_user_img">
+                      <profile-image
+                        :user-name="doubt.user_name"
+                        :avatar="doubt.profile_image"
+                      />
+                    </div>
+                    <div class="info-post ml-2 dash_insititue_name">
+                      <p class="font-size-14 mb-0 dash_user_date">
+                        {{ doubt.user_name }}<span> {{ doubt.time }}</span>
+                      </p>
+                      <p class="font-size-14 mb-0">
+                        {{ doubt.institute_name }}
+                      </p>
+                    </div>
                   </div>
-                  <div class="info-post ml-2 dash_insititue_name">
-                    <p class="font-size-14 mb-0 dash_user_date">
-                      {{ doubt.user_name }}<span> {{ doubt.time }}</span>
-                    </p>
-                    <p class="font-size-14 mb-0">
-                      {{ doubt.institute_name }}
-                    </p>
+                  <hr class="mb-1 mt-2">
+                  <div class="row">
+                    <div class="col-md-12 d-flex font-size-12 mb-0">
+                      <p class="text-muted post_category">
+                        {{ doubt.subject_name }}
+                      </p>
+                    </div>
+                    <div class="col-md-12">
+                      <p class="font-size-24 weight-600 mb-0">
+                        <router-link
+                          :to="'/doubt/'+doubt.id"
+                          class="weight-600 text-black"
+                        >
+                          {{ doubt.question }}
+                        </router-link>
+                      </p>
+                    </div>
                   </div>
+                  <hr>
+                  <like-component
+                    :user-like="doubt.user_like ? true : false"
+                    :total-likes="doubt.total_likes"
+                    :likable-id="doubt.id"
+                    likable-type="doubt"
+                  />
                 </div>
-                <hr class="mb-1 mt-2">
-                <div class="row">
-                  <div class="col-md-12 d-flex font-size-12 mb-0">
-                    <p class="text-muted post_category">
-                      {{ doubt.subject_name }}
-                    </p>
-                  </div>
-                  <div class="col-md-12">
-                    <p class="font-size-24 weight-600 mb-0">
-                      <router-link
-                        :to="'/doubt/'+doubt.id"
-                        class="weight-600 text-black"
-                      >
-                        {{ doubt.question }}
-                      </router-link>
-                    </p>
-                  </div>
-                </div>
-                <hr>
-                <like-component
-                  :user-like="doubt.user_like ? true : false"
-                  :total-likes="doubt.total_likes"
-                  :likable-id="doubt.id"
-                  likable-type="doubt"
-                />
               </div>
             </div>
           </div>

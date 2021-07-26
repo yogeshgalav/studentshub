@@ -32,7 +32,7 @@
           <div>
             <div class="separator-solid" />
             <p class="card-category text-info mb-2">
-              <a :href="post.subject_url">{{ post.subject_name }}</a>
+              <a :href="post.slug">{{ post.subject_name }}</a>
             </p>
             <h3 class="card-title  font-size-16">
               <router-link
