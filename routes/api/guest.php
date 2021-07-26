@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::post('/subscribe','GuestController@update');
-Route::get('/get-post-content/{post_id}','PostController@show');
+Route::get('/get-post-content/{post}','PostController@show');
 Route::post('/login',[App\Http\Controllers\AuthController::class,'loginViaApi']);
 Route::post('/register',[App\Http\Controllers\AuthController::class,'registerViaApi']);
 Route::post('/member-request','GuestController@memberRequest');

@@ -100,8 +100,7 @@ class Post extends PostModel
         ->leftJoin('subjects as sub','sub.id','=','po.subject_id')
         ->leftJoin('categories as cat','cat.id','=','po.category_id')
         ->leftJoin('users as us','us.id','=','po.user_id')
-        ->leftJoin('institutes as inst','inst.id','=','po.user_institute_id')
-        ->leftJoin('courses as course','course.id','=','sp.course_id');
+        ->leftJoin('institutes as inst','inst.id','=','us.preferred_institute_id');
 
         $columns = ['po.id as id','po.post_heading as heading','po.post_description as description','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','po.primary_image_path as image_path',
         'sub.slug','sub.subject_name',

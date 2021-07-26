@@ -15,4 +15,22 @@ class SthubPost extends Model
         return $this->belongsTo('App\Models\Post')->with(['postable','subject','tags']);
     }
 
+    public static function addAction(String $action_type,Post $post,User $user)
+    {
+        $action_array=[0=>'view',1=>'like',2=>'comment',3=>'share'];
+        $sthub_post = self::firstOrNew([
+            'post_id'=>$post->id,
+            'action_user_id'=>$user->id,
+        ]);
+
+        if(!$sthub_post || array_search($sthub_post->action_type,$action_array)>array_search($action_type,'$action_array')) {
+            return false;
+        }
+
+        $sthub_post->action_type = $action_type;
+        $sthub_post->save();
+
+        return true;
+    }
+
 }
