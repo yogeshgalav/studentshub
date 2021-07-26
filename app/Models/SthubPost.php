@@ -23,7 +23,7 @@ class SthubPost extends Model
             'action_user_id'=>$user->id,
         ]);
 
-        if(!$sthub_post || array_search($sthub_post->action_type,$action_array)>array_search($action_type,'$action_array')) {
+        if(!$sthub_post || array_search($sthub_post->action_type,$action_array)>array_search($action_type,$action_array)) {
             return false;
         }
 

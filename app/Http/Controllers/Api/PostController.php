@@ -14,6 +14,7 @@ use App\Models\Video;
 use App\Models\Notice;
 use App\Models\Fact;
 use App\Models\Mcq;
+use App\Models\Document;
 use Auth;
 use DB;
 use Storage;
@@ -119,7 +120,7 @@ class PostController extends Controller
       ]]);
     }
 
-    public function show($post){
+    public function show(Post $post){
         $me=Auth::user();
         if($me && $me->id!==$post->user_id){
           \App\Models\SthubPost::addAction('view',$post,$me);
@@ -130,14 +131,14 @@ class PostController extends Controller
         }
 
         $post_helper=new \App\Post;
-        if($user){
-          $post_content=$post->getAuthPostContent($post->id)[0];
+        if($me){
+          $post_content=$post_helper->getAuthPostContent($post->id)[0];
         }else{
-          $post_content=$post->getGuestPostContent($post->id)[0];
+          $post_content=$post_helper->getGuestPostContent($post->id)[0];
         }
 
-        $most_viewed=$post->getMostViewedPosts($post_content->category_id);
-        $most_liked=$post->getMostLikedPosts($post_content->category_id);
+        $most_viewed=$post_helper->getMostViewedPosts($post_content->category_id);
+        $most_liked=$post_helper->getMostLikedPosts($post_content->category_id);
 
         return response()->json(['success'=>[
             'post_content'=>$post_content,
