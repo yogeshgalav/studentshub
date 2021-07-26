@@ -13,7 +13,7 @@
           <h4>General info</h4>
         </div>
 
-        <div class="row card-body">
+        <div class="card-body">
           <div class="col-md-12">
             <div class="user_edit_profile_img">
               <div class="u_e_img">
@@ -86,7 +86,7 @@
           <h4>Profile info</h4>
         </div>
 
-        <div class="row card-body">
+        <div class="card-body">
           <form @submit.prevent="saveProfile">
             <div class="row">
               <div class="col-md-12">

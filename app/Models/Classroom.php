@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Facades\Sthub;
+use Haruncpi\LaravelUserActivity\Traits\Loggable;
 
 class Classroom extends Model
 {
     protected  $guarded = ['id', 'created_at', 'updated_at'];
+    use Loggable;
 
     /***
      * Register a listener on the Classroom model's

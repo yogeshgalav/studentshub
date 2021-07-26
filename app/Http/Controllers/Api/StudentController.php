@@ -32,7 +32,6 @@ class StudentController extends Controller
         try {
             //create or get course id
             if ($input['course_id'] == 0) {
-                Log::info('New course created',['course_id'=>$course->id]);
                 $course = Course::create([
                     'course_name' => $input['course_name'],
                     'category_id' => null,
@@ -77,7 +76,7 @@ class StudentController extends Controller
         } catch (\Exception $e) {
             DB::rollback();
             // dd($e->getLine(),$e->getMessage());
-            Log::critical('Student Registeration failure',['error'=>$e->getMessage()]);
+            Log::critical('Student Registeration failure',['data'=>$request->all(),'error'=>$e->getMessage()]);
             return response()->$e;
         }
         $success['redirectUrl'] = '/classrooms';

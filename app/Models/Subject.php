@@ -5,11 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Facades\Sthub;
 
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 class Subject extends Model
 {
     //
     protected  $guarded = ['id', 'created_at', 'updated_at'];
+    use HasSlug;
 
+
+    /**
+     * Get the options for generating the slug.
+     */
+    public function getSlugOptions() : SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('subject_name')
+            ->saveSlugsTo('slug');
+    }
     public function posts()
     {
         return $this->hasMany('App\Models\Post');
@@ -29,11 +42,11 @@ class Subject extends Model
             return self::findOrFail($subject_id);
         }
         if(empty($category_id)){
-            \Log::warning('New subject created with null category',['subject_url'=>\Str::slug($subject_name)]);
+            \Log::warning('New subject created with null category',['slug'=>\Str::slug($subject_name)]);
 
         }
         return self::firstOrCreate([
-            'subject_url'=>\Str::slug($subject_name),
+            'slug'=>\Str::slug($subject_name),
             'category_id'=>$category_id,
         ],[
             'subject_name'=>Sthub::ucWordSome($subject_name),

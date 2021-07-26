@@ -15,7 +15,7 @@
     >
     <transition name="fade">
       <ul
-        v-show="isOpen===true"
+        v-if="isOpen===true"
         id="autocomplete-results"
         class="autocomplete-results"
       >
@@ -57,6 +57,7 @@
   }
 
   .autocomplete-results {
+	display: inline-block !important;
     padding: 0;
     margin: 0;
     border: 1px solid #eeeeee;
