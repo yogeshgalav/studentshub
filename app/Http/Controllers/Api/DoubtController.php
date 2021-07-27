@@ -72,10 +72,6 @@ class DoubtController extends Controller
         ->join('users as us','us.id','=','doubts.user_id')
         ->join('subjects as sub','sub.id','=','doubts.subject_id')
         ->join('institutes as inst','inst.id','=','doubts.institute_id');
-        
-        if(!empty($request->classroomId)){
-            $doubt_query = $doubt_query->where('classroom_id',$request->classroomId);
-        }
         if(!empty($request->search)){
             $doubt_query = $doubt_query->where('question','LIKE','%'.$request->search.'%');
         }
@@ -90,11 +86,11 @@ class DoubtController extends Controller
             ->where('uli.likable_type','=','App\Models\Doubt')
             ->where('uli.user_id','=',Auth::id());
         })
-        ->select('us.full_name as user_name','us.avatar_url as profile_image','sub.subject_name','inst.name as institute_name',
+        ->select('sub.id as subject_id','us.id as user_id','us.full_name as user_name','us.avatar_url as profile_image','sub.subject_name','inst.name as institute_name',
         'doubts.question','doubts.created_at','doubts.id','uli.like_status as user_like',
         DB::raw('COUNT(distinct li.user_id) as total_likes'),
         DB::raw('COUNT(distinct ans.user_id) as total_answers'))
-        ->groupBy('us.full_name','us.avatar_url','sub.subject_name','inst.name',
+        ->groupBy('sub.id','us.id','us.full_name','us.avatar_url','sub.subject_name','inst.name',
         'doubts.question','doubts.created_at','doubts.id','uli.like_status')
         ->orderBy('doubts.created_at','DESC')
         ->get();
