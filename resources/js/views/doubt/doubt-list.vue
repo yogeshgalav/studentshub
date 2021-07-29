@@ -10,14 +10,13 @@
       <div>
         <form
           class="doubt_search_box"
-          @submit.prevent="searchDoubt"
         >
           <div class="row">
             <div class="col-md-8">
               <div class="form-group has-search">
                 <span class="fa fa-search form-control-feedback" />
                 <input
-                  v-model="doubt_question"
+                  v-model="search_doubt"
                   type="text"
                   name="doubt"
                   class="form-control"
@@ -36,6 +35,7 @@
                 data-toggle="modal"
                 data-target="#addDoubtModal"
                 class="btn btn-lg btn-primary"
+                @click="doubt_question=search_doubt"
               >
                 Ask new Doubt
               </button>
@@ -146,7 +146,7 @@
           ref="addDoubtModal"
           name="addDoubtModal"
           heading="Ask doubt:"
-          @submit="edit_doubt_id ?edit_doubts : addDoubt"
+          @submit="addOrEditDoubt"
         >
           <template slot="modalBody">
             <form>
@@ -243,15 +243,14 @@ export default {
 		LikeComponent
 	},
 	mixins: [FormMixin],
-	props:['classroomId','subjectId','categories'],
+	props:['subjectId','categories'],
 	data()
 	{
 		return {
 			edit_doubt_id:'',
-			edit_doubt:'',
+			search_doubt:'',
 			doubt_question:'',
 			subject:'',
-			new_doubt_type:'batch',
 			doubtList:[],
 			loading:false,
 			debounce:null,
@@ -277,11 +276,7 @@ export default {
     {
     	getdata(){
     		this.loading=true;
-    		let url = this.baseUrl + '/api/get-doubts';
-    		if(this.classroomId){
-    			url = url+'?classroomId=' + this.classroomId;
-    		}
-    		this.axios.get(url)
+    		this.axios.get('/api/get-doubts')
     			.then(response => {
     				this.doubtList = response.data.success.doubtList;
     				this.loading=false;
@@ -300,15 +295,19 @@ export default {
     	filterinput()
     	{
     		this.loading=true;
-    		this.axios.get(this.baseUrl + '/api/get-doubts?search='+this.doubt_question)
+    		this.axios.get(this.baseUrl + '/api/get-doubts?search='+this.search_doubt)
     			.then(response => {
     				this.doubtList= response.data.success.doubtList;
     				this.loading=false;
     			});
     	},
-    	searchDoubt(){
-    		this.axios.post(this.baseUrl + '/api/search-doubts/',{query:this.doubt_question})
-    			.then(response => {this.doubtList = response.data.success.doubtList;});
+    	addOrEditDoubt(){
+    		if(this.edit_doubt_id){
+    			this.updateDoubt();
+    			return true;
+    		}
+    		this.addDoubt();
+    		return true;
     	},
     	addDoubt()
     	{
@@ -316,7 +315,6 @@ export default {
     			doubt:this.doubt_question,
     			category:this.selected_category,
     			subject:this.selected_subject,
-    			classroomId:this.classroomId ?this.classroomId :''
     		} )
     			.then(resp => {
     				// this.$modal.hide('add_doubt_modal');
@@ -329,15 +327,13 @@ export default {
     				reject(err);
     			});
     	},
-    	edit_doubts()
+    	updateDoubt()
     	{
-    		this.axios.post(this.baseUrl + '/api/doubt/' + this.edit_doubt_id + '/edit',{
+    		this.axios.post('/api/doubt/' + this.edit_doubt_id + '/edit',{
     			doubt:this.doubt_question,
     			category:this.selected_category,
     			subject:this.selected_subject,
-    			classroomId:this.classroomId ?this.classroomId :''
-    		} )
-    			.then(resp => {
+    		}).then(resp => {
     				// this.$modal.hide('add_doubt_modal');
     				this.$refs.addDoubtModal.closeModal();
     				this.doubt_question='';
@@ -398,9 +394,7 @@ export default {
     		};
     	},
     	deleteDoubt(doubtId){
-    		this.axios.post('/api/doubt/delete',{
-    			 doubt_id : doubtId,
-    		}).then((resp)=>{
+    		this.axios.delete('/api/doubt/' + doubtId).then((resp)=>{
     			window.location.reload();
     		});
     	},

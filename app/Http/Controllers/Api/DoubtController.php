@@ -8,6 +8,7 @@ use App\Models\Subject;
 use App\Models\Category;
 use App\Models\Classroom;
 use App\Models\ScheduledJob;
+use App\Models\DoubAnswer;
 use Illuminate\Http\Request;
 use Auth;
 use Arr;
@@ -30,14 +31,7 @@ class DoubtController extends Controller
 
         DB::beginTransaction();
     try{
-
-        $classroom = null;
-        if($request->classroomId){
-            $classroom = Classroom::findOrFail($request->classroomId);
-            $subject = $classroom->subject;
-        }else{
-            $subject=Subject::getOrCreate(null, $selected_subject['subject_name'], Auth::student()->categoryId);
-        }
+        $subject=Subject::getOrCreate(null, $selected_subject['subject_name'], Auth::student()->categoryId);
 
         $doubt = new Doubt();
         $doubt->user_id = Auth::user()->id;
@@ -116,4 +110,39 @@ class DoubtController extends Controller
         return array_keys(array_slice($wordCountArr, 0, 5));
       }
 
+      public function editDoubt(Doubt $doubt, Request $request){
+        $student=Auth::student();
+        $selected_subject=$request->subject;
+
+        if($doubt->user_id!==Auth::id() || is_null($student)){
+            abort(403);
+        }
+
+        DB::beginTransaction();
+    try{
+        $subject=Subject::getOrCreate(null, $selected_subject['subject_name'], Auth::student()->categoryId);
+
+        $doubt->user_id = Auth::user()->id;
+        $doubt->question = $request->doubt;
+        $doubt->subject_id = $subject->id;
+        $doubt->institute_id = $student->instituteId;
+        $doubt->course_id = $student->courseId;
+        $doubt->save();
+        // ScheduledJob::newDoubtNotification($doubt);
+
+
+    DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            Log::critical('Doubt edit failure',['data'=>$request->all(),'error'=>$e->getMessage()]);
+            // dd($e->getMessage(),$e->getLine());
+            return response()->$e;
+        }
+        return 'success';
+      }
+
+      public function deleteDoubt(Doubt $doubt){
+        $doubt->delete();
+        return response()->json([], 204);
+      }
 }
