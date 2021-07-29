@@ -1,5 +1,7 @@
 <template>
   <div class="row">
+    <!--the edit message modal -->
+    
     <div class="col-md-12">
       <h1>Doubts</h1>
     </div>
@@ -68,7 +70,41 @@
                     </div>
                     <div class="info-post ml-2 dash_insititue_name">
                       <p class="font-size-14 mb-0 dash_user_date">
-                        {{ doubt.user_name }}<span> {{ doubt.time }}</span>
+                        {{ doubt.user_name }}<span> {{ doubt.time }}
+                          <div
+                            v-if="doubt.user_id===AuthUser.id"
+                            class="dropdown d-inline"
+                          >
+                            <button
+                              id="dropdownMenuButton"
+                              class="btn btn-secondary dropdown-toggle p-0"
+                              type="button"
+                              data-toggle="dropdown"
+                              aria-haspopup="true"
+                              aria-expanded="false"
+                            >
+                              <i class="fas fa-ellipsis-v" />
+                            </button>
+                            <div
+                              class="dropdown-menu dropdown-menu-right"
+                              style="min-width: max-content;"
+                              aria-labelledby="dropdownMenuButton"
+                            >
+                              <button
+                                type="button"
+                                class="dropdown-item"
+                                data-toggle="modal"
+                                data-target="#addDoubtModal"
+                                @click="editDoubt(doubt)"
+                              >Edit</button> 
+                              <button
+                                type="button"
+                                class="dropdown-item"
+                                @click="deleteDoubt(doubt.id)"
+                              >Delete</button>
+                            </div>
+                          </div>
+                        </span>
                       </p>
                       <p class="font-size-14 mb-0">
                         {{ doubt.institute_name }}
@@ -110,7 +146,7 @@
           ref="addDoubtModal"
           name="addDoubtModal"
           heading="Ask doubt:"
-          @submit="addDoubt"
+          @submit="edit_doubt_id ?edit_doubts : addDoubt"
         >
           <template slot="modalBody">
             <form>
@@ -139,7 +175,6 @@
                     </div>
                   </div>
                   <div
-                    v-if="!subjectId"
                     class="col-md-12"
                   >
                     <div class="model_input">
@@ -153,6 +188,7 @@
                         :placeholder="'eg. Biology,Chemistry'"
                         :is-async="true"
                         :is-loading="subjectLoading"
+                        :initial-value="selected_subject"
                         @input="getSubjects"
                         @selected="setSubject"
                         @selectNew="setNewSubject"
@@ -190,6 +226,7 @@
 }
 </style>
 <script>
+import FormMixin from '../../components/mixins/form-mixin.js';
 import Modal from '../../components/VueNiceModal.vue';
 import Loading from 'vue-loading-overlay';
 import AutoComplete from '../../components/AutoComplete.vue';
@@ -205,10 +242,13 @@ export default {
 		ProfileImage,
 		LikeComponent
 	},
+	mixins: [FormMixin],
 	props:['classroomId','subjectId','categories'],
 	data()
 	{
 		return {
+			edit_doubt_id:'',
+			edit_doubt:'',
 			doubt_question:'',
 			subject:'',
 			new_doubt_type:'batch',
@@ -289,6 +329,25 @@ export default {
     				reject(err);
     			});
     	},
+    	edit_doubts()
+    	{
+    		this.axios.post(this.baseUrl + '/api/doubt/' + this.edit_doubt_id + '/edit',{
+    			doubt:this.doubt_question,
+    			category:this.selected_category,
+    			subject:this.selected_subject,
+    			classroomId:this.classroomId ?this.classroomId :''
+    		} )
+    			.then(resp => {
+    				// this.$modal.hide('add_doubt_modal');
+    				this.$refs.addDoubtModal.closeModal();
+    				this.doubt_question='';
+    				this.subject='';
+    				this.getdata();
+    			})
+    			.catch(err => {
+    				reject(err);
+    			});
+    	},
     	getSubjects	(search) {
     		this.selected_subject = {
     			'id': null,
@@ -329,6 +388,23 @@ export default {
     			'category_id': '',
     		};
     	},
+    	editDoubt(doubt){
+    		this.edit_doubt_id = doubt.id;
+    		this.doubt_question = doubt.question;
+    		this.selected_subject = {
+    			'id': doubt.subject_id,
+    			'subject_name': doubt.subject_name,
+    			'category_id': '',
+    		};
+    	},
+    	deleteDoubt(doubtId){
+    		this.axios.post('/api/doubt/delete',{
+    			 doubt_id : doubtId,
+    		}).then((resp)=>{
+    			window.location.reload();
+    		});
+    	},
+      
     }
 };
 </script>
