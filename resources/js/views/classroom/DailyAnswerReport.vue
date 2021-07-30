@@ -202,14 +202,20 @@ margin: 10px 0px;
 </style>
 <script>
 export default {
-	props:['dailyReports'],
+	props:['dailyReports','userId'],
 	data(){
 		return {
+			events:'',
 			showLoader:true,
 			daily_report:null,
 			daily_questions:[],
 			assignment_list:[],
 		};
+	},
+	watch:{
+		userId: function(){
+		
+		}
 	},
 	mounted(){
 		this.axios.get('/api/classroom/'+this.$route.params.classroomId+'/get-attempted-assignment-list')
@@ -223,12 +229,13 @@ export default {
 	},
 	methods:{
 		getDailyAnswer(event) {
+			this.events = event;
 			this.showLoader = true;
 			let assignment_id= event ? event.target.value : this.assignment_list[0].id;
 
 			let url = '/api/assignment/' +assignment_id +'/user';
 			if (this.$route.name === 'ClassroomStudentPanel') {
-				url = url + '/' + this.$router.currentRoute.params.userId;
+				url = url + '/' + this.userId;
 			}else {
 				url = url + '/' + this.AuthUser.id;
 			}
