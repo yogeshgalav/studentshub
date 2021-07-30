@@ -1,24 +1,330 @@
 <template>
   <div>
-    <create-post-content :new-post="newPost" />
-    <create-post-description :new-post="newPost" />
+    <div class="creat_post_card img_der">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="">
+            <div class="form-group">
+              <div class="text-center">
+                <p class="title weight-600 font-size-16 text-black">
+                  Post Description.
+                </p>
+              </div>
+              <label class="weight-500">Heading</label>
+              <div class="input_icon_frm">
+                <span
+                  class="icon_design_input"
+                ><i
+                  class="fa fa-user"
+                /></span>
+                <input
+                  v-model="heading"
+                  type="text"
+                  class="form-control"
+                  :disabled="new_post.post_type === 'mcq'"
+                >
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="category"> {{ "Category" }} </label>
+              <div class="inner-addon left-addon">
+                <div class="input_icon_frm">
+                  <span
+                    class="icon_design_input"
+                  ><i
+                    class="fa fa-file"
+                    aria-hidden="true"
+                  /></span>
+                  <select
+                    v-model="selected_category"
+                    name="category"
+                    class="form-control"
+                  >
+                    <option value="">
+                      Select Category
+                    </option>
+                    <option
+                      v-for="category in categories"
+                      :key="category.id"
+                      :value="category.id"
+                    >
+                      {{ category.name }}
+                    </option>
+                  </select>
+                </div>
+                <span class="error">{{
+                  errors.first("category")
+                }}</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label
+                class="weight-500"
+                for="subject"
+              >Subject (optional)</label>
+              <div class="inner-addon left-addon">
+                <div class="input_icon_frm">
+                  <span
+                    class="icon_design_input"
+                    style="height: 44px"
+                  >
+                    <i
+                      class="fa fa-certificate"
+                      aria-hidden="true"
+                    /></span>
+                  <auto-complete
+                    class="width-100"
+                    :items="subject_list"
+                    :value="'subject_name'"
+                    name="subject_name"
+                    :is-async="true"
+                    :is-loading="subjectLoading"
+                    @input="getSubjects"
+                    @selected="setSubject"
+                    @selectNew="setNewSubject"
+                  />
+                  <span class="error">{{
+                    errors.first("subject")
+                  }}</span>
+                </div>
+              </div>
+            </div>
+            <div class="creat_post_btn" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="creat_post_card img_der artical_page">
+      <main>
+        <div v-if="postType === 'article'">
+          <blog-article :new-post="new_post" />
+        </div>
+        <div v-if="postType === 'fact'">
+          <fact :new-post="new_post" />
+        </div>
+        <div v-if="postType === 'mcq'">
+          <mcq :new-post="new_post" />
+        </div>
+        <div v-if="postType === 'video'">
+          <net-video :new-post="new_post" />
+        </div>
+        <div v-if="postType === 'document'">
+          <document :new-post="new_post" />
+        </div>
+      </main>
+      <div class="creat_post_btn">
+        <button class="btn btn-primary">
+          Submit
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 <script>
-import {mapState} from 'vuex';
-import CreatePostContent from './create-post/create-post-content';
-import CreatePostDescription from './create-post/create-post-description';
+import EventBus from './event-bus';
+import { mapState } from 'vuex';
+import AutoComplete from '../../components/AutoComplete.vue';
+import BlogArticle from './create-post/post-type/blog-article';
+import Fact from './create-post/post-type/fact.vue';
+import NetVideo from './create-post/post-type/video.vue';
+import Document from './create-post/post-type/document-link.vue';
+import Mcq from './create-post/post-type/mcq.vue';
+
 
 export default {
 	components: {
-		CreatePostContent,
-		CreatePostDescription
+		AutoComplete,
+		BlogArticle,
+		Document,
+		Fact,
+		Mcq,
+		NetVideo,
+		Document
 	},
 	props:['post'],
+	data() {
+		return {
+			new_post:{
+				article_html_content:'',
+				category_id:'',
+				description:'',
+				document_link:'',
+				fact_image:'',
+				fact_image_url:'',
+				heading:'',
+				post_type:'',
+				subject_course:null,
+				subject_id:'',
+				subject_name:'',
+				video_id:'',
+			},
+			heading: this.new_post.heading,
+			subject_list: [],
+			subjectLoading: false,
+			selected_subject: {
+				id: null,
+				subject_name: this.new_post.subject_name
+			},
+			selected_category: this.new_post.category_id
+		};
+	},
 	computed:{
 		...mapState({
-			'newPost': state=>state.new_post,
-		})
+			categories: state => state.categories
+		}),
+		postType() {
+			return this.$store.state.new_post.post_type.toLowerCase();
+		}
 	},
+	mounted() {
+		// EventBus.$on('validateStep3', () => {
+		// 	this.$validator.validate().then(valid => {
+		// 		if (valid) {
+		// 			this.$store.commit('set_post_subject', {
+		// 				subject_name: this.selected_subject.subject_name,
+		// 				selected_category: this.selected_category
+		// 			});
+		// 			this.$store.commit('set_post_heading', {
+		// 				post_heading: this.heading
+		// 			});
+		// 			EventBus.$emit('validateWizard', 3, true);
+		// 		} else {
+		// 			EventBus.$emit('validateWizard', 3, false);
+		// 		}
+		// 	});
+		// });
+
+		// this.selected_category =
+		//     this.AuthStudent && this.AuthStudent.categoryId
+		//     	? this.AuthStudent.categoryId
+		//     	: '';
+		this.new_post = {
+			article_html_content: this.post.postable['html_content'],
+			category_id:this.post.category_id,
+			description:this.post.post_description,
+			document_link:'',
+			fact_image:'',
+			fact_image_url:this.post.primary_image_path,
+			heading:this.post.post_heading,
+			post_type:this.post.postable_type,
+			subject_course:null,
+			subject_id:this.post.subject.id,
+			subject_name:this.post.subject.subject_name,
+			video_id:'',
+		};
+	},
+	methods: {
+		getSubjects(search) {
+			this.selected_subject = {
+				id: null,
+				subject_name: search
+			};
+			this.subjectLoading = true;
+			this.axios
+				.get(this.baseUrl + '/api/search-subject?searchTerm='+search)
+				.then(resp => {
+					this.subject_list = resp.data.success.subjects;
+					this.subject_list.find(node => {
+						if (
+							node.subject_name.toLowerCase() ===
+                            this.selected_subject.subject_name.toLowerCase()
+						) {
+							this.selected_subject = node;
+							return true;
+						}
+					});
+					this.subjectLoading = false;
+				})
+				.catch(() => {
+					this.subjectLoading = false;
+				});
+		},
+		setSubject(result) {
+			this.selected_subject = result;
+			if (this.selected_subject.category_id) {
+				this.selected_category = this.selected_subject.category_id;
+			}
+		},
+		setNewSubject(name) {
+			this.selected_subject = {
+				id: 0,
+				subject_name: name
+			};
+		},
+		nextTab() {
+			EventBus.$emit('nextTab');
+		},
+		prevTab() {
+			EventBus.$emit('prevTab');
+		}
+	}
 };
 </script>
+<style scoped>
+
+/* Create-Post-Content */
+
+.creat_post_btn button {
+    margin: 5px 0px !important;
+    min-width: 40%;
+}
+
+.creat_post_btn {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap-reverse;
+    justify-content: space-between !important;
+    margin: 15px auto;
+}
+.creat_post_card {
+    padding: 20px;
+    width: 100%;
+}
+button.btn-primary btn-lg span {
+    margin: 0px 5px;
+}
+.creat_post_card .form-control {
+    border-radius: 0;
+    transform: inherit;
+}
+
+/* Create-Post_description */
+
+.login_img img {
+    width: 70%;
+    margin: 0 auto;
+}
+button.btn-primary btn-lg span {
+    margin: 0px 5px;
+}
+.creat_post_btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    flex-wrap: wrap-reverse;
+}
+.creat_post_card .row {
+    -webkit-box-align: center;
+    align-items: center;
+    width: 100%;
+}
+.creat_post_btn button {
+    margin: 5px 0px !important;
+    min-width: 40%;
+}
+.creat_post_card {
+    padding: 20px;
+    display: -webkit-box;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.creat_post_card .form-control {
+    border-radius: 0;
+    transform: inherit;
+}
+</style>
