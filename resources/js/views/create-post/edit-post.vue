@@ -1,13 +1,16 @@
 <template>
   <div>
-    <div class="creat_post_card img_der">
+    <div
+      v-if="new_post"
+      class="creat_post_card img_der"
+    >
       <div class="row">
         <div class="col-md-12">
           <div class="">
             <div class="form-group">
               <div class="text-center">
                 <p class="title weight-600 font-size-16 text-black">
-                  Post Description.
+                  Edit Post
                 </p>
               </div>
               <label class="weight-500">Heading</label>
@@ -18,7 +21,7 @@
                   class="fa fa-user"
                 /></span>
                 <input
-                  v-model="heading"
+                  v-model="new_post.heading"
                   type="text"
                   class="form-control"
                   :disabled="new_post.post_type === 'mcq'"
@@ -80,6 +83,7 @@
                     name="subject_name"
                     :is-async="true"
                     :is-loading="subjectLoading"
+                    :initial-value="selected_subject"
                     @input="getSubjects"
                     @selected="setSubject"
                     @selectNew="setNewSubject"
@@ -92,31 +96,28 @@
             </div>
             <div class="creat_post_btn" />
           </div>
+        
+          <div v-if="post.post_type === 'article'">
+            <blog-article :new-post="new_post" />
+          </div>
+          <div v-if="post.post_type === 'fact'">
+            <fact :new-post="new_post" />
+          </div>
+          <div v-if="post.post_type === 'mcq'">
+            <mcq :new-post="new_post" />
+          </div>
+          <div v-if="post.post_type === 'video'">
+            <net-video :new-post="new_post" />
+          </div>
+          <div v-if="post.post_type === 'document'">
+            <document :new-post="new_post" />
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="creat_post_card img_der artical_page">
-      <main>
-        <div v-if="postType === 'article'">
-          <blog-article :new-post="new_post" />
+        <div class="creat_post_btn">
+          <button class="btn btn-primary">
+            Submit
+          </button>
         </div>
-        <div v-if="postType === 'fact'">
-          <fact :new-post="new_post" />
-        </div>
-        <div v-if="postType === 'mcq'">
-          <mcq :new-post="new_post" />
-        </div>
-        <div v-if="postType === 'video'">
-          <net-video :new-post="new_post" />
-        </div>
-        <div v-if="postType === 'document'">
-          <document :new-post="new_post" />
-        </div>
-      </main>
-      <div class="creat_post_btn">
-        <button class="btn btn-primary">
-          Submit
-        </button>
       </div>
     </div>
   </div>
@@ -145,73 +146,37 @@ export default {
 	props:['post'],
 	data() {
 		return {
-			new_post:{
-				article_html_content:'',
-				category_id:'',
-				description:'',
-				document_link:'',
-				fact_image:'',
-				fact_image_url:'',
-				heading:'',
-				post_type:'',
-				subject_course:null,
-				subject_id:'',
-				subject_name:'',
-				video_id:'',
-			},
-			heading: this.new_post.heading,
+			new_post:null,
+			heading: this.post.heading,
 			subject_list: [],
 			subjectLoading: false,
 			selected_subject: {
-				id: null,
-				subject_name: this.new_post.subject_name
+				id: this.post.subject.id,
+				subject_name: this.post.subject.subject_name
 			},
-			selected_category: this.new_post.category_id
+			selected_category: this.post.category.id
 		};
 	},
 	computed:{
 		...mapState({
 			categories: state => state.categories
 		}),
-		postType() {
-			return this.$store.state.new_post.post_type.toLowerCase();
-		}
 	},
 	mounted() {
-		// EventBus.$on('validateStep3', () => {
-		// 	this.$validator.validate().then(valid => {
-		// 		if (valid) {
-		// 			this.$store.commit('set_post_subject', {
-		// 				subject_name: this.selected_subject.subject_name,
-		// 				selected_category: this.selected_category
-		// 			});
-		// 			this.$store.commit('set_post_heading', {
-		// 				post_heading: this.heading
-		// 			});
-		// 			EventBus.$emit('validateWizard', 3, true);
-		// 		} else {
-		// 			EventBus.$emit('validateWizard', 3, false);
-		// 		}
-		// 	});
-		// });
-
-		// this.selected_category =
-		//     this.AuthStudent && this.AuthStudent.categoryId
-		//     	? this.AuthStudent.categoryId
-		//     	: '';
+		this.$store.dispatch('getCategories');
 		this.new_post = {
 			article_html_content: this.post.postable['html_content'],
-			category_id:this.post.category_id,
-			description:this.post.post_description,
-			document_link:'',
-			fact_image:'',
-			fact_image_url:this.post.primary_image_path,
+			category_id: this.post.category_id,
+			description: this.post.post_description,
+			document_link: this.post.postable['link'],
+			// fact_image:'',
+			// fact_image_url:this.post.primary_image_path,
 			heading:this.post.post_heading,
-			post_type:this.post.postable_type,
-			subject_course:null,
+			post_type:this.post.post_type,
+			// subject_course:null,
 			subject_id:this.post.subject.id,
 			subject_name:this.post.subject.subject_name,
-			video_id:'',
+			video_id: this.post.postable['video_id'],
 		};
 	},
 	methods: {
