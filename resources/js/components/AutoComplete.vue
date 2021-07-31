@@ -146,6 +146,12 @@ export default {
 				this.isOpen=true;
 			}
 		},
+		initialValue(){
+			if(this.initialValue && this.search===''){
+				this.result = Object.assign({},this.initialValue);
+				this.search = this.result[this.value];
+			}
+		}
 	},
 	updated() {
 		if(this.initialValue && this.search===''){
