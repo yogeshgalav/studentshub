@@ -210,11 +210,12 @@ export default {
 			daily_report:null,
 			daily_questions:[],
 			assignment_list:[],
+			assignment_id:[],
 		};
 	},
 	watch:{
-		userId: function(){
-		
+		userId(val){
+			this.getDailyAnswer();
 		}
 	},
 	mounted(){
@@ -223,22 +224,24 @@ export default {
 				this.assignment_list=resp.data.success.assignment_list;
 				this.showLoader = false;
 				if(this.assignment_list.length){
+					this.assignment_id = this.assignment_list[0].id;
 					this.getDailyAnswer();
 				}
 			});
 	},
 	methods:{
-		getDailyAnswer(event) {
-			this.events = event;
+		setAssignmentId(event) {
 			this.showLoader = true;
-			let assignment_id= event ? event.target.value : this.assignment_list[0].id;
-
-			let url = '/api/assignment/' +assignment_id +'/user';
+			this.assignment_id= event.target.value;
+			this.getDailyAnswer();
+		},
+		getDailyAnswer(event) {
+			let url = '/api/assignment/' + this.assignment_id +'/user';
 			if (this.$route.name === 'ClassroomStudentPanel') {
 				url = url + '/' + this.userId;
 			}else {
 				url = url + '/' + this.AuthUser.id;
-			}
+			}console.log(url);
 			this.axios.get(url).then((resp) => {
 				this.daily_report = resp.data.success.daily_report;
 				this.daily_questions = resp.data.success.daily_questions;

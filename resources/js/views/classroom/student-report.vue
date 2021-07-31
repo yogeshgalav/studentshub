@@ -102,13 +102,18 @@ export default {
 		};
 	},
 	watch:{
-		userId: function(){
-			let url =
-      '/api/classroom/' +
-      this.classroomId +
-      '/get-student-report';
+		userId(val){
+			this.getStudentReport(val);
+		}
+	},
+	mounted() {
+		this.getStudentReport(this.userId);
+	},
+	methods:{
+		getStudentReport(userId){
+			let url ='/api/classroom/' +this.classroomId+'/get-student-report';
 			if (this.$route.name === 'ClassroomStudentPanel') {
-				url = url + '/' + this.userId;
+				url = url + '/' + userId;
 			}
 			this.axios.get(url).then((resp) => {
 				this.pieChartData = resp.data.success.assignments_attempts;
@@ -141,46 +146,7 @@ export default {
 				this.showLoader = false;
 			});
 		}
-	},
-	mounted() {
-		let url =
-      '/api/classroom/' +
-      this.classroomId +
-      '/get-student-report';
-		if (this.$route.name === 'ClassroomStudentPanel') {
-			url = url + '/' + this.userId;
-		}
-		this.axios.get(url).then((resp) => {
-			this.pieChartData = resp.data.success.assignments_attempts;
-			this.dualLineChartData = resp.data.success.average_scores;
-			this.summary_data = resp.data.success.summary_data;
-			let MultiBarGraph = resp.data.success.score_data;
-			this.firstData = MultiBarGraph.filter(node=>node.score_type === 'first')
-				.sort((a,b)=>b.unit_id-a.unit_id)
-				.map(node=>node.score);
-			this.averageData = MultiBarGraph.filter(node=>node.score_type === 'average')
-				.sort((a,b)=>b.unit_id-a.unit_id)
-				.map(node=>node.score);
-			this.lastData = MultiBarGraph.filter(node=>node.score_type === 'last')
-				.sort((a,b)=>b.unit_id-a.unit_id)
-				.map(node=>node.score);
-			this.first_average = this.firstData.reduce((a,b)=>a+b,0)/this.firstData.length;
-			this.last_average = this.lastData.reduce((a,b)=>a+b,0)/this.lastData.length;
-			this.progress=((this.last_average-this.first_average)/this.last_average)*100; 
-			// let dataSet = {};
-			// MultiBarGraph.map(node=>{
-
-			// 	if(!this.MultiBarGraphData.labels.includes(node.unit_id)){
-			// 		this.MultiBarGraphData.labels.push(node.unit_id);
-			// 	};
-
-			// this.MultiBarGraphData.dataSet[this.MultiBarGraphData.labels.indexOf(node.unit_id)] = {
-
-			// }
-			// });
-			this.showLoader = false;
-		});
-	},
+	}
 };
 </script>
 

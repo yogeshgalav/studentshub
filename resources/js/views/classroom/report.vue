@@ -153,7 +153,7 @@ export default {
 					new_node['user_name'] = node.user_name;
 					return new_node;
 				});
-				localStorage.setItem('studentids', student_ids);
+				localStorage.setItem('studentids', JSON.stringify(student_ids));
 				this.pie_graph_data=resp.data.success.pie_graph_data;
 				this.bar_line_data=resp.data.success.bar_line_data;
 				this.bar_data=resp.data.success.bar_data;
@@ -207,8 +207,6 @@ export default {
 					return node;
 				});
 			});
-			// console.log('heyyyyyyyyy');
-			// console.log(this.student_details);
 		},
 	},
 
