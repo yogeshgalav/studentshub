@@ -138,34 +138,13 @@
       </div>
     </div>
     <div class="container ptb-50">
-      <div class="col-md-12 col-12 center-col">
+      <div class="col-md-10 col-12 center-col">
         <div class="row">
           <div class="col-md-8">
             <h3 class="post_main_title">
               {{ postContent.heading }}
             </h3>
-            <div v-if="postContent.post_type === 'video'">
-              <div class="post_video">
-                <iframe
-                  width="620"
-                  height="315"
-                  :src="
-                    'https://www.youtube.com/embed/' +
-                      postContent.video_id
-                  "
-                />
-              </div>
-            </div>
 
-            <div v-if="postContent.post_type === 'fact'">
-              <div class="post_video">
-                <img
-                  width="620"
-                  height="315"
-                  :src="postContent.fact_image_path"
-                >
-              </div>
-            </div>
             <div v-if="postContent.post_type === 'article'">
               <div class="post_s_c">
                 <div class="post_content">
@@ -180,8 +159,40 @@
                 </div>
               </div>
             </div>
+            <div v-if="postContent.post_type === 'video'">
+              <div class="post_video">
+                <iframe
+                  width="620"
+                  height="315"
+                  :src="
+                    'https://www.youtube.com/embed/' +
+                      postContent.video_id
+                  "
+                />
+              </div>
+            </div>
+            <div v-if="postContent.post_type === 'document'">
+              <div class="post_video">
+                <embed
+                  type="application/pdf"
+                  :src="postContent.document_link"
+                  width="620"
+                  height="1000"
+                >
+              </div>
+            </div>
+
+            <div v-if="postContent.post_type === 'fact'">
+              <div class="post_video">
+                <img
+                  width="620"
+                  height="315"
+                  :src="postContent.fact_image_path"
+                >
+              </div>
+            </div>
           </div>
-          <div class="col-md-4">
+          <!-- <div class="col-md-4">
             <div class="bg-gray p-2 mb-2">
               <div class="row">
                 <div class="col-md-12 latest-post">
@@ -228,7 +239,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
