@@ -258,7 +258,7 @@
           {{ postContent.total_likes + 1 }} 
         </p>
         <p
-          v-else-if="postContent.userLike"
+          v-else-if="postContent.user_like"
           class="text-primary"
         >
           <span><i class="fas fa-thumbs-up" /></span>
@@ -277,7 +277,9 @@
         </p>
       </button>
     </div>
-    <p class="like">Like</p>
+    <p class="like">
+      Like
+    </p>
     <div class="single_page_post_card">
       <div class="bg-gray s_p_c">
         <h3 class="post_like_head">
@@ -665,11 +667,6 @@ export default {
 	},
 	watch: {
 		postContent(val) {
-			if (val.user_like === 1) {
-				this.like_active = true;
-			} else if (val.user_like === 0) {
-				this.dislike_active = true;
-			}
 			// this.user_like = this.postContent.user_like;
 			this.post_save = this.postContent.post_save ? true : false;
 			this.post_report = this.postContent.post_report ? true : false;

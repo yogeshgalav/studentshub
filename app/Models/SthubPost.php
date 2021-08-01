@@ -12,7 +12,7 @@ class SthubPost extends Model
     
     public function post()
     {
-        return $this->belongsTo('App\Models\Post')->with(['postable','subject','tags']);
+        return $this->belongsTo('App\Models\Post');
     }
 
     public static function addAction(String $action_type,Post $post,User $user)
