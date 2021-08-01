@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Log;
 use Auth;
 use DB;
 use Carbon\Carbon;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
 class Post extends Model
 {
@@ -14,6 +16,18 @@ class Post extends Model
     protected  $guarded = ['id', 'created_at', 'updated_at'];
 
     protected $appends=['user_name','total_views','total_likes'];
+    use HasSlug;
+
+
+    /**
+     * Get the options for generating the slug.
+     */
+    public function getSlugOptions() : SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('post_heading')
+            ->saveSlugsTo('slug');
+    }
     public function article(){
         return $this->hasOne('App\Models\Article');
     }

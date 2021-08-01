@@ -11,11 +11,14 @@ class LikeController extends Controller
 {
     //
     public function updateOrDelete(Request $request, $type){
+        $me=Auth::user();
         switch($type)
         {
             case 'post':
-                $likable_id=\App\Models\Post::findOrFail($request->likable_id)->id;
+                $post=\App\Models\Post::findOrFail($request->likable_id);
+                $likable_id=$post->id;
                 $likable_type='App\Models\Post';
+                \App\Models\SthubPost::addAction('like',$post,$me);
                 break;
             
             case 'doubt':
@@ -32,7 +35,6 @@ class LikeController extends Controller
                 $likable_id=\App\Models\ClassroomMessage::findOrFail($request->likable_id)->id;
                 $likable_type='App\Models\ClassroomMessage';
         }
-        $me=Auth::user();
         $like=Like::where('likable_id','=',$likable_id)->where('likable_type','=', $likable_type)->where('user_id','=',$me->id)->first();
         if($like){
             $like->delete();

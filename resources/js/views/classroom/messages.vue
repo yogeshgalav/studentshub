@@ -1,214 +1,216 @@
 <template>
-  <div class="col-md-12">
-    <loading
-      :active.sync="showLoader"
-      :color="'#10069F'"
-      :width="250"
-      :is-full-page="true"
-    />
-    <classroom-header
-      v-if="routeClassroomId" 
-      title="Message"
-    />
-    <div v-else>
-      <h1>Messages</h1>
-      <hr>
-    </div>
-    <div>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="">
-            <div class="col-md-3 col-12 pl-0">
-              <div class="mt-2 mb-2">
-                <button
-                  type="button"
-                  class="btn btn-primary btn-lg "
-                  data-toggle="modal"
-                  data-target="#addMessageModal"
-                >
-                  <i class="fas fa-plus" />&nbsp;&nbsp;Add Message
-                </button>
-              </div>
-            </div>
-            <div class="col-md-3 col-12" />
-          </div>
-          <modal
-            ref="editMessageModal"
-            name="editMessageModal"
-            heading="Edit Message"
-            @submit="editMessage"
-          >
-            <template slot="modalBody">
-              <form data-vv-scope="edit_message_form">
-                <label class="text-black font-size-14">Edit Message </label>
-                <input
-                  id="edit_message"
-                  v-model="edit_message.content"
-                  v-validate="'required'"
-                  name="edit_message"
-                  type="text"
-                  class="form-control"
-                  placeholder="Enter your Message"
-                >
-                <span class="error">{{ formErrors('edit_message_form.edit_message') }}</span>
-              </form>
-            </template>
-          </modal>
-          <div class="">
-            <div
-              v-if="!messages.length"
-              class="card"
-            >
-              <div class="card-body">
-                <div class="col-md-12">
-                  <p>
-                    {{ "Currently no message has been added." }}
-                  </p>
+  <div class="row">
+    <div class="col-md-12">
+      <loading
+        :active.sync="showLoader"
+        :color="'#10069F'"
+        :width="250"
+        :is-full-page="true"
+      />
+      <classroom-header
+        v-if="routeClassroomId" 
+        title="Message"
+      />
+      <div v-else>
+        <h1>Messages</h1>
+        <hr>
+      </div>
+      <div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="">
+              <div class="col-md-3 col-12 pl-0">
+                <div class="mt-2 mb-2">
+                  <button
+                    type="button"
+                    class="btn btn-primary btn-lg "
+                    data-toggle="modal"
+                    data-target="#addMessageModal"
+                  >
+                    <i class="fas fa-plus" />&nbsp;&nbsp;Add Message
+                  </button>
                 </div>
-              </div>
-            </div>
-            <div
-              v-for="(message,index2) in messages"
-              :key="index2"
-              class="card mb-2"
-            >
-              <div class="card-body">
-                <div>
-                  <div class="dashboard_post">
-                    <div class="avatar">
-                      <profile-image
-                        :avatar="message.avatar_url"
-                        :user-name="message.user_name"
-                      />
-                    </div>
-                    <div class="info-post ml-2 dash_insititue_name">
-                      <p class="font-size-14 mb-0 dash_user_date">
-                        {{ message.user_name }} <span> {{ message.time }} &nbsp; 
-                          <div
-                            v-if="message.user_id===AuthUser.id"
-                            class="dropdown d-inline"
-                          >
-                            <button
-                              id="dropdownMenuButton"
-                              class="btn btn-secondary dropdown-toggle p-0"
-                              type="button"
-                              data-toggle="dropdown"
-                              aria-haspopup="true"
-                              aria-expanded="false"
-                            >
-                              <i class="fas fa-ellipsis-v" />
-                            </button>
-                            <div
-                              class="dropdown-menu dropdown-menu-right"
-                              style="min-width: max-content;"
-                              aria-labelledby="dropdownMenuButton"
-                            >
-                              <button
-                                type="button"
-                                class="dropdown-item"
-                                data-toggle="modal"
-                                data-target="#editMessageModal"
-                                @click="edit_message=message"
-                              >Edit</button> 
-                              <button
-                                type="button"
-                                class="dropdown-item"
-                                @click="deleteMessage(message.id)"
-                              >Delete</button>
-                            </div>
-                          </div></span>
-                      </p>
-                      <p class="font-size-14 mb-0">
-                        {{ message.classroom_name }}
-                      </p>
-                    </div>
-                  </div>
-                  <hr>
-                  <p>{{ message.content }}</p>
-                </div>
-                <hr>
-                <like-component
-                  :user-like="message.user_like ? true : false"
-                  :total-likes="message.total_likes"
-                  :likable-id="message.id"
-                  likable-type="message"
-                  :show-reply="true"
-                  @reply="reply(message)"
-                />
-                <messages-reply
-                  v-if="message.show_reply" 
-                  :message="message"
-                />
               </div>
               <div class="col-md-3 col-12" />
             </div>
-          </div>
-
-          <modal
-            ref="addMessageModal"
-            name="addMessageModal"
-            class="doubt_model model-md"
-            heading="Add Message"
-            @submit="saveMessage"
-          >
-            <template slot="modalBody">
-              <form data-vv-scope="add_message_form">
-                <div class="row">
-                  <div
-                    v-if="classrooms && classrooms.length"
-                    class="col-md-12"
+            <modal
+              ref="editMessageModal"
+              name="editMessageModal"
+              heading="Edit Message"
+              @submit="editMessage"
+            >
+              <template slot="modalBody">
+                <form data-vv-scope="edit_message_form">
+                  <label class="text-black font-size-14">Edit Message </label>
+                  <input
+                    id="edit_message"
+                    v-model="edit_message.content"
+                    v-validate="'required'"
+                    name="edit_message"
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter your Message"
                   >
-                    <div class="form-group">
-                      <div class="inner-addon left-addon">
-                        <div class="cl_input">
-                          <label for="classroom">Classroom</label>
-                          <select
-                            v-model="selectedClassroomId"
-                            v-validate="'required'"
-                            class="form-control custom-select"
-                            name="classroom"
-                          >
-                            <option
-                              v-for="(classroom, index) in classrooms"
-                              :key="index"
-                              :value="classroom.id"
-                            >
-                              {{ classroom.name }}
-                            </option>
-                          </select>
-
-                          <span class="text-danger">{{
-                            formErrors("add_message_form.classroom")
-                          }}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
+                  <span class="error">{{ formErrors('edit_message_form.edit_message') }}</span>
+                </form>
+              </template>
+            </modal>
+            <div class="">
+              <div
+                v-if="!messages.length"
+                class="card"
+              >
+                <div class="card-body">
                   <div class="col-md-12">
-                    <div class="form-group">
-                      <div class="inner-addon left-addon">
-                        <div class="cl_input">
-                          <label for="message">Message</label>
-                          <input
-                            id="messageContent"
-                            v-model="content"
-                            v-validate="'required'"
-                            name="message"
-                            class="form-control"
-                            placeholder="write message here"
-                          >
-                          <span class="text-danger">{{
-                            formErrors("add_message_form.message")
-                          }}</span>
-                        </div>
-                      </div>
-                    </div>
+                    <p>
+                      {{ "Currently no message has been added." }}
+                    </p>
                   </div>
                 </div>
-              </form>
-            </template>
-          </modal>
+              </div>
+              <div
+                v-for="(message,index2) in messages"
+                :key="index2"
+                class="card mb-2"
+              >
+                <div class="card-body">
+                  <div>
+                    <div class="dashboard_post">
+                      <div class="avatar">
+                        <profile-image
+                          :avatar="message.avatar_url"
+                          :user-name="message.user_name"
+                        />
+                      </div>
+                      <div class="info-post ml-2 dash_insititue_name">
+                        <p class="font-size-14 mb-0 dash_user_date">
+                          {{ message.user_name }} <span> {{ message.time }} &nbsp; 
+                            <div
+                              v-if="message.user_id===AuthUser.id"
+                              class="dropdown d-inline"
+                            >
+                              <button
+                                id="dropdownMenuButton"
+                                class="btn btn-secondary dropdown-toggle p-0"
+                                type="button"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false"
+                              >
+                                <i class="fas fa-ellipsis-v" />
+                              </button>
+                              <div
+                                class="dropdown-menu dropdown-menu-right"
+                                style="min-width: max-content;"
+                                aria-labelledby="dropdownMenuButton"
+                              >
+                                <button
+                                  type="button"
+                                  class="dropdown-item"
+                                  data-toggle="modal"
+                                  data-target="#editMessageModal"
+                                  @click="edit_message=message"
+                                >Edit</button> 
+                                <button
+                                  type="button"
+                                  class="dropdown-item"
+                                  @click="deleteMessage(message.id)"
+                                >Delete</button>
+                              </div>
+                            </div></span>
+                        </p>
+                        <p class="font-size-14 mb-0">
+                          {{ message.classroom_name }}
+                        </p>
+                      </div>
+                    </div>
+                    <hr>
+                    <p>{{ message.content }}</p>
+                  </div>
+                  <hr>
+                  <like-component
+                    :user-like="message.user_like ? true : false"
+                    :total-likes="message.total_likes"
+                    :likable-id="message.id"
+                    likable-type="message"
+                    :show-reply="true"
+                    @reply="reply(message)"
+                  />
+                  <messages-reply
+                    v-if="message.show_reply" 
+                    :message="message"
+                  />
+                </div>
+                <div class="col-md-3 col-12" />
+              </div>
+            </div>
+
+            <modal
+              ref="addMessageModal"
+              name="addMessageModal"
+              class="model-md"
+              heading="Add Message"
+              @submit="saveMessage"
+            >
+              <template slot="modalBody">
+                <form data-vv-scope="add_message_form">
+                  <div class="row">
+                    <div
+                      v-if="classrooms && classrooms.length"
+                      class="col-md-12"
+                    >
+                      <div class="form-group">
+                        <div class="inner-addon left-addon">
+                          <div class="cl_input">
+                            <label for="classroom">Classroom</label>
+                            <select
+                              v-model="selectedClassroomId"
+                              v-validate="'required'"
+                              class="form-control custom-select"
+                              name="classroom"
+                            >
+                              <option
+                                v-for="(classroom, index) in classrooms"
+                                :key="index"
+                                :value="classroom.id"
+                              >
+                                {{ classroom.name }}
+                              </option>
+                            </select>
+
+                            <span class="text-danger">{{
+                              formErrors("add_message_form.classroom")
+                            }}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <div class="inner-addon left-addon">
+                          <div class="cl_input">
+                            <label for="message">Message</label>
+                            <input
+                              id="messageContent"
+                              v-model="content"
+                              v-validate="'required'"
+                              name="message"
+                              class="form-control"
+                              placeholder="write message here"
+                            >
+                            <span class="text-danger">{{
+                              formErrors("add_message_form.message")
+                            }}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </template>
+            </modal>
+          </div>
         </div>
       </div>
     </div>

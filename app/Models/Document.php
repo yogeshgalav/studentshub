@@ -8,12 +8,15 @@ use Storage;
 
 class Document extends Model
 {
-    //
+    protected  $guarded = ['id', 'created_at', 'updated_at'];
+
     public function createNewDocument($data,$access){
         $document=self::create([
             'link'=>$data['document_link'],
             'access'=>$access,
+            'ext'=>'pdf',
         ]);
+        return $document->id;
     }
     // foreach($files as $file){
     //     $file_name=uniqid();

@@ -42,19 +42,13 @@ class DoubtAnswersController extends Controller
         $post->primary_image_path='/storage/article-default.png';
         $post->postable_id=$post_content_id;
         $post->category_id=$doubt->course->category_id;
-        $post->user_institute_id=Auth::user()->preferred_institute_id;
-
+        $post->course_id=$doubt->course_id;
+        $post->created_via='doubt';
         $post->save();
 
         $answer->post_id=$post->id;
         $answer->save();
-        
-        SthubPost::create([
-            'post_id'=>$post->id,
-            'classroom_id'=>$doubt->classroom_id ?? null,
-            'course_id'=>$doubt->course_id,
-            'shared_by_user_id'=>Auth::id(),
-        ]);
+        SthubPost::addAction('share',$post,Auth::user());
 
     DB::commit();
         } catch (\Exception $e) {

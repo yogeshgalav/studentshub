@@ -14,6 +14,7 @@ use App\Models\Video;
 use App\Models\Notice;
 use App\Models\Fact;
 use App\Models\Mcq;
+use App\Models\Document;
 use Auth;
 use DB;
 use Storage;
@@ -94,14 +95,11 @@ class PostController extends Controller
             break;
         }
 
-
+        $post->created_via='dashboard';
         $post->post_description = $data['description'];
         $post->save();
 
-        SthubPost::create([
-            'post_id'=>$post->id,
-            'shared_by_user_id'=>Auth::id(),
-        ]);
+        SthubPost::addAction('share',$post,Auth::user());
 
         DB::commit();
     } catch (\Exception $e) {
@@ -122,25 +120,25 @@ class PostController extends Controller
       ]]);
     }
 
-    public function show($post_id){
-        \App\Models\Post::findOrFail($post_id);
-        $user=Auth::user();
-        if($user){
-            \App\Models\PostView::firstOrCreate([
-                'post_id'=>$post_id,
-                'user_id'=>$user->id,
-            ]);
+    public function show(Post $post){
+        $me=Auth::user();
+        if($me && $me->id!==$post->user_id){
+          \App\Models\SthubPost::addAction('view',$post,$me);
+          \App\Models\PostView::firstOrCreate([
+            'post_id'=>$post->id,
+            'user_id'=>$me->id,
+          ]);
         }
 
-        $post=new \App\Post;
-        if($user){
-          $post_content=$post->getAuthPostContent($post_id)[0];
+        $post_helper=new \App\Post;
+        if($me){
+          $post_content=$post_helper->getAuthPostContent($post->id)[0];
         }else{
-          $post_content=$post->getGuestPostContent($post_id)[0];
+          $post_content=$post_helper->getGuestPostContent($post->id)[0];
         }
 
-        $most_viewed=$post->getMostViewedPosts($post_content->category_id);
-        $most_liked=$post->getMostLikedPosts($post_content->category_id);
+        $most_viewed=$post_helper->getMostViewedPosts($post_content->category_id);
+        $most_liked=$post_helper->getMostLikedPosts($post_content->category_id);
 
         return response()->json(['success'=>[
             'post_content'=>$post_content,
@@ -149,7 +147,7 @@ class PostController extends Controller
         ]]);
     }
     public function courseDetails(Request $request){
-        $subject=\App\Models\Course::where('course_url', $request->route('id'))->firstOrFail();
+        $subject=\App\Models\Course::where('slug', $request->route('id'))->firstOrFail();
         $post=new \App\Post;
         $posts = $post->getCoursePosts($course->id);
 
@@ -159,7 +157,7 @@ class PostController extends Controller
         ]]);
       }
       public function subjectDetails(Request $request){
-        $subject=\App\Models\Subject::where('subject_url', $request->route('id'))->firstOrFail();
+        $subject=\App\Models\Subject::where('slug', $request->route('id'))->firstOrFail();
         $post=new \App\Post;
         $posts = $post->getSubjectPosts($subject->id);
 

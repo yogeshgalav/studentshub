@@ -135,10 +135,10 @@ export default {
 		},
 		subjects(){
 			return this.posts.reduce((acc,currVal)=>{
-				let index=acc.findIndex(node=>node.url===currVal.subject_url);
+				let index=acc.findIndex(node=>node.url===currVal.slug);
 				if(index=== -1){
 					let new_node={};
-					new_node.url=currVal.subject_url;
+					new_node.url=currVal.slug;
 					new_node.name=currVal.subject_name;
 					acc.push(new_node);  
 				}

@@ -7,6 +7,7 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 use App\Models\User;
 use App\Models\Classroom;
 use App\Models\DailyAssignment;
+use App\Models\Post;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -29,6 +30,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::model('user', User::class);
         Route::model('classroom', Classroom::class);
         Route::model('daily_assignment', DailyAssignment::class);
+        Route::model('post', Post::class);
     }
 
     /**

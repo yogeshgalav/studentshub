@@ -6,7 +6,6 @@
       :width="250"
       :is-full-page="true"
     />
-    <div class="blank" />
     <div class="container pb-100">
       <div class="row justify-content-center register">
         <div class="col-md-8">

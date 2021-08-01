@@ -73,7 +73,7 @@ class ExplorePostSeeder extends Seeder
             (17, 17, 1,  NULL, NULL, NULL, 1, '2019-11-03 23:48:39', '2019-11-03 23:48:39');");
 
 
-        DB::statement("INSERT INTO `subjects` (`id`, `Subject_name`, `subject_url`, `category_id`, `created_at`, `updated_at`) VALUES
+        DB::statement("INSERT INTO `subjects` (`id`, `Subject_name`, `slug`, `category_id`, `created_at`, `updated_at`) VALUES
         (42, 'Iphone', 'iphone',1, NULL, NULL),
         (43, 'Atheist', 'atheist',10, NULL, NULL),
         (44, 'Evolution', 'evolution',5, NULL, NULL),
