@@ -100,7 +100,7 @@
                       >
                         <span v-if="props.column.field==='classroom_name'">
                           <a
-                            :href="'/classroom/'+props.row.id"
+                            :href="'/classroom/'+props.row.classroom_id"
                             class="text-underline"
                           >{{ props.row['classroom_name'] }}</a>
                         </span>

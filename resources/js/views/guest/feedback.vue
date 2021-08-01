@@ -7,7 +7,10 @@
       :is-full-page="true"
     />
     <div class="blank" />
-    <div class="heading">
+    <div
+      class="heading"
+      style="background-image: url('/images/welcome/study-background.jpg');"
+    >
       <h1 class="main_heading">
         Feedback
       </h1>

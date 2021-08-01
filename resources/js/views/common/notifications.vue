@@ -1,6 +1,18 @@
 <template>
   <div class="full-size">
     <div class="classmates-section col-md-7 col-sm-12">
+      <div
+        v-if="!notifications.length"
+        class="classmate card mb-2"
+      >
+        <div class="row">
+          <div class="text-center col-md-12 notification">
+            <div class="notification-text text-black">
+              {{ "Currently you don't have any not notifications." }}
+            </div>
+          </div>
+        </div>
+      </div>
       <a
         v-for="(notification,index) in notifications"
         :key="index"

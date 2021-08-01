@@ -1,16 +1,15 @@
 <template>
   <div
     v-if="AuthUser"
-    class="single_page_user_like"
   >
     <button
       type="button"
-      class="btn pl-0"
+      class="btn"
       @click="sendUserLike()"
     >
       <p
         v-if="like_active"
-        class="text-primary"
+        class="text-primary pl-3 pr-3"
       >
         <span><i class="fas fa-thumbs-up text-primary" />&nbsp;</span>
         {{ totalLikes + 1 }} Like
