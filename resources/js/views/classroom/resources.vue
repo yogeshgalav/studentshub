@@ -94,7 +94,44 @@
               <div
                 class="card-body"
               >
-                <p>{{ $dayjs(resource.created_at).format('D MMMM, YYYY') }}</p>
+                <p>
+                  {{ $dayjs(resource.created_at).format('D MMMM, YYYY') }}
+                  <span>
+                    <div
+                      class="dropdown d-inline"
+                    >
+                      <button
+                        id="dropdownMenuButton"
+                        class="btn btn-secondary dropdown-toggle p-0"
+                        type="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        <i class="fas fa-ellipsis-v" />
+                      </button>
+                      <div
+                        class="dropdown-menu dropdown-menu-right"
+                        style="min-width: max-content;"
+                        aria-labelledby="dropdownMenuButton"
+                      >
+                        <button
+                          type="button"
+                          class="dropdown-item"
+                          data-toggle="modal"
+                          data-target="#addResourceModal"
+                          @click="editDoubt(resource)"
+                        >Edit</button> 
+                        <button
+                          type="button"
+                          class="dropdown-item"
+                          @click="deleteDoubt(resource.id)"
+                        >Delete</button>
+                      </div>
+                    </div>
+                  </span>
+                </p>
+
                 <hr>
                 <p>{{ resource.description }}</p>
                 <a
@@ -130,7 +167,7 @@
           ref="addResourceModal"
           name="addResourceModal"
           heading="Add Resource"
-          @submit="saveResource()"
+          @submit="addOrEditResource()"
         >
           <template slot="modalBody">
             <form>
@@ -144,6 +181,7 @@
                           id="resourceLink"
                           v-model="resource_link"
                           v-validate="'required'"
+                          placeholder="PDF or Youtube Link"
                           type="text"
                           name="resource_link"
                           class="form-control"
@@ -222,6 +260,8 @@ export default {
 			resource_error: '',
 			resource_type: '',
 			share_as_post: '',
+			edit_resource_id:'',
+      
 		};
 	},
 	computed:{
@@ -242,6 +282,14 @@ export default {
 					this.showLoader=false;
 				});
 		},
+		addOrEditResource(){
+    		if(this.edit_resource_id){
+    			this.updateResource();
+    			return true;
+    		}
+    		this.saveResource();
+    		return true;
+    	},
 		saveResource() {
 			this.$validator.validate().then(valid => {
 				if(valid  && this.resource_link && this.resource_error===''){
@@ -264,6 +312,21 @@ export default {
 					});
 				}
 			});
+		},
+		updateResource(){
+			this.axios.post('/api/resources' + this.edit_resource_id + '/edit',{
+    			resource:this.resource_link,
+    			description:this.description,
+    		}).then(resp => {
+    				// this.$modal.hide('add_doubt_modal');
+    				this.$refs.addResourceModal.closeModal();
+    				this.resource_link='';
+    				this.description='';
+    				this.getdata();
+    			})
+    			.catch(err => {
+    				reject(err);
+    			});
 		},
 		embedresource(event){
 			this.resource_error='';
@@ -305,7 +368,17 @@ export default {
 			this.resource_type = 'other';
 			this.resource_link = url;
 			return true;
-		}
+		},
+    	editDoubt(resource){
+    		this.edit_resource_id = resource.id;
+    		this.resource_link = resource.link;
+    	},
+    	deleteDoubt(resourceId){
+    		this.axios.delete('/api/resources' + resourceId).then((resp)=>{
+    			window.location.reload();
+    		});
+    	},
+
 	}
 };
 
