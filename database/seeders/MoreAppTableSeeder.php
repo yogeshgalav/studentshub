@@ -106,10 +106,6 @@ class MoreAppTableSeeder extends Seeder
             'description'=>'Read all the books in your library? This website will take your preferences and give you all the book recommendations you could ever want.',
             'link'=>'https://www.whatshouldireadnext.com/'
         ],[
-            'name'=>'My Fridge Food ',
-            'description'=>'Forget to go food shopping? Don’t worry, just type in whatever is in your fridge into this site and it will create a recipe just for you!',
-            'link'=>'https://myfridgefood.com/'
-        ],[
             'name'=>'OnRead',
             'description'=>'If you need a quick and easy book to read, check out OnRead’s library of free ebooks!',
             'link'=>'https://www.onread.com/'
@@ -117,6 +113,58 @@ class MoreAppTableSeeder extends Seeder
             'name'=>'Hippocampus',
             'description'=>'How do you learn? If visual stimuli help you approach your study time better, than Hippocampus may be for you. Free, it contains information and multimedia content on a wide variety of subjects from economics to religion. Visiting the website will give you access to 7,000 videos on all their available subjects. The website also shows you other collections or tools that can further your education.',
             'link'=>'https://www.hippocampus.org/'
+        ],[ 
+            'name'=>'My Fridge Food ',
+            'description'=>'Forget to go food shopping? Don’t worry, just type in whatever is in your fridge into this site and it will create a recipe just for you!',
+            'link'=>'https://myfridgefood.com/'
+        ],[
+            'name'=>'StudentRecipes.com',
+            'description'=>'This guide will be a lifesaver throughout student life for times when you’re feeling wrung out, stressed or ill. Whatever your ailments, visit this resource to find out what foods to eat to build your immunity and vitality back up.',
+            'link'=>'https://studentrecipes.com/'
+        ],[
+            'name'=>'Recipepuppy.com',
+            'description'=>'RecipePuppy allows you to search for recipes based on the ingredients you already have at home. Lazy students, rejoice.',
+            'link'=>'http://www.recipepuppy.com/'
+        ],[
+            'name'=>'The Ultimate Health Food Guide',
+            'description'=>'Exactly what it says on the tin, StudentRecipes.com has recipes for 4,000 quick and easy student meals.',
+            'link'=>'http://www.buyagift.co.uk/content/foodhealth/index.html'
+        ],[
+            'name'=>'Instructables.com',
+            'description'=>'This is one of the most useful online student resources if you like making and fixing things yourself. You can learn anything from how to make spaghetti ice-cream to how to fix a broken shelf.',
+            'link'=>'https://www.instructables.com/'
+        ],[
+            'name'=>'KeepMeOut.com',
+            'description'=>'If you struggle to stay away from social media when you’re meant to be studying, use KeepMeOut to block certain distracting websites.',
+            'link'=>'http://keepmeout.com/en/'
+        ],[
+            'name'=>'WebMD.com',
+            'description'=>'WebMD allows you to check your current health status using its symptom checker. Although this resource is great for hypochondriacs, it doesn’t replace the knowledge of a real doctor – go offline and visit your university’s health center if you’re really concerned.',
+            'link'=>'http://www.webmd.com/default.htm'
+        ],[
+            'name'=>'Genius.com poetry',
+            'description'=>'An offshoot of Rap Genius, Lit Genius is a place where scholars have formed a community to annotate poetry and literature, both classic and recent. It’s an extremely helpful resource for English literature students in particular.',
+            'link'=>'https://genius.com/tags/poetry'
+        ],[
+            'name'=>'TED.com',
+            'description'=>'TED hosts thought-provoking talks given at events all over the world on the core topics of technology, entertainment and design – but in fact covering pretty much every aspect of human experience. The TED site is where you can find all the videos of these talks. They’re another good procrastination device, but you may also find some inspiration for your next essay.',
+            'link'=>'https://www.ted.com/'
+        ],[
+            'name'=>'Bartleby.com',
+            'description'=>'Bartleby publishes classic literature, poetry, non-fiction and reference texts free of charge.',
+            'link'=>'http://bartleby.com/'
+        ],[
+            'name'=>'Gutenberg.org',
+            'description'=>'Project Gutenberg provides free online access to texts whose copyright has expired; so far, it’s digitized more than 56,000 texts.',
+            'link'=>'https://www.gutenberg.org/'
+        ],[
+            'name'=>'EdX.org',
+            'description'=>'Edx is one of the world’s leading MOOC platforms. MOOCs (massive open online courses) are offered for free to anyone wishing to learn.',
+            'link'=>'https://www.edx.org/'
+        ],[
+            'name'=>'Coursera.org',
+            'description'=>'Coursera covers a wide range of academic learning, allowing you to supplement your studies with some additional knowledge.',
+            'link'=>'http://www.cousera.org/'
         ],[
             'name'=>'Duolingo',
             'description'=>'Make the most of your free time and cross something off your bucket by becoming fluent in a different language with the help of Duolingo! This fun website also doubles as a fun free app on your phone so you never miss a lesson.',

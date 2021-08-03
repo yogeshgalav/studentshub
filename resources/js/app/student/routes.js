@@ -3,6 +3,8 @@ import EditPost from '../../views/create-post/edit-post.vue';
 import DoubtList from '../../views/doubt/doubt-list.vue';
 import DoubtAnswer from '../../views/doubt/doubt-answers.vue';
 import MyCourse from '../../views/common/my-course.vue';
+import MoreAppComponent from '../../views/common/more-app.vue';
+
 const StudentRoutes = [
 	{
 		path: '/',
@@ -26,7 +28,8 @@ const StudentRoutes = [
 		}
 	},
 	{ path: '/edit-post', name:'EditPost', component: EditPost },
-      
+	{ path: '/more-apps', component: MoreAppComponent },
+
 ];
 
 export default StudentRoutes;

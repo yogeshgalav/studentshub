@@ -134,4 +134,10 @@ class StudentController extends Controller
         return view('student.my-course')
         ->with('courseId', Auth::student()->courseId);
     }
+    public function moreApps()
+    {
+        $apps = \App\Models\MoreApp::get();
+        return view('student.more-apps')
+            ->with('apps', $apps);
+    }
 }
