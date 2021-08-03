@@ -295,6 +295,7 @@
 
 <script>
 import FileUpload from 'vue-upload-component';
+import swal from '../../components/swal';
 export default {
 	components:{
 		FileUpload
@@ -370,7 +371,8 @@ export default {
 
 			await this.axios.post('/api/save-profile', this.profile_data).then((resp) => {
 				this.setProfile(resp.data.success.profile);
-				console.log(resp);
+				swal.successDialog('Profile Updated', 'Successfully!', 'success');
+				this.data_updated = false;
 			});
 
 			this.errors={
