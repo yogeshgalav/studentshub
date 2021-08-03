@@ -231,7 +231,7 @@ export default {
 				if(valid){
 					this.$validator.validate().then((result)=>{
 						if(result){
-							this.axios.post('/api/update-post',this.$store.state.new_post)
+							this.axios.put('/api/post/'+this.post.id,this.$store.state.new_post)
 								.then(resp=>{
 
 								});

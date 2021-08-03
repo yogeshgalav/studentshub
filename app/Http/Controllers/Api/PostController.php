@@ -111,6 +111,63 @@ class PostController extends Controller
           'message'=>'Post Successfully Created',
         ]]);
     }
+    public function updatePost(Post $post, Request $request){
+
+      $data=$request->all();
+      if(Auth::id()!==$post->user_id){
+        abort(403);
+      }
+      DB::beginTransaction();
+      try{
+        $subject = NULL;
+        if($data['subject_name']){
+          $subject=Subject::getOrCreate($data['subject_id'], $data['subject_name'], $data['category_id']);
+        }
+    
+      
+
+      $post=new Post;
+      $post->post_heading=$data['heading'];
+      $post->subject_id=$subject?$subject->id:NULL;
+      $post->category_id = $data['category_id'];
+
+
+      switch($post->postable_type){
+          case Article::class:
+              Article::where('id', $post->postable_id)
+              ->update([
+                'html_content'=>$data['article_html_content'],
+              ]);
+
+          break;
+          case Document::class:
+              Document::where('id', $post->postable_id)
+              ->update([
+                'link'=>$data['document_link'],
+              ]);
+
+          break;
+          case Video::class:
+              Video::where('id', $post->postable_id)
+              ->update([
+                'video_id'=>$data['video_id'],
+              ]);
+          break;
+      }
+
+      $post->post_description = $data['description'];
+      $post->save();
+
+      DB::commit();
+  } catch (\Exception $e) {
+      DB::rollback();
+      Log::critical('Post Creation failure',['data'=>$request->all(),'error'=>$e->getMessage()]);
+      return response()->$e;
+  }
+      return response()->json(['success'=>[
+        'message'=>'Post Successfully Created',
+      ]]);
+  }
 
     public function getPosts(Request $request){
         $post=new \App\Post;

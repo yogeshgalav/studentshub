@@ -8,10 +8,11 @@
           <input
             id="videoLink"
             v-validate="'required'"
+            :value="video_url+video_id"
             type="text"
             name="youtube_video_link"
             class="form-control"
-            @blur="embedVideo"
+            @input="embedVideo"
           >
           <span class="text-danger">{{ video_error }}</span>
         </div>
