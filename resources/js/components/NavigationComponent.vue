@@ -1,30 +1,37 @@
 <template>
   <div
-    class="habit-footer"
+    class="static-footer"
   >
     <div class="col-md-12">
       <div
-        class="row habit-footer_1 mt-1 ml-280"
+        class="row"
       >
-        <div class="col-md-6   text-right">
-          <div class="mr-3">
-            <button
-              class="btn btn-secondary"
-              :disabled="!hasprev"
-              type="button"
-              @click="prevStud"
-            >
-              <i class="fas fa-chevron-left" />
-            </button>
-            <p>{{ current_user_name }}</p>
-            <button
-              type="button"
-              class="btn btn-secondary"
-              :disabled="!hasnext"
-              @click="nextStud"
-            >
-              <i class="fas fa-chevron-right" />
-            </button>
+        <div class="col-md-12">
+          <div class="row mt-2">
+            <div class="col-3 text-right">
+              <button
+                class="btn btn-secondary"
+                :disabled="!hasprev"
+                type="button"
+                @click="prevStud"
+              >
+                <i class="fas fa-chevron-left" />
+              </button>
+            </div>
+            <div class="col-7 text-center">
+              <span>{{ current_user_name }}</span><br>
+              <span>{{ curIndex +1 }} / {{ studentIds.length }}</span>
+            </div>
+            <div class="col-2 text-right">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                :disabled="!hasnext"
+                @click="nextStud"
+              >
+                <i class="fas fa-chevron-right" />
+              </button>
+            </div>
           </div>
         </div>
       </div>

@@ -191,30 +191,26 @@
       <!-- fotter for update chnges -->
       <div
         v-if="data_updated"
-        class="habit-footer"
+        class="static-footer"
       >
-        <div class="col-md-12">
+        <div class="col-md-12 mt-2 mb-2">
           <div
-            class="row habit-footer_1 mt-1 ml-280"
+            class="text-right"
           >
-            <div class="col-md-6   text-right">
-              <div class="mr-3">
-                <button
-                  class="btn btn-primary"
-                  type="button"
-                  @click="saveProfile"
-                >
-                  Update
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  @click="discard"
-                >
-                  Discard
-                </button>
-              </div>
-            </div>
+            <button
+              class="btn btn-primary mr-2"
+              type="button"
+              @click="saveProfile"
+            >
+              Update
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              @click="discard"
+            >
+              Discard
+            </button>
           </div>
         </div>
       </div>

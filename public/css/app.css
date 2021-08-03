@@ -13013,146 +13013,14 @@ i {
   top: 0px;
 }
 
-.habit-footer {
-  text-align: right;
+.static-footer {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   width: 100%;
   background-color: white;
-  border-top: 1px solid #dadada;
-}
-
-.habit-footer .btn-primary {
-  padding: 15px 80px 15px 80px;
-  margin: 20px 70px 20px 0px;
-}
-
-@media only screen and (max-width: 1024px) {
-  .habit-footer .btn-primary,
-  .btn-white {
-    padding: 15px 5%;
-    margin: 20px 0px;
-  }
-
-  .habit-footer .btn-primary,
-  .btn-white {
-    padding: 9px 5%;
-  }
-}
-
-@media only screen and (min-width: 768px) and (max-width: 1240px) {
-  .habit-footer .btn-primary {
-    padding: 15px 5%;
-    margin: 20px 0px;
-  }
-
-  .habit-footer .btn-primary,
-  .btn-white {
-    padding: 15px 5%;
-  }
-
-  .habit-footer .offset-2 {
-    margin-left: 30.6666666667% !important;
-  }
-}
-
-@media (max-width: 1024px) and (min-width: 768px) {
-  .habit-footer .col-md-6 {
-    -webkit-box-flex: 0;
-            flex: 0 0 50%;
-    max-width: 50%;
-  }
-}
-
-@media only screen and (max-width: 991px) {
-  .ml-280 {
-    margin-left: 30px !important;
-  }
-}
-
-@media only screen and (max-width: 768px) {
-  .habit-footer .btn-primary {
-    padding: 12px 5%;
-    margin: 5px 19px;
-    font-size: 0.7rem;
-  }
-
-  .habit-footer .btn-white {
-    font-size: 0.7rem;
-  }
-
-  .habit-footer .text-right {
-    text-align: left !important;
-  }
-
-  .habit-footer .font-siz-16 {
-    font-size: 13px;
-  }
-
-  .habit-footer {
-    padding-bottom: 5px;
-  }
-}
-
-@media only screen and (max-width: 374px) {
-  .habit-footer {
-    padding-bottom: 25px;
-  }
-}
-
-@media only screen and (max-width: 1024px) {
-  .habit-footer .btn-secondary {
-    padding: 15px 5%;
-    margin: 20px 0px;
-  }
-
-  .habit-footer .btn-secondary {
-    padding: 9px 5%;
-  }
-}
-
-@media only screen and (min-width: 768px) and (max-width: 1240px) {
-  .habit-footer .btn-secondary {
-    padding: 15px 5%;
-  }
-
-  .habit-footer .offset-2 {
-    margin-left: 30.6666666667% !important;
-  }
-}
-
-@media (max-width: 1024px) and (min-width: 768px) {
-  .habit-footer .col-md-6 {
-    -webkit-box-flex: 0;
-            flex: 0 0 50%;
-    max-width: 50%;
-  }
-}
-
-@media only screen and (max-width: 768px) {
-  .habit-footer .btn-secondary {
-    font-size: 0.7rem;
-  }
-
-  .habit-footer .text-right {
-    text-align: left !important;
-  }
-
-  .habit-footer .font-siz-16 {
-    font-size: 13px;
-  }
-
-  .habit-footer {
-    padding-bottom: 5px;
-  }
-}
-
-@media only screen and (max-width: 374px) {
-  .habit-footer {
-    padding-bottom: 25px;
-  }
+  border-top: 1px solid #DADADA;
 }
 
 .form-control:focus {
