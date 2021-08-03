@@ -104,14 +104,14 @@ class PostController extends Controller
         DB::commit();
     } catch (\Exception $e) {
         DB::rollback();
-        Log::critical('Post Creation failure',['data'=>$request->all(),'error'=>$e->getMessage()]);
+        Log::warning('Post Creation failure',['data'=>$request->all(),'error'=>$e->getMessage()]);
         return response()->$e;
     }
         return response()->json(['success'=>[
           'message'=>'Post Successfully Created',
         ]]);
     }
-    public function updatePost(Post $post, Request $request){
+    public function update(Post $post, Request $request){
 
       $data=$request->all();
       if(Auth::id()!==$post->user_id){
@@ -124,9 +124,6 @@ class PostController extends Controller
           $subject=Subject::getOrCreate($data['subject_id'], $data['subject_name'], $data['category_id']);
         }
     
-      
-
-      $post=new Post;
       $post->post_heading=$data['heading'];
       $post->subject_id=$subject?$subject->id:NULL;
       $post->category_id = $data['category_id'];
@@ -160,8 +157,8 @@ class PostController extends Controller
 
       DB::commit();
   } catch (\Exception $e) {
-      DB::rollback();
-      Log::critical('Post Creation failure',['data'=>$request->all(),'error'=>$e->getMessage()]);
+      DB::rollback();dd($e->getMessage());
+      Log::warning('Post Updation failure',['data'=>$request->all(),'error'=>$e->getMessage()]);
       return response()->$e;
   }
       return response()->json(['success'=>[

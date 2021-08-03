@@ -1,5 +1,11 @@
 <template>
   <div>
+    <loading 
+      :active.sync="showLoader"
+      :color="'#10069F'"
+      :width="250"
+      :is-full-page="true"
+    />
     <div
       v-if="new_post"
       class="creat_post_card img_der"
@@ -119,7 +125,7 @@
             type="button"
             @click="handleSubmit"
           >
-            Submit
+            Update
           </button>
         </div>
       </div>
@@ -135,7 +141,7 @@ import Fact from './create-post/post-type/fact.vue';
 import NetVideo from './create-post/post-type/video.vue';
 import Document from './create-post/post-type/document-link.vue';
 import Mcq from './create-post/post-type/mcq.vue';
-
+import swal from '../../components/swal';
 
 export default {
 	components: {
@@ -157,7 +163,8 @@ export default {
 				id: this.post.subject.id,
 				subject_name: this.post.subject.subject_name
 			},
-			selected_category: this.post.category.id
+			selected_category: this.post.category.id,
+			showLoader:false,
 		};
 	},
 	computed:{
@@ -230,10 +237,13 @@ export default {
 			EventBus.$on('validateWizard',(i,valid)=>{
 				if(valid){
 					this.$validator.validate().then((result)=>{
-						if(result){
+						if(result && !this.showLoader){
+							this.showLoader=true;
 							this.axios.put('/api/post/'+this.post.id,this.$store.state.new_post)
 								.then(resp=>{
-
+									this.showLoader=false;
+									swal.successDialog('Post Updated', 'Successfully!', 'success');
+									window.location.href ='/post/'+this.post.id;
 								});
 						}
 					});
