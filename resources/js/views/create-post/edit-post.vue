@@ -147,7 +147,6 @@ export default {
 	data() {
 		return {
 			new_post:null,
-			heading: this.post.heading,
 			subject_list: [],
 			subjectLoading: false,
 			selected_subject: {
@@ -217,11 +216,22 @@ export default {
 				subject_name: name
 			};
 		},
-		nextTab() {
-			EventBus.$emit('nextTab');
-		},
-		prevTab() {
-			EventBus.$emit('prevTab');
+		submit(){
+			this.$store.commit('set_post_heading',{'post_heading': this.new_post.heading});
+			this.$store.commit('set_post_subject',{
+				'subject_name':this.selected_subject.subject_name,
+				'selected_category':this.selected_category
+			});
+			EventBus.$emit('validateStep2');
+			EventBus.$on('validateWizard',(i,valid)=>{
+				if(valid){
+					this.$validator.validate().then((result)=>{
+						if(result){
+							this.$store.dispatch('updatePost');
+						}
+					});
+				}
+			});
 		}
 	}
 };
