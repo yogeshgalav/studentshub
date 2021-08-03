@@ -8,6 +8,7 @@ use App\Models\Subject;
 use App\Models\Category;
 use App\Models\Classroom;
 use App\Models\ScheduledJob;
+use App\Models\DoubAnswer;
 use Illuminate\Http\Request;
 use Auth;
 use Arr;
@@ -30,14 +31,7 @@ class DoubtController extends Controller
 
         DB::beginTransaction();
     try{
-
-        $classroom = null;
-        if($request->classroomId){
-            $classroom = Classroom::findOrFail($request->classroomId);
-            $subject = $classroom->subject;
-        }else{
-            $subject=Subject::getOrCreate(null, $selected_subject['subject_name'], Auth::student()->categoryId);
-        }
+        $subject=Subject::getOrCreate(null, $selected_subject['subject_name'], Auth::student()->categoryId);
 
         $doubt = new Doubt();
         $doubt->user_id = Auth::user()->id;
@@ -72,10 +66,6 @@ class DoubtController extends Controller
         ->join('users as us','us.id','=','doubts.user_id')
         ->join('subjects as sub','sub.id','=','doubts.subject_id')
         ->join('institutes as inst','inst.id','=','doubts.institute_id');
-        
-        if(!empty($request->classroomId)){
-            $doubt_query = $doubt_query->where('classroom_id',$request->classroomId);
-        }
         if(!empty($request->search)){
             $doubt_query = $doubt_query->where('question','LIKE','%'.$request->search.'%');
         }
@@ -90,11 +80,11 @@ class DoubtController extends Controller
             ->where('uli.likable_type','=','App\Models\Doubt')
             ->where('uli.user_id','=',Auth::id());
         })
-        ->select('us.full_name as user_name','us.avatar_url as profile_image','sub.subject_name','inst.name as institute_name',
+        ->select('sub.id as subject_id','us.id as user_id','us.full_name as user_name','us.avatar_url as profile_image','sub.subject_name','inst.name as institute_name',
         'doubts.question','doubts.created_at','doubts.id','uli.like_status as user_like',
         DB::raw('COUNT(distinct li.user_id) as total_likes'),
         DB::raw('COUNT(distinct ans.user_id) as total_answers'))
-        ->groupBy('us.full_name','us.avatar_url','sub.subject_name','inst.name',
+        ->groupBy('sub.id','us.id','us.full_name','us.avatar_url','sub.subject_name','inst.name',
         'doubts.question','doubts.created_at','doubts.id','uli.like_status')
         ->orderBy('doubts.created_at','DESC')
         ->get();
@@ -120,4 +110,39 @@ class DoubtController extends Controller
         return array_keys(array_slice($wordCountArr, 0, 5));
       }
 
+      public function editDoubt(Doubt $doubt, Request $request){
+        $student=Auth::student();
+        $selected_subject=$request->subject;
+
+        if($doubt->user_id!==Auth::id() || is_null($student)){
+            abort(403);
+        }
+
+        DB::beginTransaction();
+    try{
+        $subject=Subject::getOrCreate(null, $selected_subject['subject_name'], Auth::student()->categoryId);
+
+        $doubt->user_id = Auth::user()->id;
+        $doubt->question = $request->doubt;
+        $doubt->subject_id = $subject->id;
+        $doubt->institute_id = $student->instituteId;
+        $doubt->course_id = $student->courseId;
+        $doubt->save();
+        // ScheduledJob::newDoubtNotification($doubt);
+
+
+    DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            Log::critical('Doubt edit failure',['data'=>$request->all(),'error'=>$e->getMessage()]);
+            // dd($e->getMessage(),$e->getLine());
+            return response()->$e;
+        }
+        return 'success';
+      }
+
+      public function deleteDoubt(Doubt $doubt){
+        $doubt->delete();
+        return response()->json([], 204);
+      }
 }

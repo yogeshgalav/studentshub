@@ -7,7 +7,10 @@
       :width="250"
       :is-full-page="true"
     />
-    <header class="heading">
+    <header
+      class="heading"
+      style="background-image: url('/images/welcome/study-background.jpg');"
+    >
       <h1 class="main_heading">
         Contact Us
       </h1>

@@ -148,7 +148,7 @@
             <modal
               ref="addMessageModal"
               name="addMessageModal"
-              class="doubt_model model-md"
+              class="model-md"
               heading="Add Message"
               @submit="saveMessage"
             >

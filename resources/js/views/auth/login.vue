@@ -86,11 +86,34 @@
                         id="password"
                         v-model="password"
                         v-validate="'required'"
-                        type="password"
+                        :type="showPassword ? 'text' : 'password'"
                         class="form-control"
                         name="password"
                         placeholder="Password"
                       >
+                      <div
+                        class="input-group-append"
+                        @click="showPassword = !showPassword"
+                      >
+                        <span
+                          v-show="showPassword"
+                          class="input-group-text"
+                        ><i
+                                                         
+                          class="fa fa-eye-slash"
+                          aria-hidden="true"
+                        />
+                        </span>
+                        <span
+                          v-show="!showPassword"
+                          class="input-group-text"
+                        >
+                          <i                     
+                            class="fa fa-eye"
+                            aria-hidden="true"
+                          />
+                        </span>
+                      </div>
                     </div>
                     <span class="error">{{ formErrors('password') }}</span>
                   </div>
@@ -180,6 +203,11 @@
   pointer-events: none;
 }
 
+/*adding style to eye icon */
+.input_icon_frm .input-group-append{
+  cursor: pointer;
+}
+
 /* align glyph */
 .left-addon .fa  { left:  0px;}
 .right-addon .fa { right: 0px;}
@@ -207,6 +235,7 @@ export default {
 	},
 	data(){
 		return{
+			showPassword: false,
 			showLoader:false,
 			email:'',
 			password:'',

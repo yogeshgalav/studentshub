@@ -10,6 +10,12 @@
       </template>
       <template slot="tab-panel-posts">
         <div class="row">
+          <div
+            v-if="!posts.length"
+            class="col-md-7 center-col"
+          >
+            <p>No search result found.</p>
+          </div>
           <div class="col-md-7 center-col">
             <div
               v-for="(post,index) in posts"
@@ -25,6 +31,12 @@
       </template>
       <template slot="tab-panel-users">
         <div class="row">
+          <div
+            v-if="!users.length"
+            class="col-md-7 center-col"
+          >
+            <p>No search result found.</p>
+          </div>
           <div class="col-md-7 center-col">
             <div 
               v-for="(user,index) in users"
@@ -63,6 +75,12 @@
       </template>
       <template slot="tab-panel-subjects">
         <div class="row">
+          <div
+            v-if="!subjects.length"
+            class="col-md-7 center-col"
+          >
+            <p>No search result found.</p>
+          </div>
           <div class="col-md-7 center-col">
             <div 
               v-for="(subject,index) in subjects"
@@ -82,6 +100,12 @@
       </template>
       <template slot="tab-panel-courses">
         <div class="row">
+          <div
+            v-if="!courses.length"
+            class="col-md-7 center-col"
+          >
+            <p>No search result found.</p>
+          </div>
           <div class="col-md-7 center-col">
             <div 
               v-for="(course,index) in courses"
@@ -103,6 +127,12 @@
       </template>
       <template slot="tab-panel-institutes">
         <div class="row">
+          <div
+            v-if="!institutes.length"
+            class="col-md-7 center-col"
+          >
+            <p>No search result found.</p>
+          </div>
           <div class="col-md-7 center-col">
             <div 
               v-for="(institute,index) in institutes"
