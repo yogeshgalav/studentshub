@@ -114,7 +114,11 @@
           </div>
         </div>
         <div class="creat_post_btn">
-          <button class="btn btn-primary">
+          <button
+            class="btn btn-primary"
+            type="button"
+            @click="handleSubmit"
+          >
             Submit
           </button>
         </div>
@@ -216,7 +220,7 @@ export default {
 				subject_name: name
 			};
 		},
-		submit(){
+		handleSubmit(){
 			this.$store.commit('set_post_heading',{'post_heading': this.new_post.heading});
 			this.$store.commit('set_post_subject',{
 				'subject_name':this.selected_subject.subject_name,
@@ -227,7 +231,10 @@ export default {
 				if(valid){
 					this.$validator.validate().then((result)=>{
 						if(result){
-							this.$store.dispatch('updatePost');
+							this.axios.post('/api/update-post',this.$store.state.new_post)
+								.then(resp=>{
+
+								});
 						}
 					});
 				}
