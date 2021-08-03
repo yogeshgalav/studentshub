@@ -57,6 +57,66 @@ class MoreAppTableSeeder extends Seeder
             'name'=>'Freerice',
             'description'=>'Do something good for your soul as you procrastinate! For every correct answer you get on this online vocab quiz, sponsors of Freerice will donate the cash equivalent of 10 grains of rice to the United Nations World Food Programme.',
             'link'=>'https://freerice.com/categories/english-vocabulary'
+        ],[
+            'name'=>'Astronomy Picture of the Day',
+            'description'=>'Discover the cosmos from the best of the best with NASA’s astronomy picture of the day! You’ll get to see a stunning photo of space while also learning something with the explorative caption underneath.',
+            'link'=>'https://apod.nasa.gov/apod/astropix.html'
+        ],[
+            'name'=>'MuscleWIki',
+            'description'=>'Fine-tune your workout with this fun website, MuscleWiki. It not only gives you a full diagram of the muscles in your body but how to stretch and work them out!',
+            'link'=>'https://musclewiki.com/'
+        ],[
+            'name'=>'Internet Live Stats ',
+            'description'=>'You commonly hear the phrase “everyone is on the internet” but how many are there really? Find out how many tweets, Instagram posts, and emails are being sent in real-time!',
+            'link'=>'https://www.internetlivestats.com/'
+        ],[
+            'name'=>'This Is Sand',
+            'description'=>'Fine-tune your workout with this fun website, MuscleWiki. It not only gives you a full diagram of the muscles in your body but how to stretch and work them out!',
+            'link'=>'https://thisissand.com/'
+        ],[
+            'name'=>'Radio Garden',
+            'description'=>'Ever wanted to hear what the radio was like in Paris or in Tokyo? Travel through the airwaves and see what is playing in local cities (literally any city) in real-time.',
+            'link'=>'http://radio.garden/search'
+        ],[
+            'name'=>'Music Theory',
+            'description'=>'Learn the language behind your favorite pieces of music with this fun website! They offer free lessons and exercises so you have all you need to become the next musical genius.',
+            'link'=>'https://www.musictheory.net/'
+        ],[
+            'name'=>'Radiooooo',
+            'description'=>'Take a step back into time with Radiooooo. Like the Radio Garden website, you can choose any region in the world and listen to the local airwaves. However, this site gives you a timeline so you can listen to the radio from not just anywhere, but anywhen in time! Have fun listening to 1960s French bops.',
+            'link'=>'https://radiooooo.com/'
+        ],[
+            'name'=>'Sleepytime',
+            'description'=>'Did quarantine get your sleeping schedule out of whack? This fun website calculates exactly when you need to go to sleep and wake up in order to get a good night’s sleep.',
+            'link'=>'https://sleepyti.me/'
+        ],[
+            'name'=>'Passive Aggressive Password Machine',
+            'description'=>'If you ever wanted to know how strong your password is, simply type it into this machine and it will tell you what you need to work on!',
+            'link'=>'https://trypap.com/'
+        ],[
+            'name'=>'Code Academy ',
+            'description'=>'Code Academy offers coding lessons with immediate feedback and real-world projects.',
+            'link'=>'https://www.codecademy.com/'
+        ],[
+            'name'=>'29a.ch',
+            'description'=>'Paint the cosmos with all the colors of the wind with this fun interactive creative site! It’s a great and mesmerizing way to relax and chill out after a long day.',
+            'link'=>'https://29a.ch/sandbox/2011/neonflames/#'
+        ],[
+            'name'=>'What Should I Read Next?',
+            'description'=>'Read all the books in your library? This website will take your preferences and give you all the book recommendations you could ever want.',
+            'link'=>'https://www.whatshouldireadnext.com/'
+        ],[
+            'name'=>'My Fridge Food ',
+            'description'=>'Forget to go food shopping? Don’t worry, just type in whatever is in your fridge into this site and it will create a recipe just for you!',
+            'link'=>'https://myfridgefood.com/'
+        ],[
+            'name'=>'OnRead',
+            'description'=>'If you need a quick and easy book to read, check out OnRead’s library of free ebooks!',
+            'link'=>'https://www.onread.com/'
+        ],[
+            'name'=>'Duolingo',
+            'description'=>'Make the most of your free time and cross something off your bucket by becoming fluent in a different language with the help of Duolingo! This fun website also doubles as a fun free app on your phone so you never miss a lesson.',
+            'link'=>'https://freerice.com/categories/english-vocabulary'
         ]);
     }
 }
