@@ -114,6 +114,10 @@ class MoreAppTableSeeder extends Seeder
             'description'=>'If you need a quick and easy book to read, check out OnRead’s library of free ebooks!',
             'link'=>'https://www.onread.com/'
         ],[
+            'name'=>'Hippocampus',
+            'description'=>'How do you learn? If visual stimuli help you approach your study time better, than Hippocampus may be for you. Free, it contains information and multimedia content on a wide variety of subjects from economics to religion. Visiting the website will give you access to 7,000 videos on all their available subjects. The website also shows you other collections or tools that can further your education.',
+            'link'=>'https://www.hippocampus.org/'
+        ],[
             'name'=>'Duolingo',
             'description'=>'Make the most of your free time and cross something off your bucket by becoming fluent in a different language with the help of Duolingo! This fun website also doubles as a fun free app on your phone so you never miss a lesson.',
             'link'=>'https://freerice.com/categories/english-vocabulary'
