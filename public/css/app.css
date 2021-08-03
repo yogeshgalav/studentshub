@@ -12369,7 +12369,10 @@ button[disabled=disabled] {
   box-shadow: 0px 2px 50px rgba(0, 0, 0, 0.15) !important;
   background-color: white;
   border-radius: 4px;
-  padding: 10px 10px;
+}
+
+.card-body {
+  padding: 20px 10px !important;
 }
 
 .post_category {
@@ -12769,6 +12772,10 @@ select.minimal {
 .selection-box-default p,
 i {
   color: rgba(68, 68, 68, 0.5);
+}
+
+.selection-box-default .card-body {
+  padding: 1.25rem !important;
 }
 
 .selection-btn {
@@ -13214,11 +13221,10 @@ i {
 }
 
 .sidebar-section {
-  position: -webkit-sticky;
-  position: sticky;
+  position: fixed;
+  height: 100%;
   min-width: 260px;
   max-width: 30%;
-  height: 100vh;
   z-index: 99;
   top: 66px;
   background-color: #f7f7f7;
@@ -13784,7 +13790,7 @@ h2.banner_title {
 }
 
 .cat_btn {
-  width: 13%;
+  width: 220px;
   font-weight: 400;
   position: relative;
   font-size: 14px;
@@ -13818,8 +13824,8 @@ a.btn.btn-white.cat_btn:after {
   width: 56px;
   height: 51px;
   border-radius: 0px 0px 20px 70px;
-  top: -36px;
-  right: 40px;
+  top: -33px;
+  right: 172px;
 }
 
 .login_card {
@@ -14343,39 +14349,6 @@ button.ask_doubt_btn {
   color: #858586;
 }
 
-p.model_box_head {
-  font-size: 15px;
-  text-align: center;
-  color: #868658;
-}
-
-.doubt_like_view {
-  display: -webkit-box;
-  display: flex;
-  -webkit-box-pack: justify;
-          justify-content: space-between;
-  margin-top: 15px;
-}
-
-.doubt_like span {
-  color: #868686;
-  padding: 10px 10px 0 0;
-}
-
-main.doubt_main_page {
-  margin-left: 20px;
-}
-
-.doubt_model .v--modal-box.v--modal {
-  left: 0 !important;
-  height: 400px !important;
-  right: 0 !important;
-  margin: 0 auto !important;
-  width: 50% !important;
-  overflow-y: scroll;
-  padding: 20px;
-}
-
 .mx-input {
   height: 45px !important;
 }
@@ -14704,7 +14677,8 @@ select.form-control.custom-select {
 }
 
 .content {
-  width: 80%;
+  width: 78%;
+  margin-left: 280px;
   padding: 7% 1%;
 }
 
@@ -14813,6 +14787,7 @@ select.form-control.custom-select {
   .sidebar-section {
     left: -250px;
     position: fixed;
+    height: 100%;
     z-index: 999;
     top: 0px;
     opacity: 0;
@@ -14857,6 +14832,7 @@ select.form-control.custom-select {
 
   .content {
     padding: 35% 2%;
+    margin-left: 0px;
     width: 100%;
   }
 
@@ -14880,15 +14856,6 @@ select.form-control.custom-select {
   .search_box {
     width: 100%;
     margin-top: 25px;
-  }
-
-  .doubt_model .d-flex {
-    display: block !important;
-  }
-
-  .doubt_model .delete_btn {
-    margin-top: 20px;
-    margin-left: 5px;
   }
 
   .cl_q_close {
@@ -15035,16 +15002,6 @@ select.form-control.custom-select {
   .form-control {
     -webkit-transform: inherit !important;
             transform: inherit !important;
-  }
-
-  .doubt_model .v--modal-box.v--modal {
-    width: 95% !important;
-  }
-
-  .dount_search {
-    position: relative;
-    width: 100%;
-    margin-bottom: 20px;
   }
 
   .user_profile_page {
@@ -15176,15 +15133,6 @@ select.form-control.custom-select {
     margin-top: 25px;
   }
 
-  .doubt_model .d-flex {
-    display: block !important;
-  }
-
-  .doubt_model .delete_btn {
-    margin-top: 20px;
-    margin-left: 5px;
-  }
-
   .cl_q_close {
     margin-top: 5px;
     margin-left: 0px;
@@ -15329,16 +15277,6 @@ select.form-control.custom-select {
   .form-control {
     -webkit-transform: inherit !important;
             transform: inherit !important;
-  }
-
-  .doubt_model .v--modal-box.v--modal {
-    width: 95% !important;
-  }
-
-  .dount_search {
-    position: relative;
-    width: 100%;
-    margin-bottom: 20px;
   }
 
   .user_profile_page {
@@ -15470,15 +15408,6 @@ select.form-control.custom-select {
     margin-top: 25px;
   }
 
-  .doubt_model .d-flex {
-    display: block !important;
-  }
-
-  .doubt_model .delete_btn {
-    margin-top: 20px;
-    margin-left: 5px;
-  }
-
   .cl_q_close {
     margin-top: 5px;
     margin-left: 0px;
@@ -15623,10 +15552,6 @@ select.form-control.custom-select {
   .form-control {
     -webkit-transform: inherit !important;
             transform: inherit !important;
-  }
-
-  .doubt_model .v--modal-box.v--modal {
-    width: 95% !important;
   }
 
   .dount_search {
@@ -15849,5 +15774,118 @@ div.nav-login-get-started {
 .menu-dropdown a.active {
   color: #0052cc !important;
   border-right: 3px solid #0052cc;
+}
+
+@media (max-width: 599.98px) {
+  .modal-fullscreen {
+    padding: 0 !important;
+  }
+
+  .modal-fullscreen .modal-dialog {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    margin: 0;
+  }
+
+  .modal-fullscreen .modal-content {
+    height: 100%;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .modal-fullscreen .modal-body {
+    overflow-y: auto;
+  }
+}
+
+@media (max-width: 799.98px) {
+  .modal-fullscreen-sm {
+    padding: 0 !important;
+  }
+
+  .modal-fullscreen-sm .modal-dialog {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    margin: 0;
+  }
+
+  .modal-fullscreen-sm .modal-content {
+    height: 100%;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .modal-fullscreen-sm .modal-body {
+    overflow-y: auto;
+  }
+}
+
+@media (max-width: 999.98px) {
+  .modal-fullscreen-md {
+    padding: 0 !important;
+  }
+
+  .modal-fullscreen-md .modal-dialog {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    margin: 0;
+  }
+
+  .modal-fullscreen-md .modal-content {
+    height: 100%;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .modal-fullscreen-md .modal-body {
+    overflow-y: auto;
+  }
+}
+
+@media (max-width: 1279.98px) {
+  .modal-fullscreen-lg {
+    padding: 0 !important;
+  }
+
+  .modal-fullscreen-lg .modal-dialog {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    margin: 0;
+  }
+
+  .modal-fullscreen-lg .modal-content {
+    height: 100%;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .modal-fullscreen-lg .modal-body {
+    overflow-y: auto;
+  }
+}
+
+.modal-fullscreen-xl {
+  padding: 0 !important;
+}
+
+.modal-fullscreen-xl .modal-dialog {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  margin: 0;
+}
+
+.modal-fullscreen-xl .modal-content {
+  height: 100%;
+  border: 0;
+  border-radius: 0;
+}
+
+.modal-fullscreen-xl .modal-body {
+  overflow-y: auto;
 }
 

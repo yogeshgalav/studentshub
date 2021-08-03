@@ -9,7 +9,8 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::post('/save-post-image','PostController@createImage');
     Route::post('/add-doubt','DoubtController@addDoubt');
     Route::get('/get-doubts','DoubtController@getDoubts');
-    Route::post('/search-doubts','DoubtController@searchDoubts');
+    Route::post('/doubt/{doubt}/edit','DoubtController@update');
+    Route::delete('/doubt/{doubt}','DoubtController@delete');
     Route::get('/get-student-course-details','StudentController@getCourseSubjects');
     //doubt
     Route::post('/doubt/{doubtId}/add-answer','DoubtAnswersController@addDoubtAnswer');

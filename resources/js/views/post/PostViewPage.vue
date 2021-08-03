@@ -138,34 +138,13 @@
       </div>
     </div>
     <div class="container ptb-50">
-      <div class="col-md-12 col-12 center-col">
+      <div class="col-md-10 col-12 center-col">
         <div class="row">
           <div class="col-md-8">
             <h3 class="post_main_title">
               {{ postContent.heading }}
             </h3>
-            <div v-if="postContent.post_type === 'video'">
-              <div class="post_video">
-                <iframe
-                  width="620"
-                  height="315"
-                  :src="
-                    'https://www.youtube.com/embed/' +
-                      postContent.video_id
-                  "
-                />
-              </div>
-            </div>
 
-            <div v-if="postContent.post_type === 'fact'">
-              <div class="post_video">
-                <img
-                  width="620"
-                  height="315"
-                  :src="postContent.fact_image_path"
-                >
-              </div>
-            </div>
             <div v-if="postContent.post_type === 'article'">
               <div class="post_s_c">
                 <div class="post_content">
@@ -180,8 +159,40 @@
                 </div>
               </div>
             </div>
+            <div v-if="postContent.post_type === 'video'">
+              <div class="post_video">
+                <iframe
+                  width="620"
+                  height="315"
+                  :src="
+                    'https://www.youtube.com/embed/' +
+                      postContent.video_id
+                  "
+                />
+              </div>
+            </div>
+            <div v-if="postContent.post_type === 'document'">
+              <div class="post_video">
+                <embed
+                  type="application/pdf"
+                  :src="postContent.document_link"
+                  width="620"
+                  height="1000"
+                >
+              </div>
+            </div>
+
+            <div v-if="postContent.post_type === 'fact'">
+              <div class="post_video">
+                <img
+                  width="620"
+                  height="315"
+                  :src="postContent.fact_image_path"
+                >
+              </div>
+            </div>
           </div>
-          <div class="col-md-4">
+          <!-- <div class="col-md-4">
             <div class="bg-gray p-2 mb-2">
               <div class="row">
                 <div class="col-md-12 latest-post">
@@ -228,7 +239,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -237,41 +248,38 @@
       class="single_page_user_like"
     >
       <button
-        :class="like_active === true ? 'like_active' : 'like_inactive'"
         @click="sendUserLike()"
       >
-        <p>
+        <p
+          v-if="like_active"
+          class="text-primary"
+        >
+          <span><i class="fas fa-thumbs-up" /></span>
+          {{ postContent.total_likes + 1 }} 
+        </p>
+        <p
+          v-else-if="postContent.user_like"
+          class="text-primary"
+        >
+          <span><i class="fas fa-thumbs-up" /></span>
+          {{ postContent.total_likes }} 
+        </p>
+        <p
+          v-else-if="postContent.total_likes===0"
+        >
           <span><i class="fas fa-thumbs-up" /></span>
         </p>
-        <p>
-          {{
-            like_active
-              ? postContent.total_likes + 1
-              : postContent.total_likes
-          }}
-        </p>
-      </button>
-      <button
-        :class="
-          dislike_active === true ? 'like_active' : 'like_inactive'
-        "
-        @click="sendUserDislike()"
-      >
-        <p>
-          <span><i
-            class="fa fa-thumbs-down"
-            aria-hidden="true"
-          /></span>
-        </p>
-        <p>
-          {{
-            dislike_active
-              ? postContent.total_dislikes + 1
-              : postContent.total_dislikes
-          }}
+        <p
+          v-else
+        >
+          <span><i class="fas fa-thumbs-up" /></span>
+          {{ postContent.total_likes }}
         </p>
       </button>
     </div>
+    <p class="like">
+      Like
+    </p>
     <div class="single_page_post_card">
       <div class="bg-gray s_p_c">
         <h3 class="post_like_head">
@@ -600,6 +608,9 @@ h6.card-title-tag.font-size-12 a {
     align-items: center;
     justify-content: center;
 }
+.like{
+  text-align: center;
+}
 @media only screen and (max-width: 768px){
   .post_view_head {
         background-color: white;
@@ -648,7 +659,6 @@ export default {
 	props: ['role'],
 	data() {
 		return {
-			user_like: '',
 			post_save: '',
 			post_report: '',
 			like_active: false,
@@ -657,11 +667,6 @@ export default {
 	},
 	watch: {
 		postContent(val) {
-			if (val.user_like === 1) {
-				this.like_active = true;
-			} else if (val.user_like === 0) {
-				this.dislike_active = true;
-			}
 			// this.user_like = this.postContent.user_like;
 			this.post_save = this.postContent.post_save ? true : false;
 			this.post_report = this.postContent.post_report ? true : false;
@@ -680,34 +685,13 @@ export default {
 	},
 	methods: {
 		sendUserLike() {
-			let method = this.like_active === true ? 'delete' : 'add';
-			// this.user_like = this.user_like === 1 ? null : 1;
-			this.axios
-				.post('/api/post-like', {
-					post_id: this.postContent.id,
-					type: 'like',
-					method
-				})
-				.then(resp => {
-					this.like_active =
-                        resp.data.success.user_like === 1 ? true : false;
-					this.dislike_active = false;
-				});
-		},
-		sendUserDislike() {
-			let method = this.dislike_active === true ? 'delete' : 'add';
-			// this.user_like = this.user_like === 0 ? null : 0;
-			this.axios
-				.post('/api/post-like', {
-					post_id: this.postContent.id,
-					type: 'dislike',
-					method
-				})
-				.then(resp => {
-					this.dislike_active =
-                        resp.data.success.user_like === 0 ? true : false;
-					this.like_active = false;
-				});
+			this.like_active = !this.like_active;
+			this.axios.post('/api/user-like/post', {
+				likable_id: this.postContent.id,
+				likable_type:'post',
+			}).catch(err => {
+				this.like_active = !this.like_active;
+			});
 		},
 		postSave() {
 			this.post_save = this.post_save ? false : true;

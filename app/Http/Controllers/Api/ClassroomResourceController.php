@@ -89,16 +89,11 @@ class ClassroomResourceController extends Controller
 
             $post->post_description = $request->description;
             $post->category_id=$classroom->course->category_id;
-            $post->user_institute_id=$classroom->institute_id;
+            $post->course_id=$classroom->course_id;
             $post->created_via='resource';
             $post->save();
 
-            SthubPost::create([
-                'post_id'=>$post->id,
-                'classroom_id'=>$classroom->id,
-                'course_id'=>$classroom->course_id,
-                'shared_by_user_id'=>Auth::id(),
-            ]);
+            SthubPost::addAction('share',$post,Auth::user());
         }
 
         DB::commit();

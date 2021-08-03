@@ -446,7 +446,7 @@ button[disabled="disabled"] {
     border-radius: 4px;
 }
 .card-body {
-    padding: 10px 10px !important;
+    padding: 20px 10px !important;
 }
 .post_category{
     margin: 5px 5px 0px 2px;
@@ -2225,32 +2225,6 @@ button.ask_doubt_btn {
 .model_input label {
     color: #858586;
 }
-p.model_box_head {
-    font-size: 15px;
-    text-align: center;
-    color: #868658;
-}
-.doubt_like_view {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 15px;
-}
-.doubt_like span {
-    color: #868686;
-    padding: 10px 10px 0 0;
-}
-main.doubt_main_page {
-    margin-left: 20px;
-}
-.doubt_model .v--modal-box.v--modal {
-    left: 0 !important;
-    height: 400px !important;
-    right: 0 !important;
-    margin: 0 auto !important;
-    width: 50% !important;
-    overflow-y: scroll;
-    padding: 20px;
-}
 // mx input height
 .mx-input {
     height: 45px !important;
@@ -2666,13 +2640,6 @@ select.form-control.custom-select {
         width: 100%;
         margin-top: 25px;
     }
-    .doubt_model .d-flex {
-        display: block !important;
-    }
-    .doubt_model .delete_btn {
-        margin-top: 20px;
-        margin-left: 5px;
-    }
     .cl_q_close {
         margin-top: 5px;
         margin-left: 0px;
@@ -2789,14 +2756,6 @@ select.form-control.custom-select {
     }
     .form-control {
         transform: inherit !important;
-    }
-    .doubt_model .v--modal-box.v--modal {
-        width: 95% !important;
-    }
-    .dount_search {
-        position: relative;
-        width: 100%;
-        margin-bottom: 20px;
     }
     .user_profile_page {
         padding: 0px 0;
@@ -2899,13 +2858,6 @@ select.form-control.custom-select {
         width: 100%;
         margin-top: 25px;
     }
-    .doubt_model .d-flex {
-        display: block !important;
-    }
-    .doubt_model .delete_btn {
-        margin-top: 20px;
-        margin-left: 5px;
-    }
     .cl_q_close {
         margin-top: 5px;
         margin-left: 0px;
@@ -3022,14 +2974,6 @@ select.form-control.custom-select {
     }
     .form-control {
         transform: inherit !important;
-    }
-    .doubt_model .v--modal-box.v--modal {
-        width: 95% !important;
-    }
-    .dount_search {
-        position: relative;
-        width: 100%;
-        margin-bottom: 20px;
     }
     .user_profile_page {
         padding: 0px 0;
@@ -3133,13 +3077,6 @@ select.form-control.custom-select {
         width: 100%;
         margin-top: 25px;
     }
-    .doubt_model .d-flex {
-        display: block !important;
-    }
-    .doubt_model .delete_btn {
-        margin-top: 20px;
-        margin-left: 5px;
-    }
     .cl_q_close {
         margin-top: 5px;
         margin-left: 0px;
@@ -3256,9 +3193,6 @@ select.form-control.custom-select {
     }
     .form-control {
         transform: inherit !important;
-    }
-    .doubt_model .v--modal-box.v--modal {
-        width: 95% !important;
     }
     .dount_search {
         position: relative;
@@ -3436,3 +3370,34 @@ div.nav-login-get-started {
     color: #0052cc !important;
     border-right: 3px solid #0052cc;
 }
+@mixin modal-fullscreen() {
+    padding: 0 !important; // override inline padding-right added from js
+  
+    .modal-dialog {
+      width: 100%;
+      max-width: none;
+      height: 100%;
+      margin: 0;
+    }
+  
+    .modal-content {
+      height: 100%;
+      border: 0;
+      border-radius: 0;
+    }
+  
+    .modal-body {
+      overflow-y: auto;
+    }
+  
+  }
+  
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    @include media-breakpoint-down($breakpoint) {
+      $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+  
+      .modal-fullscreen#{$infix} {
+        @include modal-fullscreen();
+      }
+    }
+  }

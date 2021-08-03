@@ -125,7 +125,19 @@
         <vue-table-component
           :columns="classroomColumns"
           :rows="classroomList"
-        />
+        >
+          <template
+            slot="table-row"
+            slot-scope="props"
+          >
+            <span v-if="props.column.field==='classroom_name'">
+              <a
+                :href="'/classroom/'+props.row.classroom_id"
+                class="text-underline"
+              >{{ props.row['classroom_name'] }}</a>
+            </span>
+          </template>
+        </vue-table-component>
       </accordion>
     </div>
   </div>
@@ -182,10 +194,6 @@ export default {
 				{
 					label: 'Avg. Score',
 					field: 'average_score',
-				},
-				{
-					label: 'Doubts',
-					field: 'total_doubts',
 				},
 				{
 					label: 'Resources',
