@@ -373,7 +373,6 @@ export default {
 				this.setProfile(resp.data.success.profile);
 				swal.successDialog('Profile Updated', 'Successfully!', 'success');
 				this.data_updated = false;
-				console.log(resp);
 			});
 
 			this.errors={
