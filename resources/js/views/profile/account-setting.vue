@@ -371,7 +371,7 @@ export default {
 
 			await this.axios.post('/api/save-profile', this.profile_data).then((resp) => {
 				this.setProfile(resp.data.success.profile);
-				swal.successDialog('Data-Updated', 'Success!', 'success');
+				swal.successDialog('Profile Updated', 'Successfully!', 'success');
 				this.data_updated = false;
 				console.log(resp);
 			});
