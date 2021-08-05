@@ -133,7 +133,7 @@
                     />
                   </div>
                   <span class="text-danger">{{ formErrors('attempt_date') }}</span>
-                  <span class="text-danger">{{ assignment_error }}</span>
+                  <span class="text-danger">{{ update_assignment_error }}</span>
                 </div>
               </div>
             </div>
@@ -283,7 +283,10 @@
                       placeholder
                       :not-before="currentDate.setDate(currentDate.getDate() + 1)"
                     />
-                    <span class="text-danger">{{ formErrors('newAssignment.assignment_date') }}</span>
+                    <div>
+                      <span class="text-danger">{{ formErrors('newAssignment.assignment_date') }}</span>
+                      <span class="text-danger">{{ assignment_error }}</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -369,6 +372,7 @@ export default {
 			currentDate:new Date(),
 			total: 0,
 			assignment_error: '',
+			update_assignment_error:'',
 		};
 	},
 	computed: {
@@ -443,8 +447,10 @@ export default {
 			};
 		},
 		addAssignment() {
+			
 			this.$validator.validateAll('newAssignment').then(valid => {
 				if(valid){
+					this.assignment_error='';
 					this.showLoader=true;
 					this.axios
 				      .post('/api/classroom/' + this.$route.params.classroomId + '/create-assignment', {
@@ -459,14 +465,14 @@ export default {
 							this.assignment_list.unshift(new_assignment);
 							this.current_assignment = new_assignment;
 							this.showLoader=false;
-							this.assignment_error='';
+							this.$refs.addAssignmentModal.closeModal();
 						}).catch(err => {
 							if(422 === err.response.status){
-								this.assignment_error=err.response.data;
+								this.assignment_error='Assignment for this date is already present, please select different date.';
 							}
 							this.showLoader=false;
 						});
-					this.$refs.addAssignmentModal.closeModal();
+				
 				}
 			});
 		},
@@ -482,6 +488,7 @@ export default {
 			this.updateAssignment();
 		},
 		updateAssignment() {
+			this.update_assignment_error = '';
 			this.form_errors = [];
 			this.showLoader=true;
 			this.axios
@@ -494,10 +501,9 @@ export default {
 				})
 				.then((resp) => {
 					this.showLoader=false;
-					this.assignment_error='';
 				}).catch(err => {
 					if(422 === err.response.status){
-						this.assignment_error=err.response.data;
+						this.update_assignment_error='Assignment for this date is already present, please select different date';
 					}
 					this.showLoader=false;
 				});
