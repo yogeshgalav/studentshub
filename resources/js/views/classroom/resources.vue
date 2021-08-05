@@ -374,7 +374,7 @@ export default {
     		this.resource_link = resource.link;
     	},
     	deleteDoubt(resourceId){
-    		this.axios.delete('/api/resources' + resourceId).then((resp)=>{
+    		this.axios.delete('/api/resource/' + resourceId).then((resp)=>{
     			window.location.reload();
     		});
     	},

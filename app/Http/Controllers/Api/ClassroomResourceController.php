@@ -107,8 +107,8 @@ class ClassroomResourceController extends Controller
             'resource_id'=>$classroom_resource->id
         ]]);
     }
-    public function deleteResource(Request $request){
-        $classroom_resource = ClassroomResource::findOrFail($request->resource_id);
+    public function deleteResource(Request $request, $resource_id){
+        $classroom_resource = ClassroomResource::findOrFail($resource_id);
         $classroom_resource->delete();
 
         return response()->json([],204);
