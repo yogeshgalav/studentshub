@@ -43,6 +43,13 @@
                           name="_token"
                           :value="csrfToken"
                         >
+                        <input
+                          id="fcmToken"
+                          type="hidden"
+                          class="form-control"
+                          name="fcmToken"
+                          :value="fcmToken"
+                        >
                       </div>
                       <div class="form-group">
                         <label> {{ ('Full Name') }} </label>
@@ -268,6 +275,7 @@ export default {
 	data() {
 		return {
 			showLoader: false,
+			fcmToken: '',
 			full_name: '',
 			email: '',
 			password: '',
@@ -294,6 +302,7 @@ export default {
 		};
 	},
 	mounted(){
+		this.fcmToken = localStorage.getItem('fcmToken');
 		this.join_id = this.$route.query.joinId;
 		this.$validator.localize('en', this.dict);
 	},

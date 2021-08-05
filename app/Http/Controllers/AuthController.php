@@ -91,7 +91,9 @@ class AuthController extends Controller
                 $success['refresh_token'] = $content->refresh_token;
             }
         }
-        $user->fcm_token=$request->fcmToken ?? null;
+        if (!empty($request->fcmToken)) {
+            $user->fcm_token=base64_decode($request->fcmToken);
+        }
         $user->last_login_at=\Carbon\Carbon::now()->toDateTimeString();
         $user->save();
     
@@ -129,6 +131,11 @@ class AuthController extends Controller
         //hash password
         $input['password'] = bcrypt($input['password']);
 
+        $fcm_token=null;
+        if (!empty($request->fcmToken)) {
+            $fcm_token=base64_decode($request->fcmToken);
+        }
+        
         DB::beginTransaction();
     try{
        
@@ -137,6 +144,7 @@ class AuthController extends Controller
                 'email'=>$input['email'],
                 'password'=>$input['password'],
                 'role_intended'=>'seeker',
+                'fcm_token'=>$fcm_token,
             ]);
 
             Auth::login($user);

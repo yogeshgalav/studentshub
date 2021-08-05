@@ -55,7 +55,13 @@
                     name="_token"
                     :value="csrfToken"
                   >
-                  <span class="error">{{ formErrors('_token') }}</span>
+                  <input
+                    id="fcmToken"
+                    type="hidden"
+                    class="form-control"
+                    name="fcmToken"
+                    :value="fcmToken"
+                  >
                 </div>
                 <div class="form-group">
                   <label for="email"> {{ trans('E-Mail Address') }}</label>
@@ -211,7 +217,14 @@ export default {
 			email:'',
 			password:'',
 			remember:true,
+			fcmToken:'',
 		};
+	},
+	mounted(){
+		if(this.$route.query.fcmToken){
+			this.fcmToken = this.$route.query.fcmToken;
+			localStorage.setItem('fcmToken',this.fcmToken);
+		}
 	},
 	methods:{
 		trans: function (string,defaultString) {
