@@ -40,10 +40,17 @@ class AuthController extends Controller
             return view('guest.auth.login')->with('srvError401',true);
         }
 
+        if (!empty($request->fcmToken)) {
+            $user->fcm_token=base64_decode($request->fcmToken);
+        }
         try{
             $success = $this->getLoginSuccessData('page',$user,$request);
         }catch(\Exception $e){
-            Log::warning("An invalid attempt to login was made for user ".$request->email." from IP Address ".$request->ip());
+            Log::warning("An invalid attempt to login was made",[
+                'email'=>$request->email,
+                'ip'=>$request->ip(),
+                'error'=>$e->getMessage(),
+            ]);
             return view('guest.auth.login')->with('srvErrorUnknown',true);
         }
 
@@ -91,9 +98,6 @@ class AuthController extends Controller
                 $success['refresh_token'] = $content->refresh_token;
             }
         }
-        if (!empty($request->fcmToken)) {
-            $user->fcm_token=base64_decode($request->fcmToken);
-        }
         $user->last_login_at=\Carbon\Carbon::now()->toDateTimeString();
         $user->save();
     
@@ -135,7 +139,7 @@ class AuthController extends Controller
         if (!empty($request->fcmToken)) {
             $fcm_token=base64_decode($request->fcmToken);
         }
-        
+
         DB::beginTransaction();
     try{
        
