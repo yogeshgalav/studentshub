@@ -191,30 +191,26 @@
       <!-- fotter for update chnges -->
       <div
         v-if="data_updated"
-        class="habit-footer"
+        class="static-footer"
       >
-        <div class="col-md-12">
+        <div class="col-md-12 mt-2 mb-2">
           <div
-            class="row habit-footer_1 mt-1 ml-280"
+            class="text-right"
           >
-            <div class="col-md-6   text-right">
-              <div class="mr-3">
-                <button
-                  class="btn btn-primary"
-                  type="button"
-                  @click="saveProfile"
-                >
-                  Update
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  @click="discard"
-                >
-                  Discard
-                </button>
-              </div>
-            </div>
+            <button
+              class="btn btn-primary mr-2"
+              type="button"
+              @click="saveProfile"
+            >
+              Update
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              @click="discard"
+            >
+              Discard
+            </button>
           </div>
         </div>
       </div>
@@ -226,75 +222,11 @@
 .ml-280 {
 	margin-left:300px !important;
 }
-@media only screen and (max-width: 1024px) {
-
-  .habit-footer .btn-primary, .btn-white {
-    padding: 15px 5%;
-    margin: 20px 0px;
-  }
-  .habit-footer .btn-primary, .btn-white {
-    padding: 9px 5%;
-
-  }
-}
-@media only screen and (min-width: 768px) and (max-width: 1240px) {
-
-  .habit-footer .btn-primary {
-    padding: 15px 5%;
-    margin: 20px 0px;
-  }
-   .habit-footer .btn-primary, .btn-white {
-    padding: 15px 5%;
-
-  }
-  .habit-footer .offset-2 {
-    margin-left: 30.6666666667% !important;
-  }
-}
-@media (max-width: 1024px) and (min-width: 768px)
-{
-	.habit-footer .col-md-6 {
-    flex: 0 0 50%;
-    max-width: 50%;
-}
-}
-@media only screen and (max-width: 991px) {
-	.ml-280 {
-	margin-left:30px !important;
-}
-}
-@media only screen and (max-width: 768px) {
-  .habit-footer .btn-primary {
-    padding: 12px 5%;
-    margin: 5px 19px;
-    font-size: 0.7rem;
-  }
-  .habit-footer .btn-white {
-
-    font-size: 0.7rem;
-  }
-  .habit-footer .text-right {
-	  text-align: left !important;
-  }
-
-  .habit-footer .font-siz-16 {
-    font-size: 13px;
-  }
-  .habit-footer {
-    padding-bottom: 5px;
-  }
-}
-
-
-@media only screen and (max-width: 374px) {
-  .habit-footer {
-    padding-bottom: 25px;
-  }
-}
 </style>
 
 <script>
 import FileUpload from 'vue-upload-component';
+import swal from '../../components/swal';
 export default {
 	components:{
 		FileUpload
@@ -370,7 +302,8 @@ export default {
 
 			await this.axios.post('/api/save-profile', this.profile_data).then((resp) => {
 				this.setProfile(resp.data.success.profile);
-				console.log(resp);
+				swal.successDialog('Profile Updated', 'Successfully!', 'success');
+				this.data_updated = false;
 			});
 
 			this.errors={

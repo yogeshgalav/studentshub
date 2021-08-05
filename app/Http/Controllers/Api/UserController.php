@@ -20,22 +20,22 @@ class UserController extends Controller
         ->leftJoin('posts as po','po.category_id','=','cat.id')
         ->leftJoin('sthub_posts as spv',function($join){
             $join->on('spv.post_id','=','po.id')
-            ->where('spv.action_action_type','=','view')
+            ->where('spv.action_type','=','view')
             ->where('spv.action_user_id','=',Auth::id());
         })
         ->leftJoin('sthub_posts as spl',function($join){
             $join->on('spl.post_id','=','po.id')
-            ->where('spl.action_action_type','=','like')
+            ->where('spl.action_type','=','like')
             ->where('spl.action_user_id','=',Auth::id());
         })
         ->leftJoin('sthub_posts as spc',function($join){
             $join->on('spc.post_id','=','po.id')
-            ->where('spc.action_action_type','=','comment')
+            ->where('spc.action_type','=','comment')
             ->where('spc.action_user_id','=',Auth::id());
         })
         ->leftJoin('sthub_posts as sps',function($join){
             $join->on('sps.post_id','=','po.id')
-            ->where('sps.action_action_type','=','share')
+            ->where('sps.action_type','=','share')
             ->where('sps.action_user_id','=',Auth::id());
         })
         ->select('cat.name',DB::raw('COUNT(distinct spl.post_id) as total_likes'),DB::raw('COUNT(distinct spv.post_id) as total_views'),DB::raw('COUNT(distinct sps.post_id) as total_posts'))

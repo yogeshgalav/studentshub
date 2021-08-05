@@ -11,8 +11,9 @@ class Document extends Model
     protected  $guarded = ['id', 'created_at', 'updated_at'];
 
     public function createNewDocument($data,$access){
-        $document=self::create([
+        $document=self::firstOrCreate([
             'link'=>$data['document_link'],
+        ],[
             'access'=>$access,
             'ext'=>'pdf',
         ]);

@@ -1,41 +1,62 @@
 <template>
-<div>
-  <div class="container" role="main">
-<form enctype="multipart/form-data" novalidate class=" text-center box has-advanced-upload">
-	<div class="box__input">
-		<svg class="box__icon" xmlns="http://www.w3.org/2000/svg" width="50" height="43" viewBox="0 0 50 43"><path d="M48.4 26.5c-.9 0-1.7.7-1.7 1.7v11.6h-43.3v-11.6c0-.9-.7-1.7-1.7-1.7s-1.7.7-1.7 1.7v13.2c0 .9.7 1.7 1.7 1.7h46.7c.9 0 1.7-.7 1.7-1.7v-13.2c0-1-.7-1.7-1.7-1.7zm-24.5 6.1c.3.3.8.5 1.2.5.4 0 .9-.2 1.2-.5l10-11.6c.7-.7.7-1.7 0-2.4s-1.7-.7-2.4 0l-7.1 8.3v-25.3c0-.9-.7-1.7-1.7-1.7s-1.7.7-1.7 1.7v25.3l-7.1-8.3c-.7-.7-1.7-.7-2.4 0s-.7 1.7 0 2.4l10 11.6z" /></svg>
-		<label for="documentUpload"><strong>Choose a file</strong><span class="box__dragndrop"> or drag it here</span>.</label>
-	</div>
-	<file-upload
-		id="documentUpload"
-		class="btn btn-primary mt-3"
-		post-action="/upload/post"
-		extensions="xlsx,xls,doc,docx,ppt,pptx,pdf,jpg,jpeg,png"
-		accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.pdf"
-		:multiple="true"
-		:drop="true"
-		:size="1024 * 1024 * 10"
-		v-model="files"
-		ref="upload">
-		Upload
-	</file-upload>
-	<div class="example-vuex">   
-    <div class="upload row">
-      <ul>
-        <li v-for="(file, index) in files" :key="index">
-          <span>{{file.name}}</span> - <span>{{file.size | formatSize}}</span>
-        </li>
-      </ul>
+  <div>
+    <div
+      class="container"
+      role="main"
+    >
+      <form
+        enctype="multipart/form-data"
+        novalidate
+        class=" text-center box has-advanced-upload"
+      >
+        <div class="box__input">
+          <svg
+            class="box__icon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="50"
+            height="43"
+            viewBox="0 0 50 43"
+          ><path d="M48.4 26.5c-.9 0-1.7.7-1.7 1.7v11.6h-43.3v-11.6c0-.9-.7-1.7-1.7-1.7s-1.7.7-1.7 1.7v13.2c0 .9.7 1.7 1.7 1.7h46.7c.9 0 1.7-.7 1.7-1.7v-13.2c0-1-.7-1.7-1.7-1.7zm-24.5 6.1c.3.3.8.5 1.2.5.4 0 .9-.2 1.2-.5l10-11.6c.7-.7.7-1.7 0-2.4s-1.7-.7-2.4 0l-7.1 8.3v-25.3c0-.9-.7-1.7-1.7-1.7s-1.7.7-1.7 1.7v25.3l-7.1-8.3c-.7-.7-1.7-.7-2.4 0s-.7 1.7 0 2.4l10 11.6z" /></svg>
+          <label for="documentUpload"><strong>Choose a file</strong><span class="box__dragndrop"> or drag it here</span>.</label>
+        </div>
+        <file-upload
+          id="documentUpload"
+          ref="upload"
+          v-model="files"
+          class="btn btn-primary mt-3"
+          post-action="/upload/post"
+          extensions="xlsx,xls,doc,docx,ppt,pptx,pdf,jpg,jpeg,png"
+          accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.pdf"
+          :multiple="true"
+          :drop="true"
+          :size="1024 * 1024 * 10"
+        >
+          Upload
+        </file-upload>
+        <div class="example-vuex">   
+          <div class="upload row">
+            <ul>
+              <li
+                v-for="(file, index) in files"
+                :key="index"
+              >
+                <span>{{ file.name }}</span> - <span>{{ file.size | formatSize }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-8">
+      <div class="document_text">
+        <textarea
+          v-model="description"
+          type="text"
+          placeholder="Description"
+        />
+      </div>
     </div>
   </div>
-</form>
-</div>
-<div class="col-md-8">
-<div class="document_text">
-	<textarea type="text" v-model="description" placeholder="Description"></textarea>
-</div>
-</div>
-</div>
 </template>
 <style scoped>
 .document_text {
@@ -121,21 +142,15 @@
 </style>
 
 <script>
-import { mapState } from 'vuex'
-import FileUpload from 'vue-upload-component'
+import { mapState } from 'vuex';
+import FileUpload from 'vue-upload-component';
 import EventBus from '../../event-bus';
 
 export default {
-  components: {
-    FileUpload,
-  },
-  data(){
-	  return {
-		  files:[],
-		  description:'',
-	  };
-  },
-  filters:{
+	components: {
+		FileUpload,
+	},
+	filters:{
 	  formatSize(val){
 		  let kb=val/1024;
 		  let mb=kb/1024;
@@ -147,13 +162,19 @@ export default {
 			  return val + ' bytes';
 		  }
 	  }
-  },
-  mounted(){
+	},
+	data(){
+	  return {
+		  files:[],
+		  description:'',
+	  };
+	},
+	mounted(){
 	  EventBus.$on('validateStep2', () => {
-		  	const data = {files:this.files,description:this.description}
+		  	const data = {files:this.files,description:this.description};
 			this.$store.commit('set_post_document_content', data);
 		  EventBus.$emit('validateWizard',2,true);
-	  })
-  },
-}
+	  });
+	},
+};
 </script>
