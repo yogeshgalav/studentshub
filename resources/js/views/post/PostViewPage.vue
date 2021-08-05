@@ -659,10 +659,8 @@ export default {
 			this.post_report = this.postContent.post_report ? true : false;
 			this.totalLikes = this.postContent.total_likes;
 			if(this.postContent.user_like === 1){
-				console.log('helloo');
 				this.like_active = true;
 			}else{
-      	console.log(this.postContent.user_like);
 				this.like_active = false;
 			}
 		}
@@ -677,7 +675,6 @@ export default {
 	mounted() {
 		this.$store.dispatch('common/getPostContent', this.$route.params.id);
 		window.scrollTo(0, 0);
-
 	},
 	methods: {
 		sendUserLike() {
@@ -688,9 +685,6 @@ export default {
 			else if(!this.like_active){
         	this.totalLikes -= 1;
 			}
-
-			console.log(this.totalLikes, this.like_active, this.postContent.total_likes);
-
 			this.axios.post('/api/user-like/post', {
 				likable_id: this.postContent.id,
 				likable_type:'post',
