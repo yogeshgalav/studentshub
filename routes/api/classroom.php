@@ -33,7 +33,8 @@ Route::group(['middleware'=>['auth:api']],function(){
    //resources
     Route::get('/classroom/{classroomId}/get-resources','ClassroomResourceController@listresource');
     Route::post('/classroom/{classroomId}/add-resource',[App\Http\Controllers\Api\ClassroomResourceController::class, 'addresource']);
-    Route::post('/classroom/{classroomId}/delete-resource','ClassroomResourceController@deleteresource');
+    Route::put('/resource/{resource}','ClassroomResourceController@edit');
+    Route::delete('/resource/{resource}','ClassroomResourceController@delete');
     //messages
     Route::get('/get-classroom-messages/{classroomId?}',[ClassroomMessageController::class,'listmessage']);
     Route::get('/message/{messageId}/get-replies', [ClassroomMessageController::class, 'replymessage']);

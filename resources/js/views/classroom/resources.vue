@@ -94,7 +94,44 @@
               <div
                 class="card-body"
               >
-                <p>{{ $dayjs(resource.created_at).format('D MMMM, YYYY') }}</p>
+                <p>
+                  {{ $dayjs(resource.created_at).format('D MMMM, YYYY') }}
+                  <span>
+                    <div
+                      class="dropdown d-inline"
+                    >
+                      <button
+                        id="dropdownMenuButton"
+                        class="btn btn-secondary dropdown-toggle p-0"
+                        type="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        <i class="fas fa-ellipsis-v" />
+                      </button>
+                      <div
+                        class="dropdown-menu dropdown-menu-right"
+                        style="min-width: max-content;"
+                        aria-labelledby="dropdownMenuButton"
+                      >
+                        <button
+                          type="button"
+                          class="dropdown-item"
+                          data-toggle="modal"
+                          data-target="#addResourceModal"
+                          @click="editResource(resource)"
+                        >Edit</button> 
+                        <button
+                          type="button"
+                          class="dropdown-item"
+                          @click="deleteResource(resource.id)"
+                        >Delete</button>
+                      </div>
+                    </div>
+                  </span>
+                </p>
+
                 <hr>
                 <p>{{ resource.description }}</p>
                 <a
@@ -130,7 +167,7 @@
           ref="addResourceModal"
           name="addResourceModal"
           heading="Add Resource"
-          @submit="saveResource()"
+          @submit="addOrEditResource()"
         >
           <template slot="modalBody">
             <form>
@@ -144,6 +181,7 @@
                           id="resourceLink"
                           v-model="resource_link"
                           v-validate="'required'"
+                          placeholder="PDF or Youtube Link"
                           type="text"
                           name="resource_link"
                           class="form-control"
@@ -222,6 +260,8 @@ export default {
 			resource_error: '',
 			resource_type: '',
 			share_as_post: '',
+			edit_resource_id:'',
+      
 		};
 	},
 	computed:{
@@ -242,6 +282,14 @@ export default {
 					this.showLoader=false;
 				});
 		},
+		addOrEditResource(){
+    		if(this.edit_resource_id){
+    			this.updateResource();
+    			return true;
+    		}
+    		this.saveResource();
+    		return true;
+    	},
 		saveResource() {
 			this.$validator.validate().then(valid => {
 				if(valid  && this.resource_link && this.resource_error===''){
@@ -264,6 +312,25 @@ export default {
 					});
 				}
 			});
+		},
+		updateResource(){
+			this.axios.put('/api/resource/' + this.edit_resource_id,{
+    			unit_id: this.current_unit,
+				resource_link: this.resource_link,
+				resource_type: this.resource_type,
+				description: this.description,
+				share_as_post: this.share_as_post,
+    		}).then(resp => {
+    				// this.$modal.hide('add_doubt_modal');
+    				this.$refs.addResourceModal.closeModal();
+    				this.resource_link='';
+    				this.description='';
+				    this.edit_resource_id = null;
+				this.getResources();
+    			})
+    			.catch(err => {
+    				reject(err);
+    			});
 		},
 		embedresource(event){
 			this.resource_error='';
@@ -305,7 +372,18 @@ export default {
 			this.resource_type = 'other';
 			this.resource_link = url;
 			return true;
-		}
+		},
+    	editResource(resource){
+    		this.edit_resource_id = resource.id;
+    		this.resource_link = resource.link;
+			this.description= resource.description;
+    	},
+    	deleteResource(resourceId){
+    		this.axios.delete('/api/resource/' + resourceId).then((resp)=>{
+    			window.location.reload();
+    		});
+    	},
+
 	}
 };
 
