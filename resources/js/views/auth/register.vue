@@ -43,6 +43,13 @@
                           name="_token"
                           :value="csrfToken"
                         >
+                        <input
+                          id="fcmToken"
+                          type="hidden"
+                          class="form-control"
+                          name="fcmToken"
+                          :value="fcmToken"
+                        >
                       </div>
                       <div class="form-group">
                         <label> {{ ('Full Name') }} </label>
@@ -101,11 +108,34 @@
                               ref="password"
                               v-model="password"
                               v-validate="'required|min:8'"
-                              type="password"
+                              :type="showPassword ? 'text' : 'password'"
                               class="form-control"
                               name="password"
                               placeholder="Password"
                             >
+                            <div
+                              class="input-group-append"
+                              @click="showPassword = !showPassword"
+                            >
+                              <span
+                                v-show="showPassword"
+                                class="input-group-text"
+                              ><i
+                                                         
+                                class="fa fa-eye-slash"
+                                aria-hidden="true"
+                              />
+                              </span>
+                              <span
+                                v-show="!showPassword"
+                                class="input-group-text"
+                              >
+                                <i                     
+                                  class="fa fa-eye"
+                                  aria-hidden="true"
+                                />
+                              </span>
+                            </div>
                           </div>
                           <span class="error">{{ errors.first('password') }}</span>
                         </div>
@@ -122,11 +152,34 @@
                             <input
                               id="password-confirm"
                               v-validate="'required|confirmed:password'"
-                              type="password"
+                              :type="showConfirmPassword ? 'text' : 'password'"
                               class="form-control"
                               name="password_confirmation"
                               placeholder="Confirm Password"
                             >
+                            <div
+                              class="input-group-append"
+                              @click="showConfirmPassword = !showConfirmPassword"
+                            >
+                              <span
+                                v-show="showConfirmPassword"
+                                class="input-group-text"
+                              ><i
+                                                         
+                                class="fa fa-eye-slash"
+                                aria-hidden="true"
+                              />
+                              </span>
+                              <span
+                                v-show="!showConfirmPassword"
+                                class="input-group-text"
+                              >
+                                <i                     
+                                  class="fa fa-eye"
+                                  aria-hidden="true"
+                                />
+                              </span>
+                            </div>
                           </div>
                           <span class="error">{{ errors.first('password_confirmation') }}</span>
                         </div>
@@ -256,6 +309,11 @@
     .display-flex {
         display: flex;
     }
+    
+/*adding style to eye icon */
+.input_icon_frm .input-group-append{
+  cursor: pointer;
+}
 
 </style>
 <script>
@@ -267,7 +325,10 @@ export default {
 	mixins: [FormMixin],
 	data() {
 		return {
+			showConfirmPassword: false,
+			showPassword: false,
 			showLoader: false,
+			fcmToken: '',
 			full_name: '',
 			email: '',
 			password: '',
@@ -294,6 +355,7 @@ export default {
 		};
 	},
 	mounted(){
+		this.fcmToken = localStorage.getItem('fcmToken');
 		this.join_id = this.$route.query.joinId;
 		this.$validator.localize('en', this.dict);
 	},

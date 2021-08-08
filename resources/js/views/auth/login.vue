@@ -55,7 +55,13 @@
                     name="_token"
                     :value="csrfToken"
                   >
-                  <span class="error">{{ formErrors('_token') }}</span>
+                  <input
+                    id="fcmToken"
+                    type="hidden"
+                    class="form-control"
+                    name="fcmToken"
+                    :value="fcmToken"
+                  >
                 </div>
                 <div class="form-group">
                   <label for="email"> {{ trans('E-Mail Address') }}</label>
@@ -86,11 +92,34 @@
                         id="password"
                         v-model="password"
                         v-validate="'required'"
-                        type="password"
+                        :type="showPassword ? 'text' : 'password'"
                         class="form-control"
                         name="password"
                         placeholder="Password"
                       >
+                      <div
+                        class="input-group-append"
+                        @click="showPassword = !showPassword"
+                      >
+                        <span
+                          v-show="showPassword"
+                          class="input-group-text"
+                        ><i
+                                                         
+                          class="fa fa-eye-slash"
+                          aria-hidden="true"
+                        />
+                        </span>
+                        <span
+                          v-show="!showPassword"
+                          class="input-group-text"
+                        >
+                          <i                     
+                            class="fa fa-eye"
+                            aria-hidden="true"
+                          />
+                        </span>
+                      </div>
                     </div>
                     <span class="error">{{ formErrors('password') }}</span>
                   </div>
@@ -180,6 +209,11 @@
   pointer-events: none;
 }
 
+/*adding style to eye icon */
+.input_icon_frm .input-group-append{
+  cursor: pointer;
+}
+
 /* align glyph */
 .left-addon .fa  { left:  0px;}
 .right-addon .fa { right: 0px;}
@@ -207,11 +241,19 @@ export default {
 	},
 	data(){
 		return{
+			showPassword: false,
 			showLoader:false,
 			email:'',
 			password:'',
 			remember:true,
+			fcmToken:'',
 		};
+	},
+	mounted(){
+		if(this.$route.query.fcmToken){
+			this.fcmToken = this.$route.query.fcmToken;
+			localStorage.setItem('fcmToken',this.fcmToken);
+		}
 	},
 	methods:{
 		trans: function (string,defaultString) {

@@ -55,12 +55,12 @@
                         Classmates</span>
                 </li>
             </a>
-            {{--<a href="/more-apps" class="{{\App\Facades\Sthub::currentTab('more-apps') ? 'active' : ''}}">
+            @endif
+            <a href="/more-apps" class="{{\App\Facades\Sthub::currentTab('more-apps') ? 'active' : ''}}">
                 <li> <i class="fas fa-tablet-alt" aria-hidden="true"></i>
                     <span class="text">More Apps</span>
                 </li>
-            </a>--}}
-            @endif
+            </a>
             <a href="/profile/{{Auth::id()}}" class="{{\App\Facades\Sthub::currentTab('profile') ? 'active' : ''}}">
                 <li> <i class="far fa-user" aria-hidden="true"></i>
                     <span class="text">Profile</span>
