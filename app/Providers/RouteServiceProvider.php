@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Classroom;
 use App\Models\DailyAssignment;
 use App\Models\Post;
+use App\Models\ClassroomResource;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -31,6 +32,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::model('classroom', Classroom::class);
         Route::model('daily_assignment', DailyAssignment::class);
         Route::model('post', Post::class);
+        Route::model('resource', ClassroomResource::class);
     }
 
     /**
