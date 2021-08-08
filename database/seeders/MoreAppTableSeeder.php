@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use App\Models\MoreApp;
 
 class MoreAppTableSeeder extends Seeder
 {
@@ -14,38 +16,31 @@ class MoreAppTableSeeder extends Seeder
     public function run()
     {
         //
-        DB::table('more_apps')->insert([
-            'id'=>1,
+        MoreApp::insert(array_reverse([[
             'name'=>'MapCrunch',
             'description'=>'Miss traveling? You’re not alone! This site gives you a random Google map from anywhere in the world and all you have to do is explore.',
             'link'=>'https://www.mapcrunch.com/'
         ],[
-            'id'=>2,
             'name'=>'Hacker Typer',
             'description'=>'Want to feel like you’re in The Matrix? Or at least feel like a super cool computer hacker trying to break into some evil lair? Just open up this site and pound the keyboard away!',
             'link'=>'http://hackertyper.com/'
         ],[
-            'id'=>3,
             'name'=>'Staggering Beauty',
             'description'=>'Make the virtual worm dance with your mouse when you click on this fun website! Warning: this site does contain flashing images that may trigger some viewers.',
             'link'=>'http://www.staggeringbeauty.com/'
         ],[
-            'id'=>4,
             'name'=>'Shady URL',
             'description'=>'Want to play a harmless prank on your friends or give your co-workers a bit of a scare? If you shorten a URL on this website, it will make it look like the URL will lead to a virus or scam site!',
             'link'=>'http://www.shadyurl.com/'
         ],[
-            'id'=>5,
             'name'=>'The Useless Web',
             'description'=>'Want to see what the Internet truly has to offer? Take a peek at The Useless Web to see what truly is out there.',
             'link'=>'https://www.theuselessweb.com/'
         ],[
-            'id'=>5,
             'name'=>'Stellarium',
             'description'=>'If you live in a big city or an area filled with light pollution, it’s probably been a hot minute since you’ve seen a night sky full of stars. Take a peek at this online planetarium to see which constellations and planets are out tonight!',
             'link'=>'https://stellarium-web.org/'
         ],[
-            'id'=>5,
             'name'=>'Don’t Even Reply',
             'description'=>'If you want a good chuckle (or some commiserating validation), check out Don’t Even Reply and read some real-life emails that are side-splittingly funny.',
             'link'=>'http://dontevenreply.com/'
@@ -61,6 +56,54 @@ class MoreAppTableSeeder extends Seeder
             'name'=>'Astronomy Picture of the Day',
             'description'=>'Discover the cosmos from the best of the best with NASA’s astronomy picture of the day! You’ll get to see a stunning photo of space while also learning something with the explorative caption underneath.',
             'link'=>'https://apod.nasa.gov/apod/astropix.html'
+        ],[
+            'name'=>'Nvidia Inpainting',
+            'description'=>'If you ever been photobombed or just want to touch up a picture then you have tot ry this ai tool out. Nvidia found a way to touch up your photos using AI.',
+            'link'=>'https://www.nvidia.com/research/inpainting/index.html'
+        ],[
+            'name'=>'Flight Simulater',
+            'description'=>'If you ever wanted to play Microsoft flight simulator but did not have a powerful enough PC to run it then this is the perfect website for you. You can travel around the world with other players on google maps.',
+            'link'=>'https://geo-fs.com'
+        ],[
+            'name'=>'3D lego design',
+            'description'=>'You can build the next best lego creation all within your browser. It also has the capability of explorting your design so you can 3D print later!',
+            'link'=>'https://mecabricks.com'
+        ],[
+            'name'=>'EMU OS',
+            'description'=>'This website is so nostalgic. You can choose an old OS theme and then play some older pc games within the browser. It also has some useful applications including a code editor.',
+            'link'=>'https://emupedia.net/beta/emuos/'
+        ],[
+            'name'=>'Vocal Remover',
+            'description'=>'If you upload a song to this website, it will automatically seperate the vocals and instrumental from the song. You can then adjust the audio on each track.',
+            'link'=>'https://vocalremover.org/'
+        ],[
+            'name'=>'Virtual Vacation',
+            'description'=>'This site walks you around a random area in the world and you have to guess where you are just by getting visual clues. So cool if you love to travel!',
+            'link'=>'https://virtualvacation.us/'
+        ],[
+            'name'=>'Room Styler',
+            'description'=>"Need help designing the room? This website reminds me all those years playing the sims. It can help you design any room in your house. Also try out floorplanner's website and see which one you like.",
+            'link'=>'https://roomstyler.com/'
+        ],[
+            'name'=>'Google Driving Simulater',
+            'description'=>'Drive around the world! This is a cool website to waste some time on. It lets you drive around the world using google maps. What city are you going to pick?',
+            'link'=>'https://vocalremover.org/'
+        ],[
+            'name'=>'LeoLabs Visualization',
+            'description'=>'Did you know all this was flying around us? You want belive all the space trash and satellites that are orbiting around the world. Try out this website if you want a visualization of it all.',
+            'link'=>'https://vocalremover.org/'
+        ],[
+            'name'=>'Vo.Codes',
+            'description'=>'Did you know you could do this? This website allows you to have a cartoon character and other famous people read out your message using text to speech. It could be used for advertising or marketing purpose maybe.. Or just memes.',
+            'link'=>'https://vo.codes/'
+        ],[
+            'name'=>'Unscreen',
+            'description'=>'What are you going to use this website for? Here is a crazy usefull website. It allows you to remove the background of any gif or video. Its perfect for content creators, meme makers and videographers.',
+            'link'=>'https://unscreen.com/'
+        ],[
+            'name'=>'Drive and Listen',
+            'description'=>'This site drives you around the famous cities in the world and while driving through you can also listen to current radio at that place. Awsome website if you love to travel!',
+            'link'=>'https://driveandlisten.herokuapp.com/'
         ],[
             'name'=>'MuscleWIki',
             'description'=>'Fine-tune your workout with this fun website, MuscleWiki. It not only gives you a full diagram of the muscles in your body but how to stretch and work them out!',
@@ -169,6 +212,6 @@ class MoreAppTableSeeder extends Seeder
             'name'=>'Duolingo',
             'description'=>'Make the most of your free time and cross something off your bucket by becoming fluent in a different language with the help of Duolingo! This fun website also doubles as a fun free app on your phone so you never miss a lesson.',
             'link'=>'https://freerice.com/categories/english-vocabulary'
-        ]);
+        ]]));
     }
 }
