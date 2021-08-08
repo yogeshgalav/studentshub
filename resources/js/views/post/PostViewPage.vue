@@ -118,6 +118,11 @@
             inline-template
           >
             <div class="post_content_social">
+              <network network="whatsapp">
+                <p class="post_content_social_icon">
+                  <i class="fab fa-whatsapp" />
+                </p>
+              </network>
               <network network="facebook">
                 <p class="post_content_social_icon">
                   <i class="fab fa-facebook-f" />
@@ -132,6 +137,12 @@
               <network network="email">
                 <p><i class="fa fa-envelope" /></p>
               </network>
+              <!-- <network network="quora">
+                <p><i class="fab fa-quora" /></p>
+              </network>
+              <network network="pocket">
+                <p><i class="fab fa-get-pocket" /></p>
+              </network> -->
             </div>
           </social-sharing>
         </div>
