@@ -49,17 +49,17 @@
             </a>
             @endif
             
-            @if(0)
+            @if(Auth::student())
             <a href="/classmates" class="{{\App\Facades\Sthub::currentTab('classmates') ? 'active' : ''}}">
                 <li><i class="fas fa-users" aria-hidden="true"></i><span class="text">
                         Classmates</span>
                 </li>
             </a>
-            {{--<a href="/more-apps" class="{{\App\Facades\Sthub::currentTab('more-apps') ? 'active' : ''}}">
+            <a href="/more-apps" class="{{\App\Facades\Sthub::currentTab('more-apps') ? 'active' : ''}}">
                 <li> <i class="fas fa-tablet-alt" aria-hidden="true"></i>
                     <span class="text">More Apps</span>
                 </li>
-            </a>--}}
+            </a>
             @endif
             <a href="/profile/{{Auth::id()}}" class="{{\App\Facades\Sthub::currentTab('profile') ? 'active' : ''}}">
                 <li> <i class="far fa-user" aria-hidden="true"></i>

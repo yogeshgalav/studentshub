@@ -160,17 +160,41 @@ class ClassroomController extends Controller
             'classroom_id'=>$classroom->id,
         ]]);
     }
-    public function getClassmates(){
+    public function getClassmatesDetails(){
+        $categories = DB::table('categories')
+        ->select('id as category_id','name as category_name')
+        ->get();
+
         $classmates = DB::table('users as us')
         ->leftjoin('classroom_users as cu','cu.user_id','=','us.id')
         ->whereIn('cu.classroom_id',Auth::user()->getClassroomIds())
-        ->select('us.id','us.full_name')
-        ->get();
-        $classmates_interests = DB('interest as intr')
-        ->whereIn('interest.user_id',$classmates->id)
-        ->select(DB::raw('intr.total_views + (intr.total_likes*3) + (intr.total_posts*7)'))
+        ->select('us.id as user_id','us.full_name as user_name')
+        ->groupBy('us.id','us.full_name')
+        ->get()->toArray();
+
+        $classmates_interests = DB::table('sthub_posts as sp')
+        ->whereIn('sp.action_user_id',array_column($classmates,'user_id'))
+        ->leftJoin('posts as po','po.id','=','sp.post_id')
+        ->rightJoin('categories as ca','ca.id','=','po.category_id')
+        ->leftJoin('sthub_posts as spv',function($join){
+            $join->on('spv.id','=','sp.id')->where('spv.action_type','=','view');
+        })
+        ->leftJoin('sthub_posts as spl',function($join){
+            $join->on('spl.id','=','sp.id')->where('spl.action_type','=','like');
+        })
+        ->leftJoin('sthub_posts as sps',function($join){
+            $join->on('sps.id','=','sp.id')->where('sps.action_type','=','share');
+        })
+        ->select(DB::raw('count(spv.id) + count(spl.id)*3 + count(sps.id)*7 as interest_score'),
+        'ca.id as category_id','ca.name as category_name','sp.action_user_id as user_id'
+        )
+        ->groupBy('ca.id','ca.name','sp.action_user_id')
         ->get();
         
-        return 'success';
+        return response()->json(['success'=>[
+            'classmates'=>$classmates,
+            'classmates_interests'=>$classmates_interests,
+            'categories'=>$categories,
+        ]]);
     }
 }

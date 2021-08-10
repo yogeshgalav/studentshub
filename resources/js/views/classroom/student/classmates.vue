@@ -5,7 +5,11 @@
     </div>
     <hr>
     <div class="col-md-10 col-sm-12">
-      <div class="classmate card">
+      <div 
+        v-for="classmate in classmates"
+        :key="classmate.id"
+        class="classmate card mb-2"
+      >
         <div class="row">
           <div class="text-center col-md-3">
             <!-- <a
@@ -15,13 +19,13 @@
                 > -->
             <div style="text-align: -webkit-center">
               <profile-image
-                :user-name="'M'"
+                :user-name="classmate.user_name"
                 size="large"
               />
             </div>
 
             <h4 class="mt-2 font-weight-normal text-muted">
-              Teacher Name
+              {{ classmate.user_name }}
             </h4>
 
             <!-- </a> -->
@@ -30,40 +34,50 @@
             <div class="progress-section mb-1">
               <div class="progress-desc">
                 <div class="progress-bar-haeding">
-                  Anything
+                  {{ classmate.category1.category_name }}
                 </div>
                 <div class="progress-bar-percent">
-                  50%
+                  {{ classmate.category1.interest_score }}
                 </div>
               </div>
               <div class="progress-bar-limit">
-                <div class="progress" />
+                <div
+                  class="progress"
+                  :style="'width:'+classmate.category1.interest_per+'%;background-color:'+reportColorCodes[0]+';'"                  :background-color="reportColorCodes[0]"
+                />
               </div>
             </div>
             <div class="progress-section mb-1">
               <div class="progress-desc">
                 <div class="progress-bar-haeding">
-                  Anything
+                  {{ classmate.category2.category_name }}
                 </div>
                 <div class="progress-bar-percent">
-                  50%
+                  {{ classmate.category2.interest_score }}
                 </div>
               </div>
               <div class="progress-bar-limit">
-                <div class="progress" />
+                <div
+                  class="progress"
+                  :style="'width:'+classmate.category2.interest_per+'%;background-color:'+reportColorCodes[1]+';'"
+                  :background-color="reportColorCodes[1]"
+                />
               </div>
             </div>
             <div class="progress-section mb-1">
               <div class="progress-desc">
                 <div class="progress-bar-haeding">
-                  Anything
+                  {{ classmate.category3.category_name }}
                 </div>
                 <div class="progress-bar-percent">
-                  50%
+                  {{ classmate.category3.interest_score }}
                 </div>
               </div>
               <div class="progress-bar-limit">
-                <div class="progress" />
+                <div
+                  class="progress"
+                  :style="'width:'+classmate.category3.interest_per+'%;background-color:'+reportColorCodes[2]+';'"
+                />
               </div>
             </div>
           </div>
@@ -101,14 +115,52 @@
 }
 .progress {
     height: 100%;
-    width: 50%;
-    background-color: rgb(255, 0, 0);
 }
 </style>
 <script>
 export default {
+	data(){
+		return {
+			classmates:[],
+		};
+	},
 	mounted(){
-		this.axios.get('/api/classmates');
+		this.axios.get('/api/classmates').then(resp=>{
+			let categories = resp.data.success.categories;
+			this.classmates = resp.data.success.classmates;
+			let classmates_interests = resp.data.success.classmates_interests;
+			let interest_details = [];
+			this.classmates.map(node=>{
+				node['category1']=categories[0];
+				node['category1']['interest_score']=0;
+				node['category1']['interest_per']=0;
+				node['category2']=categories[1];
+				node['category2']['interest_score']=0;
+				node['category2']['interest_per']=0;
+				node['category3']=categories[2];
+				node['category3']['interest_score']=0;
+				node['category3']['interest_per']=0;
+				node.total_score =classmates_interests.filter(node2=>node2.user_id===node.user_id)
+					.reduce((acc,currVal)=>acc+currVal.interest_score,0);
+
+				let interest_arr = classmates_interests.filter(node2=>node2.user_id===node.user_id)
+					.sort((a,b)=>b.interest_score-a.interest_score);
+				
+				if(interest_arr[0]){
+					node['category1']=interest_arr[0];
+				  node['category1']['interest_per']=parseInt((interest_arr[0]['interest_score']/node.total_score)*100);
+				} 
+				if(interest_arr[1]){
+					node['category2']=interest_arr[1];
+				  node['category2']['interest_per']=parseInt((interest_arr[1]['interest_score']/node.total_score)*100);
+				} 
+				if(interest_arr[2]){
+					node['category3']=interest_arr[2];
+				  node['category3']['interest_per']=parseInt((interest_arr[2]['interest_score']/node.total_score)*100);
+				} 
+				return node;
+			});
+		});
 	}
 };
 </script>

@@ -65,5 +65,5 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::get('/classroom/{classroomId}/get-student-attendance','AttendanceController@getStudentAttendance');
 
     //classmates
-    Route::get('/classmates','ClassroomController@getClassmates');
+    Route::get('/classmates','ClassroomController@getClassmatesDetails');
 });
