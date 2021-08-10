@@ -10,4 +10,7 @@ class ClassroomResource extends Model
     protected  $guarded = ['id', 'created_at', 'updated_at'];
     use Loggable;
 
+    public function classroom(){
+        return $this->belongsTo('App\Models\Classroom');
+    }
 }
