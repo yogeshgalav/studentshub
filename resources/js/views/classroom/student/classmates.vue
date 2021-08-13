@@ -4,19 +4,31 @@
       <h1>Classmates</h1>
     </div>
     <hr>
+    <div
+      v-if="AuthUser.role_intended==='student' && !classmates.length"
+      class="card mb-2 pl-3"
+    >
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+            <p class="text-blue weight-600">
+              Ask your teachers to share Classroom Join Id with you.
+            </p>
+            <p style="line-height:1px;">
+              You will be able to see overall progress of classroom assignment here.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="col-md-10 col-sm-12">
       <div 
         v-for="classmate in classmates"
         :key="classmate.id"
-        class="classmate card mb-2"
+        class="classmate-card mb-2"
       >
         <div class="row">
           <div class="text-center col-md-3">
-            <!-- <a
-                    :href="'/classroom/' + classroom.id"
-                    class="card rounded-lg pt-3 pb-3 bg-light  text-center"
-                    style="text-center"
-                > -->
             <div style="text-align: -webkit-center">
               <profile-image
                 :user-name="classmate.user_name"
@@ -43,7 +55,8 @@
               <div class="progress-bar-limit">
                 <div
                   class="progress"
-                  :style="'width:'+classmate.category1.interest_per+'%;background-color:'+reportColorCodes[0]+';'"                  :background-color="reportColorCodes[0]"
+                  :style="'width:'+classmate.category1.interest_per+'%;background-color:'+reportColorCodes[0]+';'"
+                  :background-color="reportColorCodes[0]"
                 />
               </div>
             </div>
@@ -87,7 +100,7 @@
   </div>
 </template>
 <style scoped>
-.card {
+.classmate-card {
     padding: 20px 10px;
 }
 .row {
