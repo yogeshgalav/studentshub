@@ -22,11 +22,34 @@
                       ref="password"
                       v-model="password"
                       v-validate="'required|min:6'"
-                      type="password"
+                      :type="showPassword ? 'text' : 'password'"
                       class="form-control"
                       name="password"
                       autocomplete
                     >
+                    <div
+                      class="input-group-append"
+                      @click="showPassword = !showPassword"
+                    >
+                      <span
+                        v-show="showPassword"
+                        class="input-group-text"
+                      ><i
+                                                         
+                        class="fa fa-eye-slash"
+                        aria-hidden="true"
+                      />
+                      </span>
+                      <span
+                        v-show="!showPassword"
+                        class="input-group-text"
+                      >
+                        <i                     
+                          class="fa fa-eye"
+                          aria-hidden="true"
+                        />
+                      </span>
+                    </div>
                     <span class="error">{{
                       errors.first("password")
                     }}</span>
@@ -45,10 +68,33 @@
                       v-validate="
                         'required|confirmed:password'
                       "
-                      type="password"
+                      :type="showConfirmPassword ? 'text' : 'password'"
                       class="form-control"
                       name="confirm-password"
                     >
+                    <div
+                      class="input-group-append"
+                      @click="showConfirmPassword = !showConfirmPassword"
+                    >
+                      <span
+                        v-show="showConfirmPassword"
+                        class="input-group-text"
+                      ><i
+                                                         
+                        class="fa fa-eye-slash"
+                        aria-hidden="true"
+                      />
+                      </span>
+                      <span
+                        v-show="!showConfirmPassword"
+                        class="input-group-text"
+                      >
+                        <i                     
+                          class="fa fa-eye"
+                          aria-hidden="true"
+                        />
+                      </span>
+                    </div>
                     <span class="error">{{
                       errors.first("confirm-password")
                     }}</span>
@@ -76,6 +122,29 @@
 .mt-100 {
     margin-top: 200px;
 }
+/*adding style to eye icon */
+.col-md-6 .input-group-append{
+  cursor: pointer;
+  display: inline-block;
+}
+/*.col-md-6{
+  position: relative;
+}
+span{
+  height: 100%;
+}
+.col-md-6 .input-group-append{
+  cursor: pointer;
+  position: absolute;
+  height: 80%;
+  right: 19.5%;
+  top:3%;
+  display: inline-block;
+}
+input{
+  width: 70%;
+}*/
+
 </style>
 <script>
 import Vue from 'vue';
@@ -88,6 +157,8 @@ export default {
 	props: ['token'],
 	data() {
 		return {
+			showConfirmPassword: false,
+			showPassword: false,
 			password: '',
 			confirm_password: ''
 		};

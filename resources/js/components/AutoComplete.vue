@@ -146,8 +146,8 @@ export default {
 				this.isOpen=true;
 			}
 		},
-		initialValue(){
-			if(this.initialValue && this.search===''){
+		initialValue(){console.log('her');
+			if(this.initialValue && this.search===''){console.log('her');
 				this.result = Object.assign({},this.initialValue);
 				this.search = this.result[this.value];
 			}
@@ -160,10 +160,10 @@ export default {
 		}
 	},
 	mounted() {
-		this.results = this.items;
-		document.addEventListener('click', this.handleClickOutside);
-	},
-	mounted() {
+		if(this.initialValue && this.search===''){
+			this.result = Object.assign({},this.initialValue);
+			this.search = this.result[this.value];
+		}
 		this.results = this.items;
 		document.addEventListener('click', this.handleClickOutside);
 	},

@@ -120,12 +120,12 @@
                           class="dropdown-item"
                           data-toggle="modal"
                           data-target="#addResourceModal"
-                          @click="editDoubt(resource)"
+                          @click="editResource(resource)"
                         >Edit</button> 
                         <button
                           type="button"
                           class="dropdown-item"
-                          @click="deleteDoubt(resource.id)"
+                          @click="deleteResource(resource.id)"
                         >Delete</button>
                       </div>
                     </div>
@@ -314,15 +314,19 @@ export default {
 			});
 		},
 		updateResource(){
-			this.axios.post('/api/resources' + this.edit_resource_id + '/edit',{
-    			resource:this.resource_link,
-    			description:this.description,
+			this.axios.put('/api/resource/' + this.edit_resource_id,{
+    			unit_id: this.current_unit,
+				resource_link: this.resource_link,
+				resource_type: this.resource_type,
+				description: this.description,
+				share_as_post: this.share_as_post,
     		}).then(resp => {
     				// this.$modal.hide('add_doubt_modal');
     				this.$refs.addResourceModal.closeModal();
     				this.resource_link='';
     				this.description='';
-    				this.getdata();
+				    this.edit_resource_id = null;
+				this.getResources();
     			})
     			.catch(err => {
     				reject(err);
@@ -369,11 +373,12 @@ export default {
 			this.resource_link = url;
 			return true;
 		},
-    	editDoubt(resource){
+    	editResource(resource){
     		this.edit_resource_id = resource.id;
     		this.resource_link = resource.link;
+			this.description= resource.description;
     	},
-    	deleteDoubt(resourceId){
+    	deleteResource(resourceId){
     		this.axios.delete('/api/resource/' + resourceId).then((resp)=>{
     			window.location.reload();
     		});

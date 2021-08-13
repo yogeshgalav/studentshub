@@ -107,8 +107,80 @@ class ClassroomResourceController extends Controller
             'resource_id'=>$classroom_resource->id
         ]]);
     }
-    public function deleteResource(Request $request, $resource_id){
-        $classroom_resource = ClassroomResource::findOrFail($resource_id);
+
+    public function edit(ClassroomResource $classroom_resource, Request $request){
+        $unit = Unit::findOrFail($request->unit_id);
+
+        $classroom_resource->type = $request->resource_type;
+        $classroom_resource->link = $request->resource_link;
+        $classroom_resource->unit_id = $unit->id;
+        $classroom_resource->description = $request->description;
+        $classroom_resource->save();
+
+        $new_post = false;
+        $post = Post::where('id', $classroom_resource->post_id)->first();
+        if(!$post && in_array($request->resource_type, ['documentLink','youtubeVideo'])){
+            $new_post = true;
+            $post = new Post;
+            $post->user_id=Auth::user()->id;
+            $post->subject_id=$classroom_resource->classroom->subject_id;
+        }
+
+        if($post){
+            // $request->share_as_post && 
+            $post->post_heading=$unit->unit_name;
+
+            $old_postable_type = $post->postable_type;
+            $old_postable_id = $post->postable_id;
+
+            if('documentLink'===$request->resource_type){
+                if($old_postable_type===Document::class){
+                    $document = Document::find($old_postable_id);
+                }else{
+                    $document = new Document;
+                    $post->primary_image_path='/images/document.png';
+                    $post->postable_type="App\Models\Document";
+                }
+
+                $document->ext = 'pdf';
+                $document->link = $request->resource_link;
+                $document->save();
+
+                $post->postable_id=$document->id;
+            }
+            if('youtubeVideo'===$request->resource_type){
+                $video_id = substr($request->resource_link,strlen('https://www.youtube.com/embed/'));
+
+                if($old_postable_type===Document::class){
+                    $video = Video::find($old_postable_id);
+                }else{
+                    $video = new Video;
+                    $post->primary_image_path='https://img.youtube.com/vi/'.$video_id.'/0.jpg';
+                    $post->postable_type="App\Models\Video";
+                }
+
+                $video->video_id = $video_id;
+                $video->save();
+
+                $post->postable_id=$video->id;
+            }
+
+            $post->post_description = $request->description;
+            $post->created_via='resource';
+            $post->save();
+            if(true===$new_post){
+                SthubPost::addAction('share',$post,Auth::user());
+            }
+                $classroom_resource->post_id = $post->id;
+        }else{
+            $classroom_resource->post_id = null;
+        }
+        $classroom_resource->save();
+
+        return response()->json([], 204);
+    }
+
+    public function delete(ClassroomResource $classroom_resource){
         $classroom_resource->delete();
 
         return response()->json([],204);

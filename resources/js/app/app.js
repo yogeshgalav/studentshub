@@ -164,7 +164,7 @@ Vue.mixin({
 		toggleSidebar(e){
 			e.preventDefault();
 			var sidebar_section = document.getElementById('sidebar-section');
-            sidebar_section.classList.toggle('sidebar-section-active');
+			sidebar_section.classList.toggle('sidebar-section-active');
 			// document.documentElement.classList.toggle('openNav');
 			// var menu = document.querySelector('.nav-toggle'); // Using a class instead, see note below.
 			// menu.classList.toggle('active');
@@ -177,7 +177,7 @@ Vue.mixin({
 			}
 			if (!container.contains(e.target) && !container2.contains(e.target) && container.classList.contains('sidebar-section-active')) {
 				e.preventDefault();
-                container.classList.remove('sidebar-section-active');
+				container.classList.remove('sidebar-section-active');
 				return false;
 			}
 		},
