@@ -15,12 +15,12 @@
                     <span class="text">Doubts</span>
                 </li>
             </a>
-            <a href="/my-course"
+            {{-- <a href="/my-course"
                 class="{{\App\Facades\Sthub::currentTab('my-course') ? 'active' : ''}}">
                 <li><i class="fas fa-book-open" aria-hidden="true"></i>
                     <span class="text">My Course</span>
                 </li>
-            </a>
+            </a> --}}
             @endif
             <a href="/classrooms" class="{{\App\Facades\Sthub::currentTab('classroom') ? 'active' : ''}}">
                 <li><i class="fa fa-desktop " aria-hidden="true"></i><span class="text">Classrooms</span>
