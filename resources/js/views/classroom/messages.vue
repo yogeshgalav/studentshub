@@ -132,13 +132,9 @@
                     :user-like="message.user_like ? true : false"
                     :total-likes="message.total_likes"
                     :likable-id="message.id"
+                    :message="message"
                     likable-type="message"
                     :show-reply="true"
-                    @reply="reply(message)"
-                  />
-                  <messages-reply
-                    v-if="message.show_reply" 
-                    :message="message"
                   />
                 </div>
                 <div class="col-md-3 col-12" />
@@ -227,7 +223,6 @@ import FormMixin from '../../components/mixins/form-mixin.js';
 import ProfileImage from '../../components/ProfileImage.vue';
 import Modal from '../../components/VueNiceModal.vue';
 import ClassroomHeader from '../../components/ClassroomHeader';
-import messagesReply from './messages-reply';
 import LikeComponent from '../common/LikeComponent';
 
 export default {
@@ -236,7 +231,6 @@ export default {
 		ClassroomHeader,
 		ProfileImage,
 		Modal,
-		messagesReply,
 		LikeComponent,
 	},
 	mixins: [FormMixin],
@@ -333,9 +327,6 @@ export default {
 				window.location.reload();
 			});
 		},
-		reply(message){
-			message['show_reply'] =true;
-		}
 	},
 };
 </script>
