@@ -141,12 +141,19 @@ export default {
 		},
 	},
 	mounted(){
-		this.getClassroomStudentDetails();
+		this.getClassroomStudentDetails();	
 	},
 	methods: {
 		getClassroomStudentDetails(){
 			this.axios('/api/classroom/'+ this.$route.params.classroomId +'/report').then((resp)=>{
-				this.student_details=resp.data.success.student_details;
+				this.student_details=resp.data.success.student_details;	
+				const student_ids = resp.data.success.student_details.map(node=>{
+					let new_node={};
+					new_node['user_id'] = node.user_id;
+					new_node['user_name'] = node.user_name;
+					return new_node;
+				});
+				localStorage.setItem('studentids', JSON.stringify(student_ids));
 				this.pie_graph_data=resp.data.success.pie_graph_data;
 				this.bar_line_data=resp.data.success.bar_line_data;
 				this.bar_data=resp.data.success.bar_data;

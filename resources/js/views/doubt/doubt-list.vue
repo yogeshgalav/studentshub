@@ -146,6 +146,7 @@
           ref="addDoubtModal"
           name="addDoubtModal"
           heading="Ask doubt:"
+          size="modal-lg modal-fullscreen"
           @submit="addOrEditDoubt"
         >
           <template slot="modalBody">
@@ -162,17 +163,6 @@
                       disabled
                       :value="AuthStudent.courseName"
                     >
-                  </div>
-                  <div class="col-md-12">
-                    <div class="model_input">
-                      <label>Doubt</label>
-                      <input
-                        v-model="doubt_question"
-                        class="form-control"
-                        type="text"
-                        placeholder="Enter Your Doubt"
-                      >
-                    </div>
                   </div>
                   <div
                     class="col-md-12"
@@ -193,6 +183,17 @@
                         @selected="setSubject"
                         @selectNew="setNewSubject"
                       />
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="model_input">
+                      <label>Doubt</label>
+                      <input
+                        v-model="doubt_question"
+                        class="form-control"
+                        type="text"
+                        placeholder="Enter Your Doubt"
+                      >
                     </div>
                   </div>
                 </div>

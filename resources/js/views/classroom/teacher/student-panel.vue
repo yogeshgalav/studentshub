@@ -22,23 +22,39 @@
             </div>
           </div>
           <div class="card-body">
-            <student-report :classroom-id="$route.params.classroomId" />
+            <student-report
+              :classroom-id="$route.params.classroomId"
+              :user-id="current_user_id"
+            />
           </div>
         </div>
       </div>
       <div class="col-md-12">
-        <daily-answer-report />
+        <daily-answer-report :user-id="current_user_id" />
       </div>
     </div>
+    <!-- fotter for update chnges -->
+    <navigation-component
+      :current-user-id="current_user_id"
+      @changeUser="changeUser"
+    />
   </div>
 </template>
 <style scoped>
 .col-center {
   margin: auto;
 }
+.ml-280 {
+	margin-left:300px !important;
+}
+.text-right p{
+  display: inline-block;
+}
+
 </style>
 <script>
 import ClassroomHeader from '../../../components/ClassroomHeader';
+import NavigationComponent from '../../../components/NavigationComponent';
 import DailyAnswerReport from '../DailyAnswerReport';
 import dayjs from 'dayjs';
 import StudentReport from '../student-report.vue';
@@ -48,6 +64,7 @@ export default {
 		ClassroomHeader,
 		DailyAnswerReport,
 		StudentReport,
+		NavigationComponent
 	},
 	filters: {
 		timeFormat(time) {
@@ -56,11 +73,17 @@ export default {
 	},
 	data() {
 		return {
+			current_user_id:this.$router.currentRoute.params.userId,
 			today_report: null,
 			today_assignment: null,
 			is_available: false,
 			user_detail: null,
 		};
 	},
+	methods:{
+		changeUser(user_id){
+			this.current_user_id = user_id;
+		}
+	}
 };
 </script>

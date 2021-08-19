@@ -9,6 +9,7 @@ use App\Models\DailyQuestion;
 use App\Models\MultipleChoice;
 use App\Models\DailyAnswer;
 use App\Models\StudentReport;
+use App\Models\Post;
 use Auth;
 use DB;
 
@@ -116,9 +117,10 @@ class StudentController extends Controller
     {
         return view('create-post.share-post');
     }
-    public function editPost()
+    public function editPost(Post $post)
     {
-        return view('student.edit-post');
+        $post_details = $post->load(['category','subject','postable'])->append('post_type');
+        return view('create-post.edit-post')->with('post',$post_details);
     }
     public function classroomList()
     {
@@ -133,5 +135,11 @@ class StudentController extends Controller
     public function myCoursePage(){
         return view('student.my-course')
         ->with('courseId', Auth::student()->courseId);
+    }
+    public function moreApps()
+    {
+        $apps = \App\Models\MoreApp::get();
+        return view('student.more-apps')
+            ->with('apps', $apps);
     }
 }

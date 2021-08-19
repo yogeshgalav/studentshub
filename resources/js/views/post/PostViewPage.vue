@@ -82,13 +82,7 @@
               aria-hidden="true"
             />
             <span class="badge-text">{{
-              postContent.total_likes
-            }}</span>
-          </div>
-          <div class="like_1">
-            <i class="far fa-thumbs-down" />
-            <span class="badge-text">{{
-              postContent.total_dislikes
+              totalLikes
             }}</span>
           </div>
           <div class="like_1">
@@ -118,6 +112,11 @@
             inline-template
           >
             <div class="post_content_social">
+              <network network="whatsapp">
+                <p class="post_content_social_icon">
+                  <i class="fab fa-whatsapp" />
+                </p>
+              </network>
               <network network="facebook">
                 <p class="post_content_social_icon">
                   <i class="fab fa-facebook-f" />
@@ -132,6 +131,12 @@
               <network network="email">
                 <p><i class="fa fa-envelope" /></p>
               </network>
+              <!-- <network network="quora">
+                <p><i class="fab fa-quora" /></p>
+              </network>
+              <network network="pocket">
+                <p><i class="fab fa-get-pocket" /></p>
+              </network> -->
             </div>
           </social-sharing>
         </div>
@@ -255,17 +260,10 @@
           class="text-primary"
         >
           <span><i class="fas fa-thumbs-up" /></span>
-          {{ postContent.total_likes + 1 }} 
+          {{ totalLikes }} 
         </p>
         <p
-          v-else-if="postContent.user_like"
-          class="text-primary"
-        >
-          <span><i class="fas fa-thumbs-up" /></span>
-          {{ postContent.total_likes }} 
-        </p>
-        <p
-          v-else-if="postContent.total_likes===0"
+          v-else-if="totalLikes===0"
         >
           <span><i class="fas fa-thumbs-up" /></span>
         </p>
@@ -273,7 +271,7 @@
           v-else
         >
           <span><i class="fas fa-thumbs-up" /></span>
-          {{ postContent.total_likes }}
+          {{ totalLikes }}
         </p>
       </button>
     </div>
@@ -661,8 +659,8 @@ export default {
 		return {
 			post_save: '',
 			post_report: '',
-			like_active: false,
-			dislike_active: false
+			like_active: '',
+			totalLikes:0
 		};
 	},
 	watch: {
@@ -670,6 +668,12 @@ export default {
 			// this.user_like = this.postContent.user_like;
 			this.post_save = this.postContent.post_save ? true : false;
 			this.post_report = this.postContent.post_report ? true : false;
+			this.totalLikes = this.postContent.total_likes;
+			if(this.postContent.user_like === 1){
+				this.like_active = true;
+			}else{
+				this.like_active = false;
+			}
 		}
 	},
 	computed: {
@@ -686,6 +690,12 @@ export default {
 	methods: {
 		sendUserLike() {
 			this.like_active = !this.like_active;
+			if(this.like_active){	
+				this.totalLikes += 1;
+			}
+			else if(!this.like_active){
+        	this.totalLikes -= 1;
+			}
 			this.axios.post('/api/user-like/post', {
 				likable_id: this.postContent.id,
 				likable_type:'post',
