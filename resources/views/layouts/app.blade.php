@@ -6,6 +6,8 @@
     @include('includes.meta')
     @include('includes.title')
     @yield('compiledJs')
+    <script src="{{ asset('js/vue.js') }}" defer></script>
+    <script src="{{ asset('js/manifest.js') }}" defer></script>
     <link href="{{ asset('css/app.css') }}" type="text/css" rel="stylesheet">
     @include('includes.fonts')
     <!-- <script src="/js/lang.js"></script> -->
