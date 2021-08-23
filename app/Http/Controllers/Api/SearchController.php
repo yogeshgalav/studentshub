@@ -32,7 +32,7 @@ class SearchController extends Controller
                 // 'courses.course_name as user_course',
                 // 'st.id as student_id',
             )
-            ->groupBy('us.id')
+            ->groupBy('us.id','us.full_name','us.avatar_url','inst.name')
             ->limit(10)->get();
 
             return response()->json([
