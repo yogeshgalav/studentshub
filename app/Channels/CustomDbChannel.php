@@ -26,5 +26,14 @@ class CustomDbChannel
             'user_id'=>$notifiable->id,
             'url'=>$message['url'],
         ]);
+
+        if ($notifiable->fcm_token) {
+            $this->sendAndroidNotification($notifiable, $message);
+        }
+    }
+
+    public function sendAndroidNotification($notifiable, $message)
+    {
+        
     }
 }

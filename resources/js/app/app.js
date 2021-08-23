@@ -164,6 +164,9 @@ Vue.mixin({
 		toggleSidebar(e){
 			e.preventDefault();
 			var sidebar_section = document.getElementById('sidebar-section');
+			if(!sidebar_section){
+				window.location.href='/';
+			}
 			sidebar_section.classList.toggle('sidebar-section-active');
 			// document.documentElement.classList.toggle('openNav');
 			// var menu = document.querySelector('.nav-toggle'); // Using a class instead, see note below.

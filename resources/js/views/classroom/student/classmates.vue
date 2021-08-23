@@ -11,10 +11,10 @@
       <div class="card-body">
         <div class="row">
           <div class="col-md-12">
-            <p class="text-blue weight-600">
+            <p class="text-blue weight-600 mb-0">
               Ask your teachers to share Classroom Join Id with you.
             </p>
-            <p style="line-height:1px;">
+            <p class="mb-0">
               You will be able to see overall progress of classroom assignment here.
             </p>
           </div>
