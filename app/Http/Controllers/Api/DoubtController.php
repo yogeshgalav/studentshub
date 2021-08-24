@@ -20,7 +20,7 @@ use App\Notfications\NewDoubtNotification;
 class DoubtController extends Controller
 {
 
-    public function addDoubt (Request $request)
+    public function create (Request $request)
     {
         $student=Auth::student();
         $selected_subject=$request->subject;
@@ -53,7 +53,7 @@ class DoubtController extends Controller
         return 'success';
     }
 
-    public function getDoubts(Request $request)
+    public function index(Request $request)
     {
         $course_id = null;
         if($request->classroomId){
@@ -110,7 +110,7 @@ class DoubtController extends Controller
         return array_keys(array_slice($wordCountArr, 0, 5));
       }
 
-      public function editDoubt(Doubt $doubt, Request $request){
+      public function update(Doubt $doubt, Request $request){
         $student=Auth::student();
         $selected_subject=$request->subject;
 
@@ -141,7 +141,7 @@ class DoubtController extends Controller
         return 'success';
       }
 
-      public function deleteDoubt(Doubt $doubt){
+      public function delete(Doubt $doubt){
         $doubt->delete();
         return response()->json([], 204);
       }
