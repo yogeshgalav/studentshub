@@ -132,9 +132,7 @@
                     :user-like="message.user_like ? true : false"
                     :total-likes="message.total_likes"
                     :likable-id="message.id"
-                    :message="message"
                     likable-type="message"
-                    :show-reply="true"
                   />
                 </div>
                 <div class="col-md-3 col-12" />

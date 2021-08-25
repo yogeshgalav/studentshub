@@ -35,7 +35,7 @@
     <button      
       type="button"
       :class="['btn pl-0', comment_active ? 'text-primary' : '']"
-      @click="comment()"
+      @click="getComment()"
     >
       <p>
         <span><i
@@ -48,16 +48,16 @@
     <div v-if="comment_active">
       <hr>
       <div
-        v-for="Comment in comments"
-        :key="Comment.id"
+        v-for="comment in comments"
+        :key="comment.id"
         class="card-body"
       >
         <div class="row">
           <div class="dashboard_post">
             <div class="avatar">
               <profile-image
-                :avatar="Comment.avatar_url"
-                :user-name="Comment.user_name"
+                :avatar="comment.avatar_url"
+                :user-name="comment.user_name"
                 size="small"
               />
             </div>
@@ -67,10 +67,10 @@
             style="background-color: #f2f2f2; border-radius: 10px;"
           >
             <h5 class="pb-0 mb-0">
-              {{ Comment.user_name }}
+              {{ comment.user_name }}
             </h5>
             <p class="mb-0">
-              {{ Comment.content }}
+              {{ comment.comment_text }}
             </p>
           </div>
         </div>
@@ -148,18 +148,11 @@ export default {
 		return {
 			like_active:false,
 			comment_active:false,
-			coments:[],
+			comments:[],
 			comment_text:'',
 		};
 	},
-	mounted(){
-		this.getcomment(this.message);
-	},
 	methods:{
-		comment(){
-			//this.$emit('comment');
-			this.comment_active = true;
-		},
 		sendUserLike() {
 			this.like_active = !this.like_active;
 			this.axios.post('/api/user-like/'+this.likableType, {
@@ -175,31 +168,28 @@ export default {
 			}
 			this.$validator.validate().then((valid) => {
         	if(valid){
-					this.axios.post('/api/add-message',
+					this.axios.post('/api/comment',
 						{
-							parent_message_id:this.message.id,
-							content:this.comment_text,
-							classroom_id:this.message.classroom_id,
+							'commentable_id':this.likableId,
+							'commentable_type':this.likableType,
+							'comment_text': this.comment_text,
 						}).then((resp)=>{
-						this.replies.push({
-							'id':resp.data.success.message.id,
-							'content':resp.data.success.message.content,
-							'created_at':resp.data.success.message.created_at,
+						this.comments.push({
+							'id':resp.data.success.comment_id,
 							'user_name':this.AuthUser.full_name,
 							'avatar_url':this.AuthUser.avatar_url,
-							'classroom_id': this.message.classroom_id,
-							'classroom_name': this.message.classroom_name,
-							'total_likes':0,
+							'comment_text':this.comment_text,
 							'time':'Just now'});
 						this.comment_text = ''; 
 					});
 				}
 			});
 		},
-		getcomment(message){
-			this.axios.get('/api/get-comments')
+		getComment(){
+			this.comment_active = true;
+			this.axios.get('/api/'+this.likableType+'/'+this.likableId+'/comment')
 				.then((resp) => {
-					this.comments=resp.data.success.messages;
+					this.comments=resp.data.success.comments;
 				});
 		},
 	}

@@ -66,8 +66,10 @@ class ClassroomResourceController extends Controller
             $post->post_heading=$unit->unit_name;
             $post->subject_id=$classroom->subject_id;
 
-            if('documentLink'===$request->resource_type){
-                $document = new Document;
+
+            switch ($request->resource_type) {
+                case 'documentLink':
+                    $document = new Document;
                 $document->ext = 'pdf';
                 $document->link = $request->resource_link;
                 $document->save();
@@ -75,9 +77,10 @@ class ClassroomResourceController extends Controller
                 $post->primary_image_path='/images/document.png';
                 $post->postable_type="App\Models\Document";
                 $post->postable_id=$document->id;
-            }
-            if('youtubeVideo'===$request->resource_type){
-                $video_id = substr($request->resource_link,strlen('https://www.youtube.com/embed/'));
+                    break;
+    
+                case 'youtubeVideo':
+                    $video_id = substr($request->resource_link,strlen('https://www.youtube.com/embed/'));
                 $video = new Video;
                 $video->video_id = $video_id;
                 $video->save();
@@ -85,6 +88,7 @@ class ClassroomResourceController extends Controller
                 $post->primary_image_path='https://img.youtube.com/vi/'.$video_id.'/0.jpg';
                 $post->postable_type="App\Models\Video";
                 $post->postable_id=$video->id;
+                    break;    
             }
 
             $post->post_description = $request->description;
@@ -133,36 +137,39 @@ class ClassroomResourceController extends Controller
             $old_postable_type = $post->postable_type;
             $old_postable_id = $post->postable_id;
 
-            if('documentLink'===$request->resource_type){
-                if($old_postable_type===Document::class){
-                    $document = Document::find($old_postable_id);
-                }else{
-                    $document = new Document;
-                    $post->primary_image_path='/images/document.png';
-                    $post->postable_type="App\Models\Document";
-                }
-
-                $document->ext = 'pdf';
-                $document->link = $request->resource_link;
-                $document->save();
-
-                $post->postable_id=$document->id;
-            }
-            if('youtubeVideo'===$request->resource_type){
-                $video_id = substr($request->resource_link,strlen('https://www.youtube.com/embed/'));
-
-                if($old_postable_type===Document::class){
-                    $video = Video::find($old_postable_id);
-                }else{
-                    $video = new Video;
-                    $post->primary_image_path='https://img.youtube.com/vi/'.$video_id.'/0.jpg';
-                    $post->postable_type="App\Models\Video";
-                }
-
-                $video->video_id = $video_id;
-                $video->save();
-
-                $post->postable_id=$video->id;
+            switch ($request->resource_type) {
+                case 'documentLink':
+                    if($old_postable_type===Document::class){
+                        $document = Document::find($old_postable_id);
+                    }else{
+                        $document = new Document;
+                        $post->primary_image_path='/images/document.png';
+                        $post->postable_type="App\Models\Document";
+                    }
+    
+                    $document->ext = 'pdf';
+                    $document->link = $request->resource_link;
+                    $document->save();
+    
+                    $post->postable_id=$document->id;
+                    break;
+    
+                case 'youtubeVideo':
+                    $video_id = substr($request->resource_link,strlen('https://www.youtube.com/embed/'));
+    
+                    if($old_postable_type===Document::class){
+                        $video = Video::find($old_postable_id);
+                    }else{
+                        $video = new Video;
+                        $post->primary_image_path='https://img.youtube.com/vi/'.$video_id.'/0.jpg';
+                        $post->postable_type="App\Models\Video";
+                    }
+    
+                    $video->video_id = $video_id;
+                    $video->save();
+    
+                    $post->postable_id=$video->id;
+                    break;    
             }
 
             $post->post_description = $request->description;
