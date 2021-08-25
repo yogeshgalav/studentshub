@@ -8,8 +8,8 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::put('/post/{post}','PostController@update');
     Route::get('/get-student-posts','PostController@getStudentPosts');
     Route::post('/save-post-image','PostController@createImage');
-    Route::post('/add-doubt','DoubtController@addDoubt');
-    Route::get('/get-doubts','DoubtController@getDoubts');
+    Route::post('/add-doubt','DoubtController@create');
+    Route::get('/get-doubts','DoubtController@index');
     Route::post('/doubt/{doubt}/edit','DoubtController@update');
     Route::delete('/doubt/{doubt}','DoubtController@delete');
     Route::get('/get-student-course-details','StudentController@getCourseSubjects');
