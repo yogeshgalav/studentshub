@@ -317,20 +317,37 @@
               </div>
               <div class="col-md-12 mb-2">
                 <label
-                  for="students"
+                  for="state"
                   class="col-form-label text-md-right mb-0"
-                >Number Of Students</label>
+                >City</label>
                 <input
-                  id="students"
-                  ref="students"
-                  v-model="student_number"
-                  v-validate="'required|numeric'"
+                  id="city"
+                  ref="city"
+                  v-model="city"
+                  v-validate="'required|max:255'"
                   class="form-control"
-                  type="number"
-                  name="students"
+                  type="name"
+                  name="city"
                 >
-                <span class="text-danger">{{ formErrors('students') }}</span>
+                <span class="text-danger">{{ formErrors('city') }}</span>
               </div>
+              <div class="col-md-12 mb-2">
+                <label
+                  for="state"
+                  class="col-form-label text-md-right mb-0"
+                >State</label>
+                <input
+                  id="state"
+                  ref="state"
+                  v-model="institute_name"
+                  v-validate="'required|max:255'"
+                  class="form-control"
+                  type="name"
+                  name="state"
+                >
+                <span class="text-danger">{{ formErrors('state') }}</span>
+              </div>
+              
               <div class="col-md-12 mb-2">
                 <label
                   for="phone"
@@ -409,6 +426,8 @@ export default {
 			full_name: '',
 			email: '',
 			phone_number: '',
+			city:'',
+			state:'',
 			student_number: '',
 		};
 	},
