@@ -15,26 +15,24 @@
                     <span class="text">Doubts</span>
                 </li>
             </a>
-            {{--<a href="/my-course"
+            {{-- <a href="/my-course"
                 class="{{\App\Facades\Sthub::currentTab('my-course') ? 'active' : ''}}">
                 <li><i class="fas fa-book-open" aria-hidden="true"></i>
                     <span class="text">My Course</span>
                 </li>
-            </a>--}}
+            </a> --}}
             @endif
             <a href="/classrooms" class="{{\App\Facades\Sthub::currentTab('classroom') ? 'active' : ''}}">
-                <li><i class="fa fa-desktop " aria-hidden="true"></i><span class="text">Classroom</span>
+                <li><i class="fa fa-desktop " aria-hidden="true"></i><span class="text">Classrooms</span>
 
                 </li>
             </a>
-            @if(Auth::user()->joinedClassroomCount()>0)
+            @if(Auth::student())
             <a href="/my-reports" class="{{\App\Facades\Sthub::currentTab('my-reports') ? 'active' : ''}}">
                 <li><i class="fas fa-chart-line" aria-hidden="true"></i>
                     <span class="text">My Reports</span>
                 </li>
             </a>
-            @endif
-            @if(Auth::user()->hasClassroom())
             <a href="/messages" class="{{\App\Facades\Sthub::currentTab('messages') ? 'active' : ''}}">
                 <li> <i class="far fa-comment-dots" aria-hidden="true"></i>
                     <span class="text"> Messages</span>

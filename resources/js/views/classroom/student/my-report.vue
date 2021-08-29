@@ -4,10 +4,23 @@
       <h1>My Reports</h1>
       <hr>
     </div>
-    <!-- <accordion
-      :title="'Overall Classroom Report'"
-      :aria-expanded="true"
-    /> -->
+    <div
+      v-if="AuthUser.role_intended==='student' && !classrooms.length"
+      class="card mb-2 pl-3"
+    >
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+            <p class="text-blue weight-600 mb-0">
+              Ask your teachers to share Classroom Join Id with you.
+            </p>
+            <p class="mb-0">
+              You will be able to see overall progress of classroom assignment here.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
     <div
       v-for="(classroom, index) in classrooms"
       :key="index"
