@@ -648,7 +648,7 @@ export default {
 				students:this.students,
 			}).then(()=>{
 				this.showLoader =false;
-				swal.infoDialog('Thank you for connecting with us.');
+				window.location.href='/membership-plan?connected=1';
 			});
 		},
 		studentRegister() {
