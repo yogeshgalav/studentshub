@@ -69,7 +69,7 @@ class ClassroomResourceController extends Controller
 
             switch ($request->resource_type) {
                 case 'documentLink':
-                    $document = new Document;
+                $document = new Document;
                 $document->ext = 'pdf';
                 $document->link = $request->resource_link;
                 $document->save();
@@ -77,10 +77,10 @@ class ClassroomResourceController extends Controller
                 $post->primary_image_path='/images/document.png';
                 $post->postable_type="App\Models\Document";
                 $post->postable_id=$document->id;
-                    break;
+                break;
     
                 case 'youtubeVideo':
-                    $video_id = substr($request->resource_link,strlen('https://www.youtube.com/embed/'));
+                $video_id = substr($request->resource_link,strlen('https://www.youtube.com/embed/'));
                 $video = new Video;
                 $video->video_id = $video_id;
                 $video->save();
@@ -88,7 +88,7 @@ class ClassroomResourceController extends Controller
                 $post->primary_image_path='https://img.youtube.com/vi/'.$video_id.'/0.jpg';
                 $post->postable_type="App\Models\Video";
                 $post->postable_id=$video->id;
-                    break;    
+                break;    
             }
 
             $post->post_description = $request->description;

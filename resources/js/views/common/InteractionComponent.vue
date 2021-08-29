@@ -1,49 +1,103 @@
 <template>
-  <div
-    v-if="AuthUser"
-  >
-    <button
-      type="button"
-      class="btn"
-      @click="sendUserLike()"
+  <div>
+    <div
+      v-if="AuthUser"
+      class="row"
     >
-      <p
-        v-if="like_active"
-        class="text-primary pl-3 pr-3"
-      >
-        <span><i class="fas fa-thumbs-up text-primary" />&nbsp;</span>
-        {{ totalLikes + 1 }} Like
-      </p>
-      <p 
-        v-else-if="userLike"
-        class="text-primary"
-      >
-        <span><i class="far fa-thumbs-up text-primary" />&nbsp;</span>
-        {{ totalLikes }} Like
-      </p>
-      <p 
-        v-else-if="totalLikes===0"
-      >
-        <span><i class="far fa-thumbs-up" />&nbsp;</span>
-        Like
-      </p>
-      <p v-else>
-        <span><i class="far fa-thumbs-up" />&nbsp;</span>
-        {{ totalLikes }} Like
-      </p>
-    </button>
-    <button      
-      type="button"
-      :class="['btn pl-0', comment_active ? 'text-primary' : '']"
-      @click="getComment()"
-    >
-      <p>
-        <span><i
-          class="far fa-comment-alt"
-        />&nbsp;</span>
-        Comment
-      </p>
-    </button>
+      <div class="col-md-4"> 
+        <button
+          type="button"
+          class="btn"
+          @click="sendUserLike()"
+        >
+          <p
+            v-if="like_active"
+            class="text-primary pl-3 pr-3"
+          >
+            <span><i class="fas fa-thumbs-up text-primary" />&nbsp;</span>
+            {{ totalLikes + 1 }} Like
+          </p>
+          <p 
+            v-else-if="userLike"
+            class="text-primary"
+          >
+            <span><i class="far fa-thumbs-up text-primary" />&nbsp;</span>
+            {{ totalLikes }} Like
+          </p>
+          <p 
+            v-else-if="totalLikes===0"
+          >
+            <span><i class="far fa-thumbs-up" />&nbsp;</span>
+            Like
+          </p>
+          <p v-else>
+            <span><i class="far fa-thumbs-up" />&nbsp;</span>
+            {{ totalLikes }} Like
+          </p>
+        </button>
+      </div>
+      <div class="col-md-4"> 
+        <button      
+          type="button"
+          :class="['btn pl-0', comment_active ? 'text-primary' : '']"
+          @click="getComment()"
+        >
+          <p>
+            <span><i
+              class="far fa-comment-alt"
+            />&nbsp;</span>
+            Comment
+          </p>
+        </button>
+      </div>
+      <div class="col-md-4 dropup">
+        <button      
+          :id="'dropdownMenuButton'+likableId"
+          type="button"
+          class="btn pl-0 dropdown-toggle" 
+          data-toggle="dropdown" 
+          aria-expanded="false"
+        >
+          <p>
+            <span><i
+              class="fas fa-ellipsis-h"
+            />&nbsp;</span>
+            More
+          </p>
+        </button>
+        <ul
+          class="dropdown-menu" 
+          :aria-labelledby="'dropdownMenuButton'+likableId"
+        >
+          <li>
+            <button
+              v-if="editAccess"
+              type="button"
+              class="dropdown-item btn-link"
+            >
+              Edit
+            </button>
+          </li>
+          <li>
+            <button
+              v-if="editAccess"
+              type="button"
+              class="dropdown-item btn-link"
+            >
+              Delete
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+              class="dropdown-item btn-link"
+            >
+              Copy Link
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
     <!-- message comment -->
     <div v-if="comment_active">
       <hr>
@@ -142,6 +196,11 @@ export default {
 		'likableType':{
 			'type':String,
 			'required':true,
+		},
+		'editAccess':{
+			'type':Boolean,
+			'required':false,
+			'default':false
 		},
 	},
 	data(){
