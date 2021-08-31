@@ -343,6 +343,7 @@
                   :key="'city'"
                   v-validate="'required'"
                   class="width-100"
+                  :disabled="show_city"
                   :items="filter_city_list"
                   :value="'name'"
                   name="city"
@@ -441,6 +442,7 @@ export default {
 			student_number: '',
 			filter_state_list:[],
 			filter_city_list:[],
+			show_city:true,
 		};
 	},
 	mounted(){
@@ -498,6 +500,7 @@ export default {
 		 }; 
 			this.axios.get('https://api.countrystatecity.in/v1/countries/IN/states/'+this.state.iso2+'/cities',{headers}).then(resp =>{
 				this.city_list = resp.data;
+				this.show_city = false;
 			});
 		},
 		filterState(search){
