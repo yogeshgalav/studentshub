@@ -319,32 +319,38 @@
                 <label
                   for="state"
                   class="col-form-label text-md-right mb-0"
-                >City</label>
-                <input
-                  id="city"
-                  ref="city"
-                  v-model="city"
-                  v-validate="'required|max:255'"
-                  class="form-control"
-                  type="name"
-                  name="city"
-                >
-                <span class="text-danger">{{ formErrors('city') }}</span>
+                >State</label>
+                <auto-complete
+                  :key="'state'"
+                  v-validate="'required'"
+                  class="width-100"
+                  :items="filter_state_list"
+                  :value="'name'"
+                  name="state"
+                  :is-async="true"
+                  :create-new-item="false"
+                  @selected="setState"
+                  @input="filterState"
+                />
+                <span class="text-danger">{{ formErrors('state') }}</span>
               </div>
               <div class="col-md-12 mb-2">
                 <label
-                  for="state"
+                  for="city"
                   class="col-form-label text-md-right mb-0"
-                >State</label>
-                <input
-                  id="state"
-                  ref="state"
-                  v-model="institute_name"
-                  v-validate="'required|max:255'"
-                  class="form-control"
-                  type="name"
-                  name="state"
-                >
+                >City</label>
+                <auto-complete
+                  :key="'city'"
+                  v-validate="'required'"
+                  class="width-100"
+                  :items="filter_city_list"
+                  :value="'name'"
+                  name="city"
+                  :is-async="true"
+                  :create-new-item="false"
+                  @selected="setCity"
+                  @input="filterCity"
+                />
                 <span class="text-danger">{{ formErrors('state') }}</span>
               </div>
               
@@ -413,10 +419,12 @@ import FormMixin from '../../components/mixins/form-mixin.js';
 import swal from '../../components/swal';
 import Modal from '../../components/VueNiceModal.vue';
 import SiteFooter from '../footer/SiteFooter';
+import AutoComplete from '../../components/AutoComplete.vue';
 
 export default {
 	components: {
-		SiteFooter
+		SiteFooter,
+		AutoComplete
 	},
 	mixins: [FormMixin],
 	data() {
@@ -428,8 +436,28 @@ export default {
 			phone_number: '',
 			city:'',
 			state:'',
+			state_list:[],
+			city_list:[],
 			student_number: '',
+			filter_state_list:[],
+			filter_city_list:[],
 		};
+	},
+	mounted(){
+		//  var header = new Header();
+		//  header.append('X-CSCAPI-KEY', 'ZzBrT2hoVlBTaGNmVlNQaW5MbGFPQzVJUkhrbm5yMzVjNTIwbDZ5aQ==');
+		// const requestOptions = {
+		// 	method: 'GET',
+		// 	headers: headers,
+		// 	redirect: 'follow'
+		// };
+		 const headers = {
+		 	'X-CSCAPI-KEY':'ZzBrT2hoVlBTaGNmVlNQaW5MbGFPQzVJUkhrbm5yMzVjNTIwbDZ5aQ=='
+		 }; 
+		this.axios.get('https://api.countrystatecity.in/v1/countries/IN/states',{headers} )
+			.then(resp => {
+				this.state_list = resp.data;
+			});
 	},
 	methods: {
 		memberRequest() {
@@ -462,7 +490,26 @@ export default {
 			element.scrollIntoView({ behavior: 'smooth' });
 			// var top = element.offsetTop;
 			// window.scrollTo(0, top);
-		}
+		},
+		setState(result){
+			this.state = result;
+			const headers = {
+		 	'X-CSCAPI-KEY':'ZzBrT2hoVlBTaGNmVlNQaW5MbGFPQzVJUkhrbm5yMzVjNTIwbDZ5aQ=='
+		 }; 
+			this.axios.get('https://api.countrystatecity.in/v1/countries/IN/states/'+this.state.iso2+'/cities',{headers}).then(resp =>{
+				this.city_list = resp.data;
+			});
+		},
+		filterState(search){
+			this.filter_state_list = this.state_list.filter(node => node.name.toLowerCase().includes(search.toLowerCase()));
+		},
+    	setCity(result){
+			this.city = result;
+			
+		},
+		filterCity(search){
+			this.filter_city_list = this.city_list.filter(node => node.name.toLowerCase().includes(search.toLowerCase()));
+		},
 	},
 };
 </script>
