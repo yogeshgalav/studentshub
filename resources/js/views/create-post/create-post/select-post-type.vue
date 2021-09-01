@@ -14,10 +14,10 @@
           <div class="form-group">
             <div class="text-center">
               <p class="title weight-600 font-size-16 text-black">
-                Select Post Type
+                What was the last thing you learnt from internet?
               </p>
             </div>
-            <label class="weight-500">Choose type</label>
+            <label class="weight-500">Select Post Type</label>
             <div class="input_icon_frm">
               <span class="icon_design_input"><i
                 class="fa fa-newspaper"
