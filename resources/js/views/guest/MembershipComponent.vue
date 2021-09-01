@@ -336,7 +336,26 @@
                   for="phone"
                   class="col-form-label text-md-right mb-0"
                 >Phone Number</label>
-                <input
+                <vue-tel-input
+                  id="phone"
+                  v-model="phone"
+                  v-validate="{required: isPhoneRequired}"
+                  name="phone"
+                  data-vv-validate-on="handleSubmit"
+                  placeholder="Enter Your Nmumber"
+                  :show-code-on-list="true"
+                  :fetch-country="true"
+                  :selected-country-code="true"
+                  :mode="'international'"
+                  :error="!phoneIsValid && !initialPhoneState"
+                  @country-changed="countryChanged"
+                  @update="phoneEventPayload"
+                >
+                  <template v-slot:arrow-icon>
+                    <span>{{ open ? '▲' : '▼' }}</span>
+                  </template>
+                </vue-tel-input>
+                <!-- <input
                   id="phone"
                   ref="phone"
                   v-model="phone_number"
@@ -344,7 +363,7 @@
                   class="form-control"
                   type="tel"
                   name="phone"
-                >
+                > -->
                 <span class="text-danger">{{ formErrors('phone') }}</span>
               </div>
               <div class="col-md-12 text-center">
@@ -363,6 +382,7 @@
     <site-footer />
   </div>
 </template>
+
 <style scoped>
 .center {
   text-align: -webkit-center;
@@ -399,7 +419,7 @@ import SiteFooter from '../footer/SiteFooter';
 
 export default {
 	components: {
-		SiteFooter
+		SiteFooter,
 	},
 	mixins: [FormMixin],
 	data() {
@@ -408,9 +428,17 @@ export default {
 			institute_name: '',
 			full_name: '',
 			email: '',
-			phone_number: '',
+			phone: '',
+			isPhoneRequired:'',
 			student_number: '',
+			phoneIsValid:true,
+			phoneWithCode:'',
+			initialPhoneState:true,
+			country:{},
 		};
+	},
+	mounted(){
+		this.$validator.extend('phone', {getMessage() {return 'vue-login.error-invalid-phone';},validate: function(value){return self.phoneIsValid;}});
 	},
 	methods: {
 		memberRequest() {
@@ -443,7 +471,15 @@ export default {
 			element.scrollIntoView({ behavior: 'smooth' });
 			// var top = element.offsetTop;
 			// window.scrollTo(0, top);
-		}
-	},
+		},
+		phoneEventPayload($event) {  
+			this.phoneIsValid = $event.isValid;
+			this.phoneWithCode = $event.e164;
+		},
+		countryChanged(country) {
+		  // country contains the object with the country code and everything else like ISo2 
+		},
+	  },
 };
+// <style src="vue-tel-input/dist/vue-tel-input.css"></style>;
 </script>
