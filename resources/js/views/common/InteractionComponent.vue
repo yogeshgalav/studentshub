@@ -4,7 +4,7 @@
       v-if="AuthUser"
       class="row"
     >
-      <div class="col-md-4"> 
+      <div class="col-md-4 col-4"> 
         <button
           type="button"
           class="btn"
@@ -36,7 +36,7 @@
           </p>
         </button>
       </div>
-      <div class="col-md-4"> 
+      <div class="col-md-4 col-4"> 
         <button      
           type="button"
           :class="['btn pl-0', comment_active ? 'text-primary' : '']"
@@ -50,7 +50,7 @@
           </p>
         </button>
       </div>
-      <div class="col-md-4 dropup">
+      <div class="col-md-4 col-4">
         <button      
           :id="'dropdownMenuButton'+likableId"
           type="button"
@@ -73,7 +73,7 @@
             <button
               v-if="editAccess"
               type="button"
-              class="dropdown-item btn-link"
+              class="dropdown-item"
             >
               Edit
             </button>
