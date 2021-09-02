@@ -96,40 +96,6 @@
               >
                 <p>
                   {{ $dayjs(resource.created_at).format('D MMMM, YYYY') }}
-                  <span>
-                    <div
-                      class="dropdown d-inline"
-                    >
-                      <button
-                        id="dropdownMenuButton"
-                        class="btn btn-secondary dropdown-toggle p-0"
-                        type="button"
-                        data-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                      >
-                        <i class="fas fa-ellipsis-v" />
-                      </button>
-                      <div
-                        class="dropdown-menu dropdown-menu-right"
-                        style="min-width: max-content;"
-                        aria-labelledby="dropdownMenuButton"
-                      >
-                        <button
-                          type="button"
-                          class="dropdown-item"
-                          data-toggle="modal"
-                          data-target="#addResourceModal"
-                          @click="editResource(resource)"
-                        >Edit</button> 
-                        <button
-                          type="button"
-                          class="dropdown-item"
-                          @click="deleteResource(resource.id)"
-                        >Delete</button>
-                      </div>
-                    </div>
-                  </span>
                 </p>
 
                 <hr>
@@ -153,11 +119,12 @@
                   />
                 </div>
               </div>
-              <like-component
+              <interaction-component
                 :user-like="resource.user_like ? true : false"
                 :total-likes="resource.total_likes"
                 :likable-id="resource.id"
                 likable-type="resource"
+                :edit-access="resource.user_id===AuthUser.id"
               />
             </div>
           </div>
@@ -239,14 +206,14 @@
 <script>
 import FormMixin from '../../components/mixins/form-mixin.js';
 import Modal from '../../components/VueNiceModal';
-import LikeComponent from '../common/LikeComponent';
+import InteractionComponent from '../common/InteractionComponent';
 import ClassroomHeader from '../../components/ClassroomHeader';
 
 export default {
 	components: {
 		ClassroomHeader,
 		Modal,
-		LikeComponent,
+		InteractionComponent,
 	},
 	mixins:[FormMixin],
 	data() {
