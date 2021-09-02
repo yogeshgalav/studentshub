@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Attendance;
-use App\Models\StudentAttendance;
+use App\Models\Homework;
+use App\Models\UserHomework;
 use Carbon\Carbon;
 use Auth;
 use DB;
@@ -28,7 +28,7 @@ class HomeworkController extends Controller
         ]);
         return response()->json([], 204);
     }
-    
+
     public function markAsDone(Homework $homework, Request $request){
         $user_homework = UserHomework::firstOrNew([
             'homewok_id'=>$homework->id,
