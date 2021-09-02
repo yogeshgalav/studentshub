@@ -12,11 +12,10 @@ import 'vue-loading-overlay/dist/vue-loading.css';
 import Dayjs from 'vue-dayjs';
 import ProfileImage from '../components/ProfileImage';
 import NotificationsDropdown from '../components/NotificationsDropdown.vue';
-import VueTelInput from 'vue-tel-input';
-import 'vue-tel-input/dist/vue-tel-input.css';
-
 import VueLazyload from 'vue-lazyload';
-Vue.use(VueTelInput);
+
+
+
 Vue.use(VueLazyload);
 Vue.use(Dayjs, {
 	lang:'en',

@@ -336,7 +336,16 @@
                   for="phone"
                   class="col-form-label text-md-right mb-0"
                 >Phone Number</label>
-                <vue-tel-input
+                <VuePhoneNumberInput
+                  v-model="phone"
+                  v-validate="{required: isPhoneRequired}"
+                  fetch-country
+                  name="phone"
+                  placeholder="Enter Your Nmumber"
+                  data-vv-validate-on="handleSubmit"
+                  @update="countryChanged"
+                />
+                <!-- <vue-tel-input
                   id="phone"
                   v-model="phone"
                   v-validate="{required: isPhoneRequired}"
@@ -350,11 +359,7 @@
                   :error="!phoneIsValid && !initialPhoneState"
                   @country-changed="countryChanged"
                   @update="phoneEventPayload"
-                >
-                  <template v-slot:arrow-icon>
-                    <span>{{ open ? '▲' : '▼' }}</span>
-                  </template>
-                </vue-tel-input>
+                /> -->
                 <!-- <input
                   id="phone"
                   ref="phone"
@@ -416,10 +421,13 @@ import FormMixin from '../../components/mixins/form-mixin.js';
 import swal from '../../components/swal';
 import Modal from '../../components/VueNiceModal.vue';
 import SiteFooter from '../footer/SiteFooter';
+import 'vue-phone-number-input/dist/vue-phone-number-input.css';
+import VuePhoneNumberInput from 'vue-phone-number-input';
 
 export default {
 	components: {
 		SiteFooter,
+		VuePhoneNumberInput
 	},
 	mixins: [FormMixin],
 	data() {
@@ -477,6 +485,7 @@ export default {
 			this.phoneWithCode = $event.e164;
 		},
 		countryChanged(country) {
+			console.log(country);
 		  // country contains the object with the country code and everything else like ISo2 
 		},
 	  },
