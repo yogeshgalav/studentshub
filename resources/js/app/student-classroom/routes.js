@@ -5,6 +5,7 @@ import DailyAssignmentComponent from '../../views/classroom/student/daily-assign
 import ClassroomReportComponent from '../../views/classroom/report.vue';
 import ClassroomAttendanceComponent from '../../views/classroom/student/attendance.vue';
 import ClassmatesComponent from '../../views/classroom/student/classmates.vue';
+import Homework from '../../views/classroom/student/homework.vue';
 
 const StudentClassroomRoutes = [
 	{
@@ -23,6 +24,10 @@ const StudentClassroomRoutes = [
 	{
 		path: '/classroom/:classroomId/attendance',
 		component: ClassroomAttendanceComponent,
+	},
+	{
+		path: '/classroom/:classroomId/homework',
+		component: Homework,
 	},
 	{
 		path: '/classroom/:classroomId/resources',
