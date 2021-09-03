@@ -21,7 +21,7 @@ class MakeHomeworksTable extends Migration
             $table->text('description');
             $table->timestamps();
         });
-        Schema::table('attendance', function (Blueprint $table) {
+        Schema::table('homeworks', function (Blueprint $table) {
             $table->foreign('classroom_id')->references('id')->on('classrooms')->onDelete('cascade');
             $table->foreign('teacher_user_id')->references('id')->on('users')->onDelete('cascade');
         });

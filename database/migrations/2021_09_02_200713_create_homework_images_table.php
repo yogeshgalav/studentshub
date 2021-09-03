@@ -16,11 +16,11 @@ class CreateHomeworkImagesTable extends Migration
         Schema::create('homework_images', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('homework_id')->unsigned();
-            $table->string('image_path')->unsigned();
+            $table->string('image_path');
             $table->timestamps();
         });
         Schema::table('homework_images', function (Blueprint $table) {
-            $table->foreign('homework_id')->references('id')->on('homework')->onDelete('cascade');
+            $table->foreign('homework_id')->references('id')->on('homeworks')->onDelete('cascade');
         }); 
     }
 

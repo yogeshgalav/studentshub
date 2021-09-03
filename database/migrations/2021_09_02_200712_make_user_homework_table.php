@@ -20,7 +20,7 @@ class MakeUserHomeworkTable extends Migration
             $table->timestamps();
         });
         Schema::table('user_homework', function (Blueprint $table) {
-            $table->foreign('homework_id')->references('id')->on('homework')->onDelete('cascade');
+            $table->foreign('homework_id')->references('id')->on('homeworks')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         }); 
     }
