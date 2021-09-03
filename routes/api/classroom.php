@@ -67,4 +67,11 @@ Route::group(['middleware'=>['auth:api']],function(){
 
     //classmates
     Route::get('/classmates','ClassroomController@getClassmatesDetails');
+
+    //homework
+    Route::get('/classroom/{classroom}/homeworks','HomeworkController@index');
+    Route::get('/homework/{homework}','HomeworkController@show');
+    Route::post('/homework/{homework}/mark-as-done','HomeworkController@markAsDone');
+    Route::post('/classroom/{classroom}/homework','HomeworkController@create');
+
 });

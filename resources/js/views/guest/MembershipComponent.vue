@@ -8,11 +8,17 @@
     />
     <div class="blank" />
     <div class="p-5 container">
-      <h3 class="pb-4 display-4 text-center">
-        Earn more from your Students
-      </h3>
-      <p class="text-center">
-        A new approach to LMS.
+      <h1 class="pb-4 text-center">
+        Student's Hub is a Data Analytics Software which Helps,
+      </h1>
+      <p class="font-size-24 text-center">
+        Students to grow their knowledge,
+      </p>
+      <p class="font-size-24 text-center">
+        Teachers to grow their productivity,
+      </p>
+      <p class="font-size-24 text-center">
+        and Institutes to grow their revenue.
       </p>
     </div>
     <div class="container">
@@ -446,7 +452,9 @@ export default {
 		};
 	},
 	mounted(){
-		this.$validator.extend('phone', {getMessage() {return 'vue-login.error-invalid-phone';},validate: function(value){return self.phoneIsValid;}});
+		if (this.$route.query.connected) {
+			swal.infoDialog('Thank you for connecting with us.');
+		}
 	},
 	methods: {
 		memberRequest() {

@@ -57,20 +57,20 @@
               v-for="(question,index) in daily_questions"
               :key="index"
             >
-              <div class="row border-bottom">
-                <div class="col-md-10 pl-0">
+              <div class="border-bottom">
+                <div class="pl-0 questioncard mb-2">
                   <p class="font-16  weight-800 mb-1 mt-2 light-black">
                     {{ 'Question:' + ' ' + (index+1) }}
                   </p>
                 </div>
-                <div class="col-md-2 pl-0 text-right">
-                  <label class="btn_marks font-16 light-black">
+                <div class="pl-0 text-right">
+                  <label class="btn btn-white">
                     Marks: <span>{{ question.marks }}</span>
                   </label>
                 </div>
               </div>
                
-              <div class="row">
+              <div>
                 <div class="col-md-12 pl-0">
                   <p class="font-16   mt-3 light-black">
                     {{ question.question_text }}
@@ -179,11 +179,24 @@ select.minimal {
 }
 .border-bottom {
   border-bottom: 1px solid #DEDEDE;
+  position: relative;
+}
+.btn-white {
+  border-radius: 15px;
+  border: 1px solid #000;
 }
 .option_box {
   width: 100%;
 line-height: 40px;
 margin: 10px 0px;
+}
+.questioncard{
+  display: inline-block;
+}
+.pl-0.text-right{
+  display: inline-block;
+  position: absolute;
+  right: 5%;
 }
 .outline-gray {
  border:1px solid #D6D6D6;

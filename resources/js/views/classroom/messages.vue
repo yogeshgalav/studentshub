@@ -15,8 +15,28 @@
         <h1>Messages</h1>
         <hr>
       </div>
+      <div
+        v-if="AuthUser.role_intended==='student' && !classrooms.length"
+        class="card mb-2 pl-3"
+      >
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <p class="text-blue weight-600 mb-0">
+                Ask your teachers to share Classroom Join Id with you.
+              </p>
+              <p class="mb-0">
+                You will be able to share messages with your classmates with respect to subjects.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
       <div>
-        <div class="row">
+        <div 
+          v-if="classrooms.length"
+          class="row"
+        >
           <div class="col-md-12">
             <div class="">
               <div class="col-md-3 col-12 pl-0">
