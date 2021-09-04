@@ -9,6 +9,7 @@ import ClassroomStudentPanelComponent from '../../views/classroom/teacher/studen
 import ClassroomAttendanceComponent from '../../views/classroom/teacher/attendance.vue';
 import StudentsComponent from '../../views/common/students.vue';
 import Homework from '../../views/classroom/teacher/homework.vue';
+import ShowHomework from '../../views/classroom/show-homework.vue';
 
 const TeacherClassroomRoutes = [
 	{
@@ -31,6 +32,10 @@ const TeacherClassroomRoutes = [
 	{
 		path: '/classroom/:classroomId/homeworks',
 		component: Homework,
+	},
+	{
+		path: '/classroom/:classroomId/:homework/homework',
+		component: ShowHomework,
 	},
 	{
 		path: '/classroom/:classroomId/resources',

@@ -60,18 +60,29 @@ class HomeworkController extends Controller
     }
 
     public function show(Homework $homework, Request $request){
-        $homeworks = DB::table('homeworks as ho')->where('ho.id',$homework->id)
+        $homework = DB::table('homeworks as ho')->where('ho.id',$homework->id)
+        ->join('users as us','us.id','=','ho.teacher_user_id')
+        ->leftJoin('user_homework as uh','uh.homework_id','=','ho.id')
+        ->leftJoin('homework_image as hi','hi.homework_id','=','ho.id')
+        ->select('ho.id', 'ho.submission_date', 'ho.description', 'us.full_name',
+        DB::raw("COUNT('uh.id') as total_done"))
+        ->groupBy('ho.id', 'ho.submission_date', 'ho.description', 'us.full_name')
+        ->get();
+
+        $user_homeworks = DB::table('homeworks as ho')->where('ho.id',$homework->id)
         ->rightJoin('classroom_users as cu','cu.clasroom_id','=','ho.classroom_id')
         ->rightJoin('users as us','us.id','=','cu.user_id')
         ->leftJoin('students as st', function($join)use($homework){
             $join->on('st.id','=','st.user_id')->where('st.institute_id','=',$homework->classroom->institute_id);
         })
         ->leftJoin('user_homework as uh','uh.user_id','=','us.id')
-        ->select('ho.id', 'ho.submission_date', 'ho.description', 'us.full_name','uh.created_at')
+        ->select('ho.id', 'ho.submission_date', 'ho.description', 'us.full_name','uh.created_at as marked_done_at')
+        ->orderBy('uh.created_at')
         ->get();
 
        return response()->json(['success'=>[
-           'homeworks'=> $homeworks,
+           'user_homeworks'=> $user_homeworks,
+           'homework'=> $homework,
        ]]); 
     }
 
