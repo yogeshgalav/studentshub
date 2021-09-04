@@ -15,24 +15,17 @@
             class="text-primary pl-3 pr-3"
           >
             <span><i class="fas fa-thumbs-up text-primary" />&nbsp;</span>
-            {{ totalLikes + 1 }} Like
+            {{ totallikes }} Like
           </p>
           <p 
-            v-else-if="userLike"
-            class="text-primary"
-          >
-            <span><i class="far fa-thumbs-up text-primary" />&nbsp;</span>
-            {{ totalLikes }} Like
-          </p>
-          <p 
-            v-else-if="totalLikes===0"
+            v-else-if="totallikes===0"
           >
             <span><i class="far fa-thumbs-up" />&nbsp;</span>
             Like
           </p>
           <p v-else>
             <span><i class="far fa-thumbs-up" />&nbsp;</span>
-            {{ totalLikes }} Like
+            {{ totallikes }} Like
           </p>
         </button>
       </div>
@@ -160,16 +153,42 @@ export default {
 		return {
 			like_active:false,
 			comment_active:false,
+			totallikes:0,
 			comments:[],
 			comment_text:'',
 		};
 	},
+	watch: {
+		userLike: function() {
+			// this.user_like = this.postContent.user_like;
+			this.totallikes = this.totalLikes;
+			if(this.userLike === 1){
+				this.like_active = true;
+			}else{
+				this.like_active = false;
+			}
+		}
+	},
+	mounted(){
+		this.totallikes = this.totalLikes;
+		if(this.userLike === true){
+			this.like_active = true;
+		}else{
+			this.like_active = false;
+		}
+	},
 	methods:{
 		sendUserLike() {
 			this.like_active = !this.like_active;
-			this.axios.post('/api/user-like/'+this.likableType, {
+			if(this.like_active){	
+				this.totallikes += 1;
+			}
+			else if(!this.like_active){
+        	this.totallikes -= 1;
+			}
+			this.axios.post('/api/user-like/post', {
 				likable_id: this.likableId,
-				likable_type: this.likableType,
+				likable_type:this.likableType,
 			}).catch(err => {
 				this.like_active = !this.like_active;
 			});
