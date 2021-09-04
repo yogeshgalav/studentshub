@@ -105,39 +105,7 @@
                       <div class="info-post ml-2 dash_insititue_name">
                         <p class="font-size-14 mb-0 dash_user_date">
                           {{ message.user_name }} <span> {{ message.time }} &nbsp; 
-                            <div
-                              v-if="message.user_id===AuthUser.id"
-                              class="dropdown d-inline"
-                            >
-                              <button
-                                id="dropdownMenuButton"
-                                class="btn btn-secondary dropdown-toggle p-0"
-                                type="button"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false"
-                              >
-                                <i class="fas fa-ellipsis-v" />
-                              </button>
-                              <div
-                                class="dropdown-menu dropdown-menu-right"
-                                style="min-width: max-content;"
-                                aria-labelledby="dropdownMenuButton"
-                              >
-                                <button
-                                  type="button"
-                                  class="dropdown-item"
-                                  data-toggle="modal"
-                                  data-target="#editMessageModal"
-                                  @click="edit_message=message"
-                                >Edit</button> 
-                                <button
-                                  type="button"
-                                  class="dropdown-item"
-                                  @click="deleteMessage(message.id)"
-                                >Delete</button>
-                              </div>
-                            </div></span>
+                          </span>
                         </p>
                         <p class="font-size-14 mb-0">
                           {{ message.classroom_name }}
@@ -148,17 +116,12 @@
                     <p>{{ message.content }}</p>
                   </div>
                   <hr>
-                  <like-component
+                  <interaction-component
                     :user-like="message.user_like ? true : false"
                     :total-likes="message.total_likes"
                     :likable-id="message.id"
                     likable-type="message"
-                    :show-reply="true"
-                    @reply="reply(message)"
-                  />
-                  <messages-reply
-                    v-if="message.show_reply" 
-                    :message="message"
+                    :edit-access="message.user_id===AuthUser.id"
                   />
                 </div>
                 <div class="col-md-3 col-12" />
@@ -247,8 +210,7 @@ import FormMixin from '../../components/mixins/form-mixin.js';
 import ProfileImage from '../../components/ProfileImage.vue';
 import Modal from '../../components/VueNiceModal.vue';
 import ClassroomHeader from '../../components/ClassroomHeader';
-import messagesReply from './messages-reply';
-import LikeComponent from '../common/LikeComponent';
+import InteractionComponent from '../common/InteractionComponent';
 
 export default {
 	components: {
@@ -256,8 +218,7 @@ export default {
 		ClassroomHeader,
 		ProfileImage,
 		Modal,
-		messagesReply,
-		LikeComponent,
+		InteractionComponent,
 	},
 	mixins: [FormMixin],
 	props:['classrooms'],
@@ -353,9 +314,6 @@ export default {
 				window.location.reload();
 			});
 		},
-		reply(message){
-			message['show_reply'] =true;
-		}
 	},
 };
 </script>
