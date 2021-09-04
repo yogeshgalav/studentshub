@@ -4,7 +4,7 @@
       v-if="AuthUser"
       class="row"
     >
-      <div class="col-md-4 col-4"> 
+      <div class="col-md-4 col-5"> 
         <button
           type="button"
           class="btn"
@@ -36,7 +36,7 @@
           </p>
         </button>
       </div>
-      <div class="col-md-4 col-4"> 
+      <div class="col-md-4 col-6"> 
         <button      
           type="button"
           :class="['btn pl-0', comment_active ? 'text-primary' : '']"
@@ -50,52 +50,55 @@
           </p>
         </button>
       </div>
-      <div class="col-md-4 col-4">
-        <button      
-          :id="'dropdownMenuButton'+likableId"
-          type="button"
-          class="btn pl-0 dropdown-toggle" 
-          data-toggle="dropdown" 
-          aria-expanded="false"
-        >
-          <p>
-            <span><i
-              class="fas fa-ellipsis-h"
-            />&nbsp;</span>
-            More
-          </p>
-        </button>
-        <ul
-          class="dropdown-menu" 
-          :aria-labelledby="'dropdownMenuButton'+likableId"
-        >
-          <li>
-            <button
-              v-if="editAccess"
-              type="button"
-              class="dropdown-item"
-            >
-              Edit
-            </button>
-          </li>
-          <li>
-            <button
-              v-if="editAccess"
-              type="button"
-              class="dropdown-item btn-link"
-            >
-              Delete
-            </button>
-          </li>
-          <li>
-            <button
-              type="button"
-              class="dropdown-item btn-link"
-            >
-              Copy Link
-            </button>
-          </li>
-        </ul>
+      <div class="col-md-4 col-1">
+        <div class="dropdown dropup">
+          <button
+            :id="'dropdownMenuButton'+likableId"
+            class="btn dropdown-toggle"
+            type="button"
+            data-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <p>
+              <span><i
+                class="fas fa-ellipsis-h"
+              />&nbsp;</span>
+              <span class="more-text">
+                More
+              </span>
+            </p>
+          </button>
+          <ul
+            class="dropdown-menu"
+            :aria-labelledby="'dropdownMenuButton'+likableId"
+          >
+            <li>
+              <a
+                class="dropdown-item active"
+                href="#"
+              >Action</a>
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                href="#"
+              >Another action</a>
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                href="#"
+              >Something else here</a>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+              <a
+                class="dropdown-item"
+                href="#"
+              >Separated link</a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
     <!-- message comment -->
