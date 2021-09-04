@@ -26,7 +26,7 @@ const StudentClassroomRoutes = [
 		component: ClassroomAttendanceComponent,
 	},
 	{
-		path: '/classroom/:classroomId/homework',
+		path: '/classroom/:classroomId/homeworks',
 		component: Homework,
 	},
 	{
