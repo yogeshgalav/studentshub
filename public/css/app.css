@@ -14734,10 +14734,8 @@ select.form-control.custom-select {
     padding-right: 0px !important;
   }
 
-  .dropdown-menu.show {
-    position: fixed !important;
-    top: 120px !important;
-    left: 0px !important;
+  .more-text {
+    display: none !important;
   }
 
   .custom-width .col-md-9 {
