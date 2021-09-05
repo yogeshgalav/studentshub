@@ -71,7 +71,7 @@
         <div class="selection-box-default">
           <router-link
             class="card h-card"
-            :to="'/classroom/'+$route.params.classroomId+'/homework'"
+            :to="'/classroom/'+$route.params.classroomId+'/homeworks'"
           >
             <div class="card-body">
               <div class="row">

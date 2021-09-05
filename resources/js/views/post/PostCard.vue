@@ -11,7 +11,49 @@
           </div>
           <div class="info-post ml-2 dash_insititue_name">
             <p class="font-size-14 mb-0 dash_user_date">
-              {{ post.user_name }}  <span>  {{ post.time }}</span>
+              {{ post.user_name }}  <span>  {{ post.time }}
+                <div
+                  class="dropdown d-inline"
+                >
+                  <button
+                    id="dropdownMenuButton"
+                    class="btn btn-secondary dropdown-toggle p-0"
+                    type="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    <i class="fas fa-ellipsis-v" />
+                  </button>
+                  <div
+                    class="dropdown-menu dropdown-menu-right"
+                    style="min-width: max-content;"
+                    aria-labelledby="dropdownMenuButton"
+                  >
+                    <button
+                      type="button"
+                      class="dropdown-item"
+                      data-toggle="modal"
+                      data-target="#addDoubtModal"
+                      @click="copyLink(post.id)"
+                    >Copy Link</button> 
+                    <button
+                      v-if="post.user_id===AuthUser.id"
+                      type="button"
+                      class="dropdown-item"
+                      data-toggle="modal"
+                      data-target="#addDoubtModal"
+                      @click="editPost(post.id)"
+                    >Edit</button> 
+                    <button
+                      v-if="post.user_id===AuthUser.id"
+                      type="button"
+                      class="dropdown-item"
+                      @click="deletePost(post.id)"
+                    >Delete</button>
+                  </div>
+                </div>
+              </span>
             </p>
             <p class="font-size-14 mb-0">
               {{ post.institute_name }}
@@ -75,11 +117,12 @@
           </div>
         </div>
         <hr>
-        <like-component
+        <interaction-component
           :user-like="post.user_like ? true : false"
           :total-likes="post.total_likes"
           :likable-id="post.id"
           likable-type="post"
+          :edit-access="post.user_id===AuthUser.id"
         />
       </div>
     </div>
@@ -95,13 +138,13 @@
 <script>
 
 // import ImageSlider from './ImageSlider.vue';
-import LikeComponent from '../common/LikeComponent.vue';
+import InteractionComponent from '../common/InteractionComponent.vue';
 import ProfileImage from '../../components/ProfileImage';
 
 export default {
 	components: {
 		ProfileImage,
-		LikeComponent,
+		InteractionComponent,
 		// ImageSlider
 	},
 	props:['post'],
@@ -111,6 +154,15 @@ export default {
 			this.$store.commit('common/set_post_initial',post);
 			this.$router.push({ path: `/post/${post.id}` });
 		},
+    copyLink(){
+
+    },
+    deleteLink(){
+
+    },
+    editLink(){
+      
+    }
 	},
 
 };

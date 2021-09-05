@@ -191,4 +191,12 @@ class ClassroomController extends Controller
     {
         return view('classroom.classmates');
     }
+    public function indexHomework()
+    {
+        return view('classroom.index-homework');
+    }
+    public function showHomework()
+    {
+        return view('classroom.show-homework');
+    }
 }
