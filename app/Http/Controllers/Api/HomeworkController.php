@@ -8,6 +8,8 @@ use App\Models\Homework;
 use App\Models\UserHomework;
 use Carbon\Carbon;
 use Auth;
+use App\Models\Classroom;
+use App\Models\Unit;
 use DB;
 
 class HomeworkController extends Controller
@@ -25,6 +27,7 @@ class HomeworkController extends Controller
             'classroom_id'=>$classroom->id,
             'teacher_user_id'=>$request->user('api')->id,
             'description'=>$request->description,
+            'unit_id'=>$request->unit_id,
         ]);
         return response()->json([], 204);
     }
@@ -47,10 +50,10 @@ class HomeworkController extends Controller
         $homeworks = DB::table('homeworks as ho')->where('ho.classroom_id',$classroom->id)
         ->join('users as us','us.id','=','ho.teacher_user_id')
         ->leftJoin('user_homework as uh','uh.homework_id','=','ho.id')
-        ->leftJoin('homework_image as hi','hi.homework_id','=','ho.id')
-        ->select('ho.id', 'ho.submission_date', 'ho.description', 'us.full_name',
+        ->leftJoin('homework_images as hi','hi.homework_id','=','ho.id')
+        ->select('ho.id', 'ho.submission_date', 'ho.description', 'us.full_name as teacher_name', 'us.avatar_url as teacher_avatar', 'ho.created_at',
         DB::raw("COUNT('uh.id') as total_done"))
-        ->groupBy('ho.id', 'ho.submission_date', 'ho.description', 'us.full_name')
+        ->groupBy('ho.id', 'ho.submission_date', 'ho.description', 'us.full_name','us.avatar_url','ho.created_at')
         ->get();
 
        return response()->json(['success'=>[
