@@ -169,6 +169,18 @@
                 </div>
               </div>
             </div>
+            <div class="col-md-12">
+              <upload-image
+                is="upload-image"
+                :url="'/url'"
+                :max_files="5"
+                :disable_upload="true"
+                name="homework_images[]"
+                :resize_enabled="true"
+                :resize_max_width="640"
+                :button_class="'button btn btn-secondary'"
+              />
+            </div>
           </div>
         </form>
       </template>
@@ -181,6 +193,7 @@ import ClassroomHeader from '../../../components/ClassroomHeader';
 import ProfileImage from '../../../components/ProfileImage.vue';
 import Modal from '../../../components/VueNiceModal';
 import DatePicker from 'vue2-datepicker';
+import UploadImage from 'vue-upload-image';
 
 export default {
 	name:'Homework',
@@ -188,7 +201,8 @@ export default {
 		Modal,
 		ClassroomHeader,
 		ProfileImage,
-    DatePicker
+		DatePicker,
+		UploadImage
 	},
 	data() {
 		return {
@@ -204,7 +218,6 @@ export default {
 			currentDate:new Date(),
 			new_unit : '',
 			new_homework_date:'',
-
 		};
 	},
 
