@@ -45,14 +45,16 @@
       </div>
     </div>
     <!-- message comment -->
-    <div v-if="comment_active">
+    <div
+      v-if="comment_active"
+      class="comment-body"
+    >
       <hr>
       <div
         v-for="comment in comments"
         :key="comment.id"
-        class="card-body"
       >
-        <div class="row">
+        <div class="row mb-3">
           <div class="col-md-1 col-2 pl-0">
             <div class="avatar">
               <profile-image
@@ -77,38 +79,41 @@
             </div>
           </div>
         </div>
+      </div>
+      <div
+        class="row mt-2"
+      >
         <div
-          class="row mt-2"
+          class="col-md-1 col-2 pl-0"
         >
-          <div
-            class="col-md-1 col-2 pl-0"
-          >
-            <div class="avatar">
-              <profile-image
-                :avatar="AuthUser.avatar_url"
-                :user-name="AuthUser.full_name"
-              />
-            </div>
+          <div class="avatar">
+            <profile-image
+              :avatar="AuthUser.avatar_url"
+              :user-name="AuthUser.full_name"
+            />
           </div>
-          <div
-            class="col-md-10 col-10"
-          >
-            <div class="comment-margin  d-flex">
-              <input
-                id="comment-input"
-                v-model="comment_text"
-                type="text"
-                placeholder="Comment here"
-                class="mt-1 pl-2 message-comment"
-                @keyup.enter="savecomment($event, message)"
-              >
+        </div>
+        <div
+          class="col-md-10 col-10"
+        >
+          <h5 class="comment-user-name pb-0 mb-0">
+            {{ AuthUser.full_name }}
+          </h5>
+          <div class="comment-margin  d-flex">
+            <input
+              id="comment-input"
+              v-model="comment_text"
+              type="text"
+              placeholder="Comment here"
+              class="mt-1 pl-2 message-comment"
+              @keyup.enter="savecomment($event, message)"
+            >
 
-              <div @click="savecomment">
-                <i
-                  class="far fa-paper-plane mt-1"
-                  style="font-size: 25px; color: gray; cursor: pointer;"
-                />
-              </div>
+            <div @click="savecomment">
+              <i
+                class="far fa-paper-plane mt-1"
+                style="font-size: 25px; color: gray; cursor: pointer;"
+              />
             </div>
           </div>
         </div>
@@ -249,11 +254,13 @@ p:hover{
   outline: none; 
   background-color: #f0f2f5;
 }
-.card-body{
-  padding-top: 0;
-  padding-bottom: 20px;
+.comment-body{
+  margin-left: 15px;
 }
 .comment-margin{
-  margin-left: -30px;
+  margin-left: -25px;
+}
+.comment-user-name{
+  margin-left: -20px;
 }
 </style>
