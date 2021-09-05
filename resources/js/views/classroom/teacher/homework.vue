@@ -30,19 +30,19 @@
             </div> 
             <div class="">
               <div
-                v-if="!messages.length"
+                v-if="!homeworks.length"
                 class="card"
               >
                 <div class="card-body">
                   <div class="col-md-12">
                     <p>
-                      {{ "Currently no message has been added." }}
+                      {{ "Currently no Homework has been added." }}
                     </p>
                   </div>
                 </div>
               </div>
               <div
-                v-for="(message,index2) in messages"
+                v-for="(homework,index2) in homeworks"
                 :key="index2"
                 class="card mb-2"
               >
@@ -51,15 +51,15 @@
                     <div class="dashboard_post">
                       <div class="avatar">
                         <profile-image
-                          :avatar="message.avatar_url"
-                          :user-name="message.user_name"
+                          :avatar="homework.avatar_url"
+                          :user-name="homework.teacher_name"
                         />
                       </div>
                       <div class="info-post ml-2 dash_insititue_name">
                         <p class="font-size-14 mb-0 dash_user_date">
-                          {{ message.user_name }} <span> {{ message.time }} &nbsp; 
-                            <div
-                              v-if="message.user_id===AuthUser.id"
+                          {{ homework.teacher_name }} <span> {{ homework.created_at }} &nbsp; 
+                            <!-- <div
+                              v-if="homework.user_id===AuthUser.id"
                               class="dropdown d-inline"
                             >
                               <button
@@ -90,15 +90,12 @@
                                   @click="deleteMessage(message.id)"
                                 >Delete</button>
                               </div>
-                            </div></span>
-                        </p>
-                        <p class="font-size-14 mb-0">
-                          {{ message.classroom_name }}
+                            </div> --> </span>
                         </p>
                       </div>
                     </div>
                     <hr>
-                    <p>{{ message.content }}</p>
+                    <p>{{ homework.description }}</p>
                   </div>
                   <hr>
                 </div>
@@ -170,16 +167,21 @@
               </div>
             </div>
             <div class="col-md-12">
-              <upload-image
-                is="upload-image"
-                :url="'/url'"
-                :max_files="5"
-                :disable_upload="true"
-                name="homework_images[]"
-                :resize_enabled="true"
-                :resize_max_width="640"
-                :button_class="'button btn btn-secondary'"
-              />
+              <div class="form-group">
+                <label
+                  class="control-label mb-1"
+                  :for="'new_description'"
+                >Description</label>
+                <textarea
+                  id="new_description"
+                  v-model="new_description"
+                  name="new_description"
+                  class="form-control"
+                />
+                <div class="error">
+                  <!-- {{ formErrors('newAssignment.new_unit') }} -->
+                </div>
+              </div>
             </div>
           </div>
         </form>
@@ -201,8 +203,7 @@ export default {
 		Modal,
 		ClassroomHeader,
 		ProfileImage,
-		DatePicker,
-		UploadImage
+		DatePicker
 	},
 	data() {
 		return {
@@ -218,8 +219,29 @@ export default {
 			currentDate:new Date(),
 			new_unit : '',
 			new_homework_date:'',
+			new_description:'',
+			unitList:[],
+			homeworks:[],
+
 		};
 	},
+	mounted(){
+		this.axios.get('/api/classroom/'+ this.$route.params.classroomId +'/homeworks').then(resp =>{
+			this.unitList = resp.data.success.unitList;
+			this.homeworks = resp.data.success.homeworks;
+		});
+	},
+	methods:{
+		addHomework(){
+			this.axios.post('/api/classroom/'+this.$route.params.classroomId+'/homework',{
+				'submission_date': this.new_homework_date,
+				'description':this.new_description,
+				'unit_id': this.new_unit
+			}).then(resp =>{
+				window.location.reload();
+			});
+		}
+	}
 
 };
 </script>
