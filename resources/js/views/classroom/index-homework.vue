@@ -1,63 +1,63 @@
 <template>
-  <div class="row">
-    <div class="col-md-12">
-      <classroom-header
-        v-if="routeClassroomId" 
-        title="Homework"
-      />
-      <div v-else>
-        <h1>Homework</h1>
-        <hr>
+  <div>
+    <div class="row">
+      <div class="col-md-12">
+        <classroom-header
+          v-if="routeClassroomId" 
+          title="Homework"
+        />
+        <div v-else>
+          <h1>Homework</h1>
+          <hr>
+        </div>
       </div>
-      <div>
-        <div class="row">
-          <div class="col-md-12">
-            <div class="">
-              <div class="col-md-6  mb-2">
-                <div>
-                  <div class="text-right">
-                    <button
-                      class="btn-lg btn-primary"
-                      data-toggle="modal"
-                      data-target="#addHomeworkModal"
-                    >
-                      <i class="fas fa-plus" />&nbsp;&nbsp;Add Homework
-                    </button>
-                  </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 mb-2">
+        <div>
+          <div class="text-right">
+            <button
+              class="btn-lg btn-primary"
+              data-toggle="modal"
+              data-target="#addHomeworkModal"
+            >
+              <i class="fas fa-plus" />&nbsp;&nbsp;Add Homework
+            </button>
+          </div>
+        </div>
+      </div>
+    </div> 
+    <div class="row">
+      <div class="col-md-10 col-12">
+        <div
+          v-if="!homeworks.length"
+          class="card"
+        >
+          <div class="card-body">
+            <p>
+              {{ "Currently no Homework has been added." }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        v-for="(homework,index2) in homeworks"
+        :key="index2"
+        class="col-md-10 col-12"
+      >
+        <div class="card mb-2">
+          <div class="card-body">
+            <div>
+              <div class="dashboard_post">
+                <div class="avatar">
+                  <profile-image
+                    :avatar="homework.avatar_url"
+                    :user-name="homework.teacher_name"
+                  />
                 </div>
-              </div>
-              <div class="col-md-3 col-12" />
-            </div> 
-            <div class="">
-              <div
-                v-if="!homeworks.length"
-                class="card"
-              >
-                <div class="card-body">
-                  <div class="col-md-12">
-                    <p>
-                      {{ "Currently no Homework has been added." }}
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div
-                v-for="(homework,index2) in homeworks"
-                :key="index2"
-                class="card mb-2"
-              >
-                <div class="card-body">
-                  <div>
-                    <div class="dashboard_post">
-                      <div class="avatar">
-                        <profile-image
-                          :avatar="homework.avatar_url"
-                          :user-name="homework.teacher_name"
-                        />
-                      </div>
-                      <div class="info-post ml-2 dash_insititue_name">
-                        <p class="font-size-14 mb-0 dash_user_date">
-                          {{ homework.teacher_name }} <span> {{ homework.created_at }} &nbsp; 
+                <div class="info-post ml-2 dash_insititue_name">
+                  <p class="font-size-14 mb-0 dash_user_date">
+                    {{ homework.teacher_name }} <span> {{ homework.created_at }} &nbsp; 
                             <!-- <div
                               v-if="homework.user_id===AuthUser.id"
                               class="dropdown d-inline"
@@ -91,17 +91,17 @@
                                 >Delete</button>
                               </div>
                             </div> --> </span>
-                        </p>
-                      </div>
-                    </div>
-                    <hr>
-                    <p>{{ homework.description }}</p>
-                  </div>
-                  <hr>
+                  </p>
                 </div>
-                <div class="col-md-3 col-12" />
               </div>
+              <hr>
+              <p>{{ homework.description }}</p>
             </div>
+            <hr>
+            <interaction-component
+              :user-mark="homework.mark_as_done ? true : false"
+              :homework-id="homework.id"
+            />
           </div>
         </div>
       </div>
@@ -134,7 +134,7 @@
                       :not-before="currentDate.setDate(currentDate.getDate() + 1)"
                     />
                     <div>
-                      <!-- <span class="text-danger">{{ formErrors('newAssignment.assignment_date') }}</span>
+                    <!-- <span class="text-danger">{{ formErrors('newAssignment.assignment_date') }}</span>
                       <span class="text-danger">{{ assignment_error }}</span> -->
                     </div>
                   </div>
@@ -162,7 +162,7 @@
                   </option>
                 </select>
                 <div class="error">
-                  <!-- {{ formErrors('newAssignment.new_unit') }} -->
+                <!-- {{ formErrors('newAssignment.new_unit') }} -->
                 </div>
               </div>
             </div>
@@ -179,7 +179,7 @@
                   class="form-control"
                 />
                 <div class="error">
-                  <!-- {{ formErrors('newAssignment.new_unit') }} -->
+                <!-- {{ formErrors('newAssignment.new_unit') }} -->
                 </div>
               </div>
             </div>
@@ -189,13 +189,13 @@
     </modal>
   </div>
 </template>
-
 <script>
-import ClassroomHeader from '../../../components/ClassroomHeader';
-import ProfileImage from '../../../components/ProfileImage.vue';
-import Modal from '../../../components/VueNiceModal';
+import ClassroomHeader from '../../components/ClassroomHeader';
+import ProfileImage from '../../components/ProfileImage.vue';
+import Modal from '../../components/VueNiceModal';
 import DatePicker from 'vue2-datepicker';
-import UploadImage from 'vue-upload-image';
+import 'vue2-datepicker/index.css';
+import InteractionComponent from '../common/InteractionComponent2';
 
 export default {
 	name:'Homework',
@@ -203,7 +203,8 @@ export default {
 		Modal,
 		ClassroomHeader,
 		ProfileImage,
-		DatePicker
+		DatePicker,
+		InteractionComponent,
 	},
 	data() {
 		return {

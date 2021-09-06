@@ -22,6 +22,8 @@ class HomeworkController extends Controller
     }
 
     public function create(Classroom $classroom, Request $request){
+        $this->authorize('createHomework', $classroom);
+
         Homework::create([
             'submission_date'=>$request->submission_date,
             'classroom_id'=>$classroom->id,
@@ -33,8 +35,10 @@ class HomeworkController extends Controller
     }
 
     public function markAsDone(Homework $homework, Request $request){
+        $this->authorize('markAsDone', $homework);
+
         $user_homework = UserHomework::firstOrNew([
-            'homewok_id'=>$homework->id,
+            'homework_id'=>$homework->id,
             'user_id'=>$request->user('api')->id,
         ]);
         if($user_homework->id){
