@@ -119,8 +119,8 @@ export default {
 					field: 'full_name',
 				},
 				{
-					label: 'roll_no',
-					field: 'roll_no',
+					label: 'Roll/Registration no.',
+					field: 'reg_no',
 				},
 				{
 					label: 'Marked done at',
@@ -137,11 +137,11 @@ export default {
 	},
 	methods: {
 		getHomeworkData(){
-      		axios.get('/api/classroom/' + this.$route.params.homework + '/homework')
+      		axios.get('/api/classroom/' + this.$route.params.classroomId + '/homework/'+this.$route.params.homework)
 				.then(response => {
 					this.homework = response.data.success.homework;
 					this.homeworkRow = response.data.success.user_homeworks.map(node=>{
-						node.marked_done_at = dayjs(node.marked_done_at).format('D MMMM, YYYY');
+						node.marked_done_at = node.marked_done_at ? dayjs(node.marked_done_at).format('D MMMM, YYYY') : '';
 						return node;
 					});
 				}); 
