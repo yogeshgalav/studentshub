@@ -175,11 +175,12 @@
                   class="control-label mb-1"
                   :for="'new_description'"
                 >Description</label>
-                <textarea
+                <vue-editor
                   id="new_description"
                   v-model="new_description"
                   name="new_description"
-                  class="form-control"
+                  :editor-options="editorSettings"
+                  :height="'100%'"
                 />
                 <div class="error">
                 <!-- {{ formErrors('newAssignment.new_unit') }} -->
@@ -197,6 +198,11 @@ import ClassroomHeader from '../../components/ClassroomHeader';
 import ProfileImage from '../../components/ProfileImage.vue';
 import Modal from '../../components/VueNiceModal';
 import DatePicker from 'vue2-datepicker';
+import { VueEditor,Quill } from 'vue2-editor';
+import ImageResize from 'quill-image-resize-vue';
+import { ImageDrop } from 'quill-image-drop-module';
+Quill.register('modules/imageDrop', ImageDrop);
+Quill.register('modules/imageResize', ImageResize);
 import 'vue2-datepicker/index.css';
 import InteractionComponent from '../common/InteractionComponent2';
 
@@ -208,6 +214,7 @@ export default {
 		ProfileImage,
 		DatePicker,
 		InteractionComponent,
+		VueEditor,
 	},
 	data() {
 		return {
