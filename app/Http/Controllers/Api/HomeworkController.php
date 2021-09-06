@@ -52,6 +52,7 @@ class HomeworkController extends Controller
     public function index(Classroom $classroom, Request $request){
         $unitList=Unit::where('classroom_id', $classroom->id)->get();
         $homeworks = DB::table('homeworks as ho')->where('ho.classroom_id',$classroom->id)
+        ->join('classrooms as cl','cl.id','=','ho.classroom_id')
         ->join('users as us','us.id','=','ho.teacher_user_id')
         ->leftJoin('user_homework as uh','uh.homework_id','=','ho.id')
         ->leftJoin('user_homework as mh',function($join){
@@ -59,8 +60,8 @@ class HomeworkController extends Controller
         })
         ->leftJoin('homework_images as hi','hi.homework_id','=','ho.id')
         ->select('ho.id', 'ho.submission_date', 'ho.description', 'us.full_name as teacher_name', 'us.avatar_url as teacher_avatar', 'ho.created_at',
-        'mh.id as user_mark',DB::raw("COUNT(Distinct 'uh.id') as total_done"))
-        ->groupBy('ho.id', 'ho.submission_date', 'ho.description', 'us.full_name','us.avatar_url','ho.created_at', 'mh.id')
+        'mh.id as user_mark','cl.name as classroom_name',DB::raw("COUNT(Distinct 'uh.id') as total_done"))
+        ->groupBy('ho.id', 'ho.submission_date', 'ho.description', 'us.full_name','us.avatar_url','ho.created_at', 'mh.id','cl.name')
         ->get();
 
        return response()->json(['success'=>[
@@ -69,24 +70,24 @@ class HomeworkController extends Controller
         ]]); 
     }
 
-    public function show(Homework $homework, Request $request){
+    public function show(Classroom $classroom, Homework $homework){
         $homework = DB::table('homeworks as ho')->where('ho.id',$homework->id)
         ->join('users as us','us.id','=','ho.teacher_user_id')
         ->leftJoin('user_homework as uh','uh.homework_id','=','ho.id')
-        ->leftJoin('homework_image as hi','hi.homework_id','=','ho.id')
+        ->leftJoin('homework_images as hi','hi.homework_id','=','ho.id')
         ->select('ho.id', 'ho.submission_date', 'ho.description', 'us.full_name',
         DB::raw("COUNT(Distinct 'uh.id') as total_done"))
         ->groupBy('ho.id', 'ho.submission_date', 'ho.description', 'us.full_name')
         ->first();
 
-        $user_homeworks = DB::table('homeworks as ho')->where('ho.id',$homework->id)
-        ->rightJoin('classroom_users as cu','cu.clasroom_id','=','ho.classroom_id')
+        $user_homeworks = DB::table('classrooms as cl')->where('cl.id',$classroom->id)
+        ->rightJoin('classroom_users as cu','cu.classroom_id','=','cl.id')
         ->rightJoin('users as us','us.id','=','cu.user_id')
-        ->leftJoin('students as st', function($join)use($homework){
-            $join->on('st.id','=','st.user_id')->where('st.institute_id','=',$homework->classroom->institute_id);
+        ->leftJoin('students as st', function($join)use($classroom){
+            $join->on('st.id','=','st.user_id')->where('st.institute_id','=',$classroom->institute_id);
         })
         ->leftJoin('user_homework as uh','uh.user_id','=','us.id')
-        ->select('ho.id', 'ho.submission_date', 'ho.description', 'us.full_name','uh.created_at as marked_done_at')
+        ->select('us.full_name','uh.created_at as marked_done_at','st.unique_college_id as reg_no')
         ->orderBy('uh.created_at')
         ->get();
 

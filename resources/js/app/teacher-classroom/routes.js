@@ -34,7 +34,7 @@ const TeacherClassroomRoutes = [
 		component: Homework,
 	},
 	{
-		path: '/classroom/:classroomId/:homework/homework',
+		path: '/classroom/:classroomId/homework/:homework',
 		component: ShowHomework,
 	},
 	{

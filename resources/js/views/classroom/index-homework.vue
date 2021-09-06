@@ -95,6 +95,9 @@
                               </div>
                             </div> --> </span>
                   </p>
+                  <p class="font-size-14 mb-0">
+                    {{ homework.classroom_name }}
+                  </p>
                 </div>
               </div>
               <hr>
