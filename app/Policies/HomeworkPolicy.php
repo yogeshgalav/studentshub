@@ -6,10 +6,11 @@ use App\Models\Classroom;
 use App\Models\User;
 use App\Models\Institute;
 use App\Models\InstituteUser;
+use App\Models\Homework;
 use App\Facades\Auth;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ClassroomPolicy
+class HomeworkPolicy
 {
     use HandlesAuthorization;
 
@@ -45,7 +46,7 @@ class ClassroomPolicy
     public function markAsDone(User $user, Homework $homework)
     {
         $classroom_ids = $user->getClassroomIds();
-        if(in_array($$homework->classroom_id,$classroom_ids)){
+        if(in_array($homework->classroom_id,$classroom_ids)){
             return true;
         }
         return false;

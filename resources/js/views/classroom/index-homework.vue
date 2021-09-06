@@ -12,7 +12,10 @@
         </div>
       </div>
     </div>
-    <div class="row">
+    <div 
+      v-if="AuthUser.role_intended!=='student'"
+      class="row"
+    >
       <div class="col-md-12 mb-2">
         <div>
           <div class="text-right">
@@ -99,7 +102,7 @@
             </div>
             <hr>
             <interaction-component
-              :user-mark="homework.mark_as_done ? true : false"
+              :user-mark="homework.user_mark ? true : false"
               :homework-id="homework.id"
             />
           </div>

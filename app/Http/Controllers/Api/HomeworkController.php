@@ -54,10 +54,13 @@ class HomeworkController extends Controller
         $homeworks = DB::table('homeworks as ho')->where('ho.classroom_id',$classroom->id)
         ->join('users as us','us.id','=','ho.teacher_user_id')
         ->leftJoin('user_homework as uh','uh.homework_id','=','ho.id')
+        ->leftJoin('user_homework as mh',function($join){
+            return $join->on('mh.homework_id','=','ho.id')->where('mh.user_id','=',Auth::id());
+        })
         ->leftJoin('homework_images as hi','hi.homework_id','=','ho.id')
         ->select('ho.id', 'ho.submission_date', 'ho.description', 'us.full_name as teacher_name', 'us.avatar_url as teacher_avatar', 'ho.created_at',
-        DB::raw("COUNT( Distinct'uh.id') as total_done"))
-        ->groupBy('ho.id', 'ho.submission_date', 'ho.description', 'us.full_name','us.avatar_url','ho.created_at')
+        'mh.id as user_mark',DB::raw("COUNT(Distinct 'uh.id') as total_done"))
+        ->groupBy('ho.id', 'ho.submission_date', 'ho.description', 'us.full_name','us.avatar_url','ho.created_at', 'mh.id')
         ->get();
 
        return response()->json(['success'=>[
