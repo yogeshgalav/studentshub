@@ -342,7 +342,31 @@
                   for="phone"
                   class="col-form-label text-md-right mb-0"
                 >Phone Number</label>
-                <input
+                <VuePhoneNumberInput
+                  v-model="phone"
+                  v-validate="{required: isPhoneRequired}"
+                  fetch-country
+                  name="phone"
+                  placeholder="Enter Your Nmumber"
+                  data-vv-validate-on="handleSubmit"
+                  @update="countryChanged"
+                />
+                <!-- <vue-tel-input
+                  id="phone"
+                  v-model="phone"
+                  v-validate="{required: isPhoneRequired}"
+                  name="phone"
+                  data-vv-validate-on="handleSubmit"
+                  placeholder="Enter Your Nmumber"
+                  :show-code-on-list="true"
+                  :fetch-country="true"
+                  :selected-country-code="true"
+                  :mode="'international'"
+                  :error="!phoneIsValid && !initialPhoneState"
+                  @country-changed="countryChanged"
+                  @update="phoneEventPayload"
+                /> -->
+                <!-- <input
                   id="phone"
                   ref="phone"
                   v-model="phone_number"
@@ -350,7 +374,7 @@
                   class="form-control"
                   type="tel"
                   name="phone"
-                >
+                > -->
                 <span class="text-danger">{{ formErrors('phone') }}</span>
               </div>
               <div class="col-md-12 text-center">
@@ -369,6 +393,7 @@
     <site-footer />
   </div>
 </template>
+
 <style scoped>
 .center {
   text-align: -webkit-center;
@@ -402,10 +427,13 @@ import FormMixin from '../../components/mixins/form-mixin.js';
 import swal from '../../components/swal';
 import Modal from '../../components/VueNiceModal.vue';
 import SiteFooter from '../footer/SiteFooter';
+import 'vue-phone-number-input/dist/vue-phone-number-input.css';
+import VuePhoneNumberInput from 'vue-phone-number-input';
 
 export default {
 	components: {
-		SiteFooter
+		SiteFooter,
+		VuePhoneNumberInput
 	},
 	mixins: [FormMixin],
 	data() {
@@ -414,8 +442,13 @@ export default {
 			institute_name: '',
 			full_name: '',
 			email: '',
-			phone_number: '',
+			phone: '',
+			isPhoneRequired:'',
 			student_number: '',
+			phoneIsValid:true,
+			phoneWithCode:'',
+			initialPhoneState:true,
+			country:{},
 		};
 	},
 	mounted(){
@@ -454,7 +487,16 @@ export default {
 			element.scrollIntoView({ behavior: 'smooth' });
 			// var top = element.offsetTop;
 			// window.scrollTo(0, top);
-		}
-	},
+		},
+		phoneEventPayload($event) {  
+			this.phoneIsValid = $event.isValid;
+			this.phoneWithCode = $event.e164;
+		},
+		countryChanged(country) {
+			console.log(country);
+		  // country contains the object with the country code and everything else like ISo2 
+		},
+	  },
 };
+// <style src="vue-tel-input/dist/vue-tel-input.css"></style>;
 </script>
