@@ -60,7 +60,7 @@
                 </div>
                 <div class="info-post ml-2 dash_insititue_name">
                   <p class="font-size-14 mb-0 dash_user_date">
-                    {{ homework.teacher_name }} <span> {{ homework.created_at }} &nbsp; 
+                    {{ homework.teacher_name }} <span> {{ $dayjs(homework.created_at).fromNow() }} &nbsp; 
                             <!-- <div
                               v-if="homework.user_id===AuthUser.id"
                               class="dropdown d-inline"
@@ -218,6 +218,7 @@ Quill.register('modules/imageDrop', ImageDrop);
 Quill.register('modules/imageResize', ImageResize);
 
 import InteractionComponent from '../common/InteractionComponent2';
+var relativeTime = require('dayjs/plugin/relativeTime');
 
 export default {
 	name:'Homework',
@@ -255,6 +256,7 @@ export default {
 		};
 	},
 	mounted(){
+    this.$dayjs.extend(relativeTime);
 		this.axios.get('/api/classroom/'+ this.$route.params.classroomId +'/homeworks').then(resp =>{
 			this.unitList = resp.data.success.unitList;
 			this.homeworks = resp.data.success.homeworks;
