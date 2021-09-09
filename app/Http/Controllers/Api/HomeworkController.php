@@ -72,20 +72,26 @@ class HomeworkController extends Controller
         ->join('users as us','us.id','=','ho.teacher_user_id')
         ->leftJoin('user_homework as uh','uh.homework_id','=','ho.id')
         ->leftJoin('homework_images as hi','hi.homework_id','=','ho.id')
+        ->leftJoin('user_homework as mh',function($join){
+            return $join->on('mh.homework_id','=','ho.id')->where('mh.user_id','=',Auth::id());
+        })
         ->select('ho.id', 'ho.submission_date', 'ho.homework_html', 'us.full_name as teacher_name',
-        DB::raw("COUNT(Distinct 'uh.id') as total_done"))
-        ->groupBy('ho.id', 'ho.submission_date', 'ho.homework_html', 'us.full_name')
+        'mh.id as user_mark',DB::raw("COUNT(Distinct 'uh.id') as total_done"))
+        ->groupBy('ho.id', 'ho.submission_date', 'ho.homework_html', 'us.full_name','mh.id')
         ->first();
 
         $user_homeworks = DB::table('classrooms as cl')->where('cl.id',$classroom->id)
         ->rightJoin('classroom_users as cu','cu.classroom_id','=','cl.id')
         ->rightJoin('users as us','us.id','=','cu.user_id')
         ->leftJoin('students as st', function($join)use($classroom){
-            $join->on('st.id','=','st.user_id')->where('st.institute_id','=',$classroom->institute_id);
+            $join->on('us.id','=','st.user_id')->where('st.institute_id','=',$classroom->institute_id);
         })
-        ->leftJoin('user_homework as uh','uh.user_id','=','us.id')
-        ->select('us.full_name','uh.created_at as marked_done_at','st.unique_college_id as reg_no')
-        ->orderBy('uh.created_at')
+        ->leftJoin('user_homework as uh',function($join)use($homework){
+            $join->on('uh.user_id','=','us.id')->where('uh.homework_id','=',$homework->id);
+        })
+        ->select('us.id','us.full_name','uh.created_at as marked_done_at','st.unique_college_id as reg_no')
+        ->groupBy('us.id','us.full_name','uh.created_at','st.unique_college_id')
+        ->orderBy('uh.created_at','DESC')
         ->get();
 
        return response()->json(['success'=>[

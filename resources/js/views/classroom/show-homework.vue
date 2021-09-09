@@ -4,17 +4,18 @@
       <div class="row">
         <div class="col-md-12">
           <div class="">
-            <router-link
+            <a
               v-if="AuthUser"
+              target="_blank"
               class="btn btn-link ml-2 mb-2 font-size-18"
-              :to="'/doubts'"
+              @click="$router.back()"
             >
               <i
                 class="fa fa-arrow-left"
                 aria-hidden="true"
               />
               Back
-            </router-link>
+            </a>
           </div>
         </div>
       </div>
@@ -49,7 +50,7 @@
         <div class="card-body">
           <div v-if="AuthStudent">
             <button
-              v-if="markedDone"
+              v-if="!markedDone"
               class="btn btn-success btn-lg"
               @click="markDone"
             >
@@ -76,7 +77,7 @@
                 <span
                   v-if="props.row.marked_done_at"
                   class="text-success"
-                >{{ marked_done_at }}</span>
+                >{{ $dayjs(props.row.marked_done_at).format('D MMMM, YYYY') }}</span>
                 <span
                   v-else
                   class="text-danger"
@@ -133,7 +134,7 @@ export default {
 				},
 			], 
 			homeworkRow:[], 
-			markedDone:[], 
+			markedDone:false, 
 		};
 
 	},
@@ -145,10 +146,8 @@ export default {
       		axios.get('/api/classroom/' + this.$route.params.classroomId + '/homework/'+this.$route.params.homework)
 				.then(response => {
 					this.homework = response.data.success.homework;
-					this.homeworkRow = response.data.success.user_homeworks.map(node=>{
-						node.marked_done_at = node.marked_done_at ? dayjs(node.marked_done_at).format('D MMMM, YYYY') : '';
-						return node;
-					});
+					this.markedDone = this.homework.user_mark ? true : false;
+					this.homeworkRow = response.data.success.user_homeworks;
 					this.addHomeworkHtml();
 				}); 
 		},
