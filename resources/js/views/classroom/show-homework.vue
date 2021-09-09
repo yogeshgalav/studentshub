@@ -51,16 +51,18 @@
           <div v-if="AuthStudent">
             <button
               v-if="!markedDone"
-              class="btn btn-success btn-lg"
+              class="btn btn-white btn-lg"
               @click="markDone"
             >
+              <span><i class="fa fa-check text-success" />&nbsp;</span>
               Mark as Done
             </button>
             <button
               v-else
-              class="btn btn-seconday btn-lg"
+              class="btn btn-success btn-lg"
               @click="markDone"
             >
+              <span><i class="fa fa-check text-success" />&nbsp;</span>
               Marked Done
             </button>
           </div>
