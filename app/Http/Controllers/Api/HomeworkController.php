@@ -14,24 +14,21 @@ use DB;
 
 class HomeworkController extends Controller
 {
-    //
-    private $currentTime;
-
-    public function __construct(){
-        $this->currentTime = Carbon::now(request()->user('api')->timezone);
-    }
 
     public function create(Classroom $classroom, Request $request){
         $this->authorize('createHomework', $classroom);
 
-        Homework::create([
+        $homework = Homework::create([
             'submission_date'=>$request->submission_date,
             'classroom_id'=>$classroom->id,
             'teacher_user_id'=>$request->user('api')->id,
-            'description'=>$request->description,
+            'homework_html'=>$request->homework_html,
+            'homework_text'=>$request->homework_text,
             'unit_id'=>$request->unit_id,
         ]);
-        return response()->json([], 204);
+        return response()->json(['success'=>[
+            'homework_id'=>$homework->id,
+        ]]);
     }
 
     public function markAsDone(Homework $homework, Request $request){
@@ -59,9 +56,9 @@ class HomeworkController extends Controller
             return $join->on('mh.homework_id','=','ho.id')->where('mh.user_id','=',Auth::id());
         })
         ->leftJoin('homework_images as hi','hi.homework_id','=','ho.id')
-        ->select('ho.id', 'ho.submission_date', 'ho.description', 'us.full_name as teacher_name', 'us.avatar_url as teacher_avatar', 'ho.created_at',
+        ->select('ho.id', 'ho.submission_date', 'ho.homework_text', 'us.full_name as teacher_name', 'us.avatar_url as teacher_avatar', 'ho.created_at',
         'mh.id as user_mark','cl.name as classroom_name',DB::raw("COUNT(Distinct 'uh.id') as total_done"))
-        ->groupBy('ho.id', 'ho.submission_date', 'ho.description', 'us.full_name','us.avatar_url','ho.created_at', 'mh.id','cl.name')
+        ->groupBy('ho.id', 'ho.submission_date', 'ho.homework_text', 'us.full_name','us.avatar_url','ho.created_at', 'mh.id','cl.name')
         ->get();
 
        return response()->json(['success'=>[
@@ -75,9 +72,9 @@ class HomeworkController extends Controller
         ->join('users as us','us.id','=','ho.teacher_user_id')
         ->leftJoin('user_homework as uh','uh.homework_id','=','ho.id')
         ->leftJoin('homework_images as hi','hi.homework_id','=','ho.id')
-        ->select('ho.id', 'ho.submission_date', 'ho.description', 'us.full_name',
+        ->select('ho.id', 'ho.submission_date', 'ho.homework_html', 'us.full_name',
         DB::raw("COUNT(Distinct 'uh.id') as total_done"))
-        ->groupBy('ho.id', 'ho.submission_date', 'ho.description', 'us.full_name')
+        ->groupBy('ho.id', 'ho.submission_date', 'ho.homework_html', 'us.full_name')
         ->first();
 
         $user_homeworks = DB::table('classrooms as cl')->where('cl.id',$classroom->id)

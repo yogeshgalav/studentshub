@@ -57,6 +57,7 @@
               ref="editMessageModal"
               name="editMessageModal"
               heading="Edit Message"
+              classes="modal-md"
               @submit="editMessage"
             >
               <template slot="modalBody">

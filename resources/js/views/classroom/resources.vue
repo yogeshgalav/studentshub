@@ -134,6 +134,7 @@
           ref="addResourceModal"
           name="addResourceModal"
           heading="Add Resource"
+          classes="modal-md"
           @submit="addOrEditResource()"
         >
           <template slot="modalBody">

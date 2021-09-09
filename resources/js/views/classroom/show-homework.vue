@@ -31,6 +31,9 @@
           {{ 'Submission date:' +' '+homework.submission_date }}  
         </p>
       </div>
+      <div class="col-md-12">
+        <div id="homeworkHtml" />
+      </div>
     </div>
     <div class="row">
       <div class="col-md-12">
@@ -44,20 +47,22 @@
           Homework info
         </div>
         <div class="card-body">
-          <button
-            v-if="markedDone"
-            class="btn btn-success btn-lg"
-            @click="markDone"
-          >
-            Mark as Done
-          </button>
-          <button
-            v-else
-            class="btn btn-seconday btn-lg"
-            @click="markDone"
-          >
-            Marked Done
-          </button>
+          <div v-if="AuthStudent">
+            <button
+              v-if="markedDone"
+              class="btn btn-success btn-lg"
+              @click="markDone"
+            >
+              Mark as Done
+            </button>
+            <button
+              v-else
+              class="btn btn-seconday btn-lg"
+              @click="markDone"
+            >
+              Marked Done
+            </button>
+          </div>
           <vue-table-component
             key="homework"
             :columns="homeworkColumn"
@@ -144,8 +149,14 @@ export default {
 						node.marked_done_at = node.marked_done_at ? dayjs(node.marked_done_at).format('D MMMM, YYYY') : '';
 						return node;
 					});
+					this.addHomeworkHtml();
 				}); 
-
+		},
+		addHomeworkHtml() {
+			const div = document.createElement('div');
+			div.className = 'row';
+			div.innerHTML =this.homework.homework_html;
+			document.getElementById('homeworkHtml').appendChild(div);
 		},
 		markDone() {
 			this.markedDone = !this.markedDone;

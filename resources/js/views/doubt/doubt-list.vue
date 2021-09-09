@@ -147,7 +147,7 @@
           ref="addDoubtModal"
           name="addDoubtModal"
           heading="Ask doubt:"
-          size="modal-lg modal-fullscreen"
+          classes="modal-lg"
           @submit="addOrEditDoubt"
         >
           <template slot="modalBody">

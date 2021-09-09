@@ -101,7 +101,14 @@
                 </div>
               </div>
               <hr>
-              <p>{{ homework.description }}</p>
+              <p>{{ homework.homework_text }}</p>
+              <router-link
+                :to="'/classroom/'+routeClassroomId+'/homework/'+homework.id"
+                class="btn p-0 btn-link font-size-16"
+                style="text-decoration: underline;"
+              >
+                View Homework &nbsp;<i class="fa fa-arrow-right" />
+              </router-link>
             </div>
             <hr>
             <interaction-component
@@ -116,6 +123,7 @@
       ref="addHomeworkModal"
       name="addHomeworkModal"
       heading="Add Homework"
+      classes="modal-lg"
       @submit="addHomework()"
     >
       <template slot="modalBody">
@@ -176,12 +184,12 @@
               <div class="form-group">
                 <label
                   class="control-label mb-1"
-                  :for="'new_description'"
-                >Description</label>
+                  :for="'homework_html'"
+                >Homework</label>
                 <vue-editor
-                  id="new_description"
-                  v-model="new_description"
-                  name="new_description"
+                  id="homework_html"
+                  v-model="homework_html"
+                  name="homework_html"
                   :editor-options="editorSettings"
                   :height="'100%'"
                 />
@@ -201,12 +209,14 @@ import ClassroomHeader from '../../components/ClassroomHeader';
 import ProfileImage from '../../components/ProfileImage.vue';
 import Modal from '../../components/VueNiceModal';
 import DatePicker from 'vue2-datepicker';
+import 'vue2-datepicker/index.css';
+
 import { VueEditor,Quill } from 'vue2-editor';
 import ImageResize from 'quill-image-resize-vue';
 import { ImageDrop } from 'quill-image-drop-module';
 Quill.register('modules/imageDrop', ImageDrop);
 Quill.register('modules/imageResize', ImageResize);
-import 'vue2-datepicker/index.css';
+
 import InteractionComponent from '../common/InteractionComponent2';
 
 export default {
@@ -233,10 +243,15 @@ export default {
 			currentDate:new Date(),
 			new_unit : '',
 			new_homework_date:'',
-			new_description:'',
+			homework_html:'',
 			unitList:[],
 			homeworks:[],
-
+			editorSettings: {
+				modules: {
+					imageDrop: true,
+					imageResize: {},
+				}
+			},
 		};
 	},
 	mounted(){
@@ -247,14 +262,42 @@ export default {
 	},
 	methods:{
 		addHomework(){
+			let homework_text = this.getHomeworkText();
 			this.axios.post('/api/classroom/'+this.$route.params.classroomId+'/homework',{
 				'submission_date': this.new_homework_date,
-				'description':this.new_description,
+				'homework_text':homework_text,
+				'homework_html':this.homework_html,
 				'unit_id': this.new_unit
 			}).then(resp =>{
-				window.location.reload();
+				this.homeworks.push({
+					id:resp.data.success.homework_id,
+					submission_date:this.new_homework_date,
+					classroom_name:this.$store.state.classroom.classroomDetail.name,
+					homework_text:homework_text,
+					teacher_avatar:this.AuthUser.avatar_url,
+					teacher_name:this.AuthUser.full_name,
+					total_done:0,
+					created_at:'just now',
+				});
+				this.$refs.addHomeworkModal.closeModal();
 			});
-		}
+		},
+		getHomeworkText(){
+			if(this.homework_html.trim()===''){
+				return '';
+			}
+			var span= document.createElement('span');
+			span.innerHTML= this.homework_html;
+        
+			var children= span.querySelectorAll('*');
+			for(var i = 0 ; i < children.length ; i++) {
+				if(children[i].textContent)
+					children[i].textContent+= ' ';
+				else
+					children[i].innerText+= ' ';
+			}
+			return [span.textContent || span.innerText].toString();
+		},
 	}
 
 };
