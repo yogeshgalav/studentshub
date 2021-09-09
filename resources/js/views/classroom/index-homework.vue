@@ -265,7 +265,7 @@ export default {
 			let homework_text = this.getHomeworkText();
 			this.axios.post('/api/classroom/'+this.$route.params.classroomId+'/homework',{
 				'submission_date': this.new_homework_date,
-				'homework_text':homework_text,
+				'homework_text':this.getHomeworkText(),
 				'homework_html':this.homework_html,
 				'unit_id': this.new_unit
 			}).then(resp =>{

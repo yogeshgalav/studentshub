@@ -10,7 +10,10 @@ use Carbon\Carbon;
 use Auth;
 use App\Models\Classroom;
 use App\Models\Unit;
+use App\Models\SthubFile;
 use DB;
+use App\Services\simple_html_dom;
+use Storage;
 
 class HomeworkController extends Controller
 {
@@ -18,14 +21,28 @@ class HomeworkController extends Controller
     public function create(Classroom $classroom, Request $request){
         $this->authorize('createHomework', $classroom);
 
+        $simple_html_dom = new simple_html_dom;
+        $dom = $simple_html_dom->extactImageFiles($request->homework_html);
         $homework = Homework::create([
             'submission_date'=>$request->submission_date,
             'classroom_id'=>$classroom->id,
             'teacher_user_id'=>$request->user('api')->id,
-            'homework_html'=>$request->homework_html,
+            'homework_html'=>$dom->html,
             'homework_text'=>$request->homework_text,
             'unit_id'=>$request->unit_id,
         ]);
+
+        foreach($dom->files as $file){
+            $newFile= new SthubFile();
+            $newFile->fileable_id=$homework->id;
+            $newFile->fileable_type='App\Models\Homework';
+            $newFile->file_ext=Storage::disk('local')->getMimeType($file['file_path']);
+            $newFile->file_size=Storage::disk('local')->size($file['file_path']);
+            $newFile->file_name=$file['file_name'];
+            $newFile->user_id=Auth::user()->id;
+            $newFile->save();
+        }
+
         return response()->json(['success'=>[
             'homework_id'=>$homework->id,
         ]]);
