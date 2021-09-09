@@ -72,7 +72,7 @@ class HomeworkController extends Controller
         ->join('users as us','us.id','=','ho.teacher_user_id')
         ->leftJoin('user_homework as uh','uh.homework_id','=','ho.id')
         ->leftJoin('homework_images as hi','hi.homework_id','=','ho.id')
-        ->select('ho.id', 'ho.submission_date', 'ho.homework_html', 'us.full_name',
+        ->select('ho.id', 'ho.submission_date', 'ho.homework_html', 'us.full_name as teacher_name',
         DB::raw("COUNT(Distinct 'uh.id') as total_done"))
         ->groupBy('ho.id', 'ho.submission_date', 'ho.homework_html', 'us.full_name')
         ->first();

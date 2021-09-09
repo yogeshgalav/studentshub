@@ -154,7 +154,7 @@ export default {
 		},
 		addHomeworkHtml() {
 			const div = document.createElement('div');
-			div.className = 'row';
+			div.className = 'font-size-24';
 			div.innerHTML =this.homework.homework_html;
 			document.getElementById('homeworkHtml').appendChild(div);
 		},
