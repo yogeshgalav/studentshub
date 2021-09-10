@@ -76,6 +76,7 @@ class HomeworkController extends Controller
         ->select('ho.id', 'ho.submission_date', 'ho.homework_text', 'us.full_name as teacher_name', 'us.avatar_url as teacher_avatar', 'ho.created_at',
         'mh.id as user_mark','cl.name as classroom_name',DB::raw("COUNT(Distinct 'uh.id') as total_done"))
         ->groupBy('ho.id', 'ho.submission_date', 'ho.homework_text', 'us.full_name','us.avatar_url','ho.created_at', 'mh.id','cl.name')
+        ->orderBy('ho.submission_date','DESC')
         ->get();
 
        return response()->json(['success'=>[

@@ -101,6 +101,9 @@
                 </div>
               </div>
               <hr>
+              <p class="font-size-14 text-grey mb-0">
+                Submission Date: {{ $dayjs(homework.submission_date).format('D MMMM, YYYY') }}
+              </p>
               <p>{{ homework.homework_text }}</p>
               <router-link
                 :to="'/classroom/'+routeClassroomId+'/homework/'+homework.id"
@@ -256,7 +259,7 @@ export default {
 		};
 	},
 	mounted(){
-    this.$dayjs.extend(relativeTime);
+		this.$dayjs.extend(relativeTime);
 		this.axios.get('/api/classroom/'+ this.$route.params.classroomId +'/homeworks').then(resp =>{
 			this.unitList = resp.data.success.unitList;
 			this.homeworks = resp.data.success.homeworks;
