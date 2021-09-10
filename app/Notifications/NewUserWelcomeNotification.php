@@ -14,7 +14,7 @@ use App\Models\ScheduledJob;
 use Carbon\Carbon;
 use NotificationChannels\WebPush\WebPushMessage;
 use NotificationChannels\WebPush\WebPushChannel;
-use Notification;
+use Illuminate\Notifications\Notification;
 
 class NewUserWelcomeNotification extends Notification
 {
