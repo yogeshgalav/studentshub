@@ -22,13 +22,13 @@ class HomeworkController extends Controller
         $this->authorize('createHomework', $classroom);
 
         $simple_html_dom = new simple_html_dom;
-        $dom = $simple_html_dom->extactImageFiles($request->homework_html, "homework-images/");
+        $dom = $simple_html_dom->extactImageFiles($request->homework_html, "homework-images");
         $homework = Homework::create([
             'submission_date'=>$request->submission_date,
             'classroom_id'=>$classroom->id,
             'teacher_user_id'=>$request->user('api')->id,
             'homework_html'=>$dom->html,
-            'homework_text'=>$request->homework_text,
+            'homework_text'=>$request->homework_text ?? 'Complete the following homework.',
             'unit_id'=>$request->unit_id,
         ]);
 
