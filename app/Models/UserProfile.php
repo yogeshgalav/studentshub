@@ -9,5 +9,5 @@ class UserProfile extends Model
 {
     use HasFactory;
     protected  $guarded = ['id', 'created_at', 'updated_at'];
-    protected $table ="user_profile";
+    protected $table ="user_profiles";
 }
