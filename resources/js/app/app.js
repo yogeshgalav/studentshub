@@ -12,8 +12,10 @@ import 'vue-loading-overlay/dist/vue-loading.css';
 import Dayjs from 'vue-dayjs';
 import ProfileImage from '../components/ProfileImage';
 import NotificationsDropdown from '../components/NotificationsDropdown.vue';
-
 import VueLazyload from 'vue-lazyload';
+
+
+
 Vue.use(VueLazyload);
 Vue.use(Dayjs, {
 	lang:'en',

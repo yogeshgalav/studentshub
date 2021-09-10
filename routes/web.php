@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 require_once('web/guest.php');
 require_once('web/seeker.php');
 require_once('web/student.php');
@@ -73,3 +72,7 @@ Route::get('/js/lang.js', function () {
     echo('window.lang = ' . json_encode($strings) . ';');
     exit();
 })->name('assets.lang');
+
+Route::get('/schedule-jobs', function () {
+    \Artisan::call('schedule:run');
+});
