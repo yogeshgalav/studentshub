@@ -12,7 +12,7 @@ const mix = require('laravel-mix');
  */
 
 mix
-.extract(['vue','vue-router','vue-axios','axios','vue-sweetalert2'], 'public/js/vue.js')
+.extract(['vue','vue-router','vue-axios','axios','vue-sweetalert2','dayjs','vue-dayjs'], 'public/js/vue.js')
 .extract(['chart.js'], 'public/js/chart.js')
 .js('resources/js/app/guest/app.js', 'public/js/app.js')
 .js('resources/js/app/seeker/app.js', 'public/js/seekerApp.js')

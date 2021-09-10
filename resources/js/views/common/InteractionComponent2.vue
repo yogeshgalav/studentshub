@@ -4,28 +4,25 @@
       v-if="AuthUser"
       class="row"
     >
-      <div class="col-md-4 col-6"> 
+      <div
+        v-if="AuthUser.role_intended==='student'"
+        class="col-md-4 col-6"
+      > 
         <button
           type="button"
           class="btn"
-          @click="sendUserLike()"
+          @click="markAsDone()"
         >
           <p
-            v-if="like_active"
-            class="text-primary pl-3 pr-3"
+            v-if="mark_active"
+            class="text-success pl-3 pr-3"
           >
-            <span><i class="fas fa-thumbs-up text-primary" />&nbsp;</span>
-            {{ totallikes }} Like
-          </p>
-          <p 
-            v-else-if="totallikes===0"
-          >
-            <span><i class="far fa-thumbs-up" />&nbsp;</span>
-            Like
+            <span><i class="fa fa-check text-success" />&nbsp;</span>
+            Marked Done
           </p>
           <p v-else>
-            <span><i class="far fa-thumbs-up" />&nbsp;</span>
-            {{ totallikes }} Like
+            <span><i class="fa fa-check" />&nbsp;</span>
+            Mark as done
           </p>
         </button>
       </div>
@@ -52,8 +49,8 @@
       <hr>
       <comment-section 
         :key="Math.random()"
-        :commentable-id="likableId"
-        :commentable-type="likableType"
+        :commentable-id="homeworkId"
+        :commentable-type="'homework'"
       />
     </div>
   </div>
@@ -87,73 +84,38 @@ export default {
 		CommentSection
 	},
 	props:{
-		'userLike':{
+		'userMark':{
 			'type':Boolean,
 			'required':false,
 			'default':false,
 		},
-		'totalLikes':{
+		'homeworkId':{
 			'type':Number,
 			'required':true,
-			'default':0,
-		},
-		'likableId':{
-			'type':Number,
-			'required':true,
-		},
-		'likableType':{
-			'type':String,
-			'required':true,
-		},
-		'editAccess':{
-			'type':Boolean,
-			'required':false,
-			'default':false
 		},
 	},
 	data(){
 		return {
-			like_active:false,
+			mark_active:false,
 			comment_active:false,
-			totallikes:0,
-			comments:[],
-			comment_text:'',
 		};
 	},
 	watch: {
-		userLike: function() {
+		userMark: function(val) {
 			// this.user_like = this.postContent.user_like;
-			this.totallikes = this.totalLikes;
-			if(this.userLike === 1){
-				this.like_active = true;
-			}else{
-				this.like_active = false;
-			}
+			this.mark_active = val ? true : false;
 		}
 	},
 	mounted(){
-		this.totallikes = this.totalLikes;
-		if(this.userLike === true){
-			this.like_active = true;
-		}else{
-			this.like_active = false;
-		}
+		this.mark_active = this.userMark ? true : false;
 	},
 	methods:{
-		sendUserLike() {
-			this.like_active = !this.like_active;
-			if(this.like_active){	
-				this.totallikes += 1;
-			}
-			else if(!this.like_active){
-        	this.totallikes -= 1;
-			}
-			this.axios.post('/api/user-like/post', {
-				likable_id: this.likableId,
-				likable_type:this.likableType,
-			}).catch(err => {
-				this.like_active = !this.like_active;
-			});
+		markAsDone(){
+			this.mark_active = !this.mark_active;
+			this.axios.post('/api/homework/'+this.homeworkId+'/mark-as-done')
+				.catch(err =>{
+					this.mark_active = !this.mark_active;
+				});
 		},
 		toggleComment(){
 			this.comment_active = !this.comment_active;

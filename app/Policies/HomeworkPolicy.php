@@ -6,10 +6,11 @@ use App\Models\Classroom;
 use App\Models\User;
 use App\Models\Institute;
 use App\Models\InstituteUser;
+use App\Models\Homework;
 use App\Facades\Auth;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ClassroomPolicy
+class HomeworkPolicy
 {
     use HandlesAuthorization;
 
@@ -42,32 +43,12 @@ class ClassroomPolicy
         }
         return false;
     }
-
-    /**
-     * Determine whether the user can create models.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Institute  $institute
-     * @return mixed
-     */
-    public function create(User $user, Institute $institute)
+    public function markAsDone(User $user, Homework $homework)
     {
-        if($user->role_intended==='sthubAdmin'){
+        $classroom_ids = $user->getClassroomIds();
+        if(in_array($homework->classroom_id,$classroom_ids)){
             return true;
         }
-        $is_teacher = InstituteUser::where('user_id',$user->id)
-        ->where('institute_id', $institute->id)
-        ->exists();
-
-        if($is_teacher){
-            return true;
-        }
-        // if($user->role==='instituteAdmin'){
-        //     return true;
-        // }
-        // if($user->role==='superAdmin'){
-        //     return true;
-        // }
         return false;
     }
 
@@ -103,30 +84,6 @@ class ClassroomPolicy
      * @return mixed
      */
     public function delete(User $user, Classroom $classroom)
-    {
-        if($user->role_intended==='sthubAdmin'){
-            return true;
-        }
-        if($classroom->teacher_user_id===$user->id){
-            return true;
-        }
-        // if($user->role==='instituteAdmin'){
-        //     return true;
-        // }
-        // if($user->role==='superAdmin'){
-        //     return true;
-        // }
-        return false;
-    }
-
-        /**
-     * Determine whether the user can create models.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Classroom  $classroom
-     * @return mixed
-     */
-    public function createHomework(User $user, Classroom $classroom)
     {
         if($user->role_intended==='sthubAdmin'){
             return true;

@@ -8,6 +8,8 @@ import ClassroomReportComponent from '../../views/classroom/report.vue';
 import ClassroomStudentPanelComponent from '../../views/classroom/teacher/student-panel.vue';
 import ClassroomAttendanceComponent from '../../views/classroom/teacher/attendance.vue';
 import StudentsComponent from '../../views/common/students.vue';
+import Homework from '../../views/classroom/index-homework.vue';
+import ShowHomework from '../../views/classroom/show-homework.vue';
 
 const TeacherClassroomRoutes = [
 	{
@@ -26,6 +28,14 @@ const TeacherClassroomRoutes = [
 	{
 		path: '/classroom/:classroomId/daily-assignment',
 		component: ClassroomDailyAssignmentComponent,
+	},
+	{
+		path: '/classroom/:classroomId/homeworks',
+		component: Homework,
+	},
+	{
+		path: '/classroom/:classroomId/homework/:homework',
+		component: ShowHomework,
 	},
 	{
 		path: '/classroom/:classroomId/resources',
