@@ -11,7 +11,47 @@
           </div>
           <div class="info-post ml-2 dash_insititue_name">
             <p class="font-size-14 mb-0 dash_user_date">
-              {{ post.user_name }}  <span>  {{ post.time }}</span>
+              {{ post.user_name }}  <span>  {{ post.time }}
+                <div
+                  class="dropdown d-inline"
+                >
+                  <button
+                    id="dropdownMenuButton"
+                    class="btn btn-secondary dropdown-toggle p-0"
+                    type="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    <i class="fas fa-ellipsis-v" />
+                  </button>
+                  <div
+                    class="dropdown-menu dropdown-menu-right"
+                    style="min-width: max-content;"
+                    aria-labelledby="dropdownMenuButton"
+                  >
+                    <button
+                      type="button"
+                      class="dropdown-item"
+                      data-toggle="modal"
+                      data-target="#addDoubtModal"
+                      @click="copyLink(post.id)"
+                    >Copy Link</button> 
+                    <button
+                      type="button"
+                      class="dropdown-item"
+                      data-toggle="modal"
+                      data-target="#addDoubtModal"
+                      @click="editPost(post.id)"
+                    >Edit</button> 
+                    <button
+                      type="button"
+                      class="dropdown-item"
+                      @click="deletePost(post.id)"
+                    >Delete</button>
+                  </div>
+                </div>
+              </span>
             </p>
             <p class="font-size-14 mb-0">
               {{ post.institute_name }}
@@ -110,6 +150,10 @@ export default {
 			document.title = post.heading;
 			this.$store.commit('common/set_post_initial',post);
 			this.$router.push({ path: `/post/${post.id}` });
+		},
+		deletePost(id){
+			this.axios.delete('api/post/'+this.post.id);
+			location.reload();
 		},
 	},
 
