@@ -10,6 +10,7 @@ use App\Models\ClassroomResource;
 use App\Models\ClassroomMessage;
 use App\Models\Doubt;
 use App\Models\Comment;
+use App\Models\Homework;
 
 class CommentController extends Controller
 {
@@ -28,7 +29,10 @@ public function get($commentable_type, $commentable_id)
         break;
         case 'message':
         $model = ClassroomMessage::class;
-            break;    
+        break;    
+        case 'homework':
+        $model = Homework::class;
+        break;    
     }
 
     $comments = Comment::where('commentable_type',$model)
@@ -58,7 +62,10 @@ public function get($commentable_type, $commentable_id)
             break;
             case 'message':
             $model = ClassroomMessage::class;
-            break;    
+            break;
+            case 'homework':
+            $model = Homework::class;
+            break; 
         }
     
         $comment = Comment::create([

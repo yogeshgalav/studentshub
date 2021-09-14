@@ -314,11 +314,11 @@ export default {
 				'homework_html':this.homework_html,
 				'unit_id': this.new_unit
 			}).then(resp =>{
-				this.homeworks.push({
+				this.homeworks.unshift({
 					id:resp.data.success.homework_id,
 					submission_date:this.new_homework_date,
 					classroom_name:this.$store.state.classroom.classroomDetail.name,
-					homework_text:homework_text,
+					homework_text:homework_text ? homework_text : 'Complete the following homework.',
 					teacher_avatar:this.AuthUser.avatar_url,
 					teacher_name:this.AuthUser.full_name,
 					total_done:0,
