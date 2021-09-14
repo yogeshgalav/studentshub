@@ -118,4 +118,41 @@ class HomeworkController extends Controller
        ]]); 
     }
 
+    public function update(Homework $homework, Request $request){
+        $student=Auth::student();
+        $selected_subject=$request->subject;
+
+        if($doubt->user_id!==Auth::id() || is_null($student)){
+            abort(403);
+        }
+
+        DB::beginTransaction();
+    try{
+        $subject=Subject::getOrCreate(null, $selected_subject['subject_name'], Auth::student()->categoryId);
+
+        $homework->user_id = Auth::user()->id;
+        $homework->question = $request->doubt;
+        $homework->subject_id = $subject->id;
+        $homework->institute_id = $student->instituteId;
+        $homework->course_id = $student->courseId;
+        $homework->save();
+        // ScheduledJob::newDoubtNotification($doubt);
+
+
+    DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            Log::critical('Doubt edit failure',['data'=>$request->all(),'error'=>$e->getMessage()]);
+            // dd($e->getMessage(),$e->getLine());
+            return response()->$e;
+        }
+        return 'success';
+      }
+
+
+    public function delete(Homework $homework){
+        $homework->delete();
+        return response()->json([], 204);
+      }
+
 }

@@ -60,7 +60,40 @@
                 </div>
                 <div class="info-post ml-2 dash_insititue_name">
                   <p class="font-size-14 mb-0 dash_user_date">
-                    {{ homework.teacher_name }} <span> {{ $dayjs(homework.created_at).fromNow() }} &nbsp; 
+                    {{ homework.teacher_name }} <span> {{ $dayjs(homework.created_at).fromNow() }} 
+                      <div
+                        v-if="AuthUser.role_intended!=='student'"
+                        class="dropdown d-inline"
+                      >
+                        <button
+                          id="dropdownMenuButton"
+                          class="btn btn-secondary dropdown-toggle p-0"
+                          type="button"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        >
+                          <i class="fas fa-ellipsis-v" />
+                        </button>
+                        <div
+                          class="dropdown-menu dropdown-menu-right"
+                          style="min-width: max-content;"
+                          aria-labelledby="dropdownMenuButton"
+                        >
+                          <button
+                            type="button"
+                            class="dropdown-item"
+                            data-toggle="modal"
+                            data-target="#addHomeworkModal"
+                            @click="editHomework(homework)"
+                          >Edit</button> 
+                          <button
+                            type="button"
+                            class="dropdown-item"
+                            @click="deleteHomework(homework.id)"
+                          >Delete</button>
+                        </div>
+                      </div>
                             <!-- <div
                               v-if="homework.user_id===AuthUser.id"
                               class="dropdown d-inline"
@@ -127,7 +160,7 @@
       name="addHomeworkModal"
       heading="Add Homework"
       classes="modal-lg"
-      @submit="addHomework()"
+      @submit="addOrEditHomework"
     >
       <template slot="modalBody">
         <form data-vv-scope="newHomework">
@@ -256,16 +289,23 @@ export default {
 					imageResize: {},
 				}
 			},
+			edit_homework_id:'',
+		
+
+      
 		};
 	},
 	mounted(){
-		this.$dayjs.extend(relativeTime);
-		this.axios.get('/api/classroom/'+ this.$route.params.classroomId +'/homeworks').then(resp =>{
-			this.unitList = resp.data.success.unitList;
-			this.homeworks = resp.data.success.homeworks;
-		});
+		this.setupPage();
 	},
 	methods:{
+		setupPage(){
+			this.$dayjs.extend(relativeTime);
+			this.axios.get('/api/classroom/'+ this.$route.params.classroomId +'/homeworks').then(resp =>{
+				this.unitList = resp.data.success.unitList;
+				this.homeworks = resp.data.success.homeworks;
+			});
+		},
 		addHomework(){
 			let homework_text = this.getHomeworkText();
 			this.axios.post('/api/classroom/'+this.$route.params.classroomId+'/homework',{
@@ -303,6 +343,44 @@ export default {
 			}
 			return [span.textContent || span.innerText].toString();
 		},
+    	addOrEditHomework(){
+    		if(this.edit_doubt_id){
+    			this.updateHomework();
+    			return true;
+    		}
+    		this.addHomework();
+    		return true;
+    	},
+
+		updateDoubt()
+    	{
+    		this.axios.post('/api/homework/' + this.edit_homework_id + '/edit',{
+    		'submission_date': this.new_homework_date,
+				'homework_text':this.getHomeworkText(),
+				'homework_html':this.homework_html,
+				'unit_id': this.new_unit
+    		}).then(resp => {
+    				// this.$modal.hide('add_doubt_modal');
+    				this.$refs.addDoubtModal.closeModal();
+    				this.setupPage();
+    			})
+    			.catch(err => {
+    				reject(err);
+    			});
+    	},
+
+		editHomework(hw){
+    		this.edit_homework_id = hw.id;
+    		this.homework_html = hw.text;
+			this.new_homework_date = hw.submission_date;
+			this.new_unit = hw.classroom_name;
+    		
+    	},
+    	deleteHomework(HomeworkId){
+    		this.axios.delete('/api/homework-delete/' + HomeworkId).then((resp)=>{
+    			window.location.reload();
+    		});
+    	},
 	}
 
 };
