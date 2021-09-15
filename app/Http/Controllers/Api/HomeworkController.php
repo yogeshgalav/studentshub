@@ -119,34 +119,33 @@ class HomeworkController extends Controller
     }
 
     public function update(Homework $homework, Request $request){
-        $student=Auth::student();
-        $selected_subject=$request->subject;
+        $this->authorize('createHomework', $classroom);
 
-        if($doubt->user_id!==Auth::id() || is_null($student)){
-            abort(403);
+        $simple_html_dom = new simple_html_dom;
+        $dom = $simple_html_dom->extactImageFiles($request->homework_html, "homework-images/");
+        $homework->update([
+            'submission_date'=>$request->submission_date,
+            'classroom_id'=>$classroom->id,
+            'teacher_user_id'=>$request->user('api')->id,
+            'homework_html'=>$dom->html,
+            'homework_text'=>$request->homework_text,
+            'unit_id'=>$request->unit_id,
+        ]);
+
+        foreach($dom->files as $file){
+            $newFile= new SthubFile();
+            $newFile->fileable_id=$homework->id;
+            $newFile->fileable_type='App\Models\Homework';
+            $newFile->file_ext=Storage::disk('local')->getMimeType($file['file_path']);
+            $newFile->file_size=Storage::disk('local')->size($file['file_path']);
+            $newFile->file_name=$file['file_name'];
+            $newFile->user_id=Auth::user()->id;
+            $newFile->save();
         }
 
-        DB::beginTransaction();
-    try{
-        $subject=Subject::getOrCreate(null, $selected_subject['subject_name'], Auth::student()->categoryId);
-
-        $homework->user_id = Auth::user()->id;
-        $homework->question = $request->doubt;
-        $homework->subject_id = $subject->id;
-        $homework->institute_id = $student->instituteId;
-        $homework->course_id = $student->courseId;
-        $homework->save();
-        // ScheduledJob::newDoubtNotification($doubt);
-
-
-    DB::commit();
-        } catch (\Exception $e) {
-            DB::rollback();
-            Log::critical('Doubt edit failure',['data'=>$request->all(),'error'=>$e->getMessage()]);
-            // dd($e->getMessage(),$e->getLine());
-            return response()->$e;
-        }
-        return 'success';
+        return response()->json(['success'=>[
+            'homework_id'=>$homework->id,
+        ]]);
       }
 
 

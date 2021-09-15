@@ -354,7 +354,7 @@ export default {
 
 		updateDoubt()
     	{
-    		this.axios.post('/api/homework/' + this.edit_homework_id + '/edit',{
+    		this.axios.put('/api/homework/' + this.edit_homework_id ,{
     		'submission_date': this.new_homework_date,
 				'homework_text':this.getHomeworkText(),
 				'homework_html':this.homework_html,
@@ -377,7 +377,7 @@ export default {
     		
     	},
     	deleteHomework(HomeworkId){
-    		this.axios.delete('/api/homework-delete/' + HomeworkId).then((resp)=>{
+    		this.axios.delete('/api/homework/' + HomeworkId).then((resp)=>{
     			window.location.reload();
     		});
     	},
