@@ -22,7 +22,40 @@
           >
             <h5 class="pb-0 mb-0">
               {{ comment.user_name }}
-            </h5>
+            </h5> <span>
+              <div
+                class="dropdown d-inline"
+              >
+                <button
+                  id="dropdownMenuButton"
+                  class="btn btn-secondary dropdown-toggle p-0"
+                  type="button"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <i class="fas fa-ellipsis-v" />
+                </button>
+                <div
+                  class="dropdown-menu dropdown-menu-right"
+                  style="min-width: max-content;"
+                  aria-labelledby="dropdownMenuButton"
+                >
+                  <button
+                    type="button"
+                    class="dropdown-item"
+                    data-toggle="modal"
+                    data-target="#addHomeworkModal"
+                    @click="editComment(comment)"
+                  >Edit</button> 
+                  <button
+                    type="button"
+                    class="dropdown-item"
+                    @click="deleteComment(comment.id)"
+                  >Delete</button>
+                </div>
+              </div>
+            </span>
             <p class="mb-0">
               {{ comment.comment_text }}
             </p>
@@ -134,6 +167,12 @@ export default {
 			});
 				
 		},
+		deleteComment(commentId){
+    		this.axios.delete('/api/comment-delete/' + commentId).then((resp)=>{
+    			// window.location.reload();
+    		});
+    	},
+
 	}
 };
 </script>

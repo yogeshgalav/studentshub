@@ -79,4 +79,9 @@ public function get($commentable_type, $commentable_id)
                 'comment_id'=>$comment->id,
             ]]);
      }
+
+     public function delete(Comment $comment){
+        $comment->delete();
+        return response()->json([], 204);
+      }
 }

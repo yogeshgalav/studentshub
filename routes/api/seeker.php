@@ -26,5 +26,6 @@ Route::group(['middleware' => ['auth:api']], function () {
     //comments
     Route::get('/{commentable_type}/{commentable_id}/comment', 'CommentController@get');
     Route::post('/comment', 'CommentController@create');
+    Route::delete('/comment-delete/{CommentId}','CommentController@delete');
 
 });
