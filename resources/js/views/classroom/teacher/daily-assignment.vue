@@ -340,9 +340,9 @@ import EditQuestions from './edit-questions';
 import QuestionReport from './question-report';
 import DatePicker from 'vue2-datepicker';
 import 'vue2-datepicker/index.css';
-import dayjs from 'dayjs';
-var customParseFormat = require('dayjs/plugin/customParseFormat');
-dayjs.extend(customParseFormat);
+
+
+this.$dayjs.extend(customParseFormat);
 
 export default {
 	components: {
@@ -386,25 +386,25 @@ export default {
 			if(!this.current_assignment){
 				return '';
 			}
-			if(this.current_assignment.attempt_date!==dayjs().format('YYYY-MM-DD')){
+			if(this.current_assignment.attempt_date!==this.$dayjs().format('YYYY-MM-DD')){
 				return '00:00';
 			}
-			return  dayjs().add(15 - dayjs().minute() % 15, 'minutes').format('HH:mm');
+			return  this.$dayjs().add(15 - this.$dayjs().minute() % 15, 'minutes').format('HH:mm');
 		},
 		currentUserEndTime(){
 			if(!this.current_assignment){
 				return '';
 			}
 			if(this.assignmentStartTime){
-				return dayjs(this.assignmentStartTime,'hh:mm a').add(15, 'minutes').format('HH:mm');
+				return this.$dayjs(this.assignmentStartTime,'hh:mm a').add(15, 'minutes').format('HH:mm');
 			}
 			return  this.currentUserStartTime;
 		},
 	},
 	watch:{
 		current_assignment(val){
-			this.assignmentStartTime = val.start_time ? dayjs(val.start_time,'HH:mm:ss').format('hh:mm a') : '';
-			this.assignmentEndTime = val.end_time ? dayjs(val.end_time,'HH:mm:ss').format('hh:mm a') : '';
+			this.assignmentStartTime = val.start_time ? this.$dayjs(val.start_time,'HH:mm:ss').format('hh:mm a') : '';
+			this.assignmentEndTime = val.end_time ? this.$dayjs(val.end_time,'HH:mm:ss').format('hh:mm a') : '';
 		}
 	},
 	mounted() {
@@ -418,7 +418,7 @@ export default {
 				.then((resp) => {
 					this.unitList = resp.data.success.unitList;
 					this.assignment_list = resp.data.success.assignment_list.map(node=>{
-						node.show_date = dayjs(node.attempt_date, 'YYYY-MM-DD').format('D MMM, YYYY');
+						node.show_date = this.$dayjs(node.attempt_date, 'YYYY-MM-DD').format('D MMM, YYYY');
 						return node;
 					});
 					this.setCurrentAssignment();
@@ -438,7 +438,7 @@ export default {
 			this.current_assignment={
 				id: assignment.id,
 				unit_id: assignment.unit_id,
-				attempt_date: dayjs(assignment.attempt_date, 'YYYY-MM-DD').format('DD-MM-YYYY'),
+				attempt_date: this.$dayjs(assignment.attempt_date, 'YYYY-MM-DD').format('DD-MM-YYYY'),
 				show_date: assignment.show_date,
 				start_time: assignment.start_time,
 				end_time: assignment.end_time,
@@ -455,12 +455,12 @@ export default {
 					this.axios
 				      .post('/api/classroom/' + this.$route.params.classroomId + '/create-assignment', {
 							unit_id: this.new_unit,
-							attempt_date: dayjs(this.new_assignment_date, 'DD-MM-YYYY').format('YYYY-MM-DD'),
+							attempt_date: this.$dayjs(this.new_assignment_date, 'DD-MM-YYYY').format('YYYY-MM-DD'),
 						})
 						.then((resp) => {
 							let new_assignment =resp.data.success.assignment;
-							new_assignment.show_date = dayjs(new_assignment.attempt_date, 'YYYY-MM-DD').format('D MMM, YYYY');
-							new_assignment.attempt_date = dayjs(new_assignment.attempt_date, 'YYYY-MM-DD').format('DD-MM-YYYY');
+							new_assignment.show_date = this.$dayjs(new_assignment.attempt_date, 'YYYY-MM-DD').format('D MMM, YYYY');
+							new_assignment.attempt_date = this.$dayjs(new_assignment.attempt_date, 'YYYY-MM-DD').format('DD-MM-YYYY');
 							new_assignment['daily_report_count'] = 0;
 							this.assignment_list.unshift(new_assignment);
 							this.current_assignment = new_assignment;
@@ -479,11 +479,11 @@ export default {
 		timeFormat(type,newValue){
 			if(type==='start'){
 			  this.assignmentStartTime = newValue;
-				this.current_assignment.start_time = dayjs(newValue,'hh:mm a').format('HH:mm:ss');
+				this.current_assignment.start_time = this.this.$dayjs(newValue,'hh:mm a').format('HH:mm:ss');
 			}
 			if(type==='end'){
 			  this.assignmentEndTime = newValue;
-				this.current_assignment.end_time = dayjs(newValue,'hh:mm a').format('HH:mm:ss'); 
+				this.current_assignment.end_time = this.this.$dayjs(newValue,'hh:mm a').format('HH:mm:ss'); 
 			}
 			this.updateAssignment();
 		},
@@ -495,7 +495,7 @@ export default {
 				.post('/api/daily-assignment/' + this.current_assignment.id + '/update', {
 					assignment_id: this.current_assignment.id,
 					unit_id: this.current_assignment.unit_id,
-					attempt_date: dayjs(this.current_assignment.attempt_date, 'DD-MM-YYYY').format('YYYY-MM-DD'),
+					attempt_date: this.this.$dayjs(this.current_assignment.attempt_date, 'DD-MM-YYYY').format('YYYY-MM-DD'),
 					start_time: this.current_assignment.start_time,
 					end_time: this.current_assignment.end_time,
 				})

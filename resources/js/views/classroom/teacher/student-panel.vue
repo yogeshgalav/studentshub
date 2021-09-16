@@ -56,7 +56,6 @@
 import ClassroomHeader from '../../../components/ClassroomHeader';
 import NavigationComponent from '../../../components/NavigationComponent';
 import DailyAnswerReport from '../DailyAnswerReport';
-import dayjs from 'dayjs';
 import StudentReport from '../student-report.vue';
 
 export default {
@@ -68,7 +67,7 @@ export default {
 	},
 	filters: {
 		timeFormat(time) {
-			return dayjs(time, 'hh:mm:ss').format('hh:mm A');
+			return $dayjs(time, 'hh:mm:ss').format('hh:mm A');
 		},
 	},
 	data() {

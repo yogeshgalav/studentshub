@@ -82,7 +82,8 @@ import ClassroomHeader from '../../../components/ClassroomHeader';
 import VueTableComponent from '../../../components/vue-table-component';
 import swal from '../../../components/swal';
 
-import dayjs from 'dayjs';
+
+
 export default {
 	components: {
 		ClassroomHeader,
@@ -123,8 +124,8 @@ export default {
 			if(!this.attendance){
 				return false;
 			}
-			let ended_at = dayjs(this.attendance.ended_at);
-			let current_time = dayjs();
+			let ended_at = this.$dayjs(this.attendance.ended_at);
+			let current_time = this.$dayjs();
 			if(!this.attendance.present_at && current_time.isBefore(ended_at) ){
 				return true;
 			}
@@ -132,6 +133,7 @@ export default {
 		}
 	},
 	mounted(){
+		
 		this.getAttendanceDetails();
 	},
 	methods: {
@@ -140,9 +142,9 @@ export default {
 			this.axios('/api/classroom/'+ this.$route.params.classroomId +'/get-student-attendance').then((resp)=>{
 				this.attendance = resp.data.success.attendance;
 				this.attendRow = resp.data.success.attend_rows.map(node=>{
-					node.joined_at = dayjs(node.joined_at, 'hh:mm:ss').format('hh:mm A');
-					node.present_at = node.present_at ? dayjs(node.present_at, 'hh:mm:ss').format('hh:mm A') : '';
-					node.meet_date = dayjs(node.meet_date, 'YYYY-MM-DD').format('D MMMM, YYYY');
+					node.joined_at = this.$dayjs(node.joined_at, 'hh:mm:ss').format('hh:mm A');
+					node.present_at = node.present_at ? this.$dayjs(node.present_at, 'hh:mm:ss').format('hh:mm A') : '';
+					node.meet_date = this.$dayjs(node.meet_date, 'YYYY-MM-DD').format('D MMMM, YYYY');
 					return node;
 				});;
 				this.loading=false;
@@ -157,9 +159,9 @@ export default {
 			this.axios('/api/classroom/'+ this.$route.params.classroomId +'/mark-present').then((resp)=>{
 				this.attendance = resp.data.success.attendance;
 				this.attendRow = resp.data.success.attend_rows.map(node=>{
-					node.joined_at = dayjs(node.joined_at, 'hh:mm:ss').format('hh:mm A');
-					node.present_at = node.present_at ? dayjs(node.present_at, 'hh:mm:ss').format('hh:mm A') : '';
-					node.meet_date = dayjs(node.meet_date, 'YYYY-MM-DD').format('D MMMM, YYYY');
+					node.joined_at = this.$dayjs(node.joined_at, 'hh:mm:ss').format('hh:mm A');
+					node.present_at = node.present_at ? this.$dayjs(node.present_at, 'hh:mm:ss').format('hh:mm A') : '';
+					node.meet_date = this.$dayjs(node.meet_date, 'YYYY-MM-DD').format('D MMMM, YYYY');
 					return node;
 				});;
 				this.loading=false;

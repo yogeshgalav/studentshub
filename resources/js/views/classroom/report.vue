@@ -73,10 +73,10 @@
 <script>
 import ClassroomHeader from '../../components/ClassroomHeader';
 import VueTableComponent from '../../components/vue-table-component';
-import dayjs from 'dayjs';
 import DoughnutGraph from '../../components/graphs/DoughnutGraph';
 import MultiBarGraph from '../../components/graphs/MultiBarGraph.vue';
 import BarLineGraph from '../../components/graphs/BarLineGraph.vue';
+
 
 export default {
 	components: {
@@ -166,8 +166,8 @@ export default {
 					if(assignment.length){
 						node.last_score =  assignment[0].marks_obtained;
 
-						let m = dayjs(assignment[0].duration,'HH:mm:ss').minute();
-						let s = dayjs(assignment[0].duration,'HH:mm:ss').second();
+						let m = this.$dayjs(assignment[0].duration,'HH:mm:ss').minute();
+						let s = this.$dayjs(assignment[0].duration,'HH:mm:ss').second();
 						node.last_time = m+' min '+s+' sec ';
 
 						node.last_rank = assignment[0].rank;
@@ -177,10 +177,10 @@ export default {
 						},0)/assignment.length).toFixed(2);
 						//get avg time
 						let total_seconds= assignment.reduce((acc,currVal)=>{
-							return acc+ dayjs(currVal.duration,'HH:mm:ss').second();
+							return acc+ this.$dayjs(currVal.duration,'HH:mm:ss').second();
 						},0);
 						let total_minutes= assignment.reduce((acc,currVal)=>{
-							return acc+ dayjs(currVal.duration,'HH:mm:ss').minute();
+							return acc+ this.$dayjs(currVal.duration,'HH:mm:ss').minute();
 						},0);
 						//convert millisecond to min and sec
 						let avg_min = 0;
