@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      v-for="comment in comments"
+      v-for="(comment, index) in comments"
       :key="comment.id"
     >
       <div class="row mb-3">
@@ -22,43 +22,46 @@
           >
             <h5 class="pb-0 mb-0">
               {{ comment.user_name }}
-            </h5> <span>
-              <div
-                class="dropdown d-inline"
-              >
-                <button
-                  id="dropdownMenuButton"
-                  class="btn btn-secondary dropdown-toggle p-0"
-                  type="button"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  <i class="fas fa-ellipsis-v" />
-                </button>
-                <div
-                  class="dropdown-menu dropdown-menu-right"
-                  style="min-width: max-content;"
-                  aria-labelledby="dropdownMenuButton"
-                >
-                  <button
-                    type="button"
-                    class="dropdown-item"
-                    data-toggle="modal"
-                    data-target="#addHomeworkModal"
-                    @click="editComment(comment)"
-                  >Edit</button> 
-                  <button
-                    type="button"
-                    class="dropdown-item"
-                    @click="deleteComment(comment.id)"
-                  >Delete</button>
-                </div>
-              </div>
-            </span>
+            </h5> 
             <p class="mb-0">
               {{ comment.comment_text }}
             </p>
+          </div>
+          <div
+            class="dropdown d-inline"
+          >
+            <button
+              id="dropdownMenuButton"
+              class="btn btn-secondary dropdown-toggle p-0"
+              type="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <i class="fas fa-ellipsis-v" />
+            </button>
+            <div
+              class="dropdown-menu dropdown-menu-right"
+              style="min-width: max-content;"
+              aria-labelledby="dropdownMenuButton"
+            >
+              <button
+                type="button"
+                class="dropdown-item"
+                data-toggle="modal"
+                data-target="#editCommentModal"
+                @click="editComment(comment)"
+              >
+                Edit
+              </button> 
+              <button
+                type="button"
+                class="dropdown-item"
+                @click="deleteComment(comment.id, index)"
+              >
+                Delete
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -101,6 +104,40 @@
         </div>
       </div>
     </div>
+
+    <modal
+      ref="editCommentModal"
+      name="editCommentModal"
+      heading="Edit Comment"
+      classes="modal-lg"
+      @submit="saveEditComment()"
+    >
+      <template slot="modalBody">
+        <form data-vv-scope="newHomework">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <!-- <label
+                  class="control-label mb-1"
+                  :for="'homework_html'"
+                >Edit comment</label> -->
+                <input
+                  id="comment-input"
+                  v-model="selectedComment.comment_text"
+                  type="text"
+                  placeholder="Comment here"
+                  class="mt-1 pl-2 message-comment"
+                  @keyup.enter="saveEditComment($event, message)"
+                >
+                <div class="error">
+                <!-- {{ formErrors('newAssignment.new_unit') }} -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </template>
+    </modal>
   </div>
 </template>
 <style>
@@ -122,7 +159,11 @@
 }
 </style>
 <script>
+import Modal from '../../components/VueNiceModal';
 export default {
+	components:{
+		Modal
+	},
 	props:{
 		'commentableId':{
 			'type':Number,
@@ -137,15 +178,19 @@ export default {
 		return {
 			comments:[],
 			comment_text:'',
+			selectedComment:{}
 		};
 	},
 	mounted(){
-		this.axios.get('/api/'+this.commentableType+'/'+this.commentableId+'/comment')
+		this.setup();
+	},
+	methods:{
+    setup(){
+      this.axios.get('/api/'+this.commentableType+'/'+this.commentableId+'/comment')
 			.then((resp) => {
 				this.comments=resp.data.success.comments;
 			});
-	},
-	methods:{
+    },
 
 		savecomment(){
 			if(!this.comment_text){
@@ -167,8 +212,30 @@ export default {
 			});
 				
 		},
-		deleteComment(commentId){
+		saveEditComment(){
+      if(!this.selectedComment.comment_text){
+				return false;
+			}
+			this.axios.post('/api/comment-edit',
+				{
+					'commentable_id':this.selectedComment.id,
+					'commentable_type':this.commentableType,
+					'comment_text': this.selectedComment.comment_text,
+				}).then((resp)=>{
+				this.setup();
+				this.selectedComment = {};
+			});
+		},
+		editComment(comment){
+			this.selectedComment = comment;
+			console.log(this.selectedComment);
+		},
+		deleteComment(commentId, index){
     		this.axios.delete('/api/comment-delete/' + commentId).then((resp)=>{
+				if(index > -1){
+					this.comments.splice(index, 1);
+				}
+				 
     			// window.location.reload();
     		});
     	},
