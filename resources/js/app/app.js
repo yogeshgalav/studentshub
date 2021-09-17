@@ -175,6 +175,9 @@ Vue.mixin({
 			// menu.classList.toggle('active');
 		},
 		closeSidebar(e){
+			if (e.target.href && this.$route.path && !e.target.href.includes(this.$route.path)){
+				window.location.href = e.target.href;
+			}
 			var container = document.getElementById('sidebar-section');
 			var container2 = document.getElementById('nav-toggle');
 			if(!container || !container2){

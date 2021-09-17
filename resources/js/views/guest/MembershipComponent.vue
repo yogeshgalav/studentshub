@@ -349,7 +349,7 @@
                   name="phone"
                   placeholder="Enter Your Nmumber"
                   data-vv-validate-on="handleSubmit"
-                  @update="countryChanged"
+                  @update="phoneEventPayload"
                 />
                 <!-- <vue-tel-input
                   id="phone"
@@ -466,7 +466,7 @@ export default {
 							full_name: this.full_name,
 							institute_name: this.institute_name,
 							email: this.email,
-							phone_no: this.phone_number,
+							phone_no: this.phoneWithCode,
 							students: this.student_number,
 						})
 						.then(() => {
@@ -475,7 +475,7 @@ export default {
 							 this.institute_name = '';
 			         this.full_name = '';
 			         this.email = '';
-			         this.phone_number = '';
+			         this.phoneWithCode = '';
 			         this.student_number = '';
 							this.$validator.reset();
 						});
@@ -491,10 +491,6 @@ export default {
 		phoneEventPayload($event) {  
 			this.phoneIsValid = $event.isValid;
 			this.phoneWithCode = $event.e164;
-		},
-		countryChanged(country) {
-			console.log(country);
-		  // country contains the object with the country code and everything else like ISo2 
 		},
 	  },
 };
