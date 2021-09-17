@@ -57,11 +57,9 @@
                 {{ AuthUser.full_name }}
               </div>
               <div>
-                <vue-editor
+                <rich-text-editor
                   id="ArticleEditor"
                   v-model="new_answer"
-                  :editor-options="editorSettings"
-                  :height="'100%'"
                 />
                 <span>{{ countContent }}/10</span>
                 <span class="text-danger">{{ error }}</span>
@@ -101,21 +99,14 @@ h4.main_que {
 }
 </style>
 <script>
-
-import { VueEditor,Quill } from 'vue2-editor';
-
-import ImageResize from 'quill-image-resize-vue';
-import { ImageDrop } from 'quill-image-drop-module';
-Quill.register('modules/imageDrop', ImageDrop);
-Quill.register('modules/imageResize', ImageResize);
+import RichTextEditor from '../../components/RichTextEditor';
 import DoubtCard from '../post/DoubtCard.vue';
 
 
 export default {
 	components:{
-		VueEditor,
 		DoubtCard,
-	
+		RichTextEditor,
 	},
 	data() {
 		return {
@@ -126,12 +117,6 @@ export default {
 			posts: [],
 			//
 			files:[],
-			editorSettings: {
-				modules: {
-					imageDrop: true,
-					imageResize: {},
-				}
-			},
 			error:'', 
 		};
 

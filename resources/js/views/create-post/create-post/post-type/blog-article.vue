@@ -1,39 +1,25 @@
 <template>
   <div>
-    <vue-editor
+    <rich-text-editor
       id="ArticleEditor"
       v-model="content"
-      :editor-options="editorSettings"
-      :height="'100%'"
     />
     <span>{{ countContent }}/100</span>&nbsp;<span class="text-danger">{{ error }}</span>
   </div>
 </template>
 <script>
-
-import { VueEditor,Quill } from 'vue2-editor';
-
-import ImageResize from 'quill-image-resize-vue';
-import { ImageDrop } from 'quill-image-drop-module';
-Quill.register('modules/imageDrop', ImageDrop);
-Quill.register('modules/imageResize', ImageResize);
+import RichTextEditor from '../../../../components/RichTextEditor';
 import EventBus from '../../event-bus';
 
 export default {
 	components:{
-		VueEditor
+		RichTextEditor
 	},
 	props:['newPost'],
 	data(){
 		return{
 			content:this.newPost.article_html_content,
 			files:[],
-			editorSettings: {
-				modules: {
-					imageDrop: true,
-					imageResize: {},
-				}
-			},
 			error:'', 
 		};
 	},

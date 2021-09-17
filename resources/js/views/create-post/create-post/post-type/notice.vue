@@ -1,10 +1,8 @@
 <template>
   <div>
-    <vue-editor
+    <rich-text-editor
       id="NoticeEditor"
       v-model="content"
-      :editor-options="editorSettings" 
-      :height="'100%'"
     />
     <div class="mt-2">
       <label for="expiry_date">Expiry Date</label>
