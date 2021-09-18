@@ -55,10 +55,7 @@ const routes = [
 	{
 		path: '/post/:id',
 		component: ViewPost,
-		name: 'ViewPost',
-		beforeEnter(to, from, next) { 
-			next(false); window.location.replace(to.fullPath); 
-		} 
+		name: 'ViewPost', 
 	},
 	{
 		path: '/category/:url',
