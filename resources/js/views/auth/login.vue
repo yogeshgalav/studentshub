@@ -254,6 +254,9 @@ export default {
 			this.fcmToken = this.$route.query.fcmToken;
 			localStorage.setItem('fcmToken',this.fcmToken);
 		}
+		if(localStorage.getItem('fcmToken')){
+			this.fcmToken = localStorage.getItem('fcmToken');
+		}
 	},
 	methods:{
 		trans: function (string,defaultString) {
