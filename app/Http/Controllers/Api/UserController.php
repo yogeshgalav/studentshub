@@ -64,6 +64,14 @@ class UserController extends Controller
             \Storage::disk('profile-image')->put($file_name,base64_decode($image));
             $me->avatar_url="/storage/profile-images/".$file_name;
             $me->save();
+            $newFile= new SthubFile();
+            $newFile->fileable_id=$me->id;
+            $newFile->fileable_type=User::class;
+            $newFile->file_ext=Storage::disk('profile-image')->getMimeType($file_name);
+            $newFile->file_size=Storage::disk('profile-image')->size($file_name);
+            $newFile->file_name=$file_name;
+            $newFile->user_id=$me->id;
+            $newFile->save();
         }
         if($request->intro){
             $profile->introduction=$request->intro;

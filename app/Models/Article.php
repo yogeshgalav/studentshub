@@ -20,10 +20,10 @@ class Article extends Model
         foreach($dom->files as $file){
             $newFile= new SthubFile();
             $newFile->fileable_id=$post_content_id;
-            $newFile->fileable_type='App\Models\Article';
-            $newFile->file_ext=Storage::disk('local')->getMimeType($file['file_path']);
-            $newFile->file_size=Storage::disk('local')->size($file['file_path']);
-            $newFile->file_name=$file['file_name'];
+            $newFile->fileable_type=Article::class;
+            $newFile->file_ext=Storage::disk('post-image')->getMimeType($file);
+            $newFile->file_size=Storage::disk('post-image')->size($file);
+            $newFile->file_name=$file;
             $newFile->user_id=Auth::user()->id;
             $newFile->save();
         }

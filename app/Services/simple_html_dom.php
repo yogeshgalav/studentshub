@@ -2368,7 +2368,7 @@ class simple_html_dom
 				
 				$file_name=uniqid().'.'.$file_type;
 				Storage::disk($disk)->put($file_name, base64_decode($data));
-				$files[]=['file_name'=>$file_name,'file_type'=>$file_type,'file_path'=>"public/".$folder.'/'.$file_name];
+				array_push($files, $file_name);
 				$element->src="/storage/".$disk.'/'.$file_name;
 			}
 		}
