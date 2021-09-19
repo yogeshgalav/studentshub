@@ -7,6 +7,7 @@ import ForgotPasswordComponent from '../../views/auth/forgot-password.vue';
 import CategoryComponent from '../../views/explore/category.vue';
 import CourseComponent from '../../views/explore/course.vue';
 import SubjectComponent from '../../views/explore/subject.vue';
+import SearchComponent from '../../views/common/search.vue';
 
 const routes = [
 	{
@@ -68,6 +69,10 @@ const routes = [
 	{
 		path: '/subject/:url',
 		component: SubjectComponent
+	},
+	{
+		path: '/search',
+		component: SearchComponent
 	},
 ];
 
