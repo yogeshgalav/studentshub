@@ -38,13 +38,13 @@
                       @click="copyLink(post.id)"
                     >Copy Link</button> 
                     <button
+                      v-if="post.user_id===AuthUser.id"
                       type="button"
                       class="dropdown-item"
-                      data-toggle="modal"
-                      data-target="#addDoubtModal"
                       @click="editPost(post.id)"
                     >Edit</button> 
                     <button
+                      v-if="post.user_id===AuthUser.id"
                       type="button"
                       class="dropdown-item"
                       @click="deletePost(post.id)"
@@ -151,9 +151,13 @@ export default {
 			this.$store.commit('common/set_post_initial',post);
 			this.$router.push({ path: `/post/${post.id}` });
 		},
+		editPost(id){
+			window.location.href ='/post/'+id+'/edit';
+		},
 		deletePost(id){
-			this.axios.delete('api/post/'+this.post.id);
-			location.reload();
+			this.axios.delete('api/post/'+this.post.id).then(()=>{
+				window.location.reload();
+			});
 		},
 	},
 

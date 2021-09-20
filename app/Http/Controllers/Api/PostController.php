@@ -253,11 +253,6 @@ class PostController extends Controller
       }
 
       public function delete(Post $post){
-        // $delete_post = DeletePost::findOrFail($request->post_id);
-        // if($delete_post->sender_user_id!==Auth::id()){
-        //     abort(401);
-        // }
-        // DeletePost::where('parent_post_id',$delete_post->id)->delete();
         $post->delete();
 
         return response()->json([],204);
