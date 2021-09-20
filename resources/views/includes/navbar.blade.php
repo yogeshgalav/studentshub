@@ -3,9 +3,9 @@
 
     <div class="row">
         <div class="col-md-3 col-12">
-            <a href="/">
+            <router-link :to="/">
                 <img src="{{asset('/images/logo.png') }}" alt="Student Hub" />
-            </a>
+            </router-link>
         </div>
     </div>
 

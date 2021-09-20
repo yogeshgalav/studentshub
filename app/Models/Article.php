@@ -15,15 +15,15 @@ class Article extends Model
 
     public function createFromContent($data){
         $simple_html_dom = new simple_html_dom;
-        $dom = $simple_html_dom->extactImageFiles($data['article_html_content'], "post-images");
+        $dom = $simple_html_dom->extactImageFiles($data['article_html_content'], "post-image");
         $post_content_id= self::insertGetId(['html_content'=>$data['article_html_content']]);
         foreach($dom->files as $file){
             $newFile= new SthubFile();
             $newFile->fileable_id=$post_content_id;
-            $newFile->fileable_type='App\Models\Article';
-            $newFile->file_ext=Storage::disk('local')->getMimeType($file['file_path']);
-            $newFile->file_size=Storage::disk('local')->size($file['file_path']);
-            $newFile->file_name=$file['file_name'];
+            $newFile->fileable_type=Article::class;
+            $newFile->file_ext=Storage::disk('post-image')->getMimeType($file);
+            $newFile->file_size=Storage::disk('post-image')->size($file);
+            $newFile->file_name=$file;
             $newFile->user_id=Auth::user()->id;
             $newFile->save();
         }

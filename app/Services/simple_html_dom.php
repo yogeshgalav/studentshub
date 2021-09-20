@@ -2353,7 +2353,7 @@ class simple_html_dom
 		$this->load_file($args);
 	}
 
-	public function extactImageFiles($html,$folder="post-images"){
+	public function extactImageFiles($html,$disk="post-image"){
 		$mydom = new mydom;
 		// Create DOM from URL or file
 		$html = str_get_html($html);
@@ -2367,9 +2367,9 @@ class simple_html_dom
 				$file_type = explode(':image/', substr($base64_image, 0, $pos))[1];
 				
 				$file_name=uniqid().'.'.$file_type;
-				Storage::disk('local')->put("public/".$folder.'/'.$file_name, base64_decode($data));
-				$files[]=['file_name'=>$file_name,'file_type'=>$file_type,'file_path'=>"public/".$folder.'/'.$file_name];
-				$element->src="/storage/".$folder.'/'.$file_name;
+				Storage::disk($disk)->put($file_name, base64_decode($data));
+				array_push($files, $file_name);
+				$element->src="/storage/".$disk.'/'.$file_name;
 			}
 		}
 
