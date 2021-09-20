@@ -97,7 +97,7 @@
       :ref="'addDailyQuestionModal'+assignmentId"
       :name="'addDailyQuestionModal'+assignmentId"
       :heading="(current_question_edit.id ? 'Edit' : 'Add')+' Question'"
-      size="modal-lg"
+      classes="modal-lg"
       @submit="saveQuestion"
     >
       <template slot="modalBody">

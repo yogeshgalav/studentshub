@@ -12,8 +12,10 @@ import 'vue-loading-overlay/dist/vue-loading.css';
 import Dayjs from 'vue-dayjs';
 import ProfileImage from '../components/ProfileImage';
 import NotificationsDropdown from '../components/NotificationsDropdown.vue';
-
 import VueLazyload from 'vue-lazyload';
+
+
+
 Vue.use(VueLazyload);
 Vue.use(Dayjs, {
 	lang:'en',
@@ -173,6 +175,9 @@ Vue.mixin({
 			// menu.classList.toggle('active');
 		},
 		closeSidebar(e){
+			if (e.target.href && this.$route.path && !e.target.href.includes(this.$route.path)){
+				window.location.href = e.target.href;
+			}
 			var container = document.getElementById('sidebar-section');
 			var container2 = document.getElementById('nav-toggle');
 			if(!container || !container2){

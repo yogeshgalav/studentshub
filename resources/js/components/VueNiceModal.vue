@@ -12,7 +12,7 @@
       :class="fullsize ? 'modal-fullscreen' : ''"
     >
       <div
-        :class="['modal-dialog', size]"
+        :class="['modal-dialog', classes]"
       >
         <!-- Modal content-->
         <div class="modal-content">
@@ -77,7 +77,7 @@ export default {
 			default:'',
 			required:true,
 		},
-		size:{
+		classes:{
 			default:'',
 			required:false,
 		},

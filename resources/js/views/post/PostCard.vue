@@ -115,11 +115,12 @@
           </div>
         </div>
         <hr>
-        <like-component
+        <interaction-component
           :user-like="post.user_like ? true : false"
           :total-likes="post.total_likes"
           :likable-id="post.id"
           likable-type="post"
+          :edit-access="post.user_id===AuthUser.id"
         />
       </div>
     </div>
@@ -135,13 +136,13 @@
 <script>
 
 // import ImageSlider from './ImageSlider.vue';
-import LikeComponent from '../common/LikeComponent.vue';
+import InteractionComponent from '../common/InteractionComponent.vue';
 import ProfileImage from '../../components/ProfileImage';
 
 export default {
 	components: {
 		ProfileImage,
-		LikeComponent,
+		InteractionComponent,
 		// ImageSlider
 	},
 	props:['post'],

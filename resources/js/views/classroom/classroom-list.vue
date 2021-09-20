@@ -69,6 +69,7 @@
           ref="joinClassroomModal"
           name="joinClassroomModal"
           heading="Join Classroom"
+          classes="modal-md"
           @submit="joinClassroom"
         >
           <template slot="modalBody">

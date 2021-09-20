@@ -23,4 +23,9 @@ Route::group(['middleware' => ['auth:api']], function () {
     // Push Subscriptions
     Route::post('/subscriptions', 'PushSubscriptionController@update');
     Route::post('/subscriptions/delete', 'PushSubscriptionController@destroy');
+
+    //comments
+    Route::get('/{commentable_type}/{commentable_id}/comment', 'CommentController@get');
+    Route::post('/comment', 'CommentController@create');
+
 });

@@ -1,4 +1,4 @@
 @extends('explore.app')
 @section('content')
-<search-component :search-query="{{ json_encode($searchQuery) }}"></search-component>
+<router-view :search-query="{{ json_encode($searchQuery) }}"></router-view>
 @endsection

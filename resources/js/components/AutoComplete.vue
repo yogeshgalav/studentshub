@@ -146,10 +146,11 @@ export default {
 				this.isOpen=true;
 			}
 		},
-		initialValue(){console.log('her');
-			if(this.initialValue && this.search===''){console.log('her');
-				this.result = Object.assign({},this.initialValue);
+		initialValue(val){
+			if(val){
+				this.result = Object.assign({},val);
 				this.search = this.result[this.value];
+				console.log(this.result,this.search);
 			}
 		}
 	},

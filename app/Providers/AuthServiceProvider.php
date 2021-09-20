@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use App\Models\Classroom;
 use App\Policies\ClassroomPolicy;
+use App\Models\Homework;
+use App\Policies\HomeworkPolicy;
 use App\Models\DailyAssignment;
 use App\Policies\DailyAssignmentPolicy;
 
@@ -20,6 +22,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         Classroom::class => ClassroomPolicy::class,
         DailyAssignment::class => DailyAssignmentPolicy::class,
+        Homework::class => HomeworkPolicy::class,
     ];
 
     /**

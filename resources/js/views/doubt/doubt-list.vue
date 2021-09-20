@@ -130,11 +130,12 @@
                     </div>
                   </div>
                   <hr>
-                  <like-component
+                  <interaction-component
                     :user-like="doubt.user_like ? true : false"
                     :total-likes="doubt.total_likes"
                     :likable-id="doubt.id"
                     likable-type="doubt"
+                    :edit-access="doubt.user_id===AuthUser.id"
                   />
                 </div>
               </div>
@@ -146,7 +147,7 @@
           ref="addDoubtModal"
           name="addDoubtModal"
           heading="Ask doubt:"
-          size="modal-lg modal-fullscreen"
+          classes="modal-lg"
           @submit="addOrEditDoubt"
         >
           <template slot="modalBody">
@@ -231,7 +232,7 @@ import FormMixin from '../../components/mixins/form-mixin.js';
 import Modal from '../../components/VueNiceModal.vue';
 import Loading from 'vue-loading-overlay';
 import AutoComplete from '../../components/AutoComplete.vue';
-import LikeComponent from '../common/LikeComponent.vue';
+import InteractionComponent from '../common/InteractionComponent.vue';
 import ProfileImage from '../../components/ProfileImage';
 
 
@@ -241,7 +242,7 @@ export default {
 		Loading,
 		AutoComplete,
 		ProfileImage,
-		LikeComponent
+		InteractionComponent
 	},
 	mixins: [FormMixin],
 	props:['subjectId','categories'],
