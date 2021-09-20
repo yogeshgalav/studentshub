@@ -14,9 +14,6 @@ const StudentRoutes = [
 		path: '/post/:id',
 		component: ViewPost,
 		name: 'ViewPost',
-		beforeEnter(to, from, next) { 
-			next(false); window.location.replace(to.fullPath); 
-		}
 	},
 ];
 

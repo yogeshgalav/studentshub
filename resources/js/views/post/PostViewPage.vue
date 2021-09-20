@@ -278,6 +278,17 @@
     <p class="like">
       Like
     </p>
+    <div class="col-center col-12">
+      <h3 class="like">
+        Comments
+      </h3>
+      <comment-section
+        :key="Math.random()"
+        :commentable-id="parseInt($route.params.id)"
+        :commentable-type="'post'"
+        class="comment"
+      />
+    </div>
     <div class="single_page_post_card">
       <div class="bg-gray s_p_c">
         <h3 class="post_like_head">
@@ -621,6 +632,9 @@ h6.card-title-tag.font-size-12 a {
         border: none;
     }
 }
+.comment{
+  margin: 30px 0 30px 0;
+}
 .bg-gray.s_p_c {
     padding: 50px 0;
 }
@@ -633,7 +647,6 @@ h6.card-title-tag.font-size-12 a {
 </style>
 <script>
 import { mapState } from 'vuex';
-
 import SocialSharing from 'vue-social-sharing';
 import CategoryFilter from '../category/CategoryFilter';
 import RecentPost from '../post/RecentPost';
@@ -642,6 +655,7 @@ import PostInteraction from '../post/PostInteraction';
 import PostViewHeader from '../post/PostViewHeader';
 import swal from '../../components/swal';
 import McqPostView from './McqPostView';
+import CommentSection from '../common/comment-section.vue'; 
 import TableRowVue from '../../components2/base/base-table/components/TableRow.vue';
 
 export default {
@@ -652,6 +666,7 @@ export default {
 		PostInteraction,
 		PostViewHeader,
 		SocialSharing,
+		CommentSection,
 		McqPostView
 	},
 	props: ['role'],
