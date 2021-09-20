@@ -8,6 +8,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('/user-like/{type}', 'LikeController@updateOrDelete');
     Route::post('/post-save', 'PostController@savePost');
     Route::post('/post-report', 'PostController@reportPost');
+    Route::delete('post/{post}', 'PostController@delete');
         //profile
     Route::get('/get-profile','UserController@getProfile');
     Route::post('/save-profile', 'UserController@saveProfile');
