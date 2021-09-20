@@ -107,7 +107,6 @@
 
     <modal
       ref="editCommentModal"
-      :key="Math.random()"
       name="editCommentModal"
       heading="Edit Comment"
       classes="modal-lg"
@@ -220,10 +219,13 @@ export default {
 				{
 					'comment_text': this.selectedComment.comment_text,
 				}).then((resp)=>{
+				this.$refs.editCommentModal.closeModal();
 				this.comments.map(node=>{
 					if(node.id===this.selectedComment.id){
 						node.comment_text=this.selectedComment.comment_text;
+
 					}
+
 					return node;
 				});
 				// this.setup();
