@@ -73,9 +73,9 @@ class HomeworkController extends Controller
             return $join->on('mh.homework_id','=','ho.id')->where('mh.user_id','=',Auth::id());
         })
         ->leftJoin('homework_images as hi','hi.homework_id','=','ho.id')
-        ->select('ho.id', 'ho.submission_date', 'ho.homework_text', 'us.full_name as teacher_name', 'us.avatar_url as teacher_avatar', 'ho.created_at',
+        ->select('ho.id', 'ho.submission_date', 'ho.homework_text','us.id as teacher_id', 'us.full_name as teacher_name', 'us.avatar_url as teacher_avatar', 'ho.created_at',
         'mh.id as user_mark','cl.name as classroom_name',DB::raw("COUNT(Distinct 'uh.id') as total_done"))
-        ->groupBy('ho.id', 'ho.submission_date', 'ho.homework_text', 'us.full_name','us.avatar_url','ho.created_at', 'mh.id','cl.name')
+        ->groupBy('ho.id', 'ho.submission_date', 'ho.homework_text','us.id', 'us.full_name','us.avatar_url','ho.created_at', 'mh.id','cl.name')
         ->orderBy('ho.submission_date','DESC')
         ->get();
 
@@ -135,10 +135,10 @@ class HomeworkController extends Controller
         foreach($dom->files as $file){
             $newFile= new SthubFile();
             $newFile->fileable_id=$homework->id;
-            $newFile->fileable_type='App\Models\Homework';
-            $newFile->file_ext=Storage::disk('local')->getMimeType($file['file_path']);
-            $newFile->file_size=Storage::disk('local')->size($file['file_path']);
-            $newFile->file_name=$file['file_name'];
+            $newFile->fileable_type=Homework::class;
+            $newFile->file_ext=Storage::disk('homework-image')->getMimeType($file);
+            $newFile->file_size=Storage::disk('homework-image')->size($file);
+            $newFile->file_name=$file;
             $newFile->user_id=Auth::user()->id;
             $newFile->save();
         }

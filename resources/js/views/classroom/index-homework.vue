@@ -62,7 +62,7 @@
                   <p class="font-size-14 mb-0 dash_user_date">
                     {{ homework.teacher_name }} <span> {{ $dayjs(homework.created_at).fromNow() }} 
                       <div
-                        v-if="AuthUser.role_intended!=='student'"
+                        v-if="homework.teacher_id===AuthUser.id"
                         class="dropdown d-inline"
                       >
                         <button
@@ -377,8 +377,9 @@ export default {
     		
     	},
     	deleteHomework(HomeworkId){
+			let delete_index = this.homeworks.findIndex(node=>node.id === HomeworkId);
     		this.axios.delete('/api/homework/' + HomeworkId).then((resp)=>{
-    			window.location.reload();
+    			this.homeworks.splice(delete_index,1);
     		});
     	},
 	}
