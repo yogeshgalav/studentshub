@@ -278,13 +278,13 @@
     <p class="like">
       Like
     </p>
-    <div class="col-center col-md-8 col-12">
+    <div class="col-center col-12">
       <h3 class="like">
         Comments
       </h3>
       <comment-section
         :key="Math.random()"
-        :commentable-id="likableId"
+        :commentable-id="parseInt($route.params.id)"
         :commentable-type="'post'"
         class="comment"
       />
@@ -672,7 +672,6 @@ export default {
 	props: ['role'],
 	data() {
 		return {
-			likableId: this.$route.params.id,
 			post_save: '',
 			post_report: '',
 			like_active: '',
