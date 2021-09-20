@@ -8,11 +8,17 @@
     />
     <div class="blank" />
     <div class="p-5 container">
-      <h3 class="pb-4 display-4 text-center">
-        Earn more from your Students
-      </h3>
-      <p class="text-center">
-        A new approach to LMS.
+      <h1 class="pb-4 text-center">
+        Student's Hub is a Data Analytics Software which Helps,
+      </h1>
+      <p class="font-size-24 text-center">
+        Students to grow their knowledge,
+      </p>
+      <p class="font-size-24 text-center">
+        Teachers to grow their productivity,
+      </p>
+      <p class="font-size-24 text-center">
+        and Institutes to grow their revenue.
       </p>
     </div>
     <div class="container">
@@ -360,7 +366,31 @@
                   for="phone"
                   class="col-form-label text-md-right mb-0"
                 >Phone Number</label>
-                <input
+                <VuePhoneNumberInput
+                  v-model="phone"
+                  v-validate="{required: isPhoneRequired}"
+                  fetch-country
+                  name="phone"
+                  placeholder="Enter Your Nmumber"
+                  data-vv-validate-on="handleSubmit"
+                  @update="phoneEventPayload"
+                />
+                <!-- <vue-tel-input
+                  id="phone"
+                  v-model="phone"
+                  v-validate="{required: isPhoneRequired}"
+                  name="phone"
+                  data-vv-validate-on="handleSubmit"
+                  placeholder="Enter Your Nmumber"
+                  :show-code-on-list="true"
+                  :fetch-country="true"
+                  :selected-country-code="true"
+                  :mode="'international'"
+                  :error="!phoneIsValid && !initialPhoneState"
+                  @country-changed="countryChanged"
+                  @update="phoneEventPayload"
+                /> -->
+                <!-- <input
                   id="phone"
                   ref="phone"
                   v-model="phone_number"
@@ -368,7 +398,7 @@
                   class="form-control"
                   type="tel"
                   name="phone"
-                >
+                > -->
                 <span class="text-danger">{{ formErrors('phone') }}</span>
               </div>
               <div class="col-md-12 text-center">
@@ -387,6 +417,7 @@
     <site-footer />
   </div>
 </template>
+
 <style scoped>
 .center {
   text-align: -webkit-center;
@@ -421,11 +452,14 @@ import swal from '../../components/swal';
 import Modal from '../../components/VueNiceModal.vue';
 import SiteFooter from '../footer/SiteFooter';
 import AutoComplete from '../../components/AutoComplete.vue';
+import 'vue-phone-number-input/dist/vue-phone-number-input.css';
+import VuePhoneNumberInput from 'vue-phone-number-input';
 
 export default {
 	components: {
 		SiteFooter,
-		AutoComplete
+		AutoComplete,
+		VuePhoneNumberInput
 	},
 	mixins: [FormMixin],
 	data() {
@@ -434,6 +468,7 @@ export default {
 			institute_name: '',
 			full_name: '',
 			email: '',
+      
 			phone_number: '',
 			city:'',
 			state:'',
@@ -443,6 +478,12 @@ export default {
 			filter_state_list:[],
 			filter_city_list:[],
 			show_city:true,
+			phone: '',
+			isPhoneRequired:'',
+			phoneIsValid:true,
+			phoneWithCode:'',
+			initialPhoneState:true,
+			country:{},
 		};
 	},
 	mounted(){
@@ -452,7 +493,10 @@ export default {
 		// 	method: 'GET',
 		// 	headers: headers,
 		// 	redirect: 'follow'
-		// };
+		// }
+    	if (this.$route.query.connected) {
+			swal.infoDialog('Thank you for connecting with us.');
+		}
 		 const headers = {
 		 	'X-CSCAPI-KEY':'ZzBrT2hoVlBTaGNmVlNQaW5MbGFPQzVJUkhrbm5yMzVjNTIwbDZ5aQ=='
 		 }; 
@@ -471,7 +515,7 @@ export default {
 							full_name: this.full_name,
 							institute_name: this.institute_name,
 							email: this.email,
-							phone_no: this.phone_number,
+							phone_no: this.phoneWithCode,
 							students: this.student_number,
 						})
 						.then(() => {
@@ -480,7 +524,7 @@ export default {
 							 this.institute_name = '';
 			         this.full_name = '';
 			         this.email = '';
-			         this.phone_number = '';
+			         this.phoneWithCode = '';
 			         this.student_number = '';
 							this.$validator.reset();
 						});
@@ -513,6 +557,12 @@ export default {
 		filterCity(search){
 			this.filter_city_list = this.city_list.filter(node => node.name.toLowerCase().includes(search.toLowerCase()));
 		},
-	},
+		phoneEventPayload($event) {  
+			this.phoneIsValid = $event.isValid;
+			this.phoneWithCode = $event.e164;
+		},
+	  },
+
 };
+// <style src="vue-tel-input/dist/vue-tel-input.css"></style>;
 </script>

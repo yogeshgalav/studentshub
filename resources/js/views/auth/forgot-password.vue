@@ -20,7 +20,7 @@
           <div class="logn_right">
             <div class="card_title text-center">
               <h3 class="weight-800 text-black font-size-18">
-                {{ trans('Forgot Password') }}
+                {{ ('Forgot Password') }}
               </h3>
             </div>
             <div class="card-body">
@@ -29,13 +29,13 @@
                   v-if="srvError"
                   class="form-group row alert alert-danger"
                 >
-                  <span>{{ trans('An unknown error has occurred.') }}</span>
+                  <span>{{ ('An unknown error has occurred.') }}</span>
                 </div>
                 <div class="form-group">
                   <label
                     for="email"
                     class="text-md-right"
-                  > {{ trans('E-Mail Address') }}</label>
+                  > {{ ('E-Mail Address') }}</label>
 
                   <div class="inner-addon left-addon">
                     <div class="input_icon_frm">
@@ -104,20 +104,20 @@ export default {
 		let self=this;
 		this.$validator.localize('en', {custom: {
 			email: {
-				required: self.trans('emailOrPhone.invalid','You must provide a valid email address or phone number.')
+				required: 'You must provide a valid email address or phone number.'
 			}}});
 		this.$validator.extend('email', {
 			getMessage(field, args) {
-				return self.trans('emailOrPhone.invalid','You must provide a valid email address or phone number.');
+				return 'You must provide a valid email address or phone number.';
 			},
 			validate: function(value, args){
 				var email = /\S+@\S+\.\S+/;
 				var phoneno = /^\+?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
 				if(value.match(email)){
-					self.confirm_text=self.trans('forgotPassword.confirmEmail','Please check your email. If an account with the specified email address exists, you will be sent a link to reset your password.');
+					self.confirm_text='Please check your email. If an account with the specified email address exists, you will be sent a link to reset your password.';
 					return true;
 				}else if(value.match(phoneno)){
-					self.confirm_text=self.trans('forgotPassword.confirmPhone','Please check your phone. If an account with the specified phone number exists, you will be sent a link to reset your password.');
+					self.confirm_text='Please check your phone. If an account with the specified phone number exists, you will be sent a link to reset your password.';
 					return true;
 				}
 				return false;
@@ -125,10 +125,6 @@ export default {
 		});
 	},
 	methods:{
-		trans: function (string,defaultString) {
-			// return this.$trans('auth',string,defaultString);
-			return string;
-		},
 		handleSubmit: function () {
 			this.$validator.validate().then(valid => {
 				if (valid) {

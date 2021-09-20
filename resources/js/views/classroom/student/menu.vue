@@ -66,6 +66,29 @@
           </router-link>
         </div>
       </div>
+      
+      <div class="col-md-4">
+        <div class="selection-box-default">
+          <router-link
+            class="card h-card"
+            :to="'/classroom/'+$route.params.classroomId+'/homeworks'"
+          >
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <h2 class="font-size-18">
+                    {{ 'Homework' }}
+                  </h2>
+                  <p>
+                    {{ 'Checkout your homework.' }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </router-link>
+        </div>
+      </div>
+
       <div class="col-md-4">
         <div class="selection-box-default">
           <router-link

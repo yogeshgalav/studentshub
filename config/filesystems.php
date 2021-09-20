@@ -47,6 +47,18 @@ return [
             'driver' => 'local',
             'root' => storage_path('app'),
         ],
+        'homework-image' => [
+            'driver' => 'local',
+            'root' => public_path() .'/storage/homework-image',
+        ],
+        'profile-image' => [
+            'driver' => 'local',
+            'root' => public_path() .'/storage/profile-image',
+        ],
+        'post-image' => [
+            'driver' => 'local',
+            'root' => public_path() .'/storage/post-image',
+        ],
 
         'public' => [
             'driver' => 'local',

@@ -8,6 +8,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('/user-like/{type}', 'LikeController@updateOrDelete');
     Route::post('/post-save', 'PostController@savePost');
     Route::post('/post-report', 'PostController@reportPost');
+    Route::delete('post/{post}', 'PostController@delete');
         //profile
     Route::get('/get-profile','UserController@getProfile');
     Route::post('/save-profile', 'UserController@saveProfile');
@@ -22,4 +23,9 @@ Route::group(['middleware' => ['auth:api']], function () {
     // Push Subscriptions
     Route::post('/subscriptions', 'PushSubscriptionController@update');
     Route::post('/subscriptions/delete', 'PushSubscriptionController@destroy');
+
+    //comments
+    Route::get('/{commentable_type}/{commentable_id}/comment', 'CommentController@get');
+    Route::post('/comment', 'CommentController@create');
+
 });

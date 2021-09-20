@@ -9,15 +9,11 @@ const StudentRoutes = [
 		component: DashboardComponent,
 	},
 	{ path: '/notifications', component: NotificationsComponent },
-	{ path: '*', redirect: '/' },
 	//Post Routes
 	{
 		path: '/post/:id',
 		component: ViewPost,
 		name: 'ViewPost',
-		meta: {
-			title: 'Post',
-		}
 	},
 ];
 

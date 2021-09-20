@@ -164,8 +164,8 @@
 <script>
 import ClassroomHeader from '../../../components/ClassroomHeader';
 import DailyAnswerReport from '../DailyAnswerReport';
-import dayjs from 'dayjs';
 import StudentReport from '../student-report.vue';
+
 
 export default {
 	components: {
@@ -175,7 +175,7 @@ export default {
 	},
 	filters:{
 		timeFormat(time){
-			return dayjs(time,'hh:mm:ss').format('hh:mm A');
+			return this.$dayjs(time,'hh:mm:ss').format('hh:mm A');
 		}
 	},
 	data() {
@@ -191,7 +191,7 @@ export default {
 	},
 	computed:{
 		isAssignmentEnded(){
-			return dayjs().isAfter(dayjs(this.today_assignment.end_time,'hh:mm:ss'));
+			return this.$dayjs().isAfter(this.$dayjs(this.today_assignment.end_time,'hh:mm:ss'));
 		},
 		cardColor(){
 			if(this.is_available){
@@ -203,6 +203,7 @@ export default {
 		}
 	},
 	mounted() {
+		
 		history.pushState(null, null);
 		window.addEventListener('popstate', (event)=> {
 			window.location='/classroom/' + this.$route.params.classroomId;

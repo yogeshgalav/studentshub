@@ -61,10 +61,17 @@ class UserController extends Controller
             $image = preg_replace('/data:image\/(.*?);base64,/','',$image); // remove the type part
             $image = str_replace(' ', '+', $image);
             $file_name = 'image_' . time() . '.' . $image_extension[1]; //generating unique file name;
-            $file_path="/public/profile-images/".$file_name;
-            \Storage::put($file_path,base64_decode($image));
+            \Storage::disk('profile-image')->put($file_name,base64_decode($image));
             $me->avatar_url="/storage/profile-images/".$file_name;
             $me->save();
+            $newFile= new SthubFile();
+            $newFile->fileable_id=$me->id;
+            $newFile->fileable_type=User::class;
+            $newFile->file_ext=Storage::disk('profile-image')->getMimeType($file_name);
+            $newFile->file_size=Storage::disk('profile-image')->size($file_name);
+            $newFile->file_name=$file_name;
+            $newFile->user_id=$me->id;
+            $newFile->save();
         }
         if($request->intro){
             $profile->introduction=$request->intro;

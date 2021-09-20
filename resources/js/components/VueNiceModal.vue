@@ -9,34 +9,46 @@
     aria-hidden="true"
   >
     <div
-      :class="['modal-dialog', size]"
+      :class="fullsize ? 'modal-fullscreen' : ''"
     >
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header pt-3 pb-2">
-          <h4 class="weight-800 font-size-18">
-            {{ heading }}
-          </h4>
-        </div>
-        <div class="modal-body add-client">
-          <slot name="modalBody" />
-        </div>
-        <div class="modal-footer">
-          <button
-            class="btn btn-primary mt-3"
-            type="button"
-            @click.prevent="$emit('submit')"
-          >
-            {{ 'Submit' }}
-          </button>  <button
-            ref="cancelButton"
-            type="button"
-            class="btn btn-white mt-3"
-            data-dismiss="modal"
-            @click.prevent="closeModal"
-          >
-            {{ 'Cancel' }}
-          </button>
+      <div
+        :class="['modal-dialog', classes]"
+      >
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header pt-3 pb-2">
+            <h4 class="weight-800 font-size-18">
+              {{ heading }}
+            </h4>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body add-client">
+            <slot name="modalBody" />
+          </div>
+          <div class="modal-footer">
+            <button
+              class="btn btn-primary mt-3"
+              type="button"
+              @click.prevent="$emit('submit')"
+            >
+              {{ 'Submit' }}
+            </button>  <button
+              ref="cancelButton"
+              type="button"
+              class="btn btn-white mt-3"
+              data-dismiss="modal"
+              @click.prevent="closeModal"
+            >
+              {{ 'Cancel' }}
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -65,8 +77,12 @@ export default {
 			default:'',
 			required:true,
 		},
-		size:{
+		classes:{
 			default:'',
+			required:false,
+		},
+		fullsize:{
+			default:true,
 			required:false,
 		},
 	},

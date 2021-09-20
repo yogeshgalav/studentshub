@@ -54,10 +54,10 @@
         <div class="card-body">
           <div class="row">
             <div class="col-md-12">
-              <p class="text-blue weight-600">
+              <p class="text-blue weight-600 mb-0">
                 Ask your teachers to share Classroom Join Id with you.
               </p>
-              <p style="line-height:1px;">
+              <p class="mb-0">
                 Classrooms will help you to visualize your progress and ease your learning process.
               </p>
             </div>
@@ -69,6 +69,7 @@
           ref="joinClassroomModal"
           name="joinClassroomModal"
           heading="Join Classroom"
+          classes="modal-md"
           @submit="joinClassroom"
         >
           <template slot="modalBody">

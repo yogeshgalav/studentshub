@@ -66,7 +66,7 @@ class NewClassroomResourceNotification extends Notification
             'avatar_url'=>$this->user->avatar_url,
             'avatar_name'=>$this->user->full_name,
             'url'=>"/classroom/".$this->classroom->id."/resources",
-            'body' => $this->user->full_name." has added a new resource to the classroom " . $this->classrom->name . ".",
+            'body' => $this->user->full_name." has added a new resource to the classroom " . $this->classroom->name . ".",
         ];
     }
 }

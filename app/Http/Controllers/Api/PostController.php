@@ -251,4 +251,10 @@ class PostController extends Controller
           'user_like'=>true,
         ]]);
       }
+
+      public function delete(Post $post){
+        $post->delete();
+
+        return response()->json([],204);
+    }
 }
