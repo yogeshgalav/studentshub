@@ -79,7 +79,7 @@
                 <span
                   v-if="props.row.marked_done_at"
                   class="text-success"
-                >{{ $dayjs(props.row.marked_done_at).format('D MMMM, YYYY') }}</span>
+                >{{ $dayjs(props.row.marked_done_at).fromNow().format('D MMMM, YYYY') }}</span>
                 <span
                   v-else
                   class="text-danger"
@@ -112,7 +112,8 @@ h4.main_que {
 </style>
 <script>
 import VueTableComponent from '../../components/vue-table-component';
-import dayjs from 'dayjs';
+
+
 
 export default {
 	components:{
@@ -141,6 +142,7 @@ export default {
 
 	},
 	mounted() {
+		
 		this.getHomeworkData();
 	},
 	methods: {
