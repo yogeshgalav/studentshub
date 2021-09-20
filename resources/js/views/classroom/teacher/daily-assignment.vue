@@ -341,8 +341,7 @@ import QuestionReport from './question-report';
 import DatePicker from 'vue2-datepicker';
 import 'vue2-datepicker/index.css';
 
-
-this.$dayjs.extend(customParseFormat);
+var customParseFormat = require('dayjs/plugin/customParseFormat');
 
 export default {
 	components: {
@@ -408,6 +407,7 @@ export default {
 		}
 	},
 	mounted() {
+    this.$dayjs.extend(customParseFormat);
 		this.getAssignmentList();
 	},
 	methods: {
@@ -479,11 +479,11 @@ export default {
 		timeFormat(type,newValue){
 			if(type==='start'){
 			  this.assignmentStartTime = newValue;
-				this.current_assignment.start_time = this.this.$dayjs(newValue,'hh:mm a').format('HH:mm:ss');
+				this.current_assignment.start_time = this.$dayjs(newValue,'hh:mm a').format('HH:mm:ss');
 			}
 			if(type==='end'){
 			  this.assignmentEndTime = newValue;
-				this.current_assignment.end_time = this.this.$dayjs(newValue,'hh:mm a').format('HH:mm:ss'); 
+				this.current_assignment.end_time = this.$dayjs(newValue,'hh:mm a').format('HH:mm:ss'); 
 			}
 			this.updateAssignment();
 		},
@@ -495,7 +495,7 @@ export default {
 				.post('/api/daily-assignment/' + this.current_assignment.id + '/update', {
 					assignment_id: this.current_assignment.id,
 					unit_id: this.current_assignment.unit_id,
-					attempt_date: this.this.$dayjs(this.current_assignment.attempt_date, 'DD-MM-YYYY').format('YYYY-MM-DD'),
+					attempt_date: this.$dayjs(this.current_assignment.attempt_date, 'DD-MM-YYYY').format('YYYY-MM-DD'),
 					start_time: this.current_assignment.start_time,
 					end_time: this.current_assignment.end_time,
 				})
