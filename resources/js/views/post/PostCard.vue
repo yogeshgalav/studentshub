@@ -1,5 +1,5 @@
 <template>
-  <div class=" card mb-2">
+  <div class="card mb-2">
     <div class="card_post">
       <div class="card-body">
         <div class="dashboard_post">
@@ -11,10 +11,10 @@
           </div>
           <div class="info-post ml-2 dash_insititue_name">
             <p class="font-size-14 mb-0 dash_user_date">
-              {{ post.user_name }}  <span>  {{ post.time }}
-                <div
-                  class="dropdown d-inline"
-                >
+              {{ post.user_name }}
+              <span>
+                {{ post.time }}
+                <div class="dropdown d-inline">
                   <button
                     id="dropdownMenuButton"
                     class="btn btn-secondary dropdown-toggle p-0"
@@ -27,7 +27,7 @@
                   </button>
                   <div
                     class="dropdown-menu dropdown-menu-right"
-                    style="min-width: max-content;"
+                    style="min-width: max-content"
                     aria-labelledby="dropdownMenuButton"
                   >
                     <button
@@ -36,21 +36,27 @@
                       data-toggle="modal"
                       data-target="#addDoubtModal"
                       @click="copyLink(post.id)"
-                    >Copy Link</button> 
+                    >
+                      Copy Link
+                    </button>
                     <button
-                      v-if="post.user_id===AuthUser.id"
+                      v-if="post.user_id === AuthUser.id"
                       type="button"
                       class="dropdown-item"
                       data-toggle="modal"
                       data-target="#addDoubtModal"
                       @click="editPost(post.id)"
-                    >Edit</button> 
+                    >
+                      Edit
+                    </button>
                     <button
-                      v-if="post.user_id===AuthUser.id"
+                      v-if="post.user_id === AuthUser.id"
                       type="button"
                       class="dropdown-item"
                       @click="deletePost(post.id)"
-                    >Delete</button>
+                    >
+                      Delete
+                    </button>
                   </div>
                 </div>
               </span>
@@ -68,7 +74,7 @@
                 {{ post.category_name }}
               </p>
               <p
-                v-if="post.subject_name" 
+                v-if="post.subject_name"
                 class="text-muted post_category"
               >
                 {{ post.subject_name }}
@@ -81,20 +87,20 @@
               {{ post.description }}
             </p>
             <div class="">
-              <div v-if="post.post_type==='video'">
+              <div v-if="post.post_type === 'video'">
                 <router-link
-                  :to="'/post/'+post.id"
+                  :to="'/post/' + post.id"
                   class="btn p-0 btn-link font-size-16"
-                  style="text-decoration: underline;"
+                  style="text-decoration: underline"
                 >
                   Watch Continue &nbsp;<i class="fa fa-arrow-right" />
                 </router-link>
               </div>
               <div v-else>
                 <router-link
-                  :to="'/post/'+post.id"
+                  :to="'/post/' + post.id"
                   class="btn p-0 btn-link font-size-16"
-                  style="text-decoration: underline;"
+                  style="text-decoration: underline"
                 >
                   Read Continue &nbsp;<i class="fa fa-arrow-right" />
                 </router-link>
@@ -115,6 +121,14 @@
               >
             </div>
           </div>
+          <p
+            class="totalview text-grey mb-0 col-md-4 post_width"
+            data-toggle="modal"
+            data-target="#viewsModal"
+            @click="getViewsInfo()"
+          >
+            {{ post.total_views }} people interacted with this post
+          </p>
         </div>
         <hr>
         <interaction-component
@@ -122,48 +136,150 @@
           :total-likes="post.total_likes"
           :likable-id="post.id"
           likable-type="post"
-          :edit-access="post.user_id===AuthUser.id"
+          :edit-access="post.user_id === AuthUser.id"
         />
       </div>
+    </div>
+
+
+    <div
+      id="viewsModal"
+      ref="viewsModal"
+      class="modal fade"
+      role="dialog"
+      tabindex="-1"
+      aria-labelledby="viewsModal"
+      aria-hidden="true"
+      name="viewsModal"
+    >
+      <div
+        class="modal-fullscreen"
+      >
+        <div
+          class="modal-dialog modal-lg"
+        >
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header pt-3 pb-2">
+              <h4 class="weight-800 font-size-18">
+                People who viewd your post
+              </h4>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body add-client">
+              <template>
+                <div class="dashboard_post">
+                  <div class="avatar">
+                    <profile-image
+                      :user-name="post.user_name"
+                      :avatar="post.profile_image"
+                    />
+                  </div>
+                  <div class="info-post ml-2 dash_insititue_name">
+                    <p class="font-size-14 mb-0 dash_user_date">
+                      {{ post.user_name }}
+                    </p>
+                  </div>
+                </div>
+              </template>
+            </div>
+            <div class="modal-footer">
+              <button
+                ref="cancelButton"
+                type="button"
+                class="btn btn-white mt-3"
+                data-dismiss="modal"
+                @click="closeModal"
+              >
+                {{ 'Cancel' }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+    <!-- <modal
+      ref="viewsModal"
+      name="viewsModal"
+      heading="People who viewd your post"
+      classes="modal-lg"
+    >
+      <template slot="modalBody">
+        <div class="dashboard_post">
+          <div class="avatar">
+            <profile-image
+              :user-name="post.user_name"
+              :avatar="post.profile_image"
+            />
+          </div>
+          <div class="info-post ml-2 dash_insititue_name">
+            <p class="font-size-14 mb-0 dash_user_date">
+              {{ post.user_name }}
+            </p>
+          </div>
+        </div>
+      </template>
+    </modal> -->
     </div>
   </div>
 </template>
 <style scoped>
-.post_img img{
+.totalview {
+  cursor: pointer;
+}
+.modal-dialog{
+  position: absolute;
+    width: 90%;
+    /* margin-top: 50%; */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) !important;
+    margin: 0 !important;
+}
+.post_img img {
   width: 100%;
   max-height: 200px !important;
   height: auto !important;
 }
 </style>
 <script>
-
 // import ImageSlider from './ImageSlider.vue';
 import InteractionComponent from '../common/InteractionComponent.vue';
 import ProfileImage from '../../components/ProfileImage';
+
 
 export default {
 	components: {
 		ProfileImage,
 		InteractionComponent,
+		
 		// ImageSlider
 	},
-	props:['post'],
-	methods:{
-		setPostView(post){
+	props: ['post'],
+	methods: {
+		setPostView(post) {
 			document.title = post.heading;
-			this.$store.commit('common/set_post_initial',post);
+			this.$store.commit('common/set_post_initial', post);
 			this.$router.push({ path: `/post/${post.id}` });
 		},
-    copyLink(){
-
-    },
-    deleteLink(){
-
-    },
-    editLink(){
-      
-    }
+		getViewsInfo(){
+			//hitting api here
+		},
+		closeModal(){
+			this.$refs.cancelButton.click();
+		},
+		copyLink() {},
+		deleteLink() {},
+		editLink() {},
 	},
-
 };
 </script>
