@@ -92,7 +92,7 @@
             type="text"
             placeholder="Comment here"
             class="mt-1 pl-2 message-comment"
-            @keyup.enter="savecomment($event, message)"
+            @keyup.enter="savecomment"
           >
 
           <div @click="savecomment">
@@ -107,10 +107,11 @@
 
     <modal
       ref="editCommentModal"
+      :key="Math.random()"
       name="editCommentModal"
       heading="Edit Comment"
       classes="modal-lg"
-      @submit="saveEditComment()"
+      @submit="saveEditComment"
     >
       <template slot="modalBody">
         <form data-vv-scope="newHomework">
@@ -127,7 +128,6 @@
                   type="text"
                   placeholder="Comment here"
                   class="mt-1 pl-2 message-comment"
-                  @keyup.enter="saveEditComment($event, message)"
                 >
                 <div class="error">
                 <!-- {{ formErrors('newAssignment.new_unit') }} -->
@@ -185,12 +185,12 @@ export default {
 		this.setup();
 	},
 	methods:{
-    setup(){
-      this.axios.get('/api/'+this.commentableType+'/'+this.commentableId+'/comment')
-			.then((resp) => {
-				this.comments=resp.data.success.comments;
-			});
-    },
+		setup(){
+			this.axios.get('/api/'+this.commentableType+'/'+this.commentableId+'/comment')
+				.then((resp) => {
+					this.comments=resp.data.success.comments;
+				});
+		},
 
 		savecomment(){
 			if(!this.comment_text){
@@ -213,25 +213,28 @@ export default {
 				
 		},
 		saveEditComment(){
-      if(!this.selectedComment.comment_text){
+			if(!this.selectedComment.comment_text){
 				return false;
 			}
-			this.axios.post('/api/comment-edit',
+			this.axios.put('/api/comment/'+this.selectedComment.id,
 				{
-					'commentable_id':this.selectedComment.id,
-					'commentable_type':this.commentableType,
 					'comment_text': this.selectedComment.comment_text,
 				}).then((resp)=>{
-				this.setup();
+				this.comments.map(node=>{
+					if(node.id===this.selectedComment.id){
+						node.comment_text=this.selectedComment.comment_text;
+					}
+					return node;
+				});
+				// this.setup();
 				this.selectedComment = {};
 			});
 		},
 		editComment(comment){
 			this.selectedComment = comment;
-			console.log(this.selectedComment);
 		},
 		deleteComment(commentId, index){
-    		this.axios.delete('/api/comment-delete/' + commentId).then((resp)=>{
+    		this.axios.delete('/api/comment/' + commentId).then((resp)=>{
 				if(index > -1){
 					this.comments.splice(index, 1);
 				}

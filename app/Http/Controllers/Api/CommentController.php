@@ -81,30 +81,7 @@ public function get($commentable_type, $commentable_id)
      }
 
      public function update(Comment $comment ,Request $request){
-        $me=Auth::user();
-
-         switch($request->commentable_type){
-            case 'post':
-            $model = Post::class;
-            break;
-            case 'doubt':
-            $model = Doubt::class;
-            break;
-            case 'resource':
-            $model = ClassroomResource::class;
-            break;
-            case 'message':
-            $model = ClassroomMessage::class;
-            break;
-            case 'homework':
-            $model = Homework::class;
-            break; 
-        }
-    
         $comment->update([
-            'user_id'=>$me->id,
-            'commentable_id'=>$request->commentable_id,
-            'commentable_type'=>$model,
             'comment_text'=>$request->comment_text ,
         ]);
         return response()->json([
