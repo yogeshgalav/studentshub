@@ -153,7 +153,9 @@
             <div v-if="postContent.post_type === 'article'">
               <div class="post_s_c">
                 <div class="post_content">
-                  <div v-html="postContent.article_content" />
+                  <div class="ql-editor">
+                    <div v-html="postContent.article_content" />
+                  </div>
                 </div>
               </div>
             </div>
