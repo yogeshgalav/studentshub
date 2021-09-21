@@ -156,7 +156,7 @@ export default {
 				}); 
 		},
 		addHomeworkHtml() {
-			const div = document.createElement('div');
+			const div = document.createElement('ql-editor');
 			div.className = 'font-size-24';
 			div.innerHTML =this.homework.homework_html;
 			document.getElementById('homeworkHtml').appendChild(div);
