@@ -125,4 +125,24 @@ class InstituteController extends Controller
             'institute_id'=>$institute->id
         ]]);
     }
+
+    public function indexStudents()
+    {
+        $instituteId = Auth::teacher()->instituteId;
+        $students=DB::table('students as st')->where('st.institute_id',$instituteId)
+        ->join('users as us','us.id','=','st.user_id')
+        ->join('courses as cs','cs.id','=','st.course_id')
+        ->leftJoin('daily_reports as dr','dr.user_id','=','us.id')
+        ->select('us.id','us.full_name','us.email','st.unique_college_id as institute_id','cs.alias as course_alias',
+        DB::raw('AVG(dr.marks_obtained) as avg_score')
+        )
+        ->groupBy('us.id','us.full_name','us.email','st.unique_college_id','cs.alias')
+        ->get();
+
+
+        return response()->json(['success'=>[
+            'students'=>$students,
+        ]]);
+
+    }
 }

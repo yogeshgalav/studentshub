@@ -46,6 +46,13 @@
                 </li>
             </a>
             @endif
+            @if(Auth::user()->role_intended==='teacher')
+            <a href="/students" class="{{\App\Facades\Sthub::currentTab('students') ? 'active' : ''}}">
+                <li> <i class="fas fa-users " aria-hidden="true"></i>
+                <span class="text">Students</span>
+                </li>
+            </a>
+            @endif
             
             @if(Auth::student())
             <a href="/classmates" class="{{\App\Facades\Sthub::currentTab('classmates') ? 'active' : ''}}">
