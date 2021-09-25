@@ -59,5 +59,6 @@ Route::get('/js/lang.js', function () {
 })->name('assets.lang');
 
 Route::get('/schedule-jobs', function () {
-    \Artisan::call('schedule:run');
+    \Artisan::call('sthub:cron');
+    // \Artisan::call('schedule:run');
 });
