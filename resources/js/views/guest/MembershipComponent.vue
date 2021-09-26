@@ -347,34 +347,10 @@
                   v-validate="{required: isPhoneRequired}"
                   fetch-country
                   name="phone"
-                  placeholder="Enter Your Nmumber"
+                  placeholder="Enter Your Mobile Number"
                   data-vv-validate-on="handleSubmit"
                   @update="phoneEventPayload"
                 />
-                <!-- <vue-tel-input
-                  id="phone"
-                  v-model="phone"
-                  v-validate="{required: isPhoneRequired}"
-                  name="phone"
-                  data-vv-validate-on="handleSubmit"
-                  placeholder="Enter Your Nmumber"
-                  :show-code-on-list="true"
-                  :fetch-country="true"
-                  :selected-country-code="true"
-                  :mode="'international'"
-                  :error="!phoneIsValid && !initialPhoneState"
-                  @country-changed="countryChanged"
-                  @update="phoneEventPayload"
-                /> -->
-                <!-- <input
-                  id="phone"
-                  ref="phone"
-                  v-model="phone_number"
-                  v-validate="'required|numeric'"
-                  class="form-control"
-                  type="tel"
-                  name="phone"
-                > -->
                 <span class="text-danger">{{ formErrors('phone') }}</span>
               </div>
               <div class="col-md-12 text-center">

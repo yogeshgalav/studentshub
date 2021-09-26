@@ -18,7 +18,7 @@ class InstituteController extends Controller
     }
     public function indexStudents()
     {
-        return view('institute.students');
+        return view('institute.index-student');
     }
     public function showStudent()
     {

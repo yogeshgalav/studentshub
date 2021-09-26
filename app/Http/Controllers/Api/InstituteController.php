@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Auth;
 use DB;
 use App\Models\Institute;
+use App\Models\User;
 
 class InstituteController extends Controller
 {
@@ -142,6 +143,21 @@ class InstituteController extends Controller
 
         return response()->json(['success'=>[
             'students'=>$students,
+        ]]);
+
+    }
+    public function showStudent(User $user)
+    {
+        $student_detail=DB::table('users as us')->where('us.id',$user->id)
+        ->leftJoin('parents as pa','pa.user_id','=','us.id')
+        ->leftJoin('users as pus','pus.id','=','pa.parent_user_id')
+        ->select('us.full_name','us.email',
+        'pus.full_name as parent_name','pus.email as parent_email','pus.phone_no as parent_phone')
+        ->first();
+
+
+        return response()->json(['success'=>[
+            'student_detail'=>$student_detail,
         ]]);
 
     }

@@ -17,8 +17,8 @@
                   slot="table-row"
                   slot-scope="props"
                 >
-                  <span v-if="props.column.field==='session'">
-                    {{ props.row.start_year }}-{{ props.row.end_year }}
+                  <span v-if="props.column.field==='full_name'">
+                    <a :href="'/student/'+props.row.id">{{ props.row.full_name }}</a>
                   </span>
                   <span v-else>
                     <span>{{ props.row[props.column.field] }}</span>
