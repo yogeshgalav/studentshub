@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\UserAccessTrait;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -14,6 +15,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, Notifiable;
     use HasPushSubscriptions;
+    use UserAccessTrait;
     /**
      * The attributes that are mass assignable.
      *
@@ -53,10 +55,12 @@ class User extends Authenticatable
             ->generateSlugsFrom('full_name')
             ->saveSlugsTo('slug');
     }
+
     public function student()
     {
-        return $this->hasOne('App\Models\Student');
+        return $this->hasMany('App\Models\Student');
     }
+
     public function post()
     {
         return $this->hasMany('App\Models\Post');

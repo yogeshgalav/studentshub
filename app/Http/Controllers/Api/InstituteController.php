@@ -148,8 +148,11 @@ class InstituteController extends Controller
     }
     public function showStudent(User $user)
     {
+        if(!Auth::user()->hasVerifiedTeacherAccess()){
+            abort(401);
+        }
         $student_detail=DB::table('users as us')->where('us.id',$user->id)
-        ->leftJoin('parents as pa','pa.user_id','=','us.id')
+        ->leftJoin('user_parents as pa','pa.user_id','=','us.id')
         ->leftJoin('users as pus','pus.id','=','pa.parent_user_id')
         ->select('us.full_name','us.email',
         'pus.full_name as parent_name','pus.email as parent_email','pus.phone_no as parent_phone')
@@ -160,5 +163,29 @@ class InstituteController extends Controller
             'student_detail'=>$student_detail,
         ]]);
 
+    }
+
+    public function updateStudent(Request $request, User $user)
+    {
+        $parent = User::where('phone_no', $request->parent_phone_no)->first();
+        if (!$parent){
+            $parent = new User;
+            $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
+            $parent->password=\Hash::makes(substr(str_shuffle($chars),0,8));
+        }
+
+        $parent->full_name=$request->parent_name;
+        $parent->email=$request->parent_email;
+        $parent->phone_no=$request->parent_phone;
+        $parent->role_intended='parent';
+        $parent->preferred_institute_id=$request->user('api')->preferred_institute_id;
+        $parent->save();
+
+        \App\Models\UserParent::firstOrCreate([
+            'parent_user_id'=>$parent->id,
+            'user_id'=>$user->id,
+        ]);
+
+        return response()->json([], 204);
     }
 }

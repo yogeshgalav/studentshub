@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Homework;
 use App\Models\UserHomework;
+use App\Models\ScheduledJob;
 use Carbon\Carbon;
 use Auth;
 use App\Models\Classroom;
@@ -42,6 +43,8 @@ class HomeworkController extends Controller
             $newFile->user_id=Auth::user()->id;
             $newFile->save();
         }
+
+        \App\Models\ScheduledJob::homeworkNotification($homework);            
 
         return response()->json(['success'=>[
             'homework_id'=>$homework->id,

@@ -1,0 +1,87 @@
+<?php
+
+namespace App\Notifications;
+
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
+use App\Models\ScheduledJob;
+use Illuminate\Support\Facades\Log;
+use Carbon\Carbon;
+use App\Channels\CustomDbChannel;
+use App\Channels\ParentSmsChannel;
+
+class NewHomeworkNotification extends Notification
+{
+    use Queueable;
+    public $scheduled_job;
+    public $classroom;
+    public $teacher;
+    public $homework;
+    /**
+     * Create a new notification instance.
+     *
+     * @return void
+     */
+    public function __construct($scheduled_job)
+    {
+        $this->scheduled_job = $scheduled_job;
+        $this->classroom = $scheduled_job->classroom;
+        $this->teacher = $scheduled_job->user;
+        $this->homework = $scheduled_job->job_body['homework'];
+    }
+
+    /**
+     * Get the notification's delivery channels.
+     *
+     * @param  mixed  $notifiable
+     * @return array
+     */
+    public function via($notifiable)
+    {
+        return [CustomDbChannel::class,ParentSmsChannel::class];
+    }
+
+    /**
+     * Get the mail representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return \Illuminate\Notifications\Messages\MailMessage
+     */
+    public function toMail($notifiable)
+    {
+        return (new MailMessage)
+                    ->line('The introduction to the notification.')
+                    ->action('Notification Action', url('/'))
+                    ->line('Thank you for using our application!');
+    }
+
+    /**
+     * Get the array representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return array
+     */
+    public function toDatabase($notifiable)
+    {
+        return [
+            'scheduled_job_id'=>$this->scheduled_job->id,
+            'user_id'=>$notifiable->id,
+            'title'=>'New Homework.',
+            'avatar_url'=>$this->teacher->avatar_url,
+            'avatar_name'=>$this->teacher->full_name,
+            'url'=>"/classroom/".$this->classroom->id."/homework/" . $this->homework->id,
+            'body'=>$this->teacher->full_name." has created a new Homework for subject ".$this->classroom->subject->subject_name." with submission date ".$this->homework['submission_date'],
+        ];
+    }
+
+    public function toParentSms($notifiable)
+    {
+        $parent = $notifiable->parent()->first();
+        return [
+            'parent_user_id'=>$parent->id,
+            'body'=>'Hi '.$parent->first_name.", ".$this->teacher->full_name." has created a new Homework for subject ".$this->classroom->subject->subject_name." with submission date ".$this->homework['submission_date']."\nThanks and Regards,\n" . $classroom->institute->name,
+        ];
+    }
+}

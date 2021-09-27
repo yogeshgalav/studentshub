@@ -71,6 +71,15 @@ class CustomDbChannel
         curl_setopt($crl, CURLOPT_POSTFIELDS, $post_data);
         curl_setopt($crl, CURLOPT_RETURNTRANSFER, true);
      
-        return curl_exec($crl);
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+        
+        curl_close($curl);
+        
+        if ($err) {
+            Log::critical('sms api call failure cURL Error #:' . $err);
+        }
+        
+        return true;
     }
 }

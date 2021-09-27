@@ -342,6 +342,7 @@
                   for="phone"
                   class="col-form-label text-md-right mb-0"
                 >Phone Number</label>
+                <!-- default-country-code="IN" -->
                 <VuePhoneNumberInput
                   v-model="phone"
                   v-validate="{required: isPhoneRequired}"
@@ -464,7 +465,7 @@ export default {
 			// var top = element.offsetTop;
 			// window.scrollTo(0, top);
 		},
-		phoneEventPayload($event) {  
+		phoneEventPayload($event) {  console.log()
 			this.phoneIsValid = $event.isValid;
 			this.phoneWithCode = $event.e164;
 		},
