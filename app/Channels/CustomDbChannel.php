@@ -34,7 +34,7 @@ class CustomDbChannel
 
     public function sendAndroidNotification($notifiable, $message)
     {
-        $accesstoken = env('FCM_KEY');
+        $accesstoken = 'key='.env('FCM_KEY');
  
         $URL = 'https://fcm.googleapis.com/fcm/send';
      
