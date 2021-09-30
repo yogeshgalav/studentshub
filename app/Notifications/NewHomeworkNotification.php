@@ -86,6 +86,7 @@ class NewHomeworkNotification extends Notification
         $parent = $notifiable->parents()->first();
         $parent_user = $parent->parent;
         return [
+            'institute_id'=>$this->classroom->institute_id,
             'parent_user_id'=>$parent_user->id,
             'body'=>'Hi '.$parent_user->first_name.", ".$this->teacher->full_name." has created a new Homework for subject ".$this->classroom->subject->subject_name." with submission date ".$this->homework['submission_date']."\nThanks and Regards,\n" . $this->classroom->institute->name,
         ];
