@@ -4,6 +4,7 @@ namespace App\Channels;
 
 use Illuminate\Notifications\Notification;
 use App\Models\User;
+use App\Models\Sms;
 
 class ParentSmsChannel
 {
