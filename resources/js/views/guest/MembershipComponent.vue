@@ -342,14 +342,14 @@
                   for="phone"
                   class="col-form-label text-md-right mb-0"
                 >Phone Number</label>
-                <VuePhoneNumberInput
+                <vue-tel-input
                   v-model="phone"
                   v-validate="'required'"
-                  default-country-code="IN"
+                  :auto-default-country="true"
+                  default-country="IN"
                   name="phone"
                   placeholder="Enter Your Mobile Number"
                   data-vv-validate-on="handleSubmit"
-                  @update="phoneEventPayload"
                 />
                 <span class="text-danger">{{ formErrors('phone') }}</span>
               </div>
@@ -403,13 +403,13 @@ import FormMixin from '../../components/mixins/form-mixin.js';
 import swal from '../../components/swal';
 import Modal from '../../components/VueNiceModal.vue';
 import SiteFooter from '../footer/SiteFooter';
-import 'vue-phone-number-input/dist/vue-phone-number-input.css';
-import VuePhoneNumberInput from 'vue-phone-number-input';
+import {VueTelInput} from 'vue-tel-input';
+import 'vue-tel-input/dist/vue-tel-input.css';
 
 export default {
 	components: {
 		SiteFooter,
-		VuePhoneNumberInput
+		VueTelInput
 	},
 	mixins: [FormMixin],
 	data() {
@@ -422,7 +422,6 @@ export default {
 			isPhoneRequired:'',
 			student_number: '',
 			phoneIsValid:true,
-			phoneWithCode:'',
 			initialPhoneState:true,
 			country:{},
 		};
@@ -442,7 +441,7 @@ export default {
 							full_name: this.full_name,
 							institute_name: this.institute_name,
 							email: this.email,
-							phone_no: this.phoneWithCode,
+							phone_no: this.phone,
 							students: this.student_number,
 						})
 						.then(() => {
@@ -451,7 +450,7 @@ export default {
 							 this.institute_name = '';
 			         this.full_name = '';
 			         this.email = '';
-			         this.phoneWithCode = '';
+			         this.phone = '';
 			         this.student_number = '';
 							this.$validator.reset();
 						});
@@ -463,10 +462,6 @@ export default {
 			element.scrollIntoView({ behavior: 'smooth' });
 			// var top = element.offsetTop;
 			// window.scrollTo(0, top);
-		},
-		phoneEventPayload($event) {  console.log()
-			this.phoneIsValid = $event.isValid;
-			this.phoneWithCode = $event.e164;
 		},
 	  },
 };

@@ -87,7 +87,6 @@
                         :disabled="!edit_mode"
                         placeholder="Enter parent's phone number"
                         data-vv-validate-on="handleSubmit"
-                        @input="phoneEventPayload"
                       />
                     </div>
                     <div class="form-group">
