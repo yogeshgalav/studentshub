@@ -40,7 +40,12 @@ class NewHomeworkNotification extends Notification
      */
     public function via($notifiable)
     {
-        return [CustomDbChannel::class,ParentSmsChannel::class];
+        $channels =[CustomDbChannel::class];
+        $parent = $notifiable->parents()->first();
+        if($parent){
+            array_push($channels,ParentSmsChannel::class);
+        }
+        return $channels;
     }
 
     /**
@@ -71,17 +76,18 @@ class NewHomeworkNotification extends Notification
             'title'=>'New Homework.',
             'avatar_url'=>$this->teacher->avatar_url,
             'avatar_name'=>$this->teacher->full_name,
-            'url'=>"/classroom/".$this->classroom->id."/homework/" . $this->homework->id,
+            'url'=>"/classroom/".$this->classroom->id."/homework/" . $this->homework['id'],
             'body'=>$this->teacher->full_name." has created a new Homework for subject ".$this->classroom->subject->subject_name." with submission date ".$this->homework['submission_date'],
         ];
     }
 
     public function toParentSms($notifiable)
     {
-        $parent = $notifiable->parent()->first();
+        $parent = $notifiable->parents()->first();
+        $parent_user = $parent->parent;
         return [
-            'parent_user_id'=>$parent->id,
-            'body'=>'Hi '.$parent->first_name.", ".$this->teacher->full_name." has created a new Homework for subject ".$this->classroom->subject->subject_name." with submission date ".$this->homework['submission_date']."\nThanks and Regards,\n" . $classroom->institute->name,
+            'parent_user_id'=>$parent_user->id,
+            'body'=>'Hi '.$parent_user->first_name.", ".$this->teacher->full_name." has created a new Homework for subject ".$this->classroom->subject->subject_name." with submission date ".$this->homework['submission_date']."\nThanks and Regards,\n" . $this->classroom->institute->name,
         ];
     }
 }

@@ -79,7 +79,7 @@
                       <label class="text-black font-size-14">Phone Number
                       </label>
 
-                        <!-- default-country-code="IN" -->
+                      <!-- default-country-code="IN" -->
                       <VuePhoneNumberInput
                         v-model="parent_phone"
                         v-validate="required"
@@ -92,11 +92,12 @@
                       />
                     </div>
                     <div class="form-group">
-                      <label class="text-black font-size-14">Email (optional)
+                      <label class="text-black font-size-14">Email
                       </label>
                       <input
                         id="email"
                         v-model="parent_email"
+                        v-validate="required"
                         :disabled="!edit_mode"
                         type="text"
                         class="form-control"

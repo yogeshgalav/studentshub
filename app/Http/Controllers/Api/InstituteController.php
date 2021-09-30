@@ -129,7 +129,7 @@ class InstituteController extends Controller
 
     public function indexStudents()
     {
-        $instituteId = Auth::teacher()->instituteId;
+        $instituteId = Auth::user()->preferred_institute_id;
         $students=DB::table('students as st')->where('st.institute_id',$instituteId)
         ->join('users as us','us.id','=','st.user_id')
         ->join('courses as cs','cs.id','=','st.course_id')
@@ -148,7 +148,7 @@ class InstituteController extends Controller
     }
     public function showStudent(User $user)
     {
-        if(!Auth::user()->hasVerifiedTeacherAccess()){
+        if(!Auth::user()->hasInstituteUserAccess()){
             abort(401);
         }
         $student_detail=DB::table('users as us')->where('us.id',$user->id)

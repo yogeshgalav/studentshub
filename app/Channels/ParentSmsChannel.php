@@ -3,6 +3,7 @@
 namespace App\Channels;
 
 use Illuminate\Notifications\Notification;
+use App\Models\User;
 
 class ParentSmsChannel
 {
@@ -53,7 +54,12 @@ class ParentSmsChannel
         curl_close($curl);
         
         if ($err) {
-            Log::critical('sms api call failure cURL Error #:' . $err);
+            \Log::critical('sms api call failure cURL Error #:' . $err);
+        }else{
+          Sms::create([
+            'institute_id'=>$message['institute_id'],
+            'parent_user_id'=>$message['parent_user_id'],
+          ]);
         }
 
         return true;

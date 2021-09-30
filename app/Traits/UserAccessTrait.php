@@ -10,10 +10,10 @@ trait UserAccessTrait {
 
     public function hasClassroomAccess(Classroom $classroom)
     {
-        return $this->hasStudentAccess($classroom) || $this->hasTeacherAccess($classroom);
+        return $this->canAccessClassroomAsStudent($classroom) || $this->canAccessClassroomAsTeacher($classroom);
     }
 
-    public function hasStudentAccess(Classroom $classroom)
+    public function canAccessClassroomAsStudent(Classroom $classroom)
     {
         if(ClassroomUser::where('user_id',$this->id)
             ->where('classroom_id',$classroom->id)->exists()){
@@ -21,7 +21,7 @@ trait UserAccessTrait {
         }
         return false;
     }
-    public function hasTeacherAccess(Classroom $classroom)
+    public function canAccessClassroomAsTeacher(Classroom $classroom)
     {
         if(InstituteUser::where('user_id',$this->id)
         ->where('institute_id',$classroom->institute_id)->exists()){
@@ -29,11 +29,12 @@ trait UserAccessTrait {
         }
         return false;
     }
-    public function hasVerifiedTeacherAccess()
+    public function hasInstituteUserAccess()
     {
         if(InstituteUser::where('user_id',$this->id)
         ->where('institute_id',$this->preferred_institute_id)
-        ->where('is_verified',1)->exists()){
+        // ->where('is_verified',1)
+        ->exists()){
             return true;
         }
         return false;

@@ -102,7 +102,7 @@ class ScheduledJob extends Model
             ]),
             'notification_class_name' => NewHomeworkNotification::class,
             'scheduled_by_user_id'=>Auth::id(),
-            'classroom_id'=> $homework->classroom_id
+            'classroom_id'=> $homework->classroom_id,
         ]);
     }
     public static function newClassroomMessageNotification($classroom){

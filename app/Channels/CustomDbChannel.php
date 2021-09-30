@@ -57,19 +57,19 @@ class CustomDbChannel
               }';
             // print_r($post_data);die;
      
-        $crl = curl_init();
+        $curl = curl_init();
      
         $headr = array();
         $headr[] = 'Content-type: application/json';
         $headr[] = 'Authorization: ' . $accesstoken;
-        curl_setopt($crl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
      
-        curl_setopt($crl, CURLOPT_URL, $URL);
-        curl_setopt($crl, CURLOPT_HTTPHEADER, $headr);
+        curl_setopt($curl, CURLOPT_URL, $URL);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headr);
      
-        curl_setopt($crl, CURLOPT_POST, true);
-        curl_setopt($crl, CURLOPT_POSTFIELDS, $post_data);
-        curl_setopt($crl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $post_data);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
      
         $response = curl_exec($curl);
         $err = curl_error($curl);

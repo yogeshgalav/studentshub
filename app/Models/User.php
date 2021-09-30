@@ -61,6 +61,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Student');
     }
 
+    public function parents()
+    {
+        return $this->hasMany(UserParent::class, 'user_id');
+    }
+
     public function post()
     {
         return $this->hasMany('App\Models\Post');
