@@ -342,11 +342,10 @@
                   for="phone"
                   class="col-form-label text-md-right mb-0"
                 >Phone Number</label>
-                <!-- default-country-code="IN" -->
                 <VuePhoneNumberInput
                   v-model="phone"
-                  v-validate="{required: isPhoneRequired}"
-                  fetch-country
+                  v-validate="'required'"
+                  default-country-code="IN"
                   name="phone"
                   placeholder="Enter Your Mobile Number"
                   data-vv-validate-on="handleSubmit"

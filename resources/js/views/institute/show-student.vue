@@ -69,7 +69,7 @@
                       <input
                         id="parent_name"
                         v-model="parent_name"
-                        v-validate="required"
+                        v-validate="'required'"
                         :disabled="!edit_mode"
                         type="text"
                         class="form-control"
@@ -78,17 +78,16 @@
                     <div class="form-group">
                       <label class="text-black font-size-14">Phone Number
                       </label>
-
-                      <!-- default-country-code="IN" -->
-                      <VuePhoneNumberInput
+                      <vue-tel-input
                         v-model="parent_phone"
-                        v-validate="required"
-                        fetch-country
+                        v-validate="'required'"
+                        :auto-default-country="true"
+                        default-country="IN"
                         name="phone"
                         :disabled="!edit_mode"
                         placeholder="Enter parent's phone number"
                         data-vv-validate-on="handleSubmit"
-                        @update="phoneEventPayload"
+                        @input="phoneEventPayload"
                       />
                     </div>
                     <div class="form-group">
@@ -97,7 +96,7 @@
                       <input
                         id="email"
                         v-model="parent_email"
-                        v-validate="required"
+                        v-validate="'required'"
                         :disabled="!edit_mode"
                         type="text"
                         class="form-control"
@@ -135,13 +134,13 @@
 <script>
 import FormMixin from '../../components/mixins/form-mixin';
 import NavTabs from '../../components/NavTabs.vue';
-import VuePhoneNumberInput from 'vue-phone-number-input';
-import 'vue-phone-number-input/dist/vue-phone-number-input.css';
+import {VueTelInput} from 'vue-tel-input';
+import 'vue-tel-input/dist/vue-tel-input.css';
 
 export default {
 	components:{
 		NavTabs,
-		VuePhoneNumberInput
+		VueTelInput
 	},
 	mixins:[FormMixin],
 	data(){
@@ -153,6 +152,7 @@ export default {
 			phoneIsValid:true,
 			phoneWithCode:'',
 			initialPhoneState:true,
+			parent_id:'',
 			parent_name:'',
 			parent_phone:'',
 			parent_email:'',
@@ -163,6 +163,7 @@ export default {
 	mounted(){
 		this.axios.get('/api/student/'+this.$route.params.id).then((resp)=>{
 			this.student_detail = resp.data.success.student_detail;
+			this.parent_id = this.student_detail.parent_id;
 			this.parent_name = this.student_detail.parent_name;
 			this.parent_phone = this.student_detail.parent_phone;
 			this.parent_email = this.student_detail.parent_email;
@@ -176,6 +177,7 @@ export default {
 			this.$validator.validate().then(valid => {
 				if (valid) {
 					this.axios.post('/api/student/'+this.$route.params.id,{
+						parent_id: this.parent_id,
 						parent_name: this.parent_name,
 						parent_phone: this.parent_phone,
 						parent_email: this.parent_email,
@@ -184,10 +186,6 @@ export default {
 					});
 				}
 			});
-		},
-		phoneEventPayload($event) {  
-			this.phoneIsValid = $event.isValid;
-			this.parent_phone = $event.e164;
 		},
 	}
 };

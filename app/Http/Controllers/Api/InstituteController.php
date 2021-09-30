@@ -155,7 +155,7 @@ class InstituteController extends Controller
         ->leftJoin('user_parents as pa','pa.user_id','=','us.id')
         ->leftJoin('users as pus','pus.id','=','pa.parent_user_id')
         ->select('us.full_name','us.email',
-        'pus.full_name as parent_name','pus.email as parent_email','pus.phone_no as parent_phone')
+        'pus.full_name as parent_name','pus.id as parent_id','pus.email as parent_email','pus.phone_no as parent_phone')
         ->first();
 
 
@@ -167,16 +167,17 @@ class InstituteController extends Controller
 
     public function updateStudent(Request $request, User $user)
     {
-        $parent = User::where('phone_no', $request->parent_phone_no)->first();
-        if (!$parent){
+        $parent = null;
+        if ($request->parent_id){
+            $parent = User::findOrFail($request->parent_id);
+        }else{
             $parent = new User;
             $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
             $parent->password=\Hash::makes(substr(str_shuffle($chars),0,8));
         }
-
         $parent->full_name=$request->parent_name;
-        $parent->email=$request->parent_email;
-        $parent->phone_no=$request->parent_phone;
+        $parent->email=preg_replace('/\s+/', '',$request->parent_email);
+        $parent->phone_no=preg_replace('/\s+/', '',$request->parent_phone);
         $parent->role_intended='parent';
         $parent->preferred_institute_id=$request->user('api')->preferred_institute_id;
         $parent->save();
