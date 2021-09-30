@@ -8,6 +8,7 @@ use App\Notifications\NewInstituteMemberNotification;
 use App\Notifications\NewDoubtNotification;
 use App\Notifications\NewClassroomResourceNotification;
 use App\Notifications\DailyAssignmentActivateNotification;
+use App\Notifications\NewHomeworkNotification;
 use App\Notifications\NewClassroomMessageNotification;
 use App\Notifications\NewMessageReplyNotification;
 use App\Jobs\SendNotificationJob;
@@ -90,6 +91,18 @@ class ScheduledJob extends Model
             'notification_class_name' => DailyAssignmentActivateNotification::class,
             'scheduled_by_user_id'=>Auth::id(),
             'classroom_id'=> $daily_assignment->classroom_id
+        ]);
+    }
+    public static function homeworkNotification($homework){
+        return self::create([
+            'run_at' => Carbon::now('UTC'),
+            'job_type' => ClassroomNotificationJob::class,
+            'job_body' => json_encode([
+                'homework'=> $homework
+            ]),
+            'notification_class_name' => NewHomeworkNotification::class,
+            'scheduled_by_user_id'=>Auth::id(),
+            'classroom_id'=> $homework->classroom_id,
         ]);
     }
     public static function newClassroomMessageNotification($classroom){

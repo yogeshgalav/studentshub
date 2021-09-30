@@ -41,7 +41,7 @@ class AuthController extends Controller
         }
 
         if (!empty($request->fcmToken)) {
-            $user->fcm_token=base64_decode($request->fcmToken);
+            $user->fcm_token=$request->fcmToken;
         }
         try{
             $success = $this->getLoginSuccessData('page',$user,$request);

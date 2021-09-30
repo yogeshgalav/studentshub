@@ -250,10 +250,6 @@ export default {
 		};
 	},
 	mounted(){
-		if(this.$route.query.fcmToken){
-			this.fcmToken = this.$route.query.fcmToken;
-			localStorage.setItem('fcmToken',this.fcmToken);
-		}
 		if(localStorage.getItem('fcmToken')){
 			this.fcmToken = localStorage.getItem('fcmToken');
 		}

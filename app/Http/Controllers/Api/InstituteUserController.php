@@ -43,6 +43,7 @@ class InstituteUserController extends Controller
         $ins_user->user_id = $user->id;
         $ins_user->institute_id = $instituteId;
         $ins_user->role = $request->role;
+        $ins_user->is_verified = true;
         $ins_user->save();
 
         // ScheduledJob::scheduleNewInstituteMemberNotification($user);
@@ -78,6 +79,7 @@ class InstituteUserController extends Controller
             InstituteUser::firstOrCreate([
                 'institute_id'=>$institute->id,
                 'user_id'=>$user->id,
+                'is_verified' => false,
             ]);
             
             DB::commit();

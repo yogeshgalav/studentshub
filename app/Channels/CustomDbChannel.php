@@ -34,7 +34,7 @@ class CustomDbChannel
 
     public function sendAndroidNotification($notifiable, $message)
     {
-        $accesstoken = env('FCM_KEY');
+        $accesstoken = 'key='.env('FCM_KEY');
  
         $URL = 'https://fcm.googleapis.com/fcm/send';
      
@@ -57,20 +57,29 @@ class CustomDbChannel
               }';
             // print_r($post_data);die;
      
-        $crl = curl_init();
+        $curl = curl_init();
      
         $headr = array();
         $headr[] = 'Content-type: application/json';
         $headr[] = 'Authorization: ' . $accesstoken;
-        curl_setopt($crl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
      
-        curl_setopt($crl, CURLOPT_URL, $URL);
-        curl_setopt($crl, CURLOPT_HTTPHEADER, $headr);
+        curl_setopt($curl, CURLOPT_URL, $URL);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headr);
      
-        curl_setopt($crl, CURLOPT_POST, true);
-        curl_setopt($crl, CURLOPT_POSTFIELDS, $post_data);
-        curl_setopt($crl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $post_data);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
      
-        return curl_exec($crl);
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+        
+        curl_close($curl);
+        
+        if ($err) {
+            Log::critical('sms api call failure cURL Error #:' . $err);
+        }
+        
+        return true;
     }
 }
