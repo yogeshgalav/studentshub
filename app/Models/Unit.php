@@ -23,4 +23,8 @@ class Unit extends Model
     {
         $this->attributes['unit_name'] = ucfirst($value);
     }
+    
+    public function classroomUnit(){
+        return $this->hasMany(ClassroomUnit::class);
+    }
 }

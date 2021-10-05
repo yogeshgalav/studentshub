@@ -140,7 +140,7 @@ class User extends Authenticatable
         } elseif ('sthubAdmin'===$role) {
             $classroom_query=$classroom_query;
         } else {
-            $classroom_query=$classroom_query->where('0','=', '1');
+            return [];
         }
 
         return $classroom_query->groupBy('classrooms.id')->pluck('classrooms.id')->toArray();

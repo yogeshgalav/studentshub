@@ -15,7 +15,9 @@ class ClassroomUnitController extends Controller
     //
     //api end point for getting unit assisment data for students and teachers
     public function getClassroomUnitDetails(Request $request){
-        $unitData=Unit::where('classroom_id',$request->classroomId)
+        $unitData=Unit::whereHas('classroomUnit',function($query){
+            $query->where('classroom_id',$request->classroomId);
+        })
         ->orderBy('units.unit_no','DESC')->get();
 
         $daily_assignment_status = DB::table('daily_assignments')
@@ -24,9 +26,9 @@ class ClassroomUnitController extends Controller
         ->groupBy('status','unit_id')
         ->get();
 
-        $summary = DB::table('classrooms as cl')
+        $summary = DB::table('classroom_units as cl')
         ->where('cl.id',$request->classroomId)
-        ->leftJoin('units', 'cl.id', '=', 'units.classroom_id')
+        ->leftJoin('units', 'cl.unit_id', '=', 'units.id')
         ->leftJoin('student_reports as fsr', function($join){
             $join->on('fsr.unit_id', '=', 'units.id')->where('fsr.score_type','=','first');
         })
@@ -74,16 +76,18 @@ class ClassroomUnitController extends Controller
         $unitData=Unit::where('classroom_id',$request->classroomId)
         ->with('descriptiveQuestions')
         ->get();
-        $pie_details = DB::table('units as ut')
+        $pie_details = DB::table('classroom_units as ut')
         ->where('ut.classroom_id',$request->classroomId)
         ->leftjoin('daily_assignments as da','ut.classroom_id','=','da.classroom_id')
         ->leftjoin('daily_reports as dr','dr.daily_assignment_id','=','da.id')
-        ->select('ut.id','da.id',DB::raw("SUM(CASE WHEN (dr.status = 'completed') THEN 1 ELSE 0 END) as total_completed"),
+        ->select('ut.unit_id',
+        DB::raw("SUM(CASE WHEN (dr.status = 'completed') THEN 1 ELSE 0 END) as total_completed"),
         DB::raw("SUM(CASE WHEN (dr.status = 'draft') THEN 1 ELSE 0 END) as total_draft"),
         DB::raw("SUM(CASE WHEN (dr.status = 'activated') THEN 1 ELSE 0 END) as total_activated")     
         )
-        ->groupBy('ut.id','da.id')
+        ->groupBy('ut.unit_id')
         ->get();
+        
         return response()->json([
             'success'=>[
                 'unitData'=>$unitData,

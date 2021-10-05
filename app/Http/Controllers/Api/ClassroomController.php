@@ -89,19 +89,21 @@ class ClassroomController extends Controller
         ]]);
     }
 
-    public function getPreviousUnitAnswers($classroom_id){
-        $answers = DB::table('classroom_answers as ca')
-        ->join('descriptive_questions as cq','cq.id','=','ca.descriptive_question_id')
-        ->join('units',function($join)use($classroom_id){
-            $join->on('units.id','=','cq.unit_id')->where('classroom_id','=',$classroom_id)->whereNotNull('unit.deactivated');
-        })
-        ->select()
-        ->get();
+    // public function getPreviousUnitAnswers($classroom_id){
+    //     $answers = DB::table('classroom_answers as ca')
+    //     ->join('descriptive_questions as cq','cq.id','=','ca.descriptive_question_id')
+    //     ->join('units',function($join)use($classroom_id){
+    //         $join->on('units.id','=','cq.unit_id')
+    //         ->where('classroom_id','=',$classroom_id)
+    //         ->whereNotNull('unit.deactivated');
+    //     })
+    //     ->select()
+    //     ->get();
 
-        return response()->json(['success'=>[
-            'answers'=>$answers
-        ]]);
-    }
+    //     return response()->json(['success'=>[
+    //         'answers'=>$answers
+    //     ]]);
+    // }
     public function classroomListDetails(Request $request){
 
         $classrooms = DB::table('classrooms as cl')
