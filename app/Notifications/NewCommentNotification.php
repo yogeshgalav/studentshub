@@ -14,6 +14,7 @@ class NewCommentNotification extends Notification
     public $scheduled_job;
     public $msg_creater;
     public $classroom;
+    public $url;
     /**
      * Create a new notification instance.
      *
@@ -24,6 +25,7 @@ class NewCommentNotification extends Notification
         $this->scheduled_job=$scheduled_job;
         $this->classroom=$scheduled_job->classroom;
         $this->msg_creater=$scheduled_job->scheduled_by_user;
+        $this->url='/'.$this->scheduled_job->job_body['type'].'/'.$this->scheduled_job->job_body['id'];
     }
 
     /**
@@ -59,7 +61,7 @@ class NewCommentNotification extends Notification
      */
     public function toDatabase($notifiable)
     {
-        $body = $this->msg_creater->full_name." has commented on your" . $this->type . ".";
+        $body = $this->msg_creater->full_name." has commented on your" . $this->scheduled_job->job_body['type'] . ".";
 
         return [
             'scheduled_job_id'=>$this->scheduled_job->id,
