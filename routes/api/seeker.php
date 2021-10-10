@@ -5,7 +5,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['auth:api']], function () {
     Route::get('/get-posts', [App\Http\Controllers\Api\PostController::class, 'getPosts']);
-    Route::post('/user-like/{type}', 'LikeController@updateOrDelete');
+    Route::post('/{type}/{id}/like', 'LikeController@updateOrDelete')
+    ->pattern('type',['post','doubt','resource','message']);
     Route::post('/post-save', 'PostController@savePost');
     Route::post('/post-report', 'PostController@reportPost');
     Route::delete('post/{post}', 'PostController@delete');

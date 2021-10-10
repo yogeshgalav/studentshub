@@ -53,18 +53,23 @@ class CommentController extends Controller
 
          switch($request->commentable_type){
             case 'post':
+            $commentable=Post::findOrFail($id);
             $model = Post::class;
             break;
             case 'doubt':
+            $commentable=Doubt::findOrFail($id);
             $model = Doubt::class;
             break;
             case 'resource':
+            $commentable=ClassroomResource::findOrFail($id);
             $model = ClassroomResource::class;
             break;
             case 'message':
+            $commentable=ClassroomMessage::findOrFail($id);
             $model = ClassroomMessage::class;
             break;
             case 'homework':
+            $commentable=Homework::findOrFail($id);
             $model = Homework::class;
             break; 
         }
@@ -76,7 +81,7 @@ class CommentController extends Controller
             'comment_text'=>$request->comment_text ,
         ]);
 
-        ScheduledJob::NewCommentNotification($comment, Auth::id());
+        ScheduledJob::NewCommentNotification($comment, $commentable->user->id);
 
         return response()->json([
             'success'=>[

@@ -5,34 +5,39 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\Models\Like;
+use App\Models\Post;
+use App\Models\Doubt;
+use App\Models\ClassroomResource;
+use App\Models\ClassroomMessage;
+use App\Models\ScheduledJob;
 use Auth;
 
 class LikeController extends Controller
 {
     //
-    public function updateOrDelete(Request $request, $type){
+    public function updateOrDelete($type, $id){
         $me=Auth::user();
         switch($type)
         {
             case 'post':
-                $likable=\App\Models\Post::findOrFail($request->likable_id);
-                $likable_type='App\Models\Post';
+                $likable=Post::findOrFail($id);
+                $likable_type=Post::class;
                 \App\Models\SthubPost::addAction('like',$post,$me);
                 break;
             
             case 'doubt':
-                $likable=\App\Models\Doubt::findOrFail($request->likable_id);
-                $likable_type='App\Models\Doubt';
+                $likable=\App\Models\Doubt::findOrFail($id);
+                $likable_type=Doubt::class;
                 break;
             
             case 'resource':
-                $likable=\App\Models\ClassroomResource::findOrFail($request->likable_id);
-                $likable_type='App\Models\ClassroomResource';
+                $likable=ClassroomResource::findOrFail($id);
+                $likable_type=ClassroomResource::class;
                 break;
             
             case 'message':
-                $likable=\App\Models\ClassroomMessage::findOrFail($request->likable_id);
-                $likable_type='App\Models\ClassroomMessage';
+                $likable=ClassroomMessage::findOrFail($id);
+                $likable_type=ClassroomMessage::class;
         }
         $like=Like::where('likable_id','=',$likable->id)->where('likable_type','=', $likable_type)->where('user_id','=',$me->id)->first();
         if($like){
@@ -44,7 +49,7 @@ class LikeController extends Controller
                 'user_id'=>$me->id,
                 'like_status'=>1,
             ]);
-            ScheduledJob::NewLikeNotification($like, $likable->user_id);
+            ScheduledJob::NewLikeNotification($like, $likable->user->id);
         }
         return response()->json([], 204);
     }
