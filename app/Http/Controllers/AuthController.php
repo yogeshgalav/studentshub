@@ -161,7 +161,7 @@ class AuthController extends Controller
                 $success['redirectUrl'] = '/education-details';
             }
     
-            // \App\Models\ScheduledJob::scheduleNewUserNotification($user);
+            \App\Models\ScheduledJob::scheduleNewUserNotification($user);
             
         DB::commit();
         } catch (\Exception $e) {
@@ -203,10 +203,15 @@ class AuthController extends Controller
 
         $success['redirectUrl'] = '/check-in';
         if($request->join_id){
-            $this->registerWithClassrrom($user,$request->join_id);
+
+            try{
+                $this->registerWithClassrrom($user,$request->join_id);
+            } catch (\Exception $e) {
+                Log::error('registerWithClassrrom failure.',['message'=>$e->getMessage()]);
+            }
             $success['redirectUrl'] = '/education-details';
         }
-        // \App\Models\ScheduledJob::scheduleNewUserNotification($user);
+        \App\Models\ScheduledJob::scheduleNewUserNotification($user);
         
     DB::commit();
     } catch (\Exception $e) {
@@ -235,6 +240,13 @@ class AuthController extends Controller
             'classroom_id'=>$classroom->id,
             'user_id'=>$user->id,
         ]);
+        try{
+            $job = new \App\Jobs\NewUserNotificationJob($user, $classroom);
+            $this->dispatch($job);
+        } catch (\Exception $e) {
+            Log::error('NewUserNotificationJob failure.',['error'=>$e]);
+        }
+        return true;
     }
     /**
      * details api

@@ -89,7 +89,7 @@ class NewUserWelcomeNotification extends Notification
             'avatar_url'=>$notifiable->avatar_url,
             'avatar_name'=>$notifiable->full_name,
             'url'=>'/profile/'.$notifiable->id,
-            'body' => $this->text,
+            'body' => "Hi ".$notifiable->first_name.", ".$this->text,
         ];
     }
 }

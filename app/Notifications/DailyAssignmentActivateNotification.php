@@ -27,7 +27,7 @@ class DailyAssignmentActivateNotification extends Notification
     {
         $this->scheduled_job = $scheduled_job;
         $this->classroom = $scheduled_job->classroom;
-        $this->teacher = $scheduled_job->user;
+        $this->teacher = $scheduled_job->fromUser;
         $this->daily_assignment = $scheduled_job->job_body['daily_assignment'];
     }
 

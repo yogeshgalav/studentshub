@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Notifications\NewUserWelcomeNotification;
 use App\Notifications\NewInstituteMemberNotification;
 use App\Notifications\NewDoubtNotification;
-use App\Notifications\NewClassroomResourceNotification;
+use App\Notifications\NewPostNotification;
 use App\Notifications\DailyAssignmentActivateNotification;
 use App\Notifications\NewHomeworkNotification;
 use App\Notifications\NewClassroomMessageNotification;
@@ -41,7 +41,14 @@ class ScheduledJob extends Model
     /**
      * @return BelongsTo
      */
-    public function user()
+    public function toUser()
+    {
+        return $this->belongsTo(User::class, 'scheduled_for_user_id', 'id');
+    }
+    /**
+     * @return BelongsTo
+     */
+    public function fromUser()
     {
         return $this->belongsTo(User::class, 'scheduled_by_user_id', 'id');
     }
@@ -59,7 +66,8 @@ class ScheduledJob extends Model
             'run_at' => Carbon::now('UTC'),
             'job_type' => SendNotificationJob::class,
             'notification_class_name' => NewUserWelcomeNotification::class,
-            'scheduled_by_user_id'=>$user->id
+            'scheduled_by_user_id'=>$user->id,
+            'scheduled_for_user_id'=>$user->id
         ]);
     }
 
@@ -68,7 +76,8 @@ class ScheduledJob extends Model
             'run_at' => Carbon::now('UTC'),
             'job_type' => SendNotificationJob::class,
             'notification_class_name' => NewInstituteMemberNotification::class,
-            'scheduled_by_user_id'=>$user->id
+            'scheduled_by_user_id'=>$user->id,
+            'scheduled_for_user_id'=>$user->id
         ]);
     }
     public static function newDoubtNotification($doubt){
@@ -114,23 +123,44 @@ class ScheduledJob extends Model
             'classroom_id'=> $classroom->id,
         ]);
     }
-    public static function newClassroomResourceNotification($classroom){
+    public static function NewPostNotification($classroom){
         return self::create([
             'run_at' => Carbon::now('UTC'),
-            'job_type' => ClassroomNotificationJob::class,
-            'notification_class_name' => NewClassroomResourceNotification::class,
+            'job_type' => ClassmatesNotificationJob::class,
+            'notification_class_name' => NewPostNotification::class,
             'scheduled_by_user_id'=>Auth::id(),
             'classroom_id'=> $classroom->id,
         ]);
     }
-    public static function newClassroomReplyMessageNotification($classroom, $user){
+
+    public static function NewLikeNotification(Like $like, $scheduled_for_user_id){
         return self::create([
             'run_at' => Carbon::now('UTC'),
             'job_type' => SendNotificationJob::class,
-            'job_type' => json_encode(['message_user_id'=>Auth::id()]),
-            'notification_class_name' => NewMessageReplyNotification::class,
-            'scheduled_by_user_id'=>$user->id,
-            'classroom_id'=> $classroom->id,
+            'job_body' => json_encode(['like'=>$like]),
+            'notification_class_name' => NewLikeNotification::class,
+            'scheduled_by_user_id'=>Auth::id(),
+            'scheduled_for_user_id'=> $scheduled_for_user_id,
         ]);
+    }
+    public static function NewCommentNotification(Comment $comment, $scheduled_for_user_id){
+        return self::create([
+            'run_at' => Carbon::now('UTC'),
+            'job_type' => SendNotificationJob::class,
+            'job_body' => json_encode(['comment'=>$comment]),
+            'notification_class_name' => NewCommentNotification::class,
+            'scheduled_by_user_id'=>Auth::id(),
+            'scheduled_for_user_id'=>$scheduled_for_user_id,
+        ]);
+    }
+    public function scheduleClassroomNotificationsForNewUser(User $user, Classroom $classroom) {
+        $jobs = self::where('job_type', ClassroomNotificationJob::class)
+        ->where('classroom_id', $classroom->id)
+        ->get();
+        foreach($jobs as $job){
+            $classString = $job->notification_class_name;
+            $notification = new $classString($job);
+            $user->notify($notification);
+        }
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AlterInstituteUsersTable extends Migration
+class Alter2NotificationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AlterInstituteUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('institute_users', function (Blueprint $table) {
-            $table->boolean('is_verified')->default(false);
+        Schema::table('notifications', function (Blueprint $table) {
+            $table->boolean('scheduled_for_user_id')->nullable();
         });
     }
 

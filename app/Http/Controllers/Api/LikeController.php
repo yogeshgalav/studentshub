@@ -15,36 +15,36 @@ class LikeController extends Controller
         switch($type)
         {
             case 'post':
-                $post=\App\Models\Post::findOrFail($request->likable_id);
-                $likable_id=$post->id;
+                $likable=\App\Models\Post::findOrFail($request->likable_id);
                 $likable_type='App\Models\Post';
                 \App\Models\SthubPost::addAction('like',$post,$me);
                 break;
             
             case 'doubt':
-                $likable_id=\App\Models\Doubt::findOrFail($request->likable_id)->id;
+                $likable=\App\Models\Doubt::findOrFail($request->likable_id);
                 $likable_type='App\Models\Doubt';
                 break;
             
             case 'resource':
-                $likable_id=\App\Models\ClassroomResource::findOrFail($request->likable_id)->id;
+                $likable=\App\Models\ClassroomResource::findOrFail($request->likable_id);
                 $likable_type='App\Models\ClassroomResource';
                 break;
             
             case 'message':
-                $likable_id=\App\Models\ClassroomMessage::findOrFail($request->likable_id)->id;
+                $likable=\App\Models\ClassroomMessage::findOrFail($request->likable_id);
                 $likable_type='App\Models\ClassroomMessage';
         }
-        $like=Like::where('likable_id','=',$likable_id)->where('likable_type','=', $likable_type)->where('user_id','=',$me->id)->first();
+        $like=Like::where('likable_id','=',$likable->id)->where('likable_type','=', $likable_type)->where('user_id','=',$me->id)->first();
         if($like){
             $like->delete();
         } else {
-            Like::create([
+            $like = Like::create([
                 'likable_id'=>$likable_id,
                 'likable_type'=>$likable_type,
                 'user_id'=>$me->id,
                 'like_status'=>1,
             ]);
+            // ScheduledJob::NewLikeNotification($like, $likable->user_id);
         }
         return response()->json([], 204);
     }

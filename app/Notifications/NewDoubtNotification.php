@@ -15,6 +15,7 @@ class NewDoubtNotification extends Notification
     use Queueable;
     public $scheduled_job;
     public $doubt;
+    public $user;
     /**
      * Create a new notification instance.
      *
@@ -23,6 +24,7 @@ class NewDoubtNotification extends Notification
     public function __construct($scheduled_job)
     {
         $this->scheduled_job = $scheduled_job;
+        $this->user = $scheduled_job->fromUser;
         $this->doubt = $scheduled_job->job_body['doubt'];
     }
 
@@ -65,10 +67,10 @@ class NewDoubtNotification extends Notification
             'scheduled_job_id'=>$this->scheduled_job->id,
             'user_id'=>$notifiable->id,
             'title'=>'New Doubt.',
-            'avatar_url'=>$this->scheduled_job->user->avatar_url,
-            'avatar_name'=>$this->scheduled_job->user->full_name,
+            'avatar_url'=>$this->user->avatar_url,
+            'avatar_name'=>$this->user->full_name,
             'url'=>"/doubt/".$this->doubt['id'],
-            'body'=>$this->scheduled_job->user->full_name.' asked a doubt, "'.$question_text.'"',
+            'body'=>$this->user->full_name.' asked a doubt, "'.$question_text.'"',
         ];
     }
 }

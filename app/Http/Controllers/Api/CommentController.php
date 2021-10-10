@@ -15,37 +15,37 @@ use App\Models\Homework;
 class CommentController extends Controller
 {
 
-public function get($commentable_type, $commentable_id)
-{
-    switch($commentable_type){
-        case 'post':
-        $model = Post::class;
-        break;
-        case 'doubt':
-        $model = Doubt::class;
-        break;
-        case 'resource':
-        $model = ClassroomResource::class;
-        break;
-        case 'message':
-        $model = ClassroomMessage::class;
-        break;    
-        case 'homework':
-        $model = Homework::class;
-        break;    
+    public function get($commentable_type, $commentable_id)
+    {
+        switch($commentable_type){
+            case 'post':
+            $model = Post::class;
+            break;
+            case 'doubt':
+            $model = Doubt::class;
+            break;
+            case 'resource':
+            $model = ClassroomResource::class;
+            break;
+            case 'message':
+            $model = ClassroomMessage::class;
+            break;    
+            case 'homework':
+            $model = Homework::class;
+            break;    
+        }
+
+        $comments = Comment::where('commentable_type',$model)
+        ->where('commentable_id',$commentable_id)
+        ->leftJoin('users as us','comments.user_id','=','us.id')
+        ->select('us.full_name as user_name','comments.id','comments.comment_text')
+        ->get();
+
+        return response()->json([
+            'success'=>[
+                'comments'=>$comments,
+            ]]);
     }
-
-    $comments = Comment::where('commentable_type',$model)
-    ->where('commentable_id',$commentable_id)
-    ->leftJoin('users as us','comments.user_id','=','us.id')
-    ->select('us.full_name as user_name','comments.id','comments.comment_text')
-    ->get();
-
-    return response()->json([
-        'success'=>[
-            'comments'=>$comments,
-        ]]);
-}
 
      public function create(Request $request){
         $me=Auth::user();
@@ -74,6 +74,9 @@ public function get($commentable_type, $commentable_id)
             'commentable_type'=>$model,
             'comment_text'=>$request->comment_text ,
         ]);
+
+        // ScheduledJob::NewCommentNotification($comment, $model->user_id);
+
         return response()->json([
             'success'=>[
                 'comment_id'=>$comment->id,

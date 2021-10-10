@@ -22,7 +22,7 @@ class NewClassroomMessageNotification extends Notification
     public function __construct($scheduled_job)
     {
         $this->scheduled_job=$scheduled_job;
-        $this->msg_user=$scheduled_job->user;
+        $this->msg_user=$scheduled_job->fromUser;
         $this->classroom=$scheduled_job->classroom;
     }
 
