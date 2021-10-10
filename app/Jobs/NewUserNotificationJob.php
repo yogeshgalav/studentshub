@@ -6,13 +6,22 @@ use App\Models\User;
 use App\Models\Classroom;
 use App\Models\ScheduledJob;
 use App\Jobs\ClassroomNotificationJob;
+use Exception;
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
+use Throwable;
 
 /***
  * Class NewUserNotificationJob
  * @package App\Jobs
  */
-class NewUserNotificationJob extends ShouldQueue
+class NewUserNotificationJob implements ShouldQueue
 {
+    use Dispatchable, InteractsWithQueue, Queueable;
     private User $user;
     private Classroom $classroom;
 

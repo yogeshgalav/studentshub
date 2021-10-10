@@ -11,6 +11,7 @@ use App\Models\ClassroomMessage;
 use App\Models\Doubt;
 use App\Models\Comment;
 use App\Models\Homework;
+use App\Models\ScheduledJob;
 
 class CommentController extends Controller
 {
@@ -75,7 +76,7 @@ class CommentController extends Controller
             'comment_text'=>$request->comment_text ,
         ]);
 
-        // ScheduledJob::NewCommentNotification($comment, $model->user_id);
+        ScheduledJob::NewCommentNotification($comment, Auth::id());
 
         return response()->json([
             'success'=>[

@@ -3,8 +3,9 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
-class Alter2NotificationsTable extends Migration
+class AlterScheduledJobsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +14,10 @@ class Alter2NotificationsTable extends Migration
      */
     public function up()
     {
-        Schema::table('notifications', function (Blueprint $table) {
-            $table->boolean('scheduled_for_user_id')->nullable();
+        Schema::table('scheduled_jobs', function (Blueprint $table) {
+            $table->integer('scheduled_for_user_id')->unsigned()->nullable();
         });
+        DB::statement('TRUNCATE TABLE scheduled_jobs;');
     }
 
     /**

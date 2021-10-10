@@ -44,7 +44,7 @@ class LikeController extends Controller
                 'user_id'=>$me->id,
                 'like_status'=>1,
             ]);
-            // ScheduledJob::NewLikeNotification($like, $likable->user_id);
+            ScheduledJob::NewLikeNotification($like, $likable->user_id);
         }
         return response()->json([], 204);
     }
