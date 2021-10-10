@@ -191,7 +191,7 @@
                 >Homework</label>
                 <rich-text-editor
                   id="homework_html"
-                  v-model="homework_html"
+                  :content.sync="homework_html"
                 />
                 <div class="error">
                 <!-- {{ formErrors('newAssignment.new_unit') }} -->

@@ -1,11 +1,12 @@
 <template>
   <vue-editor
     id="homework_html"
-    v-model="content"
+    :value="content"
     name="homework_html"
     :editor-options="editorSettings"
     :editor-toolbar="customToolbar"
     :height="'100%'"
+    @input="$emit('update:content', $event)"
   />
 </template>
 <script>
@@ -16,13 +17,12 @@ Quill.register('modules/imageDrop', ImageDrop);
 Quill.register('modules/imageResize', ImageResize);
 
 export default {
-	prop: ['value'],
 	components:{
 		VueEditor
-	},    
+	},
+	props: ['content'],    
 	data(){
 		return {
-			content:'',
 			editorSettings: {
 				modules: {
 					imageDrop: true,
