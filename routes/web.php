@@ -24,10 +24,6 @@ Route::get('/report', 'GuestController@report');
 Route::get('/privacy-policy', 'GuestController@privacyPolicy');
 Route::get('/terms-of-service', 'GuestController@termOfUse');
 
-
-Route::get('/post-images/{filename}','GuestController@postImage');
-Route::get('/profile-images/{filename}','GuestController@profileImage');
-
 // Manifest file (optional if VAPID is used)
 Route::get('manifest.json', function () {
     return [

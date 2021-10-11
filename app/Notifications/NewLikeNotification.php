@@ -9,14 +9,13 @@ use Illuminate\Notifications\Notification;
 use App\Channels\CustomDbChannel;
 use App\Models\Like;
 
-class NewCommentNotification extends Notification
+class NewLikeNotification extends Notification
 {
     use Queueable;
     public $scheduled_job;
     public $like_creater;
     public $classroom;
     public $like;
-    public $type;
     public $url;
     /**
      * Create a new notification instance.
@@ -27,10 +26,14 @@ class NewCommentNotification extends Notification
     {
         $this->scheduled_job=$scheduled_job;
         $this->classroom=$scheduled_job->classroom;
-        $this->like_creater=$scheduled_job->scheduled_by_user;
-        $this->like=Like::find($scheduled_job->job_body['like_id']);
-        $this->type=Like::find($scheduled_job->job_body['like_id']);
-        $this->url='/'.$this->scheduled_job->job_body['type'].'/'.$this->scheduled_job->job_body['id'];
+        $this->like_creater=$scheduled_job->fromUser;
+        $this->like=Like::find($this->scheduled_job->job_body['like_id']);
+        $like_model_name = $this->like->getLikableTypeString();
+        if('message'===$like_model_name){
+            $this->url =config('url.site_url').'/messages';
+        }else{
+            $this->url=config('url.site_url').'/'.$like_model_name.'/'.$this->like->likable_id;
+        }
     }
 
     /**
@@ -66,7 +69,7 @@ class NewCommentNotification extends Notification
      */
     public function toDatabase($notifiable)
     {
-        $body = $this->like_creater->full_name." has liked your " . $this->type . ".";
+        $body = $this->like_creater->full_name." has liked your " . $this->like->getLikableTypeString() . ".";
 
         return [
             'scheduled_job_id'=>$this->scheduled_job->id,

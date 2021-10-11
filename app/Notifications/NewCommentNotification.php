@@ -7,6 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use App\Channels\CustomDbChannel;
+use App\Models\Comment;
 
 class NewCommentNotification extends Notification
 {
@@ -14,6 +15,7 @@ class NewCommentNotification extends Notification
     public $scheduled_job;
     public $msg_creater;
     public $classroom;
+    public $comment;
     public $url;
     /**
      * Create a new notification instance.
@@ -24,8 +26,14 @@ class NewCommentNotification extends Notification
     {
         $this->scheduled_job=$scheduled_job;
         $this->classroom=$scheduled_job->classroom;
-        $this->msg_creater=$scheduled_job->scheduled_by_user;
-        $this->url='/'.$this->scheduled_job->job_body['type'].'/'.$this->scheduled_job->job_body['id'];
+        $this->msg_creater=$scheduled_job->fromUser;
+        $this->comment=Comment::find($this->scheduled_job->job_body['comment_id']);
+        $com_model_name = $this->comment->getCommentableTypeString();
+        if('message'===$com_model_name){
+            $this->url =config('url.site_url').'/messages';
+        }else{
+            $this->url=config('url.site_url').'/'.$com_model_name.'/'.$this->comment->commentable_id;
+        }
     }
 
     /**
@@ -61,7 +69,7 @@ class NewCommentNotification extends Notification
      */
     public function toDatabase($notifiable)
     {
-        $body = $this->msg_creater->full_name." has commented on your" . $this->scheduled_job->job_body['type'] . ".";
+        $body = $this->msg_creater->full_name." has commented on your" . $this->comment->getCommentableTypeString() . ".";
 
         return [
             'scheduled_job_id'=>$this->scheduled_job->id,

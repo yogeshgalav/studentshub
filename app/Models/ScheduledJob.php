@@ -10,7 +10,8 @@ use App\Notifications\NewPostNotification;
 use App\Notifications\DailyAssignmentActivateNotification;
 use App\Notifications\NewHomeworkNotification;
 use App\Notifications\NewClassroomMessageNotification;
-use App\Notifications\NewMessageReplyNotification;
+use App\Notifications\NewCommentNotification;
+use App\Notifications\NewLikeNotification;
 use App\Jobs\SendNotificationJob;
 use App\Jobs\ClassroomNotificationJob;
 use App\Jobs\ClassmatesNotificationJob;
@@ -137,7 +138,7 @@ class ScheduledJob extends Model
         return self::create([
             'run_at' => Carbon::now('UTC'),
             'job_type' => SendNotificationJob::class,
-            'job_body' => json_encode(['like'=>$like]),
+            'job_body' => json_encode(['like_id'=>$like->id]),
             'notification_class_name' => NewLikeNotification::class,
             'scheduled_by_user_id'=>Auth::id(),
             'scheduled_for_user_id'=> $scheduled_for_user_id,
@@ -147,7 +148,7 @@ class ScheduledJob extends Model
         return self::create([
             'run_at' => Carbon::now('UTC'),
             'job_type' => SendNotificationJob::class,
-            'job_body' => json_encode(['comment'=>$comment]),
+            'job_body' => json_encode(['comment_id'=>$comment->id]),
             'notification_class_name' => NewCommentNotification::class,
             'scheduled_by_user_id'=>Auth::id(),
             'scheduled_for_user_id'=>$scheduled_for_user_id,

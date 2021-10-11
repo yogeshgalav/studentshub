@@ -44,7 +44,7 @@ class LikeController extends Controller
             $like->delete();
         } else {
             $like = Like::create([
-                'likable_id'=>$likable_id,
+                'likable_id'=>$likable->id,
                 'likable_type'=>$likable_type,
                 'user_id'=>$me->id,
                 'like_status'=>1,
