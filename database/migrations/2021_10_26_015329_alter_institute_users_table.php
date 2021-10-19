@@ -14,7 +14,7 @@ class AlterInstituteUsersTable extends Migration
     public function up()
     {
         Schema::table('institute_users', function (Blueprint $table) {
-            $table->boolean('is_verified')->default(false);
+            $table->integer('verified_by_user_id')->unsigned()->nullable();
         });
     }
 

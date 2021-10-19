@@ -6,16 +6,14 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use App\Models\ScheduledJob;
-use Illuminate\Support\Facades\Log;
 use App\Channels\CustomDbChannel;
 
-class NewDoubtNotification extends Notification
+class NewPostNotification extends Notification
 {
     use Queueable;
     public $scheduled_job;
-    public $doubt;
     public $user;
+    public $classroom;
     /**
      * Create a new notification instance.
      *
@@ -23,9 +21,10 @@ class NewDoubtNotification extends Notification
      */
     public function __construct($scheduled_job)
     {
-        $this->scheduled_job = $scheduled_job;
-        $this->user = $scheduled_job->fromUser;
-        $this->doubt = $scheduled_job->job_body['doubt'];
+        $this->scheduled_job=$scheduled_job;
+        $this->user=$scheduled_job->fromUser;
+        $this->classroom=$scheduled_job->classroom;
+        $this->post_id=$scheduled_job->job_body['post_id'];
     }
 
     /**
@@ -61,16 +60,14 @@ class NewDoubtNotification extends Notification
      */
     public function toDatabase($notifiable)
     {
-        $rand=rand(60,100);
-        $question_text = substr($this->doubt['question'],0,$rand) . '...';
         return [
             'scheduled_job_id'=>$this->scheduled_job->id,
             'user_id'=>$notifiable->id,
-            'title'=>'New Doubt.',
+            'title'=>'New Post.',
             'avatar_url'=>$this->user->avatar_url,
             'avatar_name'=>$this->user->full_name,
-            'url'=>"/doubt/".$this->doubt['id'],
-            'body'=>$this->user->full_name.' asked a doubt, "'.$question_text.'"',
+            'url'=>"/post/".$this->post_id,
+            'body' => $this->user->full_name." has added a new post for the subject " . $this->classroom->subject->subject_name . ".",
         ];
     }
 }

@@ -21,6 +21,9 @@ class Doubt extends Model
             ->generateSlugsFrom('question')
             ->saveSlugsTo('slug');
     }
+    public function user(){
+        return $this->belongsTo('App\Models\User');
+    }
     public function subject(){
         return $this->belongsTo('App\Models\Subject');
     }

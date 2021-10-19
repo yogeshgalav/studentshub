@@ -97,10 +97,8 @@ export default {
 			}
 			this.$validator.validate().then((valid) => {
         	if(valid){
-					this.axios.post('/api/comment',
+					this.axios.post('/api/'+this.likableId+'/'+this.likableType+'comment',
 						{
-							'commentable_id':this.likableId,
-							'commentable_type':this.likableType,
 							'comment_text': this.comment_text,
 						}).then((resp)=>{
 						this.comments.push({

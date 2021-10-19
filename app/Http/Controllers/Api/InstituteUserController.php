@@ -43,7 +43,7 @@ class InstituteUserController extends Controller
         $ins_user->user_id = $user->id;
         $ins_user->institute_id = $instituteId;
         $ins_user->role = $request->role;
-        $ins_user->is_verified = true;
+        $ins_user->verified_by_user_id = $request->user('api')->id;
         $ins_user->save();
 
         // ScheduledJob::scheduleNewInstituteMemberNotification($user);
@@ -79,16 +79,16 @@ class InstituteUserController extends Controller
             InstituteUser::firstOrCreate([
                 'institute_id'=>$institute->id,
                 'user_id'=>$user->id,
-                'is_verified' => false,
             ]);
             
             DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
-            // dd($e->getLine(),$e->getMessage());
             Log::critical('Teacher Registeration failure',['error'=>$e->getMessage()]);
             return response()->$e;
         }
+        Log::info('New Teacher Registered',['contact_number'=>$request->contact_number]);
+
         $success['redirectUrl'] = '/classrooms';
         return response()->json(['success' => $success]);
     }

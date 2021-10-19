@@ -7,13 +7,16 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use App\Channels\CustomDbChannel;
+use App\Models\Comment;
 
-class NewClassroomResourceNotification extends Notification
+class NewCommentNotification extends Notification
 {
     use Queueable;
     public $scheduled_job;
-    public $user;
+    public $msg_creater;
     public $classroom;
+    public $comment;
+    public $url;
     /**
      * Create a new notification instance.
      *
@@ -22,8 +25,15 @@ class NewClassroomResourceNotification extends Notification
     public function __construct($scheduled_job)
     {
         $this->scheduled_job=$scheduled_job;
-        $this->user=$scheduled_job->user;
         $this->classroom=$scheduled_job->classroom;
+        $this->msg_creater=$scheduled_job->fromUser;
+        $this->comment=Comment::find($this->scheduled_job->job_body['comment_id']);
+        $com_model_name = $this->comment->getCommentableTypeString();
+        if('message'===$com_model_name){
+            $this->url =config('url.site_url').'/messages';
+        }else{
+            $this->url=config('url.site_url').'/'.$com_model_name.'/'.$this->comment->commentable_id;
+        }
     }
 
     /**
@@ -59,14 +69,16 @@ class NewClassroomResourceNotification extends Notification
      */
     public function toDatabase($notifiable)
     {
+        $body = $this->msg_creater->full_name." has commented on your " . $this->comment->getCommentableTypeString() . ".";
+
         return [
             'scheduled_job_id'=>$this->scheduled_job->id,
             'user_id'=>$notifiable->id,
-            'title'=>'New Classroom Resource.',
-            'avatar_url'=>$this->user->avatar_url,
-            'avatar_name'=>$this->user->full_name,
-            'url'=>"/classroom/".$this->classroom->id."/resources",
-            'body' => $this->user->full_name." has added a new resource to the classroom " . $this->classroom->name . ".",
+            'title'=>'New Comment.',
+            'avatar_url'=>$this->msg_creater->avatar_url,
+            'avatar_name'=>$this->msg_creater->full_name,
+            'url'=>$this->url,
+            'body' => $body,
         ];
     }
 }

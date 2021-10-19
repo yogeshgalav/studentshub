@@ -120,7 +120,7 @@ class AuthController extends Controller
             $this->registerWithClassrrom($user,$request->join_id);
             $success['redirectUrl'] = '/education-details';
         }
-        // \App\Models\ScheduledJob::scheduleNewUserNotification($user);
+        \App\Models\ScheduledJob::scheduleNewUserNotification($user);
         
     DB::commit();
     } catch (\Exception $e) {
