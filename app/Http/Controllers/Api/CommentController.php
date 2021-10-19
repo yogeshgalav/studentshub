@@ -48,35 +48,36 @@ class CommentController extends Controller
             ]]);
     }
 
-     public function create(Request $request){
-        $me=Auth::user();
-
-         switch($request->commentable_type){
+     public function create($commentable_type, $commentable_id, Request $request){
+        $me=$request->user('api');
+         switch($commentable_type){
             case 'post':
-            $commentable=Post::findOrFail($id);
+            $commentable=Post::findOrFail($commentable_id);
             $model = Post::class;
             break;
             case 'doubt':
-            $commentable=Doubt::findOrFail($id);
+            $commentable=Doubt::findOrFail($commentable_id);
             $model = Doubt::class;
             break;
             case 'resource':
-            $commentable=ClassroomResource::findOrFail($id);
+            $commentable=ClassroomResource::findOrFail($commentable_id);
             $model = ClassroomResource::class;
             break;
             case 'message':
-            $commentable=ClassroomMessage::findOrFail($id);
+            $commentable=ClassroomMessage::findOrFail($commentable_id);
             $model = ClassroomMessage::class;
             break;
             case 'homework':
-            $commentable=Homework::findOrFail($id);
+            $commentable=Homework::findOrFail($commentable_id);
             $model = Homework::class;
-            break; 
+            break;
+            default:
+            abort(404); 
         }
     
         $comment = Comment::create([
             'user_id'=>$me->id,
-            'commentable_id'=>$request->commentable_id,
+            'commentable_id'=>$commentable_id,
             'commentable_type'=>$model,
             'comment_text'=>$request->comment_text ,
         ]);

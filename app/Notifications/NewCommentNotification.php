@@ -69,7 +69,7 @@ class NewCommentNotification extends Notification
      */
     public function toDatabase($notifiable)
     {
-        $body = $this->msg_creater->full_name." has commented on your" . $this->comment->getCommentableTypeString() . ".";
+        $body = $this->msg_creater->full_name." has commented on your " . $this->comment->getCommentableTypeString() . ".";
 
         return [
             'scheduled_job_id'=>$this->scheduled_job->id,

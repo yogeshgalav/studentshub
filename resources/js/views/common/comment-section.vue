@@ -118,10 +118,8 @@ export default {
 			if(!this.comment_text){
 				return false;
 			}
-			this.axios.post('/api/comment',
+			this.axios.post('/api/'+this.commentableType+'/'+this.commentableId+'/add-comment',
 				{
-					'commentable_id':this.commentableId,
-					'commentable_type':this.commentableType,
 					'comment_text': this.comment_text,
 				}).then((resp)=>{
 				this.comments.push({
