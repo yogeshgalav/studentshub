@@ -363,6 +363,7 @@ export default {
 				attempt_date: '',
 				start_time: '',
 				end_time: '',
+				activated_at:'',
 			},
 			assignment_list: [],
 			unitList: [],
@@ -407,7 +408,7 @@ export default {
 		}
 	},
 	mounted() {
-    this.$dayjs.extend(customParseFormat);
+		this.$dayjs.extend(customParseFormat);
 		this.getAssignmentList();
 	},
 	methods: {
@@ -554,7 +555,7 @@ export default {
 		activateApi(){
 			this.axios.post('/api/daily-assignment/'+this.current_assignment.id+'/activate')
 				.then(() => {
-					this.current_assignment.activated_at = this.current_assignment.activated_at ? null : new Date();
+					this.current_assignment.activated_at = this.current_assignment.activated_at ? '' : new Date();
 				});
 		}
 	}
