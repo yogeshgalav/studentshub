@@ -97,20 +97,6 @@ class User extends Authenticatable
         $this->attributes['full_name'] = ucwords($value);
     }
 
-    public function joinedClassroomCount(){
-        return \DB::table('classroom_users')
-            ->where('user_id',$this->id)
-            ->count();
-    }
-
-    public function createdClassroomCount(){
-        return \DB::table('classrooms')
-        ->where('classrooms.teacher_user_id',$this->id)
-        ->count();
-    }
-    public function hasClassroom(){
-        return $this->joinedClassroomCount()>0 || $this->createdClassroomCount()>0;
-    }
     public function isInstituteMember(){
         return \DB::table('institute_users')
             ->where('user_id',$this->id)

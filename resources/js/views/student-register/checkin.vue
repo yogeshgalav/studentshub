@@ -125,30 +125,6 @@
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md-12 form-group">
-                        <label for="college_id">Registration/Roll number</label>
-                        <div class="input_icon_frm">
-                          <span
-                            id="basic-addon1"
-                            class="icon_design_input"
-                          ><i
-                            class="fa fa-id-card"
-                            aria-hidden="true"
-                          /></span>
-                          <input
-                            id="college_id"
-                            v-model="college_id"
-                            v-validate="'alpha_num'"
-                            name="institute_id"
-                            type="text"
-                            placeholder="unique institute id"
-                            class="form-control u_input"
-                          >
-                        </div>
-                        <span class="error">{{ formErrors('student.institute_id') }}</span>
-                      </div>
-                    </div>
-                    <div class="row">
                       <button
                         type="submit"
                         class="btn-primary btn-lg m-0-a"
@@ -495,7 +471,6 @@ export default {
 				'subject_name': '',
 			},
 			is_prefferred: true,
-			college_id: '',
 			current_date:new Date(),
 			currentTab:'student',
 			students:'',
@@ -508,7 +483,6 @@ export default {
 			this.selected_course['course_name']=this.studentDetails.courseName;
 			this.selected_institute['id']=this.studentDetails.instituteId;
 			this.selected_institute['name']=this.studentDetails.instituteName;
-			this.college_id = this.studentDetails.college_id;
 			if(this.selected_course.id===1001){
 				this.selected_level={
 					id:1,
@@ -660,7 +634,6 @@ export default {
 				institute_id: this.selected_institute.id,
 				institute_name: this.selected_institute.name,
 				is_prefferred: this.is_prefferred,
-				college_id: this.college_id,
 			}).then((resp) => {
 				this.showLoader = false;
 				if (resp.data.success) {
