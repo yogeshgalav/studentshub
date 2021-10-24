@@ -58,7 +58,7 @@ class StudentController extends Controller
             ], [
                 'is_preferred' => 1,
                 //'prefferred_category' => $course->category_id,
-                'unique_college_id' => $request->college_id ?? null,
+                // 'unique_college_id' => $request->college_id ?? null,
             ]);
 
 

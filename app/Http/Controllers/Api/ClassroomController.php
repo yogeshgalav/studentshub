@@ -150,30 +150,7 @@ class ClassroomController extends Controller
         
         DB::beginTransaction();
         try {      
-            ClassroomUser::firstOrCreate([
-                'user_id'=>Auth::id(),
-                'classroom_id'=>$classroom->id
-            ]);
-
-            Student::firstOrCreate([
-                'user_id'=>$user->id,
-                'institute_id'=>$classroom->institute_id,
-                'course_id'=>$classroom->course_id,
-            ],[
-                'is_preferred'=>1,
-                'unique_college_id' => $request->college_id ?? null,
-            ]);
-
-
-            $user->role_intended = 'student';
-            $user->preferred_institute_id = $user->preferred_institute_id ?? $classroom->institute_id;
-            $user->save();
-            
-        // $batch_users = $batch->users()->whereNotIn('id', [$user->id]);
-            // Notification::send($batch_users, new BatchNewUserNotification($user,$batch));
-            // Notification::send($user, new StudentOnboardingNotification(count($batch_users)));
-
-
+            $user->joinClassroom($classroom);
         DB::commit();
     } catch (\Exception $e) {
         DB::rollback();

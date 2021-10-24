@@ -7,7 +7,6 @@ use App\Models\PasswordReset;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Classroom;
-use App\Models\ClassroomUser;
 use Illuminate\Http\Response;
 use App\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -158,7 +157,7 @@ class AuthController extends Controller
             $success['redirectUrl'] = '/check-in';
             if($request->join_id){
                 $this->registerWithClassrrom($user,$request->join_id);
-                $success['redirectUrl'] = '/education-details';
+                $success['redirectUrl'] = '/classrooms';
             }
     
             \App\Models\ScheduledJob::scheduleNewUserNotification($user);
@@ -173,78 +172,23 @@ class AuthController extends Controller
         return redirect($success['redirectUrl']);
     }
 
-    public function registerViaApi(RegisterRequest $request)
-    {
-        $input = $request->all();
-        
-        $input['full_name']=trim($input['full_name']);
-        //hash password
-        $input['password'] = bcrypt($input['password']);
-
-        DB::beginTransaction();
-    try{
-        $user = User::create([
-            'full_name'=>$input['full_name'],
-            'email'=>$input['email'],
-            'password'=>$input['password'],
-        ]);
-
-        $content=$this->getPassportTokens($request);
-        if(empty($content->access_token) || empty($content->refresh_token)){
-            $success['access_token'] = $user->createToken('sthub')->accessToken;;
-            $success['refresh_token'] = '';
-        }else{
-            $success['access_token'] = $content->access_token;
-            $success['refresh_token'] = $content->refresh_token;
-        }
-        Auth::login($user);
-        //log info
-        Log::info('new User '.$user->full_name." (User ID # ".$user->id.") registered and logged in from IP Address ".$request->ip());
-
-        $success['redirectUrl'] = '/check-in';
-        if($request->join_id){
-
-            try{
-                $this->registerWithClassrrom($user,$request->join_id);
-            } catch (\Exception $e) {
-                Log::error('registerWithClassrrom failure.',['message'=>$e->getMessage()]);
-            }
-            $success['redirectUrl'] = '/education-details';
-        }
-        \App\Models\ScheduledJob::scheduleNewUserNotification($user);
-        
-    DB::commit();
-    } catch (\Exception $e) {
-        DB::rollback();
-        Log::critical('user Registeration failure.',['input'=>$input]);
-        // dd($e->getMessage(),$e->getLine()));
-        return response()->$e;
-    }        
-        return response()->json(['success' => $success]);
-    }
 
     public function registerWithClassrrom($user,$joinId){
         $classroom = Classroom::where('classroom_join_id',$joinId)->first();
         if(empty($classroom)){
+            Log::error('Classroom not found for joining.',['user_id'=>$user->id,'join_id'=>$joinId]);
             return false;
         }
-        $request = new StudentCreateRequest([
-            'course_id' => $classroom->course_id,
-            'institute_id' => $classroom->institute_id, 
-            'institute_name' => '',
-        ]);
-        $student_controller =new \App\Http\Controllers\Api\StudentController;
-        $student_controller->create($request);
-
-        ClassroomUser::create([
-            'classroom_id'=>$classroom->id,
-            'user_id'=>$user->id,
-        ]);
+        try{
+            $user->joinClassroom($classroom);    
+        } catch (\Exception $e) {
+            Log::error('registeration with classroom failure.',['user_id'=>$user->id,'classroom_id'=>$classroom->id,'error'=>$e]);
+        }
         try{
             $job = new \App\Jobs\NewUserNotificationJob($user, $classroom);
             $this->dispatch($job);
         } catch (\Exception $e) {
-            Log::error('NewUserNotificationJob failure.',['error'=>$e]);
+            Log::error('NewUserNotificationJob failure.',['user_id'=>$user->id,'classroom_id'=>$classroom->id,'error'=>$e]);
         }
         return true;
     }
