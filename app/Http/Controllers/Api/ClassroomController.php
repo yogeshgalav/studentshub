@@ -136,8 +136,10 @@ class ClassroomController extends Controller
         ]);
     }
 
-    public function joinClassroom(Request $request){
+    public function joinClassroom(Request $request)
+    {
        
+        $user = $request->user('api');
         $classroom=Classroom::where('classroom_join_id',$request->name)->first();
         if(empty($classroom)){
             return response()->json(['error'=>[
@@ -145,20 +147,40 @@ class ClassroomController extends Controller
                 'message'=>'This classroom join id does not exist.'
             ]],422);
         }
-         
-        ClassroomUser::firstOrCreate([
-            'user_id'=>Auth::id(),
-            'classroom_id'=>$classroom->id
-        ]);
+        
+        DB::beginTransaction();
+        try {      
+            ClassroomUser::firstOrCreate([
+                'user_id'=>Auth::id(),
+                'classroom_id'=>$classroom->id
+            ]);
 
-        Student::firstOrCreate([
-            'user_id'=>Auth::id(),
-            'institute_id'=>$classroom->institute_id,
-            'course_id'=>$classroom->course_id,
-        ],[
-            'is_preferred'=>1,
-        ]);
+            Student::firstOrCreate([
+                'user_id'=>$user->id,
+                'institute_id'=>$classroom->institute_id,
+                'course_id'=>$classroom->course_id,
+            ],[
+                'is_preferred'=>1,
+                'unique_college_id' => $request->college_id ?? null,
+            ]);
 
+
+            $user->role_intended = 'student';
+            $user->preferred_institute_id = $user->preferred_institute_id ?? $classroom->institute_id;
+            $user->save();
+            
+        // $batch_users = $batch->users()->whereNotIn('id', [$user->id]);
+            // Notification::send($batch_users, new BatchNewUserNotification($user,$batch));
+            // Notification::send($user, new StudentOnboardingNotification(count($batch_users)));
+
+
+        DB::commit();
+    } catch (\Exception $e) {
+        DB::rollback();
+        // dd($e->getLine(),$e->getMessage());
+        Log::critical('Join classroom failure',['data'=>$request->all(),'error'=>$e->getMessage()]);
+        return response()->$e;
+    }
         return response()->json(['success'=>[
             'classroom_id'=>$classroom->id,
         ]]);
