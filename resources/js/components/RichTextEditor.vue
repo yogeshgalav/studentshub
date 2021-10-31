@@ -1,13 +1,47 @@
 <template>
-  <vue-editor
-    id="homework_html"
-    :value="content"
-    name="homework_html"
-    :editor-options="editorSettings"
-    :editor-toolbar="customToolbar"
-    :height="'100%'"
-    @input="$emit('update:content', $event)"
-  />
+  <div>
+    <form enctype="multipart/form-data">
+      <button
+        type="button"
+        class="btn btn-white"
+        @click="addVideo"
+      >
+        Yotube video
+      </button>
+      <button
+        type="button"
+        class="btn btn-white"
+        @click="addVideo"
+      >
+        Document
+      </button>
+      <button
+        type="button"
+        class="btn btn-white"
+        @click="$refs.imageInput.click()"
+      >
+        Images
+      </button>
+      <input
+        ref="imageInput"
+        type="file"
+        accept="image/*"
+        hidden
+        multiple
+        @change="handleImage"
+      >
+      <vue-editor
+        id="homework_html"
+        ref="editor"
+        :value="content"
+        name="homework_html"
+        :editor-options="editorSettings"
+        :editor-toolbar="customToolbar"
+        :height="'100%'"
+        @input="$emit('update:content', $event)"
+      />
+    </form>
+  </div>
 </template>
 <script>
 import { VueEditor,Quill } from 'vue2-editor';
@@ -43,6 +77,35 @@ export default {
 				['clean']
 			],
 		};
+	},
+	methods:{
+		addVideo(){
+			let quill = this.$refs.editor.quill;
+			const selection = quill.getSelection(); // get position of cursor (index of selection)
+			quill.clipboard.dangerouslyPasteHTML(selection.index, '&nbsp;<b>World</b>');
+		},
+		addDocument(){
+			let quill = this.$refs.editor.quill;
+			const selection = quill.getSelection(); // get position of cursor (index of selection)
+			quill.clipboard.dangerouslyPasteHTML(selection.index, '&nbsp;<b>World</b>');
+		},
+		handleImage(e){
+			const selectedImage = e.target.files[0];
+			this.getBase64(selectedImage).then(data=>{
+				let $html= '<img src=\"'+data+'\" alt=\"Red dot\" />';
+				let quill = this.$refs.editor.quill;
+				let selection = quill.getSelection();
+				quill.clipboard.dangerouslyPasteHTML(selection ? selection.index : 0, $html);
+			});
+		},
+		getBase64(file) {
+			return new Promise((resolve, reject) => {
+				const reader = new FileReader();
+				reader.readAsDataURL(file);
+				reader.onload = () => resolve(reader.result);
+				reader.onerror = error => reject(error);
+			});
+		}
 	}
 };
 </script>
