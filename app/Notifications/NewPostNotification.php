@@ -24,9 +24,9 @@ class NewPostNotification extends Notification
         $this->scheduled_job=$scheduled_job;
         $this->user=$scheduled_job->fromUser;
         $this->classroom=$scheduled_job->classroom;
-        $this->post_id=$scheduled_job->job_body['post_id'];
+        $this->post=Post::find($scheduled_job->job_body['post_id']);
     }
-/**
+    /**
      * Add all logic here to determine whether or not this notification is still
      * valid.  It will run immediately before the notification is sent.
      *
@@ -38,8 +38,14 @@ class NewPostNotification extends Notification
      */
     public function shouldAbort(): bool
     {
-        if (empty($this->post_id)) {
-            return $this->abortSending('The post was deleted');
+        if (empty($this->post)) {
+            return $this->abortSending('The post was not found');
+        }
+        if (empty($this->user)) {
+            return $this->abortSending('The user was not found');
+        }
+        if (empty($this->classroom)) {
+            return $this->abortSending('The classroom was not found');
         }
         return false;
     }
@@ -82,7 +88,7 @@ class NewPostNotification extends Notification
             'title'=>'New Post.',
             'avatar_url'=>$this->user->avatar_url,
             'avatar_name'=>$this->user->full_name,
-            'url'=>"/post/".$this->post_id,
+            'url'=>"/post/".$this->post->id,
             'body' => $this->user->full_name." has added a new post for the subject " . $this->classroom->subject->subject_name . ".",
         ];
     }

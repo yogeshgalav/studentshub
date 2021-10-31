@@ -62,7 +62,7 @@ class ScheduledJob extends Model
         return json_decode($value, true);
     }
 
-    public static function scheduleNewUserNotification($user){
+    public static function scheduleNewUserNotification(User $user){
         return self::create([
             'run_at' => Carbon::now('UTC'),
             'job_type' => SendNotificationJob::class,
@@ -72,7 +72,7 @@ class ScheduledJob extends Model
         ]);
     }
 
-    public static function scheduleNewInstituteMemberNotification($user){
+    public static function scheduleNewInstituteMemberNotification(User $user){
         return self::create([
             'run_at' => Carbon::now('UTC'),
             'job_type' => SendNotificationJob::class,
@@ -81,41 +81,41 @@ class ScheduledJob extends Model
             'scheduled_for_user_id'=>$user->id
         ]);
     }
-    public static function newDoubtNotification($doubt){
+    public static function newDoubtNotification(Doubt $doubt){
         return self::create([
             'run_at' => Carbon::now('UTC'),
-            'job_body' => json_encode(['doubt'=>$doubt]),
+            'job_body' => json_encode(['doubt_id'=>$doubt->id]),
             'job_type' => ClassmatesNotificationJob::class,
             'notification_class_name' => NewDoubtNotification::class,
             'scheduled_by_user_id'=>Auth::id(),
         ]);
     }
 
-    public static function dailyAssignmentActivateNotification($daily_assignment){
+    public static function dailyAssignmentActivateNotification(DailyAssignment $daily_assignment){
         return self::create([
             'run_at' => Carbon::now('UTC'),
             'job_type' => ClassroomNotificationJob::class,
             'job_body' => json_encode([
-                'daily_assignment'=> $daily_assignment
+                'daily_assignment_id'=> $daily_assignment->id
             ]),
             'notification_class_name' => DailyAssignmentActivateNotification::class,
             'scheduled_by_user_id'=>Auth::id(),
             'classroom_id'=> $daily_assignment->classroom_id
         ]);
     }
-    public static function homeworkNotification($homework){
+    public static function homeworkNotification(Homework $homework){
         return self::create([
             'run_at' => Carbon::now('UTC'),
             'job_type' => ClassroomNotificationJob::class,
             'job_body' => json_encode([
-                'homework'=> $homework
+                'homework_id'=> $homework->id
             ]),
             'notification_class_name' => NewHomeworkNotification::class,
             'scheduled_by_user_id'=>Auth::id(),
             'classroom_id'=> $homework->classroom_id,
         ]);
     }
-    public static function newClassroomMessageNotification($classroom){
+    public static function newClassroomMessageNotification(Classroom $classroom){
         return self::create([
             'run_at' => Carbon::now('UTC'),
             'job_type' => ClassroomNotificationJob::class,
@@ -124,7 +124,7 @@ class ScheduledJob extends Model
             'classroom_id'=> $classroom->id,
         ]);
     }
-    public static function NewPostNotification($classroom, $post){
+    public static function NewPostNotification(Classroom $classroom,Post $post){
         return self::create([
             'run_at' => Carbon::now('UTC'),
             'job_type' => ClassmatesNotificationJob::class,
