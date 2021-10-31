@@ -22,7 +22,6 @@ class LikeController extends Controller
             case 'post':
                 $likable=Post::findOrFail($id);
                 $likable_type=Post::class;
-                \App\Models\SthubPost::addAction('like',$post,$me);
                 break;
             
             case 'doubt':
@@ -42,6 +41,9 @@ class LikeController extends Controller
         $like=Like::where('likable_id','=',$likable->id)->where('likable_type','=', $likable_type)->where('user_id','=',$me->id)->first();
         if($like){
             $like->delete();
+            if($likable_type===Post::class){
+                \App\Models\SthubPost::deleteAction('like',$likable,$me);
+            }
         } else {
             $like = Like::create([
                 'likable_id'=>$likable->id,
@@ -49,6 +51,9 @@ class LikeController extends Controller
                 'user_id'=>$me->id,
                 'like_status'=>1,
             ]);
+            if($likable_type===Post::class){
+                \App\Models\SthubPost::addAction('like',$likable,$me);
+            }
             ScheduledJob::NewLikeNotification($like, $likable->user->id);
         }
         return response()->json([], 204);

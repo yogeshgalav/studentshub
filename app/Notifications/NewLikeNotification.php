@@ -9,9 +9,8 @@ use Illuminate\Notifications\Notification;
 use App\Channels\CustomDbChannel;
 use App\Models\Like;
 
-class NewLikeNotification extends Notification
+class NewLikeNotification extends SthubAllowlistedUserNotification
 {
-    use Queueable;
     public $scheduled_job;
     public $like_creater;
     public $classroom;
@@ -28,14 +27,24 @@ class NewLikeNotification extends Notification
         $this->classroom=$scheduled_job->classroom;
         $this->like_creater=$scheduled_job->fromUser;
         $this->like=Like::find($this->scheduled_job->job_body['like_id']);
-        $like_model_name = $this->like->getLikableTypeString();
-        if('message'===$like_model_name){
-            $this->url =config('url.site_url').'/messages';
-        }else{
-            $this->url=config('url.site_url').'/'.$like_model_name.'/'.$this->like->likable_id;
-        }
     }
-
+    /**
+     * Add all logic here to determine whether or not this notification is still
+     * valid.  It will run immediately before the notification is sent.
+     *
+     * Call $this->abortSending($reason) to log the job cancellation, and then
+     * return boolean.
+     *
+     * @see NotificationSendingListener
+     * @return bool
+     */
+    public function shouldAbort(): bool
+    {
+        if (empty($this->like)) {
+            return $this->abortSending('The like was deleted');
+        }
+        return false;
+    }
     /**
      * Get the notification's delivery channels.
      *
@@ -69,6 +78,12 @@ class NewLikeNotification extends Notification
      */
     public function toDatabase($notifiable)
     {
+        $like_model_name = $this->like->getLikableTypeString();
+        if('message'===$like_model_name){
+            $this->url =config('url.site_url').'/messages';
+        }else{
+            $this->url=config('url.site_url').'/'.$like_model_name.'/'.$this->like->likable_id;
+        }
         $body = $this->like_creater->full_name." has liked your " . $this->like->getLikableTypeString() . ".";
 
         return [

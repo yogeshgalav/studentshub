@@ -26,7 +26,23 @@ class NewPostNotification extends Notification
         $this->classroom=$scheduled_job->classroom;
         $this->post_id=$scheduled_job->job_body['post_id'];
     }
-
+/**
+     * Add all logic here to determine whether or not this notification is still
+     * valid.  It will run immediately before the notification is sent.
+     *
+     * Call $this->abortSending($reason) to log the job cancellation, and then
+     * return boolean.
+     *
+     * @see NotificationSendingListener
+     * @return bool
+     */
+    public function shouldAbort(): bool
+    {
+        if (empty($this->post_id)) {
+            return $this->abortSending('The post was deleted');
+        }
+        return false;
+    }
     /**
      * Get the notification's delivery channels.
      *

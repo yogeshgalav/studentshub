@@ -103,18 +103,22 @@ class Post extends PostModel
         ->leftJoin('institutes as inst','inst.id','=','us.preferred_institute_id');
 
         $columns = ['po.id as id','po.post_heading as heading','po.post_description as description','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','po.primary_image_path as image_path',
-        'sub.slug','sub.subject_name',
-        'po.created_at as time','us.avatar_url as profile_image','us.id as user_id','us.full_name as user_name','inst.name as institute_name','ar.html_content as article_content',
+        'sub.slug','sub.subject_name','us.avatar_url as profile_image','us.id as user_id','us.full_name as user_name','inst.name as institute_name','ar.html_content as article_content',
         'vd.video_id as video_id','fc.image_path as fact_image_path','do.link as document_link'];
+        $groupBycolumns = ['po.id','po.post_heading','po.post_description','po.postable_type','cat.name','cat.id','po.primary_image_path',
+        'sub.slug','sub.subject_name','us.avatar_url','us.id','us.full_name','inst.name','ar.html_content',
+        'vd.video_id','fc.image_path','do.link'];
 
         if(Auth::check()){
             $post_query->leftJoin('likes as uli',function($join){
                 $join->on('po.id','=','uli.likable_id')->where('uli.likable_type','=','App\Models\Post')->where('uli.user_id','=',Auth::user()->id);
             });
             array_push($columns,'uli.like_status as user_like');
+            array_push($groupBycolumns,'uli.like_status');
         }
 
-        return $post_query->select($columns);
+        return $post_query->select($columns)
+        ->groupBy($groupBycolumns);
     }
 
     public function getPostType($post_type){
@@ -155,7 +159,6 @@ class Post extends PostModel
             $post->total_views=$postData->total_views;
             $post->profile_image=$post->profile_image ?? '';
             $post->image_path=$post->image_path ?? '';
-            $post->time=Carbon::createFromTimeStamp(strtotime($post->time))->diffForHumans();
         }
 
         return $posts;

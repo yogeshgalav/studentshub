@@ -124,12 +124,13 @@ class ScheduledJob extends Model
             'classroom_id'=> $classroom->id,
         ]);
     }
-    public static function NewPostNotification($classroom){
+    public static function NewPostNotification($classroom, $post){
         return self::create([
             'run_at' => Carbon::now('UTC'),
             'job_type' => ClassmatesNotificationJob::class,
             'notification_class_name' => NewPostNotification::class,
             'scheduled_by_user_id'=>Auth::id(),
+            'job_body'=>json_encode(['post_id'=>$post->id]),
             'classroom_id'=> $classroom->id,
         ]);
     }
