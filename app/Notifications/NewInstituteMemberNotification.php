@@ -9,8 +9,9 @@ use Log;
 use App\Models\User;
 use App\Models\Batch;
 use App\Models\student;
+use Illuminate\Notifications\Notification;
 
-class NewInstituteMemberNotification extends SthubAllowlistedUserNotification
+class NewInstituteMemberNotification extends Notification
 {
     use Queueable;
 
@@ -24,7 +25,20 @@ class NewInstituteMemberNotification extends SthubAllowlistedUserNotification
     {
         return ['mail'];
     }
-
+/**
+     * Add all logic here to determine whether or not this notification is still
+     * valid.  It will run immediately before the notification is sent.
+     *
+     * Call $this->abortSending($reason) to log the job cancellation, and then
+     * return boolean.
+     *
+     * @see NotificationSendingListener
+     * @return bool
+     */
+    public function shouldAbort(): bool
+    {
+        return false;
+    }
     /**
      * Get the mail representation of the notification.
      *

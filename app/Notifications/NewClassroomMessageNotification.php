@@ -25,7 +25,26 @@ class NewClassroomMessageNotification extends Notification
         $this->msg_user=$scheduled_job->fromUser;
         $this->classroom=$scheduled_job->classroom;
     }
-
+/**
+     * Add all logic here to determine whether or not this notification is still
+     * valid.  It will run immediately before the notification is sent.
+     *
+     * Call $this->abortSending($reason) to log the job cancellation, and then
+     * return boolean.
+     *
+     * @see NotificationSendingListener
+     * @return bool
+     */
+    public function shouldAbort(): bool
+    {
+        if (empty($this->classroom)) {
+            return $this->abortSending('The classroom was not found.');
+        }
+        if (empty($this->msg_user)) {
+            return $this->abortSending('The msg_user was not found.');
+        }
+        return false;
+    }
     /**
      * Get the notification's delivery channels.
      *

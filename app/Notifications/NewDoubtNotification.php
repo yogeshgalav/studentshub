@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notification;
 use App\Models\ScheduledJob;
 use Illuminate\Support\Facades\Log;
 use App\Channels\CustomDbChannel;
+use App\Models\Doubt;
 
 class NewDoubtNotification extends Notification
 {
@@ -25,9 +26,28 @@ class NewDoubtNotification extends Notification
     {
         $this->scheduled_job = $scheduled_job;
         $this->user = $scheduled_job->fromUser;
-        $this->doubt = $scheduled_job->job_body['doubt'];
+        $this->doubt = Doubt::find($scheduled_job->job_body['doubt_id']);
     }
-
+/**
+     * Add all logic here to determine whether or not this notification is still
+     * valid.  It will run immediately before the notification is sent.
+     *
+     * Call $this->abortSending($reason) to log the job cancellation, and then
+     * return boolean.
+     *
+     * @see NotificationSendingListener
+     * @return bool
+     */
+    public function shouldAbort(): bool
+    {
+        if (empty($this->doubt)) {
+            return $this->abortSending('The doubt was not found.');
+        }
+        if (empty($this->user)) {
+            return $this->abortSending('The user was not found.');
+        }
+        return false;
+    }
     /**
      * Get the notification's delivery channels.
      *

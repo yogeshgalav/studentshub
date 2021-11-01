@@ -58,7 +58,7 @@ class ClassroomResourceController extends Controller
         $classroom_resource->unit_id = $unit->id;
         $classroom_resource->description = $request->description;
         $classroom_resource->save();
-        ScheduledJob::NewPostNotification($classroom);
+
         if(in_array($request->resource_type,['documentLink','youtubeVideo'])){
             // $request->share_as_post && 
             $post=new Post;
@@ -97,6 +97,7 @@ class ClassroomResourceController extends Controller
             $post->created_via='resource';
             $post->save();
 
+            ScheduledJob::NewPostNotification($classroom, $post);
             SthubPost::addAction('share',$post,Auth::user());
         }
 

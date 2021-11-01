@@ -254,6 +254,7 @@ class PostController extends Controller
 
       public function delete(Post $post){
         $post->delete();
+        SthubPost::where('post_id', $post->id)->delete();
 
         return response()->json([],204);
     }
