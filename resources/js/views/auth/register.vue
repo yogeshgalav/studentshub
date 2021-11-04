@@ -67,6 +67,7 @@
                               name="full_name"
                               placeholder="Enter Full Name"
                               autofocus
+                              maxlength="255"
                             >
                           </div>
                           <span class="error">{{ errors.first('full_name') }}</span>
@@ -89,6 +90,7 @@
                               class="form-control"
                               name="email"
                               placeholder="Email address"
+                              maxlength="255"
                             >
                           </div>
                           <span class="error">{{ errors.first('email') }}</span>
@@ -112,6 +114,7 @@
                               class="form-control"
                               name="password"
                               placeholder="Password"
+                              maxlength="16"
                             >
                             <div
                               class="input-group-append"

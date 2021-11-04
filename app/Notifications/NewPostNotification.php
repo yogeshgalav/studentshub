@@ -7,6 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use App\Channels\CustomDbChannel;
+use App\Models\Post;
 
 class NewPostNotification extends Notification
 {
