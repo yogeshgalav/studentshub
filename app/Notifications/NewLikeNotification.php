@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notification;
 use App\Channels\CustomDbChannel;
 use App\Models\Like;
 
-class NewLikeNotification extends Notification
+class NewLikeNotification extends SthubNotification
 {
     public $scheduled_job;
     public $like_creater;

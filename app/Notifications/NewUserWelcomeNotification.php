@@ -16,7 +16,7 @@ use NotificationChannels\WebPush\WebPushMessage;
 use NotificationChannels\WebPush\WebPushChannel;
 use Illuminate\Notifications\Notification;
 
-class NewUserWelcomeNotification extends Notification
+class NewUserWelcomeNotification extends SthubNotification
 {
     use Queueable;
 
