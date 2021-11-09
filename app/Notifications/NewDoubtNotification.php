@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Log;
 use App\Channels\CustomDbChannel;
 use App\Models\Doubt;
 
-class NewDoubtNotification extends Notification
+class NewDoubtNotification extends SthubNotification
 {
     use Queueable;
     public $scheduled_job;

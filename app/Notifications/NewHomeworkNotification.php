@@ -12,7 +12,7 @@ use Carbon\Carbon;
 use App\Channels\CustomDbChannel;
 use App\Channels\ParentSmsChannel;
 
-class NewHomeworkNotification extends Notification
+class NewHomeworkNotification extends SthubNotification
 {
     use Queueable;
     public $scheduled_job;

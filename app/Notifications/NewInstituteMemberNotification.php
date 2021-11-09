@@ -11,7 +11,7 @@ use App\Models\Batch;
 use App\Models\student;
 use Illuminate\Notifications\Notification;
 
-class NewInstituteMemberNotification extends Notification
+class NewInstituteMemberNotification extends SthubNotification
 {
     use Queueable;
 

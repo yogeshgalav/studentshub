@@ -77,7 +77,9 @@ class CustomDbChannel
         curl_close($curl);
         
         if ($err) {
-            Log::critical('sms api call failure cURL Error #:' . $err);
+            Log::critical('Firebase api call failure cURL Error #:' . $err);
+        } else {
+            Log::info('Android notification sent to '.$notifiable->full_name.' #:' . $notifiable->id);
         }
         
         return true;

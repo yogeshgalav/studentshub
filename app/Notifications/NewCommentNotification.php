@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notification;
 use App\Channels\CustomDbChannel;
 use App\Models\Comment;
 
-class NewCommentNotification extends Notification
+class NewCommentNotification extends SthubNotification
 {
     use Queueable;
     public $scheduled_job;

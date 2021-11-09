@@ -12,7 +12,7 @@ use Carbon\Carbon;
 use App\Channels\CustomDbChannel;
 use App\Models\DailyAssignment;
 
-class DailyAssignmentActivateNotification extends Notification
+class DailyAssignmentActivateNotification extends SthubNotification
 {
     use Queueable;
     public $scheduled_job;
