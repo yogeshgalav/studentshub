@@ -4,7 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use DB;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+
 
 class LastSeenMiddleware
 {
@@ -20,11 +22,12 @@ class LastSeenMiddleware
         if (auth()->guest()) {
             return $next($request);
         }
-        if (auth()->user()->last_online_at->diffInHours(now()) !==0)
+        if (auth()->user()->last_seen_at === null || auth()->user()->last_seen_at->diffInHours(now()) !==0)
         { 
+            Log::info('last seen updated for '.auth()->user()->full_name.' #'.auth()->user()->id);
             DB::table("users")
               ->where("id", auth()->user()->id)
-              ->update(["last_online_at" => now()]);
+              ->update(["last_seen_at" => now()]);
         }
         return $next($request);
     }

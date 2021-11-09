@@ -14,7 +14,7 @@ class ModifyLastLoginToLastSeen extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dateTime('last_online_at')->nullable();
+            $table->dateTime('last_seen_at')->nullable();
         });
     }
 
