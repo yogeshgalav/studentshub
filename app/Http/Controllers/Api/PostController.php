@@ -29,25 +29,14 @@ class PostController extends Controller
         $data=$request->all();
         $post_type=$data['post_type'];
         $heading=$data['heading'];
-        $student=Auth::student();
-        if(is_null($student)){
-          abort(403);
-        }
+        
         DB::beginTransaction();
         try{
-          $subject = NULL;
-          if($data['subject_name']){
-            $subject=Subject::getOrCreate($data['subject_id'], $data['subject_name'], $data['category_id']);
-          }
-      
-        
 
         $post=new Post;
         $post->user_id=Auth::user()->id;
         $post->post_heading=$heading;
-        $post->subject_id=$subject?$subject->id:NULL;
         $post->category_id = $data['category_id'];
-
 
         switch(strToLower($request->post_type)){
             case 'article':
@@ -99,6 +88,7 @@ class PostController extends Controller
         $post->post_description = $data['description'];
         $post->save();
 
+        Subject::addPostTags($post, $request->selected_subjects);
         SthubPost::addAction('share',$post,Auth::user());
 
         DB::commit();
@@ -107,6 +97,10 @@ class PostController extends Controller
         Log::warning('Post Creation failure',['data'=>$request->all(),'error'=>$e->getMessage()]);
         return response()->$e;
     }
+    Log::info('New Post created',[
+      'user_id'=>$request->user('api')->id,
+      'heading'=>$request->heading,
+    ]);
         return response()->json(['success'=>[
           'message'=>'Post Successfully Created',
         ]]);
@@ -119,15 +113,10 @@ class PostController extends Controller
       }
       DB::beginTransaction();
       try{
-        $subject = NULL;
-        if($data['subject_name']){
-          $subject=Subject::getOrCreate($data['subject_id'], $data['subject_name'], $data['category_id']);
-        }
     
       $post->post_heading=$data['heading'];
       $post->subject_id=$subject?$subject->id:NULL;
       $post->category_id = $data['category_id'];
-
 
       switch($post->postable_type){
           case Article::class:

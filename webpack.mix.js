@@ -14,6 +14,7 @@ const mix = require('laravel-mix');
 mix
 .extract(['vue','vue-router','vue-axios','axios','vue-sweetalert2','dayjs','vue-dayjs'], 'public/js/vue.js')
 .extract(['chart.js'], 'public/js/chart.js')
+.extract(['vue2-editor','quill-image-drop-module','quill-image-resize-vue'], 'public/js/editor.js')
 .js('resources/js/app/guest/app.js', 'public/js/app.js')
 .js('resources/js/app/seeker/app.js', 'public/js/seekerApp.js')
 .js('resources/js/app/student/app.js', 'public/js/studentApp.js')

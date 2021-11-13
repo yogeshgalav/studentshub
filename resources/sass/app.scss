@@ -238,10 +238,22 @@ button[disabled="disabled"] {
 }
 .btn-lg {
     border: none;
-    min-width: 300px;
-    padding: 10px 50px !important;
+    padding: 10px 30px !important;
     text-align: center;
     font-size: large !important;
+    border-radius: 5px;
+    color: white;
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    justify-content: center;
+}
+.btn-md {
+    border: none;
+    min-height: 40px;
+    padding: 9px 21px !important;
+    text-align: center;
+    font-size: medium !important;
     border-radius: 5px;
     color: white;
     display: flex;

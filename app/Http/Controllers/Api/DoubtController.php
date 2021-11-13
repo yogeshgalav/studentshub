@@ -22,24 +22,18 @@ class DoubtController extends Controller
 
     public function create (Request $request)
     {
-        $student=Auth::student();
-        $selected_subject=$request->subject;
-
-        if(is_null($student)){
-            abort(403);
-        }
-
         DB::beginTransaction();
     try{
-        $subject=Subject::getOrCreate(null, $selected_subject['subject_name'], Auth::student()->categoryId);
+        // $subject=Subject::getOrCreate(null, $selected_subject['subject_name'], Auth::student()->categoryId);
 
+        $me = $request->user('api');
         $doubt = new Doubt();
-        $doubt->user_id = Auth::user()->id;
-        $doubt->question = $request->doubt;
-        $doubt->subject_id = $subject->id;
-        $doubt->institute_id = $student->instituteId;
-        $doubt->course_id = $student->courseId;
+        $doubt->user_id = $me->id;
+        $doubt->question = $request->question;
+        $doubt->category_id = $request->category_id;
+        $doubt->course_id=$me->preferred_course_id;
         $doubt->save();
+        $subject=Subject::addDoubtTags($doubt, $request->selected_subjects);
         ScheduledJob::newDoubtNotification($doubt);
 
 
@@ -50,22 +44,27 @@ class DoubtController extends Controller
             // dd($e->getMessage(),$e->getLine());
             return response()->$e;
         }
+
+        Log::info('New Doubt created',[
+            'user_id'=>$request->user('api')->id,
+            'question'=>$request->question,
+        ]);
         return 'success';
     }
 
     public function index(Request $request)
     {
-        $course_id = null;
-        if($request->classroomId){
-            $course_id = Classroom::findOrFail($request->classroomId)->course_id;
-        }else if(Auth::student()){
-            $course_id = Auth::student()->courseId;
-        }
+        // $course_id = null;
+        // if($request->classroomId){
+        //     $course_id = Classroom::findOrFail($request->classroomId)->course_id;
+        // }else if(Auth::student()){
+        //     $course_id = Auth::student()->courseId;
+        // }
 
-        $doubt_query=Doubt::where('course_id',$course_id)
-        ->join('users as us','us.id','=','doubts.user_id')
-        ->join('subjects as sub','sub.id','=','doubts.subject_id')
-        ->join('institutes as inst','inst.id','=','doubts.institute_id');
+        $doubt_query=Doubt::join('users as us','us.id','=','doubts.user_id')
+        ->join('categories as cat','cat.id','=','doubts.category_id')
+        ->leftJoin('institutes as inst','inst.id','=','us.preferred_institute_id');
+        
         if(!empty($request->search)){
             $doubt_query = $doubt_query->where('question','LIKE','%'.$request->search.'%');
         }
@@ -80,17 +79,21 @@ class DoubtController extends Controller
             ->where('uli.likable_type','=','App\Models\Doubt')
             ->where('uli.user_id','=',Auth::id());
         })
-        ->select('sub.id as subject_id','us.id as user_id','us.full_name as user_name','us.avatar_url as profile_image','sub.subject_name','inst.name as institute_name',
+        ->select('cat.id as category_id','cat.name as category_name',
+        'us.id as user_id','us.full_name as user_name','us.avatar_url as profile_image',
+        'inst.id','inst.name',
         'doubts.question','doubts.created_at','doubts.id','uli.like_status as user_like',
         DB::raw('COUNT(distinct li.user_id) as total_likes'),
         DB::raw('COUNT(distinct ans.user_id) as total_answers'))
-        ->groupBy('sub.id','us.id','us.full_name','us.avatar_url','sub.subject_name','inst.name',
+        ->groupBy('cat.id','cat.name', 'us.id','us.full_name','us.avatar_url',
+        'inst.id','inst.name',
         'doubts.question','doubts.created_at','doubts.id','uli.like_status')
         ->orderBy('doubts.created_at','DESC')
         ->get();
 
         foreach($doubts as $doubt){
             $doubt->time=Carbon::createFromTimeStamp(strtotime($doubt->created_at))->diffForHumans();
+            $doubt->subjects=$doubt->subjects()->get();
         }
 
         return response()->json([

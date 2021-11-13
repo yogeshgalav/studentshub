@@ -6,6 +6,8 @@
     @include('includes.meta')
     @include('includes.title')
     @yield('compiledJs')
+    <script prefetch src="{{ asset('js/seekerApp.js') }}" defer></script>
+    <script prefetch src="{{ asset('js/editor.js') }}" defer></script>
     <script src="{{ asset('js/vue.js') }}" defer></script>
     <script src="{{ asset('js/manifest.js') }}" defer></script>
     <link href="{{ asset('css/app.css') }}" type="text/css" rel="stylesheet">
