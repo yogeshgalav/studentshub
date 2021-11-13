@@ -32,7 +32,7 @@ class AlterDoubtsTable2 extends Migration
             $doubt->save();
         }
         foreach(Post::get() as $post){
-            if($doubt->subject_id){
+            if($post->subject_id){
                 PostTag::create([
                     'post_id'=>$post->id,
                     'subject_id'=>$post->subject_id,
