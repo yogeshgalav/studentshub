@@ -22,18 +22,22 @@ class AlterDoubtsTable2 extends Migration
         });
 
         foreach(Doubt::get() as $doubt){
-            DoubtTag::create([
-                'doubt_id'=>$doubt->id,
-                'subject_id'=>$doubt->subject_id,
-            ]);
+            if($doubt->subject_id){
+                DoubtTag::create([
+                    'doubt_id'=>$doubt->id,
+                    'subject_id'=>$doubt->subject_id,
+                ]);
+            }
             $doubt->category_id = 14;
             $doubt->save();
         }
         foreach(Post::get() as $post){
-            PostTag::create([
-                'post_id'=>$post->id,
-                'subject_id'=>$post->subject_id,
-            ]);
+            if($doubt->subject_id){
+                PostTag::create([
+                    'post_id'=>$post->id,
+                    'subject_id'=>$post->subject_id,
+                ]);
+            }
         }
         Schema::table('doubts', function (Blueprint $table) {
             $table->dropColumn('institute_id');
