@@ -1,6 +1,12 @@
 <template>
   <div>
     <div class="row">
+      <loading
+        :active.sync="showLoader"
+        :color="'#10069F'"
+        :width="250"
+        :is-full-page="true"
+      />
       <div class="row">
         <div class="col-md-12">
           <div class="">
@@ -26,11 +32,14 @@
           {{ doubt.question }}
         </h1>    
         <p
-          v-for="sub in doubt.subjects"
-          :key="sub.id"
           class="text-blue mb-0"
         >
-          #{{ sub.subject_name }}
+          <span 
+            v-for="sub in doubt.subjects"
+            :key="sub.id"
+          >
+            #{{ sub.subject_name }}
+          </span>
         </p>
       </div>      
       <div class="col-md-12">
@@ -142,6 +151,7 @@ export default {
 				}
 			},
 			error:'', 
+			showLoader:false,
 		};
 
 	},
@@ -171,8 +181,10 @@ export default {
 	},
 	methods: {
 		getDoubtAnswerData(){
-      		axios.get('/api/doubt/' + this.$route.params.doubtId + '/get-answers/')
+			this.showLoader= true;
+			this.axios.get('/api/doubt/' + this.$route.params.doubtId + '/get-answers/')
 				.then(response => {
+					this.showLoader= false;
 					this.doubt = response.data.success.doubt;
 					this.posts = response.data.success.answerList;
 					this.isAnswered = response.data.success.isAnswered;
@@ -184,6 +196,7 @@ export default {
 				this.error='An answer should be of minimum 10 words.';
 				return false;
 			}
+			this.showLoader= true;
 			this.axios.post('/api/doubt/' + this.$route.params.doubtId + '/add-answer', {
 				answer_html: this.new_answer,
 				answer_text: this.description
@@ -195,6 +208,7 @@ export default {
 					this.error = '';
 				})
 				.catch(err => {
+					this.showLoader= false;
 					reject(err);
 				});
 		},

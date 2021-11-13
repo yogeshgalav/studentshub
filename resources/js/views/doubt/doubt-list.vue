@@ -127,11 +127,14 @@
                     </div>
                     <div class="col-md-12">
                       <p
-                        v-for="sub in doubt.subjects"
-                        :key="sub.id"
                         class="text-blue mb-0"
                       >
-                        #{{ sub.subject_name }}
+                        <span 
+                          v-for="sub in doubt.subjects"
+                          :key="sub.id"
+                        >
+                          #{{ sub.subject_name }}
+                        </span>
                       </p>
                     </div>
                     <div class="col-md-12">

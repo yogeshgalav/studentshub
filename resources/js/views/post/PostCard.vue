@@ -71,11 +71,14 @@
               {{ post.description }}
             </p>
             <p
-              v-for="sub in post.subjects"
-              :key="sub.id"
               class="text-blue mt-0 mb-2"
             >
-              #{{ sub.subject_name }}
+              <span 
+                v-for="sub in post.subjects"
+                :key="sub.id"
+              >
+                #{{ sub.subject_name }}
+              </span>
             </p>
             <div class="">
               <div v-if="post.post_type==='video'">

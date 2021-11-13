@@ -35,4 +35,11 @@ class Doubt extends Model
     {
         $this->attributes['question'] = ucfirst($value);
     }
+    public function copyTags(Post $post)
+    {
+        \DB::statement('INSERT INTO post_tags (post_id,subject_id)
+        SELECT '.$post->id.',subject_id
+        FROM doubt_tags where doubt_id='.$this->id);
+        return true;
+    }
 }

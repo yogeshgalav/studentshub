@@ -16,17 +16,16 @@ use Illuminate\Support\Facades\Log;
 class DoubtAnswersController extends Controller
 {
 
-    public function addDoubtAnswer ($doubtId,Request $request)
+    public function addDoubtAnswer(Doubt $doubt,Request $request)
     {
 
-        $doubt = Doubt::findOrFail($doubtId);
         DB::beginTransaction();
     try{
 
         $me = $request->user('api');
         $answer = new DoubtAnswer();
         $answer->user_id = $me->id;
-        $answer->doubt_id = $doubtId;
+        $answer->doubt_id = $doubt->id;
         $answer->answer = $request->answer_html;
 
         $post=new Post;
@@ -48,6 +47,7 @@ class DoubtAnswersController extends Controller
 
         $answer->post_id=$post->id;
         $answer->save();
+        $doubt->copyTags($post);
         SthubPost::addAction('share',$post,Auth::user());
 
     DB::commit();
@@ -64,11 +64,11 @@ class DoubtAnswersController extends Controller
         ]);
     }
 
-    public function getDoubtanswers($doubtId,Request $request)
+    public function getDoubtanswers(Doubt $doubt,Request $request)
     {
-        $doubt=Doubt::where('doubts.id',$doubtId)
+        $doubt_details=Doubt::where('doubts.id',$doubt->id)
         ->join('users as us','us.id','=','doubts.user_id')
-        ->join('institutes as inst','inst.id','=','us.preferred_institute_id')
+        ->leftJoin('institutes as inst','inst.id','=','us.preferred_institute_id')
         ->join('categories as cat','cat.id','=','doubts.category_id')
         ->select('us.full_name as user_name','us.avatar_url as profile_image','cat.name as category_name','inst.name as inst_name',
         'doubts.question','doubts.created_at','doubts.id')
@@ -76,13 +76,13 @@ class DoubtAnswersController extends Controller
         ->first();
 
         $post = new \App\Post;
-        $answers=$post->getDoubtPosts($doubtId);
+        $answers=$post->getDoubtPosts($doubt->id);
 
         return response()->json([
             'success'=>[
-                'doubt'=>$doubt,
+                'doubt'=>$doubt_details,
                 'answerList'=>$answers,
-                'isAnswered'=>DoubtAnswer::where('doubt_id',$doubtId)->where('user_id',Auth::id())->exists()
+                'isAnswered'=>DoubtAnswer::where('doubt_id',$doubt->id)->where('user_id',Auth::id())->exists()
             ]
         ]);
     }
