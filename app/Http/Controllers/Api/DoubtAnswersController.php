@@ -23,15 +23,15 @@ class DoubtAnswersController extends Controller
         DB::beginTransaction();
     try{
 
+        $me = $request->user('api');
         $answer = new DoubtAnswer();
-        $answer->user_id = Auth::id();
+        $answer->user_id = $me->id;
         $answer->doubt_id = $doubtId;
         $answer->answer = $request->answer_html;
 
         $post=new Post;
-        $post->user_id=Auth::user()->id;
+        $post->user_id=$me->id;
         $post->post_heading=$doubt->question;
-        $post->subject_id=$doubt->subject_id;
 
         $article=new Article;
         $post_content_id=$article->createFromContent([
@@ -41,8 +41,8 @@ class DoubtAnswersController extends Controller
         $post->postable_type="App\Models\Article";
         $post->primary_image_path='/storage/article-default.png';
         $post->postable_id=$post_content_id;
-        $post->category_id=$doubt->course->category_id;
-        $post->course_id=$doubt->course_id;
+        $post->category_id=$doubt->category_id;
+        $post->course_id=$me->preferred_course_id;
         $post->created_via='doubt';
         $post->save();
 
@@ -57,19 +57,23 @@ class DoubtAnswersController extends Controller
             // dd($e->getMessage(),$e->getLine());
             return response()->$e;
         }
-        return 'success';
+        return response()->json([
+            'success'=>[
+                'post_id'=>$post->id
+            ]
+        ]);
     }
 
     public function getDoubtanswers($doubtId,Request $request)
     {
-        $doubt=\DB::table('doubts')->where('doubts.id',$doubtId)
+        $doubt=Doubt::where('doubts.id',$doubtId)
         ->join('users as us','us.id','=','doubts.user_id')
         ->join('institutes as inst','inst.id','=','us.preferred_institute_id')
         ->join('categories as cat','cat.id','=','doubts.category_id')
-        ->select('us.full_name as user_name','us.avatar_url as profile_image','cat.name','inst.name as inst_name',
+        ->select('us.full_name as user_name','us.avatar_url as profile_image','cat.name as category_name','inst.name as inst_name',
         'doubts.question','doubts.created_at','doubts.id')
+        ->with('subjects')
         ->first();
-        $doubt->time=\Carbon\Carbon::createFromTimeStamp(strtotime($doubt->created_at))->diffForHumans();
 
         $post = new \App\Post;
         $answers=$post->getDoubtPosts($doubtId);

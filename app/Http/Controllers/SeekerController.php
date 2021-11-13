@@ -49,4 +49,14 @@ class SeekerController extends Controller
     public function notifications(){
         return view('seeker.notifications');
     }
+
+    public function doubtPage()
+    {
+        $categories = \App\Models\Category::all();
+        return view('seeker.doubts')->with('categories',$categories);
+    }
+
+    public function doubtAnswersPage(){
+        return view('seeker.doubt-answers');
+    }
 }

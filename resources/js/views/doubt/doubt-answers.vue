@@ -19,14 +19,21 @@
         </div>
       </div>
       <div class="col-md-12">
+        <h2 class="font-size-18 text-black mb-0 line-height-25-px">
+          {{ doubt.category_name }}  
+        </h2>
         <h1 class="font-size-24 text-black weight-800 mb-2 line-height-25-px mobile-size-heading">
           {{ doubt.question }}
-        </h1>       
+        </h1>    
+        <p
+          v-for="sub in doubt.subjects"
+          :key="sub.id"
+          class="text-blue mb-0"
+        >
+          #{{ sub.subject_name }}
+        </p>
       </div>      
       <div class="col-md-12">
-        <h2 class="font-size-18 text-black mb-0 line-height-25-px">
-          {{ 'Subject:' +' '+doubt.subject_name }}  
-        </h2>
         <p class="font-size-18 text-black mb-0 line-height-25-px">
           {{ 'Asked by:' +' '+doubt.user_name }}  
         </p>
@@ -48,31 +55,33 @@
               v-if="!isAnswered"
               class="card mb-2"
             >
-              <div class="d-flex mb-1">
-                <profile-image
-                  size="small"
-                  :user-name="AuthUser.full_name"
-                  :avatar="AuthUser.avatar_url"
-                />&nbsp;
-                {{ AuthUser.full_name }}
-              </div>
-              <div>
-                <vue-editor
-                  id="ArticleEditor"
-                  v-model="new_answer"
-                  :editor-options="editorSettings"
-                  :height="'100%'"
-                />
-                <span>{{ countContent }}/10</span>
-                <span class="text-danger">{{ error }}</span>
-                <div class="text-right mt-1">
-                  <button
-                    type="submit"
-                    class="btn btn-primary"
-                    @click="submitAnswer"
-                  >
-                    Post Answer
-                  </button>
+              <div class="card-body mb-1">
+                <div class="d-flex">
+                  <profile-image
+                    size="small"
+                    :user-name="AuthUser.full_name"
+                    :avatar="AuthUser.avatar_url"
+                  />&nbsp;
+                  {{ AuthUser.full_name }}
+                </div>
+                <div>
+                  <vue-editor
+                    id="ArticleEditor"
+                    v-model="new_answer"
+                    :editor-options="editorSettings"
+                    :height="'100%'"
+                  />
+                  <span>{{ countContent }}/10</span>
+                  <span class="text-danger">{{ error }}</span>
+                  <div class="text-right mt-1">
+                    <button
+                      type="submit"
+                      class="btn btn-primary"
+                      @click="submitAnswer"
+                    >
+                      Post Answer
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -180,7 +189,7 @@ export default {
 				answer_text: this.description
 			})
 				.then(resp => {
-					this.getDoubtAnswerData();
+					window.location.href = this.baseUrl+'/post/'+resp.data.success.post_id;
 					this.add_answer = false;
 					this.new_answer = '';
 					this.error = '';

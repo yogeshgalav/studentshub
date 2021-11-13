@@ -26,10 +26,12 @@ class DoubtController extends Controller
     try{
         // $subject=Subject::getOrCreate(null, $selected_subject['subject_name'], Auth::student()->categoryId);
 
+        $me = $request->user('api');
         $doubt = new Doubt();
-        $doubt->user_id = Auth::user()->id;
+        $doubt->user_id = $me->id;
         $doubt->question = $request->question;
         $doubt->category_id = $request->category_id;
+        $doubt->course_id=$me->preferred_course_id;
         $doubt->save();
         $subject=Subject::addDoubtTags($doubt, $request->selected_subjects);
         ScheduledJob::newDoubtNotification($doubt);

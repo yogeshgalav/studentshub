@@ -36,7 +36,6 @@ class AlterDoubtsTable2 extends Migration
             ]);
         }
         Schema::table('doubts', function (Blueprint $table) {
-            $table->dropColumn('course_id');
             $table->dropColumn('institute_id');
             $table->dropColumn('subject_id');
             $table->foreign('classroom_id')->references('id')->on('classrooms')->onDelete('cascade');
