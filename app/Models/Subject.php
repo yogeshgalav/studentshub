@@ -64,6 +64,28 @@ class Subject extends Model
                 'alias'=>Sthub::generateAlias($tag['text']),
                 'is_verified'=>false,
             ]);
+            DoubtTag::firstOrCreate([
+                'subject_id'=>$subject->id,
+                'doubt_id'=>$doubt->id,
+            ]);
+        }
+        
+        return true;
+    }
+    public static function addPostTags(Post $post, $tags)
+    {
+        foreach($tags as $tag){
+            $subject = self::firstOrCreate([
+                'subject_name'=>Sthub::ucWordSome($tag['text']),
+                'category_id'=>$post->category_id,
+            ],[
+                'alias'=>Sthub::generateAlias($tag['text']),
+                'is_verified'=>false,
+            ]);
+            PostTag::firstOrCreate([
+                'subject_id'=>$subject->id,
+                'post_id'=>$post->id,
+            ]);
         }
         
         return true;

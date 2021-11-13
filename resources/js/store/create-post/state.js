@@ -1,9 +1,7 @@
 const state = {
 	new_post:{
 		post_type:'article',
-		subject_id:'',
-		subject_name:'',
-		subject_course:true,
+		selected_subjects:[],
 		category_id:'',
 		heading:'',
 		article_html_content:'',

@@ -44,6 +44,11 @@ class DoubtController extends Controller
             // dd($e->getMessage(),$e->getLine());
             return response()->$e;
         }
+
+        Log::info('New Doubt created',[
+            'user_id'=>$request->user('api')->id,
+            'question'=>$request->question,
+        ]);
         return 'success';
     }
 

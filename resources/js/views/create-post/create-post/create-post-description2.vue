@@ -1,19 +1,21 @@
 <template>
-  <div class="">
+  <div class="creat_post_card img_der">
     <div class="row">
-      <div class="col-md-6">
-        <div class="login_img">
-          <img
-            src="/images/undraw_post_online_dkuk.svg"
-            alt=""
-          >
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="logn_right">
+      <div class="col-md-12">
+        <div class="">
           <div class="form-group">
+            <div class="text-center">
+              <p class="title weight-600 font-size-16 text-black">
+                Post Description.
+              </p>
+            </div>
             <label class="weight-500">Heading</label>
-            <div class="">
+            <div class="input_icon_frm">
+              <span
+                class="icon_design_input"
+              ><i
+                class="fa fa-user"
+              /></span>
               <input
                 v-model="heading"
                 type="text"
@@ -25,13 +27,22 @@
 
           <div class="form-group">
             <label for="category"> {{ "Category" }} </label>
-            <div class="">
-              <div class="">
+            <div class="inner-addon left-addon">
+              <div class="input_icon_frm">
+                <span
+                  class="icon_design_input"
+                ><i
+                  class="fa fa-file"
+                  aria-hidden="true"
+                /></span>
                 <select
                   v-model="selected_category"
                   name="category"
                   class="form-control"
                 >
+                  <option value="">
+                    Select Category
+                  </option>
                   <option
                     v-for="category in categories"
                     :key="category.id"
@@ -47,13 +58,36 @@
             </div>
           </div>
           <div class="form-group">
-            <label for="subject_tags">Subject tags</label>
-            <vue-tags-input
-              v-model="tag"
-              :tags="tags"
-              :autocomplete-items="filteredItems"
-              @tags-changed="newTags => tags = newTags"
-            />
+            <label
+              class="weight-500"
+              for="subject"
+            >Subject (optional)</label>
+            <div class="inner-addon left-addon">
+              <div class="input_icon_frm">
+                <span
+                  class="icon_design_input"
+                  style="height: 44px"
+                >
+                  <i
+                    class="fa fa-certificate"
+                    aria-hidden="true"
+                  /></span>
+                <auto-complete
+                  class="width-100"
+                  :items="subject_list"
+                  :value="'subject_name'"
+                  name="subject_name"
+                  :is-async="true"
+                  :is-loading="subjectLoading"
+                  @input="getSubjects"
+                  @selected="setSubject"
+                  @selectNew="setNewSubject"
+                />
+                <span class="error">{{
+                  errors.first("subject")
+                }}</span>
+              </div>
+            </div>
           </div>
           <div class="creat_post_btn">
             <button
@@ -85,33 +119,7 @@
   </div>
 </template>
 <style scoped>
-.post-type{
-    margin: 50%;
-}
 .login_img img {
-    width: 70%;
-    margin: 0 auto;
-}
-.creat_post_card {
-    background-color: white;
-    margin-top: 30px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.12);
-}
-.creat_post_card .row {
-    align-items: center;
-}
-button.btn-primary btn-lg span {
-    margin: 0px 5px;
-}
-.creat_post_btn {
-    margin-top: 30px;
-}
-.creat_post_card .form-control
-{
-    border-radius: 0;
-      transform: inherit;
-    }
-    .login_img img {
     width: 70%;
     margin: 0 auto;
 }
@@ -143,47 +151,42 @@ button.btn-primary btn-lg span {
     justify-content: center;
 }
 
+.creat_post_card .form-control {
+    border-radius: 0;
+    transform: inherit;
+}
 </style>
-
 <script>
 import EventBus from '../event-bus';
 import { mapState } from 'vuex';
-import VueTagsInput from '@johmun/vue-tags-input';
+import AutoComplete from '../../../components/AutoComplete.vue';
 
 export default {
-	components: { VueTagsInput },
+	components: { AutoComplete },
 	props: ['newPost'],
 	data() {
 		return {
-			tag: '',
-			tags: this.newPost.selected_subjects,
 			heading: this.newPost.heading,
 			subject_list: [],
 			subjectLoading: false,
-			selected_category: this.newPost.category_id ? this.newPost.category_id :14
+			selected_subject: {
+				id: null,
+				subject_name: this.newPost.subject_name
+			},
+			selected_category: this.newPost.category_id
 		};
 	},
 	computed: {
 		...mapState({
 			categories: state => state.categories
-		}),
-		filteredItems() {
-			return this.subject_list.filter(i => {
-				return i.subject_name.toLowerCase().indexOf(this.tag.toLowerCase()) !== -1;
-			});
-		},
-	},
-	watch:{
-		tag(val){
-			this.getSubjects(val);
-		}
+		})
 	},
 	mounted() {
 		EventBus.$on('validateStep3', () => {
 			this.$validator.validate().then(valid => {
 				if (valid) {
 					this.$store.commit('set_post_subject', {
-						selected_subjects: this.tags,
+						subject_name: this.selected_subject.subject_name,
 						selected_category: this.selected_category
 					});
 					this.$store.commit('set_post_heading', {
@@ -195,19 +198,49 @@ export default {
 				}
 			});
 		});
+
+		this.selected_category =
+            this.AuthStudent && this.AuthStudent.categoryId
+            	? this.AuthStudent.categoryId
+            	: '';
 	},
 	methods: {
 		getSubjects(search) {
+			this.selected_subject = {
+				id: null,
+				subject_name: search
+			};
+			this.subjectLoading = true;
 			this.axios
 				.get(this.baseUrl + '/api/search-subject?searchTerm='+search)
 				.then(resp => {
-					this.subject_list = resp.data.success.subjects.map(node=>{
-    					node['text']=node.subject_name;
-    					return node;
-    				});
+					this.subject_list = resp.data.success.subjects;
+					this.subject_list.find(node => {
+						if (
+							node.subject_name.toLowerCase() ===
+                            this.selected_subject.subject_name.toLowerCase()
+						) {
+							this.selected_subject = node;
+							return true;
+						}
+					});
+					this.subjectLoading = false;
 				})
 				.catch(() => {
+					this.subjectLoading = false;
 				});
+		},
+		setSubject(result) {
+			this.selected_subject = result;
+			if (this.selected_subject.category_id) {
+				this.selected_category = this.selected_subject.category_id;
+			}
+		},
+		setNewSubject(name) {
+			this.selected_subject = {
+				id: 0,
+				subject_name: name
+			};
 		},
 		nextTab() {
 			EventBus.$emit('nextTab');

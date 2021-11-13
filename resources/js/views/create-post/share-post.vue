@@ -136,6 +136,9 @@ export default {
 	},
 	methods: {
 		onComplete() {
+			if(true===this.showLoader){
+				return false;
+			}
 			this.showLoader=true;
 			this.$store.dispatch('submitPost', this.newPost)
 				.then((resp)=>{

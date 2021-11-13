@@ -385,22 +385,6 @@ export default {
     			});
 
     	},
-    	setSubject(result) {
-    		this.selected_subject = result;
-    		// if(result.category_id){
-    		// 	this.edit_category = result.category_id;
-    		// }else if(this.AuthStudent.categoryId){
-    		// 	this.edit_category = this.AuthStudent.categoryId;
-    		// }
-    		// this.show_category = true;
-    	},
-    	setNewSubject(name) {
-    		this.selected_subject = {
-    			'id': 0,
-    			'subject_name': name,
-    			'category_id': '',
-    		};
-    	},
     	editDoubt(doubt){
     		this.edit_doubt_id = doubt.id;
     		this.doubt_question = doubt.question;
