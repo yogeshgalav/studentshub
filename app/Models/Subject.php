@@ -54,4 +54,18 @@ class Subject extends Model
             'is_verified'=>$is_verified,
         ]);
     }
+    public static function addDoubtTags(Doubt $doubt, $tags)
+    {
+        foreach($tags as $tag){
+            $subject = self::firstOrCreate([
+                'subject_name'=>Sthub::ucWordSome($tag['text']),
+                'category_id'=>$doubt->category_id,
+            ],[
+                'alias'=>Sthub::generateAlias($tag['text']),
+                'is_verified'=>false,
+            ]);
+        }
+        
+        return true;
+    }
 }

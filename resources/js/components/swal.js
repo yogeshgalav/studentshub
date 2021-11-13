@@ -21,8 +21,8 @@ export default {
 	},
 	confirmDialog: function (title = 'Are you sure?', text = 'You wont be able to revert this change', type = 'warning') {
 		const swalWithBootstrapButtons = Vue.swal.mixin({
-			confirmButtonClass: 'btn btn-success float-right btn-lg mr-1 mt-1',
-			cancelButtonClass: 'btn btn-danger floar-left  btn-lg btntext-danger mt-1',
+			confirmButtonClass: 'btn btn-success float-right btn-md mr-1 mt-1',
+			cancelButtonClass: 'btn btn-danger floar-left  btn-md btntext-danger mt-1',
 			buttonsStyling: false,
 		});
 		return new swalWithBootstrapButtons({

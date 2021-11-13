@@ -57,11 +57,14 @@ class Post extends Model
     public function getUserNameAttribute(){
         return $this->user()->first()->full_name;
     }
-    public function subject(){
-        return $this->belongsTo('App\Models\Subject');
-    }           
+    public function subjects(){
+        return $this->belongsToMany(Subject::class, 'post_tags');
+    }         
     public function category(){
         return $this->belongsTo('App\Models\Category');
+    }           
+    public function sthubPosts(){
+        return $this->hasMany(SthubPost::class);
     }           
     public function image(){
         return $this->hasMany('App\Models\PostImage');
@@ -74,9 +77,6 @@ class Post extends Model
     }
     public function getTotalLikesAttribute(){
         return $this->like->where('like_status',1)->count();
-    }
-    public function getTotalDislikesAttribute(){
-        return $this->like->where('like_status',0)->count();
     }
     public function like(){
         return $this->morphMany('App\Models\Like', 'likable');

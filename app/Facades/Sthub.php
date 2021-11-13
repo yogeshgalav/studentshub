@@ -43,6 +43,9 @@ class Sthub extends Facade
 
     public static function generateAlias($string)
     {
+        if (!str_contains($string,' ')){
+            return ucwords($string);
+        }
         $newString = str_replace([' And ', ' In ', ' Of '], ' ', ucwords($string));
         $words = preg_split("/[\s,_-]+/", $newString);
         $acronym = "";

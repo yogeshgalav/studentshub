@@ -64,9 +64,9 @@ class DoubtAnswersController extends Controller
     {
         $doubt=\DB::table('doubts')->where('doubts.id',$doubtId)
         ->join('users as us','us.id','=','doubts.user_id')
-        ->join('institutes as inst','inst.id','=','doubts.institute_id')
-        ->join('subjects as sub','sub.id','=','doubts.subject_id')
-        ->select('us.full_name as user_name','us.avatar_url as profile_image','sub.subject_name','inst.name as inst_name',
+        ->join('institutes as inst','inst.id','=','us.preferred_institute_id')
+        ->join('categories as cat','cat.id','=','doubts.category_id')
+        ->select('us.full_name as user_name','us.avatar_url as profile_image','cat.name','inst.name as inst_name',
         'doubts.question','doubts.created_at','doubts.id')
         ->first();
         $doubt->time=\Carbon\Carbon::createFromTimeStamp(strtotime($doubt->created_at))->diffForHumans();

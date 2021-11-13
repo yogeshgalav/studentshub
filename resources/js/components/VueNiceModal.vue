@@ -34,7 +34,7 @@
           </div>
           <div class="modal-footer">
             <button
-              class="btn btn-primary mt-3"
+              class="btn btn-md btn-primary mt-3"
               type="button"
               @click.prevent="$emit('submit')"
             >
@@ -42,7 +42,7 @@
             </button>  <button
               ref="cancelButton"
               type="button"
-              class="btn btn-white mt-3"
+              class="btn btn-md btn-white mt-3"
               data-dismiss="modal"
               @click.prevent="closeModal"
             >

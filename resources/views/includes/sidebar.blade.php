@@ -2,19 +2,17 @@
 <div class="sidebar">
     <div class="sidebar-navigation mt-5">
         <ul>
-            @if(in_array(Auth::user()->role_intended, ['student','seeker']))
             <a href="/" class="{{\App\Facades\Sthub::currentTab('post') ? 'active' : ''}}">
                 <li> <i class="fa fa-home " aria-hidden="true"></i><span class="text">Home</span>
 
                 </li>
             </a>
-            @endif
-            @if(Auth::student())
             <a href="/doubts" class="{{\App\Facades\Sthub::currentTab('doubt') ? 'active' : ''}}">
                 <li> <i class="fa fa-question-circle " aria-hidden="true"></i>
                     <span class="text">Doubts</span>
                 </li>
             </a>
+            @if(Auth::student())
             {{-- <a href="/my-course"
                 class="{{\App\Facades\Sthub::currentTab('my-course') ? 'active' : ''}}">
                 <li><i class="fas fa-book-open" aria-hidden="true"></i>
@@ -33,12 +31,12 @@
                     <span class="text">My Reports</span>
                 </li>
             </a>
+            @endif
             <a href="/messages" class="{{\App\Facades\Sthub::currentTab('messages') ? 'active' : ''}}">
                 <li> <i class="far fa-comment-dots" aria-hidden="true"></i>
                     <span class="text"> Messages</span>
                 </li>
             </a>
-            @endif
             @if(Auth::user()->role_intended==='instituteAdmin')
             <a href="/my-institute" class="{{\App\Facades\Sthub::currentTab('institute') ? 'active' : ''}}">
                 <li> <i class="fas fa-university " aria-hidden="true"></i><span class="text"> My

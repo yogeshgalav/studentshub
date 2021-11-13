@@ -97,7 +97,7 @@ class SearchController extends Controller
             ->where('sub.subject_name', 'LIKE', '%' . $search . '%')
             ->orWhere('sub.alias', 'LIKE', $search)
             ->select('sub.subject_name', 'sub.slug')
-            ->groupBy('subject_name', 'sub.slug')
+            ->groupBy('sub.subject_name', 'sub.slug')
             ->limit(10)->get();
 
 

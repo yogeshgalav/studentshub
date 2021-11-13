@@ -22,13 +22,13 @@ class Doubt extends Model
             ->saveSlugsTo('slug');
     }
     public function user(){
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo(User::class);
     }
-    public function subject(){
-        return $this->belongsTo('App\Models\Subject');
+    public function subjects(){
+        return $this->belongsToMany(Subject::class, 'doubt_tags');
     }
     public function course(){
-        return $this->belongsTo('App\Models\Course');
+        return $this->belongsTo(Course::class);
     }
 
     public function setQuestionAttribute($value)
