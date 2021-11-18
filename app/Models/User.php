@@ -146,4 +146,12 @@ class User extends Authenticatable
     public function getStudentIds(){
         return [];   
     }
+
+    public function canCreateClassroom()
+    {
+        if(in_array($this->role_intended,['seeker','student'])){
+            return false;
+        }
+        return true;
+    }
 }

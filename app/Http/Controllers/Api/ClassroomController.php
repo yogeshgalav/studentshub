@@ -63,6 +63,15 @@ class ClassroomController extends Controller
     public function createClassroom(CreateClassroomRequest $request){
 
         $course = \App\Models\Course::find($request->course_id);
+        $institute = \App\Models\Institute::firstOrCreate([
+            'name'=>$request->institute_name,
+        ],[
+            'added_by_user_id'=>$request->user('api')->id,
+        ]);
+        $institute_user = \App\Models\InstituteUser::firstOrCreate([
+            'institute_id'=>$institute->id,
+            'user_id'=>$request->user('api')->id,
+        ]);
 
         $subject= \App\Models\Subject::getOrCreate(null, $request->subject_name, $course->category_id, true);
 
@@ -75,7 +84,7 @@ class ClassroomController extends Controller
         $classroom->name=$request->classroom_name;
         $classroom->teacher_user_id=Auth::id();
         $classroom->subject_id=$subject->id;
-        $classroom->institute_id=$request->institute_id;
+        $classroom->institute_id=$institute->id;
         $classroom->course_id=$course->id;
         $classroom->save();
 

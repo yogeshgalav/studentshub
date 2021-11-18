@@ -15,15 +15,7 @@
       </div>
       <div class="mb-2">
         <button
-          v-if="canCreateClassroom"
-          type="button"
-          class="btn-lg btn-primary"
-          @click="createClassroom()"
-        >
-          <i class="fas fa-plus" />&nbsp;&nbsp;Create Classroom
-        </button>
-        <button
-          v-if="!canCreateClassroom"
+          v-if="['seeker', 'student'].includes(AuthUser.role_intended)"
           type="button"
           class="btn-primary btn-lg mb-1"
           data-toggle="modal"
@@ -31,24 +23,17 @@
         >
           <i class="fas fa-plus" />&nbsp;&nbsp;Join Classroom
         </button>
+        <button
+          v-else
+          type="button"
+          class="btn-lg btn-primary"
+          @click="createClassroom()"
+        >
+          <i class="fas fa-plus" />&nbsp;&nbsp;Create Classroom
+        </button>
       </div>
       <div
-        v-if="AuthUser.role_intended==='seeker'"
-        class="card"
-      >
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-12">
-              <p>
-                <a :href="'/education-details'">
-                  Please fill out education details </a>{{ " to join classrooms from your institute." }}
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        v-if="AuthUser.role_intended==='student' && !classroomList.length"
+        v-if="['seeker', 'student'].includes(AuthUser.role_intended) && !classroomList.length"
         class="card mb-2 pl-3"
       >
         <div class="card-body">
@@ -60,6 +45,25 @@
               <p class="mb-0">
                 Classrooms will help you to visualize your progress and ease your learning process.
               </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        v-if="!['seeker', 'student'].includes(AuthUser.role_intended) && !classroomList.length"
+        class="card mb-2 pl-3"
+      >
+        <div class="card-body">
+          <div class="row">
+            <div class="row">
+              <div class="col-md-12">
+                <p class="text-blue weight-600 mb-0">
+                  Create classrooms for your students.
+                </p>
+                <p class="mb-0">
+                  Classrooms will help you to visualize your student's progress and ease thier learning process.
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -118,28 +122,34 @@
           </div>
         </div>
       </div>
-
-      <accordion
-        title="Details"
-        :aria-expanded="true"
-      >
-        <vue-table-component
-          :columns="classroomColumns"
-          :rows="classroomList"
-        >
-          <template
-            slot="table-row"
-            slot-scope="props"
+      <div class="row">
+        <div class="col-md-12">
+          <accordion
+            title="Details"
+            :aria-expanded="true"
           >
-            <span v-if="props.column.field==='classroom_name'">
-              <a
-                :href="'/classroom/'+props.row.classroom_id"
-                class="text-underline"
-              >{{ props.row['classroom_name'] }}</a>
-            </span>
-          </template>
-        </vue-table-component>
-      </accordion>
+            <vue-table-component
+              :columns="classroomColumns"
+              :rows="classroomList"
+            >
+              <template
+                slot="table-row"
+                slot-scope="props"
+              >
+                <span v-if="props.column.field==='classroom_name'">
+                  <a
+                    :href="'/classroom/'+props.row.classroom_id"
+                    class="text-underline"
+                  >{{ props.row['classroom_name'] }}</a>
+                </span>
+              </template>
+              <template slot="emptystate">
+                No classroom found.
+              </template>
+            </vue-table-component>
+          </accordion>
+        </div>
+      </div>
     </div>
   </div>
 </template>

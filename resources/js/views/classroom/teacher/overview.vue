@@ -37,11 +37,11 @@
                   :value="classroomDetail.subject_name"
                 >
               </div>
-              <div class="form-group">
+              <!-- <div class="form-group">
                 <label class="text-black font-size-14">Batch:
                 </label>
                 {{ classroomDetail.batch_start_year }} - {{ classroomDetail.batch_end_year }}
-              </div>
+              </div> -->
               <div class="form-group">
                 <label class="text-black font-size-14">Classroom
                   Name

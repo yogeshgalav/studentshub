@@ -15,7 +15,7 @@ class CreateClassroomRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user('api')->can('create', [Classroom::class, Institute::find($this->input('institute_id'))]);
+        return $this->user('api')->canCreateClassroom();
     }
 
     /**

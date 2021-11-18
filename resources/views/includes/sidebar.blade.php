@@ -25,7 +25,7 @@
 
                 </li>
             </a>
-            @if(Auth::student())
+            @if(Auth::user()->role_intended==='student')
             <a href="/my-reports" class="{{\App\Facades\Sthub::currentTab('my-reports') ? 'active' : ''}}">
                 <li><i class="fas fa-chart-line" aria-hidden="true"></i>
                     <span class="text">My Reports</span>
@@ -52,7 +52,7 @@
             </a>
             @endif
             
-            @if(Auth::student())
+            @if(Auth::user()->role_intended==='student')
             <a href="/classmates" class="{{\App\Facades\Sthub::currentTab('classmates') ? 'active' : ''}}">
                 <li><i class="fas fa-users" aria-hidden="true"></i><span class="text">
                         Classmates</span>
@@ -69,11 +69,6 @@
                     <span class="text">Profile</span>
                 </li>
             </a>
-
-            @if(Auth::user()->role_intended === 'seeker')
-            <li><a href="/check-in"> <span class="icon"><img src="{{asset('/images/logout.png') }}" alt="Student'sHUB"
-                            width="20" /></span> Checkin</a></li>
-            @endif
         </ul>
     </div>
 </div>

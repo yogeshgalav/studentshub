@@ -56,25 +56,25 @@ class AuthController extends Controller
         return redirect($success['redirectUrl']);
     }
 
-    public function loginViaApi(LoginRequest $request)
-    {        
+    // public function loginViaApi(LoginRequest $request)
+    // {        
 
-        $user=User::where('email',$request->email)->first();
-        if (!$user || !Hash::check($request->password, $user->password)) {
-            abort(401);
-        }
+    //     $user=User::where('email',$request->email)->first();
+    //     if (!$user || !Hash::check($request->password, $user->password)) {
+    //         abort(401);
+    //     }
         
-        try{
+    //     try{
             
-            $success = $this->getLoginSuccessData('api',$user,$request);
+    //         $success = $this->getLoginSuccessData('api',$user,$request);
             
-        }catch(\Exception $e){
-            // dd($e->getMessage());
-            Log::warning("An invalid attempt to login was made for user ".$request->email." from IP Address ".$request->ip());
-            return response()->json(['error'=>'Unauthorised'], 401);
-        }
-        return response()->json(['success' => $success]);
-    }
+    //     }catch(\Exception $e){
+    //         // dd($e->getMessage());
+    //         Log::warning("An invalid attempt to login was made for user ".$request->email." from IP Address ".$request->ip());
+    //         return response()->json(['error'=>'Unauthorised'], 401);
+    //     }
+    //     return response()->json(['success' => $success]);
+    // }
 
     public function getLoginSuccessData($method,$user,$request){
         $success = [];
@@ -130,6 +130,7 @@ class AuthController extends Controller
        
         $input = $request->all();
         
+        $input['role']=strtolower($input['role']);
         $input['full_name']=trim($input['full_name']);
         //hash password
         $input['password'] = bcrypt($input['password']);
@@ -142,19 +143,20 @@ class AuthController extends Controller
         DB::beginTransaction();
     try{
        
-            $user = User::create([
-                'full_name'=>$input['full_name'],
-                'email'=>$input['email'],
-                'password'=>$input['password'],
-                'role_intended'=>'seeker',
-                'fcm_token'=>$fcm_token,
-            ]);
+            $user = new User();
+            $user->role_intended=$input['role'];
+            $user->full_name=$input['full_name'];
+            $user->email=$input['email'];
+            $user->password=$input['password'];
+            $user->fcm_token=$fcm_token;
+            $user->onboarded_at=Carbon::now()->toDateTimeString();
+            $user->save();
 
             Auth::login($user);
             //log info
             Log::info('new User '.$user->full_name." (User ID # ".$user->id.") registered and logged in from IP Address ".$request->ip());
                 
-            $success['redirectUrl'] = '/check-in';
+            $success['redirectUrl'] = '/';
             if($request->join_id){
                 $this->registerWithClassrrom($user,$request->join_id);
                 $success['redirectUrl'] = '/classrooms';
