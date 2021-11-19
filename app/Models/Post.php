@@ -14,8 +14,6 @@ class Post extends Model
 {
     //
     protected  $guarded = ['id', 'created_at', 'updated_at'];
-
-    protected $appends=['user_name','total_views','total_likes'];
     use HasSlug;
 
 
@@ -71,15 +69,13 @@ class Post extends Model
     }           
     public function tags(){
         return $this->hasMany('App\Models\PostTag');
-    }           
-    public function getTotalViewsAttribute(){
-        return $this->hasMany('App\Models\PostView')->count();
     }
-    public function getTotalLikesAttribute(){
-        return $this->like->where('like_status',1)->count();
+    public function likes(){
+        return $this->morphMany(Like::class, 'likable');
     }
-    public function like(){
-        return $this->morphMany('App\Models\Like', 'likable');
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
     }
     
     public function getPostTypeAttribute(){

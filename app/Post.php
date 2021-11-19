@@ -142,12 +142,14 @@ class Post extends PostModel
             $postData=$this->where('id',$post->id)
             ->with('subjects')
             ->withCount('sthubPosts')
+            ->withCount('likes')
             ->first();
-
+            
             $post->description=strlen($post->description)>$rand ? substr($post->description,0,$rand).'...' : $post->description;
             $post->post_type=$this->getPostType($post->postable_type);
             $post->subjects=$postData->subjects;
-            $post->total_reactions=$postData->sthub_post_count;
+            $post->total_reactions=$postData->sthub_posts_count;
+            $post->total_likes=$postData->likes_count;
             $post->profile_image=$post->profile_image ?? '';
             $post->image_path=$post->image_path ?? '';
         }
