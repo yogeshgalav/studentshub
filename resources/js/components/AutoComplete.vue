@@ -36,7 +36,7 @@
             name="list"
             v-bind="currentResult"
           >
-            {{ currentResult[value] }}
+            {{ currentResult[text] }}
           </slot>
         </li>
         <li
@@ -84,10 +84,15 @@ export default {
 	name: 'Autocomplete',
 
 	props: {
-		value: {
+		text: {
 			type: String,
 			required: true,
 			default: () => 'name',
+		},
+		value: {
+			type: Object,
+			required: true,
+			default: () => {},
 		},
 		placeholder: {
 			type: String,
@@ -119,11 +124,6 @@ export default {
 			required: false,
 			default: false,
 		},
-		initialValue: {
-			type: Object,
-			required: false,
-			default: () => {},
-		},
 	},
 	$_veeValidate: {
 		value () {
@@ -146,24 +146,23 @@ export default {
 				this.isOpen=true;
 			}
 		},
-		initialValue(val){
+		value(val){
 			if(val){
 				this.result = Object.assign({},val);
-				this.search = this.result[this.value];
-				console.log(this.result,this.search);
+				this.search = this.result[this.text];
 			}
 		}
 	},
 	updated() {
-		if(this.initialValue && this.search===''){
-			this.result = Object.assign({},this.initialValue);
-			this.search = this.result[this.value];
+		if(this.value && this.search===''){
+			this.result = Object.assign({},this.value);
+			this.search = this.result[this.text];
 		}
 	},
 	mounted() {
-		if(this.initialValue && this.search===''){
-			this.result = Object.assign({},this.initialValue);
-			this.search = this.result[this.value];
+		if(this.value && this.search===''){
+			this.result = Object.assign({},this.value);
+			this.search = this.result[this.text];
 		}
 		this.results = this.items;
 		document.addEventListener('click', this.handleClickOutside);
@@ -178,11 +177,11 @@ export default {
 				return true;
 			}
 			// Let's warn the parent that a change was made
-			this.$emit('input', this.search);
+			this.$emit('change', this.search);
 		},
 		setResult(result) {
-			this.$emit('selected', result);
-			this.search = result[this.value];
+			this.$emit('input', result);
+			this.search = result[this.text];
 			this.isOpen = false;
 		},
 		createNew() {
@@ -204,7 +203,7 @@ export default {
 		},
 		onEnter() {
 			this.$emit('selected', this.results[this.arrowCounter]);
-			this.search = this.results[this.arrowCounter][this.value];
+			this.search = this.results[this.arrowCounter][this.text];
 			this.isOpen = false;
 			this.arrowCounter = -1;
 		},

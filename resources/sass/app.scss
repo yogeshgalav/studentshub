@@ -491,7 +491,34 @@ ul.social-network li {
     display: inline;
     margin: 0 5px;
 }
+    /* enable absolute positioning */
 
+    .inner-addon {
+        position: relative;
+      }
+      .login .form-control
+      {
+      
+          height: 48px !important;
+          color: #000;
+          border-radius: 0;
+      }
+      /* style glyph */
+      .inner-addon .fa {
+        position: absolute;
+        padding: 18px;
+        pointer-events: none;
+      }
+      
+      /*adding style to eye icon */
+      .input_icon_frm .input-group-append{
+        cursor: pointer;
+      }
+      
+      /* align glyph */
+      .left-addon .fa  { left:  0px;}
+      .right-addon .fa { right: 0px;}
+      
 /* footer social icons */
 .social-network a.icoRss:hover {
     background-color: #f56505;

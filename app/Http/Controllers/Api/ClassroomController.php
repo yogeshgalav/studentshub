@@ -72,6 +72,11 @@ class ClassroomController extends Controller
             'institute_id'=>$institute->id,
             'user_id'=>$request->user('api')->id,
         ]);
+        $teacher = \App\Models\Teacher::firstOrCreate([
+            'institute_id'=>$institute->id,
+            'course_id'=>$course->id,
+            'user_id'=>$request->user('api')->id,
+        ]);
 
         $subject= \App\Models\Subject::getOrCreate(null, $request->subject_name, $course->category_id, true);
 
