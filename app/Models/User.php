@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\UserAccessTrait;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -14,6 +15,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, Notifiable;
     use HasPushSubscriptions;
+    use UserAccessTrait;
     /**
      * The attributes that are mass assignable.
      *
@@ -39,6 +41,8 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'last_login_at' => 'datetime',
+        'last_seen_at' => 'datetime',
     ];
 
     use HasSlug;
@@ -53,10 +57,17 @@ class User extends Authenticatable
             ->generateSlugsFrom('full_name')
             ->saveSlugsTo('slug');
     }
+
     public function student()
     {
-        return $this->hasOne('App\Models\Student');
+        return $this->hasMany('App\Models\Student');
     }
+
+    public function parents()
+    {
+        return $this->hasMany(UserParent::class, 'user_id');
+    }
+
     public function post()
     {
         return $this->hasMany('App\Models\Post');
@@ -88,20 +99,6 @@ class User extends Authenticatable
         $this->attributes['full_name'] = ucwords($value);
     }
 
-    public function joinedClassroomCount(){
-        return \DB::table('classroom_users')
-            ->where('user_id',$this->id)
-            ->count();
-    }
-
-    public function createdClassroomCount(){
-        return \DB::table('classrooms')
-        ->where('classrooms.teacher_user_id',$this->id)
-        ->count();
-    }
-    public function hasClassroom(){
-        return $this->joinedClassroomCount()>0 || $this->createdClassroomCount()>0;
-    }
     public function isInstituteMember(){
         return \DB::table('institute_users')
             ->where('user_id',$this->id)
@@ -131,7 +128,7 @@ class User extends Authenticatable
         } elseif ('sthubAdmin'===$role) {
             $classroom_query=$classroom_query;
         } else {
-            $classroom_query=$classroom_query->where('0','=', '1');
+            return [];
         }
 
         return $classroom_query->groupBy('classrooms.id')->pluck('classrooms.id')->toArray();
@@ -148,5 +145,13 @@ class User extends Authenticatable
     
     public function getStudentIds(){
         return [];   
+    }
+
+    public function canCreateClassroom()
+    {
+        if(in_array($this->role_intended,['seeker','student'])){
+            return false;
+        }
+        return true;
     }
 }

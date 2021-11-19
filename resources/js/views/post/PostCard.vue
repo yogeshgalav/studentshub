@@ -41,8 +41,6 @@
                       v-if="post.user_id===AuthUser.id"
                       type="button"
                       class="dropdown-item"
-                      data-toggle="modal"
-                      data-target="#addDoubtModal"
                       @click="editPost(post.id)"
                     >Edit</button> 
                     <button
@@ -62,23 +60,25 @@
         </div>
         <hr class="mb-1 mt-2">
         <div class="row">
-          <div class="col-md-8">
-            <div class="d-flex font-size-12 mb-0">
-              <p class="text-muted post_category">
-                {{ post.category_name }}
-              </p>
-              <p
-                v-if="post.subject_name" 
-                class="text-muted post_category"
-              >
-                {{ post.subject_name }}
-              </p>
-            </div>
+          <div class="col-md-8 col-12">
+            <p class="text-muted font-size-16 mb-0">
+              {{ post.category_name }}
+            </p>
             <p class="font-size-24 weight-600 mb-0">
               {{ post.heading }}
             </p>
-            <p class="font-size-16 mt-0">
+            <p class="font-size-16 mt-0 mb-0">
               {{ post.description }}
+            </p>
+            <p
+              class="text-blue mt-0 mb-2"
+            >
+              <span 
+                v-for="sub in post.subjects"
+                :key="sub.id"
+              >
+                #{{ sub.subject_name }}
+              </span>
             </p>
             <div class="">
               <div v-if="post.post_type==='video'">
@@ -154,15 +154,14 @@ export default {
 			this.$store.commit('common/set_post_initial',post);
 			this.$router.push({ path: `/post/${post.id}` });
 		},
-    copyLink(){
-
-    },
-    deleteLink(){
-
-    },
-    editLink(){
-      
-    }
+		editPost(id){
+			window.location.href ='/post/'+id+'/edit';
+		},
+		deletePost(id){
+			this.axios.delete('api/post/'+this.post.id).then(()=>{
+				window.location.reload();
+			});
+		},
 	},
 
 };

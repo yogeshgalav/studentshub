@@ -2,19 +2,17 @@
 <div class="sidebar">
     <div class="sidebar-navigation mt-5">
         <ul>
-            @if(in_array(Auth::user()->role_intended, ['student','seeker']))
             <a href="/" class="{{\App\Facades\Sthub::currentTab('post') ? 'active' : ''}}">
                 <li> <i class="fa fa-home " aria-hidden="true"></i><span class="text">Home</span>
 
                 </li>
             </a>
-            @endif
-            @if(Auth::student())
             <a href="/doubts" class="{{\App\Facades\Sthub::currentTab('doubt') ? 'active' : ''}}">
                 <li> <i class="fa fa-question-circle " aria-hidden="true"></i>
                     <span class="text">Doubts</span>
                 </li>
             </a>
+            @if(Auth::student())
             {{-- <a href="/my-course"
                 class="{{\App\Facades\Sthub::currentTab('my-course') ? 'active' : ''}}">
                 <li><i class="fas fa-book-open" aria-hidden="true"></i>
@@ -27,18 +25,18 @@
 
                 </li>
             </a>
-            @if(Auth::student())
+            @if(Auth::user()->role_intended==='student')
             <a href="/my-reports" class="{{\App\Facades\Sthub::currentTab('my-reports') ? 'active' : ''}}">
                 <li><i class="fas fa-chart-line" aria-hidden="true"></i>
                     <span class="text">My Reports</span>
                 </li>
             </a>
+            @endif
             <a href="/messages" class="{{\App\Facades\Sthub::currentTab('messages') ? 'active' : ''}}">
                 <li> <i class="far fa-comment-dots" aria-hidden="true"></i>
                     <span class="text"> Messages</span>
                 </li>
             </a>
-            @endif
             @if(Auth::user()->role_intended==='instituteAdmin')
             <a href="/my-institute" class="{{\App\Facades\Sthub::currentTab('institute') ? 'active' : ''}}">
                 <li> <i class="fas fa-university " aria-hidden="true"></i><span class="text"> My
@@ -46,8 +44,15 @@
                 </li>
             </a>
             @endif
+            @if(Auth::user()->hasInstituteUserAccess())
+            <a href="/students" class="{{\App\Facades\Sthub::currentTab('students') ? 'active' : ''}}">
+                <li> <i class="fas fa-users " aria-hidden="true"></i>
+                <span class="text">Students</span>
+                </li>
+            </a>
+            @endif
             
-            @if(Auth::student())
+            @if(Auth::user()->role_intended==='student')
             <a href="/classmates" class="{{\App\Facades\Sthub::currentTab('classmates') ? 'active' : ''}}">
                 <li><i class="fas fa-users" aria-hidden="true"></i><span class="text">
                         Classmates</span>
@@ -64,11 +69,6 @@
                     <span class="text">Profile</span>
                 </li>
             </a>
-
-            @if(Auth::user()->role_intended === 'seeker')
-            <li><a href="/check-in"> <span class="icon"><img src="{{asset('/images/logout.png') }}" alt="Student'sHUB"
-                            width="20" /></span> Checkin</a></li>
-            @endif
         </ul>
     </div>
 </div>

@@ -14,7 +14,9 @@ router.beforeEach((to, from, next) => {
 	if(from.name !== null){
 	//close menu in mobile
 		var menu = document.querySelector('.navbar-collapse');
-		menu.classList.remove('show');
+		if(menu){
+			menu.classList.remove('show');
+		}
 		document.title = (to.meta && to.meta.title) ? to.meta.title : 'Student\'sHUB';
 	}
 	// This goes through the matched routes from last to first, finding the closest route with a title.

@@ -5,9 +5,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['auth:api']], function () {
     Route::get('/get-posts', [App\Http\Controllers\Api\PostController::class, 'getPosts']);
-    Route::post('/user-like/{type}', 'LikeController@updateOrDelete');
+    Route::post('/{likable_type}/{likable_id}/like', 'LikeController@updateOrDelete');
     Route::post('/post-save', 'PostController@savePost');
     Route::post('/post-report', 'PostController@reportPost');
+    Route::delete('post/{post}', 'PostController@delete');
         //profile
     Route::get('/get-profile','UserController@getProfile');
     Route::post('/save-profile', 'UserController@saveProfile');
@@ -25,6 +26,6 @@ Route::group(['middleware' => ['auth:api']], function () {
 
     //comments
     Route::get('/{commentable_type}/{commentable_id}/comment', 'CommentController@get');
-    Route::post('/comment', 'CommentController@create');
+    Route::post('/{commentable_type}/{commentable_id}/add-comment', 'CommentController@create');
 
 });

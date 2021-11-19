@@ -16,7 +16,7 @@
         <hr>
       </div>
       <div
-        v-if="AuthUser.role_intended==='student' && !classrooms.length"
+        v-if="['seeker','student'].includes(AuthUser.role_intended) && !routeClassroomId && !classrooms.length"
         class="card mb-2 pl-3"
       >
         <div class="card-body">
@@ -34,7 +34,7 @@
       </div>
       <div>
         <div 
-          v-if="classrooms.length"
+          v-if="routeClassroomId || classrooms.length"
           class="row"
         >
           <div class="col-md-12">

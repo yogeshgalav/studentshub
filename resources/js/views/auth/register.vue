@@ -12,7 +12,7 @@
           <div class="col-md-6">
             <div class="login_img">
               <img
-                src="/images/register.svg"
+                v-lazy="'/images/register.svg'"
                 alt=""
               >
             </div>
@@ -52,6 +52,41 @@
                         >
                       </div>
                       <div class="form-group">
+                        <label for="role"> {{ "I'm a" }} </label>
+                        <div class="inner-addon left-addon">
+                          <div class="input_icon_frm">
+                            <span class="icon_design_input"><i
+                              class="fa fa-user"
+                            /></span>
+                            <select
+                              id="role"
+                              v-model="role"
+                              v-validate="'required'"
+                              :disabled="join_id"
+                              class="form-control"
+                              name="role"
+                            >
+                              <option
+                                selected
+                                value="student"
+                              >
+                                Student
+                              </option>
+                              <option value="teacher">
+                                Teacher
+                              </option>
+                              <option value="instituteAdmin">
+                                Institute Admin
+                              </option>
+                              <option value="seeker">
+                                Knowledge Seeker
+                              </option>
+                            </select>
+                          </div>
+                          <span class="error">{{ errors.first('role') }}</span>
+                        </div>
+                      </div>
+                      <div class="form-group">
                         <label> {{ ('Full Name') }} </label>
                         <div class="inner-addon left-addon">
                           <div class="input_icon_frm">
@@ -67,6 +102,7 @@
                               name="full_name"
                               placeholder="Enter Full Name"
                               autofocus
+                              maxlength="255"
                             >
                           </div>
                           <span class="error">{{ errors.first('full_name') }}</span>
@@ -89,6 +125,7 @@
                               class="form-control"
                               name="email"
                               placeholder="Email address"
+                              maxlength="255"
                             >
                           </div>
                           <span class="error">{{ errors.first('email') }}</span>
@@ -112,6 +149,7 @@
                               class="form-control"
                               name="password"
                               placeholder="Password"
+                              maxlength="16"
                             >
                             <div
                               class="input-group-append"
@@ -184,46 +222,12 @@
                           <span class="error">{{ errors.first('password_confirmation') }}</span>
                         </div>
                       </div>
-
-
-                      <div class="form-group">
-                        <div
-                          style="display: flex; justify-content: space-between; align-items: center;"
-                          @click="joinIdInfoVisible = !joinIdInfoVisible"
-                        >
-                          <label> {{ 'Join Id (optional)' }} </label>
-                          <i
-                            class="fa fa-exclamation-circle"
-                            aria-hidden=""
-                          />
-                        </div>
-                        <div
-                          v-if="joinIdInfoVisible"
-                          style="display: flex; justify-content: flex-end;"
-                          class="data"
-                        >
-                          <p class="on-hover text-grey">
-                            Join id is provide by teacher to students to join classroom directly with correct education details. Ignore this field if you are a teacher or institute.
-                          </p>
-                        </div>
-
-                        <div class="inner-addon left-addon">
-                          <div class="input_icon_frm">
-                            <span class="icon_design_input"><i
-                              class="fa fa-user"
-                            /></span>
-                            <input
-                              id="join_id"
-                              v-model="join_id"
-                              type="text"
-                              class="form-control"
-                              name="join_id"
-                              placeholder="Classroom Join ID"
-                              autofocus
-                            >
-                          </div>
-                          <span class="error">{{ errors.first('join_id') }}</span>
-                        </div>
+                      <div
+                        v-if="join_id"
+                        class="form-group"
+                      >
+                        <label> {{ 'Join Id:' }} </label>
+                        <strong class="font-size-18">{{ join_id }}</strong>
                       </div>
 
                       <div class="form-group mb-0">
@@ -238,12 +242,13 @@
                           </button>
                         </div>
                       </div>
-                      <div style="text-align: center; margin-top: 20px;">
-                        <router-link :to="'/login'">
-                          Already have an account?
-                        </router-link>
-                      </div>
                     </form>
+                  </div>
+
+                  <div style="text-align: center; margin-top: 20px;">
+                    <router-link :to="'/login'">
+                      Already have an account?
+                    </router-link>
                   </div>
                 </div>
               </div>
@@ -329,11 +334,11 @@ export default {
 			showPassword: false,
 			showLoader: false,
 			fcmToken: '',
+			role: 'student',
 			full_name: '',
 			email: '',
 			password: '',
 			join_id: '',
-			joinIdInfoVisible: false,
 			dict: {
 				custom: {
 					full_name: {

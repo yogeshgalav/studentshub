@@ -369,7 +369,9 @@ export default {
 				}
 				this.current_question_edit.multiple_choice.push({
 					id:0,
+					option_order: index-1,
 					option_text: element,
+					is_correct:false,
 				});
 			});
 		},
@@ -379,11 +381,13 @@ export default {
 				id:0,
 				option_order: 0,
 				option_text: null,
+				is_correct:false,
 			},
 			{
 				id:0,
 				option_order: 1,
 				option_text: null,
+				is_correct:false,
 			},
 			];
 			this.filter_recovery_text = '';
@@ -456,6 +460,7 @@ export default {
 				],
 			};
 			this.filter_recovery_text = '';
+			this.errors.clear();
 		},
 		setCurrectAnswer(choice){
 			this.current_question_edit.multiple_choice.map(node=>{

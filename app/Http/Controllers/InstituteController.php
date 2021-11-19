@@ -16,4 +16,12 @@ class InstituteController extends Controller
         return view('institute.institute')
         ->with('instituteId',$instituteId ?? $institute->institute_id);
     }
+    public function indexStudents()
+    {
+        return view('institute.index-student');
+    }
+    public function showStudent()
+    {
+        return view('institute.show-student');
+    }
 }

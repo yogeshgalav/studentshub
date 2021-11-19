@@ -14,8 +14,6 @@ class Post extends Model
 {
     //
     protected  $guarded = ['id', 'created_at', 'updated_at'];
-
-    protected $appends=['user_name','total_views','total_likes'];
     use HasSlug;
 
 
@@ -57,29 +55,27 @@ class Post extends Model
     public function getUserNameAttribute(){
         return $this->user()->first()->full_name;
     }
-    public function subject(){
-        return $this->belongsTo('App\Models\Subject');
-    }           
+    public function subjects(){
+        return $this->belongsToMany(Subject::class, 'post_tags');
+    }         
     public function category(){
         return $this->belongsTo('App\Models\Category');
+    }           
+    public function sthubPosts(){
+        return $this->hasMany(SthubPost::class);
     }           
     public function image(){
         return $this->hasMany('App\Models\PostImage');
     }           
     public function tags(){
         return $this->hasMany('App\Models\PostTag');
-    }           
-    public function getTotalViewsAttribute(){
-        return $this->hasMany('App\Models\PostView')->count();
     }
-    public function getTotalLikesAttribute(){
-        return $this->like->where('like_status',1)->count();
+    public function likes(){
+        return $this->morphMany(Like::class, 'likable');
     }
-    public function getTotalDislikesAttribute(){
-        return $this->like->where('like_status',0)->count();
-    }
-    public function like(){
-        return $this->morphMany('App\Models\Like', 'likable');
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
     }
     
     public function getPostTypeAttribute(){

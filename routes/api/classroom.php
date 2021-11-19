@@ -37,7 +37,6 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::delete('/resource/{resource}','ClassroomResourceController@delete');
     //messages
     Route::get('/get-classroom-messages/{classroomId?}',[ClassroomMessageController::class,'listmessage']);
-    Route::get('/message/{messageId}/get-replies', [ClassroomMessageController::class, 'replymessage']);
     Route::post('/add-message',[ClassroomMessageController::class, 'addmessage']);
     Route::post('/delete-message',[ClassroomMessageController::class, 'deletemessage']);
     Route::post('/edit-message', [ClassroomMessageController::class, 'editmessage']);

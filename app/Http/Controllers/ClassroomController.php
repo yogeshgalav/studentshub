@@ -144,18 +144,10 @@ class ClassroomController extends Controller
     public function classroomResoucePage(){
         return view('classroom.resources');
     }
-    public function classroomDoubtPage(){
-        return view('classroom.doubts');
-    }
     public function classroomMessagePage(){
         return view('classroom.messages');
     }
 
-    public function doubtPage()
-    {
-        $categories = \App\Models\Category::all();
-        return view('student.doubts')->with('categories',$categories);
-    }
 
     public function myReports()
     {
@@ -168,9 +160,6 @@ class ClassroomController extends Controller
         return view('student-panel.my-reports')->with('classrooms',$classrooms);
     }
 
-    public function doubtAnswersPage(){
-        return view('doubt.answer');
-    }
     public function GlobalMessagePage(){
         $classrooms = \DB::table('classrooms')
         ->leftJoin('users as usr',function($join){

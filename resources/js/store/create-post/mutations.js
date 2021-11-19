@@ -32,9 +32,7 @@ export default {
 		state.new_post.mcq_answer = data.answer;
 	},
 	set_post_subject(state,data){
-		state.new_post.subject_id=data.subject_id ? data.subject_id : null;
-		state.new_post.subject_name=data.subject_name;
-		state.new_post.course_subject=data.is_course_subject==='yes'?true:false;
+		state.new_post.selected_subjects=data.selected_subjects;
 		state.new_post.category_id=data.selected_category;
 	},
 	set_post_heading(state,data){

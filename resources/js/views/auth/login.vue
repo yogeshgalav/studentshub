@@ -11,7 +11,7 @@
         <div class="col-md-6">
           <div class="login_img">
             <img
-              src="/images/Group.svg"
+              v-lazy="'/images/Group.svg'"
               alt=""
             >
           </div>
@@ -250,9 +250,8 @@ export default {
 		};
 	},
 	mounted(){
-		if(this.$route.query.fcmToken){
-			this.fcmToken = this.$route.query.fcmToken;
-			localStorage.setItem('fcmToken',this.fcmToken);
+		if(localStorage.getItem('fcmToken')){
+			this.fcmToken = localStorage.getItem('fcmToken');
 		}
 	},
 	methods:{

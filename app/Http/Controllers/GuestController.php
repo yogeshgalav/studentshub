@@ -84,24 +84,12 @@ class GuestController extends Controller
 
         return response()->file($path);
     }
-
-    public function profileImage($filename)
-    {
-        $path = storage_path('app/profile-images/' . $filename);
-
-        if (!\File::exists($path)) {
-            abort(404);
-        }
-
-        return response()->file($path);
-    }
+    
     public function  root()
     {
         $me = Auth::user();
-        if ($me && in_array($me->role_intended,['seeker','student'])) {
+        if ($me) {
             return view('seeker.posts');
-        } elseif ($me) {
-            return redirect('/classrooms');
         }
         return view('guest.welcome');
     }

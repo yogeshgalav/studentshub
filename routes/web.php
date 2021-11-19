@@ -24,10 +24,6 @@ Route::get('/report', 'GuestController@report');
 Route::get('/privacy-policy', 'GuestController@privacyPolicy');
 Route::get('/terms-of-service', 'GuestController@termOfUse');
 
-
-Route::get('/post-images/{filename}','GuestController@postImage');
-Route::get('/profile-images/{filename}','GuestController@profileImage');
-
 // Manifest file (optional if VAPID is used)
 Route::get('manifest.json', function () {
     return [
@@ -60,21 +56,5 @@ Route::get('/js/lang.js', function () {
 
 Route::get('/schedule-jobs', function () {
     \Artisan::call('sthub:cron');
-});
-
-Route::get('/storage/{folder}/{filename}', function ($folder,$filename)
-{
-    $path = storage_path('app/public/' .$folder.'/'. $filename);
-
-    if (!File::exists($path)) {
-        abort(404);
-    }
-
-    $file = File::get($path);
-    $type = File::mimeType($path);
-
-    $response = Response::make($file, 200);
-    $response->header("Content-Type", $type);
-
-    return $response;
+    // \Artisan::call('schedule:run');
 });

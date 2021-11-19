@@ -13,7 +13,7 @@
               {{ AuthUser.full_name }}
             </div>
             <a
-              :href="AuthUser.preferred_institute_id ? '/share-your-knowledge' : '/education-details'"
+              :href="'/share-your-knowledge'"
             > 
               <img
                 src="/images/knowledge.svg"

@@ -1,7 +1,5 @@
 <template>
-  <div class="row">
-    <!--the edit message modal -->
-    
+  <div class="row">    
     <div class="col-md-12">
       <h1>Doubts</h1>
     </div>
@@ -27,17 +25,16 @@
             </div>
 
             <div
-              v-if="AuthStudent"
               class="col-md-4 custom_btn"
             >
               <button
                 type="button"
                 data-toggle="modal"
                 data-target="#addDoubtModal"
-                class="btn btn-lg btn-primary"
+                class="btn btn-md btn-primary"
                 @click="doubt_question=search_doubt"
               >
-                Ask new Doubt
+                <i class="fas fa-plus" />&nbsp;&nbsp;Ask Doubt
               </button>
             </div>
           </div>
@@ -113,9 +110,9 @@
                   </div>
                   <hr class="mb-1 mt-2">
                   <div class="row">
-                    <div class="col-md-12 d-flex font-size-12 mb-0">
-                      <p class="text-muted post_category">
-                        {{ doubt.subject_name }}
+                    <div class="col-md-12 d-flex font-size-16">
+                      <p class="text-muted  mb-0">
+                        {{ doubt.category_name }}
                       </p>
                     </div>
                     <div class="col-md-12">
@@ -125,6 +122,29 @@
                           class="weight-600 text-black"
                         >
                           {{ doubt.question }}
+                        </router-link>
+                      </p>
+                    </div>
+                    <div class="col-md-12">
+                      <p
+                        class="text-blue mb-0"
+                      >
+                        <span 
+                          v-for="sub in doubt.subjects"
+                          :key="sub.id"
+                        >
+                          #{{ sub.subject_name }}
+                        </span>
+                      </p>
+                    </div>
+                    <div class="col-md-12">
+                      <p class=" mb-0">
+                        <router-link
+                          :to="'/doubt/'+doubt.id"
+                          class="weight-600 text-black"
+                        >
+                          {{ doubt.total_answer ? (doubt.total_answer+' Answers') : 'Add answer' }}
+                          &nbsp;<i class="fa fa-arrow-right text-white" />
                         </router-link>
                       </p>
                     </div>
@@ -142,11 +162,11 @@
             </div>
           </div>
         </div>
+        <!--the add/edit doubt modal -->
         <modal
-          v-if="AuthStudent"
           ref="addDoubtModal"
           name="addDoubtModal"
-          heading="Ask doubt:"
+          heading="Ask Doubt"
           classes="modal-lg"
           @submit="addOrEditDoubt"
         >
@@ -154,48 +174,43 @@
             <form>
               <div class="model_box_inner">
                 <div class="row">
-                  <div class="form-group col-md-12">
-                    <label class="text-black font-size-14">Course
-                    </label>
-                    <input
-                      id="course"
-                      type="text"
+                  <div
+                    class="form-group col-md-6 col-12"
+                  >
+                    <label for="category">Category</label>
+                    <select
+                      id="category"
+                      v-model="edit_category"
+                      name="category"
                       class="form-control"
-                      disabled
-                      :value="AuthStudent.courseName"
+                    >
+                      <option
+                        v-for="category in categories"
+                        :key="category.id"
+                        :value="category.id"
+                      >
+                        {{ category.name }}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-12">
+                    <label for="doubt_question">Question</label>
+                    <input
+                      id="doubt_question"
+                      v-model="doubt_question"
+                      class="form-control"
+                      type="text"
+                      placeholder="Enter Your Question"
                     >
                   </div>
-                  <div
-                    class="col-md-12"
-                  >
-                    <div class="model_input">
-                      <label>Subject</label>
-                      <auto-complete
-                        v-validate="'required'"
-                        class="width-100"
-                        :items="subject_list"
-                        :value="'subject_name'"
-                        name="program_name"
-                        :placeholder="'eg. Biology,Chemistry'"
-                        :is-async="true"
-                        :is-loading="subjectLoading"
-                        :initial-value="selected_subject"
-                        @input="getSubjects"
-                        @selected="setSubject"
-                        @selectNew="setNewSubject"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-md-12">
-                    <div class="model_input">
-                      <label>Doubt</label>
-                      <input
-                        v-model="doubt_question"
-                        class="form-control"
-                        type="text"
-                        placeholder="Enter Your Doubt"
-                      >
-                    </div>
+                  <div class="form-group col-md-12">
+                    <label for="subject_tags">Subject tags</label>
+                    <vue-tags-input
+                      v-model="tag"
+                      :tags="tags"
+                      :autocomplete-items="filteredItems"
+                      @tags-changed="newTags => tags = newTags"
+                    />
                   </div>
                 </div>
               </div>
@@ -231,24 +246,25 @@
 import FormMixin from '../../components/mixins/form-mixin.js';
 import Modal from '../../components/VueNiceModal.vue';
 import Loading from 'vue-loading-overlay';
-import AutoComplete from '../../components/AutoComplete.vue';
 import InteractionComponent from '../common/InteractionComponent.vue';
 import ProfileImage from '../../components/ProfileImage';
-
+import VueTagsInput from '@johmun/vue-tags-input';
 
 export default {
   	components:{
 		Modal,
 		Loading,
-		AutoComplete,
 		ProfileImage,
-		InteractionComponent
+		InteractionComponent,
+		VueTagsInput
 	},
 	mixins: [FormMixin],
 	props:['subjectId','categories'],
 	data()
 	{
 		return {
+			tag: '',
+			tags: [],
 			edit_doubt_id:'',
 			search_doubt:'',
 			doubt_question:'',
@@ -259,7 +275,7 @@ export default {
 			subject_list:[],
 			subjectLoading: false,
 			show_category: false,
-			selected_category: '',
+			edit_category: 14,
 			selected_subject: {
 				'id': null,
 				'subject_name': '',
@@ -267,12 +283,20 @@ export default {
 		};
 
 	},
+	computed:{
+		filteredItems() {
+			return this.subject_list.filter(i => {
+				return i.subject_name.toLowerCase().indexOf(this.tag.toLowerCase()) !== -1;
+			});
+		},
+	},
+	watch:{
+		tag(val){
+			this.getSubjects(val);
+		}
+	},
 	mounted() {
 		this.getdata();
-		this.selected_category= (this.AuthStudent && this.AuthStudent.categoryId) ? this.AuthStudent.categoryId : '';
-		if(this.subjectId){
-			this.selected_subject.id = this.subjectId; 
-		}
 	},
 	methods:
     {
@@ -314,9 +338,9 @@ export default {
     	addDoubt()
     	{
     		this.axios.post(this.baseUrl + '/api/add-doubt',{
-    			doubt:this.doubt_question,
-    			category:this.selected_category,
-    			subject:this.selected_subject,
+    			question:this.doubt_question,
+    			category_id:this.edit_category,
+    			selected_subjects:this.tags,
     		} )
     			.then(resp => {
     				// this.$modal.hide('add_doubt_modal');
@@ -333,8 +357,8 @@ export default {
     	{
     		this.axios.post('/api/doubt/' + this.edit_doubt_id + '/edit',{
     			doubt:this.doubt_question,
-    			category:this.selected_category,
-    			subject:this.selected_subject,
+    			category:this.edit_category,
+    			selected_subjects:this.tags,
     		}).then(resp => {
     				// this.$modal.hide('add_doubt_modal');
     				this.$refs.addDoubtModal.closeModal();
@@ -351,44 +375,23 @@ export default {
     			'id': null,
     			'subject_name': search,
     		};
-    		this.subjectLoading = true;
     		this.axios
     			.get(this.baseUrl + '/api/search-subject?searchTerm='+search)
     			.then(resp => {
     				this.subject_list=[];
-    				this.subject_list = resp.data.success.subjects;
-    				this.subject_list.find(node => {
-    					if (node.subject_name.toLowerCase() === this.selected_subject.subject_name
-    						.toLowerCase()) {
-    						this.selected_subject = node;
-    						return true;
-    					}
+    				this.subject_list = resp.data.success.subjects.map(node=>{
+    					node['text']=node.subject_name;
+    					return node;
     				});
-    				this.subjectLoading = false;
+    		
     			}).catch(() => {
-    				this.subjectLoading = false;
     			});
 
-    	},
-    	setSubject(result) {
-    		this.selected_subject = result;
-    		// if(result.category_id){
-    		// 	this.selected_category = result.category_id;
-    		// }else if(this.AuthStudent.categoryId){
-    		// 	this.selected_category = this.AuthStudent.categoryId;
-    		// }
-    		// this.show_category = true;
-    	},
-    	setNewSubject(name) {
-    		this.selected_subject = {
-    			'id': 0,
-    			'subject_name': name,
-    			'category_id': '',
-    		};
     	},
     	editDoubt(doubt){
     		this.edit_doubt_id = doubt.id;
     		this.doubt_question = doubt.question;
+    		this.edit_category = doubt.category_id;
     		this.selected_subject = {
     			'id': doubt.subject_id,
     			'subject_name': doubt.subject_name,

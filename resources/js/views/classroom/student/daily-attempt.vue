@@ -206,7 +206,6 @@ export default {
 		};
 	},
 	mounted(){
-
 		// PREVENT CONTEXT MENU FROM OPENING
 		window.addEventListener('contextmenu', function(evt){
 			evt.preventDefault();
@@ -229,17 +228,7 @@ export default {
 				window.location.reload;
 			}
 			//alert before exit
-			window.addEventListener('beforeunload', (e)=>{
-				let attemptSubmitted = localStorage.getItem('attemptSubmitted');
-				if(attemptSubmitted && attemptSubmitted===this.dailyAssignment.id){
-					delete e['returnValue'];
-				}
-				var confirmationMessage = 'Your attempt will be declined if you leave this page.'
-		                        + 'Are you sure?';
-
-				(e || window.event).returnValue = confirmationMessage;
-				return confirmationMessage;
-			});
+			window.addEventListener('beforeunload', this.exitFunction);
 			//ifvisible not working
 			if(ifvisible.now('hidden')){
 		  			this.axios.post('/api/decline-attempt/'+this.dailyAssignment.id);
@@ -260,10 +249,22 @@ export default {
 			}, 1000);
 			this.attempt_started=true;
 		},
+		exitFunction(e){
+			let attemptSubmitted = localStorage.getItem('attemptSubmitted');
+			if(attemptSubmitted && attemptSubmitted===this.dailyAssignment.id){
+				delete e['returnValue'];
+			}
+			var confirmationMessage = 'Your attempt will be declined if you leave this page.'
+		                        + 'Are you sure?';
+
+			(e || window.event).returnValue = confirmationMessage;
+			return confirmationMessage;
+		},
 		sumbitAttempt(e){
 			this.$validator.validate().then(valid => {
 				if (valid) {
 					clearInterval(this.interval);
+					window.removeEventListener('beforeunload', this.exitFunction);
 					localStorage.setItem('attemptSubmitted',this.dailyAssignment.id);
 					return true;
 				}else{

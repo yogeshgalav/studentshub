@@ -16,22 +16,21 @@ use Illuminate\Support\Facades\Log;
 class DoubtAnswersController extends Controller
 {
 
-    public function addDoubtAnswer ($doubtId,Request $request)
+    public function addDoubtAnswer(Doubt $doubt,Request $request)
     {
 
-        $doubt = Doubt::findOrFail($doubtId);
         DB::beginTransaction();
     try{
 
+        $me = $request->user('api');
         $answer = new DoubtAnswer();
-        $answer->user_id = Auth::id();
-        $answer->doubt_id = $doubtId;
+        $answer->user_id = $me->id;
+        $answer->doubt_id = $doubt->id;
         $answer->answer = $request->answer_html;
 
         $post=new Post;
-        $post->user_id=Auth::user()->id;
+        $post->user_id=$me->id;
         $post->post_heading=$doubt->question;
-        $post->subject_id=$doubt->subject_id;
 
         $article=new Article;
         $post_content_id=$article->createFromContent([
@@ -41,13 +40,14 @@ class DoubtAnswersController extends Controller
         $post->postable_type="App\Models\Article";
         $post->primary_image_path='/storage/article-default.png';
         $post->postable_id=$post_content_id;
-        $post->category_id=$doubt->course->category_id;
-        $post->course_id=$doubt->course_id;
+        $post->category_id=$doubt->category_id;
+        $post->course_id=$me->preferred_course_id;
         $post->created_via='doubt';
         $post->save();
 
         $answer->post_id=$post->id;
         $answer->save();
+        $doubt->copyTags($post);
         SthubPost::addAction('share',$post,Auth::user());
 
     DB::commit();
@@ -57,28 +57,32 @@ class DoubtAnswersController extends Controller
             // dd($e->getMessage(),$e->getLine());
             return response()->$e;
         }
-        return 'success';
+        return response()->json([
+            'success'=>[
+                'post_id'=>$post->id
+            ]
+        ]);
     }
 
-    public function getDoubtanswers($doubtId,Request $request)
+    public function getDoubtanswers(Doubt $doubt,Request $request)
     {
-        $doubt=\DB::table('doubts')->where('doubts.id',$doubtId)
+        $doubt_details=Doubt::where('doubts.id',$doubt->id)
         ->join('users as us','us.id','=','doubts.user_id')
-        ->join('institutes as inst','inst.id','=','doubts.institute_id')
-        ->join('subjects as sub','sub.id','=','doubts.subject_id')
-        ->select('us.full_name as user_name','us.avatar_url as profile_image','sub.subject_name','inst.name as inst_name',
+        ->leftJoin('institutes as inst','inst.id','=','us.preferred_institute_id')
+        ->join('categories as cat','cat.id','=','doubts.category_id')
+        ->select('us.full_name as user_name','us.avatar_url as profile_image','cat.name as category_name','inst.name as inst_name',
         'doubts.question','doubts.created_at','doubts.id')
+        ->with('subjects')
         ->first();
-        $doubt->time=\Carbon\Carbon::createFromTimeStamp(strtotime($doubt->created_at))->diffForHumans();
 
         $post = new \App\Post;
-        $answers=$post->getDoubtPosts($doubtId);
+        $answers=$post->getDoubtPosts($doubt->id);
 
         return response()->json([
             'success'=>[
-                'doubt'=>$doubt,
+                'doubt'=>$doubt_details,
                 'answerList'=>$answers,
-                'isAnswered'=>DoubtAnswer::where('doubt_id',$doubtId)->where('user_id',Auth::id())->exists()
+                'isAnswered'=>DoubtAnswer::where('doubt_id',$doubt->id)->where('user_id',Auth::id())->exists()
             ]
         ]);
     }

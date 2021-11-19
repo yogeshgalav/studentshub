@@ -115,12 +115,12 @@ class AuthController extends Controller
         //log info
         Log::info('new User '.$user->full_name." (User ID # ".$user->id.") registered and logged in from IP Address ".$request->ip());
 
-        $success['redirectUrl'] = '/check-in';
+        $success['redirectUrl'] = '/';
         if($request->join_id){
             $this->registerWithClassrrom($user,$request->join_id);
             $success['redirectUrl'] = '/education-details';
         }
-        // \App\Models\ScheduledJob::scheduleNewUserNotification($user);
+        \App\Models\ScheduledJob::scheduleNewUserNotification($user);
         
     DB::commit();
     } catch (\Exception $e) {

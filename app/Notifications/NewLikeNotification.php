@@ -7,13 +7,15 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use App\Channels\CustomDbChannel;
+use App\Models\Like;
 
-class NewClassroomResourceNotification extends Notification
+class NewLikeNotification extends SthubNotification
 {
-    use Queueable;
     public $scheduled_job;
-    public $user;
+    public $like_creater;
     public $classroom;
+    public $like;
+    public $url;
     /**
      * Create a new notification instance.
      *
@@ -22,10 +24,27 @@ class NewClassroomResourceNotification extends Notification
     public function __construct($scheduled_job)
     {
         $this->scheduled_job=$scheduled_job;
-        $this->user=$scheduled_job->user;
         $this->classroom=$scheduled_job->classroom;
+        $this->like_creater=$scheduled_job->fromUser;
+        $this->like=Like::find($this->scheduled_job->job_body['like_id']);
     }
-
+    /**
+     * Add all logic here to determine whether or not this notification is still
+     * valid.  It will run immediately before the notification is sent.
+     *
+     * Call $this->abortSending($reason) to log the job cancellation, and then
+     * return boolean.
+     *
+     * @see NotificationSendingListener
+     * @return bool
+     */
+    public function shouldAbort(): bool
+    {
+        if (empty($this->like)) {
+            return $this->abortSending('The like was deleted');
+        }
+        return false;
+    }
     /**
      * Get the notification's delivery channels.
      *
@@ -59,14 +78,22 @@ class NewClassroomResourceNotification extends Notification
      */
     public function toDatabase($notifiable)
     {
+        $like_model_name = $this->like->getLikableTypeString();
+        if('message'===$like_model_name){
+            $this->url =config('url.site_url').'/messages';
+        }else{
+            $this->url=config('url.site_url').'/'.$like_model_name.'/'.$this->like->likable_id;
+        }
+        $body = $this->like_creater->full_name." has liked your " . $this->like->getLikableTypeString() . ".";
+
         return [
             'scheduled_job_id'=>$this->scheduled_job->id,
             'user_id'=>$notifiable->id,
-            'title'=>'New Classroom Resource.',
-            'avatar_url'=>$this->user->avatar_url,
-            'avatar_name'=>$this->user->full_name,
-            'url'=>"/classroom/".$this->classroom->id."/resources",
-            'body' => $this->user->full_name." has added a new resource to the classroom " . $this->classroom->name . ".",
+            'title'=>'New Like.',
+            'avatar_url'=>$this->like_creater->avatar_url,
+            'avatar_name'=>$this->like_creater->full_name,
+            'url'=>$this->url,
+            'body' => $body,
         ];
     }
 }

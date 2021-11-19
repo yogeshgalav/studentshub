@@ -148,10 +148,7 @@ export default {
 			else if(!this.like_active){
         	this.totallikes -= 1;
 			}
-			this.axios.post('/api/user-like/post', {
-				likable_id: this.likableId,
-				likable_type:this.likableType,
-			}).catch(err => {
+			this.axios.post('/api/'+this.likableType+'/'+this.likableId+'/like').catch(err => {
 				this.like_active = !this.like_active;
 			});
 		},

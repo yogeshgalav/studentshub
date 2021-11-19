@@ -100,9 +100,9 @@ class StudentController extends Controller
         foreach($request->answers as $answer){
             DailyAnswer::create([
                 'user_id'=>Auth::id(),
-                'daily_question_id'=>$answer['question_id'],
+                'daily_question_id'=>intval($answer['question_id']),
                 'daily_report_id'=>$report->id,
-                'selected_option_id'=>$answer['answer'],
+                'selected_option_id'=>intval($answer['answer']),
             ]);
         }
         DB::commit();
