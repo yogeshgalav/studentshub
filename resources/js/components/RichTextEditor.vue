@@ -42,7 +42,6 @@
         :editor-options="editorSettings"
         :editor-toolbar="customToolbar"
         :height="'100%'"
-        @selection-change=""
       />
       <!-- urlModal starts -->
       <div
@@ -100,19 +99,78 @@ import ImageResize from 'quill-image-resize-vue';
 import { ImageDrop } from 'quill-image-drop-module';
 Quill.register('modules/imageDrop', ImageDrop);
 Quill.register('modules/imageResize', ImageResize);
+// Import the BlockEmbed blot.
+var BlockEmbed = Quill.import('blots/block/embed');
 
+// Create a new format based off the BlockEmbed.
+class Youtube extends BlockEmbed {
+
+	// Handle the creation of the new Footer format.
+	// The value will be the HTML that is embedded.
+	// This time the value is passed from our custom handler.
+	static create(value) {
+
+		// Create the node using the BlockEmbed's create method.
+		var node = super.create(value);
+
+		// Set the srcdoc attribute to equal the value which will be your html.
+		node.setAttribute('src', value);
+
+		// Add a few other iframe fixes.
+		node.setAttribute('frameborder', '0');
+		node.setAttribute('mozallowfullscreen', true);
+		node.setAttribute('webkitallowfullscreen', true);
+		node.setAttribute('allowfullscreen', true);
+		node.setAttribute('width', '320');
+		node.setAttribute('height', '240');
+		node.setAttribute('class', 'ql-align-center');
+		return node;
+	}
+
+	// return the srcdoc attribute to represent the Footer's value in quill.
+	static value(node) {
+		return node.getAttribute('src');
+	}
+
+}
+
+class EmbedDocment extends BlockEmbed {
+
+	static create(value) {
+		var node = super.create(value);
+		node.setAttribute('src', value);
+		node.setAttribute('type', 'application/pdf');
+		node.setAttribute('width', '100%');
+		node.setAttribute('height', '600px');
+		return node;
+	}
+
+	static value(node) {
+		return node.getAttribute('src');
+	}
+}
+
+// Give our new Footer format a name to use in the toolbar.
+Youtube.blotName = 'youtube';
+Youtube.tagName = 'iframe';
+Quill.register(Youtube);
+
+EmbedDocment.blotName = 'document';
+EmbedDocment.tagName = 'embed';
+Quill.register(EmbedDocment);
 export default {
 	components:{
 		VueEditor
 	},
-	props: ['content'],    
+	props: ['value'],   
 	data(){
 		return {
 			url: '',
 			url_type: '',
 			url_error: '',
-			video_id: '',
+			video_link: '',
 			document_link: '',
+			content: '',
 			editorSettings: {
 				modules: {
 					imageDrop: true,
@@ -141,9 +199,14 @@ export default {
 				'Paste Youtube video url';
 		},
 	},
-	mounted(){
-		let quill = this.$refs.editor.quill;
-		quill.getModule('toolbar').addHandler('video', videoHandler);
+	// mounted(){
+	// 	let quill = this.$refs.editor.quill;
+	// 	quill.getModule('toolbar').addHandler('video', videoHandler);
+	// },
+	watch:{
+		content(val){
+			this.$emit('input',val);
+		}
 	},
 	methods:{
 		addVideo(){
@@ -173,14 +236,9 @@ export default {
 			let quill = this.$refs.editor.quill;
 			const selection = quill.getSelection(); // get position of cursor (index of selection)
 			if(this.url_type==='video' && this.isVideoUrlValid()){
-				let videoHtml = '<iframe src="https://www.youtube.com/embed/'+ this.video_id + '" width="320" height="240" webkitallowfullscreen mozallowfullscreen allowfullscreen />';
-								console.log(videoHtml);
-
-				quill.clipboard.dangerouslyPasteHTML(selection ? selection.index : 0, videoHtml);
+				quill.insertEmbed(selection ? selection.index : 0, 'youtube', this.video_link);
 			}else if(this.url_type==='document'  && this.isDocumentUrlValid()){
-				let documentHtml ='<embed src="'+this.document_link+'" type="application/pdf" width="100%" height="600px" />';
-				console.log(documentHtml);
-				quill.clipboard.dangerouslyPasteHTML(selection ? selection.index : 0, documentHtml);
+				quill.insertEmbed(selection ? selection.index : 0, 'document', this.document_link);
 			}
 			if(!this.url_error){
 				$('#urlModal').modal('hide');
@@ -203,11 +261,15 @@ export default {
 			return false;
 		},
 		matchYoutubeUrl() {
-			var p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
-			var matches = this.url.match(p);
-
-			if (matches) {
-				return matches[1];
+			let match = url.match(/^(?:(https?):\/\/)?(?:(?:www|m)\.)?youtube\.com\/watch.*v=([a-zA-Z0-9_-]+)/) ||
+			url.match(/^(?:(https?):\/\/)?(?:(?:www|m)\.)?youtu\.be\/([a-zA-Z0-9_-]+)/) ||
+			url.match(/^.*(youtu.be\/|v\/|e\/|u\/\w+\/|embed\/|v=)([^#\&\?]*).*/);
+			console.log(match[2]);
+			if (match && match[2].length === 11) {
+				this.video_link = ('https') + '://www.youtube.com/embed/' + match[2] + '?showinfo=0';
+			}
+			if (match = url.match(/^(?:(https?):\/\/)?(?:www\.)?vimeo\.com\/(\d+)/)) { // eslint-disable-line no-cond-assign
+				this.video_link = (match[1] || 'https') + '://player.vimeo.com/video/' + match[2] + '/';
 			}
 			return false;
 		},
@@ -233,26 +295,6 @@ export default {
 			}
 			return false;
 		},
-		videoHandler() {
-			let url = prompt('Enter Video URL: ');
-			url = getVideoUrl(url);
-			let range = quill.getSelection();
-			if (url !== null) {
-				quill.insertEmbed(range, 'video', url);
-			}
-		},getVideoUrl(url) {
-			let match = url.match(/^(?:(https?):\/\/)?(?:(?:www|m)\.)?youtube\.com\/watch.*v=([a-zA-Z0-9_-]+)/) ||
-        url.match(/^(?:(https?):\/\/)?(?:(?:www|m)\.)?youtu\.be\/([a-zA-Z0-9_-]+)/) ||
-        url.match(/^.*(youtu.be\/|v\/|e\/|u\/\w+\/|embed\/|v=)([^#\&\?]*).*/);
-			console.log(match[2]);
-			if (match && match[2].length === 11) {
-				return ('https') + '://www.youtube.com/embed/' + match[2] + '?showinfo=0';
-			}
-			if (match = url.match(/^(?:(https?):\/\/)?(?:www\.)?vimeo\.com\/(\d+)/)) { // eslint-disable-line no-cond-assign
-				return (match[1] || 'https') + '://player.vimeo.com/video/' + match[2] + '/';
-			}
-			return null;
-		}
 	}
 };
 </script>
