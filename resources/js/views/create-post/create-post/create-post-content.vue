@@ -5,7 +5,6 @@
         id="ArticleEditor"
         v-model="content"
       />
-      <span>{{ countContent }}/100</span>&nbsp;<span class="text-danger">{{ error }}</span>
     </div>
     <div class="creat_post_btn">
       <button
@@ -69,17 +68,14 @@ export default {
 			}
 			return [span.textContent || span.innerText].toString();
 		},
-		countContent(){
-			return this.description.toString().trim().split(/\s+/).length;
-		}
 	},
 	mounted(){
 		EventBus.$on('validateStep2',()=>{
-			if(this.countContent>100){
+			if(this.description){
 				this.$store.commit('set_post_article_content',{postContent:this.content,description:this.description});
 				EventBus.$emit('validateWizard',2,true);
 			}else{
-				this.error='You must Write Atleast 100 words for an Article.';
+				this.error='Post content cannot be empty.';
 				EventBus.$emit('validateWizard',2,false);
 			}
 		});
