@@ -58,21 +58,10 @@
           <div class="creat_post_btn">
             <button
               type="button"
-              class="btn-primary btn-lg m-0-a"
-              @click="prevTab"
-            >
-              <span><i
-                class="fa fa-arrow-left"
-                aria-hidden="true"
-              /></span>
-              Back
-            </button>
-            <button
-              type="button"
-              class="btn-primary btn-lg m-0-a"
+              class="btn-primary btn-md m-0-a"
               @click="nextTab"
             >
-              Finish
+              Next
               <span><i
                 class="fa fa-arrow-right"
                 aria-hidden="true"
@@ -149,9 +138,11 @@ button.btn-primary btn-lg span {
 import EventBus from '../event-bus';
 import { mapState } from 'vuex';
 import VueTagsInput from '@johmun/vue-tags-input';
+import FormMixin from './../../../components/mixins/form-mixin';
 
 export default {
 	components: { VueTagsInput },
+	mixins:[FormMixin],
 	props: ['newPost'],
 	data() {
 		return {
@@ -179,7 +170,7 @@ export default {
 		}
 	},
 	mounted() {
-		EventBus.$on('validateStep3', () => {
+		EventBus.$on('validateStep1', () => {
 			this.$validator.validate().then(valid => {
 				if (valid) {
 					this.$store.commit('set_post_subject', {
@@ -189,9 +180,9 @@ export default {
 					this.$store.commit('set_post_heading', {
 						post_heading: this.heading
 					});
-					EventBus.$emit('validateWizard', 3, true);
+					EventBus.$emit('validateWizard', 1, true);
 				} else {
-					EventBus.$emit('validateWizard', 3, false);
+					EventBus.$emit('validateWizard', 1, false);
 				}
 			});
 		});
@@ -212,9 +203,6 @@ export default {
 		nextTab() {
 			EventBus.$emit('nextTab');
 		},
-		prevTab() {
-			EventBus.$emit('prevTab');
-		}
 	}
 };
 </script>

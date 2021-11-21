@@ -102,22 +102,11 @@
             </div>
             <div class="creat_post_btn" />
           </div>
-        
-          <div v-if="post.post_type === 'article'">
-            <blog-article :new-post="new_post" />
-          </div>
-          <div v-if="post.post_type === 'fact'">
-            <fact :new-post="new_post" />
-          </div>
-          <div v-if="post.post_type === 'mcq'">
-            <mcq :new-post="new_post" />
-          </div>
-          <div v-if="post.post_type === 'video'">
-            <net-video :new-post="new_post" />
-          </div>
-          <div v-if="post.post_type === 'document'">
-            <document :new-post="new_post" />
-          </div>
+          <rich-text-editor
+            id="ArticleEditor"
+            v-model="content"
+          />
+          <span>{{ countContent }}/100</span>&nbsp;<span class="text-danger">{{ error }}</span>
         </div>
         <div class="creat_post_btn">
           <button
@@ -136,26 +125,20 @@
 import EventBus from './event-bus';
 import { mapState } from 'vuex';
 import AutoComplete from '../../components/AutoComplete.vue';
-import BlogArticle from './create-post/post-type/blog-article';
-import Fact from './create-post/post-type/fact.vue';
-import NetVideo from './create-post/post-type/video.vue';
-import Document from './create-post/post-type/document-link.vue';
-import Mcq from './create-post/post-type/mcq.vue';
 import swal from '../../components/swal';
+import RichTextEditor from '../../components/RichTextEditor';
 
 export default {
 	components: {
 		AutoComplete,
-		BlogArticle,
-		Document,
-		Fact,
-		Mcq,
-		NetVideo,
-		Document
+		RichTextEditor
 	},
 	props:['post'],
 	data() {
 		return {
+			content:this.post.article_html_content,
+			files:[],
+			error:'',
 			new_post:null,
 			subject_list: [],
 			subjectLoading: false,
@@ -171,6 +154,25 @@ export default {
 		...mapState({
 			categories: state => state.categories
 		}),
+		description(){
+			if(this.content.trim()===''){
+				return '';
+			}
+			var span= document.createElement('span');
+			span.innerHTML= this.content;
+        
+			var children= span.querySelectorAll('*');
+			for(var i = 0 ; i < children.length ; i++) {
+				if(children[i].textContent)
+					children[i].textContent+= ' ';
+				else
+					children[i].innerText+= ' ';
+			}
+			return [span.textContent || span.innerText].toString();
+		},
+		countContent(){
+			return this.description.toString().trim().split(/\s+/).length;
+		}
 	},
 	mounted() {
 		this.$store.dispatch('getCategories');

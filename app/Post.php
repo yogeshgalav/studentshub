@@ -100,7 +100,9 @@ class Post extends PostModel
         ->leftJoin('categories as cat','cat.id','=','po.category_id')
         ->leftJoin('users as us','us.id','=','po.user_id')
         ->leftJoin('institutes as inst','inst.id','=','us.preferred_institute_id');
-
+        // ->leftJoin('likes as li2', function($join){
+        //     $join->on('li2.likable_id','=','po.id')->where('li2.likable_type','=','App\Models\Post');
+        // });
         $columns = ['po.id as id','po.post_heading as heading','po.post_description as description','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','po.primary_image_path as image_path',
         'us.avatar_url as profile_image','us.id as user_id','us.full_name as user_name','inst.name as institute_name','ar.html_content as article_content',
         'vd.video_id as video_id','fc.image_path as fact_image_path','do.link as document_link'];
@@ -139,17 +141,16 @@ class Post extends PostModel
            //get groupBy fields
            foreach($posts as $post){
             $rand=rand(60,100);
-            $postData=$this->where('id',$post->id)
+            $postData=PostModel::where('id',$post->id)
             ->with('subjects')
             ->withCount('sthubPosts')
-            ->withCount('likes')
             ->first();
             
             $post->description=strlen($post->description)>$rand ? substr($post->description,0,$rand).'...' : $post->description;
             $post->post_type=$this->getPostType($post->postable_type);
             $post->subjects=$postData->subjects;
             $post->total_reactions=$postData->sthub_posts_count;
-            $post->total_likes=$postData->likes_count;
+            $post->total_likes=\App\Models\Like::where('likable_id',$post->id)->where('likable_type','=',PostModel::class)->count();
             $post->profile_image=$post->profile_image ?? '';
             $post->image_path=$post->image_path ?? '';
         }

@@ -14,15 +14,19 @@
             :step-data="step_data"
             @onComplete="onComplete"
           >
-            <template slot="header-row" />
+            <template slot="header-row">
+              <div class="justify-center col-12">
+                <h1>Create Post</h1>
+                <p class="text-grey font-weight-18 ">
+                  What was the last thing you learnt from the internet?
+                </p>
+              </div>
+            </template>
             <template slot="step1">
-              <select-post-type :new-post="newPost" />
+              <create-post-description :new-post="newPost" />
             </template>
             <template slot="step2">
               <create-post-content :new-post="newPost" />
-            </template>
-            <template slot="step3">
-              <create-post-description :new-post="newPost" />
             </template>
           </form-wizard>
         </form>
@@ -93,27 +97,28 @@
 </style>
 <script>
 import {mapState} from 'vuex';
-import FormMixin from '../../components/mixins/form-mixin.js';
 import FormWizard from './VueNiceWizard';
-import SelectPostType from './create-post/select-post-type';
 import CreatePostContent from './create-post/create-post-content';
 import CreatePostDescription from './create-post/create-post-description';
 import swal from '../../components/swal';
-import EventBus from './event-bus';
 
 export default {
 	components: {
 		FormWizard,
-		SelectPostType,
 		CreatePostContent,
 		CreatePostDescription
 	},
 	data() {
 		return {
 			step_data: [],
-			total_steps: 3,
+			total_steps: 2,
 			showLoader:false,
 		};
+	},
+	computed:{
+		...mapState({
+			'newPost': state=>state.new_post,
+		})
 	},
 	mounted() {
 		for (let i = 1; i <= this.total_steps; i++) {
@@ -128,11 +133,6 @@ export default {
 			});
 		}
 		this.$store.dispatch('getCategories');
-	},
-	computed:{
-		...mapState({
-			'newPost': state=>state.new_post,
-		})
 	},
 	methods: {
 		onComplete() {
