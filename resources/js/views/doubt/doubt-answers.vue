@@ -75,7 +75,7 @@
               <div>
                 <rich-text-editor
                   id="ArticleEditor"
-                  :content.sync="new_answer"
+                  v-model="new_answer"
                 />
                 <span>{{ countContent }}/10</span>
                 <span class="text-danger">{{ error }}</span>
