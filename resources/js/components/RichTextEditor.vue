@@ -168,7 +168,7 @@ export default {
 			url: '',
 			url_type: '',
 			url_error: '',
-			video_link: '',
+			video_id: '',
 			document_link: '',
 			content: '',
 			editorSettings: {
@@ -187,8 +187,7 @@ export default {
 				[{ 'list': 'ordered'}, { 'list': 'bullet' }],
 				[{ 'indent': '-1'}, { 'indent': '+1' }],         // outdent/indent
 				[{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-				['link','image','video'],
-				['clean']
+				['link'],
 			],
 		};
 	},
@@ -236,7 +235,7 @@ export default {
 			let quill = this.$refs.editor.quill;
 			const selection = quill.getSelection(); // get position of cursor (index of selection)
 			if(this.url_type==='video' && this.isVideoUrlValid()){
-				quill.insertEmbed(selection ? selection.index : 0, 'youtube', this.video_link);
+				quill.insertEmbed(selection ? selection.index : 0, 'youtube', 'https://www.youtube.com/embed/'+ this.video_id);
 			}else if(this.url_type==='document'  && this.isDocumentUrlValid()){
 				quill.insertEmbed(selection ? selection.index : 0, 'document', this.document_link);
 			}
@@ -244,8 +243,7 @@ export default {
 				$('#urlModal').modal('hide');
 			}
 			return true;
-		},
-		isVideoUrlValid() {
+		},isVideoUrlValid() {
 			this.url_error = '';
 			if (this.url === '') {
 				this.url_error = 'An Youtube video link is required.';
@@ -261,15 +259,11 @@ export default {
 			return false;
 		},
 		matchYoutubeUrl() {
-			let match = url.match(/^(?:(https?):\/\/)?(?:(?:www|m)\.)?youtube\.com\/watch.*v=([a-zA-Z0-9_-]+)/) ||
-			url.match(/^(?:(https?):\/\/)?(?:(?:www|m)\.)?youtu\.be\/([a-zA-Z0-9_-]+)/) ||
-			url.match(/^.*(youtu.be\/|v\/|e\/|u\/\w+\/|embed\/|v=)([^#\&\?]*).*/);
-			console.log(match[2]);
-			if (match && match[2].length === 11) {
-				this.video_link = ('https') + '://www.youtube.com/embed/' + match[2] + '?showinfo=0';
-			}
-			if (match = url.match(/^(?:(https?):\/\/)?(?:www\.)?vimeo\.com\/(\d+)/)) { // eslint-disable-line no-cond-assign
-				this.video_link = (match[1] || 'https') + '://player.vimeo.com/video/' + match[2] + '/';
+			var p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+			var matches = this.url.match(p);
+
+			if (matches) {
+				return matches[1];
 			}
 			return false;
 		},

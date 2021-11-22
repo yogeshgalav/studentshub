@@ -18,7 +18,7 @@
               <div class="justify-center col-12">
                 <h1>Create Post</h1>
                 <p class="text-grey font-weight-18 ">
-                  What was the last thing you learnt from the internet?
+                  What was the last thing you learned from the internet?
                 </p>
               </div>
             </template>

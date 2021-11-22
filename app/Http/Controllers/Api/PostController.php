@@ -27,7 +27,6 @@ class PostController extends Controller
     public function create(Request $request){
 
         $data=$request->all();
-        $post_type=$data['post_type'];
         $heading=$data['heading'];
         
         DB::beginTransaction();
@@ -38,7 +37,7 @@ class PostController extends Controller
         $post->post_heading=$heading;
         $post->category_id = $data['category_id'];
 
-        switch(strToLower($request->post_type)){
+        switch(strToLower('article')){
             case 'article':
                 $article=new Article;
                 $post_content_id=$article->createFromContent($data);
