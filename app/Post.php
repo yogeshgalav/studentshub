@@ -97,16 +97,17 @@ class Post extends PostModel
         ->leftJoin('documents as do',function($join){
             $join->on('po.postable_id','=','do.id')->where('po.postable_type','=','App\Models\Document');
         })
-        ->leftJoin('subjects as sub','sub.id','=','po.subject_id')
         ->leftJoin('categories as cat','cat.id','=','po.category_id')
         ->leftJoin('users as us','us.id','=','po.user_id')
         ->leftJoin('institutes as inst','inst.id','=','us.preferred_institute_id');
-
+        // ->leftJoin('likes as li2', function($join){
+        //     $join->on('li2.likable_id','=','po.id')->where('li2.likable_type','=','App\Models\Post');
+        // });
         $columns = ['po.id as id','po.post_heading as heading','po.post_description as description','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','po.primary_image_path as image_path',
-        'sub.slug','sub.subject_name','us.avatar_url as profile_image','us.id as user_id','us.full_name as user_name','inst.name as institute_name','ar.html_content as article_content',
+        'us.avatar_url as profile_image','us.id as user_id','us.full_name as user_name','inst.name as institute_name','ar.html_content as article_content',
         'vd.video_id as video_id','fc.image_path as fact_image_path','do.link as document_link'];
         $groupBycolumns = ['po.id','po.post_heading','po.post_description','po.postable_type','cat.name','cat.id','po.primary_image_path',
-        'sub.slug','sub.subject_name','us.avatar_url','us.id','us.full_name','inst.name','ar.html_content',
+        'us.avatar_url','us.id','us.full_name','inst.name','ar.html_content',
         'vd.video_id','fc.image_path','do.link'];
 
         if(Auth::check()){
@@ -140,23 +141,16 @@ class Post extends PostModel
            //get groupBy fields
            foreach($posts as $post){
             $rand=rand(60,100);
-            $postData=DB::table('posts as po')->where('po.id',$post->id)
-            ->leftJoin('likes as li',function($join){
-                $join->on('po.id','=','li.likable_id')->where('li.likable_type','=','App\Models\Post')->where('li.like_status','=',1);
-            })
-            ->leftJoin('likes as dli',function($join){
-                $join->on('po.id','=','dli.likable_id')->where('dli.likable_type','=','App\Models\Post')->where('dli.like_status','=',0);
-            })
-            ->leftJoin('post_views as vw','po.id','=','vw.post_id')
-            ->select(DB::raw('COUNT(distinct li.user_id) as total_likes'),DB::raw('COUNT(distinct dli.user_id) as total_dislikes'),DB::raw('COUNT(distinct vw.user_id) as total_views'))
-            ->groupBy(['po.id'])
+            $postData=PostModel::where('id',$post->id)
+            ->with('subjects')
+            ->withCount('sthubPosts')
             ->first();
-
+            
             $post->description=strlen($post->description)>$rand ? substr($post->description,0,$rand).'...' : $post->description;
             $post->post_type=$this->getPostType($post->postable_type);
-            $post->total_likes=$postData->total_likes;
-            $post->total_dislikes=$postData->total_dislikes;
-            $post->total_views=$postData->total_views;
+            $post->subjects=$postData->subjects;
+            $post->total_reactions=$postData->sthub_posts_count;
+            $post->total_likes=\App\Models\Like::where('likable_id',$post->id)->where('likable_type','=',PostModel::class)->count();
             $post->profile_image=$post->profile_image ?? '';
             $post->image_path=$post->image_path ?? '';
         }
@@ -173,11 +167,10 @@ class Post extends PostModel
         ->leftJoin('videos as vd',function($join){
             $join->on('po.postable_id','=','vd.id')->where('po.postable_type','=','App\Models\Video');
         })
-        ->leftJoin('subjects as sub','sub.id','=','po.subject_id')
         ->leftJoin('categories as cat','cat.id','=','po.category_id')
         ->leftJoin('users as us','us.id','=','po.user_id')
         // ->leftJoin('facts as fa','po.id','=','fa.post_id')
-        ->select(['po.id as id','po.post_heading as heading','po.post_description as description','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','sub.subject_name','po.primary_image_path as image_path',
+        ->select(['po.id as id','po.post_heading as heading','po.post_description as description','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','po.primary_image_path as image_path',
         'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','ar.html_content as article_content',
         'vd.video_id as video_id'])->limit(3)->get();
 
@@ -201,11 +194,10 @@ class Post extends PostModel
         ->leftJoin('likes as uli',function($join){
             $join->on('po.id','=','uli.likable_id')->where('uli.likable_type','=','App\Models\Post')->where('uli.user_id','=',Auth::user()->id);
         })
-        ->leftJoin('subjects as sub','sub.id','=','po.subject_id')
         ->leftJoin('categories as cat','cat.id','=','po.category_id')
         ->leftJoin('users as us','us.id','=','po.user_id')
         // ->leftJoin('facts as fa','po.id','=','fa.post_id')
-        ->select(['po.id as id','po.post_heading as heading','po.post_description as description','po.post_description as content','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','sub.subject_name','po.primary_image_path as image_path',
+        ->select(['po.id as id','po.post_heading as heading','po.post_description as description','po.post_description as content','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','po.primary_image_path as image_path',
         'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','ar.html_content as article_content','uli.like_status as user_like',
         'vd.video_id as video_id','fc.image_path as fact_image_path','do.link as document_link'
         ])->get();
@@ -226,11 +218,10 @@ class Post extends PostModel
         ->leftJoin('documents as do',function($join){
             $join->on('po.postable_id','=','do.id')->where('po.postable_type','=','App\Models\Document');
         })
-        ->leftJoin('subjects as sub','sub.id','=','po.subject_id')
         ->leftJoin('categories as cat','cat.id','=','po.category_id')
         ->leftJoin('users as us','us.id','=','po.user_id')
         // ->leftJoin('facts as fa','po.id','=','fa.post_id')
-        ->select(['po.id as id','po.post_heading as heading','po.post_description as description','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','sub.subject_name','po.primary_image_path as image_path',
+        ->select(['po.id as id','po.post_heading as heading','po.post_description as description','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','po.primary_image_path as image_path',
         'po.created_at as time','us.avatar_url as profile_image','us.full_name as user_name','ar.html_content as article_content',
         'vd.video_id as video_id','fc.image_path as fact_image_path','do.link as document_link'])->get();
 

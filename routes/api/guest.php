@@ -25,6 +25,6 @@ Route::get('/search-course', [App\Http\Controllers\Api\SearchController::class, 
 Route::get('/search-subject', [App\Http\Controllers\Api\SearchController::class, 'subjectList']);
 Route::get('/search-institute', [App\Http\Controllers\Api\SearchController::class, 'instituteList']);
 
-Route::get('/get-course-details/{id}', 'PostController@courseDetails');
+Route::get('/get-course-details/{id?}', 'PostController@courseDetails');
 Route::get('/get-subject-details/{id}', 'PostController@subjectDetails');
 Route::get('/get-category-details/{id}', 'PostController@categoryDetails');

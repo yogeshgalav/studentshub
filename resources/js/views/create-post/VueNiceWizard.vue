@@ -1,18 +1,5 @@
 <template>
-  <div class="vue-form-wizard">
-    <div class="hey">
-      <ul class="list-unstyled multi-steps">
-        <li :class="activeStep===1 ? 'is-active' : ''">
-          Type
-        </li>
-        <li :class="activeStep===2 ? 'is-active' : ''">
-          Content
-        </li>
-        <li :class="activeStep===3 ? 'is-active' : ''">
-          Description
-        </li>
-      </ul>
-    </div>
+  <div class="">
     <div class="row">
       <slot name="header-row" />
     </div>

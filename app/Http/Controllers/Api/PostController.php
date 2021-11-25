@@ -27,29 +27,17 @@ class PostController extends Controller
     public function create(Request $request){
 
         $data=$request->all();
-        $post_type=$data['post_type'];
         $heading=$data['heading'];
-        $student=Auth::student();
-        if(is_null($student)){
-          abort(403);
-        }
+        
         DB::beginTransaction();
         try{
-          $subject = NULL;
-          if($data['subject_name']){
-            $subject=Subject::getOrCreate($data['subject_id'], $data['subject_name'], $data['category_id']);
-          }
-      
-        
 
         $post=new Post;
         $post->user_id=Auth::user()->id;
         $post->post_heading=$heading;
-        $post->subject_id=$subject?$subject->id:NULL;
         $post->category_id = $data['category_id'];
 
-
-        switch(strToLower($request->post_type)){
+        switch(strToLower('article')){
             case 'article':
                 $article=new Article;
                 $post_content_id=$article->createFromContent($data);
@@ -58,47 +46,13 @@ class PostController extends Controller
                 $post->postable_id=$post_content_id;
 
             break;
-            case 'notice':
-                $notice=new Notice;
-                $post_content_id=$notice->createFromContent($data);
-                $post->postable_type="App\Models\Notice";
-                $post->postable_id=$post_content_id;
-            break;
-            case 'document':
-             $document=new Document;
-             $post_content_id=$document->createNewDocument($data,'public');
-
-             $post->primary_image_path='/images/document.png';
-             $post->postable_type="App\Models\Document";
-             $post->postable_id=$post_content_id;
-            break;
-            case 'video':
-            $video=new Video;
-            $post_content_id=$video->createNewVideo($data);
-            $post->primary_image_path='https://img.youtube.com/vi/'.$data['video_id'].'/0.jpg';
-            $post->postable_type="App\Models\Video";
-            $post->postable_id=$post_content_id;
-            break;
-            case 'mcq':
-            $mcq=new Mcq;
-            $post_content_id=$mcq->createNewMcq($data);
-            $post->primary_image_path='/storage/mcq-default.png';
-            $post->postable_type="App\Models\Mcq";
-            $post->postable_id=$post_content_id;
-            break;
-            case 'fact':
-            $fact=new Fact;
-            [$post_content_id,$file_path]=$fact->createNewFact($data);
-            $post->primary_image_path=$file_path;
-            $post->postable_type="App\Models\Fact";
-            $post->postable_id=$post_content_id;
-            break;
         }
 
         $post->created_via='dashboard';
         $post->post_description = $data['description'];
         $post->save();
 
+        Subject::addPostTags($post, $request->selected_subjects);
         SthubPost::addAction('share',$post,Auth::user());
 
         DB::commit();
@@ -107,6 +61,10 @@ class PostController extends Controller
         Log::warning('Post Creation failure',['data'=>$request->all(),'error'=>$e->getMessage()]);
         return response()->$e;
     }
+    Log::info('New Post created',[
+      'user_id'=>$request->user('api')->id,
+      'heading'=>$request->heading,
+    ]);
         return response()->json(['success'=>[
           'message'=>'Post Successfully Created',
         ]]);
@@ -119,15 +77,10 @@ class PostController extends Controller
       }
       DB::beginTransaction();
       try{
-        $subject = NULL;
-        if($data['subject_name']){
-          $subject=Subject::getOrCreate($data['subject_id'], $data['subject_name'], $data['category_id']);
-        }
     
       $post->post_heading=$data['heading'];
       $post->subject_id=$subject?$subject->id:NULL;
       $post->category_id = $data['category_id'];
-
 
       switch($post->postable_type){
           case Article::class:
@@ -201,13 +154,14 @@ class PostController extends Controller
         ]]);
     }
     public function courseDetails(Request $request){
-        $subject=\App\Models\Course::where('slug', $request->route('id'))->firstOrFail();
+        $course=\App\Models\Course::findOrFail($request->route('id'));
         $post=new \App\Post;
         $posts = $post->getCoursePosts($course->id);
 
         return response()->json(['success'=>[
             'posts'=>\Sthub::convert_from_latin1_to_utf8_recursively($posts),
-            'subject'=>$course,
+            'course'=>$course,
+            'subject'=>$course->subjects()->get(),
         ]]);
       }
       public function subjectDetails(Request $request){

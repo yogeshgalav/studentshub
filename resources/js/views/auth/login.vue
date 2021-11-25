@@ -11,7 +11,7 @@
         <div class="col-md-6">
           <div class="login_img">
             <img
-              src="/images/Group.svg"
+              v-lazy="'/images/Group.svg'"
               alt=""
             >
           </div>

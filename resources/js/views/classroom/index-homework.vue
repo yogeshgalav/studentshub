@@ -189,12 +189,9 @@
                   class="control-label mb-1"
                   :for="'homework_html'"
                 >Homework</label>
-                <vue-editor
+                <rich-text-editor
                   id="homework_html"
                   v-model="homework_html"
-                  name="homework_html"
-                  :editor-options="editorSettings"
-                  :height="'100%'"
                 />
                 <div class="error">
                 <!-- {{ formErrors('newAssignment.new_unit') }} -->
@@ -213,12 +210,7 @@ import ProfileImage from '../../components/ProfileImage.vue';
 import Modal from '../../components/VueNiceModal';
 import DatePicker from 'vue2-datepicker';
 import 'vue2-datepicker/index.css';
-
-import { VueEditor,Quill } from 'vue2-editor';
-import ImageResize from 'quill-image-resize-vue';
-import { ImageDrop } from 'quill-image-drop-module';
-Quill.register('modules/imageDrop', ImageDrop);
-Quill.register('modules/imageResize', ImageResize);
+import RichTextEditor from '../../components/RichTextEditor';
 
 import InteractionComponent from '../common/InteractionComponent2';
 var relativeTime = require('dayjs/plugin/relativeTime');
@@ -231,7 +223,7 @@ export default {
 		ProfileImage,
 		DatePicker,
 		InteractionComponent,
-		VueEditor,
+		RichTextEditor,
 	},
 	data() {
 		return {
@@ -250,12 +242,6 @@ export default {
 			homework_html:'',
 			unitList:[],
 			homeworks:[],
-			editorSettings: {
-				modules: {
-					imageDrop: true,
-					imageResize: {},
-				}
-			},
 		};
 	},
 	mounted(){

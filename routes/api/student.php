@@ -14,6 +14,6 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::delete('/doubt/{doubt}','DoubtController@delete');
     Route::get('/get-student-course-details','StudentController@getCourseSubjects');
     //doubt
-    Route::post('/doubt/{doubtId}/add-answer','DoubtAnswersController@addDoubtAnswer');
-    Route::get('/doubt/{doubtId}/get-answers','DoubtAnswersController@getDoubtAnswers');
+    Route::post('/doubt/{doubt}/add-answer','DoubtAnswersController@addDoubtAnswer');
+    Route::get('/doubt/{doubt}/get-answers','DoubtAnswersController@getDoubtAnswers');
 });

@@ -9,6 +9,8 @@ class Like extends Model
 {
     //
     protected  $guarded = ['id', 'created_at', 'updated_at'];
+    protected $table = 'likes';
+    
     public function likable()
     {
         return $this->morphTo();

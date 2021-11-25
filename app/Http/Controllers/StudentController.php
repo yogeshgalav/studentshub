@@ -119,7 +119,7 @@ class StudentController extends Controller
     }
     public function editPost(Post $post)
     {
-        $post_details = $post->load(['category','subject','postable'])->append('post_type');
+        $post_details = $post->load(['category','subjects','postable']);
         return view('create-post.edit-post')->with('post',$post_details);
     }
     public function classroomList()
@@ -133,8 +133,7 @@ class StudentController extends Controller
     }
 
     public function myCoursePage(){
-        return view('student.my-course')
-        ->with('courseId', Auth::student()->courseId);
+        return view('student.my-course');
     }
     public function moreApps()
     {

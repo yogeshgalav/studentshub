@@ -12105,10 +12105,23 @@ button[disabled=disabled] {
 .btn-lg,
 .btn-group-lg > .btn {
   border: none;
-  min-width: 300px;
-  padding: 10px 50px !important;
+  padding: 10px 30px !important;
   text-align: center;
   font-size: large !important;
+  border-radius: 5px;
+  color: white;
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  justify-content: center;
+}
+
+.btn-md {
+  border: none;
+  min-height: 40px;
+  padding: 9px 21px !important;
+  text-align: center;
+  font-size: medium !important;
   border-radius: 5px;
   color: white;
   display: flex;
@@ -13834,6 +13847,21 @@ a.btn.btn-white.cat_btn:after {
 .logn_right.login_card .form-control {
   border-radius: 0 !important;
   color: #000 !important;
+}
+
+.ti-new-tag-input {
+  line-height: 1.6em !important;
+}
+
+.ti-input {
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  border: 1px solid #bdbdbd !important;
+  border-radius: 0.25rem !important;
+}
+
+.ti-new-tag-input.focus-visible {
+  border: 0 !important;
 }
 
 .user_img_dash img {

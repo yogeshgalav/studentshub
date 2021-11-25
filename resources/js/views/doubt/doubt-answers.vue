@@ -1,6 +1,12 @@
 <template>
   <div>
     <div class="row">
+      <loading
+        :active.sync="showLoader"
+        :color="'#10069F'"
+        :width="250"
+        :is-full-page="true"
+      />
       <div class="row">
         <div class="col-md-12">
           <div class="">
@@ -19,14 +25,24 @@
         </div>
       </div>
       <div class="col-md-12">
+        <h2 class="font-size-18 text-black mb-0 line-height-25-px">
+          {{ doubt.category_name }}  
+        </h2>
         <h1 class="font-size-24 text-black weight-800 mb-2 line-height-25-px mobile-size-heading">
           {{ doubt.question }}
-        </h1>       
+        </h1>    
+        <p
+          class="text-blue mb-0"
+        >
+          <span 
+            v-for="sub in doubt.subjects"
+            :key="sub.id"
+          >
+            #{{ sub.subject_name }}
+          </span>
+        </p>
       </div>      
       <div class="col-md-12">
-        <h2 class="font-size-18 text-black mb-0 line-height-25-px">
-          {{ 'Subject:' +' '+doubt.subject_name }}  
-        </h2>
         <p class="font-size-18 text-black mb-0 line-height-25-px">
           {{ 'Asked by:' +' '+doubt.user_name }}  
         </p>
@@ -57,11 +73,9 @@
                 {{ AuthUser.full_name }}
               </div>
               <div>
-                <vue-editor
+                <rich-text-editor
                   id="ArticleEditor"
                   v-model="new_answer"
-                  :editor-options="editorSettings"
-                  :height="'100%'"
                 />
                 <span>{{ countContent }}/10</span>
                 <span class="text-danger">{{ error }}</span>
@@ -101,21 +115,14 @@ h4.main_que {
 }
 </style>
 <script>
-
-import { VueEditor,Quill } from 'vue2-editor';
-
-import ImageResize from 'quill-image-resize-vue';
-import { ImageDrop } from 'quill-image-drop-module';
-Quill.register('modules/imageDrop', ImageDrop);
-Quill.register('modules/imageResize', ImageResize);
+import RichTextEditor from '../../components/RichTextEditor';
 import DoubtCard from '../post/DoubtCard.vue';
 
 
 export default {
 	components:{
-		VueEditor,
 		DoubtCard,
-	
+		RichTextEditor,
 	},
 	data() {
 		return {
@@ -126,13 +133,8 @@ export default {
 			posts: [],
 			//
 			files:[],
-			editorSettings: {
-				modules: {
-					imageDrop: true,
-					imageResize: {},
-				}
-			},
 			error:'', 
+			showLoader:false,
 		};
 
 	},
@@ -162,8 +164,10 @@ export default {
 	},
 	methods: {
 		getDoubtAnswerData(){
-      		axios.get('/api/doubt/' + this.$route.params.doubtId + '/get-answers/')
+			this.showLoader= true;
+			this.axios.get('/api/doubt/' + this.$route.params.doubtId + '/get-answers/')
 				.then(response => {
+					this.showLoader= false;
 					this.doubt = response.data.success.doubt;
 					this.posts = response.data.success.answerList;
 					this.isAnswered = response.data.success.isAnswered;
@@ -175,17 +179,19 @@ export default {
 				this.error='An answer should be of minimum 10 words.';
 				return false;
 			}
+			this.showLoader= true;
 			this.axios.post('/api/doubt/' + this.$route.params.doubtId + '/add-answer', {
 				answer_html: this.new_answer,
 				answer_text: this.description
 			})
 				.then(resp => {
-					this.getDoubtAnswerData();
+					window.location.href = this.baseUrl+'/post/'+resp.data.success.post_id;
 					this.add_answer = false;
 					this.new_answer = '';
 					this.error = '';
 				})
 				.catch(err => {
+					this.showLoader= false;
 					reject(err);
 				});
 		},

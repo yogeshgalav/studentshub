@@ -1,6 +1,7 @@
 @extends('layouts.auth-layout')
 @section('compiledJs')
 <script src="{{ asset('js/chart.js') }}" defer></script>
+<script src="{{ asset('js/editor.js') }}" defer></script>
 @if(Auth::user()->role_intended==='student')
 <script src="{{ asset('js/studentPanelApp.js') }}" defer></script>
 @else

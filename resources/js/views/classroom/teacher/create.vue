@@ -28,10 +28,9 @@
                 <div class="col-md-12 mt-2">
                   <form @submit.prevent="createClassroom">
                     <div 
-                      v-if="instituteList.length>1"
                       class="form-group"
                     >
-                      <label class="mb-1"> {{ 'Institute' }} </label>
+                      <label class="mb-1"> {{ 'Institute name' }} </label>
                       <div class="inner-addon left-addon">
                         <div class="input_icon_frm">
                           <span
@@ -39,18 +38,19 @@
                             style="height: 44px"
                           >
                             <i
-                              class="fa fa-certificate"
+                              class="fas fa-university"
                               aria-hidden="true"
                             /></span>
                           <auto-complete
+                            :key="'institute'"
                             v-validate="'required'"
-                            class="width-100"
-                            :items="instituteList"
+                            :items="institute_list"
                             :value="'name'"
-                            name="course_level"
-                            :placeholder="'Select Program Level'"
-                            :is-async="false"
-                            :create-new-item="false"
+                            name="institute_name"
+                            :is-async="true"
+                            :initial-value="selected_institute"
+                            :is-loading="instituteLoading"
+                            @input="getInstitutes"
                             @selected="setInstitute"
                           />
                         </div>
@@ -256,13 +256,18 @@ export default {
 	props: ['courseLevels','instituteList'],
 	data() {
 		return {
-			institute_id: '',
+			institute_name: '',
+			institute_list: this.instituteList,
 			classroom_name: '',
 			show_courses: false,
 			showLoader: false,
 			course_list: [],
 			courseLoading: false,
 			no_course_found: false,
+			selected_institute: {
+				'id': null,
+				'name': '',
+			},
 			selected_course: {
 				'id': null,
 				'course_name': '',
@@ -281,7 +286,7 @@ export default {
 	},
 	mounted(){
 		if(this.instituteList.length===1){
-			this.institute_id = this.instituteList[0].id; 
+			this.selected_institute = this.instituteList[0];
 		}
 	},
 	methods: {
@@ -293,7 +298,7 @@ export default {
 						course_id: this.selected_course.id,
 						subject_name: this.selected_subject.subject_name,
 						classroom_name: this.classroom_name,
-						institute_id: this.institute_id,
+						institute_name: this.selected_institute.name,
 					}).then((resp)=>{
 						if (resp.data.success) {
 							swal.successDialog('Classroom create', 'Success!', 'success');
@@ -335,6 +340,31 @@ export default {
 					this.courseLoading = false;
 				});
 
+		},
+		getInstitutes(search) {
+			this.selected_institute = {
+				'id': null,
+				'name': search,
+			};
+			this.instituteLoading = true;
+			this.axios
+				.get(this.baseUrl + '/api/search-institute?searchTerm='+search)
+				.then(resp => {
+					this.institute_list = resp.data.success.institutes;
+					this.institute_list.find(node => {
+						if (node.name.toLowerCase() === this.selected_institute.name.toLowerCase()) {
+							this.selected_institute = node;
+							return true;
+						}
+					});
+					this.instituteLoading = false;
+				}).catch(() => {
+					this.instituteLoading = false;
+				});
+
+		},
+		setInstitute(result) {console.log(result);
+			this.selected_institute = result;
 		},
 		setCourse(result) {
 			this.selected_course = result;

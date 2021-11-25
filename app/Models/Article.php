@@ -16,7 +16,7 @@ class Article extends Model
     public function createFromContent($data){
         $simple_html_dom = new simple_html_dom;
         $dom = $simple_html_dom->extactImageFiles($data['article_html_content'], "post-image");
-        $post_content_id= self::insertGetId(['html_content'=>$data['article_html_content']]);
+        $post_content_id= self::insertGetId(['html_content'=>$dom->html]);
         foreach($dom->files as $file){
             $newFile= new SthubFile();
             $newFile->fileable_id=$post_content_id;
