@@ -78,9 +78,6 @@
                               <option value="instituteAdmin">
                                 Institute Admin
                               </option>
-                              <option value="seeker">
-                                Knowledge Seeker
-                              </option>
                             </select>
                           </div>
                           <span class="error">{{ errors.first('role') }}</span>

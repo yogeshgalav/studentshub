@@ -24,7 +24,7 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'role'=>'required|in:student,teacher,instituteAdmin,seeker',
+            'role'=>'required|in:student,teacher,instituteAdmin',
             'full_name'=>'required|string|min:1|max:255',
             'email'=>'required|email|max:255',
             'password'=>'required|min:6|max:16',

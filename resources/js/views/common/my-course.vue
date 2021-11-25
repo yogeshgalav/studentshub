@@ -1,10 +1,13 @@
 <template>
   <div class="row">
     <div class="col-md-12">
-      <h1>My Course</h1>
+      <h1>{{ course_name ? course_name : 'My Course' }}</h1>
     </div>
     <hr>
-    <div class="col-md-12">
+    <div
+      v-if="AuthUser.preferred_course_id"
+      class="col-md-12"
+    >
       <nav-tabs
         :tabs="tabs"
         :initial-tab="initialTab"
@@ -68,23 +71,23 @@ export default {
 	components: {
 		NavTabs, PostCard
 	},
-	props:['courseId'],
 	data() {
 		return {
+			course_name: '',
 			posts: [],
 			subjects: [],
 			initialTab: 'subjects',
 			tabs: ['subjects','posts'],
-			email: '',
-			description: '',
 			showLoader: false
 		};
 	},
 	mounted() {
+		let course_id = this.AuthUser.preferred_course_id;
 		this.axios
-			.get('/api/get-course-details/' + this.courseId)
+			.get('/api/get-course-details/' + (course_id ? course_id : ''))
 			.then(resp => {
 				this.subjects = resp.data.success.subjects;
+				this.course_name = resp.data.success.course.name;
 				this.posts = resp.data.success.posts.data;
 			});
 	},

@@ -104,19 +104,12 @@ var BlockEmbed = Quill.import('blots/block/embed');
 
 // Create a new format based off the BlockEmbed.
 class Youtube extends BlockEmbed {
-
-	// Handle the creation of the new Footer format.
-	// The value will be the HTML that is embedded.
-	// This time the value is passed from our custom handler.
 	static create(value) {
 
-		// Create the node using the BlockEmbed's create method.
 		var node = super.create(value);
 
-		// Set the srcdoc attribute to equal the value which will be your html.
 		node.setAttribute('src', value);
 
-		// Add a few other iframe fixes.
 		node.setAttribute('frameborder', '0');
 		node.setAttribute('mozallowfullscreen', true);
 		node.setAttribute('webkitallowfullscreen', true);
@@ -127,7 +120,6 @@ class Youtube extends BlockEmbed {
 		return node;
 	}
 
-	// return the srcdoc attribute to represent the Footer's value in quill.
 	static value(node) {
 		return node.getAttribute('src');
 	}
@@ -150,12 +142,33 @@ class EmbedDocment extends BlockEmbed {
 	}
 }
 
+// Extending a class with our new functionality
+class EmbedImage extends BlockEmbed {
+	static create(value) {
+		let node = super.create();
+		node.setAttribute('alt', value.alt);
+		node.setAttribute('src', value.src);
+		return node;
+	}
+
+	static value(node) {
+		return {
+			alt: node.getAttribute('alt'),
+			src: node.getAttribute('src')
+		};
+	}
+}
+
+EmbedImage.blotName = 'EmbedImage';
+EmbedImage.tagName = 'img';
+
+Quill.register(EmbedImage);
 // Give our new Footer format a name to use in the toolbar.
-Youtube.blotName = 'youtube';
+Youtube.blotName = 'Youtube';
 Youtube.tagName = 'iframe';
 Quill.register(Youtube);
 
-EmbedDocment.blotName = 'document';
+EmbedDocment.blotName = 'EmbedDocment';
 EmbedDocment.tagName = 'embed';
 Quill.register(EmbedDocment);
 export default {
@@ -217,10 +230,12 @@ export default {
 		handleImage(e){
 			const selectedImage = e.target.files[0];
 			this.getBase64(selectedImage).then(data=>{
-				let $html= '<img src=\"'+data+'\" alt=\"Red dot\" />';
 				let quill = this.$refs.editor.quill;
 				let selection = quill.getSelection();
-				quill.clipboard.dangerouslyPasteHTML(selection ? selection.index : 0, $html);
+				quill.insertEmbed(selection ? selection.index : 0, 'EmbedImage', {
+					alt: this.AuthUser.full_name,
+					src: data,
+				});
 			});
 		},
 		getBase64(file) {
@@ -235,9 +250,9 @@ export default {
 			let quill = this.$refs.editor.quill;
 			const selection = quill.getSelection(); // get position of cursor (index of selection)
 			if(this.url_type==='video' && this.isVideoUrlValid()){
-				quill.insertEmbed(selection ? selection.index : 0, 'youtube', 'https://www.youtube.com/embed/'+ this.video_id);
+				quill.insertEmbed(selection ? selection.index : 0, 'Youtube', 'https://www.youtube.com/embed/'+ this.video_id);
 			}else if(this.url_type==='document'  && this.isDocumentUrlValid()){
-				quill.insertEmbed(selection ? selection.index : 0, 'document', this.document_link);
+				quill.insertEmbed(selection ? selection.index : 0, 'EmbedDocment', this.document_link);
 			}
 			if(!this.url_error){
 				$('#urlModal').modal('hide');

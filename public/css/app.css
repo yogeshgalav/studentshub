@@ -13849,6 +13849,21 @@ a.btn.btn-white.cat_btn:after {
   color: #000 !important;
 }
 
+.ti-new-tag-input {
+  line-height: 1.6em !important;
+}
+
+.ti-input {
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  border: 1px solid #bdbdbd !important;
+  border-radius: 0.25rem !important;
+}
+
+.ti-new-tag-input.focus-visible {
+  border: 0 !important;
+}
+
 .user_img_dash img {
   width: 35px;
   height: 35px;

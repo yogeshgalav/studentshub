@@ -46,41 +46,6 @@ class PostController extends Controller
                 $post->postable_id=$post_content_id;
 
             break;
-            case 'notice':
-                $notice=new Notice;
-                $post_content_id=$notice->createFromContent($data);
-                $post->postable_type="App\Models\Notice";
-                $post->postable_id=$post_content_id;
-            break;
-            case 'document':
-             $document=new Document;
-             $post_content_id=$document->createNewDocument($data,'public');
-
-             $post->primary_image_path='/images/document.png';
-             $post->postable_type="App\Models\Document";
-             $post->postable_id=$post_content_id;
-            break;
-            case 'video':
-            $video=new Video;
-            $post_content_id=$video->createNewVideo($data);
-            $post->primary_image_path='https://img.youtube.com/vi/'.$data['video_id'].'/0.jpg';
-            $post->postable_type="App\Models\Video";
-            $post->postable_id=$post_content_id;
-            break;
-            case 'mcq':
-            $mcq=new Mcq;
-            $post_content_id=$mcq->createNewMcq($data);
-            $post->primary_image_path='/storage/mcq-default.png';
-            $post->postable_type="App\Models\Mcq";
-            $post->postable_id=$post_content_id;
-            break;
-            case 'fact':
-            $fact=new Fact;
-            [$post_content_id,$file_path]=$fact->createNewFact($data);
-            $post->primary_image_path=$file_path;
-            $post->postable_type="App\Models\Fact";
-            $post->postable_id=$post_content_id;
-            break;
         }
 
         $post->created_via='dashboard';
@@ -189,13 +154,14 @@ class PostController extends Controller
         ]]);
     }
     public function courseDetails(Request $request){
-        $subject=\App\Models\Course::where('slug', $request->route('id'))->firstOrFail();
+        $course=\App\Models\Course::findOrFail($request->route('id'));
         $post=new \App\Post;
         $posts = $post->getCoursePosts($course->id);
 
         return response()->json(['success'=>[
             'posts'=>\Sthub::convert_from_latin1_to_utf8_recursively($posts),
-            'subject'=>$course,
+            'course'=>$course,
+            'subject'=>$course->subjects()->get(),
         ]]);
       }
       public function subjectDetails(Request $request){
