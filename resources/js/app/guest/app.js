@@ -25,12 +25,6 @@ const store = new Vuex.Store({
 		common: CommonStore,
 	}
 });
-import VueGtag from 'vue-gtag';
-if(window.App.mode==='production'){
-	Vue.use(VueGtag, {
-		config: { id: 'G-W2Z76KH2R6' }
-	}, router);
-}
 Vue.component('ResetPasswordComponent', require('../../views/auth/reset-password.vue').default);
 // Vue.component('FeedbackComponent', require('../../views/user/feedback.vue').default);
 // Vue.component('contactusComponent', require('../../views/user/contactus.vue').default);

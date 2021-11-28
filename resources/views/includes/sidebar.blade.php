@@ -12,14 +12,14 @@
                     <span class="text">Doubts</span>
                 </li>
             </a>
-            @if(Auth::student())
-            {{-- <a href="/my-course"
+            {{--
+            <a href="/my-course"
                 class="{{\App\Facades\Sthub::currentTab('my-course') ? 'active' : ''}}">
                 <li><i class="fas fa-book-open" aria-hidden="true"></i>
                     <span class="text">My Course</span>
                 </li>
-            </a> --}}
-            @endif
+            </a>
+            --}}
             <a href="/classrooms" class="{{\App\Facades\Sthub::currentTab('classroom') ? 'active' : ''}}">
                 <li><i class="fa fa-desktop " aria-hidden="true"></i><span class="text">Classrooms</span>
 
@@ -37,13 +37,13 @@
                     <span class="text"> Messages</span>
                 </li>
             </a>
-            @if(Auth::user()->role_intended==='instituteAdmin')
+            {{--
             <a href="/my-institute" class="{{\App\Facades\Sthub::currentTab('institute') ? 'active' : ''}}">
                 <li> <i class="fas fa-university " aria-hidden="true"></i><span class="text"> My
                         Institute</span>
                 </li>
             </a>
-            @endif
+            --}}
             @if(Auth::user()->hasInstituteUserAccess())
             <a href="/students" class="{{\App\Facades\Sthub::currentTab('students') ? 'active' : ''}}">
                 <li> <i class="fas fa-users " aria-hidden="true"></i>

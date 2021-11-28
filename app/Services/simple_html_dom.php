@@ -2377,6 +2377,15 @@ class simple_html_dom
 		$mydom->files= $files;
 		return $mydom;
 	}
+	public function extractYoutubeImage($html){
+		$html = str_get_html($html);
+		foreach($html->find('iframe') as $element){
+			if(str_contains($element->src,'https://www.youtube.com/embed/')){
+				return str_replace('https://www.youtube.com/embed/','',$element->src);
+			}
+		}
+		return '';
+	}
 }
 
 class mydom{
