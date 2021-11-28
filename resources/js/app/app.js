@@ -5,7 +5,6 @@ import Vue from 'vue';
 //Dependencies
 import axios from 'axios';
 import VueAxios from 'vue-axios';
-import VModal from 'vue-js-modal';
 
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
@@ -13,8 +12,6 @@ import Dayjs from 'vue-dayjs';
 import ProfileImage from '../components/ProfileImage';
 import NotificationsDropdown from '../components/NotificationsDropdown.vue';
 import VueLazyload from 'vue-lazyload';
-
-
 
 Vue.use(VueLazyload);
 Vue.use(Dayjs, {
@@ -24,14 +21,14 @@ Vue.use(Dayjs, {
 	}
 });
 // or with options
-Vue.use(VueLazyload, {
-	preLoad: 1.3,
-	error: 'dist/error.png',
-	loading: 'dist/loading.gif',
-	attempt: 1
-});
-Vue.use(VModal, { dynamic: true, injectModalsContainer: true, scrollable:true });
+// Vue.use(VueLazyload, {
+// 	preLoad: 1.3,
+// 	error: 'dist/error.png',
+// 	loading: 'dist/loading.gif',
+// 	attempt: 1
+// });
 Vue.use(VueAxios, axios);
+import VueGtag from 'vue-gtag';
 
 //error tracking
 // import * as Sentry from '@sentry/browser';
@@ -52,6 +49,7 @@ if(window.App.mode==='production'){
 	Vue.config.devtools = false;
 	Vue.config.debug = false;
 	Vue.config.silent = true;
+	
 }
 Vue.mixin({
 	components:{
@@ -155,6 +153,11 @@ Vue.mixin({
 			}
 		});
 		document.addEventListener('click', this.closeSidebar);
+		if(window.App.mode==='production'){
+			Vue.use(VueGtag, {
+				config: { id: 'G-W2Z76KH2R6' }
+			}, router);
+		}
 	},
 	methods: {
 		'$trans':function(file,string,defaultString){

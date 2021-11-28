@@ -20,6 +20,7 @@ use DB;
 use Storage;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
+use App\Services\simple_html_dom;
 
 class PostController extends Controller
 {
@@ -37,16 +38,30 @@ class PostController extends Controller
         $post->post_heading=$heading;
         $post->category_id = $data['category_id'];
 
-        switch(strToLower('article')){
-            case 'article':
-                $article=new Article;
-                $post_content_id=$article->createFromContent($data);
-                $post->postable_type="App\Models\Article";
-                $post->primary_image_path=null;
-                $post->postable_id=$post_content_id;
+        $simple_html_dom = new simple_html_dom;
+        $dom = $simple_html_dom->extactImageFiles($data['article_html_content'], "post-image");
+        $post_content_id= Article::insertGetId(['html_content'=>$dom->html]);
 
-            break;
+        foreach($dom->files as $file){
+            $newFile= new SthubFile();
+            $newFile->fileable_id=$post_content_id;
+            $newFile->fileable_type=Article::class;
+            $newFile->file_ext=Storage::disk('post-image')->getMimeType($file);
+            $newFile->file_size=Storage::disk('post-image')->size($file);
+            $newFile->file_name=$file;
+            $newFile->user_id=Auth::user()->id;
+            $newFile->save();
         }
+        $primary_image_path='';
+        if(count($dom->files)){
+          $primary_image_path=$dom->files[0];
+        } else {
+          $primary_image_path= $simple_html_dom->extractYoutubeImage($data['article_html_content']);
+        }
+
+        $post->postable_type="App\Models\Article";
+        $post->primary_image_path=$article->fetchPrimaryPath($data);
+        $post->postable_id=$post_content_id;
 
         $post->created_via='dashboard';
         $post->post_description = $data['description'];

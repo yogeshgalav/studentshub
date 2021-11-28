@@ -47,7 +47,7 @@
           {{ 'Asked by:' +' '+doubt.user_name }}  
         </p>
         <p class="font-size-18 text-grey mb-0 line-height-25-px">
-          {{ 'Added:' +' '+doubt.time }}  
+          {{ 'Added: ' }}{{ $dayjs(doubt.created_at).fromNow() }}
         </p>
       </div>
     </div>
@@ -56,14 +56,17 @@
         <hr>
       </div>
     </div>
-    <div class="">
-      <div class="row">
-        <div class="col-md-10">
-          <div class=""> 
-            <div
-              v-if="!isAnswered"
-              class="card mb-2"
-            >
+    <div class="row">
+      <div class="col-md-10">
+        <accordion
+          v-if="!isAnswered"
+          class=" mb-2"
+
+          title="Post Answer"
+          :aria-expanded="false"
+        >
+          <div class="">
+            <div class="col-md-12 mt-2"> 
               <div class="d-flex mb-1">
                 <profile-image
                   size="small"
@@ -90,14 +93,19 @@
                 </div>
               </div>
             </div>
-            <div
-              v-for="(post,index) in posts"
-              :key="index"
-            >
-              <doubt-card :post="post" />
-            </div>
           </div>
-        </div> 
+        </accordion>
+      </div>
+      <div class="col-md-10">
+        <div
+          v-for="(post,index) in posts"
+          :key="index"
+        >
+          <post-card
+            :post="post"
+            :doubt-type="true"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -116,13 +124,15 @@ h4.main_que {
 </style>
 <script>
 import RichTextEditor from '../../components/RichTextEditor';
-import DoubtCard from '../post/DoubtCard.vue';
-
+import PostCard from '../post/PostCard.vue';
+import Accordion from '../../components/accordion.vue';
+var relativeTime = require('dayjs/plugin/relativeTime');
 
 export default {
 	components:{
-		DoubtCard,
+		PostCard,
 		RichTextEditor,
+		Accordion,
 	},
 	data() {
 		return {
@@ -160,6 +170,7 @@ export default {
 		}
 	},
 	mounted() {
+		this.$dayjs.extend(relativeTime);
 		this.getDoubtAnswerData();
 	},
 	methods: {

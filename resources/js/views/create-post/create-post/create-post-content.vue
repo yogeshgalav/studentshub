@@ -72,7 +72,10 @@ export default {
 	mounted(){
 		EventBus.$on('validateStep2',()=>{
 			if(this.description){
-				this.$store.commit('set_post_article_content',{postContent:this.content,description:this.description});
+				this.$store.commit('set_post_article_content',{
+					postContent:this.content,
+					description:this.description,
+				});
 				EventBus.$emit('validateWizard',2,true);
 			}else{
 				this.error='Post content cannot be empty.';
