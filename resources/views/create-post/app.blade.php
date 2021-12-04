@@ -1,4 +1,4 @@
-@extends('layouts.auth-layout')
+@extends('layouts.common-layout')
 @section('compiledJs')
 <script src="{{ asset('js/createPostApp.js') }}" defer></script>
 <script src="{{ asset('js/editor.js') }}" defer></script>

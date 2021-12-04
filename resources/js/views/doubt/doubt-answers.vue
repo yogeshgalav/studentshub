@@ -80,7 +80,6 @@
                   id="ArticleEditor"
                   v-model="new_answer"
                 />
-                <span>{{ countContent }}/10</span>
                 <span class="text-danger">{{ error }}</span>
                 <div class="text-right mt-1">
                   <button
@@ -165,9 +164,6 @@ export default {
 			}
 			return [span.textContent || span.innerText].toString();
 		},
-		countContent(){
-			return this.description.toString().trim().split(/\s+/).length;
-		}
 	},
 	mounted() {
 		this.$dayjs.extend(relativeTime);
@@ -186,8 +182,8 @@ export default {
 
 		},
 		submitAnswer() {
-			if(this.countContent<10){
-				this.error='An answer should be of minimum 10 words.';
+			if(!this.description){
+				this.error='Post content cannot be empty.';
 				return false;
 			}
 			this.showLoader= true;

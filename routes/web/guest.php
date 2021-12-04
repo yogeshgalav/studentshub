@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/login','GuestController@loginPage');
 Route::get('/membership-plan','GuestController@membershipPlan');
 Route::get('/get-started','GuestController@registerPage');
+Route::get('/find-interest-field','GuestController@FindInterestField');
 Route::get('/forgot-password','GuestController@forgotPasswordPage');
 Route::get('/reset-password/{token}','GuestController@resetPassword');
 Route::get('/reset-password','GuestController@resetPassword');

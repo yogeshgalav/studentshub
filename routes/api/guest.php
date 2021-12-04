@@ -28,3 +28,4 @@ Route::get('/search-institute', [App\Http\Controllers\Api\SearchController::clas
 Route::get('/get-course-details/{id?}', 'PostController@courseDetails');
 Route::get('/get-subject-details/{id}', 'PostController@subjectDetails');
 Route::get('/get-category-details/{id}', 'PostController@categoryDetails');
+Route::get('/get-categories', 'CategoryController@index');

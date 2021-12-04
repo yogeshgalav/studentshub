@@ -7,5 +7,8 @@ const state = {
 	},
 	categories: [],
 	subjects: [],
+	full_name:'',
+	email:'',
+	password:'',
 };
 export default state;

@@ -6,14 +6,14 @@
       :width="250"
       :is-full-page="true"
     />
-    <div class="container pb-100">
-      <div class="login_card">
+    <div :class="!createPost ? 'container pb-100' : ''">
+      <div :class="['login_card', (createPost ? 'pos-inherit' : '')]">
         <div class="row justify-content-center register">
           <div class="col-md-6">
             <div class="login_img">
               <img
                 v-lazy="'/images/register.svg'"
-                alt=""
+                alt="studentsHub register"
               >
             </div>
           </div>
@@ -227,7 +227,10 @@
                         <strong class="font-size-18">{{ join_id }}</strong>
                       </div>
 
-                      <div class="form-group mb-0">
+                      <div 
+                        v-if="!createPost"
+                        class="form-group mb-0"
+                      >
                         <div>
                           <button
                             type="submit"
@@ -242,10 +245,13 @@
                     </form>
                   </div>
 
-                  <div style="text-align: center; margin-top: 20px;">
-                    <router-link :to="'/login'">
+                  <div
+                    v-if="!createPost"
+                    style="text-align: center; margin-top: 20px;"
+                  >
+                    <a :href="'/login'">
                       Already have an account?
-                    </router-link>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -316,15 +322,20 @@
 .input_icon_frm .input-group-append{
   cursor: pointer;
 }
-
+.pos-inherit {
+  position: inherit;
+}
 </style>
 <script>
 import FormMixin from '../../components/mixins/form-mixin.js';
-import swal from '../../components/swal';
-
 
 export default {
 	mixins: [FormMixin],
+	props:{
+		createPost:{
+			default:false,
+		}
+	},
 	data() {
 		return {
 			showConfirmPassword: false,
@@ -358,7 +369,9 @@ export default {
 	},
 	mounted(){
 		this.fcmToken = localStorage.getItem('fcmToken');
-		this.join_id = this.$route.query.joinId;
+		if(this.$route){
+			this.join_id = this.$route.query.joinId;
+		}
 		this.$validator.localize('en', this.dict);
 	},
 	methods: {
@@ -366,8 +379,16 @@ export default {
 			this.$validator.validate().then(valid => {
 				if (valid) {
 					this.form_errors = [];
-					this.showLoader = true;
-					document.getElementById('register_form').submit();
+					if(!this.createPost){
+						this.showLoader = true;
+						document.getElementById('register_form').submit();
+					} else {
+						this.$store.commit('set_new_user_data',{
+							full_name:full_name,      
+							email:email,      
+							password:password,      
+						});
+					}
 				}
 			});
 			return true;
