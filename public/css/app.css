@@ -11928,6 +11928,15 @@ a.text-dark:focus {
   overflow: auto;
 }
 
+hr {
+  border: 0;
+  clear: both;
+  display: block;
+  width: 96%;
+  background-color: #ccc;
+  height: 1px;
+}
+
 .logo-header {
   margin: 0 auto;
 }

@@ -50,7 +50,7 @@
           </div>
 
           <div class="col-md-12">
-            <div class="model_input">
+            <div class="form-group">
               <label>Full Name</label>
               <input
                 v-model="profile_data.full_name"
@@ -59,7 +59,7 @@
                 @input="dataUpdated"
               >
             </div>
-            <div class="model_input">
+            <div class="form-group">
               <label>Email Id</label>
               <input
                 class="form-control"
@@ -67,6 +67,18 @@
                 disabled
                 :value="AuthUser.email"
               >
+            </div>
+            <div class="form-group">
+              <select-institute
+                v-model="preferred_institute"
+                @change="dataUpdated"
+              />
+            </div>
+            <div class="form-group">
+              <select-course
+                v-model="preferred_course"
+                @change="dataUpdated"
+              />
             </div>
             <a href="/reset-password">
               <button
@@ -226,10 +238,14 @@
 
 <script>
 import FileUpload from 'vue-upload-component';
+import SelectCourse from '../../components/SelectCourse.vue';
+import SelectInstitute from '../../components/SelectInstitute.vue';
 import swal from '../../components/swal';
 export default {
 	components:{
-		FileUpload
+		FileUpload,
+		SelectInstitute,
+		SelectCourse
 	},
 	props:['profile'],
 	data() {
@@ -250,6 +266,14 @@ export default {
 				fb_url: '',
 				insta_url: '',
 				linked_url: '',
+			},
+			preferred_institute:{
+				id:null,
+				name:'',
+			},
+			preferred_course:{
+				id:null,
+				course_name:'',
 			},
 			data_updated:false,
 		};
@@ -300,7 +324,11 @@ export default {
 				});
 			}
 
-			await this.axios.post('/api/save-profile', this.profile_data).then((resp) => {
+			await this.axios.post('/api/save-profile', Object.assign({
+				preferred_institute,
+				preferred_course,
+			},this.profile_data)
+			).then((resp) => {
 				this.setProfile(resp.data.success.profile);
 				swal.successDialog('Profile Updated', 'Successfully!', 'success');
 				this.data_updated = false;

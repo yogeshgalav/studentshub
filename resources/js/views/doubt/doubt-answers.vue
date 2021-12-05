@@ -47,7 +47,7 @@
           {{ 'Asked by:' +' '+doubt.user_name }}  
         </p>
         <p class="font-size-18 text-grey mb-0 line-height-25-px">
-          {{ 'Added: ' }}{{ $dayjs(doubt.created_at).fromNow() }}
+          {{ 'Added: ' }}{{ doubt.created_at ? $dayjs(doubt.created_at).fromNow() :'' }}
         </p>
       </div>
     </div>
@@ -125,7 +125,6 @@ h4.main_que {
 import RichTextEditor from '../../components/RichTextEditor';
 import PostCard from '../post/PostCard.vue';
 import Accordion from '../../components/accordion.vue';
-var relativeTime = require('dayjs/plugin/relativeTime');
 
 export default {
 	components:{
@@ -166,7 +165,6 @@ export default {
 		},
 	},
 	mounted() {
-		this.$dayjs.extend(relativeTime);
 		this.getDoubtAnswerData();
 	},
 	methods: {

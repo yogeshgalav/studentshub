@@ -213,7 +213,6 @@ import 'vue2-datepicker/index.css';
 import RichTextEditor from '../../components/RichTextEditor';
 
 import InteractionComponent from '../common/InteractionComponent2';
-var relativeTime = require('dayjs/plugin/relativeTime');
 
 export default {
 	name:'Homework',
@@ -245,7 +244,6 @@ export default {
 		};
 	},
 	mounted(){
-		this.$dayjs.extend(relativeTime);
 		this.axios.get('/api/classroom/'+ this.$route.params.classroomId +'/homeworks').then(resp =>{
 			this.unitList = resp.data.success.unitList;
 			this.homeworks = resp.data.success.homeworks;

@@ -1,19 +1,19 @@
 <template>
   <div class="row">
-    <div class="col-md-12  mt-3">
-      <h1>{{ course_name ? course_name : 'My Course' }}</h1>
+    <div class="col-md-12 mt-3">
+      <h1>{{ institute_name ? institute_name : 'My Institute' }}</h1>
     </div>
     <hr>
     <div
-      v-if="!AuthUser.preferred_course_id"
+      v-if="!AuthUser.preferred_institute_id"
       class="col-md-12"
     >
       <div class="row">
         <div class="col-md-8 col-12">
           <p class="text-blue weight-600 mb-2 mt-3">
-            Enter your preferred course name to see it's subject and posts.
+            Enter your preferred institute name to see Teachers and Students.
           </p>
-          <select-course v-model="selected_course" />
+          <select-institute v-model="selected_institute" />
         </div>
         <div class="col-md-3 col-12">
           <button
@@ -26,13 +26,13 @@
         </div>
         <div class="col-md-12">
           <p class="mt-1 mb-2">
-            You can change your preferred course from account setting.
+            You can change your preferred institute from account setting.
           </p>
         </div>
       </div>
     </div>
     <div
-      v-if="AuthUser.preferred_course_id"
+      v-if="AuthUser.preferred_institute_id"
       class="col-md-12"
     >
       <nav-tabs
@@ -58,17 +58,17 @@
             </div>
           </div>
         </template>
-        <template slot="tab-heading-posts">
-          {{ 'Posts' }}
+        <template slot="tab-heading-teachers">
+          {{ 'Teachers' }}
         </template>
-        <template slot="tab-panel-posts">
+        <template slot="tab-panel-teachers">
           <div
-            v-if="!posts.length"
+            v-if="!teachers.length"
             class="row"
           >
             <div class="col-md-10">
               <div class="card">
-                <p>Currently no post have been shared yet to this course.</p>
+                <p>Invite your teachers to join StudentsHub.</p>
               </div>
             </div>
           </div>
@@ -78,10 +78,38 @@
           >
             <div class="col-md-5 center-col">
               <div
-                v-for="(post,index) in posts"
+                v-for="(teacher,index) in teachers"
                 :key="index"
               >
-                <post-card :post="post" />
+                <div>teacher</div>
+              </div>
+            </div>
+          </div>
+        </template>
+        <template slot="tab-heading-students">
+          {{ 'Students' }}
+        </template>
+        <template slot="tab-panel-students">
+          <div
+            v-if="!students.length"
+            class="row"
+          >
+            <div class="col-md-10">
+              <div class="card">
+                <p>Invite your friends to join StudentsHub.</p>
+              </div>
+            </div>
+          </div>
+          <div
+            v-else
+            class="row"
+          >
+            <div class="col-md-5 center-col">
+              <div
+                v-for="(student,index) in students"
+                :key="index"
+              >
+                <div>student</div>
               </div>
             </div>
           </div>
@@ -93,23 +121,23 @@
 <style scoped></style>
 <script>
 import NavTabs from '../../components/NavTabs';
-import SelectCourse from '../../components/SelectCourse.vue';
-import PostCard from '../post/PostCard';
+import SelectInstitute from '../../components/SelectInstitute.vue';
+
 export default {
 	components: {
-		NavTabs, PostCard, SelectCourse
+		NavTabs, SelectInstitute
 	},
 	data() {
 		return {
-			course_name: '',
-			posts: [],
-			subjects: [],
+			institute_name: '',
+			teachers: [],
+			students: [],
 			initialTab: 'subjects',
 			tabs: ['subjects','posts'],
 			showLoader: false,
-			selected_course : {
+			selected_institute : {
 				'id': null,
-				'course_name':'',
+				'institute_name':'',
 			}
 		};
 	},
@@ -119,26 +147,26 @@ export default {
 		}
 	},
 	mounted() {
-		let course_id = this.AuthUser.preferred_course_id;
+		let institute_id = this.AuthUser.preferred_institute_id;
 
-		if(!course_id) return false;
+		if(!institute_id) return false;
     
 		this.axios
-			.get('/api/get-course-details/' + (course_id ? course_id : ''))
+			.get('/api/get-institute-details/' + (institute_id ? institute_id : ''))
 			.then(resp => {
-				this.subjects = resp.data.success.subjects;
-				this.course_name = resp.data.success.course.name;
-				this.posts = resp.data.success.posts.data;
+				this.teachers = resp.data.success.teachers;
+				this.institute_name = resp.data.success.institute.name;
+				this.students = resp.data.success.students;
 			});
 	},
 	methods: {
 		submitCourse(){
 			this.axios
-				.put('/api/preferred-course')
+				.put('/api/preferred-institute')
 				.then(resp => {
-					this.subjects = resp.data.success.subjects;
-					this.course_name = resp.data.success.course.name;
-					this.posts = resp.data.success.posts.data;
+					this.teachers = resp.data.success.teachers;
+					this.institute_name = resp.data.success.institute.name;
+					this.students = resp.data.success.students;
 				});
 		}
 	}

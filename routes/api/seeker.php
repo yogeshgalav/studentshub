@@ -27,4 +27,6 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('/{commentable_type}/{commentable_id}/comment', 'CommentController@get');
     Route::post('/{commentable_type}/{commentable_id}/add-comment', 'CommentController@create');
 
+    Route::put('/preferred-course', 'UserController@setPreferredCourse');
+    Route::put('/preferred-institute', 'UserController@setPreferredInstitute');
 });

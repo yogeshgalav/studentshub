@@ -74,7 +74,7 @@
 
   .autocomplete-result.is-active,
   .autocomplete-result:hover {
-    background-color: #4AAE9B;
+    background-color: #10069f;
     color: white;
   }
 

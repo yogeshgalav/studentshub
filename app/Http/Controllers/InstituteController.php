@@ -9,6 +9,10 @@ class InstituteController extends Controller
 {
     //
 
+    public function myInstitute()
+    {        
+        return view('student.my-institute');
+    }
     public function Institute($instituteId = null)
     {
         $institute = \App\Models\InstituteUser::where('user_id',Auth::id())->first();
