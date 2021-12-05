@@ -10,19 +10,20 @@
             <div class="col-md-6">
               <div class="slider-caption">
                 <h2 class="banner_title">
-                  Are you a Institute?
+                  Made for Students,
                 </h2>
                 <p>
-                  Modernize your institute by combining benifits of physical classes
-                  and Digital classrooms. View, analyse and share daily progress of 
-                  Students, Batches, Subjects and Teachers.
+                  Meet Students from Your Batch, Course and Institute.
+                  Learn and Share from People Around You. 
+                  Ask Your Doubts,Share Your Knowledge in posts 
+                  and Above All Find Your Interest Field.
                 </p>
               </div>
             </div>
             <div class="col-md-6">
               <div class="slider-caption">
                 <img
-                  v-lazy="'/images/institute.svg'"
+                  v-lazy="'/images/student.svg'"
                   class="slide_img_home"
                 >
               </div>
@@ -37,7 +38,7 @@
             <div class="col-md-6">
               <div class="slider-caption">
                 <h2 class="banner_title">
-                  Teacher ?
+                  For Teachers,
                 </h2>
                 <p>
                   Get More Clear Insights about Your Student's Progress. 
@@ -65,20 +66,19 @@
             <div class="col-md-6">
               <div class="slider-caption">
                 <h2 class="banner_title">
-                  Student ?
+                  Are for Institutes.
                 </h2>
                 <p>
-                  Meet Students from Your Batch, Course and Institute.
-                  Learn and Share from People Around You. 
-                  Ask Your Doubts,Share Your Knowledge in posts 
-                  and Above All Find Your Interest Field.
+                  Modernize your institute by combining benifits of physical classes
+                  and Digital classrooms. View, analyse and share daily progress of 
+                  Students, Batches, Subjects and Teachers.
                 </p>
               </div>
             </div>
             <div class="col-md-6">
               <div class="slider-caption">
                 <img
-                  v-lazy="'/images/student.svg'"
+                  v-lazy="'/images/institute.svg'"
                   class="slide_img_home"
                 >
               </div>
@@ -93,7 +93,7 @@
             <div class="col-md-6">
               <div class="slider-caption">
                 <h2 class="banner_title">
-                  Knowledge Seeker ?
+                  Just Exploring Knowledge?
                 </h2>
                 <p>
                   Explore Educational content from variety of courses, categories

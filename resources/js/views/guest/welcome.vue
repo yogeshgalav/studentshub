@@ -253,6 +253,9 @@ export default {
 
 	},
 	mounted(){
+		if(localStorage.getItem('fcmToken')){
+			document.getElementById('fcmToken').value = localStorage.getItem('fcmToken');
+		}
 		this.getData();
 		this.startAnimation();
 	},

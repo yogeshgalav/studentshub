@@ -29,12 +29,12 @@
         <!-- <div class="arrow_right" v-if="!lastStep" @click="nextSlide">
           <button><i class="fas fa-arrow-right"></i></button>
           </div> -->
-        <router-link
+        <a
           class="arrow_right"
-          :to="'/get-started'"
+          href="/get-started"
         >
           <span class="c_get_start">Get Started&nbsp;&nbsp;<i class="fas fa-arrow-right" /></span>
-        </router-link>
+        </a>
       </div>
     </div>
   </div>

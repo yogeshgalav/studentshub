@@ -19,14 +19,6 @@ const routes = [
 		}
 	},
 	{
-		path: '/login',
-		name: 'login',
-		component: LoginComponent,
-		meta: {
-			title: 'Login | Student\'sHUB'
-		}
-	},
-	{
 		path: '/get-started',
 		name: 'register',
 		component: RegisterComponent,

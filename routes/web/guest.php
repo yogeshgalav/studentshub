@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/login','GuestController@loginPage');
 Route::get('/membership-plan','GuestController@membershipPlan');
 Route::get('/get-started','GuestController@registerPage');
 Route::get('/forgot-password','GuestController@forgotPasswordPage');

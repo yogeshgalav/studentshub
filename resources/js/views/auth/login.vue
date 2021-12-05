@@ -251,7 +251,7 @@ export default {
 	},
 	mounted(){
 		if(localStorage.getItem('fcmToken')){
-			this.fcmToken = localStorage.getItem('fcmToken');
+			document.getElementById('fcmToken').value = localStorage.getItem('fcmToken');
 		}
 	},
 	methods:{

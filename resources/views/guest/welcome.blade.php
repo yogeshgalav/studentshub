@@ -24,7 +24,6 @@
                 name="login"
                 method="POST"
                 action="/login"
-                @submit.prevent="handleSubmit"
               >
                 <div class="form-group row">
                   <input
@@ -32,46 +31,48 @@
                     type="hidden"
                     class="form-control"
                     name="_token"
-                    :value="csrfToken"
+                    value="{{ csrf_token() }}"
                   >
                   <input
                     id="fcmToken"
                     type="hidden"
                     class="form-control"
                     name="fcmToken"
-                    :value="fcmToken"
                   >
                 </div>
 
                 <div class="form-group">
-                <div class="input-group mb-3">
-  <div class="input-group-prepend">
-    <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
-  </div>
-  <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-</div>
+                  <div class="mb-3">
+                    <label>Email</label>
+                    <input type="text" class="form-control" placeholder="Enter your Email">
+                  </div>
                 </div>
-
                 <div class="form-group">
-                  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <span class="input-group-text" id="basic-addon1"><i class="fa fa-eye"></i></span>
-    </div>
-    <input type="text" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1">
-  </div>
+                  <div class="mb-3">
+                    <label>Password</label>
+                    <input type="password" class="form-control" placeholder="Enter your Password">
+                  </div>
+                </div>
                   </div>
                   <button
                   type="submit"
                   class="btn-lg btn-primary m-0-a"
                 >
-                  {{ trans('Login') }}&nbsp;<i class="fa fa-arrow-right text-white" /></i>
+                  {{ 'Login' }}&nbsp;<i class="fa fa-arrow-right text-white" /></i>
                 </button>   
-</form>
+                <div class="text-center center-col pt-2">
+                  <span
+                    class="text-gray"
+                    style="color:#868686;"
+                  >Dont't have an account?</span> <a href='/get-started'>
+                    Sign Up
+                  </a>
+                </div>
+              </form>
             </div>
           </div>
         </div>
-    </div>
-  </div>
-</div>  
+</div>
+</div>
 <router-view></router-view>
 @endsection
