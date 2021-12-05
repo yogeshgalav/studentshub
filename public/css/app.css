@@ -13750,6 +13750,17 @@ a.btn.btn-white.cat_btn:after {
   width: 100%;
 }
 
+.padding_115px_top {
+  padding-top: 115px;
+}
+
+.box_shadow {
+  background-color: white;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.11);
+  width: 100%;
+  margin-bottom: 40px;
+}
+
 .login_img {
   background-color: #f2f2f2;
   height: 100%;

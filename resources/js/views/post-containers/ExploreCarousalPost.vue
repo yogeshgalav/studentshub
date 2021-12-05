@@ -1,5 +1,5 @@
 <template>
-  <div class="banner_post pt-80 pb-80 ">
+  <div class="banner_post pt-0 pb-80 ">
     <div class="container">
       <carousel>
         <template
