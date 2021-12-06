@@ -47,6 +47,7 @@ class AlterDoubtsTable2 extends Migration
         Schema::table('posts', function (Blueprint $table) {
             $table->dropColumn('subject_id');
             $table->integer('classroom_id')->unsigned()->nullable();
+            $table->integer('doubt_id')->unsigned()->nullable();
         });
     }
 

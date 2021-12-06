@@ -12,7 +12,36 @@ use App\Models\User;
 class InstituteController extends Controller
 {
     //
-    public function show($instituteId){
+    public function show($instituteId=null)
+    {
+        if($instituteId){
+            $institute = Institute::findOrFail($instituteId);
+        }else if($request->user('api')){
+            $institute=Institute::findOrFail($request->user('api')->preferred_institute_id);
+        }
+
+        if(empty($institute)){
+            abort(404);
+        }
+
+        $teachers = User::where('role_intended','teacher')
+        ->where('preferred_institute_id',$institute->id)
+        ->with('preferredCourse')
+        ->get();
+
+        $students = User::where('role_intended','student')
+        ->where('preferred_institute_id',$institute->id)
+        ->with('preferredCourse')
+        ->get();
+
+        return response()->json(['success'=>[
+            'institute'=>$institute,
+            'teachers'=>$teachers,
+            'students'=>$students,
+        ]]);
+    
+    }
+    public function showAdmin($instituteId){
         $institute_detail = Institute::findOrFail($instituteId);
 
         $members=DB::table('institute_users as inu')->where('inu.institute_id',$instituteId)

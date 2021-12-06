@@ -43,7 +43,6 @@ class Subject extends Model
         }
         if(empty($category_id)){
             \Log::warning('New subject created with null category',['slug'=>\Str::slug($subject_name)]);
-
         }
         return self::firstOrCreate([
             'slug'=>\Str::slug($subject_name),

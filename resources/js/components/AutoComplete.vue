@@ -147,10 +147,9 @@ export default {
 			}
 		},
 		initialValue(val){
-			if(val){
+			if(val && !this.search){
 				this.result = Object.assign({},val);
 				this.search = this.result[this.value];
-				console.log(this.result,this.search);
 			}
 		}
 	},

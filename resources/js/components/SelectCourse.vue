@@ -6,7 +6,7 @@
         <auto-complete
           :key="'course'"
           :items="course_list"
-          :value="'name'"
+          :value="'course_name'"
           name="course_name"
           :is-async="true"
           :initial-value="selected_course"

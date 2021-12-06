@@ -15,10 +15,11 @@
           </p>
           <select-institute v-model="selected_institute" />
         </div>
-        <div class="col-md-3 col-12">
+        <div class="col-md-8 col-12">
           <button
             v-if="isCourseValid"
             type="button"
+            class="btn btn-md btn-primary mt-1"
             @click="submitCourse"
           >
             Submit
@@ -39,25 +40,6 @@
         :tabs="tabs"
         :initial-tab="initialTab"
       >
-        <template slot="tab-heading-subjects">
-          {{ 'Subjects' }}
-        </template>
-        <template slot="tab-panel-subjects">
-          <div class="row">
-            <div class="col-md-7">
-              <div 
-                v-for="(subject,index) in subjects"
-                :key="index"
-                class="card mb-2"
-              >
-                <a
-                  :href="'/subject/'+subject.slug" 
-                  class="text-black font-size-18"
-                >{{ subject.subject_name }}</a>
-              </div>
-            </div>
-          </div>
-        </template>
         <template slot="tab-heading-teachers">
           {{ 'Teachers' }}
         </template>
@@ -76,12 +58,33 @@
             v-else
             class="row"
           >
-            <div class="col-md-5 center-col">
+            <div class="col-md-8 col-12">
               <div
                 v-for="(teacher,index) in teachers"
                 :key="index"
+                class="card mb-2"
               >
-                <div>teacher</div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <div class="text-center">
+                        <div style="text-align: -webkit-center">
+                          <profile-image
+                            :user-name="teacher.full_name"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-10">
+                      <p class="mb-0 font-weight-bold text-black">
+                        <a :href="'/profile/'+teacher.id"> {{ teacher.full_name }}</a>
+                      </p>
+                      <span class="font-weight-normal">
+                        {{ teacher.preferred_course.course_name }}
+                      </span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -96,7 +99,7 @@
           >
             <div class="col-md-10">
               <div class="card">
-                <p>Invite your friends to join StudentsHub.</p>
+                <p>Invite your friends to join Student's Hub.</p>
               </div>
             </div>
           </div>
@@ -104,12 +107,33 @@
             v-else
             class="row"
           >
-            <div class="col-md-5 center-col">
+            <div class="col-md-8 col-12">
               <div
                 v-for="(student,index) in students"
                 :key="index"
+                class="card mb-2"
               >
-                <div>student</div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <div class="text-center">
+                        <div style="text-align: -webkit-center">
+                          <profile-image
+                            :user-name="student.full_name"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-10">
+                      <p class="mb-0 font-weight-bold text-black">
+                        <a :href="'/profile/'+student.id"> {{ student.full_name }}</a>
+                      </p>
+                      <span class="font-weight-normal">
+                        {{ student.preferred_course.course_name }}
+                      </span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -132,18 +156,21 @@ export default {
 			institute_name: '',
 			teachers: [],
 			students: [],
-			initialTab: 'subjects',
-			tabs: ['subjects','posts'],
+			initialTab: 'teachers',
+			tabs: ['teachers','students'],
 			showLoader: false,
 			selected_institute : {
 				'id': null,
-				'institute_name':'',
+				'name':'',
 			}
 		};
 	},
 	computed:{
 		isCourseValid(){
-			return true;
+			if(this.selected_institute && this.selected_institute.name){
+				return true;
+			}
+			return false;
 		}
 	},
 	mounted() {
@@ -152,7 +179,7 @@ export default {
 		if(!institute_id) return false;
     
 		this.axios
-			.get('/api/get-institute-details/' + (institute_id ? institute_id : ''))
+			.get('/api/institute/' + (institute_id ? institute_id : ''))
 			.then(resp => {
 				this.teachers = resp.data.success.teachers;
 				this.institute_name = resp.data.success.institute.name;
@@ -162,11 +189,11 @@ export default {
 	methods: {
 		submitCourse(){
 			this.axios
-				.put('/api/preferred-institute')
+				.put('/api/preferred-institute',{
+					preferred_institute:this.selected_institute,
+				})
 				.then(resp => {
-					this.teachers = resp.data.success.teachers;
-					this.institute_name = resp.data.success.institute.name;
-					this.students = resp.data.success.students;
+					window.location.reload();
 				});
 		}
 	}

@@ -133,16 +133,16 @@ class User extends Authenticatable
 
         return $classroom_query->groupBy('classrooms.id')->pluck('classrooms.id')->toArray();
     }
-    public function preferredInstituteId()
-    {
-        if($student = Auth::student()){
-            return $student->instituteId;
-        }
-        if($teacher = Auth::teacher()){
-            return $teacher->instituteId;
-        }
-    }
     
+    public function preferredInstitute()
+    {
+        return $this->belongsTo(Institute::class, 'preferred_institute_id');
+    }
+    public function preferredCourse()
+    {
+        return $this->belongsTo(Course::class, 'preferred_course_id');
+    }
+
     public function getStudentIds(){
         return [];   
     }

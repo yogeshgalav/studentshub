@@ -15,10 +15,11 @@
           </p>
           <select-course v-model="selected_course" />
         </div>
-        <div class="col-md-3 col-12">
+        <div class="col-md-8 col-12">
           <button
             v-if="isCourseValid"
             type="button"
+            class="btn btn-md btn-primary mt-1"
             @click="submitCourse"
           >
             Submit
@@ -115,7 +116,10 @@ export default {
 	},
 	computed:{
 		isCourseValid(){
-			return true;
+			if(this.selected_course && this.selected_course.course_name){
+				return true;
+			}
+			return false;
 		}
 	},
 	mounted() {
@@ -124,7 +128,7 @@ export default {
 		if(!course_id) return false;
     
 		this.axios
-			.get('/api/get-course-details/' + (course_id ? course_id : ''))
+			.get('/api/course/' + (course_id ? course_id : ''))
 			.then(resp => {
 				this.subjects = resp.data.success.subjects;
 				this.course_name = resp.data.success.course.name;
@@ -134,11 +138,11 @@ export default {
 	methods: {
 		submitCourse(){
 			this.axios
-				.put('/api/preferred-course')
+				.put('/api/preferred-course',{
+					preferred_course:this.selected_course,
+				})
 				.then(resp => {
-					this.subjects = resp.data.success.subjects;
-					this.course_name = resp.data.success.course.name;
-					this.posts = resp.data.success.posts.data;
+					window.location.reload();
 				});
 		}
 	}
