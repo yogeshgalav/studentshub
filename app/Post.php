@@ -53,7 +53,9 @@ class Post extends PostModel
     public function getSearchPosts(Request $request){
         $post_query=$this->getAuthUserPostTabels();
 
-        $posts=$post_query->where('sub.subject_name','LIKE','%'.$request->input('searchTerm').'%')
+        $posts=$post_query->leftJoin('post_tags as pt','pt.post_id','=','po.id')
+        ->leftJoin('subjects as sub','pt.subject_id','=','sub.id')
+        ->where('sub.subject_name','LIKE','%'.$request->input('searchTerm').'%')
         ->orWhere('cat.name','LIKE','%'.$request->input('searchTerm').'%')
         ->orWhere('po.post_heading','LIKE','%'.$request->input('searchTerm').'%')
         ->orderBy('po.created_at','DESC')

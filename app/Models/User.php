@@ -142,6 +142,10 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Course::class, 'preferred_course_id');
     }
+    public function profile()
+    {
+        return $this->hasOne(UserProfile::class);
+    }
 
     public function getStudentIds(){
         return [];   

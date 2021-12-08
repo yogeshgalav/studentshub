@@ -12,7 +12,7 @@ class SearchController extends Controller
 {
     
     public function searchUser(Request $request){
-        if(empty($request->searchTerm)){
+        if(empty($request->searchTerm) || empty($request->role)){
             return response()->json([
                 'success'=>[
                     'users'=>[],
@@ -20,17 +20,14 @@ class SearchController extends Controller
             ]);
         }
         $users = DB::table('users as us')->where('us.full_name', 'LIKE', $request->searchTerm.'%')
-            // ->leftJoin('students as st', function($join){
-            //     $join->on('st.user_id', '=', 'us.id')->where('is_preferred', 1);
-            // })
-            // ->leftJoin('courses', 'courses.id', '=', 'st.course_id')
+        ->where('role_intended', $request->role)
             ->leftJoin('institutes as inst', 'inst.id', '=', 'us.preferred_institute_id')
+            ->leftJoin('courses as cor', 'cor.id', '=', 'us.preferred_course_id')
             ->select(
                 'us.full_name',
                 'us.avatar_url',
                 'inst.name as institute_name',
-                // 'courses.course_name as user_course',
-                // 'st.id as student_id',
+                'cor.course_name',
             )
             ->groupBy('us.id','us.full_name','us.avatar_url','inst.name')
             ->limit(10)->get();
@@ -55,9 +52,9 @@ class SearchController extends Controller
         $courses = DB::table('courses as cor')
             ->where('cor.course_name', 'LIKE', '%' . $search . '%')
             ->orWhere('cor.alias', 'LIKE', '%' . $search . '%')
-            ->leftJoin('students as st', 'cor.id', '=', 'st.course_id')
+            ->leftJoin('users as us', 'cor.id', '=', 'us.preferred_course_id')
             ->select('cor.id', 'cor.course_name', 'cor.category_id', 'cor.slug',
-             DB::raw("COUNT('st.id') as totalStudent"))
+             DB::raw("COUNT('us.id') as totalStudent"))
             ->groupBy('cor.id', 'cor.course_name', 'cor.category_id', 'cor.slug')
             ->orderBy('totalStudent', 'DESC')->limit(10)->get();
 
@@ -68,16 +65,16 @@ class SearchController extends Controller
         //     return $this->courseList($request);
         // }
 
-        if (count($courses) == 0 && empty($request->recursive)) {
-            $request->request->add(['recursive' => true]);
-            $terms = explode(' ', $request->searchTerm);
-            $new_terms = [];
-            foreach ($terms as $term) {
-                $new_terms[] = substr($term, 0, 1) . '%' . substr($term, -1);
-            }
-            $request->searchTerm = implode(' ', $new_terms);
-            return $this->courseList($request);
-        }
+        // if (count($courses) == 0 && empty($request->recursive)) {
+        //     $request->request->add(['recursive' => true]);
+        //     $terms = explode(' ', $request->searchTerm);
+        //     $new_terms = [];
+        //     foreach ($terms as $term) {
+        //         $new_terms[] = substr($term, 0, 1) . '%' . substr($term, -1);
+        //     }
+        //     $request->searchTerm = implode(' ', $new_terms);
+        //     return $this->courseList($request);
+        // }
 
         return response()->json(['success' => [
             'courses' => $courses

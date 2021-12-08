@@ -24,4 +24,5 @@ mix
 .js('resources/js/app/student-classroom/app.js', 'public/js/studentPanelApp.js')
 .js('resources/js/app/teacher-classroom/app.js', 'public/js/classroomApp.js')
 .js('resources/js/app/institute/app.js', 'public/js/instituteApp.js')
-    .sass('resources/sass/app.scss', 'public/css/app.css');
+    .sass('resources/sass/app.scss', 'public/css/app.css')
+    .version();

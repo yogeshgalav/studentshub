@@ -40,11 +40,11 @@ class PostController extends Controller
 
         $simple_html_dom = new simple_html_dom;
         $dom = $simple_html_dom->extactImageFiles($data['article_html_content'], "post-image");
-        $post_content_id= Article::insertGetId(['html_content'=>$dom->html]);
+        $post_content= Article::create(['html_content'=>$dom->html]);
 
         foreach($dom->files as $file){
             $newFile= new SthubFile();
-            $newFile->fileable_id=$post_content_id;
+            $newFile->fileable_id=$post_content->id;
             $newFile->fileable_type=Article::class;
             $newFile->file_ext=Storage::disk('post-image')->getMimeType($file);
             $newFile->file_size=Storage::disk('post-image')->size($file);
@@ -60,8 +60,8 @@ class PostController extends Controller
         }
 
         $post->postable_type="App\Models\Article";
-        $post->primary_image_path=$article->fetchPrimaryPath($data);
-        $post->postable_id=$post_content_id;
+        $post->primary_image_path=$primary_image_path;
+        $post->postable_id=$post_content->id;
 
         $post->created_via='dashboard';
         $post->post_description = $data['description'];

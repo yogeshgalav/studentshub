@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="row">
     <div
-      style="width: 100%"
+      class="col-md-10"
     >
       <div class="">
         <h3>Account Settings</h3>
@@ -101,19 +101,6 @@
         <div class="card-body">
           <form @submit.prevent="saveProfile">
             <div class="row">
-              <div class="col-md-12">
-                <div class="model_input">
-                  <label>Introduction</label>
-                  <textarea
-                    id="introduction"
-                    v-model="profile_data.introduction"
-                    name="introduction"
-                    class="form-control"
-                    @input="dataUpdated"
-                  />
-                  <span class="text-danger">{{ errors.introduction }}</span>
-                </div>
-              </div>
               <div class="col-md-12">
                 <div class="model_input">
                   <label>Facebook Profile Url</label>
@@ -247,13 +234,12 @@ export default {
 		SelectInstitute,
 		SelectCourse
 	},
-	props:['profile'],
+	props:['user'],
 	data() {
 		return {
 			image:{},
 			profile_image_url:'',
 			errors:{
-				introduction: '',
 				profile_pic: '',
 				fb_url: '',
 				insta_url: '',
@@ -262,7 +248,6 @@ export default {
 			profile_data: {
 				full_name:'',
 				profile_pic: '',
-				introduction:'',
 				fb_url: '',
 				insta_url: '',
 				linked_url: '',
@@ -286,13 +271,14 @@ export default {
 			this.data_updated = true;
 		},
 		initiateData(){
-			if(this.profile){
-			  this.profile_data = Object.assign({}, this.profile);
+			if(this.user){
+			  this.profile_data = Object.assign({}, this.user.profile);
+				this.preferred_institute = this.user.preferred_institute;
+				this.preferred_course = this.user.preferred_course;
 			}else{
 				this.profile_data= {
 					full_name:'',
 					profile_pic: '',
-					introduction:'',
 					fb_url: '',
 					insta_url: '',
 					linked_url: '',
@@ -325,8 +311,8 @@ export default {
 			}
 
 			await this.axios.post('/api/save-profile', Object.assign({
-				preferred_institute,
-				preferred_course,
+				preferred_institute:this.preferred_institute,
+				preferred_course:this.preferred_course,
 			},this.profile_data)
 			).then((resp) => {
 				this.setProfile(resp.data.success.profile);
@@ -339,7 +325,6 @@ export default {
 				fb_url: '',
 				insta_url: '',
 				linked_url: '',
-				introduction:'',
 			};
 		},
 		setProfile(profile) {
