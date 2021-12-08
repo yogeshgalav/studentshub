@@ -12,11 +12,11 @@
         <div class="row">
           <div
             v-if="!posts.length"
-            class="col-md-7 center-col"
+            class="col-md-10"
           >
             <p>No search result found.</p>
           </div>
-          <div class="col-md-7 center-col">
+          <div class="col-md-10">
             <div
               v-for="(post,index) in posts"
               :key="index"
@@ -33,42 +33,44 @@
         <div class="row">
           <div
             v-if="!users.length"
-            class="col-md-7 center-col"
+            class="col-md-10"
           >
             <p>No search result found.</p>
           </div>
-          <div class="col-md-7 center-col">
+          <div class="col-md-10">
             <div 
               v-for="(user,index) in users"
               :key="index"
               class="card mb-2"
             >
-              <a
-                class="text-black"
-                :href="'/profile/'+user.id"
-              >
-                <div class="card-body">
-                  <div class="dashboard_post">
-                    <div class="avatar">
-                      <profile-image
-                        :user-name="user.full_name"
-                        :avatar="user.avatar_url"
-                      />
-                    </div>
-                    <div class="info-post ml-2 dash_insititue_name">
-                      <p class="font-size-14 mb-0 dash_user_date">
-                        {{ user.full_name }}
-                      </p>
-                      <p class="font-size-14 mb-0">
-                        {{ user.institute_name }}
-                      </p>
-                      <p class="font-size-14 mb-0">
-                        {{ user.course_name }}
-                      </p>
+              <div class="card-body">
+                <a
+                  class="text-black"
+                  :href="'/profile/'+user.id"
+                >
+                  <div class="card-body">
+                    <div class="dashboard_post">
+                      <div class="avatar">
+                        <profile-image
+                          :user-name="user.full_name"
+                          :avatar="user.avatar_url"
+                        />
+                      </div>
+                      <div class="info-post ml-2 dash_insititue_name">
+                        <p class="font-size-14 mb-0 dash_user_date">
+                          {{ user.full_name }}
+                        </p>
+                        <p class="font-size-14 mb-0">
+                          {{ user.institute_name }}
+                        </p>
+                        <p class="font-size-14 mb-0">
+                          {{ user.course_name }}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </a>
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -80,42 +82,44 @@
         <div class="row">
           <div
             v-if="!users.length"
-            class="col-md-7 center-col"
+            class="col-md-10"
           >
             <p>No search result found.</p>
           </div>
-          <div class="col-md-7 center-col">
+          <div class="col-md-10">
             <div 
               v-for="(user,index) in users"
               :key="index"
               class="card mb-2"
             >
-              <a
-                class="text-black"
-                :href="'/profile/'+user.id"
-              >
-                <div class="card-body">
-                  <div class="dashboard_post">
-                    <div class="avatar">
-                      <profile-image
-                        :user-name="user.full_name"
-                        :avatar="user.avatar_url"
-                      />
-                    </div>
-                    <div class="info-post ml-2 dash_insititue_name">
-                      <p class="font-size-14 mb-0 dash_user_date">
-                        {{ user.full_name }}
-                      </p>
-                      <p class="font-size-14 mb-0">
-                        {{ user.institute_name }}
-                      </p>
-                      <p class="font-size-14 mb-0">
-                        {{ user.course_name }}
-                      </p>
+              <div class="card-body">
+                <a
+                  class="text-black"
+                  :href="'/profile/'+user.id"
+                >
+                  <div class="card-body">
+                    <div class="dashboard_post">
+                      <div class="avatar">
+                        <profile-image
+                          :user-name="user.full_name"
+                          :avatar="user.avatar_url"
+                        />
+                      </div>
+                      <div class="info-post ml-2 dash_insititue_name">
+                        <p class="font-size-14 mb-0 dash_user_date">
+                          {{ user.full_name }}
+                        </p>
+                        <p class="font-size-14 mb-0">
+                          {{ user.institute_name }}
+                        </p>
+                        <p class="font-size-14 mb-0">
+                          {{ user.course_name }}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </a>
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -127,20 +131,22 @@
         <div class="row">
           <div
             v-if="!subjects.length"
-            class="col-md-7 center-col"
+            class="col-md-10"
           >
             <p>No search result found.</p>
           </div>
-          <div class="col-md-7 center-col">
+          <div class="col-md-10">
             <div 
               v-for="(subject,index) in subjects"
               :key="index"
               class="card mb-2"
             >
-              <a
-                :href="'/subject/'+subject.slug" 
-                class="text-black font-size-18"
-              >{{ subject.subject_name }}</a>
+              <div class="card-body">
+                <a
+                  :href="'/subject/'+subject.slug" 
+                  class="text-black font-size-18"
+                >{{ subject.subject_name }}</a>
+              </div>
             </div>
           </div>
         </div>
@@ -152,22 +158,24 @@
         <div class="row">
           <div
             v-if="!courses.length"
-            class="col-md-7 center-col"
+            class="col-md-10"
           >
             <p>No search result found.</p>
           </div>
-          <div class="col-md-7 center-col">
+          <div class="col-md-10">
             <div 
               v-for="(course,index) in courses"
               :key="index"
               class="card mb-2"
             >
-              <a
-                :href="'/course/'+course.slug" 
-                class="text-black font-size-18"
-              >
-                {{ course.course_name }}
-              </a>
+              <div class="card-body">
+                <a
+                  :href="'/course/'+course.slug" 
+                  class="text-black font-size-18"
+                >
+                  {{ course.course_name }}
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -179,17 +187,19 @@
         <div class="row">
           <div
             v-if="!institutes.length"
-            class="col-md-7 center-col"
+            class="col-md-10"
           >
             <p>No search result found.</p>
           </div>
-          <div class="col-md-7 center-col">
+          <div class="col-md-10">
             <div 
               v-for="(institute,index) in institutes"
               :key="index"
               class="card mb-2"
             >
-              {{ institute.name }}
+              <div class="card-body">
+                {{ institute.name }}
+              </div>
             </div>
           </div>
         </div>

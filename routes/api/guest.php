@@ -21,9 +21,9 @@ Route::get('/get-explore-posts', 'ExploreController@index');
 
 //search page routes
 Route::get('/search-posts', [App\Http\Controllers\Api\SearchController::class, 'searchPosts']);
-Route::get('/search-course', [App\Http\Controllers\Api\SearchController::class, 'courseList']);
-Route::get('/search-subject', [App\Http\Controllers\Api\SearchController::class, 'subjectList']);
-Route::get('/search-institute', [App\Http\Controllers\Api\SearchController::class, 'instituteList']);
+Route::get('/search-course', [App\Http\Controllers\Api\CourseController::class, 'index']);
+Route::get('/search-subject', [App\Http\Controllers\Api\SubjectController::class, 'index']);
+Route::get('/search-institute', [App\Http\Controllers\Api\InstituteController::class, 'index']);
 
 Route::get('/institute/{id?}',  [App\Http\Controllers\Api\InstituteController::class, 'show']);
 Route::get('/course/{id?}',  [App\Http\Controllers\Api\CourseController::class, 'show']);

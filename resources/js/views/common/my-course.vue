@@ -51,10 +51,12 @@
                 :key="index"
                 class="card mb-2"
               >
-                <a
-                  :href="'/subject/'+subject.slug" 
-                  class="text-black font-size-18"
-                >{{ subject.subject_name }}</a>
+                <div class="card-body">
+                  <a
+                    :href="'/subject/'+subject.slug" 
+                    class="text-black font-size-18"
+                  >{{ subject.subject_name }}</a>
+                </div>
               </div>
             </div>
           </div>
@@ -69,7 +71,9 @@
           >
             <div class="col-md-10">
               <div class="card">
-                <p>Currently no post have been shared yet to this course.</p>
+                <div class="card-body">
+                  <p>Currently no post have been shared yet to this course.</p>
+                </div>
               </div>
             </div>
           </div>
@@ -77,7 +81,7 @@
             v-else
             class="row"
           >
-            <div class="col-md-5 center-col">
+            <div class="col-md-10">
               <div
                 v-for="(post,index) in posts"
                 :key="index"
@@ -131,7 +135,7 @@ export default {
 			.get('/api/course/' + (course_id ? course_id : ''))
 			.then(resp => {
 				this.subjects = resp.data.success.subjects;
-				this.course_name = resp.data.success.course.name;
+				this.course_name = resp.data.success.course.course_name;
 				this.posts = resp.data.success.posts.data;
 			});
 	},

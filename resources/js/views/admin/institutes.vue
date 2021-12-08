@@ -184,7 +184,7 @@ export default {
 	methods:{
 		getInstitutes(){
 			this.loading = true;
-			this.axios.get('/api/getInstitutes')
+			this.axios.get('/api/admin/index')
 				.then(resp =>{
 					let rows=[];
 					this.clientRows=resp.data.success.institutes.map(node=>{

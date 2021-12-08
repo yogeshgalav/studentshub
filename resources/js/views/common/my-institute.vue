@@ -50,7 +50,9 @@
           >
             <div class="col-md-10">
               <div class="card">
-                <p>Invite your teachers to join StudentsHub.</p>
+                <div class="card-body">
+                  <p>Invite your teachers to join StudentsHub..</p>
+                </div>
               </div>
             </div>
           </div>
@@ -80,7 +82,7 @@
                         <a :href="'/profile/'+teacher.id"> {{ teacher.full_name }}</a>
                       </p>
                       <span class="font-weight-normal">
-                        {{ teacher.preferred_course.course_name }}
+                        {{ teacher.preferred_course ? teacher.preferred_course.course_name : '' }}
                       </span>
                     </div>
                   </div>
@@ -99,7 +101,9 @@
           >
             <div class="col-md-10">
               <div class="card">
-                <p>Invite your friends to join Student's Hub.</p>
+                <div class="card-body">
+                  <p>Invite your friends to join Student's Hub.</p>
+                </div>
               </div>
             </div>
           </div>
@@ -129,7 +133,7 @@
                         <a :href="'/profile/'+student.id"> {{ student.full_name }}</a>
                       </p>
                       <span class="font-weight-normal">
-                        {{ student.preferred_course.course_name }}
+                        {{ student.preferred_course ? student.preferred_course.course_name : '' }}
                       </span>
                     </div>
                   </div>
@@ -184,6 +188,7 @@ export default {
 				this.teachers = resp.data.success.teachers;
 				this.institute_name = resp.data.success.institute.name;
 				this.students = resp.data.success.students;
+				this.$forceUpdate();
 			});
 	},
 	methods: {
