@@ -2381,7 +2381,7 @@ class simple_html_dom
 		$html = str_get_html($html);
 		foreach($html->find('iframe') as $element){
 			if(str_contains($element->src,'https://www.youtube.com/embed/')){
-				return str_replace('https://www.youtube.com/embed/','',$element->src);
+				return 'https://img.youtube.com/vi/'.str_replace('https://www.youtube.com/embed/','',$element->src).'/0.jpg';
 			}
 		}
 		return '';
