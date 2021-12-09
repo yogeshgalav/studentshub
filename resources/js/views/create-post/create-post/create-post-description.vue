@@ -15,11 +15,14 @@
             <label class="weight-500">Heading</label>
             <div class="">
               <input
+                id="heading"
                 v-model="heading"
+                v-validate="'required'"
+                name="heading"
                 type="text"
                 class="form-control"
-                :disabled="newPost.post_type === 'mcq'"
               >
+              <span class="error">{{ formErrors('heading') }}</span>
             </div>
           </div>
 
@@ -54,19 +57,6 @@
               :autocomplete-items="filteredItems"
               @tags-changed="newTags => tags = newTags"
             />
-          </div>
-          <div class="creat_post_btn">
-            <button
-              type="button"
-              class="btn-primary btn-md m-0-a"
-              @click="nextTab"
-            >
-              Next
-              <span><i
-                class="fa fa-arrow-right"
-                aria-hidden="true"
-              /></span>
-            </button>
           </div>
         </div>
       </div>
@@ -199,9 +189,6 @@ export default {
 				})
 				.catch(() => {
 				});
-		},
-		nextTab() {
-			EventBus.$emit('nextTab');
 		},
 	}
 };

@@ -31,17 +31,36 @@ class DoubtAnswersController extends Controller
         $post=new Post;
         $post->user_id=$me->id;
         $post->post_heading=$doubt->question;
-
-        $article=new Article;
-        $post_content_id=$article->createFromContent([
-            'article_html_content'=>$request->answer_html,
-            ]);
         $post->post_description=$request->answer_text;
-        $post->postable_type="App\Models\Article";
-        $post->primary_image_path='/storage/article-default.png';
-        $post->postable_id=$post_content_id;
         $post->category_id=$doubt->category_id;
         $post->course_id=$me->preferred_course_id;
+
+
+        $simple_html_dom = new simple_html_dom;
+        $dom = $simple_html_dom->extactImageFiles($data['article_html_content'], "post-image");
+        $post_content= Article::create(['html_content'=>$dom->html]);
+
+        foreach($dom->files as $file){
+            $newFile= new SthubFile();
+            $newFile->fileable_id=$post_content->id;
+            $newFile->fileable_type=Article::class;
+            $newFile->file_ext=Storage::disk('post-image')->getMimeType($file);
+            $newFile->file_size=Storage::disk('post-image')->size($file);
+            $newFile->file_name=$file;
+            $newFile->user_id=Auth::user()->id;
+            $newFile->save();
+        }
+        $primary_image_path='';
+        if(count($dom->files)){
+          $primary_image_path=$dom->files[0];
+        } else {
+          $primary_image_path= $simple_html_dom->extractYoutubeImage($data['article_html_content']);
+        }
+
+        $post->postable_type="App\Models\Article";
+        $post->primary_image_path=$primary_image_path;
+        $post->postable_id=$post_content->id;
+
         $post->created_via='doubt';
         $post->save();
 

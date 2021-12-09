@@ -12,7 +12,54 @@ use App\Models\User;
 class InstituteController extends Controller
 {
     //
-    public function show($instituteId){
+
+    public function index(Request $request)
+    {
+        $in_query = DB::table('institutes as ins');
+        if(!empty($request->searchTerm)){
+            $input = $request->searchTerm;
+            $in_query = $in_query->where('ins.name', 'LIKE', $input . '%')
+            ->orWhere('ins.alias', 'LIKE', $input . '%');
+        }
+        $institutes = $in_query->leftJoin('students as st', 'ins.id', '=', 'st.institute_id')
+        ->select('ins.id', 'ins.name', DB::raw("COUNT('st.id') as totalStudent"))
+        ->groupBy('ins.id', 'ins.name')
+        ->orderBy('totalStudent', 'DESC')->limit(10)->get();
+
+        return response()->json(['success' => [
+            'institutes' => $institutes
+        ]]);
+    }
+    public function show($instituteId=null)
+    {
+        if($instituteId){
+            $institute = Institute::findOrFail($instituteId);
+        }else if($request->user('api')){
+            $institute=Institute::findOrFail($request->user('api')->preferred_institute_id);
+        }
+
+        if(empty($institute)){
+            abort(404);
+        }
+
+        $teachers = User::where('role_intended','teacher')
+        ->where('preferred_institute_id',$institute->id)
+        ->with('preferredCourse')
+        ->get();
+
+        $students = User::where('role_intended','student')
+        ->where('preferred_institute_id',$institute->id)
+        ->with('preferredCourse')
+        ->get();
+
+        return response()->json(['success'=>[
+            'institute'=>$institute,
+            'teachers'=>$teachers,
+            'students'=>$students,
+        ]]);
+    
+    }
+    public function showAdmin($instituteId){
         $institute_detail = Institute::findOrFail($instituteId);
 
         $members=DB::table('institute_users as inu')->where('inu.institute_id',$instituteId)
@@ -90,8 +137,8 @@ class InstituteController extends Controller
         ],200);
     }
 
-    public function index(){
-
+    public function adminIndex()
+    {
         $institutes=DB::table('institutes as in')
         ->leftJoin('institute_users as inu','in.id','=','inu.institute_id')
         ->join('institute_users as insu',function($join){

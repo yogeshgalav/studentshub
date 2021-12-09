@@ -16,16 +16,41 @@
         />
       </div>
     </div>
+    <div class="row mt-2">
+      <div class="col-md-6 text-left">
+        <button
+          v-if="show_back_button"
+          type="button"
+          class="btn-white btn-md m-0-a"
+          @click="prevTab"
+        >
+          <span><i
+            class="fa fa-arrow-left"
+            aria-hidden="true"
+          /></span>
+          &nbsp; Back
+        </button>
+      </div>
+      <div class="col-md-6 text-right">
+        <button
+          type="button"
+          class="btn-primary btn-md m-0-a"
+          @click="nextTab"
+        >
+          {{ stepData[stepIndex].nextText ? stepData[stepIndex].nextText : 'Next' }} &nbsp;
+          <span><i
+            class="fa fa-arrow-right"
+            aria-hidden="true"
+          /></span>
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 <script>
-import ProgressBar from './ProgressBar';
 import EventBus from './event-bus';
 
 export default {
-	components: {
-		ProgressBar
-	},
 	props:{
 		stepData: { type: Array, default: () => [] },
 	},
@@ -52,9 +77,6 @@ export default {
 		show_back_button(){
 			return this.stepData[this.stepIndex] ? this.stepData[this.stepIndex].backbutton :false;
 		},
-		show_next_button(){
-			return this.stepData[this.stepIndex] ? this.stepData[this.stepIndex].nextTab :true;
-		},
 	},
 	watch:{
 		stepData(val){
@@ -69,8 +91,8 @@ export default {
 		}
 	},
 	mounted(){
-		EventBus.$on('nextTab', () => { this.nextTab(); });
-		EventBus.$on('prevTab', () => { this.prevTab(); });
+		// EventBus.$on('nextTab', () => { this.nextTab(); });
+		// EventBus.$on('prevTab', () => { this.prevTab(); });
 		EventBus.$on('validateWizard', (step,valid) => {
 			if(step===this.activeStep && valid===true){
 				if(this.isLastStep){
@@ -97,7 +119,7 @@ export default {
 	methods:{
 		trans: function (string, defaultString) {
 			// return this.$trans('auth',string,defaultString);
-      return string;
+			return string;
 		},
 		nextTab(){
 			if(this.stepData[this.stepIndex].validation===true){

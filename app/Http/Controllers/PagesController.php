@@ -79,6 +79,7 @@ class PagesController extends Controller
         $user = \App\Models\User::where('users.id', $profileId)
             ->leftJoin('user_profiles as up', 'up.user_id', '=', 'users.id')
             ->select('up.*', 'users.id', 'users.full_name', 'users.email', 'users.avatar_url')
+            ->with(['preferredCourse','preferredInstitute'])
             ->first();
         return view('profile.profile')->with('user', $user);
     }

@@ -25,7 +25,19 @@ class Course extends Model
             ->generateSlugsFrom('course_name')
             ->saveSlugsTo('slug');
     }
-    
+    public static function getFirstOrCreateId($course)
+    {
+        if($course['id']){
+            return self::find($course['id'])->id;
+        }
+
+        if(empty($course['course_name'])) return null;
+
+        $new = self::firstOrCreate([
+            'course_name'=>$course['course_name'],
+        ]);
+        return $new->id;
+    }
     public function category()
     {
         return $this->belongsTo('App\Models\Category');

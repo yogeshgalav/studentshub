@@ -105,4 +105,8 @@ class GuestController extends Controller
         return view('explore.search')
         ->with('searchQuery', $request->qu);
     }
+    public function FindInterestField(Request $request)
+    {
+        return view('create-post.find-interest-field');
+    }
 }

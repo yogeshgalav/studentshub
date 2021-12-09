@@ -145,7 +145,7 @@
     <div class="container ptb-50">
       <div class="col-md-10 col-12 center-col">
         <div class="row">
-          <div class="col-md-8">
+          <div class="col-md-12">
             <h3 class="post_main_title">
               {{ postContent.heading }}
             </h3>

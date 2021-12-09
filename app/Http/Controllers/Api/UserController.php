@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\UserProfile;
+use App\Models\Institute;
+use App\Models\Course;
 use Auth;
 use DB;
 
@@ -49,7 +51,7 @@ class UserController extends Controller
     }
 
     public function saveProfile(Request $request){
-        $me=Auth::user();
+        $me=$request->user('api');
         $profile=UserProfile::where('user_id',$me->id)->first();
         if(!$profile){
             $profile=new UserProfile();
@@ -90,11 +92,30 @@ class UserController extends Controller
 
         if($request->full_name){
             $me->full_name=$request->full_name;
+            $me->preferred_institute_id=Institute::getFirstOrCreateId($request->preferred_institute);
+            $me->preferred_course_id=Course::getFirstOrCreateId($request->preferred_course);
             $me->save();
         }
 
         return response()->json(['success'=>[
             'profile'=>$profile
         ]]);
+    }
+    public function setPreferredCourse(Request $request){
+        $me=$request->user('api');
+
+        $me->preferred_course_id=Course::getFirstOrCreateId($request->preferred_course);
+        $me->save();
+
+        return response()->json([], 204);
+    }
+
+    public function setPreferredInstitute(Request $request){
+        $me=$request->user('api');
+
+        $me->preferred_institute_id=Institute::getFirstOrCreateId($request->preferred_institute);
+        $me->save();
+
+        return response()->json([], 204);
     }
 }

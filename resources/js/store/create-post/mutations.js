@@ -1,6 +1,8 @@
 export default {
-	set_post_type(state,data){
-		state.new_post.post_type=data.post_type.toLowerCase();
+	set_new_user_data(state,data){
+		state.full_name = data.full_name;      
+		state.email = data.email;
+		state.password = data.password;
 	},
 	set_post_article_content(state,data){
 		state.new_post.article_html_content = data.postContent;
@@ -19,11 +21,5 @@ export default {
 	set_subject(state,data){
 		state.new_post.selected_primary_subject_id=data.subject_id;
 		state.new_post.selected_subject=state.new_post.subject_list.find(node=>node.id===data.subject_id);
-	},
-	get_subject_list(state,data){
-		state.new_post.primary_subject_list=[];
-		state.new_post.primary_subject_list=state.new_post.subject_list;
-		state.new_post.subject_list=[];
-		state.new_post.subject_list = data.subject_list;
 	},
 };

@@ -47,7 +47,7 @@
           {{ 'Asked by:' +' '+doubt.user_name }}  
         </p>
         <p class="font-size-18 text-grey mb-0 line-height-25-px">
-          {{ 'Added: ' }}{{ $dayjs(doubt.created_at).fromNow() }}
+          {{ 'Added: ' }}{{ doubt.created_at ? $dayjs(doubt.created_at).fromNow() :'' }}
         </p>
       </div>
     </div>
@@ -80,7 +80,6 @@
                   id="ArticleEditor"
                   v-model="new_answer"
                 />
-                <span>{{ countContent }}/10</span>
                 <span class="text-danger">{{ error }}</span>
                 <div class="text-right mt-1">
                   <button
@@ -126,7 +125,6 @@ h4.main_que {
 import RichTextEditor from '../../components/RichTextEditor';
 import PostCard from '../post/PostCard.vue';
 import Accordion from '../../components/accordion.vue';
-var relativeTime = require('dayjs/plugin/relativeTime');
 
 export default {
 	components:{
@@ -165,12 +163,8 @@ export default {
 			}
 			return [span.textContent || span.innerText].toString();
 		},
-		countContent(){
-			return this.description.toString().trim().split(/\s+/).length;
-		}
 	},
 	mounted() {
-		this.$dayjs.extend(relativeTime);
 		this.getDoubtAnswerData();
 	},
 	methods: {
@@ -186,8 +180,8 @@ export default {
 
 		},
 		submitAnswer() {
-			if(this.countContent<10){
-				this.error='An answer should be of minimum 10 words.';
+			if(!this.description){
+				this.error='Post content cannot be empty.';
 				return false;
 			}
 			this.showLoader= true;

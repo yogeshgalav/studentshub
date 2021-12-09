@@ -15,6 +15,7 @@ import CreatePostStore from '../../store/create-post';
 import Vuex from 'vuex';
 Vue.use(Vuex);
 Vue.component('SharePost', require('../../views/create-post/share-post.vue').default);
+Vue.component('FindInterestField', require('../../views/create-post/find-interest-field.vue').default);
 Vue.component('EditPost', require('../../views/create-post/edit-post.vue').default);
 
 //Vue Router Initialisation

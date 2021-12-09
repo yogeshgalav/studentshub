@@ -44,7 +44,9 @@ class Post extends PostModel
     public function getCoursePosts($course_id){
         $post_query=$this->getAuthUserPostTabels();
 
-        $posts=$post_query->where('course.id',$course_id)
+        $posts=$post_query->leftJoin('post_tags as pt','pt.post_id','=','po.id')
+        ->leftJoin('course_subjects as cosub','pt.subject_id','=','cosub.subject_id')
+        ->where('cosub.course_id',$course_id)
         ->orderBy('po.created_at','DESC')
         ->paginate();
 
@@ -53,7 +55,9 @@ class Post extends PostModel
     public function getSearchPosts(Request $request){
         $post_query=$this->getAuthUserPostTabels();
 
-        $posts=$post_query->where('sub.subject_name','LIKE','%'.$request->input('searchTerm').'%')
+        $posts=$post_query->leftJoin('post_tags as pt','pt.post_id','=','po.id')
+        ->leftJoin('subjects as sub','pt.subject_id','=','sub.id')
+        ->where('sub.subject_name','LIKE','%'.$request->input('searchTerm').'%')
         ->orWhere('cat.name','LIKE','%'.$request->input('searchTerm').'%')
         ->orWhere('po.post_heading','LIKE','%'.$request->input('searchTerm').'%')
         ->orderBy('po.created_at','DESC')

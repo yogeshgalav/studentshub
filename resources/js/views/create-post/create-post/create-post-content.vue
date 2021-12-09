@@ -5,30 +5,7 @@
         id="ArticleEditor"
         v-model="content"
       />
-    </div>
-    <div class="creat_post_btn">
-      <button
-        type="button"
-        class="btn-white btn-lg m-0-a"
-        @click="prevTab"
-      >
-        <span><i
-          class="fa fa-arrow-left"
-          aria-hidden="true"
-        /></span>
-        &nbsp; Back
-      </button>
-      <button
-        type="button"
-        class="btn-primary btn-lg m-0-a"
-        @click="nextTab"
-      >
-        Finish &nbsp;
-        <span><i
-          class="fa fa-arrow-right"
-          aria-hidden="true"
-        /></span>
-      </button>
+      <span class="text-danger">{{ error }}</span>
     </div>
   </div>
 </template>
@@ -83,14 +60,6 @@ export default {
 			}
 		});
 	},
-	methods: {
-		nextTab() {
-			EventBus.$emit('nextTab');
-		},
-		prevTab() {
-			EventBus.$emit('prevTab');
-		}
-	}
 };
 </script>
 <style scoped>

@@ -35,8 +35,10 @@ class SeekerController extends Controller
     }
     public function accountSetting()
     {
-        $profile = \App\Models\UserProfile::where("user_id",Auth::id())->first();
-        return view('profile.account-setting')->with('profile',$profile);
+        $user = \App\Models\User::where("id",Auth::id())
+        ->with(['profile','preferredCourse','preferredInstitute'])
+        ->first();
+        return view('profile.account-setting')->with('user',$user);
     }
     public function checkin()
     {

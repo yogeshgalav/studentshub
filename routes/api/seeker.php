@@ -12,7 +12,6 @@ Route::group(['middleware' => ['auth:api']], function () {
         //profile
     Route::get('/get-profile','UserController@getProfile');
     Route::post('/save-profile', 'UserController@saveProfile');
-    Route::get('/get-categories', 'CategoryController@index');
     Route::post('/checkin/student', [App\Http\Controllers\Api\StudentController::class, 'create']);
     Route::post('/checkin/teacher', 'InstituteUserController@teacherCheckin');
     Route::get('/search-user', [App\Http\Controllers\Api\SearchController::class, 'searchUser']);
@@ -28,4 +27,6 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('/{commentable_type}/{commentable_id}/comment', 'CommentController@get');
     Route::post('/{commentable_type}/{commentable_id}/add-comment', 'CommentController@create');
 
+    Route::put('/preferred-course', 'UserController@setPreferredCourse');
+    Route::put('/preferred-institute', 'UserController@setPreferredInstitute');
 });

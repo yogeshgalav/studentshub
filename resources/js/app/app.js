@@ -12,6 +12,7 @@ import Dayjs from 'vue-dayjs';
 import ProfileImage from '../components/ProfileImage';
 import NotificationsDropdown from '../components/NotificationsDropdown.vue';
 import VueLazyload from 'vue-lazyload';
+var relativeTime = require('dayjs/plugin/relativeTime');
 
 Vue.use(VueLazyload);
 Vue.use(Dayjs, {
@@ -139,6 +140,7 @@ Vue.mixin({
 			'X-CSRF-TOKEN': this.csrfToken,
 			'X-Requested-With': 'XMLHttpRequest'
 		};
+		this.$dayjs.extend(relativeTime);
 		var prevScrollpos = window.pageYOffset;
 		window.addEventListener('scroll', ()=>{
 			let headerMobile = document.getElementById('mobileNavbar');

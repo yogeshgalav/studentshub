@@ -28,6 +28,9 @@
             <template slot="step2">
               <create-post-content :new-post="newPost" />
             </template>
+            <template slot="step3">
+              <register :create-post="true" />
+            </template>
           </form-wizard>
         </form>
       </div>
@@ -101,17 +104,19 @@ import FormWizard from './VueNiceWizard';
 import CreatePostContent from './create-post/create-post-content';
 import CreatePostDescription from './create-post/create-post-description';
 import swal from '../../components/swal';
+import Register from '../auth/register.vue';
 
 export default {
 	components: {
 		FormWizard,
 		CreatePostContent,
-		CreatePostDescription
+		CreatePostDescription,
+		Register
 	},
 	data() {
 		return {
 			step_data: [],
-			total_steps: 2,
+			total_steps: 3,
 			showLoader:false,
 		};
 	},
@@ -128,7 +133,7 @@ export default {
 				'nextTab': true,
 				'validation': true,
 				'emit': '',
-				'nextText': i===1 ? 'Next' : 'Finish',
+				'nextText': i===1 ? 'Next' : (i===2 ? 'Finish' : 'Register'),
 				'name': 'step' + i,
 				'step': i
 			});
