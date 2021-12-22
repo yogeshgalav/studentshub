@@ -37,7 +37,7 @@
           class="btn-primary btn-md m-0-a"
           @click="nextTab"
         >
-          {{ stepData[stepIndex].nextText ? stepData[stepIndex].nextText : 'Next' }} &nbsp;
+          {{ (stepData[stepIndex] && stepData[stepIndex].nextText) ? stepData[stepIndex].nextText : 'Next' }} &nbsp;
           <span><i
             class="fa fa-arrow-right"
             aria-hidden="true"

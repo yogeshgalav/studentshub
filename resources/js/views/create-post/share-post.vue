@@ -140,8 +140,15 @@ export default {
 			if(true===this.showLoader){
 				return false;
 			}
+      let new_post = this.newPost;
+      if(this.courseId) {
+        new_post = Object.assign({courseId:courseId},this.newPost);
+      }
+      if(this.subjectId) {
+        new_post = Object.assign({subjectId:subjectId},this.newPost);
+      }
 			this.showLoader=true;
-			this.$store.dispatch('submitPost', this.newPost)
+			this.$store.dispatch('submitPost', new_post)
 				.then((resp)=>{
 					this.showLoader=false;
 					swal.successDialog('Post Created', 'Successfully!', 'success');

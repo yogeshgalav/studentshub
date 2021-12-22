@@ -142,6 +142,57 @@
             </div>
           </div>
         </template>
+
+        <template slot="tab-heading-posts">
+          {{ 'Posts' }}
+        </template>
+        <template slot="tab-panel-posts">
+          <div class="row">
+            <div class="col-md-10">
+              <div class="card mb-3 mt-2 pt-0 pb-0">
+                <div class="card-body">
+                  <div class="row pl-3">
+                    <profile-image
+                      size="small"
+                      :user-name="AuthUser.full_name"
+                      :avatar="AuthUser.avatar_url"
+                    />&nbsp;&nbsp;
+                    {{ AuthUser.full_name }}
+                  </div>
+                  <a
+                    :href="'/share-your-knowledge'"
+                  > 
+                    <img
+                      src="/images/knowledge.svg"
+                      alt=""
+                    >&emsp;
+                    Share Your Knowledge &emsp;<span><i
+                      class="fa fa-arrow-right"
+                      aria-hidden="true"
+                    /></span>  
+                  </a>
+                  <profile-image />
+                </div>
+              </div>
+              <div
+                v-if="!posts.length"
+                class="card"
+              >
+                <div class="card-body">
+                  <p>Currently no post have been shared yet to this course.</p>
+                </div>
+              </div>
+              <div v-else>
+                <div
+                  v-for="(post,index) in posts"
+                  :key="index"
+                >
+                  <post-card :post="post" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </template>
       </nav-tabs>
     </div>
   </div>
@@ -160,6 +211,7 @@ export default {
 			institute_name: '',
 			teachers: [],
 			students: [],
+			posts: [],
 			initialTab: 'teachers',
 			tabs: ['teachers','students'],
 			showLoader: false,

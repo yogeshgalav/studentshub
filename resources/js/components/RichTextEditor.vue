@@ -249,10 +249,11 @@ export default {
 		submitUrl(){
 			let quill = this.$refs.editor.quill;
 			const selection = quill.getSelection(); // get position of cursor (index of selection)
+			const cursor_index = selection ? selection.index : (this.content.length);
 			if(this.url_type==='video' && this.isVideoUrlValid()){
-				quill.insertEmbed(selection ? selection.index : 0, 'Youtube', 'https://www.youtube.com/embed/'+ this.video_id);
+				quill.insertEmbed(cursor_index, 'Youtube', 'https://www.youtube.com/embed/'+ this.video_id);
 			}else if(this.url_type==='document'  && this.isDocumentUrlValid()){
-				quill.insertEmbed(selection ? selection.index : 0, 'EmbedDocment', this.document_link);
+				quill.insertEmbed(cursor_index, 'EmbedDocment', this.document_link);
 			}
 			if(!this.url_error){
 				$('#urlModal').modal('hide');

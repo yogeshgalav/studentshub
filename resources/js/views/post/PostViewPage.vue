@@ -150,20 +150,12 @@
               {{ postContent.heading }}
             </h3>
 
-            <div v-if="postContent.post_type === 'article'">
-              <div class="post_s_c">
-                <div class="post_content">
-                  <div class="ql-editor">
-                    <div v-html="postContent.article_content" />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div v-else>
-              <div class="post_s_c">
-                <div class="post_content">
-                  <p>{{ postContent.content }}</p>
-                </div>
+            <div class="post_s_c">
+              <div
+                id="post_content"
+                class="post_content"
+              >
+                <p>{{ postContent.content }}</p>
               </div>
             </div>
             <div v-if="postContent.post_type === 'video'">
@@ -411,10 +403,6 @@
     text-align: center;
     width: 100%;
     margin-top: -25px;
-}
-
-section.single_post {
-    /* padding: -30px 0; */
 }
 
 .s_page_like {
@@ -691,6 +679,20 @@ export default {
 			}else{
 				this.like_active = false;
 			}
+			if(val.article_content){
+				const div = document.createElement('div');
+				div.className = 'font-size-24 ql-editor';
+				div.innerHTML = val.article_content;
+				let iframe_tags = div.getElementsByTagName('iframe');
+				Array.from(iframe_tags).forEach(el => { 
+					let p_tag = document.createElement('p');
+					p_tag.className = 'ql-align-center video-container';
+					const el2 = el.cloneNode(true);
+					p_tag.appendChild(el2);
+					div.replaceChild(p_tag, el);
+				});
+				document.getElementById('post_content').appendChild(div);
+			}		
 		}
 	},
 	computed: {
