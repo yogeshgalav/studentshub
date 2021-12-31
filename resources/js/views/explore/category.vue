@@ -124,6 +124,7 @@ export default {
 		SiteFooter,
 		NavTabs, PostCard
 	},
+	props:['categoryId'],
 	data() {
 		return {
 			posts: [],
@@ -139,9 +140,8 @@ export default {
 		};
 	},
 	mounted() {
-		console.log(this.$route.params.url);
 		this.axios
-			.get('/api/get-category-details/' + this.$route.params.url)
+			.get('/api/category/' + this.categoryId)
 			.then(resp => {
 				this.category_name = resp.data.success.category.name;
 				this.posts = resp.data.success.posts.data;

@@ -62,17 +62,20 @@ class GuestController extends Controller
         }
         return view('guest.post-view');
     }
-    public function coursePage()
+    public function coursePage($course_url)
     {
-        return view('explore.course');
+        $course = \App\Models\Course::where('course_url', $course_url)->findOrFail();
+        return view('explore.course')->with('courseId',$course->id);
     }
-    public function subjectPage()
+    public function subjectPage($subject_url)
     {
-        return view('explore.subject');
+        $subject = \App\Models\Subject::where('subject_url', $subject_url)->findOrFail();
+        return view('explore.subject')->with('subjectId',$subject->id);
     }
-    public function categoryPage()
+    public function categoryPage($category_url)
     {
-        return view('explore.category');
+        $category = \App\Models\Category::where('category_url', $category_url)->findOrFail();
+        return view('explore.category')->with('categoryId',$category->id);
     }
     public function postImage($filename)
     {

@@ -32,36 +32,74 @@
                       href="/account-settings"
                     ><i class="fas fa-edit" /></a>
                   </h3>
-                  <p>{{ user.introduction }}</p>
-                  <p v-if="!user.introduction && user.id===AuthUser.id">
-                    Write Something about yourself. What are your hobbies.
-                    What field are you most interested in.Which is your favriout subject.
-                    Why do you love it and what motivates you to pursue it.
+                  <p
+                    v-if="user.role_intended==='student'"
+                    class="text-grey"
+                  >
+                    Student at
+                  </p>
+                  <p
+                    v-else-if="user.role_intended==='teacher'"
+                    class="text-grey"
+                  >
+                    Teacher at
+                  </p>
+                  <p
+                    v-else-if="user.role_intended==='institute_admin'"
+                    class="text-grey"
+                  >
+                    Admin at
+                  </p>
+                  <p
+                    v-if="user.preferred_institute_name"
+                  >
+                    {{ user.preferred_institute_name }}
+                  </p>
+                  <p
+                    v-if="user.preferred_course_name"
+                  >
+                    {{ user.preferred_course_name }}
                   </p>
                 </div>
-                <div class="user_social_links">
-                  <div class="user_social_link_left">
-                    <span><a
-                      :href="user.fb_url ? user.fb_url :'#'"
-                      :disabled="user.fb_url ? false:true"
-                      target="_blank"
-                    ><i class="fab fa-facebook-f" /></a></span>
-                    <span><a
-                      :href="user.insta_url ? user.fb_url :'#'"
-                      :disabled="user.fb_url ? false:true"
-                      target="_blank"
-                    ><i class="fab fa-instagram" /></a></span>
-                    <span><a
-                      :href="user.linkedin_url ? user.fb_url :'#'"
-                      :disabled="user.fb_url ? false:true"
-                      target="_blank"
-                    ><i class="fab fa-linkedin" /></a></span>
-                    <span><a
-                      :href="user.email ? 'mailto:'+user.email :'#'"
-                      :disabled="user.fb_url ? false:true"
-                      target="_blank"
-                    ><i class="fa fa-envelope" /></a></span>
-                  </div>
+                <div class="col-md-12 text-center mb-2 mt-2">
+                  <ul class="social-network social-circle">
+                    <li>
+                      <a
+                        target="_blank"
+                        :href="user.insta_url ? ('https://instagram.com/'+user.insta_url) :'#'"
+                        :disabled="user.insta_url ? false:true"
+                        class="icoInstagram"
+                        title="Instagram"
+                      ><i class="fab fa-instagram" /></a>
+                    </li>
+                    <li>
+                      <a
+                        target="_blank"
+                        :href="user.fb_url ? user.fb_url :'#'"
+                        :disabled="user.fb_url ? false:true"
+                        class="icoFacebook"
+                        title="Facebook"
+                      ><i class="fab fa-facebook-f" /></a>
+                    </li>
+                    <li>
+                      <a
+                        :href="user.linkedin_url ? user.linkedin_url :'#'"
+                        :disabled="user.linkedin_url ? false:true"
+                        target="_blank"
+                        class="icoLinkedin"
+                        title="Linkedin"
+                      ><i class="fab fa-linkedin" /></a>
+                    </li>
+                    <li>
+                      <a
+                        target="_blank"
+                        :href="user.email ? 'mailto:'+user.email :'#'"
+                        :disabled="user.email ? false:true"
+                        class="icoInstagram"
+                        title="Email"
+                      ><i class="fa fa-envelope" /></a>
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>

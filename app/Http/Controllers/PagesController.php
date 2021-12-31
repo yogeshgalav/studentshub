@@ -74,16 +74,6 @@ class PagesController extends Controller
             ->with('course_levels', $course_levels);
     }
 
-    public function profile($profileId)
-    {
-        $user = \App\Models\User::where('users.id', $profileId)
-            ->leftJoin('user_profiles as up', 'up.user_id', '=', 'users.id')
-            ->select('up.*', 'users.id', 'users.full_name', 'users.email', 'users.avatar_url')
-            ->with(['preferredCourse','preferredInstitute'])
-            ->first();
-        return view('profile.profile')->with('user', $user);
-    }
-
     public function classroomList()
     {
         return view('student.classroomList');
@@ -109,9 +99,19 @@ class PagesController extends Controller
     {
         return view('guest.auth.register');
     }
-    public function sharePost()
+    public function sharePost(Request $request)
     {
-        return view('create-post.share-post');
+        if($request->cId){
+            $courseInfo = \App\Models\Course::find($request->cId);
+        }
+        if($request->sId){
+            $subjectInfo = \App\Models\Subject::find($request->sId);
+        }
+        return view('create-post.share-post')
+        ->with([
+            'courseInfo' => isset($courseInfo) ? $courseInfo : null,
+            'subjectInfo' => isset($subjectInfo) ? $subjectInfo : null,
+        ]);
     }
     public function viewPost()
     {

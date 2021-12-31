@@ -46,9 +46,9 @@ import NavTabs from '../../components/NavTabs';
 import PostCard from '../post/PostCard';
 export default {
 	components: {
-		SiteFooter,
 		NavTabs, PostCard
 	},
+	props:['courseId'],
 	data() {
 		return {
 			posts: [],
@@ -61,9 +61,8 @@ export default {
 		};
 	},
 	mounted() {
-		console.log(this.$route.params.url);
 		this.axios
-			.get('/api/get-course-details/' + this.$route.params.url)
+			.get('/api/course/' + this.courseId)
 			.then(resp => {
 				this.courses_name = resp.data.success.category.courses.course_name;
 				this.posts = resp.data.success.posts.data;

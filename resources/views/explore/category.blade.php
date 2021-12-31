@@ -1,4 +1,4 @@
 @extends('explore.app')
 @section('content')
-<router-view></router-view>
+<router-view :categoryId="{{ json_encode($categoryId) }}"></router-view>
 @endsection

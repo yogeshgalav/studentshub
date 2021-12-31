@@ -108,6 +108,7 @@ export default {
 		CreatePostContent,
 		CreatePostDescription
 	},
+	props:['courseInfo', 'subjectInfo'],
 	data() {
 		return {
 			step_data: [],
@@ -134,21 +135,18 @@ export default {
 			});
 		}
 		this.$store.dispatch('getCategories');
+		this.$store.commit('intitalizePost',{
+			courseInfo:this.courseInfo,
+			subjectInfo:this.subjectInfo
+		});
 	},
 	methods: {
 		onComplete() {
 			if(true===this.showLoader){
 				return false;
 			}
-      let new_post = this.newPost;
-      if(this.courseId) {
-        new_post = Object.assign({courseId:courseId},this.newPost);
-      }
-      if(this.subjectId) {
-        new_post = Object.assign({subjectId:subjectId},this.newPost);
-      }
 			this.showLoader=true;
-			this.$store.dispatch('submitPost', new_post)
+			this.$store.dispatch('submitPost', this.new_post)
 				.then((resp)=>{
 					this.showLoader=false;
 					swal.successDialog('Post Created', 'Successfully!', 'success');

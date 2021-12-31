@@ -179,7 +179,7 @@
                 class="card"
               >
                 <div class="card-body">
-                  <p>Currently no post have been shared yet to this course.</p>
+                  <p>Currently no post have been shared yet to this institute.</p>
                 </div>
               </div>
               <div v-else>
@@ -201,10 +201,11 @@
 <script>
 import NavTabs from '../../components/NavTabs';
 import SelectInstitute from '../../components/SelectInstitute.vue';
+import PostCard from '../post/PostCard';
 
 export default {
 	components: {
-		NavTabs, SelectInstitute
+		NavTabs, PostCard, SelectInstitute
 	},
 	data() {
 		return {
@@ -213,7 +214,7 @@ export default {
 			students: [],
 			posts: [],
 			initialTab: 'teachers',
-			tabs: ['teachers','students'],
+			tabs: ['teachers','students','posts'],
 			showLoader: false,
 			selected_institute : {
 				'id': null,
@@ -240,6 +241,7 @@ export default {
 				this.teachers = resp.data.success.teachers;
 				this.institute_name = resp.data.success.institute.name;
 				this.students = resp.data.success.students;
+				this.posts = resp.data.success.posts;
 				this.$forceUpdate();
 			});
 	},

@@ -1,4 +1,13 @@
 export default {
+	intitalize_post(state,data){
+		if(data.courseInfo){
+			state.selected_course=data.courseInfo;
+			state.new_post.course_id=data.courseInfo.id;	
+		}
+		if(data.subjectInfo){
+			state.new_post.selected_subjects=[data.subjectInfo];
+		}
+	},
 	set_new_user_data(state,data){
 		state.full_name = data.full_name;      
 		state.email = data.email;

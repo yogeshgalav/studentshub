@@ -52,6 +52,16 @@ class Post extends PostModel
 
         return $this->formatPostData($posts);
     }
+    public function getInstitutePosts($institute_id){
+        $post_query=$this->getAuthUserPostTabels();
+
+        $posts=$post_query->where('inst.id',$institute_id)
+        ->orderBy('po.created_at','DESC')
+        ->paginate();
+
+        return $this->formatPostData($posts);
+    }
+    
     public function getSearchPosts(Request $request){
         $post_query=$this->getAuthUserPostTabels();
 
@@ -94,12 +104,6 @@ class Post extends PostModel
         })
         ->leftJoin('videos as vd',function($join){
             $join->on('po.postable_id','=','vd.id')->where('po.postable_type','=','App\Models\Video');
-        })
-        ->leftJoin('facts as fc',function($join){
-            $join->on('po.postable_id','=','fc.id')->where('po.postable_type','=','App\Models\Fact');
-        })
-        ->leftJoin('documents as do',function($join){
-            $join->on('po.postable_id','=','do.id')->where('po.postable_type','=','App\Models\Document');
         })
         ->leftJoin('categories as cat','cat.id','=','po.category_id')
         ->leftJoin('users as us','us.id','=','po.user_id')

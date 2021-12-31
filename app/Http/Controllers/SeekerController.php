@@ -20,8 +20,12 @@ class SeekerController extends Controller
     {
         $user = \App\Models\User::where('users.id', $profileId)
             ->leftJoin('user_profiles as up', 'up.user_id', '=', 'users.id')
-            ->select('up.*', 'users.id', 'users.full_name', 'users.email', 'users.avatar_url')
+            ->leftJoin('institutes as in', 'in.id', '=', 'users.preferred_institute_id')
+            ->leftJoin('courses as co', 'co.id', '=', 'users.preferred_course_id')
+            ->select('up.*', 'users.id', 'users.full_name', 'users.email', 'users.avatar_url',
+            'in.name as preferred_institute_name', 'co.course_name as preferred_course_name')
             ->first();
+            
         return view('profile.profile')->with('user', $user);
     }
     public function educationDetail()

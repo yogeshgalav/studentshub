@@ -18,7 +18,7 @@
             <div class="sh_kn">
               <img src="/images/noun_knowledge.svg">
               <h4>Share Your Knowledge</h4>
-              <a href="/share-your-knowledge">Get Started</a>
+              <a :href="'/share-your-knowledge?sId='+subjectId">Get Started</a>
             </div>
           </div>
         </div>
@@ -49,6 +49,7 @@ export default {
 		SiteFooter,
 		NavTabs, PostCard
 	},
+	props:['subjectId'],
 	data() {
 		return {
 			posts: [],
@@ -61,9 +62,8 @@ export default {
 		};
 	},
 	mounted() {
-		console.log(this.$route.params.url);
 		this.axios
-			.get('/api/get-subject-details/' + this.$route.params.url)
+			.get('/api/subject/' + this.subjectId)
 			.then(resp => {
 				this.subject_name = resp.data.success.subject.subject_name;
 				this.posts = resp.data.success.posts.data;

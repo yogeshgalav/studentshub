@@ -1,4 +1,4 @@
 @extends('explore.app')
 @section('content')
-<router-view></router-view>
+<router-view :courseId="{{ json_encode($courseId) }}"></router-view>
 @endsection

@@ -103,6 +103,19 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="model_input">
+                  <label>Instagram Username</label>
+                  <input
+                    v-model="profile_data.insta_url"
+                    class="form-control"
+                    type="text"
+                    placeholder="Instagram Username"
+                    @input="dataUpdated"
+                  >
+                  <span class="text-danger">{{ errors.insta_url }}</span>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="model_input">
                   <label>Facebook Profile Url</label>
                   <input
                     v-model="profile_data.fb_url"
@@ -112,19 +125,6 @@
                     @input="dataUpdated"
                   >
                   <span class="text-danger">{{ errors.fb_url }}</span>
-                </div>
-              </div>
-              <div class="col-md-12">
-                <div class="model_input">
-                  <label>Instagram Profile Url</label>
-                  <input
-                    v-model="profile_data.insta_url"
-                    class="form-control"
-                    type="text"
-                    placeholder="http://instagram.com/username"
-                    @input="dataUpdated"
-                  >
-                  <span class="text-danger">{{ errors.insta_url }}</span>
                 </div>
               </div>
               <div class="col-md-12">
@@ -296,8 +296,8 @@ export default {
 				this.errors.fb_url='This is not valid Facebook url.';
 				return false;
 			}
-			if(this.profile_data.insta_url && !this.profile_data.insta_url.includes('instagram.com')){
-				this.errors.insta_url='This is not valid Instagram url.';
+			if(this.profile_data.insta_url && !this.profile_data.insta_url.match(/^[a-zA-Z0-9_.]*$/g)){
+				this.errors.insta_url='This is not valid Instagram username.';
 				return false;
 			}
 			if(this.profile_data.linked_url &&!this.profile_data.linked_url.includes('linkedin.com')){

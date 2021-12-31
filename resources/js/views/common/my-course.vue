@@ -78,7 +78,7 @@
                     {{ AuthUser.full_name }}
                   </div>
                   <a
-                    :href="'/share-your-knowledge?courseId='+AuthUser.preferred_course_id"
+                    :href="'/share-your-knowledge?cId='+AuthUser.preferred_course_id"
                   > 
                     <img
                       src="/images/knowledge.svg"

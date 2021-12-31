@@ -58,6 +58,22 @@
               @tags-changed="newTags => tags = newTags"
             />
           </div>
+          <div
+            v-if="newPost.course_id"
+            class="form-group"
+          >
+            <label class="weight-500">Course</label>
+            <div class="">
+              <input
+                id="course_name"
+                :value="selected_course.course_name"
+                disabled
+                name="course_name"
+                type="text"
+                class="form-control"
+              >
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -146,7 +162,8 @@ export default {
 	},
 	computed: {
 		...mapState({
-			categories: state => state.categories
+			categories: state => state.categories,
+			selected_course: state => state.selected_course
 		}),
 		filteredItems() {
 			return this.subject_list.filter(i => {
