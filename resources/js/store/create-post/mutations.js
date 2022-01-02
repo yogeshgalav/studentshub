@@ -1,5 +1,5 @@
 export default {
-	intitalize_post(state,data){
+	intialize_post(state,data){
 		if(data.courseInfo){
 			state.selected_course=data.courseInfo;
 			state.new_post.course_id=data.courseInfo.id;	

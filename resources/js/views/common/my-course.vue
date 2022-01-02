@@ -89,7 +89,6 @@
                       aria-hidden="true"
                     /></span>  
                   </a>
-                  <profile-image />
                 </div>
               </div>
               <div

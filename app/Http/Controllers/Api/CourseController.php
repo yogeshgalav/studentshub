@@ -28,7 +28,7 @@ class CourseController extends Controller
         return response()->json(['success'=>[
             'posts'=>\Sthub::convert_from_latin1_to_utf8_recursively($posts),
             'course'=>$course,
-            'subjects'=>$course->subjects()->get(),
+            'subjects'=>$course->subjects()->where('is_verified',1)->get(),
         ]]);
     }
 

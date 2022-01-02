@@ -1,7 +1,7 @@
 @extends('create-post.app')
 @section('content')
 <share-post
-:courseInfo="{{ $courseInfo ? json_encode($courseInfo) : null }}"
-:subjectInfo="{{ $subjectInfo ? json_encode($subjectInfo) : null }}"
+:course-info="{{ json_encode($courseInfo) }}"
+:subject-info="{{ json_encode($subjectInfo) }}"
 ></share-post>
 @endsection

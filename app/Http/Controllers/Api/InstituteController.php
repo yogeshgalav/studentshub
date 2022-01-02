@@ -52,7 +52,7 @@ class InstituteController extends Controller
         ->with('preferredCourse')
         ->get();
 
-        $posts = \App\Post::getInstitutePostst();
+        $posts =(new \App\Post)->getInstitutePosts($institute->id);
 
         return response()->json(['success'=>[
             'institute'=>$institute,

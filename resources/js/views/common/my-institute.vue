@@ -171,7 +171,6 @@
                       aria-hidden="true"
                     /></span>  
                   </a>
-                  <profile-image />
                 </div>
               </div>
               <div
@@ -241,7 +240,7 @@ export default {
 				this.teachers = resp.data.success.teachers;
 				this.institute_name = resp.data.success.institute.name;
 				this.students = resp.data.success.students;
-				this.posts = resp.data.success.posts;
+				this.posts = resp.data.success.posts.data;
 				this.$forceUpdate();
 			});
 	},

@@ -113,10 +113,10 @@ class Post extends PostModel
         // });
         $columns = ['po.id as id','po.post_heading as heading','po.post_description as description','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','po.primary_image_path as image_path',
         'us.avatar_url as profile_image','us.id as user_id','us.full_name as user_name','inst.name as institute_name','ar.html_content as article_content',
-        'vd.video_id as video_id','fc.image_path as fact_image_path','do.link as document_link'];
+        'vd.video_id as video_id'];
         $groupBycolumns = ['po.id','po.post_heading','po.post_description','po.postable_type','cat.name','cat.id','po.primary_image_path',
         'us.avatar_url','us.id','us.full_name','inst.name','ar.html_content',
-        'vd.video_id','fc.image_path','do.link'];
+        'vd.video_id'];
 
         if(Auth::check()){
             $post_query->leftJoin('likes as uli',function($join){

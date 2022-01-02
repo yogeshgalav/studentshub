@@ -113,9 +113,19 @@ class StudentController extends Controller
     }
         return redirect('/classroom/'.$request->classroom_id.'/daily-assignment');
     }
-    public function sharePost()
+    public function sharePost(Request $request)
     {
-        return view('create-post.share-post');
+        if($request->cId){
+        $courseInfo = \App\Models\Course::find($request->cId);
+        }
+        if($request->sId){
+            $subjectInfo = \App\Models\Subject::find($request->sId);
+        }
+        return view('create-post.share-post')
+        ->with([
+            'courseInfo' => isset($courseInfo) ? $courseInfo : null,
+            'subjectInfo' => isset($subjectInfo) ? $subjectInfo : null,
+        ]);
     }
     public function editPost(Post $post)
     {
