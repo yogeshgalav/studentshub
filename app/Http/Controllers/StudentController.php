@@ -131,19 +131,6 @@ class StudentController extends Controller
         $post_details = $post->load(['category','subjects','postable']);
         return inertia('create-post/edit-post', ['post' => $post_details]);
     }
-    public function classroomList()
-    {
-        return inertia('classroom/classroom-list');
-    }
-
-    public function classroom()
-    {
-        if(Auth::user()->role_intended==='student'){
-            return inertia('classroom/student/menu');
-        }
-        
-        return inertia('classroom/teacher/menu');
-    }
 
     public function myCoursePage(){
         return inertia('common/my-course');

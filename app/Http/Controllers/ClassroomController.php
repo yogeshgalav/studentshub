@@ -18,7 +18,7 @@ class ClassroomController extends Controller
         $classroom=Classroom::findOrFail($classroomId);
 
         if(Auth::user()->can('update', $classroom)){
-            return view('classroom.classroom');
+            return inertia('classroom/teacher/menu');
         }
 
         $daily_assignment=\App\Models\DailyAssignment::where('attempt_date','=',now(Auth::user()->timezone)->toDateString())
@@ -34,73 +34,58 @@ class ClassroomController extends Controller
         }
 
         if($daily_assignment && $daily_assignment->isCurrentlyAvailable() && empty($daily_report)){
-            return view('student-panel.daily-attempt')
-            ->with('nocache',true)
-            ->with('daily_assignment',$daily_assignment);
+            return inertia('student/daily-attempt', [
+                'dailyAssignment' => $daily_assignment
+            ]);
         }
 
-        return view('student-panel.my-panel');
+        return inertia('classroom/student/menu');
     }
 
     public function classroomOverviewPage($classroomId){
         $classroom=Classroom::findOrFail($classroomId);
 
         if(Auth::user()->can('update', $classroom)){
-            return view('classroom.overview');
+            return inertia('classroom/teacher/overview');
         }
 
-        return view('student-panel.overview');
+        return inertia('classroom/student/overview');
     }
     public function classroomSetupPage($classroomId){
         $classroom=Classroom::findOrFail($classroomId);
 
-        return view('classroom.classroom-setup');
+        return inertia('classroom/teacher/unit-plan');
     }
 
     public function classroomAttendancePage($classroomId){
         $classroom=Classroom::findOrFail($classroomId);
 
         if(Auth::user()->can('update', $classroom)){
-            return view('classroom.classroom-attendance-page');
+            return inertia('classroom/teacher/attendance');
         }
 
-        return view('student-panel.classroom-attendance-page');
-    }
-    public function classroomUnitAssignmentPage($classroomId){
-        $classroom=Classroom::findOrFail($classroomId);
-
-        if(Auth::user()->can('update', $classroom)){
-            return view('classroom.classroom-unit-assignment');
-        }
-
-        return view('student-panel.classroom-unit-assignment');
+        return inertia('classroom/student/attendance');
     }
     public function classroomDailyAssignmentPage($classroomId){
         $classroom=Classroom::findOrFail($classroomId);
 
-        if($classroom->teacher_user_id===Auth::user()->id){
-            return view('classroom.classroom-daily-assignment');
+        if(Auth::user()->can('update', $classroom)){
+            return inertia('classroom/teacher/daily-assignment');
         }
 
-        // $is_classroom_student=ClassroomUser::where('user_id',Auth::id())
-        // ->where('classroom_id',$classroom->id)->where('joined_at','!=',null)->exists();
-        return view('student-panel.daily-assignment');
+        return inertia('classroom/student/daily-assignment');
     }
     public function classroomStudentPage($classroomId){
         $classroom = Classroom::findOrFail($classroomId);
-        return view('classroom.classroom-student-details')->with(['classroom'=>$classroom] );
-    }
-
-    public function unitAttemptPage(){
-        return view('student-panel.unit-attempt');
+        return inertia('classroom/teacher/student-panel',['classroom'=>$classroom]);
     }
 
     public function studentPanelPage($classroom_id,$user_id=null){
         if($user_id){
-            return view('classroom.student-panel');
+            return inertia('classroom/teacher/student-panel');
         }
 
-        return view('student-panel.my-panel');
+        return inertia('classroom/student/my-report');
     }
 
     public function createClassroomPage(Request $request){
@@ -121,31 +106,29 @@ class ClassroomController extends Controller
             abort(403);
         }
 
-        return view('classroom.create-classroom')
+        return inertia('classroom/teacher/create')
         ->with('institute_list',$institute_list)
         ->with('course_levels',$course_levels);
     }
-    public function classroomListPage(){
-        // $classroom_list = DB::table('classrooms as cs')
-        // //->join('batches as bt','bt.id','=','cs.batch_id')
-        // ->join('courses as co','co.id','=','cs.course_id')
-        // ->join('subjects as su','su.id','=','cs.subject_id')
-        // ->join('users as us','us.id','=','cs.teacher_user_id')
-        // ->select('cs.id','cs.name','co.course_name','su.subject_name','su.alias as subject_alias','us.id as user_id','us.full_name as teacher_name')
-        // ->whereIn('cs.id',Auth::user()->getClassroomIds())
-        // ->get();
+    public function classroomList()
+    {
+        return inertia('classroom/classroom-list');
+    }
 
-        return view('classroom.classroom-list');
-        // ->with([
-        //     'classroomList'=>$classroom_list,
-        // ]);
+    public function classroom()
+    {
+        if(Auth::user()->role_intended==='student'){
+            return inertia('classroom/student/menu');
+        }
+        
+        return inertia('classroom/teacher/menu');
     }
 
     public function classroomResoucePage(){
-        return view('classroom.resources');
+        return inertia('classroom/resources');
     }
     public function classroomMessagePage(){
-        return view('classroom.messages');
+        return inertia('classroom/messages');
     }
 
 
@@ -157,7 +140,9 @@ class ClassroomController extends Controller
         ->select('cl.id','cl.name')
         ->get();
 
-        return view('student-panel.my-reports')->with('classrooms',$classrooms);
+        return inertia('classroom/student/my-reports',[
+            'classrooms' => $classrooms
+        ]);
     }
 
     public function GlobalMessagePage(){
@@ -173,19 +158,19 @@ class ClassroomController extends Controller
         ->select('classrooms.id','classrooms.name')
         ->get();
 
-        return view('classroom.global-messages')
+        return inertia('classroom/student/global-messages')
         ->with('classrooms',$classrooms);
     }
     public function classmates()
     {
-        return view('classroom.classmates');
+        return inertia('classroom/student/classmates');
     }
     public function indexHomework()
     {
-        return view('classroom.index-homework');
+        return inertia('classroom/index-homework');
     }
     public function showHomework()
     {
-        return view('classroom.show-homework');
+        return inertia('classroom/show-homework');
     }
 }
