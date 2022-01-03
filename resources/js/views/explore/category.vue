@@ -61,7 +61,7 @@
           :post-route="'/category/'+categoryId"
         >
           <template slot="empty">
-            Currently no post have been shared related to this subject.
+            Currently no post have been shared related to this category.
           </template>
         </PostContainer>
       </template>

@@ -15,7 +15,7 @@
           :post-route="'/course/'+courseId"
         >
           <template slot="empty">
-            Currently no post have been shared related to this subject.
+            Currently no post have been shared in this course.
           </template>
         </PostContainer>
       </template>
