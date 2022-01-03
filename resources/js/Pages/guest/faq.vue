@@ -98,19 +98,17 @@
         </div>
       </form>
     </div>
-    <site-footer />
   </main>
 </template>
 
 
 <script>
 import FormMixin from '../../components/mixins/form-mixin.js';
-import SiteFooter from '../footer/SiteFooter';
+import GuestLayout from '@/Layouts/GuestLayout.vue';
+
 export default {
 	name: 'Faq',
-	components: {
-		SiteFooter,
-	},
+    layout: GuestLayout,
 	mixins: [FormMixin],
 	props: {
 		faqs:{

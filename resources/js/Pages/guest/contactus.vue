@@ -133,7 +133,7 @@
       <div class="col-md-12">
         <div class="divider mt-5" />
       </div>
-      <site-footer />
+ 
     </main>
   </div>
 </template>
@@ -201,12 +201,11 @@ hr {
 </style>
 <script>
 import FormMixin from '../../components/mixins/form-mixin.js';
-import SiteFooter from '../footer/SiteFooter';
+import GuestLayout from '@/Layouts/GuestLayout.vue';
+
 export default {
 	name: 'Contactus',
-	components: {
-		SiteFooter
-	},
+  layout: GuestLayout,
 	mixins: [FormMixin],
 	data() {
 		return {

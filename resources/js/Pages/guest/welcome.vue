@@ -138,7 +138,6 @@
         </div>
       </div>
     </div>
-    <site-footer />
   </main>
 </template>
 <style scoped>
@@ -237,14 +236,13 @@ h1 {
 import {mapState} from 'vuex';
 import CategoryFilter from '../category/CategoryFilter';
 import ExploreCarousalPost from '../post-containers/ExploreCarousalPost';
-import SiteFooter from '../footer/SiteFooter';
-
+import GuestLayout from '@/Layouts/GuestLayout.vue';
 
 export default {
+  layout: GuestLayout,
 	components: {
 		CategoryFilter,
 		ExploreCarousalPost,
-		SiteFooter
 	},
 	computed:{
 		...mapState({

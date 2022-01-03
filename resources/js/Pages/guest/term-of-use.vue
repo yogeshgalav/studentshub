@@ -36,3 +36,10 @@
     <p>These terms and conditions are governed by and construed in accordance with the laws of India and you irrevocably submit to the exclusive jurisdiction of the courts in that State or location.</p>
   </div>
 </template>
+<script>
+import GuestLayout from '@/Layouts/GuestLayout.vue';
+
+export default {
+  layout: GuestLayout,
+}
+</script>

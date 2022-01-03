@@ -366,7 +366,6 @@
         </form>
       </div>
     </div>
-    <site-footer />
   </div>
 </template>
 
@@ -402,13 +401,13 @@
 import FormMixin from '../../components/mixins/form-mixin.js';
 import swal from '../../components/swal';
 import Modal from '../../components/VueNiceModal.vue';
-import SiteFooter from '../footer/SiteFooter';
 import {VueTelInput} from 'vue-tel-input';
 import 'vue-tel-input/dist/vue-tel-input.css';
+import GuestLayout from '@/Layouts/GuestLayout.vue';
 
 export default {
+  layout: GuestLayout,
 	components: {
-		SiteFooter,
 		VueTelInput
 	},
 	mixins: [FormMixin],

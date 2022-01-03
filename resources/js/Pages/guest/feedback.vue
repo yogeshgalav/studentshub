@@ -76,7 +76,6 @@
         </div>
       </form>
     </div>
-    <site-footer />
   </main>
 </template>
 
@@ -92,14 +91,13 @@ input{
 
 <script>
 import FormMixin from '../../components/mixins/form-mixin';
-import SiteFooter from '../footer/SiteFooter';
+import GuestLayout from '@/Layouts/GuestLayout.vue';
+
 export default {
-	components: {
-		SiteFooter,
-	},
 	mixins: [
 		FormMixin
 	],
+  layout: GuestLayout,
 	data() {
 		return {
 			email:'',

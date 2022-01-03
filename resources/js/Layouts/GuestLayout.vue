@@ -4,7 +4,7 @@
       <Navbar />
     </div>
 
-    <slot name="content" />
+    <slot />
 
     <SiteFooter />
   </main>
