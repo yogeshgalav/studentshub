@@ -56,35 +56,16 @@
         {{ 'Posts' }}
       </template>
       <template slot="tab-panel-posts">
-        <div
-          v-if="!posts.length"
-          class="row"
+        <PostContainer
+          v-if="categoryId"
+          :post-route="'/category/'+categoryId"
         >
-          <div class="col-md-5 center-col">
-            <div class="sh_kn">
-              <img src="/images/noun_knowledge.svg">
-              <h4>Share Your Knowledge</h4>
-              <a href="/share-your-knowledge">Get Started</a>
-            </div>
-          </div>
-        </div>
-        <div
-          v-else
-          class="row"
-        >
-          <div class="col-md-5 center-col">
-            <div
-              v-for="(post,index) in posts"
-              :key="index"
-            >
-              <post-card :post="post" />
-            </div>
-          </div>
-        </div>
+          <template slot="empty">
+            Currently no post have been shared related to this subject.
+          </template>
+        </PostContainer>
       </template>
     </nav-tabs>
-    <hr>
-    <site-footer />
   </div>
 </template>
 <style>
@@ -116,13 +97,12 @@
 }
 </style>
 <script>
-import SiteFooter from '../footer/SiteFooter';
 import NavTabs from '../../components/NavTabs';
-import PostCard from '../post/PostCard';
+import PostContainer from '../common/PostContainer';
+
 export default {
 	components: {
-		SiteFooter,
-		NavTabs, PostCard
+		NavTabs, PostContainer
 	},
 	props:['categoryId'],
 	data() {

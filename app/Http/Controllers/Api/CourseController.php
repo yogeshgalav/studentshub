@@ -22,11 +22,7 @@ class CourseController extends Controller
             abort(404);
         }
 
-        $post=new \App\Post;
-        $posts = $post->getCoursePosts($course->id);
-
         return response()->json(['success'=>[
-            'posts'=>\Sthub::convert_from_latin1_to_utf8_recursively($posts),
             'course'=>$course,
             'subjects'=>$course->subjects()->where('is_verified',1)->get(),
         ]]);

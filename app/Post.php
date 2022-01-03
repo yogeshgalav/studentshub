@@ -11,56 +11,6 @@ use PHPHtmlParser\Dom;
 
 class Post extends PostModel
 {
-
-    public function getUserPosts($userId){
-        $post_query=$this->getAuthUserPostTabels();
-
-        $posts=$post_query->where('po.user_id',$userId)
-        ->orderBy('po.created_at','DESC')
-        ->paginate();
-
-        return $this->formatPostData($posts);
-    }
-
-    public function getSubjectPosts($subject_id){
-        $post_query=$this->getAuthUserPostTabels();
-
-        $posts=$post_query->where('sub.id',$subject_id)
-        ->orderBy('po.created_at','DESC')
-        ->paginate();
-
-        return $this->formatPostData($posts);
-    }
-
-    public function getCategoryPosts($category_id){
-        $post_query=$this->getAuthUserPostTabels();
-
-        $posts=$post_query->where('cat.id',$category_id)
-        ->orderBy('po.created_at','DESC')
-        ->paginate();
-
-        return $this->formatPostData($posts);
-    }
-    public function getCoursePosts($course_id){
-        $post_query=$this->getAuthUserPostTabels();
-
-        $posts=$post_query->leftJoin('post_tags as pt','pt.post_id','=','po.id')
-        ->leftJoin('course_subjects as cosub','pt.subject_id','=','cosub.subject_id')
-        ->where('cosub.course_id',$course_id)
-        ->orderBy('po.created_at','DESC')
-        ->paginate();
-
-        return $this->formatPostData($posts);
-    }
-    public function getInstitutePosts($institute_id){
-        $post_query=$this->getAuthUserPostTabels();
-
-        $posts=$post_query->where('inst.id',$institute_id)
-        ->orderBy('po.created_at','DESC')
-        ->paginate();
-
-        return $this->formatPostData($posts);
-    }
     
     public function getSearchPosts(Request $request){
         $post_query=$this->getAuthUserPostTabels();
@@ -71,7 +21,7 @@ class Post extends PostModel
         ->orWhere('cat.name','LIKE','%'.$request->input('searchTerm').'%')
         ->orWhere('po.post_heading','LIKE','%'.$request->input('searchTerm').'%')
         ->orderBy('po.created_at','DESC')
-        ->paginate();
+        ->limit(10)->get();
 
         return $this->formatPostData($posts);
     }
@@ -83,15 +33,6 @@ class Post extends PostModel
         })
         ->orderBy('po.created_at','DESC')
         ->get();
-
-        return $this->formatPostData($posts);
-    }
-
-    public function getAuthUserPosts(Request $request){
-
-        $posts=$this->getAuthUserPostTabels()
-        ->orderBy('po.created_at','DESC')
-        ->paginate();
 
         return $this->formatPostData($posts);
     }

@@ -10,48 +10,30 @@
         {{ 'Posts' }}
       </template>
       <template slot="tab-panel-posts">
-        <div
-          v-if="!posts.length"
-          class="row"
+        <PostContainer
+          v-if="courseId"
+          :post-route="'/course/'+courseId"
         >
-          <div class="col-md-5 center-col">
-            <div class="sh_kn">
-              <img src="/images/noun_knowledge.svg">
-              <h4>Be the first person to share post for this course.</h4>
-              <a href="/share-your-knowledge">Get Started</a>
-            </div>
-          </div>
-        </div>
-        <div
-          v-else
-          class="row"
-        >
-          <div class="col-md-5 center-col">
-            <div
-              v-for="(post,index) in posts"
-              :key="index"
-            >
-              <post-card :post="post" />
-            </div>
-          </div>
-        </div>
+          <template slot="empty">
+            Currently no post have been shared related to this subject.
+          </template>
+        </PostContainer>
       </template>
     </nav-tabs>
   </div>
 </template>
 <style scoped></style>
 <script>
-import SiteFooter from '../footer/SiteFooter';
 import NavTabs from '../../components/NavTabs';
-import PostCard from '../post/PostCard';
+import PostContainer from '../common/PostContainer';
+
 export default {
 	components: {
-		NavTabs, PostCard
+		NavTabs, PostContainer
 	},
 	props:['courseId'],
 	data() {
 		return {
-			posts: [],
 			initialTab: 'posts',
 			tabs: ['posts'],
 			course_name: '',
@@ -65,7 +47,6 @@ export default {
 			.get('/api/course/' + this.courseId)
 			.then(resp => {
 				this.courses_name = resp.data.success.category.courses.course_name;
-				this.posts = resp.data.success.posts.data;
 			});
 	},
 	methods: {
