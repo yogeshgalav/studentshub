@@ -13,8 +13,36 @@ use Illuminate\Support\Facades\Log;
 
 class ClassroomController extends Controller
 {
-    //
-    public function classroomPage($classroomId){
+    public function create(Request $request){
+        $user = Auth::user();
+        $course_levels = \App\Models\CourseLevel::get();
+        $institute_query = DB::table('institutes as in');
+        if($user->role_intended!=='sthubAdmin'){
+            $institute_query = $institute_query->join('institute_users as inu', function($join){
+                $join->on('in.id','=','inu.institute_id')->where('inu.user_id','=',Auth::id());
+            });
+        }
+        $institute_list=$institute_query
+        ->select('in.id','in.name')
+        ->groupBy('in.id','in.name')
+        ->get();
+
+        if(empty($institute_list)){
+            abort(403);
+        }
+
+        return inertia('classroom/teacher/create', [
+            'institute_list'=>$institute_list,
+            'course_levels'=>$course_levels
+        ]);
+    }
+
+    public function index()
+    {
+        return inertia('classroom/classroom-list');
+    }
+    
+    public function show($classroomId){
         $classroom=Classroom::findOrFail($classroomId);
 
         if(Auth::user()->can('update', $classroom)){
@@ -86,33 +114,6 @@ class ClassroomController extends Controller
         }
 
         return inertia('classroom/student/my-report');
-    }
-
-    public function createClassroomPage(Request $request){
-        $user = Auth::user();
-        $course_levels = \App\Models\CourseLevel::get();
-        $institute_query = DB::table('institutes as in');
-        if($user->role_intended!=='sthubAdmin'){
-            $institute_query = $institute_query->join('institute_users as inu', function($join){
-                $join->on('in.id','=','inu.institute_id')->where('inu.user_id','=',Auth::id());
-            });
-        }
-        $institute_list=$institute_query
-        ->select('in.id','in.name')
-        ->groupBy('in.id','in.name')
-        ->get();
-
-        if(empty($institute_list)){
-            abort(403);
-        }
-
-        return inertia('classroom/teacher/create')
-        ->with('institute_list',$institute_list)
-        ->with('course_levels',$course_levels);
-    }
-    public function classroomList()
-    {
-        return inertia('classroom/classroom-list');
     }
 
     public function classroom()

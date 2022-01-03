@@ -1,9 +1,10 @@
 import Vue from 'vue';
+import Vuex from 'vuex';
 import { createInertiaApp } from '@inertiajs/inertia-vue';
 
-import AuthStore from '../../store/auth';
-import GuestStore from '../../store/guest';
-import CommonStore from '../../store/common-store';
+import AuthStore from './store/auth';
+import GuestStore from './store/guest';
+import CommonStore from './store/common-store';
 
 Vue.use(Vuex);
 const store = new Vuex.Store({
@@ -18,13 +19,8 @@ const store = new Vuex.Store({
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 
-import Loading from 'vue-loading-overlay';
-import 'vue-loading-overlay/dist/vue-loading.css';
 import Dayjs from 'vue-dayjs';
-import ProfileImage from '../components/ProfileImage';
-import NotificationsDropdown from '../components/NotificationsDropdown.vue';
 import VueLazyload from 'vue-lazyload';
-var relativeTime = require('dayjs/plugin/relativeTime');
 
 Vue.use(VueLazyload);
 Vue.use(Dayjs, {
@@ -45,7 +41,7 @@ Vue.use(VueAxios, axios);
 //error tracking
 // import * as Sentry from '@sentry/browser';
 // import { Integrations } from '@sentry/tracing';
-if(window.App.mode==='production'){
+if(process.env.NODE_ENV === 'production'){
 	// Sentry.init({
 	// 	Vue,
 	// 	dsn: 'https://82c7fe80c97f4826818ae008c4d22c7d@o499194.ingest.sentry.io/5577443',
@@ -63,8 +59,8 @@ if(window.App.mode==='production'){
 	Vue.config.silent = true;
 
 	const { Inertia } = require('@inertiajs/inertia');
-	const { gtag, install } = require('@ga-gtag');
-	install('UA-#########-#');
+	const { gtag, install } = require('ga-gtag');
+	install('G-W2Z76KH2R6');
 	Inertia.on('navigate', (event) => {
 		gtag('event', 'page_view', {
 			'page_location': event.detail.page.url
@@ -85,6 +81,7 @@ import AuthLayout from './Layouts/AuthLayout';
 createInertiaApp({
 	resolve: name => {
 		const page = require(`./Pages/${name}`).default;
+		console.log(name);
 		page.layout = page.layout || AuthLayout;
 		return page;
 	},
@@ -92,7 +89,6 @@ createInertiaApp({
 	setup({ el, App, props }) {
 	  new Vue({
 			store,
-			router,
 			render: h => h(App, props),
 	  }).$mount(el);
 	},

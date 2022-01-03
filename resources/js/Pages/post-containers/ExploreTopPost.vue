@@ -35,12 +35,12 @@
               <a :href="post.slug">{{ post.subject_name }}</a>
             </p>
             <h3 class="card-title  font-size-16">
-              <router-link
-                :to="'/post/'+post.id"
+              <Link
+                :href="'/post/'+post.id"
                 class="weight-600 text-black"
               >
                 {{ post.heading }}
-              </router-link>
+              </Link>
             </h3>
             <p class="card-text post_des">
               {{ post.content }}

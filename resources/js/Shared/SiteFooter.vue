@@ -255,7 +255,7 @@ a.socialIcon:hover,
 
 
 <script>
-import formMixin from '../../components/mixins/form-mixin.js';
+import formMixin from '../components/mixins/form-mixin.js';
 export default {
 	mixins:['formMixin'],
 	data(){

@@ -1,5 +1,5 @@
 <script>
-    window.App ={!! json_encode([
+    this.$page.props ={!! json_encode([
         'AuthUser' => $AuthUser,
         'AuthStudent' => Auth::student(),
         'AuthTeacher' => Auth::teacher(),

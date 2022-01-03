@@ -20,8 +20,8 @@
           v-for="(course,index) in courses"
           :key="index"
         >
-          <router-link
-            :to="'/course/'+course.slug"
+          <Link
+            :href="'/course/'+course.slug"
             class="card mt-2"
           >
             <p class="mt-4 explore-name ml-2">
@@ -31,7 +31,7 @@
               Duration: {{ course.duration ? course.duration : 'N/A' }}<br>
               Eligibility: {{ course.eligibility ? course.eligibility : 'N/A' }}
             </p>
-          </router-link>
+          </Link>
         </div>
       </template>
       <template slot="tab-heading-subjects">
@@ -42,14 +42,14 @@
           v-for="(subject,index) in subjects"
           :key="index"
         >
-          <router-link
-            :to="'/subject/'+subject.slug"
+          <Link
+            :href="'/subject/'+subject.slug"
             class="card mt-2"
           >
             <p class="mt-4 explore-name ml-2">
               {{ index+1 }}. &nbsp;{{ subject.subject_name }}
             </p>
-          </router-link>
+          </Link>
         </div>
       </template>
       <template slot="tab-heading-posts">
@@ -98,7 +98,7 @@
 </style>
 <script>
 import NavTabs from '../../components/NavTabs';
-import PostContainer from '../common/PostContainer';
+import PostContainer from '../common/post-container';
 
 export default {
 	components: {

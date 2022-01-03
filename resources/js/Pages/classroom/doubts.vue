@@ -14,7 +14,7 @@
   </div>
 </template>
 <script>
-import DoubtList from '../../views/doubt/doubt-list.vue';
+import DoubtList from '../doubt/index.vue';
 import ClassroomHeader from '../../components/ClassroomHeader';
 
 export default {

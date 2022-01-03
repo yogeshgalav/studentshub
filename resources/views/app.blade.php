@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
+<!-- 
     <script src="https://polyfill.io/v3/polyfill.min.js?features=smoothscroll,NodeList.prototype.forEach,Promise,Object.values,Object.assign" defer></script>
 
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=String.prototype.startsWith" defer></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=String.prototype.startsWith" defer></script> -->
 
     <script src="{{ mix('/js/app.js') }}" defer></script>
 </head>

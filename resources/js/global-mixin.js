@@ -1,8 +1,14 @@
+import ProfileImage from './components/ProfileImage';
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
+var relativeTime = require('dayjs/plugin/relativeTime');
+import { Link } from '@inertiajs/inertia-vue'
+
 export default {
 	components:{
-		NotificationsDropdown,
 		ProfileImage,
-		Loading
+		Loading,
+		Link
 	},
 	data(){
 		return {
@@ -21,25 +27,25 @@ export default {
 	},
 	computed: {
 		baseUrl() {
-			return window.App.baseUrl;
+			return this.$page.props.baseUrl;
 		},
 		fileUrl() {
-			return window.App.fileUrl;
+			return this.$page.props.fileUrl;
 		},
 		signedIn(){
-			return window.App.signedIn;
+			return this.$page.props.signedIn;
 		},
 		AuthUser(){
-			return window.App.AuthUser;
+			return this.$page.props.AuthUser;
 		},
 		AuthStudent(){
-			return window.App.AuthStudent;
+			return this.$page.props.AuthStudent;
 		},
 		AuthTeacher(){
-			return window.App.AuthTeacher;
+			return this.$page.props.AuthTeacher;
 		},
 		csrfToken() {
-			return window.App.csrfToken;
+			return this.$page.props.csrfToken;
 		},
 		accessToken() {
 			return localStorage.getItem('access_token');
@@ -82,7 +88,7 @@ export default {
 		},
 	},
 	mounted(){
-		window.axios.defaults.headers.common = {
+		this.axios.defaults.headers.common = {
 			'X-CSRF-TOKEN': this.csrfToken,
 			'X-Requested-With': 'XMLHttpRequest'
 		};
@@ -101,11 +107,6 @@ export default {
 			}
 		});
 		document.addEventListener('click', this.closeSidebar);
-		if(window.App.mode==='production'){
-			Vue.use(VueGtag, {
-				config: { id: 'G-W2Z76KH2R6' }
-			}, router);
-		}
 	},
 	methods: {
 		'$trans':function(file,string,defaultString){
@@ -114,29 +115,7 @@ export default {
 		redirectPostView(post){
 			document.title = post.heading;
 		},
-		toggleSidebar(e){
-			e.preventDefault();
-			var sidebar_section = document.getElementById('sidebar-section');
-			if(!sidebar_section){
-				window.location.href='/';
-			}
-			sidebar_section.classList.toggle('sidebar-section-active');
-			// document.documentElement.classList.toggle('openNav');
-			// var menu = document.querySelector('.nav-toggle'); // Using a class instead, see note below.
-			// menu.classList.toggle('active');
-		},
-		closeSidebar(e){
-			var container = document.getElementById('sidebar-section');
-			var container2 = document.getElementById('nav-toggle');
-			if(!container || !container2){
-				return false;
-			}
-			if (!container.contains(e.target) && !container2.contains(e.target) && container.classList.contains('sidebar-section-active')) {
-				e.preventDefault();
-				container.classList.remove('sidebar-section-active');
-				return false;
-			}
-		},
+		
 		formatDuration(time){
 			let arr = time.split(':');
 			let min = arr[1];

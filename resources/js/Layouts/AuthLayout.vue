@@ -11,14 +11,14 @@
         <Sidebar />
       </div>
       <div class="content">
-        <slot name="content" />
+        <slot  />
       </div>
     </div>
   </main>
 </template>
 <script>
-import Navbar from './Shared/Navbar';
-import Sidebar from './Shared/Sidebar';
+import Navbar from '../Shared/Navbar.vue';
+import Sidebar from '../Shared/Sidebar.vue';
 
 export default {
 	components:{

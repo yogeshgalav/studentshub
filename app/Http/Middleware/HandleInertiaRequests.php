@@ -4,6 +4,8 @@ namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
 use Inertia\Middleware;
+use URL;
+use App\Facades\Auth;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -40,7 +42,6 @@ class HandleInertiaRequests extends Middleware
             'AuthUser' => Auth::user(),
             'AuthStudent' => Auth::student(),
             'AuthTeacher' => Auth::teacher(),
-            'signedIn' => is_null($AuthUser),
             'csrfToken' => csrf_token(),
             'baseUrl' => URL::to('/'),
             'mode' => config('app.env'),

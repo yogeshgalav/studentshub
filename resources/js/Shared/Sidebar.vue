@@ -2,7 +2,7 @@
   <div class="sidebar">
     <div class="sidebar-navigation mt-5">
       <ul>
-        <link
+        <Link
           href="/"
           :class="isUrl('post') ? 'active' : ''"
         >
@@ -12,8 +12,8 @@
             aria-hidden="true"
           /><span class="text">Home</span>
         </li>
-        </link>
-        <link
+        </Link>
+        <Link
           href="/doubts"
           :class="isUrl('doubt') ? 'active' : ''"
         >
@@ -24,9 +24,9 @@
           />
           <span class="text">Doubts</span>
         </li>
-        </link>
+        </Link>
             
-        <link
+        <Link
           href="/my-course"
           :class="isUrl('my-course') ? 'active' : ''"
         >
@@ -37,9 +37,9 @@
           />
           <span class="text">My Course</span>
         </li>
-        </link>
+        </Link>
             
-        <link
+        <Link
           href="/classrooms"
           :class="isUrl('classroom') ? 'active' : ''"
         >
@@ -49,8 +49,8 @@
             aria-hidden="true"
           /><span class="text">Classrooms</span>
         </li>
-        </link>
-        <link
+        </Link>
+        <Link
           v-if="AuthUser.role_intended==='student'"
           href="/my-reports"
           :class="isUrl('my-reports') ? 'active' : ''"
@@ -62,8 +62,8 @@
           />
           <span class="text">My Reports</span>
         </li>
-        </link>
-        <link
+        </Link>
+        <Link
           href="/messages"
           :class="isUrl('messages') ? 'active' : ''"
         >
@@ -74,9 +74,9 @@
           />
           <span class="text"> Messages</span>
         </li>
-        </link>
+        </Link>
             
-        <link
+        <Link
           href="/my-institute"
           :class="isUrl('institute') ? 'active' : ''"
         >
@@ -87,9 +87,9 @@
           /><span class="text"> My
             Institute</span>
         </li>
-        </link>
+        </Link>
             
-        <link
+        <Link
           v-if="AuthUser.role_intended!=='student'"
           href="/students"
           :class="isUrl('students') ? 'active' : ''"
@@ -101,8 +101,8 @@
           />
           <span class="text">Students</span>
         </li>
-        </link>
-        <link
+        </Link>
+        <Link
           v-if="AuthUser.role_intended==='student'"
           href="/classmates"
           :class="isUrl('classmates') ? 'active' : ''"
@@ -114,8 +114,8 @@
           /><span class="text">
             Classmates</span>
         </li>
-        </link>
-        <link
+        </Link>
+        <Link
           v-if="AuthUser.role_intended==='student'"
           href="/more-apps"
           :class="isUrl('more-apps') ? 'active' : ''"
@@ -127,8 +127,8 @@
           />
           <span class="text">More Apps</span>
         </li>
-        </link>
-        <link
+        </Link>
+        <Link
           :href="'/profile/'+AuthUser.id"
           :class="isUrl('profile') ? 'active' : ''"
         >
@@ -139,21 +139,49 @@
           />
           <span class="text">Profile</span>
         </li>
-        </link>
+        </Link>
       </ul>
     </div>
   </div>
 </template>
 <script>
+import { Link } from '@inertiajs/inertia-vue'
+
 export default {
+  components:{
+    Link
+  },
     methods:{
         isUrl(...urls) {
-            let currentUrl = this.$page.url.substr(1)
+            let currentUrl = this.$page.url.substr(1);
             if (urls[0] === '') {
-                return currentUrl === ''
+                return currentUrl === '';
             }
-            return urls.filter((url) => currentUrl.startsWith(url)).length
-        }
+            return urls.filter((url) => currentUrl.startsWith(url)).length;
+        },
+        toggleSidebar(e){
+			e.preventDefault();
+			var sidebar_section = document.getElementById('sidebar-section');
+			if(!sidebar_section){
+				window.location.href='/';
+			}
+			sidebar_section.classList.toggle('sidebar-section-active');
+			// document.documentElement.classList.toggle('openNav');
+			// var menu = document.querySelector('.nav-toggle'); // Using a class instead, see note below.
+			// menu.classList.toggle('active');
+		},
+		closeSidebar(e){
+			var container = document.getElementById('sidebar-section');
+			var container2 = document.getElementById('nav-toggle');
+			if(!container || !container2){
+				return false;
+			}
+			if (!container.contains(e.target) && !container2.contains(e.target) && container.classList.contains('sidebar-section-active')) {
+				e.preventDefault();
+				container.classList.remove('sidebar-section-active');
+				return false;
+			}
+		},
     }
 }
 </script>

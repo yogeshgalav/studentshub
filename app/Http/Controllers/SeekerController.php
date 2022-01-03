@@ -63,12 +63,12 @@ class SeekerController extends Controller
     public function doubtPage()
     {
         $categories = \App\Models\Category::all();
-        return inertia('doubt.index',[
+        return inertia('doubt/index',[
             'categories'=>$categories
         ]);
     }
 
     public function doubtAnswersPage(){
-        return inertia('doubt.show');
+        return inertia('doubt/show');
     }
 }

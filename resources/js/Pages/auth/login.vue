@@ -136,9 +136,9 @@
                       </label>
                     </div>
                     <div class="forget_pass">
-                      <router-link :to="'/forgot-password'">
+                      <Link :href="'/forgot-password'">
                         {{ trans('Forgot Your Password') }}
-                      </router-link>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -176,9 +176,9 @@
                   <span
                     class="text-gray"
                     style="color:#868686;"
-                  >Dont't have an account?</span> <router-link :to="'/get-started'">
+                  >Dont't have an account?</span> <Link :href="'/get-started'">
                     Sign Up
-                  </router-link>
+                  </Link>
                 </div>
               </form>
             </div>

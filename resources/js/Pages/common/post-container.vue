@@ -87,7 +87,7 @@ export default {
 			this.current_page=this.current_page+1;
 			url.searchParams.set('page', this.current_page);
 
-			this.axios.get(url.toString)
+			this.axios.get(url.toString())
 				.then(resp => {
 					const posts = resp.data.success.posts;
 					this.posts_data = this.posts_data.concat(posts.data);

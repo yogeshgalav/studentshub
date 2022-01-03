@@ -40,12 +40,12 @@
               </div>
             </div>
             <h3 class="card-title mb-1 font-size-16">
-              <router-link
-                :to="'/post/'+post.id"
+              <Link
+                :href="'/post/'+post.id"
                 class="weight-600 text-black"
               >
                 {{ post.heading }}
-              </router-link>
+              </Link>
             </h3>
             <div class="separator-solid" />
 							

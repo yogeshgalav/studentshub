@@ -1,7 +1,7 @@
 <template>
   <div class="navbar fixed-top">
-    <div v-if="AuthUser">
-      <div class="row col-md-12 nav-items">
+    <div class="row" v-if="AuthUser">
+      <div class="col-md-12 nav-items">
         <div class="navbar-brand">
           <a href="/">
             <img
@@ -128,22 +128,22 @@
         </div>
         <div class="guest-nav-items">
           <div class="nav-item nav-login">
-            <router-link
+            <link
               class="btn btn-link text-blue"
-              :to="'/login'"
+              :href="'/login'"
             >
               Login <i class="fas fa-arrow-right" />
-            </router-link>
+            </link>
           </div>
           <div class="nav-item">
-            <router-link
+            <link
               class="btn btn-primary"
-              :to="'/get-started'"
+              :href="'/get-started'"
             >
               Get Started <i
                 class="fas fa-arrow-right text-white"
               />
-            </router-link>
+            </link>
           </div>
         </div>
       </div>
@@ -157,22 +157,22 @@
           </li>
           <div class="nav-login-get-started">
             <li class="nav-item nav-login">
-              <router-link
+              <link
                 class="btn btn-link text-blue"
-                :to="'/login'"
+                :href="'/login'"
               >
                 Login <i class="fas fa-arrow-right" />
-              </router-link>
+              </link>
             </li>
             <li class="nav-item">
-              <router-link
+              <link
                 class="btn btn-primary"
-                :to="'/get-started'"
+                :href="'/get-started'"
               >
                 Get Started <i
                   class="fas fa-arrow-right text-white"
                 />
-              </router-link>
+              </link>
             </li>
           </div>
         </ul>

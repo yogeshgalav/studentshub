@@ -117,12 +117,12 @@
                     </div>
                     <div class="col-md-12">
                       <p class="font-size-24 weight-600 mb-0">
-                        <router-link
-                          :to="'/doubt/'+doubt.id"
+                        <Link
+                          :href="'/doubt/'+doubt.id"
                           class="weight-600 text-black"
                         >
                           {{ doubt.question }}
-                        </router-link>
+                        </Link>
                       </p>
                     </div>
                     <div class="col-md-12">
@@ -139,13 +139,13 @@
                     </div>
                     <div class="col-md-12">
                       <p class=" mb-0">
-                        <router-link
-                          :to="'/doubt/'+doubt.id"
+                        <Link
+                          :href="'/doubt/'+doubt.id"
                           class="weight-600 text-black"
                         >
                           {{ doubt.total_answer ? (doubt.total_answer+' Answers') : 'Add answer' }}
                           &nbsp;<i class="fa fa-arrow-right text-white" />
-                        </router-link>
+                        </Link>
                       </p>
                     </div>
                   </div>

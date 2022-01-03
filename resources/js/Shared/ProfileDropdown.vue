@@ -11,7 +11,7 @@
     >
       <profile-image
         :avatar="AuthUser.avatar_url"
-        :user-name="AuthUse.full_name"
+        :user-name="AuthUser.full_name"
         size="small"
       />
     </button>
@@ -23,7 +23,7 @@
         <div class="avatar user_img_dash">
           <profile-image
             :avatar="AuthUser.avatar_url"
-            :user-name="AuthUse.full_name"
+            :user-name="AuthUser.full_name"
           />
         </div>
         <div class="info-post ml-2 mt-2">

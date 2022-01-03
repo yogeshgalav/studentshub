@@ -10,17 +10,17 @@
       <div class="row">
         <div class="col-md-12">
           <div class="">
-            <router-link
+            <Link
               v-if="AuthUser"
               class="btn btn-link ml-2 mb-2 font-size-18"
-              :to="'/doubts'"
+              :href="'/doubts'"
             >
               <i
                 class="fa fa-arrow-left"
                 aria-hidden="true"
               />
               Back
-            </router-link>
+            </Link>
           </div>
         </div>
       </div>

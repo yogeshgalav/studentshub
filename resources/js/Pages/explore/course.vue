@@ -25,7 +25,7 @@
 <style scoped></style>
 <script>
 import NavTabs from '../../components/NavTabs';
-import PostContainer from '../common/PostContainer';
+import PostContainer from '../common/post-container';
 
 export default {
 	components: {

@@ -5,14 +5,18 @@
     </div>
 
     <slot name="content" />
+
+    <SiteFooter />
   </main>
 </template>
 <script>
-import Navbar from './Shared/Navbar';
+import Navbar from '../Shared/Navbar';
+import SiteFooter from '../Shared/SiteFooter';
 
 export default {
 	components:{
 		Navbar,
+    SiteFooter
 	}  
 };
 </script>
