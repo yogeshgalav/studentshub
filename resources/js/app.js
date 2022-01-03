@@ -41,7 +41,6 @@ Vue.use(Dayjs, {
 // 	attempt: 1
 // });
 Vue.use(VueAxios, axios);
-import VueGtag from 'vue-gtag';
 
 //error tracking
 // import * as Sentry from '@sentry/browser';
@@ -62,10 +61,21 @@ if(window.App.mode==='production'){
 	Vue.config.devtools = false;
 	Vue.config.debug = false;
 	Vue.config.silent = true;
+
+	const { Inertia } = require('@inertiajs/inertia');
+	const { gtag, install } = require('@ga-gtag');
+	install('UA-#########-#');
+	Inertia.on('navigate', (event) => {
+		gtag('event', 'page_view', {
+			'page_location': event.detail.page.url
+		});
+	});
 }
 
 import GlobalMixin from './global-mixin.js';
 Vue.mixin(GlobalMixin);
+
+import AuthLayout from './Layouts/AuthLayout';
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -73,7 +83,11 @@ Vue.mixin(GlobalMixin);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 createInertiaApp({
-	resolve: name => require(`./Pages/${name}`),
+	resolve: name => {
+		const page = require(`./Pages/${name}`).default;
+		page.layout = page.layout || AuthLayout;
+		return page;
+	},
 	title: title => `${title} - Student's Hub`,
 	setup({ el, App, props }) {
 	  new Vue({
