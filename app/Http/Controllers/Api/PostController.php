@@ -135,11 +135,48 @@ class PostController extends Controller
   }
 
     public function getPosts(Request $request){
-        $post=new \App\Post;
-        $posts = $post->getAuthUserPosts($request);
+        $post_repo=new \App\Post;
+        $post_query=$post_repo->getAuthUserPostTabels();
+
+        $dashboard_id = $request->route('dasboard_id');
+
+        switch($request->route('dasboard_type')){
+          case 'institute':
+            $post_query=$post_query->where('inst.id',$institute_id)
+            ->orderBy('po.created_at','DESC');
+            break;
+          case 'course':
+            $posts=$post_query->leftJoin('post_tags as pt','pt.post_id','=','po.id')
+            ->leftJoin('course_subjects as cosub','pt.subject_id','=','cosub.subject_id')
+            ->where('cosub.course_id',$course_id)
+            ->orderBy('po.created_at','DESC');
+            break;
+          case 'subject':
+            $posts=$post_query->where('sub.id',$subject_id)
+            ->orderBy('po.created_at','DESC');
+            break;
+          case 'category':
+            $posts=$post_query->where('cat.id',$category_id)
+            ->orderBy('po.created_at','DESC');
+            break;
+          case 'user':
+            $posts=$post_query->where('po.user_id',$userId)
+            ->orderBy('po.created_at','DESC');
+            break;
+          default:
+            $posts=$post_query->orderBy('po.created_at','DESC');
+            break;
+        }
+
+        if($request->user('api')){
+          $posts=$post_query->paginate();
+        }else{
+          $posts=$post_query->limit(10)->paginate();
+        }
+        
         return response()->json(['success'=>[
-          'posts'=>\Sthub::convert_from_latin1_to_utf8_recursively($posts)
-      ]]);
+          'posts'=>\Sthub::convert_from_latin1_to_utf8_recursively($post_repo->formatPostData($posts))
+        ]]);
     }
 
     public function show(Post $post){
@@ -174,6 +211,10 @@ class PostController extends Controller
         $save_post->user_id=Auth::user()->id;
         $save_post->post_id=$request->post_id;
         $save_post->save();
+        \Log::warning('New Saved post', [
+          'user_id'=>$save_post->user_id,
+          'post_id'=>$save_post->post_id,
+        ]);
         return response()->json(['success'=>[
           'post_save'=>true,
         ]]);
@@ -181,17 +222,24 @@ class PostController extends Controller
 
       public function reportPost(Request $request){
         $report_post=new \App\Models\PostReport();
-        $report_post->user_id=Auth::user()->id;
+        $report_post->user_id=$request->user('api')->id;
         $report_post->post_id=$request->post_id;
         $report_post->save();
+        \Log::warning('New Report Added', [
+          'user_id'=>$report_post->user_id,
+          'post_id'=>$report_post->post_id,
+        ]);
         return response()->json(['success'=>[
           'user_like'=>true,
         ]]);
       }
 
       public function delete(Post $post){
-        $post->delete();
+        
+        Like::where('likable_id', $post->id)->where('likable_type', Post::class)->delete();
+        Comment::where('commentable_id', $post->id)->where('commentable_type', Post::class)->delete();
         SthubPost::where('post_id', $post->id)->delete();
+        $post->delete();
 
         return response()->json([],204);
     }

@@ -11,56 +11,6 @@ use PHPHtmlParser\Dom;
 
 class Post extends PostModel
 {
-
-    public function getUserPosts($userId){
-        $post_query=$this->getAuthUserPostTabels();
-
-        $posts=$post_query->where('po.user_id',$userId)
-        ->orderBy('po.created_at','DESC')
-        ->paginate();
-
-        return $this->formatPostData($posts);
-    }
-
-    public function getSubjectPosts($subject_id){
-        $post_query=$this->getAuthUserPostTabels();
-
-        $posts=$post_query->where('sub.id',$subject_id)
-        ->orderBy('po.created_at','DESC')
-        ->paginate();
-
-        return $this->formatPostData($posts);
-    }
-
-    public function getCategoryPosts($category_id){
-        $post_query=$this->getAuthUserPostTabels();
-
-        $posts=$post_query->where('cat.id',$category_id)
-        ->orderBy('po.created_at','DESC')
-        ->paginate();
-
-        return $this->formatPostData($posts);
-    }
-    public function getCoursePosts($course_id){
-        $post_query=$this->getAuthUserPostTabels();
-
-        $posts=$post_query->leftJoin('post_tags as pt','pt.post_id','=','po.id')
-        ->leftJoin('course_subjects as cosub','pt.subject_id','=','cosub.subject_id')
-        ->where('cosub.course_id',$course_id)
-        ->orderBy('po.created_at','DESC')
-        ->paginate();
-
-        return $this->formatPostData($posts);
-    }
-    public function getInstitutePosts($institute_id){
-        $post_query=$this->getAuthUserPostTabels();
-
-        $posts=$post_query->where('inst.id',$institute_id)
-        ->orderBy('po.created_at','DESC')
-        ->paginate();
-
-        return $this->formatPostData($posts);
-    }
     
     public function getSearchPosts(Request $request){
         $post_query=$this->getAuthUserPostTabels();
@@ -71,7 +21,7 @@ class Post extends PostModel
         ->orWhere('cat.name','LIKE','%'.$request->input('searchTerm').'%')
         ->orWhere('po.post_heading','LIKE','%'.$request->input('searchTerm').'%')
         ->orderBy('po.created_at','DESC')
-        ->paginate();
+        ->limit(10)->get();
 
         return $this->formatPostData($posts);
     }
@@ -83,15 +33,6 @@ class Post extends PostModel
         })
         ->orderBy('po.created_at','DESC')
         ->get();
-
-        return $this->formatPostData($posts);
-    }
-
-    public function getAuthUserPosts(Request $request){
-
-        $posts=$this->getAuthUserPostTabels()
-        ->orderBy('po.created_at','DESC')
-        ->paginate();
 
         return $this->formatPostData($posts);
     }
@@ -113,10 +54,10 @@ class Post extends PostModel
         // });
         $columns = ['po.id as id','po.post_heading as heading','po.post_description as description','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','po.primary_image_path as image_path',
         'us.avatar_url as profile_image','us.id as user_id','us.full_name as user_name','inst.name as institute_name','ar.html_content as article_content',
-        'vd.video_id as video_id','fc.image_path as fact_image_path','do.link as document_link'];
+        'vd.video_id as video_id'];
         $groupBycolumns = ['po.id','po.post_heading','po.post_description','po.postable_type','cat.name','cat.id','po.primary_image_path',
         'us.avatar_url','us.id','us.full_name','inst.name','ar.html_content',
-        'vd.video_id','fc.image_path','do.link'];
+        'vd.video_id'];
 
         if(Auth::check()){
             $post_query->leftJoin('likes as uli',function($join){

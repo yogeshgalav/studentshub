@@ -25,11 +25,6 @@
             Submit
           </button>
         </div>
-        <div class="col-md-12">
-          <p class="mt-1 mb-2">
-            You can change your preferred institute from account setting.
-          </p>
-        </div>
       </div>
     </div>
     <div
@@ -147,51 +142,14 @@
           {{ 'Posts' }}
         </template>
         <template slot="tab-panel-posts">
-          <div class="row">
-            <div class="col-md-10">
-              <div class="card mb-3 mt-2 pt-0 pb-0">
-                <div class="card-body">
-                  <div class="row pl-3">
-                    <profile-image
-                      size="small"
-                      :user-name="AuthUser.full_name"
-                      :avatar="AuthUser.avatar_url"
-                    />&nbsp;&nbsp;
-                    {{ AuthUser.full_name }}
-                  </div>
-                  <a
-                    :href="'/share-your-knowledge'"
-                  > 
-                    <img
-                      src="/images/knowledge.svg"
-                      alt=""
-                    >&emsp;
-                    Share Your Knowledge &emsp;<span><i
-                      class="fa fa-arrow-right"
-                      aria-hidden="true"
-                    /></span>  
-                  </a>
-                  <profile-image />
-                </div>
-              </div>
-              <div
-                v-if="!posts.length"
-                class="card"
-              >
-                <div class="card-body">
-                  <p>Currently no post have been shared yet to this institute.</p>
-                </div>
-              </div>
-              <div v-else>
-                <div
-                  v-for="(post,index) in posts"
-                  :key="index"
-                >
-                  <post-card :post="post" />
-                </div>
-              </div>
-            </div>
-          </div>
+          <PostContainer
+            v-if="AuthUser.preferred_institute_id"
+            :post-route="'/institute/'+AuthUser.preferred_institute_id"
+          >
+            <template slot="empty">
+              Currently no post have been shared in your institute.
+            </template>
+          </PostContainer>
         </template>
       </nav-tabs>
     </div>
@@ -201,11 +159,11 @@
 <script>
 import NavTabs from '../../components/NavTabs';
 import SelectInstitute from '../../components/SelectInstitute.vue';
-import PostCard from '../post/PostCard';
+import PostContainer from './post-container.vue';
 
 export default {
 	components: {
-		NavTabs, PostCard, SelectInstitute
+		NavTabs, PostContainer, SelectInstitute
 	},
 	data() {
 		return {
@@ -213,8 +171,8 @@ export default {
 			teachers: [],
 			students: [],
 			posts: [],
-			initialTab: 'teachers',
-			tabs: ['teachers','students','posts'],
+			initialTab: 'posts',
+			tabs: ['posts','students','teachers'],
 			showLoader: false,
 			selected_institute : {
 				'id': null,
@@ -241,7 +199,7 @@ export default {
 				this.teachers = resp.data.success.teachers;
 				this.institute_name = resp.data.success.institute.name;
 				this.students = resp.data.success.students;
-				this.posts = resp.data.success.posts;
+				this.posts = resp.data.success.posts.data;
 				this.$forceUpdate();
 			});
 	},

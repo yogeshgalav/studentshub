@@ -25,11 +25,6 @@
             Submit
           </button>
         </div>
-        <div class="col-md-12">
-          <p class="mt-1 mb-2">
-            You can change your preferred course from account setting.
-          </p>
-        </div>
       </div>
     </div>
     <div
@@ -65,51 +60,14 @@
           {{ 'Posts' }}
         </template>
         <template slot="tab-panel-posts">
-          <div class="row">
-            <div class="col-md-10">
-              <div class="card mb-3 mt-2 pt-0 pb-0">
-                <div class="card-body">
-                  <div class="row pl-3">
-                    <profile-image
-                      size="small"
-                      :user-name="AuthUser.full_name"
-                      :avatar="AuthUser.avatar_url"
-                    />&nbsp;&nbsp;
-                    {{ AuthUser.full_name }}
-                  </div>
-                  <a
-                    :href="'/share-your-knowledge?cId='+AuthUser.preferred_course_id"
-                  > 
-                    <img
-                      src="/images/knowledge.svg"
-                      alt=""
-                    >&emsp;
-                    Share Your Knowledge &emsp;<span><i
-                      class="fa fa-arrow-right"
-                      aria-hidden="true"
-                    /></span>  
-                  </a>
-                  <profile-image />
-                </div>
-              </div>
-              <div
-                v-if="!posts.length"
-                class="card"
-              >
-                <div class="card-body">
-                  <p>Currently no post have been shared yet to this course.</p>
-                </div>
-              </div>
-              <div v-else>
-                <div
-                  v-for="(post,index) in posts"
-                  :key="index"
-                >
-                  <post-card :post="post" />
-                </div>
-              </div>
-            </div>
-          </div>
+          <PostContainer
+            v-if="AuthUser.preferred_course_id"
+            :post-route="'/course/'+AuthUser.preferred_course_id"
+          >
+            <template slot="empty">
+              Currently no post have been shared in your course.
+            </template>
+          </PostContainer>
         </template>
       </nav-tabs>
     </div>
@@ -119,18 +77,19 @@
 <script>
 import NavTabs from '../../components/NavTabs';
 import SelectCourse from '../../components/SelectCourse.vue';
-import PostCard from '../post/PostCard';
+import PostContainer from './post-container.vue';
+
 export default {
 	components: {
-		NavTabs, PostCard, SelectCourse
+		NavTabs, PostContainer, SelectCourse
 	},
 	data() {
 		return {
 			course_name: '',
 			posts: [],
 			subjects: [],
-			initialTab: 'subjects',
-			tabs: ['subjects','posts'],
+			initialTab: 'posts',
+			tabs: ['posts','subjects'],
 			showLoader: false,
 			selected_course : {
 				'id': null,

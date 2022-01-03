@@ -135,7 +135,7 @@ export default {
 			});
 		}
 		this.$store.dispatch('getCategories');
-		this.$store.commit('intitalizePost',{
+		this.$store.commit('intialize_post',{
 			courseInfo:this.courseInfo,
 			subjectInfo:this.subjectInfo
 		});

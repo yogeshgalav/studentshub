@@ -16,7 +16,6 @@ class UserController extends Controller
     //
     public function getProfile(){
         $user=Auth::user();
-        $post = new \App\Post;
 
         $categories=DB::table('categories as cat')
         ->leftJoin('posts as po','po.category_id','=','cat.id')
@@ -46,7 +45,6 @@ class UserController extends Controller
 
         return response()->json(['success'=>[
             'interests'=>$categories,
-            'posts'=>\Sthub::convert_from_latin1_to_utf8_recursively($post->getUserPosts($user->id))
         ]]);
     }
 
