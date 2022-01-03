@@ -17,69 +17,76 @@ class GuestController extends Controller
             return redirect('/');
         }
 
-        return Inertia::render('auth/login', [
+        return inertia('auth/login', [
             'emailError'=> session('emailError'),
-            'title' => 'Login' . $this->title,
         ]);
     }
     public function membershipPlan()
     {
-        return Inertia::render('guest/membership-plan', [
+        return inertia('guest/membership-plan', [
             'Membership' . $this->title,
         ]);
     }
     public function forgotPasswordPage()
     {
-        return view('guest.auth.forgot-password')->with('title','Fogot Password' . $this->title);
+        return inertia('auth/forgot-password');
     }
     public function registerPage()
     {
         if(Auth::check()){
             return redirect('/');
         }
-        return view('guest.auth.register')->with('title','Get Started' . $this->title);
+        return inertia('auth/register');
     }
 
     public function feedbackPage()
     {
-        return view('guest.feedback')->with('title','Feedback' . $this->title);
+        return inertia('guest/feedback');
     }
     public function contactusPage(){
-        return view('guest.contactus')->with('title','Contact' . $this->title);
+        return inertia('guest/contactus');
     }
     public function faqPage(){
         $faq = Faq::where('answer','!=', null)->get();
-        return view('guest.faq')->with('faqs',$faq)->with('title','FAQ' . $this->title);
+        return inertia('guest/faq', [
+            'faqs' => $faq
+        ]);
     }
 
     public function privacyPolicy(){
-        return view('guest.privacy-policy')->with('title','Privacy Policy' . $this->title);
+        return inertia('guest/privacy-policy');
     }
     public function termOfUse(){
-        return view('guest.term-of-use')->with('title','Term of Use' . $this->title);
+        return inertia('guest/term-of-use');
     }
     public function viewPost($post_id)
     {
         \App\Models\Post::findOrFail($post_id);
         if (Auth::check()) {
-            return view('seeker.post-view');
+            return inertia('post/PostViewPage');
         }
-        return view('guest.post-view');
+        return inertia('guest/guest-post-view');
     }
     public function coursePage($course_url)
     {
         $course = \App\Models\Course::where('course_url', $course_url)->findOrFail();
-        return view('explore.course')->with('courseId',$course->id);
+        return inertia('explore/course', [
+            'courseId' => $course->id
+        ]);
     }
     public function subjectPage($subject_url)
     {
         $subject = \App\Models\Subject::where('subject_url', $subject_url)->findOrFail();
-        return view('explore.subject')->with('subjectId',$subject->id);
+        return inertia('explore/subject', [
+            'subjectId' => $subject->id
+        ]);
     }
     public function categoryPage($category_url)
     {
         $category = \App\Models\Category::where('category_url', $category_url)->findOrFail();
-        return view('explore.category')->with('categoryId',$category->id);
+        return inertia('explore/category', [
+            'categoryId' => $category->id
+        ]);
     }
     public function postImage($filename)
     {
@@ -96,24 +103,26 @@ class GuestController extends Controller
     {
         $me = Auth::user();
         if ($me) {
-            return view('seeker.posts');
+            return inertia('common/dashboard');
         }
-        return view('guest.welcome');
+        return inertia('guest/welcome');
     }
 
     public function resetPassword(Request $request){
         $token = $request->token;
-        return view('guest.auth.reset-password')
-        ->with('token',$token);
+        return inertia('auth/reset-password', [
+            'token' => $token
+        ]);
     }
 
     public function searchPage(Request $request)
     {
-        return view('explore.search')
-        ->with('searchQuery', $request->qu);
+        return inertia('explore/search',[
+            'searchQuery' => $request->qu
+        ]);
     }
     public function FindInterestField(Request $request)
     {
-        return view('create-post.find-interest-field');
+        return inertia('create-post/find-interest-field');
     }
 }

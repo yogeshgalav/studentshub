@@ -382,7 +382,6 @@
         </div>
       </div>
     </div>
-    <site-footer v-if="AuthUser === null" />
   </section>
 </template>
 <style scoped>
@@ -638,26 +637,13 @@ h6.card-title-tag.font-size-12 a {
 <script>
 import { mapState } from 'vuex';
 import SocialSharing from 'vue-social-sharing';
-import CategoryFilter from '../category/CategoryFilter';
-import RecentPost from '../post/RecentPost';
-import SiteFooter from '../footer/SiteFooter';
-import PostInteraction from '../post/PostInteraction';
-import PostViewHeader from '../post/PostViewHeader';
 import swal from '../../components/swal';
-import McqPostView from './McqPostView';
 import CommentSection from '../common/comment-section.vue'; 
-import TableRowVue from '../../components2/base/base-table/components/TableRow.vue';
 
 export default {
 	components: {
-		CategoryFilter,
-		RecentPost,
-		SiteFooter,
-		PostInteraction,
-		PostViewHeader,
 		SocialSharing,
 		CommentSection,
-		McqPostView
 	},
 	props: ['role'],
 	data() {

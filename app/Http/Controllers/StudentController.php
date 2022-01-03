@@ -121,8 +121,7 @@ class StudentController extends Controller
         if($request->sId){
             $subjectInfo = \App\Models\Subject::find($request->sId);
         }
-        return view('create-post.share-post')
-        ->with([
+        return inertia('create-post/share-post', [
             'courseInfo' => isset($courseInfo) ? $courseInfo : null,
             'subjectInfo' => isset($subjectInfo) ? $subjectInfo : null,
         ]);
@@ -130,25 +129,28 @@ class StudentController extends Controller
     public function editPost(Post $post)
     {
         $post_details = $post->load(['category','subjects','postable']);
-        return view('create-post.edit-post')->with('post',$post_details);
+        return inertia('create-post/edit-post', ['post' => $post_details]);
     }
     public function classroomList()
     {
-        return view('student.classroomList');
+        return inertia('classroom/classroom-list');
     }
 
     public function classroom()
     {
-        return view('student.classroom');
+        if(Auth::user()->role_intended==='student'){
+            return inertia('classroom/student/menu');
+        }
+        
+        return inertia('classroom/teacher/menu');
     }
 
     public function myCoursePage(){
-        return view('student.my-course');
+        return inertia('common/my-course');
     }
     public function moreApps()
     {
         $apps = \App\Models\MoreApp::get();
-        return view('student.more-apps')
-            ->with('apps', $apps);
+        return inertia('common/more-apps', ['apps' => $apps]);
     }
 }
