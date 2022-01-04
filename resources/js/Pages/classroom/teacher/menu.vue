@@ -5,7 +5,7 @@
       <div class="row">
         <div class="col-md-4 mb-3">
           <div class="selection-box-default">
-            <Link
+            <router-link
               class="card h-card"
               :href="'/classroom/'+$route.params.classroomId+'/overview'"
             >
@@ -21,12 +21,12 @@
                   </div>
                 </div>
               </div>
-            </Link>
+            </router-link>
           </div>
         </div>
         <div class="col-md-4 mb-3">
           <div class="selection-box-default">
-            <Link
+            <router-link
               class="card h-card"
               :href="'/classroom/'+$route.params.classroomId+'/attendance'"
             >
@@ -42,13 +42,13 @@
                   </div>
                 </div>
               </div>
-            </Link>
+            </router-link>
           </div>
         </div>
 
         <div class="col-md-4 mb-3">
           <div class="selection-box-default">
-            <Link
+            <router-link
               class="card h-card"
               :href="'/classroom/'+$route.params.classroomId+'/homeworks'"
             >
@@ -64,13 +64,13 @@
                   </div>
                 </div>
               </div>
-            </Link>
+            </router-link>
           </div>
         </div>
       
         <div class="col-md-4 mb-3">
           <div class="selection-box-default">
-            <Link
+            <router-link
               class="card h-card"
               :href="'/classroom/'+$route.params.classroomId+'/setup'"
             >
@@ -86,12 +86,12 @@
                   </div>
                 </div>
               </div>
-            </Link>
+            </router-link>
           </div>
         </div>
         <div class="col-md-4 mb-3">
           <div class="selection-box-default">
-            <Link
+            <router-link
               class="card h-card"
               :href="'/classroom/'+$route.params.classroomId+'/daily-assignment'"
             >
@@ -107,13 +107,13 @@
                   </div>
                 </div>
               </div>
-            </Link>
+            </router-link>
           </div>
         </div>
 
         <div class="col-md-4 mb-3">
           <div class="selection-box-default">
-            <Link
+            <router-link
               class="card h-card"
               :href="'/classroom/'+$route.params.classroomId+'/report'"
             >
@@ -129,13 +129,13 @@
                   </div>
                 </div>
               </div>
-            </Link>
+            </router-link>
           </div>
         </div>
            
         <div class="col-md-4 mb-3">
           <div class="selection-box-default">
-            <Link
+            <router-link
               class="card h-card"
               :href="'/classroom/'+$route.params.classroomId+'/resources'"
             >
@@ -151,12 +151,12 @@
                   </div>
                 </div>
               </div>
-            </Link>
+            </router-link>
           </div>
         </div>
         <div class="col-md-4 mb-3">
           <div class="selection-box-default">
-            <Link
+            <router-link
               class="card h-card"
               :href="'/classroom/'+$route.params.classroomId+'/messages'"
             >
@@ -172,7 +172,7 @@
                   </div>
                 </div>
               </div>
-            </Link>
+            </router-link>
           </div>
         </div>
       </div>

@@ -49,13 +49,13 @@
         Student's Hub is free for individual students and teachers
       </h3>
       <div class="text-center">
-        <Link
+        <router-link
           :href="'/get-started'"
           type="button"
           class="btn btn-outline-secondary"
         >
           Get Started &nbsp;<i class="fas fa-arrow-right" />
-        </Link>
+        </router-link>
       </div>
     </div>
     <div class="p-5 container">

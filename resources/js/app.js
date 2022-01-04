@@ -80,8 +80,7 @@ import AuthLayout from './Layouts/AuthLayout';
  */
 createInertiaApp({
 	resolve: name => {
-		const page = require(`./Pages/${name}`).default;
-		console.log(name);
+		const page = import(`./Pages/${name}`);
 		page.layout = page.layout || AuthLayout;
 		return page;
 	},

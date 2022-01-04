@@ -108,7 +108,7 @@ import GuestLayout from '@/Layouts/GuestLayout.vue';
 
 export default {
 	name: 'Faq',
-    layout: GuestLayout,
+  layout: GuestLayout,
 	mixins: [FormMixin],
 	props: {
 		faqs:{

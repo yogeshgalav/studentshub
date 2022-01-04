@@ -19,9 +19,9 @@
             <div class="col-md-12">
               <p>
                 {{ 'No unit created.This page will populate once unit setup is done. ' }}
-                <Link :href="'/classroom/'+$route.params.classroomId+'/setup'">
+                <router-link :href="'/classroom/'+$route.params.classroomId+'/setup'">
                   Click here to to create unit
-                </Link>
+                </router-link>
               </p>
             </div>
           </div>

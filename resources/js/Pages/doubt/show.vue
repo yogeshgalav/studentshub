@@ -10,7 +10,7 @@
       <div class="row">
         <div class="col-md-12">
           <div class="">
-            <Link
+            <router-link
               v-if="AuthUser"
               class="btn btn-link ml-2 mb-2 font-size-18"
               :href="'/doubts'"
@@ -20,7 +20,7 @@
                 aria-hidden="true"
               />
               Back
-            </Link>
+            </router-link>
           </div>
         </div>
       </div>

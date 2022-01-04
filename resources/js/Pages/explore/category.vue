@@ -20,7 +20,7 @@
           v-for="(course,index) in courses"
           :key="index"
         >
-          <Link
+          <router-link
             :href="'/course/'+course.slug"
             class="card mt-2"
           >
@@ -31,7 +31,7 @@
               Duration: {{ course.duration ? course.duration : 'N/A' }}<br>
               Eligibility: {{ course.eligibility ? course.eligibility : 'N/A' }}
             </p>
-          </Link>
+          </router-link>
         </div>
       </template>
       <template slot="tab-heading-subjects">
@@ -42,14 +42,14 @@
           v-for="(subject,index) in subjects"
           :key="index"
         >
-          <Link
+          <router-link
             :href="'/subject/'+subject.slug"
             class="card mt-2"
           >
             <p class="mt-4 explore-name ml-2">
               {{ index+1 }}. &nbsp;{{ subject.subject_name }}
             </p>
-          </Link>
+          </router-link>
         </div>
       </template>
       <template slot="tab-heading-posts">

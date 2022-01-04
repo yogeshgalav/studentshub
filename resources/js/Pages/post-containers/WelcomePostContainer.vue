@@ -32,12 +32,12 @@
                 </div>
               </div>
               <h3 class="card-title mb-1  font-size-18">
-                <Link
+                <router-link
                   :href="'/post/'+post.id"
                   class="weight-600 text-black"
                 >
                   {{ post.heading }}
-                </Link>
+                </router-link>
               </h3>
               <h5 class="mb-1 post_des">
                 {{ post.content }}

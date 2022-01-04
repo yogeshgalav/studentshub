@@ -2,14 +2,14 @@
   <div class="col-md-4 mt-1">
     <div class="card">
       <div class="card-body text-center mx-auto">
-        <Link
+        <router-link
           v-if="link"
           :href="link"
         >
           {{ value }}
           <br>
           {{ label }}
-        </Link>
+        </router-link>
         <div v-else>
           {{ value }}
           <br>

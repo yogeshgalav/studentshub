@@ -105,13 +105,13 @@
                 Submission Date: {{ $dayjs(homework.submission_date).format('D MMMM, YYYY') }}
               </p>
               <p>{{ homework.homework_text }}</p>
-              <Link
+              <router-link
                 :href="'/classroom/'+routeClassroomId+'/homework/'+homework.id"
                 class="btn p-0 btn-link font-size-16"
                 style="text-decoration: underline;"
               >
                 View Homework &nbsp;<i class="fa fa-arrow-right" />
-              </Link>
+              </router-link>
             </div>
             <hr>
             <interaction-component

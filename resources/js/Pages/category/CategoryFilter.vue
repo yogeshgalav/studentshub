@@ -6,24 +6,24 @@
       </div>
       <div class="cat_menu">
         <div class="cat_menu_list">
-          <Link
+          <router-link
             v-for="(category,index) in categories"
             :key="index"
             :href="'/category/'+category.category_url"
             :class="['btn btn-white cat_btn',category.category_url]"
           >
             {{ category.name }}
-          </Link>
+          </router-link>
         </div>
       </div>
 
       <div class="category_btn mt-3">
-        <Link :href="'/get-started'" style="padding:15px 80px;">
+        <router-link :href="'/get-started'" style="padding:15px 80px;">
           Find Out &nbsp;&nbsp;<span><i
             class="fa fa-arrow-right"
             aria-hidden="true"
           /></span>
-        </Link>
+        </router-link>
       </div>
     </div>
   </div>
