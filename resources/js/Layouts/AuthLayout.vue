@@ -1,17 +1,22 @@
 <template>
-  <main class="flex-center full-height">
-    <div class="header">
-      <Navbar />
-    </div>
-    <div class="main-area">
-      <div
-        id="sidebar-section"
-        class="sidebar-section"
-      >
-        <Sidebar />
+  <main class="flex-center position-ref full-height">
+    <div
+      id="wrapper"
+      class="wrapper"
+    >
+      <div class="header">
+        <Navbar />
       </div>
-      <div class="content">
-        <slot  />
+      <div class="main-area">
+        <div
+          id="sidebar-section"
+          class="sidebar-section"
+        >
+          <Sidebar />
+        </div>
+        <div class="content">
+          <slot />
+        </div>
       </div>
     </div>
   </main>

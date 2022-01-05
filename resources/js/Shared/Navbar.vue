@@ -104,7 +104,7 @@
         <div class="guest-navbar-brand">
           <a href="/">
             <img
-              src="'/images/logo.png"
+              src="/images/logo.png"
               alt="Student'sHUB"
             >
           </a>
@@ -128,22 +128,22 @@
         </div>
         <div class="guest-nav-items">
           <div class="nav-item nav-login">
-            <link
+            <router-link
               class="btn btn-link text-blue"
               :href="'/login'"
             >
               Login <i class="fas fa-arrow-right" />
-            </link>
+            </router-link>
           </div>
           <div class="nav-item">
-            <link
+            <router-link
               class="btn btn-primary"
               :href="'/get-started'"
             >
               Get Started <i
                 class="fas fa-arrow-right text-white"
               />
-            </link>
+            </router-link>
           </div>
         </div>
       </div>
@@ -157,22 +157,22 @@
           </li>
           <div class="nav-login-get-started">
             <li class="nav-item nav-login">
-              <link
+              <router-link
                 class="btn btn-link text-blue"
                 :href="'/login'"
               >
                 Login <i class="fas fa-arrow-right" />
-              </link>
+              </router-link>
             </li>
             <li class="nav-item">
-              <link
+              <router-link
                 class="btn btn-primary"
                 :href="'/get-started'"
               >
                 Get Started <i
                   class="fas fa-arrow-right text-white"
                 />
-              </link>
+              </router-link>
             </li>
           </div>
         </ul>
