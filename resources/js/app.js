@@ -1,3 +1,5 @@
+require('./bootstrap');
+
 import Vue from 'vue';
 import Vuex from 'vuex';
 import { createInertiaApp } from '@inertiajs/inertia-vue';

@@ -1,7 +1,10 @@
 <template>
   <div class="navbar fixed-top">
-    <div class="row" v-if="AuthUser">
-      <div class="col-md-12 nav-items">
+    <div
+      v-if="AuthUser"
+      class="container-fluid"
+    >
+      <div class="nav-items">
         <div class="navbar-brand">
           <a href="/">
             <img
@@ -26,9 +29,7 @@
         </div>
       </div>
 
-
       <!-- mobile header -->
-
       <div
         id="mobileNavbar"
         class="mobile_navbar"
@@ -99,7 +100,10 @@
     </div>
 
     <!-- guest navbar uathenticated navbar -->
-    <div v-else>
+    <div
+      v-else
+      class="container-fluid"
+    >
       <div class="guest-navbar">
         <div class="guest-navbar-brand">
           <a href="/">
@@ -190,6 +194,29 @@ export default {
 		ProfileDropdown,
 		ProfileDropdown2,
 		SearchForm
-	}    
+	},
+	mounted(){
+		var prevScrollpos = window.pageYOffset;
+		window.addEventListener('scroll', ()=>{
+			let headerMobile = document.getElementById('mobileNavbar');
+			if (headerMobile){
+				var currentScrollPos = window.pageYOffset;
+				if (prevScrollpos > currentScrollPos) {
+					this.showMobileLogoBar = true;
+				} else {
+					this.showMobileLogoBar = false;
+				}
+				prevScrollpos = currentScrollPos;
+			}
+		});
+	} 
 };
 </script>
+<style scoped>
+@media (max-width: 768px) {
+  .navbar .container-fluid { 
+    padding: 0;
+    margin: 0;
+  }
+}
+</style>
