@@ -19,6 +19,19 @@
           </template>
         </PostContainer>
       </template>
+      <template slot="tab-heading-doubts">
+        {{ 'Doubts' }}
+      </template>
+      <template slot="tab-panel-doubts">
+        <DoubtContainer
+          v-if="AuthUser.preferred_course_id"
+          :doubt-route="'/course/'+AuthUser.preferred_course_id"
+        >
+          <template slot="empty">
+            Currently no doubt have been shared in this subject.
+          </template>
+        </DoubtContainer>
+      </template>
     </nav-tabs>
   </div>
 </template>
@@ -26,10 +39,12 @@
 <script>
 import NavTabs from '../../components/NavTabs';
 import PostContainer from '../common/post-container.vue';
+import DoubtContainer from '../common/doubt-container';
 
 export default {
 	components: {
 		PostContainer,
+		DoubtContainer,
 		NavTabs,
 	},
 	props:['subjectId'],

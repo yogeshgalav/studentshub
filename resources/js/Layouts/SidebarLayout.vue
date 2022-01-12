@@ -3,7 +3,9 @@
     <div class="header">
       <Navbar />
     </div>
-    <div class="main-area">
+    <div
+      class="main-area"
+    >
       <div
         id="sidebar-section"
         class="sidebar-section"

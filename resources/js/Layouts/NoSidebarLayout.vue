@@ -16,7 +16,7 @@ import SiteFooter from '../Shared/SiteFooter';
 export default {
 	components:{
 		Navbar,
-    SiteFooter
+		SiteFooter
 	}  
 };
 </script>

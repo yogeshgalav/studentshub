@@ -103,12 +103,12 @@
 
 
 <script>
-import FormMixin from '../../components/mixins/form-mixin.js';
-import GuestLayout from '@/Layouts/GuestLayout.vue';
+import FormMixin from '@/components/mixins/form-mixin.js';
+import NoSidebarLayout from '@/Layouts/NoSidebarLayout.vue';
 
 export default {
 	name: 'Faq',
-  layout: GuestLayout,
+	layout: NoSidebarLayout,
 	mixins: [FormMixin],
 	props: {
 		faqs:{

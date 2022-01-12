@@ -236,10 +236,10 @@ h1 {
 import {mapState} from 'vuex';
 import CategoryFilter from '../category/CategoryFilter';
 import ExploreCarousalPost from '../post-containers/ExploreCarousalPost';
-import GuestLayout from '@/Layouts/GuestLayout.vue';
+import NoSidebarLayout from '@/Layouts/NoSidebarLayout.vue';
 
 export default {
-  layout: GuestLayout,
+	layout: NoSidebarLayout,
 	components: {
 		CategoryFilter,
 		ExploreCarousalPost,

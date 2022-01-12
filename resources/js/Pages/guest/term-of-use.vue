@@ -37,9 +37,9 @@
   </div>
 </template>
 <script>
-import GuestLayout from '@/Layouts/GuestLayout.vue';
+import NoSidebarLayout from '@/Layouts/NoSidebarLayout.vue';
 
 export default {
-  layout: GuestLayout,
-}
+	layout: NoSidebarLayout,
+};
 </script>

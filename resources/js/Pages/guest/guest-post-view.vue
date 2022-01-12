@@ -1,12 +1,13 @@
 <template>
-<post-view-page :role="'guest'" />
+  <post-view-page :role="'guest'" />
 </template>
 <script>
+import NoSidebarLayout from '@/Layouts/NoSidebarLayout.vue';
 import PostViewPage from '../post/PostViewPage';
 export default {
-    components: 
-    {
-        PostViewPage
-    },
-}
+	layout: NoSidebarLayout,
+	components: {
+    	PostViewPage
+	},
+};
 </script>

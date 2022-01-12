@@ -91,13 +91,13 @@ input{
 
 <script>
 import FormMixin from '../../components/mixins/form-mixin';
-import GuestLayout from '@/Layouts/GuestLayout.vue';
+import NoSidebarLayout from '@/Layouts/NoSidebarLayout.vue';
 
 export default {
 	mixins: [
 		FormMixin
 	],
-  layout: GuestLayout,
+	layout: NoSidebarLayout,
 	data() {
 		return {
 			email:'',

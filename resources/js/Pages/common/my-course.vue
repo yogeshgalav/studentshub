@@ -69,6 +69,19 @@
             </template>
           </PostContainer>
         </template>
+        <template slot="tab-heading-doubts">
+          {{ 'Doubts' }}
+        </template>
+        <template slot="tab-panel-doubts">
+          <DoubtContainer
+            v-if="AuthUser.preferred_course_id"
+            :doubt-route="'/course/'+AuthUser.preferred_course_id"
+          >
+            <template slot="empty">
+              Currently no doubt have been shared in your course.
+            </template>
+          </DoubtContainer>
+        </template>
       </nav-tabs>
     </div>
   </div>
@@ -78,10 +91,11 @@
 import NavTabs from '../../components/NavTabs';
 import SelectCourse from '../../components/SelectCourse.vue';
 import PostContainer from './post-container.vue';
+import DoubtContainer from './doubt-container.vue';
 
 export default {
 	components: {
-		NavTabs, PostContainer, SelectCourse
+		NavTabs, PostContainer, DoubtContainer, SelectCourse
 	},
 	data() {
 		return {
@@ -89,7 +103,7 @@ export default {
 			posts: [],
 			subjects: [],
 			initialTab: 'posts',
-			tabs: ['posts','subjects'],
+			tabs: ['posts', 'doubts', 'subjects'],
 			showLoader: false,
 			selected_course : {
 				'id': null,

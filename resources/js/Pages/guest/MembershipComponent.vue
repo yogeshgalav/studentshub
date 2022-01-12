@@ -403,10 +403,10 @@ import swal from '../../components/swal';
 import Modal from '../../components/VueNiceModal.vue';
 import {VueTelInput} from 'vue-tel-input';
 import 'vue-tel-input/dist/vue-tel-input.css';
-import GuestLayout from '@/Layouts/GuestLayout.vue';
+import NoSidebarLayout from '@/Layouts/NoSidebarLayout.vue';
 
 export default {
-  layout: GuestLayout,
+	layout: NoSidebarLayout,
 	components: {
 		VueTelInput
 	},

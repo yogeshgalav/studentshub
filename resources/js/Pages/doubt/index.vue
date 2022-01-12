@@ -302,7 +302,7 @@ export default {
     {
     	getdata(){
     		this.loading=true;
-    		this.axios.get('/api/get-doubts')
+    		this.axios.get('/api/doubts')
     			.then(response => {
     				this.doubtList = response.data.success.doubtList;
     				this.loading=false;
@@ -321,7 +321,7 @@ export default {
     	filterinput()
     	{
     		this.loading=true;
-    		this.axios.get(this.baseUrl + '/api/get-doubts?search='+this.search_doubt)
+    		this.axios.get(this.baseUrl + '/api/doubts?search='+this.search_doubt)
     			.then(response => {
     				this.doubtList= response.data.success.doubtList;
     				this.loading=false;

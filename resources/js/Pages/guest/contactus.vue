@@ -133,7 +133,6 @@
       <div class="col-md-12">
         <div class="divider mt-5" />
       </div>
- 
     </main>
   </div>
 </template>
@@ -200,12 +199,12 @@ hr {
 }
 </style>
 <script>
-import FormMixin from '../../components/mixins/form-mixin.js';
-import GuestLayout from '@/Layouts/GuestLayout.vue';
+import FormMixin from '@/components/mixins/form-mixin.js';
+import NoSidebarLayout from '@/Layouts/NoSidebarLayout.vue';
 
 export default {
 	name: 'Contactus',
-  layout: GuestLayout,
+	layout: NoSidebarLayout,
 	mixins: [FormMixin],
 	data() {
 		return {

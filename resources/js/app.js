@@ -70,10 +70,9 @@ if(process.env.NODE_ENV === 'production'){
 	});
 }
 
-import GlobalMixin from './global-mixin.js';
+import Layout from '@/Layouts/SidebarLayout.vue';
+import GlobalMixin from '@/global-mixin.js';
 Vue.mixin(GlobalMixin);
-
-import AuthLayout from './Layouts/AuthLayout';
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -81,12 +80,12 @@ import AuthLayout from './Layouts/AuthLayout';
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 createInertiaApp({
-	resolve: name => {
-		const page = import(`./Pages/${name}`);
-		page.layout = page.layout || AuthLayout;
-		return page;
-	},
-	title: title => `${title} - Student's Hub`,
+	resolve: name => import(`./Pages/${name}`).then(module=>{
+		if(!module.default.layout){
+			module.default.layout = Layout;
+		}
+		return module.default;
+	}),
 	setup({ el, App, props }) {
 	  new Vue({
 			store,

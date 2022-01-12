@@ -3,8 +3,10 @@ import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 var relativeTime = require('dayjs/plugin/relativeTime');
 import { Link as RouterLink } from '@inertiajs/inertia-vue';
+import AuthLayout from './Layouts/AuthLayout';
 
 export default {
+	layout: AuthLayout,
 	components:{
 		ProfileImage,
 		Loading,
@@ -32,9 +34,6 @@ export default {
 		fileUrl() {
 			return this.$page.props.fileUrl;
 		},
-		signedIn(){
-			return this.$page.props.signedIn;
-		},
 		AuthUser(){
 			return this.$page.props.AuthUser;
 		},
@@ -49,35 +48,6 @@ export default {
 		},
 		accessToken() {
 			return localStorage.getItem('access_token');
-		},
-		catchResponse(err){
-			switch (err.response.status) {
-			case 401:
-				this.redirect('/login');
-				break;
-			case 422:
-				let fieldErrors = [];
-				for (let [index, field] of Object.entries(err.response.data.errors)) {
-					fieldErrors = field.map(msg => {
-						return { 'field': index, msg };
-					});
-					field = this.$validator.fields.find({ name: index });
-					fieldErrors.forEach(error => {
-						error.id = field.id;
-						this.errors.add(error);
-					});
-					field.setFlags({
-						valid: !!fieldErrors.length,
-						dirty: true
-					});
-				};
-				break;
-			default:
-				console.error('Error code:' + err.response.status); // eslint-disable-line no-console
-				console.error(err.response.data); // eslint-disable-line no-console
-				break;
-			}
-			return true;
 		},
 		letters() {
 			let letters = [];

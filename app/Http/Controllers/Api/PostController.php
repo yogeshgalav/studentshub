@@ -146,13 +146,12 @@ class PostController extends Controller
             ->orderBy('po.created_at','DESC');
             break;
           case 'course':
-            $posts=$post_query->leftJoin('post_tags as pt','pt.post_id','=','po.id')
-            ->leftJoin('course_subjects as cosub','pt.subject_id','=','cosub.subject_id')
-            ->where('cosub.course_id',$course_id)
+            $posts=$post_query->where('po.course_id',$course_id)
             ->orderBy('po.created_at','DESC');
             break;
           case 'subject':
-            $posts=$post_query->where('sub.id',$subject_id)
+            $posts=$post_query->leftJoin('post_tags as pt','pt.post_id','=','po.id')
+            ->where('pt.subject_id',$subject_id)
             ->orderBy('po.created_at','DESC');
             break;
           case 'category':
@@ -171,7 +170,7 @@ class PostController extends Controller
         if($request->user('api')){
           $posts=$post_query->paginate();
         }else{
-          $posts=$post_query->limit(10)->paginate();
+          $posts=$post_query->limit(10)->get();
         }
         
         return response()->json(['success'=>[
