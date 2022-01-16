@@ -93,7 +93,7 @@
                       <a
                         id="reflection-link"
                         class="btn btn-success text-white"
-                        :href="'/classroom/' + $route.params.classroomId"
+                        :href="'/classroom/' + $route.params[0]"
                       >
                         {{ 'Attempt now' }}
                       </a>
@@ -146,7 +146,7 @@
             </div>
           </div>
           <div class="card-body">
-            <student-report :classroom-id="$route.params.classroomId" />
+            <student-report :classroom-id="$route.params[0]" />
           </div>
         </div>
       </div>
@@ -206,16 +206,16 @@ export default {
 		
 		history.pushState(null, null);
 		window.addEventListener('popstate', (event)=> {
-			window.location='/classroom/' + this.$route.params.classroomId;
+			window.location='/classroom/' + this.$route.params[0];
 			return false;
 		});
 		this.getDailyReports();
 	},
 	methods:{
 		getDailyReports(){
-			let url='/api/classroom/' + this.$route.params.classroomId + '/get-assignment-report';
-			if(this.$route.name==='ClassroomStudentPanel'){
-				url=url+'/'+this.$router.currentRoute.params.userId;
+			let url='/api/classroom/' + this.$route.params[0] + '/get-assignment-report';
+			if(this.$route.params[1]){
+				url=url+'/'+this.$route.params[1];
 			}
 			this.axios.get(url).then((
 				resp) => {

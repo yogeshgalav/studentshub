@@ -345,7 +345,7 @@ export default {
 	methods: {
 		getQuestions() {
 			this.axios
-				.get('/api/classroom/' + this.$route.params.classroomId + '/assignment/'+this.assignmentId+'/questions')
+				.get('/api/classroom/' + this.$route.params[0] + '/assignment/'+this.assignmentId+'/questions')
 				.then((resp) => {
 					this.daily_questions =resp.data.success.daily_questions;
 				});

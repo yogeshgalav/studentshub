@@ -150,7 +150,10 @@ input{
 import Vue from 'vue';
 import VeeValidate from 'vee-validate';
 Vue.use(VeeValidate);
+import BlankLayout from '@/Layouts/BlankLayout';
+
 export default {
+	layout:BlankLayout,
 	components: {
 		VeeValidate
 	},

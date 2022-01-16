@@ -57,7 +57,7 @@
               >
                 <span v-if="props.column.field==='full_name'">
                   <a
-                    :href="'/classroom/'+$route.params.classroomId+'/student-panel/'+props.row.user_id"
+                    :href="'/classroom/'+$route.params[0]+'/student-panel/'+props.row.user_id"
                     class="text-underline"
                   >{{ props.row['full_name'] }}</a>
                 </span>
@@ -121,7 +121,7 @@
               >
                 <span v-if="props.column.field==='full_name'">
                   <a
-                    :href="'/classroom/'+$route.params.classroomId+'/student-panel/'+props.row.user_id"
+                    :href="'/classroom/'+$route.params[0]+'/student-panel/'+props.row.user_id"
                     class="text-underline"
                   >{{ props.row['full_name'] }}</a>
                 </span>
@@ -208,7 +208,7 @@ export default {
 	methods: {
 		getAttendanceDetails(){
 			this.loading =true;
-			this.axios('/api/classroom/'+ this.$route.params.classroomId +'/get-attendance-data').then((resp)=>{
+			this.axios('/api/classroom/'+ this.$route.params[0] +'/get-attendance-data').then((resp)=>{
 				this.attendRow = resp.data.success.today_attendance.map(node=>{
 					node.joined_at = dayjs(node.joined_at, 'hh:mm:ss').format('hh:mm A');
 					node.present_at = node.present_at ? dayjs(node.present_at, 'hh:mm:ss').format('hh:mm A') : '';
@@ -216,7 +216,7 @@ export default {
 				});
 				this.loading =false;
 			});
-			this.axios('/api/classroom/'+ this.$route.params.classroomId +'/get-attendance-dates').then((resp)=>{
+			this.axios('/api/classroom/'+ this.$route.params[0] +'/get-attendance-dates').then((resp)=>{
 				this.attendDates = resp.data.success.attend_dates.map(node=>{
 					node.original_date = node.meet_date;
 					node.meet_date = dayjs(node.meet_date, 'YYYY-MM-DD').format('D MMMM, YYYY');
@@ -226,7 +226,7 @@ export default {
 		},
 		getAttendanceForDate(){
 			this.loading =true;
-			this.axios('/api/classroom/'+ this.$route.params.classroomId +'/get-attendance-data?date='+this.selected_date).then((resp)=>{
+			this.axios('/api/classroom/'+ this.$route.params[0] +'/get-attendance-data?date='+this.selected_date).then((resp)=>{
 				this.PreviousAttendRow = resp.data.success.today_attendance.map(node=>{
 					node.joined_at = dayjs(node.joined_at, 'hh:mm:ss').format('hh:mm A');
 					node.present_at = node.present_at ? dayjs(node.present_at, 'hh:mm:ss').format('hh:mm A') : '';
@@ -236,11 +236,11 @@ export default {
 			});
 		},
 		startMeeting(){
-			this.axios('/api/classroom/'+ this.$route.params.classroomId +'/start-meeting');
+			this.axios('/api/classroom/'+ this.$route.params[0] +'/start-meeting');
 		},
 		startAttendance(){
 			this.timer=dayjs('10:00','mm:ss').format('mm:ss');
-			this.axios('/api/classroom/'+ this.$route.params.classroomId +'/start-attendance').then(()=>{
+			this.axios('/api/classroom/'+ this.$route.params[0] +'/start-attendance').then(()=>{
 				this.startTimer = true;
 				var downTimer = setInterval(()=>{
 					if(dayjs(this.timer,'mm:ss').minute() >10){

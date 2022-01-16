@@ -89,8 +89,10 @@
 <script>
 import swal from '../../components/swal';
 import FormMixin from '../../components/mixins/form-mixin.js' ;
+import NoSidebarLayout from '@/Layouts/NoSidebarLayout';
 
 export default {
+	layout:NoSidebarLayout,
 	mixins: [FormMixin],
 	data(){
 		return{

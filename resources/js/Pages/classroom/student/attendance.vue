@@ -59,7 +59,7 @@
               >
                 <span v-if="props.column.field==='user_name'">
                   <a
-                    :href="'/classroom/'+$route.params.classroomId+'/student-panel/'+props.row.user_id"
+                    :href="'/classroom/'+$route.params[0]+'/student-panel/'+props.row.user_id"
                     class="text-underline"
                   >{{ props.row['user_name'] }}</a>
                 </span>
@@ -139,7 +139,7 @@ export default {
 	methods: {
 		getAttendanceDetails(){
 			this.loading=true;
-			this.axios('/api/classroom/'+ this.$route.params.classroomId +'/get-student-attendance').then((resp)=>{
+			this.axios('/api/classroom/'+ this.$route.params[0] +'/get-student-attendance').then((resp)=>{
 				this.attendance = resp.data.success.attendance;
 				this.attendRow = resp.data.success.attend_rows.map(node=>{
 					node.joined_at = this.$dayjs(node.joined_at, 'hh:mm:ss').format('hh:mm A');
@@ -152,11 +152,11 @@ export default {
 			});
 		},
 		joinMeeting(){
-			this.axios('/api/classroom/'+ this.$route.params.classroomId +'/join-meeting');
+			this.axios('/api/classroom/'+ this.$route.params[0] +'/join-meeting');
 		},
 		markPresent(){
 			this.loading=true;
-			this.axios('/api/classroom/'+ this.$route.params.classroomId +'/mark-present').then((resp)=>{
+			this.axios('/api/classroom/'+ this.$route.params[0] +'/mark-present').then((resp)=>{
 				this.attendance = resp.data.success.attendance;
 				this.attendRow = resp.data.success.attend_rows.map(node=>{
 					node.joined_at = this.$dayjs(node.joined_at, 'hh:mm:ss').format('hh:mm A');

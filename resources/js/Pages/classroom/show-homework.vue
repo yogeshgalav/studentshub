@@ -147,7 +147,7 @@ export default {
 	},
 	methods: {
 		getHomeworkData(){
-      		axios.get('/api/classroom/' + this.$route.params.classroomId + '/homework/'+this.$route.params.homework)
+      		axios.get('/api/classroom/' + this.$route.params[0] + '/homework/'+this.$route.params[1])
 				.then(response => {
 					this.homework = response.data.success.homework;
 					this.markedDone = this.homework.user_mark ? true : false;
@@ -163,7 +163,7 @@ export default {
 		},
 		markDone() {
 			this.markedDone = !this.markedDone;
-			this.axios.post('/api/homework/' + this.$route.params.homework + '/mark-as-done')
+			this.axios.post('/api/homework/' + this.$route.params[1] + '/mark-as-done')
 				.then(resp => {
 					this.error = '';
 				}).catch(()=>{

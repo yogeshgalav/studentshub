@@ -23,7 +23,7 @@
           </div>
           <div class="card-body">
             <student-report
-              :classroom-id="$route.params.classroomId"
+              :classroom-id="$route.params[0]"
               :user-id="current_user_id"
             />
           </div>
@@ -72,7 +72,7 @@ export default {
 	},
 	data() {
 		return {
-			current_user_id:this.$router.currentRoute.params.userId,
+			current_user_id:this.$route.params[1],
 			today_report: null,
 			today_assignment: null,
 			is_available: false,

@@ -98,7 +98,7 @@
             :key="index"
             class="col-md-4 mb-2"
           >
-            <a
+            <router-link
               :href="'/classroom/'+classroom.classroom_id"
               class="card rounded-lg pt-3 pb-3 bg-light text-center"
             >
@@ -118,7 +118,7 @@
               <h4 class="font-weight-normal text-muted">
                 {{ classroom.classroom_name }}
               </h4>
-            </a>
+            </router-link>
           </div>
         </div>
       </div>
@@ -137,10 +137,10 @@
                 slot-scope="props"
               >
                 <span v-if="props.column.field==='classroom_name'">
-                  <a
+                  <router-link
                     :href="'/classroom/'+props.row.classroom_id"
                     class="text-underline"
-                  >{{ props.row['classroom_name'] }}</a>
+                  >{{ props.row['classroom_name'] }}</router-link>
                 </span>
               </template>
               <template slot="emptystate">

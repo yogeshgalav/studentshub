@@ -232,7 +232,7 @@ export default {
 		}
 	},
 	mounted(){
-		this.axios.get('/api/classroom/'+this.$route.params.classroomId+'/get-attempted-assignment-list')
+		this.axios.get('/api/classroom/'+this.$route.params[0]+'/get-attempted-assignment-list')
 			.then(resp=>{
 				this.assignment_list=resp.data.success.assignment_list;
 				this.showLoader = false;

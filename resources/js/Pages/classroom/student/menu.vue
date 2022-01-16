@@ -6,7 +6,7 @@
         <div class="selection-box-default">
           <router-link
             class="card h-card"
-            :href="'/classroom/'+$route.params.classroomId+'/daily-assignment'"
+            :href="'/classroom/'+$route.params[0]+'/daily-assignment'"
           >
             <div class="card-body">
               <div class="row">
@@ -27,7 +27,7 @@
         <div class="selection-box-default">
           <router-link
             class="card h-card"
-            :href="'/classroom/'+$route.params.classroomId+'/report'"
+            :href="'/classroom/'+$route.params[0]+'/report'"
           >
             <div class="card-body">
               <div class="row">
@@ -49,7 +49,7 @@
         <div class="selection-box-default">
           <router-link
             class="card h-card"
-            :href="'/classroom/'+$route.params.classroomId+'/attendance'"
+            :href="'/classroom/'+$route.params[0]+'/attendance'"
           >
             <div class="card-body">
               <div class="row">
@@ -71,7 +71,7 @@
         <div class="selection-box-default">
           <router-link
             class="card h-card"
-            :href="'/classroom/'+$route.params.classroomId+'/homeworks'"
+            :href="'/classroom/'+$route.params[0]+'/homeworks'"
           >
             <div class="card-body">
               <div class="row">
@@ -93,7 +93,7 @@
         <div class="selection-box-default">
           <router-link
             class="card h-card"
-            :href="'/classroom/'+$route.params.classroomId+'/resources'"
+            :href="'/classroom/'+$route.params[0]+'/resources'"
           >
             <div class="card-body">
               <div class="row">
@@ -114,7 +114,7 @@
         <div class="selection-box-default">
           <router-link
             class="card h-card"
-            :href="'/classroom/'+$route.params.classroomId+'/messages'"
+            :href="'/classroom/'+$route.params[0]+'/messages'"
           >
             <div class="card-body">
               <div class="row">

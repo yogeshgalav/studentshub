@@ -55,7 +55,7 @@
                   <single-value
                     :value="unit.assignmentCount"
                     label="Daily Assignments"
-                    :link="'/classroom/'+$route.params.classroomId+'/daily-assignment'"
+                    :link="'/classroom/'+$route.params[0]+'/daily-assignment'"
                   />
                   <single-value
                     :value="unit.average_score"
@@ -64,7 +64,7 @@
                   <single-value
                     :value="unit.resources"
                     label="Resources"
-                    :link="'/classroom/'+$route.params.classroomId+'/resources'"
+                    :link="'/classroom/'+$route.params[0]+'/resources'"
                   />
                 </div>
                 <div class="row justify-content-center col-md-12">
@@ -179,7 +179,7 @@ export default {
 	},
 	methods: {
 		getUnitDetails(){
-			this.axios.get('/api/classroom/' + this.$route.params.classroomId + '/unit-details').then((resp) => {
+			this.axios.get('/api/classroom/' + this.$route.params[0] + '/unit-details').then((resp) => {
 				this.unitData = resp.data.success.unitData;
 				let summaryData = resp.data.success.summary;
 
@@ -239,7 +239,7 @@ export default {
 		updateUnitName(unit_no,event) {
 			this.showLoader = true;
 			//call api and update field
-			this.axios.post('/api/classroom/'+this.$route.params.classroomId+'/update-unit',{
+			this.axios.post('/api/classroom/'+this.$route.params[0]+'/update-unit',{
 				unit_no: unit_no,
 				unit_name: event.target.value
 			}).then(()=>{

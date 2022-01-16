@@ -3,10 +3,8 @@ import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 var relativeTime = require('dayjs/plugin/relativeTime');
 import { Link as RouterLink } from '@inertiajs/inertia-vue';
-import AuthLayout from './Layouts/AuthLayout';
 
 export default {
-	layout: AuthLayout,
 	components:{
 		ProfileImage,
 		Loading,
@@ -28,6 +26,19 @@ export default {
 		};
 	},
 	computed: {
+		$route() {
+			const current_url = new URL(document.location);
+			const params = current_url.toString().match(/^\d+|\d+\b|\d+(?=\w)/g)
+				.map(function (v) {return +v;});
+			if(process.env.NODE_ENV === 'local'){
+				params.shift();
+			}
+			const query = Object.fromEntries(current_url.searchParams);
+			return {
+				'params':params,
+				'query' :query,
+			};
+		},
 		baseUrl() {
 			return this.$page.props.baseUrl;
 		},

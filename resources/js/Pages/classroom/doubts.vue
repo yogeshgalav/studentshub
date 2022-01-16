@@ -7,7 +7,7 @@
     </div>
     <div class="col-md-12">
       <doubt-list 
-        :classroom-id="$route.params.classroomId" 
+        :classroom-id="$route.params[0]" 
         :subject-id="$store.state.classroom.classroomDetail.subject_id" 
       />
     </div>

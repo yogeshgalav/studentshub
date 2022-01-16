@@ -53,7 +53,7 @@
           >
             <span v-if="props.column.field==='user_name'">
               <a
-                :href="'/classroom/'+$route.params.classroomId+'/student-panel/'+props.row.user_id"
+                :href="'/classroom/'+$route.params[0]+'/student-panel/'+props.row.user_id"
                 class="text-underline"
               >{{ props.row['user_name'] }}</a>
             </span>
@@ -145,7 +145,7 @@ export default {
 	},
 	methods: {
 		getClassroomStudentDetails(){
-			this.axios('/api/classroom/'+ this.$route.params.classroomId +'/report').then((resp)=>{
+			this.axios('/api/classroom/'+ this.$route.params[0] +'/report').then((resp)=>{
 				this.student_details=resp.data.success.student_details;	
 				const student_ids = resp.data.success.student_details.map(node=>{
 					let new_node={};

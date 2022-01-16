@@ -22,7 +22,7 @@
           <div class="col-md-12">
             <p>
               {{ 'No unit created.This page will populate once unit setup is done. ' }}
-              <router-link :href="'/classroom/'+$route.params.classroomId+'/setup'">
+              <router-link :href="'/classroom/'+$route.params[0]+'/setup'">
                 Click here to to create unit
               </router-link>
             </p>
@@ -415,7 +415,7 @@ export default {
 		getAssignmentList() {
 			this.showLoader=true;
 			this.axios
-				.get('/api/classroom/' + this.$route.params.classroomId + '/get-assignment-list')
+				.get('/api/classroom/' + this.$route.params[0] + '/get-assignment-list')
 				.then((resp) => {
 					this.unitList = resp.data.success.unitList;
 					this.assignment_list = resp.data.success.assignment_list.map(node=>{
@@ -454,7 +454,7 @@ export default {
 					this.assignment_error='';
 					this.showLoader=true;
 					this.axios
-				      .post('/api/classroom/' + this.$route.params.classroomId + '/create-assignment', {
+				      .post('/api/classroom/' + this.$route.params[0] + '/create-assignment', {
 							unit_id: this.new_unit,
 							attempt_date: this.$dayjs(this.new_assignment_date, 'DD-MM-YYYY').format('YYYY-MM-DD'),
 						})

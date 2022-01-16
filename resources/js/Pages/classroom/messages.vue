@@ -225,7 +225,7 @@ export default {
 	props:['classrooms'],
 	data() {
 		return {
-			routeClassroomId: this.$route.params.classroomId,
+			routeClassroomId: this.$route.params[0],
 			selectedClassroomId: '',
 			showLoader: true,
 			messages: [],

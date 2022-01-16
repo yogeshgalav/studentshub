@@ -226,7 +226,7 @@ export default {
 	},
 	data() {
 		return {
-			routeClassroomId: this.$route.params.classroomId,
+			routeClassroomId: this.$route.params[0],
 			selectedClassroomId: '',
 			showLoader: true,
 			messages: [],
@@ -244,7 +244,7 @@ export default {
 		};
 	},
 	mounted(){
-		this.axios.get('/api/classroom/'+ this.$route.params.classroomId +'/homeworks').then(resp =>{
+		this.axios.get('/api/classroom/'+ this.$route.params[0] +'/homeworks').then(resp =>{
 			this.unitList = resp.data.success.unitList;
 			this.homeworks = resp.data.success.homeworks;
 		});
@@ -252,7 +252,7 @@ export default {
 	methods:{
 		addHomework(){
 			let homework_text = this.getHomeworkText();
-			this.axios.post('/api/classroom/'+this.$route.params.classroomId+'/homework',{
+			this.axios.post('/api/classroom/'+this.$route.params[0]+'/homework',{
 				'submission_date': this.new_homework_date,
 				'homework_text':this.getHomeworkText(),
 				'homework_html':this.homework_html,

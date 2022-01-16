@@ -19,7 +19,7 @@
             <div class="col-md-12">
               <p>
                 {{ 'No unit created.This page will populate once unit setup is done. ' }}
-                <router-link :href="'/classroom/'+$route.params.classroomId+'/setup'">
+                <router-link :href="'/classroom/'+$route.params[0]+'/setup'">
                   Click here to to create unit
                 </router-link>
               </p>
@@ -242,7 +242,7 @@ export default {
 	},
 	methods: {
 		getResources(){
-			this.axios.get('/api/classroom/' + this.$route.params.classroomId + '/get-resources?unitId='+this.current_unit)
+			this.axios.get('/api/classroom/' + this.$route.params[0] + '/get-resources?unitId='+this.current_unit)
 				.then((resp) => {
 					this.unit_list = resp.data.success.unit_list;
 					this.current_unit = resp.data.success.current_unit;
@@ -262,7 +262,7 @@ export default {
 			this.$validator.validate().then(valid => {
 				if(valid  && this.resource_link && this.resource_error===''){
 					//call api and update field
-					this.axios.post('/api/classroom/'+this.$route.params.classroomId+'/add-resource',{
+					this.axios.post('/api/classroom/'+this.$route.params[0]+'/add-resource',{
 						unit_id: this.current_unit,
 						resource_link: this.resource_link,
 						resource_type: this.resource_type,

@@ -157,7 +157,7 @@ export default {
 	methods: {
 		getDailyDetails() {
 			this.axios
-				.get('/api/classroom/' + this.$route.params.classroomId + '/assignment/'+this.assignmentId+'/reports')
+				.get('/api/classroom/' + this.$route.params[0] + '/assignment/'+this.assignmentId+'/reports')
 				.then((resp) => {
 					let summary_data = resp.data.success.summary_data;
 					let score_data = resp.data.success.score_data;

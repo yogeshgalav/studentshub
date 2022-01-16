@@ -5,6 +5,7 @@ import Vuex from 'vuex';
 import { createInertiaApp } from '@inertiajs/inertia-vue';
 
 import AuthStore from './store/auth';
+import ClassroomStore from './store/classroom';
 import GuestStore from './store/guest';
 import CommonStore from './store/common-store';
 
@@ -12,6 +13,7 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
 	modules: {
 		auth: AuthStore,
+		classroom: ClassroomStore,
 		guest:GuestStore,
 		common: CommonStore,
 	}
