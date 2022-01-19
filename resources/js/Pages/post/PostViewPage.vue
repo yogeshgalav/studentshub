@@ -4,7 +4,7 @@
       <div>
         <a
           class="btn btn-white btn-rounded btn-l"
-          @click="$router.go(-1)"
+          @click="goBack"
         ><i class="fa fa-arrow-left" />
         </a>
       </div>

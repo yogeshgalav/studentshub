@@ -110,17 +110,17 @@
           </div>
           <div
             class="col-md-4 post_width"
-            @click="setPostView(post)"
           >
-            <div
+            <router-link
               v-if="post.image_path"
+              :href="'/post/'+post.id"
               class="post_img mt-2"
             >
               <img
                 v-lazy="post.image_path"
                 alt="Card image cap"
               >
-            </div>
+            </router-link>
           </div>
         </div>
         <hr>
@@ -156,11 +156,6 @@ export default {
 	},
 	props:['post','doubtType'],
 	methods:{
-		setPostView(post){
-			document.title = post.heading;
-			this.$store.commit('common/set_post_initial',post);
-			this.$router.push({ path: `/post/${post.id}` });
-		},
 		editPost(id){
 			window.location.href ='/post/'+id+'/edit';
 		},

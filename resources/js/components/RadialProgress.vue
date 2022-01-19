@@ -1,0 +1,123 @@
+<template>
+  <div class="circular">
+    <div class="inner" />
+    <div class="number">
+      {{ counter + '%' }}
+    </div>
+    <div class="circle">
+      <div class="bar left">
+        <div class="progress" />
+      </div>
+      <div class="bar right">
+        <div class="progress" />
+      </div>
+    </div>
+  </div>
+</template>
+<style scoped>
+/* *{
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+}
+html, body{
+  display:grid;
+  height:100%;
+  text-align: center;
+  place-items: center;
+  background: #dde6f0;
+} */
+.circular{
+  height:100px;
+  width: 100px;
+  position: relative;
+  transform:scale(2);
+}
+.circular .inner{
+  position: absolute;
+  z-index: 6;
+  top: 50%;
+  left: 50%;
+  height: 80px;
+  width: 80px;
+  margin: -40px 0 0 -40px;
+  background: #dde6f0;
+  border-radius: 100%;
+ 
+}
+.circular .number{
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  z-index:10;
+  font-size:18px;
+  font-weight:500;
+  color:#4158d0;
+}
+.circular .bar{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: #fff;
+  border-radius: 100%;
+  -webkit-border-radius: 100%;
+  clip: rect(0px, 100px, 100px, 50px);
+}
+.circle .bar .progress{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border-radius: 100%;
+  -webkit-border-radius: 100%;
+  clip: rect(0px, 50px, 100px, 0px);
+  background: #4158d0;
+}
+.circle .left .progress{
+  z-index:1;
+  animation: left 4s linear both;
+}
+@keyframes left{
+  100%{
+    transform: rotate(180deg);
+  }
+}
+.circle .right {
+  transform: rotate(180deg);
+  z-index:3;
+ 
+}
+.circle .right .progress{
+  animation: right 4s linear both;
+  animation-delay:4s;
+}
+@keyframes right{
+  100%{
+    transform: rotate(180deg);
+  }
+}
+</style>
+<script>
+export default {
+	props:{
+		value:{
+			type: Number,
+			default:100,
+		}
+	},
+	data(){
+		return {
+			counter:0,
+		};
+	},
+	mounted(){
+		setInterval(() => {
+			if(this.counter === this.value ){
+				clearInterval();
+			}else{
+				counter+=1;
+			}
+		}, 80);
+	}
+};
+</script>

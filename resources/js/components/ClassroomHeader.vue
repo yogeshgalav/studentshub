@@ -6,7 +6,7 @@
           <div class="">
             <a
               class="btn btn-link ml-2 mb-2 font-size-18"
-              @click="$router.back()"
+              @click="goBack"
             >
               <i
                 class="fa fa-arrow-left"

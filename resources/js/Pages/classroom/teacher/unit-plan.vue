@@ -178,6 +178,14 @@ export default {
 		this.getUnitDetails();
 	},
 	methods: {
+		formatDuration(time){
+			let arr = time.split(':');
+			let min = arr[1];
+			let sec = arr[2];
+			sec = sec.substr(0,2);
+
+			return min+'min '+sec+'sec';
+		},
 		getUnitDetails(){
 			this.axios.get('/api/classroom/' + this.$route.params[0] + '/unit-details').then((resp) => {
 				this.unitData = resp.data.success.unitData;

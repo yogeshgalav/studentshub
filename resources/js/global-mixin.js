@@ -103,32 +103,8 @@ export default {
 				return false;
 			}
 		},
-		
-		formatDuration(time){
-			let arr = time.split(':');
-			let min = arr[1];
-			let sec = arr[2];
-			sec = sec.substr(0,2);
-
-			return min+'min '+sec+'sec';
-		},
-		divideArrayIntoSubgroups(array,label){
-			return array.map(node=>{
-				new_node=[];
-				let label_index = new_node.findIndex(node2=>node2[label]===node[label]);
-				if(label_index > -1){
-					new_node[label_index]['subgroup'] = [];
-					new_node[label_index]['subgroup'].push(node);
-				}else{
-					let subgroup = [];
-					subgroup.push(node);
-					new_node.push({
-						'key':node[label],
-						'subgroup':subgroup,
-					});
-				}
-				return new_node;
-			});
+		goBack(){
+			window.history.back();
 		}
 	}
 };

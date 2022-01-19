@@ -89,7 +89,7 @@
         </router-link>
             
         <router-link
-          v-if="AuthUser.role_intended!=='student'"
+          v-if="0"
           href="/students"
           :class="isUrl('students') ? 'active' : ''"
         >
@@ -144,12 +144,7 @@
   </div>
 </template>
 <script>
-import { Link } from '@inertiajs/inertia-vue';
-
 export default {
-	components:{
-		Link
-	},
 	methods:{
 		isUrl(...urls) {
 			let currentUrl = this.$page.url.substr(1);
