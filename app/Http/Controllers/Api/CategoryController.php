@@ -19,14 +19,11 @@ class CategoryController extends Controller
         ]);
     }
     
-    public function show(Request $request){
-        $category=\App\Models\Category::where('category_url', $request->route('id'))
-        ->with('courses')
-        ->with('subjects')
-        ->firstOrFail();
-
+    public function show(Category $category)
+    {
+        $category_data = Category::where('id', $category->id)->with(['courses','subjects'])->first();
         return response()->json(['success'=>[
-            'category'=>$category,
+            'category'=>$category_data,
         ]]);
       }
 }

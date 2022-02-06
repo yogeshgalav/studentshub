@@ -2,18 +2,13 @@
   <div class="dropdown">
     <button
       id="headerProfileDropdown"
-      class="btn btn-sm border-radius-12 dropdown-toggle"
+      class="btn dropdown-toggle"
       type="button"
       data-toggle="dropdown"
       aria-haspopup="true"
       aria-expanded="false"
-      style="height: 50px;display: flex;align-items: center;"
     >
-      <profile-image
-        :avatar="AuthUser.avatar_url"
-        :user-name="AuthUser.full_name"
-        size="small"
-      />
+      <i class="far fa-user" />
     </button>
     <div
       class="dropdown-menu"
@@ -69,3 +64,8 @@
     </div>
   </div>
 </template>
+<style scoped>
+#headerProfileDropdown {
+    font-size: 20px !important;
+}
+</style>

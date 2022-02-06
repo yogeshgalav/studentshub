@@ -1,8 +1,8 @@
 <template>
   <div class="bg-gray">
     <div class="container category-filter cat_pad">
-      <div class="text-center mb-2">
-        <h3> What is your field of Interest ?</h3>
+      <div class="text-center mt-2 mb-2">
+        <h3> Categories</h3>
       </div>
       <div class="cat_menu">
         <div class="cat_menu_list">
@@ -10,14 +10,14 @@
             v-for="(category,index) in categories"
             :key="index"
             :href="'/category/'+category.category_url"
-            :class="['btn btn-white cat_btn',category.category_url]"
+            class="button-28 cat_btn"
           >
             {{ category.name }}
           </router-link>
         </div>
       </div>
 
-      <div class="category_btn mt-3">
+      <div class="category_btn justify-center mb-2 mt-3">
         <router-link :href="'/get-started'" style="padding:15px 80px;">
           Find Out &nbsp;&nbsp;<span><i
             class="fa fa-arrow-right"
@@ -29,81 +29,49 @@
   </div>
 </template>
 <style scoped>
-    .cat_pad {
-        padding: 30px 0;
-    }
 
-    .slick-slide {
-        margin: 0 5px;
-    }
+/* CSS */
+.button-28 {
+  appearance: none;
+  background-color: transparent;
+  border: 2px solid #1A1A1A;
+  border-radius: 15px;
+  box-sizing: border-box;
+  color: #3B3B3B;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Roobert,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-size: 16px;
+  font-weight: 600;
+  line-height: normal;
+  min-height: 60px;
+  min-width: 0;
+  outline: none;
+  padding: 16px 24px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  will-change: transform;
+}
 
-    /* the parent */
-    .slick-list {
-        margin: 0 -5px;
-    }
+.button-28:disabled {
+  pointer-events: none;
+}
 
-    .slick-slider .slick-next {
-        -webkit-appearance: none;
-        outline: 0;
-        background: transparent;
-        border: 0;
-        width: 38px;
-        height: 38px;
-        padding: 10px;
-        border-radius: 50%;
-        position: absolute;
-        z-index: 3000;
-        right: -25px;
-        box-shadow: 3px 2px 3px #eee;
-        top: 12px;
-    }
+.button-28:hover {
+  color: #fff;
+  background-color: #1A1A1A;
+  box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+  transform: translateY(-2px);
+}
 
-    .slick-prev:before,
-    .slick-next:before {
-        font-family: 'slick';
-        font-size: 30px !important;
-        line-height: 1;
-        color: #171717 !important;
-    }
-
-    .slick-slide {
-        margin: 0 5px !important;
-    }
-
-    .cat_menu h3:before {
-        position: absolute;
-        content: '';
-        background-color: #00c1d5;
-        width: 100px;
-        height: 2px;
-        bottom: -8px;
-        left: 0;
-        right: 0;
-        margin: 0 auto;
-    }
-
-    .cat_menu h3 {
-        text-align: center;
-        margin-bottom: 40px;
-        position: relative;
-        /* color: #868686; */
-    }
-
-    .category_btn button {
-        border: none;
-        background-color: #10069f;
-        padding: 10px 50px;
-        border-radius: 5px;
-        color: white;
-        text-align: center;
-        font-weight: 600;
-    }
-
-    .category_btn {
-        text-align: center;
-        margin-top: 25px;
-    }
-
+.button-28:active {
+  box-shadow: none;
+  transform: translateY(0);
+}
 </style>
 
 <script>

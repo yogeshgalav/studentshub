@@ -2,7 +2,7 @@
   <div class="nav-tabs">
     <nav :class="[size === 'large' ? 'tabbed-nav2' : 'tabbed-nav', 'mt-3']">
       <div class="tabbed-nav1">
-        <ul :class="['nav', align]">
+        <ul :class="['nav tabbed-nav-list', align]">
           <li
             v-for="tab in tabs"
             :key="tab"
@@ -42,26 +42,26 @@
 .nav {
     border-bottom: 1px solid rgb(185, 185, 185);
 }
-.tabbed-nav ul {
+.tabbed-nav-list {
     display: flex;
     flex-wrap: nowrap;
     overflow-x: scroll;
     overflow-y: hidden;
 }
-.tabbed-nav ul::-webkit-scrollbar {
+.tabbed-nav-list::-webkit-scrollbar {
     display: none;
 }
 .tabbed-nav {
     margin-top: 0px;
 }
-.tabbed-nav ul li a {
+.tabbed-nav-list li a {
     text-align: center;
     color: #000;
     font-weight: 800;
     padding: 6px 60px 6px 60px;
 }
-.tabbed-nav ul li a:focus,
-.tabbed-nav ul li a:hover {
+.tabbed-nav-list li a:focus,
+.tabbed-nav-list li a:hover {
     background: #fff;
 }
 .tabbed-nav .nav-item {
@@ -105,7 +105,7 @@
     padding: 6px 60px 6px 60px;
 }
 .tabbed-nav2 ul li a:focus,
-.tabbed-nav ul li a:hover {
+.tabbed-nav-list li a:hover {
     background: #fff;
 }
 .tabbed-nav2 .nav-item {

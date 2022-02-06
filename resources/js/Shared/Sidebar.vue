@@ -14,6 +14,17 @@
           </li>
         </router-link>
         <router-link
+          href="/category"
+          :class="isUrl('category') ? 'active' : ''"
+        >
+          <li>
+            <i
+              class="fa fa-list"
+              aria-hidden="true"
+            /><span class="text">Category</span>
+          </li>
+        </router-link>
+        <router-link
           href="/doubts"
           :class="isUrl('doubt') ? 'active' : ''"
         >

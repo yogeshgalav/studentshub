@@ -19,7 +19,7 @@
         <div class="notification-dropdown">
           <a
             href="/notifications"
-            class="btn"
+            class="headerBellIcon btn"
           >
             <i class="far fa-bell notification-icon" />
           </a>
@@ -83,7 +83,7 @@
           <div class="dropdown">
             <a
               href="/notifications"
-              class="btn"
+              class="headerBellIcon btn"
             >
               <i
                 class="far fa-bell notification-icon"
@@ -93,7 +93,7 @@
           </div>
 
           <div class="nav-item dropleft">
-            <profile-dropdown2 />
+            <profile-dropdown />
           </div>
         </div>
       </div>
@@ -184,15 +184,19 @@
     </div>
   </div>
 </template>
+<style scoped>
+.headerBellIcon {
+ font-size: 14px;
+ font-weight: 400;
+}
+</style>
 <script>
 import ProfileDropdown from'./ProfileDropdown.vue';
-import ProfileDropdown2 from'./ProfileDropdown2.vue';
 import SearchForm from'./SearchForm.vue';
 
 export default {
 	components:{
 		ProfileDropdown,
-		ProfileDropdown2,
 		SearchForm
 	},
 	mounted(){

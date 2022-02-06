@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use App\Models\Faq;
+use App\Models\Category;
 
 class GuestController extends Controller
 {
@@ -69,22 +70,22 @@ class GuestController extends Controller
     }
     public function coursePage($course_url)
     {
-        $course = \App\Models\Course::where('course_url', $course_url)->findOrFail();
+        $course = \App\Models\Course::where('course_url', $course_url)->firstOrFail();
         return inertia('explore/course', [
             'courseId' => $course->id
         ]);
     }
     public function subjectPage($subject_url)
     {
-        $subject = \App\Models\Subject::where('subject_url', $subject_url)->findOrFail();
+        $subject = \App\Models\Subject::where('subject_url', $subject_url)->firstOrFail();
         return inertia('explore/subject', [
             'subjectId' => $subject->id
         ]);
     }
     public function categoryPage($category_url)
     {
-        $category = \App\Models\Category::where('category_url', $category_url)->findOrFail();
-        return inertia('explore/category', [
+        $category = \App\Models\Category::where('category_url', $category_url)->firstOrFail();
+               return inertia('explore/category', [
             'categoryId' => $category->id
         ]);
     }

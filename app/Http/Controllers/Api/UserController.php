@@ -39,8 +39,11 @@ class UserController extends Controller
             ->where('sps.action_type','=','share')
             ->where('sps.action_user_id','=',Auth::id());
         })
-        ->select('cat.name',DB::raw('COUNT(distinct spl.post_id) as total_likes'),DB::raw('COUNT(distinct spv.post_id) as total_views'),DB::raw('COUNT(distinct sps.post_id) as total_posts'))
-        ->groupBy('cat.id','cat.name')
+        ->select('cat.id','cat.name','cat.category_url',
+        DB::raw('COUNT(distinct spl.post_id) as total_likes'),
+        DB::raw('COUNT(distinct spv.post_id) as total_views'),
+        DB::raw('COUNT(distinct sps.post_id) as total_posts'))
+        ->groupBy('cat.id','cat.name','cat.category_url')
         ->get();
 
         return response()->json(['success'=>[

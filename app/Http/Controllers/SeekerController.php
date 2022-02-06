@@ -59,6 +59,9 @@ class SeekerController extends Controller
     public function notifications(){
         return inertia('common/notifications');
     }
+    public function category(){
+        return inertia('profile/categories');
+    }
 
     public function doubtPage()
     {

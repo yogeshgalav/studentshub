@@ -124,23 +124,20 @@
                     precise this data is.
                   </p>
 
-                  <div class="progess_bar">
+                  <div class="row text-center">
                     <div
                       v-for="(interest,index) in interests"
                       :key="index"
-                      class="cojl text-center"
+                      class="col-md-3 col-6 mb-2"
                     >
-                      <radial-progress-bar
-                        :diameter="150"
-                        :completed-steps="interest_enable ? interest.percent :0"
-                        :total-steps="100"
-                        :start-color="'#00BFFF'"
-                        :stop-color="'#000080'"
-                        :inner-stroke-color="'#B0E0E6'"
+                      <radial-progress
+                        :value="interest.percent"
                       >
-                        <p>{{ interest_enable ? parseInt(interest.percent) :0 }}%</p>
-                      </radial-progress-bar>
-                      <p>{{ interest.name }}</p>
+                        <p>{{ parseInt(interest.percent) }}%</p>
+                      </radial-progress>
+                      <p class="mt-1">
+                        {{ interest.name }}
+                      </p>
                     </div>
                   </div> 
                 </div>
@@ -300,8 +297,8 @@ button.cancel_profile_btn {
 }
 </style>
 <script>
-import RadialProgressBar from 'vue-radial-progress';
-import NavTabs from '../../components/NavTabs.vue';
+import RadialProgress from '@/components/RadialProgress';
+import NavTabs from '@/components/NavTabs.vue';
 import AnimateNumber from './animate-number.vue';
 import PostContainer from '@/Pages/common/post-container.vue';
 import DoubtContainer from '@/Pages/common/doubt-container.vue';
@@ -311,7 +308,7 @@ export default {
 		NavTabs,
 		PostContainer,
 		DoubtContainer,
-    RadialProgressBar
+		RadialProgress
 	},
 	props: ['user'],
 	data() {
@@ -356,8 +353,6 @@ export default {
 				return node;
 			})
 				.sort((a,b)=>a.percent>b.percent ? -1 : 1);
-
-			setTimeout(()=>{ this.interest_enable=true; }, 1000);
 		});
 	},
 };

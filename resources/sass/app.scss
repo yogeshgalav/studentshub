@@ -1009,17 +1009,6 @@ i {
             align-items: center;
             justify-content: space-around;
             padding: 10px;
-
-
-            button{
-                border: 0px;
-                background:none !important;
-                // svg{
-                //     color: #212529;
-                //     width: 1.4em;
-                //     height: auto;
-                // }
-            }
         }
     }
     .guest-navbar{
@@ -1748,7 +1737,7 @@ h2.banner_title {
     font-weight: 400;
     position: relative;
     font-size: 14px;
-    margin: 0 5px;
+    margin: 5px 5px;
     overflow: hidden;
     // color: white !important;
     padding: 16px 0;
@@ -1760,27 +1749,11 @@ h2.banner_title {
     align-items: center;
     border-radius: 5px;
 }
-.cat_btn:before {
-    position: absolute;
-    content: "";
-    background: #ffab84;
-    width: 56px;
-    height: 51px;
-    bottom: -30px;
-    right: -20px;
-    border-radius: 38px 30px 0 0px;
-}
-a.btn.btn-white.cat_btn:after {
-    position: absolute;
-    content: "";
-    background-color: #ffb74d;
-    width: 56px;
-    height: 51px;
-    border-radius: 0px 0px 20px 70px;
-    top: -33px;
-    right: 172px;
-}
 
+.cat_btn:hover {
+    color: white;
+    background-color: #10069f;
+  }
 // login page
 
 .login_card {

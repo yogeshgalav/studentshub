@@ -1,10 +1,16 @@
 <template>
   <main>
     <explore-carousal-post />
+    <div class="do_you_know">
+      <h3 class="m-0-a">Do you know what is your Interest Field?</h3>  
+      <div class="find_out">
+        <h3>Find out</h3>
+      </div>
+    </div>
     <category-filter :categories="categories" />
     <div
+      v-lazy:background-image="'/images/welcome/study-background.jpg'"
       class="main"
-      style="background-image: url(/images/welcome/study-background.jpg);"
     >
       <div class="container row flex-coloumn m-auto justify-content-center align-items-center">
         <div class="welcome_banner">
@@ -58,25 +64,25 @@
           <div class="row img-row img-transition">
             <div class="col-12 col-md-3 image-div fade-in-out">
               <img
-                src="/images/welcome/line.jpg"
+                v-lazy="'/images/welcome/line.jpg'"
                 alt="dual-line-graph"
               >
             </div>
             <div class="col-12 col-md-3 image-div fade-in-out">
               <img
-                src="/images/welcome/barline.jpg"
+                v-lazy="'/images/welcome/barline.jpg'"
                 alt="line-graph"
               >
             </div>
             <div class="col-12 col-md-3 image-div fade-in-out">
               <img
-                src="/images/welcome/Dought.jpg"
+                v-lazy="'/images/welcome/Dought.jpg'"
                 alt="line-graph"
               >
             </div>
             <div class="col-12 col-md-3 image-div fade-in-out">
               <img
-                src="/images/welcome/multibar.jpg"
+                v-lazy="'/images/welcome/multibar.jpg'"
                 alt="line-graph"
               >
             </div>
@@ -89,7 +95,7 @@
       <div class="container row m-auto">
         <div class="right col-md-4 fade-in-out">
           <img
-            src="/images/mobile.png"
+            v-lazy="'/images/mobile.png'"
             alt="Right Image"
           >
         </div>
@@ -104,7 +110,7 @@
             href="https://play.google.com/store/apps/details?id=webviewgold.studentshub"
             class="play-store"
           ><img
-            src="/images/googleplay.png"
+            v-lazy="'/images/googleplay.png'"
             alt="play store"
             height="100px"
             width="300px"
@@ -230,6 +236,21 @@ h1 {
 		.white-space{
 			display: none;
 		}
+}
+.do_you_know {
+  overflow: hidden;
+  background: #10069f;
+  color: white;
+}
+.find_out {
+  top: 100%;
+  position: relative;
+  transition: all .3s ease-out;
+  height: 100%;
+}
+
+.do_you_know:hover > .find_out{
+  top: 0;
 }
 </style>
 <script>

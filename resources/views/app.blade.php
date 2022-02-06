@@ -12,12 +12,12 @@
     @if(isset($meta_description) && is_string($meta_description))
     <meta name="description" content="{{ $meta_description }}"/>
     @else
-    <meta name="description" content="Student's Hub is the first and only Educational Social Network made for Students, Teachers and Institutes."/>
+    <meta name="description" content="Student's Hub is a Social Network of Students where they can explore knowledge and find thier interest field."/>
     @endif
     @if(isset($meta_keywords) && is_string($meta_keywords))
     <meta name="keywords" content="{{ $meta_keywords }}"/>
     @else
-    <meta name="keywords" content="educational, social network, posts, interest field, subjects, school, classmates, doubts"/>
+    <meta name="keywords" content="educational, social network, knowledge, interest field, subjects, school, classmates, doubts"/>
     @endif
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
