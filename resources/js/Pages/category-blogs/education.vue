@@ -9,69 +9,57 @@
     </div>
     <hr class="mb-0 mt-0">
     <div class="col-md-12">
-      • Academic Orientation
-      • Good with Mathematics and Sciences with affinity
-      towards Technology
-      • Interest in latest Machines, Gadgets and repairing
-      things Etc.
-      • Ability to spend long hours with books and/or
-      computers during study and in the field during
-      Practical application
+      • Academic, People and Creative Orientation.
+      • Good with Languages and Social Sciences with
+      affinity towards extra and versatile reading.
+      • Interest in studying various subjects related to
+      Humanities, Commerce, Management, Sciences and
+      Performing Arts.
+      • Wishing to choose your own subjects and study what
+      you like.
     </div>
     <div class="col-md-12 mt-1">
       <h4>Entrance Exams</h4>
     </div>
     <hr class="mb-0 mt-0">
     <div class="col-md-12">
-      JEE-MAIN / ADVANCED
-      BITSAT (Birla)
-      VITEEE (Vellore)
-      SITEEE (Symbiosis)
-      SRMJEE
+      FEAT (Flame-Pune)
+      AAT (Ashoka)
+      SET (Symbiosis)
+      PDPU-AT
       NPAT (Narsee Monjee)
-      MET (Manipal)
-      KIIT-EE (Kalinga)
-      UPES-EAT
-      GAT (Gitam)
-      GUJ-CET
-      MHT-CET
-      KEA-CET
-      TS-EAMCET
-      AP-EAMCET
-      WB-JEE
+      KUAT (Karnavati)
+      • KREA-ET
+      • JSAT (Jindal)
+      • SRM-ET
     </div>
     <div class="col-md-12 mt-1">
       <h4>Career Options</h4>
     </div>
     <hr class="mb-0 mt-0">
     <div class="col-md-12">
-      You Can be Engineer in field of:
-      Aerospace,
-      Aeronautical, Aircraft Maintenance, Automobile,
-      Biochemical, Biological Sciences, Biomedical, Ceramic,
-      Chemical, Civil,  Electrical,
-      Electronics, Electronics & Communication, Electronics
-      & Electrical, Electronics & Instrumentation,
-      Engineering
-      Physics,
-      Engineering
-      Science,
-      Environmental, Fire Technology, Food & Nutrition,
-      Food Technology, Genetic, Geoinfomatics, Industrial &
-      Systems,
+      You Can be:
+      • Advertising Manager
+      • Public Relations Manager
+      • Business Analyst
+      • Business Consultant
+      • Creative Writer
+      • Economic Analyst
+      • Environmental Affairs
+      • Film and Television
+      • Human Resource
 
-
-      You Can be Engineer in field of:
-      Instrumentation, Leather Technology, Manufacturing
-      Science, Marine, Material Science, Mathematics &
-      Computing, Mechanical, Mechatronics, Metallurgical,
-      Mineral,
-      Mining,
-      Mining
-      Machinery,
-      Naval
-      Petrochemical, Petroleum, Plastic,
-      Polymer, Production, Robotics & Textile
+      You Can be:
+      • International Business
+      Manager
+      • Journalist
+      • NGO Manager
+      • Political Analyst
+      • Public Administrator
+      • Publisher
+      • Sports Psychologist
+      • Teacher
+      • Technical Writer
     </div>
   </div>
 </template>

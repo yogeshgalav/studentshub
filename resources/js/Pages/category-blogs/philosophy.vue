@@ -9,69 +9,51 @@
     </div>
     <hr class="mb-0 mt-0">
     <div class="col-md-12">
-      • Academic Orientation
-      • Good with Mathematics and Sciences with affinity
-      towards Technology
-      • Interest in latest Machines, Gadgets and repairing
-      things Etc.
-      • Ability to spend long hours with books and/or
-      computers during study and in the field during
-      Practical application
+      • Mixture of Academic, People and Creative
+      Orientation
+      • Good with Languages and Social Sciences with
+      affinity towards Theory Reading.
+      • Good with Observation and Analyzing Power.
+      • Comfortable with Versatile Reading and Writing.
     </div>
     <div class="col-md-12 mt-1">
       <h4>Entrance Exams</h4>
     </div>
     <hr class="mb-0 mt-0">
     <div class="col-md-12">
-      JEE-MAIN / ADVANCED
-      BITSAT (Birla)
-      VITEEE (Vellore)
-      SITEEE (Symbiosis)
-      SRMJEE
-      NPAT (Narsee Monjee)
-      MET (Manipal)
-      KIIT-EE (Kalinga)
-      UPES-EAT
-      GAT (Gitam)
-      GUJ-CET
-      MHT-CET
-      KEA-CET
-      TS-EAMCET
-      AP-EAMCET
-      WB-JEE
+      HSEE
+      TISS-BAT
+      DUET
+      CUET
+      BA-CET
+      AMU-ET
+      JMI-ET
     </div>
     <div class="col-md-12 mt-1">
       <h4>Career Options</h4>
     </div>
     <hr class="mb-0 mt-0">
     <div class="col-md-12">
-      You Can be Engineer in field of:
-      Aerospace,
-      Aeronautical, Aircraft Maintenance, Automobile,
-      Biochemical, Biological Sciences, Biomedical, Ceramic,
-      Chemical, Civil,  Electrical,
-      Electronics, Electronics & Communication, Electronics
-      & Electrical, Electronics & Instrumentation,
-      Engineering
-      Physics,
-      Engineering
-      Science,
-      Environmental, Fire Technology, Food & Nutrition,
-      Food Technology, Genetic, Geoinfomatics, Industrial &
-      Systems,
+      You Can be:
+      • Anthropologist
+      • Archeologist
+      • Curator
+      • Editor
+      • Geographer
+      • Historian
+      • Journalist
+      • Linguist
 
 
-      You Can be Engineer in field of:
-      Instrumentation, Leather Technology, Manufacturing
-      Science, Marine, Material Science, Mathematics &
-      Computing, Mechanical, Mechatronics, Metallurgical,
-      Mineral,
-      Mining,
-      Mining
-      Machinery,
-      Naval
-      Petrochemical, Petroleum, Plastic,
-      Polymer, Production, Robotics & Textile
+      You Can be:
+      • Philosopher
+      • Political Scientist
+      • Psychologist
+      • Public Administrator
+      • Restorer
+      • Sociologist
+      • Social Worker
+      • Translator
     </div>
   </div>
 </template>

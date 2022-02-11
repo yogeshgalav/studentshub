@@ -9,13 +9,11 @@
     </div>
     <hr class="mb-0 mt-0">
     <div class="col-md-12">
-      • Academic Orientation
-      • Good with Mathematics and Sciences with affinity
-      towards Technology
-      • Interest in latest Machines, Gadgets and repairing
-      things Etc.
-      • Ability to spend long hours with books and/or
-      computers during study and in the field during
+      • Practical Orientation
+      • Good with the particular sport one wish to make
+      his/her career in
+      • Good Physical Stamina and Mental Strength.
+      • Ability to spend long hours in the field during
       Practical application
     </div>
     <div class="col-md-12 mt-1">
@@ -23,55 +21,48 @@
     </div>
     <hr class="mb-0 mt-0">
     <div class="col-md-12">
-      JEE-MAIN / ADVANCED
-      BITSAT (Birla)
-      VITEEE (Vellore)
-      SITEEE (Symbiosis)
-      SRMJEE
-      NPAT (Narsee Monjee)
-      MET (Manipal)
-      KIIT-EE (Kalinga)
-      UPES-EAT
-      GAT (Gitam)
-      GUJ-CET
-      MHT-CET
-      KEA-CET
-      TS-EAMCET
-      AP-EAMCET
-      WB-JEE
+      SMAT – UG
+      DUET
+      IGIPESS-ET
+      LNCPE-AT
+      GNDU-AT
+      BHU-UET
+      NSU-AT
+      GGSIP - CET
+      *Most institutes offering
+      admissions in the Sports
+      related courses assess the
+      candidate on their skill by
+      conducting Sports Proficiency
+      Test in the respective form of
+      sport they wish to take
+      admission in and Physical
+      Fitness test.
     </div>
     <div class="col-md-12 mt-1">
       <h4>Career Options</h4>
     </div>
     <hr class="mb-0 mt-0">
     <div class="col-md-12">
-      You Can be Engineer in field of:
-      Aerospace,
-      Aeronautical, Aircraft Maintenance, Automobile,
-      Biochemical, Biological Sciences, Biomedical, Ceramic,
-      Chemical, Civil,  Electrical,
-      Electronics, Electronics & Communication, Electronics
-      & Electrical, Electronics & Instrumentation,
-      Engineering
-      Physics,
-      Engineering
-      Science,
-      Environmental, Fire Technology, Food & Nutrition,
-      Food Technology, Genetic, Geoinfomatics, Industrial &
-      Systems,
+      You Can be:
+      • Announcer
+      • Athlete
+      • Coach
+      • Commentator
+      • Equipment Manager
+      • Physical Trainer
+      • Referee
+      • Sports Analyst
+      • Sports Manager
+      • Stadium Manager
 
-
-      You Can be Engineer in field of:
-      Instrumentation, Leather Technology, Manufacturing
-      Science, Marine, Material Science, Mathematics &
-      Computing, Mechanical, Mechatronics, Metallurgical,
-      Mineral,
-      Mining,
-      Mining
-      Machinery,
-      Naval
-      Petrochemical, Petroleum, Plastic,
-      Polymer, Production, Robotics & Textile
+      You can give your service to:
+      Indian Army
+      Indian Air Force
+      Indian Navy
+      Indian Coast Guard
+      Central Armed Police
+      Forces
     </div>
   </div>
 </template>

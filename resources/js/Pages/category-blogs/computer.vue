@@ -9,69 +9,56 @@
     </div>
     <hr class="mb-0 mt-0">
     <div class="col-md-12">
-      • Academic Orientation
-      • Good with Mathematics and Sciences with affinity
-      towards Technology
-      • Interest in latest Machines, Gadgets and repairing
-      things Etc.
-      • Ability to spend long hours with books and/or
-      computers during study and in the field during
-      Practical application
+      • Academic and Practical Orientation
+      • Good with Logic with affinity towards doing new and
+      innovative things on Computers
+      • Interest in gaining in depth understanding of working
+      of software and operating system of computers.
+      • Ability to spend long hours on computers.
     </div>
     <div class="col-md-12 mt-1">
       <h4>Entrance Exams</h4>
     </div>
     <hr class="mb-0 mt-0">
     <div class="col-md-12">
-      JEE-MAIN / ADVANCED
-      BITSAT (Birla)
-      VITEEE (Vellore)
-      SITEEE (Symbiosis)
-      SRMJEE
-      NPAT (Narsee Monjee)
-      MET (Manipal)
-      KIIT-EE (Kalinga)
-      UPES-EAT
-      GAT (Gitam)
-      GUJ-CET
-      MHT-CET
-      KEA-CET
-      TS-EAMCET
-      AP-EAMCET
-      WB-JEE
+      • SET (Symbiosis)
+      • B-UMAT (BVP)
+      • CUET (Christ)
+      • KALSEE (Kalinga)
+      • UGAT
+      • JET (Jain)
+      • BCA-CET (IPU)
+      • GSAT (Gitam)
+      • RGUCET (Rajiv Gandhi)
+      • SSSIHL (Sri Satya Sai)
     </div>
     <div class="col-md-12 mt-1">
       <h4>Career Options</h4>
     </div>
     <hr class="mb-0 mt-0">
     <div class="col-md-12">
-      You Can be Engineer in field of:
-      Aerospace,
-      Aeronautical, Aircraft Maintenance, Automobile,
-      Biochemical, Biological Sciences, Biomedical, Ceramic,
-      Chemical, Civil,  Electrical,
-      Electronics, Electronics & Communication, Electronics
-      & Electrical, Electronics & Instrumentation,
-      Engineering
-      Physics,
-      Engineering
-      Science,
-      Environmental, Fire Technology, Food & Nutrition,
-      Food Technology, Genetic, Geoinfomatics, Industrial &
-      Systems,
+      You Can be:
+      • Application Designer
+      • Artificial Intelligence Expert
+      • Audio & Video Technologist
+      • Computer Systems Analyst
+      • Digital Marketer
+      • Ethical Hacker
+      • Game Designer
+      • Media Programmer
+      • Machine Learning Expert
 
 
-      You Can be Engineer in field of:
-      Instrumentation, Leather Technology, Manufacturing
-      Science, Marine, Material Science, Mathematics &
-      Computing, Mechanical, Mechatronics, Metallurgical,
-      Mineral,
-      Mining,
-      Mining
-      Machinery,
-      Naval
-      Petrochemical, Petroleum, Plastic,
-      Polymer, Production, Robotics & Textile
+      You Can be:
+      • Network Engineer
+      • Programmer/Coder
+      • SEO Specialist
+      • SEM Specialist
+      • Software Engineer
+      • UI/UX Expert
+      • VFX Designer
+      • Web Developer
+      • Website Tester
     </div>
   </div>
 </template>
