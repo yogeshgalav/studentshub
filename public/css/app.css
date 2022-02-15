@@ -15921,29 +15921,117 @@ webpackContext.keys = function webpackContextKeys() {
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
 webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";/* (ignored) *//* (ignored) */var map = {
+	"./arts": [
+		"./resources/js/Pages/category-blogs/arts.vue",
+		25
+	],
+	"./arts.vue": [
+		"./resources/js/Pages/category-blogs/arts.vue",
+		25
+	],
+	"./business": [
+		"./resources/js/Pages/category-blogs/business.vue",
+		30
+	],
+	"./business.vue": [
+		"./resources/js/Pages/category-blogs/business.vue",
+		30
+	],
+	"./computer": [
+		"./resources/js/Pages/category-blogs/computer.vue",
+		31
+	],
+	"./computer.vue": [
+		"./resources/js/Pages/category-blogs/computer.vue",
+		31
+	],
+	"./design": [
+		"./resources/js/Pages/category-blogs/design.vue",
+		41
+	],
+	"./design.vue": [
+		"./resources/js/Pages/category-blogs/design.vue",
+		41
+	],
+	"./economics": [
+		"./resources/js/Pages/category-blogs/economics.vue",
+		32
+	],
+	"./economics.vue": [
+		"./resources/js/Pages/category-blogs/economics.vue",
+		32
+	],
+	"./education": [
+		"./resources/js/Pages/category-blogs/education.vue",
+		33
+	],
+	"./education.vue": [
+		"./resources/js/Pages/category-blogs/education.vue",
+		33
+	],
 	"./healthcare": [
 		"./resources/js/Pages/category-blogs/healthcare.vue",
-		29
+		26
 	],
 	"./healthcare.vue": [
 		"./resources/js/Pages/category-blogs/healthcare.vue",
-		29
+		26
+	],
+	"./hospitality": [
+		"./resources/js/Pages/category-blogs/hospitality.vue",
+		42
+	],
+	"./hospitality.vue": [
+		"./resources/js/Pages/category-blogs/hospitality.vue",
+		42
+	],
+	"./journalism": [
+		"./resources/js/Pages/category-blogs/journalism.vue",
+		34
+	],
+	"./journalism.vue": [
+		"./resources/js/Pages/category-blogs/journalism.vue",
+		34
+	],
+	"./law": [
+		"./resources/js/Pages/category-blogs/law.vue",
+		35
+	],
+	"./law.vue": [
+		"./resources/js/Pages/category-blogs/law.vue",
+		35
+	],
+	"./philosophy": [
+		"./resources/js/Pages/category-blogs/philosophy.vue",
+		36
+	],
+	"./philosophy.vue": [
+		"./resources/js/Pages/category-blogs/philosophy.vue",
+		36
 	],
 	"./science": [
 		"./resources/js/Pages/category-blogs/science.vue",
-		30
+		37
 	],
 	"./science.vue": [
 		"./resources/js/Pages/category-blogs/science.vue",
-		30
+		37
+	],
+	"./sports": [
+		"./resources/js/Pages/category-blogs/sports.vue",
+		38
+	],
+	"./sports.vue": [
+		"./resources/js/Pages/category-blogs/sports.vue",
+		38
 	],
 	"./technology": [
 		"./resources/js/Pages/category-blogs/technology.vue",
-		31
+		39
 	],
 	"./technology.vue": [
 		"./resources/js/Pages/category-blogs/technology.vue",
-		31
+		39
 	]
 };
 function webpackAsyncContext(req) {

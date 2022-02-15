@@ -9,13 +9,13 @@
     </div>
     <accordion
       title="People Healthcare/Medical Science"
-      class="mb-2"
+      class="mb-2 w-100"
     >
-      <div class="row">
+      <div class="row" style="padding-left: 8px">
         <div class="col-md-12">
-          <p>Medical science covers many subjects which try to explain how the human body works. Starting with basic biology it is generally divided into areas of specialization, such as anatomy, physiology and pathology with some biochemistry, microbiology, molecular biology and genetics.</p>
+          <p class="text-muted">Medical science covers many subjects which try to explain how the human body works. Starting with basic biology it is generally divided into areas of specialization, such as anatomy, physiology and pathology with some biochemistry, microbiology, molecular biology and genetics.</p>
         </div>
-        <div class="col-md-12 mt-1">
+        <div class="col-md-12 mt-1 font-size-16">
           <h4>Quality Required</h4>
         </div>
         <hr class="mb-0 mt-0">
@@ -28,27 +28,33 @@
           computers during study and in the field during
           Practical application
         </div>
-        <div class="col-md-12 mt-1">
+        <div class="col-md-12 mt-1 font-size-16">
           <h4>Entrance Exams</h4>
         </div>
         <hr class="mb-0 mt-0">
         <div class="col-md-12">
           NEET
         </div>
-        <div class="col-md-12 mt-1">
+        <div class="col-md-12 mt-1 font-size-16">
           <h4>Career Options</h4>
         </div>
         <hr class="mb-0 mt-0">
         <div class="col-md-12">
-          You Can be:
-          • Doctor (Allopathic)
-          • Dentist
-          • Ayurveda Doctor
-          • Homeopath Doctor
-          You Can be:
-          • Siddha Doctor
-          • Naturopatic Doctor
-          • Unani Doctor
+          <div class="d-flex pt-2 w-50 justify-content-between">
+            <ul>
+              <h5>You Can be:</h5>
+              <li>Doctor (Allopathic)</li>
+              <li>Dentist</li>
+              <li>Ayurveda Doctor</li>
+              <li>Homeopath Doctor</li>
+            </ul>
+            <ul>
+              <h5>You Can be:</h5>
+              <li>Siddha Doctor</li>
+              <li>Naturopatic Doctor</li>
+              <li>Unani Doctor</li>
+            </ul>
+          </div>
         </div>
       </div>
     </accordion>
@@ -67,7 +73,7 @@
           <p>Veterinary Science is a medical specialty concerned with the prevention, control, diagnosis, and treatment of diseases affecting the health of domestic and wild animals and with the prevention of transmission of animal diseases to people.</p>
         </div>
         
-        <div class="col-md-12 mt-1">
+        <div class="col-md-12 mt-1 font-size-16">
           <h4>Quality Required</h4>
         </div>
         <hr class="mb-0 mt-0">
@@ -80,7 +86,7 @@
           computers during study and in the field during
           Practical application
         </div>
-        <div class="col-md-12 mt-2">
+        <div class="col-md-12 mt-2  font-size-16">
           <h4>Entrance Exams</h4>
         </div>
         <hr class="mb-0 mt-0">
@@ -102,7 +108,7 @@
           BCECE (Bihar)
           CH-PAT (Chattisgarh)
         </div>
-        <div class="col-md-12 mt-1">
+        <div class="col-md-12 mt-1  font-size-16">
           <h4>Career Options</h4>
         </div>
         <hr class="mb-0 mt-0">
@@ -133,7 +139,7 @@
     >
       <p>Agricultural science is a broad multidisciplinary field of biology that encompasses the parts of exact, natural, economic and social sciences that are used in the practice and understanding of agriculture.</p>
       
-      <div class="col-md-12 mt-1">
+      <div class="col-md-12 mt-1 font-size-16">
         <h4>Quality Required</h4>
       </div>
       <hr class="mb-0 mt-0">
@@ -146,7 +152,7 @@
         computers during study and in the field during
         Practical application
       </div>
-      <div class="col-md-12 mt-1">
+      <div class="col-md-12 mt-1  font-size-16">
         <h4>Entrance Exam</h4>
       </div>
       <hr class="mb-0 mt-0">

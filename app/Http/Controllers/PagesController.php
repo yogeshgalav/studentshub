@@ -85,7 +85,7 @@ class PagesController extends Controller
     }
     public function loginPage()
     {
-        return view('guest.auth.login');
+        return inertia('auth/login');
     }
     public function membershipPlan()
     {

@@ -39,27 +39,23 @@
     <hr class="mb-0 mt-0">
     <div class="col-md-12">
       You Can be:
-      • Advertising Manager
-      • Public Relations Manager
-      • Business Analyst
-      • Business Consultant
-      • Creative Writer
-      • Economic Analyst
-      • Environmental Affairs
-      • Film and Television
-      • Human Resource
+      Banking or retail management trainee
+      Buyer trainee
+      Claims adjuster
+      Underwriter
+      College/university admission counselor
+      Convention/meeting planner
+      Development officer/fundraiser
 
       You Can be:
-      • International Business
-      Manager
-      • Journalist
-      • NGO Manager
-      • Political Analyst
-      • Public Administrator
-      • Publisher
-      • Sports Psychologist
-      • Teacher
-      • Technical Writer
+      Human resources professional
+      Insurance agent
+      Management
+      Public relations specialist
+      Sales representative
+      Teacher
+      Writer
+      Intelligence Officer/Analyst
     </div>
   </div>
 </template>

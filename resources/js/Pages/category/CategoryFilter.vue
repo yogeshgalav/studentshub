@@ -1,7 +1,7 @@
 <template>
   <div class="bg-gray">
     <div class="container category-filter cat_pad">
-      <div class="text-center mt-2 mb-2">
+      <div class="text-center p-4">
         <h3> Categories</h3>
       </div>
       <div class="cat_menu">
@@ -17,8 +17,11 @@
         </div>
       </div>
 
-      <div class="category_btn justify-center mb-2 mt-3">
-        <router-link :href="'/get-started'" style="padding:15px 80px;">
+      <div class="d-flex justify-content-center p-4">
+        <router-link
+          :href="'/get-started'"
+          class="btn-primary btn btn-lg"
+        >
           Find Out &nbsp;&nbsp;<span><i
             class="fa fa-arrow-right"
             aria-hidden="true"

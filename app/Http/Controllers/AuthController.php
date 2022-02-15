@@ -36,7 +36,7 @@ class AuthController extends Controller
         $user=User::where('email',$request->email)->first();
         if (!$user || !Hash::check($request->password, $user->password)) {
             Log::warning("Login Failed",['user'=>$user ?? 'not found']);
-            return view('guest.auth.login')->with('srvError401',true);
+            return inertia('auth/login')->with('srvError401',true);
         }
 
         if (!empty($request->fcmToken)) {
@@ -50,7 +50,7 @@ class AuthController extends Controller
                 'ip'=>$request->ip(),
                 'error'=>$e->getMessage(),
             ]);
-            return view('guest.auth.login')->with('srvErrorUnknown',true);
+            return inertia('auth/login')->with('srvErrorUnknown',true);
         }
 
         return redirect($success['redirectUrl']);
