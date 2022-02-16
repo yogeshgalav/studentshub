@@ -179,10 +179,10 @@ export default {
 			type: String,
 			default: ''
 		},
-    align: {
-      type: String,
-      default: ''
-    }
+		align: {
+			type: String,
+			default: ''
+		}
 	},
 	data() {
 		return {
@@ -202,7 +202,11 @@ export default {
 		}
 	},
 	mounted() {
-		if (this.tabs.includes(this.initialTab)) {
+		let hash_tab = window.location.hash;
+		hash_tab = hash_tab ? hash_tab.replace('#','') : '';
+		if (hash_tab && this.tabs.includes(hash_tab)) {
+			this.activeTab = hash_tab;
+		}else if (this.tabs.includes(this.initialTab)) {
 			this.activeTab = this.initialTab;
 		} else {
 			this.activeTab = this.tabs[0];

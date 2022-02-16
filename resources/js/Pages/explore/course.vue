@@ -39,7 +39,7 @@
 <script>
 import NavTabs from '../../components/NavTabs';
 import PostContainer from '../common/post-container';
-import DoubtContainer from '../common/doubt-container';
+import DoubtContainer from '@/Pages/doubt/doubt-container.vue';
 
 export default {
 	components: {

@@ -91,7 +91,7 @@
 import NavTabs from '../../components/NavTabs';
 import SelectCourse from '../../components/SelectCourse.vue';
 import PostContainer from './post-container.vue';
-import DoubtContainer from './doubt-container.vue';
+import DoubtContainer from '@/Pages/doubt/doubt-container.vue';
 
 export default {
 	components: {

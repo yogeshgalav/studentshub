@@ -109,11 +109,11 @@ class DoubtController extends Controller
         }
 
         if($request->user('api')){
-          $doubts=$doubt_query->paginate();
+          $doubts=$doubt_query->limit(10)->get();
         }else{
           $doubts=$doubt_query->limit(10)->get();
         }
-        
+
         foreach($doubts as $doubt){
             $doubt->subjects=$doubt->subjects()->get();
         }

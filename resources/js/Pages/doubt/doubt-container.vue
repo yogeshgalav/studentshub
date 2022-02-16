@@ -37,7 +37,9 @@
             v-for="(doubt,index) in doubts_data"
             :key="index"
           >
-            <doubt-card :doubt="doubt" />
+            <doubt-card
+              :doubt="doubt"
+            />
           </div>
 
           <div class=" card mb-1 border-0 text-center">
@@ -61,7 +63,7 @@
   </div>
 </template>
 <script>
-import DoubtCard from '../post/PostCard.vue';
+import DoubtCard from '@/Pages/doubt/DoubtCard.vue';
 
 export default {
 	components: {
@@ -90,8 +92,8 @@ export default {
 			this.axios.get(url.toString())
 				.then(resp => {
 					const doubts = resp.data.success.doubts;
-					this.doubts_data = this.doubts_data.concat(doubts.data);
-		            this.current_page = this.current_page;
+					this.doubts_data = this.doubts_data.concat(doubts);
+					this.current_page = this.current_page;
 					this.showLoader = false;
 				})
 				.catch(err => {

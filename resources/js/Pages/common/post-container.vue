@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <section>
     <div class="row">
       <div class="col-md-10 col-sm-12">
         <div class="card mb-3 mt-2 pt-0 pb-0">
@@ -40,7 +40,7 @@
             <post-card :post="post" />
           </div>
 
-          <div class=" card mb-1 border-0 text-center">
+          <div class="card mb-0 mt-0 border-0 text-center">
             <p
               class="mb-0"
               @click="loadPosts"
@@ -58,7 +58,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 <script>
 import PostCard from '../post/PostCard.vue';
