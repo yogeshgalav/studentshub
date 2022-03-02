@@ -3,6 +3,7 @@ import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 var relativeTime = require('dayjs/plugin/relativeTime');
 import { Link as RouterLink } from '@inertiajs/inertia-vue';
+import { gtag } from 'ga-gtag';
 
 export default {
 	components:{

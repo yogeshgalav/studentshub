@@ -149,6 +149,10 @@ export default {
 			this.$store.dispatch('submitPost', this.new_post)
 				.then((resp)=>{
 					this.showLoader=false;
+					gtag('event','post_create',{
+						// 'course':this.$store.state.selected_course.course_name,
+						// 'subjects':this.$store.state.selected_subjects.map(el=>el.subject_name).join(','),
+					});
 					swal.successDialog('Post Created', 'Successfully!', 'success');
 					window.location.href ='/';
 				}).catch((err)=>{this.showLoader=false;});

@@ -3,9 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Rules\EmailOrPhoneRule;
+use App\Rules\PhoneRule;
 
-class LoginRequest extends FormRequest
+class SendOtpRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,15 +25,14 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            "email"=>"required|email",
-            "password"=>"required",
+            "phone_number"=>"required|email",
         ];
     }
 
     public function messages()
     {
         return [
-            "email.*"=>"You must provide a valid email address.",
+            "phone_number.*"=>"You must provide a valid phone number.",
         ];
     }
 }

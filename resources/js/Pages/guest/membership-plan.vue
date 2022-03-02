@@ -272,11 +272,11 @@
           @submit.prevent="memberRequest"
         >
           <div>
-            <div class="form-group row">
-              <div class="col-md-12 mb-2">
+            <div class="row">
+              <div class="form-group col-md-12 mb-2">
                 <label
                   for="firstname"
-                  class="mb-0 col-form-label text-md-right"
+                  class="mb-0 "
                 >Your Name</label>
                 <input
                   id="fullname"
@@ -289,10 +289,10 @@
                 >
                 <span class="text-danger">{{ formErrors('fullname') }}</span>
               </div>
-              <div class="col-md-12 mb-2">
+              <div class="form-group col-md-12 mb-2">
                 <label
                   for="email"
-                  class="mb-0 col-form-label text-md-right"
+                  class="mb-0 "
                 >Email</label>
                 <input
                   id="email"
@@ -305,10 +305,10 @@
                 >
                 <span class="text-danger">{{ formErrors('email') }}</span>
               </div>
-              <div class="col-md-12 mb-2">
+              <div class="form-group col-md-12 mb-2">
                 <label
                   for="institute"
-                  class="col-form-label text-md-right mb-0"
+                  class=" mb-0"
                 >Institute Name</label>
                 <input
                   id="institute"
@@ -321,10 +321,10 @@
                 >
                 <span class="text-danger">{{ formErrors('institute') }}</span>
               </div>
-              <div class="col-md-12 mb-2">
+              <div class="form-group col-md-12 mb-2">
                 <label
                   for="students"
-                  class="col-form-label text-md-right mb-0"
+                  class=" mb-0"
                 >Number Of Students</label>
                 <input
                   id="students"
@@ -337,10 +337,10 @@
                 >
                 <span class="text-danger">{{ formErrors('students') }}</span>
               </div>
-              <div class="col-md-12 mb-2">
+              <div class="form-group col-md-12 mb-2">
                 <label
                   for="phone"
-                  class="col-form-label text-md-right mb-0"
+                  class=" mb-0"
                 >Phone Number</label>
                 <vue-tel-input
                   v-model="phone"

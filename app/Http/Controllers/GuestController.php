@@ -12,16 +12,6 @@ class GuestController extends Controller
     //
     private $title = " | Student's Hub";
 
-    public function loginPage()
-    {
-        if(Auth::check()){
-            return redirect('/');
-        }
-
-        return inertia('auth/login', [
-            'emailError'=> session('emailError'),
-        ]);
-    }
     public function membershipPlan()
     {
         return inertia('guest/membership-plan', [
@@ -32,12 +22,12 @@ class GuestController extends Controller
     {
         return inertia('auth/forgot-password');
     }
-    public function registerPage()
+    public function getStartedPage()
     {
         if(Auth::check()){
             return redirect('/');
         }
-        return inertia('auth/register');
+        return inertia('auth/get-started');
     }
 
     public function feedbackPage()

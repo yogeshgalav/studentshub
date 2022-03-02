@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AlterCategoriesTable extends Migration
+class AddOtpToUser extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class AlterCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::table('categories', function (Blueprint $table) {
-            $table->integer('parent_category_id')->unsigned()->nullable();
-            $table->text('quality')->nullable();
-            $table->text('exams')->nullable();
+        Schema::table('user', function (Blueprint $table) {
+            $table->dropColumn('password');
+            $table->smallInteger('otp')->default(1234);
+            $table->string('email')->nullable()->change();
         });
     }
 
@@ -27,6 +27,8 @@ class AlterCategoriesTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('user', function (Blueprint $table) {
+            //
+        });
     }
 }

@@ -131,14 +131,6 @@
           <search-form />
         </div>
         <div class="guest-nav-items">
-          <div class="nav-item nav-login">
-            <router-link
-              class="btn btn-link text-blue"
-              :href="'/login'"
-            >
-              Login <i class="fas fa-arrow-right" />
-            </router-link>
-          </div>
           <div class="nav-item">
             <router-link
               class="btn btn-primary"
@@ -160,14 +152,6 @@
             <search-form />
           </li>
           <div class="nav-login-get-started">
-            <li class="nav-item nav-login">
-              <router-link
-                class="btn btn-link text-blue"
-                :href="'/login'"
-              >
-                Login <i class="fas fa-arrow-right" />
-              </router-link>
-            </li>
             <li class="nav-item">
               <router-link
                 class="btn btn-primary"

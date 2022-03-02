@@ -14,6 +14,7 @@
             </div>
             <a
               :href="'/ask-doubt'"
+              @click="$gtag.event('login')"
             > 
               <img
                 src="/images/knowledge.svg"

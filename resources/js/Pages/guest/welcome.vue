@@ -18,12 +18,12 @@
             Use the Power of Data to Drive your Growth
           </h1>
           <div>
-            <a
+            <router-link
               class="btn btn-outline-light fade-in-out"
-              href="/membership-plan"
+              href="/get-started"
             >
-              Learn More <i class="fas fa-arrow-right fade-in-out" />
-            </a>
+              Get Started <i class="fas fa-arrow-right fade-in-out" />
+            </router-link>
           </div>
         </div>
       </div>
@@ -101,10 +101,10 @@
         </div>
         <div class="left col-md-8 align-self-center pl-5">
           <h3 class="text-white fade-in-out">
-            The Best Educational App
+            The Best Educational Social Network
           </h3>
           <p class="text-white fade-in-out">
-            Educational App to boost the productivity of Students, Teachers, and Institutes. Learn about your progress, pain points, and student's field of interest.
+            Social Network App which helps you to connect with Students, Teachers, and Institutes. Explore Courses, Subjects and Interest Fields.
           </p>
           <a
             href="https://play.google.com/store/apps/details?id=webviewgold.studentshub"
@@ -131,7 +131,7 @@
         </div>
         <div class="col-md-6 p-0">
           <p class="mb-0">
-            Join the thousands of other institutes who benefits from our data analytics and digital classroom services.
+            Join the thousands of other institutes who benefits from our Marketing and Branding services.
           </p>
         </div>
         <div class="col-md-3 text-right p-0 fade-in-out">

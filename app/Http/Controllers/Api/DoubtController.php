@@ -113,7 +113,7 @@ class DoubtController extends Controller
         }else{
           $doubts=$doubt_query->limit(10)->get();
         }
-
+        
         foreach($doubts as $doubt){
             $doubt->subjects=$doubt->subjects()->get();
         }

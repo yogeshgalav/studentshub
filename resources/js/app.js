@@ -41,28 +41,13 @@ Vue.use(Dayjs, {
 // 	attempt: 1
 // });
 Vue.use(VueAxios, axios);
-
-//error tracking
-// import * as Sentry from '@sentry/browser';
-// import { Integrations } from '@sentry/tracing';
 if(process.env.NODE_ENV === 'production'){
-	// Sentry.init({
-	// 	Vue,
-	// 	dsn: 'https://82c7fe80c97f4826818ae008c4d22c7d@o499194.ingest.sentry.io/5577443',
-	// 	autoSessionTracking: true,
-	// 	integrations: [
-	// 		new Integrations.BrowserTracing(),
-	// 	],
-
-	// 	// We recommend adjusting this value in production, or using tracesSampler
-	// 	// for finer control
-	// 	tracesSampleRate: 1.0,
-	// });
 	Vue.config.devtools = false;
 	Vue.config.debug = false;
 	Vue.config.silent = true;
+}
 
-	const { Inertia } = require('@inertiajs/inertia');
+const { Inertia } = require('@inertiajs/inertia');
 	const { gtag, install } = require('ga-gtag');
 	install('G-W2Z76KH2R6');
 	Inertia.on('navigate', (event) => {
@@ -70,8 +55,6 @@ if(process.env.NODE_ENV === 'production'){
 			'page_location': event.detail.page.url
 		});
 	});
-}
-
 import Layout from '@/Layouts/SidebarLayout.vue';
 import GlobalMixin from '@/global-mixin.js';
 Vue.mixin(GlobalMixin);

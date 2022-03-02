@@ -4,7 +4,7 @@ namespace App\Services;
 
 use Illuminate\Foundation\Application;
 use App\Exceptions\InvalidCredentialsException;
-use Api\Users\Repositories\UserRepository;
+use App\Models\User;
 
 class LoginService
 {
@@ -22,7 +22,7 @@ class LoginService
 
     private $userRepository;
 
-    public function __construct(Application $app, UserRepository $userRepository) {
+    public function __construct(Application $app, User $userRepository) {
         $this->userRepository = $userRepository;
 
         $this->apiConsumer = $app->make('apiconsumer');
@@ -40,7 +40,7 @@ class LoginService
      */
     public function attemptLogin($email, $password)
     {
-        $user = $this->userRepository->getWhere('email', $email)->first();
+        $user = $this->userRepository->where('email', $email)->first();
 
         if (!is_null($user)) {
             return $this->proxy('password', [
