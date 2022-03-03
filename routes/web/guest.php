@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/membership-plan','GuestController@membershipPlan');
-Route::get('/get-started','GuestController@getStartedPage');
+Route::get('/get-started','AuthController@getStartedPage');
 Route::get('/find-interest-field','GuestController@FindInterestField');
 Route::get('/forgot-password','GuestController@forgotPasswordPage');
 Route::get('/reset-password/{token}','GuestController@resetPassword');
@@ -13,8 +13,8 @@ Route::get('/contactus','GuestController@contactusPage');
 Route::get('/faq','GuestController@faqPage');
 Route::get('/logout','AuthController@logout');
 
-Route::post('/login','AuthController@login');
-Route::post('/register','AuthController@register');
+Route::post('/login','AuthController@loginViaOtp');
+Route::post('/register','AuthController@registerViaOtp');
 
 Route::get('/post/{ViewPostId}', 'GuestController@viewPost');
 Route::get('/social-auth/{provider}', 'AuthController@redirectToProvider');

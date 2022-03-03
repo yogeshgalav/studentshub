@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Rules\PhoneRule;
 
-class SendOtpRequest extends FormRequest
+class VerifyContactRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,8 @@ class SendOtpRequest extends FormRequest
     public function rules()
     {
         return [
-            "phone_number"=>"required|email",
+            "phone_number"=>["required",new PhoneRule],
+            "country_code"=>"required|max:3",
         ];
     }
 

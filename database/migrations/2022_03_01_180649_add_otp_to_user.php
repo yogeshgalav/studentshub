@@ -13,10 +13,29 @@ class AddOtpToUser extends Migration
      */
     public function up()
     {
-        Schema::table('user', function (Blueprint $table) {
-            $table->dropColumn('password');
-            $table->smallInteger('otp')->default(1234);
+        Schema::create('leads', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('user_id')->unsigned();
+            $table->integer('staff_user_id')->unsigned();
+            $table->text('description');
+            $table->enum('lead_status',[
+                'raw',
+                'invalid',
+                'notInterested',
+                'interested',
+                'paymentPending',
+                'paymentDone',
+            ])->default('raw');
+            $table->timestamps();
+        });
+
+        Schema::table('users', function (Blueprint $table) {
             $table->string('email')->nullable()->change();
+            $table->string('full_name')->nullable()->change();
+            $table->renameColumn('email_verified_at','user_verified_at');
+            $table->dropColumn('login_provider_id');
+            $table->dropColumn('login_provider_type');
+            $table->dropColumn('must_reset_password');
         });
     }
 

@@ -6,23 +6,23 @@
     >
       <div class="nav-items">
         <div class="navbar-brand">
-          <a href="/">
+          <router-link href="/">
             <img
               src="/images/logo.png"
               alt="Student Hub"
             >
-          </a>
+          </router-link>
         </div>
         <div class="search-bar col-md-6">
           <search-form />
         </div>
         <div class="notification-dropdown">
-          <a
+          <router-link
             href="/notifications"
             class="headerBellIcon btn"
           >
             <i class="far fa-bell notification-icon" />
-          </a>
+          </router-link>
         </div>
         <div class="profile-dropdown dropleft">
           <profile-dropdown />
@@ -38,12 +38,12 @@
           v-if="showMobileLogoBar"
           class="mobile-navbar-brand"
         >
-          <a href="/">
+          <router-link href="/">
             <img
               src="/images/logo.png"
               alt="Student Hub"
             >
-          </a>
+          </router-link>
         </div>
         <div class="mobile-nav-items">
           <button
@@ -81,7 +81,7 @@
           </div>
 
           <div class="dropdown">
-            <a
+            <router-link
               href="/notifications"
               class="headerBellIcon btn"
             >
@@ -89,7 +89,7 @@
                 class="far fa-bell notification-icon"
                 style="margin-top:4px"
               />
-            </a>
+            </router-link>
           </div>
 
           <div class="nav-item dropleft">
@@ -106,12 +106,12 @@
     >
       <div class="guest-navbar">
         <div class="guest-navbar-brand">
-          <a href="/">
+          <router-link href="/">
             <img
               src="/images/logo.png"
               alt="Student'sHUB"
             >
-          </a>
+          </router-link>
         </div>
         <button
           class="navbar-toggler"

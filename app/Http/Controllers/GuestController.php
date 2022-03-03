@@ -22,13 +22,6 @@ class GuestController extends Controller
     {
         return inertia('auth/forgot-password');
     }
-    public function getStartedPage()
-    {
-        if(Auth::check()){
-            return redirect('/');
-        }
-        return inertia('auth/get-started');
-    }
 
     public function feedbackPage()
     {

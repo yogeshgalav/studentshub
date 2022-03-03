@@ -51,87 +51,9 @@
                           :value="fcmToken"
                         >
                       </div>
-                      <div class="form-group">
-                        <label for="role"> {{ "I'm a" }} </label>
-                        <div class="inner-addon left-addon">
-                          <div class="input_icon_frm">
-                            <span class="icon_design_input"><i
-                              class="fa fa-user"
-                            /></span>
-                            <select
-                              id="role"
-                              v-model="role"
-                              v-validate="'required'"
-                              :disabled="join_id"
-                              class="form-control"
-                              name="role"
-                            >
-                              <option
-                                selected
-                                value="student"
-                              >
-                                Student
-                              </option>
-                              <option value="teacher">
-                                Teacher
-                              </option>
-                              <option value="instituteAdmin">
-                                Institute Admin
-                              </option>
-                            </select>
-                          </div>
-                          <span class="error">{{ errors.first('role') }}</span>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label> {{ ('Full Name') }} </label>
-                        <div class="inner-addon left-addon">
-                          <div class="input_icon_frm">
-                            <span class="icon_design_input"><i
-                              class="fa fa-user"
-                            /></span>
-                            <input
-                              id="full_name"
-                              v-model="full_name"
-                              v-validate="'required'"
-                              type="text"
-                              class="form-control"
-                              name="full_name"
-                              placeholder="Enter Full Name"
-                              autofocus
-                              maxlength="255"
-                            >
-                          </div>
-                          <span class="error">{{ errors.first('full_name') }}</span>
-                        </div>
-                      </div>
-
-                      <div class="form-group">
-                        <label for="email"> {{ ('E-Mail Address') }}</label>
-
-                        <div class="inner-addon left-addon">
-                          <div class="input_icon_frm">
-                            <span class="icon_design_input"><i
-                              class="fa fa-envelope"
-                            /></span>
-                            <input
-                              id="email"
-                              v-model="email"
-                              v-validate="'required|email'"
-                              type="email"
-                              class="form-control"
-                              name="email"
-                              placeholder="Email address"
-                              maxlength="255"
-                            >
-                          </div>
-                          <span class="error">{{ errors.first('email') }}</span>
-                        </div>
-                      </div>
 
                       <div class="form-group">
                         <label for="password"> {{ ('Password') }}</label>
-
                         <div class="inner-addon left-addon ">
                           <div class="input_icon_frm">
                             <span class="icon_design_input"><i

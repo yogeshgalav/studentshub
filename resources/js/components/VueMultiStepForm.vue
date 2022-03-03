@@ -3,6 +3,8 @@
     :id="id"
     class="vue-multi-form"
     :name="name"
+    :action="action"
+    :method="method"
   >
     <div class="row">
       <slot name="header" />
@@ -60,6 +62,14 @@ export default {
 			type: String, 
 			default: 'vue_multi_step_form'
 		},
+		action: { 
+			type: String, 
+			default: ''
+		},
+		method: { 
+			type: String, 
+			default: 'post'
+		},
 		stepData: { 
 			type: Array, 
 			default: () => [] 
@@ -76,7 +86,15 @@ export default {
 			return this.stepData.length;
 		},
 		currentStep(){
-			return this.stepData[this.stepIndex] ? this.stepData[this.stepIndex] : null;
+			let basic_step_data = {
+				show_back_button: false,
+				show_next_button: false,
+				step_valid: true,
+				step_skip: false,
+			};
+			return this.stepData[this.stepIndex] 
+				? Object.assign(basic_step_data,this.stepData[this.stepIndex]) 
+				: basic_step_data;
 		},
 		isFirstStep(){
 			if(!this.stepData.length) return false;
@@ -91,18 +109,6 @@ export default {
 		},
 		progress(){
 			return ((this.stepIndex+1)/this.totalSteps)*100;
-		},
-		show_back_button(){
-			return (this.currentStep && this.currentStep.show_back_button) ? this.currentStep.show_back_button :false;
-		},
-		show_next_button(){
-			return (this.currentStep && this.currentStep.show_next_button) ? this.currentStep.show_next_button :true;
-		},
-		step_valid(){
-			return (this.currentStep && this.currentStep.step_valid) ? this.currentStep.step_valid :true;
-		},
-		step_skip(){
-			return (this.currentStep && this.currentStep.step_skip) ? this.currentStep.step_skip :false;
 		},
 	},
 	watch:{
@@ -122,9 +128,9 @@ export default {
 		window.addEventListener('hashchange', ()=>{
 			let stepHash=parseInt(window.location.hash.replace('#',''));
 			if(stepHash){
-				if(self.stepIndex>stepHash && self.show_back_button===false){
+				if(self.stepIndex>stepHash && !this.currentStep.show_back_button){
 					window.location.href=window.location.href.replace(location.hash,'');
-				}else if(self.stepIndex>stepHash && self.show_back_button===true){
+				}else if(self.stepIndex>stepHash && this.currentStep.show_back_button===true){
 					self.prevTab();
 				}
 			} 
@@ -132,27 +138,33 @@ export default {
 	},
 	methods:{
 		nextStep(){
-			if(!this.step_valid){
-        console.log('valdiateStep',this.stepIndex);
+			if(!this.currentStep.step_valid){
 				this.$emit('valdiateStep', this.stepIndex);
 				return false;
+			}
+			if(this.isLastStep && this.action){
+				this.submitForm();
 			}
 			if(this.isLastStep){
 				this.$emit('onComplete');
 				return false;
 			}
 			this.stepIndex++;
-			while(this.step_skip===true){
+			while(this.currentStep.step_skip===true){
 				this.stepIndex++;
 			}
 			window.location.hash = this.stepIndex;
 		},
 		prevStep(){
 			this.stepIndex--;
-			while(this.step_skip===true){
+			while(this.currentStep.step_skip===true){
 				this.stepIndex--;
 			}
 			window.location.hash = this.stepIndex;
+		},
+		submitForm(){
+			console.log(this.id);
+			document.getElementById(this.id).submit();
 		}
 	}
 };

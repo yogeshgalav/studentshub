@@ -26,6 +26,8 @@
                 id="login_form"
                 ref="loginForm"
                 name="login"
+                method="post"
+                action="/login"
                 :step-data="step_data"
                 @valdiateStep="valdiateStep"
               >
@@ -36,13 +38,13 @@
                     <label for="phone_number"> {{ 'Enter Your Phone Number' }}</label>
                     <div>
                       <vue-tel-input
-                        v-model="phone"
                         v-validate="'required'"
-                        :validation-value="phone"
+                        :validation-value="phone_number"
                         :auto-default-country="true"
                         default-country="IN"
                         name="phone_number"
                         placeholder="Enter Your Mobile Number"
+                        @validate="savePhoneNumber"
                       />
                       <span class="error">{{ formErrors('phone_number') }}</span>
                     </div>
@@ -72,6 +74,64 @@
                       />
                       <span class="error">{{ formErrors('verify_otp') }}</span>
                     </div>
+                  </div>
+                </template>
+                <template slot="step2">
+                  <div class="form-group">
+                    <label for="role"> {{ "I'm a" }} </label>
+                    
+                    <select
+                      id="role"
+                      v-model="role"
+                      v-validate="'required'"
+                      :disabled="join_id"
+                      class="form-control"
+                      name="role"
+                    >
+                      <option
+                        selected
+                        value="student"
+                      >
+                        Student
+                      </option>
+                      <option value="teacher">
+                        Teacher
+                      </option>
+                      <option value="instituteAdmin">
+                        Institute Admin
+                      </option>
+                    </select>
+                    <span class="error">{{ formErrors('role') }}</span>
+                  </div>
+                  <div class="form-group">
+                    <label> {{ ('Full Name') }} </label>
+                    <input
+                      id="full_name"
+                      v-model="full_name"
+                      v-validate="'required'"
+                      type="text"
+                      class="form-control"
+                      name="full_name"
+                      placeholder="Enter Full Name"
+                      autofocus
+                      maxlength="255"
+                    >
+                    <span class="error">{{ formErrors('full_name') }}</span>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="email"> {{ ('E-Mail Address *(Optional)') }}</label>
+                    <input
+                      id="email"
+                      v-model="email"
+                      v-validate="'email'"
+                      type="email"
+                      class="form-control"
+                      name="email"
+                      placeholder="Email address"
+                      maxlength="255"
+                    >
+                    <span class="error">{{ formErrors('email') }}</span>
                   </div>
                 </template>
                 <template
@@ -152,24 +212,26 @@ export default {
 	},
 	mixins: [FormMixin],
 	props: {
-		srvError401:{
+		srvError:{
 			default:false,
 		},
-		srvErrorUnknown:{
+		otpError:{
 			default:false,
-		}, 
-		emailError:{
-			default:false,
-		} 
+		},
 	},
 	data(){
 		return{
 			showLoader:false,
-			phone:'',
+			join_id:'',
+			role:'student',
+			full_name:'',
+			email:'',
+			phone_number:'',
+			country_code:'IN',
 			otp:'',
 			remember:true,
 			fcmToken:'',
-			is_user_registered: false,
+			new_user: false,
 			step_data:[
 				{
 					'step_valid': false,
@@ -183,15 +245,15 @@ export default {
 					'step_skip': false,
 					'show_back_button': true,
 					'show_next_button': true,
-					'laststep': false,
+					'laststep': true,
 				},
 				{
           
-					'step_valid': true,
-					'step_skip': false,
+					'step_valid': false,
+					'step_skip': true,
 					'show_back_button': false,
 					'show_next_button': true,
-					'laststep': false,
+					'laststep': true,
 				}
 			]
 		};
@@ -203,10 +265,10 @@ export default {
 	},
 	methods:{
 		nextButtonText(step){
-			if(step===2 && this.is_user_registered){
-				return 'Login';
-			}else if(step===2){
+			if(step===2 && this.new_user){
 				return 'Register';
+			}else if(step===2){
+				return 'Login';
 			}
 			return 'Next';
 		},
@@ -219,27 +281,61 @@ export default {
 		OtpChange(value){
 			this.otp = value;
 		},
+		savePhoneNumber(value){
+			this.phone_number = value.number;
+			this.country_code = value.countryCode;
+		},
 		valdiateStep(stepIndex){
-      console.log(stepIndex);
+			let loader = this.$loading.show();
 			if(stepIndex===0){
 				// this.addField('phone_number',this.phone_number);
 				this.validateInput('phone_number').then(resp=>{
-					if(!resp) return false;
-					this.axios.post('/api/send-otp',{
-						'phone_number':this.phone_number
-					});
-					this.step_data[stepIndex]['step_valid']=true;
+					if(!resp) return false;console.log(this.phone_number);
+					this.axios.post('/api/verify-contact',{
+						'phone_number':this.phone_number,
+						'country_code':this.country_code
+					}).then(resp=>{
+						this.new_user = resp.data.new_user ? 1 : 0;
+						this.step_data[2].step_skip = resp.data.new_user ? false : true;
+						this.step_data[stepIndex]['step_valid']=true;
+						this.$refs.loginForm.nextStep();
+						loader.hide();
+					}).catch(()=>loader.hide());
 				});
 			}else if(stepIndex===1){
 				// this.addField('otp',this.otp);
 				this.validateInput('otp').then(resp=>{
 					if(!resp) return false;
-					this.axios.post('/api/verify-otp',{
-						'otp':this.otp
+					if(this.new_user) return false;
+
+					this.$refs.loginForm.submitForm();
+					this.$inertia.visit('/login', {
+						method: 'post',
+						data: {
+							'phone_number': this.phone_number,
+							'otp': this.otp,
+							'_token': this.csrfTOken(),
+						},
 					});
-					this.step_data[stepIndex]['step_valid']=true;
+				});
+			}else if(stepIndex===2){
+				// this.addField('otp',this.otp);
+				this.validateInput('otp').then(resp=>{
+					if(!resp) return false;
+					this.$inertia.visit('/register', {
+						method: 'post',
+						data: {
+							'full_name': this.full_name,
+							'role': this.role,
+							'phone_number': this.phone_number,
+							'otp': this.otp,
+							'_token': this.csrfTOken(),
+						},
+					});
 				});
 			}
+
+
 		}
 	}
 };

@@ -6,8 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/subscribe','GuestController@update');
 Route::get('/get-post-content/{post}','PostController@show');
-Route::post('/login',[App\Http\Controllers\AuthController::class,'loginViaApi']);
-Route::post('/register',[App\Http\Controllers\AuthController::class,'registerViaApi']);
+Route::post('/verify-contact',[App\Http\Controllers\Api\AuthController::class,'verifyContact']);
 Route::post('/member-request','GuestController@memberRequest');
 
 Route::post('/forgot-password',[App\Http\Controllers\AuthController::class,'processForgotPassword']);

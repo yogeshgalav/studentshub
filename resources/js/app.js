@@ -55,6 +55,28 @@ const { Inertia } = require('@inertiajs/inertia');
 			'page_location': event.detail.page.url
 		});
 	});
+
+import VueLoading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
+Vue.use(VueLoading);
+	
+import { InertiaProgress } from '@inertiajs/progress'
+InertiaProgress.init();
+InertiaProgress.init({
+	// The delay after which the progress bar will
+	// appear during navigation, in milliseconds.
+	delay: 250,
+  
+	// The color of the progress bar.
+	color: '#10069f',
+  
+	// Whether to include the default NProgress styles.
+	includeCSS: true,
+  
+	// Whether the NProgress spinner will be shown.
+	showSpinner: true,
+  });
+  
 import Layout from '@/Layouts/SidebarLayout.vue';
 import GlobalMixin from '@/global-mixin.js';
 Vue.mixin(GlobalMixin);
