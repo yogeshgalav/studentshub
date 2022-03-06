@@ -33,19 +33,19 @@
                     ><i class="fas fa-edit" /></a>
                   </h3>
                   <p
-                    v-if="user.role_intended==='student'"
+                    v-if="user.role==='student'"
                     class="text-grey"
                   >
                     Student at
                   </p>
                   <p
-                    v-else-if="user.role_intended==='teacher'"
+                    v-else-if="user.role==='teacher'"
                     class="text-grey"
                   >
                     Teacher at
                   </p>
                   <p
-                    v-else-if="user.role_intended==='institute_admin'"
+                    v-else-if="user.role==='institute_admin'"
                     class="text-grey"
                   >
                     Admin at

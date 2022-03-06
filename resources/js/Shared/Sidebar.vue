@@ -61,7 +61,7 @@
           </li>
         </router-link>
         <router-link
-          v-if="AuthUser.role_intended==='student'"
+          v-if="AuthUser.role==='student'"
           href="/my-reports"
           :class="isUrl('my-reports') ? 'active' : ''"
         >
@@ -113,7 +113,7 @@
           </li>
         </router-link>
         <router-link
-          v-if="AuthUser.role_intended==='student'"
+          v-if="AuthUser.role==='student'"
           href="/classmates"
           :class="isUrl('classmates') ? 'active' : ''"
         >
@@ -126,7 +126,7 @@
           </li>
         </router-link>
         <router-link
-          v-if="AuthUser.role_intended==='student'"
+          v-if="AuthUser.role==='student'"
           href="/more-apps"
           :class="isUrl('more-apps') ? 'active' : ''"
         >

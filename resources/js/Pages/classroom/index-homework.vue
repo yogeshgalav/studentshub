@@ -13,7 +13,7 @@
       </div>
     </div>
     <div 
-      v-if="AuthUser.role_intended!=='student'"
+      v-if="AuthUser.role!=='student'"
       class="row"
     >
       <div class="col-md-12 mb-2">

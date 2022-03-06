@@ -37,7 +37,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function loginViaOtp(Request $request){
+    public function loginViaOtp(Request $request){dd('here');
         \Session::flush();     
         $user=User::where('phone_no','=',$request->phone_number)->first();
 
@@ -69,6 +69,7 @@ class AuthController extends Controller
         if(!$user){
             Log::critical('user not find during registration'.['phone_number'=>$request->phone_number]);
         }
+
         if(!Hash::check($request->otp,$user->password)){
             return redirect('/get-started')->with('otpError',1);
         }
@@ -83,7 +84,7 @@ class AuthController extends Controller
 
         $input = $request->all();
         $user->full_name = $input['full_name'];
-        $user->role_indended = $input['role'];
+        $user->role = $input['role'];
         $user->email = $input['email'] ?? null;
         $user->fcm_token = $fcm_token;
         $user->onboarded_at=\Carbon\Carbon::now()->toDateTimeString();
@@ -101,7 +102,7 @@ class AuthController extends Controller
         \App\Models\ScheduledJob::scheduleNewUserNotification($user);
 
         DB::commit();
-        } catch (\Exception $e) {
+        } catch (\Exception $e) {dd($e->getLine(),$e->getMessage()); 
             DB::rollback();
             Log::critical('user registeration failure with contact '.$contact_number);
             return redirect('/get-started')->with('srvError',1);

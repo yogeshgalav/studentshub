@@ -5,7 +5,7 @@
     </div>
     <hr>
     <div
-      v-if="AuthUser.role_intended==='student' && !classmates.length"
+      v-if="AuthUser.role==='student' && !classmates.length"
       class="card mb-2 pl-3"
     >
       <div class="card-body">

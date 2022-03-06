@@ -62,7 +62,7 @@ class StudentController extends Controller
             ]);
 
 
-            $user->role_intended = 'student';
+            $user->role = 'student';
             $user->preferred_institute_id = $institute->id;
             $user->onboarded_at = \Carbon\Carbon::now()->toDateTimeString();
             $user->save();

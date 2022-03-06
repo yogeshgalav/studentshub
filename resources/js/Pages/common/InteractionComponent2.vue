@@ -5,7 +5,7 @@
       class="row"
     >
       <div
-        v-if="AuthUser.role_intended==='student'"
+        v-if="AuthUser.role==='student'"
         class="col-md-4 col-6"
       > 
         <button

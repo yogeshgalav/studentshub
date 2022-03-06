@@ -36,7 +36,7 @@ trait UserAccessTrait {
         ]);
 
 
-        $this->role_intended = 'student';
+        $this->role = 'student';
         $this->preferred_institute_id = $this->preferred_institute_id ?? $classroom->institute_id;
         $this->onboarded_at = $this->onboarded_at ?? \Carbon\Carbon::now()->toDateTimeString();
         $this->save();

@@ -38,12 +38,13 @@ class AuthController extends Controller
         $user=User::where('phone_no','=',$request->phone_number)->first();
 
         //generate otp
-        $otp=rand(11111,99999);
+        $otp = ('local'===env('APP_ENV')) ? 12345 : $otp=rand(11111,99999);;
 
         if(empty($user)){
             $user=new User();
             $user->country_code = $request->country_code;
-        }else if($user->role_intended==='staff'){
+            $user->phone_no=$request->phone_number;
+        }else if($user->role==='staff'){
             $otp=12345;
         }
 

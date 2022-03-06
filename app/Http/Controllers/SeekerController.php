@@ -10,7 +10,7 @@ class SeekerController extends Controller
     //
     // public function seekerCheckin(){
     //     $user = Auth::user();
-    //     $user->role_intended = 'seeker';
+    //     $user->role = 'seeker';
     //     $user->onboarded_at = \Carbon\Carbon::now()->toDateTimeString();
     //     $user->save();
 

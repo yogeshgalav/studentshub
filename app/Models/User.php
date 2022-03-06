@@ -110,7 +110,7 @@ class User extends Authenticatable
             ->exists();
     }
     public function getClassroomIds(){
-        $role= $this->role_intended;
+        $role= $this->role;
         $classroom_query = \DB::table('classrooms');
         if ('student'===$role) {
             $classroom_query=$classroom_query->rightJoin('classroom_users as cu',function($join){
@@ -153,7 +153,7 @@ class User extends Authenticatable
 
     public function canCreateClassroom()
     {
-        if(in_array($this->role_intended,['seeker','student'])){
+        if(in_array($this->role,['seeker','student'])){
             return false;
         }
         return true;

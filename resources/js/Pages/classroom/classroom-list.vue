@@ -15,7 +15,7 @@
       </div>
       <div class="mb-2">
         <button
-          v-if="['seeker', 'student'].includes(AuthUser.role_intended)"
+          v-if="['seeker', 'student'].includes(AuthUser.role)"
           type="button"
           class="btn-primary btn-lg mb-1"
           data-toggle="modal"
@@ -33,7 +33,7 @@
         </button>
       </div>
       <div
-        v-if="['seeker', 'student'].includes(AuthUser.role_intended) && !classroomList.length"
+        v-if="['seeker', 'student'].includes(AuthUser.role) && !classroomList.length"
         class="card mb-2 pl-3"
       >
         <div class="card-body">
@@ -50,7 +50,7 @@
         </div>
       </div>
       <div
-        v-if="!['seeker', 'student'].includes(AuthUser.role_intended) && !classroomList.length"
+        v-if="!['seeker', 'student'].includes(AuthUser.role) && !classroomList.length"
         class="card mb-2 pl-3"
       >
         <div class="card-body">

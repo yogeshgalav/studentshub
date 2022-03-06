@@ -89,7 +89,7 @@ const FormMixin = {
 				.filter(form_field=>validate_fields.contains(form_field.field_name));
 			return this.runValidation(to_be_validated_fields);
 		},
-		validateInput(validate_field=''){console.log('valdare');
+		validateInput(validate_field=''){
 			const to_be_validated_fields = form_fields
 				.filter(form_field=>form_field.field_name===validate_field);
 			return this.runValidation(to_be_validated_fields);

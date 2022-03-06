@@ -27,10 +27,32 @@
                 ref="loginForm"
                 name="login"
                 method="post"
-                action="/login"
+                :action="action"
                 :step-data="step_data"
                 @valdiateStep="valdiateStep"
               >
+                <template slot="header">
+                  <input
+                    name="_token"
+                    :value="csrfToken"
+                    type="hidden"
+                  >
+                  <input
+                    name="otp"
+                    :value="otp"
+                    type="hidden"
+                  >
+                  <input
+                    name="phone_number"
+                    :value="phone_number"
+                    type="hidden"
+                  >
+                  <input
+                    name="fcmToken"
+                    :value="fcmToken"
+                    type="hidden"
+                  >
+                </template>
                 <template slot="step0">
                   <div
                     class="form-group"
@@ -65,7 +87,7 @@
                         name="otp"
                         input-classes="otp-input"
                         separator=" "
-                        :num-inputs="4"
+                        :num-inputs="5"
                         :should-auto-focus="true"
                         :is-input-num="true"
                         :validation-input="'otp'"
@@ -152,7 +174,7 @@
                         class="btn btn-md btn-primary m-0-a"
                         @click="nextClick"
                       >
-                        {{ nextButtonText(props.currentStep) }}
+                        {{ nextButtonText(props.stepIndex) }}
                       </button>
                     </div>
                   </div>
@@ -222,10 +244,11 @@ export default {
 	data(){
 		return{
 			showLoader:false,
-			join_id:'',
+			join_id:null,
 			role:'student',
 			full_name:'',
 			email:'',
+			action:'/login',
 			phone_number:'',
 			country_code:'IN',
 			otp:'',
@@ -286,52 +309,44 @@ export default {
 			this.country_code = value.countryCode;
 		},
 		valdiateStep(stepIndex){
-			let loader = this.$loading.show();
 			if(stepIndex===0){
-				// this.addField('phone_number',this.phone_number);
+				// verify phone number and set new user;
 				this.validateInput('phone_number').then(resp=>{
-					if(!resp) return false;console.log(this.phone_number);
+					if(!resp) return false;
+					let loader = this.$loading.show();
 					this.axios.post('/api/verify-contact',{
 						'phone_number':this.phone_number,
 						'country_code':this.country_code
 					}).then(resp=>{
-						this.new_user = resp.data.new_user ? 1 : 0;
-						this.step_data[2].step_skip = resp.data.new_user ? false : true;
+						if(resp.data.success.new_user){
+							this.new_user = true;
+						  this.step_data[2].step_skip = false;
+						  this.step_data[1].last_step =  false;
+							this.action = '/register';
+						}
 						this.step_data[stepIndex]['step_valid']=true;
 						this.$refs.loginForm.nextStep();
 						loader.hide();
 					}).catch(()=>loader.hide());
 				});
 			}else if(stepIndex===1){
-				// this.addField('otp',this.otp);
+				// login
 				this.validateInput('otp').then(resp=>{
 					if(!resp) return false;
-					if(this.new_user) return false;
-
-					this.$refs.loginForm.submitForm();
-					this.$inertia.visit('/login', {
-						method: 'post',
-						data: {
-							'phone_number': this.phone_number,
-							'otp': this.otp,
-							'_token': this.csrfTOken(),
-						},
-					});
+					this.step_data[stepIndex]['step_valid']=true;
+					if(this.new_user){
+						this.$refs.loginForm.nextStep();
+						return false;
+					}else{
+						this.$refs.loginForm.submitForm();
+					}
 				});
 			}else if(stepIndex===2){
 				// this.addField('otp',this.otp);
-				this.validateInput('otp').then(resp=>{
+				this.validateInput('full_name').then(resp=>{
 					if(!resp) return false;
-					this.$inertia.visit('/register', {
-						method: 'post',
-						data: {
-							'full_name': this.full_name,
-							'role': this.role,
-							'phone_number': this.phone_number,
-							'otp': this.otp,
-							'_token': this.csrfTOken(),
-						},
-					});
+					this.step_data[stepIndex]['step_valid']=true;
+					this.$refs.loginForm.submitForm();
 				});
 			}
 

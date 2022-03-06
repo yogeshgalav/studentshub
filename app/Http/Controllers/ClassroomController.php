@@ -17,7 +17,7 @@ class ClassroomController extends Controller
         $user = Auth::user();
         $course_levels = \App\Models\CourseLevel::get();
         $institute_query = DB::table('institutes as in');
-        if($user->role_intended!=='sthubAdmin'){
+        if($user->role!=='sthubAdmin'){
             $institute_query = $institute_query->join('institute_users as inu', function($join){
                 $join->on('in.id','=','inu.institute_id')->where('inu.user_id','=',Auth::id());
             });
@@ -118,7 +118,7 @@ class ClassroomController extends Controller
 
     public function classroom()
     {
-        if(Auth::user()->role_intended==='student'){
+        if(Auth::user()->role==='student'){
             return inertia('classroom/student/menu');
         }
         
@@ -141,7 +141,7 @@ class ClassroomController extends Controller
         ->select('cl.id','cl.name')
         ->get();
 
-        return inertia('classroom/student/my-reports',[
+        return inertia('classroom/student/my-report',[
             'classrooms' => $classrooms
         ]);
     }
@@ -159,7 +159,7 @@ class ClassroomController extends Controller
         ->select('classrooms.id','classrooms.name')
         ->get();
 
-        return inertia('classroom/student/global-messages')
+        return inertia('classroom/messages')
         ->with('classrooms',$classrooms);
     }
     public function classmates()

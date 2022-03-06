@@ -138,6 +138,6 @@ class StudentController extends Controller
     public function moreApps()
     {
         $apps = \App\Models\MoreApp::get();
-        return inertia('common/more-apps', ['apps' => $apps]);
+        return inertia('common/more-app', ['apps' => $apps]);
     }
 }

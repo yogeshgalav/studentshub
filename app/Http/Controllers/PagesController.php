@@ -149,7 +149,7 @@ class PagesController extends Controller
     {
         $user = Auth::user();
         if($user && empty($user->onboarded_at)){
-            $user->role_intended = 'seeker';
+            $user->role = 'seeker';
             $user->onboarded_at = \Carbon\Carbon::now()->toDateTimeString();
             $user->save();
         }

@@ -14,14 +14,15 @@
       v-for="(step,index) in stepData"
       :key="index"
     >
-      <Transition name="slide">
+      <div
+        v-show="index===stepIndex" 
+        class="vue-form-step"
+      >
         <slot
-          v-if="index===stepIndex"
           :id="'step'+index"
           :name="'step'+index"
-          class="vue-form-step"
         />
-      </Transition>
+      </div>
     </div>
 
     <div class="row">
@@ -30,6 +31,7 @@
         :isFirstStep="isFirstStep"
         :isLastStep="isLastStep"
         :currentStep="currentStep"
+        :stepIndex="stepIndex"
       >
         <button
           v-if="stepIndex!==0"
@@ -142,10 +144,10 @@ export default {
 				this.$emit('valdiateStep', this.stepIndex);
 				return false;
 			}
-			if(this.isLastStep && this.action){
+			if(this.currentStep.last_step && this.action){
 				this.submitForm();
 			}
-			if(this.isLastStep){
+			if(this.currentStep.last_step){
 				this.$emit('onComplete');
 				return false;
 			}
@@ -175,11 +177,7 @@ export default {
 }
 
 .vue-form-step {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right:0;
+  
 }
 
 .slide-leave-active,
