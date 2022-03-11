@@ -23,7 +23,7 @@
               </div>
             </template>
             <template slot="step1">
-              <create-post-description :new-post="newPost" />
+              <create-post-description v-if="$store.state.post.selected_category_id"/>
             </template>
             <template slot="step2">
               <create-post-content :new-post="newPost" />
@@ -118,7 +118,7 @@ export default {
 	},
 	computed:{
 		...mapState({
-			'newPost': state=>state.new_post,
+			'newPost': state=>state.post,
 		})
 	},
 	mounted() {

@@ -45,7 +45,7 @@
                 </select>
               </div>
               <span class="error">{{
-                errors.first("category")
+                formErrors("category")
               }}</span>
             </div>
           </div>
@@ -59,7 +59,7 @@
             />
           </div>
           <div
-            v-if="newPost.course_id"
+            v-if="selected_course.id"
             class="form-group"
           >
             <label class="weight-500">Course</label>
@@ -149,21 +149,20 @@ import FormMixin from './../../../components/mixins/form-mixin';
 export default {
 	components: { VueTagsInput },
 	mixins:[FormMixin],
-	props: ['newPost'],
 	data() {
 		return {
 			tag: '',
-			tags: this.newPost.selected_subjects,
-			heading: this.newPost.heading,
+			tags: [],
+			heading: '',
 			subject_list: [],
 			subjectLoading: false,
-			selected_category: this.newPost.category_id ? this.newPost.category_id :14
+			selected_category: 14
 		};
 	},
 	computed: {
 		...mapState({
-			categories: state => state.categories,
-			selected_course: state => state.selected_course
+			categories: state => state.post.categories,
+			selected_course: state => state.post.selected_course
 		}),
 		filteredItems() {
 			return this.subject_list.filter(i => {
@@ -177,6 +176,9 @@ export default {
 		}
 	},
 	mounted() {
+		this.tags = this.$store.state.post.selected_subjects;
+		this.heading = this.$store.state.post.heading;
+		this.selected_category = this.$store.state.post.selected_category_id;
 		EventBus.$on('validateStep1', () => {
 			this.$validator.validate().then(valid => {
 				if (valid) {

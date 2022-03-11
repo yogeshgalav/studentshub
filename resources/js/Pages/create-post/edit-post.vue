@@ -63,7 +63,7 @@
                   </select>
                 </div>
                 <span class="error">{{
-                  errors.first("category")
+                  formErrorst("category")
                 }}</span>
               </div>
             </div>
@@ -95,7 +95,7 @@
                     @selectNew="setNewSubject"
                   />
                   <span class="error">{{
-                    errors.first("subject")
+                    formErrors("subject")
                   }}</span>
                 </div>
               </div>
@@ -241,7 +241,7 @@ export default {
 					this.$validator.validate().then((result)=>{
 						if(result && !this.showLoader){
 							this.showLoader=true;
-							this.axios.put('/api/post/'+this.post.id,this.$store.state.new_post)
+							this.axios.put('/api/post/'+this.post.id,this.$store.state.post)
 								.then(resp=>{
 									this.showLoader=false;
 									swal.successDialog('Post Updated', 'Successfully!', 'success');

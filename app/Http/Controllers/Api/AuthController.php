@@ -40,10 +40,12 @@ class AuthController extends Controller
         //generate otp
         $otp = ('local'===env('APP_ENV')) ? 12345 : $otp=rand(11111,99999);;
 
+        $success = [];
         if(empty($user)){
             $user=new User();
             $user->country_code = $request->country_code;
             $user->phone_no=$request->phone_number;
+            $success['new_user'] = true;
         }else if($user->role==='staff'){
             $otp=12345;
         }
@@ -51,10 +53,8 @@ class AuthController extends Controller
         $user->password=Hash::make($otp);
         $user->save();
 
-        if($user->onboarded_at){
+        if($user && $user->onboarded_at){
             $success['new_user'] = false;
-        }else{
-            $success['new_user'] = true;
         }
         
         // $this->sendOtpVerification($otp,$contact_number);

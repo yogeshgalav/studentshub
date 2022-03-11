@@ -1,11 +1,9 @@
 const state = {
-	new_post:{
-		selected_subjects:[],
-		category_id:'',
-		course_id:'',
-		heading:'',
-		article_html_content:'',
-	},
+	selected_subjects:[],
+	category_id:'',
+	course_id:'',
+	heading:'',
+	article_html_content:'',
 	categories: [],
 	subjects: [],
 	selected_course: {

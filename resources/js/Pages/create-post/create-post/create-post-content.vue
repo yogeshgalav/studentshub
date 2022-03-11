@@ -27,7 +27,7 @@ export default {
 	},
 	computed: {
 		postType() {
-			return this.$store.state.new_post.post_type.toLowerCase();
+			return this.$store.state.post.post_type.toLowerCase();
 		},
 		description(){
 			if(this.content.trim()===''){

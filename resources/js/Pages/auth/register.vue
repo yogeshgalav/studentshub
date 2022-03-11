@@ -94,7 +94,7 @@
                               </span>
                             </div>
                           </div>
-                          <span class="error">{{ errors.first('password') }}</span>
+                          <span class="error">{{ formErrors('password') }}</span>
                         </div>
                       </div>
 
@@ -138,7 +138,7 @@
                               </span>
                             </div>
                           </div>
-                          <span class="error">{{ errors.first('password_confirmation') }}</span>
+                          <span class="error">{{ formErrors('password_confirmation') }}</span>
                         </div>
                       </div>
                       <div

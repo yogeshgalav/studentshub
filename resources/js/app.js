@@ -8,6 +8,7 @@ import AuthStore from './store/auth';
 import ClassroomStore from './store/classroom';
 import GuestStore from './store/guest';
 import CommonStore from './store/common-store';
+import PostStore from './store/create-post';
 
 Vue.use(Vuex);
 const store = new Vuex.Store({
@@ -16,6 +17,7 @@ const store = new Vuex.Store({
 		classroom: ClassroomStore,
 		guest:GuestStore,
 		common: CommonStore,
+		post: PostStore,
 	}
 });
 

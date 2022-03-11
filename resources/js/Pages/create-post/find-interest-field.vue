@@ -122,7 +122,7 @@ export default {
 	},
 	computed:{
 		...mapState({
-			'newPost': state=>state.new_post,
+			'newPost': state=>state.post,
 		})
 	},
 	mounted() {
