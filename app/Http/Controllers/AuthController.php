@@ -37,7 +37,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function loginViaOtp(Request $request){dd('here');
+    public function loginViaOtp(Request $request){
         \Session::flush();     
         $user=User::where('phone_no','=',$request->phone_number)->first();
 
@@ -102,7 +102,7 @@ class AuthController extends Controller
         \App\Models\ScheduledJob::scheduleNewUserNotification($user);
 
         DB::commit();
-        } catch (\Exception $e) {dd($e->getLine(),$e->getMessage()); 
+        } catch (\Exception $e) {
             DB::rollback();
             Log::critical('user registeration failure with contact '.$contact_number);
             return redirect('/get-started')->with('srvError',1);

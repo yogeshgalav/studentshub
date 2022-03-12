@@ -16,7 +16,6 @@ class AddOtpToUser extends Migration
         Schema::create('leads', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->integer('staff_user_id')->unsigned();
             $table->text('description');
             $table->enum('lead_status',[
                 'raw',
@@ -26,6 +25,13 @@ class AddOtpToUser extends Migration
                 'paymentPending',
                 'paymentDone',
             ])->default('raw');
+            $table->timestamps();
+        });
+        
+        Schema::create('lead_assigned', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('lead_id')->unsigned();
+            $table->integer('staff_user_id')->unsigned();
             $table->timestamps();
         });
 
