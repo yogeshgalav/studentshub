@@ -104,7 +104,9 @@ class AuthController extends Controller
         DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
-            Log::critical('user registeration failure with contact '.$contact_number);
+            dd($e);
+             
+            Log::critical('user registeration failure with contact '.$request->phone_number);
             return redirect('/get-started')->with('srvError',1);
         }  
 
