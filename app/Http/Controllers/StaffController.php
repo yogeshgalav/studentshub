@@ -9,6 +9,6 @@ class StaffController extends Controller
    //
    public function leadsPage()
     {        
-        return inertia('auth/staff');
+        return inertia('leads/index');
     }
 }

@@ -42,7 +42,7 @@ class AuthController extends Controller
         $user=User::where('phone_no','=',$request->phone_number)->first();
 
         if(!$user){
-            Log::critical('user not find during login'.['phone_number'=>$request->phone_number]);
+            Log::critical('user not find during login',['phone_number'=>$request->phone_number]);
         }
         if(!Hash::check($request->otp,$user->password)){
             return redirect('/get-started')->with('otpError',1);

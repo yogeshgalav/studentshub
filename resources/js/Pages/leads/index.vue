@@ -62,8 +62,12 @@ export default {
 		};
 	},
 	mounted(){
+    dd($lead);
+
 		this.axios.get('/api/leads').then(resp=>{
 			this.userList = resp.data.success.leads;
+      dd($lead);
+
 		});
     
 	}

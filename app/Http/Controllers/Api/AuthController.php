@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Socialite;
 use DB;
+use App\Models\Lead;
 
 class AuthController extends Controller
 {
@@ -34,33 +35,33 @@ class AuthController extends Controller
         
         DB::beginTransaction();
     try{
-
+       
         $user=User::where('phone_no','=',$request->phone_number)->first();
-
+        
         //generate otp
         $otp = ('local'===env('APP_ENV')) ? 12345 : $otp=rand(11111,99999);;
 
         $success = [];
+        $success['new_user']=false;
         if(empty($user)){
             $user=new User();
             $user->country_code = $request->country_code;
             $user->phone_no=$request->phone_number;
-            $success['new_user'] = true;
         }else if($user->role==='staff'){
             $otp=12345;
         }
 
         $user->password=Hash::make($otp);
         $user->save();
-        if(empty($user)){
+        if(empty($user->onboarded_at)){
+            $success['new_user'] = true;
             $lead=new Lead();
             $lead->user_id = $user->id;
             $lead->save();
+            
         }
         
-        if($user && $user->onboarded_at){
-            $success['new_user'] = false;
-        }
+       
         
         // $this->sendOtpVerification($otp,$contact_number);
         DB::commit();
