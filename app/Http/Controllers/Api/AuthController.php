@@ -52,7 +52,12 @@ class AuthController extends Controller
 
         $user->password=Hash::make($otp);
         $user->save();
-
+        if(empty($user)){
+            $lead=new Lead();
+            $lead->user_id = $user->id;
+            $lead->save();
+        }
+        
         if($user && $user->onboarded_at){
             $success['new_user'] = false;
         }
