@@ -55,14 +55,10 @@ class AuthController extends Controller
         $user->save();
         if(empty($user->onboarded_at)){
             $success['new_user'] = true;
-            $lead=new Lead();
-            $lead->user_id = $user->id;
-            $lead->save();
-            
-        }
-        
-       
-        
+            $lead =Lead::firstOrCreate([
+             'user_id' => $user->id
+            ]);    
+        } 
         // $this->sendOtpVerification($otp,$contact_number);
         DB::commit();
     } catch (\Exception $e) {

@@ -11,8 +11,9 @@ class LeadController extends Controller
 {
     //
     public function index(){
+        
         $leads = DB::table('users')
-        ->select('full_name','phone_no','onboarded_at')
+        ->select('users.id as user_id','full_name','phone_no','onboarded_at')
         ->rightJoin('leads', function($join){
             $join->on('leads.user_id', '=', 'users.id')->where('lead_status','raw');
         })->get();
