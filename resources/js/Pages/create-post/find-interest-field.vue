@@ -138,7 +138,7 @@ export default {
 				'step': i
 			});
 		}
-		this.$store.dispatch('getCategories');
+		this.$store.dispatch('post/getCategories');
 	},
 	methods: {
 		onComplete() {

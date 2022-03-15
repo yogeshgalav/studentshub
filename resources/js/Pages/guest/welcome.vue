@@ -1,7 +1,7 @@
 <template>
   <main>
     <explore-carousal-post />
-    <div class="do_you_know">
+    <div class="do_you_know text-white text-center p-4">
       <h3 class="m-0-a">Do you know what is your Interest Field?</h3>  
       <div class="find_out">
         <h3>Find out</h3>

@@ -17,18 +17,14 @@ export default {
 	components: {
 		RichTextEditor
 	},
-	props: ['newPost'],
 	data(){
 		return{
-			content:this.newPost.article_html_content,
+			content:'',
 			files:[],
 			error:'', 
 		};
 	},
 	computed: {
-		postType() {
-			return this.$store.state.post.post_type.toLowerCase();
-		},
 		description(){
 			if(this.content.trim()===''){
 				return '';
@@ -45,6 +41,9 @@ export default {
 			}
 			return [span.textContent || span.innerText].toString();
 		},
+		...mapState({
+			article_html_content: state => state.article_html_content,
+		}),
 	},
 	mounted(){
 		EventBus.$on('validateStep2',()=>{

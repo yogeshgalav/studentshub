@@ -175,7 +175,7 @@ export default {
 		}
 	},
 	mounted() {
-		this.$store.dispatch('getCategories');
+		this.$store.dispatch('post/getCategories');
 		this.new_post = {
 			article_html_content: this.post.postable['html_content'],
 			category_id: this.post.category_id,

@@ -161,8 +161,10 @@ export default {
 	},
 	computed: {
 		...mapState({
-			categories: state => state.post.categories,
-			selected_course: state => state.post.selected_course
+			categories: state => state.categories,
+			heading: state => state.heading,
+			selected_course: state => state.selected_course,
+			selected_subjects: state => state.selected_subjects
 		}),
 		filteredItems() {
 			return this.subject_list.filter(i => {

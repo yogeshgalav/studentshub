@@ -10,57 +10,62 @@ const CreatePostStore = {
 };
 export default CreatePostStore;
 
-// import { defineStore } from 'pinia'
+// import { defineStore } from 'pinia';
 
-// export const useCounterStore = defineStore('counter', {
-//   state: () => {
-//     return { count: 0 }
-//   },
-//   // could also be defined as
-//   // state: () => ({ count: 0 })
-//   actions: {
-//     getSubjectList({commit},data){
-//       commit('set_subject', data.subject_id);
-//       return new Promise((resolve, reject) => {
-//         axios({url: '/api/get-subject-list/'+data.subject_id, method: 'GET' })
-//           .then(resp => {
-//             const subject_data = resp.data.success;
-//             commit('get_subject_list', subject_data);
-//             resolve(resp);
-//           })
-//           .catch(err => {
-//             reject(err);
-//           });
-//       });
-//     },
-//     getCategories({commit}){
-//       return new Promise((resolve, reject) => {
-//         axios({url: '/api/get-categories', method: 'GET' })
-//           .then(resp => {
-//             let data={};
-//             data['categories'] = resp.data.success.categories;
-//             commit('get_categories', data);
-//             resolve(resp);
-//           })
-//           .catch(err => {
-//             reject(err);
-//           });
-//       });
-//     },
-//     submitPost({commit},data){
-//       return new Promise((resolve, reject) => {
-//         axios({url: '/api/submit-post', data: data, method: 'POST' })
-//           .then((resp) => {
-//             resolve(resp);
-//           })
-//           .catch((err) => {
-//             reject(err);
-//           });
-//       });
-//     },
-//     updateFiles({commit},data){
-//       return new Promise((resolve, reject) => {
-//       });
-//     },
-//   },
-// })
+// export const useCreatePostStore = defineStore('createPost', {
+// 	state: () => {
+// 		return {
+// 			selected_subjects:[],
+// 			category_id:'',
+// 			course_id:'',
+// 			heading:'',
+// 			article_html_content:'',
+// 			categories: [],
+// 			subjects: [],
+// 			selected_course: {
+// 				id:'',
+// 				course_name:''
+// 			},
+// 			full_name:'',
+// 			email:'',
+// 			password:'',
+// 		 };
+// 	},
+// 	// could also be defined as
+// 	// state: () => ({ count: 0 })
+// 	actions: {
+// 		submitPost(data){
+// 			return new Promise((resolve, reject) => {
+// 				axios({url: '/api/submit-post', data: data, method: 'POST' })
+// 					.then((resp) => {
+// 						resolve(resp);
+// 					})
+// 					.catch((err) => {
+// 						reject(err);
+// 					});
+// 			});
+// 		},
+// 		set_new_user_data(data){
+// 			this.full_name = data.full_name;      
+// 			this.email = data.email;
+// 			this.password = data.password;
+// 		},
+// 		set_post_article_content(data){
+// 			this.article_html_content = data.postContent;
+// 			this.description = data.description;
+// 		},
+// 		set_post_subject(data){
+// 			this.selected_subjects=data.selected_subjects;
+// 			this.category_id=data.selected_category;
+// 		},
+// 		set_post_heading(data){
+// 			this.post.heading=data.post_heading;
+// 		},
+// 		get_categories(data){
+// 			this.categories = data.categories;
+// 		},
+// 		set_subject(data){
+// 			this.selected_subjects=this.subjects.find(node=>node.id===data.subject_id);
+// 		},
+// 	},
+// });

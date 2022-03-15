@@ -23,10 +23,10 @@
               </div>
             </template>
             <template slot="step1">
-              <create-post-description v-if="$store.state.post.selected_category_id"/>
+              <create-post-description />
             </template>
             <template slot="step2">
-              <create-post-content :new-post="newPost" />
+              <create-post-content />
             </template>
           </form-wizard>
         </form>
@@ -96,7 +96,6 @@
 
 </style>
 <script>
-import {mapState} from 'vuex';
 import FormWizard from './VueNiceWizard';
 import CreatePostContent from './create-post/create-post-content';
 import CreatePostDescription from './create-post/create-post-description';
@@ -108,18 +107,13 @@ export default {
 		CreatePostContent,
 		CreatePostDescription
 	},
-	props:['courseInfo', 'subjectInfo'],
+	props:['categories','courseInfo', 'subjectInfo','prefferedCategory'],
 	data() {
 		return {
 			step_data: [],
 			total_steps: 2,
 			showLoader:false,
 		};
-	},
-	computed:{
-		...mapState({
-			'newPost': state=>state.post,
-		})
 	},
 	mounted() {
 		for (let i = 1; i <= this.total_steps; i++) {
@@ -134,11 +128,9 @@ export default {
 				'step': i
 			});
 		}
-		this.$store.dispatch('getCategories');
-		this.$store.commit('intialize_post',{
-			courseInfo:this.courseInfo,
-			subjectInfo:this.subjectInfo
-		});
+
+		this.$store.commit('post/set_categories',this.categories);
+		this.$store.commit('post/intialize_post',this.courseInfo,this.subjectInfo,this.prefferedCategory);
 	},
 	methods: {
 		onComplete() {
@@ -161,35 +153,3 @@ export default {
 };
 
 </script>
-<style scoped>
-    .label {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-    }
-
-    .index {
-        width: 3.5rem;
-        height: 3.5rem;
-        display: flex;
-        flex-shrink: 0;
-        font-size: 1.5rem;
-        border-radius: 50%;
-        margin-right: 0.5rem;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
-    }
-
-    .divider {
-        width: 100%;
-        margin-left: 0.5rem;
-        border-bottom: 1px solid #ffffff;
-        box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
-        height: 1px;
-        border: 1px solid #eee;
-        margin-top: 15px;
-        margin-bottom: 15px;
-    }
-
-</style>

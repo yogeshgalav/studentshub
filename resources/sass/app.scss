@@ -482,12 +482,14 @@ button[disabled="disabled"] {
     gap: .25em;
 }
 .form-group:last-child {
-    margin: 1rem;
+    margin-bottom: 1rem;
 }
 .form-group > label {
     font-weight: bold;
     font-size: 1.1em;
     color: #333;
+    margin-bottom: 0;
+    margin-top: 0.5rem;
 }
 .form-group > input {
     border:1px solid #333;
