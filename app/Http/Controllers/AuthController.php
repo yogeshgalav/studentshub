@@ -42,7 +42,7 @@ class AuthController extends Controller
         $user=User::where('phone_no','=',$request->phone_number)->first();
 
         if(!$user){
-            Log::critical('user not find during login'.['phone_number'=>$request->phone_number]);
+            Log::critical('user not find during login',['phone_number'=>$request->phone_number]);
         }
         if(!Hash::check($request->otp,$user->password)){
             return redirect('/get-started')->with('otpError',1);
@@ -104,7 +104,9 @@ class AuthController extends Controller
         DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
-            Log::critical('user registeration failure with contact '.$contact_number);
+            dd($e);
+             
+            Log::critical('user registeration failure with contact '.$request->phone_number);
             return redirect('/get-started')->with('srvError',1);
         }  
 
