@@ -62,6 +62,7 @@ class GuestController extends Controller
     {
         $subject = \App\Models\Subject::where('slug', $subject_url)->firstOrFail();
         return inertia('explore/subject', [
+            'subjectName' => $subject->subject_name,
             'subjectId' => $subject->id
         ]);
     }

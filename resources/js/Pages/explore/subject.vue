@@ -1,7 +1,10 @@
 <template>
-  <div class="content">
-    <h1>{{ subject_name }}</h1>
-    <hr>
+  <div class="row">
+    <div class="">
+      <div class="col-md-12">
+        <h1>{{ subjectName }}</h1>
+      </div>
+    </div>
     <nav-tabs
       :tabs="tabs"
       :initial-tab="initialTab"
@@ -47,7 +50,7 @@ export default {
 		DoubtContainer,
 		NavTabs,
 	},
-	props:['subjectId'],
+	props:['subjectId', 'subjectName'],
 	data() {
 		return {
 			initialTab: 'posts',
