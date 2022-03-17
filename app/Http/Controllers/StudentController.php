@@ -140,4 +140,9 @@ class StudentController extends Controller
         $apps = \App\Models\MoreApp::get();
         return inertia('common/more-app', ['apps' => $apps]);
     }
+    public function askDoubt(){
+       
+        $categories = \App\Models\Category::get();
+        return inertia('doubt/create-doubt', ['categories' => $categories]);
+    }
 }
