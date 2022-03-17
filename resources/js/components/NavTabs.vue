@@ -1,6 +1,6 @@
 <template>
   <div class="nav-tabs">
-    <nav :class="[size === 'large' ? 'tabbed-nav2' : 'tabbed-nav', 'mt-3']">
+    <nav :class="[size === 'large' ? 'tabbed-nav2' : 'tabbed-nav']">
       <div class="tabbed-nav1">
         <ul :class="['nav tabbed-nav-list', align]">
           <li

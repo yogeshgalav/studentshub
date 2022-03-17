@@ -53,15 +53,16 @@ class GuestController extends Controller
     }
     public function coursePage($course_url)
     {
-        $course = \App\Models\Course::where('course_url', $course_url)->firstOrFail();
+        $course = \App\Models\Course::where('slug', $course_url)->firstOrFail();
         return inertia('explore/course', [
             'courseId' => $course->id
         ]);
     }
     public function subjectPage($subject_url)
     {
-        $subject = \App\Models\Subject::where('subject_url', $subject_url)->firstOrFail();
+        $subject = \App\Models\Subject::where('slug', $subject_url)->firstOrFail();
         return inertia('explore/subject', [
+            'subjectName' => $subject->subject_name,
             'subjectId' => $subject->id
         ]);
     }

@@ -47,7 +47,7 @@ export default {
 			userColumns: [
 				{
 					label: 'User Name',
-					field: 'user_name',
+					field: 'full_name',
 				},
 				{
 					label: 'Phone Number',
