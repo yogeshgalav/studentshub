@@ -93,8 +93,10 @@ export default {
 			});
 		},
 	},
+  methods:{
 	addDoubt()
     	{
+        console.log('xyz');
     		this.axios.post(this.baseUrl + '/api/add-doubt',{
     			question:this.doubt_question,
     			category_id:this.edit_category,
@@ -108,9 +110,9 @@ export default {
     				this.getdata();
     			})
     			.catch(err => {
-    				reject(err);
+    				
     			});
     	},
-    	
+  }
 };
 </script>
