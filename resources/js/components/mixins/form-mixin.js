@@ -1,6 +1,6 @@
 import validationRules from './validationRules.js';
 import validationMessages from './validationMessages.js';
-
+import Vue from 'vue';
 
 var form_fields= [];
 function setFormFieldData(field,rules,formName){
@@ -39,8 +39,9 @@ const FormMixin = {
 		};
 	},
 	created(){
-		// Object.defineProperty(Vue.prototype, '$validate', {
-		// 	value: this,
+		// let comp = this;
+		// Object.defineProperty(Vue.prototype, '$validator', {
+		// 	value: comp,
 		// });
 	},
 	methods:{
