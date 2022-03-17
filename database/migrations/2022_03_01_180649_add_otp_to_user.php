@@ -16,7 +16,7 @@ class AddOtpToUser extends Migration
         Schema::create('leads', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->text('description')->nullable(); 
+            $table->text('description'); 
             $table->enum('lead_status',[
                 'raw',
                 'invalid',

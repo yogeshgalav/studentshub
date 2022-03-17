@@ -51,6 +51,10 @@ class AuthController extends Controller
 
         Log::info($user->full_name." (User ID # ".$user->id.") logged in from IP Address ".$request->ip());
 
+        if($user->role==='sthub_staff'){
+            return redirect('/leads');
+        }
+
         return redirect('/');
     }
 

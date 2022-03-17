@@ -34,9 +34,9 @@
 import VueTableComponent from '@/components/vue-table-component';
 import Accordion from '@/components/accordion.vue';
 
-import SidebarLayout from '@/Layouts/SidebarLayout';
+import StaffLayout from '@/Layouts/StaffLayout';
 export default {
-	layout:SidebarLayout,
+	layout:StaffLayout,
 	components:{
 		VueTableComponent,
 		Accordion
@@ -62,13 +62,9 @@ export default {
 		};
 	},
 	mounted(){
-    
 		this.axios.get('/api/leads').then(resp=>{
 			this.userList = resp.data.success.leads;
-      
-
 		});
-    
 	}
 };
 

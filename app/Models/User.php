@@ -86,13 +86,12 @@ class User extends Authenticatable
     }
 
     public function getFirstNameAttribute(){
-        $full_name=$this->full_name;
-        $parts = explode(" ", $full_name);
-        if(count($parts) > 1) {
-            $lastname = array_pop($parts);
-            return implode(" ", $parts);
-        }
-        return $full_name;
+        $full_name=preg_split('/\s+/', $this->full_name, NULL, PREG_SPLIT_NO_EMPTY);
+        return implode(" ", array_slice($full_name, 0, -1));
+    }
+    public function getLastNameAttribute(){
+        $full_name=preg_split('/\s+/', $this->full_name, NULL, PREG_SPLIT_NO_EMPTY);
+        return end($full_name);
     }
 
     public function setFullNameAttribute($value){

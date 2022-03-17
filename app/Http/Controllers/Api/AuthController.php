@@ -53,15 +53,10 @@ class AuthController extends Controller
 
         $user->password=Hash::make($otp);
         $user->save();
+        
         if(empty($user->onboarded_at)){
             $success['new_user'] = true;
-            $lead=new Lead();
-            $lead->user_id = $user->id;
-            $lead->save();
-            
         }
-        
-       
         
         // $this->sendOtpVerification($otp,$contact_number);
         DB::commit();
