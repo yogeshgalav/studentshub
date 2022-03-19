@@ -10,4 +10,5 @@ Route::group(['middleware'=>['auth']],function(){
     Route::get('/classroom/{classroomId}/daily-attempt','StudentController@dailyAssignmentAttemptPage');
     Route::post('/save-daily-answers','StudentController@saveDailyAnswer');
     Route::get('/more-apps', 'StudentController@moreApps');
+    Route::get('/ask-doubt','StudentController@askDoubt');
 });
