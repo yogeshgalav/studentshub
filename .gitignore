@@ -15,9 +15,9 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 /public/js/app.js
-/public/js/studentApp.js
 
 public/css/app.css
 public/css/atlantis.css
 public/css/fonts.css
 public/css/fonts.min.css
+public/mix-manifest.json
