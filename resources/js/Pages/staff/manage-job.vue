@@ -19,52 +19,52 @@
         </button>
       </div>
     
-      <div class="container py-5 text-white">
-        <div class="row">
-          <div class="col-md-12 ">
-            <div class="card border-0 shadow">
-              <div class="card-body p-5">
-                <vue-table-component
-                  :columns="jobColumns"
-                  :rows="jobList"
+    
+      <div class="card mb-2 pl-3">
+        <div class="card-body">
+            <div class="row">
+            <div class="col-md-12">
+          <vue-table-component
+            :columns="jobColumns"
+            :rows="jobList"
+          >
+            <template
+              slot="table-row"
+              slot-scope="props"
+            >
+              <span v-if="props.column.field==='menu'">
+                <button
+                  class="btn btn-success btn-sm rounded-0"
+                  type="button"
+                  data-placement="top"
+                  title="Edit"
+                  data-toggle="modal"
+                  data-target="#addEditJobModal"
                 >
-                  <template
-                    slot="table-row"
-                    slot-scope="props"
-                  >
-                    <span v-if="props.column.field==='menu'">
-                      <button
-                        class="btn btn-success btn-sm rounded-0"
-                        type="button"
-                        data-placement="top"
-                        title="Edit"
-                        data-toggle="modal"
-                        data-target="#addEditJobModal"
-                      >
-                        <i class="fa fa-edit" />
-                      </button>
-                      <button
-                        class="btn btn-danger btn-sm rounded-0"
-                        type="button"
-                        data-toggle="tooltip"
-                        data-placement="top"
-                        title="Delete"
-                      >
-                        <i class="fa fa-trash" />
-                      </button>
-                    </span>
-                  </template>
-                  <template slot="emptystate">
-                    No user found.
-                  </template>
-                </vue-table-component> 
-                <!-- Responsive table -->
-              </div>
+                  <i class="fa fa-edit" />
+                </button>
+                <button
+                  class="btn btn-danger btn-sm rounded-0"
+                  type="button"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Delete"
+                >
+                  <i class="fa fa-trash" />
+                </button>
+              </span>
+            </template>
+            <template slot="emptystate">
+              No user found.
+            </template>
+          </vue-table-component> 
+          <!-- Responsive table -->
             </div>
-          </div>
+            </div>
         </div>
       </div>
     </div>
+        
     <modal
       ref="addEditJobModal"
       name="addEditJobModal"
@@ -73,7 +73,9 @@
       @submit="addJob"
     >
       <template slot="modalBody">
-        <form />
+        <form >
+        <input type="text"  class="form-control" id="jname" name="jname">
+        </form>
       </template>
     </modal>
   </section>
@@ -118,6 +120,7 @@ export default {
 		});
     
 	}
+  
 };
 
 </script>
