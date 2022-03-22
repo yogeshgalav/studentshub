@@ -11,13 +11,14 @@ class StaffController extends Controller
         return inertia('staff/lead-index');
     }
    public function leadShowPage(){        
-        return inertia('staff/lead-show');
+        return inertia('staff/lead-show', ['lead' => 'xyz']);
     }
    public function manageCoursePage(){        
         return inertia('staff/manage-course');
     }
-   public function manageJobsPage(){        
-        return inertia('staff/manage-job');
+   public function manageJobsPage(){      
+    $categories = \App\Models\Category::get();  
+        return inertia('staff/manage-job', ['categories' => $categories] ,['job' => 'xyz']);
     }
     public function addJobsPage(){        
         return inertia('staff/add-job');

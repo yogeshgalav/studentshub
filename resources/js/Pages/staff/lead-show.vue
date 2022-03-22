@@ -129,6 +129,7 @@ export default {
 		VueTableComponent,
 		Accordion
 	},
+ props:['lead'],
 	data() {
 		return {
 			userList:[],
