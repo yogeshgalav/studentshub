@@ -19,6 +19,9 @@ class StaffController extends Controller
    public function manageJobsPage(){        
         return inertia('staff/manage-job');
     }
+    public function addJobsPage(){        
+        return inertia('staff/add-job');
+    }
    public function userFeedbacksPage(){        
         return inertia('staff/user-feedbacks');
     }

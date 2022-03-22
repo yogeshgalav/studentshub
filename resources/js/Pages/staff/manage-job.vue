@@ -1,62 +1,112 @@
 <template>
   <section>
-    <div class="row">
-      <div class="col-md-12">
-        <accordion
-          title="Details"
-          :aria-expanded="true"
+    <div>
+      <div class="row">
+        <div class="col-md-12">
+          <h1>Manage Job</h1>
+        </div>
+      </div>
+      <hr>
+      <div class="mb-2">
+        <button
+          type="edit"
+          class="btn-lg btn-primary"
+          data-toggle="modal"
+          data-target="#addEditJobModal"
         >
+          <i class="fas fa-plus" />&nbsp;&nbsp;
+          Add Job
+        </button>
+      </div>
+    
+    
+      <div class="card mb-2 pl-3">
+        <div class="card-body">
+            <div class="row">
+            <div class="col-md-12">
           <vue-table-component
-            :columns="userColumns"
-            :rows="userList"
+            :columns="jobColumns"
+            :rows="jobList"
           >
             <template
               slot="table-row"
               slot-scope="props"
             >
-              <span v-if="props.column.field==='full_name'">
-                <router-link
-                  :href="'/lead/'+props.row.user_id"
-                  class="text-underline"
-                >{{ props.row['full_name'] }}</router-link>
+              <span v-if="props.column.field==='menu'">
+                <button
+                  class="btn btn-success btn-sm rounded-0"
+                  type="button"
+                  data-placement="top"
+                  title="Edit"
+                  data-toggle="modal"
+                  data-target="#addEditJobModal"
+                >
+                  <i class="fa fa-edit" />
+                </button>
+                <button
+                  class="btn btn-danger btn-sm rounded-0"
+                  type="button"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Delete"
+                >
+                  <i class="fa fa-trash" />
+                </button>
               </span>
             </template>
             <template slot="emptystate">
               No user found.
             </template>
-          </vue-table-component>
-        </accordion>
+          </vue-table-component> 
+          <!-- Responsive table -->
+            </div>
+            </div>
+        </div>
       </div>
     </div>
+        
+    <modal
+      ref="addEditJobModal"
+      name="addEditJobModal"
+      heading="Add Job"
+      classes="modal-md"
+      @submit="addJob"
+    >
+      <template slot="modalBody">
+        <form >
+        <input type="text"  class="form-control" id="jname" name="jname">
+        </form>
+      </template>
+    </modal>
   </section>
 </template>
 <script>
+import Modal from '../../components/VueNiceModal';
 import VueTableComponent from '@/components/vue-table-component';
-import Accordion from '@/components/accordion.vue';
-
 import StaffLayout from '@/Layouts/StaffLayout';
 export default {
 	layout:StaffLayout,
 	components:{
+    	Modal,
 		VueTableComponent,
-		Accordion
+	
 	},
 	data() {
 		return {
-			userList:[],
-			userColumns: [
+			jobList:[],
+			jobColumns: [
 				{
-					label: 'User Name',
-					field: 'user_name',
+					label: 'Job Name',
+					field: 'job_name',
 				},
 				{
-					label: 'Phone Number',
-					field: 'phone_no',
+					label: 'Category',
+					field: 'category',
 				},
 				
 				{
-					label: 'Onboarded At',
-					field: 'onboarded_at',
+					label: 'Menu',
+					field: 'menu',
 				},
 			]
 		};
@@ -64,12 +114,13 @@ export default {
 	mounted(){
     
 		this.axios.get('/api/leads').then(resp=>{
-			this.userList = resp.data.success.leads;
+			this.jobList = resp.data.success.leads;
       
 
 		});
     
 	}
+  
 };
 
 </script>
