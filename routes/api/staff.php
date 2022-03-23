@@ -4,4 +4,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware'=>['auth:api']],function(){
     Route::get('/leads','LeadController@index');
+    Route::post('/add-job','StaffController@addJobsPage');
 });
