@@ -120,7 +120,7 @@ export default {
 		VueTableComponent,
 	
 	},
-  	props:['job','categories'],
+  	props:['careers','categories'],
 	data() {
 		return {
       	edit_category: 14,
@@ -142,12 +142,7 @@ export default {
 			]
 		};
 	},
-   methods:{
-	addJob()
-    	{
-        console.log('xyz');
-      }
-   },
+  
 	mounted(){
     
 		this.axios.get('/api/leads').then(resp=>{
