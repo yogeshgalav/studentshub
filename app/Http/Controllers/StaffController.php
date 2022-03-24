@@ -34,9 +34,6 @@ ORDER BY careers.name;  */
     'categories' => $categories
     ] );
     }
-    public function addJobsPage(){        
-        return inertia('staff/add-job');
-    }
    public function userFeedbacksPage(){        
         return inertia('staff/user-feedbacks');
     }

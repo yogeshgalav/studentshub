@@ -18,8 +18,6 @@
           Add Job
         </button>
       </div>
-    
-    
       <div class="card mb-2 pl-3">
         <div class="card-body">
           <div class="row">
@@ -40,6 +38,7 @@
                       title="Edit"
                       data-toggle="modal"
                       data-target="#addEditJobModal"
+                      @click="editJob(props.row)"
                     >
                       <i class="fa fa-edit" />
                     </button>
@@ -73,13 +72,14 @@
       @submit="addJob"
     >
       <template slot="modalBody">
-        <form @submit.prevent="addJob">
+        <form>
           <div
             class="form-group"
           >
             <label>Job Name</label>
             <input
-              id="jname"
+              id="career_name"
+              v-model="career_name"
               type="text"
               class="form-control"
               name="jname"
@@ -123,16 +123,17 @@ export default {
   	props:['careers','categories'],
 	data() {
 		return {
+     	career_name:'',
       	edit_category: 14,
 			jobList:[],
 			jobColumns: [
 				{
 					label: 'Job Name',
-					field: 'job_name',
+					field: 'career_name',
 				},
 				{
 					label: 'Category',
-					field: 'category',
+					field: 'category_name',
 				},
 				
 				{
@@ -144,13 +145,31 @@ export default {
 	},
   
 	mounted(){
-    
-		this.axios.get('/api/leads').then(resp=>{
-			this.jobList = resp.data.success.leads;
-      
+		this.jobList=this.careers; 
+	},
+	methods:{
+		addJob()
+    	{
+			console.log('xyz');
+    		this.axios.post(this.baseUrl + '/api/add-job',{
+    			career_name:this.career_name,
+    			category_id:this.edit_category,
+    		} )
+    			.then(resp => {
+    				// this.$modal.hide('add_doubt_modal');
+    				this.$refs.addEditJobModal.closeModal();
+    				this.career_name='';
+					window.location.reload();
+    			})
+    			.catch(err => {
+    				
+    			});
+    	},
+		editJob(career){
+			console.log(career);
+			this.career_name= career.career_name;
 
-		});
-    
+		}
 	}
   
 };
