@@ -154,7 +154,7 @@ export default {
 		addJob()
     	{
 			console.log('xyz');
-    		this.axios.post(this.baseUrl + '/api/add-job',{
+    		this.axios.post(this.baseUrl + '/api/career',{
     			career_name:this.career_name,
     			category_id:this.edit_category,
     		} )
@@ -171,25 +171,25 @@ export default {
 		editJob(career){
          
                	this.axios.post('/api/career',{
-                   career_name:this.career_name,
+				career_name:this.career_name,
     		        	category_id:this.edit_category,
-                  career_id:career.career_id,
-                 })
-                 .then(resp=>{
-                  let index= this.jobList.findIndex(el=>el.career_id===career.career_id);
-                  this.jobList[index]['career_name']=this.career_name;
-                  this.jobList[index]['category_id']=this.edit_category;
-                 });
+				career_id:career.career_id,
+			})
+				.then(resp=>{
+					let index= this.jobList.findIndex(el=>el.career_id===career.career_id);
+					this.jobList[index]['career_name']=this.career_name;
+					this.jobList[index]['category_id']=this.edit_category;
+				});
 		
-          },
-           deleteJob(career){                 
-              this.axios.delete('/api/career/'+career.career_id)
-                 .then(resp=>{
-                  let index= this.jobList.findIndex(el=>el.career_id===career.career_id);
-                 this.jobList.splice(index,1);
-                 });
+		},
+		deleteJob(career){                 
+			this.axios.delete('/api/career/'+career.career_id)
+				.then(resp=>{
+					let index= this.jobList.findIndex(el=>el.career_id===career.career_id);
+					this.jobList.splice(index,1);
+				});
      
-          }
+		}
    
 	}
   
