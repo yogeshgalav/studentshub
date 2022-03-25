@@ -28,6 +28,34 @@ class CourseController extends Controller
         ]]);
     }
 
+    public function createOrUpdate (Request $request)
+    {
+        if($request->course_id){
+            $course = Course::find($request->course_id);
+        }
+        else{
+            $course = new Course();
+        }
+
+            $course->course_name = $request->course_name;
+            $course->alias = $request->course_alias;
+            $course->category_id = $request->category_id;
+            $course->save();
+
+            return response()->json([
+                'success'=>[
+                    'course'=>$course,
+                ]
+            ]);
+    }
+
+    public function delete (Request $request)
+    {
+        $course = Course::find($request->course_name);
+        $course->delete();
+        return 'success';
+    }
+
     public function index(Request $request)
     {
         $course_query = DB::table('courses as cor');
