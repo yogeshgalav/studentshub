@@ -5,20 +5,25 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use Auth;
+use Haruncpi\LaravelUserActivity\Traits\Loggable;
 
 class DailyAssignment extends Model
 {
     //
     protected  $guarded = ['id', 'created_at', 'updated_at'];
+    use Loggable;
 
     public function dailyQuestions(){
         return $this->hasMany('App\Models\DailyQuestion');
     }
-    public function dailyReport(){
+    public function dailyReports(){
         return $this->hasMany('App\Models\DailyReport');
     }
     public function unit(){
         return $this->belongsTo('App\Models\Unit');
+    }
+    public function classroom(){
+        return $this->belongsTo('App\Models\Classroom');
     }
     public function isCurrentlyAvailable(){
         if($this->end_time===null){

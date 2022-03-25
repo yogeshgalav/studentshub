@@ -25,6 +25,6 @@ class AuthorizeUser
             return response()->json('Unautorized',401);
         }
 
-        return redirect('/login');
+        return redirect('/get-started');
     }
 }

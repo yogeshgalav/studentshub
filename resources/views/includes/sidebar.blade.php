@@ -1,91 +1,74 @@
 <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+<div class="sidebar">
+    <div class="sidebar-navigation mt-5">
+        <ul>
+            <a href="/" class="{{\App\Facades\Sthub::currentTab('post') ? 'active' : ''}}">
+                <li> <i class="fa fa-home " aria-hidden="true"></i><span class="text">Home</span>
 
-<div class="primary-nav">
-    <!-- mobile header -->
-    <div class="Dsfdad">
-        <div class="header_mobile">
-            <div class="logo mobile_logo">
-                <a href="/">
-                    <img src="{{asset('/images/logo.png') }}" alt="Student'sHUB" />
-                </a>
-            </div>
-            <div class="header_mobile_login">
-                <ul>
-                    <li><button class="hamburger open-panel togle_mobile" id="nav-toggle"
-                            @click="toggleSidebar($event)">
-                        </button>
-                    </li>
-                    <li class="nav-item">
-                        <div class="dropdown">
-                            <button class="btn btn-sm btn-default border-radius-12 dropdown-toggle" type="button"
-                                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false">
-                                <span><i class="fa fa-search" aria-hidden="true"></i></span>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                @include('includes.search-form')
-                            </div>
-                          
-                        </div>
-                    </li>
-                    <li class="nav-item"> 
-                    <div class="dropdown" style="margin-right:40px">
-                    <notifications-dropdown></notifications-dropdown>
-                    </div>
-                    </li>
-                    <li class="nav-item">
-                       
-                        @include('includes.profile-dropdown')
-                    </li>
-               
-                </ul>
-               
-            </div>
-        </div>
+                </li>
+            </a>
+            <a href="/doubts" class="{{\App\Facades\Sthub::currentTab('doubt') ? 'active' : ''}}">
+                <li> <i class="fa fa-question-circle " aria-hidden="true"></i>
+                    <span class="text">Doubts</span>
+                </li>
+            </a>
+            
+            <a href="/my-course"
+                class="{{\App\Facades\Sthub::currentTab('my-course') ? 'active' : ''}}">
+                <li><i class="fas fa-book-open" aria-hidden="true"></i>
+                    <span class="text">My Course</span>
+                </li>
+            </a>
+            
+            <a href="/classrooms" class="{{\App\Facades\Sthub::currentTab('classroom') ? 'active' : ''}}">
+                <li><i class="fa fa-desktop " aria-hidden="true"></i><span class="text">Classrooms</span>
 
-
+                </li>
+            </a>
+            @if(Auth::user()->role==='student')
+            <a href="/my-reports" class="{{\App\Facades\Sthub::currentTab('my-reports') ? 'active' : ''}}">
+                <li><i class="fas fa-chart-line" aria-hidden="true"></i>
+                    <span class="text">My Reports</span>
+                </li>
+            </a>
+            @endif
+            <a href="/messages" class="{{\App\Facades\Sthub::currentTab('messages') ? 'active' : ''}}">
+                <li> <i class="far fa-comment-dots" aria-hidden="true"></i>
+                    <span class="text"> Messages</span>
+                </li>
+            </a>
+            
+            <a href="/my-institute" class="{{\App\Facades\Sthub::currentTab('institute') ? 'active' : ''}}">
+                <li> <i class="fas fa-university " aria-hidden="true"></i><span class="text"> My
+                        Institute</span>
+                </li>
+            </a>
+            
+            @if(Auth::user()->hasInstituteUserAccess())
+            <a href="/students" class="{{\App\Facades\Sthub::currentTab('students') ? 'active' : ''}}">
+                <li> <i class="fas fa-users " aria-hidden="true"></i>
+                <span class="text">Students</span>
+                </li>
+            </a>
+            @endif
+            
+            @if(Auth::user()->role==='student')
+            <a href="/classmates" class="{{\App\Facades\Sthub::currentTab('classmates') ? 'active' : ''}}">
+                <li><i class="fas fa-users" aria-hidden="true"></i><span class="text">
+                        Classmates</span>
+                </li>
+            </a>
+            <a href="/more-apps" class="{{\App\Facades\Sthub::currentTab('more-apps') ? 'active' : ''}}">
+                <li> <i class="fas fa-tablet-alt" aria-hidden="true"></i>
+                    <span class="text">More Apps</span>
+                </li>
+            </a>
+            @endif
+            <a href="/profile/{{Auth::id()}}" class="{{\App\Facades\Sthub::currentTab('profile') ? 'active' : ''}}">
+                <li> <i class="far fa-user" aria-hidden="true"></i>
+                    <span class="text">Profile</span>
+                </li>
+            </a>
+        </ul>
     </div>
-    <!-- web header -->
-    <nav role="navigation" class="menu">
-
-
-        <div class="overflow-container">
-            <div class="row mb-2">
-                <div class="pl-3">
-                    <img src="{{asset('/images/default-avatar.png') }}" alt="Student'sHUB" width="40" class="pl-2"/>
-                </div>
-                <div class="pl-1 pr-2">
-                    @if(Auth::teacher())
-                    <span class="sidebar_heading ml-1">{{ Auth::teacher()->instituteName }} </span>
-                    @elseif(Auth::student())
-                    <span class="sidebar_heading ml-1">{{ Auth::student()->instituteName }} </span>
-                    @else
-                    <span class="sidebar_heading ml-1">Student's Hub </span>
-                    @endif
-                </div>
-            </div>
-          
-            <ul class="menu-dropdown">
-            <li><a href="/classrooms" class="{{\App\Facades\Sthub::currentTab('classroom') ? 'active' : ''}}">	<span class="icon">  <img src="{{asset('/images/whiteboard.png') }}" alt="Student'sHUB" width="20"/></span>Classrooms</a></li>
-            @if(Auth::user()->isInstituteMember())
-            <li> <a href="/my-institute" class="{{\App\Facades\Sthub::currentTab('institute') ? 'active' : ''}}"><span class="icon"><img src="{{asset('/images/university.png') }}" alt="Student'sHUB" width="20"/></span> My Institute</a></li>
-            @endif
-                <li> <a href="/" class="{{\App\Facades\Sthub::currentTab('post') ? 'active' : ''}}"> <span class="icon"><img src="{{asset('/images/home.png') }}" alt="Student'sHUB" width="20"/></span> Home</a></li>
-            @if(Auth::student())
-                <li> <a href="/doubts" class="{{\App\Facades\Sthub::currentTab('doubt') ? 'active' : ''}}"> <span class="icon"><img src="{{asset('/images/home.png') }}" alt="Student'sHUB" width="20"/></span> Doubts</a></li>
-                {{-- <li> <a href="/course/{{Auth::student()->courseUrl}}" class="{{\App\Facades\Sthub::currentTab(Auth::student()->courseUrl) ? 'active' : ''}}"> <span class="icon"><img src="{{asset('/images/home.png') }}" alt="Student'sHUB" width="20"/></span> My Course</a></li> --}}
-            @endif
-                <li> <a href="/profile/{{Auth::id()}}"  class="{{\App\Facades\Sthub::currentTab('profile') ? 'active' : ''}}"> <span class="icon"><img src="{{asset('/images/user.png') }}" alt="Student'sHUB" width="20"/></span> Profile</a></li>
-
-            @if(Auth::user()->role_intended === 'seeker')
-                <li><a href="/check-in"> <span class="icon"><img src="{{asset('/images/logout.png') }}" alt="Student'sHUB" width="20"/></span> Checkin</a></li>
-            @endif
-                <li><a href="/logout"> <span class="icon"><img src="{{asset('/images/logout.png') }}" alt="Student'sHUB" width="20"/></span> Logout</a></li>
-
-            </ul>
-
-        </div>
-
-    </nav>
-
 </div>

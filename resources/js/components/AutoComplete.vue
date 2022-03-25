@@ -15,7 +15,7 @@
     >
     <transition name="fade">
       <ul
-        v-show="isOpen===true"
+        v-if="isOpen===true"
         id="autocomplete-results"
         class="autocomplete-results"
       >
@@ -57,6 +57,7 @@
   }
 
   .autocomplete-results {
+	display: inline-block !important;
     padding: 0;
     margin: 0;
     border: 1px solid #eeeeee;
@@ -73,7 +74,7 @@
 
   .autocomplete-result.is-active,
   .autocomplete-result:hover {
-    background-color: #4AAE9B;
+    background-color: #10069f;
     color: white;
   }
 
@@ -145,6 +146,12 @@ export default {
 				this.isOpen=true;
 			}
 		},
+		initialValue(val){
+			if(val && !this.search){
+				this.result = Object.assign({},val);
+				this.search = this.result[this.value];
+			}
+		}
 	},
 	updated() {
 		if(this.initialValue && this.search===''){
@@ -153,10 +160,10 @@ export default {
 		}
 	},
 	mounted() {
-		this.results = this.items;
-		document.addEventListener('click', this.handleClickOutside);
-	},
-	mounted() {
+		if(this.initialValue && this.search===''){
+			this.result = Object.assign({},this.initialValue);
+			this.search = this.result[this.value];
+		}
 		this.results = this.items;
 		document.addEventListener('click', this.handleClickOutside);
 	},

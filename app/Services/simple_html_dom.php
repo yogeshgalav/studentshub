@@ -1,4 +1,5 @@
 <?php
+namespace App\Services;
 /**
  * Website: http://sourceforge.net/projects/simplehtmldom/
  * Additional projects: http://sourceforge.net/projects/debugobject/
@@ -20,6 +21,7 @@
  *
  * Version Rev. 1.9.1 (291)
  */
+use Storage;
 
 define('HDOM_TYPE_ELEMENT', 1);
 define('HDOM_TYPE_COMMENT', 2);
@@ -2350,4 +2352,43 @@ class simple_html_dom
 		$args = func_get_args();
 		$this->load_file($args);
 	}
+
+	public function extactImageFiles($html,$disk="post-image"){
+		$mydom = new mydom;
+		// Create DOM from URL or file
+		$html = str_get_html($html);
+		$files=[];
+
+		foreach($html->find('img') as $element){
+			$base64_image=$element->src;
+			if (preg_match('/^data:image\/(\w+);base64,/', $base64_image)) {
+				$data = substr($base64_image, strpos($base64_image, ',') + 1);
+				$pos  = strpos($base64_image, ';');
+				$file_type = explode(':image/', substr($base64_image, 0, $pos))[1];
+				
+				$file_name=uniqid().'.'.$file_type;
+				Storage::disk($disk)->put($file_name, base64_decode($data));
+				array_push($files, $file_name);
+				$element->src="/storage/".$disk.'/'.$file_name;
+			}
+		}
+
+		$mydom->html= $html;
+		$mydom->files= $files;
+		return $mydom;
+	}
+	public function extractYoutubeImage($html){
+		$html = str_get_html($html);
+		foreach($html->find('iframe') as $element){
+			if(str_contains($element->src,'https://www.youtube.com/embed/')){
+				return 'https://img.youtube.com/vi/'.str_replace('https://www.youtube.com/embed/','',$element->src).'/0.jpg';
+			}
+		}
+		return '';
+	}
+}
+
+class mydom{
+ public array $files;
+ public string $html;
 }

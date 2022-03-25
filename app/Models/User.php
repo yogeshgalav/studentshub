@@ -2,15 +2,20 @@
 
 namespace App\Models;
 
+use App\Traits\UserAccessTrait;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use NotificationChannels\WebPush\HasPushSubscriptions;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
+
 class User extends Authenticatable
 {
     use HasApiTokens, Notifiable;
     use HasPushSubscriptions;
+    use UserAccessTrait;
     /**
      * The attributes that are mass assignable.
      *
@@ -36,19 +41,36 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'last_login_at' => 'datetime',
+        'last_seen_at' => 'datetime',
     ];
+
+    use HasSlug;
+
+
+    /**
+     * Get the options for generating the slug.
+     */
+    public function getSlugOptions() : SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('full_name')
+            ->saveSlugsTo('slug');
+    }
 
     public function student()
     {
-        return $this->hasOne('App\Models\Student');
+        return $this->hasMany('App\Models\Student');
     }
+
+    public function parents()
+    {
+        return $this->hasMany(UserParent::class, 'user_id');
+    }
+
     public function post()
     {
         return $this->hasMany('App\Models\Post');
-    }
-    public function teacher()
-    {
-        return $this->hasOne('App\Models\Teacher');
     }
 
     /***
@@ -64,33 +86,18 @@ class User extends Authenticatable
     }
 
     public function getFirstNameAttribute(){
-        $full_name=$this->full_name;
-        $parts = explode(" ", $full_name);
-        if(count($parts) > 1) {
-            $lastname = array_pop($parts);
-            return implode(" ", $parts);
-        }
-        return $full_name;
+        $full_name=preg_split('/\s+/', $this->full_name, NULL, PREG_SPLIT_NO_EMPTY);
+        return implode(" ", array_slice($full_name, 0, -1));
+    }
+    public function getLastNameAttribute(){
+        $full_name=preg_split('/\s+/', $this->full_name, NULL, PREG_SPLIT_NO_EMPTY);
+        return end($full_name);
     }
 
     public function setFullNameAttribute($value){
         $this->attributes['full_name'] = ucwords($value);
     }
 
-    public function joinedClassoomCount(){
-        return \DB::table('classroom_users')
-            ->where('user_id',$this->id)
-            ->count();
-    }
-
-    public function createdClassoomCount(){
-        return \DB::table('classrooms')
-        ->join('teachers as tc',function($join){
-            $join->on('tc.id','=','classrooms.teacher_id')->where('user_id','=',$this->id);
-        })
-        ->count();
-    }
-    
     public function isInstituteMember(){
         return \DB::table('institute_users')
             ->where('user_id',$this->id)
@@ -100,5 +107,54 @@ class User extends Authenticatable
         return \DB::table('admins')
             ->where('user_id',$this->id)
             ->exists();
+    }
+    public function getClassroomIds(){
+        $role= $this->role;
+        $classroom_query = \DB::table('classrooms');
+        if ('student'===$role) {
+            $classroom_query=$classroom_query->rightJoin('classroom_users as cu',function($join){
+                $join->on('cu.classroom_id','=','classrooms.id')->where('cu.user_id','=',$this->id);
+            });
+        } elseif ('teacher'===$role || 'instituteAdmin'===$role) {
+            $classroom_query=$classroom_query->rightJoin('users as usr',function($join){
+                $join->on('usr.id','=','classrooms.teacher_user_id')->where('usr.id','=',$this->id);
+            });
+        // } elseif ('instituteAdmin'===$role) {
+        //     $classroom_query=$classroom_query->rightJoin('institutes as ins','ins.id','=','classrooms.institute_id')
+        //     ->rightJoin('institute_users as inu', function($join){
+        //         $join->on('ins.id','=','inu.institute_id')->where('inu.user_id','=',$this->id);
+        //     });
+        } elseif ('sthubAdmin'===$role) {
+            $classroom_query=$classroom_query;
+        } else {
+            return [];
+        }
+
+        return $classroom_query->groupBy('classrooms.id')->pluck('classrooms.id')->toArray();
+    }
+    
+    public function preferredInstitute()
+    {
+        return $this->belongsTo(Institute::class, 'preferred_institute_id');
+    }
+    public function preferredCourse()
+    {
+        return $this->belongsTo(Course::class, 'preferred_course_id');
+    }
+    public function profile()
+    {
+        return $this->hasOne(UserProfile::class);
+    }
+
+    public function getStudentIds(){
+        return [];   
+    }
+
+    public function canCreateClassroom()
+    {
+        if(in_array($this->role,['seeker','student'])){
+            return false;
+        }
+        return true;
     }
 }

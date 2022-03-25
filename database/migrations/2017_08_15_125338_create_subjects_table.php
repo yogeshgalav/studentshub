@@ -16,7 +16,7 @@ class CreateSubjectsTable extends Migration
         Schema::create('subjects', function (Blueprint $table) {
             $table->increments('id');
             $table->string('subject_name');
-            $table->string('subject_url');
+            $table->string('slug');
             $table->integer('category_id')->unsigned()->nullable();
             $table->string('alias')->nullable();
             $table->boolean('is_verified')->default(false);

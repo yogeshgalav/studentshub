@@ -8,38 +8,63 @@
     :aria-labelledby="name"
     aria-hidden="true"
   >
-    <div class="modal-dialog">
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header pt-3 pb-2">
-          <h4 class="weight-800 font-size-18">
-            {{ heading }}
-          </h4>
-        </div>
-        <div class="modal-body add-client">
-          <slot name="modalBody" />
-        </div>
-        <div class="modal-footer">
-          <button
-            class="btn btn-primary mt-3"
-            type="button"
-            @click.prevent="$emit('submit')"
-          >
-            {{ 'Submit' }}
-          </button>  <button
-            ref="cancelButton"
-            type="button"
-            class="btn btn-white mt-3"
-            data-dismiss="modal"
-            @click.prevent="closeModal"
-          >
-            {{ 'Cancel' }}
-          </button>
+    <div
+      :class="fullsize ? 'modal-fullscreen' : ''"
+    >
+      <div
+        :class="['modal-dialog', classes]"
+      >
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header pt-3 pb-2">
+            <h4 class="weight-800 font-size-18">
+              {{ heading }}
+            </h4>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body add-client">
+            <slot name="modalBody" />
+          </div>
+          <div class="modal-footer">
+            <button
+              class="btn btn-md btn-primary mt-3"
+              type="button"
+              @click.prevent="$emit('submit')"
+            >
+              {{ 'Submit' }}
+            </button>  <button
+              ref="cancelButton"
+              type="button"
+              class="btn btn-md btn-white mt-3"
+              data-dismiss="modal"
+              @click.prevent="closeModal"
+            >
+              {{ 'Cancel' }}
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
+<style>
+.modal-dialog{
+  position: absolute;
+    width: 90%;
+    /* margin-top: 50%; */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) !important;
+    margin: 0 !important;
+}
+</style>
 
 <script>
 export default {
@@ -51,6 +76,14 @@ export default {
 		heading:{
 			default:'',
 			required:true,
+		},
+		classes:{
+			default:'',
+			required:false,
+		},
+		fullsize:{
+			default:true,
+			required:false,
 		},
 	},
 	data(){

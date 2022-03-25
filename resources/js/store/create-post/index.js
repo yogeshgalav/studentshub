@@ -3,10 +3,64 @@ import actions from './actions';
 import mutations from './mutations';
 
 const CreatePostStore = {
-  namespaced:true,
-  state,
-  actions,
-  mutations,
+	namespaced:true,
+	state,
+	actions,
+	mutations,
 };
 export default CreatePostStore;
 
+// import { defineStore } from 'pinia'
+
+// export const useCounterStore = defineStore('counter', {
+//   state: () => {
+//     return { count: 0 }
+//   },
+//   // could also be defined as
+//   // state: () => ({ count: 0 })
+//   actions: {
+//     getSubjectList({commit},data){
+//       commit('set_subject', data.subject_id);
+//       return new Promise((resolve, reject) => {
+//         axios({url: '/api/get-subject-list/'+data.subject_id, method: 'GET' })
+//           .then(resp => {
+//             const subject_data = resp.data.success;
+//             commit('get_subject_list', subject_data);
+//             resolve(resp);
+//           })
+//           .catch(err => {
+//             reject(err);
+//           });
+//       });
+//     },
+//     getCategories({commit}){
+//       return new Promise((resolve, reject) => {
+//         axios({url: '/api/get-categories', method: 'GET' })
+//           .then(resp => {
+//             let data={};
+//             data['categories'] = resp.data.success.categories;
+//             commit('get_categories', data);
+//             resolve(resp);
+//           })
+//           .catch(err => {
+//             reject(err);
+//           });
+//       });
+//     },
+//     submitPost({commit},data){
+//       return new Promise((resolve, reject) => {
+//         axios({url: '/api/submit-post', data: data, method: 'POST' })
+//           .then((resp) => {
+//             resolve(resp);
+//           })
+//           .catch((err) => {
+//             reject(err);
+//           });
+//       });
+//     },
+//     updateFiles({commit},data){
+//       return new Promise((resolve, reject) => {
+//       });
+//     },
+//   },
+// })

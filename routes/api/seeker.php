@@ -4,17 +4,34 @@
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['auth:api']], function () {
-    Route::get('/get-posts', [App\Http\Controllers\PostController::class, 'getPosts']);
-    Route::post('/post-like', 'LikeController@post');
+    Route::get('{dashboard_type}/{dashboard_id}/posts', [App\Http\Controllers\Api\PostController::class, 'getPosts']);
+    Route::get('/posts', [App\Http\Controllers\Api\PostController::class, 'getPosts']);
+
+    Route::get('{dashboard_type}/{dashboard_id}/doubts', [App\Http\Controllers\Api\DoubtController::class, 'getDoubts']);
+    Route::get('/doubts', [App\Http\Controllers\Api\DoubtController::class, 'getDoubts']);
+    
+    Route::post('/{likable_type}/{likable_id}/like', 'LikeController@updateOrDelete');
     Route::post('/post-save', 'PostController@savePost');
     Route::post('/post-report', 'PostController@reportPost');
+    Route::delete('post/{post}', 'PostController@delete');
         //profile
     Route::get('/get-profile','UserController@getProfile');
     Route::post('/save-profile', 'UserController@saveProfile');
-    Route::get('/get-categories', 'CategoryController@index');
-    Route::post('/checkin/student', 'StudentController@create');
+    Route::post('/checkin/student', [App\Http\Controllers\Api\StudentController::class, 'create']);
     Route::post('/checkin/teacher', 'InstituteUserController@teacherCheckin');
-    Route::post('/search-course', 'StudentController@courseList');
-    Route::post('/search-subject', 'StudentController@subjectList');
-    Route::post('/search-institute', 'StudentController@instituteList');
+    Route::get('/search-user', [App\Http\Controllers\Api\SearchController::class, 'searchUser']);
+
+    // Notifications
+    Route::get('/notifications', 'NotificationController@index');
+
+    // Push Subscriptions
+    Route::post('/subscriptions', 'PushSubscriptionController@update');
+    Route::post('/subscriptions/delete', 'PushSubscriptionController@destroy');
+
+    //comments
+    Route::get('/{commentable_type}/{commentable_id}/comment', 'CommentController@get');
+    Route::post('/{commentable_type}/{commentable_id}/add-comment', 'CommentController@create');
+
+    Route::put('/preferred-course', 'UserController@setPreferredCourse');
+    Route::put('/preferred-institute', 'UserController@setPreferredInstitute');
 });

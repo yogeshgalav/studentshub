@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use App\Models\Classroom;
-use App\Models\Batch;
 use App\Models\Unit;
 use App\Models\ClassroomUser;
 use DB;
@@ -13,261 +13,165 @@ use Illuminate\Support\Facades\Log;
 
 class ClassroomController extends Controller
 {
-    //
-    public function classroomListPage(){
-        $classroom_query = DB::table('classrooms as cs')
-        ->join('batches as bt','bt.id','=','cs.batch_id')
-        ->join('courses as co','co.id','=','bt.course_id')
-        ->join('subjects as su','su.id','=','cs.subject_id')
-        ->join('teachers as th','th.id','=','cs.teacher_id')
-        ->join('users as us','us.id','=','th.user_id')
-        ->select('cs.id','cs.name','co.course_name','su.subject_name','su.alias as subject_alias','us.id as user_id','us.full_name as teacher_name');
-
-        $classroom_query2=clone $classroom_query;
-
-        $classroom_list=$classroom_query->join('classroom_users as cu',function($join){
-            $join->on('cu.classroom_id','=','cs.id')->where('cu.user_id',Auth::id());
-        })
+    public function create(Request $request){
+        $user = Auth::user();
+        $course_levels = \App\Models\CourseLevel::get();
+        $institute_query = DB::table('institutes as in');
+        if($user->role!=='sthubAdmin'){
+            $institute_query = $institute_query->join('institute_users as inu', function($join){
+                $join->on('in.id','=','inu.institute_id')->where('inu.user_id','=',Auth::id());
+            });
+        }
+        $institute_list=$institute_query
+        ->select('in.id','in.name')
+        ->groupBy('in.id','in.name')
         ->get();
 
-        $teacher=Auth::teacher();
-        if($teacher){
-            $my_classrooms=$classroom_query2->where('teacher_id','=',$teacher->id)->get();
-        }else{
-            $my_classrooms=[];
-        }
-
-        return view('classroom.classroom-list')
-        ->with([
-            'classroomList'=>$classroom_list,
-            'myClassrooms'=>$my_classrooms,
-            'teacher'=>$teacher ? true :false,
-        ]);
-    }
-
-    //web endpoit to classroomm vieew for teachers
-    public function getClassroomDetails($classroom_id){
-        $classroomDetail = DB::table('classrooms as cs')
-        ->where('cs.id',$classroom_id)
-        ->join('batches as bt','bt.id','=','cs.batch_id')
-        ->join('courses as co','co.id','=','bt.course_id')
-        ->join('subjects as su','su.id','=','cs.subject_id')
-        ->join('teachers as th','th.id','=','cs.teacher_id')
-        ->join('users as us','us.id','=','th.user_id')
-        ->leftJoin('classroom_users as cus','cus.classroom_id','=','cs.id')
-        ->select('cs.id','cs.name','cs.classroom_join_id','cs.teacher_id','cs.subject_id','cs.batch_id','cs.expected_students','cs.classroom_duration','co.course_name','su.subject_name','us.id as user_id','us.full_name as teacher_name',
-        'bt.start_year as batch_start_year', 'bt.end_year as batch_end_year',
-        DB::raw('COUNT(cus.id) as total_students'))
-        ->groupBy('cs.id','cs.name','cs.classroom_join_id','cs.teacher_id','cs.subject_id','cs.batch_id','cs.expected_students','cs.classroom_duration','co.course_name','su.subject_name','us.id','us.full_name',
-        'bt.start_year', 'bt.end_year')
-        ->first();
-
-        return response()->json([
-            'success'=>[
-                'classroomDetail'=>$classroomDetail
-            ]
-        ]);
-    }
-
-    public function update($classroomId,Request $request){
-        $classroom=Classroom::findOrFail($classroomId);
-        $classroom->update([
-            'name'=> $request->name,
-            'expected_students'=> $request->expected_students,
-            'classroom_duration'=> $request->duration,
-        ]);
-
-        return response(['success'=>[
-            'classroom'=>$classroom
-        ]]);
-    }
-    public function delete($classroomId,Request $request){
-        $classroom=Classroom::findOrFail($classroomId);
-        if(ClassroomUser::where('classroom_id',$classroomId)->count()>0){
-            return response('forbidden',403);    
-        }
-        $classroom->delete();
-
-        return response([],204);
-    }
-
-    public function classroomPage($classroomId){
-        $classroom=Classroom::findOrFail($classroomId);
-
-        if(Auth::teacher() && $classroom->teacher_id===Auth::teacher()->id){
-            return view('classroom.classroom');
-        }
-
-        $is_classroom_student=ClassroomUser::where('user_id',Auth::id())
-        ->where('classroom_id',$classroom->id)->exists();
-        if(!$is_classroom_student){
-            \Log::warning('invalid classroom access',['user_id'=>Auth::id(),'classroom_id'=>$classroom->id]);
+        if(empty($institute_list)){
             abort(403);
+        }
+
+        return inertia('classroom/teacher/create', [
+            'institute_list'=>$institute_list,
+            'course_levels'=>$course_levels
+        ]);
+    }
+
+    public function index()
+    {
+        return inertia('classroom/classroom-list');
+    }
+    
+    public function show($classroomId){
+        $classroom=Classroom::findOrFail($classroomId);
+
+        if(Auth::user()->can('update', $classroom)){
+            return inertia('classroom/teacher/menu');
         }
 
         $daily_assignment=\App\Models\DailyAssignment::where('attempt_date','=',now(Auth::user()->timezone)->toDateString())
         ->where('activated_at','!=',null)->where('classroom_id','=',$classroom->id)
         ->with('dailyQuestions.multipleChoice')->first();
-        
+
         // check if assignment is not already attempted
         $daily_report=null;
-        if($daily_assignment){       
-            $daily_assignment->dailyQuestions->makeHidden('correct_answer');     
+        if($daily_assignment){
+            // $daily_assignment->dailyQuestions->makeHidden('correct_answer');
             $daily_report = \App\Models\DailyReport::where('user_id',Auth::id())
             ->where('daily_assignment_id',$daily_assignment->id)->first();
         }
 
         if($daily_assignment && $daily_assignment->isCurrentlyAvailable() && empty($daily_report)){
-            return view('student-panel.daily-attempt')
-            ->with('nocache',true)
-            ->with('daily_assignment',$daily_assignment);
+            return inertia('student/daily-attempt', [
+                'dailyAssignment' => $daily_assignment
+            ]);
         }
 
-        return view('student-panel.my-panel');
+        return inertia('classroom/student/menu');
     }
 
     public function classroomOverviewPage($classroomId){
         $classroom=Classroom::findOrFail($classroomId);
 
-        return view('classroom.classroom-overview');
+        if(Auth::user()->can('update', $classroom)){
+            return inertia('classroom/teacher/overview');
+        }
+
+        return inertia('classroom/student/overview');
     }
     public function classroomSetupPage($classroomId){
         $classroom=Classroom::findOrFail($classroomId);
 
-        return view('classroom.classroom-setup');
+        return inertia('classroom/teacher/unit-plan');
     }
-    public function classroomUnitAssignmentPage($classroomId){
+
+    public function classroomAttendancePage($classroomId){
         $classroom=Classroom::findOrFail($classroomId);
-                
-        if(Auth::teacher() && $classroom->teacher_id===Auth::teacher()->id){
-            return view('classroom.classroom-unit-assignment');
+
+        if(Auth::user()->can('update', $classroom)){
+            return inertia('classroom/teacher/attendance');
         }
 
-        return view('student-panel.classroom-unit-assignment');
+        return inertia('classroom/student/attendance');
     }
     public function classroomDailyAssignmentPage($classroomId){
         $classroom=Classroom::findOrFail($classroomId);
-        
-        if(Auth::teacher() && $classroom->teacher_id===Auth::teacher()->id){
-            return view('classroom.classroom-daily-assignment');
+
+        if(Auth::user()->can('update', $classroom)){
+            return inertia('classroom/teacher/daily-assignment');
         }
 
-        // $is_classroom_student=ClassroomUser::where('user_id',Auth::id())
-        // ->where('classroom_id',$classroom->id)->where('joined_at','!=',null)->exists();
-        return view('student-panel.classroom-daily-assignment');
-    }
-    public function classroomDailyReportPage($classroomId){
-        $classroom=Classroom::findOrFail($classroomId);
-        
-        if(Auth::teacher() && $classroom->teacher_id===Auth::teacher()->id){
-            return view('classroom.classroom-daily-report');
-        }
-
-        // $is_classroom_student=ClassroomUser::where('user_id',Auth::id())
-        // ->where('classroom_id',$classroom->id)->where('joined_at','!=',null)->exists();
-        return view('student-panel.classroom-daily-report');
+        return inertia('classroom/student/daily-assignment');
     }
     public function classroomStudentPage($classroomId){
         $classroom = Classroom::findOrFail($classroomId);
-        return view('classroom.classroom-student-details')->with(['classroom'=>$classroom] );
-    }
-
-    public function unitAttemptPage(){
-        return view('student-panel.unit-attempt');
+        return inertia('classroom/teacher/student-panel',['classroom'=>$classroom]);
     }
 
     public function studentPanelPage($classroom_id,$user_id=null){
         if($user_id){
-            return view('classroom.student-panel');
+            return inertia('classroom/teacher/student-panel');
         }
 
-        return view('student-panel.my-panel');
+        return inertia('classroom/student/my-report');
     }
 
-    public function createClassroomPage(Request $request){
-        $course_levels = \App\Models\CourseLevel::get();
-        return view('classroom.create-classroom')
-        ->with('course_levels',$course_levels);
-    }
-    public function createClassroom(Request $request){
-        $subject_id = $request->subject['id'];
-        $subject_name = $request->subject['subject_name'];
-        $course_id = $request->course['id'];
-        $course_name = $request->course['course_name'];
-
-        DB::beginTransaction();
-    try{
-        if($course_id){
-            $course = \App\Models\Course::findOrFail($course_id);
-        }else{
-            $course=\App\Models\Course::create([
-                'course_url'=>\Str::slug($course_name),
-                'course_name'=>$course_name,
-                'category_id'=>null
-            ]);
-            Log::critical('New course created',['course_id'=>$course->id]);
+    public function classroom()
+    {
+        if(Auth::user()->role==='student'){
+            return inertia('classroom/student/menu');
         }
-
-        $subject= \App\Models\Subject::firstOrCreate([
-            'subject_url'=>\Str::slug($subject_name),
-            'category_id'=>$course->category_id ?? null,
-        ],[
-            'subject_name'=>$subject_name,
-            'is_verified'=>true,
-        ]);
-
-        \App\Models\CourseSubject::firstOrCreate([
-            'subject_id'=>$subject->id,
-            'course_id'=>$course->id,
-        ]);
-
-        $batch =Batch::firstOrCreate([
-            'institute_id'=>Auth::teacher()->instituteId,
-            'course_id'=>$course->id,
-            'start_year'=>$request->start_year,
-            'end_year'=>$request->end_year,
-        ]);
-
-        $classroom=new Classroom;
-        $classroom->name=$request->name;
-        $classroom->teacher_id=Auth::teacher()->id;
-        $classroom->subject_id=$subject->id;
-        $classroom->batch_id=$batch->id;
-        $classroom->save();
-
-        DB::commit();
-    } catch (\Exception $e) {
-        DB::rollback();
-        Log::critical('classroom create failure',['data'=>$request->all(),'error'=>$e->getMessage()]);
-        return response()->$e;
-    }
-        return response()->json(['success'=>[
-            'id'=>$classroom->id,
-            'join_id'=>$classroom->classroom_join_id
-        ]]);
-    }
-
-    public function getPreviousUnitAnswers($classroom_id){
-        $answers = DB::table('classroom_answers as ca')
-        ->join('descriptive_questions as cq','cq.id','=','ca.descriptive_question_id')
-        ->join('units',function($join)use($classroom_id){
-            $join->on('units.id','=','cq.unit_id')->where('classroom_id','=',$classroom_id)->whereNotNull('unit.deactivated');
-        })
-        ->select()
-        ->get();
-
-        return response()->json(['success'=>[
-            'answers'=>$answers
-        ]]);
+        
+        return inertia('classroom/teacher/menu');
     }
 
     public function classroomResoucePage(){
-        return view('classroom.resources');
-    }
-    public function classroomDoubtPage(){
-        return view('classroom.doubts');
+        return inertia('classroom/resources');
     }
     public function classroomMessagePage(){
-        return view('classroom.messages');
+        return inertia('classroom/messages');
+    }
+
+
+    public function myReports()
+    {
+        $classrooms = DB::table('classroom_users as cu')
+        ->where('cu.user_id',Auth::id())
+        ->leftJoin('classrooms as cl', 'cl.id', '=', 'cu.classroom_id')
+        ->select('cl.id','cl.name')
+        ->get();
+
+        return inertia('classroom/student/my-report',[
+            'classrooms' => $classrooms
+        ]);
+    }
+
+    public function GlobalMessagePage(){
+        $classrooms = \DB::table('classrooms')
+        ->leftJoin('users as usr',function($join){
+            $join->on('usr.id','=','classrooms.teacher_user_id')->where('usr.id','=',Auth::id());
+        })
+        ->leftJoin('classroom_users as cu',function($join){
+            $join->on('cu.classroom_id','=','classrooms.id')->where('cu.user_id','=',Auth::id());
+        })
+        ->where('usr.id','!=',null)
+        ->orWhere('cu.id','!=',null)
+        ->select('classrooms.id','classrooms.name')
+        ->get();
+
+        return inertia('classroom/messages')
+        ->with('classrooms',$classrooms);
+    }
+    public function classmates()
+    {
+        return inertia('classroom/student/classmates');
+    }
+    public function indexHomework()
+    {
+        return inertia('classroom/index-homework');
+    }
+    public function showHomework()
+    {
+        return inertia('classroom/show-homework');
     }
 }

@@ -3,192 +3,146 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\CheckinRequest;
-use Notification;
+use App\Models\DailyAssignment;
+use App\Models\DailyReport;
+use App\Models\DailyQuestion;
+use App\Models\MultipleChoice;
+use App\Models\DailyAnswer;
+use App\Models\StudentReport;
+use App\Models\Post;
 use Auth;
 use DB;
-use App\Models\Student;
-use App\Models\Course;
-use App\Models\Category;
-use App\Models\Institute;
-use App\Models\Batch;
-use App\Models\BatchStudent;
-use App\Notifications\BatchNewUserNotification;
-use App\Notifications\StudentOnboardingNotification;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Log;
-use SKAgarwal\GoogleApi\PlacesApi;
 
 class StudentController extends Controller
 {
     //
-    public function create(Request $request)
-    {
-        $input = $request->all();
-        $user = Auth::user();
-        $course = '';
+    public function dailyAssignmentAttemptPage($classroom_id){
+        $daily_assignment=DailyAssignment::where('attempt_date','=',now(Auth::user()->timezone)->toDateString())
+        ->where('activated_at','!=',null)->where('classroom_id','=',$classroom_id)
+        ->with('dailyQuestions.multipleChoice')->first();
+        
+        // check if assignment is not already attempted
+        $daily_report=null;
+        if($daily_assignment){      
+            // $daily_assignment->dailyQuestions->makeHidden('correct_answer');      
+            $daily_report = DailyReport::where('user_id',Auth::id())
+            ->where('daily_assignment_id',$daily_assignment->id)->first();
+        }
+
+        if($daily_assignment && $daily_assignment->isCurrentlyAvailable() && empty($daily_report)){
+            return view('student-panel.daily-attempt')
+            ->with('nocache',true)
+            ->with('daily_assignment',$daily_assignment);
+        }
+        
+        return redirect('/classroom/'.$classroom_id.'/daily-assignment');
+    }
+
+    public function saveDailyAnswer(Request $request){
+        $my_report = DailyReport::where('user_id',Auth::id())->where('daily_assignment_id',$request->daily_assignment_id)->exists();
+        if($my_report){
+            return redirect('/classroom/'.$request->classroom_id.'/daily-assignment');
+        }
+        $daily_questions = DailyQuestion::where('daily_assignment_id',$request->daily_assignment_id)->get();
+        $rank = DailyReport::where('daily_assignment_id',$request->daily_assignment_id)->count();
+        
         DB::beginTransaction();
-        try {
-            //create or get course id
-            if ($input['course_id'] == 0) {
-                Log::info('New course created',['course_id'=>$course->id]);
-                $course = Course::create([
-                    'course_name' => $input['course_name'],
-                    'category_id' => null,
-                ]);
-            } else {
-                $course = Course::findOrFail($input['course_id']);
+    try{
+        $total_marks = 0;
+        //dd($request->answers);
+        foreach($request->answers as $answer){
+            $question=$daily_questions->where('id',$answer['question_id'])->first();
+            $choice=MultipleChoice::where('id',$answer['answer'])->first();
+            if($choice->is_correct){
+                $total_marks=$total_marks+$question->marks;
             }
-            //create or get institute id
-            if(!empty($input['institute_id'])){
-                $institute = Institute::find($input['institute_id']);
-            }else{
-                $institute = Institute::create([
-                    'name' => $input['institute_name'],
-                    'added_by_user_id' => $user->id,
-                    'country_code' => 'IN',
-                    'is_verified' => false,
-                ]);
-            }
-
-            //create or get batch id
-            $batch = Batch::firstOrCreate([
-                'end_year' => $input['end_year'],
-                'institute_id' => $institute->id,
-                'course_id' => $course->id,
-            ], [
-                'start_year' => $input['start_year'],
-            ]);
-
-            $student = Student::updateOrCreate([
-                'user_id' => Auth::user()->id
-            ], [
-                'prefferred_batch' => $batch->id,
-                'prefferred_category' => $course->category_id,
-                'unique_college_id' => $request->college_id ?? null,
-            ]);
-
-            BatchStudent::updateOrCreate([
-                'batch_id' => $batch->id,
-                'student_id' => $student->id,
-            ], [
-                'is_preffered' => true,
-            ]);
-
-            $user->role_intended = 'student';
-            $user->onboarded_at = \Carbon\Carbon::now()->toDateTimeString();
-            $user->save();
-            
-            $batch_users = $batch->users()->whereNotIn('id', [$user->id]);
-            // Notification::send($batch_users, new BatchNewUserNotification($user,$batch));
-            // Notification::send($user, new StudentOnboardingNotification(count($batch_users)));
-
-
-            DB::commit();
-        } catch (\Exception $e) {
-            DB::rollback();
-            // dd($e->getLine(),$e->getMessage());
-            Log::critical('Student Registeration failure',['error'=>$e->getMessage()]);
-            return response()->$e;
         }
-        $success['redirectUrl'] = '/classrooms';
-        return response()->json(['success' => $success]);
-    }
-
-    public function courseList(Request $request)
-    {
-        $search = str_replace('.', '', $request->searchTerm);
-        $courses = DB::table('courses as cor')
-            ->where('cor.course_name', 'LIKE', '%' . $search . '%')
-            ->orWhere('cor.alias', 'LIKE', '%' . $search . '%')
-            ->leftJoin('batches as bat', 'cor.id', '=', 'bat.course_id')
-            ->select('cor.id', 'cor.course_name', 'cor.category_id', DB::raw("COUNT('bat.id') as totalBatch"))
-            ->groupBy('cor.id', 'cor.course_name', 'cor.category_id')
-            ->orderBy('totalBatch', 'DESC')->limit(10)->get();
-
-        // if(count($courses)==0 && empty($request->aliasSearch)){
-        //     $request->request->add(['aliasSearch'=>true]);
-        //     $new_terms=str_split(str_replace('.', '', $request->searchTerm));
-        //     $request->searchTerm=implode('%',$new_terms);
-        //     return $this->courseList($request);
-        // }
-
-        if (count($courses) == 0 && empty($request->recursive)) {
-            $request->request->add(['recursive' => true]);
-            $terms = explode(' ', $request->searchTerm);
-            $new_terms = [];
-            foreach ($terms as $term) {
-                $new_terms[] = substr($term, 0, 1) . '%' . substr($term, -1);
-            }
-            $request->searchTerm = implode(' ', $new_terms);
-            return $this->courseList($request);
+        $daily_assignment = DailyAssignment::find($request->daily_assignment_id);
+        $unit_id = $daily_assignment->unit_id;
+        if($daily_assignment->status!=='attempted'){
+            $daily_assignment->status='attempted';
+            $daily_assignment->save();
         }
-
-        return response()->json(['success' => [
-            'courses' => $courses
-        ]]);
-    }
-    public function subjectList(Request $request)
-    {
-        $search = str_replace('.', '', $request->searchTerm);
-        $subjects = DB::table('subjects as sub')
-            ->where('sub.subject_name', 'LIKE', '%' . $search . '%')
-            ->orWhere('sub.alias', 'LIKE', $search)
-            ->select('sub.id', 'sub.subject_name')
-            ->limit(10)->get();
-
-
-        return response()->json(['success' => [
-            'subjects' => $subjects
-        ]]);
-    }
-
-    public function instituteList(Request $request)
-    {
-        $input = $request->searchTerm;
-        try {
-            $institutes = DB::table('institutes as ins')
-                ->where('ins.name', 'LIKE', $input . '%')
-                ->orWhere('ins.alias', 'LIKE', $input . '%')
-                ->leftJoin('batches as bat', 'ins.id', '=', 'bat.institute_id')
-                ->select('ins.id', 'ins.name', 'ins.address', 'ins.place_id', 'ins.description', DB::raw("COUNT('bat.id') as totalBatch"))
-                ->groupBy('ins.id', 'ins.name', 'ins.address', 'ins.place_id', 'ins.description')
-                ->orderBy('totalBatch', 'DESC')->limit(10)->get();
-
-            if (count($institutes) == 0) {
-                $institutes = [];
-                $api_key = config('keys.google_place_api');
-                $googlePlaces = new PlacesApi($api_key);
-                $response = $googlePlaces->placeAutocomplete($input, ['types' => 'establishment'])->toArray();
-
-                foreach ($response['predictions'] as $value) {
-                    if (!in_array('university', $value['types'])) {
-                        continue;
-                    }
-                    $institutes[] = [
-                        'id' => 0,
-                        'name' => $value['structured_formatting']['main_text'],
-                        'address' => $value['structured_formatting']['secondary_text'],
-                        'place_id' => $value['place_id'],
-                        'description' => $value['description']
-                    ];
-                }
-            }
-        } catch (\Exception $e) {
-            return response()->json(['success' => [
-                'institutes' => []
-            ]]);
+        StudentReport::firstOrCreate([
+            'score_type'=> "first",
+            'user_id'=>Auth::id(),
+            'unit_id'=> $unit_id,
+        ],[
+            'score'=> $total_marks,
+        ]);
+        StudentReport::updateOrCreate([
+            'score_type' => "last",
+            'user_id'=>Auth::id(),
+            'unit_id'=> $unit_id,
+        ],[
+            'score'=> $total_marks,
+        ]);
+        $student_avg_report = StudentReport::firstOrNew([
+            'score_type' => "average",
+            'user_id'=>Auth::id(),
+            'unit_id'=> $unit_id
+        ]);
+        if($student_avg_report){
+            $student_avg_report->score = ($student_avg_report->score + $total_marks) / 2;
         }
-        return response()->json(['success' => [
-            'institutes' => $institutes
-        ]]);
+        else{
+            $student_avg_report->score = $total_marks;
+        }
+        $student_avg_report->save();
+        $report = DailyReport::create([
+            'user_id'=>Auth::id(),
+            'daily_assignment_id'=>$request->daily_assignment_id,
+            'duration'=>'00:'.$request->time,
+            'rank'=>$rank+1,
+            'marks_obtained'=>$total_marks
+        ]);
+
+        foreach($request->answers as $answer){
+            DailyAnswer::create([
+                'user_id'=>Auth::id(),
+                'daily_question_id'=>intval($answer['question_id']),
+                'daily_report_id'=>$report->id,
+                'selected_option_id'=>intval($answer['answer']),
+            ]);
+        }
+        DB::commit();
+    } catch (\Exception $e) {
+        DB::rollback();
+        \Log::critical('daily report save failure',['data'=>$request->all(),'error'=>$e->getMessage()]);
+        return response()->$e;
+    }
+        return redirect('/classroom/'.$request->classroom_id.'/daily-assignment');
+    }
+    public function sharePost(Request $request)
+    {
+        if($request->cId){
+        $courseInfo = \App\Models\Course::find($request->cId);
+        }
+        if($request->sId){
+            $subjectInfo = \App\Models\Subject::find($request->sId);
+        }
+        return inertia('create-post/share-post', [
+            'courseInfo' => isset($courseInfo) ? $courseInfo : null,
+            'subjectInfo' => isset($subjectInfo) ? $subjectInfo : null,
+        ]);
+    }
+    public function editPost(Post $post)
+    {
+        $post_details = $post->load(['category','subjects','postable']);
+        return inertia('create-post/edit-post', ['post' => $post_details]);
     }
 
-    public function getCourseSubjects()
+    public function myCoursePage(){
+        return inertia('common/my-course');
+    }
+    public function moreApps()
     {
-        $course = Course::where('id', Auth::student()->courseId)->with('subjects')->first();
-        return response()->json(['success' => [
-            'course' => $course
-        ]]);
+        $apps = \App\Models\MoreApp::get();
+        return inertia('common/more-app', ['apps' => $apps]);
+    }
+    public function askDoubt(){
+       
+        $categories = \App\Models\Category::get();
+        return inertia('doubt/create-doubt', ['categories' => $categories]);
     }
 }

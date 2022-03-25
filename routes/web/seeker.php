@@ -3,9 +3,15 @@
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware'=>['auth']],function(){
-    Route::get('/check-in', 'PagesController@checkin');
-    Route::get('/education-details', 'PagesController@educationDetail');
-    Route::get('/seeker', 'PagesController@seeker');
-    Route::get('/profile/{profileId}', 'PagesController@profile');
+    // Route::get('/check-in', 'SeekerController@checkin');
+    // Route::get('/seeker', 'SeekerController@seekerCheckin');
+    // Route::get('/education-details', 'SeekerController@educationDetail');
+    Route::get('/account-settings', 'SeekerController@accountSetting');
+    Route::get('/profile/{profileId}', 'SeekerController@profile');
+    Route::get('/notifications', 'SeekerController@notifications');
+    Route::get('/category', 'SeekerController@category');
+    //doubts
+    Route::get('/doubts','SeekerController@doubtPage');
+    Route::get('/doubt/{id}','SeekerController@doubtAnswersPage');
     //post routes
 });

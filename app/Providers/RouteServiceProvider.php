@@ -4,6 +4,16 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use App\Models\User;
+use App\Models\Classroom;
+use App\Models\DailyAssignment;
+use App\Models\Post;
+use App\Models\Doubt;
+use App\Models\ClassroomResource;
+use App\Models\Homework;
+use App\Models\Category;
+use App\Models\Subject;
+use App\Models\Course;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -23,9 +33,17 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Route::model('category', Category::class);
+        Route::model('subject', Subject::class);
+        Route::model('course', Course::class);
 
-        parent::boot();
+        Route::model('user', User::class);
+        Route::model('classroom', Classroom::class);
+        Route::model('daily_assignment', DailyAssignment::class);
+        Route::model('post', Post::class);
+        Route::model('doubt', Doubt::class);
+        Route::model('resource', ClassroomResource::class);
+        Route::model('homework', Homework::class);
     }
 
     /**
@@ -67,7 +85,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::prefix('api')
              ->middleware('api')
-             ->namespace($this->namespace)
+             ->namespace($this->namespace.'\Api')
              ->group(base_path('routes/api.php'));
     }
 }

@@ -7,10 +7,10 @@ window._ = require('lodash');
  */
 
 try {
-    window.Popper = require('popper.js').default;
-    window.$ = window.jQuery = require('jquery');
+	window.Popper = require('popper.js').default;
+	window.$ = window.jQuery = require('jquery');
 
-    require('bootstrap');
+	require('bootstrap');
 } catch (e) {}
 
 /**
@@ -28,6 +28,25 @@ window.axios = require('axios');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
+window.axios.interceptors.response.use((response) => {
+	return response;
+}, (error) => {
+	if (error.response && error.response.data) {
+		if (error.response.status === 401) {
+			window.location.href='/get-started';
+		}
+
+		if (error.response.status === 404) {
+			console.error('404NotFound');
+		}
+		if (error.response.status === 403) {
+			console.error('403Unauthorized');
+		}
+
+		return Promise.reject(error.response.data);
+	}
+	return Promise.reject(error.message);
+});
 /**
  * Custom Directives
  */
@@ -40,9 +59,9 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 let token = document.head.querySelector('meta[name="csrf-token"]');
 
 if (token) {
-    window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+	window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 } else {
-    console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+	console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
 /**

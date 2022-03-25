@@ -28,11 +28,7 @@ class CheckinRequest extends FormRequest
             'course_name'=>'required',
             'category_id'=>'required|numeric',
             'institute_name'=>'required',
-            'institute_address'=>'required',
-            'institute_description'=>'required',
             'college_id'=>'nullable|alpha_num',
-            'start_year'=>'required|date_format:Y',
-            'end_year'=>'required|date_format:Y',
         ];
     }
 }

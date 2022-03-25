@@ -4,7 +4,7 @@ export default {
 	login({commit}, user){
 		return new Promise((resolve, reject) => {
 			// commit('auth_request')
-			axios({url: window.App.baseUrl+'/api/login', data: user, method: 'POST' })
+			axios({url: '/api/login', data: user, method: 'POST' })
 				.then(resp => {
 					console.log(resp.data.success);
 					const access_token = resp.data.success.access_token;
@@ -24,7 +24,7 @@ export default {
 	register({commit}, user){
 		return new Promise((resolve, reject) => {
 			// commit('auth_request')
-			axios({url: window.App.baseUrl+'/api/register', data: user, method: 'POST' })
+			axios({url: '/api/register', data: user, method: 'POST' })
 				.then(resp => {
 					const access_token = resp.data.success.access_token;
 					const refresh_token = resp.data.success.refresh_token;
@@ -43,10 +43,10 @@ export default {
 	logout({commit}){
 		return new Promise((resolve, reject) => {
 			commit('logout');
-			axios({url: window.App.baseUrl+'/logout', method: 'POST' })
+			axios({url: '/logout', method: 'POST' })
 				.then(resp => {
-					window.App.signedIn=false;
-					window.App.AuthUser=null;
+					this.$page.props.signedIn=false;
+					this.$page.props.AuthUser=null;
 					localStorage.removeItem('access_token');
 					localStorage.removeItem('refresh_token');
 					delete axios.defaults.headers.common['Authorization'];

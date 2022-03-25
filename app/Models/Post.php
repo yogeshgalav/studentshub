@@ -3,15 +3,29 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 use Auth;
+use DB;
 use Carbon\Carbon;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
 class Post extends Model
 {
     //
     protected  $guarded = ['id', 'created_at', 'updated_at'];
+    use HasSlug;
 
-    protected $appends=['user_name','total_views','total_likes'];
+
+    /**
+     * Get the options for generating the slug.
+     */
+    public function getSlugOptions() : SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('post_heading')
+            ->saveSlugsTo('slug');
+    }
     public function article(){
         return $this->hasOne('App\Models\Article');
     }
@@ -41,26 +55,27 @@ class Post extends Model
     public function getUserNameAttribute(){
         return $this->user()->first()->full_name;
     }
-    public function subject(){
-        return $this->belongsTo('App\Models\Subject');
+    public function subjects(){
+        return $this->belongsToMany(Subject::class, 'post_tags');
+    }         
+    public function category(){
+        return $this->belongsTo('App\Models\Category');
+    }           
+    public function sthubPosts(){
+        return $this->hasMany(SthubPost::class);
     }           
     public function image(){
         return $this->hasMany('App\Models\PostImage');
     }           
     public function tags(){
         return $this->hasMany('App\Models\PostTag');
-    }           
-    public function getTotalViewsAttribute(){
-        return $this->hasMany('App\Models\PostView')->count();
     }
-    public function getTotalLikesAttribute(){
-        return $this->like->where('like_status',1)->count();
+    public function likes(){
+        return $this->morphMany(Like::class, 'likable');
     }
-    public function getTotalDislikesAttribute(){
-        return $this->like->where('like_status',0)->count();
-    }
-    public function like(){
-        return $this->morphMany('App\Models\Like', 'likable');
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
     }
     
     public function getPostTypeAttribute(){
@@ -71,5 +86,16 @@ class Post extends Model
                 return 'video';
         }
     }
+    // public static function boot() {
+    //     parent::boot();
+    //     static::created(function (Post $post) {
+    //            Interest::updateOrCreate([
+    //            'user_id'=>$post->user_id,
+    //            'category_id'=>$post->category_id,
+    //            ], [
+    //            'total_posts'=>DB::raw('total_posts+1'),
+    //            ]);
+    //     });
+    // }
     
 }

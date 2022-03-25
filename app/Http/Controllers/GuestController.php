@@ -3,97 +3,111 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Guest;
-use App\Models\Subscriber;
-use App\Models\MemberRequest;
-use App\Mails\SubscriptionFirstMail;
-use Mail;
-use DB;
-use Illuminate\Support\Facades\Log;
-use App\Models\Faq;
 use Auth;
-use App\Models\Feedback;
-use App\Models\Contactus;
+use App\Models\Faq;
+use App\Models\Category;
 
 class GuestController extends Controller
 {
     //
-    public function update(Request $request)
+    private $title = " | Student's Hub";
+
+    public function membershipPlan()
     {
-        $email=$request->input('email');
-        DB::beginTransaction();
-    try{
-        $guest=Guest::where('ip',$request->ip())->first();
-        $subcriber=new Subscriber;
-        $subcriber->email=$email;
-        $subcriber->guest_id=$guest_id;
-        $subcriber->save();
-
-        Mail::to($email)->send(new SubscriptionFirstMail());
-        DB::commit();
-        } catch (\Exception $e) {
-            DB::rollback();
-            Log::critical('user subscription failure: for email id#'.$email);
-            // dd($e->getMessage(),$e->getLine());
-            return response()->$e;
-        }
-        return 'success';
-    }
-
-    public function memberRequest(Request $request){
-        $member =new MemberRequest;
-        $member->full_name = $request->full_name;
-        $member->email = $request->email;
-        $member->phone_no = $request->phone_no;
-        $member->institute_name = $request->institute_name;
-        $member->total_students = $request->students;
-        $member->save();
-        Log::critical('New member request with details.',['member'=>$member]);
-        return response()->json([],204);
-    }
-
-    public function feedback(Request $request)
-    {
-        Feedback::create([
-            'email'=>$request->email,
-            'user_id'=>Auth::id() ?? null,
-            'description'=>$request->feedback,
+        return inertia('guest/membership-plan', [
+            'Membership' . $this->title,
         ]);
-        return response()->json([],204);
+    }
+    public function forgotPasswordPage()
+    {
+        return inertia('auth/forgot-password');
     }
 
     public function feedbackPage()
     {
-        return view('guest.feedback');
+        return inertia('guest/feedback');
     }
-
-    public function contactus(Request $request)
-    {
-        Contactus::create([
-            'name'=>$request->name,
-            'email'=>$request->email,
-            'description'=>$request->description,
-        ]);
-        return response()->json([],204);
+    public function contactusPage(){
+        return inertia('guest/contactus');
     }
-
-    public function contactusPage()
-    {
-        return view('guest.contactus');
-    }
-
-    public function faq(Request $request)
-    {
-        // dd($request->email,$request->quer);
-        Faq::create([
-            'email'=>$request->email,
-            'query'=>$request->quer,
-        ]);
-        return response()->json([], 204);
-    }
-    
     public function faqPage(){
         $faq = Faq::where('answer','!=', null)->get();
-        return view('guest.faq')->with('faqs',$faq);
+        return inertia('guest/faq', [
+            'faqs' => $faq
+        ]);
+    }
+
+    public function privacyPolicy(){
+        return inertia('guest/privacy-policy');
+    }
+    public function termOfUse(){
+        return inertia('guest/term-of-use');
+    }
+    public function viewPost($post_id)
+    {
+        \App\Models\Post::findOrFail($post_id);
+        if (Auth::check()) {
+            return inertia('post/PostViewPage');
+        }
+        return inertia('guest/guest-post-view');
+    }
+    public function coursePage($course_url)
+    {
+        $course = \App\Models\Course::where('slug', $course_url)->firstOrFail();
+        return inertia('explore/course', [
+            'courseId' => $course->id
+        ]);
+    }
+    public function subjectPage($subject_url)
+    {
+        $subject = \App\Models\Subject::where('slug', $subject_url)->firstOrFail();
+        return inertia('explore/subject', [
+            'subjectName' => $subject->subject_name,
+            'subjectId' => $subject->id
+        ]);
+    }
+    public function categoryPage($category_url)
+    {
+        $category = \App\Models\Category::where('category_url', $category_url)->firstOrFail();
+               return inertia('explore/category', [
+            'categoryId' => $category->id
+        ]);
+    }
+    public function postImage($filename)
+    {
+        $path = storage_path('/app/post-images/' . $filename);
+
+        if (!\File::exists($path)) {
+            abort(404);
+        }
+
+        return response()->file($path);
+    }
+    
+    public function  root()
+    {
+        $me = Auth::user();
+        if ($me) {
+            return inertia('common/dashboard');
+        }
+        return inertia('guest/welcome');
+    }
+
+    public function resetPassword(Request $request){
+        $token = $request->token;
+        return inertia('auth/reset-password', [
+            'token' => $token
+        ]);
+    }
+
+    public function searchPage(Request $request)
+    {
+        return inertia('explore/search',[
+            'searchQuery' => $request->qu
+        ]);
+    }
+    public function FindInterestField(Request $request)
+    {
+        return inertia('create-post/find-interest-field');
     }
 }

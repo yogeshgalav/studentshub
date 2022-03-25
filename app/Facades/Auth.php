@@ -12,26 +12,22 @@ class Auth extends AuthUser
         if (!self::check()) {
             return null;
         }
-        if (self::user()->role_intended!=='student') {
+        if (self::user()->role!=='student') {
             return null;
         }
         return DB::table('students as st')->where('st.user_id', '=', self::user()->id)
-            ->join('batches as pbt', 'pbt.id', '=', 'st.prefferred_batch')
-            ->join('institutes as inst', 'inst.id', '=', 'pbt.institute_id')
-            ->join('courses', 'courses.id', '=', 'pbt.course_id')
+            //->join('batches as pbt', 'pbt.id', '=', 'st.prefferred_batch')
+            ->where('st.is_preferred',1)
+            ->join('institutes as inst', 'inst.id', '=', 'st.institute_id')
+            ->join('courses', 'courses.id', '=', 'st.course_id')
             ->leftJoin('categories as cat', 'cat.id', '=', 'courses.category_id')
             ->select(
                 'inst.id as instituteId',
                 'inst.name as instituteName',
                 'courses.id as courseId',
                 'courses.course_name as courseName',
-                'courses.course_url as courseUrl',
-                'pbt.id as batchId',
-                'pbt.start_year as start_year',
-                'pbt.end_year as end_year',
+                'courses.slug as courseUrl',
                 'cat.id as categoryId',
-                'st.prefferred_batch as preferred_batch',
-                'st.prefferred_category as preferred_category',
                 'st.unique_college_id as college_id'
             )->first();
     }
@@ -41,15 +37,33 @@ class Auth extends AuthUser
         if (!self::check()) {
             return null;
         }
-        if (self::user()->role_intended!=='teacher') {
+        if (self::user()->role!=='teacher') {
             return null;
         }
-        return DB::table('teachers as th')->where('th.user_id', '=', self::user()->id)
-            ->leftJoin('institutes as inst', 'inst.id', '=', 'th.institute_id')
+        return DB::table('institute_users as insu')->where('insu.user_id', '=', self::user()->id)
+            ->where('insu.role','teacher')
+            ->leftJoin('institutes as inst', 'inst.id', '=', 'insu.institute_id')
             ->select(
                 'inst.id as instituteId',
                 'inst.name as instituteName',
-                'th.id as id', 'th.user_id'
+                'insu.id as id', 'insu.user_id'
+            )->first();
+    }
+    public static function instituteAdmin()
+    {
+        if (!self::check()) {
+            return null;
+        }
+        if (self::user()->role!=='instituteAdmin') {
+            return null;
+        }
+        return DB::table('institute_users as iu')
+            ->where('iu.user_id', '=', self::user()->id)
+            ->where('iu.role', '=', 'admin')
+            ->leftJoin('institutes as inst', 'inst.id', '=', 'iu.institute_id')
+            ->select(
+                'inst.id as instituteId',
+                'inst.name as instituteName',
             )->first();
     }
 }

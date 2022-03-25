@@ -18,22 +18,17 @@ class ClassroomTableSeeder extends Seeder
         DB::table('classrooms')->insert([
             'classroom_join_id'=>'PPLBYAK',
             'name'=>'YOGESH',
-            'teacher_id'=>1,
+            'teacher_user_id'=>1,
             'subject_id'=>1,
-            'batch_id'=>1,
-            'expected_students'=>60,
+            'course_id'=>1,
+            'institute_id'=>1,
             'activated_unit'=>null,
-            'classroom_duration'=>6,
-            'estimated_start_date'=>$time,
-            'estimated_end_date'=>$time
         ]);
 
         DB::table('units')->insert([
             'classroom_id' => 1,
             'unit_no' => 0,
-            'unit_name' => 'first lesson',
-            'activated_at'=>$time,
-            'deactivated_at'=>$time
+            'unit_name' => 'first lesson'
             ]);
 
         // DB::table('topics')->insert([

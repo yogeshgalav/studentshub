@@ -5,21 +5,27 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::post('/subscribe','GuestController@update');
-Route::get('/get-post-content/{post_id}','PostController@show');
-Route::post('/login','AuthController@loginViaApi');
-Route::post('/register','AuthController@registerViaApi');
+Route::get('/get-post-content/{post}','PostController@show');
+Route::post('/verify-contact',[App\Http\Controllers\Api\AuthController::class,'verifyContact']);
 Route::post('/member-request','GuestController@memberRequest');
 
-Route::post('/forgot-password','AuthController@processForgotPassword');
-Route::post('/reset-password','AuthController@resetPassword2')->middleware('auth:api');
-Route::post('/reset-password/{token}','AuthController@resetPassword');
-Route::post('/feedback','GuestController@feedback');
-Route::post('/contactus','GuestController@contactus');
-Route::post('/faq','GuestController@faq');
+Route::post('/forgot-password',[App\Http\Controllers\AuthController::class,'processForgotPassword']);
+Route::post('/reset-password',[App\Http\Controllers\AuthController::class,'resetPassword2'])->middleware('auth:api');
+Route::post('/reset-password/{token}',[App\Http\Controllers\AuthController::class,'resetPassword']);
+Route::post('/feedback',[App\Http\Controllers\Api\GuestController::class, 'feedback']);
+Route::post('/contactus', [App\Http\Controllers\Api\GuestController::class, 'contactus']);
+Route::post('/faq',[App\Http\Controllers\Api\GuestController::class, 'faq']);
 // Route::get('/get-view-post/{ViewPostId}', 'PostController@viewPost');
 Route::get('/get-explore-posts', 'ExploreController@index');
 
-Route::get('/search', 'PostController@searchPosts');
-Route::get('/course/{courseUrl}', 'PostController@coursePosts');
-Route::get('/subject/{subjectUrl}', 'PostController@subjectPosts');
-Route::get('/category/{categoryUrl}', 'PostController@categoryPosts');
+//search page routes
+Route::get('/search-posts', [App\Http\Controllers\Api\SearchController::class, 'searchPosts']);
+Route::get('/search-course', [App\Http\Controllers\Api\CourseController::class, 'index']);
+Route::get('/search-subject', [App\Http\Controllers\Api\SubjectController::class, 'index']);
+Route::get('/search-institute', [App\Http\Controllers\Api\InstituteController::class, 'index']);
+
+Route::get('/institute/{id?}',  [App\Http\Controllers\Api\InstituteController::class, 'show']);
+Route::get('/course/{id?}',  [App\Http\Controllers\Api\CourseController::class, 'show']);
+Route::get('/subject/{subject}',  [App\Http\Controllers\Api\SubjectController::class, 'show']);
+Route::get('/category/{category}',  [App\Http\Controllers\Api\CategoryController::class, 'show']);
+Route::get('/get-categories', 'CategoryController@index');

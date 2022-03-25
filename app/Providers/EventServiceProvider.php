@@ -2,11 +2,20 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Event;
+use App\Listeners\LogNotificationFailed;
+use App\Listeners\NotificationSendingListener;
+use App\Listeners\NotificationSentListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Illuminate\Notifications\Events\NotificationFailed;
+use Illuminate\Notifications\Events\NotificationSending;
+use Illuminate\Notifications\Events\NotificationSent;
 
+/***
+ * Class EventServiceProvider
+ * @package App\Providers
+ */
 class EventServiceProvider extends ServiceProvider
 {
     /**
@@ -18,6 +27,15 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        NotificationFailed::class => [
+            LogNotificationFailed::class,
+        ],
+        NotificationSending::class => [
+            NotificationSendingListener::class,
+        ],
+        NotificationSent::class => [
+            NotificationSentListener::class,
+        ],
     ];
 
     /**
@@ -27,7 +45,6 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        parent::boot();
 
         //
     }

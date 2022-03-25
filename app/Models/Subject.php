@@ -5,11 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Facades\Sthub;
 
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 class Subject extends Model
 {
     //
     protected  $guarded = ['id', 'created_at', 'updated_at'];
+    use HasSlug;
 
+
+    /**
+     * Get the options for generating the slug.
+     */
+    public function getSlugOptions() : SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('subject_name')
+            ->saveSlugsTo('slug');
+    }
     public function posts()
     {
         return $this->hasMany('App\Models\Post');
@@ -24,10 +37,56 @@ class Subject extends Model
         return $this->hasMany('App\Models\CourseSubject');
     }
 
-    public function setSubjectNameAttribute($value)
+    public static function getOrCreate($subject_id, $subject_name, $category_id, $is_verified=false){
+        if(!empty($subject_id)){
+            return self::findOrFail($subject_id);
+        }
+        if(empty($category_id)){
+            \Log::warning('New subject created with null category',['slug'=>\Str::slug($subject_name)]);
+        }
+        return self::firstOrCreate([
+            'slug'=>\Str::slug($subject_name),
+            'category_id'=>$category_id,
+        ],[
+            'subject_name'=>Sthub::ucWordSome($subject_name),
+            'alias'=>Sthub::generateAlias($subject_name),
+            'is_verified'=>$is_verified,
+        ]);
+    }
+    public static function addDoubtTags(Doubt $doubt, $tags)
     {
-        $this->attributes['subject_name'] = Sthub::ucWordSome($value);
-        $this->attributes['subject_url'] = \Str::slug($value);
-        $this->attributes['alias'] = Sthub::generateAlias($value);
+        foreach($tags as $tag){
+            $subject = self::firstOrCreate([
+                'subject_name'=>Sthub::ucWordSome($tag['text']),
+                'category_id'=>$doubt->category_id,
+            ],[
+                'alias'=>Sthub::generateAlias($tag['text']),
+                'is_verified'=>false,
+            ]);
+            DoubtTag::firstOrCreate([
+                'subject_id'=>$subject->id,
+                'doubt_id'=>$doubt->id,
+            ]);
+        }
+        
+        return true;
+    }
+    public static function addPostTags(Post $post, $tags)
+    {
+        foreach($tags as $tag){
+            $subject = self::firstOrCreate([
+                'subject_name'=>Sthub::ucWordSome($tag['text']),
+                'category_id'=>$post->category_id,
+            ],[
+                'alias'=>Sthub::generateAlias($tag['text']),
+                'is_verified'=>false,
+            ]);
+            PostTag::firstOrCreate([
+                'subject_id'=>$subject->id,
+                'post_id'=>$post->id,
+            ]);
+        }
+        
+        return true;
     }
 }
