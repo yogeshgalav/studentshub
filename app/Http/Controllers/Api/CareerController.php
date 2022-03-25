@@ -10,7 +10,8 @@ use Illuminate\Http\Request;
 class CareerController extends Controller
 {
     public function createOrUpdate (Request $request)
-    {
+    { 
+        dd($request->all(), $request->career_id);
         if($request->career_id){
             $career = Career::find($request->career_id);
         }
@@ -28,7 +29,9 @@ class CareerController extends Controller
                 ]
             ]);
     }
-
+    
+   
+    
     public function delete (Request $request)
     {
         $career = Career::find($request->career_id);
