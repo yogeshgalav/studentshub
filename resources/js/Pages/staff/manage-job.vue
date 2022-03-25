@@ -48,6 +48,7 @@
                       data-toggle="tooltip"
                       data-placement="top"
                       title="Delete"
+                      @click="deleteJob(props.row)"
                     >
                       <i class="fa fa-trash" />
                     </button>
@@ -113,6 +114,7 @@
 import Modal from '../../components/VueNiceModal';
 import VueTableComponent from '@/components/vue-table-component';
 import StaffLayout from '@/Layouts/StaffLayout';
+import jobsVue from '../../../../vendor/laravel/horizon/resources/js/screens/metrics/jobs.vue';
 export default {
 	layout:StaffLayout,
 	components:{
@@ -148,6 +150,7 @@ export default {
 		this.jobList=this.careers; 
 	},
 	methods:{
+    
 		addJob()
     	{
 			console.log('xyz');
@@ -166,10 +169,28 @@ export default {
     			});
     	},
 		editJob(career){
-			console.log(career);
-			this.career_name= career.career_name;
-
-		}
+         
+               	this.axios.post('/api/career',{
+                   career_name:this.career_name,
+    		        	category_id:this.edit_category,
+                  career_id:career.career_id,
+                 })
+                 .then(resp=>{
+                  let index= this.jobList.findIndex(el=>el.career_id===career.career_id);
+                  this.jobList[index]['career_name']=this.career_name;
+                  this.jobList[index]['category_id']=this.edit_category;
+                 });
+		
+          },
+           deleteJob(career){                 
+              this.axios.delete('/api/career/'+career.career_id)
+                 .then(resp=>{
+                  let index= this.jobList.findIndex(el=>el.career_id===career.career_id);
+                 this.jobList.splice(index,1);
+                 });
+     
+          }
+   
 	}
   
 };
