@@ -31,7 +31,7 @@ class AuthController extends Controller
         if(Auth::check()){
             return redirect('/');
         }
-        return inertia('auth/get-started')->with([
+        return inertia('auth/get-started', [
             'srvError'=>session('srvError') ?? 1,
             'otpError'=>session('otpError') ?? 1,
         ]);
