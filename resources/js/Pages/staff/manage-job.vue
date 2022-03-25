@@ -70,7 +70,7 @@
       name="addEditJobModal"
       heading="Add Job"
       classes="modal-md"
-      @submit="addJob"
+      @submit="addOrEditJob"
     >
       <template slot="modalBody">
         <form>
@@ -127,6 +127,7 @@ export default {
 		return {
      	career_name:'',
       	edit_category: 14,
+			career_id:'',
 			jobList:[],
 			jobColumns: [
 				{
@@ -150,43 +151,47 @@ export default {
 		this.jobList=this.careers; 
 	},
 	methods:{
-    
-		addJob()
-    	{
-			console.log('xyz');
-    		this.axios.post(this.baseUrl + '/api/career',{
+		addOrEditJob(){
+			  	this.axios.post(this.baseUrl + '/api/career',{
     			career_name:this.career_name,
     			category_id:this.edit_category,
+				career_id:(this.career_id),
     		} )
     			.then(resp => {
-    				// this.$modal.hide('add_doubt_modal');
-    				this.$refs.addEditJobModal.closeModal();
-    				this.career_name='';
-					window.location.reload();
+    				// this.$modal.hide('add_doubt_modal');   			
+					if (this.career_id){
+             	let index= this.jobList.findIndex(el=>el.career_id===this.career_id);
+			        this.jobList[index]['career_name']=this.career_name;
+					  	this.jobList[index]['category_id']=this.edit_category;
+					}else{
+            	console.log(resp,'response');
+						this.jobList.push({
+                 	career_name:resp.data.success.career.name,
+						      category_id:resp.data.success.career.category_id,
+			          	career_id:resp.data.success.career.id,
+						});
+				
+					}
+          	this.$refs.addEditJobModal.closeModal();
+          	this.career_name='';
+				  	this.edit_category='';
+					this.career_id='';
     			})
     			.catch(err => {
     				
     			});
     	},
 		editJob(career){
-         
-               	this.axios.post('/api/career',{
-				career_name:this.career_name,
-    		        	category_id:this.edit_category,
-				career_id:career.career_id,
-			})
-				.then(resp=>{
-					let index= this.jobList.findIndex(el=>el.career_id===career.career_id);
-					this.jobList[index]['career_name']=this.career_name;
-					this.jobList[index]['category_id']=this.edit_category;
-				});
-		
-		},
-		deleteJob(career){                 
+			this.career_name=career.career_name;
+			this.edit_category=career.edit_category;
+			this.career_id=career.career_id;
+		    },
+		deleteJob(career){  	           
 			this.axios.delete('/api/career/'+career.career_id)
 				.then(resp=>{
 					let index= this.jobList.findIndex(el=>el.career_id===career.career_id);
-					this.jobList.splice(index,1);
+					this.jobList.splice(index,1);		
+					console.log(this.jobList);	
 				});
      
 		}
