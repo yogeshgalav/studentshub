@@ -1,11 +1,9 @@
 <template>
   <main>
     <explore-carousal-post />
-    <div class="do_you_know">
-      <h3 class="m-0-a">Do you know what is your Interest Field?</h3>  
-      <div class="find_out">
-        <h3>Find out</h3>
-      </div>
+    <div class="p-4 text-center">
+      <h3 class="m-0-a"> Do you know what is your Interest field ? </h3>   
+      
     </div>
     <category-filter :categories="categories" />
     <div
@@ -236,11 +234,6 @@ h1 {
 		.white-space{
 			display: none;
 		}
-}
-.do_you_know {
-  overflow: hidden;
-  background: #10069f;
-  color: white;
 }
 .find_out {
   top: 100%;
