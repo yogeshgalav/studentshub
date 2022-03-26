@@ -16,7 +16,7 @@
             >
           </div>
         </div>
-        <div class="col-md-6 ">
+        <div class="col-md-6 justify-content-center">
           <div class="logn_right">
             <div class="card_title mb-2">
               <h3>{{ 'Get started' }}</h3>
@@ -159,7 +159,7 @@
                 <template
                   v-slot:footer="props"
                 >
-                  <div class="form-group  mb-0">
+                  <div class="m-0-a">
                     <div class="row">
                       <button
                         v-if="!props.isFirstStep"
