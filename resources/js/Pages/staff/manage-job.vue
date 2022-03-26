@@ -71,6 +71,7 @@
       heading="Add Career"
       classes="modal-md"
       @submit="addOrEditCareer"
+      @cancel="closeModal"
     >
       <template slot="modalBody">
         <form>
@@ -114,7 +115,7 @@
 import Modal from '../../components/VueNiceModal';
 import VueTableComponent from '@/components/vue-table-component';
 import StaffLayout from '@/Layouts/StaffLayout';
-import careersVue from '../../../../vendor/laravel/horizon/resources/js/screens/metrics/careers.vue';
+import careersVue from '../../../../vendor/laravel/horizon/resources/js/screens/metrics';
 export default {
 	layout:StaffLayout,
 	components:{
@@ -126,7 +127,7 @@ export default {
 	data() {
 		return {
      	career_name:'',
-      	edit_category: 14,
+			edit_category:'',
 			career_id:'',
 			careerList:[],
 			careerColumns: [
@@ -173,9 +174,6 @@ export default {
 						});
 					}
           	this.$refs.addEditCareerModal.closeModal();
-          	this.career_name='';
-				  	this.edit_category='';
-					  this.career_id='';
     			})
     			.catch(err => {
     				
@@ -183,8 +181,9 @@ export default {
     	},
 		editCareer(career){
 			this.career_name=career.career_name;
-			this.edit_category=career.edit_category;
+			this.edit_category=career.category_id;
 			this.career_id=career.career_id;
+			console.log(career);
 		    },
 		deleteCareer(career){  	           
 			this.axios.delete('/api/career/'+career.career_id)
@@ -192,6 +191,11 @@ export default {
 					let index= this.careerList.findIndex(el=>el.career_id===career.career_id);
 					this.careerList.splice(index,1);		
 				});
+		},
+		closeModal(){
+        	this.career_name='';
+				  this.edit_category='';
+			    this.career_id='';
 		}
 	}
 };
