@@ -20,7 +20,7 @@ class StaffController extends Controller
     $categories = \App\Models\Category::get();  
     $courses=DB::table('courses as co')
     ->leftJoin('categories as cat','cat.id','=','co.category_id')
-->select(['co.course_name as course_name','co.alias as course_alias','cat.name as category_name','cat.id as category_id'])->get();
+->select(['co.course_name as course_name','co.id as course_id','co.alias as course_alias','cat.name as category_name','cat.id as category_id'])->get();
 /*
 SELECT courses.course_name as course_name, alias as course_alias ,categories.id as categories_id, categories.name as categories_name
 FROM courses

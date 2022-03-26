@@ -50,7 +50,7 @@
                       data-toggle="tooltip"
                       data-placement="top"
                       title="Delete"
-                      @click="deleteCourse"
+                      @click="deleteCourse(props.row)"
                     >
                       <i class="fa fa-trash" />
                     </button>
@@ -132,6 +132,8 @@
 import Modal from '../../components/VueNiceModal';
 import VueTableComponent from '@/components/vue-table-component';
 import StaffLayout from '@/Layouts/StaffLayout';
+import coursesVue from '../../../../vendor/laravel/horizon/resources/js/screens/metrics';
+
 export default {
 	layout:StaffLayout,
 	components:{
@@ -145,6 +147,7 @@ export default {
        	course_name:'',
 			course_alias:'',
       	edit_category: 14,
+			course_id:'',
 			courseList:[],
 			courseColumns: [
         
@@ -175,11 +178,11 @@ export default {
 	methods:{
 		addCourse()
     	{
-			console.log('xyz');
     		this.axios.post(this.baseUrl + '/api/add-course',{
     			course_name:this.course_name,
 				course_alias:this.course_alias,
     			category_id:this.edit_category,
+				course_id:this.course_id,
     		} )
     			.then(resp => {
     				// this.$modal.hide('add_doubt_modal');
@@ -191,22 +194,20 @@ export default {
     				
     			});
     	},
-	},
-	editCourse(course) {
-		console.log(course);
-		this.course_name= course.course_name;
+      	editCourse(course) {
+		  	this.course_name= course.course_name;
+			  this.course_id= course.course_id;
+		    },
 
+		deleteCourse(course){  	        
+			this.axios.delete('/api/course/'+course.course_id)
+				.then(resp=>{
+					let index= this.courseList.findIndex(el=>el.course_id===course.course_id);
+					this.courseList.splice(index,1);		
+				});
+		},
 	},
-	deleteCourse(course) {
-		console.log(course);
-		this.axios.delete(this.baseUrl + '/api/delete-course',{
-    		course_id:courseId,
-    		}).then((resp) => {
-		
-			window.location.reload();
-		});
 
-	},
 };
 
 </script>
