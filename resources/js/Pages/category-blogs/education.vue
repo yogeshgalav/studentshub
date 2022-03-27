@@ -57,6 +57,16 @@
       Writer
       Intelligence Officer/Analyst
     </div>
+    
+    <accordion
+      title="Literature"
+      class="mb-2"
+    >
+      <p>Literature is an art form that shares stories. It is an art form of language and can be read or spoken. The Concise Oxford Dictionary defines literature as “writings whose value lies in the beauty of form or emotional effect.”</p>
+      <p>Literature crosses all written languages and encompasses a wide range of written works, including poetry, essays, plays, biographies, fiction, non-fiction, satires, and more.</p>
+      <p>Writers create art with literature through the organization of words that give pleasure, and while reading is enjoyable, those words are often critiques of society. Many of the most well-known authors used language and the written word to critique or offer a point of view on society, including George Orwell, Charlotte Brontë, and Charles Dickens.</p>
+      <p>While literature stands on its own as an art form and is one of the seven different forms of art, it is also closely related to theater, poetry, film, music, and the spoken word.</p>
+    </accordion>
   </div>
 </template>
 <script>

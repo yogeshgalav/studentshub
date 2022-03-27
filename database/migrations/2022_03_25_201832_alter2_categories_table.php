@@ -14,7 +14,9 @@ class Alter2CategoriesTable extends Migration
     public function up()
     {
         Schema::table('categories', function (Blueprint $table) {
-            $table->integer('parent_category_id')->unsigned();
+            $table->integer('category_url')->rename('slug');
+            //jobs and course will be added accordingly for better enrichment
+            $table->integer('parent_category_id')->unsigned()->nullable();
         });
     }
 

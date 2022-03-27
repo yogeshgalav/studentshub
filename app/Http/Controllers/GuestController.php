@@ -66,9 +66,9 @@ class GuestController extends Controller
             'subjectId' => $subject->id
         ]);
     }
-    public function categoryPage($category_url)
+    public function categoryPage($slug)
     {
-        $category = \App\Models\Category::where('category_url', $category_url)->firstOrFail();
+        $category = \App\Models\Category::where('slug', $slug)->firstOrFail();
                return inertia('explore/category', [
             'categoryId' => $category->id
         ]);
