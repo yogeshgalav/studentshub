@@ -12,7 +12,7 @@
           <div class="card-body">
             <form @submit.prevent="addDoubt">
               <div class="row">
-                <div class="col-md-6 col-12">
+                <div class="col-md-5 col-10">
                   <div
                     class="form-group"
                   >
@@ -93,10 +93,10 @@ export default {
 			});
 		},
 	},
-  methods:{
-	addDoubt()
+	methods:{
+		addDoubt()
     	{
-        console.log('xyz');
+			console.log('xyz');
     		this.axios.post(this.baseUrl + '/api/add-doubt',{
     			question:this.doubt_question,
     			category_id:this.edit_category,
@@ -113,6 +113,6 @@ export default {
     				
     			});
     	},
-  }
+	}
 };
 </script>
