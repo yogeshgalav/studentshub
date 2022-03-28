@@ -49,10 +49,10 @@ class CourseController extends Controller
             ]);
     }
 
-    public function delete (Request $request)
-    {
-        $course = Course::find($request->course_name);
-        $course->delete();
+    public function delete ($course_id)
+    {  
+        $course = Course::where('id',$course_id)->delete();
+        
         return 'success';
     }
 

@@ -3,7 +3,7 @@
     <div>
       <div class="row">
         <div class="col-md-12">
-          <h1>Manage Job</h1>
+          <h1>Manage Career</h1>
         </div>
       </div>
       <hr>
@@ -12,10 +12,10 @@
           type="edit"
           class="btn-lg btn-primary"
           data-toggle="modal"
-          data-target="#addEditJobModal"
+          data-target="#addEditCareerModal"
         >
           <i class="fas fa-plus" />&nbsp;&nbsp;
-          Add Job
+          Add Career
         </button>
       </div>
       <div class="card mb-2 pl-3">
@@ -23,8 +23,8 @@
           <div class="row">
             <div class="col-md-12">
               <vue-table-component
-                :columns="jobColumns"
-                :rows="jobList"
+                :columns="careerColumns"
+                :rows="careerList"
               >
                 <template
                   slot="table-row"
@@ -37,8 +37,8 @@
                       data-placement="top"
                       title="Edit"
                       data-toggle="modal"
-                      data-target="#addEditJobModal"
-                      @click="editJob(props.row)"
+                      data-target="#addEditCareerModal"
+                      @click="editCareer(props.row)"
                     >
                       <i class="fa fa-edit" />
                     </button>
@@ -48,6 +48,7 @@
                       data-toggle="tooltip"
                       data-placement="top"
                       title="Delete"
+                      @click="deleteCareer(props.row)"
                     >
                       <i class="fa fa-trash" />
                     </button>
@@ -65,18 +66,19 @@
     </div>
         
     <modal
-      ref="addEditJobModal"
-      name="addEditJobModal"
-      heading="Add Job"
+      ref="addEditCareerModal"
+      name="addEditCareerModal"
+      heading="Add Career"
       classes="modal-md"
-      @submit="addJob"
+      @submit="addOrEditCareer"
+      @cancel="closeModal"
     >
       <template slot="modalBody">
         <form>
           <div
             class="form-group"
           >
-            <label>Job Name</label>
+            <label>Career Name</label>
             <input
               id="career_name"
               v-model="career_name"
@@ -113,6 +115,7 @@
 import Modal from '../../components/VueNiceModal';
 import VueTableComponent from '@/components/vue-table-component';
 import StaffLayout from '@/Layouts/StaffLayout';
+import careersVue from '../../../../vendor/laravel/horizon/resources/js/screens/metrics';
 export default {
 	layout:StaffLayout,
 	components:{
@@ -124,11 +127,12 @@ export default {
 	data() {
 		return {
      	career_name:'',
-      	edit_category: 14,
-			jobList:[],
-			jobColumns: [
+			edit_category:'',
+			career_id:'',
+			careerList:[],
+			careerColumns: [
 				{
-					label: 'Job Name',
+					label: 'Career Name',
 					field: 'career_name',
 				},
 				{
@@ -145,33 +149,55 @@ export default {
 	},
   
 	mounted(){
-		this.jobList=this.careers; 
+		this.careerList=this.careers; 
 	},
 	methods:{
-		addJob()
-    	{
-			console.log('xyz');
-    		this.axios.post(this.baseUrl + '/api/add-job',{
+		addOrEditCareer(){
+			  	this.axios.post(this.baseUrl + '/api/career',{
     			career_name:this.career_name,
     			category_id:this.edit_category,
-    		} )
+				  career_id:(this.career_id),
+    		})
     			.then(resp => {
-    				// this.$modal.hide('add_doubt_modal');
-    				this.$refs.addEditJobModal.closeModal();
-    				this.career_name='';
-					window.location.reload();
+    				let category_name =this.categories.find(el=>el.id===this.edit_category).name;   			
+					if (this.career_id){
+             	let index= this.careerList.findIndex(el=>el.career_id===this.career_id);
+			        this.careerList[index]['career_name']=this.career_name;
+					  	this.careerList[index]['category_id']=this.edit_category;
+					  	this.careerList[index]['category_name']=category_name;
+					}else{
+						this.careerList.push({
+							career_name:resp.data.success.career.name,
+							category_id:resp.data.success.career.category_id,
+							career_id:resp.data.success.career.id,
+							category_name:category_name,
+						});
+					}
+          	this.$refs.addEditCareerModal.closeModal();
     			})
     			.catch(err => {
     				
     			});
     	},
-		editJob(career){
+		editCareer(career){
+			this.career_name=career.career_name;
+			this.edit_category=career.category_id;
+			this.career_id=career.career_id;
 			console.log(career);
-			this.career_name= career.career_name;
-
+		    },
+		deleteCareer(career){  	           
+			this.axios.delete('/api/career/'+career.career_id)
+				.then(resp=>{
+					let index= this.careerList.findIndex(el=>el.career_id===career.career_id);
+					this.careerList.splice(index,1);		
+				});
+		},
+		closeModal(){
+        	this.career_name='';
+				  this.edit_category='';
+			    this.career_id='';
 		}
 	}
-  
 };
 
 </script>
