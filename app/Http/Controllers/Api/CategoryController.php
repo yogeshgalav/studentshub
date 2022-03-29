@@ -18,4 +18,12 @@ class CategoryController extends Controller
             ]
         ]);
     }
+    
+    public function show(Category $category)
+    {
+        $category_data = Category::where('id', $category->id)->with(['courses','subjects'])->first();
+        return response()->json(['success'=>[
+            'category'=>$category_data,
+        ]]);
+      }
 }

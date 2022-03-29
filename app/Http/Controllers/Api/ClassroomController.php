@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateClassroomDetailsRequest;
 use App\Models\Classroom;
 use App\Models\Unit;
 use App\Models\ClassroomUser;
+use App\Models\Student;
 use App\Http\Requests\CreateClassroomRequest;
 use DB;
 use Auth;
@@ -62,6 +63,15 @@ class ClassroomController extends Controller
     public function createClassroom(CreateClassroomRequest $request){
 
         $course = \App\Models\Course::find($request->course_id);
+        $institute = \App\Models\Institute::firstOrCreate([
+            'name'=>$request->institute_name,
+        ],[
+            'added_by_user_id'=>$request->user('api')->id,
+        ]);
+        $institute_user = \App\Models\InstituteUser::firstOrCreate([
+            'institute_id'=>$institute->id,
+            'user_id'=>$request->user('api')->id,
+        ]);
 
         $subject= \App\Models\Subject::getOrCreate(null, $request->subject_name, $course->category_id, true);
 
@@ -74,7 +84,7 @@ class ClassroomController extends Controller
         $classroom->name=$request->classroom_name;
         $classroom->teacher_user_id=Auth::id();
         $classroom->subject_id=$subject->id;
-        $classroom->institute_id=$request->institute_id;
+        $classroom->institute_id=$institute->id;
         $classroom->course_id=$course->id;
         $classroom->save();
 
@@ -135,27 +145,28 @@ class ClassroomController extends Controller
         ]);
     }
 
-    public function joinClassroom(Request $request){
+    public function joinClassroom(Request $request)
+    {
        
+        $user = $request->user('api');
         $classroom=Classroom::where('classroom_join_id',$request->name)->first();
-        $student =Auth::student();
         if(empty($classroom)){
             return response()->json(['error'=>[
                 'field'=>'classroom_id',
                 'message'=>'This classroom join id does not exist.'
             ]],422);
-        }elseif($student->courseId !== $classroom->course_id  ||  $student->instituteId !== $classroom->institute_id){
-            return response()->json(['error'=>[
-                'field'=>'classroom_id',
-                'message'=>'You cannot join this classroom with your current preffered educational details.'
-            ]],422);
         }
-         
-        ClassroomUser::firstOrCreate([
-            'user_id'=>Auth::id(),
-            'classroom_id'=>$classroom->id
-        ]);
-
+        
+        DB::beginTransaction();
+        try {      
+            $user->joinClassroom($classroom);
+        DB::commit();
+    } catch (\Exception $e) {
+        DB::rollback();
+        // dd($e->getLine(),$e->getMessage());
+        Log::critical('Join classroom failure',['data'=>$request->all(),'error'=>$e->getMessage()]);
+        return response()->$e;
+    }
         return response()->json(['success'=>[
             'classroom_id'=>$classroom->id,
         ]]);

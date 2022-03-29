@@ -9,12 +9,14 @@ use Illuminate\Notifications\Notification;
 use App\Models\ScheduledJob;
 use Illuminate\Support\Facades\Log;
 use App\Channels\CustomDbChannel;
+use App\Models\Doubt;
 
-class NewDoubtNotification extends Notification
+class NewDoubtNotification extends SthubNotification
 {
     use Queueable;
     public $scheduled_job;
     public $doubt;
+    public $user;
     /**
      * Create a new notification instance.
      *
@@ -23,9 +25,29 @@ class NewDoubtNotification extends Notification
     public function __construct($scheduled_job)
     {
         $this->scheduled_job = $scheduled_job;
-        $this->doubt = $scheduled_job->job_body['doubt'];
+        $this->user = $scheduled_job->fromUser;
+        $this->doubt = Doubt::find($scheduled_job->job_body['doubt_id']);
     }
-
+/**
+     * Add all logic here to determine whether or not this notification is still
+     * valid.  It will run immediately before the notification is sent.
+     *
+     * Call $this->abortSending($reason) to log the job cancellation, and then
+     * return boolean.
+     *
+     * @see NotificationSendingListener
+     * @return bool
+     */
+    public function shouldAbort(): bool
+    {
+        if (empty($this->doubt)) {
+            return $this->abortSending('The doubt was not found.');
+        }
+        if (empty($this->user)) {
+            return $this->abortSending('The user was not found.');
+        }
+        return false;
+    }
     /**
      * Get the notification's delivery channels.
      *
@@ -65,10 +87,10 @@ class NewDoubtNotification extends Notification
             'scheduled_job_id'=>$this->scheduled_job->id,
             'user_id'=>$notifiable->id,
             'title'=>'New Doubt.',
-            'avatar_url'=>$this->scheduled_job->user->avatar_url,
-            'avatar_name'=>$this->scheduled_job->user->full_name,
+            'avatar_url'=>$this->user->avatar_url,
+            'avatar_name'=>$this->user->full_name,
             'url'=>"/doubt/".$this->doubt['id'],
-            'body'=>$this->scheduled_job->user->full_name.' asked a doubt, "'.$question_text.'"',
+            'body'=>$this->user->full_name.' asked a doubt, "'.$question_text.'"',
         ];
     }
 }

@@ -9,7 +9,7 @@ export default {
 			if(data.params){
 				route=route+'&'+data.params;
 			}
-			axios({url: window.App.baseUrl+'/api'+route, method: 'GET' })
+			axios({url: '/api'+route, method: 'GET' })
 				.then(resp => {
 					const posts = resp.data.success.posts;
 					commit('get_posts', posts);
@@ -22,7 +22,7 @@ export default {
 	},
 	getPostContent({commit},post_id){
 		return new Promise((resolve, reject) => {
-			axios({url: window.App.baseUrl+'/api/get-post-content/'+post_id, method: 'GET' })
+			axios({url: '/api/get-post-content/'+post_id, method: 'GET' })
 				.then(resp => {
 					const data = resp.data.success;
 					commit('get_post_content', data);
@@ -35,7 +35,7 @@ export default {
 	},
 	subscribe({commit},data){
 		return new Promise((resolve, reject) => {
-			axios({url: window.App.baseUrl+'/api/subscribe',data:data, method: 'POST'})
+			axios({url: '/api/subscribe',data:data, method: 'POST'})
 				.then(resp => {
 					const data = resp.data.success;
 					// commit('get_explore_page_content', data,)

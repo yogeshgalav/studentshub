@@ -100,9 +100,9 @@ class StudentController extends Controller
         foreach($request->answers as $answer){
             DailyAnswer::create([
                 'user_id'=>Auth::id(),
-                'daily_question_id'=>$answer['question_id'],
+                'daily_question_id'=>intval($answer['question_id']),
                 'daily_report_id'=>$report->id,
-                'selected_option_id'=>$answer['answer'],
+                'selected_option_id'=>intval($answer['answer']),
             ]);
         }
         DB::commit();
@@ -113,33 +113,36 @@ class StudentController extends Controller
     }
         return redirect('/classroom/'.$request->classroom_id.'/daily-assignment');
     }
-    public function sharePost()
+    public function sharePost(Request $request)
     {
-        return view('create-post.share-post');
+        if($request->cId){
+        $courseInfo = \App\Models\Course::find($request->cId);
+        }
+        if($request->sId){
+            $subjectInfo = \App\Models\Subject::find($request->sId);
+        }
+        return inertia('create-post/share-post', [
+            'courseInfo' => isset($courseInfo) ? $courseInfo : null,
+            'subjectInfo' => isset($subjectInfo) ? $subjectInfo : null,
+        ]);
     }
     public function editPost(Post $post)
     {
-        $post_details = $post->load(['category','subject','postable'])->append('post_type');
-        return view('create-post.edit-post')->with('post',$post_details);
-    }
-    public function classroomList()
-    {
-        return view('student.classroomList');
-    }
-
-    public function classroom()
-    {
-        return view('student.classroom');
+        $post_details = $post->load(['category','subjects','postable']);
+        return inertia('create-post/edit-post', ['post' => $post_details]);
     }
 
     public function myCoursePage(){
-        return view('student.my-course')
-        ->with('courseId', Auth::student()->courseId);
+        return inertia('common/my-course');
     }
     public function moreApps()
     {
         $apps = \App\Models\MoreApp::get();
-        return view('student.more-apps')
-            ->with('apps', $apps);
+        return inertia('common/more-app', ['apps' => $apps]);
+    }
+    public function askDoubt(){
+       
+        $categories = \App\Models\Category::get();
+        return inertia('doubt/create-doubt', ['categories' => $categories]);
     }
 }

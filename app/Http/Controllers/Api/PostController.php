@@ -20,6 +20,7 @@ use DB;
 use Storage;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
+use App\Services\simple_html_dom;
 
 class PostController extends Controller
 {
@@ -27,78 +28,46 @@ class PostController extends Controller
     public function create(Request $request){
 
         $data=$request->all();
-        $post_type=$data['post_type'];
         $heading=$data['heading'];
-        $student=Auth::student();
-        if(is_null($student)){
-          abort(403);
-        }
+        
         DB::beginTransaction();
         try{
-          $subject = NULL;
-          if($data['subject_name']){
-            $subject=Subject::getOrCreate($data['subject_id'], $data['subject_name'], $data['category_id']);
-          }
-      
-        
 
         $post=new Post;
         $post->user_id=Auth::user()->id;
         $post->post_heading=$heading;
-        $post->subject_id=$subject?$subject->id:NULL;
         $post->category_id = $data['category_id'];
 
+        $simple_html_dom = new simple_html_dom;
+        $dom = $simple_html_dom->extactImageFiles($data['article_html_content'], "post-image");
+        $post_content= Article::create(['html_content'=>$dom->html]);
 
-        switch(strToLower($request->post_type)){
-            case 'article':
-                $article=new Article;
-                $post_content_id=$article->createFromContent($data);
-                $post->postable_type="App\Models\Article";
-                $post->primary_image_path=null;
-                $post->postable_id=$post_content_id;
-
-            break;
-            case 'notice':
-                $notice=new Notice;
-                $post_content_id=$notice->createFromContent($data);
-                $post->postable_type="App\Models\Notice";
-                $post->postable_id=$post_content_id;
-            break;
-            case 'document':
-             $document=new Document;
-             $post_content_id=$document->createNewDocument($data,'public');
-
-             $post->primary_image_path='/images/document.png';
-             $post->postable_type="App\Models\Document";
-             $post->postable_id=$post_content_id;
-            break;
-            case 'video':
-            $video=new Video;
-            $post_content_id=$video->createNewVideo($data);
-            $post->primary_image_path='https://img.youtube.com/vi/'.$data['video_id'].'/0.jpg';
-            $post->postable_type="App\Models\Video";
-            $post->postable_id=$post_content_id;
-            break;
-            case 'mcq':
-            $mcq=new Mcq;
-            $post_content_id=$mcq->createNewMcq($data);
-            $post->primary_image_path='/storage/mcq-default.png';
-            $post->postable_type="App\Models\Mcq";
-            $post->postable_id=$post_content_id;
-            break;
-            case 'fact':
-            $fact=new Fact;
-            [$post_content_id,$file_path]=$fact->createNewFact($data);
-            $post->primary_image_path=$file_path;
-            $post->postable_type="App\Models\Fact";
-            $post->postable_id=$post_content_id;
-            break;
+        foreach($dom->files as $file){
+            $newFile= new SthubFile();
+            $newFile->fileable_id=$post_content->id;
+            $newFile->fileable_type=Article::class;
+            $newFile->file_ext=Storage::disk('post-image')->getMimeType($file);
+            $newFile->file_size=Storage::disk('post-image')->size($file);
+            $newFile->file_name=$file;
+            $newFile->user_id=Auth::user()->id;
+            $newFile->save();
         }
+        $primary_image_path='';
+        if(count($dom->files)){
+          $primary_image_path=$dom->files[0];
+        } else {
+          $primary_image_path= $simple_html_dom->extractYoutubeImage($data['article_html_content']);
+        }
+
+        $post->postable_type="App\Models\Article";
+        $post->primary_image_path=$primary_image_path;
+        $post->postable_id=$post_content->id;
 
         $post->created_via='dashboard';
         $post->post_description = $data['description'];
         $post->save();
 
+        Subject::addPostTags($post, $request->selected_subjects);
         SthubPost::addAction('share',$post,Auth::user());
 
         DB::commit();
@@ -107,6 +76,10 @@ class PostController extends Controller
         Log::warning('Post Creation failure',['data'=>$request->all(),'error'=>$e->getMessage()]);
         return response()->$e;
     }
+    Log::info('New Post created',[
+      'user_id'=>$request->user('api')->id,
+      'heading'=>$request->heading,
+    ]);
         return response()->json(['success'=>[
           'message'=>'Post Successfully Created',
         ]]);
@@ -119,15 +92,10 @@ class PostController extends Controller
       }
       DB::beginTransaction();
       try{
-        $subject = NULL;
-        if($data['subject_name']){
-          $subject=Subject::getOrCreate($data['subject_id'], $data['subject_name'], $data['category_id']);
-        }
     
       $post->post_heading=$data['heading'];
       $post->subject_id=$subject?$subject->id:NULL;
       $post->category_id = $data['category_id'];
-
 
       switch($post->postable_type){
           case Article::class:
@@ -167,11 +135,47 @@ class PostController extends Controller
   }
 
     public function getPosts(Request $request){
-        $post=new \App\Post;
-        $posts = $post->getAuthUserPosts($request);
+        $post_repo=new \App\Post;
+        $post_query=$post_repo->getAuthUserPostTabels();
+
+        $dashboard_id = $request->route('dasboard_id');
+
+        switch($request->route('dasboard_type')){
+          case 'institute':
+            $post_query=$post_query->where('inst.id',$institute_id)
+            ->orderBy('po.created_at','DESC');
+            break;
+          case 'course':
+            $posts=$post_query->where('po.course_id',$course_id)
+            ->orderBy('po.created_at','DESC');
+            break;
+          case 'subject':
+            $posts=$post_query->leftJoin('post_tags as pt','pt.post_id','=','po.id')
+            ->where('pt.subject_id',$subject_id)
+            ->orderBy('po.created_at','DESC');
+            break;
+          case 'category':
+            $posts=$post_query->where('cat.id',$category_id)
+            ->orderBy('po.created_at','DESC');
+            break;
+          case 'user':
+            $posts=$post_query->where('po.user_id',$userId)
+            ->orderBy('po.created_at','DESC');
+            break;
+          default:
+            $posts=$post_query->orderBy('po.created_at','DESC');
+            break;
+        }
+
+        if($request->user('api')){
+          $posts=$post_query->paginate();
+        }else{
+          $posts=$post_query->limit(10)->get();
+        }
+        
         return response()->json(['success'=>[
-          'posts'=>\Sthub::convert_from_latin1_to_utf8_recursively($posts)
-      ]]);
+          'posts'=>\Sthub::convert_from_latin1_to_utf8_recursively($post_repo->formatPostData($posts))
+        ]]);
     }
 
     public function show(Post $post){
@@ -200,43 +204,16 @@ class PostController extends Controller
             'most_liked'=>\Sthub::convert_from_latin1_to_utf8_recursively($most_liked),
         ]]);
     }
-    public function courseDetails(Request $request){
-        $subject=\App\Models\Course::where('slug', $request->route('id'))->firstOrFail();
-        $post=new \App\Post;
-        $posts = $post->getCoursePosts($course->id);
-
-        return response()->json(['success'=>[
-            'posts'=>\Sthub::convert_from_latin1_to_utf8_recursively($posts),
-            'subject'=>$course,
-        ]]);
-      }
-      public function subjectDetails(Request $request){
-        $subject=\App\Models\Subject::where('slug', $request->route('id'))->firstOrFail();
-        $post=new \App\Post;
-        $posts = $post->getSubjectPosts($subject->id);
-
-        return response()->json(['success'=>[
-            'posts'=>\Sthub::convert_from_latin1_to_utf8_recursively($posts),
-            'subject'=>$subject,
-        ]]);
-      }
-
-      public function categoryDetails(Request $request){
-        $category=\App\Models\Category::where('category_url', $request->route('id'))->with('courses')->with('subjects')->firstOrFail();
-        $post=new \App\Post;
-        $posts = $post->getCategoryPosts($category->id);
-
-        return response()->json(['success'=>[
-            'posts'=>\Sthub::convert_from_latin1_to_utf8_recursively($posts),
-            'category'=>$category,
-        ]]);
-      }
 
       public function savePost(Request $request){
         $save_post=new \App\Models\SavedPost();
         $save_post->user_id=Auth::user()->id;
         $save_post->post_id=$request->post_id;
         $save_post->save();
+        \Log::warning('New Saved post', [
+          'user_id'=>$save_post->user_id,
+          'post_id'=>$save_post->post_id,
+        ]);
         return response()->json(['success'=>[
           'post_save'=>true,
         ]]);
@@ -244,11 +221,25 @@ class PostController extends Controller
 
       public function reportPost(Request $request){
         $report_post=new \App\Models\PostReport();
-        $report_post->user_id=Auth::user()->id;
+        $report_post->user_id=$request->user('api')->id;
         $report_post->post_id=$request->post_id;
         $report_post->save();
+        \Log::warning('New Report Added', [
+          'user_id'=>$report_post->user_id,
+          'post_id'=>$report_post->post_id,
+        ]);
         return response()->json(['success'=>[
           'user_like'=>true,
         ]]);
       }
+
+      public function delete(Post $post){
+        
+        Like::where('likable_id', $post->id)->where('likable_type', Post::class)->delete();
+        Comment::where('commentable_id', $post->id)->where('commentable_type', Post::class)->delete();
+        SthubPost::where('post_id', $post->id)->delete();
+        $post->delete();
+
+        return response()->json([],204);
+    }
 }

@@ -7,11 +7,59 @@ use Illuminate\Http\Request;
 use Auth;
 use DB;
 use App\Models\Institute;
+use App\Models\User;
 
 class InstituteController extends Controller
 {
     //
-    public function show($instituteId){
+
+    public function index(Request $request)
+    {
+        $in_query = DB::table('institutes as ins');
+        if(!empty($request->searchTerm)){
+            $input = $request->searchTerm;
+            $in_query = $in_query->where('ins.name', 'LIKE', $input . '%')
+            ->orWhere('ins.alias', 'LIKE', $input . '%');
+        }
+        $institutes = $in_query->leftJoin('students as st', 'ins.id', '=', 'st.institute_id')
+        ->select('ins.id', 'ins.name', DB::raw("COUNT('st.id') as totalStudent"))
+        ->groupBy('ins.id', 'ins.name')
+        ->orderBy('totalStudent', 'DESC')->limit(10)->get();
+
+        return response()->json(['success' => [
+            'institutes' => $institutes
+        ]]);
+    }
+    public function show($instituteId=null)
+    {
+        if($instituteId){
+            $institute = Institute::findOrFail($instituteId);
+        }else if($request->user('api')){
+            $institute=Institute::findOrFail($request->user('api')->preferred_institute_id);
+        }
+
+        if(empty($institute)){
+            abort(404);
+        }
+
+        $teachers = User::where('role','teacher')
+        ->where('preferred_institute_id',$institute->id)
+        ->with('preferredCourse')
+        ->get();
+
+        $students = User::where('role','student')
+        ->where('preferred_institute_id',$institute->id)
+        ->with('preferredCourse')
+        ->get();
+
+        return response()->json(['success'=>[
+            'institute'=>$institute,
+            'teachers'=>$teachers,
+            'students'=>$students,
+        ]]);
+    
+    }
+    public function showAdmin($instituteId){
         $institute_detail = Institute::findOrFail($instituteId);
 
         $members=DB::table('institute_users as inu')->where('inu.institute_id',$instituteId)
@@ -89,8 +137,8 @@ class InstituteController extends Controller
         ],200);
     }
 
-    public function index(){
-
+    public function adminIndex()
+    {
         $institutes=DB::table('institutes as in')
         ->leftJoin('institute_users as inu','in.id','=','inu.institute_id')
         ->join('institute_users as insu',function($join){
@@ -124,5 +172,68 @@ class InstituteController extends Controller
         return response()->json(['success'=>[
             'institute_id'=>$institute->id
         ]]);
+    }
+
+    public function indexStudents()
+    {
+        $instituteId = Auth::user()->preferred_institute_id;
+        $students=DB::table('students as st')->where('st.institute_id',$instituteId)
+        ->join('users as us','us.id','=','st.user_id')
+        ->join('courses as cs','cs.id','=','st.course_id')
+        ->leftJoin('daily_reports as dr','dr.user_id','=','us.id')
+        ->select('us.id','us.full_name','us.email','st.unique_college_id as institute_id','cs.alias as course_alias',
+        DB::raw('AVG(dr.marks_obtained) as avg_score')
+        )
+        ->groupBy('us.id','us.full_name','us.email','st.unique_college_id','cs.alias')
+        ->get();
+
+
+        return response()->json(['success'=>[
+            'students'=>$students,
+        ]]);
+
+    }
+    public function showStudent(User $user)
+    {
+        if(!Auth::user()->hasInstituteUserAccess()){
+            abort(401);
+        }
+        $student_detail=DB::table('users as us')->where('us.id',$user->id)
+        ->leftJoin('user_parents as pa','pa.user_id','=','us.id')
+        ->leftJoin('users as pus','pus.id','=','pa.parent_user_id')
+        ->select('us.full_name','us.email',
+        'pus.full_name as parent_name','pus.id as parent_id','pus.email as parent_email','pus.phone_no as parent_phone')
+        ->first();
+
+
+        return response()->json(['success'=>[
+            'student_detail'=>$student_detail,
+        ]]);
+
+    }
+
+    public function updateStudent(Request $request, User $user)
+    {
+        $parent = null;
+        if ($request->parent_id){
+            $parent = User::findOrFail($request->parent_id);
+        }else{
+            $parent = new User;
+            $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
+            $parent->password=\Hash::makes(substr(str_shuffle($chars),0,8));
+        }
+        $parent->full_name=$request->parent_name;
+        $parent->email=preg_replace('/\s+/', '',$request->parent_email);
+        $parent->phone_no=preg_replace('/\s+/', '',$request->parent_phone);
+        $parent->role='parent';
+        $parent->preferred_institute_id=$request->user('api')->preferred_institute_id;
+        $parent->save();
+
+        \App\Models\UserParent::firstOrCreate([
+            'parent_user_id'=>$parent->id,
+            'user_id'=>$user->id,
+        ]);
+
+        return response()->json([], 204);
     }
 }

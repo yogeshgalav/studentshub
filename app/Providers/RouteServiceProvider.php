@@ -12,6 +12,9 @@ use App\Models\Doubt;
 use App\Models\ClassroomResource;
 use App\Models\Homework;
 use App\Models\Comment;
+use App\Models\Category;
+use App\Models\Subject;
+use App\Models\Course;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -31,6 +34,10 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Route::model('category', Category::class);
+        Route::model('subject', Subject::class);
+        Route::model('course', Course::class);
+
         Route::model('user', User::class);
         Route::model('classroom', Classroom::class);
         Route::model('daily_assignment', DailyAssignment::class);
