@@ -180,7 +180,7 @@ export default {
 		this.heading = this.$store.state.post.heading;
 		this.selected_category = this.$store.state.post.selected_category_id;
 		EventBus.$on('validateStep1', () => {
-			this.$validator.validate().then(valid => {
+			this.validateForm().then(valid => {
 				if (valid) {
 					this.$store.commit('set_post_subject', {
 						selected_subjects: this.tags,

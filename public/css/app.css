@@ -12334,6 +12334,8 @@ button[disabled=disabled] {
   font-weight: bold;
   font-size: 1.1em;
   color: #333;
+  margin-top: 1rem;
+  margin-bottom: 0.2rem;
 }
 
 .form-group > input {
@@ -13076,6 +13078,7 @@ i {
 }
 
 .form-check label {
+  margin-top: 1rem;
   margin-bottom: 0.5rem;
   color: #495057;
   font-weight: 400;

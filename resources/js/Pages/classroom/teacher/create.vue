@@ -291,7 +291,7 @@ export default {
 	},
 	methods: {
 		createClassroom() {
-			this.$validator.validate().then(valid => {
+			this.validateForm().then(valid => {
 				if (valid) {
 					this.form_errors=[];
 					this.axios.post('/api/classroom/create', {

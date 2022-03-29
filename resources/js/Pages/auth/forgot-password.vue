@@ -128,7 +128,7 @@ export default {
 	},
 	methods:{
 		handleSubmit: function () {
-			this.$validator.validate().then(valid => {
+			this.validateForm().then(valid => {
 				if (valid) {
 					this.submitEmail();
 				}
