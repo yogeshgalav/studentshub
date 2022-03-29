@@ -14,7 +14,7 @@
           </div>
         </div>
         <div
-          class="col-md-10 col-10"
+          class="col-md-10 col-10 d-flex"
         >
           <div
             class="pl-2 pt-2 pb-2 comment-margin"
@@ -28,7 +28,7 @@
             </p>
           </div>
           <div
-            class="dropdown d-inline"
+            class="dropdown d-inline m-a"
           >
             <button
               id="dropdownMenuButton"
@@ -152,6 +152,7 @@
 }
 .comment-margin{
   margin-left: -25px;
+  width:100%;
 }
 .comment-user-name{
   margin-left: -20px;
