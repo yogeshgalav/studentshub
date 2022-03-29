@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Scopes\CategoryScope;
 
 class Category extends Model
 {
@@ -11,11 +12,9 @@ class Category extends Model
     protected static function boot()
     {
         parent::boot();
-
-        statis::addGlobalScope('sortAlpha', function(Buillder $builder) {
-            $builder->whereNull('parent_category_id')->orderBy('name');
-        });
+        static::addGlobalScope(new CategoryScope);
     }
+    
     public function courses(){
         return $this->hasMany('App\Models\Course');
     }

@@ -22,7 +22,7 @@ class Alter2CategoriesTable extends Migration
         
         //change law  to law,
         Category::where('id',10)->update([
-            'name'=>'Law',
+            'name'=>'Law & Humanity',
             'slug'=>'law',
         ]); 
         Category::where('id',9)->update([
@@ -34,7 +34,7 @@ class Alter2CategoriesTable extends Migration
             'name'=>'Humanities',
             'slug'=>'humanities',
         ]);
-        //chhange arts&culture to visual and performing then add design to it
+        //change arts&culture to visual and performing then add design to it
         Category::where('id',4)->update([
             'name'=>'Performing Arts',
             'slug'=>'performing-arts',

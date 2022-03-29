@@ -17,7 +17,7 @@ class UserController extends Controller
     public function getProfile(){
         $user=Auth::user();
 
-        $categories=DB::table('categories as cat')
+        $categories=DB::table('categories as cat')->whereNull('parent_category_id')
         ->leftJoin('posts as po','po.category_id','=','cat.id')
         ->leftJoin('sthub_posts as spv',function($join){
             $join->on('spv.post_id','=','po.id')
