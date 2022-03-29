@@ -20,12 +20,24 @@ class LogNotificationFailed
     /**
      * Handle the event.
      *
-     * @param NotificationFailed  $event
+     * @param NotificationFailed $event
      * @return void
      */
     public function handle(NotificationFailed $event)
     {
-        Log::error('Event Failed...');
-        Log::error(json_decode( json_encode($event), true));
+        if (isset($event->channel) && 'twilio' === $event->channel) {
+            if (isset($event->data['exception']) && 21610 === $event->data['exception']->getCode()) {
+                Log::warning('SMS Not Send. Recipient is on Twilio Blacklist.', ['notifiable' => $event->notifiable, 'data' => $event->data]);
+
+                return;
+            }
+            if (isset($event->data['exception']) && (21614 === $event->data['exception']->getCode() || 21211 === $event->data['exception']->getCode())) {
+                Log::warning('SMS Not Send. Recipient Phone Number Not Valid', ['notifiable' => $event->notifiable, 'data' => $event->data]);
+
+                return;
+            }
+        }
+
+        Log::error('Failed to Send Notification', ['data' => $event->data, 'event' => $event]);
     }
 }

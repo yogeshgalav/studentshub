@@ -18,12 +18,15 @@ class AdminMiddleware
     public function handle($request, Closure $next)
     {
         $user=Auth::user();
-        
-        if($user && $admin=Admin::where('user_id',$user->id)->first()){
-            if('Admin1'===$admin->password){
-                return $next($request);
-            }
+
+        if($user->role==='sthub_staff'){
+            return $next($request);
         }
+        // if($user && $admin=Admin::where('user_id',$user->id)->first()){
+        //     if('Admin1'===$admin->password){
+        //         return $next($request);
+        //     }
+        // }
 
         abort(404);
         

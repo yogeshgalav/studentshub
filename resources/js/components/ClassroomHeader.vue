@@ -6,7 +6,7 @@
           <div class="">
             <a
               class="btn btn-link ml-2 mb-2 font-size-18"
-              @click="$router.back()"
+              @click="goBack"
             >
               <i
                 class="fa fa-arrow-left"
@@ -77,13 +77,6 @@ margin-top: 3rem !important;
 export default {
 	props: {
 		title: String
-	}, 
-	data() {
-		return {
-			displayText: false,
-			displayText1: true,
-
-		};
 	},
 	computed:{
 		classroomDetail(){
@@ -91,25 +84,7 @@ export default {
 		}
 	},
 	mounted() {
-		this.$store.dispatch('classroom/getClassroomDetail',this.$route.params.classroomId);  
-	},
-       
-	methods:{
-		copyText(){
-			const el = document.createElement('textarea');
-			el.value = this.classroomDetail.classroom_join_id;
-			document.body.appendChild(el);
-			el.select();
-               
-			document.execCommand('copy');
-			this.displayText = true;
-			this.displayText1 = false;
-			document.body.removeChild(el);
-               
-               
-                
-		},
-            
+		this.$store.dispatch('classroom/getClassroomDetail',this.$route.params[0]);  
 	},
 };
 

@@ -32,5 +32,16 @@ class SthubPost extends Model
 
         return true;
     }
+    
+    public static function deleteAction(String $action_type,Post $post,User $user)
+    {
+        $sthub_post = self::where([
+            'post_id'=>$post->id,
+            'action_user_id'=>$user->id,
+            'action_type'=>$action_type,
+        ])->delete();
+
+        return true;
+    }
 
 }

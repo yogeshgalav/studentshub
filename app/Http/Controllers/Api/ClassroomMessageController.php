@@ -60,34 +60,10 @@ class ClassroomMessageController extends Controller
             'content'=>$request->content,
             'parent_message_id'=>$request->parent_message_id,
         ]);
-        if($request->parent_message_id == null ){
-            ScheduledJob::newClassroomMessageNotification($classroom);
-        } else {
-            $parent_message = ClassroomMessage::find($request->parent_message_id);
-            if ($parent_message->sender_user_id != Auth::id()) {
-                foreach ($parent_message->replies()->get() as $reply) {
-                    ScheduledJob::newClassroomReplyMessageNotification($classroom, $reply->sender()->first());
-                }
-                ScheduledJob::newClassroomReplyMessageNotification($classroom, $parent_message->sender()->first());
-            }
-        }
-        // \Notification::send($classroom->users,new MessageAdded);
+        ScheduledJob::newClassroomMessageNotification($classroom);
+        
         return response()->json(['success'=>[
             'message'=>$message
-        ]]);
-    }
-    public function replymessage($messageId){
-        $messagequery = ClassroomMessage::where('parent_message_id','=',$messageId)
-        ->leftJoin('users as us','us.id','=','classroom_messages.sender_user_id')
-        ->leftJoin('classrooms as cs','cs.id','=','classroom_messages.classroom_id')
-        ->select('classroom_messages.classroom_id', 'classroom_messages.id','classroom_messages.content','classroom_messages.created_at','us.full_name as user_name','us.avatar_url','cs.name as classroom_name');
-        $messages = $messagequery->orderBy('classroom_messages.created_at','DESC')->get();
-
-        foreach($messages as $message){
-            $message->time = Carbon::createFromTimeStamp(strtotime($message->created_at))->diffForHumans();
-        }
-        return response()->json(['success'=>[
-            'messages'=>$messages
         ]]);
     }
     public function editmessage(EditMessageRequest $request){

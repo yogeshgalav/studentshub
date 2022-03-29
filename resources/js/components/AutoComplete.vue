@@ -74,7 +74,7 @@
 
   .autocomplete-result.is-active,
   .autocomplete-result:hover {
-    background-color: #4AAE9B;
+    background-color: #10069f;
     color: white;
   }
 
@@ -147,10 +147,9 @@ export default {
 			}
 		},
 		initialValue(val){
-			if(val){
+			if(val && !this.search){
 				this.result = Object.assign({},val);
 				this.search = this.result[this.value];
-				console.log(this.result,this.search);
 			}
 		}
 	},

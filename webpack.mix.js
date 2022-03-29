@@ -1,4 +1,9 @@
-const mix = require('laravel-mix');
+const path = require('path')
+const process = require('process')
+const mix = require('laravel-mix')
+// const cssImport = require('postcss-import')
+// const cssNesting = require('postcss-nesting')
+const webpackConfig = require('./webpack.config')
 
 /*
  |--------------------------------------------------------------------------
@@ -12,15 +17,9 @@ const mix = require('laravel-mix');
  */
 
 mix
-.extract(['vue','vue-router','vue-axios','axios','vue-sweetalert2','dayjs','vue-dayjs'], 'public/js/vue.js')
-.extract(['chart.js'], 'public/js/chart.js')
-.js('resources/js/app/guest/app.js', 'public/js/app.js')
-.js('resources/js/app/seeker/app.js', 'public/js/seekerApp.js')
-.js('resources/js/app/student/app.js', 'public/js/studentApp.js')
-.js('resources/js/app/profile/app.js', 'public/js/profileApp.js')
-.js('resources/js/app/create-post/app.js', 'public/js/createPostApp.js')
-.js('resources/js/app/student-register/app.js', 'public/js/studentRegisterApp.js')
-.js('resources/js/app/student-classroom/app.js', 'public/js/studentPanelApp.js')
-.js('resources/js/app/teacher-classroom/app.js', 'public/js/classroomApp.js')
-.js('resources/js/app/institute/app.js', 'public/js/instituteApp.js')
-    .sass('resources/sass/app.scss', 'public/css/app.css');
+  .js('resources/js/app.js', 'public/js')
+  .sass('resources/sass/app.scss', 'public/css')
+  // .vue({ runtimeOnly: (process.env.NODE_ENV || 'production') === 'production' })
+  .webpackConfig(webpackConfig)
+  .version()
+  .sourceMaps()

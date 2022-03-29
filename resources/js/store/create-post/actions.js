@@ -4,7 +4,7 @@ export default {
 	getSubjectList({commit},data){
 		commit('set_subject', data.subject_id);
 		return new Promise((resolve, reject) => {
-			axios({url: window.App.baseUrl+'/api/get-subject-list/'+data.subject_id, method: 'GET' })
+			axios({url: '/api/get-subject-list/'+data.subject_id, method: 'GET' })
 				.then(resp => {
 					const subject_data = resp.data.success;
 					commit('get_subject_list', subject_data);
@@ -17,7 +17,7 @@ export default {
 	},
 	getCategories({commit}){
 		return new Promise((resolve, reject) => {
-			axios({url: window.App.baseUrl+'/api/get-categories', method: 'GET' })
+			axios({url: '/api/get-categories', method: 'GET' })
 				.then(resp => {
 					let data={};
 					data['categories'] = resp.data.success.categories;
@@ -31,7 +31,7 @@ export default {
 	},
 	submitPost({commit},data){
 		return new Promise((resolve, reject) => {
-			axios({url: window.App.baseUrl+'/api/submit-post', data: data, method: 'POST' })
+			axios({url: '/api/submit-post', data: data, method: 'POST' })
 				.then((resp) => {
 					resolve(resp);
 				})

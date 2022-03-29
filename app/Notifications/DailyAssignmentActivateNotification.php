@@ -10,8 +10,9 @@ use App\Models\ScheduledJob;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 use App\Channels\CustomDbChannel;
+use App\Models\DailyAssignment;
 
-class DailyAssignmentActivateNotification extends Notification
+class DailyAssignmentActivateNotification extends SthubNotification
 {
     use Queueable;
     public $scheduled_job;
@@ -27,10 +28,32 @@ class DailyAssignmentActivateNotification extends Notification
     {
         $this->scheduled_job = $scheduled_job;
         $this->classroom = $scheduled_job->classroom;
-        $this->teacher = $scheduled_job->user;
-        $this->daily_assignment = $scheduled_job->job_body['daily_assignment'];
+        $this->teacher = $scheduled_job->fromUser;
+        $this->daily_assignment = DailyAssignment::find($scheduled_job->job_body['daily_assignment_id']);
     }
-
+    /**
+     * Add all logic here to determine whether or not this notification is still
+     * valid.  It will run immediately before the notification is sent.
+     *
+     * Call $this->abortSending($reason) to log the job cancellation, and then
+     * return boolean.
+     *
+     * @see NotificationSendingListener
+     * @return bool
+     */
+    public function shouldAbort(): bool
+    {
+        if (empty($this->daily_assignment)) {
+            return $this->abortSending('The daily_assignment was not found.');
+        }
+        if (empty($this->teacher)) {
+            return $this->abortSending('The teacher was not found.');
+        }
+        if (empty($this->classroom)) {
+            return $this->abortSending('The classroom was not found.');
+        }
+        return false;
+    }
     /**
      * Get the notification's delivery channels.
      *

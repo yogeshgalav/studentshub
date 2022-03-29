@@ -6,8 +6,16 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <meta name="application-name" content="StudentsHUB"/>
 <meta name="author" content="Yogesh Galav"/>
-<meta name="description" content="Educational App to boost productivity of Students, Teachers and Institutes. Learn about your progress, pain points and student's field of interest."/>
-<meta name="keywords" content="studenthub, studentshub, student, hub, education,knowledge,curiosity,institute information"/>
+@if(isset($meta_description) && is_string($meta_description))
+<meta name="description" content="{{ $meta_description }}"/>
+@else
+<meta name="description" content="Student's Hub is the first and only Educational Social Network made for Students, Teachers and Institutes."/>
+@endif
+@if(isset($meta_keywords) && is_string($meta_keywords))
+<meta name="keywords" content="{{ $meta_keywords }}"/>
+@else
+<meta name="keywords" content="educational, social network, posts, interest field, subjects, school, classmates, doubts"/>
+@endif
 @if(isset($nocache) && $nocache)
 <meta http-equiv='cache-control' content='no-cache'>
 <meta http-equiv='expires' content='0'>
