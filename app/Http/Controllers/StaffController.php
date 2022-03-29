@@ -13,8 +13,13 @@ class StaffController extends Controller
    public function leadIndexPage(){        
         return inertia('staff/lead-index');
     }
-   public function leadShowPage(){        
-        return inertia('staff/lead-show', ['lead' => 'xyz']);
+   public function leadShowPage(){     
+    $leads = DB::table('users')
+    ->select('users.id as user_id','full_name','phone_no','onboarded_at')
+    ->rightJoin('leads', function($join){
+        $join->on('leads.user_id', '=', 'users.id')->where('lead_status','raw');
+    })->get();   
+        return inertia('staff/lead-show', ['leads' => $leads]);
     }
    public function manageCoursePage(){        
     $categories = \App\Models\Category::get();  

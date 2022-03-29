@@ -11,7 +11,7 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-body">
-              <form>
+              <form @submit.prevent="addLead">
                 <div class="row">
                   <div class="col-md-6 col-12">
                     <div
@@ -21,6 +21,7 @@
                       
                        
                       <select
+                        v-model="lead_status"
                         class="form-control"
                         aria-label=".form-select-lg example"
                       >
@@ -51,6 +52,7 @@
                       <label for="exampleFormControlTextarea1">Description</label>
                       <textarea
                         id="exampleFormControlTextarea1"
+                        v-model="description"
                         class="form-control"
                         rows="3"
                       />
@@ -59,6 +61,7 @@
                     <div class="form-check">
                       <input
                         id="flexCheckDefault"
+                        v-model="user_verified"
                         class="form-check-input"
                         type="checkbox"
                         value=""
@@ -75,8 +78,9 @@
                 
                 <div class="mt-2">
                   <button
-                    type="submit"
+                    type="button"
                     class="btn btn-primary btn-md"
+                    @click="addLead"
                   >
                     Submit
                   </button>
@@ -129,9 +133,12 @@ export default {
 		VueTableComponent,
 		Accordion
 	},
- props:['lead'],
+	props:['leads'],
 	data() {
 		return {
+			lead_status:'2',
+			description:'',
+			user_verified:'',
 			userList:[],
 			userColumns: [
 				{
@@ -150,6 +157,17 @@ export default {
 		this.axios.get('/api/leads').then(resp=>{
 			this.userList = resp.data.success.leads;
 		});
+	},
+	methods:{
+		addLead(){
+			console.log(this.$user_id);
+
+  	this.axios.post('/api/lead/', {
+    			lead_status:this.lead_status,
+				description:this.description,
+    		}).then(resp=>{});
+				
+		}
 	}
 };
 
