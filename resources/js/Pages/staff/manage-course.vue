@@ -144,11 +144,15 @@ export default {
   	props:['courses','categories'],
 	data() {
 		return {
-       	course_name:'',
+      
+			course_name:'',
 			course_alias:'',
-      	edit_category: 14,
+			edit_category: '',
 			course_id:'',
+			category_name:'',
+			
 			courseList:[],
+
 			courseColumns: [
         
 				{
@@ -176,28 +180,50 @@ export default {
 		this.courseList=this.courses; 
 	},
 	methods:{
-		addCourse()
-    	{
+		addCourse(){
     		this.axios.post(this.baseUrl + '/api/add-course',{
     			course_name:this.course_name,
-				course_alias:this.course_alias,
+				  course_alias:this.course_alias,
     			category_id:this.edit_category,
-				course_id:this.course_id,
+				  course_id:this.course_id,
+				category_name:this.category_id,
     		} )
     			.then(resp => {
-    				// this.$modal.hide('add_doubt_modal');
+					let category_name =this.categories.find(el=>el.id===this.edit_category).name; 
+				   	if (this.course_id){
+					   	let index= this.courseList.findIndex(el=>el.course_id===this.course_id);
+			          this.courseList[index]['course_name']=this.course_name;
+					    	this.courseList[index]['course_alias']=this.course_alias;
+						this.courseList[index]['category_id']=this.edit_category;   
+						this.courseList[index]['category_name']=category_name;           
+				  	}	else{
+					    	this.courseList.push({
+				           	course_name:resp.data.success.course.course_name,
+						      	course_alias:resp.data.success.course.alias,
+				          	category_id:resp.data.success.course.edit_category,
+				          	course_id:resp.data.success.course.course_id,
+							category_name:resp.data.success.course.category_name,
+						      
+			            	});						
+				        	}    			
     				this.$refs.addEditCourseModal.closeModal();
     				this.course_name='';
-					window.location.reload();
+				  	this.course_alias='';		
+					this.category_name='';
     			})
+			
     			.catch(err => {
-    				
-    			});
-    	},
+     			});
+                	},
+                  	
       	editCourse(course) {
-		  	this.course_name= course.course_name;
-			  this.course_id= course.course_id;
-		    },
+			         this.course_alias=course.course_alias;    	    
+			         this.course_id=course.course_id;
+             	this.course_name=course.course_name; 
+                 	this.edit_category=course.category_id;  
+			this.category_name=course.category_name;
+			        },
+              
 
 		deleteCourse(course){  	        
 			this.axios.delete('/api/course/'+course.course_id)
@@ -209,6 +235,4 @@ export default {
 	},
 
 };
-
 </script>
-
