@@ -1,15 +1,4 @@
 {
-    "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css",
-    "/js/chart.js": "/js/chart.js",
-    "/js/classroomApp.js": "/js/classroomApp.js",
-    "/js/createPostApp.js": "/js/createPostApp.js",
-    "/js/instituteApp.js": "/js/instituteApp.js",
-    "/js/manifest.js": "/js/manifest.js",
-    "/js/profileApp.js": "/js/profileApp.js",
-    "/js/seekerApp.js": "/js/seekerApp.js",
-    "/js/studentApp.js": "/js/studentApp.js",
-    "/js/studentPanelApp.js": "/js/studentPanelApp.js",
-    "/js/studentRegisterApp.js": "/js/studentRegisterApp.js",
-    "/js/vue.js": "/js/vue.js"
+    "/js/app.js": "/js/app.js?id=57f3a65162d8d3982533",
+    "/css/app.css": "/css/app.css?id=4c368863cf01bcd2be05"
 }

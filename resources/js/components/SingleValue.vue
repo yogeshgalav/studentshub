@@ -4,7 +4,7 @@
       <div class="card-body text-center mx-auto">
         <router-link
           v-if="link"
-          :to="link"
+          :href="link"
         >
           {{ value }}
           <br>

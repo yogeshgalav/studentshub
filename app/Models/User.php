@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\UserAccessTrait;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -14,6 +15,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, Notifiable;
     use HasPushSubscriptions;
+    use UserAccessTrait;
     /**
      * The attributes that are mass assignable.
      *
@@ -39,6 +41,8 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'last_login_at' => 'datetime',
+        'last_seen_at' => 'datetime',
     ];
 
     use HasSlug;
@@ -53,10 +57,17 @@ class User extends Authenticatable
             ->generateSlugsFrom('full_name')
             ->saveSlugsTo('slug');
     }
+
     public function student()
     {
-        return $this->hasOne('App\Models\Student');
+        return $this->hasMany('App\Models\Student');
     }
+
+    public function parents()
+    {
+        return $this->hasMany(UserParent::class, 'user_id');
+    }
+
     public function post()
     {
         return $this->hasMany('App\Models\Post');
@@ -75,33 +86,18 @@ class User extends Authenticatable
     }
 
     public function getFirstNameAttribute(){
-        $full_name=$this->full_name;
-        $parts = explode(" ", $full_name);
-        if(count($parts) > 1) {
-            $lastname = array_pop($parts);
-            return implode(" ", $parts);
-        }
-        return $full_name;
+        $full_name=preg_split('/\s+/', $this->full_name, NULL, PREG_SPLIT_NO_EMPTY);
+        return implode(" ", array_slice($full_name, 0, -1));
+    }
+    public function getLastNameAttribute(){
+        $full_name=preg_split('/\s+/', $this->full_name, NULL, PREG_SPLIT_NO_EMPTY);
+        return end($full_name);
     }
 
     public function setFullNameAttribute($value){
         $this->attributes['full_name'] = ucwords($value);
     }
 
-    public function joinedClassroomCount(){
-        return \DB::table('classroom_users')
-            ->where('user_id',$this->id)
-            ->count();
-    }
-
-    public function createdClassroomCount(){
-        return \DB::table('classrooms')
-        ->where('classrooms.teacher_user_id',$this->id)
-        ->count();
-    }
-    public function hasClassroom(){
-        return $this->joinedClassroomCount()>0 || $this->createdClassroomCount()>0;
-    }
     public function isInstituteMember(){
         return \DB::table('institute_users')
             ->where('user_id',$this->id)
@@ -113,7 +109,7 @@ class User extends Authenticatable
             ->exists();
     }
     public function getClassroomIds(){
-        $role= $this->role_intended;
+        $role= $this->role;
         $classroom_query = \DB::table('classrooms');
         if ('student'===$role) {
             $classroom_query=$classroom_query->rightJoin('classroom_users as cu',function($join){
@@ -131,22 +127,34 @@ class User extends Authenticatable
         } elseif ('sthubAdmin'===$role) {
             $classroom_query=$classroom_query;
         } else {
-            $classroom_query=$classroom_query->where('0','=', '1');
+            return [];
         }
 
         return $classroom_query->groupBy('classrooms.id')->pluck('classrooms.id')->toArray();
     }
-    public function preferredInstituteId()
-    {
-        if($student = Auth::student()){
-            return $student->instituteId;
-        }
-        if($teacher = Auth::teacher()){
-            return $teacher->instituteId;
-        }
-    }
     
+    public function preferredInstitute()
+    {
+        return $this->belongsTo(Institute::class, 'preferred_institute_id');
+    }
+    public function preferredCourse()
+    {
+        return $this->belongsTo(Course::class, 'preferred_course_id');
+    }
+    public function profile()
+    {
+        return $this->hasOne(UserProfile::class);
+    }
+
     public function getStudentIds(){
         return [];   
+    }
+
+    public function canCreateClassroom()
+    {
+        if(in_array($this->role,['seeker','student'])){
+            return false;
+        }
+        return true;
     }
 }

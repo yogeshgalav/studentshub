@@ -14,9 +14,9 @@ use App\Models\ScheduledJob;
 use Carbon\Carbon;
 use NotificationChannels\WebPush\WebPushMessage;
 use NotificationChannels\WebPush\WebPushChannel;
-use Notification;
+use Illuminate\Notifications\Notification;
 
-class NewUserWelcomeNotification extends Notification
+class NewUserWelcomeNotification extends SthubNotification
 {
     use Queueable;
 
@@ -31,7 +31,7 @@ class NewUserWelcomeNotification extends Notification
     public function __construct($scheduled_job)
     {
         $this->scheduled_job = $scheduled_job;
-        $this->text="Welcome to Student'sHUB. You can now check your interest field in Profile section.";
+        $this->text="Welcome to Student'sHUB. You can now connect with your Institute, Teachers and Students.";
     }
 
     /**
@@ -52,27 +52,27 @@ class NewUserWelcomeNotification extends Notification
      * @param  mixed  $notification
      * @return \Illuminate\Notifications\Messages\DatabaseMessage
      */
-    public function toWebPush($notifiable, $notification)
-    {
-        return (new WebPushMessage)
-            ->title('Hi '.$notifiable->full_name.',')
-            ->icon('/notification-icon.png')
-            ->body($this->text)
-            ->action('View app', 'view_app')
-            ->data(['id' => $notification->id]);
-    }
+    // public function toWebPush($notifiable, $notification)
+    // {
+    //     return (new WebPushMessage)
+    //         ->title('Hi '.$notifiable->full_name.',')
+    //         ->icon('/notification-icon.png')
+    //         ->body($this->text)
+    //         ->action('View app', 'view_app')
+    //         ->data(['id' => $notification->id]);
+    // }
 
-    /**
-     * Get the mail representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
-    public function toMail($notifiable)
-    {
-        return (new MailMessage)
-                    ->line('The introduction to the notification.');
-    }
+    // /**
+    //  * Get the mail representation of the notification.
+    //  *
+    //  * @param  mixed  $notifiable
+    //  * @return \Illuminate\Notifications\Messages\MailMessage
+    //  */
+    // public function toMail($notifiable)
+    // {
+    //     return (new MailMessage)
+    //                 ->line('The introduction to the notification.');
+    // }
 
     /**
      * Get the array representation of the notification.
@@ -89,7 +89,7 @@ class NewUserWelcomeNotification extends Notification
             'avatar_url'=>$notifiable->avatar_url,
             'avatar_name'=>$notifiable->full_name,
             'url'=>'/profile/'.$notifiable->id,
-            'body' => $this->text,
+            'body' => "Hi ".$notifiable->first_name.", ".$this->text,
         ];
     }
 }

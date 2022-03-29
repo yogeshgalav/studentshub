@@ -24,6 +24,19 @@ class Institute extends Model
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
     }
+    public static function getFirstOrCreateId($institute)
+    {
+        if($institute['id']){
+            return self::find($institute['id'])->id;
+        }
+
+        if(empty($institute['name'])) return null;
+        
+        $new = self::firstOrCreate([
+            'name'=>$institute['name'],
+        ]);
+        return $new->id;
+    }
     public function setNameAttribute($value)
     {
         $this->attributes['name'] = Sthub::ucWordSome($value);
@@ -34,7 +47,6 @@ class Institute extends Model
     {
         $this->attributes['place_id'] = Sthub::randomString($value);
     }
-
     public function instituteUsers(){
         return $this->hasMany('App\Models\InstituteUsers');
     }

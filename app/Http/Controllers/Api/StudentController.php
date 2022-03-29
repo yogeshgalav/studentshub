@@ -58,11 +58,11 @@ class StudentController extends Controller
             ], [
                 'is_preferred' => 1,
                 //'prefferred_category' => $course->category_id,
-                'unique_college_id' => $request->college_id ?? null,
+                // 'unique_college_id' => $request->college_id ?? null,
             ]);
 
 
-            $user->role_intended = 'student';
+            $user->role = 'student';
             $user->preferred_institute_id = $institute->id;
             $user->onboarded_at = \Carbon\Carbon::now()->toDateTimeString();
             $user->save();

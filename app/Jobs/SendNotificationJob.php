@@ -27,9 +27,12 @@ class SendNotificationJob extends ScheduledJobInterface
         if (in_array($classString, $dont_send)) {
             return false;
         }
-
+        $user = $this->scheduled_job->toUser;
+        if (!$user) {
+            $this->cancel('Schedule job user not found.');
+        }
         $notification = new $classString($this->scheduled_job);
-        $this->scheduled_job->user->notify($notification);
+        $user->notify($notification);
 
         return true;
     }

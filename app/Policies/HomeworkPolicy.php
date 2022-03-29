@@ -34,7 +34,7 @@ class HomeworkPolicy
      */
     public function view(User $user, Classroom $classroom)
     {
-        if($user->role_intended==='sthubAdmin'){
+        if($user->role==='sthubAdmin'){
             return true;
         }
         $classroom_ids = $user->getClassroomIds();
@@ -61,7 +61,7 @@ class HomeworkPolicy
      */
     public function update(User $user, Classroom $classroom)
     {
-        if($user->role_intended==='sthubAdmin'){
+        if($user->role==='sthubAdmin'){
             return true;
         }
         if($classroom->teacher_user_id===$user->id){
@@ -85,7 +85,7 @@ class HomeworkPolicy
      */
     public function delete(User $user, Classroom $classroom)
     {
-        if($user->role_intended==='sthubAdmin'){
+        if($user->role==='sthubAdmin'){
             return true;
         }
         if($classroom->teacher_user_id===$user->id){

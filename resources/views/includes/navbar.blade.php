@@ -86,11 +86,11 @@
         </div>
         <div class="guest-nav-items">
             <div class="nav-item nav-login">
-                <router-link class="btn btn-link text-blue" :to="'/login'">Login <i class="fas fa-arrow-right"></i>
+                <router-link class="btn btn-link text-blue" :href="'/login'">Login <i class="fas fa-arrow-right"></i>
                 </router-link>
             </div>
             <div class="nav-item">
-                <router-link class="btn btn-primary" :to="'/get-started'">Get Started <i
+                <router-link class="btn btn-primary" :href="'/get-started'">Get Started <i
                         class="fas fa-arrow-right text-white"></i></router-link>
             </div>
         </div>
@@ -102,11 +102,11 @@
             </li>
             <div class="nav-login-get-started">
                 <li class="nav-item nav-login">
-                    <router-link class="btn btn-link text-blue" :to="'/login'">Login <i class="fas fa-arrow-right"></i>
+                    <router-link class="btn btn-link text-blue" :href="'/login'">Login <i class="fas fa-arrow-right"></i>
                     </router-link>
                 </li>
                 <li class="nav-item">
-                    <router-link class="btn btn-primary" :to="'/get-started'">Get Started <i
+                    <router-link class="btn btn-primary" :href="'/get-started'">Get Started <i
                             class="fas fa-arrow-right text-white"></i>
                     </router-link>
                 </li>

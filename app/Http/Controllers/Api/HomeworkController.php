@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Homework;
 use App\Models\UserHomework;
+use App\Models\ScheduledJob;
 use Carbon\Carbon;
 use Auth;
 use App\Models\Classroom;
@@ -22,26 +23,28 @@ class HomeworkController extends Controller
         $this->authorize('createHomework', $classroom);
 
         $simple_html_dom = new simple_html_dom;
-        $dom = $simple_html_dom->extactImageFiles($request->homework_html, "homework-images/");
+        $dom = $simple_html_dom->extactImageFiles($request->homework_html, "homework-image");
         $homework = Homework::create([
             'submission_date'=>$request->submission_date,
             'classroom_id'=>$classroom->id,
             'teacher_user_id'=>$request->user('api')->id,
             'homework_html'=>$dom->html,
-            'homework_text'=>$request->homework_text,
+            'homework_text'=>$request->homework_text ?? 'Complete the following homework.',
             'unit_id'=>$request->unit_id,
         ]);
 
         foreach($dom->files as $file){
             $newFile= new SthubFile();
             $newFile->fileable_id=$homework->id;
-            $newFile->fileable_type='App\Models\Homework';
-            $newFile->file_ext=Storage::disk('local')->getMimeType($file['file_path']);
-            $newFile->file_size=Storage::disk('local')->size($file['file_path']);
-            $newFile->file_name=$file['file_name'];
+            $newFile->fileable_type=Homework::class;
+            $newFile->file_ext=Storage::disk('homework-image')->getMimeType($file);
+            $newFile->file_size=Storage::disk('homework-image')->size($file);
+            $newFile->file_name=$file;
             $newFile->user_id=Auth::user()->id;
             $newFile->save();
         }
+
+        \App\Models\ScheduledJob::homeworkNotification($homework);            
 
         return response()->json(['success'=>[
             'homework_id'=>$homework->id,
