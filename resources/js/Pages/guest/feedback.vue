@@ -48,7 +48,7 @@
           <textarea
             id="feedback"
             v-model="feedback"
-            v-validate="'required|email'"
+            v-validate="'required'"
             type="text"
             class="form-control"
             name="feedback"
