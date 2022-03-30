@@ -60,7 +60,19 @@ ORDER BY categories.name;
    public function userReportsPage(){        
         return inertia('staff/user-reports');
     }
+<<<<<<< HEAD
     public function transactionDetailsPage(){        
         return inertia('staff/transaction-details');
     }
+=======
+    public function mebershipDetailsPage(){  
+        $members=DB::table('membership_details as me')
+        ->leftJoin('users as us','us.id','=','me.user_id')
+       ->select(['us.full_name as full_name','me.current_plan as current_plan',
+       'me.first_purchase_at','me.last_purchase_at','me.expires_at'])->get();
+              
+        return inertia('staff/membership-details', ['members'=>$members]);
+    }
+
+>>>>>>> 0f6fe429 (membership-details page)
 }
