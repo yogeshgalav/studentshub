@@ -37,6 +37,13 @@
             <span class="text">User Reports</span>
           </li>
         </router-link>
+        <router-link
+          href="/transaction-details"
+        >
+          <li>
+            <span class="text">Transaction Details</span>
+          </li>
+        </router-link>
       </ul>
     </div>
   </div>

@@ -25,4 +25,7 @@ class StaffController extends Controller
    public function userReportsPage(){        
         return inertia('staff/user-reports');
     }
+    public function transactionDetailsPage(){        
+        return inertia('staff/transaction-details');
+    }
 }
