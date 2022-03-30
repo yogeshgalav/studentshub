@@ -14,6 +14,8 @@ class StaffController extends Controller
         return inertia('staff/lead-index');
     }
    public function leadShowPage(){     
+
+   // create new lead with lead_status and description using quirybuilder
     $leads = DB::table('users')
     ->select('users.id as user_id','full_name','phone_no','onboarded_at')
     ->rightJoin('leads', function($join){

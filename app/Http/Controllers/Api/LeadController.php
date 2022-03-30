@@ -24,7 +24,7 @@ class LeadController extends Controller
 
     public function create( Request $request){
        
-       // $lead = Lead::find($user_id);
+       //we have fetch user_id from user table
             $lead = new Lead();
             $lead->lead_status = $request->lead_status;
             $lead->description = $request->description;
