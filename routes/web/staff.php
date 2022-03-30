@@ -9,4 +9,5 @@ Route::group(['middleware'=>['auth','admin']],function(){
     Route::get('/manage-jobs', 'StaffController@manageJobsPage');
     Route::get('/user-feedbacks', 'StaffController@userFeedbacksPage');
     Route::get('/user-reports', 'StaffController@userReportsPage');
-});
+    Route::get('/membership-details', 'StaffController@mebershipDetailsPage');
+    });

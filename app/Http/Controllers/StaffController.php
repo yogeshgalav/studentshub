@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Career;
+use App\Models\MembershipDetail;
 use DB;
 
 class StaffController extends Controller
@@ -40,4 +41,13 @@ ORDER BY careers.name;  */
    public function userReportsPage(){        
         return inertia('staff/user-reports');
     }
+    public function mebershipDetailsPage(){  
+        $members=DB::table('membership_details as me')
+        ->leftJoin('users as us','us.id','=','me.user_id')
+       ->select(['us.full_name as full_name','me.current_plan as current_plan',
+       'me.first_purchase_at','me.last_purchase_at','me.expires_at'])->get();
+              
+        return inertia('staff/membership-details', ['members'=>$members]);
+    }
+
 }
