@@ -75,6 +75,7 @@
     >
       <template slot="modalBody">
         <form>
+          <div class="p-10">
           <div
             class="form-group"
           >
@@ -86,6 +87,7 @@
               class="form-control"
               name="jname"
             >
+            </div>
           </div>
           <div
             class="form-group"
