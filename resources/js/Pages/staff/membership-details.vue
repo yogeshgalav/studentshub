@@ -52,15 +52,15 @@ export default {
 				},
 				{
 					label: 'Current Plan',
-					field: 'cureent_plan',
+					field: 'current_plan',
 				},
 				{
-					label: 'First Updated at',
-					field: 'first_updated_at',
+					label: 'First Purchase at',
+					field: 'first_purchase_at',
 				},
 				{
-					label: 'Last Updated at',
-					field: 'last_updated_at',
+					label: 'Last Purchase at',
+					field: 'last_purchase_at',
 				},
 				{
 					label: 'Expires at',
@@ -74,7 +74,7 @@ export default {
 	mounted(){
     
 		this.axios.get('/api/membership').then(resp=>{
-			this.memberList = resp.data.success.members;
+			this.userList = resp.data.success.members;
       
 
 		});
