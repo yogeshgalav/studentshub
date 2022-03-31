@@ -84,10 +84,12 @@
               <input
                 id="course_name"
                 v-model="course_name"
+                v-validate="'required'"
                 type="text"
                 class="form-control"
-                name="cname"
+                name="course_name"
               >
+              <span class="error">{{ formErrors('course_name') }}</span>
             </div>
           </div>
           <div class="m-8-a">
@@ -98,10 +100,12 @@
               <input
                 id="course_alias"
                 v-model="course_alias"
+                v-validate="'required'"
                 type="text"
                 class="form-control"
-                name="aname"
+                name="course_alias"
               >
+              <span class="error">{{ formErrors('course_alias') }}</span>
             </div>
           </div>
           <div
@@ -111,6 +115,7 @@
             <select
               id="category"
               v-model="edit_category"
+              v-validate="'required'"
               name="category"
               class="form-control"
             >
@@ -131,6 +136,7 @@
 <script>
 import Modal from '../../components/VueNiceModal';
 import VueTableComponent from '@/components/vue-table-component';
+import FormMixin from '@/components/mixins/form-mixin.js' ;
 import StaffLayout from '@/Layouts/StaffLayout';
 import coursesVue from '../../../../vendor/laravel/horizon/resources/js/screens/metrics';
 
@@ -141,9 +147,11 @@ export default {
 		VueTableComponent,
 	
 	},
+  	mixins: [FormMixin],
   	props:['courses','categories'],
 	data() {
 		return {
+      	showLoader: false,
        	course_name:'',
 			course_alias:'',
       	edit_category: 14,
@@ -178,22 +186,27 @@ export default {
 	methods:{
 		addCourse()
     	{
+         	this.validateForm().then(valid => {
+				if (valid) {
+					let loader = this.$loading.show();
     		this.axios.post(this.baseUrl + '/api/add-course',{
     			course_name:this.course_name,
-				course_alias:this.course_alias,
+						course_alias:this.course_alias,
     			category_id:this.edit_category,
-				course_id:this.course_id,
+						course_id:this.course_id,
     		} )
     			.then(resp => {
     				// this.$modal.hide('add_doubt_modal');
     				this.$refs.addEditCourseModal.closeModal();
     				this.course_name='';
-					window.location.reload();
+							window.location.reload();
     			})
     			.catch(err => {
     				
     			});
-    	},
+    		}
+			});
+		},
       	editCourse(course) {
 		  	this.course_name= course.course_name;
 			  this.course_id= course.course_id;
