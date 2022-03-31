@@ -73,6 +73,7 @@
       heading="Add Course"
       classes="modal-md"
       @submit="addCourse"
+      @cancel="clearModalData"
     >
       <template slot="modalBody">
         <form>
@@ -138,8 +139,7 @@ export default {
 	layout:StaffLayout,
 	components:{
     	Modal,
-		VueTableComponent,
-	
+		VueTableComponent	
 	},
   	props:['courses','categories'],
 	data() {
@@ -149,10 +149,9 @@ export default {
 			course_alias:'',
 			edit_category: '',
 			course_id:'',
-			category_name:'',
+		
 			
 			courseList:[],
-
 			courseColumns: [
         
 				{
@@ -178,61 +177,61 @@ export default {
 	},
 	mounted(){
 		this.courseList=this.courses; 
-	},
+         	},
 	methods:{
 		addCourse(){
-    		this.axios.post(this.baseUrl + '/api/add-course',{
+    		  this.axios.post(this.baseUrl + '/api/add-course',{
     			course_name:this.course_name,
 				  course_alias:this.course_alias,
     			category_id:this.edit_category,
 				  course_id:this.course_id,
-				category_name:this.category_id,
-    		} )
+				      	})
     			.then(resp => {
 					let category_name =this.categories.find(el=>el.id===this.edit_category).name; 
-				   	if (this.course_id){
-					   	let index= this.courseList.findIndex(el=>el.course_id===this.course_id);
+				     	if (this.course_id){
+					   	  let index= this.courseList.findIndex(el=>el.course_id===this.course_id);
 			          this.courseList[index]['course_name']=this.course_name;
 					    	this.courseList[index]['course_alias']=this.course_alias;
-						this.courseList[index]['category_id']=this.edit_category;   
-						this.courseList[index]['category_name']=category_name;           
-				  	}	else{
-					    	this.courseList.push({
-				           	course_name:resp.data.success.course.course_name,
-						      	course_alias:resp.data.success.course.alias,
-				          	category_id:resp.data.success.course.edit_category,
-				          	course_id:resp.data.success.course.course_id,
-							category_name:resp.data.success.course.category_name,
-						      
-			            	});						
-				        	}    			
+					    	this.courseList[index]['category_id']=this.edit_category;   
+					    	this.courseList[index]['category_name']=category_name;           
+				            	}	else{
+					              	this.courseList.push({
+				           	      course_name:resp.data.success.course.course_name,
+						             	course_alias:resp.data.success.course.alias,
+				                	category_id:resp.data.success.course.edit_category,
+				                	course_id:resp.data.success.course.course_id,
+						            	category_name:category_name,
+						                                	});						
+				                  	}    			
     				this.$refs.addEditCourseModal.closeModal();
-    				this.course_name='';
-				  	this.course_alias='';		
-					this.category_name='';
-    			})
+				  	this.clearModalData();
+    		  	})
 			
-    			.catch(err => {
-     			});
+    			.catch(err => {});
                 	},
-                  	
-      	editCourse(course) {
-			         this.course_alias=course.course_alias;    	    
-			         this.course_id=course.course_id;
-             	this.course_name=course.course_name; 
-                 	this.edit_category=course.category_id;  
-			this.category_name=course.category_name;
+                  	// set course data in add edit modal
+          	editCourse(course) {
+			                this.course_alias=course.course_alias;    	    
+			                this.course_id=course.course_id;
+             	        this.course_name=course.course_name; 
+                    	this.edit_category=course.category_id;  
 			        },
               
 
-		deleteCourse(course){  	        
-			this.axios.delete('/api/course/'+course.course_id)
-				.then(resp=>{
-					let index= this.courseList.findIndex(el=>el.course_id===course.course_id);
-					this.courseList.splice(index,1);		
-				});
-		},
-	},
+		       deleteCourse(course){  	        
+		            	this.axios.delete('/api/course/'+course.course_id)
+			          	.then(resp=>{
+				           	let index= this.courseList.findIndex(el=>el.course_id===course.course_id);
+				          	this.courseList.splice(index,1);		
+			                      	});
+		                },
 
+	      	clearModalData(){
+                	this.course_name='';
+				        	this.course_alias='';		
+		            	this.course_id='';
+		            	this.edit_category='';
+                        	},
+	},
 };
 </script>
