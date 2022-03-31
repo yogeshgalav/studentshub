@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Models\Category;
+use Illuminate\Support\Facades\DB;
 
 class Alter2CategoriesTable extends Migration
 {
@@ -21,26 +21,26 @@ class Alter2CategoriesTable extends Migration
         });
         
         //change law  to law,
-        Category::where('id',10)->update([
+        DB::table('categories')->where('id',10)->update([
             'name'=>'Law & Humanity',
             'slug'=>'law',
         ]); 
-        Category::where('id',9)->update([
+        DB::table('categories')->where('id',9)->update([
             'name'=>'Mass Communication',
             'slug'=>'communication',
         ]); 
         //change education to humanities,
-        Category::where('id',7)->update([
+        DB::table('categories')->where('id',7)->update([
             'name'=>'Humanities',
             'slug'=>'humanities',
         ]);
         //change arts&culture to visual and performing then add design to it
-        Category::where('id',4)->update([
+        DB::table('categories')->where('id',4)->update([
             'name'=>'Performing Arts',
             'slug'=>'performing-arts',
         ]);
         //add design
-        Category::where('id',12)->update([
+        DB::table('categories')->where('id',12)->update([
             'name'=>'Visual Arts',
             'slug'=>'visual-arts',
         ]);
