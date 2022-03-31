@@ -17,7 +17,7 @@ class StaffController extends Controller
 
    // create new lead with lead_status and description using quirybuilder
     $leads = DB::table('users')
-    ->select('users.id as user_id','full_name','phone_no','onboarded_at')
+    ->select('users.id as user_id','description','lead_status')
     ->rightJoin('leads', function($join){
         $join->on('leads.user_id', '=', 'users.id')->where('lead_status','raw');
     })->get();   

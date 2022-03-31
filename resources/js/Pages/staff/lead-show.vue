@@ -160,12 +160,14 @@ export default {
 	},
 	methods:{
 		addLead(){
-			console.log(this.$user_id);
+			console.log('lead');
 
   	this.axios.post('/api/lead/', {
     			lead_status:this.lead_status,
 				description:this.description,
-    		}).then(resp=>{});
+    		}).then(resp=>{
+				this.userList = resp.data.success.lead;
+			});
 				
 		}
 	}
