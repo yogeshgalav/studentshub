@@ -76,17 +76,17 @@
       <template slot="modalBody">
         <form>
           <div class="p-10">
-          <div
-            class="form-group"
-          >
-            <label>Career Name</label>
-            <input
-              id="career_name"
-              v-model="career_name"
-              type="text"
-              class="form-control"
-              name="jname"
+            <div
+              class="form-group"
             >
+              <label>Career Name</label>
+              <input
+                id="career_name"
+                v-model="career_name"
+                type="text"
+                class="form-control"
+                name="jname"
+              >
             </div>
           </div>
           <div
