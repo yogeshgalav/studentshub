@@ -71,7 +71,7 @@
       heading="Add Career"
       classes="modal-md"
       @submit="addOrEditCareer"
-      @cancel="closeModal"
+      @cancel="clearModalData"
     >
       <template slot="modalBody">
         <form>
@@ -174,6 +174,7 @@ export default {
 						});
 					}
           	this.$refs.addEditCareerModal.closeModal();
+					this.clearModalData();
     			})
     			.catch(err => {
     				
@@ -192,11 +193,13 @@ export default {
 					this.careerList.splice(index,1);		
 				});
 		},
-		closeModal(){
-        	this.career_name='';
-				  this.edit_category='';
-			    this.career_id='';
+    	clearModalData(){
+                	this.career_name='';
+				        	this.career_alias='';		
+		            	this.career_id='';
+		            	this.edit_category='';
 		}
+
 	}
 };
 
