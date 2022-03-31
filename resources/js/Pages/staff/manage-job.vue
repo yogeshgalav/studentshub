@@ -71,21 +71,23 @@
       heading="Add Career"
       classes="modal-md"
       @submit="addOrEditCareer"
-      @cancel="closeModal"
+      @cancel="clearModalData"
     >
       <template slot="modalBody">
         <form>
-          <div
-            class="form-group"
-          >
-            <label>Career Name</label>
-            <input
-              id="career_name"
-              v-model="career_name"
-              type="text"
-              class="form-control"
-              name="jname"
+          <div class="p-10">
+            <div
+              class="form-group"
             >
+              <label>Career Name</label>
+              <input
+                id="career_name"
+                v-model="career_name"
+                type="text"
+                class="form-control"
+                name="jname"
+              >
+            </div>
           </div>
           <div
             class="form-group"
@@ -174,6 +176,7 @@ export default {
 						});
 					}
           	this.$refs.addEditCareerModal.closeModal();
+					this.clearModalData();
     			})
     			.catch(err => {
     				
@@ -192,11 +195,13 @@ export default {
 					this.careerList.splice(index,1);		
 				});
 		},
-		closeModal(){
-        	this.career_name='';
-				  this.edit_category='';
-			    this.career_id='';
+    	clearModalData(){
+                	this.career_name='';
+				        	this.career_alias='';		
+		            	this.career_id='';
+		            	this.edit_category='';
 		}
+
 	}
 };
 
