@@ -73,6 +73,7 @@
       heading="Add Course"
       classes="modal-md"
       @submit="addCourse"
+      @cancel="clearModalData"
     >
       <template slot="modalBody">
         <form>
@@ -144,8 +145,7 @@ export default {
 	layout:StaffLayout,
 	components:{
     	Modal,
-		VueTableComponent,
-	
+		VueTableComponent	
 	},
   	mixins: [FormMixin],
   	props:['courses','categories'],
@@ -154,8 +154,10 @@ export default {
       	showLoader: false,
        	course_name:'',
 			course_alias:'',
-      	edit_category: 14,
+      	edit_category: '',
 			course_id:'',
+		
+			
 			courseList:[],
 			courseColumns: [
         
@@ -182,45 +184,63 @@ export default {
 	},
 	mounted(){
 		this.courseList=this.courses; 
-	},
+         	},
 	methods:{
-		addCourse()
-    	{
-         	this.validateForm().then(valid => {
-				if (valid) {
-					let loader = this.$loading.show();
-    		this.axios.post(this.baseUrl + '/api/add-course',{
+		addCourse(){
+    		  this.axios.post(this.baseUrl + '/api/add-course',{
     			course_name:this.course_name,
-						course_alias:this.course_alias,
+				course_alias:this.course_alias,
     			category_id:this.edit_category,
-						course_id:this.course_id,
-    		} )
+				  course_id:this.course_id,
+				      	})
     			.then(resp => {
-    				// this.$modal.hide('add_doubt_modal');
+					let category_name =this.categories.find(el=>el.id===this.edit_category).name; 
+				     	if (this.course_id){
+					   	  let index= this.courseList.findIndex(el=>el.course_id===this.course_id);
+			          this.courseList[index]['course_name']=this.course_name;
+					    	this.courseList[index]['course_alias']=this.course_alias;
+					    	this.courseList[index]['category_id']=this.edit_category;   
+					    	this.courseList[index]['category_name']=category_name;           
+				            	}	else{
+					              	this.courseList.push({
+				           	      course_name:resp.data.success.course.course_name,
+						             	course_alias:resp.data.success.course.alias,
+				                	category_id:resp.data.success.course.edit_category,
+				                	course_id:resp.data.success.course.course_id,
+						            	category_name:category_name,
+						                                	});						
+				                  	}    			
     				this.$refs.addEditCourseModal.closeModal();
-    				this.course_name='';
-							window.location.reload();
-    			})
-    			.catch(err => {
-    				
-    			});
-    		}
-			});
-		},
-      	editCourse(course) {
-		  	this.course_name= course.course_name;
-			  this.course_id= course.course_id;
-		    },
+				  	this.clearModalData();
+    		  	})
+			
+    			.catch(err => {});
+                	},
+                  	// set course data in add edit modal
+          	editCourse(course) {
+			                this.course_alias=course.course_alias;    	    
+			                this.course_id=course.course_id;
+             	        this.course_name=course.course_name; 
+                    	this.edit_category=course.category_id;  
+			        },
+              
 
-		deleteCourse(course){  	        
-			this.axios.delete('/api/course/'+course.course_id)
-				.then(resp=>{
-					let index= this.courseList.findIndex(el=>el.course_id===course.course_id);
-					this.courseList.splice(index,1);		
-				});
-		},
+		       deleteCourse(course){  
+             	        console.log('xyz', '/api/course/'+course.course_id);
+		            	this.axios.delete('/api/course/'+course.course_id)
+			          	.then(resp=>{
+				           	let index= this.courseList.findIndex(el=>el.course_id===course.course_id);
+				          	this.courseList.splice(index,1);		
+			                      	});
+		                },
+
+	      	clearModalData(){
+                	this.course_name='';
+				        	this.course_alias='';		
+		            	this.course_id='';
+		            	this.edit_category='';
+                        	},
 	},
-
 };
 
 </script>
