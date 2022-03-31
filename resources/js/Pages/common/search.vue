@@ -255,7 +255,7 @@ export default {
 		},
 		searchPost(){
 			this.axios.get('/api/search-posts?searchTerm='+this.searchQuery).then((resp)=>{
-				this.posts = resp.data.success.posts.data;
+				this.posts = resp.data.success.posts;
 			});
 		},
 		searchUser(role){
