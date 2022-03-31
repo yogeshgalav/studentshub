@@ -38,6 +38,7 @@ class AddOtpToUser extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('email')->nullable()->change();
             $table->string('full_name')->nullable()->change();
+            $table->string('parent_name')->nullable();
             $table->renameColumn('role_intended','role');
             $table->renameColumn('email_verified_at','user_verified_at');
             $table->dropColumn('login_provider_id');
