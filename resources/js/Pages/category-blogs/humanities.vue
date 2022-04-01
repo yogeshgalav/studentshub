@@ -9,25 +9,29 @@
     </div>
     <hr class="mb-0 mt-0">
     <div class="col-md-12">
-      • Mixture of Academic, People and Creative
-      Orientation
+      • Academic, People and Creative Orientation.
       • Good with Languages and Social Sciences with
-      affinity towards Theory Reading.
-      • Good with Observation and Analyzing Power.
-      • Comfortable with Versatile Reading and Writing.
+      affinity towards extra and versatile reading.
+      • Interest in studying various subjects related to
+      Humanities, Commerce, Management, Sciences and
+      Performing Arts.
+      • Wishing to choose your own subjects and study what
+      you like.
     </div>
     <div class="col-md-12 mt-1">
       <h4>Entrance Exams</h4>
     </div>
     <hr class="mb-0 mt-0">
     <div class="col-md-12">
-      HSEE
-      TISS-BAT
-      DUET
-      CUET
-      BA-CET
-      AMU-ET
-      JMI-ET
+      FEAT (Flame-Pune)
+      AAT (Ashoka)
+      SET (Symbiosis)
+      PDPU-AT
+      NPAT (Narsee Monjee)
+      KUAT (Karnavati)
+      • KREA-ET
+      • JSAT (Jindal)
+      • SRM-ET
     </div>
     <div class="col-md-12 mt-1">
       <h4>Career Options</h4>
@@ -35,26 +39,34 @@
     <hr class="mb-0 mt-0">
     <div class="col-md-12">
       You Can be:
-      • Anthropologist
-      • Archeologist
-      • Curator
-      • Editor
-      • Geographer
-      • Historian
-      • Journalist
-      • Linguist
-
+      Banking or retail management trainee
+      Buyer trainee
+      Claims adjuster
+      Underwriter
+      College/university admission counselor
+      Convention/meeting planner
+      Development officer/fundraiser
 
       You Can be:
-      • Philosopher
-      • Political Scientist
-      • Psychologist
-      • Public Administrator
-      • Restorer
-      • Sociologist
-      • Social Worker
-      • Translator
+      Human resources professional
+      Insurance agent
+      Management
+      Public relations specialist
+      Sales representative
+      Teacher
+      Writer
+      Intelligence Officer/Analyst
     </div>
+    
+    <accordion
+      title="Literature"
+      class="mb-2"
+    >
+      <p>Literature is an art form that shares stories. It is an art form of language and can be read or spoken. The Concise Oxford Dictionary defines literature as “writings whose value lies in the beauty of form or emotional effect.”</p>
+      <p>Literature crosses all written languages and encompasses a wide range of written works, including poetry, essays, plays, biographies, fiction, non-fiction, satires, and more.</p>
+      <p>Writers create art with literature through the organization of words that give pleasure, and while reading is enjoyable, those words are often critiques of society. Many of the most well-known authors used language and the written word to critique or offer a point of view on society, including George Orwell, Charlotte Brontë, and Charles Dickens.</p>
+      <p>While literature stands on its own as an art form and is one of the seven different forms of art, it is also closely related to theater, poetry, film, music, and the spoken word.</p>
+    </accordion>
   </div>
 </template>
 <script>
