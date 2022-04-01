@@ -29,3 +29,5 @@ Route::get('/course/{id?}',  [App\Http\Controllers\Api\CourseController::class, 
 Route::get('/subject/{subject}',  [App\Http\Controllers\Api\SubjectController::class, 'show']);
 Route::get('/category/{category}',  [App\Http\Controllers\Api\CategoryController::class, 'show']);
 Route::get('/get-categories', 'CategoryController@index');
+Route::post('/add-course','CourseController@createOrUpdate');
+Route::delete('/course/{course}','CourseController@delete');
