@@ -49,7 +49,9 @@ class DoubtController extends Controller
             'user_id'=>$request->user('api')->id,
             'question'=>$request->question,
         ]);
-        return 'success';
+        return response()->json(['success'=>[
+          'doubt_id'=> $doubt->id,
+      ]]); 
     }
 
     
