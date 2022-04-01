@@ -186,15 +186,19 @@ export default {
 		this.courseList=this.courses; 
          	},
 	methods:{
-		addCourse(){
+		addCourse(){	this.validateForm().then(valid => {
+			if (valid) {
+				let loader = this.$loading.show();
     		  this.axios.post(this.baseUrl + '/api/add-course',{
     			course_name:this.course_name,
-				course_alias:this.course_alias,
+					course_alias:this.course_alias,
     			category_id:this.edit_category,
-				  course_id:this.course_id,
+				  course_id:(this.course_id),
 				      	})
     			.then(resp => {
-					let category_name =this.categories.find(el=>el.id===this.edit_category).name; 
+            
+						let category_name =this.categories.find(el=>el.id===this.edit_category).name;
+						window.location.href='/manage-courses'; 
 				     	if (this.course_id){
 					   	  let index= this.courseList.findIndex(el=>el.course_id===this.course_id);
 			          this.courseList[index]['course_name']=this.course_name;
@@ -215,6 +219,8 @@ export default {
     		  	})
 			
     			.catch(err => {});
+          	}
+		});
                 	},
                   	// set course data in add edit modal
           	editCourse(course) {
@@ -226,7 +232,6 @@ export default {
               
 
 		       deleteCourse(course){  
-             	        console.log('xyz', '/api/course/'+course.course_id);
 		            	this.axios.delete('/api/course/'+course.course_id)
 			          	.then(resp=>{
 				           	let index= this.courseList.findIndex(el=>el.course_id===course.course_id);
@@ -239,8 +244,8 @@ export default {
 				        	this.course_alias='';		
 		            	this.course_id='';
 		            	this.edit_category='';
-                        	},
-	},
+                        	}
+	}
 };
 
 </script>
