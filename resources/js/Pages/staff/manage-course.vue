@@ -229,9 +229,11 @@ export default {
 			this.course_name=course.course_name; 
 			this.edit_category=course.category_id;  
 		},
-		deleteCourse(course){  
+		deleteCourse(course){
+			let loader = this.$loading.show();           
 			this.axios.delete('/api/course/'+course.course_id)
 				.then(resp=>{
+					loader.hide();
 					let index= this.courseList.findIndex(el=>el.course_id===course.course_id);
 					this.courseList.splice(index,1);		
 				});
