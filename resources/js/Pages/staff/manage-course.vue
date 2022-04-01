@@ -184,67 +184,64 @@ export default {
 	},
 	mounted(){
 		this.courseList=this.courses; 
-         	},
+	},
 	methods:{
-		addCourse(){	this.validateForm().then(valid => {
-			if (valid) {
-				let loader = this.$loading.show();
-    		  this.axios.post(this.baseUrl + '/api/add-course',{
-    			course_name:this.course_name,
-					course_alias:this.course_alias,
-    			category_id:this.edit_category,
-				  course_id:(this.course_id),
-				      	})
-    			.then(resp => {
-            
-						let category_name =this.categories.find(el=>el.id===this.edit_category).name;
-						window.location.href='/manage-courses'; 
-				     	if (this.course_id){
-					   	  let index= this.courseList.findIndex(el=>el.course_id===this.course_id);
-			          this.courseList[index]['course_name']=this.course_name;
-					    	this.courseList[index]['course_alias']=this.course_alias;
-					    	this.courseList[index]['category_id']=this.edit_category;   
-					    	this.courseList[index]['category_name']=category_name;           
-				            	}	else{
-					              	this.courseList.push({
-				           	      course_name:resp.data.success.course.course_name,
-						             	course_alias:resp.data.success.course.alias,
-				                	category_id:resp.data.success.course.edit_category,
-				                	course_id:resp.data.success.course.course_id,
-						            	category_name:category_name,
-						                                	});						
-				                  	}    			
-    				this.$refs.addEditCourseModal.closeModal();
-				  	this.clearModalData();
-    		  	})
-			
-    			.catch(err => {});
-          	}
-		});
-                	},
-                  	// set course data in add edit modal
-          	editCourse(course) {
-			                this.course_alias=course.course_alias;    	    
-			                this.course_id=course.course_id;
-             	        this.course_name=course.course_name; 
-                    	this.edit_category=course.category_id;  
-			        },
-              
-
-		       deleteCourse(course){  
-		            	this.axios.delete('/api/course/'+course.course_id)
-			          	.then(resp=>{
-				           	let index= this.courseList.findIndex(el=>el.course_id===course.course_id);
-				          	this.courseList.splice(index,1);		
-			                      	});
-		                },
-
-	      	clearModalData(){
-                	this.course_name='';
-				        	this.course_alias='';		
-		            	this.course_id='';
-		            	this.edit_category='';
-                        	}
+		addCourse(){	
+			this.validateForm().then(valid => {
+				if (valid) {
+					this.courseCreateOrUpdateApi();
+				}
+			});
+		},
+		courseCreateOrUpdateApi(){
+			let loader = this.$loading.show();
+			this.axios.post(this.baseUrl + '/api/add-course',{
+				course_name:this.course_name,
+				course_alias:this.course_alias,
+				category_id:this.edit_category,
+				course_id:(this.course_id),
+			}).then(resp => {
+				loader.hide();
+				let category_name =this.categories.find(el=>el.id===this.edit_category).name;
+				if (this.course_id){
+					let index= this.courseList.findIndex(el=>el.course_id===this.course_id);
+					this.courseList[index]['course_name']=this.course_name;
+					this.courseList[index]['course_alias']=this.course_alias;
+					this.courseList[index]['category_id']=this.edit_category;   
+					this.courseList[index]['category_name']=category_name;           
+				  }	else{
+					  this.courseList.push({
+						course_name:resp.data.success.course.course_name,
+						course_alias:resp.data.success.course.alias,
+						category_id:resp.data.success.course.edit_category,
+						course_id:resp.data.success.course.course_id,
+						category_name:category_name,
+					});						
+				}    			
+				this.$refs.addEditCourseModal.closeModal();
+				this.clearModalData();
+			});
+		},
+		// set course data in add edit modal
+		editCourse(course) {
+			this.course_alias=course.course_alias;    	    
+			this.course_id=course.course_id;
+			this.course_name=course.course_name; 
+			this.edit_category=course.category_id;  
+		},
+		deleteCourse(course){  
+			this.axios.delete('/api/course/'+course.course_id)
+				.then(resp=>{
+					let index= this.courseList.findIndex(el=>el.course_id===course.course_id);
+					this.courseList.splice(index,1);		
+				});
+		},
+		clearModalData(){
+			this.course_name='';
+			this.course_alias='';		
+			this.course_id='';
+			this.edit_category='';
+		}
 	}
 };
 
