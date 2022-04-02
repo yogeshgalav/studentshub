@@ -6,21 +6,19 @@
       :width="250"
       :is-full-page="true"
     />
-
+    <div class="">
+      <h1 class="weight-800 text-black mb-3">
+        Create Classroom
+      </h1>
+    </div>            
     <div class="pb-100">
-      <div class="row justify-content-center">
+      <div class="row">
         <div class="col-md-8">
-          <div class="card">
-            <div class="text-center">
-              <h3 class="weight-800 text-black font-size-18">
-                {{ 'Create Classroom' }}
-              </h3>
-            </div>
-
+          <div class="card p-4">
             <div class="card-body">
-              <div class="row justify-content-center">
-                <div class="col-md-12">
-                  <p class="text-grey">
+              <div class="row">
+                <div class="col-md-12 mt-0">
+                  <p class="text-black mb-0">
                     Please Enter Following Details to Create Classroom.
                   </p>
                 </div>
@@ -31,61 +29,61 @@
                     >
                       <label class="mb-1"> {{ 'Institute name' }} </label>
                       
-                          <auto-complete
-                            :key="'institute'"
-                            v-validate="'required'"
-                            :items="institute_list"
-                            :value="'name'"
-                            name="institute_name"
-                            :is-async="true"
-                            :initial-value="selected_institute"
-                            :is-loading="instituteLoading"
-                            @input="getInstitutes"
-                            @selected="setInstitute"
-                          />
+                      <auto-complete
+                        :key="'institute'"
+                        v-validate="'required'"
+                        :items="institute_list"
+                        :value="'name'"
+                        name="institute_name"
+                        :is-async="true"
+                        :initial-value="selected_institute"
+                        :is-loading="instituteLoading"
+                        @input="getInstitutes"
+                        @selected="setInstitute"
+                      />
   
-                        <span
-                          class="error"
-                        >{{ formErrors('course_level') }}</span>
+                      <span
+                        class="error"
+                      >{{ formErrors('course_level') }}</span>
                     </div>
                     <div class="form-group">
                       <label class="mb-1"> {{ 'Classroom Name' }} </label>
-                          <auto-complete
-                            :key="'classroom'"
-                            v-validate="'required'"
-                            type="text"
-                            placeholder="2nd Year Section B"
-                            :items="classroom_list"
-                            :value="'name'"
-                            name="classroom_name"
-                            :is-async="true"
-                            :initial-value="selected_classroom"
-                            :is-loading="classroomLoading"
-                            @input="getClassrooms"
-                            @selected="setClassrooms"
-                          />
-                        <span
-                          class="error"
-                        >{{ formErrors('classroom_name') }}</span>
+                      <auto-complete
+                        :key="'classroom'"
+                        v-validate="'required'"
+                        type="text"
+                        placeholder="2nd Year Section B"
+                        :items="classroom_list"
+                        :value="'name'"
+                        name="classroom_name"
+                        :is-async="true"
+                        :initial-value="selected_classroom"
+                        :is-loading="classroomLoading"
+                        @input="getClassrooms"
+                        @selected="setClassrooms"
+                      />
+                      <span
+                        class="error"
+                      >{{ formErrors('classroom_name') }}</span>
                     </div>
                     <div class="form-group">
                       <label class="mb-1"> {{ 'Program/Course Level' }} </label>
-                       <auto-complete
-                            v-validate="'required'"
-                            class="width-100"
-                            :items="courseLevels"
-                            :value="'name'"
-                            name="course_level"
-                            :placeholder="'Select Program Level'"
-                            :is-async="true"
-                            :is-loading="courseLoading"
-                            @input="getCourses"
-                            @selected="setCourses"
-                            @selectNew="setNewCourse"
-                          />
-                        <span
-                          class="error"
-                        >{{ formErrors('course_level') }}</span>
+                      <auto-complete
+                        v-validate="'required'"
+                        class="width-100"
+                        :items="courseLevels"
+                        :value="'name'"
+                        name="course_level"
+                        :placeholder="'Select Program Level'"
+                        :is-async="true"
+                        :is-loading="courseLoading"
+                        @input="getCourses"
+                        @selected="setCourses"
+                        @selectNew="setNewCourse"
+                      />
+                      <span
+                        class="error"
+                      >{{ formErrors('course_level') }}</span>
                     </div>
                     <div
                       v-if="show_courses"
@@ -131,22 +129,22 @@
                     </div>
                     <div class="form-group">
                       <label class="mb-1"> {{ 'Subject of Classroom' }} </label>
-                          <auto-complete
-                            v-validate="'required'"
-                            class="width-100"
-                            :items="subject_list"
-                            :value="'subject_name'"
-                            name="subject_name"
-                            :placeholder="'eg. Biology,Chemistry'"
-                            :is-async="true"
-                            :is-loading="subjectLoading"
-                            @input="getSubjects"
-                            @selected="setSubject"
-                            @selectNew="setNewSubject"
-                          />
-                        <span
-                          class="error"
-                        >{{ formErrors('subject_name') }}</span>
+                      <auto-complete
+                        v-validate="'required'"
+                        class="width-100"
+                        :items="subject_list"
+                        :value="'subject_name'"
+                        name="subject_name"
+                        :placeholder="'eg. Biology,Chemistry'"
+                        :is-async="true"
+                        :is-loading="subjectLoading"
+                        @input="getSubjects"
+                        @selected="setSubject"
+                        @selectNew="setNewSubject"
+                      />
+                      <span
+                        class="error"
+                      >{{ formErrors('subject_name') }}</span>
                     </div>
 
                     <div class="form-group d-flex s_register_btn">
@@ -324,7 +322,7 @@ export default {
 				});
 
 		},
-		setInstitute(result) {console.log(result);
+		setInstitute(result) {;
 			this.selected_institute = result;
 		},
 		setCourse(result) {
@@ -367,9 +365,6 @@ export default {
 			this.selected_subject = {
 				'subject_name': name,
 			};
-		},
-		setInstitute(result){
-			this.institute_id = result.id;
 		},
 		setCourseLevel(result){
 			this.selected_level = result;
