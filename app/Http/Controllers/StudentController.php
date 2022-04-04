@@ -10,6 +10,7 @@ use App\Models\MultipleChoice;
 use App\Models\DailyAnswer;
 use App\Models\StudentReport;
 use App\Models\Post;
+use App\Models\Category;
 use Auth;
 use DB;
 
@@ -122,6 +123,7 @@ class StudentController extends Controller
             $subjectInfo = \App\Models\Subject::find($request->sId);
         }
         return inertia('create-post/share-post', [
+            'categories' => Category::all(),
             'courseInfo' => isset($courseInfo) ? $courseInfo : null,
             'subjectInfo' => isset($subjectInfo) ? $subjectInfo : null,
         ]);
@@ -129,7 +131,10 @@ class StudentController extends Controller
     public function editPost(Post $post)
     {
         $post_details = $post->load(['category','subjects','postable']);
-        return inertia('create-post/edit-post', ['post' => $post_details]);
+        return inertia('create-post/edit-post', [
+            'categories' => Category::all(),
+            'post' => $post_details
+        ]);
     }
 
     public function myCoursePage(){

@@ -17,18 +17,15 @@ export default {
 	components: {
 		RichTextEditor
 	},
-	props: ['newPost'],
+	props: ['post'],
 	data(){
 		return{
-			content:this.newPost.article_html_content,
+			content:this.post.content,
 			files:[],
 			error:'', 
 		};
 	},
 	computed: {
-		postType() {
-			return this.$store.state.post.post_type.toLowerCase();
-		},
 		description(){
 			if(this.content.trim()===''){
 				return '';
@@ -47,16 +44,16 @@ export default {
 		},
 	},
 	mounted(){
-		EventBus.$on('validateStep2',()=>{
+		EventBus.$on('validateStep1',()=>{
 			if(this.description){
-				this.$store.commit('set_post_article_content',{
-					postContent:this.content,
+				this.$emit('setPostContent',{
+					content:this.content,
 					description:this.description,
 				});
-				EventBus.$emit('validateWizard',2,true);
+				EventBus.$emit('validateWizard',1,true);
 			}else{
 				this.error='Post content cannot be empty.';
-				EventBus.$emit('validateWizard',2,false);
+				EventBus.$emit('validateWizard',1,false);
 			}
 		});
 	},
