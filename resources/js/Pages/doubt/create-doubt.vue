@@ -58,15 +58,12 @@
                   </div>
                 </div>
               </div>
-                
-              <div class="mt-2">
-                <button
-                  type="submit"
-                  class="btn btn-primary btn-md"
-                >
-                  Submit
-                </button>
-              </div>
+
+              <div class="row">
+        <div class="col-md-5 p-3 bg-light text-right">
+            <button type="button" class="btn btn-primary">Submit</button>
+             </div>
+             </div>
             </form>
           </div>
         </div>
