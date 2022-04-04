@@ -9,7 +9,7 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::get('/get-student-posts','PostController@getStudentPosts');
     Route::post('/save-post-image','PostController@createImage');
     Route::post('/add-doubt','DoubtController@create');
-    Route::post('/doubt/{doubt}/edit','DoubtController@update');
+    Route::put('/doubt/{doubt}','DoubtController@update');
     Route::delete('/doubt/{doubt}','DoubtController@delete');
     Route::get('/get-student-course-details','StudentController@getCourseSubjects');
     //doubt

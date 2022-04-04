@@ -10,6 +10,7 @@ use App\Models\MultipleChoice;
 use App\Models\DailyAnswer;
 use App\Models\StudentReport;
 use App\Models\Post;
+use App\Models\Doubt;
 use Auth;
 use DB;
 
@@ -144,5 +145,10 @@ class StudentController extends Controller
        
         $categories = \App\Models\Category::get();
         return inertia('doubt/create-doubt', ['categories' => $categories]);
+    }
+    public function editDoubtPage($id){
+        $editDoubt = Doubt::where('id','=',$id)->with('subjects')->first(); 
+        $categories = \App\Models\Category::get();
+        return inertia('doubt/create-doubt', ['categories' => $categories,'editDoubtDetails' =>$editDoubt]);
     }
 }

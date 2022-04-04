@@ -12,6 +12,6 @@ Route::group(['middleware'=>['auth']],function(){
     Route::get('/category', 'SeekerController@category');
     //doubts
     Route::get('/doubts','SeekerController@doubtPage');
-    Route::get('/doubt/{id}','SeekerController@doubtAnswersPage');
+    Route::get('/doubt/{doubt}','SeekerController@doubtAnswersPage');
     //post routes
 });
