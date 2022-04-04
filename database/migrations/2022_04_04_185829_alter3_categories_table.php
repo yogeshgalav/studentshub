@@ -28,7 +28,7 @@ class Alter3CategoriesTable extends Migration
             'slug'=>'sports',
         ]);
         $social_id = DB::table('categories')->insertGetId([
-            'name'=>'Social studies',
+            'name'=>'Social Studies',
             'slug'=>'social-studies',
         ]);
         DB::table('categories')->where('id',10)->update([
