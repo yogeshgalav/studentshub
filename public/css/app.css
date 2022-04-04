@@ -15960,21 +15960,13 @@ webpackContext.keys = function webpackContextKeys() {
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
 webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";/* (ignored) *//* (ignored) */var map = {
-	"./arts": [
-		"./resources/js/Pages/category-blogs/arts.vue",
-		28
+	"./communication": [
+		"./resources/js/Pages/category-blogs/communication.vue",
+		144
 	],
-	"./arts.vue": [
-		"./resources/js/Pages/category-blogs/arts.vue",
-		28
-	],
-	"./business": [
-		"./resources/js/Pages/category-blogs/business.vue",
-		33
-	],
-	"./business.vue": [
-		"./resources/js/Pages/category-blogs/business.vue",
-		33
+	"./communication.vue": [
+		"./resources/js/Pages/category-blogs/communication.vue",
+		144
 	],
 	"./computer": [
 		"./resources/js/Pages/category-blogs/computer.vue",
@@ -15984,14 +15976,6 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";/* 
 		"./resources/js/Pages/category-blogs/computer.vue",
 		34
 	],
-	"./design": [
-		"./resources/js/Pages/category-blogs/design.vue",
-		44
-	],
-	"./design.vue": [
-		"./resources/js/Pages/category-blogs/design.vue",
-		44
-	],
 	"./economics": [
 		"./resources/js/Pages/category-blogs/economics.vue",
 		35
@@ -15999,14 +15983,6 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";/* 
 	"./economics.vue": [
 		"./resources/js/Pages/category-blogs/economics.vue",
 		35
-	],
-	"./education": [
-		"./resources/js/Pages/category-blogs/education.vue",
-		36
-	],
-	"./education.vue": [
-		"./resources/js/Pages/category-blogs/education.vue",
-		36
 	],
 	"./healthcare": [
 		"./resources/js/Pages/category-blogs/healthcare.vue",
@@ -16024,29 +16000,29 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";/* 
 		"./resources/js/Pages/category-blogs/hospitality.vue",
 		37
 	],
-	"./journalism": [
-		"./resources/js/Pages/category-blogs/journalism.vue",
-		38
+	"./humanities": [
+		"./resources/js/Pages/category-blogs/humanities.vue",
+		145
 	],
-	"./journalism.vue": [
-		"./resources/js/Pages/category-blogs/journalism.vue",
-		38
+	"./humanities.vue": [
+		"./resources/js/Pages/category-blogs/humanities.vue",
+		145
 	],
-	"./law": [
-		"./resources/js/Pages/category-blogs/law.vue",
-		39
+	"./management": [
+		"./resources/js/Pages/category-blogs/management.vue",
+		146
 	],
-	"./law.vue": [
-		"./resources/js/Pages/category-blogs/law.vue",
-		39
+	"./management.vue": [
+		"./resources/js/Pages/category-blogs/management.vue",
+		146
 	],
-	"./philosophy": [
-		"./resources/js/Pages/category-blogs/philosophy.vue",
-		40
+	"./performing-arts": [
+		"./resources/js/Pages/category-blogs/performing-arts.vue",
+		143
 	],
-	"./philosophy.vue": [
-		"./resources/js/Pages/category-blogs/philosophy.vue",
-		40
+	"./performing-arts.vue": [
+		"./resources/js/Pages/category-blogs/performing-arts.vue",
+		143
 	],
 	"./science": [
 		"./resources/js/Pages/category-blogs/science.vue",
@@ -16055,6 +16031,14 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";/* 
 	"./science.vue": [
 		"./resources/js/Pages/category-blogs/science.vue",
 		41
+	],
+	"./social-studies": [
+		"./resources/js/Pages/category-blogs/social-studies.vue",
+		24
+	],
+	"./social-studies.vue": [
+		"./resources/js/Pages/category-blogs/social-studies.vue",
+		24
 	],
 	"./sports": [
 		"./resources/js/Pages/category-blogs/sports.vue",
@@ -16071,6 +16055,14 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";/* 
 	"./technology.vue": [
 		"./resources/js/Pages/category-blogs/technology.vue",
 		43
+	],
+	"./visual-arts": [
+		"./resources/js/Pages/category-blogs/visual-arts.vue",
+		147
+	],
+	"./visual-arts.vue": [
+		"./resources/js/Pages/category-blogs/visual-arts.vue",
+		147
 	]
 };
 function webpackAsyncContext(req) {
