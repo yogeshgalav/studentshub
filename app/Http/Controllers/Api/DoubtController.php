@@ -49,7 +49,9 @@ class DoubtController extends Controller
             'user_id'=>$request->user('api')->id,
             'question'=>$request->question,
         ]);
-        return 'success';
+        return response()->json(['success'=>[
+          'doubt_id'=> $doubt->id,
+      ]]); 
     }
 
     
@@ -185,34 +187,33 @@ class DoubtController extends Controller
       }
 
       public function update(Doubt $doubt, Request $request){
-        $student=Auth::student();
-        $selected_subject=$request->subject;
-
-        if($doubt->user_id!==Auth::id() || is_null($student)){
+        if($doubt->user_id!==Auth::id())
+        {
             abort(403);
         }
 
         DB::beginTransaction();
-    try{
-        $subject=Subject::getOrCreate(null, $selected_subject['subject_name'], Auth::student()->categoryId);
-
-        $doubt->user_id = Auth::user()->id;
-        $doubt->question = $request->doubt;
-        $doubt->subject_id = $subject->id;
-        $doubt->institute_id = $student->instituteId;
-        $doubt->course_id = $student->courseId;
-        $doubt->save();
-        // ScheduledJob::newDoubtNotification($doubt);
-
-
-    DB::commit();
-        } catch (\Exception $e) {
-            DB::rollback();
-            Log::critical('Doubt edit failure',['data'=>$request->all(),'error'=>$e->getMessage()]);
-            // dd($e->getMessage(),$e->getLine());
-            return response()->$e;
-        }
-        return 'success';
+        try{
+            Subject::deleteDoubtTags($doubt);
+            $doubt->question = $request->question;
+            $doubt->category_id = $request->category_id;
+            $doubt->save();
+            $subject=Subject::addDoubtTags($doubt, $request->selected_subjects);
+    
+        DB::commit();
+            } catch (\Exception $e) {
+                DB::rollback();
+                Log::critical('Doubt Updation failure',['data'=>$request->all(),'error'=>$e->getMessage()]);
+                return response()->$e;
+            }
+    
+            Log::info('Doubt updated',[
+                'user_id'=>$request->user('api')->id,
+                'question'=>$request->question,
+            ]);
+            return response()->json(['success'=>[
+              'doubt_id'=> $doubt->id,
+          ]]);
       }
 
       public function delete(Doubt $doubt){

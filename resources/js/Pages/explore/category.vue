@@ -14,7 +14,7 @@
           </template>
           <template slot="tab-panel-about">
             <div id="about-html" />
-            <div v-if="category.category_url">
+            <div v-if="category.slug">
             <component v-bind:is="categoryBlog"></component>
             </div>
           </template>
@@ -131,8 +131,8 @@ export default {
 	},
   computed:{
     categoryBlog(){
-      if(this.category && this.category.category_url){
-        return () => import('@/Pages/category-blogs/'+this.category.category_url);
+      if(this.category && this.category.slug){
+        return () => import('@/Pages/category-blogs/'+this.category.slug);
       }
       return '';
     }

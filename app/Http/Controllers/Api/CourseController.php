@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Course;
 use DB;
+use Illuminate\Support\Facades\Log;
 
 class CourseController extends Controller
 {
@@ -50,9 +51,9 @@ class CourseController extends Controller
     }
 
     public function delete ($course_id)
-    {  
-        $course = Course::where('id',$course_id)->delete();
-        
+    {
+        $course = Course::find($course_id);
+        $course->each->delete();
         return 'success';
     }
 

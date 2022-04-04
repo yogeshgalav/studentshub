@@ -71,21 +71,23 @@
       heading="Add Career"
       classes="modal-md"
       @submit="addOrEditCareer"
-      @cancel="closeModal"
+      @cancel="clearModalData"
     >
       <template slot="modalBody">
         <form>
-          <div
-            class="form-group"
-          >
-            <label>Career Name</label>
-            <input
-              id="career_name"
-              v-model="career_name"
-              type="text"
-              class="form-control"
-              name="jname"
+          <div class="p-10">
+            <div
+              class="form-group"
             >
+              <label>Career Name</label>
+              <input
+                id="career_name"
+                v-model="career_name"
+                type="text"
+                class="form-control"
+                name="jname"
+              >
+            </div>
           </div>
           <div
             class="form-group"
@@ -115,7 +117,8 @@
 import Modal from '../../components/VueNiceModal';
 import VueTableComponent from '@/components/vue-table-component';
 import StaffLayout from '@/Layouts/StaffLayout';
-import careersVue from '../../../../vendor/laravel/horizon/resources/js/screens/metrics';
+import FormMixin from '@/components/mixins/form-mixin.js';
+
 export default {
 	layout:StaffLayout,
 	components:{
@@ -123,7 +126,8 @@ export default {
 		VueTableComponent,
 	
 	},
-  	props:['careers','categories'],
+	mixins:[FormMixin],
+	props:['careers','categories'],
 	data() {
 		return {
      	career_name:'',
@@ -152,51 +156,60 @@ export default {
 		this.careerList=this.careers; 
 	},
 	methods:{
-		addOrEditCareer(){
-			  	this.axios.post(this.baseUrl + '/api/career',{
-    			career_name:this.career_name,
-    			category_id:this.edit_category,
-				  career_id:(this.career_id),
-    		})
-    			.then(resp => {
-    				let category_name =this.categories.find(el=>el.id===this.edit_category).name;   			
-					if (this.career_id){
+		addOrEditCareer(){	
+			this.validateForm().then(valid => {
+				if (valid) {
+					this.careerCreateOrUpdateApi();
+				}
+			});
+		},
+		careerCreateOrUpdateApi(){
+			let loader = this.$loading.show();
+			this.axios.post(this.baseUrl + '/api/career',{
+				career_name:this.career_name,
+				category_id:this.edit_category,
+				career_id:(this.career_id),
+			}).then(resp => {
+				loader.hide();
+				let category_name =this.categories.find(el=>el.id===this.edit_category).name;   			
+				if (this.career_id){
              	let index= this.careerList.findIndex(el=>el.career_id===this.career_id);
 			        this.careerList[index]['career_name']=this.career_name;
 					  	this.careerList[index]['category_id']=this.edit_category;
 					  	this.careerList[index]['category_name']=category_name;
-					}else{
-						this.careerList.push({
-							career_name:resp.data.success.career.name,
-							category_id:resp.data.success.career.category_id,
-							career_id:resp.data.success.career.id,
-							category_name:category_name,
-						});
-					}
-          	this.$refs.addEditCareerModal.closeModal();
-    			})
-    			.catch(err => {
-    				
-    			});
+				}else{
+					this.careerList.push({
+						career_name:resp.data.success.career.name,
+						category_id:resp.data.success.career.category_id,
+						career_id:resp.data.success.career.id,
+						category_name:category_name,
+					});
+				}
+				this.$refs.addEditCareerModal.closeModal();
+				this.clearModalData();
+			});
     	},
 		editCareer(career){
 			this.career_name=career.career_name;
 			this.edit_category=career.category_id;
 			this.career_id=career.career_id;
-			console.log(career);
-		    },
-		deleteCareer(career){  	           
+		},
+		deleteCareer(career){  	  
+			let loader = this.$loading.show();         
 			this.axios.delete('/api/career/'+career.career_id)
 				.then(resp=>{
+					loader.hide();
 					let index= this.careerList.findIndex(el=>el.career_id===career.career_id);
 					this.careerList.splice(index,1);		
 				});
 		},
-		closeModal(){
-        	this.career_name='';
-				  this.edit_category='';
-			    this.career_id='';
+		clearModalData(){
+			this.career_name='';
+			this.career_alias='';		
+			this.career_id='';
+			this.edit_category='';
 		}
+
 	}
 };
 
