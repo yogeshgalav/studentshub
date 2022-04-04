@@ -162,7 +162,7 @@ export default {
 	},
 	methods: {
 		valdiateStep(stepIndex){
-			this.$emit('valdiateStep'+stepIndex);
+			EventBus.$emit('validateStep'+stepIndex);
 		},
 		setPostDescription(data){
 			this.post_data.heading=data.heading;

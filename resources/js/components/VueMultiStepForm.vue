@@ -165,7 +165,6 @@ export default {
 			window.location.hash = this.stepIndex;
 		},
 		submitForm(){
-			console.log(this.id);
 			document.getElementById(this.id).submit();
 		}
 	}
