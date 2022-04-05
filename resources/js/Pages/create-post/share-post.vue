@@ -135,25 +135,34 @@ export default {
 				},
 			],
 			post_data:null,
+			post_submited:false,
 		};
 	},
 	mounted() {
 
+		let subjectInfo = null;
+		if(this.subjectInfo){
+			subjectInfo = Object.assign(this.subjectInfo.subject_name,{
+				text:this.subjectInfo.subject_name
+			});
+		}
 		//set post data
 		if(this.post){
+      // this.post.subjects = this.post.subjects.map(el=>el.text=el.subject_name);
 			this.post_data = this.post;
 		}else{
 			this.post_data ={
 				heading:'',
 				category_id:14,
-				subjects:[],
-				content:'',
+				subjects: this.subjectInfo ? [subjectInfo] : [],
+				course: this.courseInfo ? this.courseInfo : null,
+				html_content:'',
+				text_content:'',
 			};
 		}
 
 		//validate step
 		EventBus.$on('validateWizard',(i,valid)=>{
-			console.log(i,valid);
 			if(this.step_data[i] && valid){
 				this.step_data[i]['step_valid']=true;
 				this.$refs.multiStep.nextStep();
@@ -169,25 +178,33 @@ export default {
 			this.post_data.subjects=data.subjects;
 			this.post_data.category_id=data.category_id;
 		},
-		setPostContent(){
-			this.post_data.content=data.content;
-			this.post_data.description=data.description;
+		setPostContent(data){
+			this.post_data.html_content=data.content;
+			this.post_data.text_content=data.text_content;
 		},
 		onComplete() {
-			this.$refs.multiStep.submitForm();
-			// if(true===this.showLoader){
-			// 	return false;
-			// }
-			// this.showLoader=true;
-			this.$store.dispatch('submitPost', this.new_post)
+			if(this.post_submited){
+				return false;
+			}
+			// let loader = this.$loading.show();
+      
+			let api ='/api/submit-post';
+			let event_name ='/api/post_create';
+			let msg ='Post Created';
+			if(this.post.id){
+				api ='/api/update-post';
+				event_name ='/api/post_update';
+				msg ='Post Updated';
+			}
+			this.axios.post(api,this.post_data)
 				.then((resp)=>{
-					// this.showLoader=false;
-					gtag('event','post_create',{
+					this.$gtag('event',event_name,{
 						// 'course':this.$store.state.selected_course.course_name,
 						// 'subjects':this.$store.state.selected_subjects.map(el=>el.subject_name).join(','),
 					});
-					swal.successDialog('Post Created', 'Successfully!', 'success');
-					window.location.href ='/';
+					// loader = false;
+					// swal.successDialog(msg, 'Successfully!', 'success');
+					this.$inertia.visit('/post/'+resp.data.success.post_id);
 				});
 		}
 	}

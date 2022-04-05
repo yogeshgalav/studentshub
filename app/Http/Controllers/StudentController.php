@@ -117,7 +117,7 @@ class StudentController extends Controller
     public function sharePost(Request $request)
     {
         if($request->cId){
-        $courseInfo = \App\Models\Course::find($request->cId);
+            $courseInfo = \App\Models\Course::find($request->cId);
         }
         if($request->sId){
             $subjectInfo = \App\Models\Subject::find($request->sId);
@@ -130,10 +130,21 @@ class StudentController extends Controller
     }
     public function editPost(Post $post)
     {
-        $post_details = $post->load(['category','subjects','postable']);
-        return inertia('create-post/edit-post', [
+        $post_details = [];
+        $post_details['id'] = $post->id;
+        $post_details['heading'] = $post->post_heading;
+        $post_details['html_content'] = $post->postable->html_content;
+        $post_details['description'] = $post->post_description;
+        $post_details['category_id'] = $post->category_id;
+        $post_details['subjects'] = array_map(function($subject){
+            return ['text'=>$subject['subject_name']];
+        },$post->subjects()->get()->toArray());
+
+        return inertia('create-post/share-post', [
             'categories' => Category::all(),
-            'post' => $post_details
+            'post' => $post_details,
+            'courseInfo' => null,
+            'subjectInfo' => null,
         ]);
     }
 

@@ -144,10 +144,10 @@ export default {
 				this.$emit('valdiateStep', this.stepIndex);
 				return false;
 			}
-			if(this.currentStep.last_step && this.action){
+			if(this.isLastStep && this.action){
 				this.submitForm();
 			}
-			if(this.currentStep.last_step){
+			if(this.isLastStep){
 				this.$emit('onComplete');
 				return false;
 			}

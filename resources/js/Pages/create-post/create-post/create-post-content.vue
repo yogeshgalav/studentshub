@@ -20,13 +20,13 @@ export default {
 	props: ['post'],
 	data(){
 		return{
-			content:this.post.content,
+			content:this.post.html_content,
 			files:[],
 			error:'', 
 		};
 	},
 	computed: {
-		description(){
+		textContent(){
 			if(this.content.trim()===''){
 				return '';
 			}
@@ -45,10 +45,10 @@ export default {
 	},
 	mounted(){
 		EventBus.$on('validateStep1',()=>{
-			if(this.description){
+			if(this.textContent){
 				this.$emit('setPostContent',{
 					content:this.content,
-					description:this.description,
+					text_content:this.textContent,
 				});
 				EventBus.$emit('validateWizard',1,true);
 			}else{
