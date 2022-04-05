@@ -148,7 +148,6 @@ export default {
 		}
 		//set post data
 		if(this.post){
-      // this.post.subjects = this.post.subjects.map(el=>el.text=el.subject_name);
 			this.post_data = this.post;
 		}else{
 			this.post_data ={
