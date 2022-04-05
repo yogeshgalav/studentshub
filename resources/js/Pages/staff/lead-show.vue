@@ -108,7 +108,7 @@
             >
               <span v-if="props.column.field==='full_name'">
                 <router-link
-                  :href="'/lead/'+props.row.user_id"
+                  :href="'/lead/'+props.row.id"
                   class="text-underline"
                 >{{ props.row['full_name'] }}</router-link>
               </span>
@@ -132,7 +132,7 @@ export default {
 		VueTableComponent,
 		Accordion
 	},
-	props:['leadsId'],
+	props:['leadData'],
 	layout:StaffLayout,
 	
 	data() {
@@ -154,21 +154,15 @@ export default {
 			]
 		};
 	},
-	mounted(){
-		this.axios.post('/api/lead/'+this.leadsId.id).then(resp=>{
-			this.userList = resp.data.success.leads;
-			
 
-		});
-	},
 	methods:{
 		addLead(){
-      	console.log(this.leadsId);
-  	this.axios.post('/api/lead/'+this.leadsId.id, {
+			console.log('xyz', this.leadData);
+  	this.axios.post('/api/lead/'+this.leadData.user_id, {
     			lead_status:this.lead_status,
 				description:this.description,
     		}).then(resp=>{
-				this.userList = resp.data.success.leadsId;
+			
 			});
 				
 		}

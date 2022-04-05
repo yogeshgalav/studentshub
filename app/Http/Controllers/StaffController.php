@@ -16,9 +16,13 @@ class StaffController extends Controller
         return inertia('staff/lead-index');
     }
     
-   public function leadShowPage(Request $request){ 
-    $leadsId = User::where($request->route('id'))->first(); 
-        return inertia('staff/lead-show', ['leadsId' => $leadsId]);
+   public function leadShowPage($id, Request $request){
+     
+    $leadData = DB::table('leads as le')->where('le.user_id','=',$id)
+    ->leftJoin('users as us', 'us.id','=','le.user_id')
+ ->select('us.id as user_id','us.full_name as user_name','lead_status', 'description')->first();   
+ 
+        return inertia('staff/lead-show', ['leadData' => $leadData]);
     }
 
    public function manageCoursePage(){        
