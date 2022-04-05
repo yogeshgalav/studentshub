@@ -7,7 +7,6 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
-use hasNot;
 
 class LeadController extends Controller
 {
@@ -21,8 +20,6 @@ class LeadController extends Controller
     }
 
     public function create(Request $request){
-       
-       //we have fetch user_id from user table
        
             if ($request->route('id')){
                 $lead=Lead::find($request->route('id'));

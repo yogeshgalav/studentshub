@@ -128,12 +128,13 @@ import Accordion from '@/components/accordion.vue';
 
 import StaffLayout from '@/Layouts/StaffLayout';
 export default {
-	layout:StaffLayout,
 	components:{
 		VueTableComponent,
 		Accordion
 	},
-	props:['leads'],
+	props:['leadsId'],
+	layout:StaffLayout,
+	
 	data() {
 		return {
 			lead_status:'2',
@@ -154,19 +155,20 @@ export default {
 		};
 	},
 	mounted(){
-		this.axios.get('/api/leads').then(resp=>{
+		this.axios.post('/api/lead/'+this.leadsId.id).then(resp=>{
 			this.userList = resp.data.success.leads;
+			
+
 		});
 	},
 	methods:{
 		addLead(){
-			console.log('lead');
-
-  	this.axios.post('/api/lead/', {
+      	console.log(this.leadsId);
+  	this.axios.post('/api/lead/'+this.leadsId.id, {
     			lead_status:this.lead_status,
 				description:this.description,
     		}).then(resp=>{
-				this.userList = resp.data.success.lead;
+				this.userList = resp.data.success.leadsId;
 			});
 				
 		}

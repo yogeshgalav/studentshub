@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Career;
 use App\Models\Course;
+use App\Models\User;
+use App\Models\Lead;
 use DB;
 
 class StaffController extends Controller
@@ -13,16 +15,12 @@ class StaffController extends Controller
    public function leadIndexPage(){        
         return inertia('staff/lead-index');
     }
-   public function leadShowPage(){     
-
-   // create new lead with lead_status and description using quirybuilder
-    $leads = DB::table('users')
-    ->select('users.id as user_id','description','lead_status')
-    ->rightJoin('leads', function($join){
-        $join->on('leads.user_id', '=', 'users.id')->where('lead_status','raw');
-    })->get();   
-        return inertia('staff/lead-show', ['leads' => $leads]);
+    
+   public function leadShowPage(Request $request){ 
+    $leadsId = User::where($request->route('id'))->first(); 
+        return inertia('staff/lead-show', ['leadsId' => $leadsId]);
     }
+
    public function manageCoursePage(){        
     $categories = \App\Models\Category::get();  
     $courses=DB::table('courses as co')
