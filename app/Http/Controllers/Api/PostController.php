@@ -90,9 +90,8 @@ class PostController extends Controller
         ]]);
     }
     public function update(Post $post, Request $request){
-
       $data=$request->all();
-      if(Auth::id()!==$post->user_id){
+      if($request->user('api')->id !== $post->user_id){
         abort(403);
       }
       DB::beginTransaction();

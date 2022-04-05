@@ -189,11 +189,11 @@ export default {
 			// let loader = this.$loading.show();
       
 			let api ='/api/submit-post';
-			let event_name ='/api/post_create';
+			let event_name ='post create';
 			let msg ='Post Created';
 			if(this.post.id){
-				api ='/api/update-post';
-				event_name ='/api/post_update';
+				api ='/api/post/'+this.post.id+'/update';
+				event_name ='post update';
 				msg ='Post Updated';
 			}
 			this.axios.post(api,this.post_data)

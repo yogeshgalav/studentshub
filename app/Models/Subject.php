@@ -93,7 +93,7 @@ class Subject extends Model
         
         return true;
     }
-    public function deletePostTags($post)
+    public static function deletePostTags($post)
     {
         PostTag::where('post_id', $post->id)->delete();
 

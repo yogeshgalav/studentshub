@@ -6,8 +6,15 @@
     :action="action"
     :method="method"
   >
-    <div class="row">
-      <slot name="header" />
+    <div
+      v-if="!noHeader"
+      class="row"
+    >
+      <slot
+        name="header" 
+        :currentStep="currentStep"
+        :stepIndex="stepIndex"
+      />
     </div>
 
     <div
@@ -21,15 +28,18 @@
         <slot
           :id="'step'+index"
           :name="'step'+index"
+          :currentStep="currentStep"
+          :stepIndex="stepIndex"
         />
       </div>
     </div>
 
-    <div class="row">
+    <div
+      v-if="!noFooter"
+      class="row"
+    >
       <slot
         name="footer"
-        :isFirstStep="isFirstStep"
-        :isLastStep="isLastStep"
         :currentStep="currentStep"
         :stepIndex="stepIndex"
       >
@@ -75,6 +85,14 @@ export default {
 		stepData: { 
 			type: Array, 
 			default: () => [] 
+		},
+		noHeader: { 
+			type: Boolean, 
+			default: false
+		},
+		noFooter: { 
+			type: Boolean, 
+			default: false
 		},
 	},
 	data(){
