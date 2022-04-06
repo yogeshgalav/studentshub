@@ -40,6 +40,8 @@
     >
       <slot
         name="footer"
+        :isFirstStep="isFirstStep"
+        :isLastStep="isLastStep"
         :currentStep="currentStep"
         :stepIndex="stepIndex"
       >

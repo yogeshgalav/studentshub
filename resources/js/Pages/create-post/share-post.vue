@@ -34,6 +34,30 @@
                 @setPostContent="setPostContent"
               />
             </template>
+            
+            <template
+              v-slot:footer="props"
+            >
+              <div class="m-0-a">
+                <div class="row">
+                  <button
+                    v-if="!props.isFirstStep"
+                    type="button"
+                    class="btn btn-md btn-primary m-0-a"
+                    @click="prevClick"
+                  >
+                    {{ 'back' }}
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-md btn-primary m-0-a"
+                    @click="nextClick"
+                  >
+                    {{ props.isLastStep ? 'Create Post' : 'Next' }}
+                  </button>
+                </div>
+              </div>
+            </template>
           </MultiStep>
         </form>
       </div>
@@ -152,7 +176,7 @@ export default {
 		}else{
 			this.post_data ={
 				heading:'',
-				category_id:14,
+				category_id:7,
 				subjects: this.subjectInfo ? [subjectInfo] : [],
 				course: this.courseInfo ? this.courseInfo : null,
 				html_content:'',
@@ -181,6 +205,12 @@ export default {
 			this.post_data.html_content=data.content;
 			this.post_data.text_content=data.text_content;
 		},
+		nextClick: function (e) {
+			this.$refs.multiStep.nextStep();
+		},
+		prevClick: function (e) {
+			this.$refs.multiStep.prevStep();
+		},
 		onComplete() {
 			if(this.post_submited){
 				return false;
@@ -190,7 +220,7 @@ export default {
 			let api ='/api/submit-post';
 			let event_name ='post create';
 			let msg ='Post Created';
-			if(this.post.id){
+			if(this.post_data.id){
 				api ='/api/post/'+this.post.id+'/update';
 				event_name ='post update';
 				msg ='Post Updated';
