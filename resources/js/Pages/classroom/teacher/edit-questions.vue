@@ -393,7 +393,7 @@ export default {
 			this.filter_recovery_text = '';
 		},
 		saveQuestion() {
-			this.$validator.validate().then(valid => {
+			this.validateForm().then(valid => {
 				if (valid) {
 					this.$emit('loader',true);
 					this.axios.post('/api/classroom/update-daily-question', {

@@ -390,7 +390,7 @@ export default {
 	},
 	methods:{
 		addNewMember(){
-			this.$validator.validate().then(valid => {
+			this.validateForm().then(valid => {
 				if (valid) {
 					this.$refs.addMemberModal.closeModal();
 					this.axios.post('/api/institute/'+this.instituteId+'/update-user',this.new_member).then((resp)=>{

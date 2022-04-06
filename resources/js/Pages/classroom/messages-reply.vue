@@ -100,7 +100,7 @@ export default {
 			if(!this.reply_text){
 				return false;
 			}
-			this.$validator.validate().then((valid) => {
+			this.validateForm().then((valid) => {
         	if(valid){
 					this.axios.post('/api/add-message',
 						{

@@ -6,113 +6,84 @@
       :width="250"
       :is-full-page="true"
     />
-
-    <div class="container pb-100">
-      <div class="row justify-content-center register">
+    <div class="">
+      <h1 class="weight-800 text-black mb-3">
+        Create Classroom
+      </h1>
+    </div>            
+    <div class="pb-100">
+      <div class="row">
         <div class="col-md-8">
-          <div class="logn_right login_card">
-            <div class="card_title text-center">
-              <h3 class="weight-800 text-black font-size-18">
-                {{ 'Create Classroom' }}
-              </h3>
-            </div>
-
-            <div class="card-body edu_det_page">
-              <div class="row justify-content-center">
-                <div class="col-md-12">
-                  <p class="text-grey">
+          <div class="card p-4">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12 mt-0">
+                  <p class="text-black mb-0">
                     Please Enter Following Details to Create Classroom.
                   </p>
                 </div>
-
                 <div class="col-md-12 mt-2">
                   <form @submit.prevent="createClassroom">
                     <div 
                       class="form-group"
                     >
                       <label class="mb-1"> {{ 'Institute name' }} </label>
-                      <div class="inner-addon left-addon">
-                        <div class="input_icon_frm">
-                          <span
-                            class="icon_design_input"
-                            style="height: 44px"
-                          >
-                            <i
-                              class="fas fa-university"
-                              aria-hidden="true"
-                            /></span>
-                          <auto-complete
-                            :key="'institute'"
-                            v-validate="'required'"
-                            :items="institute_list"
-                            :value="'name'"
-                            name="institute_name"
-                            :is-async="true"
-                            :initial-value="selected_institute"
-                            :is-loading="instituteLoading"
-                            @input="getInstitutes"
-                            @selected="setInstitute"
-                          />
-                        </div>
-                        <span
-                          class="error"
-                        >{{ formErrors('course_level') }}</span>
-                      </div>
+                      
+                      <auto-complete
+                        :key="'institute'"
+                        v-validate="'required'"
+                        :items="institute_list"
+                        :value="'name'"
+                        name="institute_name"
+                        :is-async="true"
+                        :initial-value="selected_institute"
+                        :is-loading="instituteLoading"
+                        @input="getInstitutes"
+                        @selected="setInstitute"
+                      />
+  
+                      <span
+                        class="error"
+                      >{{ formErrors('course_level') }}</span>
                     </div>
                     <div class="form-group">
-                      <label> {{ 'Classroom Name' }} </label>
-                      <div class="inner-addon left-addon">
-                        <div class="input_icon_frm">
-                          <span
-                            class="icon_design_input"
-                            style="height: 44px"
-                          >
-                            <i
-                              class="fa fa-certificate"
-                              aria-hidden="true"
-                            /></span>
-                          <input
-                            v-model="classroom_name"
-                            v-validate="'required'"
-                            type="text"
-                            placeholder="2nd Year Section B"
-                            name="classroom_name"
-                            class="form-control"
-                          >
-                        </div>
-                        <span
-                          class="error"
-                        >{{ formErrors('classroom_name') }}</span>
-                      </div>
+                      <label class="mb-1"> {{ 'Classroom Name' }} </label>
+                      <auto-complete
+                        :key="'classroom'"
+                        v-validate="'required'"
+                        type="text"
+                        placeholder="2nd Year Section B"
+                        :items="classroom_list"
+                        :value="'name'"
+                        name="classroom_name"
+                        :is-async="true"
+                        :initial-value="selected_classroom"
+                        :is-loading="classroomLoading"
+                        @input="getClassrooms"
+                        @selected="setClassrooms"
+                      />
+                      <span
+                        class="error"
+                      >{{ formErrors('classroom_name') }}</span>
                     </div>
                     <div class="form-group">
                       <label class="mb-1"> {{ 'Program/Course Level' }} </label>
-                      <div class="inner-addon left-addon">
-                        <div class="input_icon_frm">
-                          <span
-                            class="icon_design_input"
-                            style="height: 44px"
-                          >
-                            <i
-                              class="fa fa-certificate"
-                              aria-hidden="true"
-                            /></span>
-                          <auto-complete
-                            v-validate="'required'"
-                            class="width-100"
-                            :items="courseLevels"
-                            :value="'name'"
-                            name="course_level"
-                            :placeholder="'Select Program Level'"
-                            :is-async="false"
-                            :create-new-item="false"
-                            @selected="setCourseLevel"
-                          />
-                        </div>
-                        <span
-                          class="error"
-                        >{{ formErrors('course_level') }}</span>
-                      </div>
+                      <auto-complete
+                        v-validate="'required'"
+                        class="width-100"
+                        :items="courseLevels"
+                        :value="'name'"
+                        name="course_level"
+                        :placeholder="'Select Program Level'"
+                        :is-async="true"
+                        :is-loading="courseLoading"
+                        @input="getCourses"
+                        @selected="setCourses"
+                        @selectNew="setNewCourse"
+                      />
+                      <span
+                        class="error"
+                      >{{ formErrors('course_level') }}</span>
                     </div>
                     <div
                       v-if="show_courses"
@@ -158,34 +129,22 @@
                     </div>
                     <div class="form-group">
                       <label class="mb-1"> {{ 'Subject of Classroom' }} </label>
-                      <div class="inner-addon left-addon">
-                        <div class="input_icon_frm">
-                          <span
-                            class="icon_design_input"
-                            style="height: 44px"
-                          >
-                            <i
-                              class="fa fa-certificate"
-                              aria-hidden="true"
-                            /></span>
-                          <auto-complete
-                            v-validate="'required'"
-                            class="width-100"
-                            :items="subject_list"
-                            :value="'subject_name'"
-                            name="subject_name"
-                            :placeholder="'eg. Biology,Chemistry'"
-                            :is-async="true"
-                            :is-loading="subjectLoading"
-                            @input="getSubjects"
-                            @selected="setSubject"
-                            @selectNew="setNewSubject"
-                          />
-                        </div>
-                        <span
-                          class="error"
-                        >{{ formErrors('subject_name') }}</span>
-                      </div>
+                      <auto-complete
+                        v-validate="'required'"
+                        class="width-100"
+                        :items="subject_list"
+                        :value="'subject_name'"
+                        name="subject_name"
+                        :placeholder="'eg. Biology,Chemistry'"
+                        :is-async="true"
+                        :is-loading="subjectLoading"
+                        @input="getSubjects"
+                        @selected="setSubject"
+                        @selectNew="setNewSubject"
+                      />
+                      <span
+                        class="error"
+                      >{{ formErrors('subject_name') }}</span>
                     </div>
 
                     <div class="form-group d-flex s_register_btn">
@@ -291,7 +250,7 @@ export default {
 	},
 	methods: {
 		createClassroom() {
-			this.$validator.validate().then(valid => {
+			this.validateForm().then(valid => {
 				if (valid) {
 					this.form_errors=[];
 					this.axios.post('/api/classroom/create', {
@@ -363,7 +322,7 @@ export default {
 				});
 
 		},
-		setInstitute(result) {console.log(result);
+		setInstitute(result) {;
 			this.selected_institute = result;
 		},
 		setCourse(result) {
@@ -406,9 +365,6 @@ export default {
 			this.selected_subject = {
 				'subject_name': name,
 			};
-		},
-		setInstitute(result){
-			this.institute_id = result.id;
 		},
 		setCourseLevel(result){
 			this.selected_level = result;

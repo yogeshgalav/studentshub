@@ -17,77 +17,194 @@
       <h4>Quality Required</h4>
     </div>
     <hr class="mb-0 mt-0">
-    <div class="col-md-12">
-      • Academic Orientation
-      • Good with Numerics, Mathematics and Economics with affinity
-      towards Accounts and Statistics
-      • Interest in Numbers, Financial Management and Data Analysis.
-      • Ability to spend long hours working with Data and
-      Numbers on paper and/or on computers.
+    <div class="col-md-12 p-2">
+      <ul>
+        <li class>
+          Academic Orientation
+        </li>
+        <li class>
+          Good with Numerics, Mathematics and Economics with affinity towards Accounts and Statistics
+        </li>
+        <li class>
+          Interest in Numbers, Financial Management and Data Analysis.
+        </li>
+        <li class>
+          Ability to spend long hours working with Data and Numbers on paper and/or on computers.
+        </li>
+      </ul>
     </div>
     <div class="col-md-12 mt-1">
       <h4>Entrance Exams</h4>
     </div>
     <hr class="mb-0 mt-0">
-    <div class="col-md-12">
-      NPAT (Narsee Monjee)
-      CUET (Christ)
-      B.Com.-CET (IPU)
-      JMI-ET (Jamia)
-      BHU-UET (Banaras)
-      DUET (Delhi Univ.)
-      AU-MAT (Alliance)
-      JET (Jain)
-      SSSIHL-UGT (Sathya Sai)
-      KUAT (Karnavati)
-      PDPU-AT (Pandit Deendayal)
-      UGAT
-      NPAT (Narsee Monjee)
-      SET (Symbiosis)
-      BAECO-CET (IPU)
-      CUET (Christ)
-      AMU-EE (Aligarh)
-      DUET (Delhi Univ.)
-      APU-ET (Azim Premji)
-      JMI-ET (Jamia)
-      BHU-UET (Banaras)
-      GATA (G D Goenka)
+    <div class="col-md-12 p-2">
+      <div class="d-flex pt-2 w-50 justify-content-between">
+        <ul>
+          <h5>You Can be:</h5>
+          <li class>
+            NPAT (Narsee Monjee)
+          </li>
+          <li class>
+            CUET (Christ)
+          </li>
+          <li class>
+            B.Com.-CET (IPU)
+          </li>
+          <li class>
+            JMI-ET (Jamia)
+          </li>
+          <li class>
+            BHU-UET (Banaras)
+          </li>
+          <li class>
+            DUET (Delhi Univ.)
+          </li>
+          <li class>
+            AU-MAT (Alliance)
+          </li>
+          <li class>
+            JET (Jain)
+          </li>
+          <li class>
+            SSSIHL-UGT (Sathya Sai)
+          </li>
+          <li class>
+            KUAT (Karnavati)
+          </li>
+          <li class>
+            PDPU-AT (Pandit Deendayal)
+          </li>
+        </ul>
+        <ul> 
+          <h5>You Can be:</h5>
+          <li class>
+            UGAT
+          </li>
+          <li class>
+            NPAT (Narsee Monjee)
+          </li>
+          <li class>
+            SET (Symbiosis)
+          </li>
+          <li class>
+            BAECO-CET (IPU)
+          </li>
+          <li class>
+            CUET (Christ)
+          </li>
+          <li class>
+            AMU-EE (Aligarh)
+          </li>
+          <li class>
+            DUET (Delhi Univ.)
+          </li>
+          <li class>
+            APU-ET (Azim Premji)
+          </li>
+          <li class>
+            JMI-ET (Jamia)
+          </li>
+          <li class>
+            BHU-UET (Banaras)
+          </li>
+          <li class>
+            GATA (G D Goenka)
+          </li>
+        </ul>
+      </div>
     </div>
     <div class="col-md-12 mt-1">
       <h4>Career Options</h4>
     </div>
     <hr class="mb-0 mt-0">
     <div class="col-md-12">
-      You Can be:
-      • Actuary
-      • Auditor
-      • Banker
-      • Business Analyst
-      • Chartered Accountant
-      • Credit Analyst
-      • Company Secretary
-      • Cost and Works Accountant
-      • Data Analyst
-      • Econometrist
-      • Economist
-      • Finance Analyst
+      <div class="d-flex pt-2 w-50 justify-content-between">
+        <ul>
+          <h5>You Can be:</h5>
 
-
-      You Can be:
-      • Finance Planner
-      • Finance Controller
-      • Investment Analyst
-      • Statistician
-      • Stock Broker
-      • Tax Auditor
-      • Tax Consultant
-      • Finance Consultant
-      • Finance Manager
-      • Market Research Analyst
-      • Policy Analyst
-      • Portfolio Manager
-      • Risk Analyst
-      • Stock Broker
+          <li class>
+            Actuary
+          </li>
+          <li class>
+            Auditor
+          </li>
+          <li class>
+            Banker
+          </li>
+          <li class>
+            Business Analyst
+          </li>
+          <li class>
+            Chartered Accountant
+          </li>
+          <li class>
+            Credit Analyst
+          </li>
+          <li class>
+            Company Secretary
+          </li>
+          <li class>
+            Cost and Works Accountant
+          </li>
+          <li class>
+            Data Analyst
+          </li>
+          <li class>
+            Econometrist
+          </li>
+          <li class>
+            Economist
+          </li>
+          <li class>
+            Finance Analyst
+          </li>
+        </ul>
+        <ul>
+          <h5>You Can be:</h5>
+          <li class>
+            Finance Planner
+          </li>
+          <li class>
+            Finance Controller
+          </li>
+          <li class>
+            Investment Analyst
+          </li>
+          <li class>
+            Statistician
+          </li>
+          <li class>
+            Stock Broker
+          </li>
+          <li class>
+            Tax Auditor
+          </li>
+          <li class>
+            Tax Consultant
+          </li>
+          <li class>
+            Finance Consultant
+          </li>
+          <li class>
+            Finance Manager
+          </li>
+          <li class>
+            Market Research Analyst
+          </li>
+          <li class>
+            Policy Analyst
+          </li>
+          <li class>
+            Portfolio Manager
+          </li>
+          <li class>
+            Risk Analyst
+          </li>
+          <li class>
+            Stock Broker
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>

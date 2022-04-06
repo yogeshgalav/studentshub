@@ -478,7 +478,7 @@ export default {
 	},
 	methods:{
 		addNewMember(){
-			this.$validator.validate().then(valid => {
+			this.validateForm().then(valid => {
 				if (valid) {
 					this.axios.post('/api/institute/'+this.instituteId+'/update-user',this.new_member).then((resp)=>{
 						const new_member = this.new_member;
