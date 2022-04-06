@@ -16,7 +16,7 @@
             >
               <span v-if="props.column.field==='full_name'">
                 <router-link
-                  :href="'/lead/'+props.row.id"
+                  :href="'/lead/'+props.row.user_id"
                   class="text-underline"
                 >{{ props.row['full_name'] }}</router-link>
               </span>
@@ -41,6 +41,7 @@ export default {
 		VueTableComponent,
 		Accordion
 	},
+	props:['members'],
 	data() {
 		return {
 			userList:[],
@@ -50,21 +51,30 @@ export default {
 					field: 'full_name',
 				},
 				{
-					label: 'Phone Number',
-					field: 'phone_no',
+					label: 'Current Plan',
+					field: 'current_plan',
+				},
+				{
+					label: 'First Purchase at',
+					field: 'first_purchase_at',
+				},
+				{
+					label: 'Last Purchase at',
+					field: 'last_purchase_at',
+				},
+				{
+					label: 'Expires at',
+					field: 'expires_at',
 				},
 				
-				{
-					label: 'Onboarded At',
-					field: 'onboarded_at',
-				},
+				
 			]
 		};
 	},
 	mounted(){
     
-		this.axios.get('/api/leads').then(resp=>{
-			this.userList = resp.data.success.leads;
+		this.axios.get('/api/membership').then(resp=>{
+			this.userList = resp.data.success.members;
       
 
 		});

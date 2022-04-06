@@ -5,6 +5,15 @@
 @import "~bootstrap/scss/variables";
 @import "~quill/dist/quill.core.css";
 
+$primary-black: #333;
+$primary-blue: #10069f;
+$dark-blue: #0e0770;
+$light-blue: #3646c5;
+$small-size: #333;
+$medium-size: #333;
+$large-size: #333;
+$extra-large-size: #333;
+
 $grid-breakpoints: (
     xs: 0,
     sm: 600px,
@@ -272,6 +281,9 @@ button[disabled="disabled"] {
 .m-0-a {
     margin: 0 auto;
 }
+.m-a {
+    margin: auto;
+}
 .btn-accent {
     background: $accent !important;
     font-weight: $btn-font-weight;
@@ -488,6 +500,8 @@ button[disabled="disabled"] {
     font-weight: bold;
     font-size: 1.1em;
     color: #333;
+    margin-top: 1rem;
+    margin-bottom: 0.2rem;
 }
 .form-group > input {
     border:1px solid #333;
@@ -1221,6 +1235,7 @@ i {
 }
 
 .form-check label {
+    margin-top: 1rem;
     margin-bottom: 0.5rem;
     color: #495057;
     font-weight: 400;

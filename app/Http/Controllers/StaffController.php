@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Career;
+use App\Models\MembershipDetail;
 use App\Models\Course;
+use App\Models\User;
+use App\Models\Lead;
 use DB;
 
 class StaffController extends Controller
@@ -13,9 +16,24 @@ class StaffController extends Controller
    public function leadIndexPage(){        
         return inertia('staff/lead-index');
     }
-   public function leadShowPage(){        
-        return inertia('staff/lead-show', ['lead' => 'xyz']);
+    
+   public function leadShowPage($id, Request $request){
+      //   $leadData = DB::table('leads as le')->where('le.user_id','=',$id)
+      //  ->leftJoin('users as us', 'us.id','=','le.user_id')
+      //  ->select('us.id as user_id','us.full_name as user_name','lead_status', 'description')->first();   
+        $leadData = DB::table('users as us')->where('us.id','=',$id)
+       ->leftJoin('leads as le', 'le.user_id','=','us.id')
+       ->select('us.id as user_id','us.full_name as user_name','le.lead_status as lead_status', 'le.description as description')->first();   
+
+       $leadAssigned=DB::table('lead_assigned as lea')
+       ->leftjoin('users as us', 'us.id','=','lea.staff_user_id')
+        ->select('us.full_name as staff_name','lea.created_at as assigned_at')->get();
+        return inertia('staff/lead-show', [
+            'leadData' => $leadData ,
+        'leadAssigned'=>$leadAssigned
+    ]);
     }
+
    public function manageCoursePage(){        
     $categories = \App\Models\Category::get();  
     $courses=DB::table('courses as co')
@@ -55,4 +73,13 @@ ORDER BY careers.name;  */
    public function userReportsPage(){        
         return inertia('staff/user-reports');
     }
+    public function mebershipDetailsPage(){  
+        $members=DB::table('membership_details as me')
+        ->leftJoin('users as us','us.id','=','me.user_id')
+       ->select(['us.full_name as full_name','me.current_plan as current_plan',
+       'me.first_purchase_at','me.last_purchase_at','me.expires_at'])->get();
+              
+        return inertia('staff/membership-details', ['members'=>$members]);
+    }
+
 }
