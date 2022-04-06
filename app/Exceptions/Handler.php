@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 use Illuminate\Support\Facades\Log;
+use Inertia\Inertia;
 
 /***
  * Class Handler
@@ -58,37 +59,53 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-        if ($exception->getCode() == 401) {
+        $exception_code = $exception->getCode();
+        if ($exception_code == 401) {
             Log::warning('Unauthorized',['url'=>$request->url()]);
         }
-        if ($exception->getCode() == 404) {
+        if ($exception_code == 404) {
             Log::warning('PageNotFound',['url'=>$request->url()]);
         }
-        if ($exception->getCode() == 419) {
+        if ($exception_code == 419) {
                 Log::warning('TokenMismatchException',['url'=>$request->url(), 'request'=>$request, 'exception'=>$exception]);
         }
-        if ($exception instanceof ModelNotFoundException && $request->wantsJson()) {
-            Log::warning('ModelNotFoundException',['url'=>$request->url(), 'request'=>$request, 'exception'=>$exception]);
-            return response()->json(['error'=>[
-                'message' => 'Resource not found',
-            ]], 404);
+        //api exception
+        if ($request->wantsJson()) {
+            if ($exception instanceof ModelNotFoundException) {
+                Log::warning('ModelNotFoundException',['url'=>$request->url(), 'request'=>$request, 'exception'=>$exception]);
+                return response()->json(['error'=>[
+                    'message' => 'Resource not found',
+                ]], 404);
+            }
+    
+            if ($exception instanceof AuthorizationException) {
+                Log::warning('AuthorizationException',['url'=>$request->url(), 'request'=>$request, 'exception'=>$exception]);
+                return response()->json(['error'=>[
+                    'message' => 'Forbidden',
+                ]], 403);
+            }
+    
+            if ($exception instanceof ValidationException) {
+                Log::warnig('ValidationException',['url'=>$request->url(), 'request'=>$request, 'exception'=>$exception]);
+                return response()->json(['error'=>[
+                    'message'=>'Validation Error',
+                    'errors'=>$exception->validator->errors()
+                ]],422);
+            }
+        } 
+        //web exception
+        if (!$request->wantsJson()) {
+            if (!app()->environment(['local', 'testing']) && in_array($exception_code, [500, 503, 404, 403])) {
+                return Inertia::render('Error/error', ['status' => $exception_code])
+                    ->toResponse($request)
+                    ->setStatusCode($exception_code);
+            } else if ($exception_code === 419) {
+                return back()->with([
+                    'message' => 'The page expired, please try again.',
+                ]);
+            }
         }
-
-        if ($exception instanceof AuthorizationException && $request->wantsJson()) {
-            Log::warning('AuthorizationException',['url'=>$request->url(), 'request'=>$request, 'exception'=>$exception]);
-            return response()->json(['error'=>[
-                'message' => 'Forbidden',
-            ]], 403);
-        }
-
-        if ($exception instanceof ValidationException && $request->wantsJson()) {
-            Log::warnig('ValidationException',['url'=>$request->url(), 'request'=>$request, 'exception'=>$exception]);
-            return response()->json(['error'=>[
-                'message'=>'Validation Error',
-                'errors'=>$exception->validator->errors()
-            ]],422);
-        }
-
+        
         return parent::render($request, $exception);
     }
 }

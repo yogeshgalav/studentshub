@@ -5,46 +5,56 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\Models\Like;
+use App\Models\Post;
+use App\Models\Doubt;
+use App\Models\ClassroomResource;
+use App\Models\ClassroomMessage;
+use App\Models\ScheduledJob;
 use Auth;
 
 class LikeController extends Controller
 {
     //
-    public function updateOrDelete(Request $request, $type){
+    public function updateOrDelete($type, $id){
         $me=Auth::user();
         switch($type)
         {
             case 'post':
-                $post=\App\Models\Post::findOrFail($request->likable_id);
-                $likable_id=$post->id;
-                $likable_type='App\Models\Post';
-                \App\Models\SthubPost::addAction('like',$post,$me);
+                $likable=Post::findOrFail($id);
+                $likable_type=Post::class;
                 break;
             
             case 'doubt':
-                $likable_id=\App\Models\Doubt::findOrFail($request->likable_id)->id;
-                $likable_type='App\Models\Doubt';
+                $likable=\App\Models\Doubt::findOrFail($id);
+                $likable_type=Doubt::class;
                 break;
             
             case 'resource':
-                $likable_id=\App\Models\ClassroomResource::findOrFail($request->likable_id)->id;
-                $likable_type='App\Models\ClassroomResource';
+                $likable=ClassroomResource::findOrFail($id);
+                $likable_type=ClassroomResource::class;
                 break;
             
             case 'message':
-                $likable_id=\App\Models\ClassroomMessage::findOrFail($request->likable_id)->id;
-                $likable_type='App\Models\ClassroomMessage';
+                $likable=ClassroomMessage::findOrFail($id);
+                $likable_type=ClassroomMessage::class;
         }
-        $like=Like::where('likable_id','=',$likable_id)->where('likable_type','=', $likable_type)->where('user_id','=',$me->id)->first();
+        $like=Like::where('likable_id','=',$likable->id)->where('likable_type','=', $likable_type)->where('user_id','=',$me->id)->first();
         if($like){
             $like->delete();
+            if($likable_type===Post::class){
+                \App\Models\SthubPost::deleteAction('like',$likable,$me);
+            }
         } else {
-            Like::create([
-                'likable_id'=>$likable_id,
+            $like = Like::create([
+                'likable_id'=>$likable->id,
                 'likable_type'=>$likable_type,
                 'user_id'=>$me->id,
                 'like_status'=>1,
             ]);
+            if($likable_type===Post::class){
+                \App\Models\SthubPost::addAction('like',$likable,$me);
+            }
+            ScheduledJob::NewLikeNotification($like, $likable->user->id);
         }
         return response()->json([], 204);
     }

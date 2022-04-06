@@ -3,12 +3,18 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Haruncpi\LaravelUserActivity\Traits\Loggable;
+use App\Scopes\CategoryScope;
 
 class Category extends Model
 {
-    use Loggable;
+    protected  $guarded = ['id', 'name', 'slug'];
 
+    protected static function boot()
+    {
+        parent::boot();
+        static::addGlobalScope(new CategoryScope);
+    }
+    
     public function courses(){
         return $this->hasMany('App\Models\Course');
     }

@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\UserProfile;
+use App\Models\Institute;
+use App\Models\Course;
 use Auth;
 use DB;
 
@@ -14,9 +16,8 @@ class UserController extends Controller
     //
     public function getProfile(){
         $user=Auth::user();
-        $post = new \App\Post;
 
-        $categories=DB::table('categories as cat')
+        $categories=DB::table('categories as cat')->whereNull('parent_category_id')
         ->leftJoin('posts as po','po.category_id','=','cat.id')
         ->leftJoin('sthub_posts as spv',function($join){
             $join->on('spv.post_id','=','po.id')
@@ -38,18 +39,20 @@ class UserController extends Controller
             ->where('sps.action_type','=','share')
             ->where('sps.action_user_id','=',Auth::id());
         })
-        ->select('cat.name',DB::raw('COUNT(distinct spl.post_id) as total_likes'),DB::raw('COUNT(distinct spv.post_id) as total_views'),DB::raw('COUNT(distinct sps.post_id) as total_posts'))
-        ->groupBy('cat.id','cat.name')
+        ->select('cat.id','cat.name','cat.slug',
+        DB::raw('COUNT(distinct spl.post_id) as total_likes'),
+        DB::raw('COUNT(distinct spv.post_id) as total_views'),
+        DB::raw('COUNT(distinct sps.post_id) as total_posts'))
+        ->groupBy('cat.id','cat.name','cat.slug')
         ->get();
 
         return response()->json(['success'=>[
             'interests'=>$categories,
-            'posts'=>\Sthub::convert_from_latin1_to_utf8_recursively($post->getUserPosts($user->id))
         ]]);
     }
 
     public function saveProfile(Request $request){
-        $me=Auth::user();
+        $me=$request->user('api');
         $profile=UserProfile::where('user_id',$me->id)->first();
         if(!$profile){
             $profile=new UserProfile();
@@ -61,10 +64,17 @@ class UserController extends Controller
             $image = preg_replace('/data:image\/(.*?);base64,/','',$image); // remove the type part
             $image = str_replace(' ', '+', $image);
             $file_name = 'image_' . time() . '.' . $image_extension[1]; //generating unique file name;
-            $file_path="/public/profile-images/".$file_name;
-            \Storage::put($file_path,base64_decode($image));
+            \Storage::disk('profile-image')->put($file_name,base64_decode($image));
             $me->avatar_url="/storage/profile-images/".$file_name;
             $me->save();
+            $newFile= new SthubFile();
+            $newFile->fileable_id=$me->id;
+            $newFile->fileable_type=User::class;
+            $newFile->file_ext=Storage::disk('profile-image')->getMimeType($file_name);
+            $newFile->file_size=Storage::disk('profile-image')->size($file_name);
+            $newFile->file_name=$file_name;
+            $newFile->user_id=$me->id;
+            $newFile->save();
         }
         if($request->intro){
             $profile->introduction=$request->intro;
@@ -83,11 +93,30 @@ class UserController extends Controller
 
         if($request->full_name){
             $me->full_name=$request->full_name;
+            $me->preferred_institute_id=Institute::getFirstOrCreateId($request->preferred_institute);
+            $me->preferred_course_id=Course::getFirstOrCreateId($request->preferred_course);
             $me->save();
         }
 
         return response()->json(['success'=>[
             'profile'=>$profile
         ]]);
+    }
+    public function setPreferredCourse(Request $request){
+        $me=$request->user('api');
+
+        $me->preferred_course_id=Course::getFirstOrCreateId($request->preferred_course);
+        $me->save();
+
+        return response()->json([], 204);
+    }
+
+    public function setPreferredInstitute(Request $request){
+        $me=$request->user('api');
+
+        $me->preferred_institute_id=Institute::getFirstOrCreateId($request->preferred_institute);
+        $me->save();
+
+        return response()->json([], 204);
     }
 }

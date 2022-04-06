@@ -37,7 +37,6 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::delete('/resource/{resource}','ClassroomResourceController@delete');
     //messages
     Route::get('/get-classroom-messages/{classroomId?}',[ClassroomMessageController::class,'listmessage']);
-    Route::get('/message/{messageId}/get-replies', [ClassroomMessageController::class, 'replymessage']);
     Route::post('/add-message',[ClassroomMessageController::class, 'addmessage']);
     Route::post('/delete-message',[ClassroomMessageController::class, 'deletemessage']);
     Route::post('/edit-message', [ClassroomMessageController::class, 'editmessage']);
@@ -73,5 +72,7 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::get('/classroom/{classroom}/homework/{homework}','HomeworkController@show');
     Route::post('/homework/{homework}/mark-as-done','HomeworkController@markAsDone');
     Route::post('/classroom/{classroom}/homework','HomeworkController@create');
+    Route::put('/homework/{homework}','HomeworkController@update');
+    Route::delete('/homework/{homework}','HomeworkController@delete');
 
 });

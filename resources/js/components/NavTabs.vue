@@ -1,8 +1,8 @@
 <template>
   <div class="nav-tabs">
-    <nav :class="[size === 'large' ? 'tabbed-nav2' : 'tabbed-nav', 'mt-3']">
+    <nav :class="[size === 'large' ? 'tabbed-nav2' : 'tabbed-nav']">
       <div class="tabbed-nav1">
-        <ul :class="['nav', align]">
+        <ul :class="['nav tabbed-nav-list', align]">
           <li
             v-for="tab in tabs"
             :key="tab"
@@ -39,29 +39,30 @@
 </template>
 <style lang="scss">
 @import "resources/sass/_variables.scss";
-.nav {
-    border-bottom: 1px solid rgb(185, 185, 185);
+
+.nav-tabs {
+  border-bottom: none;
 }
-.tabbed-nav ul {
+.tabbed-nav-list {
     display: flex;
     flex-wrap: nowrap;
     overflow-x: scroll;
     overflow-y: hidden;
 }
-.tabbed-nav ul::-webkit-scrollbar {
+.tabbed-nav-list::-webkit-scrollbar {
     display: none;
 }
 .tabbed-nav {
     margin-top: 0px;
 }
-.tabbed-nav ul li a {
+.tabbed-nav-list li a {
     text-align: center;
     color: #000;
     font-weight: 800;
     padding: 6px 60px 6px 60px;
 }
-.tabbed-nav ul li a:focus,
-.tabbed-nav ul li a:hover {
+.tabbed-nav-list li a:focus,
+.tabbed-nav-list li a:hover {
     background: #fff;
 }
 .tabbed-nav .nav-item {
@@ -105,7 +106,7 @@
     padding: 6px 60px 6px 60px;
 }
 .tabbed-nav2 ul li a:focus,
-.tabbed-nav ul li a:hover {
+.tabbed-nav-list li a:hover {
     background: #fff;
 }
 .tabbed-nav2 .nav-item {
@@ -179,10 +180,10 @@ export default {
 			type: String,
 			default: ''
 		},
-    align: {
-      type: String,
-      default: ''
-    }
+		align: {
+			type: String,
+			default: ''
+		}
 	},
 	data() {
 		return {
@@ -202,7 +203,11 @@ export default {
 		}
 	},
 	mounted() {
-		if (this.tabs.includes(this.initialTab)) {
+		let hash_tab = window.location.hash;
+		hash_tab = hash_tab ? hash_tab.replace('#','') : '';
+		if (hash_tab && this.tabs.includes(hash_tab)) {
+			this.activeTab = hash_tab;
+		}else if (this.tabs.includes(this.initialTab)) {
 			this.activeTab = this.initialTab;
 		} else {
 			this.activeTab = this.tabs[0];

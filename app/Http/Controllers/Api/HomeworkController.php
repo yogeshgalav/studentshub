@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Homework;
 use App\Models\UserHomework;
+use App\Models\ScheduledJob;
 use Carbon\Carbon;
 use Auth;
 use App\Models\Classroom;
@@ -22,7 +23,7 @@ class HomeworkController extends Controller
         $this->authorize('createHomework', $classroom);
 
         $simple_html_dom = new simple_html_dom;
-        $dom = $simple_html_dom->extactImageFiles($request->homework_html, "homework-images");
+        $dom = $simple_html_dom->extactImageFiles($request->homework_html, "homework-image");
         $homework = Homework::create([
             'submission_date'=>$request->submission_date,
             'classroom_id'=>$classroom->id,
@@ -35,13 +36,15 @@ class HomeworkController extends Controller
         foreach($dom->files as $file){
             $newFile= new SthubFile();
             $newFile->fileable_id=$homework->id;
-            $newFile->fileable_type='App\Models\Homework';
-            $newFile->file_ext=Storage::disk('local')->getMimeType($file['file_path']);
-            $newFile->file_size=Storage::disk('local')->size($file['file_path']);
-            $newFile->file_name=$file['file_name'];
+            $newFile->fileable_type=Homework::class;
+            $newFile->file_ext=Storage::disk('homework-image')->getMimeType($file);
+            $newFile->file_size=Storage::disk('homework-image')->size($file);
+            $newFile->file_name=$file;
             $newFile->user_id=Auth::user()->id;
             $newFile->save();
         }
+
+        \App\Models\ScheduledJob::homeworkNotification($homework);            
 
         return response()->json(['success'=>[
             'homework_id'=>$homework->id,
@@ -73,9 +76,9 @@ class HomeworkController extends Controller
             return $join->on('mh.homework_id','=','ho.id')->where('mh.user_id','=',Auth::id());
         })
         ->leftJoin('homework_images as hi','hi.homework_id','=','ho.id')
-        ->select('ho.id', 'ho.submission_date', 'ho.homework_text', 'us.full_name as teacher_name', 'us.avatar_url as teacher_avatar', 'ho.created_at',
+        ->select('ho.id', 'ho.submission_date', 'ho.homework_text', 'ho.homework_html', 'us.full_name as teacher_name', 'us.avatar_url as teacher_avatar', 'ho.created_at',
         'mh.id as user_mark','cl.name as classroom_name',DB::raw("COUNT(Distinct 'uh.id') as total_done"))
-        ->groupBy('ho.id', 'ho.submission_date', 'ho.homework_text', 'us.full_name','us.avatar_url','ho.created_at', 'mh.id','cl.name')
+        ->groupBy('ho.id', 'ho.submission_date', 'ho.homework_text', 'ho.homework_html', 'us.id as teacher_id','us.avatar_url','ho.created_at', 'mh.id','cl.name')
         ->orderBy('ho.submission_date','DESC')
         ->get();
 
@@ -117,5 +120,41 @@ class HomeworkController extends Controller
            'homework'=> $homework,
        ]]); 
     }
+
+    public function update(Homework $homework, Request $request){
+        $this->authorize('createHomework', $classroom);
+
+        $simple_html_dom = new simple_html_dom;
+        $dom = $simple_html_dom->extactImageFiles($request->homework_html, "homework-images/");
+        $homework->update([
+            'submission_date'=>$request->submission_date,
+            'classroom_id'=>$classroom->id,
+            'teacher_user_id'=>$request->user('api')->id,
+            'homework_html'=>$dom->html,
+            'homework_text'=>$request->homework_text,
+            'unit_id'=>$request->unit_id,
+        ]);
+
+        foreach($dom->files as $file){
+            $newFile= new SthubFile();
+            $newFile->fileable_id=$homework->id;
+            $newFile->fileable_type=Homework::class;
+            $newFile->file_ext=Storage::disk('homework-image')->getMimeType($file);
+            $newFile->file_size=Storage::disk('homework-image')->size($file);
+            $newFile->file_name=$file;
+            $newFile->user_id=Auth::user()->id;
+            $newFile->save();
+        }
+
+        return response()->json(['success'=>[
+            'homework_id'=>$homework->id,
+        ]]);
+      }
+
+
+    public function delete(Homework $homework){
+        $homework->delete();
+        return response()->json([], 204);
+      }
 
 }

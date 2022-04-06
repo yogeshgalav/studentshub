@@ -16,4 +16,7 @@ class Homework extends Model
     public function classroom(){
         return $this->belongsTo(Classroom::class);
     }
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

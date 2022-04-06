@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Response;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,31 +19,13 @@ require_once('web/student.php');
 require_once('web/classroom.php');
 require_once('web/admin.php');
 require_once('web/institute.php');
+require_once('web/staff.php');
+
 Route::get('/', 'GuestController@root');
 Route::get('/report', 'GuestController@report');
 Route::get('/privacy-policy', 'GuestController@privacyPolicy');
 Route::get('/terms-of-service', 'GuestController@termOfUse');
 
-
-Route::get('/post-images/{filename}','GuestController@postImage');
-Route::get('/profile-images/{filename}','GuestController@profileImage');
-
-//get image files
-// Route::get('/storage/{filename}', function ($filename)
-// {
-//     $path = storage_path('public/' . $filename);
-//     if (!File::exists($path)) {
-//         abort(404);
-//     }
-
-//     $file = File::get($path);
-//     $type = File::mimeType($path);
-
-//     $response = Response::make($file, 200);
-//     $response->header("Content-Type", $type);
-
-//     return $response;
-// });
 // Manifest file (optional if VAPID is used)
 Route::get('manifest.json', function () {
     return [
@@ -75,4 +58,5 @@ Route::get('/js/lang.js', function () {
 
 Route::get('/schedule-jobs', function () {
     \Artisan::call('sthub:cron');
+    // \Artisan::call('schedule:run');
 });
