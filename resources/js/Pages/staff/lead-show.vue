@@ -132,7 +132,7 @@ export default {
 		VueTableComponent,
 		Accordion
 	},
-	props:['leadData'],
+	props:['leadData', 'userId'],
 	layout:StaffLayout,
 	
 	data() {
@@ -157,7 +157,6 @@ export default {
 
 	methods:{
 		addLead(){
-			console.log('xyz', this.leadData);
   	this.axios.post('/api/lead/'+this.leadData.user_id, {
     			lead_status:this.lead_status,
 				description:this.description,

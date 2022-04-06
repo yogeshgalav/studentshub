@@ -17,11 +17,13 @@ class StaffController extends Controller
     }
     
    public function leadShowPage($id, Request $request){
-     
-    $leadData = DB::table('leads as le')->where('le.user_id','=',$id)
-    ->leftJoin('users as us', 'us.id','=','le.user_id')
- ->select('us.id as user_id','us.full_name as user_name','lead_status', 'description')->first();   
- 
+      //   $leadData = DB::table('leads as le')->where('le.user_id','=',$id)
+      //  ->leftJoin('users as us', 'us.id','=','le.user_id')
+      //  ->select('us.id as user_id','us.full_name as user_name','lead_status', 'description')->first();   
+        $leadData = DB::table('users as us')->where('us.id','=',$id)
+       ->leftJoin('leads as le', 'le.user_id','=','us.id')
+       ->select('us.id as user_id','us.full_name as user_name','le.lead_status as lead_status', 'le.description as description')->first();   
+
         return inertia('staff/lead-show', ['leadData' => $leadData]);
     }
 
