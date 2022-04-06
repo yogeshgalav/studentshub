@@ -19,14 +19,11 @@ class CategoryController extends Controller
         ]);
     }
     
-    public function show(Request $request){
-        $category=\App\Models\Category::where('category_url', $request->route('id'))->with('courses')->with('subjects')->firstOrFail();
-        $post=new \App\Post;
-        $posts = $post->getCategoryPosts($category->id);
-
+    public function show(Category $category)
+    {
+        $category_data = Category::where('id', $category->id)->with(['courses','subjects'])->first();
         return response()->json(['success'=>[
-            'posts'=>\Sthub::convert_from_latin1_to_utf8_recursively($posts),
-            'category'=>$category,
+            'category'=>$category_data,
         ]]);
       }
 }

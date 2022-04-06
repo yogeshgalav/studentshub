@@ -12,7 +12,7 @@ class Auth extends AuthUser
         if (!self::check()) {
             return null;
         }
-        if (self::user()->role_intended!=='student') {
+        if (self::user()->role!=='student') {
             return null;
         }
         return DB::table('students as st')->where('st.user_id', '=', self::user()->id)
@@ -37,7 +37,7 @@ class Auth extends AuthUser
         if (!self::check()) {
             return null;
         }
-        if (self::user()->role_intended!=='teacher') {
+        if (self::user()->role!=='teacher') {
             return null;
         }
         return DB::table('institute_users as insu')->where('insu.user_id', '=', self::user()->id)
@@ -54,7 +54,7 @@ class Auth extends AuthUser
         if (!self::check()) {
             return null;
         }
-        if (self::user()->role_intended!=='instituteAdmin') {
+        if (self::user()->role!=='instituteAdmin') {
             return null;
         }
         return DB::table('institute_users as iu')

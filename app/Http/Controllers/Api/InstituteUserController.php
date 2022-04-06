@@ -37,7 +37,7 @@ class InstituteUserController extends Controller
             }
         }
         $user->preferred_institute_id = $instituteId;
-        $user->role_intended = $request->role==='teacher' ? 'teacher' : 'instituteAdmin';
+        $user->role = $request->role==='teacher' ? 'teacher' : 'instituteAdmin';
         $user->save();
 
         $ins_user->user_id = $user->id;
@@ -73,7 +73,7 @@ class InstituteUserController extends Controller
             $user->preferred_institute_id = $institute->id;
             $user->onboarded_at = Carbon::now()->toDateTimeString();
             $user->phone_no = $request->contact_number;
-            $user->role_intended = 'teacher';
+            $user->role = 'teacher';
             $user->save();
 
             InstituteUser::firstOrCreate([

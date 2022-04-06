@@ -42,12 +42,12 @@ class InstituteController extends Controller
             abort(404);
         }
 
-        $teachers = User::where('role_intended','teacher')
+        $teachers = User::where('role','teacher')
         ->where('preferred_institute_id',$institute->id)
         ->with('preferredCourse')
         ->get();
 
-        $students = User::where('role_intended','student')
+        $students = User::where('role','student')
         ->where('preferred_institute_id',$institute->id)
         ->with('preferredCourse')
         ->get();
@@ -225,7 +225,7 @@ class InstituteController extends Controller
         $parent->full_name=$request->parent_name;
         $parent->email=preg_replace('/\s+/', '',$request->parent_email);
         $parent->phone_no=preg_replace('/\s+/', '',$request->parent_phone);
-        $parent->role_intended='parent';
+        $parent->role='parent';
         $parent->preferred_institute_id=$request->user('api')->preferred_institute_id;
         $parent->save();
 

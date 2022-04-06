@@ -20,7 +20,7 @@ class SearchController extends Controller
             ]);
         }
         $users = DB::table('users as us')->where('us.full_name', 'LIKE', $request->searchTerm.'%')
-        ->where('role_intended', $request->role)
+        ->where('role', $request->role)
             ->leftJoin('institutes as inst', 'inst.id', '=', 'us.preferred_institute_id')
             ->leftJoin('courses as cor', 'cor.id', '=', 'us.preferred_course_id')
             ->select(

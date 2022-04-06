@@ -11,47 +11,7 @@ use PHPHtmlParser\Dom;
 
 class Post extends PostModel
 {
-
-    public function getUserPosts($userId){
-        $post_query=$this->getAuthUserPostTabels();
-
-        $posts=$post_query->where('po.user_id',$userId)
-        ->orderBy('po.created_at','DESC')
-        ->paginate();
-
-        return $this->formatPostData($posts);
-    }
-
-    public function getSubjectPosts($subject_id){
-        $post_query=$this->getAuthUserPostTabels();
-
-        $posts=$post_query->where('sub.id',$subject_id)
-        ->orderBy('po.created_at','DESC')
-        ->paginate();
-
-        return $this->formatPostData($posts);
-    }
-
-    public function getCategoryPosts($category_id){
-        $post_query=$this->getAuthUserPostTabels();
-
-        $posts=$post_query->where('cat.id',$category_id)
-        ->orderBy('po.created_at','DESC')
-        ->paginate();
-
-        return $this->formatPostData($posts);
-    }
-    public function getCoursePosts($course_id){
-        $post_query=$this->getAuthUserPostTabels();
-
-        $posts=$post_query->leftJoin('post_tags as pt','pt.post_id','=','po.id')
-        ->leftJoin('course_subjects as cosub','pt.subject_id','=','cosub.subject_id')
-        ->where('cosub.course_id',$course_id)
-        ->orderBy('po.created_at','DESC')
-        ->paginate();
-
-        return $this->formatPostData($posts);
-    }
+    
     public function getSearchPosts(Request $request){
         $post_query=$this->getAuthUserPostTabels();
 
@@ -61,7 +21,7 @@ class Post extends PostModel
         ->orWhere('cat.name','LIKE','%'.$request->input('searchTerm').'%')
         ->orWhere('po.post_heading','LIKE','%'.$request->input('searchTerm').'%')
         ->orderBy('po.created_at','DESC')
-        ->paginate();
+        ->limit(10)->get();
 
         return $this->formatPostData($posts);
     }
@@ -77,15 +37,6 @@ class Post extends PostModel
         return $this->formatPostData($posts);
     }
 
-    public function getAuthUserPosts(Request $request){
-
-        $posts=$this->getAuthUserPostTabels()
-        ->orderBy('po.created_at','DESC')
-        ->paginate();
-
-        return $this->formatPostData($posts);
-    }
-
     public function getAuthUserPostTabels(){
         $post_query = DB::table('sthub_posts as sp')
         ->join('posts as po','po.id','=','sp.post_id')
@@ -95,12 +46,6 @@ class Post extends PostModel
         ->leftJoin('videos as vd',function($join){
             $join->on('po.postable_id','=','vd.id')->where('po.postable_type','=','App\Models\Video');
         })
-        ->leftJoin('facts as fc',function($join){
-            $join->on('po.postable_id','=','fc.id')->where('po.postable_type','=','App\Models\Fact');
-        })
-        ->leftJoin('documents as do',function($join){
-            $join->on('po.postable_id','=','do.id')->where('po.postable_type','=','App\Models\Document');
-        })
         ->leftJoin('categories as cat','cat.id','=','po.category_id')
         ->leftJoin('users as us','us.id','=','po.user_id')
         ->leftJoin('institutes as inst','inst.id','=','us.preferred_institute_id');
@@ -109,10 +54,10 @@ class Post extends PostModel
         // });
         $columns = ['po.id as id','po.post_heading as heading','po.post_description as description','po.postable_type as postable_type','cat.name as category_name','cat.id as category_id','po.primary_image_path as image_path',
         'us.avatar_url as profile_image','us.id as user_id','us.full_name as user_name','inst.name as institute_name','ar.html_content as article_content',
-        'vd.video_id as video_id','fc.image_path as fact_image_path','do.link as document_link'];
+        'vd.video_id as video_id'];
         $groupBycolumns = ['po.id','po.post_heading','po.post_description','po.postable_type','cat.name','cat.id','po.primary_image_path',
         'us.avatar_url','us.id','us.full_name','inst.name','ar.html_content',
-        'vd.video_id','fc.image_path','do.link'];
+        'vd.video_id'];
 
         if(Auth::check()){
             $post_query->leftJoin('likes as uli',function($join){

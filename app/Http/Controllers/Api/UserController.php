@@ -16,9 +16,8 @@ class UserController extends Controller
     //
     public function getProfile(){
         $user=Auth::user();
-        $post = new \App\Post;
 
-        $categories=DB::table('categories as cat')
+        $categories=DB::table('categories as cat')->whereNull('parent_category_id')
         ->leftJoin('posts as po','po.category_id','=','cat.id')
         ->leftJoin('sthub_posts as spv',function($join){
             $join->on('spv.post_id','=','po.id')
@@ -40,13 +39,15 @@ class UserController extends Controller
             ->where('sps.action_type','=','share')
             ->where('sps.action_user_id','=',Auth::id());
         })
-        ->select('cat.name',DB::raw('COUNT(distinct spl.post_id) as total_likes'),DB::raw('COUNT(distinct spv.post_id) as total_views'),DB::raw('COUNT(distinct sps.post_id) as total_posts'))
-        ->groupBy('cat.id','cat.name')
+        ->select('cat.id','cat.name','cat.slug',
+        DB::raw('COUNT(distinct spl.post_id) as total_likes'),
+        DB::raw('COUNT(distinct spv.post_id) as total_views'),
+        DB::raw('COUNT(distinct sps.post_id) as total_posts'))
+        ->groupBy('cat.id','cat.name','cat.slug')
         ->get();
 
         return response()->json(['success'=>[
             'interests'=>$categories,
-            'posts'=>\Sthub::convert_from_latin1_to_utf8_recursively($post->getUserPosts($user->id))
         ]]);
     }
 

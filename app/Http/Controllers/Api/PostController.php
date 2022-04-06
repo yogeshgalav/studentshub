@@ -39,7 +39,7 @@ class PostController extends Controller
         $post->category_id = $data['category_id'];
 
         $simple_html_dom = new simple_html_dom;
-        $dom = $simple_html_dom->extactImageFiles($data['article_html_content'], "post-image");
+        $dom = $simple_html_dom->extactImageFiles($data['html_content'], "post-image");
         $post_content= Article::create(['html_content'=>$dom->html]);
 
         foreach($dom->files as $file){
@@ -56,18 +56,22 @@ class PostController extends Controller
         if(count($dom->files)){
           $primary_image_path=$dom->files[0];
         } else {
-          $primary_image_path= $simple_html_dom->extractYoutubeImage($data['article_html_content']);
+          $primary_image_path= $simple_html_dom->extractYoutubeImage($data['html_content']);
         }
 
         $post->postable_type="App\Models\Article";
         $post->primary_image_path=$primary_image_path;
         $post->postable_id=$post_content->id;
 
+        if($request->course){
+          $post->course_id=$request->course['id'];
+        }
+
         $post->created_via='dashboard';
-        $post->post_description = $data['description'];
+        $post->post_description = $data['text_content'];
         $post->save();
 
-        Subject::addPostTags($post, $request->selected_subjects);
+        Subject::addPostTags($post, $request->subjects);
         SthubPost::addAction('share',$post,Auth::user());
 
         DB::commit();
@@ -82,46 +86,35 @@ class PostController extends Controller
     ]);
         return response()->json(['success'=>[
           'message'=>'Post Successfully Created',
+          'post_id'=>$post->id,
         ]]);
     }
     public function update(Post $post, Request $request){
-
       $data=$request->all();
-      if(Auth::id()!==$post->user_id){
+      if($request->user('api')->id !== $post->user_id){
         abort(403);
       }
       DB::beginTransaction();
       try{
     
       $post->post_heading=$data['heading'];
-      $post->subject_id=$subject?$subject->id:NULL;
       $post->category_id = $data['category_id'];
 
       switch($post->postable_type){
           case Article::class:
               Article::where('id', $post->postable_id)
               ->update([
-                'html_content'=>$data['article_html_content'],
+                'html_content'=>$data['html_content'],
               ]);
 
-          break;
-          case Document::class:
-              Document::where('id', $post->postable_id)
-              ->update([
-                'link'=>$data['document_link'],
-              ]);
-
-          break;
-          case Video::class:
-              Video::where('id', $post->postable_id)
-              ->update([
-                'video_id'=>$data['video_id'],
-              ]);
           break;
       }
 
-      $post->post_description = $data['description'];
+      $post->post_description = $data['text_content'];
       $post->save();
+
+      Subject::deletePostTags($post);
+      Subject::addPostTags($post, $request->subjects);
 
       DB::commit();
   } catch (\Exception $e) {
@@ -129,17 +122,55 @@ class PostController extends Controller
       Log::warning('Post Updation failure',['data'=>$request->all(),'error'=>$e->getMessage()]);
       return response()->$e;
   }
-      return response()->json(['success'=>[
-        'message'=>'Post Successfully Created',
-      ]]);
+      
+    return response()->json(['success'=>[
+      'message'=>'Post Successfully updated',
+      'post_id'=>$post->id,
+    ]]);
   }
 
     public function getPosts(Request $request){
-        $post=new \App\Post;
-        $posts = $post->getAuthUserPosts($request);
+        $post_repo=new \App\Post;
+        $post_query=$post_repo->getAuthUserPostTabels();
+
+        $dashboard_id = $request->route('dasboard_id');
+
+        switch($request->route('dasboard_type')){
+          case 'institute':
+            $post_query=$post_query->where('inst.id',$institute_id)
+            ->orderBy('po.created_at','DESC');
+            break;
+          case 'course':
+            $posts=$post_query->where('po.course_id',$course_id)
+            ->orderBy('po.created_at','DESC');
+            break;
+          case 'subject':
+            $posts=$post_query->leftJoin('post_tags as pt','pt.post_id','=','po.id')
+            ->where('pt.subject_id',$subject_id)
+            ->orderBy('po.created_at','DESC');
+            break;
+          case 'category':
+            $posts=$post_query->where('cat.id',$category_id)
+            ->orderBy('po.created_at','DESC');
+            break;
+          case 'user':
+            $posts=$post_query->where('po.user_id',$userId)
+            ->orderBy('po.created_at','DESC');
+            break;
+          default:
+            $posts=$post_query->orderBy('po.created_at','DESC');
+            break;
+        }
+
+        if($request->user('api')){
+          $posts=$post_query->paginate();
+        }else{
+          $posts=$post_query->limit(10)->get();
+        }
+        
         return response()->json(['success'=>[
-          'posts'=>\Sthub::convert_from_latin1_to_utf8_recursively($posts)
-      ]]);
+          'posts'=>\Sthub::convert_from_latin1_to_utf8_recursively($post_repo->formatPostData($posts))
+        ]]);
     }
 
     public function show(Post $post){
@@ -174,6 +205,10 @@ class PostController extends Controller
         $save_post->user_id=Auth::user()->id;
         $save_post->post_id=$request->post_id;
         $save_post->save();
+        \Log::warning('New Saved post', [
+          'user_id'=>$save_post->user_id,
+          'post_id'=>$save_post->post_id,
+        ]);
         return response()->json(['success'=>[
           'post_save'=>true,
         ]]);
@@ -181,17 +216,24 @@ class PostController extends Controller
 
       public function reportPost(Request $request){
         $report_post=new \App\Models\PostReport();
-        $report_post->user_id=Auth::user()->id;
+        $report_post->user_id=$request->user('api')->id;
         $report_post->post_id=$request->post_id;
         $report_post->save();
+        \Log::warning('New Report Added', [
+          'user_id'=>$report_post->user_id,
+          'post_id'=>$report_post->post_id,
+        ]);
         return response()->json(['success'=>[
           'user_like'=>true,
         ]]);
       }
 
       public function delete(Post $post){
-        $post->delete();
+        
+        Like::where('likable_id', $post->id)->where('likable_type', Post::class)->delete();
+        Comment::where('commentable_id', $post->id)->where('commentable_type', Post::class)->delete();
         SthubPost::where('post_id', $post->id)->delete();
+        $post->delete();
 
         return response()->json([],204);
     }

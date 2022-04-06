@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Course;
 use DB;
+use Illuminate\Support\Facades\Log;
 
 class CourseController extends Controller
 {
@@ -22,14 +23,38 @@ class CourseController extends Controller
             abort(404);
         }
 
-        $post=new \App\Post;
-        $posts = $post->getCoursePosts($course->id);
-
         return response()->json(['success'=>[
-            'posts'=>\Sthub::convert_from_latin1_to_utf8_recursively($posts),
             'course'=>$course,
-            'subjects'=>$course->subjects()->get(),
+            'subjects'=>$course->subjects()->where('is_verified',1)->get(),
         ]]);
+    }
+
+    public function createOrUpdate (Request $request)
+    {
+        if($request->course_id){
+            $course = Course::find($request->course_id);
+        }
+        else{
+            $course = new Course();
+        }
+
+            $course->course_name = $request->course_name;
+            $course->alias = $request->course_alias;
+            $course->category_id = $request->category_id;
+            $course->save();
+
+            return response()->json([
+                'success'=>[
+                    'course'=>$course,
+                ]
+            ]);
+    }
+
+    public function delete ($course_id)
+    {
+        $course = Course::find($course_id);
+        $course->each->delete();
+        return 'success';
     }
 
     public function index(Request $request)

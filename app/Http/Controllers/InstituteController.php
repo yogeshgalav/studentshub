@@ -11,7 +11,7 @@ class InstituteController extends Controller
 
     public function myInstitute()
     {        
-        return view('student.my-institute');
+        return inertia('common/my-institute');
     }
     public function Institute($instituteId = null)
     {

@@ -6,8 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/subscribe','GuestController@update');
 Route::get('/get-post-content/{post}','PostController@show');
-Route::post('/login',[App\Http\Controllers\AuthController::class,'loginViaApi']);
-Route::post('/register',[App\Http\Controllers\AuthController::class,'registerViaApi']);
+Route::post('/verify-contact',[App\Http\Controllers\Api\AuthController::class,'verifyContact']);
 Route::post('/member-request','GuestController@memberRequest');
 
 Route::post('/forgot-password',[App\Http\Controllers\AuthController::class,'processForgotPassword']);
@@ -27,6 +26,8 @@ Route::get('/search-institute', [App\Http\Controllers\Api\InstituteController::c
 
 Route::get('/institute/{id?}',  [App\Http\Controllers\Api\InstituteController::class, 'show']);
 Route::get('/course/{id?}',  [App\Http\Controllers\Api\CourseController::class, 'show']);
-Route::get('/subject/{id?}',  [App\Http\Controllers\Api\SubjectController::class, 'show']);
-Route::get('/category/{id?}',  [App\Http\Controllers\Api\CategoryController::class, 'show']);
+Route::get('/subject/{subject}',  [App\Http\Controllers\Api\SubjectController::class, 'show']);
+Route::get('/category/{category}',  [App\Http\Controllers\Api\CategoryController::class, 'show']);
 Route::get('/get-categories', 'CategoryController@index');
+Route::post('/add-course','CourseController@createOrUpdate');
+Route::delete('/course/{course}','CourseController@delete');

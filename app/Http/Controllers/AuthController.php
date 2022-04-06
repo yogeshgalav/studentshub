@@ -23,98 +23,41 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Socialite;
 use DB;
+
 class AuthController extends Controller
 {
-    /**
-     * login api
-     *
-     * @param LoginRequest $request The HTTP request object
-     *
-     * @return Response
-     */
-    public function login(LoginRequest $request){
-        $user=User::where('email',$request->email)->first();
-        if (!$user || !Hash::check($request->password, $user->password)) {
-            Log::warning("Login Failed",['user'=>$user ?? 'not found']);
-            return view('guest.auth.login')->with('srvError401',true);
+    public function getStartedPage()
+    {
+        if(Auth::check()){
+            return redirect('/');
         }
-
-        if (!empty($request->fcmToken)) {
-            $user->fcm_token=$request->fcmToken;
-        }
-        try{
-            $success = $this->getLoginSuccessData('page',$user,$request);
-        }catch(\Exception $e){
-            Log::warning("An invalid attempt to login was made",[
-                'email'=>$request->email,
-                'ip'=>$request->ip(),
-                'error'=>$e->getMessage(),
-            ]);
-            return view('guest.auth.login')->with('srvErrorUnknown',true);
-        }
-
-        return redirect($success['redirectUrl']);
+        return inertia('auth/get-started', [
+            'srvError'=>session('srvError') ?? 1,
+            'otpError'=>session('otpError') ?? 1,
+        ]);
     }
 
-    // public function loginViaApi(LoginRequest $request)
-    // {        
+    public function loginViaOtp(Request $request){
+        \Session::flush();     
+        $user=User::where('phone_no','=',$request->phone_number)->first();
 
-    //     $user=User::where('email',$request->email)->first();
-    //     if (!$user || !Hash::check($request->password, $user->password)) {
-    //         abort(401);
-    //     }
-        
-    //     try{
-            
-    //         $success = $this->getLoginSuccessData('api',$user,$request);
-            
-    //     }catch(\Exception $e){
-    //         // dd($e->getMessage());
-    //         Log::warning("An invalid attempt to login was made for user ".$request->email." from IP Address ".$request->ip());
-    //         return response()->json(['error'=>'Unauthorised'], 401);
-    //     }
-    //     return response()->json(['success' => $success]);
-    // }
-
-    public function getLoginSuccessData($method,$user,$request){
-        $success = [];
-        
-        if('api' === $method){
-            if ($request->remember) {
-                Passport::tokensExpireIn(now()->addDay(30));
-                // Passport::refreshTokensExpireIn(now()->addDay(30));
-            }else{
-                Passport::tokensExpireIn(now()->addHour(3));
-                // Passport::refreshTokensExpireIn(now()->addHour());
-            }
-
-            $content=$this->getPassportTokens($request);
-            if(empty($content->access_token) || empty($content->refresh_token)){
-                $success['access_token'] = $user->createToken('sthub')->accessToken;;
-                $success['refresh_token'] = '';
-            }else{
-                $success['access_token'] = $content->access_token;
-                $success['refresh_token'] = $content->refresh_token;
-            }
+        if(!$user){
+            Log::critical('user not find during login',['phone_number'=>$request->phone_number]);
         }
-        $user->last_login_at=\Carbon\Carbon::now()->toDateTimeString();
-        $user->save();
-    
-        Auth::login($user, $request->remember);
-        //log info
+        if(!Hash::check($request->otp,$user->password)){
+            return redirect('/get-started')->with('otpError',1);
+        }
+        Auth::login($user,1);
+
         Log::info($user->full_name." (User ID # ".$user->id.") logged in from IP Address ".$request->ip());
 
-        $success['redirectUrl'] = '/classrooms';
-        // if($user->joinedClassoomCount()>0 || Auth::teacher()){
-        //     $success['redirectUrl'] = '/classrooms';
-        // }
-        $success['redirectUrl'] = session('url.intended') ?? $success['redirectUrl'];
+        if($user->role==='sthub_staff'){
+            return redirect('/leads');
+        }
 
-        $success['student'] = Auth::student();
-        $success['full_name'] = $user->full_name;
-    
-        return $success;
+        return redirect('/');
     }
+
     /**
      * Register api
      *
@@ -122,58 +65,57 @@ class AuthController extends Controller
      *
      * @return Response
      */
-    public function register(RegisterRequest $request)
+    public function registerViaOtp(Request $request)
     {
-        if(User::whereEmail($request->email)->exists()){
-            return redirect('/login')->with('emailError',true);
+        \Session::flush();
+        $user=User::where('phone_no','=',$request->phone_number)->first();
+
+        if(!$user){
+            Log::critical('user not find during registration'.['phone_number'=>$request->phone_number]);
         }
-       
-        $input = $request->all();
-        
-        $input['role']=strtolower($input['role']);
-        $input['full_name']=trim($input['full_name']);
-        //hash password
-        $input['password'] = bcrypt($input['password']);
+
+        if(!Hash::check($request->otp,$user->password)){
+            return redirect('/get-started')->with('otpError',1);
+        }
+
+        DB::beginTransaction();
+    try{
 
         $fcm_token=null;
         if (!empty($request->fcmToken)) {
             $fcm_token=base64_decode($request->fcmToken);
         }
 
-        DB::beginTransaction();
-    try{
-       
-            $user = new User();
-            $user->role_intended=$input['role'];
-            $user->full_name=$input['full_name'];
-            $user->email=$input['email'];
-            $user->password=$input['password'];
-            $user->fcm_token=$fcm_token;
-            $user->onboarded_at=Carbon::now()->toDateTimeString();
-            $user->save();
+        $input = $request->all();
+        $user->full_name = $input['full_name'];
+        $user->role = $input['role'];
+        $user->email = $input['email'] ?? null;
+        $user->fcm_token = $fcm_token;
+        $user->onboarded_at=\Carbon\Carbon::now()->toDateTimeString();
+        $user->save();
+        
+        Auth::login($user,1);
+        Log::info($user->full_name." (User ID # ".$user->id.") registered and logged in from IP Address ".$request->ip());
 
-            Auth::login($user);
-            //log info
-            Log::info('new User '.$user->full_name." (User ID # ".$user->id.") registered and logged in from IP Address ".$request->ip());
-                
-            $success['redirectUrl'] = '/';
-            if($request->join_id){
-                $this->registerWithClassrrom($user,$request->join_id);
-                $success['redirectUrl'] = '/classrooms';
-            }
-    
-            \App\Models\ScheduledJob::scheduleNewUserNotification($user);
-            
+        $success['redirectUrl'] = '/';
+        if($request->join_id){
+            $this->registerWithClassrrom($user,$request->join_id);
+            $success['redirectUrl'] = '/classrooms';
+        }
+
+        \App\Models\ScheduledJob::scheduleNewUserNotification($user);
+
         DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
-            Log::critical('user Registeration failure',['request_data'=>$input,'error'=>$e->getMessage()]);
-            return redirect('/get-started');
+            dd($e);
+             
+            Log::critical('user registeration failure with contact '.$request->phone_number);
+            return redirect('/get-started')->with('srvError',1);
         }  
 
-        return redirect($success['redirectUrl']);
+        return redirect('/');
     }
-
 
     public function registerWithClassrrom($user,$joinId){
         $classroom = Classroom::where('classroom_join_id',$joinId)->first();
@@ -194,155 +136,7 @@ class AuthController extends Controller
         }
         return true;
     }
-    /**
-     * details api
-     *
-     * @return Response
-     */
-    public function details()
-    {
-        $user = Auth::user();
-        return response()->json(['success' => $user], $this->successStatus);
-    }
-    /**
-     * Redirect the user to the Google authentication page.
-    *
-    * @return \Illuminate\Http\Response
-    */
-    public function redirectToProvider($provider)
-    {
-        return Socialite::driver($provider)->redirect();
-    }
-   /**
-     * Obtain the user information from Google.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function handleProviderCallback($provider)
-    {
-        try {
-            $user = Socialite::driver($provider)->user();
-        } catch (\Exception $e) {
-            return redirect('/login');
-        }
-        // check if they're an existing user
-        $existingUser = User::where('email', $user->email)->first();
-        if($existingUser){
-            // log them in
-            auth()->login($existingUser, true);
-        } else {
-            // create a new user
-            $newUser                  = new User;
-            $newUser->name            = $user->getName();
-            $newUser->email           = $user->getEmail();
-            $newUser->login_provider_id       = $user->id;
-            $newUser->login_provider_type       = $provider;
-            $avatar_url=$user->getAvatar();
-            if(filter_var($avatar_url, FILTER_VALIDATE_URL)){
-                $fileContents = file_get_contents($user->getAvatar());
-                $file['file_name']=$user->getId() . ".jpg";
-                $file['file_path']='/uploads/profile/' . $file['file_name'];
-                storage()->put($file['file_path'], $fileContents);
-                $newUser->avatar_url       = $file['file_path'];
-            }
-            $newUser->save(); 
-            
-            if($newUser && $file){
-                $newFile= new \App\Models\SthubFile();
-                $newFile->fileable_id=$user->id;
-                $newFile->fileable_type='App\Models\User';
-                $newFile->file_ext=storage()->getMimeType($file['file_path']);
-                $newFile->file_size=storage()->size($file['file_path']);
-                $newFile->file_name=$file['file_name'];
-                $newFile->user_id=$user->id;
-                $newFile->save();
-            }
-
-            Auth::login($newUser);
-        }
-
-        return redirect()->to('/');
-    }
-    // Handling the forgot password email request
-    public function processForgotPassword(ForgotPasswordRequest $request)
-    {
-        $user=User::where('email',$request->input('email'))->first();
-        if ($user) {
-            $token = PasswordReset::create([
-                'user_id'=>$user->id,
-                'token'=>uniqid(),
-                'expires_at'=>Carbon::now()->addHour()->toDateTimeString(),
-                'created_at'=>Carbon::now()->toDateTimeString(),
-            ]);
-
-            Mail::to($request->input('email'))->send(new ResetPasswordMail($token, $request));
-        }
-        return response(['success'=>'Email sent.'], 200);
-    }
-
-    // Handling the request to reset the password
-    public function resetPassword2(Request $request)
-    {
-        $user=Auth::user();    
-        if(empty($user)){
-            abort(401);
-        }
-
-        $validator = Validator::make($request->all(), [
-            'password'=>'required|min:8',
-            'confirm_password'=>'required|same:password',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['error'=>$validator->errors()], 422);
-        }
-
-        $current_time=Carbon::now()->toDateTimeString();
-        $user->must_reset_password=0;
-        $user->onboarded_at=$current_time;
-        $user->email_verified_at=$current_time;
-        $user->password=Hash::make($request->input('password'));
-        $user->save();
-
-        return response()->json(['success'=>'Password Changed.'], 200);
-    }
-
-    public function resetPassword($token,Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'password'=>'required|min:8',
-            'confirm_password'=>'required|same:password',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['error'=>$validator->errors()], 433);
-        }
-
-        $dbToken= PasswordReset::where('token', $token)
-            ->where('expires_at', '>', Carbon::now())
-            ->first();
-
-        if (!$dbToken) {
-            return response()->json(['error'=>'Wrong Token.'], 403);
-        }
-
-        $user=User::where('id', $dbToken->user_id)->first();
-
-        $current_time=Carbon::now()->toDateTimeString();
-
-        $user->must_reset_password=0;
-        if(empty($user->email_verified_at)){
-            $user->email_verified_at=$current_time;
-        }
-        if(empty($user->onboarded_at)){
-            $user->onboarded_at=$current_time;
-        }
-        $user->password = Hash::make($request->input('password'));
-        $user->save();
-
-        return response()->json(['success'=>'Password Changed.'], 200);
-    }
-
+    
     public function logout(){
         try{
             

@@ -74,16 +74,6 @@ class PagesController extends Controller
             ->with('course_levels', $course_levels);
     }
 
-    public function profile($profileId)
-    {
-        $user = \App\Models\User::where('users.id', $profileId)
-            ->leftJoin('user_profiles as up', 'up.user_id', '=', 'users.id')
-            ->select('up.*', 'users.id', 'users.full_name', 'users.email', 'users.avatar_url')
-            ->with(['preferredCourse','preferredInstitute'])
-            ->first();
-        return view('profile.profile')->with('user', $user);
-    }
-
     public function classroomList()
     {
         return view('student.classroomList');
@@ -95,7 +85,7 @@ class PagesController extends Controller
     }
     public function loginPage()
     {
-        return view('guest.auth.login');
+        return inertia('auth/login');
     }
     public function membershipPlan()
     {
@@ -108,10 +98,6 @@ class PagesController extends Controller
     public function registerPage()
     {
         return view('guest.auth.register');
-    }
-    public function sharePost()
-    {
-        return view('create-post.share-post');
     }
     public function viewPost()
     {
@@ -149,7 +135,7 @@ class PagesController extends Controller
     {
         $user = Auth::user();
         if($user && empty($user->onboarded_at)){
-            $user->role_intended = 'seeker';
+            $user->role = 'seeker';
             $user->onboarded_at = \Carbon\Carbon::now()->toDateTimeString();
             $user->save();
         }

@@ -19,6 +19,8 @@ require_once('web/student.php');
 require_once('web/classroom.php');
 require_once('web/admin.php');
 require_once('web/institute.php');
+require_once('web/staff.php');
+
 Route::get('/', 'GuestController@root');
 Route::get('/report', 'GuestController@report');
 Route::get('/privacy-policy', 'GuestController@privacyPolicy');

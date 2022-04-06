@@ -5,6 +5,15 @@
 @import "~bootstrap/scss/variables";
 @import "~quill/dist/quill.core.css";
 
+$primary-black: #333;
+$primary-blue: #10069f;
+$dark-blue: #0e0770;
+$light-blue: #3646c5;
+$small-size: #333;
+$medium-size: #333;
+$large-size: #333;
+$extra-large-size: #333;
+
 $grid-breakpoints: (
     xs: 0,
     sm: 600px,
@@ -272,6 +281,9 @@ button[disabled="disabled"] {
 .m-0-a {
     margin: 0 auto;
 }
+.m-a {
+    margin: auto;
+}
 .btn-accent {
     background: $accent !important;
     font-weight: $btn-font-weight;
@@ -403,6 +415,9 @@ button[disabled="disabled"] {
 .justify-center {
     justify-content: center;
 }
+.text-center {
+    text-align: center !important;
+}
 .weight-400 {
     font-weight: 400 !important;
 }
@@ -464,18 +479,36 @@ button[disabled="disabled"] {
 .card {
     box-shadow: 0px 2px 50px rgba(0, 0, 0, 0.15) !important;
     background-color: white;
-    border-radius: 4px;
+    border-radius: .5rem;
+    padding: .5rem;
+    margin: 0 auto;
 }
 .card-body {
     padding: 20px 10px !important;
 }
-.post_category{
-    margin: 5px 5px 0px 2px;
-    background: #eee;
-    border-radius: 20px;
-    padding: 5px 15px;
-}
 
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: .5rem;
+    gap: .25em;
+}
+.form-group:last-child {
+    margin: 1rem;
+}
+.form-group > label {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #333;
+    margin-top: 1rem;
+    margin-bottom: 0.2rem;
+}
+.form-group > input {
+    border:1px solid #333;
+    border-radius: 0.25em;
+    font-size: 1rem;
+    padding: .25em;
+}
 .d-flex {
     display: flex;
 }
@@ -487,6 +520,25 @@ button[disabled="disabled"] {
 .border-radius-4 {
     border-radius: 4px !important;
 }
+.otp-input {
+    width: 40px;
+    height: 40px;
+    padding: 5px;
+    margin: 0 10px;
+    font-size: 20px;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    text-align: center;
+    
+  }
+  .otp-input .error {
+    border: 1px solid red !important;
+  }
+  .otp-input::-webkit-inner-spin-button,
+  .otp-input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 // social icon
 /* social media icons  */
 ul.social-network {
@@ -1006,17 +1058,6 @@ i {
             align-items: center;
             justify-content: space-around;
             padding: 10px;
-
-
-            button{
-                border: 0px;
-                background:none !important;
-                // svg{
-                //     color: #212529;
-                //     width: 1.4em;
-                //     height: auto;
-                // }
-            }
         }
     }
     .guest-navbar{
@@ -1192,8 +1233,9 @@ i {
 .vue-form-wizard.md .wizard-nav-pills > li.active > a .wizard-icon {
     font-size: 20px !important;
 }
-.form-group label,
+
 .form-check label {
+    margin-top: 1rem;
     margin-bottom: 0.5rem;
     color: #495057;
     font-weight: 400;
@@ -1745,7 +1787,7 @@ h2.banner_title {
     font-weight: 400;
     position: relative;
     font-size: 14px;
-    margin: 0 5px;
+    margin: 5px 5px;
     overflow: hidden;
     // color: white !important;
     padding: 16px 0;
@@ -1757,27 +1799,11 @@ h2.banner_title {
     align-items: center;
     border-radius: 5px;
 }
-.cat_btn:before {
-    position: absolute;
-    content: "";
-    background: #ffab84;
-    width: 56px;
-    height: 51px;
-    bottom: -30px;
-    right: -20px;
-    border-radius: 38px 30px 0 0px;
-}
-a.btn.btn-white.cat_btn:after {
-    position: absolute;
-    content: "";
-    background-color: #ffb74d;
-    width: 56px;
-    height: 51px;
-    border-radius: 0px 0px 20px 70px;
-    top: -33px;
-    right: 172px;
-}
 
+.cat_btn:hover {
+    color: white;
+    background-color: #10069f;
+  }
 // login page
 
 .login_card {
@@ -3363,7 +3389,22 @@ select.form-control.custom-select {
 .post_width {
     width: 100%;
 }
-
+// .video-container { 
+//     position: relative; 
+//     padding-bottom: 56.25%; 
+//     padding-top: 30px; 
+//     height: 0; 
+//     overflow: hidden; 
+//   }
+  
+//   .video-container iframe, .video-container object, .video-container embed { 
+//     position: absolute; 
+//     top: 0; 
+//     left: 0; 
+//     width: 100%; 
+//     height: 100%; 
+//   }
+  
 // sidebar
 
 @media (max-width: 768px) {
