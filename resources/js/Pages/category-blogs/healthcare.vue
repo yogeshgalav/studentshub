@@ -11,35 +11,48 @@
       title="People Healthcare/Medical Science"
       class="mb-2 w-100"
     >
-      <div class="row" style="padding-left: 8px">
+      <div
+        class="row"
+        style="padding-left: 8px"
+      >
         <div class="col-md-12">
-          <p class="text-muted">Medical science covers many subjects which try to explain how the human body works. Starting with basic biology it is generally divided into areas of specialization, such as anatomy, physiology and pathology with some biochemistry, microbiology, molecular biology and genetics.</p>
+          <p class="text-muted">
+            Medical science covers many subjects which try to explain how the human body works. Starting with basic biology it is generally divided into areas of specialization, such as anatomy, physiology and pathology with some biochemistry, microbiology, molecular biology and genetics.
+          </p>
         </div>
         <div class="col-md-12 mt-1 font-size-16">
           <h4>Quality Required</h4>
         </div>
         <hr class="mb-0 mt-0">
-        <div class="col-md-12">
-          • Academic and People Orientation
-          • Good with Basic Sciences with strong affinity towards
-          Plants, Animals and life Sciences.
-          • Excellent Memorization power
-          • Ability to spend long hours with books and/or
-          computers during study and in the field during
-          Practical application
+        <div class="col-md-12 p-4">
+          <ul class="lisi-group">
+            <li class>
+              Academic and People Orientation
+            </li>
+            <li class>
+              Good with Basic Sciences with strong affinity towards Plants, Animals and life Sciences.
+            </li>
+            <li class>
+              Excellent Memorization power
+            </li>
+            <li class>
+              Ability to spend long hours with books and/or computers during study and in the field during
+              Practical application
+            </li>
+          </ul>
         </div>
         <div class="col-md-12 mt-1 font-size-16">
           <h4>Entrance Exams</h4>
         </div>
         <hr class="mb-0 mt-0">
-        <div class="col-md-12">
+        <div class="col-md-12 p-2">
           NEET
         </div>
         <div class="col-md-12 mt-1 font-size-16">
           <h4>Career Options</h4>
         </div>
         <hr class="mb-0 mt-0">
-        <div class="col-md-12">
+        <div class="col-md-12 p-2">
           <div class="d-flex pt-2 w-50 justify-content-between">
             <ul>
               <h5>You Can be:</h5>
@@ -77,58 +90,140 @@
           <h4>Quality Required</h4>
         </div>
         <hr class="mb-0 mt-0">
-        <div class="col-md-12">
-          • Academic and People Orientation
-          • Good with Basic Sciences with affinity towards
-          Zoology
-          • Interest in Animals and Life Sciences.
-          • Ability to spend long hours with books and/or
-          computers during study and in the field during
-          Practical application
+        <div class="col-md-12 p-2">
+          <ul>
+            <li class>
+              Academic and People Orientation
+            </li>
+            <li class>
+              Good with Basic Sciences with affinity towards Zoology
+            </li>
+            <li class>
+              Interest in Animals and Life Sciences.
+            </li>
+            <li class>
+              Ability to spend long hours with books and/or computers during study and in the field during
+              Practical application
+            </li>
+          </ul>
         </div>
         <div class="col-md-12 mt-2  font-size-16">
           <h4>Entrance Exams</h4>
         </div>
         <hr class="mb-0 mt-0">
-        <div class="col-md-12 mb-1">
-          NEET
-          AAU-VET (Assam )
-          UK-CEE (Uttarakhand)
-          MP-PV & FT (MP)
-          OUAT (Orissa)
-          RPVT (Rajasthan)
-          GUJCET (Gujarat)
-          KEA-CET (Kerala)
-          WB-EVETS (West Bengal)
-          HPAU-ET (Himachal)
-          SKUAST-CET (J & K)
-          UP-CATET (Uttar)
-          MHT-CET (Maharashtra)
-          AP-EAMCET (Andhra)
-          BCECE (Bihar)
-          CH-PAT (Chattisgarh)
+        <div class="col-md-12 mb-1 p-2">
+          <div class="d-flex pt-2 w-50 justify-content-between">
+            <ul>
+              <h5>You Can be:</h5>  
+              <li class>
+                NEET
+              </li>
+              <li class>
+                AAU-VET (Assam )
+              </li>
+              <li class>
+                UK-CEE (Uttarakhand)
+              </li>
+              <li class>
+                MP-PV & FT (MP)
+              </li>
+              <li class>
+                OUAT (Orissa)
+              </li>
+              <li class>
+                RPVT (Rajasthan)
+              </li>
+              <li class>
+                GUJCET (Gujarat)
+              </li>
+              <li class>
+                KEA-CET (Kerala)
+              </li>
+            </ul>
+            <ul>
+              <h5>You Can be:</h5> 
+              <li class>
+                WB-EVETS (West Bengal)
+              </li>
+              <li class>
+                HPAU-ET (Himachal)
+              </li>
+              <li class>
+                SKUAST-CET (J & K)
+              </li>
+              <li class>
+                UP-CATET (Uttar)
+              </li>
+              <li class>
+                MHT-CET (Maharashtra)
+              </li>
+              <li class>
+                AP-EAMCET (Andhra)
+              </li>
+              <li class>
+                BCECE (Bihar)
+              </li>
+              <li class>
+                CH-PAT (Chattisgarh)
+              </li>
+            </ul>
+          </div>
         </div>
         <div class="col-md-12 mt-1  font-size-16">
           <h4>Career Options</h4>
         </div>
         <hr class="mb-0 mt-0">
-        <div class="col-md-12">
-          • Animal Husbandry &
-          Dairying
-          • Animal Biotechnologist
-          • Animal Geneticist
-          • Animal Nutritionist
-          • Aquaculturist
-          • Dairy Scientist
-          • Fisheries Scientist
-          • Mariculturist
-          • Pisciculturist
-          • Livestock Production &
-          Technologist
-          • Poultry Scientist
-          • Veterinary Bio Scientist
-          • Veterinary Pathologist
-          • Veterinary Surgeon
+        <div class="col-md-12 p-2">
+          <div class="d-flex pt-2 w-50 justify-content-between">
+            <ul>
+              <h5>You Can be:</h5>
+              <li class>
+                Animal Husbandry & Dairying
+              </li>
+              <li class>
+                Animal Biotechnologist
+              </li>
+              <li class>
+                Animal Geneticist
+              </li>
+              <li class>
+                Animal Nutritionist
+              </li>
+              <li class>
+                Aquaculturist
+              </li>
+              <li class>
+                Dairy Scientist
+              </li>
+              <li class>
+                Fisheries Scientist
+              </li>
+            </ul>
+            <ul>
+              <h5>You Can be:</h5>
+              <li class>
+                Mariculturist
+              </li>
+              <li class>
+                Pisciculturist
+              </li>
+              <li class>
+                Livestock Production & Technologist
+              </li>
+              <li class>
+                Poultry Scientist
+              </li>
+              <li class>
+                Veterinary Bio Scientist
+              </li>
+              <li class>
+                Veterinary Pathologist
+              </li>
+              <li class>
+                Veterinary Surgeon
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </accordion>
@@ -144,65 +239,148 @@
       </div>
       <hr class="mb-0 mt-0">
       <div class="col-md-12">
-        • Academic and Practical Orientation
-        • Good with Mathematics and Sciences with
-        affinity towards Botany
-        • Interest in Plants and life Sciences.
-        • Ability to spend long hours with books and/or
-        computers during study and in the field during
-        Practical application
+        <ul>
+          <li class>
+            Academic and Practical Orientation
+          </li>
+          <li class>
+            Good with Mathematics and Sciences with affinity towards Botany
+          </li>
+          <li class>
+            Interest in Plants and life Sciences.
+          </li>
+          <li class>
+            Ability to spend long hours with books and/or computers during study and in the field during
+            Practical application
+          </li>
+        </ul>
       </div>
       <div class="col-md-12 mt-1  font-size-16">
         <h4>Entrance Exam</h4>
       </div>
       <hr class="mb-0 mt-0">
       <div class="col-md-12">
-        <p class="text-blue">
-          National Level Exam
-        </p>
-        • NEET (National Eligibility cum Entrance Test)
-        • ICAR-AIEEA ( Indian Council of Agricultural
-        Research-All India Entrance Examination for
-        Admission)
-        • JEE-MAIN (Joint Entrance exam)
-        <p class="text-blue">
-          State Level Exams
-        </p>
-        • GUJCET (Gujarat)
-        • MP-PAT (Madhya)
-        • PAU-CET (Punjab)
-        • UP-CATET (Uttar)
-        • MHT-CET (Maharashtra)
-        • AP-EAMCET (Andhra)
-        • BCECE (Bihar)
-        • HAU-PAT (Haryana)
-        • CH-PAT (Chattisgarh)
-        • HPAU-ET (Himachal)
-        • JCECE (Jharkhand)
-        • SKUAST (J & K)
-        • KEA-CET (Kerala)
-        • OUAT (Orissa)
-        • RJET (Rajasthan)
+        <div class="d-flex pt-2 w-50 justify-content-between">
+          <ul>
+            <h5>National Level Exam</h5>
+        
+            <li class>
+              NEET (National Eligibility cum Entrance Test)
+            </li>
+            <li class>
+              ICAR-AIEEA ( Indian Council of Agricultural Research-All India Entrance Examination for
+              Admission)
+            </li>
+            <li class>
+              JEE-MAIN (Joint Entrance exam)
+            </li>
+          </ul>
+        </div>
+        <ul>
+          <h5>State Level Exams</h5>
+        
+          <li class>
+            GUJCET (Gujarat)
+          </li>
+          <li class>
+            MP-PAT (Madhya)
+          </li>
+          <li class>
+            PAU-CET (Punjab)
+          </li>
+          <li class>
+            UP-CATET (Uttar)
+          </li>
+          <li class>
+            MHT-CET (Maharashtra)
+          </li>
+          <li class>
+            AP-EAMCET (Andhra)
+          </li>
+          <li class>
+            BCECE (Bihar)
+          </li>
+          <li class>
+            HAU-PAT (Haryana)
+          </li>
+          <li class>
+            CH-PAT (Chattisgarh)
+          </li>
+          <li class>
+            HPAU-ET (Himachal)
+          </li>
+          <li class>
+            JCECE (Jharkhand)
+          </li>
+          <li class>
+            SKUAST (J & K)
+          </li>
+          <li class>
+            KEA-CET (Kerala)
+          </li>
+          <li class>
+            OUAT (Orissa)
+          </li>
+          <li class>
+            RJET (Rajasthan)
+          </li>
+        </ul>
       </div>
       <div class="col-md-12 mt-1">
         <h4>Career Options</h4>
       </div>
       <hr class="mb-0 mt-0">
-      <div class="col-md-12">
-        • Agriculturist
-        • Agricultural Economist
-        • Agronomist
-        • Agricultural Biotechnologist
-        • Agricultural Biochemist
-        • Floriculturist
-        • Food Technologist
-        • Fruit Scientist
-        • Horticulturist
-        • Nutritionist
-        • Plant Pathologist
-        • Seri culturist
-        • Soil Scientist
-        • Vegetable Scientist
+      <div class="col-md-12 p-2">
+        <div class="d-flex pt-2 w-50 justify-content-between">
+          <ul>
+            <h5>You Can be:</h5>
+            <li class>
+              Agriculturist
+            </li>
+            <li class>
+              Agricultural Economist
+            </li>
+            <li class>
+              Agronomist
+            </li>
+            <li class>
+              Agricultural Biotechnologist
+            </li>
+            <li class>
+              Agricultural Biochemist
+            </li>
+            <li class>
+              Floriculturist
+            </li>
+            <li class>
+              Food Technologist
+            </li>
+          </ul>
+          <ul>
+            <h5>You Can be:</h5>
+            <li class>
+              Fruit Scientist
+            </li>
+            <li class>
+              Horticulturist
+            </li>
+            <li class>
+              Nutritionist
+            </li>
+            <li class>
+              Plant Pathologist
+            </li>
+            <li class>
+              Seri culturist
+            </li>
+            <li class>
+              Soil Scientist
+            </li>
+            <li class>
+              Vegetable Scientist
+            </li>
+          </ul>
+        </div>
       </div>
     </accordion>
 
@@ -218,56 +396,140 @@
           <h4>Quality Required</h4>
         </div>
         <hr class="mb-0 mt-0">
-        <div class="col-md-12">
-          • Academic and People Orientation
-          • Good with Basic Sciences with strong affinity towards
-          Plants, Animals and life Sciences.
-          • Excellent Memorization power
-          • Ability to spend long hours with books and/or
-          computers during study and in the field during
-          Practical application
+        <div class="col-md-12 p-2">
+          <ul>
+            <li class>
+              Academic and People Orientation
+            </li>
+            <li class>
+              Good with Basic Sciences with strong affinity towards Plants, Animals and life Sciences.
+            </li>
+            <li class>
+              Excellent Memorization power
+            </li>
+            <li class>
+              Ability to spend long hours with books and/or computers during study and in the field during
+              Practical application
+            </li>
+          </ul>
         </div>
         <div class="col-md-12 mt-1">
           <h4>Entrance Exams</h4>
         </div>
         <hr class="mb-0 mt-0">
-        <div class="col-md-12">
-          AIIMS-EE
-          AFMC-EE
-          JIPMER-EE
-          SVNIRTAR-CET (Cuttak)
-          WBJEE (West Bengal)
-          PARA-CET (IPU)
-          KEA-CET (Kerala)
-          PGIMER-EE
-          MHT-CET (Maharashtra)
-          OJEE (Orissa)
-          BVP-CET
-          IMAT
-          NEET
-          TS-EAMCET (Tamil Nadu)
+        <div class="col-md-12 p-2">
+          <div class="d-flex pt-2 w-50 justify-content-between">
+            <ul>
+              <h5>You Can be:</h5>
+              <li class>
+                AIIMS-EE
+              </li>
+              <li class>
+                AFMC-EE
+              </li>
+              <li class>
+                JIPMER-EE
+              </li>
+              <li class>
+                SVNIRTAR-CET (Cuttak)
+              </li>
+              <li class>
+                WBJEE (West Bengal)
+              </li>
+              <li class>
+                PARA-CET (IPU)
+              </li>
+              <li class>
+                KEA-CET (Kerala)
+              </li>
+            </ul>
+            <ul>
+              <h5>You Can be:</h5>
+              <li class>
+                PGIMER-EE
+              </li>
+              <li class>
+                MHT-CET (Maharashtra)
+              </li>
+              <li class>
+                OJEE (Orissa)
+              </li>
+              <li class>
+                BVP-CET
+              </li>
+              <li class>
+                IMAT
+              </li>
+              <li class>
+                NEET
+              </li>
+              <li class>
+                TS-EAMCET (Tamil Nadu)
+              </li>
+            </ul>
+          </div>
         </div>
         <div class="col-md-12 mt-1">
           <h4>Career Options</h4>
         </div>
         <hr class="mb-0 mt-0">
-        <div class="col-md-12">
-          • Advance Care Paramedic 
-          • Occupational Therapist
-          • Ophthalmic Technologist
-          • Anesthesia Technician
-          • Cardiovascular Technician 
-          • Optometrist
-          • OT Assistant
-          • Critical Care Technician
-          • Perfusion Technologist
-          • Dialysis Technologist
-          • Pharmacist
-          • Imaging Technologist
-          • Laboratory Technologist 
-          • Physiotherapist
-          • Trauma Therapist
-          • Nuclear Medicine Technologist
+        <div class="col-md-12 p-2">
+          <div class="d-flex pt-2 w-50 justify-content-between">
+            <ul>
+              <h5>You Can be:</h5>
+              <li class>
+                Advance Care Paramedic
+              </li>
+              <li class>
+                Occupational Therapist
+              </li>
+              <li class>
+                Ophthalmic Technologist
+              </li>
+              <li class>
+                Anesthesia Technician
+              </li>
+              <li class>
+                Cardiovascular Technician
+              </li>
+              <li class>
+                Optometrist
+              </li>
+              <li class>
+                OT Assistant
+              </li>
+              <li class>
+                Critical Care Technician
+              </li>
+            </ul>
+            <ul>
+              <h5>You Can be:</h5>
+              <li class>
+                Perfusion Technologist
+              </li>
+              <li class>
+                Dialysis Technologist
+              </li>
+              <li class>
+                Pharmacist
+              </li>
+              <li class>
+                Imaging Technologist
+              </li>
+              <li class>
+                Laboratory Technologist
+              </li>
+              <li class>
+                Physiotherapist
+              </li>
+              <li class>
+                Trauma Therapist
+              </li>
+              <li class>
+                Nuclear Medicine Technologist
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </accordion>

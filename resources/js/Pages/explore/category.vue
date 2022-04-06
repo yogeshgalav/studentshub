@@ -5,6 +5,7 @@
           <h1>{{ category.name }}</h1>
       </div>
       <div class="col-md-10 col-12">
+        
         <nav-tabs
           :tabs="tabs"
           :initial-tab="initialTab"
