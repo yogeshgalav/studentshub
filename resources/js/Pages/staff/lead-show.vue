@@ -11,7 +11,7 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-body">
-              <form>
+              <form @submit.prevent="addLead">
                 <div class="row">
                   <div class="col-md-6 col-12">
                     <div
@@ -21,6 +21,7 @@
                       
                        
                       <select
+                        v-model="lead_status"
                         class="form-control"
                         aria-label=".form-select-lg example"
                       >
@@ -51,6 +52,7 @@
                       <label for="exampleFormControlTextarea1">Description</label>
                       <textarea
                         id="exampleFormControlTextarea1"
+                        v-model="description"
                         class="form-control"
                         rows="3"
                       />
@@ -59,6 +61,7 @@
                     <div class="form-check">
                       <input
                         id="flexCheckDefault"
+                        v-model="user_verified"
                         class="form-check-input"
                         type="checkbox"
                         value=""
@@ -75,8 +78,9 @@
                 
                 <div class="mt-2">
                   <button
-                    type="submit"
+                    type="button"
                     class="btn btn-primary btn-md"
+                    @click="addLead"
                   >
                     Submit
                   </button>
@@ -104,7 +108,7 @@
             >
               <span v-if="props.column.field==='full_name'">
                 <router-link
-                  :href="'/lead/'+props.row.user_id"
+                  :href="'/lead/'+props.row.id"
                   class="text-underline"
                 >{{ props.row['full_name'] }}</router-link>
               </span>
@@ -124,14 +128,18 @@ import Accordion from '@/components/accordion.vue';
 
 import StaffLayout from '@/Layouts/StaffLayout';
 export default {
-	layout:StaffLayout,
 	components:{
 		VueTableComponent,
 		Accordion
 	},
- props:['lead'],
+	props:['leadData', 'leadAssigned'],
+	layout:StaffLayout,
+	
 	data() {
 		return {
+			lead_status:'2',
+			description:'',
+			user_verified:'',
 			userList:[],
 			userColumns: [
 				{
@@ -147,9 +155,22 @@ export default {
 		};
 	},
 	mounted(){
-		this.axios.get('/api/leads').then(resp=>{
-			this.userList = resp.data.success.leads;
-		});
+		this.userList = this.leadAssigned;
+		console.log(this.leadAssigned);
+	
+	},
+	methods:{
+		addLead(){
+			let loader = this.$loading.show();
+  	this.axios.post('/api/lead/'+this.leadData.user_id, {
+    			lead_status:this.lead_status,
+				description:this.description,
+    		}).then(resp=>{
+				loader.hide();
+			
+			});
+				
+		}
 	}
 };
 

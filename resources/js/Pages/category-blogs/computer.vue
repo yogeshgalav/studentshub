@@ -9,65 +9,153 @@
       <h4>Quality Required</h4>
     </div>
     <hr class="mb-0 mt-0">
-    <div class="col-md-12">
-      • Academic and Practical Orientation
-      • Good with Logic with affinity towards doing new and
-      innovative things on Computers
-      • Interest in gaining in depth understanding of working
-      of software and operating system of computers.
-      • Ability to spend long hours on computers.
-
-
-      Extra qualities
-      Basic knowledge and moderate proficiency about the operation of a computer and software installation.
-      Ability to use File Manager/Windows Explorer.
-      Ability to use the Internet in an effective and efficient manner, including installation and management of browser plug-ins.
-      Proficient in searching the web for information.
-      Ability to download and print information from websites and download, view, and/or print PDF files.
+    <div class="col-md-12 p-2">
+      <div class="d-flex pt-2 w-50 justify-content-between">
+        <ul>
+          <li class>
+            Academic and Practical Orientation
+          </li>
+          <li class>
+            Good with Logic with affinity towards doing new and innovative things on Computers
+          </li>
+          <li class>
+            Interest in gaining in depth understanding of working of software and operating system of computers.
+          </li>
+          <li class>
+            Ability to spend long hours on computers.
+          </li>
+        </ul>
+      </div>
+      <ul>
+        <h5>Extra qualities:</h5>
+        <li class>
+          Basic knowledge and moderate proficiency about the operation of a computer and software installation.
+        </li>
+        <li class>
+          Ability to use File Manager/Windows Explorer.
+        </li>
+        <li class>
+          Ability to use the Internet in an effective and efficient manner, including installation and management of browser plug-ins.
+        </li>
+        <li class>
+          Proficient in searching the web for information.
+        </li>
+        <li class>
+          Ability to download and print information from websites and download, view, and/or print PDF files.
+        </li>
+      </ul>
     </div>
     <div class="col-md-12 mt-1">
       <h4>Entrance Exams</h4>
     </div>
     <hr class="mb-0 mt-0">
-    <div class="col-md-12">
-      • SET (Symbiosis)
-      • B-UMAT (BVP)
-      • CUET (Christ)
-      • KALSEE (Kalinga)
-      • UGAT
-      • JET (Jain)
-      • BCA-CET (IPU)
-      • GSAT (Gitam)
-      • RGUCET (Rajiv Gandhi)
-      • SSSIHL (Sri Satya Sai)
+    <div class="col-md-12 p-2">
+      <div class="d-flex pt-2 w-50 justify-content-between">
+        <ul>
+          <h5>You Can be:</h5>
+          <li class>
+            SET (Symbiosis)
+          </li>
+          <li class>
+            B-UMAT (BVP)
+          </li>
+          <li class>
+            CUET (Christ)
+          </li>
+          <li class>
+            KALSEE (Kalinga)
+          </li>
+          <li class>
+            UGAT
+          </li>
+        </ul>
+        <ul>
+          <h5>You Can be:</h5> 
+          <li class>
+            JET (Jain)
+          </li>
+          <li class>
+            BCA-CET (IPU)
+          </li>
+          <li class>
+            GSAT (Gitam)
+          </li>
+          <li class>
+            RGUCET (Rajiv Gandhi)
+          </li>
+          <li class>
+            SSSIHL (Sri Satya Sai)
+          </li>
+        </ul>
+      </div>
     </div>
     <div class="col-md-12 mt-1">
       <h4>Career Options</h4>
     </div>
     <hr class="mb-0 mt-0">
-    <div class="col-md-12">
-      You Can be:
-      • Application Designer
-      • Artificial Intelligence Expert
-      • Audio & Video Technologist
-      • Computer Systems Analyst
-      • Digital Marketer
-      • Ethical Hacker
-      • Game Designer
-      • Media Programmer
-      • Machine Learning Expert
-
-
-      You Can be:
-      • Network Engineer
-      • Programmer/Coder
-      • SEO Specialist
-      • SEM Specialist
-      • Software Engineer
-      • UI/UX Expert
-      • VFX Designer
-      • Web Developer
-      • Website Tester
+    <div class="col-md-12 p-2">
+      <div class="d-flex pt-2 w-50 justify-content-between">
+        <ul>
+          <h5>You Can be:</h5>
+          <li class>
+            Application Designer
+          </li>
+          <li class>
+            Artificial Intelligence Expert
+          </li>
+          <li class>
+            Audio & Video Technologist
+          </li>
+          <li class>
+            Computer Systems Analyst
+          </li>
+          <li class>
+            Digital Marketer
+          </li>
+          <li class>
+            Ethical Hacker
+          </li>
+          <li class>
+            Game Designer
+          </li>
+          <li class>
+            Media Programmer
+          </li>
+          <li class>
+            Machine Learning Expert
+          </li>
+        </ul>
+        <ul>
+          <h5>You Can be:</h5>
+          <li class>
+            Network Engineer
+          </li>
+          <li class>
+            Programmer/Coder
+          </li>
+          <li class>
+            SEO Specialist
+          </li>
+          <li class>
+            SEM Specialist
+          </li>
+          <li class>
+            Software Engineer
+          </li>
+          <li class>
+            UI/UX Expert
+          </li>
+          <li class>
+            VFX Designer
+          </li>
+          <li class>
+            Web Developer
+          </li>
+          <li class>
+            Website Tester
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Doubt;
 use Auth;
 
 class SeekerController extends Controller
@@ -71,7 +72,8 @@ class SeekerController extends Controller
         ]);
     }
 
-    public function doubtAnswersPage(){
-        return inertia('doubt/show');
+    public function doubtAnswersPage($id){
+        $doubtId = Doubt::where('id','=',$id)->with('subjects')->first(); 
+        return inertia('doubt/show', ['doubtId' =>$doubtId]);
     }
 }

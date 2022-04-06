@@ -8,54 +8,122 @@
       <h4>Quality Required</h4>
     </div>
     <hr class="mb-0 mt-0">
-    <div class="col-md-12">
-      • Academic, People and Creative Orientation.
-      • Good with Languages and Social Sciences with
-      affinity towards extra and versatile reading.
-      • Interest in studying various subjects related to
-      Humanities, Commerce, Management, Sciences and
-      Performing Arts.
-      • Wishing to choose your own subjects and study what
-      you like.
+    <div class="col-md-12 p-2">
+      <ul>
+        <li class>
+          Academic, People and Creative Orientation.
+        </li>
+        <li class>
+          Good with Languages and Social Sciences with affinity towards extra and versatile reading.
+        </li>
+        <li class>
+          Interest in studying various subjects related to Humanities, Commerce, Management, Sciences and
+          Performing Arts.
+        </li>
+        <li class>
+          Wishing to choose your own subjects and study what you like.
+        </li>
+      </ul>
     </div>
     <div class="col-md-12 mt-1">
       <h4>Entrance Exams</h4>
     </div>
     <hr class="mb-0 mt-0">
-    <div class="col-md-12">
-      FEAT (Flame-Pune)
-      AAT (Ashoka)
-      SET (Symbiosis)
-      PDPU-AT
-      NPAT (Narsee Monjee)
-      KUAT (Karnavati)
-      • KREA-ET
-      • JSAT (Jindal)
-      • SRM-ET
+    <div class="col-md-12 p-2">
+      <div class="d-flex pt-2 w-50 justify-content-between">
+        <ul>
+          <h5>You Can be:</h5>
+          <li class>
+            FEAT (Flame-Pune)
+          </li>
+          <li class>
+            AAT (Ashoka)
+          </li>
+          <li class>
+            SET (Symbiosis)
+          </li>
+          <li class>
+            PDPU-AT
+          </li>
+          <li class>
+            NPAT (Narsee Monjee)
+          </li>
+        </ul>
+        <ul>
+          <h5>You Can be:</h5>
+          <li class>
+            KUAT (Karnavati)
+          </li>
+          <li class>
+            KREA-ET
+          </li>
+          <li class>
+            JSAT (Jindal)
+          </li>
+          <li class>
+            SRM-ET
+          </li>
+        </ul>
+      </div>
     </div>
     <div class="col-md-12 mt-1">
       <h4>Career Options</h4>
     </div>
     <hr class="mb-0 mt-0">
     <div class="col-md-12">
-      You Can be:
-      Banking or retail management trainee
-      Buyer trainee
-      Claims adjuster
-      Underwriter
-      College/university admission counselor
-      Convention/meeting planner
-      Development officer/fundraiser
-
-      You Can be:
-      Human resources professional
-      Insurance agent
-      Management
-      Public relations specialist
-      Sales representative
-      Teacher
-      Writer
-      Intelligence Officer/Analyst
+      <div class="d-flex pt-2 w-50 justify-content-between">
+        <ul>
+          <h5>You Can be:</h5>
+          <li class>
+            Banking or retail management trainee
+          </li>
+          <li class>
+            Buyer trainee
+          </li>
+          <li class>
+            Claims adjuster
+          </li>
+          <li class>
+            Underwriter
+          </li>
+          <li class>
+            College/university admission counselor
+          </li>
+          <li class>
+            Convention/meeting planner
+          </li>
+          <li class>
+            Development officer/fundraiser
+          </li>
+        </ul>
+        <ul>
+          <h5>You Can be:</h5>
+          <li class>
+            Human resources professional
+          </li>
+          <li class>
+            Insurance agent
+          </li>
+          <li class>
+            Management
+          </li>
+          <li class>
+            Public relations specialist
+          </li>
+          <li class>
+            Sales representative
+          </li>
+          <li class>
+            Teacher
+          </li>
+          <li class>
+            Writer
+          </li>
+          <li class>
+            Intelligence Officer/Analyst
+          </li>
+        </ul>
+      </div>
     </div>
     
     <accordion

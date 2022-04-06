@@ -12110,6 +12110,10 @@ button[disabled=disabled] {
   margin: 0 auto;
 }
 
+.m-a {
+  margin: auto;
+}
+
 .btn-accent {
   background: #963CBD !important;
   font-weight: 800;
@@ -12334,6 +12338,8 @@ button[disabled=disabled] {
   font-weight: bold;
   font-size: 1.1em;
   color: #333;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .form-group > input {
@@ -15960,109 +15966,117 @@ webpackContext.keys = function webpackContextKeys() {
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
 webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";/* (ignored) *//* (ignored) */var map = {
-	"./communication": [
-		"./resources/js/Pages/category-blogs/communication.vue",
-		32
-	],
-	"./communication.vue": [
-		"./resources/js/Pages/category-blogs/communication.vue",
-		32
-	],
 	"./computer": [
 		"./resources/js/Pages/category-blogs/computer.vue",
-		33
+		34
 	],
 	"./computer.vue": [
 		"./resources/js/Pages/category-blogs/computer.vue",
-		33
+		34
 	],
 	"./economics": [
 		"./resources/js/Pages/category-blogs/economics.vue",
-		34
+		35
 	],
 	"./economics.vue": [
 		"./resources/js/Pages/category-blogs/economics.vue",
-		34
+		35
+	],
+	"./education": [
+		"./resources/js/Pages/category-blogs/education.vue",
+		144
+	],
+	"./education.vue": [
+		"./resources/js/Pages/category-blogs/education.vue",
+		144
 	],
 	"./healthcare": [
 		"./resources/js/Pages/category-blogs/healthcare.vue",
-		27
+		26
 	],
 	"./healthcare.vue": [
 		"./resources/js/Pages/category-blogs/healthcare.vue",
-		27
+		26
 	],
 	"./hospitality": [
 		"./resources/js/Pages/category-blogs/hospitality.vue",
-		35
+		36
 	],
 	"./hospitality.vue": [
 		"./resources/js/Pages/category-blogs/hospitality.vue",
-		35
-	],
-	"./humanities": [
-		"./resources/js/Pages/category-blogs/humanities.vue",
-		36
-	],
-	"./humanities.vue": [
-		"./resources/js/Pages/category-blogs/humanities.vue",
 		36
 	],
 	"./law": [
 		"./resources/js/Pages/category-blogs/law.vue",
-		37
+		38
 	],
 	"./law.vue": [
 		"./resources/js/Pages/category-blogs/law.vue",
-		37
+		38
 	],
 	"./management": [
 		"./resources/js/Pages/category-blogs/management.vue",
-		38
+		39
 	],
 	"./management.vue": [
 		"./resources/js/Pages/category-blogs/management.vue",
-		38
+		39
+	],
+	"./mass-communication": [
+		"./resources/js/Pages/category-blogs/mass-communication.vue",
+		142
+	],
+	"./mass-communication.vue": [
+		"./resources/js/Pages/category-blogs/mass-communication.vue",
+		142
 	],
 	"./performing-arts": [
 		"./resources/js/Pages/category-blogs/performing-arts.vue",
-		28
+		27
 	],
 	"./performing-arts.vue": [
 		"./resources/js/Pages/category-blogs/performing-arts.vue",
-		28
+		27
 	],
 	"./science": [
 		"./resources/js/Pages/category-blogs/science.vue",
-		39
+		40
 	],
 	"./science.vue": [
 		"./resources/js/Pages/category-blogs/science.vue",
-		39
+		40
+	],
+	"./social-studies": [
+		"./resources/js/Pages/category-blogs/social-studies.vue",
+		143
+	],
+	"./social-studies.vue": [
+		"./resources/js/Pages/category-blogs/social-studies.vue",
+		143
 	],
 	"./sports": [
 		"./resources/js/Pages/category-blogs/sports.vue",
-		40
+		41
 	],
 	"./sports.vue": [
 		"./resources/js/Pages/category-blogs/sports.vue",
-		40
+		41
 	],
 	"./technology": [
 		"./resources/js/Pages/category-blogs/technology.vue",
-		41
+		42
 	],
 	"./technology.vue": [
 		"./resources/js/Pages/category-blogs/technology.vue",
-		41
+		42
 	],
 	"./visual-arts": [
 		"./resources/js/Pages/category-blogs/visual-arts.vue",
-		42
+		43
 	],
 	"./visual-arts.vue": [
 		"./resources/js/Pages/category-blogs/visual-arts.vue",
-		42
+		43
 	]
 };
 function webpackAsyncContext(req) {

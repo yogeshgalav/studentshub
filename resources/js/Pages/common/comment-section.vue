@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      v-for="comment in comments"
+      v-for="(comment, index) in comments"
       :key="comment.id"
     >
       <div class="row mb-3">
@@ -14,7 +14,7 @@
           </div>
         </div>
         <div
-          class="col-md-10 col-10"
+          class="col-md-10 col-10 d-flex"
         >
           <div
             class="pl-2 pt-2 pb-2 comment-margin"
@@ -22,10 +22,46 @@
           >
             <h5 class="pb-0 mb-0">
               {{ comment.user_name }}
-            </h5>
+            </h5> 
             <p class="mb-0">
               {{ comment.comment_text }}
             </p>
+          </div>
+          <div
+            class="dropdown d-inline m-a"
+          >
+            <button
+              id="dropdownMenuButton"
+              class="btn btn-secondary dropdown-toggle p-0"
+              type="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <i class="fas fa-ellipsis-v" />
+            </button>
+            <div
+              class="dropdown-menu dropdown-menu-right"
+              style="min-width: max-content;"
+              aria-labelledby="dropdownMenuButton"
+            >
+              <button
+                type="button"
+                class="dropdown-item"
+                data-toggle="modal"
+                data-target="#editCommentModal"
+                @click="editComment(comment)"
+              >
+                Edit
+              </button> 
+              <button
+                type="button"
+                class="dropdown-item"
+                @click="deleteComment(comment.id, index)"
+              >
+                Delete
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -56,7 +92,7 @@
             type="text"
             placeholder="Comment here"
             class="mt-1 pl-2 message-comment"
-            @keyup.enter="savecomment($event, message)"
+            @keyup.enter="savecomment"
           >
 
           <div @click="savecomment">
@@ -68,6 +104,39 @@
         </div>
       </div>
     </div>
+
+    <modal
+      ref="editCommentModal"
+      name="editCommentModal"
+      heading="Edit Comment"
+      classes="modal-lg"
+      @submit="saveEditComment"
+    >
+      <template slot="modalBody">
+        <form data-vv-scope="newHomework">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <!-- <label
+                  class="control-label mb-1"
+                  :for="'homework_html'"
+                >Edit comment</label> -->
+                <input
+                  id="comment-input"
+                  v-model="selectedComment.comment_text"
+                  type="text"
+                  placeholder="Comment here"
+                  class="mt-1 pl-2 message-comment"
+                >
+                <div class="error">
+                <!-- {{ formErrors('newAssignment.new_unit') }} -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </template>
+    </modal>
   </div>
 </template>
 <style>
@@ -83,13 +152,18 @@
 }
 .comment-margin{
   margin-left: -25px;
+  width:100%;
 }
 .comment-user-name{
   margin-left: -20px;
 }
 </style>
 <script>
+import Modal from '../../components/VueNiceModal';
 export default {
+	components:{
+		Modal
+	},
 	props:{
 		'commentableId':{
 			'type':Number,
@@ -104,15 +178,19 @@ export default {
 		return {
 			comments:[],
 			comment_text:'',
+			selectedComment:{}
 		};
 	},
 	mounted(){
-		this.axios.get('/api/'+this.commentableType+'/'+this.commentableId+'/comment')
-			.then((resp) => {
-				this.comments=resp.data.success.comments;
-			});
+		this.setup();
 	},
 	methods:{
+		setup(){
+			this.axios.get('/api/'+this.commentableType+'/'+this.commentableId+'/comment')
+				.then((resp) => {
+					this.comments=resp.data.success.comments;
+				});
+		},
 
 		savecomment(){
 			if(!this.comment_text){
@@ -132,6 +210,40 @@ export default {
 			});
 				
 		},
+		saveEditComment(){
+			if(!this.selectedComment.comment_text){
+				return false;
+			}
+			this.axios.put('/api/comment/'+this.selectedComment.id,
+				{
+					'comment_text': this.selectedComment.comment_text,
+				}).then((resp)=>{
+				this.$refs.editCommentModal.closeModal();
+				this.comments.map(node=>{
+					if(node.id===this.selectedComment.id){
+						node.comment_text=this.selectedComment.comment_text;
+
+					}
+
+					return node;
+				});
+				// this.setup();
+				this.selectedComment = {};
+			});
+		},
+		editComment(comment){
+			this.selectedComment = comment;
+		},
+		deleteComment(commentId, index){
+    		this.axios.delete('/api/comment/' + commentId).then((resp)=>{
+				if(index > -1){
+					this.comments.splice(index, 1);
+				}
+				 
+    			// window.location.reload();
+    		});
+    	},
+
 	}
 };
 </script>
