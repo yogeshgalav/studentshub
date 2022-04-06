@@ -57,8 +57,9 @@ class AuthController extends Controller
         if(empty($user->onboarded_at)){
             $success['new_user'] = true;
         }
-        
-        // $this->sendOtpVerification($otp,$contact_number);
+        if('local'!==env('APP_ENV')){  
+            $this->sendOtpVerification($otp,$contact_number);
+        }
         DB::commit();
     } catch (\Exception $e) {
         DB::rollback();
