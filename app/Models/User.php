@@ -73,6 +73,9 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Post');
     }
 
+    public function lead(){
+        return $this->hasOne('App\Models\Lead');
+    }
     /***
      * Now many new/unread notifications are
      * waiting for this user?
@@ -157,4 +160,5 @@ class User extends Authenticatable
         }
         return true;
     }
+    
 }

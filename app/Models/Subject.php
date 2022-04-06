@@ -71,6 +71,13 @@ class Subject extends Model
         
         return true;
     }
+    public static function deleteDoubtTags($doubt)
+    {
+        $doubt->delete();
+        return response()->json([], 204);
+        
+    }
+    
     public static function addPostTags(Post $post, $tags)
     {
         foreach($tags as $tag){

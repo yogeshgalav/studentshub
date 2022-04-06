@@ -151,7 +151,7 @@ export default {
 	props:['doubt',],
 	methods:{
 		editDoubt(id){
-			window.location.href ='/doubt/'+id+'/edit';
+			window.location.href ='/edit-doubt/'+id;
 		},
 		deleteDoubt(id){
 			this.axios.delete('/api/doubt/'+this.doubt.id).then(()=>{
