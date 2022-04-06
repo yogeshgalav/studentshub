@@ -24,7 +24,13 @@ class StaffController extends Controller
        ->leftJoin('leads as le', 'le.user_id','=','us.id')
        ->select('us.id as user_id','us.full_name as user_name','le.lead_status as lead_status', 'le.description as description')->first();   
 
-        return inertia('staff/lead-show', ['leadData' => $leadData]);
+       $leadAssigned=DB::table('lead_assigned as lea')
+       ->leftjoin('users as us', 'us.id','=','lea.staff_user_id')
+        ->select('us.full_name as staff_name','lea.created_at as assigned_at')->get();
+        return inertia('staff/lead-show', [
+            'leadData' => $leadData ,
+        'leadAssigned'=>$leadAssigned
+    ]);
     }
 
    public function manageCoursePage(){        

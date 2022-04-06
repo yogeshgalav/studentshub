@@ -132,7 +132,7 @@ export default {
 		VueTableComponent,
 		Accordion
 	},
-	props:['leadData', 'userId'],
+	props:['leadData', 'leadAssigned'],
 	layout:StaffLayout,
 	
 	data() {
@@ -154,13 +154,19 @@ export default {
 			]
 		};
 	},
-
+	mounted(){
+		this.userList = this.leadAssigned;
+		console.log(this.leadAssigned);
+	
+	},
 	methods:{
 		addLead(){
+			let loader = this.$loading.show();
   	this.axios.post('/api/lead/'+this.leadData.user_id, {
     			lead_status:this.lead_status,
 				description:this.description,
     		}).then(resp=>{
+				loader.hide();
 			
 			});
 				
