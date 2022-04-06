@@ -272,6 +272,9 @@ button[disabled="disabled"] {
 .m-0-a {
     margin: 0 auto;
 }
+.m-a {
+    margin: auto;
+}
 .btn-accent {
     background: $accent !important;
     font-weight: $btn-font-weight;
@@ -488,6 +491,8 @@ button[disabled="disabled"] {
     font-weight: bold;
     font-size: 1.1em;
     color: #333;
+    margin-top:1rem;
+    margin-bottom:0.5rem;
 }
 .form-group > input {
     border:1px solid #333;
