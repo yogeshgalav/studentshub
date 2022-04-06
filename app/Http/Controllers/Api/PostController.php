@@ -163,7 +163,7 @@ class PostController extends Controller
         }
 
         if($request->user('api')){
-          $posts=$post_query->paginate();
+          $posts=$post_query->paginate(10);
         }else{
           $posts=$post_query->limit(10)->get();
         }
