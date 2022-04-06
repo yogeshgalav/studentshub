@@ -16,7 +16,7 @@
             >
               <span v-if="props.column.field==='full_name'">
                 <router-link
-                  :href="'/lead/'+props.row.user_id"
+                  :href="'/lead/'+props.row.id"
                   class="text-underline"
                 >{{ props.row['full_name'] }}</router-link>
               </span>

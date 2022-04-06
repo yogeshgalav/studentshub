@@ -18,62 +18,151 @@
       <h4>Quality Required</h4>
     </div>
     <hr class="mb-0 mt-0">
-    <div class="col-md-12">
-      • Creative and Practical Orientation
-      • Good with skill based subjects with affinity towards
-      Creativity and Visualization
-      • Interest in Sketching, Painting and Drawing
-      • Ability to work for long hours on a single project with
-      Patience, Dedication and Perfection.
+    <div class="col-md-12 p-2">
+      <ul>
+        <li class>
+          Creative and Practical Orientation
+        </li>
+        <li class>
+          Good with skill based subjects with affinity towards Creativity and Visualization
+        </li>
+        <li class>
+          Interest in Sketching, Painting and Drawing
+        </li>
+        <li class>
+          Ability to work for long hours on a single project with Patience, Dedication and Perfection.
+        </li>
+      </ul>
     </div>
     <div class="col-md-12 mt-1">
       <h4>Entrance Exams</h4>
     </div>
     <hr class="mb-0 mt-0">
-    <div class="col-md-12">
-      DAT-Prelims & Mains (NID)
-      UCEED (IIT-Bombay)
-      GAT & CAT (NIFT)
-      UID-DAT (Unitedworld)
-      MH-AAC-CET (Maharashtra)
-      BHU-UET (Banaras)
-      FDDI-AIST (Footwear)
-      IICD-ET (Jaipur)
-      SEED (Symbiosis)
-      SEAT-UG (Shrishti)
-      NIIFT-ET
-      JET-DE (Jain)
-      MITID-DAT
-      NPAT (Narsee Monjee)
-      I-DAT (Ind. Ins. of AD)
-      NPAT (Narsee Monjee)
+    <div class="col-md-12 p-2">
+      <div class="d-flex pt-2 w-50 justify-content-between">
+        <ul>
+          <h5>You Can be:</h5>
+          <li class>
+            DAT-Prelims & Mains (NID)
+          </li>
+          <li class>
+            UCEED (IIT-Bombay)
+          </li>
+          <li class>
+            GAT & CAT (NIFT)
+          </li>
+          <li class>
+            UID-DAT (Unitedworld)
+          </li>
+          <li class>
+            MH-AAC-CET (Maharashtra)
+          </li>
+          <li class>
+            BHU-UET (Banaras)
+          </li>
+          <li class>
+            FDDI-AIST (Footwear)
+          </li>
+          <li class>
+            IICD-ET (Jaipur)
+          </li>
+        </ul>
+        <ul>
+          <h5>You Can be:</h5>
+          <li class>
+            SEED (Symbiosis)
+          </li>
+          <li class>
+            SEAT-UG (Shrishti)
+          </li>
+          <li class>
+            NIIFT-ET
+          </li>
+          <li class>
+            JET-DE (Jain)
+          </li>
+          <li class>
+            MITID-DAT
+          </li>
+          <li class>
+            NPAT (Narsee Mvonjee)
+          </li>
+          <li class>
+            I-DAT (Ind. Ins. of AD)
+          </li>
+          <li class>
+            NPAT (Narsee Monjee)
+          </li>
+        </ul>
+      </div>
     </div>
     <div class="col-md-12 mt-1">
       <h4>Carrier Opions</h4>
     </div>
     <hr class="mb-0 mt-0">
-    <div class="col-md-12">
-      You Can be Designer in:
-      • Accessory
-      • Animation
-      • Apparel
-      • Ceramic
-      • Communication
-      • Fashion
-      • Fine Art
-      • Footwear
-      • Furniture
-
-      You Can be Designer in:
-      • Industrial
-      • Interior
-      • Knitwear
-      • Leather
-      • Product
-      • Sculptor
-      • Textile
-      • Toy
-      • UI/UX
+    <div class="col-md-12 p-2">
+      <div class="d-flex pt-2 w-50 justify-content-between">
+        <ul> 
+          <h5>You Can be Designer in:</h5>
+          <li class>
+            Accessory
+          </li>
+          <li class>
+            Animation
+          </li>
+          <li class>
+            Apparel
+          </li>
+          <li class>
+            Ceramic
+          </li>
+          <li class>
+            Communication
+          </li>
+          <li class>
+            Fashion
+          </li>
+          <li class>
+            Fine Art
+          </li>
+          <li class>
+            Footwear
+          </li>
+          <li class>
+            Furniture
+          </li>
+        </ul>
+        <ul>
+          <h5>You Can be Designer in:</h5>
+          <li class>
+            Industrial
+          </li>
+          <li class>
+            Interior
+          </li>
+          <li class>
+            Knitwear
+          </li>
+          <li class>
+            Leather
+          </li>
+          <li class>
+            Product
+          </li>
+          <li class>
+            Sculptor
+          </li>
+          <li class>
+            Textile
+          </li>
+          <li class>
+            Toy
+          </li>
+          <li class>
+            UI/UX
+          </li>
+        </ul>
+      </div>
     </div>
     <accordion
       title="Architecture & Planning"
@@ -90,12 +179,18 @@
           <h4>Career Options</h4>
         </div>
         <hr class="mb-0 mt-0">
-        <div class="col-md-12">
-          • Same as design.
-          • Good with Mathematics and Sciences with very
-          strong Visualization and Observation.
-          • Interest in Building Structures, Engineering Drawing
-          and Sketching.
+        <div class="col-md-12 p-2">
+          <ul>
+            <li class>
+              Same as design.
+            </li>
+            <li class>
+              Good with Mathematics and Sciences with very strong Visualization and Observation.
+            </li>
+            <li class>
+              Interest in Building Structures, Engineering Drawing and Sketching.
+            </li>
+          </ul>
         </div>
         <div class="col-md-12 mt-1">
           <h4>
@@ -104,11 +199,21 @@
           </h4>
         </div>
         <hr class="mb-0 mt-0">
-        <div class="col-md-12">
-          NATA
-          JEE- Main
-          JEE-Main Paper -2
-          AAT
+        <div class="col-md-12 p-2">
+          <ul>
+            <li class>
+              NATA
+            </li>
+            <li class>
+              JEE- Main
+            </li>
+            <li class>
+              JEE-Main Paper-2
+            </li>
+            <li class>
+              AAT
+            </li>
+          </ul>
         </div>
         <div class="col-md-12 mt-1">
           <h4>
@@ -116,30 +221,58 @@
           </h4>
         </div>
         <hr class="mb-0 mt-0">
-        <div class="col-md-6 col-12">
-          You Can be:
-          • Archeologist
-          • Architect
-          • Architectural Engineer
-          • Surveyor
-          • Building Inspector
-          • Conservation Officer
-        </div>
-        <div class="col-md-6 col-12">
-          You Can be:
-          • Interior Designer
-          • Landscape Architect
-          • Restoration Architect
-          • Spatial Designer
-          • Town Planner
-          • Urban Planner
+        <div class="col-md-12 p-2">
+          <div class="d-flex pt-2 w-50 justify-content-between">
+            <ul>
+              <h5>You Can be:</h5>
+              <li class>
+                Archeologist
+              </li>
+              <li class>
+                Architect
+              </li>
+              <li class>
+                Architectural Engineer
+              </li>
+              <li class>
+                Surveyor
+              </li>
+              <li class>
+                Building Inspector
+              </li>
+              <li class>
+                Conservation Officer
+              </li>
+            </ul>
+            <ul>
+              <h5>You Can be:</h5>
+              <li class>
+                Interior Designer
+              </li>
+              <li class>
+                Landscape Architect
+              </li>
+              <li class>
+                Restoration Architect
+              </li>
+              <li class>
+                Spatial Designer
+              </li>
+              <li class>
+                Town Planner
+              </li>
+              <li class>
+                Urban Planner
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </accordion>
-    <accordion
+    <accordion>
       title="Graphic Design"
       class="mb-2"
-    >
+      >
       <p>Graphic design is a form of digital art that uses visual content to create designs. Graphic designers typically use a mix of images and typography to execute their work and communicate a message or story.</p>
       <p>Often, graphic design is used to create advertisements. Because of this, examples of graphic designs are everywhere, websites, posters, and digital ads. Graphic design draws inspiration from many art movements, including Art Nouveau, Bauhaus, and Art Deco.</p>
       <p>The digital age propelled graphic design into popularity. With the creation of Photoshop in the 1990s, graphic design took off and became the hugely popular art form that it is today. Some famous graphic designers include Chip Kidd, Rob Janoff, and Carolyn Davidson.</p>

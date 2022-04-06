@@ -1,9 +1,101 @@
 <template>
   <section>
+    <div>
+      <div class="row">
+        <div class="col-md-12">
+          <h1>Anjum Shaikh</h1>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-body">
+              <form @submit.prevent="addLead">
+                <div class="row">
+                  <div class="col-md-6 col-12">
+                    <div
+                      class="form-group"
+                    >
+                      <label for="category">User Lead Status</label>
+                      
+                       
+                      <select
+                        v-model="lead_status"
+                        class="form-control"
+                        aria-label=".form-select-lg example"
+                      >
+                        <option selected>
+                          Lead Status
+                        </option>
+                        <option value="1">
+                          row
+                        </option>
+                        <option value="2">
+                          Invalid
+                        </option>
+                        <option value="3">
+                          Not Intrested
+                        </option>
+                        <option value="4">
+                          Intrested
+                        </option>
+                        <option value="5">
+                          Payment Pending
+                        </option>
+                        <option value="6">
+                          Payment Done
+                        </option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleFormControlTextarea1">Description</label>
+                      <textarea
+                        id="exampleFormControlTextarea1"
+                        v-model="description"
+                        class="form-control"
+                        rows="3"
+                      />
+                    </div>
+                 
+                    <div class="form-check">
+                      <input
+                        id="flexCheckDefault"
+                        v-model="user_verified"
+                        class="form-check-input"
+                        type="checkbox"
+                        value=""
+                      >
+                      <label
+                        class="form-check-label"
+                        for="flexCheckDefault"
+                      >
+                        User Verified
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="mt-2">
+                  <button
+                    type="button"
+                    class="btn btn-primary btn-md"
+                    @click="addLead"
+                  >
+                    Submit
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
     <div class="row">
       <div class="col-md-12">
         <accordion
-          title="Details"
+          title="Lead Assign"
           :aria-expanded="true"
         >
           <vue-table-component
@@ -16,7 +108,7 @@
             >
               <span v-if="props.column.field==='full_name'">
                 <router-link
-                  :href="'/lead/'+props.row.user_id"
+                  :href="'/lead/'+props.row.id"
                   class="text-underline"
                 >{{ props.row['full_name'] }}</router-link>
               </span>
@@ -36,35 +128,49 @@ import Accordion from '@/components/accordion.vue';
 
 import StaffLayout from '@/Layouts/StaffLayout';
 export default {
-	layout:StaffLayout,
 	components:{
 		VueTableComponent,
 		Accordion
 	},
+	props:['leadData', 'leadAssigned'],
+	layout:StaffLayout,
+	
 	data() {
 		return {
+			lead_status:'2',
+			description:'',
+			user_verified:'',
 			userList:[],
 			userColumns: [
 				{
-					label: 'User Name',
-					field: 'user_name',
-				},
-				{
-					label: 'Phone Number',
-					field: 'phone_no',
+					label: 'Staff Name',
+					field: 'staff_name',
 				},
 				
 				{
-					label: 'Onboarded At',
-					field: 'onboarded_at',
+					label: 'Assigned At',
+					field: 'assigned_at',
 				},
 			]
 		};
 	},
 	mounted(){
-		this.axios.get('/api/leads').then(resp=>{
-			this.userList = resp.data.success.leads;
-		});
+		this.userList = this.leadAssigned;
+		console.log(this.leadAssigned);
+	
+	},
+	methods:{
+		addLead(){
+			let loader = this.$loading.show();
+  	this.axios.post('/api/lead/'+this.leadData.user_id, {
+    			lead_status:this.lead_status,
+				description:this.description,
+    		}).then(resp=>{
+				loader.hide();
+			
+			});
+				
+		}
 	}
 };
 

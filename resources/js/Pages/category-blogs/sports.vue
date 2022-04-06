@@ -9,7 +9,7 @@
     </div>
     <hr class="mb-0 mt-0">
     <div class="col-md-12">
-      • Practical Orientation
+      Practical Orientation
       • Good with the particular sport one wish to make
       his/her career in
       • Good Physical Stamina and Mental Strength.

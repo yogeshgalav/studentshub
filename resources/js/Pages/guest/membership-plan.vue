@@ -432,7 +432,7 @@ export default {
 	},
 	methods: {
 		memberRequest() {
-			this.$validator.validate().then((valid) => {
+			this.validateForm().then((valid) => {
 				if (valid) {
 					this.showLoader = true;
 					this.axios

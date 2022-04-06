@@ -261,7 +261,7 @@ export default {
 			return confirmationMessage;
 		},
 		sumbitAttempt(e){
-			this.$validator.validate().then(valid => {
+			this.validateForm().then(valid => {
 				if (valid) {
 					clearInterval(this.interval);
 					window.removeEventListener('beforeunload', this.exitFunction);

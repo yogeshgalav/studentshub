@@ -259,7 +259,7 @@ export default {
     		return true;
     	},
 		saveResource() {
-			this.$validator.validate().then(valid => {
+			this.validateForm().then(valid => {
 				if(valid  && this.resource_link && this.resource_error===''){
 					//call api and update field
 					this.axios.post('/api/classroom/'+this.$route.params[0]+'/add-resource',{

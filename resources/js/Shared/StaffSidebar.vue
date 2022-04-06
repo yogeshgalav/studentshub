@@ -20,7 +20,7 @@
           href="/manage-jobs"
         >
           <li>
-            <span class="text">Manage Jobs</span>
+            <span class="text">Manage Careers</span>
           </li>
         </router-link>
         <router-link
@@ -35,6 +35,13 @@
         >
           <li>
             <span class="text">User Reports</span>
+          </li>
+        </router-link>
+        <router-link
+          href="/membership-details"
+        >
+          <li>
+            <span class="text">Membership Details</span>
           </li>
         </router-link>
       </ul>

@@ -89,4 +89,19 @@ class CommentController extends Controller
                 'comment_id'=>$comment->id,
             ]]);
      }
+
+     public function update(Comment $comment ,Request $request){
+        $comment->update([
+            'comment_text'=>$request->comment_text ,
+        ]);
+        return response()->json([
+            'success'=>[
+                'comment_id'=>$comment->id,
+            ]]);
+     }
+
+     public function delete(Comment $comment){
+        $comment->delete();
+        return response()->json([], 204);
+      }
 }

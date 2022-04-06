@@ -168,7 +168,7 @@ export default {
 	},
 	methods: {
 		handleSubmit() {
-			this.$validator.validate().then(valid => {
+			this.validateForm().then(valid => {
 				if (valid) {
 					let api_path = '/api/reset-password';
 					api_path = this.token

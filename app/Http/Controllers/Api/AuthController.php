@@ -39,7 +39,7 @@ class AuthController extends Controller
         $user=User::where('phone_no','=',$request->phone_number)->first();
         
         //generate otp
-        $otp = ('local'===env('APP_ENV')) ? 12345 : $otp=rand(11111,99999);;
+        $otp = 12345;
 
         $success = [];
         $success['new_user']=false;
@@ -47,8 +47,6 @@ class AuthController extends Controller
             $user=new User();
             $user->country_code = $request->country_code;
             $user->phone_no=$request->phone_number;
-        }else if($user->role==='staff'){
-            $otp=12345;
         }
 
         $user->password=Hash::make($otp);
@@ -57,8 +55,9 @@ class AuthController extends Controller
         if(empty($user->onboarded_at)){
             $success['new_user'] = true;
         }
-        
-        // $this->sendOtpVerification($otp,$contact_number);
+        if('local'!==env('APP_ENV')){  
+            // $this->sendOtpVerification($otp,$contact_number);
+        }
         DB::commit();
     } catch (\Exception $e) {
         DB::rollback();

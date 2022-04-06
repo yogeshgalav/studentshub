@@ -12110,6 +12110,10 @@ button[disabled=disabled] {
   margin: 0 auto;
 }
 
+.m-a {
+  margin: auto;
+}
+
 .btn-accent {
   background: #963CBD !important;
   font-weight: 800;
@@ -12334,6 +12338,8 @@ button[disabled=disabled] {
   font-weight: bold;
   font-size: 1.1em;
   color: #333;
+  margin-top: 1rem;
+  margin-bottom: 0.2rem;
 }
 
 .form-group > input {
@@ -13076,6 +13082,7 @@ i {
 }
 
 .form-check label {
+  margin-top: 1rem;
   margin-bottom: 0.5rem;
   color: #495057;
   font-weight: 400;
@@ -15960,22 +15967,6 @@ webpackContext.keys = function webpackContextKeys() {
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
 webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";/* (ignored) *//* (ignored) */var map = {
-	"./arts": [
-		"./resources/js/Pages/category-blogs/arts.vue",
-		28
-	],
-	"./arts.vue": [
-		"./resources/js/Pages/category-blogs/arts.vue",
-		28
-	],
-	"./business": [
-		"./resources/js/Pages/category-blogs/business.vue",
-		33
-	],
-	"./business.vue": [
-		"./resources/js/Pages/category-blogs/business.vue",
-		33
-	],
 	"./computer": [
 		"./resources/js/Pages/category-blogs/computer.vue",
 		34
@@ -15983,14 +15974,6 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";/* 
 	"./computer.vue": [
 		"./resources/js/Pages/category-blogs/computer.vue",
 		34
-	],
-	"./design": [
-		"./resources/js/Pages/category-blogs/design.vue",
-		44
-	],
-	"./design.vue": [
-		"./resources/js/Pages/category-blogs/design.vue",
-		44
 	],
 	"./economics": [
 		"./resources/js/Pages/category-blogs/economics.vue",
@@ -16002,74 +15985,90 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";/* 
 	],
 	"./education": [
 		"./resources/js/Pages/category-blogs/education.vue",
-		36
+		144
 	],
 	"./education.vue": [
 		"./resources/js/Pages/category-blogs/education.vue",
-		36
+		144
 	],
 	"./healthcare": [
 		"./resources/js/Pages/category-blogs/healthcare.vue",
-		29
+		26
 	],
 	"./healthcare.vue": [
 		"./resources/js/Pages/category-blogs/healthcare.vue",
-		29
+		26
 	],
 	"./hospitality": [
 		"./resources/js/Pages/category-blogs/hospitality.vue",
-		37
+		36
 	],
 	"./hospitality.vue": [
 		"./resources/js/Pages/category-blogs/hospitality.vue",
-		37
+		36
 	],
-	"./journalism": [
-		"./resources/js/Pages/category-blogs/journalism.vue",
-		38
-	],
-	"./journalism.vue": [
-		"./resources/js/Pages/category-blogs/journalism.vue",
-		38
-	],
-	"./law": [
-		"./resources/js/Pages/category-blogs/law.vue",
+	"./management": [
+		"./resources/js/Pages/category-blogs/management.vue",
 		39
 	],
-	"./law.vue": [
-		"./resources/js/Pages/category-blogs/law.vue",
+	"./management.vue": [
+		"./resources/js/Pages/category-blogs/management.vue",
 		39
 	],
-	"./philosophy": [
-		"./resources/js/Pages/category-blogs/philosophy.vue",
-		40
+	"./mass-communication": [
+		"./resources/js/Pages/category-blogs/mass-communication.vue",
+		142
 	],
-	"./philosophy.vue": [
-		"./resources/js/Pages/category-blogs/philosophy.vue",
-		40
+	"./mass-communication.vue": [
+		"./resources/js/Pages/category-blogs/mass-communication.vue",
+		142
+	],
+	"./performing-arts": [
+		"./resources/js/Pages/category-blogs/performing-arts.vue",
+		27
+	],
+	"./performing-arts.vue": [
+		"./resources/js/Pages/category-blogs/performing-arts.vue",
+		27
 	],
 	"./science": [
 		"./resources/js/Pages/category-blogs/science.vue",
-		41
+		40
 	],
 	"./science.vue": [
 		"./resources/js/Pages/category-blogs/science.vue",
-		41
+		40
+	],
+	"./social-studies": [
+		"./resources/js/Pages/category-blogs/social-studies.vue",
+		143
+	],
+	"./social-studies.vue": [
+		"./resources/js/Pages/category-blogs/social-studies.vue",
+		143
 	],
 	"./sports": [
 		"./resources/js/Pages/category-blogs/sports.vue",
-		42
+		41
 	],
 	"./sports.vue": [
 		"./resources/js/Pages/category-blogs/sports.vue",
-		42
+		41
 	],
 	"./technology": [
 		"./resources/js/Pages/category-blogs/technology.vue",
-		43
+		42
 	],
 	"./technology.vue": [
 		"./resources/js/Pages/category-blogs/technology.vue",
+		42
+	],
+	"./visual-arts": [
+		"./resources/js/Pages/category-blogs/visual-arts.vue",
+		43
+	],
+	"./visual-arts.vue": [
+		"./resources/js/Pages/category-blogs/visual-arts.vue",
 		43
 	]
 };

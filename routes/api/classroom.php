@@ -72,5 +72,7 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::get('/classroom/{classroom}/homework/{homework}','HomeworkController@show');
     Route::post('/homework/{homework}/mark-as-done','HomeworkController@markAsDone');
     Route::post('/classroom/{classroom}/homework','HomeworkController@create');
+    Route::put('/homework/{homework}','HomeworkController@update');
+    Route::delete('/homework/{homework}','HomeworkController@delete');
 
 });

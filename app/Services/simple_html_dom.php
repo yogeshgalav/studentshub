@@ -2354,6 +2354,7 @@ class simple_html_dom
 	}
 
 	public function extactImageFiles($html,$disk="post-image"){
+		
 		$mydom = new mydom;
 		// Create DOM from URL or file
 		$html = str_get_html($html);

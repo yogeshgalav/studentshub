@@ -33,60 +33,117 @@
       <h4>Quality Required</h4>
     </div>
     <hr class="mb-0 mt-0">
-    <div class="col-md-12">
-      • Creative (Practical) Orientation 
-      • Good with any form of performance be it Dance,
-      Acting, Singing, Drawing, Painting.
-      • Good Physical Stamina, Presentation skill,
-      observational power and attentiveness to details.
-      • Ability to spend long hours practicing respective form
-      of Art.
+    <div class="col-md-12 p-2">
+      <ul>
+        <li class>
+          Creative (Practical) Orientation
+        </li>
+        <li class>
+          Good with any form of performance be it Dance, Acting, Singing, Drawing, Painting.
+        </li>
+        <li class>
+          Good Physical Stamina, Presentation skill, observational power and attentiveness to details.
+        </li>
+        <li class>
+          Ability to spend long hours practicing respective form of Art.
+        </li>
+      </ul>
     </div>
     <div class="col-md-12 mt-1">
       <h4>Entrance Exams</h4>
     </div>
     <hr class="mb-0 mt-0">
-    <div class="col-md-12">
-      BHU-UET (Banaras)
-      CUET (Christ)
-      MSU-AT (Baroda)
-
-      AU-ET (Assam)
-      LKK-OEE (Lalit Kala
-      Kendra)
-      *Most institutes offering
-      admissions in the
-      Performing art courses
-      assess the candidate on
-      their skill by conducting
-      Skill Assessment in the
-      respective form of art they
-      wish to take admission in.
+    <div class="col-md-12 p-2">
+      <div class="d-flex pt-2 w-50 justify-content-between">
+        <ul>
+          <h5>You Can be:</h5>
+          <li class>
+            BHU-UET (Banaras)
+          </li>
+          <li class>
+            CUET (Christ)
+          </li>
+          <li class>
+            MSU-AT (Baroda)
+          </li>
+        </ul>
+        <ul>
+          <h5>You Can be:</h5>
+          <li class>
+            AU-ET (Assam)
+          </li>
+          <li class>
+            LKK-OEE (Lalit Kala
+          </li>
+          <li class>
+            Kendra)
+          </li>
+        </ul>
+      </div>
+      *Most institutes offering admissions in the Performing art courses assess the candidate on their skill by conducting Skill Assessment in the
+      respective form of art they wish to take admission in.
     </div>
     <div class="col-md-12 mt-1">
       <h4>Career Options</h4>
     </div>
     <hr class="mb-0 mt-0">
-    <div class="col-md-12">
-      You Can be:
-      • Actor/Actress
-      • Choreographer
-      • Composer
-      • Dancer
-      • Director
-      • Dramatist
-      • Musician
-      • Painter
-      • Poets
-
-      You Can be:
-      • Writer
-      • Singer
-      • Sculptures
-      • Talent Manager
-      • Theatre Artist
-      • Trainer
-      • Vocalist
+    <div class="col-md-12 p-2">
+      <div class="d-flex pt-2 w-50 justify-content-between">
+        <ul>
+          <h5>You Can be:</h5>
+          <li class>
+            Actor/Actress
+          </li>
+          <li class>
+            Choreographer
+          </li>
+          <li class>
+            Composer
+          </li>
+          <li class>
+            Dancer
+          </li>
+          <li class>
+            Director
+          </li>
+          <li class>
+            Dramatist
+          </li>
+          <li class>
+            Musician
+          </li>
+          <li class>
+            Painter
+          </li>
+        </ul>
+        <ul>
+          <h5>You Can be:</h5>
+          <li class>
+            Poets
+          </li>
+          <li class>
+            Writer
+          </li>
+          <li class>
+            Singer
+          </li>
+          <li class>
+            Sculptures
+          </li>
+          <li class>
+            Talent Manager
+          </li>
+          <li class>
+            Theatre Artist
+          </li>
+          <li class>
+            Trainer
+          </li>
+          <li class>
+            Vocalist
+          </li>
+        </ul>
+      </div>
     </div>
     
     <accordion

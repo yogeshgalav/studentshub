@@ -262,7 +262,7 @@ export default {
 			return string;
 		},
 		handleSubmit: function (e) {
-			this.$validator.validate().then(valid => {
+			this.validateForm().then(valid => {
 				if (valid) {
 					this.form_errors=[];
 					this.showLoader=true;
