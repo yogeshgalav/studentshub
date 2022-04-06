@@ -54,19 +54,20 @@
             <vue-tags-input
               v-model="tag"
               :tags="tags"
+              name="subject_tags"
               :autocomplete-items="filteredItems"
               @tags-changed="newTags => tags = newTags"
             />
           </div>
           <div
-            v-if="selected_course.id"
+            v-if="courseInfo"
             class="form-group"
           >
             <label class="weight-500">Course</label>
             <div class="">
               <input
                 id="course_name"
-                :value="selected_course.course_name"
+                :value="courseInfo.course_name"
                 disabled
                 name="course_name"
                 type="text"
@@ -149,6 +150,7 @@ import FormMixin from './../../../components/mixins/form-mixin';
 export default {
 	components: { VueTagsInput },
 	mixins:[FormMixin],
+	props:['post','categories','subjectInfo','courseInfo'],
 	data() {
 		return {
 			tag: '',
@@ -160,10 +162,6 @@ export default {
 		};
 	},
 	computed: {
-		...mapState({
-			categories: state => state.post.categories,
-			selected_course: state => state.post.selected_course
-		}),
 		filteredItems() {
 			return this.subject_list.filter(i => {
 				return i.subject_name.toLowerCase().indexOf(this.tag.toLowerCase()) !== -1;
@@ -176,22 +174,22 @@ export default {
 		}
 	},
 	mounted() {
-		this.tags = this.$store.state.post.selected_subjects;
-		this.heading = this.$store.state.post.heading;
-		this.selected_category = this.$store.state.post.selected_category_id;
-		EventBus.$on('validateStep1', () => {
-			this.validateForm().then(valid => {
+		if(this.post){
+			this.tags = this.post.subjects;
+			this.heading = this.post.heading;
+			this.selected_category = this.post.category_id;
+		}
+		EventBus.$on('validateStep0', () => {
+			this.validateInputs(['heading','category','subject_tags']).then(valid => {
 				if (valid) {
-					this.$store.commit('set_post_subject', {
-						selected_subjects: this.tags,
-						selected_category: this.selected_category
+					this.$emit('setPostDescription',{
+						subjects: this.tags,
+						category_id: this.selected_category,
+						heading: this.heading,
 					});
-					this.$store.commit('set_post_heading', {
-						post_heading: this.heading
-					});
-					EventBus.$emit('validateWizard', 1, true);
+					EventBus.$emit('validateWizard', 0, true);
 				} else {
-					EventBus.$emit('validateWizard', 1, false);
+					EventBus.$emit('validateWizard', 0, false);
 				}
 			});
 		});

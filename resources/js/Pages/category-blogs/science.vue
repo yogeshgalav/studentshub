@@ -7,56 +7,128 @@
       <h4>Quality Required</h4>
     </div>
     <hr class="mb-0 mt-0">
-    <div class="col-md-12">
-      • Academic Orientation
-      • Good with Mathematics and Sciences with
-      inclination towards Research
-
-      • Ability to spend long hours with books and/or
-      computers during study and in the research field
-      during profession.
+    <div class="col-md-12 p-4">
+      <ul class="list-group">
+        <li class>
+          Academic Orientation
+        </li>
+        <li class>
+          Good with Mathematics and Sciences with inclination towards Research
+        </li>
+        <li class>
+          Ability to spend long hours with books and/or computers during study and in the research field
+          during profession.
+        </li>
+      </ul>
     </div>
     <div class="col-md-12 mt-1">
       <h4>Entrance Exams</h4>
     </div>
     <hr class="mb-0 mt-0">
-    <div class="col-md-12">
-      KVPY
-      JEE-MAIN
-      JEE-ADVANCED
-      NEET
-      NEST (NISER & DAE)
-      BITSAT
-      NPAT
-      CMI-EE (Chennai)
-      ISI-AT (Bangalore)
-      CUET (Christ)
-      PAU-CET (Punjab)
+    <div class="col-md-12 p-2">
+      <div class="d-flex pt-2 w-50 justify-content-between">
+        <ul>
+          <h5>You Can be:</h5>
+          <li class>
+            KVPY
+          </li>                      
+          <li class>
+            JEE-MAIN
+          </li>
+          <li class>
+            JEE-ADVANCED
+          </li>
+          <li class>
+            NEET
+          </li>
+          <li class>
+            NEST (NISER & DAE)
+          </li>
+          <li class>
+            PAU-CET (Punjab)
+          </li>
+        </ul>
+        <ul>
+          <h5>You Can be:</h5>
+          <li class>
+            BITSAT
+          </li>
+          <li class>
+            NPAT
+          </li>
+          <li class>
+            CMI-EE (Chennai)
+          </li>
+          <li class>
+            ISI-AT (Bangalore)
+          </li>
+          <li class>
+            CUET (Christ)
+          </li>
+        </ul>
+      </div>
     </div>
     <div class="col-md-12 mt-1">
       <h4>Career Options</h4>
     </div>
     <hr class="mb-0 mt-0">
-    <div class="col-md-12">
-      You Can be:
-      • Anthropologist
-      • Bio-chemist
-      • Bio-Physicist
-      • Biotechnologist
-      • Botanist
-      • Chemist
-      • Forensic Scientist
-      • Geologist
-
-      You Can be:
-      • Mathematician
-      • Microbiologist
-      • Physical Scientist
-      • Physicist
-      • Research Scientist
-      • Seismologist
-      • Statistician
-      • Zoologist
+    <div class="col-md-12 p-2">
+      <div class="d-flex pt-2 w-50 justify-content-between">
+        <ul>
+          <h5>You Can be:</h5>
+          <li class>
+            Anthropologist
+          </li>
+          <li class>
+            Bio-chemist
+          </li>
+          <li class>
+            Bio-Physicist
+          </li>
+          <li class>
+            Biotechnologist
+          </li>
+          <li class>
+            Botanist
+          </li>
+          <li class>
+            Chemist
+          </li>
+          <li class>
+            Forensic Scientist
+          </li>
+          <li class>
+            Geologist
+          </li>
+        </ul>
+        <ul>
+          <h5>You Can be:</h5>
+          <li class>
+            Mathematician
+          </li>
+          <li class>
+            Microbiologist
+          </li>
+          <li class>
+            Physical Scientist
+          </li>
+          <li class>
+            Physicist
+          </li>
+          <li class>
+            Research Scientist
+          </li>
+          <li class>
+            Seismologist
+          </li>
+          <li class>
+            Statistician
+          </li>
+          <li class>
+            Zoologist
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>

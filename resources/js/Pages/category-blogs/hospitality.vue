@@ -11,58 +11,124 @@
       <h4>Quality Required</h4>
     </div>
     <hr class="mb-0 mt-0">
-    <div class="col-md-12">
-      • Practical and People Orientation
-      • Good with Cooking and Serving
-      • Very Good Taste Buds along with Interest in Various
-      Cuisines.
-      • Ability to spend long in the field during practical
-      application
+    <div class="col-md-12 p-2">
+      <ul>
+        <li class>
+          Practical and People Orientation
+        </li>
+        <li class>
+          Good with Cooking and Serving
+        </li>
+        <li class>
+          Very Good Taste Buds along with Interest in Various Cuisines.
+        </li>
+        <li class>
+          Ability to spend long in the field during practical application
+        </li>
+      </ul>
     </div>
     <div class="col-md-12 mt-1">
       <h4>Entrance Exams</h4>
     </div>
     <hr class="mb-0 mt-0">
-    <div class="col-md-12">
-      • NCHM-JEE (National Council
-      of Hotel Mgmt.)
-      • IHM-A (Taj Group)
-      • MET (Manipal)
-      • BHMCT-CET (IPU)
-      • HM CET-BVP
-      • UGAT
-      CUET (Christ)
-      MH-CET
-      STEP (Oberoi)
-      SET (Symbiosis)
-      AIHMCT-WAT (Army
-      Inst.)
-      • WB-JEHOM
+    <div class="col-md-12 p-2">
+      <div class="d-flex pt-2 w-50 justify-content-between">
+        <ul>
+          <h5>You Can be:</h5>
+          <li class>
+            NCHM-JEE (National Council of Hotel Mgmt.)
+          </li>
+          <li class>
+            IHM-A (Taj Group)
+          </li>
+          <li class>
+            MET (Manipal)
+          </li>
+          <li class>
+            BHMCT-CET (IPU)
+          </li>
+          <li class>
+            HM CET-BVP
+          </li>
+        </ul>
+        <ul>
+          <h5>You Can be:</h5>
+          <li class>
+            UGAT CUET (Christ)
+          </li>
+          <li class>
+            MH-CET STEP (Oberoi)
+          </li>
+          <li class>
+            SET (Symbiosis)
+          </li>
+          <li class>
+            AIHMCT-WAT (ArmyInst.)
+          </li>
+          <li class>
+            WB-JEHOM
+          </li>
+        </ul>
+      </div>
     </div>
     <div class="col-md-12 mt-1">
       <h4>Career Options</h4>
     </div>
     <hr class="mb-0 mt-0">
-    <div class="col-md-12">
-      You Can be:
-      • Air Crew
-      • Baker
-      • Barchef
-      • Caterer
-      • Chef
-      • Confectioner
-      • F&B Manager
-      • Food Stylist
-
-
-      You Can be:
-      • Front Office Manager
-      • Hotelier
-      • Housekeeping Manager
-      • Pastry Chef
-      • Restaurateur
-      • Sales & Marketing Manger
-      • Ship Crew
+    <div class="col-md-12 p-2">
+      <div class="d-flex pt-2 w-50 justify-content-between">
+        <ul>
+          <h5>You Can be:</h5>
+          <li class>
+            Air Crew
+          </li>
+          <li class>
+            Baker
+          </li>
+          <li class>
+            Barchef
+          </li>
+          <li class>
+            Caterer
+          </li>
+          <li class>
+            Chef
+          </li>
+          <li class>
+            Confectioner
+          </li>
+          <li class>
+            F&B Manager
+          </li>
+          <li class>
+            Food Stylist
+          </li>
+        </ul>
+        <ul>
+          <h5>You Can be:</h5>
+          <li class>
+            Front Office Manager
+          </li>
+          <li class>
+            Hotelier
+          </li>
+          <li class>
+            Housekeeping Manager
+          </li>
+          <li class>
+            Pastry Chef
+          </li>
+          <li class>
+            Restaurateur
+          </li>
+          <li class>
+            Sales & Marketing Manger
+          </li>
+          <li class>
+            Ship Crew
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>

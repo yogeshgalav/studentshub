@@ -11,6 +11,7 @@ use App\Models\Post;
 use App\Models\Doubt;
 use App\Models\ClassroomResource;
 use App\Models\Homework;
+use App\Models\Comment;
 use App\Models\Category;
 use App\Models\Subject;
 use App\Models\Course;
@@ -44,6 +45,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::model('doubt', Doubt::class);
         Route::model('resource', ClassroomResource::class);
         Route::model('homework', Homework::class);
+        Route::model('comment', Comment::class);
     }
 
     /**

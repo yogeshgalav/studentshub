@@ -11,7 +11,7 @@
         class="interest card mb-2"
       >
         <router-link
-          :href="'/category/'+interest.category_url"
+          :href="'/category/'+interest.slug"
           class="row"
         >
           <div class="text-center col-md-4">

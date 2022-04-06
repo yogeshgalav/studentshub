@@ -9,7 +9,7 @@
           <router-link
             v-for="(category,index) in categories"
             :key="index"
-            :href="'/category/'+category.category_url"
+            :href="'/category/'+category.slug"
             class="button-28 cat_btn"
           >
             {{ category.name }}

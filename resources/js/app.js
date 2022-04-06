@@ -50,14 +50,17 @@ if(process.env.NODE_ENV === 'production'){
 }
 
 const { Inertia } = require('@inertiajs/inertia');
-	const { gtag, install } = require('ga-gtag');
-	install('G-W2Z76KH2R6');
-	Inertia.on('navigate', (event) => {
-		gtag('event', 'page_view', {
-			'page_location': event.detail.page.url
-		});
+const { gtag, install } = require('ga-gtag');
+install('G-W2Z76KH2R6');
+Inertia.on('navigate', (event) => {
+	gtag('event', 'page_view', {
+		'page_location': event.detail.page.url
 	});
+});
 
+Object.defineProperty(Vue.prototype, '$gtag', {
+	value: gtag,
+});
 import VueLoading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 Vue.use(VueLoading);
