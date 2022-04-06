@@ -449,7 +449,7 @@ export default {
 		},
 		addAssignment() {
 			
-			this.$validator.validateAll('newAssignment').then(valid => {
+			this.validateForm('newAssignment').then(valid => {
 				if(valid){
 					this.assignment_error='';
 					this.showLoader=true;

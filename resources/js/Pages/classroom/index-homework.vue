@@ -280,13 +280,9 @@ export default {
 					imageResize: {},
 				}
 			},
-			edit_homework_id:'',
-		
-
-      
+			edit_homework_id:'',      
 		};
 	},
-	
 	mounted(){
 		this.axios.get('/api/classroom/'+ this.$route.params[0] +'/homeworks').then(resp =>{
 			this.unitList = resp.data.success.unitList;
@@ -294,13 +290,6 @@ export default {
 		});
 	},
 	methods:{
-		setupPage(){
-			this.$dayjs.extend(relativeTime);
-			this.axios.get('/api/classroom/'+ this.$route.params.classroomId +'/homeworks').then(resp =>{
-				this.unitList = resp.data.success.unitList;
-				this.homeworks = resp.data.success.homeworks;
-			});
-		},
 		addHomework(){
 			let homework_text = this.getHomeworkText();
 			this.axios.post('/api/classroom/'+this.$route.params[0]+'/homework',{

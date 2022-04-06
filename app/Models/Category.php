@@ -3,11 +3,18 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Scopes\CategoryScope;
 
 class Category extends Model
 {
-    protected  $guarded = ['id', 'name', 'category_url'];
+    protected  $guarded = ['id', 'name', 'slug'];
 
+    protected static function boot()
+    {
+        parent::boot();
+        static::addGlobalScope(new CategoryScope);
+    }
+    
     public function courses(){
         return $this->hasMany('App\Models\Course');
     }
