@@ -238,7 +238,7 @@ export default {
 			EventBus.$emit('validateStep2');
 			EventBus.$on('validateWizard',(i,valid)=>{
 				if(valid){
-					this.$validator.validate().then((result)=>{
+					this.validateForm().then((result)=>{
 						if(result && !this.showLoader){
 							this.showLoader=true;
 							this.axios.put('/api/post/'+this.post.id,this.$store.state.post)

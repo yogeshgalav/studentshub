@@ -83,11 +83,11 @@
                   id="add_client"
                   v-model="form_data.client_name"
                   v-validate="'required'"
-                  name="form_data.client_name"
+                  name="client_name"
                   class="form-control"
                   autofocus
                 >
-                <span class="error">{{ formErrors('form_data.client_name') }}</span>
+                <span class="error">{{ formErrors('client_name') }}</span>
                 <span
                   v-if="duplicateClient"
                   class="error"
@@ -207,7 +207,7 @@ export default {
 				});
 		},
 		handleSubmit: function () {
-			this.$validator.validate('form_data.client_name').then(valid => {
+			this.validateInput('client_name').then(valid => {
 				if (valid) {
 					this.saveClient();
 				}

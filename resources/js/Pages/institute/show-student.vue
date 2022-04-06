@@ -173,7 +173,7 @@ export default {
 	},
 	methods:{
 		handleSubmit(){
-			this.$validator.validate().then(valid => {
+			this.validateForm().then(valid => {
 				if (valid) {
 					this.axios.post('/api/student/'+this.$route.params.id,{
 						parent_id: this.parent_id,

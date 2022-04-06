@@ -577,7 +577,7 @@ export default {
 			this.selected_institute = result;
 		},
 		handleSubmit(scope) {
-			this.$validator.validateAll(scope).then(valid => {
+			this.validateForm(scope).then(valid => {
 				if (valid) {
 					this.form_errors=[];
 					if(this.currentTab==='student'){
