@@ -183,7 +183,7 @@ export default {
 			url_error: '',
 			video_id: '',
 			document_link: '',
-			content: '',
+			content: this.value,
 			editorSettings: {
 				modules: {
 					imageDrop: true,

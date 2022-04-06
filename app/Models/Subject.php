@@ -80,6 +80,10 @@ class Subject extends Model
     
     public static function addPostTags(Post $post, $tags)
     {
+        if(empty($tags)){
+            return false;
+        }
+        
         foreach($tags as $tag){
             $subject = self::firstOrCreate([
                 'subject_name'=>Sthub::ucWordSome($tag['text']),
@@ -94,6 +98,12 @@ class Subject extends Model
             ]);
         }
         
+        return true;
+    }
+    public static function deletePostTags($post)
+    {
+        PostTag::where('post_id', $post->id)->delete();
+
         return true;
     }
 }
