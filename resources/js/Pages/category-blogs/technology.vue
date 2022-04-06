@@ -8,70 +8,226 @@
       <h4>Quality Required</h4>
     </div>
     <hr class="mb-0 mt-0">
-    <div class="col-md-12">
-      • Academic Orientation
-      • Good with Mathematics and Sciences with affinity
-      towards Technology
-      • Interest in latest Machines, Gadgets and repairing
-      things Etc.
-      • Ability to spend long hours with books and/or
-      computers during study and in the field during
-      Practical application
+    <div class="col-md-12 p-4">
+      <ul class="lisi-group">
+        <li class>
+          Academic Orientation
+        </li>
+        <li class>
+          Good with Mathematics and Sciences with affinity towards Technology
+        </li>
+        <li class>
+          Interest in latest Machines, Gadgets and repairing
+          things Etc.
+        </li>
+        <li class>
+          Ability to spend long hours with books and/or computers during study and in the field during
+          Practical application
+        </li>
+      </ul>
     </div>
     <div class="col-md-12 mt-1">
       <h4>Entrance Exams</h4>
     </div>
     <hr class="mb-0 mt-0">
-    <div class="col-md-12">
-      JEE-MAIN / ADVANCED
-      BITSAT (Birla)
-      VITEEE (Vellore)
-      SITEEE (Symbiosis)
-      SRMJEE
-      NPAT (Narsee Monjee)
-      MET (Manipal)
-      KIIT-EE (Kalinga)
-      UPES-EAT
-      GAT (Gitam)
-      GUJ-CET
-      MHT-CET
-      KEA-CET
-      TS-EAMCET
-      AP-EAMCET
-      WB-JEE
+    <div class="col-md-12 p-2">
+      <div class="d-flex pt-2 w-50 justify-content-between">
+        <ul>
+          <h5>You Can be:</h5>
+          <li class>
+            JEE-MAIN / ADVANCED
+          </li>
+          <li class>
+            BITSAT (Birla)
+          </li>
+          <li class>
+            VITEEE (Vellore)
+          </li>
+          <li class>
+            SITEEE (Symbiosis)
+          </li>
+          <li class>
+            SRMJEE
+          </li>
+          <li class>
+            NPAT (Narsee Monjee)
+          </li>
+          <li class>
+            MET (Manipal)
+          </li>
+          <li class>
+            KIIT-EE (Kalinga)
+          </li>
+        </ul>
+        <ul>
+          <h5>You Can be:</h5>
+          <li class>
+            UPES-EAT
+          </li>
+          <li class>
+            GAT (Gitam)
+          </li>
+          <li class>
+            GUJ-CET
+          </li>
+          <li class>
+            MHT-CET
+          </li>
+          <li class>
+            KEA-CET
+          </li>
+          <li class>
+            TS-EAMCET
+          </li>
+          <li class>
+            AP-EAMCET
+          </li>
+          <li class>
+            WB-JEE
+          </li>
+        </ul>
+      </div>
     </div>
     <div class="col-md-12 mt-1">
       <h4>Career Options</h4>
     </div>
     <hr class="mb-0 mt-0">
-    <div class="col-md-12">
-      You Can be Engineer in field of:
-      Aerospace,
-      Aeronautical, Aircraft Maintenance, Automobile,
-      Biochemical, Biological Sciences, Biomedical, Ceramic,
-      Chemical, Civil,  Electrical,
-      Electronics, Electronics & Communication, Electronics
-      & Electrical, Electronics & Instrumentation,
-      Engineering
-      Physics,
-      Engineering
-      Science,
-      Environmental, Fire Technology, Food & Nutrition,
-      Food Technology, Genetic, Geoinfomatics, Industrial &
-      Systems,
+    <div class="col-md-12 p-2">
+      <div class="d-flex pt-2 w-50 justify-content-between">
+        <ul>
+          <h5>You Can be Engineer in field of:</h5>
+          <li class>
+            Aerospace
+          </li>
+          <li class>
+            Aeronautical
+          </li>
+          <li class>
+            Aircraft Maintenance
+          </li>
+          <li class>
+            Automobile
+          </li>
+          <li class>
+            Biochemical
+          </li> 
+          <li class>
+            Biological Sciences
+          </li> 
+          <li class>
+            Biomedical
+          </li> 
+          <li class>
+            Ceramic
+          </li>
+          <li class>
+            Chemical
+          </li> 
+          <li class>
+            Civil
+          </li> 
+          <li class>
+            Electrical
+          </li>
+          <li class>
+            Electronics
+          </li> 
+          <li class>
+            Electronics & Communication
+          </li>
+          <li class>
+            Electronics & Electrical
+          </li> 
+          <li class>
+            Electronics & Instrumentation
+          </li>
+          <li class>
+            Engineering Physics
+          </li>
+          <li class>
+            Engineering Science
+          </li>
+          <li class>
+            Environmental
+          </li> 
+          <li class>
+            Fire Technology
+          </li> 
+          <li class>
+            Food & Nutrition
+          </li>
+        </ul>
+        <ul>
+          <h5>You Can be Engineer in field of:</h5>
 
-
-      You Can be Engineer in field of:
-      Instrumentation, Leather Technology, Manufacturing
-      Science, Marine, Material Science, Mathematics &
-      Computing, Mechanical, Mechatronics, Metallurgical,
-      Mineral,
-      Mining,
-      Mining
-      Machinery,
-      Naval
-      Petrochemical, Petroleum, Plastic,
-      Polymer, Production, Robotics & Textile
+          <li class>
+            Instrumentation
+          </li>
+          <li class>
+            Leather Technology
+          </li>
+          <li class>
+            Manufacturing Science
+          </li>
+          <li class>
+            Marine
+          </li>
+          <li class>
+            Material Science
+          </li>
+          <li class>
+            Mathematics & Computing
+          </li>
+          <li class>
+            Mechanical
+          </li>
+          <li class>
+            Mechatronics
+          </li>
+          <li class>
+            Metallurgical
+          </li>
+          <li class>
+            Mineral
+          </li>
+          <li class>
+            Mining
+          </li>
+          <li class>
+            Mining Machinery
+          </li>
+          <li class>
+            Naval Petrochemical
+          </li>
+          <li class>
+            Petroleum
+          </li>
+          <li class>
+            Plastic
+          </li>
+          <li class>
+            Polymer
+          </li>
+          <li class>
+            Production
+          </li>
+          <li class>
+            Robotics & Textile
+          </li>
+          <li class>
+            Food Technology
+          </li> 
+          <li class>
+            Genetic
+          </li> 
+          <li class>
+            Geoinfomatics
+          </li> 
+          <li class>
+            Industrial & Systems
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
