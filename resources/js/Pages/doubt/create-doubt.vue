@@ -61,8 +61,9 @@
               <div class="row">
                       <div class="p-3">
                         <button
-                          type="button"
+                          type="submit"
                           class="btn btn-primary btn-md"
+						 
                         >
                           Submit
                         </button>
@@ -116,7 +117,7 @@ export default {
 				el.text= el.subject_name;
 				return el;
 			});
-			console.log(this.editDoubtDetails);
+			console.log(this.editDoubtDetails.id);
 		}
 	},  
  

@@ -132,7 +132,7 @@ export default {
 		RichTextEditor,
 		Accordion,
 	},
-  	props:['doubtId'],
+  	props:['doubts'],
 	data() {
 		return {
 			doubt: {},
@@ -166,13 +166,13 @@ export default {
 		},
 	},
 	mounted() {
+		console.log(this.doubts);
 		this.getDoubtAnswerData();
 	},
 	methods: {
 		getDoubtAnswerData(){
 			let loader = this.$loading.show();
-      	console.log(this.doubtId);
-			this.axios.get('/api/doubt/' + this.doubtId.id + '/get-answers/')
+			this.axios.get('/api/doubt/' + this.doubts.id + '/get-answers/')
 				.then(response => {
 					loader.hide();
 					this.doubt = response.data.success.doubt;
@@ -187,7 +187,7 @@ export default {
 				return false;
 			}
 			let loader = this.$loading.show();
-			this.axios.post('/api/doubt/' + this.doubtId.id + '/add-answer', {
+			this.axios.post('/api/doubt/' + this.doubts.id + '/add-answer', {
 				answer_html: this.new_answer,
 				answer_text: this.description
 			})
