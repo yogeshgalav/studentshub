@@ -72,8 +72,7 @@ class SeekerController extends Controller
         ]);
     }
 
-    public function doubtAnswersPage($id){
-        $doubtId = Doubt::where('id','=',$id)->with('subjects')->first(); 
-        return inertia('doubt/show', ['doubtId' =>$doubtId]);
+    public function doubtAnswersPage(Doubt $doubt){
+      return inertia('doubt/show', ['doubts' =>$doubt]);
     }
 }
