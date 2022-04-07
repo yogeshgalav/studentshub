@@ -39,9 +39,8 @@
 </template>
 <style lang="scss">
 @import "resources/sass/_variables.scss";
-
-.nav-tabs {
-  border-bottom: none;
+.nav {
+    border-bottom: 1px solid rgb(185, 185, 185);
 }
 .tabbed-nav-list {
     display: flex;

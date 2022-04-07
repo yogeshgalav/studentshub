@@ -38,11 +38,18 @@
           </li>
         </router-link>
         <router-link
-          href="/membership-details"
+          href="/transaction-details"
         >
           <li>
-            <span class="text">Membership Details</span>
+            <span class="text">Transaction Details</span>
           </li>
+          <router-link
+            href="/membership-details"
+          >
+            <li>
+              <span class="text">Membership Details</span>
+            </li>
+          </router-link>
         </router-link>
       </ul>
     </div>
