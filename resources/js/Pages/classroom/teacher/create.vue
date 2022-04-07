@@ -147,14 +147,14 @@
                       >{{ formErrors('subject_name') }}</span>
                     </div>
 
-                    <div class="form-group d-flex s_register_btn">
-                      <button
-                        type="submit"
-                        class="btn-primary btn-lg m-0-a"
-                      >
-                        {{ 'Create' }}
-                      </button>
-                    </div>
+                    <div class="mt-2">
+                <button
+                  type="create"
+                  class="btn btn-primary btn-md"
+                >
+                  Create
+                </button>
+              </div>
                   </form>
                 </div>
               </div>
