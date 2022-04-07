@@ -143,17 +143,12 @@ export default {
 			userList:[],
 			userColumns: [
 				{
-					label: 'User Name',
-					field: 'user_name',
+					label: 'Staff Name',
+					field: 'staff_name',
 				},
 				{
-					label: 'Phone Number',
-					field: 'phone_no',
-				},
-				
-				{
-					label: 'Onboarded At',
-					field: 'onboarded_at',
+					label: 'Assigned At',
+					field: 'assigned_at',
 				},
 			]
 		};
