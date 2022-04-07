@@ -60,11 +60,9 @@ ORDER BY categories.name;
    public function userReportsPage(){        
         return inertia('staff/user-reports');
     }
-<<<<<<< HEAD
     public function transactionDetailsPage(){        
         return inertia('staff/transaction-details');
     }
-=======
     public function mebershipDetailsPage(){  
         $members=DB::table('membership_details as me')
         ->leftJoin('users as us','us.id','=','me.user_id')
@@ -74,5 +72,4 @@ ORDER BY categories.name;
         return inertia('staff/membership-details', ['members'=>$members]);
     }
 
->>>>>>> 0f6fe429 (membership-details page)
 }
