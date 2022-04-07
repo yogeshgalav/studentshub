@@ -20,7 +20,7 @@
           href="/manage-jobs"
         >
           <li>
-            <span class="text">Manage Jobs</span>
+            <span class="text">Manage Careers</span>
           </li>
         </router-link>
         <router-link

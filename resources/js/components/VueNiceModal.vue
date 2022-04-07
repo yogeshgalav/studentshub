@@ -44,7 +44,7 @@
               type="button"
               class="btn btn-md btn-white mt-3"
               data-dismiss="modal"
-              @click.prevent="closeModal"
+              @click="cancel"
             >
               {{ 'Cancel' }}
             </button>
@@ -94,6 +94,10 @@ export default {
 	methods:{
 		closeModal(){
 			this.$refs.cancelButton.click();
+		
+		},
+		cancel(){
+			this.$emit('cancel');
 		}
 	}
 };

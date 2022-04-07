@@ -262,7 +262,7 @@ export default {
 			this.$modal.show('addMessageModal');
 		},
 		saveMessage() {
-			this.$validator.validateAll('add_message_form').then((valid) => {
+			this.validateForm('add_message_form').then((valid) => {
 				if (valid) {
 					//call api and update field
 					this.axios
@@ -297,7 +297,7 @@ export default {
 			});
 		},
 		editMessage(e, message){
-			this.$validator.validateAll('edit_message_form').then((valid)=>{
+			this.validateForm('edit_message_form').then((valid)=>{
 			  if(valid){
 			    this.axios.post('/api/edit-message',{
 						message_id:this.edit_message.id,

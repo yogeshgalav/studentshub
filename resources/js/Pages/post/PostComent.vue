@@ -95,7 +95,7 @@ export default {
 			if(!this.comment_text){
 				return false;
 			}
-			this.$validator.validate().then((valid) => {
+			this.validateForm().then((valid) => {
         	if(valid){
 					this.axios.post('/api/'+this.likableId+'/'+this.likableType+'comment',
 						{

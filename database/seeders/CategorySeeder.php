@@ -14,7 +14,7 @@ class CategorySeeder extends Seeder
     public function run()
     {
         //
-        $sql="INSERT INTO `categories` (`id`, `name`, `category_url`) VALUES
+        $sql="INSERT INTO `categories` (`id`, `name`, `slug`) VALUES
         (1, 'Engineering & Technology', 'technology'),
         (2, 'Business & Management', 'management'),
         (3, 'Healthcare', 'healthcare'),

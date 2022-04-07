@@ -45,11 +45,15 @@ class GuestController extends Controller
     }
     public function viewPost($post_id)
     {
-        \App\Models\Post::findOrFail($post_id);
+        $post = \App\Models\Post::findOrFail($post_id);
         if (Auth::check()) {
-            return inertia('post/PostViewPage');
+            return inertia('post/PostViewPage',[
+                'post'=>$post
+            ]);
         }
-        return inertia('guest/guest-post-view');
+        return inertia('guest/guest-post-view',[
+            'post'=>$post
+        ]);
     }
     public function coursePage($course_url)
     {
@@ -66,9 +70,9 @@ class GuestController extends Controller
             'subjectId' => $subject->id
         ]);
     }
-    public function categoryPage($category_url)
+    public function categoryPage($slug)
     {
-        $category = \App\Models\Category::where('category_url', $category_url)->firstOrFail();
+        $category = \App\Models\Category::where('slug', $slug)->firstOrFail();
                return inertia('explore/category', [
             'categoryId' => $category->id
         ]);

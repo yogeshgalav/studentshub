@@ -65,7 +65,7 @@ class AuthController extends Controller
      *
      * @return Response
      */
-    public function registerViaOtp(Request $request)
+    public function registerViaOtp(RegisterRequest $request)
     {
         \Session::flush();
         $user=User::where('phone_no','=',$request->phone_number)->first();

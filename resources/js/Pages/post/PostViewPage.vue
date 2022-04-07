@@ -645,7 +645,7 @@ export default {
 		SocialSharing,
 		CommentSection,
 	},
-	props: ['role'],
+	props: ['post','role'],
 	data() {
 		return {
 			post_save: '',
@@ -689,7 +689,7 @@ export default {
 		})
 	},
 	mounted() {
-		this.$store.dispatch('common/getPostContent', this.$route.params.id);
+		this.$store.dispatch('common/getPostContent', this.post.id);
 		window.scrollTo(0, 0);
 	},
 	methods: {

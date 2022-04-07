@@ -261,14 +261,14 @@ export default {
 					'step_skip': false,
 					'show_back_button': false,
 					'show_next_button': true,
-					'laststep': false,
+					'last_step': false,
 				},
 				{
 					'step_valid': false,
 					'step_skip': false,
 					'show_back_button': true,
 					'show_next_button': true,
-					'laststep': true,
+					'last_step': true,
 				},
 				{
           
@@ -276,7 +276,7 @@ export default {
 					'step_skip': true,
 					'show_back_button': false,
 					'show_next_button': true,
-					'laststep': true,
+					'last_step': true,
 				}
 			]
 		};
