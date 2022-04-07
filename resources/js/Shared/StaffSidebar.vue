@@ -42,11 +42,14 @@
         >
           <li>
             <span class="text">Transaction Details</span>
-            href="/membership-details"
-            >
-          </li><li>
-            <span class="text">Membership Details</span>
           </li>
+          <router-link
+            href="/membership-details"
+          >
+            <li>
+              <span class="text">Membership Details</span>
+            </li>
+          </router-link>
         </router-link>
       </ul>
     </div>
