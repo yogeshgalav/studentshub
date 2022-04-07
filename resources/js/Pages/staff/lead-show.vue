@@ -95,7 +95,7 @@
     <div class="row">
       <div class="col-md-12">
         <accordion
-          title="Lead Assign"
+          title="Details"
           :aria-expanded="true"
         >
           <vue-table-component
@@ -143,13 +143,17 @@ export default {
 			userList:[],
 			userColumns: [
 				{
-					label: 'Staff Name',
-					field: 'staff_name',
+					label: 'User Name',
+					field: 'user_name',
+				},
+				{
+					label: 'Phone Number',
+					field: 'phone_no',
 				},
 				
 				{
-					label: 'Assigned At',
-					field: 'assigned_at',
+					label: 'Onboarded At',
+					field: 'onboarded_at',
 				},
 			]
 		};

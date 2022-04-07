@@ -25,7 +25,6 @@
               class="close"
               data-dismiss="modal"
               aria-label="Close"
-              @click="cancel"
             >
               <span aria-hidden="true">×</span>
             </button>

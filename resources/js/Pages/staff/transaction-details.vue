@@ -41,7 +41,6 @@ export default {
 		VueTableComponent,
 		Accordion
 	},
-	props:['members'],
 	data() {
 		return {
 			userList:[],
@@ -51,30 +50,39 @@ export default {
 					field: 'full_name',
 				},
 				{
-					label: 'Current Plan',
-					field: 'current_plan',
-				},
-				{
-					label: 'First Purchase at',
-					field: 'first_purchase_at',
-				},
-				{
-					label: 'Last Purchase at',
-					field: 'last_purchase_at',
-				},
-				{
-					label: 'Expires at',
-					field: 'expires_at',
+					label: 'Transaction Id',
+					field: 'transaction_id',
 				},
 				
+				{
+					label: 'For Plan',
+					field: 'for_plan',
+				},
+				{
+					label: 'Ammount',
+					field: 'amount',
+				},
+				
+				{
+					label: 'Tax',
+					field: 'tax',
+				},
+				{
+					label: 'Discount',
+					field: 'discount',
+				},
+				{
+					label: 'Total Amount',
+					field: 'totalAmount',
+				},
 				
 			]
 		};
 	},
 	mounted(){
     
-		this.axios.get('/api/membership').then(resp=>{
-			this.userList = resp.data.success.members;
+		this.axios.get('/api/transactions').then(resp=>{
+			this.userList = resp.data.success.transactions;
       
 
 		});
