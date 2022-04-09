@@ -15969,27 +15969,27 @@ module.exports = webpackContext;
 webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";/* (ignored) *//* (ignored) */var map = {
 	"./computer": [
 		"./resources/js/Pages/category-blogs/computer.vue",
-		34
+		33
 	],
 	"./computer.vue": [
 		"./resources/js/Pages/category-blogs/computer.vue",
-		34
+		33
 	],
 	"./economics": [
 		"./resources/js/Pages/category-blogs/economics.vue",
-		35
+		34
 	],
 	"./economics.vue": [
 		"./resources/js/Pages/category-blogs/economics.vue",
-		35
+		34
 	],
 	"./education": [
 		"./resources/js/Pages/category-blogs/education.vue",
-		144
+		35
 	],
 	"./education.vue": [
 		"./resources/js/Pages/category-blogs/education.vue",
-		144
+		35
 	],
 	"./healthcare": [
 		"./resources/js/Pages/category-blogs/healthcare.vue",
@@ -16009,19 +16009,19 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";/* 
 	],
 	"./management": [
 		"./resources/js/Pages/category-blogs/management.vue",
-		39
+		37
 	],
 	"./management.vue": [
 		"./resources/js/Pages/category-blogs/management.vue",
-		39
+		37
 	],
 	"./mass-communication": [
 		"./resources/js/Pages/category-blogs/mass-communication.vue",
-		142
+		38
 	],
 	"./mass-communication.vue": [
 		"./resources/js/Pages/category-blogs/mass-communication.vue",
-		142
+		38
 	],
 	"./performing-arts": [
 		"./resources/js/Pages/category-blogs/performing-arts.vue",
@@ -16033,19 +16033,19 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";/* 
 	],
 	"./science": [
 		"./resources/js/Pages/category-blogs/science.vue",
-		40
+		39
 	],
 	"./science.vue": [
 		"./resources/js/Pages/category-blogs/science.vue",
-		40
+		39
 	],
 	"./social-studies": [
 		"./resources/js/Pages/category-blogs/social-studies.vue",
-		143
+		40
 	],
 	"./social-studies.vue": [
 		"./resources/js/Pages/category-blogs/social-studies.vue",
-		143
+		40
 	],
 	"./sports": [
 		"./resources/js/Pages/category-blogs/sports.vue",

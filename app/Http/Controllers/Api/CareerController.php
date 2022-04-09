@@ -11,14 +11,14 @@ class CareerController extends Controller
 {
     public function createOrUpdate (Request $request)
     {   
-        
+
         if($request->career_id){
             $career = Career::find($request->career_id);
         }
         else{
             $career = new Career();
         }
-            
+
             $career->name = $request->career_name;
             $career->category_id = $request->category_id;
             $career->save();
@@ -36,4 +36,4 @@ class CareerController extends Controller
         $career->delete();
         return 'success';
     }
-}
+} 

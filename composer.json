@@ -66,9 +66,6 @@
         "platform": {
             "ext-pcntl": "7.2",
             "ext-posix": "7.2"
-        },
-        "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true
         }
     },
     "extra": {
