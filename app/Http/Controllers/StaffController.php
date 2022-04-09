@@ -13,6 +13,9 @@ use DB;
 class StaffController extends Controller
 {
    //
+   public function institutes(){
+    return inertia('staff/institutes');
+  }
    public function leadIndexPage(){        
         return inertia('staff/lead-index');
     }
