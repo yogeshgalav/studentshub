@@ -1,5 +1,11 @@
 <template>
   <section class="container">
+    <loading
+      :active.sync="post_submited"
+      :color="'#10069F'"
+      :width="250"
+      :is-full-page="true"
+    />
     <div class="logn_righ ">
       <div class="card_body">
         <form @submit.prevent="()=>{}">
@@ -53,7 +59,7 @@
                     class="btn btn-md btn-primary m-0-a"
                     @click="nextClick"
                   >
-                    {{ props.isLastStep ? 'Create Post' : 'Next' }}
+                    {{ props.isLastStep ? (post ? 'Update Post' : 'Create Post') : 'Next' }}
                   </button>
                 </div>
               </div>
@@ -215,6 +221,7 @@ export default {
 			if(this.post_submited){
 				return false;
 			}
+			this.post_submited=true;
 			// let loader = this.$loading.show();
       
 			this.$gtag('event',msg,{
