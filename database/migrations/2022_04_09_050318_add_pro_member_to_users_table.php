@@ -18,9 +18,9 @@ class AddProMemberToUsersTable extends Migration
             $table->boolean('is_pro_member')->default(false);
             $table->boolean('is_demo_account')->default(false);
         });
-        User::where('phone_no','LIKE', '%800%')->update([
-            'is_pro_member'=>false,
-            'is_demo_account'=>false,
+        User::where('phone_no','LIKE', '%01234%')->update([
+            'is_pro_member'=>true,
+            'is_demo_account'=>true,
         ]);
     }
 
