@@ -44,7 +44,7 @@
   
                       <span
                         class="error"
-                      >{{ formErrors('course_level') }}</span>
+                      >{{ formErrors('institute_name') }}</span>
                     </div>
                     <div class="form-group">
                       <label class="mb-1"> {{ 'Classroom Name' }} </label>

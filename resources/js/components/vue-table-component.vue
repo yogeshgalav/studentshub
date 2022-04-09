@@ -73,6 +73,7 @@
 }
 .vue-good-table .table td {
   border-bottom: 0;
+  max-width: 20px;
 }
 .fade-enter-active, .fade-leave-active {
     transition: opacity .5s;

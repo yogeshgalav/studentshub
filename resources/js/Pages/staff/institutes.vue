@@ -134,8 +134,10 @@
 import VueTableComponent from '../../components/vue-table-component';
 import FormMixin from '../../components/mixins/form-mixin.js' ;
 import Loading from 'vue-loading-overlay';
+import StaffLayout from '@/Layouts/StaffLayout';
 
 export default {
+	layout:StaffLayout,
 	components: {
 		VueTableComponent,
 		Loading

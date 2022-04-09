@@ -51,6 +51,13 @@
             </li>
           </router-link>
         </router-link>
+        <router-link
+          href="/institutes"
+        >
+          <li>
+            <span class="text">Institutes</span>
+          </li>
+        </router-link>
       </ul>
     </div>
   </div>
