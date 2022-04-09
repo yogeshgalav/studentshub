@@ -16,7 +16,7 @@
         <div class="card-body">
           <div class="col-md-12">
             <div class="user_edit_profile_img">
-              <div class="u_e_img">
+              <div class="user_profile_img">
                 <img
                   v-if="AuthUser.avatar_url"
                   :src="AuthUser.avatar_url"

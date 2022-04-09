@@ -33,7 +33,7 @@
                       </option>
                     </select>
                   </div>
-                  <div class="form-group">
+                  <div class="form-group m-0-a">
                     <label for="doubt_question">Question</label>
                     <input
                       id="doubt_question"
@@ -46,7 +46,7 @@
                     >
                     <span class="error">{{ formErrors('doubt_question') }}</span>
                   </div>
-                  <div class="">
+                  <div class="form-group">
                     <label for="subject_tags">Subject tags</label>
                     <vue-tags-input
                       v-model="tag"
