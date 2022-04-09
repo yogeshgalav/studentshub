@@ -162,14 +162,6 @@
                   <div class="m-0-a">
                     <div class="row">
                       <button
-                        v-if="!props.isFirstStep"
-                        type="button"
-                        class="btn btn-md btn-primary m-0-a"
-                        @click="prevClick"
-                      >
-                        {{ 'back' }}
-                      </button>
-                      <button
                         type="button"
                         class="btn btn-md btn-primary m-0-a"
                         @click="nextClick"

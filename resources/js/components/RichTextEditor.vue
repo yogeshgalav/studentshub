@@ -8,7 +8,7 @@
         data-target="#urlModal"
         @click="addVideo"
       >
-        Yotube video
+        YouTube video
       </button>
       <button
         type="button"
