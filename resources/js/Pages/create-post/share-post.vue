@@ -217,20 +217,18 @@ export default {
 			}
 			// let loader = this.$loading.show();
       
+			this.$gtag('event',msg,{
+				// 'course':this.$store.state.selected_course.course_name,
+				// 'subjects':this.$store.state.selected_subjects.map(el=>el.subject_name).join(','),
+			});
 			let api ='/api/submit-post';
-			let event_name ='post create';
 			let msg ='Post Created';
 			if(this.post_data.id){
 				api ='/api/post/'+this.post.id+'/update';
-				event_name ='post update';
 				msg ='Post Updated';
 			}
 			this.axios.post(api,this.post_data)
 				.then((resp)=>{
-					this.$gtag('event',event_name,{
-						// 'course':this.$store.state.selected_course.course_name,
-						// 'subjects':this.$store.state.selected_subjects.map(el=>el.subject_name).join(','),
-					});
 					// loader = false;
 					// swal.successDialog(msg, 'Successfully!', 'success');
 					this.$inertia.visit('/post/'+resp.data.success.post_id);
