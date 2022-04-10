@@ -63,6 +63,7 @@ const FormMixin = {
 								this.form_errors.push({
 									'field_name':form_field.field_name,
 									'rule_name':rule_name,
+									'rule_param':rule_parameter,
 									'form_name':form_field.form_name,
 								});
 							};
@@ -129,7 +130,10 @@ const FormMixin = {
 			if(this.$t){
 				return  this.$t('validation.'+field_error.rule_name,{'attribute': field_name});
 			}
-			return validationMessages[field_error.rule_name].replace(':attribute', field_name);
+
+			return validationMessages[field_error.rule_name]
+				.replace(':attribute', field_name)
+				.replace(':param', field_error.rule_param);
 		},
 		onlyNumber ($event) {
 			let keyCode = ($event.keyCode ? $event.keyCode : $event.which);

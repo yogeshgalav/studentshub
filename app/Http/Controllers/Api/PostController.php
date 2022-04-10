@@ -169,7 +169,7 @@ class PostController extends Controller
         }
         
         return response()->json(['success'=>[
-          'posts'=>\Sthub::convert_from_latin1_to_utf8_recursively($post_repo->formatPostData($posts))
+          'posts'=>$post_repo->formatPostData($posts),
         ]]);
     }
 

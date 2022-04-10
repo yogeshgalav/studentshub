@@ -61,7 +61,7 @@
                     <div>
                       <input
                         v-model="phone_number"
-                        v-validate="'required'"
+                        v-validate="'required|digits:10'"
                         name="phone_number"
                         class="form-control"
                         placeholder="Enter Your Mobile Number"
