@@ -11876,6 +11876,11 @@ a.text-dark:focus {
 }
 
 @font-face {
+  font-family: "KrutiDev";
+  src: url(/fonts/krutidev-010-hindi.woff?c35be1c071804b33010a6ac47d43e4b0);
+}
+
+@font-face {
   font-family: "Proxima Nova", sans-serif;
   src: url(/fonts/ProximaNova-Bold.eot?1b598f3438530224e4bc88b900036144);
   src: url(/fonts/ProximaNova-Bold.eot?1b598f3438530224e4bc88b900036144) format("embedded-opentype"), url(/fonts/ProximaNova-Bold.woff2?26507f8e38e05d86d4980f09f01ea66e) format("woff2"), url(/fonts/ProximaNova-Bold.woff?f5a7065fa932ee3cd45bd5b7ae0d1ea3) format("woff");
@@ -12327,11 +12332,11 @@ button[disabled=disabled] {
   display: flex;
   flex-direction: column;
   margin-bottom: 0.5rem;
-  gap: 0.25em;
+  gap: 0.2em;
 }
 
 .form-group:last-child {
-  margin: 1rem;
+  margin-bottom: 1rem;
 }
 
 .form-group > label {
@@ -12343,10 +12348,9 @@ button[disabled=disabled] {
 }
 
 .form-group > input {
-  border: 1px solid #333;
   border-radius: 0.25em;
   font-size: 1rem;
-  padding: 0.25em;
+  padding: 0.5em;
 }
 
 .d-flex {
@@ -12445,6 +12449,8 @@ a.socialIcon:hover,
   width: 50px;
   height: 50px;
   font-size: 20px;
+  line-height: 50px;
+  color: #fff;
 }
 
 .social-circle li i {
@@ -12469,6 +12475,38 @@ a.socialIcon:hover,
 
 .social-circle a {
   background-color: #333;
+}
+
+.foote_bottom_ul_amrc {
+  list-style-type: none;
+  padding: 0px;
+  margin-top: 10px;
+  margin-right: auto;
+  margin-bottom: 10px;
+  margin-left: auto;
+}
+
+.foote_bottom_ul_amrc li {
+  display: inline;
+}
+
+.foote_bottom_ul_amrc li a {
+  color: #333;
+  margin: 0 12px;
+}
+
+.sub_text {
+  /* display: flex; */
+  /* align-items: center; */
+  margin-top: 20px;
+  font-size: 14px;
+  text-align: inherit;
+  color: #868686;
+}
+
+.col-md-12.text-center.copy_right p {
+  color: #868686;
+  font-size: 12px;
 }
 
 .border-radius-10 {
@@ -15966,110 +16004,110 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";/* (ignored) *//* (ignored) */var map = {
+webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";var map = {
 	"./computer": [
 		"./resources/js/Pages/category-blogs/computer.vue",
-		33
+		44
 	],
 	"./computer.vue": [
 		"./resources/js/Pages/category-blogs/computer.vue",
-		33
+		44
 	],
 	"./economics": [
 		"./resources/js/Pages/category-blogs/economics.vue",
-		34
+		45
 	],
 	"./economics.vue": [
 		"./resources/js/Pages/category-blogs/economics.vue",
-		34
+		45
 	],
 	"./education": [
 		"./resources/js/Pages/category-blogs/education.vue",
-		35
+		46
 	],
 	"./education.vue": [
 		"./resources/js/Pages/category-blogs/education.vue",
-		35
+		46
 	],
 	"./healthcare": [
 		"./resources/js/Pages/category-blogs/healthcare.vue",
-		26
+		40
 	],
 	"./healthcare.vue": [
 		"./resources/js/Pages/category-blogs/healthcare.vue",
-		26
+		40
 	],
 	"./hospitality": [
 		"./resources/js/Pages/category-blogs/hospitality.vue",
-		36
+		47
 	],
 	"./hospitality.vue": [
 		"./resources/js/Pages/category-blogs/hospitality.vue",
-		36
+		47
 	],
 	"./management": [
 		"./resources/js/Pages/category-blogs/management.vue",
-		37
+		48
 	],
 	"./management.vue": [
 		"./resources/js/Pages/category-blogs/management.vue",
-		37
+		48
 	],
 	"./mass-communication": [
 		"./resources/js/Pages/category-blogs/mass-communication.vue",
-		38
+		49
 	],
 	"./mass-communication.vue": [
 		"./resources/js/Pages/category-blogs/mass-communication.vue",
-		38
+		49
 	],
 	"./performing-arts": [
 		"./resources/js/Pages/category-blogs/performing-arts.vue",
-		27
+		41
 	],
 	"./performing-arts.vue": [
 		"./resources/js/Pages/category-blogs/performing-arts.vue",
-		27
+		41
 	],
 	"./science": [
 		"./resources/js/Pages/category-blogs/science.vue",
-		39
+		50
 	],
 	"./science.vue": [
 		"./resources/js/Pages/category-blogs/science.vue",
-		39
+		50
 	],
 	"./social-studies": [
 		"./resources/js/Pages/category-blogs/social-studies.vue",
-		40
+		51
 	],
 	"./social-studies.vue": [
 		"./resources/js/Pages/category-blogs/social-studies.vue",
-		40
+		51
 	],
 	"./sports": [
 		"./resources/js/Pages/category-blogs/sports.vue",
-		41
+		52
 	],
 	"./sports.vue": [
 		"./resources/js/Pages/category-blogs/sports.vue",
-		41
+		52
 	],
 	"./technology": [
 		"./resources/js/Pages/category-blogs/technology.vue",
-		42
+		53
 	],
 	"./technology.vue": [
 		"./resources/js/Pages/category-blogs/technology.vue",
-		42
+		53
 	],
 	"./visual-arts": [
 		"./resources/js/Pages/category-blogs/visual-arts.vue",
-		43
+		56
 	],
 	"./visual-arts.vue": [
 		"./resources/js/Pages/category-blogs/visual-arts.vue",
-		43
+		56
 	]
 };
 function webpackAsyncContext(req) {
@@ -16090,4 +16128,4 @@ webpackAsyncContext.keys = function webpackAsyncContextKeys() {
 	return Object.keys(map);
 };
 webpackAsyncContext.id = "./resources/js/Pages/category-blogs lazy recursive ^\\.\\/.*$";
-module.exports = webpackAsyncContext;
+module.exports = webpackAsyncContext;/* (ignored) *//* (ignored) */

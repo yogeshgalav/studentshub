@@ -59,15 +59,13 @@
                   >
                     <label for="phone_number"> {{ 'Enter Your Phone Number' }}</label>
                     <div>
-                      <vue-tel-input
-                        v-validate="'required'"
-                        :validation-value="phone_number"
-                        :auto-default-country="true"
-                        default-country="IN"
+                      <input
+                        v-model="phone_number"
+                        v-validate="'required|digits:10'"
                         name="phone_number"
+                        class="form-control"
                         placeholder="Enter Your Mobile Number"
-                        @validate="savePhoneNumber"
-                      />
+                      >
                       <span class="error">{{ formErrors('phone_number') }}</span>
                     </div>
                   </div>
@@ -214,14 +212,11 @@ import FormMixin from '@/components/mixins/form-mixin.js' ;
 import VueMultiStepForm from '@/components/VueMultiStepForm.vue' ;
 import NoSidebarNoFooterLayout from '@/Layouts/NoSidebarNoFooterLayout';
 import OtpInput from '@bachdgvn/vue-otp-input';
-import {VueTelInput} from 'vue-tel-input';
-import 'vue-tel-input/dist/vue-tel-input.css';
 
 export default {
 	layout:NoSidebarNoFooterLayout,
 	components:{
 		OtpInput,
-		VueTelInput,
 		VueMultiStepForm
 	},
 	mixins: [FormMixin],
@@ -296,10 +291,6 @@ export default {
 		OtpChange(value){
 			this.otp = value;
 		},
-		savePhoneNumber(value){
-			this.phone_number = value.number;
-			this.country_code = value.countryCode;
-		},
 		valdiateStep(stepIndex){
 			if(stepIndex===0){
 				// verify phone number and set new user;
@@ -308,7 +299,7 @@ export default {
 					let loader = this.$loading.show();
 					this.axios.post('/api/verify-contact',{
 						'phone_number':this.phone_number,
-						'country_code':this.country_code
+						'country_code':'IN'
 					}).then(resp=>{
 						if(resp.data.success.new_user){
 							this.new_user = true;
