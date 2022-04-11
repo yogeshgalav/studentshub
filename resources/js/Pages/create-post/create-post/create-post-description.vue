@@ -1,7 +1,7 @@
 <template>
   <div class="">
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-5">
         <div class="login_img">
           <img
             src="/images/undraw_post_online_dkuk.svg"
@@ -55,6 +55,7 @@
               v-model="tag"
               :tags="tags"
               name="subject_tags"
+              placeholder="Add Subjects"
               :autocomplete-items="filteredItems"
               @tags-changed="newTags => tags = newTags"
             />

@@ -44,19 +44,19 @@
             <template
               v-slot:footer="props"
             >
-              <div class="m-0-a">
+              <div class="mt-5 m-0-a">
                 <div class="row">
                   <button
                     v-if="!props.isFirstStep"
                     type="button"
-                    class="btn btn-md btn-primary m-0-a"
+                    class="btn btn-outline-dark fade-in-out mr-1"
                     @click="prevClick"
                   >
                     {{ 'back' }}
                   </button>
                   <button
                     type="button"
-                    class="btn btn-md btn-primary m-0-a"
+                    class="btn btn-md btn-primary"
                     @click="nextClick"
                   >
                     {{ props.isLastStep ? (post ? 'Update Post' : 'Create Post') : 'Next' }}
@@ -203,11 +203,13 @@ export default {
 			EventBus.$emit('validateStep'+stepIndex);
 		},
 		setPostDescription(data){
+			this.$gtag('event','setPostDescription');
 			this.post_data.heading=data.heading;
 			this.post_data.subjects=data.subjects;
 			this.post_data.category_id=data.category_id;
 		},
 		setPostContent(data){
+			this.$gtag('event','setPostContent');
 			this.post_data.html_content=data.content;
 			this.post_data.text_content=data.text_content;
 		},

@@ -114,7 +114,7 @@ class Youtube extends BlockEmbed {
 		node.setAttribute('mozallowfullscreen', true);
 		node.setAttribute('webkitallowfullscreen', true);
 		node.setAttribute('allowfullscreen', true);
-		node.setAttribute('width', '700');
+		node.setAttribute('width', '100%');
 		node.setAttribute('height', '400');
 		node.setAttribute('class', 'ql-align-center');
 		return node;

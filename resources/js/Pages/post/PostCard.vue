@@ -156,10 +156,16 @@ export default {
 	},
 	props:['post','doubtType'],
 	methods:{
-		editPost(id){
-			window.location.href ='/post/'+id+'/edit';
+		editPost(){
+			this.$gtag('event','editPost',{
+				'post_id':this.post.id
+			});
+			window.location.href ='/post/'+this.post.id+'/edit';
 		},
 		deletePost(id){
+			this.$gtag('event','deletePost',{
+				'post_id':this.post.id
+			});
 			this.axios.delete('/api/post/'+this.post.id).then(()=>{
 				window.location.reload();
 			});

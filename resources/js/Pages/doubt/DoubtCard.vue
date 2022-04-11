@@ -150,15 +150,24 @@ export default {
 	},
 	props:['doubt',],
 	methods:{
-		editDoubt(id){
-			window.location.href ='/edit-doubt/'+id;
+		editDoubt(){
+			this.$gtag('event','editDoubt',{
+				'doubt_id':this.doubt.id
+			});
+			window.location.href ='/edit-doubt/'+this.doubt.id;
 		},
-		deleteDoubt(id){
+		deleteDoubt(){
+			this.$gtag('event','deleteDoubt',{
+				'doubt_id':this.doubt.id
+			});
 			this.axios.delete('/api/doubt/'+this.doubt.id).then(()=>{
 				window.location.reload();
 			});
 		},
 		copyLink(){
+			this.$gtag('event','copyLink',{
+				'doubt_id':this.doubt.id
+			});
 			navigator.clipboard.writeText(this.baseUrl+'/doubt/'+this.doubt.id);
 		}
 	},

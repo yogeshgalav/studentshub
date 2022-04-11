@@ -147,14 +147,14 @@
                       >{{ formErrors('subject_name') }}</span>
                     </div>
 
-                    <div class="mt-2">
-                <button
-                  type="create"
-                  class="btn btn-primary btn-md"
-                >
-                  Create
-                </button>
-              </div>
+                    <div class="mt-5">
+                      <button
+                        type="create"
+                        class="btn btn-primary btn-md"
+                      >
+                        Create
+                      </button>
+                    </div>
                   </form>
                 </div>
               </div>

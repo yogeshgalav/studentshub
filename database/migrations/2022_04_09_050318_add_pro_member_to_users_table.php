@@ -17,6 +17,7 @@ class AddProMemberToUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->boolean('is_pro_member')->default(false);
             $table->boolean('is_demo_account')->default(false);
+            $table->string('slug')->nullable(true)->change();
         });
         User::where('phone_no','LIKE', '%01234%')->update([
             'is_pro_member'=>true,

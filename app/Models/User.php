@@ -55,7 +55,8 @@ class User extends Authenticatable
     {
         return SlugOptions::create()
             ->generateSlugsFrom('full_name')
-            ->saveSlugsTo('slug');
+            ->saveSlugsTo('slug')
+            ->doNotGenerateSlugsOnCreate();
     }
 
     public function student()

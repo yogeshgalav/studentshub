@@ -293,6 +293,7 @@ export default {
 		},
 		valdiateStep(stepIndex){
 			if(stepIndex===0){
+				this.$gtag('event','Phone number input');
 				// verify phone number and set new user;
 				this.validateInput('phone_number').then(resp=>{
 					if(!resp) return false;
@@ -313,6 +314,7 @@ export default {
 					}).catch(()=>loader.hide());
 				});
 			}else if(stepIndex===1){
+				this.$gtag('event','Otp input');
 				// login
 				this.validateInput('otp').then(resp=>{
 					if(!resp) return false;
@@ -325,7 +327,8 @@ export default {
 					}
 				});
 			}else if(stepIndex===2){
-				// this.addField('otp',this.otp);
+				this.$gtag('event','Register');
+
 				this.validateInput('full_name').then(resp=>{
 					if(!resp) return false;
 					this.step_data[stepIndex]['step_valid']=true;

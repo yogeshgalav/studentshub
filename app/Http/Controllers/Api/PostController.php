@@ -14,6 +14,8 @@ use App\Models\Video;
 use App\Models\Notice;
 use App\Models\Fact;
 use App\Models\Mcq;
+use App\Models\Like;
+use App\Models\Comment;
 use App\Models\Document;
 use Auth;
 use DB;
