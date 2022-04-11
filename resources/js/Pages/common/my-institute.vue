@@ -137,7 +137,23 @@
             </div>
           </div>
         </template>
-
+        <template slot="tab-heading-about">
+          {{ 'About' }}
+        </template>
+        <template slot="tab-panel-about">
+          <div id="about-html" />
+          <div class="col-md-10">
+            <div class="card">
+              <div class="card-body">
+                <p>
+                  thanks! Your account is created. <br>
+                  Our team will soon contact you on phone for account verification.<br>
+                  Once account verified you will be able to promote your institute to thousands of students.
+                </p>
+              </div>
+            </div>
+          </div>
+        </template>
         <template slot="tab-heading-posts">
           {{ 'Posts' }}
         </template>
@@ -185,7 +201,7 @@ export default {
 			teachers: [],
 			students: [],
 			posts: [],
-			initialTab: 'posts',
+			initialTab: 'about',
 			tabs: ['posts', 'doubts','students','teachers'],
 			showLoader: false,
 			selected_institute : {
@@ -203,6 +219,12 @@ export default {
 		}
 	},
 	mounted() {
+
+		if(this.AuthUser.role==='instituteAdmin'){
+
+			this.tabs.unshift('about');
+
+		}
 		let institute_id = this.AuthUser.preferred_institute_id;
 
 		if(!institute_id) return false;
