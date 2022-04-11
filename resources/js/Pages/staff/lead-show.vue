@@ -3,7 +3,7 @@
     <div>
       <div class="row">
         <div class="col-md-12">
-          <h1>Anjum Shaikh</h1>
+          <h1> {{ leadData.user_name }}</h1>
         </div>
       </div>
       <hr>
@@ -25,25 +25,22 @@
                         class="form-control"
                         aria-label=".form-select-lg example"
                       >
-                        <option selected>
-                          Lead Status
+                        <option value="raw">
+                          raw
                         </option>
-                        <option value="1">
-                          row
-                        </option>
-                        <option value="2">
+                        <option value="invalid">
                           Invalid
                         </option>
-                        <option value="3">
+                        <option value="notInterested">
                           Not Intrested
                         </option>
-                        <option value="4">
+                        <option value="interested">
                           Intrested
                         </option>
-                        <option value="5">
+                        <option value="paymentPending">
                           Payment Pending
                         </option>
-                        <option value="6">
+                        <option value="paymentDone">
                           Payment Done
                         </option>
                       </select>
@@ -78,9 +75,8 @@
                 
                 <div class="mt-2">
                   <button
-                    type="button"
+                    type="submit"
                     class="btn btn-primary btn-md"
-                    @click="addLead"
                   >
                     Submit
                   </button>
@@ -137,8 +133,9 @@ export default {
 	
 	data() {
 		return {
-			lead_status:'2',
-			description:'',
+			showLoader: false,
+			lead_status:'',
+			description:this.leadData.description,
 			user_verified:'',
 			userList:[],
 			userColumns: [
@@ -155,8 +152,6 @@ export default {
 	},
 	mounted(){
 		this.userList = this.leadAssigned;
-		console.log(this.leadAssigned);
-	
 	},
 	methods:{
 		addLead(){
@@ -165,11 +160,11 @@ export default {
     			lead_status:this.lead_status,
 				description:this.description,
     		}).then(resp=>{
-				loader.hide();
-			
+				this.$loading.hide(); 			
 			});
 				
-		}
+		},
+    
 	}
 };
 
