@@ -2,10 +2,10 @@
   <div class="circular">
     <div
       role="progressbar"
-      :aria-valuenow="value"
+      :aria-valuenow="counter"
       aria-valuemin="0"
       aria-valuemax="100"
-      :style="'--value:'+value"
+      :style="'--value:'+counter"
     />
   </div>
 </template>
@@ -77,7 +77,7 @@ export default {
 			if(this.counter === this.value ){
 				clearInterval();
 			}else{
-				counter+=1;
+				this.counter+=1;
 			}
 		}, 80);
 	}

@@ -61,7 +61,7 @@
                     {{ user.preferred_course_name }}
                   </p>
                 </div>
-                <div class="col-md-12 text-center mb-2 mt-2">
+                <div class="mb-2 mt-2">
                   <ul class="social-network social-circle">
                     <li>
                       <a

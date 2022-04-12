@@ -131,19 +131,17 @@ class PostController extends Controller
     ]]);
   }
 
-    public function getPosts(Request $request){
+    public function getPosts($dashboard_type,$dashboard_id,Request $request){
         $post_repo=new \App\Post;
         $post_query=$post_repo->getAuthUserPostTabels();
 
-        $dashboard_id = $request->route('dasboard_id');
-
-        switch($request->route('dasboard_type')){
+        switch($dashboard_type){
           case 'institute':
-            $post_query=$post_query->where('inst.id',$institute_id)
+            $post_query=$post_query->where('inst.id',$dashboard_id)
             ->orderBy('po.created_at','DESC');
             break;
           case 'course':
-            $posts=$post_query->where('po.course_id',$course_id)
+            $posts=$post_query->where('po.course_id',$dashboard_id)
             ->orderBy('po.created_at','DESC');
             break;
           case 'subject':
@@ -152,11 +150,11 @@ class PostController extends Controller
             ->orderBy('po.created_at','DESC');
             break;
           case 'category':
-            $posts=$post_query->where('cat.id',$category_id)
+            $posts=$post_query->where('cat.id',$dashboard_id)
             ->orderBy('po.created_at','DESC');
             break;
           case 'user':
-            $posts=$post_query->where('po.user_id',$userId)
+            $posts=$post_query->where('po.user_id',$dashboard_id)
             ->orderBy('po.created_at','DESC');
             break;
           default:

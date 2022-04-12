@@ -37,7 +37,7 @@ class AuthController extends Controller
     try{
 
         $user=User::where('phone_no','=',$request->phone_number)->first();
-        $otp_required = ('local'!==env('APP_ENV')) && $user && (!$user->is_demo_account);
+        $otp_required = !(('local'===env('APP_ENV')) || ($user && $user->is_demo_account));
 
         //generate otp
         $otp = $otp_required ? rand(11111,99999) : 12345;
