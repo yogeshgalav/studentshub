@@ -16,6 +16,7 @@
         <PostContainer
           v-if="subjectId"
           :post-route="'/subject/'+subjectId"
+          :share-route="'/share-your-knowledge?sId='+subjectId"
         >
           <template slot="empty">
             Currently no post have been shared related to this subject.

@@ -13,7 +13,7 @@
               {{ AuthUser.full_name }}
             </div>
             <a
-              :href="'/share-your-knowledge'"
+              :href="shareRoute"
             > 
               <img
                 src="/images/knowledge.svg"
@@ -67,7 +67,7 @@ export default {
 	components: {
 		PostCard
 	},
-	props:['postRoute', 'params'],
+	props:['postRoute', 'shareRoute'],
 	data() {
 		return {
 			posts_data: [],

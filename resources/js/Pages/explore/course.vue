@@ -13,6 +13,7 @@
         <PostContainer
           v-if="courseId"
           :post-route="'/course/'+courseId"
+          :share-route="'/share-your-knowledge?cId='+courseId"
         >
           <template slot="empty">
             Currently no post have been shared in this course.

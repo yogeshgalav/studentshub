@@ -66,6 +66,7 @@
             <PostContainer
               v-if="categoryId"
               :post-route="'/category/'+categoryId"
+              :share-route="'/share-your-knowledge?caId='+categoryId"
             >
               <template slot="empty">
                 Currently no post have been shared related to this category.

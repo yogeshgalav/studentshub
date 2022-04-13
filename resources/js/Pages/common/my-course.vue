@@ -63,6 +63,7 @@
           <PostContainer
             v-if="AuthUser.preferred_course_id"
             :post-route="'/course/'+AuthUser.preferred_course_id"
+            :share-route="'/share-your-knowledge?cId='+AuthUser.preferred_course_id"
           >
             <template slot="empty">
               Currently no post have been shared in your course.

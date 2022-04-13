@@ -145,7 +145,7 @@ export default {
 		CreatePostContent,
 		CreatePostDescription
 	},
-	props:['categories', 'courseInfo', 'subjectInfo', 'post'],
+	props:['categories', 'courseInfo', 'subjectInfo', 'post', 'categoryInfo'],
 	data() {
 		return {
 			step_data: [
@@ -182,7 +182,7 @@ export default {
 		}else{
 			this.post_data ={
 				heading:'',
-				category_id:7,
+				category_id:this.categoryInfo ? this.categoryInfo.id : 7,
 				subjects: this.subjectInfo ? [subjectInfo] : [],
 				course: this.courseInfo ? this.courseInfo : null,
 				html_content:'',
@@ -227,8 +227,9 @@ export default {
 			// let loader = this.$loading.show();
       
 			this.$gtag('event',msg,{
-				// 'course':this.$store.state.selected_course.course_name,
-				// 'subjects':this.$store.state.selected_subjects.map(el=>el.subject_name).join(','),
+				'category':this.categoryInfo.name,
+				'course':this.courseInfo.name,
+				'subjects':this.subjectInfo.subject_name,
 			});
 			let api ='/api/submit-post';
 			let msg ='Post Created';

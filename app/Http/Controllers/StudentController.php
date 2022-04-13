@@ -117,6 +117,9 @@ class StudentController extends Controller
     }
     public function sharePost(Request $request)
     {
+        if($request->caId){
+            $categoryInfo = \App\Models\Category::find($request->caId);
+        }
         if($request->cId){
             $courseInfo = \App\Models\Course::find($request->cId);
         }
@@ -127,6 +130,7 @@ class StudentController extends Controller
             'categories' => Category::all(),
             'courseInfo' => isset($courseInfo) ? $courseInfo : null,
             'subjectInfo' => isset($subjectInfo) ? $subjectInfo : null,
+            'categoryInfo' => isset($categoryInfo) ? $categoryInfo : null,
         ]);
     }
     public function editPost(Post $post)
