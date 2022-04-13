@@ -201,7 +201,7 @@ export default {
 			teachers: [],
 			students: [],
 			posts: [],
-			initialTab: 'about',
+			initialTab: 'posts',
 			tabs: ['posts', 'doubts','students','teachers'],
 			showLoader: false,
 			selected_institute : {
@@ -223,7 +223,7 @@ export default {
 		if(this.AuthUser.role==='instituteAdmin'){
 
 			this.tabs.unshift('about');
-
+			this.initialTab ='about';
 		}
 		let institute_id = this.AuthUser.preferred_institute_id;
 
