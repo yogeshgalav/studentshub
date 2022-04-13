@@ -20,21 +20,19 @@ class StaffController extends Controller
         return inertia('staff/lead-index');
     }
     
-   public function leadShowPage($id, Request $request){
-      //   $leadData = DB::table('leads as le')->where('le.user_id','=',$id)
-      //  ->leftJoin('users as us', 'us.id','=','le.user_id')
-      //  ->select('us.id as user_id','us.full_name as user_name','lead_status', 'description')->first();   
-        $leadData = DB::table('users as us')->where('us.id','=',$id)
-       ->leftJoin('leads as le', 'le.user_id','=','us.id')
-       ->select('us.id as user_id','us.full_name as user_name','le.lead_status as lead_status', 'le.description as description')->first();   
+   public function leadShowPage(User $user, Request $request){
+    //    $leadData = DB::table('users as us')->where('us.id','=',$id)
+    //    ->leftJoin('leads as le', 'le.user_id','=','us.id')
+    //    ->select('us.id as user_id','us.full_name as user_name','le.lead_status as lead_status', 'le.description as description')->first();   
 
-       $leadAssigned=DB::table('lead_assigned as lea')
-       ->leftjoin('users as us', 'us.id','=','lea.staff_user_id')
-        ->select('us.full_name as staff_name','lea.created_at as assigned_at')->get();
-        return inertia('staff/lead-show', [
-            'leadData' => $leadData ,
-        'leadAssigned'=>$leadAssigned
-    ]);
+    //    $leadAssigned=DB::table('lead_assigned as lea')
+    //    ->leftjoin('users as us', 'us.id','=','lea.staff_user_id')
+    //     ->select('us.full_name as staff_name','lea.created_at as assigned_at')->get();
+    //     return inertia('staff/lead-show', [
+    //         'leadData' => $leadData ,
+    //     'leadAssigned'=>$leadAssigned
+    // ]);
+    return inertia('staff/user-show', ['user'=>$user]);
     }
 
    public function manageCoursePage(){        
@@ -81,12 +79,7 @@ ORDER BY categories.name;
         return inertia('staff/transaction-details');
     }
     public function mebershipDetailsPage(){  
-        $members=DB::table('membership_details as me')
-        ->leftJoin('users as us','us.id','=','me.user_id')
-       ->select(['us.full_name as full_name','me.current_plan as current_plan',
-       'me.first_purchase_at','me.last_purchase_at','me.expires_at'])->get();
-              
-        return inertia('staff/membership-details', ['members'=>$members]);
+        return inertia('staff/membership-details');
     }
 
 }

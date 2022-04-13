@@ -3,10 +3,10 @@
     <div class="sidebar-navigation mt-5">
       <ul>
         <router-link
-          href="/leads"
+          href="/manage-users"
         >
           <li>
-            <span class="text">Leads</span>
+            <span class="text">Manage Users</span>
           </li>
         </router-link>
         <router-link

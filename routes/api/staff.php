@@ -9,4 +9,7 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::post('/career','CareerController@createOrUpdate');
     Route::delete('/career/{career}','CareerController@delete');
     Route::get('/membership','MembershipController@index');
+    Route::get('/transactions/{userId}', 'TransactionController@userTransactions');
+    Route::get('/membership/{userId}','MembershipController@userMembers');
+    Route::get('/lead/{userId}','LeadController@userLead');
 });
