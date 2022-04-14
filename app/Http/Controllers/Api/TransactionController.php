@@ -10,31 +10,21 @@ use DB;
 class TransactionController extends Controller
 {
     //
-    public function index(){
+    public function index($userId=null){
         
-        $transactions=DB::table('transaction_details as tr')
+        $transactionsquery=DB::table('transaction_details as tr')
         ->leftJoin('users as us','us.id','=','tr.user_id')
        ->select(['us.full_name as full_name','tr.transaction_id as transaction_id', 
                  'tr.for_plan as for_plan', 'tr.amount as amount', 'tr.tax as tax',
-                'tr.discount as discount', 'tr.totalAmount as totalAmount'])->get();
-       
+                'tr.discount as discount', 'tr.totalAmount as totalAmount']);
+       if($userId){
+           $transactions=$transactionsquery->where('us.id','=',$userId);
+       }
+       $transactions=$transactionsquery->get();
        return response()->json([
            'success'=>['transactions'=>$transactions],
        ]);
     }
 
-    public function userTransactions($userId){
-        
-        $transactions=DB::table('transaction_details as tr')
-         ->leftJoin('users as us', function($join ) use($userId){
-             $join->on('us.id','=','tr.user_id')->where('us.id','=',$userId);
-         })
-        ->select(['us.full_name as full_name','tr.transaction_id as transaction_id', 
-                  'tr.for_plan as for_plan', 'tr.amount as amount', 'tr.tax as tax',
-                 'tr.discount as discount', 'tr.totalAmount as totalAmount'])->get();
-        
-        return response()->json([
-            'success'=>['transactions'=>$transactions],
-        ]);
-    }
+    
 }
