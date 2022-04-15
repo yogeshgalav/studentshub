@@ -76,9 +76,10 @@
                   >
                     <label
                       for="verify_otp"
-                      class="pl-2"
+                      class="pl-1 text-center"
                     > {{ 'Verify OTP' }}</label>
-                    <div>
+
+                    <div class="text-center m-0-a">
                       <otp-input
                         ref="otpInput"
                         v-validate="'required'"
