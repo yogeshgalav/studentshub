@@ -12,15 +12,24 @@ use DB;
 class LeadController extends Controller
 {
     //
-    public function index(User $user, Request $request){
+    public function index(User $user, Request $request){ 
+         $leads=DB::table('users')
+         ->leftJoin('membership_details','membership_details.user_id','users.id')
+         ->leftJoin('transaction_details','transaction_details.user_id','users.id')
+         ->leftJoin('sthub_posts','sthub_posts.action_user_id','users.id')
+         ->select('users.id','users.full_name', 'users.phone_no','users.is_pro_member',
+                   'users.onboarded_at','users.role',
+         DB::raw('COUNT(membership_details.id) as total_membership_details'),
+         DB::raw('COUNT(transaction_details.id) as total_transaction_details'),
+         DB::raw('COUNT(sthub_posts.id) as total_sthub_posts')
+         )->groupBy('users.id','users.full_name', 'users.phone_no','users.is_pro_member','users.onboarded_at','users.role')->get();
        
-        $leads = User::doesntHave('lead')->get();
-        return response()->json([
+         return response()->json([
             'success'=>['leads'=>$leads],
         ]);
     }
 
-    public function createOrUpdate($user_id, Request $request){
+    public function createOrUpdate($userId, Request $request){
 
             //find lead via user_id
             //if lead is not present create new
@@ -44,4 +53,21 @@ class LeadController extends Controller
                 ]);
             
     }
+    public function userLead($userId){
+        $leadData = DB::table('users as us')->where('us.id','=',$userId)
+        ->leftJoin('leads as le', 'le.user_id','=','us.id')
+        ->select('le.id as lead_id','us.id as user_id','us.full_name as user_name','le.lead_status as lead_status', 'le.description as description')->first();   
+      
+        $leadAssigned=DB::table('lead_assigned as lea')->where('lea.lead_id','=',$leadData->lead_id)
+        ->leftjoin('users as us', 'us.id','=','lea.staff_user_id')
+         ->select('us.full_name as staff_name','lea.created_at as assigned_at')->get();
+
+         return response()->json([
+             'success'=>[
+                 'leadData'=>$leadData,
+                 'leadAssigned'=>$leadAssigned
+                ],
+         ]);
+    }
+    
 }

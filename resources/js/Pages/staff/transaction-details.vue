@@ -41,6 +41,7 @@ export default {
 		VueTableComponent,
 		Accordion
 	},
+	props:['userId'],
 	data() {
 		return {
 			userList:[],
@@ -80,8 +81,11 @@ export default {
 		};
 	},
 	mounted(){
-    
-		this.axios.get('/api/transactions').then(resp=>{
+		let api='/api/transactions';
+		if(this.userId){
+			api=api+'/'+this.userId;
+		}
+		this.axios.get(api).then(resp=>{
 			this.userList = resp.data.success.transactions;
       
 
