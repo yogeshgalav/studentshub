@@ -131,9 +131,10 @@ class PostController extends Controller
     ]]);
   }
 
-    public function getPosts($dashboard_type,$dashboard_id,Request $request){
+    public function getPosts($dashboard_type=null,$dashboard_id=null,Request $request){
         $post_repo=new \App\Post;
         $post_query=$post_repo->getAuthUserPostTabels();
+        $posts=$post_query->orderBy('po.created_at','DESC');
 
         switch($dashboard_type){
           case 'institute':
