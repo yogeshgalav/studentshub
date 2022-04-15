@@ -3,12 +3,6 @@
     <div>
       <div class="row">
         <div class="col-md-12">
-          <h1> {{ leadData.user_name }}</h1>
-        </div>
-      </div>
-      <hr>
-      <div class="row">
-        <div class="col-md-12">
           <div class="card">
             <div class="card-body">
               <form @submit.prevent="addLead">
@@ -128,14 +122,14 @@ export default {
 		VueTableComponent,
 		Accordion
 	},
-	props:['leadData', 'leadAssigned'],
+	props:['userId'],
 	layout:StaffLayout,
 	
 	data() {
 		return {
 			showLoader: false,
 			lead_status:'',
-			description:this.leadData.description,
+			description:'',
 			user_verified:'',
 			userList:[],
 			userColumns: [
@@ -151,12 +145,20 @@ export default {
 		};
 	},
 	mounted(){
-		this.userList = this.leadAssigned;
+		let api='/api/lead';
+		if(this.userId){
+			api=api+'/'+this.userId;
+		}
+		this.axios.get(api).then(resp=>{
+			this.userList = resp.data.success.leadAssigned;
+			this.lead_status = resp.data.success.leadData.lead_status;
+			this.description = resp.data.success.leadData.description;
+      		});
 	},
 	methods:{
 		addLead(){
 			let loader = this.$loading.show();
-  	this.axios.post('/api/lead/'+this.leadData.user_id, {
+  	this.axios.post('/api/lead/'+this.userId, {
     			lead_status:this.lead_status,
 				description:this.description,
     		}).then(resp=>{

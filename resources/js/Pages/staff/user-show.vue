@@ -1,0 +1,217 @@
+<template>
+  <div class="row">
+    <div
+      v-if="student_detail"
+      class="col-md-12"
+    >
+      <h1>{{ student_detail.full_name }}</h1>
+    </div>
+    <div class="col-md-12">
+      <nav-tabs
+        :tabs="tabs"
+        :initial-tab="initialTab"
+      >
+        <template slot="tab-heading-basicinfo">
+          {{ 'Basic Info' }}
+        </template>
+        <template slot="tab-panel-basicinfo">
+          <div class="col-md-12">
+            <div
+              v-if="student_detail"
+              class="card mt-2"
+            >
+              <div class="card-header bg-white">
+                <h4 class="mb-1 mt-1">
+                  {{ 'Personal details' }}
+                </h4>
+              </div>
+              <div class="card-body">
+                <div class="col-md-6 col-12">
+                  <form>
+                    <div class="form-group">
+                      <label class="text-black font-size-14">Name
+                      </label>
+                      <input
+                        id="full_name"
+                        type="text"
+                        class="form-control"
+                        disabled
+                        :value="student_detail.full_name"
+                      >
+                    </div>
+                    <div class="form-group">
+                      <label class="text-black font-size-14">Email
+                      </label>
+                      <input
+                        id="email"
+                        type="text"
+                        class="form-control"
+                        disabled
+                        :value="student_detail.email"
+                      >
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="card mt-2">
+              <div class="card-header bg-white">
+                <h4 class="mb-1 mt-1">
+                  {{ 'Parent Details' }}
+                </h4>
+              </div>
+              <div class="card-body">
+                <div class="col-md-6 col-12">
+                  <form @submit.prevent="handleSubmit">
+                    <div class="form-group">
+                      <label class="text-black font-size-14">Name
+                      </label>
+                      <input
+                        id="parent_name"
+                        v-model="parent_name"
+                        v-validate="'required'"
+                        :disabled="!edit_mode"
+                        type="text"
+                        class="form-control"
+                      >
+                    </div>
+                    <div class="form-group">
+                      <label class="text-black font-size-14">Phone Number
+                      </label>
+                      <vue-tel-input
+                        v-model="parent_phone"
+                        v-validate="'required'"
+                        :auto-default-country="true"
+                        default-country="IN"
+                        name="phone"
+                        :disabled="!edit_mode"
+                        placeholder="Enter parent's phone number"
+                        data-vv-validate-on="handleSubmit"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label class="text-black font-size-14">Email
+                      </label>
+                      <input
+                        id="email"
+                        v-model="parent_email"
+                        v-validate="'required'"
+                        :disabled="!edit_mode"
+                        type="text"
+                        class="form-control"
+                      >
+                    </div>
+                    <div class="form-group">
+                      <button
+                        v-if="edit_mode"
+                        type="submit"
+                        class="btn btn-white"
+                      >
+                        Update
+                      </button>
+                    </div>
+                    <div class="form-group">
+                      <button
+                        v-if="!edit_mode"
+                        type="submit"
+                        class="btn btn-white"
+                        @click="edit_mode=true"
+                      >
+                        Edit
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </template>
+        <template slot="tab-heading-membershipinfo">
+          {{ 'Membership Info' }}
+        </template>
+        <template slot="tab-panel-membershipinfo">
+          <membership-details :user-id="user.id" />
+        </template>
+        <template slot="tab-heading-transactioninfo">
+          {{ 'Transaction Info' }}
+        </template>
+        <template slot="tab-panel-transactioninfo">
+          <transaction-details :user-id="user.id" />
+        </template>
+        <template slot="tab-heading-leadshow">
+          {{ 'Lead Details' }}
+        </template>
+        <template slot="tab-panel-leadshow">
+          <lead-show :user-id="user.id" />
+        </template>
+      </nav-tabs>
+    </div>
+  </div>
+</template>
+<script>
+import FormMixin from '../../components/mixins/form-mixin';
+import NavTabs from '../../components/NavTabs.vue';
+import {VueTelInput} from 'vue-tel-input';
+import 'vue-tel-input/dist/vue-tel-input.css';
+import StaffLayout from '@/Layouts/StaffLayout';
+import TransactionDetails from './transaction-details.vue';
+import MembershipDetails from './membership-details.vue';
+import LeadShow from './lead-show.vue';
+export default {
+	layout:StaffLayout,
+	components:{
+		NavTabs,
+		VueTelInput,
+		TransactionDetails,
+		MembershipDetails,
+		LeadShow,
+	},
+	mixins:[FormMixin],
+	props:['user'],
+	data(){
+		return {
+			initialTab:'basicinfo',
+			tabs:['basicinfo', 'membershipinfo','transactioninfo','leadshow'],
+			student_detail:null,
+			isPhoneRequired:'',
+			phoneIsValid:true,
+			phoneWithCode:'',
+			initialPhoneState:true,
+			parent_id:'',
+			parent_name:'',
+			parent_phone:'',
+			parent_email:'',
+			edit_mode:false,
+		};
+	},
+
+	mounted(){
+		this.axios.get('/api/student/'+this.user.id).then((resp)=>{
+			this.student_detail = resp.data.success.student_detail;
+			this.parent_id = this.student_detail.parent_id;
+			this.parent_name = this.student_detail.parent_name;
+			this.parent_phone = this.student_detail.parent_phone;
+			this.parent_email = this.student_detail.parent_email;
+			if(!this.parent_name || !this.parent_phone){
+				this.edit_mode = true;
+			}
+		});
+	},
+	methods:{
+		handleSubmit(){
+			this.validateForm().then(valid => {
+				if (valid) {
+					this.axios.post('/api/student/'+this.$route.params.id,{
+						parent_id: this.parent_id,
+						parent_name: this.parent_name,
+						parent_phone: this.parent_phone,
+						parent_email: this.parent_email,
+					}).then((resp)=>{
+						this.edit_mode =false;
+					});
+				}
+			});
+		},
+	}
+};
+</script>
