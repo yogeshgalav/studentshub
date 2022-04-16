@@ -184,7 +184,7 @@ export default {
 				heading:'',
 				category_id:this.categoryInfo ? this.categoryInfo.id : 7,
 				subjects: this.subjectInfo ? [subjectInfo] : [],
-				course: this.courseInfo ? this.courseInfo : null,
+				course_id: this.courseInfo ? this.courseInfo.id : null,
 				html_content:'',
 				text_content:'',
 			};
@@ -225,12 +225,11 @@ export default {
 			}
 			this.post_submited=true;
 			// let loader = this.$loading.show();
-      
-			this.$gtag('event',msg,{
-				'category':this.categoryInfo.name,
-				'course':this.courseInfo.name,
-				'subjects':this.subjectInfo.subject_name,
-			});
+			let page = 'dashboard';
+			page = this.courseInfo ? 'course' : null;
+			page = this.categoryInfo ? 'category' : null;
+			page = this.subjectInfo ? 'subject' : null;
+			this.$gtag('event',msg, {page:page});
 			let api ='/api/submit-post';
 			let msg ='Post Created';
 			if(this.post_data.id){

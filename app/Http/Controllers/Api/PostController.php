@@ -39,6 +39,8 @@ class PostController extends Controller
         $post->user_id=Auth::user()->id;
         $post->post_heading=$heading;
         $post->category_id = $data['category_id'];
+        $post->course_id = $data['course_id'] ?? null;
+        $post->classroom_id = $data['classroom_id'] ?? null;
 
         $simple_html_dom = new simple_html_dom;
         $dom = $simple_html_dom->extactImageFiles($data['html_content'], "post-image");
