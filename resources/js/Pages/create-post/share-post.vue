@@ -226,9 +226,9 @@ export default {
 			this.post_submited=true;
 			// let loader = this.$loading.show();
 			let page = 'dashboard';
-			page = this.courseInfo ? 'course' : null;
-			page = this.categoryInfo ? 'category' : null;
-			page = this.subjectInfo ? 'subject' : null;
+			page = this.courseInfo ? 'course' : page;
+			page = this.categoryInfo ? 'category' : page;
+			page = this.subjectInfo ? 'subject' : page;
 			this.$gtag('event',msg, {page:page});
 			let api ='/api/submit-post';
 			let msg ='Post Created';
