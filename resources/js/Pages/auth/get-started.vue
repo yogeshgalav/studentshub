@@ -54,18 +54,22 @@
                   >
                 </template>
                 <template slot="step0">
-                  <div
-                    class="form-group"
-                  >
-                    <label for="phone_number"> {{ 'Enter Your Phone Number' }}</label>
-                    <div>
-                      <input
-                        v-model="phone_number"
-                        v-validate="'required|digits:10'"
-                        name="phone_number"
-                        class="form-control"
-                        placeholder="Enter Your Mobile Number"
-                      >
+                  <div class="form-group">
+                    <label for="phone_number"> {{ ('Enter Your Phone Number') }}</label>
+                    <div class="inner-addon left-addon">
+                      <div class="input_icon_frm">
+                        <span class="icon_design_input"> +91</span>
+                        <input
+                          id="phone_number"
+                          v-model="phone_number"
+                          v-validate="'required|digits:10'"
+                          type="text"
+                          name="phone_number"
+                          autofocus
+                          class="form-control"
+                          placeholder="Enter Your Mobile Number"
+                        >
+                      </div>
                       <span class="error">{{ formErrors('phone_number') }}</span>
                     </div>
                   </div>
