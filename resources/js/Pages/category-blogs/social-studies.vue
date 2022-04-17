@@ -3,15 +3,12 @@
     <div class="col-md-12 mt-1">
       <article>
         <p>
-          Human rights are rights inherent to all human beings, regardless of gender, nationality, place of residency, sex, ethnicity, religion, color or and other categorization. Thus, human rights are non-discriminatory, meaning that all human beings are entitled to them and cannot be excluded from them. Of course, while all human beings are entitled to human rights, not all human beings experience them equally throughout the world. Many governments and individuals ignore human rights and grossly exploit other human beings.
+          The humanities entail the study of the human world and society from a critical perspective. This field includes popular majors like English, history, and philosophy. In these disciplines, students investigate humanity itself (hence the name), applying critical methods to help them understand literature, art, and the past, as well as human morality, culture, and values.
+        </p>
+        <p>
+          Each humanities discipline relies on unique interpretation methods. Historians use the historical method, which can be further divided into branches like cultural history, quantitative history, and oral history.
 
-          There are a variety of human rights, including:
-          Civil rights (such as the rights to life, liberty and security),
-          Political rights (like rights to the protection of the law and equality before the law),
-          Economic rights (including rights to work, to own property and to receive equal pay),
-          Social rights (like rights to education and consenting marriages),
-          Cultural rights (including the right to freely participate in their cultural community), and
-          Collective rights (like the right Career in Law and Humanity
+          Meanwhile, English and foreign languages use textual criticism to interpret sources, and philosophy applies conceptual analysis and experimental approaches.
         </p>
       </article>
     </div>

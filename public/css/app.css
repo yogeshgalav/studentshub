@@ -13883,19 +13883,14 @@ h2.banner_title {
   color: #000 !important;
 }
 
-.ti-new-tag-input {
-  line-height: 1.6em !important;
+.vue-tags-input {
+  max-width: inherit !important;
 }
 
-.ti-input {
-  font-size: 14px !important;
-  font-weight: 400 !important;
-  border: 1px solid #bdbdbd !important;
-  border-radius: 0.25rem !important;
-}
-
-.ti-new-tag-input.focus-visible {
-  border: 0 !important;
+.ti-tags {
+  min-height: 2em;
+  line-height: 2em !important;
+  font-size: 1em !important;
 }
 
 .user_img_dash img {
@@ -16007,107 +16002,107 @@ module.exports = webpackContext;
 webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";var map = {
 	"./computer": [
 		"./resources/js/Pages/category-blogs/computer.vue",
-		44
+		46
 	],
 	"./computer.vue": [
 		"./resources/js/Pages/category-blogs/computer.vue",
-		44
+		46
 	],
 	"./economics": [
 		"./resources/js/Pages/category-blogs/economics.vue",
-		45
+		47
 	],
 	"./economics.vue": [
 		"./resources/js/Pages/category-blogs/economics.vue",
-		45
+		47
 	],
 	"./education": [
 		"./resources/js/Pages/category-blogs/education.vue",
-		46
+		48
 	],
 	"./education.vue": [
 		"./resources/js/Pages/category-blogs/education.vue",
-		46
+		48
 	],
 	"./healthcare": [
 		"./resources/js/Pages/category-blogs/healthcare.vue",
-		40
+		42
 	],
 	"./healthcare.vue": [
 		"./resources/js/Pages/category-blogs/healthcare.vue",
-		40
+		42
 	],
 	"./hospitality": [
 		"./resources/js/Pages/category-blogs/hospitality.vue",
-		47
+		49
 	],
 	"./hospitality.vue": [
 		"./resources/js/Pages/category-blogs/hospitality.vue",
-		47
+		49
 	],
 	"./management": [
 		"./resources/js/Pages/category-blogs/management.vue",
-		48
+		50
 	],
 	"./management.vue": [
 		"./resources/js/Pages/category-blogs/management.vue",
-		48
+		50
 	],
 	"./mass-communication": [
 		"./resources/js/Pages/category-blogs/mass-communication.vue",
-		49
+		51
 	],
 	"./mass-communication.vue": [
 		"./resources/js/Pages/category-blogs/mass-communication.vue",
-		49
+		51
 	],
 	"./performing-arts": [
 		"./resources/js/Pages/category-blogs/performing-arts.vue",
-		41
+		43
 	],
 	"./performing-arts.vue": [
 		"./resources/js/Pages/category-blogs/performing-arts.vue",
-		41
+		43
 	],
 	"./science": [
 		"./resources/js/Pages/category-blogs/science.vue",
-		50
+		52
 	],
 	"./science.vue": [
 		"./resources/js/Pages/category-blogs/science.vue",
-		50
+		52
 	],
 	"./social-studies": [
 		"./resources/js/Pages/category-blogs/social-studies.vue",
-		51
+		53
 	],
 	"./social-studies.vue": [
 		"./resources/js/Pages/category-blogs/social-studies.vue",
-		51
+		53
 	],
 	"./sports": [
 		"./resources/js/Pages/category-blogs/sports.vue",
-		52
+		54
 	],
 	"./sports.vue": [
 		"./resources/js/Pages/category-blogs/sports.vue",
-		52
+		54
 	],
 	"./technology": [
 		"./resources/js/Pages/category-blogs/technology.vue",
-		53
+		55
 	],
 	"./technology.vue": [
 		"./resources/js/Pages/category-blogs/technology.vue",
-		53
+		55
 	],
 	"./visual-arts": [
 		"./resources/js/Pages/category-blogs/visual-arts.vue",
-		56
+		57
 	],
 	"./visual-arts.vue": [
 		"./resources/js/Pages/category-blogs/visual-arts.vue",
-		56
+		57
 	]
 };
 function webpackAsyncContext(req) {
