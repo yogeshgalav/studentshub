@@ -171,4 +171,7 @@ class StudentController extends Controller
         $categories = \App\Models\Category::get();
         return inertia('doubt/create-doubt', ['categories' => $categories,'editDoubtDetails' =>$editDoubt]);
     }
+    public function ChatroomindexPage(){
+        return inertia('classroom/chatroom');
+    }
 }

@@ -74,15 +74,15 @@
           </li>
         </router-link>
         <router-link
-          href="/messages"
-          :class="isUrl('messages') ? 'active' : ''"
+          href="/chatroom"
+          :class="isUrl('chatroom') ? 'active' : ''"
         >
           <li>
             <i
               class="far fa-comment-dots"
               aria-hidden="true"
             />
-            <span class="text"> Messages</span>
+            <span class="text"> Chatroom</span>
           </li>
         </router-link>
             
