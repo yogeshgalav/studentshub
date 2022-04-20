@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Classroom;
+use App\Models\User;
+use App\Models\Chatroom;
 use App\Models\ClassroomUser;
 use App\Models\ClassroomMessage;
 use App\Models\ScheduledJob;
@@ -17,8 +19,7 @@ use Carbon\Carbon;
 
 class ClassroomMessageController extends Controller
 {
-
-    public function listmessage($classroomId = null){
+    public function listmessage($chatroomId = null, Request $request){
         $messagequery = ClassroomMessage::where('parent_message_id','=',null)
         ->leftJoin('users as us','us.id','=','classroom_messages.sender_user_id')
         ->leftJoin('classrooms as cs','cs.id','=','classroom_messages.chatroom_id')
@@ -33,10 +34,8 @@ class ClassroomMessageController extends Controller
         'cs.name as classroom_name', DB::raw('COUNT(distinct li.user_id) as total_likes'));
         
         
-        if ($classroomId) {
-            $messagequery = $messagequery->where('chatroom_id',$classroomId);
-        } else {
-            $messagequery = $messagequery->whereIn('chatroom_id',Auth::user()->getClassroomIds());
+        if ($chatroomId) {
+            $messagequery = $messagequery->where('chatroom_id',$chatroomId);
         }
         $messages = $messagequery->orderBy('classroom_messages.created_at','DESC')
         ->groupBy([
@@ -51,16 +50,15 @@ class ClassroomMessageController extends Controller
             'messages'=>$messages
         ]]);
     }
-    public function addmessage(AddMessageRequest $request){
-        $classroom = Classroom::findOrFail($request->classroom_id);
-
+    public function addmessage($chatroom_id,Request $request){
         $message = ClassroomMessage::create([
             'sender_user_id'=>Auth::id(),
-            'classroom_id'=>$classroom->id,
+            'chatroom_id'=>$chatroom_id,
             'content'=>$request->content,
             'parent_message_id'=>$request->parent_message_id,
         ]);
-        ScheduledJob::newClassroomMessageNotification($classroom);
+        
+     //   ScheduledJob::newClassroomMessageNotification($classroom);
         
         return response()->json(['success'=>[
             'message'=>$message

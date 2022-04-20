@@ -8,7 +8,7 @@
         :is-full-page="true"
       />
       <classroom-header
-        v-if="routeClassroomId" 
+        v-if="routeChatroomId" 
         title="Message"
       />
       <div v-else>
@@ -16,7 +16,7 @@
         <hr>
       </div>
       <div
-        v-if="['seeker','student'].includes(AuthUser.role) && !routeClassroomId && !classrooms.length"
+        v-if="['seeker','student'].includes(AuthUser.role) && !routeChatroomId && !chatrooms.length"
         class="card mb-2 pl-3"
       >
         <div class="card-body">
@@ -34,7 +34,7 @@
       </div>
       <div>
         <div 
-          v-if="routeClassroomId || classrooms.length"
+          v-if="routeChatroomId || chatrooms.length"
           class="row"
         >
           <div class="col-md-12">
@@ -108,9 +108,6 @@
                           {{ message.user_name }} <span> {{ message.time }} &nbsp; 
                           </span>
                         </p>
-                        <p class="font-size-14 mb-0">
-                          {{ message.classroom_name }}
-                        </p>
                       </div>
                     </div>
                     <hr>
@@ -139,37 +136,6 @@
               <template slot="modalBody">
                 <form data-vv-scope="add_message_form">
                   <div class="row">
-                    <div
-                      v-if="classrooms && classrooms.length"
-                      class="col-md-12"
-                    >
-                      <div class="form-group">
-                        <div class="inner-addon left-addon">
-                          <div class="cl_input">
-                            <label for="classroom">Classroom</label>
-                            <select
-                              v-model="selectedClassroomId"
-                              v-validate="'required'"
-                              class="form-control custom-select"
-                              name="classroom"
-                            >
-                              <option
-                                v-for="(classroom, index) in classrooms"
-                                :key="index"
-                                :value="classroom.id"
-                              >
-                                {{ classroom.name }}
-                              </option>
-                            </select>
-
-                            <span class="text-danger">{{
-                              formErrors("add_message_form.classroom")
-                            }}</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
                     <div class="col-md-12">
                       <div class="form-group">
                         <div class="inner-addon left-addon">
@@ -222,11 +188,11 @@ export default {
 		InteractionComponent,
 	},
 	mixins: [FormMixin],
-	props:['classrooms'],
+	props:['chatroomId','chatrooms'],
 	data() {
 		return {
-			routeClassroomId: this.$route.params[0],
-			selectedClassroomId: '',
+			routeChatroomId: null,
+			selectedChatroomId: '',
 			showLoader: true,
 			messages: [],
 			content: '',
@@ -236,19 +202,15 @@ export default {
 			},
 		};
 	},
-	computed: {
-		classroomDetail() {
-			return this.$store.state.classroom.classroomDetail;
-		},
-	},
+	
 	mounted() {
 		this.getMessages();
 	},
 	methods: {
 		getMessages() {
-			let api = '/api/get-classroom-messages/';
-			if(this.routeClassroomId){
-				api = api + this.routeClassroomId;
+			let api = '/api/chatroom-messages/';
+			if(this.chatroomId){
+				api = api + this.chatroomId;
 			}
 			this.axios.get(api).then((resp) => {
 				this.messages = resp.data.success.messages.map(node=>{
@@ -258,36 +220,31 @@ export default {
 				this.showLoader = false;
 			});
 		},
+
 		addMessage() {
 			this.$modal.show('addMessageModal');
 		},
-		saveMessage() {
+		saveMessage(chatroom) {
+			
 			this.validateForm('add_message_form').then((valid) => {
 				if (valid) {
 					//call api and update field
 					this.axios
 						.post(
-							'/api/add-message',
+							'/api/add-message/'+this.$route.params[0],
 							{
-								classroom_id: this.routeClassroomId ? this.routeClassroomId :this.selectedClassroomId,
 								content: this.content,
 							}
 						)
 						.then((resp) => {
-							let classroom_name ='';
-							if(this.classrooms && this.classrooms.length){
-								classroom_name = this.classrooms.find(node=>node.id===this.selectedClassroomId)['name'];
-							}else{
-								classroom_name = this.classroomDetail.name;
-							}
+							
 							this.messages.push({
 								'id':resp.data.success.message.id,
 								'content':resp.data.success.message.content,
 								'created_at':resp.data.success.message.created_at,
 								'user_name':this.AuthUser.full_name,
 								'avatar_url':this.AuthUser.avatar_url,
-								'classroom_id': this.routeClassroomId ? this.routeClassroomId :this.selectedClassroomId,
-								'classroom_name':classroom_name,
+								'chatroom_id': this.routeChatroomId ? this.routeChatroomId :this.selectedChatroomId,
 								'total_likes':0,
 								'time':'Just now'});
 							this.$refs.addMessageModal.closeModal();

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Classroom;
+use App\Models\Chatroom;
 use App\Models\Unit;
 use App\Models\ClassroomUser;
 use DB;
@@ -146,21 +147,15 @@ class ClassroomController extends Controller
         ]);
     }
 
-    public function GlobalMessagePage(){
-        $classrooms = \DB::table('classrooms')
-        ->leftJoin('users as usr',function($join){
-            $join->on('usr.id','=','classrooms.teacher_user_id')->where('usr.id','=',Auth::id());
-        })
-        ->leftJoin('classroom_users as cu',function($join){
-            $join->on('cu.classroom_id','=','classrooms.id')->where('cu.user_id','=',Auth::id());
-        })
-        ->where('usr.id','!=',null)
-        ->orWhere('cu.id','!=',null)
-        ->select('classrooms.id','classrooms.name')
+    public function GlobalMessagePage($chatroomId){
+        $chatrooms = DB::table('chatrooms as ch')
+        ->leftjoin('users as us','us.id','=','ch.created_by_user_id')
+        ->select('ch.id','ch.chatroom_name','us.id as user_id')
         ->get();
-
-        return inertia('classroom/messages')
-        ->with('classrooms',$classrooms);
+        return inertia('classroom/messages',[
+            'chatroomId' => $chatroomId,
+            'chatrooms' =>$chatrooms
+        ]);
     }
     public function classmates()
     {

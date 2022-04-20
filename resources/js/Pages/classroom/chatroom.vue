@@ -101,7 +101,7 @@
             class="col-md-4 mb-2"
           >
             <router-link
-              :href="'/messages/'"
+              :href="'/messages/'+chatroom.id"
               class="card rounded-lg pt-3 pb-3 bg-light text-center"
             >
               <div style="text-align: -webkit-center;">
