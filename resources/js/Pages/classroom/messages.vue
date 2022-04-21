@@ -38,7 +38,7 @@
           class="row"
         >
           <div class="col-md-12">
-            <div class="">
+            <div class="row">
               <div class="col-md-3 col-12 pl-0">
                 <div class="mt-2 mb-2">
                   <button
@@ -51,7 +51,27 @@
                   </button>
                 </div>
               </div>
-              <div class="col-md-3 col-12" />
+              <div class="col-md-3 col-12">
+                <div class="social-network_singlepage">
+                  <h5 class="social_icon_text">
+                    Share
+                  </h5>
+                  <social-sharing
+                    :url="
+                      'http://localhost:8000/get-started?chatroomId=Uuid' 
+                    "
+                    inline-template
+                  >
+                    <div class="post_content_social">
+                      <network network="whatsapp">
+                        <p class="post_content_social_icon">
+                          <i class="fab fa-whatsapp" />
+                        </p>
+                      </network>
+                    </div>
+                  </social-sharing>
+                </div>
+              </div>
             </div>
             <modal
               ref="editMessageModal"
@@ -178,6 +198,7 @@ import ProfileImage from '../../components/ProfileImage.vue';
 import Modal from '../../components/VueNiceModal.vue';
 import ClassroomHeader from '../../components/ClassroomHeader';
 import InteractionComponent from '../common/InteractionComponent';
+import SocialSharing from 'vue-social-sharing';
 
 export default {
 	components: {
@@ -186,9 +207,10 @@ export default {
 		ProfileImage,
 		Modal,
 		InteractionComponent,
+		SocialSharing,
 	},
 	mixins: [FormMixin],
-	props:['chatroomId','chatrooms'],
+	props:['chatroomId','chatrooms','chatId'],
 	data() {
 		return {
 			routeChatroomId: null,

@@ -13883,19 +13883,14 @@ h2.banner_title {
   color: #000 !important;
 }
 
-.ti-new-tag-input {
-  line-height: 1.6em !important;
+.vue-tags-input {
+  max-width: inherit !important;
 }
 
-.ti-input {
-  font-size: 14px !important;
-  font-weight: 400 !important;
-  border: 1px solid #bdbdbd !important;
-  border-radius: 0.25rem !important;
-}
-
-.ti-new-tag-input.focus-visible {
-  border: 0 !important;
+.ti-tags {
+  min-height: 2em;
+  line-height: 2em !important;
+  font-size: 1em !important;
 }
 
 .user_img_dash img {

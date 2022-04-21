@@ -13,34 +13,9 @@
           <hr>
         </div>
       </div>
-      <div
-        v-if="!AuthUser.preferred_institute_id"
-        class="col-md-12"
-      >
-        <div class="row">
-          <div class="col-md-8 col-12">
-            <p class="text-blue weight-600 mb-2 mt-3">
-              Enter your preferred institute name to add chatroom or to see chatroom.
-            </p>
-            <select-institute v-model="selected_institute" />
-          </div>
-          <div class="col-md-8 col-12">
-            <button
-              v-if="isCourseValid"
-              type="button"
-              class="btn btn-md btn-primary mt-1"
-              @click="submitCourse"
-            >
-              Submit
-            </button>
-          </div>
-        </div>
-      </div>
+     
         
-      <div 
-        v-if="AuthUser.preferred_institute_id"
-        class=""
-      >
+      <div class="">
         <div class="col-md-3 col-12 pl-0">
           <div class="mt-2 mb-2">
             <button
@@ -92,7 +67,6 @@
       </modal>
       <div v-if="chatrooms.length">
         <div 
-          v-if="AuthUser.preferred_institute_id"
           class="row"
         >
           <div
@@ -110,10 +84,6 @@
                   size="large"
                 />
               </div>
-
-              <h4 class="mt-2 font-weight-normal text-muted">
-                {{ chatroom.institute_name }} 
-              </h4>
               <h3 class="font-weight-bold text-info font-weight-bold">
                 {{ chatroom.chatroom_name }}
               </h3>
@@ -132,34 +102,22 @@
 <script>
 import Modal from '../../components/VueNiceModal.vue';
 import FormMixin from '../../components/mixins/form-mixin.js';
-import SelectInstitute from '../../components/SelectInstitute.vue';
+
+
 export default {
 	components:{
 		Modal,
-		SelectInstitute,
+		
 	},
 	mixins: [FormMixin],
 	data() {
 		return {
-			institute_name: '',
 			showLoader: true,
 			chatroom_name: '',
 			chatrooms:[],
-			canCreateChatroom: false,
-      	selected_institute : {
-				'id': null,
-				'name':'',
-			}
 		};
 	},
-	computed:{
-		isCourseValid(){
-			if(this.selected_institute && this.selected_institute.name){
-				return true;
-			}
-			return false;
-		}
-	},
+	
 	mounted(){
 		this.getchatroom();
 	},
@@ -167,8 +125,7 @@ export default {
 		getchatroom() {
 			this.axios.post('/api/chatroom').then((resp) => {
 				this.chatrooms = resp.data.success.chatrooms;
-        	this.canCreateChatroom=resp.data.success.canCreateChatroom;
-				this.showLoader = false;
+       	this.showLoader = false;
 			});
 		},
     	addChatroom() {
@@ -190,15 +147,6 @@ export default {
 						});
 				}
 			});
-		},
-		submitCourse(){
-			this.axios
-				.put('/api/preferred-institute',{
-					preferred_institute:this.selected_institute,
-				})
-				.then(resp => {
-					window.location.reload();
-				});
 		},
 	}
 };
