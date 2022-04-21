@@ -58,7 +58,7 @@
                   </h5>
                   <social-sharing
                     :url="
-                      'http://localhost:8000/get-started?chatroomId=Uuid' 
+                      'http://localhost:8000/get-started?chatroomId=uuid' 
                     "
                     inline-template
                   >

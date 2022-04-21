@@ -1,17 +1,17 @@
 <?php
 namespace App\Models\Traits;
 
-use Ramsey\Uuid\Uuid as PackageUuid;
+use Ramsey\uuid\uuid as Packageuuid;
 
-trait Uuid
+trait uuid
 {
 
-    public function scopeUuid($query, $uuid)
+    public function scopeuuid($query, $uuid)
     {
-        return $query->where($this->getUuidName(), $uuid);
+        return $query->where($this->getuuidName(), $uuid);
     }
 
-    public function getUuidName()
+    public function getuuidName()
     {
         return property_exists($this, 'uuidName') ? $this->uuidName : 'uuid';
     }
@@ -21,7 +21,7 @@ trait Uuid
         parent::boot();
 
         static::creating(function ($model) {
-            $model->{$model->getUuidName()} = PackageUuid::uuid4()->toString();
+            $model->{$model->getuuidName()} = Packageuuid::uuid4()->toString();
         });
     }
 }

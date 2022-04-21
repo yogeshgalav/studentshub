@@ -15,9 +15,9 @@ class ChatroomController extends Controller
     public function addchatroom(Request $request){
 
         $chatroom =new Chatroom;
-        $chatroom->Uuid =Str::Uuid();
+        $chatroom->uuid =Str::uuid();
         $chatroom->created_by_user_id=Auth::id();
-        $chatroom->chatroom_name =$request->chatroom_name;
+        $chatroom->name =$request->name;
         $chatroom->save();
 
         return response()->json(['success'=>[
@@ -27,7 +27,7 @@ class ChatroomController extends Controller
     public function chatroomDetails(Request $request){
         $chatrooms = DB::table('chatrooms as ch')
          ->leftjoin('users as us','us.id','=','ch.created_by_user_id')
-       ->select('ch.id','ch.chatroom_name','us.id as user_id','ch.Uuid')
+       ->select('ch.id','ch.name','us.id as user_id','ch.uuid')
        ->get();
 
         return response()->json([

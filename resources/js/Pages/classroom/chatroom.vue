@@ -48,7 +48,7 @@
                       <label for="chatroom">Chatroom Name</label>
                       <input
                         id="chatroomName"
-                        v-model="chatroom_name"
+                        v-model="name"
                         v-validate="'required'"
                         name="chatroom"
                         class="form-control"
@@ -80,12 +80,12 @@
             >
               <div style="text-align: -webkit-center;">
                 <profile-image
-                  :user-name="chatroom.chatroom_name"
+                  :user-name="chatroom.name"
                   size="large"
                 />
               </div>
               <h3 class="font-weight-bold text-info font-weight-bold">
-                {{ chatroom.chatroom_name }}
+                {{ chatroom.name }}
               </h3>
             </router-link>
           </div>
@@ -113,7 +113,7 @@ export default {
 	data() {
 		return {
 			showLoader: true,
-			chatroom_name: '',
+			name: '',
 			chatrooms:[],
 		};
 	},
@@ -139,7 +139,7 @@ export default {
 						.post(
 							'/api/add-chatroom',
 							{
-								chatroom_name: this.chatroom_name,
+								name: this.name,
 							}
 						)
 						.then((resp) => {
