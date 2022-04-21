@@ -20,9 +20,8 @@ use Carbon\Carbon;
 class ClassroomMessageController extends Controller
 {
     public function listmessage($chatroomId = null, Request $request){
-        $messagequery = Messages::where('parent_message_id','=',null)
-        ->leftJoin('users as us','us.id','=','messages.sender_user_id')
-        ->leftJoin('classrooms as cs','cs.id','=','messages.chatroom_id')
+        $messagequery = Messages::leftJoin('users as us','us.id','=','messages.sender_user_id')
+        ->leftJoin('chatrooms as cs','cs.id','=','messages.chatroom_id')
         ->leftJoin('likes as li',function($join){
             $join->on('messages.id','=','li.likable_id')->where('li.likable_type','=','App\Models\Messages')->where('li.like_status','=',1);
         })
@@ -31,7 +30,7 @@ class ClassroomMessageController extends Controller
         })
         ->select('messages.id', 'messages.sender_user_id as user_id', 'messages.chatroom_id','messages.content','messages.created_at',
         'us.full_name as user_name','us.avatar_url','uli.like_status as user_like',
-        'cs.name as classroom_name', DB::raw('COUNT(distinct li.user_id) as total_likes'));
+        'cs.name as name', DB::raw('COUNT(distinct li.user_id) as total_likes'));
         
         
         if ($chatroomId) {
@@ -55,8 +54,7 @@ class ClassroomMessageController extends Controller
             'sender_user_id'=>Auth::id(),
             'chatroom_id'=>$chatroom_id,
             'content'=>$request->content,
-            'parent_message_id'=>$request->parent_message_id,
-        ]);
+           ]);
         
      //   ScheduledJob::newMessagesNotification($classroom);
         
@@ -77,12 +75,12 @@ class ClassroomMessageController extends Controller
         return response()->json(['success' => ['message'=>$message]]);
     }
     public function deletemessage(Request $request){
-        $classroom_message = Messages::findOrFail($request->message_id);
-        if($classroom_message->sender_user_id!==Auth::id()){
+        $message = Messages::findOrFail($request->message_id);
+        if($message->sender_user_id!==Auth::id()){
             abort(401);
         }
-        Messages::where('parent_message_id',$classroom_message->id)->delete();
-        $classroom_message->delete();
+        Messages::where('parent_message_id',$message->id)->delete();
+        $message->delete();
 
         return response()->json([],204);
     }
