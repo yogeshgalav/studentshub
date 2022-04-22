@@ -210,7 +210,7 @@ export default {
 		SocialSharing,
 	},
 	mixins: [FormMixin],
-	props:['chatroomId','chatrooms','chatId'],
+	props:['chatroomId','chatrooms'],
 	data() {
 		return {
 			routeChatroomId: null,
