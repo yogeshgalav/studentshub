@@ -23,7 +23,6 @@
               class="btn btn-primary btn-lg "
               data-toggle="modal"
               data-target="#addChatroomModal"
-              @click="createChatroom()"
             >
               <i class="fas fa-plus" />&nbsp;&nbsp;Add Chatroom
             </button>
@@ -36,7 +35,7 @@
         name="addChatroomModal"
         class="model-md"
         heading="Add Chatroom"
-        @submit="saveChatroom"
+        @submit="Chatroom"
       >
         <template slot="modalBody">
           <form data-vv-scope="add_chatroom_form">
@@ -110,6 +109,7 @@ export default {
 		
 	},
 	mixins: [FormMixin],
+  // props:['getchatroom'],
 	data() {
 		return {
 			showLoader: true,
@@ -131,23 +131,34 @@ export default {
     	addChatroom() {
 			this.$modal.show('addChatroomModal');
 		},
-    	saveChatroom() {
-			this.validateForm('add_chatroom_form').then((valid) => {
+    Chatroom(){	
+			this.validateForm('add_chatroom_form').then(valid => {
 				if (valid) {
-					//call api and update field
-					this.axios
-						.post(
-							'/api/add-chatroom',
-							{
-								name: this.name,
-							}
-						)
-						.then((resp) => {
-							window.location.href = '/chatroom';
-						});
+					this.saveChatroom();
 				}
 			});
 		},
+    	saveChatroom() {
+        // let loader = this.$loading.show();
+        this.showLoader=true;
+			  	this.axios.post(this.baseUrl + '/api/add-chatroom',{
+    			name: this.name,
+    		})
+            // loader.hide();
+						.then((resp) => {
+              // loader.hide();
+              this.showLoader=false;
+					
+						this.chatrooms.push({
+							name:resp.data.success.chatroom.name,
+						});
+      });
+      this.$refs.addChatroomModal.closeModal();
+      this.clearModalData();
+		},
+    clearModalData(){
+      this.name="";
+		}
 	}
 };
 </script>

@@ -27,7 +27,6 @@ class ChatroomController extends Controller
         $chatroomUser->save();
         return response()->json(['success'=>[
             'chatroom'=> $chatroom,
-            'chatroom'=> $chatroomUser
         ]]);
     } 
     public function chatroomDetails(Request $request){

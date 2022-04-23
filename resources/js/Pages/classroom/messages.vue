@@ -230,10 +230,7 @@ export default {
 	},
 	methods: {
 		getMessages() {
-			let api = '/api/chatroom-messages/';
-			if(this.chatroomId){
-				api = api + this.chatroomId;
-			}
+			let api = '/api/chatroom-messages/'+ this.chatroomId;
 			this.axios.get(api).then((resp) => {
 				this.messages = resp.data.success.messages.map(node=>{
 					node.show_reply= false;
@@ -253,7 +250,7 @@ export default {
 					//call api and update field
 					this.axios
 						.post(
-							'/api/add-message/'+this.$route.params[0],
+							'/api/add-message/'+this.chatroomId,
 							{
 								content: this.content,
 							}
