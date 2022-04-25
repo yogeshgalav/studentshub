@@ -109,7 +109,7 @@ export default {
 		
 	},
 	mixins: [FormMixin],
-  // props:['getchatroom'],
+  
 	data() {
 		return {
 			showLoader: true,
@@ -131,7 +131,7 @@ export default {
     	addChatroom() {
 			this.$modal.show('addChatroomModal');
 		},
-    Chatroom(){	
+		Chatroom(){	
 			this.validateForm('add_chatroom_form').then(valid => {
 				if (valid) {
 					this.saveChatroom();
@@ -139,25 +139,27 @@ export default {
 			});
 		},
     	saveChatroom() {
-        // let loader = this.$loading.show();
-        this.showLoader=true;
+			// let loader = this.$loading.show();
+			this.showLoader=true;
 			  	this.axios.post(this.baseUrl + '/api/add-chatroom',{
     			name: this.name,
     		})
-            // loader.hide();
-						.then((resp) => {
-              // loader.hide();
-              this.showLoader=false;
+			// loader.hide();
+				.then((resp) => {
+					// loader.hide();
+					this.showLoader=false;
 					
-						this.chatrooms.push({
-							name:resp.data.success.chatroom.name,
-						});
-      });
-      this.$refs.addChatroomModal.closeModal();
-      this.clearModalData();
+					this.chatrooms.push({
+						id:resp.data.success.chatroom.id,
+						name:resp.data.success.chatroom.name,
+					});
+				});
+			this.$refs.addChatroomModal.closeModal();
+			this.clearModalData();
 		},
-    clearModalData(){
-      this.name="";
+   
+		clearModalData(){
+			this.name='';
 		}
 	}
 };

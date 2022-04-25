@@ -17,5 +17,7 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::get('/doubt/{doubt}/get-answers','DoubtAnswersController@getDoubtAnswers');
     //chatroom
     Route::post('/add-chatroom','ChatroomController@addChatroom');
+    Route::post('/Update-chatroom','ChatroomController@updateChatroom');
     Route::post('/chatroom','ChatroomController@chatroomDetails');
+    Route::delete('/chatroom/{chatroom}','ChatroomController@delete');
 });
