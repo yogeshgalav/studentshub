@@ -109,6 +109,7 @@ export default {
 		
 	},
 	mixins: [FormMixin],
+	props:['chatroom'],
   
 	data() {
 		return {

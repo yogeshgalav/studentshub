@@ -172,6 +172,13 @@ class StudentController extends Controller
         return inertia('doubt/create-doubt', ['categories' => $categories,'editDoubtDetails' =>$editDoubt]);
     }
     public function ChatroomindexPage(){
-        return inertia('classroom/chatroom');
+        $chatrooms = DB::table('chatrooms as ch')
+        ->leftjoin('users as us','us.id','=','ch.created_by_user_id')
+        ->select('ch.id','ch.name','ch.uuid')
+        ->get();
+        return inertia('classroom/chatroom',
+        [
+            'chatroom' => $chatrooms
+        ]);
     }
 }
