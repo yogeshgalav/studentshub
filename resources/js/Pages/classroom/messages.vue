@@ -39,7 +39,7 @@
         >
           <div class="col-md-12">
             <div class="row">
-              <div class="col-md-3 col-12 pl-0">
+              <div class="col-md-3 col-12">
                 <div class="mt-2 mb-2">
                   <button
                     type="button"
@@ -51,22 +51,22 @@
                   </button>
                 </div>
               </div>
-              <div class="col-md-3 col-12">
-                <div class="social-network_singlepage">
-                  <h5 class="social_icon_text">
-                    Share
-                  </h5>
+              <div class="col-md-3 col-12 mb-2">
+                <div class="row">
                   <social-sharing
                     :url="
                       'http://localhost:8000/get-started?chatroomId=uuid' 
                     "
                     inline-template
                   >
-                    <div class="post_content_social">
+                    <div class="">
                       <network network="whatsapp">
-                        <p class="post_content_social_icon">
-                          <i class="fab fa-whatsapp" />
-                        </p>
+                        <button
+                          type="button"
+                          class="btn btn-success btn-lg "
+                        >
+                          <i class="fab fa-whatsapp" />&nbsp;&nbsp;Share
+                        </button>
                       </network>
                     </div>
                   </social-sharing>
@@ -102,7 +102,7 @@
                 class="card"
               >
                 <div class="card-body">
-                  <div class="col-md-12">
+                  <div class="col-md-10">
                     <p>
                       {{ "Currently no message has been added." }}
                     </p>
