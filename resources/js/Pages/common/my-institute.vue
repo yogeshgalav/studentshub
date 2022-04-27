@@ -163,7 +163,10 @@
             :post-route="'/institute/'+AuthUser.preferred_institute_id"
           >
             <template slot="empty">
+              <img class="img-cs" src="/images/search-not-found.png"/>
+              <p style="text-align:center;">
               Currently no post have been shared in your institute.
+              </p>
             </template>
           </PostContainer>
         </template>
@@ -176,7 +179,10 @@
             :doubt-route="'/course/'+AuthUser.preferred_course_id"
           >
             <template slot="empty">
+              <img class="img-cs" src="/images/search-not-found.png"/>
+              <p style="text-align:center;">
               Currently no doubt have been shared in your institute.
+              </p>
             </template>
           </DoubtContainer>
         </template>

@@ -15708,6 +15708,14 @@ div.nav-login-get-started {
   overflow-y: auto;
 }
 
+.img-cs {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%;
+  height: 40%;
+}
+
 var map = {
 	"./af": "./node_modules/moment/locale/af.js",
 	"./af.js": "./node_modules/moment/locale/af.js",

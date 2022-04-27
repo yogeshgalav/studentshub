@@ -43,12 +43,20 @@
           </template>
           <template slot="tab-heading-subjects">
             {{ 'Subjects' }}
+            
           </template>
           <template slot="tab-panel-subjects">
-            <div
+            <div v-if="!subjects.length" >
+              <img class="img-cs" src="/images/search-not-found.png"/>
+              <p style="text-align:center;">
+                Currently no subject have been shared related to this category.
+              </p>
+              </div>
+            <div 
               v-for="(subject,index) in subjects"
               :key="index"
             >
+            
               <router-link
                 :href="'/subject/'+subject.slug"
                 class="card mt-2"
@@ -59,6 +67,8 @@
               </router-link>
             </div>
           </template>
+          
+
           <template slot="tab-heading-posts">
             {{ 'Posts' }}
           </template>
@@ -69,7 +79,10 @@
               :share-route="'/share-your-knowledge?caId='+categoryId"
             >
               <template slot="empty">
+                  <img class="img-cs" src="/images/search-not-found.png"/>
+                <p style="text-align:center;">
                 Currently no post have been shared related to this category.
+                </p>
               </template>
             </PostContainer>
           </template>
@@ -131,6 +144,7 @@ export default {
 			subjects: [],
 		};
 	},
+
   computed:{
     categoryBlog(){
       if(this.category && this.category.slug){
