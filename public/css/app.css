@@ -11876,11 +11876,6 @@ a.text-dark:focus {
 }
 
 @font-face {
-  font-family: "KrutiDev";
-  src: url(/fonts/krutidev-010-hindi.woff?c35be1c071804b33010a6ac47d43e4b0);
-}
-
-@font-face {
   font-family: "Proxima Nova", sans-serif;
   src: url(/fonts/ProximaNova-Bold.eot?1b598f3438530224e4bc88b900036144);
   src: url(/fonts/ProximaNova-Bold.eot?1b598f3438530224e4bc88b900036144) format("embedded-opentype"), url(/fonts/ProximaNova-Bold.woff2?26507f8e38e05d86d4980f09f01ea66e) format("woff2"), url(/fonts/ProximaNova-Bold.woff?f5a7065fa932ee3cd45bd5b7ae0d1ea3) format("woff");
@@ -13883,14 +13878,19 @@ h2.banner_title {
   color: #000 !important;
 }
 
-.vue-tags-input {
-  max-width: inherit !important;
+.ti-new-tag-input {
+  line-height: 1.6em !important;
 }
 
-.ti-tags {
-  min-height: 2em;
-  line-height: 2em !important;
-  font-size: 1em !important;
+.ti-input {
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  border: 1px solid #bdbdbd !important;
+  border-radius: 0.25rem !important;
+}
+
+.ti-new-tag-input.focus-visible {
+  border: 0 !important;
 }
 
 .user_img_dash img {
@@ -15595,127 +15595,6 @@ div.nav-login-get-started {
   border-right: 3px solid #0052cc;
 }
 
-@media (max-width: 599.98px) {
-  .modal-fullscreen {
-    padding: 0 !important;
-  }
-
-  .modal-fullscreen .modal-dialog {
-    width: 100%;
-    max-width: none;
-    height: 100%;
-    margin: 0;
-  }
-
-  .modal-fullscreen .modal-content {
-    height: 100%;
-    border: 0;
-    border-radius: 0;
-  }
-
-  .modal-fullscreen .modal-body {
-    overflow-y: auto;
-  }
-}
-
-@media (max-width: 799.98px) {
-  .modal-fullscreen-sm {
-    padding: 0 !important;
-  }
-
-  .modal-fullscreen-sm .modal-dialog {
-    width: 100%;
-    max-width: none;
-    height: 100%;
-    margin: 0;
-  }
-
-  .modal-fullscreen-sm .modal-content {
-    height: 100%;
-    border: 0;
-    border-radius: 0;
-  }
-
-  .modal-fullscreen-sm .modal-body {
-    overflow-y: auto;
-  }
-}
-
-@media (max-width: 999.98px) {
-  .modal-fullscreen-md {
-    padding: 0 !important;
-  }
-
-  .modal-fullscreen-md .modal-dialog {
-    width: 100%;
-    max-width: none;
-    height: 100%;
-    margin: 0;
-  }
-
-  .modal-fullscreen-md .modal-content {
-    height: 100%;
-    border: 0;
-    border-radius: 0;
-  }
-
-  .modal-fullscreen-md .modal-body {
-    overflow-y: auto;
-  }
-}
-
-@media (max-width: 1279.98px) {
-  .modal-fullscreen-lg {
-    padding: 0 !important;
-  }
-
-  .modal-fullscreen-lg .modal-dialog {
-    width: 100%;
-    max-width: none;
-    height: 100%;
-    margin: 0;
-  }
-
-  .modal-fullscreen-lg .modal-content {
-    height: 100%;
-    border: 0;
-    border-radius: 0;
-  }
-
-  .modal-fullscreen-lg .modal-body {
-    overflow-y: auto;
-  }
-}
-
-.modal-fullscreen-xl {
-  padding: 0 !important;
-}
-
-.modal-fullscreen-xl .modal-dialog {
-  width: 100%;
-  max-width: none;
-  height: 100%;
-  margin: 0;
-}
-
-.modal-fullscreen-xl .modal-content {
-  height: 100%;
-  border: 0;
-  border-radius: 0;
-}
-
-.modal-fullscreen-xl .modal-body {
-  overflow-y: auto;
-}
-
-.img-cs {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 40%;
-  height: 40%;
-}
-
 var map = {
 	"./af": "./node_modules/moment/locale/af.js",
 	"./af.js": "./node_modules/moment/locale/af.js",
@@ -16007,110 +15886,110 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";var map = {
+webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";/* (ignored) *//* (ignored) */var map = {
 	"./computer": [
 		"./resources/js/Pages/category-blogs/computer.vue",
-		46
+		34
 	],
 	"./computer.vue": [
 		"./resources/js/Pages/category-blogs/computer.vue",
-		46
+		34
 	],
 	"./economics": [
 		"./resources/js/Pages/category-blogs/economics.vue",
-		47
+		35
 	],
 	"./economics.vue": [
 		"./resources/js/Pages/category-blogs/economics.vue",
-		47
+		35
 	],
 	"./education": [
 		"./resources/js/Pages/category-blogs/education.vue",
-		48
+		36
 	],
 	"./education.vue": [
 		"./resources/js/Pages/category-blogs/education.vue",
-		48
+		36
 	],
 	"./healthcare": [
 		"./resources/js/Pages/category-blogs/healthcare.vue",
-		42
+		27
 	],
 	"./healthcare.vue": [
 		"./resources/js/Pages/category-blogs/healthcare.vue",
-		42
+		27
 	],
 	"./hospitality": [
 		"./resources/js/Pages/category-blogs/hospitality.vue",
-		49
+		37
 	],
 	"./hospitality.vue": [
 		"./resources/js/Pages/category-blogs/hospitality.vue",
-		49
+		37
 	],
 	"./management": [
 		"./resources/js/Pages/category-blogs/management.vue",
-		50
+		38
 	],
 	"./management.vue": [
 		"./resources/js/Pages/category-blogs/management.vue",
-		50
+		38
 	],
 	"./mass-communication": [
 		"./resources/js/Pages/category-blogs/mass-communication.vue",
-		51
+		39
 	],
 	"./mass-communication.vue": [
 		"./resources/js/Pages/category-blogs/mass-communication.vue",
-		51
+		39
 	],
 	"./performing-arts": [
 		"./resources/js/Pages/category-blogs/performing-arts.vue",
-		43
+		28
 	],
 	"./performing-arts.vue": [
 		"./resources/js/Pages/category-blogs/performing-arts.vue",
-		43
+		28
 	],
 	"./science": [
 		"./resources/js/Pages/category-blogs/science.vue",
-		52
+		40
 	],
 	"./science.vue": [
 		"./resources/js/Pages/category-blogs/science.vue",
-		52
+		40
 	],
 	"./social-studies": [
 		"./resources/js/Pages/category-blogs/social-studies.vue",
-		53
+		41
 	],
 	"./social-studies.vue": [
 		"./resources/js/Pages/category-blogs/social-studies.vue",
-		53
+		41
 	],
 	"./sports": [
 		"./resources/js/Pages/category-blogs/sports.vue",
-		54
+		42
 	],
 	"./sports.vue": [
 		"./resources/js/Pages/category-blogs/sports.vue",
-		54
+		42
 	],
 	"./technology": [
 		"./resources/js/Pages/category-blogs/technology.vue",
-		55
+		43
 	],
 	"./technology.vue": [
 		"./resources/js/Pages/category-blogs/technology.vue",
-		55
+		43
 	],
 	"./visual-arts": [
 		"./resources/js/Pages/category-blogs/visual-arts.vue",
-		57
+		44
 	],
 	"./visual-arts.vue": [
 		"./resources/js/Pages/category-blogs/visual-arts.vue",
-		57
+		44
 	]
 };
 function webpackAsyncContext(req) {
@@ -16131,4 +16010,4 @@ webpackAsyncContext.keys = function webpackAsyncContextKeys() {
 	return Object.keys(map);
 };
 webpackAsyncContext.id = "./resources/js/Pages/category-blogs lazy recursive ^\\.\\/.*$";
-module.exports = webpackAsyncContext;/* (ignored) *//* (ignored) */
+module.exports = webpackAsyncContext;

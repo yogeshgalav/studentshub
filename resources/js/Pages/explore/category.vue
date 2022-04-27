@@ -47,7 +47,7 @@
           </template>
           <template slot="tab-panel-subjects">
             <div v-if="!subjects.length" >
-              <img class="img-cs" src="/images/search-not-found.png"/>
+              <img class="search-not-found" src="/images/search-not-found.png"/>
               <p style="text-align:center;">
                 Currently no subject have been shared related to this category.
               </p>
@@ -79,7 +79,7 @@
               :share-route="'/share-your-knowledge?caId='+categoryId"
             >
               <template slot="empty">
-                  <img class="img-cs" src="/images/search-not-found.png"/>
+                  <img class="search-not-found" src="/images/search-not-found.png"/>
                 <p style="text-align:center;">
                 Currently no post have been shared related to this category.
                 </p>

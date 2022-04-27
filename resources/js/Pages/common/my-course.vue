@@ -42,10 +42,13 @@
           <div class="row">
             <div class="col-md-7">
               <div v-if="!subjects.length">
-              <img class="img-cs" src="/images/search-not-found.png" />
-              <p style="text-align:center;">
-                Currently no subject have been shared related to this category.
-              </p>
+                <img
+                  class="search-not-found"
+                  src="/images/search-not-found.png"
+                >
+                <p style="text-align:center;">
+                  Currently no subject have been shared related to this category.
+                </p>
               </div>
               <div 
                 v-for="(subject,index) in subjects"
@@ -72,9 +75,12 @@
             :share-route="'/share-your-knowledge?cId='+AuthUser.preferred_course_id"
           >
             <template slot="empty">
-              <img class="img-cs" src="/images/search-not-found.png"/>
+              <img
+                class="search-not-found"
+                src="/images/search-not-found.png"
+              >
               <p style="text-align:center;">
-              Currently no post have been shared in your course.
+                Currently no post have been shared in your course.
               </p>
             </template>
           </PostContainer>
@@ -88,11 +94,14 @@
             :doubt-route="'/course/'+AuthUser.preferred_course_id"
           >
             <template slot="empty">
-              <div >
-              <img class="img-cs" src="/images/search-not-found.png"/>
+              <div>
+                <img
+                  class="search-not-found"
+                  src="/images/search-not-found.png"
+                >
               </div>
               <p style="text-align:center;">
-              Currently no doubt have been shared in your course.
+                Currently no doubt have been shared in your course.
               </p>
             </template>
           </DoubtContainer>
