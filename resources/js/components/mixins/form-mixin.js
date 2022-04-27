@@ -1,6 +1,5 @@
 import validationRules from './validationRules.js';
 import validationMessages from './validationMessages.js';
-import Vue from 'vue';
 
 var form_fields= [];
 function setFormFieldData(field,rules,formName){
@@ -66,7 +65,7 @@ const FormMixin = {
 									'rule_param':rule_parameter,
 									'form_name':form_field.form_name,
 								});
-							};
+							}
 						}
 					});
 				}catch(e){
