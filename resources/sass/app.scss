@@ -1222,6 +1222,13 @@ i {
     padding: 0;
 }
 
+.search-not-found{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+    height: 40%;
+}
 #custom-search-input .search-query {
     padding-right: 3px;
     padding-right: 4px \9;
@@ -3731,4 +3738,4 @@ div.nav-login-get-started {
       }
     }
   }
-}
+

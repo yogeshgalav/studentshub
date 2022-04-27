@@ -41,7 +41,7 @@ export default {
 		VueTableComponent,
 		Accordion
 	},
-	props:['members'],
+	props:['members','userId'],
 	data() {
 		return {
 			userList:[],
@@ -71,13 +71,14 @@ export default {
 			]
 		};
 	},
-	mounted(){
-    
-		this.axios.get('/api/membership').then(resp=>{
+	mounted(){	
+		let api='/api/membership';
+		if(this.userId){
+			api=api+'/'+this.userId;
+		}
+		this.axios.get(api).then(resp=>{
 			this.userList = resp.data.success.members;
-      
-
-		});
+      		});
     
 	}
 };

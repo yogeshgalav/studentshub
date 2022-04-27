@@ -161,5 +161,7 @@ class User extends Authenticatable
         }
         return true;
     }
-    
+    public function isStaff(){
+        return $this->role==='sthub_staff';
+    }
 }

@@ -39,6 +39,8 @@ class PostController extends Controller
         $post->user_id=Auth::user()->id;
         $post->post_heading=$heading;
         $post->category_id = $data['category_id'];
+        $post->course_id = $data['course_id'] ?? null;
+        $post->classroom_id = $data['classroom_id'] ?? null;
 
         $simple_html_dom = new simple_html_dom;
         $dom = $simple_html_dom->extactImageFiles($data['html_content'], "post-image");
@@ -131,9 +133,10 @@ class PostController extends Controller
     ]]);
   }
 
-    public function getPosts($dashboard_type,$dashboard_id,Request $request){
+    public function getPosts($dashboard_type=null,$dashboard_id=null,Request $request){
         $post_repo=new \App\Post;
         $post_query=$post_repo->getAuthUserPostTabels();
+        $posts=$post_query->orderBy('po.created_at','DESC');
 
         switch($dashboard_type){
           case 'institute':

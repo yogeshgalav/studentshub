@@ -195,7 +195,7 @@ class InstituteController extends Controller
     }
     public function showStudent(User $user)
     {
-        if(!Auth::user()->hasInstituteUserAccess()){
+        if(!Auth::user()->isStaff()){
             abort(401);
         }
         $student_detail=DB::table('users as us')->where('us.id',$user->id)
