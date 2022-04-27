@@ -41,6 +41,12 @@
         <template slot="tab-panel-subjects">
           <div class="row">
             <div class="col-md-7">
+              <div v-if="!subjects.length">
+              <img class="img-cs" src="/images/search-not-found.png" />
+              <p style="text-align:center;">
+                Currently no subject have been shared related to this category.
+              </p>
+              </div>
               <div 
                 v-for="(subject,index) in subjects"
                 :key="index"
@@ -66,7 +72,10 @@
             :share-route="'/share-your-knowledge?cId='+AuthUser.preferred_course_id"
           >
             <template slot="empty">
+              <img class="img-cs" src="/images/search-not-found.png"/>
+              <p style="text-align:center;">
               Currently no post have been shared in your course.
+              </p>
             </template>
           </PostContainer>
         </template>
@@ -79,7 +88,12 @@
             :doubt-route="'/course/'+AuthUser.preferred_course_id"
           >
             <template slot="empty">
+              <div >
+              <img class="img-cs" src="/images/search-not-found.png"/>
+              </div>
+              <p style="text-align:center;">
               Currently no doubt have been shared in your course.
+              </p>
             </template>
           </DoubtContainer>
         </template>
