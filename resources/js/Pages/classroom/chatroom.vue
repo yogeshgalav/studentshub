@@ -177,7 +177,6 @@ export default {
       });
     },
     saveChatroom() {
-      // let loader = this.$loading.show();
       this.showLoader = true;
       this.axios.post(this.baseUrl + "/api/add-chatroom", {
           name: this.name,
