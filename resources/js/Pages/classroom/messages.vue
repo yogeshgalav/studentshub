@@ -7,34 +7,14 @@
         :width="250"
         :is-full-page="true"
       />
-      <classroom-header
-        v-if="routeChatroomId" 
-        title="Message"
-      />
-      <div v-else>
-        <h1>Messages</h1>
+      
+      <div>
+        <h1>{{chatroom.name}}</h1>
         <hr>
       </div>
-      <div
-        v-if="['seeker','student'].includes(AuthUser.role) && !routeChatroomId && !chatrooms.length"
-        class="card mb-2 pl-3"
-      >
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-12">
-              <p class="text-blue weight-600 mb-0">
-                Ask your teachers to share Classroom Join Id with you.
-              </p>
-              <p class="mb-0">
-                You will be able to share messages with your classmates with respect to subjects.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+      
       <div>
-        <div 
-          v-if="routeChatroomId || chatrooms.length"
+        <div
           class="row"
         >
           <div class="col-md-12">
@@ -55,7 +35,7 @@
                 <div class="row">
                   <social-sharing
                     :url="
-                      AuthUser.full_name + ' has invited you to join chatroom '+this.chatrooms.name+' click the link below to join now \n '+ this.baseUrl + '/get-started?chatId=' + this.chatrooms.id
+                      AuthUser.full_name + ' has invited you to join chatroom '+ chatroom.name+' click the link below to join now \n '+ baseUrl + '/get-started?chatId=' + chatroom.id
                     "
                     inline-template
                   >
@@ -210,11 +190,9 @@ export default {
 		SocialSharing,
 	},
 	mixins: [FormMixin],
-	props:['chatroomId','chatrooms'],
+	props:['chatroom'],
 	data() {
 		return {
-			routeChatroomId: null,
-			selectedChatroomId: '',
 			showLoader: true,
 			messages: [],
 			content: '',
@@ -230,7 +208,7 @@ export default {
 	},
 	methods: {
 		getMessages() {
-			let api = '/api/chatroom-messages/'+ this.chatroomId;
+			let api = '/api/chatroom-messages/'+ this.chatroom.id;
 			this.axios.get(api).then((resp) => {
 				this.messages = resp.data.success.messages.map(node=>{
 					node.show_reply= false;
@@ -250,7 +228,7 @@ export default {
 					//call api and update field
 					this.axios
 						.post(
-							'/api/add-message/'+this.chatroomId,
+							'/api/add-message/'+this.chatroom.id,
 							{
 								content: this.content,
 							}
@@ -263,7 +241,7 @@ export default {
 								'created_at':resp.data.success.message.created_at,
 								'user_name':this.AuthUser.full_name,
 								'avatar_url':this.AuthUser.avatar_url,
-								'chatroom_id': this.routeChatroomId ? this.routeChatroomId :this.selectedChatroomId,
+								'chatroom_id': this.chatroom.id,
 								'total_likes':0,
 								'time':'Just now'});
 							this.$refs.addMessageModal.closeModal();

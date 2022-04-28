@@ -148,14 +148,9 @@ class ClassroomController extends Controller
     }
 
     public function GlobalMessagePage($chatroomId, Request $request){
-        $chatrooms = DB::table('chatrooms as ch')
-        ->leftjoin('users as us','us.id','=','ch.created_by_user_id')
-        ->select('ch.id','ch.name','us.id as user_id')
-        ->get();
-       
+        $chatroom = Chatroom::find($chatroomId);
         return inertia('classroom/messages',[
-            'chatroomId' => $chatroomId,
-            'chatrooms' =>$chatrooms
+            'chatroom' =>$chatroom
         ]);
     }
     public function classmates()
