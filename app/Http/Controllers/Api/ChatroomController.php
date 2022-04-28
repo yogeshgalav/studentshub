@@ -29,10 +29,14 @@ class ChatroomController extends Controller
                 'chatroom'=> $chatroom,
             ]]);
     } 
-    public function updateChatroom(Request $request){
-            $chatroom = Chatroom::find($request->chatroom_id);
+    public function updateChatroom($chatroom_id,Request $request){
+       
+            $chatroom = Chatroom::find($chatroom_id);
             $chatroom->name =$request->name;
             $chatroom->save();
+            return response()->json(['success'=>[
+                'chatroom'=> $chatroom,
+            ]]);
     }
     public function chatroomDetails(Request $request){
         $user_id=Auth::id();

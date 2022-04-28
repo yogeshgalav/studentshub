@@ -58,7 +58,7 @@
                   </h5>
                   <social-sharing
                     :url="
-                      'http://localhost:8000/get-started?chatroomId=uuid' 
+                      AuthUser.full_name + ' has invited you to join chatroom '+this.chatrooms.name+' click the link below to join now \n '+ this.baseUrl + '/get-started?chatId=' + this.chatrooms.id
                     "
                     inline-template
                   >

@@ -35,7 +35,7 @@
         name="addChatroomModal"
         class="model-md"
         heading="Add Chatroom"
-        @submit="Chatroom"
+        @submit="handleSubmit()"
       >
         <template slot="modalBody">
           <form data-vv-scope="add_chatroom_form">
@@ -73,6 +73,42 @@
             :key="index"
             class="col-md-4 mb-2"
           >
+          <div class="dropdown d-inline"  >
+                  <button
+                    id="dropdownMenuButton"
+                    class="btn btn-secondary dropdown-toggle p-0"
+                    type="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    <i class="fas fa-ellipsis-v" />
+                  </button>
+                  <div
+                    class="dropdown-menu dropdown-menu-right"
+                    style="min-width: max-content;"
+                    aria-labelledby="dropdownMenuButton"
+                  >
+                    <button
+                      type="button"
+                      class="dropdown-item"
+                      data-placement="top"
+                      title="Edit"
+                      data-toggle="modal"
+                      data-target="#addChatroomModal"
+                      @click="editChatroom(chatroom)"
+                    >Edit</button> 
+                    <button
+                       class="dropdown-item"
+                      type="button"
+                      data-toggle="modal"
+                      data-placement="top"
+                      title="Delete"
+                      @click="deleteChatroom(chatroom)"
+                    >delete</button> 
+                  </div>
+                  </div>
+
             <router-link
               :href="'/messages/'+chatroom.id"
               class="card rounded-lg pt-3 pb-3 bg-light text-center"
@@ -94,74 +130,116 @@
   </div>
 </template>
 <style scoped>
-#profileImage{
-  margin:auto !important;
+#profileImage {
+  margin: auto !important;
 }
 </style>
 <script>
-import Modal from '../../components/VueNiceModal.vue';
-import FormMixin from '../../components/mixins/form-mixin.js';
-
+import Modal from "../../components/VueNiceModal.vue";
+import FormMixin from "../../components/mixins/form-mixin.js";
 
 export default {
-	components:{
-		Modal,
-		
-	},
-	mixins: [FormMixin],
-  
-	data() {
-		return {
-			showLoader: true,
-			name: '',
-			chatrooms:[],
-		};
-	},
-	
-	mounted(){
-		this.getchatroom();
-	},
-	methods:{
-		getchatroom() {
-			this.axios.post('/api/chatroom').then((resp) => {
-				this.chatrooms = resp.data.success.chatrooms;
-       	this.showLoader = false;
-			});
-		},
-    	addChatroom() {
-			this.$modal.show('addChatroomModal');
-		},
-		Chatroom(){	
-			this.validateForm('add_chatroom_form').then(valid => {
-				if (valid) {
-					this.saveChatroom();
-				}
-			});
-		},
-    	saveChatroom() {
-			// let loader = this.$loading.show();
-			this.showLoader=true;
-			  	this.axios.post(this.baseUrl + '/api/add-chatroom',{
-    			name: this.name,
-    		})
-			// loader.hide();
-				.then((resp) => {
-					// loader.hide();
-					this.showLoader=false;
+  components: {
+    Modal,
+  },
+  mixins: [FormMixin],
+  props:['chatroom'],
+  data() {
+    return {
+      showLoader: true,
+      name:'',
+      chatrooms:[],
+    };
+  },
+
+  mounted(){
+    this.getchatroom();
+  },
+  methods: {
+    getchatroom() {
+      this.axios.post("/api/chatroom").then((resp) => {
+        this.chatrooms = resp.data.success.chatrooms;
+        this.showLoader = false;
+      });
+    },
+    addChatroom() {
+      this.$modal.show("addChatroomModal");
+    },
+    handleSubmit() {
+      this.validateForm("add_chatroom_form").then((valid) => {
+        if (valid && this.id) {
+            this.updateChatroom();
+        }
+          else if(valid){
+          console.log("in savechat func");
+            this.saveChatroom();
+        }
+      });
+    },
+    saveChatroom() {
+      // let loader = this.$loading.show();
+      this.showLoader = true;
+      this.axios.post(this.baseUrl + "/api/add-chatroom", {
+          name: this.name,
+        })
+        .then((resp) => {
+          this.showLoader = false;
+          
+            console.log("in else codn");
+						this.chatrooms.push({
+            name: resp.data.success.chatroom.name,
+            id:resp.data.success.chatroom.id,
+						});
 					
-					this.chatrooms.push({
-						id:resp.data.success.chatroom.id,
-						name:resp.data.success.chatroom.name,
-					});
+        });
+      this.$refs.addChatroomModal.closeModal();
+      this.clearModalData();
+    },
+    updateChatroom(){
+      this.showLoader = true;
+      this.axios.post(this.baseUrl + "/api/chatroom/"+this.id, {
+          name: this.name,
+        })
+        .then((resp) => {
+          this.showLoader = false;
+
+            let chatIndex= this.chatrooms.findIndex(el=>el.id===resp.data.success.chatroom.id);
+               this.chatrooms[chatIndex]['name']=resp.data.success.chatroom.name;
+					
+        });
+      this.$refs.addChatroomModal.closeModal();
+      this.clearModalData();
+
+    },
+    editChatroom(chatroom){
+      console.log(chatroom.name,"12");
+      this.name=chatroom.name;
+      this.id=chatroom.id;
+    },
+    deleteChatroom(chatroom){  	
+      console.log(chatroom);
+			let loader = this.$loading.show(); 
+			this.axios.delete('/api/chatroom/'+chatroom.id)
+				.then(resp=>{
+					loader.hide();
+					let index= this.chatrooms.findIndex(el=>el.id===chatroom.id);
+					this.chatrooms.splice(index,1);		
 				});
-			this.$refs.addChatroomModal.closeModal();
-			this.clearModalData();
 		},
-   
-		clearModalData(){
-			this.name='';
-		}
-	}
+    // deleteChatroom(chatroom){
+    //    this.showLoader = true;
+    //    this.axios.delete('/api/chatroom/'+chatroom.chatroom.Id)
+    //    .then(resp=>{
+    //      this.showLoader = false;
+		// 			let index= this.chatroom.findIndex(el=>el.chatroomId===chatroom.chatroomId);
+		// 			this.chatroom.splice(index,1);		
+		// 		});
+    // },
+    clearModalData() {
+      this.name = "";
+      this.id="";
+    },
+  },
 };
 </script>
 
