@@ -9,7 +9,7 @@
       />
       
       <div>
-        <h1>{{chatroom.name}}</h1>
+        <h1>{{ chatroom.name }}</h1>
         <hr>
       </div>
       
@@ -176,14 +176,12 @@ import FormMixin from '../../components/mixins/form-mixin.js';
 // import AddButton from '../../components/AddButton';
 import ProfileImage from '../../components/ProfileImage.vue';
 import Modal from '../../components/VueNiceModal.vue';
-import ClassroomHeader from '../../components/ClassroomHeader';
 import InteractionComponent from '../common/InteractionComponent';
 import SocialSharing from 'vue-social-sharing';
 
 export default {
 	components: {
 		// AddButton,
-		ClassroomHeader,
 		ProfileImage,
 		Modal,
 		InteractionComponent,
