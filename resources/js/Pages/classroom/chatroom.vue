@@ -38,7 +38,7 @@
         @submit="handleSubmit()"
       >
         <template slot="modalBody">
-          <form data-vv-scope="add_chatroom_form">
+          <form validationScope="add_chatroom_form">
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
@@ -137,7 +137,6 @@
 <script>
 import Modal from "../../components/VueNiceModal.vue";
 import FormMixin from "../../components/mixins/form-mixin.js";
-
 export default {
   components: {
     Modal,
@@ -171,7 +170,6 @@ export default {
             this.updateChatroom();
         }
           else if(valid){
-          console.log("in savechat func");
             this.saveChatroom();
         }
       });
@@ -183,8 +181,6 @@ export default {
         })
         .then((resp) => {
           this.showLoader = false;
-          
-            console.log("in else codn");
 						this.chatrooms.push({
             name: resp.data.success.chatroom.name,
             id:resp.data.success.chatroom.id,
@@ -211,12 +207,10 @@ export default {
 
     },
     editChatroom(chatroom){
-      console.log(chatroom.name,"12");
       this.name=chatroom.name;
       this.id=chatroom.id;
     },
-    deleteChatroom(chatroom){  	
-      console.log(chatroom);
+    deleteChatroom(chatroom){  
 			let loader = this.$loading.show(); 
 			this.axios.delete('/api/chatroom/'+chatroom.id)
 				.then(resp=>{
