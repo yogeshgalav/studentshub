@@ -17,10 +17,10 @@
     @if(isset($meta_keywords) && is_string($meta_keywords))
     <meta name="keywords" content="{{ $meta_keywords }}"/>
     @else
-    <meta name="keywords" content="educational, social network, knowledge, interest field, subjects, school, classmates, doubts"/>
+    <meta name="keywords" content="studentshub, studenthub, students hub, student hub, sthub, studenthub.in, sthub.in"/>
     @endif
 
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" href="{{ url('/favicon1.ico') }}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js" async></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet" media>
 <!-- 
