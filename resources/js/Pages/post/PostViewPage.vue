@@ -278,7 +278,7 @@
       </h3>
       <comment-section
         :key="Math.random()"
-        :commentable-id="parseInt($route.params.id)"
+        :commentable-id="post.id"
         :commentable-type="'post'"
         class="comment"
       />
@@ -291,7 +291,7 @@
         <div class="container">
           <div class="row">
             <div
-              v-for="(post, index) in most_liked"
+              v-for="(ps, index) in most_liked"
               :key="index"
               class="col-md-4"
             >
@@ -299,8 +299,8 @@
                 <img
                   alt="Card image cap"
                   class="card-img-top post_img_height"
-                  :data-src="post.image_path"
-                  :src="post.image_path"
+                  :data-src="ps.image_path"
+                  :src="ps.image_path"
                   lazy="loaded"
                 >
                 <div>
@@ -309,27 +309,27 @@
                       <div class="user_name">
                         <div />
                         <p class="username">
-                          {{ post.user_name }}
+                          {{ ps.user_name }}
                         </p>
                       </div>
                       <div class="info-post ml-2">
                         <p class="date text-muted">
-                          {{ post.time }}
+                          {{ ps.time }}
                         </p>
                       </div>
                     </div>
                   </div>
                   <h3 class="card-title mb-1 font-size-16">
                     <a
-                      :href="'/post/' + post.id"
+                      :href="'/post/' + ps.id"
                       class="weight-600 text-black"
                     >
-                      {{ post.heading }}
+                      {{ ps.heading }}
                     </a>
                   </h3>
                   <div class="separator-solid" />
                   <p class="card-text post_des">
-                    {{ post.content }}
+                    {{ ps.content }}
                   </p>
                   <div class="wel_view post_views_sec">
                     <div class="post_view">
@@ -351,7 +351,7 @@
                       </svg>
                       <!-- <i  class="fa fa-eye"></i> --><span
                         class="badge-text"
-                      >{{ post.total_views }}</span>
+                      >{{ ps.total_views }}</span>
                     </div>
                     <div class="post_view">
                       <svg
@@ -372,7 +372,7 @@
                       </svg>
                       <!-- <i  class="fa fa-thumbs-up"></i> --><span
                         class="badge-text"
-                      >{{ post.total_likes }}</span>
+                      >{{ ps.total_likes }}</span>
                     </div>
                   </div>
                 </div>
