@@ -1,5 +1,32 @@
 <template>
   <section class="single_post">
+    <Head>
+      <title>{{ post.post_heading }}</title>
+      <meta
+        name="description"
+        :content="post.post_description"
+      >
+      <meta
+        name="keywords"
+        :content="post.post_description"
+      >
+      <meta
+        property="og:title"
+        :content="post.post_heading"
+      >
+      <meta
+        property="og:type"
+        content="article"
+      >
+      <meta
+        property="og:description"
+        :content="post.post_description"
+      >
+      <meta
+        property="og:image"
+        :content="post.primary_image_path"
+      >
+    </Head>
     <div class="post_view_head">
       <div>
         <a
@@ -103,11 +130,7 @@
             :title="postContent.heading"
             :description="postContent.heading"
             :quote="postContent.heading"
-            :hashtags="
-              postContent.category_name +
-                ', ' +
-                postContent.subject_name
-            "
+            :hashtags="postContent.category_name"
             twitter-user="studentshub"
             inline-template
           >
@@ -278,7 +301,7 @@
       </h3>
       <comment-section
         :key="Math.random()"
-        :commentable-id="post.id"
+        :commentable-id="parseInt(post.id)"
         :commentable-type="'post'"
         class="comment"
       />
@@ -654,6 +677,13 @@ export default {
 			totalLikes:0
 		};
 	},
+	computed: {
+		...mapState({
+			postContent: state => state.common.postView.post_content,
+			most_viewed: state => state.common.postView.most_viewed,
+			most_liked: state => state.common.postView.most_liked
+		})
+	},
 	watch: {
 		postContent(val) {
 			// this.user_like = this.postContent.user_like;
@@ -680,13 +710,6 @@ export default {
 				document.getElementById('post_content').appendChild(div);
 			}		
 		}
-	},
-	computed: {
-		...mapState({
-			postContent: state => state.common.postView.post_content,
-			most_viewed: state => state.common.postView.most_viewed,
-			most_liked: state => state.common.postView.most_liked
-		})
 	},
 	mounted() {
 		this.$store.dispatch('common/getPostContent', this.post.id);
