@@ -31,3 +31,4 @@ Route::get('/category/{category}',  [App\Http\Controllers\Api\CategoryController
 Route::get('/get-categories', 'CategoryController@index');
 Route::post('/add-course','CourseController@createOrUpdate');
 Route::delete('/course/{course}','CourseController@delete');
+Route::get('/{commentable_type}/{commentable_id}/comment', 'CommentController@get');
