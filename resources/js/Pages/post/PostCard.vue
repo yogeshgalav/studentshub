@@ -38,13 +38,13 @@
                       @click="copyLink(post.id)"
                     >Copy Link</button> 
                     <button
-                      v-if="post.user_id===AuthUser.id"
+                      v-if="post.user_id===AuthUserId"
                       type="button"
                       class="dropdown-item"
                       @click="editPost(post.id)"
                     >Edit</button> 
                     <button
-                      v-if="post.user_id===AuthUser.id"
+                      v-if="post.user_id===AuthUserId"
                       type="button"
                       class="dropdown-item"
                       @click="deletePost(post.id)"
@@ -129,7 +129,7 @@
           :total-likes="post.total_likes"
           :likable-id="post.id"
           likable-type="post"
-          :edit-access="post.user_id===AuthUser.id"
+          :edit-access="post.user_id===AuthUserId"
         />
       </div>
     </div>
@@ -155,6 +155,11 @@ export default {
 		// ImageSlider
 	},
 	props:['post','doubtType'],
+	computed:{
+		AuthUserId(){
+			return this.AuthUser ? this.AuthUser.id : null;
+		}
+	},
 	methods:{
 		editPost(){
 			this.$gtag('event','editPost',{

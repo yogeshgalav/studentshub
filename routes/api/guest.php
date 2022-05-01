@@ -19,7 +19,7 @@ Route::post('/faq',[App\Http\Controllers\Api\GuestController::class, 'faq']);
 Route::get('/get-explore-posts', 'ExploreController@index');
 
 //search page routes
-Route::get('/search-posts', [App\Http\Controllers\Api\SearchController::class, 'searchPosts']);
+Route::get('/search-posts', [App\Http\Controllers\Api\PostController::class, 'searchPosts']);
 Route::get('/search-course', [App\Http\Controllers\Api\CourseController::class, 'index']);
 Route::get('/search-subject', [App\Http\Controllers\Api\SubjectController::class, 'index']);
 Route::get('/search-institute', [App\Http\Controllers\Api\InstituteController::class, 'index']);

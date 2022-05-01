@@ -106,7 +106,7 @@ class GuestController extends Controller
 
     public function searchPage(Request $request)
     {
-        return inertia('explore/search',[
+        return inertia('common/search',[
             'searchQuery' => $request->qu
         ]);
     }
