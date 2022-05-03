@@ -200,11 +200,6 @@
     </div>
   </div>
 </template>
-<style scoped>
-#dropdownMenuButton{
-  border: none;
-}
-</style>
 <script>
 import FormMixin from '../../components/mixins/form-mixin.js';
 // import AddButton from '../../components/AddButton';
