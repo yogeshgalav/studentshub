@@ -71,9 +71,9 @@
           <div
             v-for="(chatroom, index) in chatrooms"
             :key="index"
-            class="col-md-4 mb-2"
+            class="col-md-10 mb-2"
           >
-            <div class="dropdown d-inline">
+            <!-- <div class="dropdown d-inline">
               <button
                 id="dropdownMenuButton"
                 class="btn btn-secondary dropdown-toggle p-0"
@@ -111,22 +111,70 @@
                   delete
                 </button> 
               </div>
-            </div>
+            </div> -->
 
-            <router-link
-              :href="'/messages/'+chatroom.id"
-              class="card rounded-lg pt-3 pb-3 bg-light text-center"
-            >
-              <div style="text-align: -webkit-center;">
-                <profile-image
-                  :user-name="chatroom.name"
-                  size="large"
-                />
+          
+            <div class="card pt-3 pb-3 bg-light">
+              <div class="d-flex pl-2">
+                <div class="mt-1">
+                  <profile-image
+                
+                    :user-name="chatroom.name"
+                    size="small"
+                  />
+                </div>
+
+                <div class="dash_user_date">
+                  <router-link 
+                    :href="'/messages/'+chatroom.id"
+                  >
+                    <h3 class="ml-2 mb-0 font-weight-bold text-info font-weight-bold">
+                      {{ chatroom.name }}
+                    </h3>
+                  </router-link>
+              
+                  <div class="dropdown d-inline ">
+                    <button
+                      id="dropdownMenuButton"
+                      class="btn btn-secondary dropdown-toggle p-0"
+                      type="button"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      <i class="fas fa-ellipsis-v" />
+                    </button>
+                    <div
+                      class="dropdown-menu dropdown-menu-right"
+                      style="min-width: max-content;"
+                      aria-labelledby="dropdownMenuButton"
+                    >
+                      <button
+                        type="button"
+                        class="dropdown-item"
+                        data-placement="top"
+                        title="Edit"
+                        data-toggle="modal"
+                        data-target="#addChatroomModal"
+                        @click="editChatroom(chatroom)"
+                      >
+                        Edit
+                      </button> 
+                      <button
+                        class="dropdown-item"
+                        type="button"
+                        data-toggle="modal"
+                        data-placement="top"
+                        title="Delete"
+                        @click="deleteChatroom(chatroom)"
+                      >
+                        delete
+                      </button> 
+                    </div>
+                  </div> 
+                </div>
               </div>
-              <h3 class="font-weight-bold text-info font-weight-bold">
-                {{ chatroom.name }}
-              </h3>
-            </router-link>
+            </div>
           </div>
         </div>
       </div>
