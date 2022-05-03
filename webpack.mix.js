@@ -22,6 +22,13 @@ mix
 // .vue({ runtimeOnly: (process.env.NODE_ENV || 'production') === 'production' })
 	.webpackConfig(webpackConfig)
 	.sourceMaps()
+	// .browserSync('http://localhost:8000/')
+	// .options({
+	// 	hmrOptions: {
+	// 		host: 'localhost',
+	// 		port: 8001
+	// 	}
+	// })
 	.disableNotifications();
 
 if (mix.inProduction()) {
