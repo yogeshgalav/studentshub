@@ -38,7 +38,7 @@
         @submit="handleSubmit()"
       >
         <template slot="modalBody">
-          <form data-vv-scope="add_chatroom_form">
+          <form validationScope="add_chatroom_form">
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
