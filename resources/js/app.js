@@ -51,8 +51,9 @@ if(process.env.NODE_ENV === 'production'){
 	Vue.config.debug = false;
 	Vue.config.silent = true;
 	install('G-W2Z76KH2R6');
+}else{
+	install('G-xxxxxxxxxx');
 }
-
 Inertia.on('navigate', (event) => {
 	gtag('event', 'page_view', {
 		'page_location': event.detail.page.url
