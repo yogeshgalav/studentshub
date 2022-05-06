@@ -195,101 +195,84 @@
         <div class="card-header">
           <h4>Teaching details</h4>
         </div>
-
-        <div class="card-body">
-          <div class="row my-auto">
-            <div class="col-sm-4 col-md-6">
-              <h5>Institute name</h5>
-              <label>{{ user.preferred_institute.name }}</label>
-            </div>
-          </div>
-          <div class="row my-auto">
-            <div class="col-sm-4 col-md-6">
-              <h5>Course name</h5>
-              <label>{{ user.preferred_course.course_name }}</label>
-            </div>
-          </div>
-
-          <!-- <div class="row mt-2">
-            <div class="col-sm-4 col-md-6">
-              <h5>Start year</h5>
-              <label>{{ AuthUser.start_year }}</label>
-            </div>
-            <div class="col-sm-4 col-md-6">
-              <h5>End year</h5>
-              <label>{{ AuthUser.end_year }}</label>
-            </div>
-          </div> -->
-
-          <div class="row">
-            <button
-              type="add"
-              class="btn btn-primary mt-3"
-              data-toggle="modal"
-              data-target="#addModal"
-            >
-              <i
-                class="fa fa-pencil"
-              />
-
-              Add
-            </button>&nbsp;
-            <button
-              type="delete"
-              class="btn btn-primary mt-3"
-            >
-              Delete
-            </button>
-          </div>
-        </div>
-      </div>
-      <modal
-        ref="addModal"
-        name="addModal"
-        heading="Add Course Institute"
-        classes="modal-md"
-        @submit="addCourseInstitute"
-      >
-        <template slot="modalBody">
-          <form>
-            <div class="p-10">
-              <div class="form-group">
-                <select-institute
-                  v-model="preferred_institute"
-                />
-              </div>
-              <div class="form-group">
-                <select-course
-                  v-model="preferred_course"
-                />
-              </div>
-            </div>
-          </form>
-        </template>
-      </modal>
-      <!-- fotter for update chnges -->
-      <div
-        v-if="data_updated"
-        class="static-footer"
-      >
-        <div class="col-md-12 mt-2 mb-2">
+        <div>
           <div
-            class="text-right"
+            v-for="(teacher, index) in teachers"
+            :key="index"
+            class="card-body"
           >
-            <button
-              class="btn btn-primary mr-2"
-              type="button"
-              @click="saveProfile"
+            <div class="row my-auto">
+              <div class="col-sm-4 col-md-6">
+                <h5>Institute name</h5>
+                <label>{{ user.preferred_institute.name }}</label>
+              </div>
+            </div>
+            <div class="row my-auto">
+              <div class="col-sm-4 col-md-6">
+                <h5>Course name</h5>
+                <label>{{ user.preferred_course.course_name }}</label>
+              </div>
+            </div>
+            <i class="fa fa-trash" />
+            <hr>
+          </div>
+          <button
+            type="add"
+            class="btn btn-primary mt-3"
+            data-toggle="modal"
+            data-target="#addModal"
+          >
+            Add
+          </button>
+        </div>
+        <modal
+          ref="addModal"
+          name="addModal"
+          heading="Add Course Institute"
+          classes="modal-md"
+          @submit="addCourseInstitute"
+        >
+          <template slot="modalBody">
+            <form>
+              <div class="p-10">
+                <div class="form-group">
+                  <select-institute
+                    v-model="preferred_institute"
+                  />
+                </div>
+                <div class="form-group">
+                  <select-course
+                    v-model="preferred_course"
+                  />
+                </div>
+              </div>
+            </form>
+          </template>
+        </modal>
+        <!-- fotter for update chnges -->
+        <div
+          v-if="data_updated"
+          class="static-footer"
+        >
+          <div class="col-md-12 mt-2 mb-2">
+            <div
+              class="text-right"
             >
-              Update
-            </button>
-            <button
-              type="button"
-              class="btn btn-secondary"
-              @click="discard"
-            >
-              Discard
-            </button>
+              <button
+                class="btn btn-primary mr-2"
+                type="button"
+                @click="saveProfile"
+              >
+                Update
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                @click="discard"
+              >
+                Discard
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -319,6 +302,11 @@ export default {
 	props:['user'],
 	data() {
 		return {
+      	teachers:{
+				preferred_institute:'',
+				preferred_course:''
+
+			},
 			image:{},
 			profile_image_url:'',
 			errors:{
@@ -334,7 +322,6 @@ export default {
 				insta_url: '',
 				linked_url: '',
 			},
-			institute_name:'',
 			preferred_institute:{
 				id:null,
 				name:'',
