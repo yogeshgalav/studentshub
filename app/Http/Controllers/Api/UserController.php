@@ -108,8 +108,8 @@ class UserController extends Controller
         $me = $request->user('api');
         $teacher = new Teacher();
         $teacher->user_id = $me->id;
-        $teacher->course_id = $request->preferred_course;
-        $teacher->institute_id = $request->preferred_institute;
+        $teacher->course_id = Course::getFirstOrCreateId($request->preferred_course);
+        $teacher->institute_id = Course::getFirstOrCreateId($request->preferred_course);
         $teacher->save();
     }
     public function setPreferredCourse(Request $request){
