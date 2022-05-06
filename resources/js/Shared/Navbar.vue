@@ -80,13 +80,24 @@
             </div>
           </div>
 
-          <div class="dropdown">
+          <div>
             <router-link
               href="/notifications"
               class="headerBellIcon btn"
             >
               <i
                 class="far fa-bell notification-icon"
+                style="margin-top:4px"
+              />
+            </router-link>
+          </div>
+          <div>
+            <router-link
+              href="/chatroom"
+              class="headerBellIcon btn"
+            >
+              <i
+                class="far fa-comment-dots notification-icon"
                 style="margin-top:4px"
               />
             </router-link>
