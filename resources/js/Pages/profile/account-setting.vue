@@ -146,7 +146,7 @@
 
       <!-- education details -->
       <div
-        v-if="AuthStudent"
+        v-if="AuthUser.role==='student'"
         class="card mt-3 mb-6"
       >
         <div class="card-header">
@@ -157,22 +157,22 @@
           <div class="row my-auto">
             <div class="col-sm-4 col-md-6">
               <h5>Course name</h5>
-              <label>{{ AuthStudent.courseName }}</label>
+              <label>{{ AuthUser.courseName }}</label>
             </div>
             <div class="col-sm-4 col-md-6">
               <h5>Institute name</h5>
-              <label>{{ AuthStudent.instituteName }}</label>
+              <label>{{ AuthUser.instituteName }}</label>
             </div>
           </div>
 
           <div class="row mt-2">
             <div class="col-sm-4 col-md-6">
               <h5>Start year</h5>
-              <label>{{ AuthStudent.start_year }}</label>
+              <label>{{ AuthUser.start_year }}</label>
             </div>
             <div class="col-sm-4 col-md-6">
               <h5>End year</h5>
-              <label>{{ AuthStudent.end_year }}</label>
+              <label>{{ AuthUser.end_year }}</label>
             </div>
           </div>
 
@@ -187,6 +187,86 @@
         </div>
       </div>
 
+      <!--teaching details -->
+      <div
+        v-if="AuthUser.role==='teacher'"
+        class="card mt-3 mb-6"
+      >
+        <div class="card-header">
+          <h4>Teaching details</h4>
+        </div>
+
+        <div class="card-body">
+          <div class="row my-auto">
+            <div class="col-sm-4 col-md-6">
+              <h5>Institute name</h5>
+              <label>{{ user.preferred_institute.name }}</label>
+            </div>
+          </div>
+          <div class="row my-auto">
+            <div class="col-sm-4 col-md-6">
+              <h5>Course name</h5>
+              <label>{{ user.preferred_course.course_name }}</label>
+            </div>
+          </div>
+
+          <!-- <div class="row mt-2">
+            <div class="col-sm-4 col-md-6">
+              <h5>Start year</h5>
+              <label>{{ AuthUser.start_year }}</label>
+            </div>
+            <div class="col-sm-4 col-md-6">
+              <h5>End year</h5>
+              <label>{{ AuthUser.end_year }}</label>
+            </div>
+          </div> -->
+
+          <div class="row">
+            <button
+              type="add"
+              class="btn btn-primary mt-3"
+              data-toggle="modal"
+              data-target="#addModal"
+            >
+              <i
+                class="fa fa-pencil"
+              />
+
+              Add
+            </button>&nbsp;
+            <button
+              type="delete"
+              class="btn btn-primary mt-3"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+      <modal
+        ref="addModal"
+        name="addModal"
+        heading="Add Course Institute"
+        classes="modal-md"
+        @submit="addCourseInstitute"
+      >
+        <template slot="modalBody">
+          <form>
+            <div class="p-10">
+              <div class="form-group">
+                <select-institute
+                  v-model="preferred_institute"
+                />
+              </div>
+              <div class="form-group">
+                <select-course
+                  v-model="preferred_course"
+                />
+              </div>
+            </div>
+          </form>
+        </template>
+      </modal>
       <!-- fotter for update chnges -->
       <div
         v-if="data_updated"
@@ -224,6 +304,7 @@
 </style>
 
 <script>
+import Modal from '../../components/VueNiceModal';
 import FileUpload from 'vue-upload-component';
 import SelectCourse from '../../components/SelectCourse.vue';
 import SelectInstitute from '../../components/SelectInstitute.vue';
@@ -231,6 +312,7 @@ import swal from '../../components/swal';
 export default {
 	components:{
 		FileUpload,
+		Modal,
 		SelectInstitute,
 		SelectCourse
 	},
@@ -252,6 +334,7 @@ export default {
 				insta_url: '',
 				linked_url: '',
 			},
+			institute_name:'',
 			preferred_institute:{
 				id:null,
 				name:'',
@@ -290,6 +373,17 @@ export default {
 		discard(){
 			this.initiateData();
 			this.data_updated = false;
+		},
+    	addCourseInstitute()
+		{
+			let loader = this.$loading.show();
+      	this.axios.post(this.baseUrl + '/api/add-coins',{
+    			preferred_course:this.preferred_course,
+    			preferred_institute:this.preferred_institute,	
+    		} )
+    			.then(resp => {
+    			window.location.reload;
+    			});
 		},
 		async saveProfile() {
 			if(this.profile_data.fb_url && !this.profile_data.fb_url.includes('facebook.com')){

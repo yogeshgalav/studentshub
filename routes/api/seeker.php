@@ -17,6 +17,8 @@ Route::group(['middleware' => ['auth:api']], function () {
         //profile
     Route::get('/get-profile','UserController@getProfile');
     Route::post('/save-profile', 'UserController@saveProfile');
+    Route::post('/add-coins', 'UserController@addCourseInstitute');
+    
     Route::post('/checkin/student', [App\Http\Controllers\Api\StudentController::class, 'create']);
     Route::post('/checkin/teacher', 'InstituteUserController@teacherCheckin');
     Route::get('/search-user', [App\Http\Controllers\Api\SearchController::class, 'searchUser']);

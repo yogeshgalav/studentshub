@@ -45,6 +45,7 @@ class SeekerController extends Controller
         $user = \App\Models\User::where("id",Auth::id())
         ->with(['profile','preferredCourse','preferredInstitute'])
         ->first();
+       
         return inertia('profile/account-setting', [
             'user'=> $user
         ]);

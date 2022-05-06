@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\UserProfile;
 use App\Models\Institute;
 use App\Models\Course;
+use App\Models\Teacher;
 use Auth;
 use DB;
 
@@ -101,6 +102,15 @@ class UserController extends Controller
         return response()->json(['success'=>[
             'profile'=>$profile
         ]]);
+    }
+
+    public function addCourseInstitute(User $user,Request $request){
+        $me = $request->user('api');
+        $teacher = new Teacher();
+        $teacher->user_id = $me->id;
+        $teacher->course_id = $request->preferred_course;
+        $teacher->institute_id = $request->preferred_institute;
+        $teacher->save();
     }
     public function setPreferredCourse(Request $request){
         $me=$request->user('api');

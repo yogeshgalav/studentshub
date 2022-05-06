@@ -17,6 +17,7 @@ class CreateTeachersTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('institute_id')->unsigned()->nullable();
+            $table->integer('course_id')->unsigned()->nullable();
             $table->timestamps();
         });
     }
