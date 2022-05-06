@@ -1,5 +1,12 @@
 <template>
   <div>
+    <Head>
+      <title>{{ course_name }}</title>
+      <meta
+        name="description"
+        :content="course_name"
+      >
+    </Head>
     <h1>{{ course_name }}</h1>
     <hr>
     <nav-tabs
@@ -41,10 +48,11 @@
 import NavTabs from '../../components/NavTabs';
 import PostContainer from '../common/post-container';
 import DoubtContainer from '@/Pages/doubt/doubt-container.vue';
+import { Head } from '@inertiajs/inertia-vue';
 
 export default {
 	components: {
-		NavTabs, PostContainer, DoubtContainer
+		NavTabs, PostContainer, DoubtContainer, Head
 	},
 	props:['courseId'],
 	data() {

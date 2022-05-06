@@ -96,7 +96,7 @@ class InstituteController extends Controller
         ->leftjoin('users','cl.teacher_user_id','=','users.id')
         ->leftjoin('subjects','cl.subject_id','=','subjects.id')
         ->leftjoin('classroom_resources','cl.id','=','classroom_resources.classroom_id')
-        ->leftjoin('classroom_messages','cl.id','=','classroom_messages.classroom_id')
+        ->leftjoin('messages','cl.id','=','messages.classroom_id')
         ->leftjoin('daily_reports','daily_assignments.id','=','daily_reports.daily_assignment_id')
         ->select(DB::raw('COUNT(classroom_resources.id) as total_resources'),
                 'subjects.subject_name as subject_name',

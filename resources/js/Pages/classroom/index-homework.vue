@@ -67,7 +67,7 @@
                       >
                         <button
                           id="dropdownMenuButton"
-                          class="btn btn-secondary dropdown-toggle p-0"
+                          class="btn btn-secondary dropdown-toggle p-0  border-0"
                           type="button"
                           data-toggle="dropdown"
                           aria-haspopup="true"

@@ -208,10 +208,12 @@
   </div>
 </template>
 <script>
-import NavTabs from '../../components/NavTabs.vue';
+import NavTabs from '@/components/NavTabs.vue';
+import CommonLayout from '@/Layouts/CommonLayout.vue';
 import PostCard from '../post/PostCard';
 
 export default {
+	layout:CommonLayout,
 	components:{
 		NavTabs,PostCard,
 	},
@@ -255,7 +257,7 @@ export default {
 		},
 		searchPost(){
 			this.axios.get('/api/search-posts?searchTerm='+this.searchQuery).then((resp)=>{
-				this.posts = resp.data.success.posts.data;
+				this.posts = resp.data.success.posts;
 			});
 		},
 		searchUser(role){

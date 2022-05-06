@@ -6,7 +6,7 @@ function getExtension(filename) {
 
 const validationRules = {
 	required: (value) =>{
-		if(value) return true;
+		if(value && value.toString().trim()) return true;
 		return false;
 	},
 	digits: (value,max) =>{

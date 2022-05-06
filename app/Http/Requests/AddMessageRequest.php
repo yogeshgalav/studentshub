@@ -24,9 +24,8 @@ class AddMessageRequest extends FormRequest
     public function rules()
     {
         return [
-            'classroom_id'=>'required|exists:classrooms,id',
+            'chatroom_id'=>'required|exists:chatrooms,id',
             'content'=>'required',
-            'parent_message_id'=>'nullable',
-        ];
+            ];
     }
 }

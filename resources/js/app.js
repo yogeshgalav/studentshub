@@ -43,15 +43,17 @@ Vue.use(Dayjs, {
 // 	attempt: 1
 // });
 Vue.use(VueAxios, axios);
+const { Inertia } = require('@inertiajs/inertia');
+const { gtag, install } = require('ga-gtag');
+
 if(process.env.NODE_ENV === 'production'){
 	Vue.config.devtools = false;
 	Vue.config.debug = false;
 	Vue.config.silent = true;
+	install('G-W2Z76KH2R6');
+}else{
+	install('G-xxxxxxxxxx');
 }
-
-const { Inertia } = require('@inertiajs/inertia');
-const { gtag, install } = require('ga-gtag');
-install('G-W2Z76KH2R6');
 Inertia.on('navigate', (event) => {
 	gtag('event', 'page_view', {
 		'page_location': event.detail.page.url

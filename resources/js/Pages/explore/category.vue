@@ -1,5 +1,9 @@
 <template>
   <div>
+    <Head>
+      <title>{{ category.name }}</title>
+      <meta name="description" :content="category.name">
+    </Head>
     <div class="row">
       <div class="col-md-10 col-12 text-center">
           <h1>{{ category.name }}</h1>
@@ -123,11 +127,12 @@
 import NavTabs from '../../components/NavTabs';
 import PostContainer from '../common/post-container';
 import CommonLayout from '@/Layouts/CommonLayout';
+import { Head } from '@inertiajs/inertia-vue';
 
 export default {
   layout: CommonLayout,
 	components: {
-		NavTabs, PostContainer
+		NavTabs, PostContainer,Head
 	},
 	props:['categoryId'],
 	data() {

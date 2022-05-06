@@ -1,5 +1,32 @@
 <template>
   <section class="single_post">
+    <Head>
+      <title>{{ post.post_heading }}</title>
+      <meta
+        name="description"
+        :content="post.post_description"
+      >
+      <meta
+        name="keywords"
+        :content="post.post_description"
+      >
+      <meta
+        property="og:title"
+        :content="post.post_heading"
+      >
+      <meta
+        property="og:type"
+        content="article"
+      >
+      <meta
+        property="og:description"
+        :content="post.post_description"
+      >
+      <meta
+        property="og:image"
+        :content="post.primary_image_path"
+      >
+    </Head>
     <div class="post_view_head">
       <div>
         <a
@@ -103,11 +130,7 @@
             :title="postContent.heading"
             :description="postContent.heading"
             :quote="postContent.heading"
-            :hashtags="
-              postContent.category_name +
-                ', ' +
-                postContent.subject_name
-            "
+            :hashtags="postContent.category_name"
             twitter-user="studentshub"
             inline-template
           >
@@ -278,7 +301,7 @@
       </h3>
       <comment-section
         :key="Math.random()"
-        :commentable-id="parseInt($route.params.id)"
+        :commentable-id="parseInt(post.id)"
         :commentable-type="'post'"
         class="comment"
       />
@@ -291,7 +314,7 @@
         <div class="container">
           <div class="row">
             <div
-              v-for="(post, index) in most_liked"
+              v-for="(ps, index) in most_liked"
               :key="index"
               class="col-md-4"
             >
@@ -299,8 +322,8 @@
                 <img
                   alt="Card image cap"
                   class="card-img-top post_img_height"
-                  :data-src="post.image_path"
-                  :src="post.image_path"
+                  :data-src="ps.image_path"
+                  :src="ps.image_path"
                   lazy="loaded"
                 >
                 <div>
@@ -309,27 +332,27 @@
                       <div class="user_name">
                         <div />
                         <p class="username">
-                          {{ post.user_name }}
+                          {{ ps.user_name }}
                         </p>
                       </div>
                       <div class="info-post ml-2">
                         <p class="date text-muted">
-                          {{ post.time }}
+                          {{ ps.time }}
                         </p>
                       </div>
                     </div>
                   </div>
                   <h3 class="card-title mb-1 font-size-16">
                     <a
-                      :href="'/post/' + post.id"
+                      :href="'/post/' + ps.id"
                       class="weight-600 text-black"
                     >
-                      {{ post.heading }}
+                      {{ ps.heading }}
                     </a>
                   </h3>
                   <div class="separator-solid" />
                   <p class="card-text post_des">
-                    {{ post.content }}
+                    {{ ps.content }}
                   </p>
                   <div class="wel_view post_views_sec">
                     <div class="post_view">
@@ -351,7 +374,7 @@
                       </svg>
                       <!-- <i  class="fa fa-eye"></i> --><span
                         class="badge-text"
-                      >{{ post.total_views }}</span>
+                      >{{ ps.total_views }}</span>
                     </div>
                     <div class="post_view">
                       <svg
@@ -372,7 +395,7 @@
                       </svg>
                       <!-- <i  class="fa fa-thumbs-up"></i> --><span
                         class="badge-text"
-                      >{{ post.total_likes }}</span>
+                      >{{ ps.total_likes }}</span>
                     </div>
                   </div>
                 </div>
@@ -654,6 +677,13 @@ export default {
 			totalLikes:0
 		};
 	},
+	computed: {
+		...mapState({
+			postContent: state => state.common.postView.post_content,
+			most_viewed: state => state.common.postView.most_viewed,
+			most_liked: state => state.common.postView.most_liked
+		})
+	},
 	watch: {
 		postContent(val) {
 			// this.user_like = this.postContent.user_like;
@@ -680,13 +710,6 @@ export default {
 				document.getElementById('post_content').appendChild(div);
 			}		
 		}
-	},
-	computed: {
-		...mapState({
-			postContent: state => state.common.postView.post_content,
-			most_viewed: state => state.common.postView.most_viewed,
-			most_liked: state => state.common.postView.most_liked
-		})
 	},
 	mounted() {
 		this.$store.dispatch('common/getPostContent', this.post.id);

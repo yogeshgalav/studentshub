@@ -24,7 +24,7 @@ class EditMessageRequest extends FormRequest
     public function rules()
     {
         return [
-            'message_id'=>'required|exists:classroom_messages,id',
+            'message_id'=>'required|exists:messages,id',
             'content'=>'required',
         ];
     }

@@ -8,6 +8,7 @@ Route::group(['middleware'=>['auth']],function(){
     Route::get('/my-course', 'StudentController@myCoursePage');
     Route::get('/post/{post}/edit','StudentController@editPost');
     Route::get('/classroom/{classroomId}/daily-attempt','StudentController@dailyAssignmentAttemptPage');
+    Route::get('/chatroom', 'StudentController@ChatroomindexPage');
     Route::post('/save-daily-answers','StudentController@saveDailyAnswer');
     Route::get('/more-apps', 'StudentController@moreApps');
     Route::get('/ask-doubt','StudentController@askDoubt');

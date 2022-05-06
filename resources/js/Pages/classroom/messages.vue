@@ -7,40 +7,22 @@
         :width="250"
         :is-full-page="true"
       />
-      <classroom-header
-        v-if="routeClassroomId" 
-        title="Message"
-      />
-      <div v-else>
-        <h1>Messages</h1>
+      
+      <div>
+        <div class="col-md-12">
+          <h1>{{ chatroom.name }}</h1>
+        </div>
         <hr>
       </div>
-      <div
-        v-if="['seeker','student'].includes(AuthUser.role) && !routeClassroomId && !classrooms.length"
-        class="card mb-2 pl-3"
-      >
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-12">
-              <p class="text-blue weight-600 mb-0">
-                Ask your teachers to share Classroom Join Id with you.
-              </p>
-              <p class="mb-0">
-                You will be able to share messages with your classmates with respect to subjects.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+      
       <div>
-        <div 
-          v-if="routeClassroomId || classrooms.length"
-          class="row"
+        <div
+          class=""
         >
           <div class="col-md-12">
-            <div class="">
-              <div class="col-md-3 col-12 pl-0">
-                <div class="mt-2 mb-2">
+            <div class="row">
+              <div class="col-md-3 col-12">
+                <div class="mt-2">
                   <button
                     type="button"
                     class="btn btn-primary btn-lg "
@@ -51,7 +33,27 @@
                   </button>
                 </div>
               </div>
-              <div class="col-md-3 col-12" />
+              <div class="col-md-3 col-12 mb-2 mt-2">
+                <div class="">
+                  <social-sharing
+                    :url="
+                      AuthUser.full_name + ' has invited you to join chatroom '+ chatroom.name+' click the link below to join now \n '+ baseUrl + '/get-started?chatId=' + chatroom.id
+                    "
+                    inline-template
+                  >
+                    <div class="">
+                      <network network="whatsapp">
+                        <button
+                          type="button"
+                          class="btn btn-success btn-lg "
+                        >
+                          <i class="fab fa-whatsapp" />&nbsp;&nbsp;Share
+                        </button>
+                      </network>
+                    </div>
+                  </social-sharing>
+                </div>
+              </div>
             </div>
             <modal
               ref="editMessageModal"
@@ -82,7 +84,7 @@
                 class="card"
               >
                 <div class="card-body">
-                  <div class="col-md-12">
+                  <div class="col-md-10">
                     <p>
                       {{ "Currently no message has been added." }}
                     </p>
@@ -107,9 +109,6 @@
                         <p class="font-size-14 mb-0 dash_user_date">
                           {{ message.user_name }} <span> {{ message.time }} &nbsp; 
                           </span>
-                        </p>
-                        <p class="font-size-14 mb-0">
-                          {{ message.classroom_name }}
                         </p>
                       </div>
                     </div>
@@ -139,37 +138,6 @@
               <template slot="modalBody">
                 <form data-vv-scope="add_message_form">
                   <div class="row">
-                    <div
-                      v-if="classrooms && classrooms.length"
-                      class="col-md-12"
-                    >
-                      <div class="form-group">
-                        <div class="inner-addon left-addon">
-                          <div class="cl_input">
-                            <label for="classroom">Classroom</label>
-                            <select
-                              v-model="selectedClassroomId"
-                              v-validate="'required'"
-                              class="form-control custom-select"
-                              name="classroom"
-                            >
-                              <option
-                                v-for="(classroom, index) in classrooms"
-                                :key="index"
-                                :value="classroom.id"
-                              >
-                                {{ classroom.name }}
-                              </option>
-                            </select>
-
-                            <span class="text-danger">{{
-                              formErrors("add_message_form.classroom")
-                            }}</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
                     <div class="col-md-12">
                       <div class="form-group">
                         <div class="inner-addon left-addon">
@@ -200,33 +168,26 @@
     </div>
   </div>
 </template>
-<style scoped>
-#dropdownMenuButton{
-  border: none;
-}
-</style>
 <script>
 import FormMixin from '../../components/mixins/form-mixin.js';
 // import AddButton from '../../components/AddButton';
 import ProfileImage from '../../components/ProfileImage.vue';
 import Modal from '../../components/VueNiceModal.vue';
-import ClassroomHeader from '../../components/ClassroomHeader';
 import InteractionComponent from '../common/InteractionComponent';
+import SocialSharing from 'vue-social-sharing';
 
 export default {
 	components: {
 		// AddButton,
-		ClassroomHeader,
 		ProfileImage,
 		Modal,
 		InteractionComponent,
+		SocialSharing,
 	},
 	mixins: [FormMixin],
-	props:['classrooms'],
+	props:['chatroom'],
 	data() {
 		return {
-			routeClassroomId: this.$route.params[0],
-			selectedClassroomId: '',
 			showLoader: true,
 			messages: [],
 			content: '',
@@ -236,20 +197,13 @@ export default {
 			},
 		};
 	},
-	computed: {
-		classroomDetail() {
-			return this.$store.state.classroom.classroomDetail;
-		},
-	},
+	
 	mounted() {
 		this.getMessages();
 	},
 	methods: {
 		getMessages() {
-			let api = '/api/get-classroom-messages/';
-			if(this.routeClassroomId){
-				api = api + this.routeClassroomId;
-			}
+			let api = '/api/chatroom-messages/'+ this.chatroom.id;
 			this.axios.get(api).then((resp) => {
 				this.messages = resp.data.success.messages.map(node=>{
 					node.show_reply= false;
@@ -258,36 +212,31 @@ export default {
 				this.showLoader = false;
 			});
 		},
+
 		addMessage() {
 			this.$modal.show('addMessageModal');
 		},
-		saveMessage() {
+		saveMessage(chatroom) {
+			
 			this.validateForm('add_message_form').then((valid) => {
 				if (valid) {
 					//call api and update field
 					this.axios
 						.post(
-							'/api/add-message',
+							'/api/add-message/'+this.chatroom.id,
 							{
-								classroom_id: this.routeClassroomId ? this.routeClassroomId :this.selectedClassroomId,
 								content: this.content,
 							}
 						)
 						.then((resp) => {
-							let classroom_name ='';
-							if(this.classrooms && this.classrooms.length){
-								classroom_name = this.classrooms.find(node=>node.id===this.selectedClassroomId)['name'];
-							}else{
-								classroom_name = this.classroomDetail.name;
-							}
+							
 							this.messages.push({
 								'id':resp.data.success.message.id,
 								'content':resp.data.success.message.content,
 								'created_at':resp.data.success.message.created_at,
 								'user_name':this.AuthUser.full_name,
 								'avatar_url':this.AuthUser.avatar_url,
-								'classroom_id': this.routeClassroomId ? this.routeClassroomId :this.selectedClassroomId,
-								'classroom_name':classroom_name,
+								'chatroom_id': this.chatroom.id,
 								'total_likes':0,
 								'time':'Just now'});
 							this.$refs.addMessageModal.closeModal();
