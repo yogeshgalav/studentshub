@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Alter2CategoriesTable extends Migration
+class CreateMessagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class Alter2CategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::table('categories', function (Blueprint $table) {
-            $table->renameColumn('category_url','slug');
-            //jobs and course will be added accordingly for better enrichment
-            // $table->integer('parent_category_id')->unsigned()->nullable();
+        Schema::create('messages', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('chatroom_id');
+            $table->integer('sender_user_id');
+            $table->text('content');
+            $table->timestamps();
         });
-        
-
     }
 
     /**
@@ -29,6 +29,6 @@ class Alter2CategoriesTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('messages');
     }
 }

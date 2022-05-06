@@ -104,9 +104,8 @@ export default {
         	if(valid){
 					this.axios.post('/api/add-message',
 						{
-							parent_message_id:this.message.id,
 							content:this.reply_text,
-							classroom_id:this.message.classroom_id,
+							chatroom_id:this.message.chatroom_id,
 						}).then((resp)=>{
 						this.replies.push({
 							'id':resp.data.success.message.id,

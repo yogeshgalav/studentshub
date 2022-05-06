@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Classroom;
+use App\Models\User;
+use App\Models\Chatroom;
 use App\Models\ClassroomUser;
-use App\Models\ClassroomMessage;
+use App\Models\Messages;
 use App\Models\ScheduledJob;
 use App\Notifications\MessageAdded;
 use Illuminate\Http\Request;
@@ -17,30 +19,26 @@ use Carbon\Carbon;
 
 class ClassroomMessageController extends Controller
 {
-
-    public function listmessage($classroomId = null){
-        $messagequery = ClassroomMessage::where('parent_message_id','=',null)
-        ->leftJoin('users as us','us.id','=','classroom_messages.sender_user_id')
-        ->leftJoin('classrooms as cs','cs.id','=','classroom_messages.classroom_id')
+    public function listmessage($chatroomId = null, Request $request){
+        $messagequery = Messages::leftJoin('users as us','us.id','=','messages.sender_user_id')
+        ->leftJoin('chatrooms as cs','cs.id','=','messages.chatroom_id')
         ->leftJoin('likes as li',function($join){
-            $join->on('classroom_messages.id','=','li.likable_id')->where('li.likable_type','=','App\Models\ClassroomMessage')->where('li.like_status','=',1);
+            $join->on('messages.id','=','li.likable_id')->where('li.likable_type','=','App\Models\Messages')->where('li.like_status','=',1);
         })
         ->leftJoin('likes as uli',function($join){
-            $join->on('classroom_messages.id','=','uli.likable_id')->where('uli.likable_type','=','App\Models\ClassroomMessage')->where('uli.user_id','=',Auth::id());
+            $join->on('messages.id','=','uli.likable_id')->where('uli.likable_type','=','App\Models\Messages')->where('uli.user_id','=',Auth::id());
         })
-        ->select('classroom_messages.id', 'classroom_messages.sender_user_id as user_id', 'classroom_messages.classroom_id','classroom_messages.content','classroom_messages.created_at',
+        ->select('messages.id', 'messages.sender_user_id as user_id', 'messages.chatroom_id','messages.content','messages.created_at',
         'us.full_name as user_name','us.avatar_url','uli.like_status as user_like',
-        'cs.name as classroom_name', DB::raw('COUNT(distinct li.user_id) as total_likes'));
+        'cs.name as name', DB::raw('COUNT(distinct li.user_id) as total_likes'));
         
         
-        if ($classroomId) {
-            $messagequery = $messagequery->where('classroom_id',$classroomId);
-        } else {
-            $messagequery = $messagequery->whereIn('classroom_id',Auth::user()->getClassroomIds());
+        if ($chatroomId) {
+            $messagequery = $messagequery->where('chatroom_id',$chatroomId);
         }
-        $messages = $messagequery->orderBy('classroom_messages.created_at','DESC')
+        $messages = $messagequery->orderBy('messages.created_at','DESC')
         ->groupBy([
-        'classroom_messages.id', 'classroom_messages.sender_user_id', 'classroom_messages.classroom_id','classroom_messages.content','classroom_messages.created_at',
+        'messages.id', 'messages.sender_user_id', 'messages.chatroom_id','messages.content','messages.created_at',
         'us.full_name','us.avatar_url','cs.name','uli.like_status'])
         ->get();
 
@@ -51,16 +49,14 @@ class ClassroomMessageController extends Controller
             'messages'=>$messages
         ]]);
     }
-    public function addmessage(AddMessageRequest $request){
-        $classroom = Classroom::findOrFail($request->classroom_id);
-
-        $message = ClassroomMessage::create([
+    public function addmessage($chatroom_id,Request $request){
+        $message = Messages::create([
             'sender_user_id'=>Auth::id(),
-            'classroom_id'=>$classroom->id,
+            'chatroom_id'=>$chatroom_id,
             'content'=>$request->content,
-            'parent_message_id'=>$request->parent_message_id,
-        ]);
-        ScheduledJob::newClassroomMessageNotification($classroom);
+           ]);
+        
+     //   ScheduledJob::newMessagesNotification($classroom);
         
         return response()->json(['success'=>[
             'message'=>$message
@@ -68,7 +64,7 @@ class ClassroomMessageController extends Controller
     }
     public function editmessage(EditMessageRequest $request){
         
-        $message=ClassroomMessage::findOrFail($request->message_id);
+        $message=Messages::findOrFail($request->message_id);
         if($message->sender_user_id!==Auth::id()){
             abort(401);
         }
@@ -79,12 +75,12 @@ class ClassroomMessageController extends Controller
         return response()->json(['success' => ['message'=>$message]]);
     }
     public function deletemessage(Request $request){
-        $classroom_message = ClassroomMessage::findOrFail($request->message_id);
-        if($classroom_message->sender_user_id!==Auth::id()){
+        $message = Messages::findOrFail($request->message_id);
+        if($message->sender_user_id!==Auth::id()){
             abort(401);
         }
-        ClassroomMessage::where('parent_message_id',$classroom_message->id)->delete();
-        $classroom_message->delete();
+        Messages::where('parent_message_id',$message->id)->delete();
+        $message->delete();
 
         return response()->json([],204);
     }

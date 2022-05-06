@@ -121,17 +121,17 @@ class ClassroomController extends Controller
         ->leftjoin('users','cl.teacher_user_id','=','users.id')
         ->leftjoin('subjects','cl.subject_id','=','subjects.id')
         ->leftjoin('classroom_resources','cl.id','=','classroom_resources.classroom_id')
-        ->leftjoin('classroom_messages','cl.id','=','classroom_messages.classroom_id')
+        ->leftjoin('messages','cl.id','=','messages.chatroom_id')
         ->leftjoin('daily_reports','daily_assignments.id','=','daily_reports.daily_assignment_id')
         ->select(DB::raw('COUNT(classroom_resources.id) as total_resources'),
                 'subjects.subject_name as subject_name',
                 'users.full_name AS teacher_name',
                 'cl.classroom_join_id as join_id',
-                'cl.id as classroom_id',
+                'cl.id as chatroom_id',
                 'cl.name as classroom_name',
                 DB::raw('COUNT(distinct classroom_users.user_id) AS total_students'),
                 DB::raw('COUNT(distinct daily_assignments.id) AS total_daily_assignments'),
-                DB::raw('COUNT(classroom_messages.id) as total_messages'),
+                DB::raw('COUNT(messages.id) as total_messages'),
                 DB::raw('FORMAT(AVG(daily_reports.marks_obtained),2) as average_score')
                 )
         ->groupBy('cl.id','users.full_name','subjects.subject_name','cl.name','cl.classroom_join_id')
