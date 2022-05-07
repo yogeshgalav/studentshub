@@ -197,23 +197,32 @@
         </div>
         <div>
           <div
-            v-for="(teacher, index) in teachers"
+            v-for="(teacher, index) in teachersDetails"
             :key="index"
             class="card-body"
           >
             <div class="row my-auto">
               <div class="col-sm-4 col-md-6">
                 <h5>Institute name</h5>
-                <label>{{ user.preferred_institute.name }}</label>
+                <label>{{ teachers.institute_name }}</label>
               </div>
             </div>
             <div class="row my-auto">
               <div class="col-sm-4 col-md-6">
                 <h5>Course name</h5>
-                <label>{{ user.preferred_course.course_name }}</label>
+                <label>{{ teachers.course_name }}</label>
               </div>
             </div>
-            <i class="fa fa-trash" />
+            <button
+              class="btn btn-danger btn-sm rounded-0"
+              type="button"
+              data-toggle="tooltip"
+              data-placement="top"
+              title="Delete"
+              @click="deleteTeacherDetails"
+            >
+              <i class="fa fa-trash" />
+            </button>
             <hr>
           </div>
           <button
@@ -230,19 +239,19 @@
           name="addModal"
           heading="Add Course Institute"
           classes="modal-md"
-          @submit="addCourseInstitute"
+          @submit="addTeacherDetails"
         >
           <template slot="modalBody">
             <form>
               <div class="p-10">
                 <div class="form-group">
                   <select-institute
-                    v-model="preferred_institute"
+                    v-model="edit_institute"
                   />
                 </div>
                 <div class="form-group">
                   <select-course
-                    v-model="preferred_course"
+                    v-model="edit_course"
                   />
                 </div>
               </div>
@@ -299,14 +308,10 @@ export default {
 		SelectInstitute,
 		SelectCourse
 	},
-	props:['user'],
+	props:['user','teachers'],
 	data() {
 		return {
-      	teachers:{
-				preferred_institute:'',
-				preferred_course:''
-
-			},
+			teachersDetails:{},
 			image:{},
 			profile_image_url:'',
 			errors:{
@@ -330,11 +335,15 @@ export default {
 				id:null,
 				course_name:'',
 			},
+			edit_institute:'',
+			edit_course:'',
 			data_updated:false,
 		};
 	},
 	mounted(){
-		this.initiateData();
+		 this.initiateData();
+    	this.teachersDetails=this.teachers;
+		console.log(this.teachers); 
 	},
 	methods: {
 		dataUpdated(){
@@ -361,17 +370,28 @@ export default {
 			this.initiateData();
 			this.data_updated = false;
 		},
-    	addCourseInstitute()
+    	addTeacherDetails()
 		{
 			let loader = this.$loading.show();
-      	this.axios.post(this.baseUrl + '/api/add-coins',{
-    			preferred_course:this.preferred_course,
-    			preferred_institute:this.preferred_institute,	
+      	this.axios.post(this.baseUrl + '/api/add-teacherdetails',{
+    			edit_institute:this.edit_institute,	
+				  edit_course:this.edit_course,	
     		} )
     			.then(resp => {
     			window.location.reload;
     			});
 		},
+		deleteTeacherDetails(teacher){
+      	let loader = this.$loading.show();           
+			this.axios.delete('/api/delete-teachersdetails/'+teacher.id)
+				.then(resp=>{
+					loader.hide();
+					let index= this.teachersDetails.findIndex(el=>el.id===this.teachers.id);
+					this.teachersDetails.splice(index,1);		
+				});
+
+		},
+		
 		async saveProfile() {
 			if(this.profile_data.fb_url && !this.profile_data.fb_url.includes('facebook.com')){
 				this.errors.fb_url='This is not valid Facebook url.';

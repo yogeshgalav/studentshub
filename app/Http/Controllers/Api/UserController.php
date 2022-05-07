@@ -103,14 +103,33 @@ class UserController extends Controller
             'profile'=>$profile
         ]]);
     }
-
+    public function index($teacher_id, Request $request)
+    {
+        $teachers=DB::table('teachers as te')
+        ->leftJoin('institutes as inst','inst.id','=','te.institute_id')
+        ->leftJoin('courses as co','co.id','=','te.course_id')
+        ->select(['te.id as teacher_id','institute_id','course_id', 'course_name', 'inst.name as institute_name'])
+        ->get();
+        
+        return response()->json([
+            'success'=>[
+                'teachers'=>$teachers,
+            ]
+        ]);
+    }
+    
     public function addCourseInstitute(User $user,Request $request){
         $me = $request->user('api');
         $teacher = new Teacher();
         $teacher->user_id = $me->id;
-        $teacher->course_id = Course::getFirstOrCreateId($request->preferred_course);
-        $teacher->institute_id = Course::getFirstOrCreateId($request->preferred_course);
+        $teacher->course_id = Course::getFirstOrCreateId($request->edit_course);
+        $teacher->institute_id = Course::getFirstOrCreateId($request->edit_institute);
         $teacher->save();
+    }
+    public function delete($teacher_id){
+        $teacher = Teacher::find($teacher_id);
+        $teacher->each->delete();
+        return 'success';
     }
     public function setPreferredCourse(Request $request){
         $me=$request->user('api');

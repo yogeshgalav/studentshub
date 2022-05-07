@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Doubt;
 use Auth;
-
+use DB;
 class SeekerController extends Controller
 {
     //
@@ -45,9 +45,15 @@ class SeekerController extends Controller
         $user = \App\Models\User::where("id",Auth::id())
         ->with(['profile','preferredCourse','preferredInstitute'])
         ->first();
-       
+        $teachers=DB::table('teachers as te')
+        ->leftJoin('institutes as inst','inst.id','=','te.institute_id')
+        ->leftJoin('courses as co','co.id','=','te.course_id')
+        ->select(['te.id as teacher_id','institute_id','course_id', 'course_name', 'inst.name as institute_name'])
+        ->get();
+      
         return inertia('profile/account-setting', [
-            'user'=> $user
+            'user'=> $user,
+            'teachers'=> $teachers
         ]);
     }
     // public function checkin()
