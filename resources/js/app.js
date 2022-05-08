@@ -1,4 +1,6 @@
-require('./bootstrap');
+import bootstrap from './bootstrap';
+import 'vite/dynamic-import-polyfill';
+import '../sass/app.scss';
 
 import Vue from 'vue';
 import Vuex from 'vuex';
@@ -93,17 +95,43 @@ Vue.mixin(GlobalMixin);
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-createInertiaApp({
-	resolve: name => import(`./Pages/${name}`).then(module=>{
-		if(!module.default.layout){
-			module.default.layout = Layout;
-		}
-		return module.default;
-	}),
-	setup({ el, App, props }) {
-	  new Vue({
-			store,
-			render: h => h(App, props),
-	  }).$mount(el);
-	},
-});
+// createInertiaApp({
+// 	resolve: name => import(`./Pages/${name}`).then(module=>{
+// 		if(!module.default.layout){
+// 			module.default.layout = Layout;
+// 		}
+// 		return module.default;
+// 	}),
+// 	setup({ el, App, props }) {
+// 	  new Vue({
+// 			store,
+// 			render: h => h(App, props),
+// 	  }).$mount(el);
+// 	},
+// });
+ 
+const app = document.getElementById('app');
+ 
+const pages = import.meta.glob('./Pages/**/*.vue');
+ 
+createApp({
+    render: () =>
+        h(InertiaApp, {
+            initialPage: JSON.parse(app.dataset.page),
+            resolveComponent: name => {
+                const importPage = pages[`./Pages/${name}.vue`];
+                if (!importPage) {
+                    throw new Error(`Unknown page ${name}. Is it located under Pages with a .vue extension?`);
+                }
+                return importPage().then(module => {
+					if(!module.default.layout){
+						module.default.layout = Layout;
+					}
+					return module.default;
+				})
+            }
+        }),
+})
+// .mixin({ methods: { route } })
+// .use(InertiaPlugin)
+.mount(app);

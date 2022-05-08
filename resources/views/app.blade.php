@@ -22,13 +22,14 @@
 
     <link rel="icon" href="{{ url('/public/favicon1.ico') }}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js" async></script>
-    <link href="{{ mix('/css/app.css') }}" rel="stylesheet" media>
+    <!-- <link href="{{ mix('/css/app.css') }}" rel="stylesheet" media> -->
 <!-- 
     <script src="https://polyfill.io/v3/polyfill.min.js?features=smoothscroll,NodeList.prototype.forEach,Promise,Object.values,Object.assign" defer></script>
 
     <script src="https://polyfill.io/v3/polyfill.min.js?features=String.prototype.startsWith" defer></script> -->
 
-    <script src="{{ mix('/js/app.js') }}" defer></script>
+    <!-- <script src="{{ mix('/js/app.js') }}" defer></script> -->
+    @vite
 </head>
 <body class="">
     @inertia
