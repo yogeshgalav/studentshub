@@ -99,7 +99,7 @@ export default {
 			
 		},
 		cancel(){
-			this.$emmit('cancel');
+			this.$emit('cancel');
 		}
 	}
 };
