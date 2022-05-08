@@ -31,7 +31,7 @@ mix
 	// })
 	.disableNotifications();
 
-if (mix.inProduction()) {
+if (process.env.APP_ENV!=='local') {
 	mix.version();
 	// mix.extract([
 	//    'vue',

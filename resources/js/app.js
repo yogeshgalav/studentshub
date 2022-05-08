@@ -46,7 +46,7 @@ Vue.use(VueAxios, axios);
 const { Inertia } = require('@inertiajs/inertia');
 const { gtag, install } = require('ga-gtag');
 
-if(process.env.NODE_ENV === 'production'){
+if(process.env.APP_ENV==='production'){
 	Vue.config.devtools = false;
 	Vue.config.debug = false;
 	Vue.config.silent = true;
