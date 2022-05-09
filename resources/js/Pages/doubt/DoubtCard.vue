@@ -121,7 +121,7 @@
         <interaction-component
           :user-like="doubt.user_like ? true : false"
           :total-likes="doubt.total_likes"
-          :likable-id="doubt.id"
+          :likable-id="parseInt(doubt.id)"
           likable-type="doubt"
           :edit-access="doubt.user_id===AuthUser.id"
         />
@@ -149,6 +149,7 @@ export default {
 		// ImageSlider
 	},
 	props:['doubt',],
+ 
 	methods:{
 		editDoubt(){
 			this.$gtag('event','editDoubt',{
