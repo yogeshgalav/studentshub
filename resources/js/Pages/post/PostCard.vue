@@ -40,11 +40,7 @@
                       Copy Link
                     </button>
                     <button
-<<<<<<< HEAD
-                      v-if="post.user_id===AuthUserId"
-=======
                       v-if="post.user_id === AuthUser.id"
->>>>>>> a3644d055c972897ef4f06a855b751d198894ca0
                       type="button"
                       class="dropdown-item"
                       @click="editPost(post.id)"
@@ -52,11 +48,7 @@
                       Edit
                     </button>
                     <button
-<<<<<<< HEAD
-                      v-if="post.user_id===AuthUserId"
-=======
                       v-if="post.user_id === AuthUser.id"
->>>>>>> a3644d055c972897ef4f06a855b751d198894ca0
                       type="button"
                       class="dropdown-item"
                       @click="deletePost(post.id)"
@@ -151,11 +143,7 @@
           :total-likes="post.total_likes"
           :likable-id="post.id"
           likable-type="post"
-<<<<<<< HEAD
-          :edit-access="post.user_id===AuthUserId"
-=======
           :edit-access="post.user_id === AuthUser.id"
->>>>>>> a3644d055c972897ef4f06a855b751d198894ca0
         />
       </div>
     </div>
