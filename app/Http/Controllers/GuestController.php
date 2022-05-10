@@ -59,7 +59,7 @@ class GuestController extends Controller
     {
         $course = \App\Models\Course::where('slug', $course_url)->firstOrFail();
         return inertia('explore/course', [
-            'courseId' => $course->id
+            'course' => $course
         ]);
     }
     public function subjectPage($subject_url)
