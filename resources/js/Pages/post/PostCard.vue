@@ -203,7 +203,6 @@
                 type="button"
                 class="btn btn-white mt-3"
                 data-dismiss="modal"
-                @click="closeModal"
               >
                 {{ 'Cancel' }}
               </button>
