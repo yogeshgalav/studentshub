@@ -63,39 +63,39 @@
                 </div>
                 <div class="mb-2 mt-2">
                   <ul class="social-network social-circle">
-                    <li class="disabled">
+                    <li>
                       <a
                         target="_blank"
                         :href="user.insta_url ? ('https://instagram.com/'+user.insta_url) :'#'"
                         :disabled="user.insta_url ? false:true"
-                        class="icoInstagram"
+                        class="icoInstagram disabled"
                         title="Instagram"
                       ><i class="fab fa-instagram" /></a>
                     </li>
-                    <li class="disabled">
+                    <li>
                       <a
                         target="_blank"
                         :href="user.fb_url ? user.fb_url :'#'"
                         :disabled="user.fb_url ? false:true"
-                        class="icoFacebook"
+                        class="icoFacebook disabled"
                         title="Facebook"
                       ><i class="fab fa-facebook-f" /></a>
                     </li>
-                    <li class="disabled">
+                    <li>
                       <a
                         :href="user.linkedin_url ? user.linkedin_url :'#'"
                         :disabled="user.linkedin_url ? false:true"
                         target="_blank"
-                        class="icoLinkedin"
+                        class="icoLinkedin disabled"
                         title="Linkedin"
                       ><i class="fab fa-linkedin" /></a>
                     </li>
-                    <li class="disabled">
+                    <li>
                       <a
                         target="_blank"
                         :href="user.email ? 'mailto:'+user.email :'#'"
                         :disabled="user.email ? false:true"
-                        class="icoInstagram"
+                        class="icoInstagram disabled"
                         title="Email"
                       ><i class="fa fa-envelope" /></a>
                     </li>

@@ -627,12 +627,10 @@ ul.social-network {
     transition: all 0.8s;
   }
   
-  .social-circle a {
+  .social-circle a.disabled {
     background-color: #808080;
-  }
-  li.disabled {
     pointer-events: none;
-}
+  }
   
   .foote_bottom_ul_amrc {
     list-style-type: none;
