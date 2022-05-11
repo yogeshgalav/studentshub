@@ -221,6 +221,7 @@ export default {
 			show_courses: false,
 			showLoader: false,
 			course_list: [],
+			instituteLoading: false,
 			courseLoading: false,
 			no_course_found: false,
 			selected_institute: {
