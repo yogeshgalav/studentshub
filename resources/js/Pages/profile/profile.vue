@@ -63,7 +63,7 @@
                 </div>
                 <div class="mb-2 mt-2">
                   <ul class="social-network social-circle">
-                    <li>
+                    <li class="disabled">
                       <a
                         target="_blank"
                         :href="user.insta_url ? ('https://instagram.com/'+user.insta_url) :'#'"
@@ -72,7 +72,7 @@
                         title="Instagram"
                       ><i class="fab fa-instagram" /></a>
                     </li>
-                    <li>
+                    <li class="disabled">
                       <a
                         target="_blank"
                         :href="user.fb_url ? user.fb_url :'#'"
@@ -81,7 +81,7 @@
                         title="Facebook"
                       ><i class="fab fa-facebook-f" /></a>
                     </li>
-                    <li>
+                    <li class="disabled">
                       <a
                         :href="user.linkedin_url ? user.linkedin_url :'#'"
                         :disabled="user.linkedin_url ? false:true"
@@ -90,7 +90,7 @@
                         title="Linkedin"
                       ><i class="fab fa-linkedin" /></a>
                     </li>
-                    <li>
+                    <li class="disabled">
                       <a
                         target="_blank"
                         :href="user.email ? 'mailto:'+user.email :'#'"

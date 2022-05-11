@@ -608,10 +608,10 @@ ul.social-network {
   
   .social-circle li a:hover i,
   .triggeredHover {
-    -moz-transform: rotate(360deg);
-    -webkit-transform: rotate(360deg);
-    -ms--transform: rotate(360deg);
-    transform: rotate(360deg);
+    // -moz-transform: rotate(360deg);
+    // -webkit-transform: rotate(360deg);
+    // -ms--transform: rotate(360deg);
+   // transform: rotate(360deg);
     -webkit-transition: all 0.2s;
     -moz-transition: all 0.2s;
     -o-transition: all 0.2s;
@@ -628,8 +628,11 @@ ul.social-network {
   }
   
   .social-circle a {
-    background-color: #333;
+    background-color: #808080;
   }
+  li.disabled {
+    pointer-events: none;
+}
   
   .foote_bottom_ul_amrc {
     list-style-type: none;
@@ -1769,7 +1772,7 @@ h2.banner_title {
     line-height: 38px;
 }
 .social-network a:hover {
-    transform: rotate(360deg);
+  //  transform: rotate(360deg);
     transition: 0.5s linear all;
 }
 .cat_menu_list {
