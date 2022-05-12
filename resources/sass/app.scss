@@ -599,6 +599,7 @@ ul.social-network {
     font-size: 20px;
     line-height: 50px;
     color: #fff;
+    background-color: #191919;
   }
   .social-circle li i {
     margin: 0;
@@ -607,11 +608,11 @@ ul.social-network {
   }
   
   .social-circle li a:hover i,
-  .triggeredHover {
-    // -moz-transform: rotate(360deg);
-    // -webkit-transform: rotate(360deg);
-    // -ms--transform: rotate(360deg);
-   // transform: rotate(360deg);
+  .triggeredHover{
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -ms--transform: rotate(360deg);
+   transform: rotate(360deg);
     -webkit-transition: all 0.2s;
     -moz-transition: all 0.2s;
     -o-transition: all 0.2s;
@@ -1769,8 +1770,9 @@ h2.banner_title {
     font-size: 19px;
     line-height: 38px;
 }
-.social-network a:hover {
-  //  transform: rotate(360deg);
+.social-network a:hover
+ {
+    transform: rotate(360deg);
     transition: 0.5s linear all;
 }
 .cat_menu_list {

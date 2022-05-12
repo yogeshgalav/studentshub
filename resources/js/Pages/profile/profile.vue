@@ -68,7 +68,7 @@
                         target="_blank"
                         :href="user.insta_url ? ('https://instagram.com/'+user.insta_url) :'#'"
                         :disabled="user.insta_url ? false:true"
-                        class="icoInstagram disabled"
+                        :class="['icoInstagram', user.insta_url ? '' :'disabled']"
                         title="Instagram"
                       ><i class="fab fa-instagram" /></a>
                     </li>
@@ -77,7 +77,7 @@
                         target="_blank"
                         :href="user.fb_url ? user.fb_url :'#'"
                         :disabled="user.fb_url ? false:true"
-                        class="icoFacebook disabled"
+                        :class="['icoFacebook', user.fb_url ? '' :'disabled']"
                         title="Facebook"
                       ><i class="fab fa-facebook-f" /></a>
                     </li>
@@ -87,6 +87,7 @@
                         :disabled="user.linkedin_url ? false:true"
                         target="_blank"
                         class="icoLinkedin disabled"
+                        :class="['icoLinkedin', user.linkedin_url ? '' :'disabled']"
                         title="Linkedin"
                       ><i class="fab fa-linkedin" /></a>
                     </li>
@@ -95,7 +96,7 @@
                         target="_blank"
                         :href="user.email ? 'mailto:'+user.email :'#'"
                         :disabled="user.email ? false:true"
-                        class="icoInstagram disabled"
+                        :class="['icoInstagram', user.email ? '' :'disabled']"
                         title="Email"
                       ><i class="fa fa-envelope" /></a>
                     </li>
