@@ -129,12 +129,13 @@
             </router-link>
           </div>
           <p
+            v-if="post.total_reactions"
             class="totalview text-grey mb-0 col-md-4 post_width"
             data-toggle="modal"
             data-target="#viewsModal"
             @click="getViewsInfo()"
           >
-            {{ post.total_views }} people interacted with this post
+            {{ post.total_reactions }} people interacted with this post
           </p>
         </div>
         <hr>
