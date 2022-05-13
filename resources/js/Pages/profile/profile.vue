@@ -86,7 +86,6 @@
                         :href="user.linkedin_url ? user.linkedin_url :'#'"
                         :disabled="user.linkedin_url ? false:true"
                         target="_blank"
-                        class="icoLinkedin disabled"
                         :class="['icoLinkedin', user.linkedin_url ? '' :'disabled']"
                         title="Linkedin"
                       ><i class="fab fa-linkedin" /></a>
