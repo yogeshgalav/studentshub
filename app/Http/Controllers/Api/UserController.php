@@ -127,8 +127,9 @@ class UserController extends Controller
         $teacher->save();
     }
     public function delete($teacher_id){
-        $teacher = Teacher::find($teacher_id);
-        $teacher->each->delete();
+        $teacher=Teacher::findOrFail($teacher_id);
+        $teacher->delete();
+        
         return 'success';
     }
     public function setPreferredCourse(Request $request){

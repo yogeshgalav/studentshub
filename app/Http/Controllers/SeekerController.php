@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Doubt;
+use App\Models\Teacher;
 use Auth;
 use DB;
 class SeekerController extends Controller
@@ -40,7 +41,7 @@ class SeekerController extends Controller
     //         ->with('classroom_count', Auth::user()->joinedClassroomCount())
     //         ->with('course_levels', $course_levels);
     // }
-    public function accountSetting()
+    public function accountSetting(Request $request)
     {
         $user = \App\Models\User::where("id",Auth::id())
         ->with(['profile','preferredCourse','preferredInstitute'])
@@ -50,10 +51,16 @@ class SeekerController extends Controller
         ->leftJoin('courses as co','co.id','=','te.course_id')
         ->select(['te.id as teacher_id','institute_id','course_id', 'course_name', 'inst.name as institute_name'])
         ->get();
-      
+      $teacher=DB::table('teachers as te')
+      ->leftJoin('institutes as inst','inst.id','=','te.institute_id')
+      ->leftJoin('courses as co','co.id','=','te.course_id')
+      ->select(['te.id as teacher_id','institute_id','course_id', 'course_name', 'inst.name as institute_name'])
+      ->first();
+   // $teacher=Teacher::findOrFail($request->id);
         return inertia('profile/account-setting', [
             'user'=> $user,
-            'teachers'=> $teachers
+            'teachers'=> $teachers,
+            'teacher'=>$teacher
         ]);
     }
     // public function checkin()

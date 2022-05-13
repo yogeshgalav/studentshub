@@ -308,7 +308,7 @@ export default {
 		SelectInstitute,
 		SelectCourse
 	},
-	props:['user','teachers'],
+	props:['user','teachers','teacher'],
 	data() {
 		return {
 			teachersDetails:{},
@@ -343,7 +343,6 @@ export default {
 	mounted(){
 		 this.initiateData();
     	this.teachersDetails=this.teachers;
-		console.log(this.teachers); 
 	},
 	methods: {
 		dataUpdated(){
@@ -382,16 +381,16 @@ export default {
     			});
 		},
 		deleteTeacherDetails(teacher){
-      	let loader = this.$loading.show();           
-			this.axios.delete('/api/delete-teachersdetails/'+teacher.id)
+			console.log(teacher.id);
+		  	let loader = this.$loading.show();           
+			this.axios.delete('/api/delete-teachersdetails/'+this.teacher.teacher_id)
 				.then(resp=>{
 					loader.hide();
-					let index= this.teachersDetails.findIndex(el=>el.id===this.teachers.id);
+					let index= this.teachersDetails.findIndex(el=>el.id===this.teacher.teacher_id);
 					this.teachersDetails.splice(index,1);		
 				});
 
 		},
-		
 		async saveProfile() {
 			if(this.profile_data.fb_url && !this.profile_data.fb_url.includes('facebook.com')){
 				this.errors.fb_url='This is not valid Facebook url.';
