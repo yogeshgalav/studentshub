@@ -129,13 +129,10 @@
             </router-link>
           </div>
           <p
-            v-if="post.total_reactions"
+            v-if="post.total_views"
             class="totalview text-grey mb-0 col-md-4 post_width"
-            data-toggle="modal"
-            data-target="#viewsModal"
-            @click="getViewsInfo()"
           >
-            {{ post.total_reactions }} people interacted with this post
+            {{ post.total_views }} people viewed with this post
           </p>
         </div>
         <hr>
@@ -147,95 +144,6 @@
           :edit-access="post.user_id === AuthUser.id"
         />
       </div>
-    </div>
-
-
-    <div
-      id="viewsModal"
-      ref="viewsModal"
-      class="modal fade"
-      role="dialog"
-      tabindex="-1"
-      aria-labelledby="viewsModal"
-      aria-hidden="true"
-      name="viewsModal"
-    >
-      <div
-        class="modal-fullscreen"
-      >
-        <div
-          class="modal-dialog modal-lg"
-        >
-          <!-- Modal content-->
-          <div class="modal-content">
-            <div class="modal-header pt-3 pb-2">
-              <h4 class="weight-800 font-size-18">
-                People who viewd your post
-              </h4>
-              <button
-                type="button"
-                class="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">×</span>
-              </button>
-            </div>
-            <div class="modal-body add-client">
-              <template>
-                <div class="dashboard_post">
-                  <div class="avatar">
-                    <profile-image
-                      :user-name="post.user_name"
-                      :avatar="post.profile_image"
-                    />
-                  </div>
-                  <div class="info-post ml-2 dash_insititue_name">
-                    <p class="font-size-14 mb-0 dash_user_date">
-                      {{ post.user_name }}
-                    </p>
-                  </div>
-                </div>
-              </template>
-            </div>
-            <div class="modal-footer">
-              <button
-                ref="cancelButton"
-                type="button"
-                class="btn btn-white mt-3"
-                data-dismiss="modal"
-              >
-                {{ 'Cancel' }}
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-
-    <!-- <modal
-      ref="viewsModal"
-      name="viewsModal"
-      heading="People who viewd your post"
-      classes="modal-lg"
-    >
-      <template slot="modalBody">
-        <div class="dashboard_post">
-          <div class="avatar">
-            <profile-image
-              :user-name="post.user_name"
-              :avatar="post.profile_image"
-            />
-          </div>
-          <div class="info-post ml-2 dash_insititue_name">
-            <p class="font-size-14 mb-0 dash_user_date">
-              {{ post.user_name }}
-            </p>
-          </div>
-        </div>
-      </template>
-    </modal> -->
     </div>
   </div>
 </template>

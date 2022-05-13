@@ -73,6 +73,9 @@ class Post extends Model
     public function likes(){
         return $this->morphMany(Like::class, 'likable');
     }
+    public function views(){
+        return $this->morphMany(SthubPosts::class, 'action');
+    }
     public function comments()
     {
         return $this->morphMany(Comment::class, 'commentable');
