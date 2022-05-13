@@ -33,8 +33,8 @@ class ClassroomController extends Controller
         }
 
         return inertia('classroom/teacher/create', [
-            'institute_list'=>$institute_list,
-            'course_levels'=>$course_levels
+            'instituteList'=>$institute_list,
+            'courseLevels'=>$course_levels
         ]);
     }
 
