@@ -204,13 +204,13 @@
             <div class="row my-auto">
               <div class="col-sm-4 col-md-6">
                 <h5>Institute name</h5>
-                <label>{{ teachers.institute_name }}</label>
+                <label>{{ teacher.institute_name }}</label>
               </div>
             </div>
             <div class="row my-auto">
               <div class="col-sm-4 col-md-6">
                 <h5>Course name</h5>
-                <label>{{ teachers.course_name }}</label>
+                <label>{{ teacher.course_name }}</label>
               </div>
             </div>
             <button
@@ -377,6 +377,7 @@ export default {
 				  edit_course:this.edit_course,	
     		} )
     			.then(resp => {
+					loader.hide();
     			window.location.reload;
     			});
 		},
