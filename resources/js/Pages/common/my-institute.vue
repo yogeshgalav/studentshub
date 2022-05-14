@@ -254,7 +254,7 @@ export default {
 	methods: {
 		submitCourse(){
 			this.axios
-				.put('/api/preferred-institute',{
+				.put('/api/preferred-courseinstitute',{
 					preferred_institute:this.selected_institute,
 				})
 				.then(resp => {
