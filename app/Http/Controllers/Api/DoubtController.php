@@ -71,7 +71,7 @@ class DoubtController extends Controller
         })
         ->select('cat.id as category_id','cat.name as category_name',
         'us.id as user_id','us.full_name as user_name','us.avatar_url as profile_image',
-        'inst.id','inst.name',
+        'inst.name',
         'doubts.question','doubts.created_at','doubts.id','uli.like_status as user_like',
         DB::raw('COUNT(distinct li.user_id) as total_likes'),
         DB::raw('COUNT(distinct ans.user_id) as total_answers'))

@@ -194,10 +194,10 @@
       >
         <div class="card-header">
           <h4>Teaching details</h4>
-        </div>
+        </div> 
         <div>
           <div
-            v-for="(teacher, index) in teachersDetails"
+            v-for="(teachers, index) in teachersDetails"
             :key="index"
             class="card-body"
           >
@@ -213,6 +213,7 @@
                 <label>{{ teacher.course_name }}</label>
               </div>
             </div>
+          
             <button
               class="btn btn-danger btn-sm rounded-0"
               type="button"
@@ -225,63 +226,63 @@
             </button>
             <hr>
           </div>
-          <button
-            type="add"
-            class="btn btn-primary mt-3"
-            data-toggle="modal"
-            data-target="#addModal"
-          >
-            Add
-          </button>
         </div>
-        <modal
-          ref="addModal"
-          name="addModal"
-          heading="Add Course Institute"
-          classes="modal-md"
-          @submit="addTeacherDetails"
+        <button
+          type="add"
+          class="btn btn-primary mt-3"
+          data-toggle="modal"
+          data-target="#addModal"
         >
-          <template slot="modalBody">
-            <form>
-              <div class="p-10">
-                <div class="form-group">
-                  <select-institute
-                    v-model="edit_institute"
-                  />
-                </div>
-                <div class="form-group">
-                  <select-course
-                    v-model="edit_course"
-                  />
-                </div>
+          Add
+        </button>
+      </div>
+      <modal
+        ref="addModal"
+        name="addModal"
+        heading="Add Course Institute"
+        classes="modal-md"
+        @submit="addTeacherDetails"
+      >
+        <template slot="modalBody">
+          <form>
+            <div class="p-10">
+              <div class="form-group">
+                <select-institute
+                  v-model="edit_institute"
+                />
               </div>
-            </form>
-          </template>
-        </modal>
-        <!-- fotter for update chnges -->
-        <div
-          v-if="data_updated"
-          class="static-footer"
-        >
-          <div class="col-md-12 mt-2 mb-2">
-            <div
-              class="text-right"
-            >
-              <button
-                class="btn btn-primary mr-2"
-                type="button"
-                @click="saveProfile"
-              >
-                Update
-              </button>
-              <button
-                type="button"
-                class="btn btn-secondary"
-                @click="discard"
-              >
-                Discard
-              </button>
+              <div class="form-group">
+                <select-course
+                  v-model="edit_course"
+                />
+              </div>
             </div>
+          </form>
+        </template>
+      </modal>
+      <!-- fotter for update chnges -->
+      <div
+        v-if="data_updated"
+        class="static-footer"
+      >
+        <div class="col-md-12 mt-2 mb-2">
+          <div
+            class="text-right"
+          >
+            <button
+              class="btn btn-primary mr-2"
+              type="button"
+              @click="saveProfile"
+            >
+              Update
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              @click="discard"
+            >
+              Discard
+            </button>
           </div>
         </div>
       </div>
@@ -371,7 +372,8 @@ export default {
 		},
     	addTeacherDetails()
 		{
-			let loader = this.$loading.show();
+			// let loader = this.$loading.show();
+			console.log('in addteacher details');
       	this.axios.post(this.baseUrl + '/api/add-teacherdetails',{
     			edit_institute:this.edit_institute,	
 				  edit_course:this.edit_course,	
