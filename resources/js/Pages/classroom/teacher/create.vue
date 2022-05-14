@@ -29,17 +29,8 @@
                     >
                       <label class="mb-1"> {{ 'Institute name' }} </label>
                       
-                      <auto-complete
-                        :key="'institute'"
-                        v-validate="'required'"
-                        :items="institute_list"
-                        :value="'name'"
-                        name="institute_name"
-                        :is-async="true"
-                        :initial-value="selected_institute"
-                        :is-loading="instituteLoading"
-                        @input="getInstitutes"
-                        @selected="setInstitute"
+                      <select-institute
+                        v-model="selected_institute"
                       />
   
                       <span
@@ -48,19 +39,13 @@
                     </div>
                     <div class="form-group">
                       <label class="mb-1"> {{ 'Classroom Name' }} </label>
+					  
                       <auto-complete
-                        :key="'classroom'"
-                        v-validate="'required'"
                         type="text"
-                        placeholder="2nd Year Section B"
+                        :placeholder="'2nd Year Sections B'"
                         :items="classroom_list"
-                        :value="'name'"
                         name="classroom_name"
-                        :is-async="true"
-                        :initial-value="selected_classroom"
-                        :is-loading="classroomLoading"
-                        @input="getClassrooms"
-                        @selected="setClassrooms"
+                        :value="'name'"
                       />
                       <span
                         class="error"
@@ -71,14 +56,15 @@
                       <auto-complete
                         v-validate="'required'"
                         class="width-100"
-                        :items="courseLevels"
-                        :value="'name'"
-                        name="course_level"
-                        :placeholder="'Select Program Level'"
+                        :items="course_list"
+                        :value="'course_name'"
+                        name="program_name"
+                        :placeholder="'eg. Bachelor of Arts'"
                         :is-async="true"
+                        :create-new-item="false"
                         :is-loading="courseLoading"
                         @input="getCourses"
-                        @selected="setCourses"
+                        @selected="setCourse"
                         @selectNew="setNewCourse"
                       />
                       <span
@@ -206,16 +192,15 @@
 import FormMixin from '../../../components/mixins/form-mixin.js';
 import AutoComplete from '../../../components/AutoComplete.vue';
 import swal from '../../../components/swal';
-
+import SelectInstitute from '../../../components/SelectInstitute.vue';
 export default {
 	components: {
-		AutoComplete,
+		AutoComplete,SelectInstitute,
 	},
 	mixins: [FormMixin],
 	props: ['courseLevels','instituteList'],
 	data() {
 		return {
-			institute_name: '',
 			institute_list: this.instituteList,
 			classroom_name: '',
 			show_courses: false,
@@ -234,6 +219,7 @@ export default {
 				'category_id': ''
 			},
 			subject_list: [],
+			classroom_list:[],
 			subjectLoading: false,
 			selected_subject: {
 				'subject_name': '',
@@ -300,31 +286,6 @@ export default {
 					this.courseLoading = false;
 				});
 
-		},
-		getInstitutes(search) {
-			this.selected_institute = {
-				'id': null,
-				'name': search,
-			};
-			this.instituteLoading = true;
-			this.axios
-				.get(this.baseUrl + '/api/search-institute?searchTerm='+search)
-				.then(resp => {
-					this.institute_list = resp.data.success.institutes;
-					this.institute_list.find(node => {
-						if (node.name.toLowerCase() === this.selected_institute.name.toLowerCase()) {
-							this.selected_institute = node;
-							return true;
-						}
-					});
-					this.instituteLoading = false;
-				}).catch(() => {
-					this.instituteLoading = false;
-				});
-
-		},
-		setInstitute(result) {;
-			this.selected_institute = result;
 		},
 		setCourse(result) {
 			this.selected_course = result;
