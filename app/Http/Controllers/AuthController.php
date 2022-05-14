@@ -64,7 +64,7 @@ class AuthController extends Controller
             return redirect('/leads');
         }
 
-        return redirect('/');
+        return redirect('/profile/'.$user->id);
     }
 
     /**
@@ -106,7 +106,7 @@ class AuthController extends Controller
         Auth::login($user,1);
         Log::info($user->full_name." (User ID # ".$user->id.") registered and logged in from IP Address ".$request->ip());
 
-        $success['redirectUrl'] = '/';
+        $success['redirectUrl'] = '/profile/'.$user->id;
         
         if($chatId){
             ChatroomUser::updateOrCreate([
@@ -131,7 +131,7 @@ class AuthController extends Controller
             return redirect('/get-started')->with('srvError',1);
         }  
 
-        return redirect('/');
+        return redirect('/profile/'.$user->id);
     }
 
     public function registerWithClassrrom($user,$joinId){

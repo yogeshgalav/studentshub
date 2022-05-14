@@ -73,7 +73,7 @@ class AuthController extends Controller
     public function sendOtpVerification($otp,$contact){
         
         $fields = array(
-            "variables_values" => $otp,
+            "variables_values" => $otp . " for getting started with Student's Hub. Enjoy educational networking!",
             "route" => "otp",
             "numbers" => $contact,
         );

@@ -17,9 +17,21 @@ class MoreAppTableSeeder extends Seeder
     {
         //
         MoreApp::insert(array_reverse([[
-            'name'=>'MapCrunch',
+            'name'=>'Map Crunch',
             'description'=>'Miss traveling? You’re not alone! This site gives you a random Google map from anywhere in the world and all you have to do is explore.',
             'link'=>'https://www.mapcrunch.com/'
+        ],[
+            'name'=>'Kick Resume',
+            'description'=>'Here you can find lot of resume with respective to job role. The highlighting feature is, this website shows resumes which got selected by mentioned companies. And you can select the same or build new resume for your own.',
+            'link'=>'http://kickresume.com/en/'
+        ],[
+            'name'=>'Auto Draw',
+            'description'=>'Convert your drawings to perfect drawing.',
+            'link'=>'http://autodraw.com'
+        ],[
+            'name'=>'Deep Art',
+            'description'=>'Turn your photos into a famous art style.',
+            'link'=>'http://deepart.io'
         ],[
             'name'=>'Hacker Typer',
             'description'=>'Want to feel like you’re in The Matrix? Or at least feel like a super cool computer hacker trying to break into some evil lair? Just open up this site and pound the keyboard away!',
