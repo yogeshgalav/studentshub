@@ -131,12 +131,12 @@
                 <div class="model_input">
                   <label>Linkedin Profile Url</label>
                   <input
-                    v-model="profile_data.linked_url"
+                    v-model="profile_data.linkedin_url"
                     class="form-control"
                     type="text"
                     placeholder="http://linked.com/profile-id"
                   >
-                  <span class="text-danger">{{ errors.linked_url }}</span>
+                  <span class="text-danger">{{ errors.linkedin_url }}</span>
                 </div>
               </div>
             </div>
@@ -243,14 +243,14 @@ export default {
 				profile_pic: '',
 				fb_url: '',
 				insta_url: '',
-				linked_url: '',
+				linkedin_url: '',
 			},
 			profile_data: {
 				full_name:'',
 				profile_pic: '',
 				fb_url: '',
 				insta_url: '',
-				linked_url: '',
+				linkedin_url: '',
 			},
 			preferred_institute:{
 				id:null,
@@ -281,7 +281,7 @@ export default {
 					profile_pic: '',
 					fb_url: '',
 					insta_url: '',
-					linked_url: '',
+					linkedin_url: '',
 				};
 			}
 
@@ -300,8 +300,8 @@ export default {
 				this.errors.insta_url='This is not valid Instagram username.';
 				return false;
 			}
-			if(this.profile_data.linked_url &&!this.profile_data.linked_url.includes('linkedin.com')){
-				this.errors.linked_url='This is not valid Linkedin url.';
+			if(this.profile_data.linkedin_url &&!this.profile_data.linkedin_url.includes('linkedin.com')){
+				this.errors.linkedin_url='This is not valid Linkedin url.';
 				return false;
 			}
 			if(this.image.file){
@@ -324,13 +324,13 @@ export default {
 				profile_pic: '',
 				fb_url: '',
 				insta_url: '',
-				linked_url: '',
+				linkedin_url: '',
 			};
 		},
 		setProfile(profile) {
 			this.profile_data.fb_url = profile.fb_url ? profile.fb_url : '';
 			this.profile_data.insta_url = profile.insta_url ? profile.insta_url : '';
-			this.profile_data.linked_url = profile.linked_url ? profile.linked_url : '';
+			this.profile_data.linkedin_url = profile.linkedin_url ? profile.linkedin_url : '';
 		},
 		inputUpdate(files) {
 			this.image = files[0];
