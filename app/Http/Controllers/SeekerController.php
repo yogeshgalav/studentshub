@@ -51,16 +51,15 @@ class SeekerController extends Controller
         ->leftJoin('courses as co','co.id','=','te.course_id')
         ->select(['te.id as teacher_id','institute_id','course_id', 'course_name', 'inst.name as institute_name'])
         ->get();
-      $teacher=DB::table('teachers as te')
-      ->leftJoin('institutes as inst','inst.id','=','te.institute_id')
-      ->leftJoin('courses as co','co.id','=','te.course_id')
-      ->select(['te.id as teacher_id','institute_id','course_id', 'course_name', 'inst.name as institute_name'])
-      ->first();
-   // $teacher=Teacher::findOrFail($request->id);
+        $students=DB::table('students as st')
+        ->leftJoin('institutes as inst','inst.id','=','st.institute_id')
+        ->leftJoin('courses as co','co.id','=','st.course_id')
+        ->select(['st.id as student_id','institute_id','course_id', 'course_name', 'inst.name as institute_name'])
+        ->get();
         return inertia('profile/account-setting', [
             'user'=> $user,
             'teachers'=> $teachers,
-            'teacher'=>$teacher
+            'students'=>$students
         ]);
     }
     // public function checkin()

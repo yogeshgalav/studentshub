@@ -152,27 +152,15 @@
         <div class="card-header">
           <h4>Education details</h4>
         </div>
-
         <div class="card-body">
           <div class="row my-auto">
             <div class="col-sm-4 col-md-6">
               <h5>Course name</h5>
-              <label>{{ AuthUser.courseName }}</label>
+              <label>{{ students[0].course_name }}</label>
             </div>
             <div class="col-sm-4 col-md-6">
               <h5>Institute name</h5>
-              <label>{{ AuthUser.instituteName }}</label>
-            </div>
-          </div>
-
-          <div class="row mt-2">
-            <div class="col-sm-4 col-md-6">
-              <h5>Start year</h5>
-              <label>{{ AuthUser.start_year }}</label>
-            </div>
-            <div class="col-sm-4 col-md-6">
-              <h5>End year</h5>
-              <label>{{ AuthUser.end_year }}</label>
+              <label>{{ students[0].institute_name }}</label>
             </div>
           </div>
 
@@ -186,7 +174,6 @@
           </div>
         </div>
       </div>
-
       <!--teaching details -->
       <div
         v-if="AuthUser.role==='teacher'"
@@ -197,44 +184,51 @@
         </div> 
         <div>
           <div
-            v-for="(teachers, index) in teachersDetails"
+            v-for="(teacher, index) in teachers"
             :key="index"
             class="card-body"
           >
-            <div class="row my-auto">
-              <div class="col-sm-4 col-md-6">
-                <h5>Institute name</h5>
-                <label>{{ teacher.institute_name }}</label>
+            <div class="row">
+              <div class="col-md-10">
+                <div class="row my-auto">
+                  <div class="col-sm-4 col-md-6">
+                    <h5>Institute name</h5>
+                    <label>{{ teacher.institute_name }}</label>
+                  </div>
+                </div>
+                <div class="row my-auto">
+                  <div class="col-sm-4 col-md-6">
+                    <h5>Course name</h5>
+                    <label>{{ teacher.course_name }}</label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <button
+                  class="btn btn-danger btn-sm rounded-0"
+                  type="button"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Delete"
+                  @click="deleteTeacherDetails(teacher)"
+                >
+                  <i class="fa fa-trash" />
+                </button>
               </div>
             </div>
-            <div class="row my-auto">
-              <div class="col-sm-4 col-md-6">
-                <h5>Course name</h5>
-                <label>{{ teacher.course_name }}</label>
-              </div>
-            </div>
-          
-            <button
-              class="btn btn-danger btn-sm rounded-0"
-              type="button"
-              data-toggle="tooltip"
-              data-placement="top"
-              title="Delete"
-              @click="deleteTeacherDetails"
-            >
-              <i class="fa fa-trash" />
-            </button>
             <hr>
           </div>
         </div>
-        <button
-          type="add"
-          class="btn btn-primary mt-3"
-          data-toggle="modal"
-          data-target="#addModal"
-        >
-          Add
-        </button>
+        <div class="col-md-4">
+          <button
+            type="add"
+            class="btn btn-primary btn-md mt-3"
+            data-toggle="modal"
+            data-target="#addModal"
+          >
+            Add
+          </button>
+        </div>
       </div>
       <modal
         ref="addModal"
@@ -242,6 +236,7 @@
         heading="Add Course Institute"
         classes="modal-md"
         @submit="addTeacherDetails"
+        @cancel="clearModalData"
       >
         <template slot="modalBody">
           <form>
@@ -309,7 +304,7 @@ export default {
 		SelectInstitute,
 		SelectCourse
 	},
-	props:['user','teachers','teacher'],
+	props:['user','teachers','students'],
 	data() {
 		return {
 			teachersDetails:{},
@@ -372,23 +367,23 @@ export default {
 		},
     	addTeacherDetails()
 		{
-			// let loader = this.$loading.show();
-			console.log('in addteacher details');
+			 let loader = this.$loading.show();
       	this.axios.post(this.baseUrl + '/api/add-teacherdetails',{
     			edit_institute:this.edit_institute,	
 				  edit_course:this.edit_course,	
     		} )
     			.then(resp => {
-					loader.hide();
-    			window.location.reload;
+				//	loader.hide();
+					window.location.href='/account-settings';
     			});
 		},
 		deleteTeacherDetails(teacher){
-			console.log(teacher.id);
 		  	let loader = this.$loading.show();           
-			this.axios.delete('/api/delete-teachersdetails/'+this.teacher.teacher_id)
+			this.axios.delete('/api/delete-teachersdetails/'+teacher.teacher_id)
 				.then(resp=>{
-					loader.hide();
+				//	loader.hide();
+					//window.location.reload;
+          	window.location.href='/account-settings';
 					let index= this.teachersDetails.findIndex(el=>el.id===this.teacher.teacher_id);
 					this.teachersDetails.splice(index,1);		
 				});
