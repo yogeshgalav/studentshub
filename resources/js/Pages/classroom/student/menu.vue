@@ -6,7 +6,7 @@
         <div class="selection-box-default">
           <router-link
             class="card h-card"
-            :href="'/classroom/'+$route.params[0]+'/daily-assignment'"
+            :href="'/classroom/'+classroom.id+'/daily-assignment'"
           >
             <div class="card-body">
               <div class="row">
@@ -27,7 +27,7 @@
         <div class="selection-box-default">
           <router-link
             class="card h-card"
-            :href="'/classroom/'+$route.params[0]+'/report'"
+            :href="'/classroom/'+classroom.id+'/report'"
           >
             <div class="card-body">
               <div class="row">
@@ -49,7 +49,7 @@
         <div class="selection-box-default">
           <router-link
             class="card h-card"
-            :href="'/classroom/'+$route.params[0]+'/attendance'"
+            :href="'/classroom/'+classroom.id+'/attendance'"
           >
             <div class="card-body">
               <div class="row">
@@ -71,7 +71,7 @@
         <div class="selection-box-default">
           <router-link
             class="card h-card"
-            :href="'/classroom/'+$route.params[0]+'/homeworks'"
+            :href="'/classroom/'+classroom.id+'/homeworks'"
           >
             <div class="card-body">
               <div class="row">
@@ -89,20 +89,41 @@
         </div>
       </div>
 
-      <div class="col-md-4">
+      <div class="col-md-4 mb-3">
         <div class="selection-box-default">
           <router-link
             class="card h-card"
-            :href="'/classroom/'+$route.params[0]+'/resources'"
+            :href="'/subject/'+classroom.subject_id+'#posts'"
           >
             <div class="card-body">
               <div class="row">
                 <div class="col-lg-12">
                   <h2 class="font-size-18">
-                    {{ 'Resources' }}
+                    {{ 'Posts' }}
                   </h2>
                   <p>
-                    {{ 'View Classroom resources.' }}
+                    {{ 'Add or explore posts from this subject.' }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </router-link>
+        </div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <div class="selection-box-default">
+          <router-link
+            class="card h-card"
+            :href="'/subject/'+classroom.subject_id+'#doubts'"
+          >
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <h2 class="font-size-18">
+                    {{ 'Posts' }}
+                  </h2>
+                  <p>
+                    {{ 'Add or explore doubts from this subject.' }}
                   </p>
                 </div>
               </div>
@@ -114,7 +135,7 @@
         <div class="selection-box-default">
           <router-link
             class="card h-card"
-            :href="'/classroom/'+$route.params[0]+'/messages'"
+            :href="'/classroom/'+classroom.id+'/messages'"
           >
             <div class="card-body">
               <div class="row">
@@ -178,7 +199,8 @@ import ClassroomHeader from '../../../components/ClassroomHeader';
 export default {
 	components:{
 		ClassroomHeader
-	}
+	},
+	props:['classroom']
 };
 
 </script>

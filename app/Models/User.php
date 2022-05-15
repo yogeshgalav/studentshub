@@ -128,7 +128,7 @@ class User extends Authenticatable
         //     ->rightJoin('institute_users as inu', function($join){
         //         $join->on('ins.id','=','inu.institute_id')->where('inu.user_id','=',$this->id);
         //     });
-        } elseif ('sthubAdmin'===$role) {
+        } elseif ('sthub_staff'===$role) {
             $classroom_query=$classroom_query;
         } else {
             return [];

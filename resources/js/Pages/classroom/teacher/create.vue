@@ -240,6 +240,7 @@ export default {
 				if (valid) {
 					let loader = this.$loading.show();
 					this.form_errors=[];
+					this.$gtag('event','Classroom Create');
 					this.axios.post('/api/classroom/create', {
 						course_id: this.selected_course.id,
 						subject_name: this.selected_subject.subject_name,
