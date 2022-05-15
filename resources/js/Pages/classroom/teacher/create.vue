@@ -41,11 +41,10 @@
                       <label class="mb-1"> {{ 'Classroom Name' }} </label>
 					  
                       <auto-complete
-                        type="text"
+                        v-model="classroom_name"
                         :placeholder="'2nd Year Sections B'"
                         :items="classroom_list"
                         name="classroom_name"
-                        :value="'name'"
                       />
                       <span
                         class="error"
@@ -239,6 +238,7 @@ export default {
 		createClassroom() {
 			this.validateForm().then(valid => {
 				if (valid) {
+					let loader = this.$loading.show();
 					this.form_errors=[];
 					this.axios.post('/api/classroom/create', {
 						course_id: this.selected_course.id,
@@ -246,6 +246,7 @@ export default {
 						classroom_name: this.classroom_name,
 						institute_name: this.selected_institute.name,
 					}).then((resp)=>{
+					  loader.hide();
 						if (resp.data.success) {
 							swal.successDialog('Classroom create', 'Success!', 'success');
 							window.location.href = '/classroom/'+resp.data.success.id;
