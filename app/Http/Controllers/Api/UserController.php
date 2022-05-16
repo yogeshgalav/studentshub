@@ -102,14 +102,30 @@ class UserController extends Controller
             'profile'=>$profile
         ]]);
     }
-    public function preferredcourseinstitute(Request $request){
+    public function setPreferredDetails(Request $request){
         $me=$request->user('api');
         if($request->preferred_course){
             $me->preferred_course_id=Course::getFirstOrCreateId($request->preferred_course);
-        }else{
-        $me->preferred_institute_id=Institute::getFirstOrCreateId($request->preferred_institute);
+        }
+        if($request->preferred_institute){
+            $me->preferred_institute_id=Institute::getFirstOrCreateId($request->preferred_institute);
         }
         $me->save();
+        
+        if($me->preferred_course_id && $me->preferred_institute_id){
+            if($me->role==='student'){
+                Student::firstOrCreate([
+                    'institute_id'=>$me->preferred_institute_id,
+                    'course_id'=>$me->preferred_course_id,
+                ]);
+            }
+            if($me->role==='teacher'){
+                Teacher::firstOrCreate([
+                    'institute_id'=>$me->preferred_institute_id,
+                    'course_id'=>$me->preferred_course_id,
+                ]);
+            }
+        }
         
         return response()->json([], 204);
     }
