@@ -315,7 +315,7 @@ export default {
 		return {
 			interests: [],
 			initialTab:'interests',
-			tabs:['interests','posts','doubts','education-details'],
+			tabs:['interests','posts','doubts'],
 			interest_enable: false,
 			image:'',
 			profile_image_url:'',

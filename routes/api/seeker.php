@@ -17,9 +17,7 @@ Route::group(['middleware' => ['auth:api']], function () {
         //profile
     Route::get('/get-profile','UserController@getProfile');
     Route::post('/save-profile', 'UserController@saveProfile');
-    Route::post('/add-teacherdetails', 'UserController@addCourseInstitute');
-    Route::delete('/delete-teachersdetails/{teacher}','UserController@delete');
-    Route::post('/add-studentdetails', 'UserController@addStudentDetails');
+    Route::delete('/delete-teachersdetails/{teacher}','UserController@deleteTeacherDetails');
     Route::delete('/delete-studentdetails/{student}','UserController@deleteStudentDetails');
     
     Route::post('/checkin/student', [App\Http\Controllers\Api\StudentController::class, 'create']);
@@ -39,5 +37,5 @@ Route::group(['middleware' => ['auth:api']], function () {
    
     Route::post('/{commentable_type}/{commentable_id}/add-comment', 'CommentController@create');
 
-    Route::put('/preferred-courseinstitute', 'UserController@preferredcourseinstitute');
+    Route::put('/preferred-details', 'UserController@setPreferredDetails');
 });

@@ -104,20 +104,7 @@ class UserController extends Controller
             'profile'=>$profile
         ]]);
     }
-    public function index($teacher_id, Request $request)
-    {
-        $teachers=DB::table('teachers as te')
-        ->leftJoin('institutes as inst','inst.id','=','te.institute_id')
-        ->leftJoin('courses as co','co.id','=','te.course_id')
-        ->select(['te.id as teacher_id','institute_id','course_id', 'course_name', 'inst.name as institute_name'])
-        ->get();
-        
-        return response()->json([
-            'success'=>[
-                'teachers'=>$teachers,
-            ]
-        ]);
-    }
+   
     
     public function addCourseInstitute(User $user,Request $request){
         $me = $request->user('api');
@@ -127,7 +114,7 @@ class UserController extends Controller
         $teacher->institute_id = Institute::getFirstOrCreateId($request->edit_institute);
         $teacher->save();
     }
-    public function delete($teacher_id){
+    public function deleteTeacherDetails($teacher_id){
         $teacher=Teacher::findOrFail($teacher_id);
         $teacher->delete();
         
@@ -147,16 +134,38 @@ class UserController extends Controller
         
         return 'success';
     }
-    public function preferredcourseinstitute(Request $request){
+
+    public function setPreferredDetails(Request $request){
         $me=$request->user('api');
         if($request->preferred_course){
             $me->preferred_course_id=Course::getFirstOrCreateId($request->preferred_course);
-        }else{
-        $me->preferred_institute_id=Institute::getFirstOrCreateId($request->preferred_institute);
+        }
+        
+        if($request->preferred_institute){
+            $me->preferred_institute_id=Institute::getFirstOrCreateId($request->preferred_institute);
         }
         $me->save();
+        $me->refresh();
+        
+        if($me->preferred_course_id && $me->preferred_institute_id){
+            if($me->role==='student'){
+                Student::firstOrCreate([
+                    'user_id' => $me->id,
+                    'institute_id'=>$me->preferred_institute_id,
+                    'course_id'=>$me->preferred_course_id,
+                ]);
+            }
+            if($me->role==='teacher'){
+                Teacher::firstOrCreate([
+                    'user_id' =>$me->id,
+                    'institute_id'=>$me->preferred_institute_id,
+                    'course_id'=>$me->preferred_course_id,
+                ]);
+            }
+        }
+    
         
         return response()->json([], 204);
     }
 
-}
+}                               

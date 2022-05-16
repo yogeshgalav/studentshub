@@ -411,12 +411,11 @@ export default {
     	addTeacherDetails()
 		{
 			 let loader = this.$loading.show();
-      	this.axios.post(this.baseUrl + '/api/add-teacherdetails',{
-    			edit_institute:this.edit_institute,	
-				  edit_course:this.edit_course,	
+      	this.axios.put(this.baseUrl + '/api/preferred-details',{
+    			preferred_institute:this.edit_institute,	
+				  preferred_course:this.edit_course,	
     		} )
     			.then(resp => {
-				//	loader.hide();
 					window.location.href='/account-settings';
     			});
 		},
@@ -434,9 +433,9 @@ export default {
     	addStudentDetails()
 		{
 			 let loader = this.$loading.show();
-      	this.axios.post(this.baseUrl + '/api/add-studentdetails',{
-    			edit_institute:this.edit_institute,	
-				  edit_course:this.edit_course,	
+      	this.axios.put(this.baseUrl + '/api/preferred-details',{
+    		preferred_institute:this.edit_institute,	
+				  preferred_course:this.edit_course,	
     		} )
     			.then(resp => {
 					window.location.href='/account-settings';
@@ -444,7 +443,6 @@ export default {
 		},
 	
 		deleteStudentDetails(student){
-			console.log(student);
 		  	let loader = this.$loading.show();           
 			this.axios.delete('/api/delete-studentdetails/'+student.student_id)
 				.then(resp=>{

@@ -33,8 +33,8 @@ class ClassroomController extends Controller
         }
 
         return inertia('classroom/teacher/create', [
-            'institute_list'=>$institute_list,
-            'course_levels'=>$course_levels
+            'instituteList'=>$institute_list,
+            'courseLevels'=>$course_levels
         ]);
     }
 
@@ -47,7 +47,9 @@ class ClassroomController extends Controller
         $classroom=Classroom::findOrFail($classroomId);
 
         if(Auth::user()->can('update', $classroom)){
-            return inertia('classroom/teacher/menu');
+            return inertia('classroom/teacher/menu',[
+                'classroom'=>$classroom,
+            ]);
         }
 
         $daily_assignment=\App\Models\DailyAssignment::where('attempt_date','=',now(Auth::user()->timezone)->toDateString())
@@ -68,7 +70,9 @@ class ClassroomController extends Controller
             ]);
         }
 
-        return inertia('classroom/student/menu');
+        return inertia('classroom/student/menu',[
+            'classroom'=>$classroom,
+        ]);
     }
 
     public function classroomOverviewPage($classroomId){
