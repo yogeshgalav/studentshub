@@ -98,12 +98,11 @@ class Post extends PostModel
             $post->description=strlen($post->description)>$rand ? substr($post->description,0,$rand).'...' : $post->description;
             $post->post_type=$this->getPostType($post->postable_type);
             $post->subjects=$postData->subjects;
-            //$post->total_views=\App\Models\SthubPost::where('post_id',$post->id)->where('action_type','=',PostModel::class)->count();
+            $post->total_likes=\App\Models\Like::where('likable_id',$post->id)->where('likable_type','=',PostModel::class)->count();
             $post->total_views=$postData->sthub_posts_count;
             $post->profile_image=$post->profile_image ?? '';
             $post->image_path=$post->image_path ?? '';
         }
-//dd($post);
         return $posts;
     }
 
