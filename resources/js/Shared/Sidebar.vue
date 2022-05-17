@@ -5,6 +5,7 @@
         <router-link
           href="/"
           :class="isUrl('post') ? 'active' : ''"
+          @click="sidebarItemClick"
         >
           <li>
             <i
@@ -16,6 +17,7 @@
         <router-link
           href="/category"
           :class="isUrl('category') ? 'active' : ''"
+          @click="sidebarItemClick"
         >
           <li>
             <i
@@ -27,6 +29,7 @@
         <router-link
           href="/doubts"
           :class="isUrl('doubt') ? 'active' : ''"
+          @click="sidebarItemClick"
         >
           <li>
             <i
@@ -39,6 +42,7 @@
         <router-link
           href="/my-course"
           :class="isUrl('my-course') ? 'active' : ''"
+          @click="sidebarItemClick"
         >
           <li>
             <i
@@ -52,6 +56,7 @@
         <router-link
           href="/classrooms"
           :class="isUrl('classroom') ? 'active' : ''"
+          @click="sidebarItemClick"
         >
           <li>
             <i
@@ -64,6 +69,7 @@
           v-if="AuthUser.role==='student'"
           href="/my-reports"
           :class="isUrl('my-reports') ? 'active' : ''"
+          @click="sidebarItemClick"
         >
           <li>
             <i
@@ -76,6 +82,7 @@
         <router-link
           href="/chatroom"
           :class="isUrl('chatroom') ? 'active' : ''"
+          @click="sidebarItemClick"
         >
           <li>
             <i
@@ -89,6 +96,7 @@
         <router-link
           href="/my-institute"
           :class="isUrl('institute') ? 'active' : ''"
+          @click="sidebarItemClick"
         >
           <li>
             <i
@@ -103,6 +111,7 @@
           v-if="0"
           href="/students"
           :class="isUrl('students') ? 'active' : ''"
+          @click="sidebarItemClick"
         >
           <li>
             <i
@@ -116,6 +125,7 @@
           v-if="AuthUser.role==='student'"
           href="/classmates"
           :class="isUrl('classmates') ? 'active' : ''"
+          @click="sidebarItemClick"
         >
           <li>
             <i
@@ -129,6 +139,7 @@
           v-if="AuthUser.role==='student'"
           href="/more-apps"
           :class="isUrl('more-apps') ? 'active' : ''"
+          @click="sidebarItemClick"
         >
           <li>
             <i
@@ -141,6 +152,7 @@
         <router-link
           :href="'/profile/'+AuthUser.id"
           :class="isUrl('profile') ? 'active' : ''"
+          @click="sidebarItemClick"
         >
           <li>
             <i
@@ -164,6 +176,10 @@ export default {
 			}
 			return urls.filter((url) => currentUrl.startsWith(url)).length;
 		},
+		sidebarItemClick(){
+			var container = document.getElementById('sidebar-section');
+			container.classList.remove('sidebar-section-active');
+		}
 	}
 };
 </script>
