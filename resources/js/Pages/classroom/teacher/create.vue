@@ -1,5 +1,8 @@
 <template>
   <div>
+    <Head>
+      <title>Create Classrooms</title>
+    </Head>
     <loading
       :active.sync="showLoader"
       :color="'#10069F'"
