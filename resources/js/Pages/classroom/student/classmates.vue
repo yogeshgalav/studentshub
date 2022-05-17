@@ -1,5 +1,8 @@
 <template>
   <div>
+    <Head>
+      <title>Classmates</title>
+    </Head>
     <div class="col-md-12">
       <h1>Classmates</h1>
     </div>

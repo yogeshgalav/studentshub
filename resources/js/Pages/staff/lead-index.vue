@@ -1,5 +1,8 @@
 <template>
   <section>
+    <Head>
+      <title>Manage Users</title>
+    </Head>
     <div class="row">
       <div class="col-md-12">
         <accordion

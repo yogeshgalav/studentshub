@@ -1,5 +1,8 @@
 <template>
   <div>
+    <Head>
+      <title> {{ user.full_name }}</title>
+    </Head>
     <div class="container pt-100">
       <div class="user_profile_page">
         <div class="row">

@@ -1,5 +1,8 @@
 <template>
   <div class="row">
+    <Head>
+      <title>Account Settings</title>
+    </Head>
     <div
       class="col-md-10"
     >

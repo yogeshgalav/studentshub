@@ -1,5 +1,8 @@
 <template>
   <div>
+    <Head>
+      <title>Doubts</title>
+    </Head>
     <DoubtContainer />
   </div>
 </template>

@@ -1,5 +1,8 @@
 <template>
   <div class="row">
+    <Head>
+      <title>{{ institute_name ? institute_name : 'My Institute' }}</title>
+    </Head>
     <div class="col-md-12 mt-3">
       <h1>{{ institute_name ? institute_name : 'My Institute' }}</h1>
     </div>

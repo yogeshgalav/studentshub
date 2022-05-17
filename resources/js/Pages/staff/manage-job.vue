@@ -1,5 +1,8 @@
 <template>
   <section>
+    <Head>
+      <title>Manage Careers</title>
+    </Head>
     <div>
       <div class="row">
         <div class="col-md-12">

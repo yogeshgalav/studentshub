@@ -1,5 +1,8 @@
 <template>
   <div class="row">
+    <Head>
+      <title> {{ course_name ? course_name : 'My Course' }}</title>
+    </Head>
     <div class="col-md-12  mt-3">
       <h1>{{ course_name ? course_name : 'My Course' }}</h1>
     </div>

@@ -1,5 +1,8 @@
 <template>
   <div>
+    <Head>
+      <title>Home</title>
+    </Head>
     <PostContainer
       share-route="/share-your-knowledge"
     />

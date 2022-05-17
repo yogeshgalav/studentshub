@@ -1,5 +1,8 @@
 <template>
   <section>
+    <Head>
+      <title>Membership Details</title>
+    </Head>
     <div class="row">
       <div class="col-md-12">
         <accordion

@@ -1,5 +1,8 @@
 <template>
   <div>
+    <Head>
+      <title> {{ title ? title : classroomDetail.name }}</title>
+    </Head>
     <div class="row">
       <div class="row">
         <div class="col-md-12">

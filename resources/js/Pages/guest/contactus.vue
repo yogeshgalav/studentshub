@@ -1,5 +1,8 @@
 <template>
   <div>
+    <Head>
+      <title>Contact Us</title>
+    </Head>
     <div class="blank" />
     <loading
       :active.sync="showLoader"

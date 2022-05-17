@@ -1,5 +1,8 @@
 <template>
   <div>
+    <Head>
+      <title>My Reports</title>
+    </Head>
     <div>
       <h1>My Reports</h1>
       <hr>

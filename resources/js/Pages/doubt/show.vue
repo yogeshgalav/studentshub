@@ -1,5 +1,8 @@
 <template>
   <div>
+    <Head>
+      <title> {{ doubt.question }}</title>
+    </Head>
     <div class="row">
       <loading
         :active.sync="showLoader"

@@ -1,7 +1,7 @@
 <template>
   <div>
     <Head>
-      <title>{{ course_name }}</title>
+      <title>{{ course.course_name }}</title>
       <meta
         name="description"
         :content="course_name"

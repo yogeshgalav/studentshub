@@ -1,5 +1,8 @@
 <template>
   <section class="container">
+    <Head>
+      <title>Create Post</title>
+    </Head>
     <loading
       :active.sync="post_submited"
       :color="'#10069F'"

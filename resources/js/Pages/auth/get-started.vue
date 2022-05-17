@@ -1,5 +1,8 @@
 <template>
   <section class="container">
+    <Head>
+      <title>Get Started</title>
+    </Head>
     <loading
       :active.sync="showLoader"
       :color="'#10069F'"

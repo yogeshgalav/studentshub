@@ -1,5 +1,8 @@
 <template>
   <div class="row">
+    <Head>
+      <title>Chatroom</title>
+    </Head>
     <div class="col-md-12">
       <loading
         :active.sync="showLoader"

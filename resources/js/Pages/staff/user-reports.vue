@@ -1,5 +1,8 @@
 <template>
   <section>
+    <Head>
+      <title>User Reports</title>
+    </Head>
     <div class="row">
       <div class="col-md-12">
         <accordion
@@ -47,7 +50,7 @@ export default {
 			userColumns: [
 				{
 					label: 'User Name',
-					field: 'user_name',
+					field: 'full_name',
 				},
 				{
 					label: 'Phone Number',

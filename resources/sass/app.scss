@@ -2947,6 +2947,9 @@ select.form-control.custom-select {
     }
 }
 @media only screen and (max-width: 540px) {
+    .btn_sm{
+        font-size: 12px !important;
+    }
     .search_box {
         width: 100%;
         margin-top: 25px;

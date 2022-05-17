@@ -1,5 +1,8 @@
 <template>
   <div class="row">
+    <Head>
+      <title>{{ student_detail.full_name }}</title>
+    </Head>
     <div
       v-if="student_detail"
       class="col-md-12"

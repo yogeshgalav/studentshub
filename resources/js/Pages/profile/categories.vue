@@ -1,5 +1,8 @@
 <template>
   <section class="row">
+    <Head>
+      <title>Category</title>
+    </Head>
     <div class="col-md-12">
       <h1>Category</h1>
     </div>

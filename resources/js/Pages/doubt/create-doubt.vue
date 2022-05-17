@@ -1,5 +1,8 @@
 <template>
   <div>
+    <Head>
+      <title>{{ editDoubtDetails?'Edit Doubt':'Ask Doubt' }}</title>
+    </Head>
     <div class="row">
       <div class="col-md-12">
         <h1>{{ editDoubtDetails?'Edit Doubt':'Ask Doubt' }}</h1>
@@ -59,16 +62,15 @@
                 </div>
               </div>
               <div class="row">
-                      <div class="p-3">
-                        <button
-                          type="submit"
-                          class="btn btn-primary btn-md"
-						 
-                        >
-                          Submit
-                        </button>
-                      </div>
-                    </div>
+                <div class="p-3">
+                  <button
+                    type="submit"
+                    class="btn btn-primary btn-md"
+                  >
+                    Submit
+                  </button>
+                </div>
+              </div>
             </form>
           </div>
         </div>

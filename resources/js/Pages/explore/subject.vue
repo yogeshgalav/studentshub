@@ -1,5 +1,8 @@
 <template>
   <div class="row">
+    <Head>
+      <title>{{ subjectName }}</title>
+    </Head>
     <div class="">
       <div class="col-md-12">
         <h1>{{ subjectName }}</h1>
