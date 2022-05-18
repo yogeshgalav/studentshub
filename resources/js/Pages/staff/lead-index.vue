@@ -1,5 +1,8 @@
 <template>
   <section>
+    <Head>
+      <title>Manage Users</title>
+    </Head>
     <div class="row">
       <div class="col-md-12">
         <accordion
@@ -16,9 +19,15 @@
             >
               <span v-if="props.column.field==='full_name'">
                 <router-link
-                  :href="'/lead/'+props.row.user_id"
+                  :href="'/user-details/'+props.row.id"
                   class="text-underline"
                 >{{ props.row['full_name'] }}</router-link>
+              </span>
+              <span v-else-if="props.column.field==='is_pro_member'">
+                {{ props.row['is_pro_member']?'yes':'no' }}
+              </span>
+              <span v-else>
+                {{ props.row[props.column.field] }}
               </span>
             </template>
             <template slot="emptystate">
@@ -53,10 +62,30 @@ export default {
 					label: 'Phone Number',
 					field: 'phone_no',
 				},
-				
 				{
 					label: 'Onboarded At',
 					field: 'onboarded_at',
+				},
+				{
+					label: 'Role',
+					field: 'role',
+				},
+				{
+					label: 'Is Pro Member',
+					field: 'is_pro_member',
+				},
+        	{
+					label: 'Total sthub Posts',
+					field: 'total_sthub_posts',
+				},
+				{
+					label: 'Total Membership',
+					field: 'total_membership_details',
+				},
+				
+				{
+					label: 'Total Transactions',
+					field: 'total_transaction_details',
 				},
 			]
 		};

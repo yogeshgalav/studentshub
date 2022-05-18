@@ -300,7 +300,7 @@ export default {
 	},
 	methods: {
 		handleSubmit(e) {
-			this.$validator.validate().then(valid => {
+			this.validateForm().then(valid => {
 				if (valid) {
 					this.form_errors = [];
 					if(!this.createPost){

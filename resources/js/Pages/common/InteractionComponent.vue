@@ -12,7 +12,7 @@
         >
           <p
             v-if="like_active"
-            class="text-primary pl-3 pr-3"
+            class="text-primary btn_sm pl-3 pr-3"
           >
             <span><i class="fas fa-thumbs-up text-primary" />&nbsp;</span>
             {{ totallikes }} Like
@@ -32,7 +32,7 @@
       <div class="col-md-6 col-6"> 
         <button      
           type="button"
-          :class="['btn pl-0', comment_active ? 'text-primary' : '']"
+          :class="['btn btn_sm pl-0', comment_active ? 'text-primary' : '']"
           @click="toggleComment()"
         >
           <p>

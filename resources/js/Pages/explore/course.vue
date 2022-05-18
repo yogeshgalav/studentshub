@@ -1,6 +1,13 @@
 <template>
   <div>
-    <h1>{{ course_name }}</h1>
+    <Head>
+      <title>{{ course.course_name }}</title>
+      <meta
+        name="description"
+        :content="course_name"
+      >
+    </Head>
+    <h1>{{ course.course_name }}</h1>
     <hr>
     <nav-tabs
       :tabs="tabs"
@@ -11,8 +18,9 @@
       </template>
       <template slot="tab-panel-posts">
         <PostContainer
-          v-if="courseId"
-          :post-route="'/course/'+courseId"
+          v-if="course.id"
+          :post-route="'/course/'+course.id"
+          :share-route="'/share-your-knowledge?cId='+course.id"
         >
           <template slot="empty">
             Currently no post have been shared in this course.
@@ -40,12 +48,13 @@
 import NavTabs from '../../components/NavTabs';
 import PostContainer from '../common/post-container';
 import DoubtContainer from '@/Pages/doubt/doubt-container.vue';
+import { Head } from '@inertiajs/inertia-vue';
 
 export default {
 	components: {
-		NavTabs, PostContainer, DoubtContainer
+		NavTabs, PostContainer, DoubtContainer, Head
 	},
-	props:['courseId'],
+	props:['course'],
 	data() {
 		return {
 			initialTab: 'posts',
@@ -58,7 +67,7 @@ export default {
 	},
 	mounted() {
 		this.axios
-			.get('/api/course/' + this.courseId)
+			.get('/api/course/' + this.course.id)
 			.then(resp => {
 				this.courses_name = resp.data.success.category.courses.course_name;
 			});

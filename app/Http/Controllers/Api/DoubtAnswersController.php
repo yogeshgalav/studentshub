@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Auth;
 use Arr;
 use DB;
+use App\Services\simple_html_dom;
 use Illuminate\Support\Facades\Log;
 
 class DoubtAnswersController extends Controller
@@ -35,9 +36,9 @@ class DoubtAnswersController extends Controller
         $post->category_id=$doubt->category_id;
         $post->course_id=$me->preferred_course_id;
 
-
+        
         $simple_html_dom = new simple_html_dom;
-        $dom = $simple_html_dom->extactImageFiles($data['article_html_content'], "post-image");
+        $dom = $simple_html_dom->extactImageFiles( $request->answer_html,"post-image");
         $post_content= Article::create(['html_content'=>$dom->html]);
 
         foreach($dom->files as $file){
@@ -54,7 +55,7 @@ class DoubtAnswersController extends Controller
         if(count($dom->files)){
           $primary_image_path=$dom->files[0];
         } else {
-          $primary_image_path= $simple_html_dom->extractYoutubeImage($data['article_html_content']);
+          $primary_image_path= $simple_html_dom->extractYoutubeImage($request->answer_html);
         }
 
         $post->postable_type="App\Models\Article";

@@ -1,6 +1,5 @@
 import validationRules from './validationRules.js';
 import validationMessages from './validationMessages.js';
-import Vue from 'vue';
 
 var form_fields= [];
 function setFormFieldData(field,rules,formName){
@@ -63,9 +62,10 @@ const FormMixin = {
 								this.form_errors.push({
 									'field_name':form_field.field_name,
 									'rule_name':rule_name,
+									'rule_param':rule_parameter,
 									'form_name':form_field.form_name,
 								});
-							};
+							}
 						}
 					});
 				}catch(e){
@@ -87,7 +87,7 @@ const FormMixin = {
 		},
 		validateInputs(validate_fields=[]){
 			const to_be_validated_fields = form_fields
-				.filter(form_field=>validate_fields.contains(form_field.field_name));
+				.filter(form_field=>validate_fields.includes(form_field.field_name));
 			return this.runValidation(to_be_validated_fields);
 		},
 		validateInput(validate_field=''){
@@ -129,7 +129,10 @@ const FormMixin = {
 			if(this.$t){
 				return  this.$t('validation.'+field_error.rule_name,{'attribute': field_name});
 			}
-			return validationMessages[field_error.rule_name].replace(':attribute', field_name);
+
+			return validationMessages[field_error.rule_name]
+				.replace(':attribute', field_name)
+				.replace(':param', field_error.rule_param);
 		},
 		onlyNumber ($event) {
 			let keyCode = ($event.keyCode ? $event.keyCode : $event.which);

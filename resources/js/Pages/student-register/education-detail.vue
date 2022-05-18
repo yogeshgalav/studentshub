@@ -419,7 +419,7 @@ export default {
 			this.selected_institute = result;
 		},
 		handleSubmit(e) {
-			this.$validator.validate().then(valid => {
+			this.validateForm().then(valid => {
 				if (valid) {
 					this.form_errors=[];
 					this.register();

@@ -36,11 +36,11 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::put('/resource/{resource}','ClassroomResourceController@edit');
     Route::delete('/resource/{resource}','ClassroomResourceController@delete');
     //messages
-    Route::get('/get-classroom-messages/{classroomId?}',[ClassroomMessageController::class,'listmessage']);
-    Route::post('/add-message',[ClassroomMessageController::class, 'addmessage']);
+    Route::post('/add-message/{chatroomId}',[ClassroomMessageController::class, 'addmessage']);
     Route::post('/delete-message',[ClassroomMessageController::class, 'deletemessage']);
     Route::post('/edit-message', [ClassroomMessageController::class, 'editmessage']);
-
+    Route::get('/chatroom-messages/{chatroomId?}',[ClassroomMessageController::class,'listmessage']);
+    
     //student classroom routes
     Route::post('/classroom/join',[ClassroomController::class, 'joinClassroom']);
     Route::get('/classroom/{classroomId}/report','ReportController@getClassroomReport');
@@ -72,5 +72,7 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::get('/classroom/{classroom}/homework/{homework}','HomeworkController@show');
     Route::post('/homework/{homework}/mark-as-done','HomeworkController@markAsDone');
     Route::post('/classroom/{classroom}/homework','HomeworkController@create');
+    Route::put('/homework/{homework}','HomeworkController@update');
+    Route::delete('/homework/{homework}','HomeworkController@delete');
 
 });

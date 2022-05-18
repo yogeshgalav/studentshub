@@ -1,5 +1,8 @@
 <template>
   <main>
+    <Head>
+      <title>Feedback</title>
+    </Head>
     <loading
       :active.sync="showLoader"
       :color="'#10069F'"
@@ -24,55 +27,46 @@
         @submit.prevent="handleSubmit"
       >
         <div
-          v-if="!AuthUser"
-          class="form-group row col-md-12"
+          class="form-group"
         >
-          <div class="col-md-12">
-            <label
-              for="email"
-              class="col-form-label text-md-right"
-            >{{ "Email" }}</label>
-            <input
-              id="email"
-              v-model="email"
-              v-validate="'required|email'"
-              type="email"
-              class="form-control"
-              name="email"
-            >
-            <span class="error">{{ formErrors('email') }}</span>
-          </div>
+          <label
+            for="email"
+          >{{ "Email" }}</label>
+          <input
+            id="email"
+            v-model="email"
+            v-validate="'required|email'"
+            type="email"
+            class="form-control"
+            name="email"
+          >
+          <span class="error">{{ formErrors('email') }}</span>
         </div>
-        <div class="form-group row col-md-12">
-          <div class="col-md-12">
-            <label
-              for="feedback"
-              class="col-form-label text-md-right"
-            >
-              Please enter your feedback
-            </label>
-            <textarea
-              id="feedback"
-              v-model="feedback"
-              v-validate="'required'"
-              type="text"
-              class="form-control"
-              name="feedback"
-              rows="10"
-            />
-            <span class="text-danger">
-              {{ formErrors('feedback') }}</span>
-          </div>
+        <div class="form-group">
+          <label
+            for="feedback"
+          >
+            Please enter your feedback
+          </label>
+          <textarea
+            id="feedback"
+            v-model="feedback"
+            v-validate="'required'"
+            type="text"
+            class="form-control"
+            name="feedback"
+            rows="10"
+          />
+          <span class="text-danger">
+            {{ formErrors('feedback') }}</span>
         </div>
-        <div class="form-group row mb-0 col-md-12">
-          <div class="col-md-12">
-            <button
-              type="submit"
-              class="btn btn-primary"
-            >
-              {{ 'Submit' }}
-            </button>
-          </div>
+        <div class="form-group-button">
+          <button
+            type="submit"
+            class="btn btn-primary"
+          >
+            {{ 'Submit' }}
+          </button>
         </div>
       </form>
     </div>
@@ -113,7 +107,7 @@ export default {
 					console.log(this.showLoader);
 					this.axios
 						.post('/api/feedback', {
-							email: (this.AuthUser ? this.AuthUser.email : this.email),
+							email: this.email,
 							feedback : this.feedback,
 						})
 						.then(resp => {

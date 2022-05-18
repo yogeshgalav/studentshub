@@ -14,6 +14,8 @@ use App\Models\Video;
 use App\Models\Notice;
 use App\Models\Fact;
 use App\Models\Mcq;
+use App\Models\Like;
+use App\Models\Comment;
 use App\Models\Document;
 use Auth;
 use DB;
@@ -37,9 +39,11 @@ class PostController extends Controller
         $post->user_id=Auth::user()->id;
         $post->post_heading=$heading;
         $post->category_id = $data['category_id'];
+        $post->course_id = $data['course_id'] ?? null;
+        $post->classroom_id = $data['classroom_id'] ?? null;
 
         $simple_html_dom = new simple_html_dom;
-        $dom = $simple_html_dom->extactImageFiles($data['article_html_content'], "post-image");
+        $dom = $simple_html_dom->extactImageFiles($data['html_content'], "post-image");
         $post_content= Article::create(['html_content'=>$dom->html]);
 
         foreach($dom->files as $file){
@@ -56,18 +60,22 @@ class PostController extends Controller
         if(count($dom->files)){
           $primary_image_path=$dom->files[0];
         } else {
-          $primary_image_path= $simple_html_dom->extractYoutubeImage($data['article_html_content']);
+          $primary_image_path= $simple_html_dom->extractYoutubeImage($data['html_content']);
         }
 
         $post->postable_type="App\Models\Article";
         $post->primary_image_path=$primary_image_path;
         $post->postable_id=$post_content->id;
 
+        if($request->course){
+          $post->course_id=$request->course['id'];
+        }
+
         $post->created_via='dashboard';
-        $post->post_description = $data['description'];
+        $post->post_description = $data['text_content'];
         $post->save();
 
-        Subject::addPostTags($post, $request->selected_subjects);
+        Subject::addPostTags($post, $request->subjects);
         SthubPost::addAction('share',$post,Auth::user());
 
         DB::commit();
@@ -82,46 +90,35 @@ class PostController extends Controller
     ]);
         return response()->json(['success'=>[
           'message'=>'Post Successfully Created',
+          'post_id'=>$post->id,
         ]]);
     }
     public function update(Post $post, Request $request){
-
       $data=$request->all();
-      if(Auth::id()!==$post->user_id){
+      if($request->user('api')->id !== $post->user_id){
         abort(403);
       }
       DB::beginTransaction();
       try{
     
       $post->post_heading=$data['heading'];
-      $post->subject_id=$subject?$subject->id:NULL;
       $post->category_id = $data['category_id'];
 
       switch($post->postable_type){
           case Article::class:
               Article::where('id', $post->postable_id)
               ->update([
-                'html_content'=>$data['article_html_content'],
+                'html_content'=>$data['html_content'],
               ]);
 
-          break;
-          case Document::class:
-              Document::where('id', $post->postable_id)
-              ->update([
-                'link'=>$data['document_link'],
-              ]);
-
-          break;
-          case Video::class:
-              Video::where('id', $post->postable_id)
-              ->update([
-                'video_id'=>$data['video_id'],
-              ]);
           break;
       }
 
-      $post->post_description = $data['description'];
+      $post->post_description = $data['text_content'];
       $post->save();
+
+      Subject::deletePostTags($post);
+      Subject::addPostTags($post, $request->subjects);
 
       DB::commit();
   } catch (\Exception $e) {
@@ -129,24 +126,25 @@ class PostController extends Controller
       Log::warning('Post Updation failure',['data'=>$request->all(),'error'=>$e->getMessage()]);
       return response()->$e;
   }
-      return response()->json(['success'=>[
-        'message'=>'Post Successfully Created',
-      ]]);
+      
+    return response()->json(['success'=>[
+      'message'=>'Post Successfully updated',
+      'post_id'=>$post->id,
+    ]]);
   }
 
-    public function getPosts(Request $request){
+    public function getPosts($dashboard_type=null,$dashboard_id=null,Request $request){
         $post_repo=new \App\Post;
         $post_query=$post_repo->getAuthUserPostTabels();
+        $posts=$post_query->orderBy('po.created_at','DESC');
 
-        $dashboard_id = $request->route('dasboard_id');
-
-        switch($request->route('dasboard_type')){
+        switch($dashboard_type){
           case 'institute':
-            $post_query=$post_query->where('inst.id',$institute_id)
+            $post_query=$post_query->where('inst.id',$dashboard_id)
             ->orderBy('po.created_at','DESC');
             break;
           case 'course':
-            $posts=$post_query->where('po.course_id',$course_id)
+            $posts=$post_query->where('po.course_id',$dashboard_id)
             ->orderBy('po.created_at','DESC');
             break;
           case 'subject':
@@ -155,11 +153,11 @@ class PostController extends Controller
             ->orderBy('po.created_at','DESC');
             break;
           case 'category':
-            $posts=$post_query->where('cat.id',$category_id)
+            $posts=$post_query->where('cat.id',$dashboard_id)
             ->orderBy('po.created_at','DESC');
             break;
           case 'user':
-            $posts=$post_query->where('po.user_id',$userId)
+            $posts=$post_query->where('po.user_id',$dashboard_id)
             ->orderBy('po.created_at','DESC');
             break;
           default:
@@ -168,13 +166,30 @@ class PostController extends Controller
         }
 
         if($request->user('api')){
-          $posts=$post_query->paginate();
+          $posts=$post_query->paginate(10);
         }else{
-          $posts=$post_query->limit(10)->get();
+          $posts['data']=$post_query->limit(10)->get();
         }
         
         return response()->json(['success'=>[
-          'posts'=>\Sthub::convert_from_latin1_to_utf8_recursively($post_repo->formatPostData($posts))
+          'posts'=>$post_repo->formatPostData($posts),
+        ]]);
+    }
+
+    
+    public function searchPosts(Request $request){
+        if(empty($request->searchTerm)){
+            return response()->json([
+                'success'=>[
+                    'posts'=>[],
+                ]
+            ]);
+        }
+        $post=new \App\Post;
+        $posts = $post->getSearchPosts($request);
+
+        return response()->json(['success'=>[
+        'posts'=>\Sthub::convert_from_latin1_to_utf8_recursively($posts)
         ]]);
     }
 

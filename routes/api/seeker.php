@@ -29,9 +29,10 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('/subscriptions/delete', 'PushSubscriptionController@destroy');
 
     //comments
-    Route::get('/{commentable_type}/{commentable_id}/comment', 'CommentController@get');
+    Route::put('/comment/{comment}','CommentController@update');
+    Route::delete('/comment/{comment}','CommentController@delete');
+   
     Route::post('/{commentable_type}/{commentable_id}/add-comment', 'CommentController@create');
 
-    Route::put('/preferred-course', 'UserController@setPreferredCourse');
-    Route::put('/preferred-institute', 'UserController@setPreferredInstitute');
+    Route::put('/preferred-details', 'UserController@setPreferredDetails');
 });

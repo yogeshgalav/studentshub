@@ -1,5 +1,8 @@
 <template>
   <div class="row">
+    <Head>
+      <title> {{ course_name ? course_name : 'My Course' }}</title>
+    </Head>
     <div class="col-md-12  mt-3">
       <h1>{{ course_name ? course_name : 'My Course' }}</h1>
     </div>
@@ -41,6 +44,15 @@
         <template slot="tab-panel-subjects">
           <div class="row">
             <div class="col-md-7">
+              <div v-if="!subjects.length">
+                <img
+                  class="search-not-found"
+                  src="/images/search-not-found.png"
+                >
+                <p style="text-align:center;">
+                  Currently no subject have been shared related to this category.
+                </p>
+              </div>
               <div 
                 v-for="(subject,index) in subjects"
                 :key="index"
@@ -63,9 +75,16 @@
           <PostContainer
             v-if="AuthUser.preferred_course_id"
             :post-route="'/course/'+AuthUser.preferred_course_id"
+            :share-route="'/share-your-knowledge?cId='+AuthUser.preferred_course_id"
           >
             <template slot="empty">
-              Currently no post have been shared in your course.
+              <img
+                class="search-not-found"
+                src="/images/search-not-found.png"
+              >
+              <p style="text-align:center;">
+                Currently no post have been shared in your course.
+              </p>
             </template>
           </PostContainer>
         </template>
@@ -78,7 +97,15 @@
             :doubt-route="'/course/'+AuthUser.preferred_course_id"
           >
             <template slot="empty">
-              Currently no doubt have been shared in your course.
+              <div>
+                <img
+                  class="search-not-found"
+                  src="/images/search-not-found.png"
+                >
+              </div>
+              <p style="text-align:center;">
+                Currently no doubt have been shared in your course.
+              </p>
             </template>
           </DoubtContainer>
         </template>
@@ -135,7 +162,7 @@ export default {
 	methods: {
 		submitCourse(){
 			this.axios
-				.put('/api/preferred-course',{
+				.put('/api/preferred-details',{
 					preferred_course:this.selected_course,
 				})
 				.then(resp => {

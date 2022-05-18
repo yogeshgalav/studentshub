@@ -6,15 +6,23 @@ function getExtension(filename) {
 
 const validationRules = {
 	required: (value) =>{
-		if(value) return true;
+		if(value && value.toString().trim()) return true;
 		return false;
 	},
-	max: (value) =>{
+	digits: (value,max) =>{
+		if(!isNaN(value)) return (value.toString().length === parseInt(max));
+		return false;
+	},
+	digit_between: (value,max) =>{
+		if(!isNaN(value)) return value.toString().length <= max;
+		return false;
+	},
+	max: (value,max) =>{
 		if(!isNaN(value)) return (value <= max);
 		if(typeof value === 'string') return (value.length <= max);
 		return false;
 	},
-	min: (value) =>{
+	min: (value,max) =>{
 		if(!isNaN(value)) return (value >= max);
 		if(typeof value === 'string') return (value.length >= max);
 		return false;

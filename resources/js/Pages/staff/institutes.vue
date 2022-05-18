@@ -1,5 +1,8 @@
 <template>
   <div>
+    <Head>
+      <title>Institutes</title>
+    </Head>
     <div class="row">
       <div class="col-md-12">
         <h2 class="weight-800 text-black font-size-40">
@@ -83,11 +86,11 @@
                   id="add_client"
                   v-model="form_data.client_name"
                   v-validate="'required'"
-                  name="form_data.client_name"
+                  name="client_name"
                   class="form-control"
                   autofocus
                 >
-                <span class="error">{{ formErrors('form_data.client_name') }}</span>
+                <span class="error">{{ formErrors('client_name') }}</span>
                 <span
                   v-if="duplicateClient"
                   class="error"
@@ -134,8 +137,10 @@
 import VueTableComponent from '../../components/vue-table-component';
 import FormMixin from '../../components/mixins/form-mixin.js' ;
 import Loading from 'vue-loading-overlay';
+import StaffLayout from '@/Layouts/StaffLayout';
 
 export default {
+	layout:StaffLayout,
 	components: {
 		VueTableComponent,
 		Loading
@@ -207,7 +212,7 @@ export default {
 				});
 		},
 		handleSubmit: function () {
-			this.$validator.validate('form_data.client_name').then(valid => {
+			this.validateInput('client_name').then(valid => {
 				if (valid) {
 					this.saveClient();
 				}

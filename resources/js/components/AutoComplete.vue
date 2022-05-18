@@ -1,7 +1,8 @@
 <template>
-  <div class="autocomplete">
+  <section class="autocomplete">
     <input
       v-model="search"
+      :name="name"
       type="text"
       class="form-control"
       :disabled="disabled"
@@ -48,7 +49,7 @@
         </li>
       </ul>
     </transition>
-  </div>
+  </section>
 </template>
 
 <style>
@@ -84,6 +85,11 @@ export default {
 	name: 'Autocomplete',
 
 	props: {
+		name: {
+			type: String,
+			required: true,
+			default: () => 'autocomplete',
+		},
 		value: {
 			type: String,
 			required: true,

@@ -6,8 +6,15 @@
     :action="action"
     :method="method"
   >
-    <div class="row">
-      <slot name="header" />
+    <div
+      v-if="!noHeader"
+      class="row"
+    >
+      <slot
+        name="header" 
+        :currentStep="currentStep"
+        :stepIndex="stepIndex"
+      />
     </div>
 
     <div
@@ -21,11 +28,16 @@
         <slot
           :id="'step'+index"
           :name="'step'+index"
+          :currentStep="currentStep"
+          :stepIndex="stepIndex"
         />
       </div>
     </div>
 
-    <div class="row">
+    <div
+      v-if="!noFooter"
+      class="row"
+    >
       <slot
         name="footer"
         :isFirstStep="isFirstStep"
@@ -76,6 +88,14 @@ export default {
 			type: Array, 
 			default: () => [] 
 		},
+		noHeader: { 
+			type: Boolean, 
+			default: false
+		},
+		noFooter: { 
+			type: Boolean, 
+			default: false
+		},
 	},
 	data(){
 		return{
@@ -107,7 +127,7 @@ export default {
 		isLastStep(){
 			if(this.stepIndex === (this.totalSteps-1)) return true;
       
-			return (this.currentStep && this.currentStep.laststep) ? this.currentStep.laststep : false;
+			return (this.currentStep && this.currentStep.last_step) ? this.currentStep.last_step : false;
 		},
 		progress(){
 			return ((this.stepIndex+1)/this.totalSteps)*100;
@@ -144,10 +164,10 @@ export default {
 				this.$emit('valdiateStep', this.stepIndex);
 				return false;
 			}
-			if(this.currentStep.last_step && this.action){
+			if(this.isLastStep && this.action){
 				this.submitForm();
 			}
-			if(this.currentStep.last_step){
+			if(this.isLastStep){
 				this.$emit('onComplete');
 				return false;
 			}
@@ -165,7 +185,6 @@ export default {
 			window.location.hash = this.stepIndex;
 		},
 		submitForm(){
-			console.log(this.id);
 			document.getElementById(this.id).submit();
 		}
 	}

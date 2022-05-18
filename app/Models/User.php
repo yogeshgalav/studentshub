@@ -55,7 +55,8 @@ class User extends Authenticatable
     {
         return SlugOptions::create()
             ->generateSlugsFrom('full_name')
-            ->saveSlugsTo('slug');
+            ->saveSlugsTo('slug')
+            ->doNotGenerateSlugsOnCreate();
     }
 
     public function student()
@@ -73,6 +74,9 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Post');
     }
 
+    public function lead(){
+        return $this->hasOne('App\Models\Lead');
+    }
     /***
      * Now many new/unread notifications are
      * waiting for this user?
@@ -124,7 +128,7 @@ class User extends Authenticatable
         //     ->rightJoin('institute_users as inu', function($join){
         //         $join->on('ins.id','=','inu.institute_id')->where('inu.user_id','=',$this->id);
         //     });
-        } elseif ('sthubAdmin'===$role) {
+        } elseif ('sthub_staff'===$role) {
             $classroom_query=$classroom_query;
         } else {
             return [];
@@ -156,5 +160,8 @@ class User extends Authenticatable
             return false;
         }
         return true;
+    }
+    public function isStaff(){
+        return $this->role==='sthub_staff';
     }
 }

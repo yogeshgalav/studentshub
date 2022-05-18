@@ -1,5 +1,8 @@
 <template>
   <div>
+    <Head>
+      <title> {{ doubt.question }}</title>
+    </Head>
     <div class="row">
       <loading
         :active.sync="showLoader"
@@ -132,6 +135,7 @@ export default {
 		RichTextEditor,
 		Accordion,
 	},
+  	props:['doubts'],
 	data() {
 		return {
 			doubt: {},
@@ -165,14 +169,15 @@ export default {
 		},
 	},
 	mounted() {
+		console.log(this.doubts);
 		this.getDoubtAnswerData();
 	},
 	methods: {
 		getDoubtAnswerData(){
-			this.showLoader= true;
-			this.axios.get('/api/doubt/' + this.$route.params.doubtId + '/get-answers/')
+			let loader = this.$loading.show();
+			this.axios.get('/api/doubt/' + this.doubts.id + '/get-answers/')
 				.then(response => {
-					this.showLoader= false;
+					loader.hide();
 					this.doubt = response.data.success.doubt;
 					this.posts = response.data.success.answerList;
 					this.isAnswered = response.data.success.isAnswered;
@@ -184,8 +189,8 @@ export default {
 				this.error='Post content cannot be empty.';
 				return false;
 			}
-			this.showLoader= true;
-			this.axios.post('/api/doubt/' + this.$route.params.doubtId + '/add-answer', {
+			let loader = this.$loading.show();
+			this.axios.post('/api/doubt/' + this.doubts.id + '/add-answer', {
 				answer_html: this.new_answer,
 				answer_text: this.description
 			})
@@ -196,7 +201,7 @@ export default {
 					this.error = '';
 				})
 				.catch(err => {
-					this.showLoader= false;
+					loader.hide();
 					reject(err);
 				});
 		},

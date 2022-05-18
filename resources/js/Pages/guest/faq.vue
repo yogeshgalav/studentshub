@@ -1,5 +1,8 @@
 <template>
   <main>
+    <Head>
+      <title>FAQ</title>
+    </Head>
     <loading
       :active.sync="showLoader"
       :color="'#10069F'"
@@ -125,7 +128,7 @@ export default {
 	},
 	methods: {
 		handleSubmit() {
-			this.$validator.validate().then((valid) => {
+			this.validateForm().then((valid) => {
 				if (valid) {
 					this.showLoader = true;
 					console.log(this.showLoader);

@@ -1,5 +1,8 @@
 <template>
   <div>
+    <Head>
+      <title>Contact Us</title>
+    </Head>
     <div class="blank" />
     <loading
       :active.sync="showLoader"
@@ -78,7 +81,7 @@
               </div>
             </div>
             <div
-              v-if="!AuthUser"
+              
               class="form-group row"
             >
               <div class="col-md-12">
@@ -216,16 +219,14 @@ export default {
 	},
 	methods: {
 		handleSubmit() {
-			this.$validator.validate().then(valid => {
+			this.validateForm().then(valid => {
 				if (valid) {
 					this.axios
 						.post('/api/contactus', {
 							name: this.AuthUser
 								? this.AuthUser.full_name
 								: this.name,
-							email: this.AuthUser
-								? this.AuthUser.email
-								: this.email,
+							email: this.email,
 							description: this.description
 						})
 						.then(resp => {

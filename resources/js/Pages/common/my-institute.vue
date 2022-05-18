@@ -1,5 +1,8 @@
 <template>
   <div class="row">
+    <Head>
+      <title>{{ institute_name ? institute_name : 'My Institute' }}</title>
+    </Head>
     <div class="col-md-12 mt-3">
       <h1>{{ institute_name ? institute_name : 'My Institute' }}</h1>
     </div>
@@ -137,7 +140,23 @@
             </div>
           </div>
         </template>
-
+        <template slot="tab-heading-about">
+          {{ 'About' }}
+        </template>
+        <template slot="tab-panel-about">
+          <div id="about-html" />
+          <div class="col-md-10">
+            <div class="card">
+              <div class="card-body">
+                <p>
+                  thanks! Your account is created. <br>
+                  Our team will soon contact you on phone for account verification.<br>
+                  Once account verified you will be able to promote your institute to thousands of students.
+                </p>
+              </div>
+            </div>
+          </div>
+        </template>
         <template slot="tab-heading-posts">
           {{ 'Posts' }}
         </template>
@@ -147,7 +166,13 @@
             :post-route="'/institute/'+AuthUser.preferred_institute_id"
           >
             <template slot="empty">
-              Currently no post have been shared in your institute.
+              <img
+                class="search-not-found"
+                src="/images/search-not-found.png"
+              >
+              <p style="text-align:center;">
+                Currently no post have been shared in your institute.
+              </p>
             </template>
           </PostContainer>
         </template>
@@ -160,7 +185,13 @@
             :doubt-route="'/course/'+AuthUser.preferred_course_id"
           >
             <template slot="empty">
-              Currently no doubt have been shared in your institute.
+              <img
+                class="search-not-found"
+                src="/images/search-not-found.png"
+              >
+              <p style="text-align:center;">
+                Currently no doubt have been shared in your institute.
+              </p>
             </template>
           </DoubtContainer>
         </template>
@@ -203,6 +234,12 @@ export default {
 		}
 	},
 	mounted() {
+
+		if(this.AuthUser.role==='instituteAdmin'){
+
+			this.tabs.unshift('about');
+			this.initialTab ='about';
+		}
 		let institute_id = this.AuthUser.preferred_institute_id;
 
 		if(!institute_id) return false;
@@ -220,7 +257,7 @@ export default {
 	methods: {
 		submitCourse(){
 			this.axios
-				.put('/api/preferred-institute',{
+				.put('/api/preferred-details',{
 					preferred_institute:this.selected_institute,
 				})
 				.then(resp => {

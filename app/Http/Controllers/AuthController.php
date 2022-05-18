@@ -23,14 +23,16 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Socialite;
 use DB;
+use Session;
 
 class AuthController extends Controller
 {
-    public function getStartedPage()
+    public function getStartedPage(Request $request)
     {
         if(Auth::check()){
             return redirect('/');
         }
+        Session::put('chatId',$request->chatId);
         return inertia('auth/get-started', [
             'srvError'=>session('srvError') ?? 1,
             'otpError'=>session('otpError') ?? 1,
@@ -38,6 +40,7 @@ class AuthController extends Controller
     }
 
     public function loginViaOtp(Request $request){
+        $chatId=Session::get('chatId');
         \Session::flush();     
         $user=User::where('phone_no','=',$request->phone_number)->first();
 
@@ -47,6 +50,12 @@ class AuthController extends Controller
         if(!Hash::check($request->otp,$user->password)){
             return redirect('/get-started')->with('otpError',1);
         }
+        if($chatId){
+            ChatroomUser::updateOrCreate([
+                'chatroom_id'=>$chatId,
+                'user_id'=>$user->id,
+            ]);
+        }
         Auth::login($user,1);
 
         Log::info($user->full_name." (User ID # ".$user->id.") logged in from IP Address ".$request->ip());
@@ -55,7 +64,7 @@ class AuthController extends Controller
             return redirect('/leads');
         }
 
-        return redirect('/');
+        return redirect('/profile/'.$user->id);
     }
 
     /**
@@ -65,8 +74,9 @@ class AuthController extends Controller
      *
      * @return Response
      */
-    public function registerViaOtp(Request $request)
+    public function registerViaOtp(RegisterRequest $request)
     {
+        $chatId=Session::get('chatId');
         \Session::flush();
         $user=User::where('phone_no','=',$request->phone_number)->first();
 
@@ -77,7 +87,6 @@ class AuthController extends Controller
         if(!Hash::check($request->otp,$user->password)){
             return redirect('/get-started')->with('otpError',1);
         }
-
         DB::beginTransaction();
     try{
 
@@ -97,7 +106,15 @@ class AuthController extends Controller
         Auth::login($user,1);
         Log::info($user->full_name." (User ID # ".$user->id.") registered and logged in from IP Address ".$request->ip());
 
-        $success['redirectUrl'] = '/';
+        $success['redirectUrl'] = '/profile/'.$user->id;
+        
+        if($chatId){
+            ChatroomUser::updateOrCreate([
+                'chatroom_id'=>$chatId,
+                'user_id'=>$user->id,
+            ]);
+        }
+
         if($request->join_id){
             $this->registerWithClassrrom($user,$request->join_id);
             $success['redirectUrl'] = '/classrooms';
@@ -114,7 +131,7 @@ class AuthController extends Controller
             return redirect('/get-started')->with('srvError',1);
         }  
 
-        return redirect('/');
+        return redirect('/profile/'.$user->id);
     }
 
     public function registerWithClassrrom($user,$joinId){

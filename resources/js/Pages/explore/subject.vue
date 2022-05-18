@@ -1,5 +1,8 @@
 <template>
   <div class="row">
+    <Head>
+      <title>{{ subjectName }}</title>
+    </Head>
     <div class="">
       <div class="col-md-12">
         <h1>{{ subjectName }}</h1>
@@ -16,6 +19,7 @@
         <PostContainer
           v-if="subjectId"
           :post-route="'/subject/'+subjectId"
+          :share-route="'/share-your-knowledge?sId='+subjectId"
         >
           <template slot="empty">
             Currently no post have been shared related to this subject.

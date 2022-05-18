@@ -17,7 +17,7 @@
                 >
                   <button
                     id="dropdownMenuButton"
-                    class="btn btn-secondary dropdown-toggle p-0"
+                    class="btn btn-secondary dropdown-toggle p-0  border-0"
                     type="button"
                     data-toggle="dropdown"
                     aria-haspopup="true"
@@ -121,7 +121,7 @@
         <interaction-component
           :user-like="doubt.user_like ? true : false"
           :total-likes="doubt.total_likes"
-          :likable-id="doubt.id"
+          :likable-id="parseInt(doubt.id)"
           likable-type="doubt"
           :edit-access="doubt.user_id===AuthUser.id"
         />
@@ -149,16 +149,26 @@ export default {
 		// ImageSlider
 	},
 	props:['doubt',],
+ 
 	methods:{
-		editDoubt(id){
-			window.location.href ='/doubt/'+id+'/edit';
+		editDoubt(){
+			this.$gtag('event','editDoubt',{
+				'doubt_id':this.doubt.id
+			});
+			window.location.href ='/edit-doubt/'+this.doubt.id;
 		},
-		deleteDoubt(id){
+		deleteDoubt(){
+			this.$gtag('event','deleteDoubt',{
+				'doubt_id':this.doubt.id
+			});
 			this.axios.delete('/api/doubt/'+this.doubt.id).then(()=>{
 				window.location.reload();
 			});
 		},
 		copyLink(){
+			this.$gtag('event','copyLink',{
+				'doubt_id':this.doubt.id
+			});
 			navigator.clipboard.writeText(this.baseUrl+'/doubt/'+this.doubt.id);
 		}
 	},

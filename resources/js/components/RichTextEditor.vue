@@ -8,7 +8,7 @@
         data-target="#urlModal"
         @click="addVideo"
       >
-        Yotube video
+        YouTube video
       </button>
       <button
         type="button"
@@ -114,7 +114,7 @@ class Youtube extends BlockEmbed {
 		node.setAttribute('mozallowfullscreen', true);
 		node.setAttribute('webkitallowfullscreen', true);
 		node.setAttribute('allowfullscreen', true);
-		node.setAttribute('width', '700');
+		node.setAttribute('width', '100%');
 		node.setAttribute('height', '400');
 		node.setAttribute('class', 'ql-align-center');
 		return node;
@@ -183,7 +183,7 @@ export default {
 			url_error: '',
 			video_id: '',
 			document_link: '',
-			content: '',
+			content: this.value,
 			editorSettings: {
 				modules: {
 					imageDrop: true,

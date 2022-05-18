@@ -1,5 +1,8 @@
 <template>
   <div class="full-size">
+    <Head>
+      <title>Notifications</title>
+    </Head>
     <div class="classmates-section col-md-7 col-sm-12">
       <div
         v-if="!notifications.length"

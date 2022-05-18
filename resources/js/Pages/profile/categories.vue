@@ -1,5 +1,8 @@
 <template>
   <section class="row">
+    <Head>
+      <title>Category</title>
+    </Head>
     <div class="col-md-12">
       <h1>Category</h1>
     </div>
@@ -11,7 +14,7 @@
         class="interest card mb-2"
       >
         <router-link
-          :href="'/category/'+interest.category_url"
+          :href="'/category/'+interest.slug"
           class="row"
         >
           <div class="text-center col-md-4">

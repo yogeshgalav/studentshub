@@ -80,13 +80,24 @@
             </div>
           </div>
 
-          <div class="dropdown">
+          <div>
             <router-link
               href="/notifications"
               class="headerBellIcon btn"
             >
               <i
                 class="far fa-bell notification-icon"
+                style="margin-top:4px"
+              />
+            </router-link>
+          </div>
+          <div>
+            <router-link
+              href="/chatroom"
+              class="headerBellIcon btn"
+            >
+              <i
+                class="far fa-comment-dots notification-icon"
                 style="margin-top:4px"
               />
             </router-link>
@@ -173,6 +184,12 @@
  font-size: 14px;
  font-weight: 400;
 }
+@media (max-width: 768px) {
+  .navbar .container-fluid { 
+    padding: 0;
+    margin: 0;
+  }
+}
 </style>
 <script>
 import ProfileDropdown from'./ProfileDropdown.vue';
@@ -197,14 +214,16 @@ export default {
 				prevScrollpos = currentScrollPos;
 			}
 		});
+	},
+	methods:{
+		toggleSidebar(e){
+			e.preventDefault();
+			var sidebar_section = document.getElementById('sidebar-section');
+			if(!sidebar_section){
+				return false;
+			}
+			sidebar_section.classList.toggle('sidebar-section-active');
+		},
 	} 
 };
 </script>
-<style scoped>
-@media (max-width: 768px) {
-  .navbar .container-fluid { 
-    padding: 0;
-    margin: 0;
-  }
-}
-</style>

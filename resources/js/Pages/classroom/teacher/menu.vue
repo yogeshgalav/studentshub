@@ -7,7 +7,7 @@
           <div class="selection-box-default">
             <router-link
               class="card h-card"
-              :href="'/classroom/'+$route.params[0]+'/overview'"
+              :href="'/classroom/'+classroom.id+'/overview'"
             >
               <div class="card-body">
                 <div class="row">
@@ -28,7 +28,7 @@
           <div class="selection-box-default">
             <router-link
               class="card h-card"
-              :href="'/classroom/'+$route.params[0]+'/attendance'"
+              :href="'/classroom/'+classroom.id+'/attendance'"
             >
               <div class="card-body">
                 <div class="row">
@@ -50,7 +50,7 @@
           <div class="selection-box-default">
             <router-link
               class="card h-card"
-              :href="'/classroom/'+$route.params[0]+'/homeworks'"
+              :href="'/classroom/'+classroom.id+'/homeworks'"
             >
               <div class="card-body">
                 <div class="row">
@@ -72,7 +72,7 @@
           <div class="selection-box-default">
             <router-link
               class="card h-card"
-              :href="'/classroom/'+$route.params[0]+'/setup'"
+              :href="'/classroom/'+classroom.id+'/setup'"
             >
               <div class="card-body">
                 <div class="row">
@@ -93,7 +93,7 @@
           <div class="selection-box-default">
             <router-link
               class="card h-card"
-              :href="'/classroom/'+$route.params[0]+'/daily-assignment'"
+              :href="'/classroom/'+classroom.id+'/daily-assignment'"
             >
               <div class="card-body">
                 <div class="row">
@@ -115,7 +115,7 @@
           <div class="selection-box-default">
             <router-link
               class="card h-card"
-              :href="'/classroom/'+$route.params[0]+'/report'"
+              :href="'/classroom/'+classroom.id+'/report'"
             >
               <div class="card-body">
                 <div class="row">
@@ -137,16 +137,16 @@
           <div class="selection-box-default">
             <router-link
               class="card h-card"
-              :href="'/classroom/'+$route.params[0]+'/resources'"
+              :href="'/subject/'+classroom.subject_id+'#posts'"
             >
               <div class="card-body">
                 <div class="row">
                   <div class="col-lg-12">
                     <h2 class="font-size-18">
-                      {{ 'Resources' }}
+                      {{ 'Posts' }}
                     </h2>
                     <p>
-                      {{ 'Add document or video links.' }}
+                      {{ 'Add or explore posts from this subject.' }}
                     </p>
                   </div>
                 </div>
@@ -158,16 +158,16 @@
           <div class="selection-box-default">
             <router-link
               class="card h-card"
-              :href="'/classroom/'+$route.params[0]+'/messages'"
+              :href="'/subject/'+classroom.subject_id+'#doubts'"
             >
               <div class="card-body">
                 <div class="row">
                   <div class="col-lg-12">
                     <h2 class="font-size-18">
-                      {{ 'Message' }}
+                      {{ 'Posts' }}
                     </h2>
                     <p>
-                      {{ 'Add Message for classroom.' }}
+                      {{ 'Add or explore doubts from this subject.' }}
                     </p>
                   </div>
                 </div>
@@ -224,6 +224,7 @@ export default {
 	components: {
 		ClassroomHeader
 	},
+	props:['classroom'],
 	data() {
 		return {};
 	},

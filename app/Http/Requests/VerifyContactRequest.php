@@ -25,7 +25,7 @@ class VerifyContactRequest extends FormRequest
     public function rules()
     {
         return [
-            "phone_number"=>["required",new PhoneRule],
+            "phone_number"=>"required|numeric|digits:10",
             "country_code"=>"required|max:3",
         ];
     }

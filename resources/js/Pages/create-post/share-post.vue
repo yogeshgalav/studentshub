@@ -1,20 +1,24 @@
 <template>
-  <div class="container">
-    <loading 
-      :active.sync="showLoader"
+  <section class="container">
+    <Head>
+      <title>Create Post</title>
+    </Head>
+    <loading
+      :active.sync="post_submited"
       :color="'#10069F'"
       :width="250"
       :is-full-page="true"
     />
-
     <div class="logn_righ ">
       <div class="card_body">
         <form @submit.prevent="()=>{}">
-          <form-wizard
+          <MultiStep
+            ref="multiStep"
             :step-data="step_data"
+            @valdiateStep="valdiateStep"
             @onComplete="onComplete"
           >
-            <template slot="header-row">
+            <template slot="header">
               <div class="justify-center col-12">
                 <h1>Create Post</h1>
                 <p class="text-grey font-weight-18 ">
@@ -22,17 +26,52 @@
                 </p>
               </div>
             </template>
+            <template slot="step0">
+              <create-post-description
+                v-if="post_data"
+                :post="post_data"
+                :categories="categories"
+                :subject-info="subjectInfo"
+                :course-info="courseInfo"
+                @setPostDescription="setPostDescription"
+              />
+            </template>
             <template slot="step1">
-              <create-post-description v-if="$store.state.post.selected_category_id"/>
+              <create-post-content
+                v-if="post_data"
+                :post="post_data"
+                @setPostContent="setPostContent"
+              />
             </template>
-            <template slot="step2">
-              <create-post-content :new-post="newPost" />
+            
+            <template
+              v-slot:footer="props"
+            >
+              <div class="mt-5 m-0-a">
+                <div class="row">
+                  <button
+                    v-if="!props.isFirstStep"
+                    type="button"
+                    class="btn btn-outline-dark fade-in-out mr-1"
+                    @click="prevClick"
+                  >
+                    {{ 'back' }}
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-md btn-primary"
+                    @click="nextClick"
+                  >
+                    {{ props.isLastStep ? (post ? 'Update Post' : 'Create Post') : 'Next' }}
+                  </button>
+                </div>
+              </div>
             </template>
-          </form-wizard>
+          </MultiStep>
         </form>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 <style>
     .wizardHeader {
@@ -97,65 +136,115 @@
 </style>
 <script>
 import {mapState} from 'vuex';
-import FormWizard from './VueNiceWizard';
+import MultiStep from '@/components/VueMultiStepForm';
 import CreatePostContent from './create-post/create-post-content';
 import CreatePostDescription from './create-post/create-post-description';
 import swal from '../../components/swal';
+import EventBus from './event-bus';
 
 export default {
 	components: {
-		FormWizard,
+		MultiStep,
 		CreatePostContent,
 		CreatePostDescription
 	},
-	props:['courseInfo', 'subjectInfo'],
+	props:['categories', 'courseInfo', 'subjectInfo', 'post', 'categoryInfo'],
 	data() {
 		return {
-			step_data: [],
-			total_steps: 2,
-			showLoader:false,
+			step_data: [
+				{
+					'step_valid': false,
+					'step_skip': false,
+					'show_back_button': false,
+					'show_next_button': true,
+					'last_step': false,
+				},
+				{
+					'step_valid': false,
+					'step_skip': false,
+					'show_back_button': true,
+					'show_next_button': true,
+					'last_step': true,
+				},
+			],
+			post_data:null,
+			post_submited:false,
 		};
 	},
-	computed:{
-		...mapState({
-			'newPost': state=>state.post,
-		})
-	},
 	mounted() {
-		for (let i = 1; i <= this.total_steps; i++) {
-			this.step_data.push({
-				'backbutton': i===1 ? false : true,
-				'stepskip': false,
-				'nextTab': true,
-				'validation': true,
-				'emit': '',
-				'nextText': i===1 ? 'Next' : 'Finish',
-				'name': 'step' + i,
-				'step': i
+
+		let subjectInfo = null;
+		if(this.subjectInfo){
+			subjectInfo = Object.assign(this.subjectInfo.subject_name,{
+				text:this.subjectInfo.subject_name
 			});
 		}
-		this.$store.dispatch('getCategories');
-		this.$store.commit('intialize_post',{
-			courseInfo:this.courseInfo,
-			subjectInfo:this.subjectInfo
+		//set post data
+		if(this.post){
+			this.post_data = this.post;
+		}else{
+			this.post_data ={
+				heading:'',
+				category_id:this.categoryInfo ? this.categoryInfo.id : 7,
+				subjects: this.subjectInfo ? [subjectInfo] : [],
+				course_id: this.courseInfo ? this.courseInfo.id : null,
+				html_content:'',
+				text_content:'',
+			};
+		}
+
+		//validate step
+		EventBus.$on('validateWizard',(i,valid)=>{
+			if(this.step_data[i] && valid){
+				this.step_data[i]['step_valid']=true;
+				this.$refs.multiStep.nextStep();
+			}
 		});
 	},
 	methods: {
+		valdiateStep(stepIndex){
+			EventBus.$emit('validateStep'+stepIndex);
+		},
+		setPostDescription(data){
+			this.$gtag('event','setPostDescription');
+			this.post_data.heading=data.heading;
+			this.post_data.subjects=data.subjects;
+			this.post_data.category_id=data.category_id;
+		},
+		setPostContent(data){
+			this.$gtag('event','setPostContent');
+			this.post_data.html_content=data.content;
+			this.post_data.text_content=data.text_content;
+		},
+		nextClick: function (e) {
+			this.$refs.multiStep.nextStep();
+		},
+		prevClick: function (e) {
+			this.$refs.multiStep.prevStep();
+		},
 		onComplete() {
-			if(true===this.showLoader){
+			if(this.post_submited){
 				return false;
 			}
-			this.showLoader=true;
-			this.$store.dispatch('submitPost', this.new_post)
+			this.post_submited=true;
+			// let loader = this.$loading.show();
+			let page = 'dashboard';
+			page = this.courseInfo ? 'course' : page;
+			page = this.categoryInfo ? 'category' : page;
+			page = this.subjectInfo ? 'subject' : page;
+			this.$gtag('event',msg, {page:page});
+			let api ='/api/submit-post';
+			let msg ='Post Created';
+			if(this.post_data.id){
+				api ='/api/post/'+this.post.id+'/update';
+				msg ='Post Updated';
+			}
+			this.axios.post(api,this.post_data)
 				.then((resp)=>{
-					this.showLoader=false;
-					gtag('event','post_create',{
-						// 'course':this.$store.state.selected_course.course_name,
-						// 'subjects':this.$store.state.selected_subjects.map(el=>el.subject_name).join(','),
-					});
-					swal.successDialog('Post Created', 'Successfully!', 'success');
-					window.location.href ='/';
-				}).catch((err)=>{this.showLoader=false;});
+					// loader = false;
+					// swal.successDialog(msg, 'Successfully!', 'success');
+					this.$inertia.visit('/post/'+resp.data.success.post_id);
+				});
 		}
 	}
 };

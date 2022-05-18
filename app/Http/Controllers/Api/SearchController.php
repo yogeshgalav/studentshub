@@ -38,20 +38,4 @@ class SearchController extends Controller
                 ]
             ]);
     }
-
-    public function searchPosts(Request $request){
-        if(empty($request->searchTerm)){
-            return response()->json([
-                'success'=>[
-                    'posts'=>[],
-                ]
-            ]);
-        }
-        $post=new \App\Post;
-        $posts = $post->getSearchPosts($request);
-
-        return response()->json(['success'=>[
-        'posts'=>\Sthub::convert_from_latin1_to_utf8_recursively($posts)
-        ]]);
-    }
 }
