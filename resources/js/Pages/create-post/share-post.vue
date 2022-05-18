@@ -1,5 +1,14 @@
 <template>
   <section class="container">
+    <Head>
+      <title>Create Post</title>
+    </Head>
+    <loading
+      :active.sync="post_submited"
+      :color="'#10069F'"
+      :width="250"
+      :is-full-page="true"
+    />
     <div class="logn_righ ">
       <div class="card_body">
         <form @submit.prevent="()=>{}">
@@ -38,22 +47,22 @@
             <template
               v-slot:footer="props"
             >
-              <div class="m-0-a">
+              <div class="mt-5 m-0-a">
                 <div class="row">
                   <button
                     v-if="!props.isFirstStep"
                     type="button"
-                    class="btn btn-md btn-primary m-0-a"
+                    class="btn btn-outline-dark fade-in-out mr-1"
                     @click="prevClick"
                   >
                     {{ 'back' }}
                   </button>
                   <button
                     type="button"
-                    class="btn btn-md btn-primary m-0-a"
+                    class="btn btn-md btn-primary"
                     @click="nextClick"
                   >
-                    {{ props.isLastStep ? 'Create Post' : 'Next' }}
+                    {{ props.isLastStep ? (post ? 'Update Post' : 'Create Post') : 'Next' }}
                   </button>
                 </div>
               </div>
@@ -139,7 +148,7 @@ export default {
 		CreatePostContent,
 		CreatePostDescription
 	},
-	props:['categories', 'courseInfo', 'subjectInfo', 'post'],
+	props:['categories', 'courseInfo', 'subjectInfo', 'post', 'categoryInfo'],
 	data() {
 		return {
 			step_data: [
@@ -148,14 +157,14 @@ export default {
 					'step_skip': false,
 					'show_back_button': false,
 					'show_next_button': true,
-					'laststep': false,
+					'last_step': false,
 				},
 				{
 					'step_valid': false,
 					'step_skip': false,
 					'show_back_button': true,
 					'show_next_button': true,
-					'laststep': true,
+					'last_step': true,
 				},
 			],
 			post_data:null,
@@ -176,9 +185,9 @@ export default {
 		}else{
 			this.post_data ={
 				heading:'',
-				category_id:7,
+				category_id:this.categoryInfo ? this.categoryInfo.id : 7,
 				subjects: this.subjectInfo ? [subjectInfo] : [],
-				course: this.courseInfo ? this.courseInfo : null,
+				course_id: this.courseInfo ? this.courseInfo.id : null,
 				html_content:'',
 				text_content:'',
 			};
@@ -197,11 +206,13 @@ export default {
 			EventBus.$emit('validateStep'+stepIndex);
 		},
 		setPostDescription(data){
+			this.$gtag('event','setPostDescription');
 			this.post_data.heading=data.heading;
 			this.post_data.subjects=data.subjects;
 			this.post_data.category_id=data.category_id;
 		},
 		setPostContent(data){
+			this.$gtag('event','setPostContent');
 			this.post_data.html_content=data.content;
 			this.post_data.text_content=data.text_content;
 		},
@@ -215,22 +226,21 @@ export default {
 			if(this.post_submited){
 				return false;
 			}
+			this.post_submited=true;
 			// let loader = this.$loading.show();
-      
+			let page = 'dashboard';
+			page = this.courseInfo ? 'course' : page;
+			page = this.categoryInfo ? 'category' : page;
+			page = this.subjectInfo ? 'subject' : page;
+			this.$gtag('event',msg, {page:page});
 			let api ='/api/submit-post';
-			let event_name ='post create';
 			let msg ='Post Created';
 			if(this.post_data.id){
 				api ='/api/post/'+this.post.id+'/update';
-				event_name ='post update';
 				msg ='Post Updated';
 			}
 			this.axios.post(api,this.post_data)
 				.then((resp)=>{
-					this.$gtag('event',event_name,{
-						// 'course':this.$store.state.selected_course.course_name,
-						// 'subjects':this.$store.state.selected_subjects.map(el=>el.subject_name).join(','),
-					});
 					// loader = false;
 					// swal.successDialog(msg, 'Successfully!', 'success');
 					this.$inertia.visit('/post/'+resp.data.success.post_id);

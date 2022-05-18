@@ -55,71 +55,84 @@ class DoubtController extends Controller
     }
 
     
-    public function getDoubts(Request $request){
-
-        $doubt_query = Doubt::join('users as us','us.id','=','doubts.user_id')
-        ->join('categories as cat','cat.id','=','doubts.category_id')
-        ->leftJoin('institutes as inst','inst.id','=','us.preferred_institute_id')
-        ->leftJoin('doubt_answers as ans','doubts.id','=','ans.doubt_id')
-        ->leftJoin('likes as li',function($join){
-            $join->on('doubts.id','=','li.likable_id')->where('li.likable_type','=','App\Models\Doubt')->where('li.like_status','=',1);
-        })
-        ->leftJoin('likes as uli',function($join){
-            $join->on('doubts.id','=','uli.likable_id')
-            ->where('uli.likable_type','=','App\Models\Doubt')
-            ->where('uli.user_id','=',Auth::id());
-        })
-        ->select('cat.id as category_id','cat.name as category_name',
+    public function getDoubts($dashboard_type=null,$dashboard_id=null,Request $request){
+      
+        $doubt_query=Doubt::leftjoin('users as us','us.id','=','doubts.user_id')
+        ->leftjoin('categories as cat','cat.id','=','doubts.category_id')
+        ->leftJoin('institutes as inst','inst.id','=','us.preferred_institute_id');
+        // ->leftJoin('doubt_answers as ans','doubts.id','=','ans.doubt_id')
+        // ->leftJoin('likes as li',function($join){
+        //       $join->on('doubts.id','=','li.likable_id')
+        //       ->where('li.likable_type','=','App\Models\Doubt')
+        //       ->where('li.like_status','=',1);
+        //   });
+      
+        $columns = ['cat.id as category_id','cat.name as category_name',
         'us.id as user_id','us.full_name as user_name','us.avatar_url as profile_image',
-        'inst.id','inst.name',
-        'doubts.question','doubts.created_at','doubts.id','uli.like_status as user_like',
-        DB::raw('COUNT(distinct li.user_id) as total_likes'),
-        DB::raw('COUNT(distinct ans.user_id) as total_answers'))
-        ->groupBy('cat.id','cat.name', 'us.id','us.full_name','us.avatar_url',
-        'inst.id','inst.name',
-        'doubts.question','doubts.created_at','doubts.id','uli.like_status');
-
+        'inst.name',
+        'doubts.question','doubts.created_at','doubts.id','uli.like_status as user_like'
+        ];
         
-
-        $dashboard_id = $request->route('dasboard_id');
-
-        switch($request->route('dasboard_type')){
+        $groupBycolumns = ['cat.id','cat.name', 'us.id','us.full_name','us.avatar_url',
+        'inst.id','inst.name',
+        'doubts.question','doubts.created_at','doubts.id','uli.like_status'];
+       
+        if(Auth::check()){
+            $doubt_query ->leftJoin('likes as uli',function($join){
+              $join->on('doubts.id','=','uli.likable_id')
+              ->where('uli.likable_type','=','App\Models\Doubt')
+              ->where('uli.user_id','=',Auth::id());
+          });
+            array_push($columns,'uli.like_status as user_like');
+            array_push($groupBycolumns,'uli.like_status');
+        }
+       
+        switch($dashboard_type){
           case 'institute':
-            $doubt_query=$doubt_query->where('inst.id',$institute_id)
+            $doubt_query=$doubt_query->where('inst.id',$dashboard_id)
             ->orderBy('doubts.created_at','DESC');
             break;
           case 'course':
-            $posts=$post_query->where('doubts.course_id',$course_id)
+            $doubt_query=$doubt_query->where('doubts.course_id',$dashboard_id)
             ->orderBy('doubts.created_at','DESC');
             break;
           case 'subject':
-            $posts=$post_query->leftJoin('doubt_tags as dt','dt.doubt_id','=','doubts.id')
-            ->where('dt.subject_id',$subject_id)
+            $doubt_query=$doubt_query->leftJoin('doubt_tags as dt','dt.doubt_id','=','doubts.id')
+            ->where('dt.subject_id',$dashboard_id)
             ->orderBy('doubts.created_at','DESC');
             break;
           case 'category':
-            $doubts=$doubt_query->where('cat.id',$category_id)
+            $doubt_query=$doubt_query->where('cat.id',$dashboard_id)
             ->orderBy('doubts.created_at','DESC');
             break;
           case 'user':
-            $doubts=$doubt_query->where('doubts.user_id',$userId)
+            $doubt_query=$doubt_query->where('doubts.user_id',$dashboard_id)
             ->orderBy('doubts.created_at','DESC');
             break;
           default:
-            $doubts=$doubt_query->orderBy('doubts.created_at','DESC');
+            $doubt_query=$doubt_query->orderBy('doubts.created_at','DESC'); 
             break;
         }
 
         if($request->user('api')){
-          $doubts=$doubt_query->limit(10)->get();
+          $doubts=$doubt_query->select($columns)->get();
         }else{
-          $doubts=$doubt_query->limit(10)->get();
+          $doubts['data']=$doubt_query->limit(10)->get();
         }
         
+        
         foreach($doubts as $doubt){
-            $doubt->subjects=$doubt->subjects()->get();
-        }
-
+          $rand=rand(60,100);
+          $doubtData=Doubt::where('id',$doubt->id)
+          ->with('subjects')
+          ->first();
+         
+          $doubt->subjects=$doubtData->subjects;
+          $doubt->total_likes=\App\Models\Like::where('likable_id',$doubt->id)->where('likable_type','=',Doubt::class)->count();
+          $doubt->profile_image=$doubt->profile_image ?? '';
+          
+      }
+      
         return response()->json(['success'=>[
           'doubts'=>$doubts
         ]]);

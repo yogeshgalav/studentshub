@@ -1,5 +1,8 @@
 <template>
   <main>
+    <Head>
+      <title>FAQ</title>
+    </Head>
     <loading
       :active.sync="showLoader"
       :color="'#10069F'"

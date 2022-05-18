@@ -1,5 +1,9 @@
 <template>
   <div>
+    <Head>
+      <title>{{ category.name }}</title>
+      <meta name="description" :content="category.name">
+    </Head>
     <div class="row">
       <div class="col-md-10 col-12 text-center">
           <h1>{{ category.name }}</h1>
@@ -43,12 +47,20 @@
           </template>
           <template slot="tab-heading-subjects">
             {{ 'Subjects' }}
+            
           </template>
           <template slot="tab-panel-subjects">
-            <div
+            <div v-if="!subjects.length" >
+              <img class="search-not-found" src="/images/search-not-found.png"/>
+              <p style="text-align:center;">
+                Currently no subject have been shared related to this category.
+              </p>
+              </div>
+            <div 
               v-for="(subject,index) in subjects"
               :key="index"
             >
+            
               <router-link
                 :href="'/subject/'+subject.slug"
                 class="card mt-2"
@@ -59,6 +71,8 @@
               </router-link>
             </div>
           </template>
+          
+
           <template slot="tab-heading-posts">
             {{ 'Posts' }}
           </template>
@@ -66,9 +80,13 @@
             <PostContainer
               v-if="categoryId"
               :post-route="'/category/'+categoryId"
+              :share-route="'/share-your-knowledge?caId='+categoryId"
             >
               <template slot="empty">
+                  <img class="search-not-found" src="/images/search-not-found.png"/>
+                <p style="text-align:center;">
                 Currently no post have been shared related to this category.
+                </p>
               </template>
             </PostContainer>
           </template>
@@ -109,11 +127,12 @@
 import NavTabs from '../../components/NavTabs';
 import PostContainer from '../common/post-container';
 import CommonLayout from '@/Layouts/CommonLayout';
+import { Head } from '@inertiajs/inertia-vue';
 
 export default {
   layout: CommonLayout,
 	components: {
-		NavTabs, PostContainer
+		NavTabs, PostContainer,Head
 	},
 	props:['categoryId'],
 	data() {
@@ -130,6 +149,7 @@ export default {
 			subjects: [],
 		};
 	},
+
   computed:{
     categoryBlog(){
       if(this.category && this.category.slug){

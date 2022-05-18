@@ -1,5 +1,8 @@
 <template>
-  <post-view-page :role="'guest'" />
+  <post-view-page
+    :post="post"
+    :role="'guest'"
+  />
 </template>
 <script>
 import NoSidebarLayout from '@/Layouts/NoSidebarLayout.vue';
@@ -9,5 +12,6 @@ export default {
 	components: {
     	PostViewPage
 	},
+	props:['post'],
 };
 </script>

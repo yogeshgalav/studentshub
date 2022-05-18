@@ -127,7 +127,7 @@ export default {
 		isLastStep(){
 			if(this.stepIndex === (this.totalSteps-1)) return true;
       
-			return (this.currentStep && this.currentStep.laststep) ? this.currentStep.laststep : false;
+			return (this.currentStep && this.currentStep.last_step) ? this.currentStep.last_step : false;
 		},
 		progress(){
 			return ((this.stepIndex+1)/this.totalSteps)*100;

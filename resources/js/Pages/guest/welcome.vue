@@ -1,9 +1,13 @@
 <template>
   <main>
+    <Head>
+      <title>Home</title>
+    </Head>
     <explore-carousal-post />
     <div class="p-4 text-center">
-      <h3 class="m-0-a"> Do you know what is your Interest field ? </h3>   
-      
+      <h3 class="m-0-a">
+        Do you know what is your Interest field ?
+      </h3>
     </div>
     <category-filter :categories="categories" />
     <div

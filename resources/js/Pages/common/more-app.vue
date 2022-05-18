@@ -1,5 +1,8 @@
 <template>
   <div>
+    <Head>
+      <title> More Apps</title>
+    </Head>
     <div
       v-for="(app,index) in apps"
       :key="app.id"

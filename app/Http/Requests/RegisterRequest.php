@@ -26,8 +26,10 @@ class RegisterRequest extends FormRequest
         return [
             'role'=>'required|in:student,teacher,instituteAdmin',
             'full_name'=>'required|string|min:1|max:255',
-            'email'=>'required|email|max:255',
-            'password'=>'required|min:6|max:16',
+            'email'=>'nullable|string|email',
+            'fcmToken'=>'nullable|string',
+            'phone_number'=>'required',
+            'otp'=>'required|digits:5',
             // 'confirm_password'=>'required|min:6',
         ];
     }

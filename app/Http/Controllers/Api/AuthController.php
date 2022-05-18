@@ -35,11 +35,12 @@ class AuthController extends Controller
         
         DB::beginTransaction();
     try{
-       
+
         $user=User::where('phone_no','=',$request->phone_number)->first();
-        
+        $otp_required = !(('local'===env('APP_ENV')) || ($user && $user->is_demo_account));
+
         //generate otp
-        $otp = ('local'===env('APP_ENV')) ? 12345 : $otp=rand(11111,99999);;
+        $otp = $otp_required ? rand(11111,99999) : 12345;
 
         $success = [];
         $success['new_user']=false;
@@ -47,8 +48,6 @@ class AuthController extends Controller
             $user=new User();
             $user->country_code = $request->country_code;
             $user->phone_no=$request->phone_number;
-        }else if($user->role==='staff'){
-            $otp=12345;
         }
 
         $user->password=Hash::make($otp);
@@ -57,8 +56,9 @@ class AuthController extends Controller
         if(empty($user->onboarded_at)){
             $success['new_user'] = true;
         }
-        
-        // $this->sendOtpVerification($otp,$contact_number);
+        if($otp_required){  
+            $this->sendOtpVerification($otp,$request->phone_number);
+        }
         DB::commit();
     } catch (\Exception $e) {
         DB::rollback();
@@ -71,36 +71,33 @@ class AuthController extends Controller
 
     
     public function sendOtpVerification($otp,$contact){
-        $field = array(
-            "sender_id" => "FSTSMS",
-            "language" => "english",
-            "route" => "qt",
-            "numbers" => strval($contact),
-            "message" => "26142",
-            "variables" => "{#AA#}",
-            "variables_values" => strval($otp)
-            );
-            
-            $curl = curl_init();
-            
-            curl_setopt_array($curl, array(
-              CURLOPT_URL => "https://www.fast2sms.com/dev/bulk",
-              CURLOPT_RETURNTRANSFER => true,
-              CURLOPT_ENCODING => "",
-              CURLOPT_MAXREDIRS => 10,
-              CURLOPT_TIMEOUT => 30,
-              CURLOPT_SSL_VERIFYHOST => 0,
-              CURLOPT_SSL_VERIFYPEER => 0,
-              CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-              CURLOPT_CUSTOMREQUEST => "POST",
-              CURLOPT_POSTFIELDS => json_encode($field),
-              CURLOPT_HTTPHEADER => array(
-                "authorization: ".config("auth.sms_key"),
-                "cache-control: no-cache",
-                "accept: */*",
-                "content-type: application/json"
-              ),
-            ));
+        
+        $fields = array(
+            "variables_values" => $otp . " for getting started with Student's Hub. Enjoy educational networking!",
+            "route" => "otp",
+            "numbers" => $contact,
+        );
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => "https://www.fast2sms.com/dev/bulkV2",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_SSL_VERIFYHOST => 0,
+        CURLOPT_SSL_VERIFYPEER => 0,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_POSTFIELDS => json_encode($fields),
+        CURLOPT_HTTPHEADER => array(
+            "authorization: ".env('SMS_API_KEY'),
+            "accept: */*",
+            "cache-control: no-cache",
+            "content-type: application/json"
+        ),
+        ));
         
         $response = curl_exec($curl);
         $err = curl_error($curl);

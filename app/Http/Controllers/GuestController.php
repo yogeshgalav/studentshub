@@ -45,17 +45,21 @@ class GuestController extends Controller
     }
     public function viewPost($post_id)
     {
-        \App\Models\Post::findOrFail($post_id);
+        $post = \App\Models\Post::findOrFail($post_id);
         if (Auth::check()) {
-            return inertia('post/PostViewPage');
+            return inertia('post/PostViewPage',[
+                'post'=>$post
+            ]);
         }
-        return inertia('guest/guest-post-view');
+        return inertia('guest/guest-post-view',[
+            'post'=>$post
+        ]);
     }
     public function coursePage($course_url)
     {
         $course = \App\Models\Course::where('slug', $course_url)->firstOrFail();
         return inertia('explore/course', [
-            'courseId' => $course->id
+            'course' => $course
         ]);
     }
     public function subjectPage($subject_url)

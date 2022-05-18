@@ -117,6 +117,9 @@ class StudentController extends Controller
     }
     public function sharePost(Request $request)
     {
+        if($request->caId){
+            $categoryInfo = \App\Models\Category::find($request->caId);
+        }
         if($request->cId){
             $courseInfo = \App\Models\Course::find($request->cId);
         }
@@ -127,6 +130,7 @@ class StudentController extends Controller
             'categories' => Category::all(),
             'courseInfo' => isset($courseInfo) ? $courseInfo : null,
             'subjectInfo' => isset($subjectInfo) ? $subjectInfo : null,
+            'categoryInfo' => isset($categoryInfo) ? $categoryInfo : null,
         ]);
     }
     public function editPost(Post $post)
@@ -166,5 +170,15 @@ class StudentController extends Controller
         $editDoubt = Doubt::where('id','=',$id)->with('subjects')->first(); 
         $categories = \App\Models\Category::get();
         return inertia('doubt/create-doubt', ['categories' => $categories,'editDoubtDetails' =>$editDoubt]);
+    }
+    public function ChatroomindexPage(){
+        $chatrooms = DB::table('chatrooms as ch')
+        ->leftjoin('users as us','us.id','=','ch.created_by_user_id')
+        ->select('ch.id','ch.name','ch.uuid')
+        ->get();
+        return inertia('classroom/chatroom',
+        [
+            'chatroom' => $chatrooms
+        ]);
     }
 }

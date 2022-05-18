@@ -1,5 +1,8 @@
 <template>
   <section class="container">
+    <Head>
+      <title>Get Started</title>
+    </Head>
     <loading
       :active.sync="showLoader"
       :color="'#10069F'"
@@ -54,20 +57,22 @@
                   >
                 </template>
                 <template slot="step0">
-                  <div
-                    class="form-group"
-                  >
-                    <label for="phone_number"> {{ 'Enter Your Phone Number' }}</label>
-                    <div>
-                      <vue-tel-input
-                        v-validate="'required'"
-                        :validation-value="phone_number"
-                        :auto-default-country="true"
-                        default-country="IN"
-                        name="phone_number"
-                        placeholder="Enter Your Mobile Number"
-                        @validate="savePhoneNumber"
-                      />
+                  <div class="form-group">
+                    <label for="phone_number"> {{ ('Enter Your Phone Number') }}</label>
+                    <div class="inner-addon left-addon">
+                      <div class="input_icon_frm">
+                        <span class="icon_design_input"> +91</span>
+                        <input
+                          id="phone_number"
+                          v-model="phone_number"
+                          v-validate="'required|digits:10'"
+                          type="text"
+                          name="phone_number"
+                          autofocus
+                          class="form-control"
+                          placeholder="Enter Your Mobile Number"
+                        >
+                      </div>
                       <span class="error">{{ formErrors('phone_number') }}</span>
                     </div>
                   </div>
@@ -78,9 +83,10 @@
                   >
                     <label
                       for="verify_otp"
-                      class="pl-2"
+                      class="pl-1 text-center"
                     > {{ 'Verify OTP' }}</label>
-                    <div>
+
+                    <div class="text-center m-0-a">
                       <otp-input
                         ref="otpInput"
                         v-validate="'required'"
@@ -162,14 +168,6 @@
                   <div class="m-0-a">
                     <div class="row">
                       <button
-                        v-if="!props.isFirstStep"
-                        type="button"
-                        class="btn btn-md btn-primary m-0-a"
-                        @click="prevClick"
-                      >
-                        {{ 'back' }}
-                      </button>
-                      <button
                         type="button"
                         class="btn btn-md btn-primary m-0-a"
                         @click="nextClick"
@@ -222,14 +220,11 @@ import FormMixin from '@/components/mixins/form-mixin.js' ;
 import VueMultiStepForm from '@/components/VueMultiStepForm.vue' ;
 import NoSidebarNoFooterLayout from '@/Layouts/NoSidebarNoFooterLayout';
 import OtpInput from '@bachdgvn/vue-otp-input';
-import {VueTelInput} from 'vue-tel-input';
-import 'vue-tel-input/dist/vue-tel-input.css';
 
 export default {
 	layout:NoSidebarNoFooterLayout,
 	components:{
 		OtpInput,
-		VueTelInput,
 		VueMultiStepForm
 	},
 	mixins: [FormMixin],
@@ -261,14 +256,14 @@ export default {
 					'step_skip': false,
 					'show_back_button': false,
 					'show_next_button': true,
-					'laststep': false,
+					'last_step': false,
 				},
 				{
 					'step_valid': false,
 					'step_skip': false,
 					'show_back_button': true,
 					'show_next_button': true,
-					'laststep': true,
+					'last_step': true,
 				},
 				{
           
@@ -276,7 +271,7 @@ export default {
 					'step_skip': true,
 					'show_back_button': false,
 					'show_next_button': true,
-					'laststep': true,
+					'last_step': true,
 				}
 			]
 		};
@@ -304,19 +299,16 @@ export default {
 		OtpChange(value){
 			this.otp = value;
 		},
-		savePhoneNumber(value){
-			this.phone_number = value.number;
-			this.country_code = value.countryCode;
-		},
 		valdiateStep(stepIndex){
 			if(stepIndex===0){
+				this.$gtag('event','Phone number input');
 				// verify phone number and set new user;
 				this.validateInput('phone_number').then(resp=>{
 					if(!resp) return false;
 					let loader = this.$loading.show();
 					this.axios.post('/api/verify-contact',{
 						'phone_number':this.phone_number,
-						'country_code':this.country_code
+						'country_code':'IN'
 					}).then(resp=>{
 						if(resp.data.success.new_user){
 							this.new_user = true;
@@ -330,6 +322,7 @@ export default {
 					}).catch(()=>loader.hide());
 				});
 			}else if(stepIndex===1){
+				this.$gtag('event','Otp input');
 				// login
 				this.validateInput('otp').then(resp=>{
 					if(!resp) return false;
@@ -342,7 +335,8 @@ export default {
 					}
 				});
 			}else if(stepIndex===2){
-				// this.addField('otp',this.otp);
+				this.$gtag('event','Register');
+
 				this.validateInput('full_name').then(resp=>{
 					if(!resp) return false;
 					this.step_data[stepIndex]['step_valid']=true;

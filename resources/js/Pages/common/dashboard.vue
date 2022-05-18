@@ -1,6 +1,11 @@
 <template>
   <div>
-    <PostContainer />
+    <Head>
+      <title>Home</title>
+    </Head>
+    <PostContainer
+      share-route="/share-your-knowledge"
+    />
   </div>
 </template>
 <script>

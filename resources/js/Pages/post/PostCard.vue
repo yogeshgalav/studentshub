@@ -17,7 +17,7 @@
                 <div class="dropdown d-inline">
                   <button
                     id="dropdownMenuButton"
-                    class="btn btn-secondary dropdown-toggle p-0"
+                    class="btn btn-secondary dropdown-toggle p-0 border-0"
                     type="button"
                     data-toggle="dropdown"
                     aria-haspopup="true"
@@ -203,7 +203,6 @@
                 type="button"
                 class="btn btn-white mt-3"
                 data-dismiss="modal"
-                @click="closeModal"
               >
                 {{ 'Cancel' }}
               </button>
@@ -272,11 +271,22 @@ export default {
 		// ImageSlider
 	},
 	props:['post','doubtType'],
+	computed:{
+		AuthUserId(){
+			return this.AuthUser ? this.AuthUser.id : null;
+		}
+	},
 	methods:{
-		editPost(id){
-			window.location.href ='/post/'+id+'/edit';
+		editPost(){
+			this.$gtag('event','editPost',{
+				'post_id':this.post.id
+			});
+			window.location.href ='/post/'+this.post.id+'/edit';
 		},
 		deletePost(id){
+			this.$gtag('event','deletePost',{
+				'post_id':this.post.id
+			});
 			this.axios.delete('/api/post/'+this.post.id).then(()=>{
 				window.location.reload();
 			});

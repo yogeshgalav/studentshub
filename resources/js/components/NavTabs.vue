@@ -39,7 +39,6 @@
 </template>
 <style lang="scss">
 @import "resources/sass/_variables.scss";
-
 .nav-tabs {
   border-bottom: none;
 }

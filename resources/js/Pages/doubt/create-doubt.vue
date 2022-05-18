@@ -1,5 +1,8 @@
 <template>
   <div>
+    <Head>
+      <title>{{ editDoubtDetails?'Edit Doubt':'Ask Doubt' }}</title>
+    </Head>
     <div class="row">
       <div class="col-md-12">
         <h1>{{ editDoubtDetails?'Edit Doubt':'Ask Doubt' }}</h1>
@@ -33,7 +36,7 @@
                       </option>
                     </select>
                   </div>
-                  <div class="form-group">
+                  <div class="form-group m-0-a">
                     <label for="doubt_question">Question</label>
                     <input
                       id="doubt_question"
@@ -46,7 +49,7 @@
                     >
                     <span class="error">{{ formErrors('doubt_question') }}</span>
                   </div>
-                  <div class="">
+                  <div class="form-group">
                     <label for="subject_tags">Subject tags</label>
                     <vue-tags-input
                       v-model="tag"
@@ -58,12 +61,16 @@
                   </div>
                 </div>
               </div>
-
               <div class="row">
-        <div class="col-md-5 p-3 bg-light text-right">
-            <button type="button" class="btn btn-primary">Submit</button>
-             </div>
-             </div>
+                <div class="p-3">
+                  <button
+                    type="submit"
+                    class="btn btn-primary btn-md"
+                  >
+                    Submit
+                  </button>
+                </div>
+              </div>
             </form>
           </div>
         </div>
@@ -112,7 +119,7 @@ export default {
 				el.text= el.subject_name;
 				return el;
 			});
-			console.log(this.editDoubtDetails);
+			console.log(this.editDoubtDetails.id);
 		}
 	},  
  

@@ -9,3 +9,4 @@ class Career extends Model
 {
     use HasFactory;
 }
+  

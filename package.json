@@ -1,6 +1,7 @@
 {
   "private": true,
   "scripts": {
+    "hot": "cross-env NODE_ENV=local  node_modules/webpack/bin/webpack.js --hot --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "start": "cross-env NODE_ENV=local  node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "build": "cross-env NODE_ENV=development  node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "prod-build": "cross-env NODE_ENV=production  node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
@@ -19,6 +20,8 @@
     "axios": "^0.18.1",
     "chart.js": "^2.9.4",
     "dayjs": "^1.10.7",
+    "dotenv": "^16.0.0",
+    "dotenv-webpack": "^7.1.0",
     "ga-gtag": "^1.1.1",
     "ifvisible.js": "^1.0.6",
     "laravel-echo": "^1.11.2",

@@ -3,12 +3,6 @@
     <div>
       <div class="row">
         <div class="col-md-12">
-          <h1>Anjum Shaikh</h1>
-        </div>
-      </div>
-      <hr>
-      <div class="row">
-        <div class="col-md-12">
           <div class="card">
             <div class="card-body">
               <form @submit.prevent="addLead">
@@ -25,25 +19,22 @@
                         class="form-control"
                         aria-label=".form-select-lg example"
                       >
-                        <option selected>
-                          Lead Status
+                        <option value="raw">
+                          raw
                         </option>
-                        <option value="1">
-                          row
-                        </option>
-                        <option value="2">
+                        <option value="invalid">
                           Invalid
                         </option>
-                        <option value="3">
+                        <option value="notInterested">
                           Not Intrested
                         </option>
-                        <option value="4">
+                        <option value="interested">
                           Intrested
                         </option>
-                        <option value="5">
+                        <option value="paymentPending">
                           Payment Pending
                         </option>
-                        <option value="6">
+                        <option value="paymentDone">
                           Payment Done
                         </option>
                       </select>
@@ -78,9 +69,8 @@
                 
                 <div class="mt-2">
                   <button
-                    type="button"
+                    type="submit"
                     class="btn btn-primary btn-md"
-                    @click="addLead"
                   >
                     Submit
                   </button>
@@ -95,7 +85,7 @@
     <div class="row">
       <div class="col-md-12">
         <accordion
-          title="Lead Assign"
+          title="Details"
           :aria-expanded="true"
         >
           <vue-table-component
@@ -132,12 +122,13 @@ export default {
 		VueTableComponent,
 		Accordion
 	},
-	props:['leadData', 'leadAssigned'],
+	props:['userId'],
 	layout:StaffLayout,
 	
 	data() {
 		return {
-			lead_status:'2',
+			showLoader: false,
+			lead_status:'',
 			description:'',
 			user_verified:'',
 			userList:[],
@@ -146,7 +137,6 @@ export default {
 					label: 'Staff Name',
 					field: 'staff_name',
 				},
-				
 				{
 					label: 'Assigned At',
 					field: 'assigned_at',
@@ -155,22 +145,28 @@ export default {
 		};
 	},
 	mounted(){
-		this.userList = this.leadAssigned;
-		console.log(this.leadAssigned);
-	
+		let api='/api/lead';
+		if(this.userId){
+			api=api+'/'+this.userId;
+		}
+		this.axios.get(api).then(resp=>{
+			this.userList = resp.data.success.leadAssigned;
+			this.lead_status = resp.data.success.leadData.lead_status;
+			this.description = resp.data.success.leadData.description;
+      		});
 	},
 	methods:{
 		addLead(){
 			let loader = this.$loading.show();
-  	this.axios.post('/api/lead/'+this.leadData.user_id, {
+  	this.axios.post('/api/lead/'+this.userId, {
     			lead_status:this.lead_status,
 				description:this.description,
     		}).then(resp=>{
-				loader.hide();
-			
+				this.$loading.hide(); 			
 			});
 				
-		}
+		},
+    
 	}
 };
 

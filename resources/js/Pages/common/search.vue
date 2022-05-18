@@ -208,10 +208,12 @@
   </div>
 </template>
 <script>
-import NavTabs from '../../components/NavTabs.vue';
+import NavTabs from '@/components/NavTabs.vue';
+import CommonLayout from '@/Layouts/CommonLayout.vue';
 import PostCard from '../post/PostCard';
 
 export default {
+	layout:CommonLayout,
 	components:{
 		NavTabs,PostCard,
 	},
