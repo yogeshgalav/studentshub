@@ -21,7 +21,7 @@ class Comment extends Model
                 return 'post';
             case Doubt::class:
                 return 'doubt';
-            case ClassroomMessage::class:
+            case Chatroom::class:
                 return 'message';
             case ClassroomResource::class:
                 return 'resource';
