@@ -2,6 +2,13 @@
   <div class="sidebar">
     <div class="sidebar-navigation mt-5">
       <ul>
+        <div>
+          <span
+            class="closebtnclose button added to sidebar"
+            @click="sidebarItemClick"
+          >x</span>
+        </div>
+
         <router-link
           href="/"
           :class="isUrl('post') ? 'active' : ''"
@@ -166,9 +173,25 @@
     </div>
   </div>
 </template>
+<style scoped>
+.closebtn {
+    font-size: x-large;
+    top: 15px;
+    line-height: 36px;
+    height: 42px;
+    color: black;
+    position: absolute;
+    right: 15px;
+}
+
+</style>
 <script>
 export default {
 	methods:{
+		closeClick: function() {
+			this.$refs.sidebar.hide();
+		},
+
 		isUrl(...urls) {
 			let currentUrl = this.$page.url.substr(1);
 			if (urls[0] === '') {
