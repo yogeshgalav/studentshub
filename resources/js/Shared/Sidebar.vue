@@ -4,7 +4,7 @@
       <ul>
         <div>
           <span
-            class="closebtnclose button added to sidebar"
+            class="closebtn btndisplay"
             @click="sidebarItemClick"
           >x</span>
         </div>
