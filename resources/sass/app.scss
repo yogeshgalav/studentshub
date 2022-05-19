@@ -1324,10 +1324,13 @@ i {
 
 // Responsive CSS Start Here
 // mobile view custom tabs
+@media (min-width: 769px) and (max-width: 1600px) {
+.btndisplay{
+    display: none;
+}
+}
+
 @media (min-width: 768px) and (max-width: 1024px) {
-    .btndisplay{
-        display: none;
-    }
     .col-md-4 {
         flex: 0 0 100%;
         max-width: 100%;
@@ -1503,9 +1506,7 @@ textarea:focus {
     border: solid 1px blue !important;
 }
 @media only screen and (max-width: 1500px){
-    .btndisplay{
-        display: none;
-    }
+   
 }
 
 @media only screen and (max-width: 768px) {
