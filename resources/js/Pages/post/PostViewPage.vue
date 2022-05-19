@@ -275,9 +275,12 @@
         <p
           v-if="like_active"
           class="text-primary"
-          style="margin-top: 20px;font-size: x-large;"
+          style="margin-top: 25px;"
         >
-          <span><i class="fas fa-thumbs-up" /></span>
+          <span><i
+            class="fas fa-thumbs-up"
+            style="font-size: x-large;"
+          /></span><br>
           {{ totalLikes }} 
         </p>
         <p
@@ -288,7 +291,7 @@
         <p
           v-else
         >
-          <span><i class="fas fa-thumbs-up" /></span>
+          <span><i class="fas fa-thumbs-up" /></span><br>
           {{ totalLikes }}
         </p>
       </button>
