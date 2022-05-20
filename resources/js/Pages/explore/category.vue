@@ -46,40 +46,13 @@
             </div>
           </template>
           <template slot="tab-heading-subjects">
-            {{ 'Subjects' }}
-            
-          </template>
-          <template slot="tab-panel-subjects">
-            <div v-if="!subjects.length" >
-              <img class="search-not-found" src="/images/search-not-found.png"/>
-              <p style="text-align:center;">
-                Currently no subject have been shared related to this category.
-              </p>
-              </div>
-            <div 
-              v-for="(subject,index) in subjects"
-              :key="index"
-            >
-            
-              <router-link
-                :href="'/subject/'+subject.slug"
-                class="card mt-2"
-              >
-                <p class="mt-4 explore-name ml-2">
-                  {{ index+1 }}. &nbsp;{{ subject.subject_name }}
-                </p>
-              </router-link>
-            </div>
-          </template>
-          
-
-          <!-- <template slot="tab-heading-subjects">
           {{ 'Subjects' }}
         </template>
         <template slot="tab-panel-subjects">
           <SubjectContainer
             v-if="categoryId"
             :subject-route="'/category/'+categoryId"
+            :subjects="subjects"
           >
             <template slot="empty">
               <img
@@ -91,7 +64,7 @@
               </p>
             </template>
           </SubjectContainer>
-        </template> -->
+        </template>
           <template slot="tab-heading-posts">
             {{ 'Posts' }}
           </template>
@@ -179,7 +152,6 @@ export default {
     }
   },
 	mounted() {
-    console.log(this.subject);
 		this.axios
 			.get('/api/category/' + this.categoryId)
 			.then(resp => {

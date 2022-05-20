@@ -38,36 +38,6 @@
         :tabs="tabs"
         :initial-tab="initialTab"
       >
-        <!-- <template slot="tab-heading-subjects">
-          {{ 'Subjects' }}
-        </template>
-        <template slot="tab-panel-subjects">
-          <div class="row">
-            <div class="col-md-7">
-              <div v-if="!subjects.length">
-                <img
-                  class="search-not-found"
-                  src="/images/search-not-found.png"
-                >
-                <p style="text-align:center;">
-                  Currently no subject have been shared related to this category.
-                </p>
-              </div>
-              <div 
-                v-for="(subject,index) in subjects"
-                :key="index"
-                class="card mb-2"
-              >
-                <div class="card-body">
-                  <a
-                    :href="'/subject/'+subject.slug" 
-                    class="text-black font-size-18"
-                  >{{ subject.subject_name }}</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </template> -->
         <template slot="tab-heading-subjects">
           {{ 'Subjects' }}
         </template>
@@ -75,6 +45,7 @@
           <SubjectContainer
             v-if="AuthUser.preferred_course_id"
             :subject-route="'/course/'+AuthUser.preferred_course_id"
+            :subjects="subjects"
           >
             <template slot="empty">
               <img
