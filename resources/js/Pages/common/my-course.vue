@@ -38,7 +38,7 @@
         :tabs="tabs"
         :initial-tab="initialTab"
       >
-        <template slot="tab-heading-subjects">
+        <!-- <template slot="tab-heading-subjects">
           {{ 'Subjects' }}
         </template>
         <template slot="tab-panel-subjects">
@@ -67,6 +67,25 @@
               </div>
             </div>
           </div>
+        </template> -->
+        <template slot="tab-heading-subjects">
+          {{ 'Subjects' }}
+        </template>
+        <template slot="tab-panel-subjects">
+          <SubjectContainer
+            v-if="AuthUser.preferred_course_id"
+            :subject-route="'/course/'+AuthUser.preferred_course_id"
+          >
+            <template slot="empty">
+              <img
+                class="search-not-found"
+                src="/images/search-not-found.png"
+              >
+              <p style="text-align:center;">
+                Currently no Subject have been shared in your course.
+              </p>
+            </template>
+          </SubjectContainer>
         </template>
         <template slot="tab-heading-posts">
           {{ 'Posts' }}
@@ -119,10 +138,11 @@ import NavTabs from '../../components/NavTabs';
 import SelectCourse from '../../components/SelectCourse.vue';
 import PostContainer from './post-container.vue';
 import DoubtContainer from '@/Pages/doubt/doubt-container.vue';
+import SubjectContainer from '@/Pages/common/subject-container.vue';
 
 export default {
 	components: {
-		NavTabs, PostContainer, DoubtContainer, SelectCourse
+		NavTabs, PostContainer, DoubtContainer, SelectCourse, SubjectContainer,
 	},
 	data() {
 		return {

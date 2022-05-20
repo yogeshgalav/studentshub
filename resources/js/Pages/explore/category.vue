@@ -73,6 +73,25 @@
           </template>
           
 
+          <!-- <template slot="tab-heading-subjects">
+          {{ 'Subjects' }}
+        </template>
+        <template slot="tab-panel-subjects">
+          <SubjectContainer
+            v-if="categoryId"
+            :subject-route="'/category/'+categoryId"
+          >
+            <template slot="empty">
+              <img
+                class="search-not-found"
+                src="/images/search-not-found.png"
+              >
+              <p style="text-align:center;">
+                Currently no Subject have been shared in your course.
+              </p>
+            </template>
+          </SubjectContainer>
+        </template> -->
           <template slot="tab-heading-posts">
             {{ 'Posts' }}
           </template>
@@ -127,12 +146,13 @@
 import NavTabs from '../../components/NavTabs';
 import PostContainer from '../common/post-container';
 import CommonLayout from '@/Layouts/CommonLayout';
+import SubjectContainer from '@/Pages/common/subject-container.vue';
 import { Head } from '@inertiajs/inertia-vue';
 
 export default {
   layout: CommonLayout,
 	components: {
-		NavTabs, PostContainer,Head
+		NavTabs, PostContainer,Head,SubjectContainer,
 	},
 	props:['categoryId'],
 	data() {
@@ -159,6 +179,7 @@ export default {
     }
   },
 	mounted() {
+    console.log(this.subject);
 		this.axios
 			.get('/api/category/' + this.categoryId)
 			.then(resp => {
@@ -168,6 +189,7 @@ export default {
 				this.subjects = resp.data.success.category.subjects;
 				// this.addRow();
 			});
+      
 	},
 	methods: {
 		addRow() {
