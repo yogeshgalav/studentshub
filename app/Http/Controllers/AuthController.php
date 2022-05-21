@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Facades\Auth;
 use App\Http\Requests\RegisterRequest;
+use App\Models\ChatroomUser;
 use App\Models\Classroom;
 use App\Models\User;
 use DB;
@@ -85,15 +86,15 @@ class AuthController extends Controller
             if (!empty($request->fcmToken)) {
                 $fcm_token = base64_decode($request->fcmToken);
             }
-
             $input = $request->all();
+            \Log::info($input['full_name']);
             $user->full_name = $input['full_name'];
             $user->role = $input['role'];
             $user->email = $input['email'] ?? null;
             $user->fcm_token = $fcm_token;
             $user->onboarded_at = \Carbon\Carbon::now()->toDateTimeString();
             $user->save();
-
+            \Log::info($user->full_name);
             Auth::login($user, 1);
             Log::info($user->full_name.' (User ID # '.$user->id.') registered and logged in from IP Address '.$request->ip());
 
@@ -106,17 +107,18 @@ class AuthController extends Controller
                 ]);
                 $success['redirectUrl'] = '/chatrooms';
             }
-
+            \Log::info($user->full_name);
             if ($request->join_id) {
                 $this->registerWithClassrrom($user, $request->join_id);
                 $success['redirectUrl'] = '/classrooms';
             }
-
+            \Log::info($user->full_name);
             \App\Models\ScheduledJob::scheduleNewUserNotification($user);
-
+            \Log::info($user->full_name);
             DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
+            dd($e);
             Log::critical('user registeration failure with contact '.$request->phone_number);
 
             return redirect('/get-started')->with('srvError', 1);

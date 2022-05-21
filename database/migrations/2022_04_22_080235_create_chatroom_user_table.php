@@ -17,7 +17,6 @@ class CreateChatroomUserTable extends Migration
             $table->increments('id');
             $table->integer('chatroom_id')->unsigned();
             $table->integer('user_id')->unsigned();
-            $table->dateTime('joined_at');
             $table->timestamps();
         });
     }
