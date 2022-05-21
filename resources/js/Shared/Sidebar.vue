@@ -80,7 +80,7 @@
           </li>
         </router-link>
         <router-link
-          href="/chatroom"
+          href="/chatrooms"
           :class="isUrl('chatroom') ? 'active' : ''"
           @click="sidebarItemClick"
         >
