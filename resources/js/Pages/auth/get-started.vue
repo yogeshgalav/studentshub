@@ -89,7 +89,7 @@
                     <div class="text-center m-0-a">
                       <otp-input
                         ref="otpInput"
-                        v-validate="'required'"
+                        v-validate="'required|digits:5'"
                         name="otp"
                         input-classes="otp-input"
                         separator=" "
@@ -100,7 +100,7 @@
                         :validation-value="otp"
                         @on-change="OtpChange"
                       />
-                      <span class="error">{{ formErrors('verify_otp') }}</span>
+                      <span class="error">{{ formErrors('otp') }}</span>
                     </div>
                   </div>
                 </template>
