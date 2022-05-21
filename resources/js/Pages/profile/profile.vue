@@ -302,7 +302,6 @@ button.cancel_profile_btn {
 <script>
 import RadialProgress from '@/components/RadialProgress';
 import NavTabs from '@/components/NavTabs.vue';
-import AnimateNumber from './animate-number.vue';
 import PostContainer from '@/Pages/common/post-container.vue';
 import DoubtContainer from '@/Pages/doubt/doubt-container.vue';
 
@@ -318,7 +317,7 @@ export default {
 		return {
 			interests: [],
 			initialTab:'interests',
-			tabs:['interests','posts','doubts','education-details'],
+			tabs:['interests','posts','doubts'],
 			interest_enable: false,
 			image:'',
 			profile_image_url:'',

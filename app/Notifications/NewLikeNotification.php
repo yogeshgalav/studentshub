@@ -80,7 +80,7 @@ class NewLikeNotification extends SthubNotification
     {
         $like_model_name = $this->like->getLikableTypeString();
         if('message'===$like_model_name){
-            $this->url =config('url.site_url').'/messages';
+            $this->url =config('url.site_url').'/chatroom/'.$this->like->likable_id;
         }else{
             $this->url=config('url.site_url').'/'.$like_model_name.'/'.$this->like->likable_id;
         }

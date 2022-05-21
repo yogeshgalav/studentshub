@@ -15,7 +15,7 @@
           @selected="setCourse"
         />
       </div>
-      <span>Please select Preparatory, Middle or Secondary Stage in case of school.</span>
+      <span>Please select Preparatory (3-5), Middle (6-8) or Secondary Stage (9-12) in case of school.</span>
     </div>
   </div>
 </template>

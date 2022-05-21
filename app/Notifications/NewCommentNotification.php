@@ -82,7 +82,7 @@ class NewCommentNotification extends SthubNotification
     {
         $com_model_name = $this->comment->getCommentableTypeString();
         if('message'===$com_model_name){
-            $this->url =config('url.site_url').'/messages';
+            $this->url =config('url.site_url').'/chatroom/'.$this->comment->commentable_id;
         }else{
             $this->url=config('url.site_url').'/'.$com_model_name.'/'.$this->comment->commentable_id;
         }
