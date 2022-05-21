@@ -174,13 +174,20 @@
       </accordion>
     
       <accordion
-        title="Literature"
+        title="Graphic Design"
         class="mb-2"
       >
-        <p>Literature is an art form that shares stories. It is an art form of language and can be read or spoken. The Concise Oxford Dictionary defines literature as “writings whose value lies in the beauty of form or emotional effect.”</p>
-        <p>Literature crosses all written languages and encompasses a wide range of written works, including poetry, essays, plays, biographies, fiction, non-fiction, satires, and more.</p>
-        <p>Writers create art with literature through the organization of words that give pleasure, and while reading is enjoyable, those words are often critiques of society. Many of the most well-known authors used language and the written word to critique or offer a point of view on society, including George Orwell, Charlotte Brontë, and Charles Dickens.</p>
-        <p>While literature stands on its own as an art form and is one of the seven different forms of art, it is also closely related to theater, poetry, film, music, and the spoken word.</p>
+        <p>Graphic design is a form of digital art that uses visual content to create designs. Graphic designers typically use a mix of images and typography to execute their work and communicate a message or story.</p>
+        <p>Often, graphic design is used to create advertisements. Because of this, examples of graphic designs are everywhere, websites, posters, and digital ads. Graphic design draws inspiration from many art movements, including Art Nouveau, Bauhaus, and Art Deco.</p>
+        <p>The digital age propelled graphic design into popularity. With the creation of Photoshop in the 1990s, graphic design took off and became the hugely popular art form that it is today. Some famous graphic designers include Chip Kidd, Rob Janoff, and Carolyn Davidson.</p>
+      </accordion>
+      <accordion
+        title="Fashion"
+        class="mb-2"
+      >
+        <p>Fashion is a form of self-expression and art that involves styling clothing to make a statement.</p>
+        <p>Fashion is defined as clothing, accessories, makeup, or hairstyles that are trending or popular in the mainstream and the fashion industry.</p>
+        <p>It’s hard to deny fashion is an art form when you see the intricate, beautiful designs that populate the runways of prominent designers. </p>
       </accordion>
     
       <accordion

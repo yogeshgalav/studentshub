@@ -93,7 +93,7 @@
           </div>
           <div>
             <router-link
-              href="/chatroom"
+              href="/chatrooms"
               class="headerBellIcon btn"
             >
               <i
