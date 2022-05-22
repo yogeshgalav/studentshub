@@ -18,7 +18,6 @@
 
     <div 
       v-if="AuthUser.is_pro_member"
-      class="row"
     >
       <div class="col-md-12 mt-1">
         <h4>Quality Required</h4>

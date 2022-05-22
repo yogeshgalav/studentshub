@@ -12,7 +12,6 @@
     
     <div 
       v-if="AuthUser.is_pro_member"
-      class="row"
     >
       <accordion
         title="People Healthcare/Medical Science"

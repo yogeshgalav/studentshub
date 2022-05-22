@@ -1,3 +1,4 @@
+
 <template>
   <div class="circular">
     <div
@@ -13,6 +14,12 @@
 .circular {
   padding-left: 30px;
 }
+@media (max-width: 800px){
+    .circular {
+      padding-left: 0px;
+    }
+}
+
 @keyframes growProgressBar {
   0%, 33% { --pgPercentage: 0; }
   100% { --pgPercentage: var(--value); }
@@ -23,9 +30,8 @@
   inherits: false;
   initial-value: 0;
 }
-
 div[role="progressbar"] {
-  --size: 10rem;
+  --size: 9rem;
   --fg: #369;
   --bg: #def;
   --pgPercentage: var(--value);
@@ -48,16 +54,6 @@ div[role="progressbar"]::before {
   counter-reset: percentage var(--value);
   content: counter(percentage) '%';
 }
-
-/* demo */
-body {
-  margin: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-}
-
 </style>
 <script>
 export default {

@@ -138,7 +138,7 @@
                       >
                         <p>{{ parseInt(interest.percent) }}%</p>
                       </radial-progress>
-                      <p class="mt-1">
+                      <p class="interest_name">
                         {{ interest.name }}
                       </p>
                     </div>
@@ -177,29 +177,13 @@
   </div>
 </template>
 <style>
-.percentage {
-    border-right: 1px solid black;
+.interest_name {
+  margin-top: 20px;
+  margin-right: 50px;
 }
-.interest .card {
-    padding: 20px 10px;
-}
-.interest .row {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-}
-.action-section span {
-    margin: 0px 5px;
-}
-.action-section svg {
-    margin-right: 2px;
-}
-@media only screen and (max-width: 1200px) {
-    .percentage {
-        border-right: none !important;                   
-    }
-    .interest p {
-        text-align: center !important;
+@media (max-width: 800px){
+    .interest_name {
+      margin-right: 0px;
     }
 }
 
