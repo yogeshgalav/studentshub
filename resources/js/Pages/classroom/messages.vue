@@ -40,7 +40,7 @@
                 <div class="">
                   <social-sharing
                     :url="
-                      AuthUser.full_name + ' has invited you to join chatroom '+ chatroom.name+' click the link below to join now \n '+ baseUrl + '/get-started?chatId=' + chatroom.id
+                      AuthUser.full_name + ' has invited you to join chatroom '+ chatroom.name+' click the link below to join now \n '+ baseUrl + '/get-started?chatId=' + chatroom.uuid
                     "
                     inline-template
                   >

@@ -1,10 +1,10 @@
 <template>
   <div class="row">
     <Head>
-      <title>{{ institute_name ? institute_name : 'My Institute' }}</title>
+      <title>{{ institute ? institute.name : 'My Institute' }}</title>
     </Head>
     <div class="col-md-12 mt-3">
-      <h1>{{ institute_name ? institute_name : 'My Institute' }}</h1>
+      <h1>{{ institute ? institute.name : 'My Institute' }}</h1>
     </div>
     <hr>
     <div
@@ -42,6 +42,25 @@
           {{ 'Teachers' }}
         </template>
         <template slot="tab-panel-teachers">
+          <div class="col-md-3 col-12 mb-2 mt-2">
+            <social-sharing
+              :url="
+                AuthUser.full_name + ' has invited you to join institute '+ institute.name+' click the link below to join now \n '+ baseUrl + '/get-started?inId=' + institute.id
+              "
+              inline-template
+            >
+              <div class="">
+                <network network="whatsapp">
+                  <button
+                    type="button"
+                    class="btn btn-success btn-lg "
+                  >
+                    <i class="fab fa-whatsapp" />&nbsp;&nbsp;Invite
+                  </button>
+                </network>
+              </div>
+            </social-sharing>
+          </div>
           <div
             v-if="!teachers.length"
             class="row"
@@ -93,6 +112,25 @@
           {{ 'Students' }}
         </template>
         <template slot="tab-panel-students">
+          <div class="col-md-3 col-12 mb-2 mt-2">
+            <social-sharing
+              :url="
+                AuthUser.full_name + ' has invited you to join institute '+ institute.name+' click the link below to join now \n '+ baseUrl + '/get-started?inId=' + institute.id
+              "
+              inline-template
+            >
+              <div class="">
+                <network network="whatsapp">
+                  <button
+                    type="button"
+                    class="btn btn-success btn-lg "
+                  >
+                    <i class="fab fa-whatsapp" />&nbsp;&nbsp;Invite
+                  </button>
+                </network>
+              </div>
+            </social-sharing>
+          </div>
           <div
             v-if="!students.length"
             class="row"
@@ -248,7 +286,7 @@ export default {
 			.get('/api/institute/' + (institute_id ? institute_id : ''))
 			.then(resp => {
 				this.teachers = resp.data.success.teachers;
-				this.institute_name = resp.data.success.institute.name;
+				this.institute = resp.data.success.institute;
 				this.students = resp.data.success.students;
 				this.posts = resp.data.success.posts.data;
 				this.$forceUpdate();

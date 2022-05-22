@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Facades\Auth;
+use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\ChatroomUser;
 use App\Models\Classroom;
@@ -29,9 +30,8 @@ class AuthController extends Controller
         ]);
     }
 
-    public function loginViaOtp(Request $request)
+    public function loginViaOtp(LoginRequest $request)
     {
-        $chatId = Session::get('chatId');
         \Session::flush();
         $user = User::where('phone_no', '=', $request->phone_number)->first();
 
@@ -69,7 +69,6 @@ class AuthController extends Controller
      */
     public function registerViaOtp(RegisterRequest $request)
     {
-        $chatId = Session::get('chatId');
         \Session::flush();
         $user = User::where('phone_no', '=', $request->phone_number)->first();
 
@@ -82,43 +81,49 @@ class AuthController extends Controller
         }
         DB::beginTransaction();
         try {
-            $fcm_token = null;
-            if (!empty($request->fcmToken)) {
-                $fcm_token = base64_decode($request->fcmToken);
-            }
             $input = $request->all();
-            \Log::info($input['full_name']);
             $user->full_name = $input['full_name'];
             $user->role = $input['role'];
             $user->email = $input['email'] ?? null;
-            $user->fcm_token = $fcm_token;
+            $user->fcm_token = $request->fcm_token;
             $user->onboarded_at = \Carbon\Carbon::now()->toDateTimeString();
             $user->save();
-            \Log::info($user->full_name);
-            Auth::login($user, 1);
-            Log::info($user->full_name.' (User ID # '.$user->id.') registered and logged in from IP Address '.$request->ip());
 
-            $success['redirectUrl'] = '/profile/'.$user->id;
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            Log::critical('user registeration failure with contact '.$request->phone_number);
 
-            if ($chatId) {
+            return redirect('/get-started')->with('srvError', 1);
+        }
+        Auth::login($user, 1);
+        Log::info($user->full_name.' (User ID # '.$user->id.') registered and logged in from IP Address '.$request->ip());
+        $success['redirectUrl'] = '/';
+
+        DB::beginTransaction();
+        try {
+            if ($request->chatId) {
                 ChatroomUser::updateOrCreate([
-                    'chatroom_id' => $chatId,
+                    'chatroom_id' => $request->chatId,
                     'user_id' => $user->id,
                 ]);
                 $success['redirectUrl'] = '/chatrooms';
             }
-            \Log::info($user->full_name);
+            if ($request->inId) {
+                $user->preferred_institute = $request->inId;
+                $user->save();
+                $success['redirectUrl'] = '/my-institute';
+            }
             if ($request->join_id) {
                 $this->registerWithClassrrom($user, $request->join_id);
                 $success['redirectUrl'] = '/classrooms';
             }
-            \Log::info($user->full_name);
             \App\Models\ScheduledJob::scheduleNewUserNotification($user);
-            \Log::info($user->full_name);
+
             DB::commit();
         } catch (\Exception $e) {
-            DB::rollback();
             dd($e);
+            DB::rollback();
             Log::critical('user registeration failure with contact '.$request->phone_number);
 
             return redirect('/get-started')->with('srvError', 1);

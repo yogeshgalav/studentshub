@@ -7,7 +7,7 @@ use App\Models\Institute;
 use Illuminate\Foundation\Http\FormRequest;
 use Session;
 
-class RegisterRequest extends FormRequest
+class LoginRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,9 +23,8 @@ class RegisterRequest extends FormRequest
     {
         $chatId = Session::get('chatId');
         $inId = Session::get('inId');
-        if ($chatId && $chat = Chatroom::where('uuid', $chatId)->first()) {
+        if ($chatId && $chat = Chatroom::where('uuid', $chatId)->find()) {
             $this->merge(['chatId' => $chat->id]);
-            \Log::info($chat);
         }
         if ($inId && Institute::where('id', $inId)->exists()) {
             $this->merge(['inId' => $inId]);
@@ -43,9 +42,6 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'role' => 'required|in:student,teacher,instituteAdmin',
-            'full_name' => 'required|string|min:1|max:255',
-            'email' => 'nullable|string|email',
             'fcmToken' => 'nullable|string',
             'phone_number' => 'required',
             'otp' => 'required|digits:5',
@@ -55,9 +51,6 @@ class RegisterRequest extends FormRequest
 
     public function messages()
     {
-        return [
-            'email.email' => 'You must provide a valid email address.',
-            'email.unique' => 'You are already registered, Please Login.',
-        ];
+        return [];
     }
 }
