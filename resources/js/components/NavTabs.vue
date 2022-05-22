@@ -113,9 +113,6 @@
     border: 0;
     border-bottom: none;
 }
-.tabbed-nav {
-    padding: 15px;
-}
 // Nav Tab 1
 
 .tabbed-nav .nav-item .active {
