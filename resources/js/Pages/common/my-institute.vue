@@ -45,7 +45,7 @@
           <div class="col-md-3 col-12 mb-2 mt-2">
             <social-sharing
               :url="
-                AuthUser.full_name + ' has invited you to join institute '+ institute.name+' click the link below to join now \n '+ baseUrl + '/get-started?inId=' + institute.id
+                AuthUser.full_name + ' has invited you to join '+ institute.name+' on Students Hub. click the link below to join now \n '+ baseUrl + '/get-started?inId=' + institute.id
               "
               inline-template
             >
@@ -115,7 +115,7 @@
           <div class="col-md-3 col-12 mb-2 mt-2">
             <social-sharing
               :url="
-                AuthUser.full_name + ' has invited you to join institute '+ institute.name+' click the link below to join now \n '+ baseUrl + '/get-started?inId=' + institute.id
+                AuthUser.full_name + ' has invited you to join '+ institute.name+' on Students Hub. click the link below to join now \n '+ baseUrl + '/get-started?inId=' + institute.id
               "
               inline-template
             >
@@ -243,14 +243,15 @@ import NavTabs from '../../components/NavTabs';
 import SelectInstitute from '../../components/SelectInstitute.vue';
 import PostContainer from './post-container.vue';
 import DoubtContainer from '@/Pages/doubt/doubt-container.vue';
+import SocialSharing from 'vue-social-sharing';
 
 export default {
 	components: {
-		NavTabs, PostContainer, DoubtContainer, SelectInstitute
+		NavTabs, PostContainer, DoubtContainer, SelectInstitute, SocialSharing
 	},
 	data() {
 		return {
-			institute_name: '',
+			institute: '',
 			teachers: [],
 			students: [],
 			posts: [],
