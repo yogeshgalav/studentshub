@@ -85,24 +85,24 @@ class DoubtController extends Controller
 
         switch($request->route('dasboard_type')){
           case 'institute':
-            $doubt_query=$doubt_query->where('inst.id',$institute_id)
+            $doubt_query=$doubt_query->where('inst.id',$dashboard_id)
             ->orderBy('doubts.created_at','DESC');
             break;
           case 'course':
-            $posts=$post_query->where('doubts.course_id',$course_id)
+            $doubts=$doubt_query->where('doubts.course_id',$dashboard_id)
             ->orderBy('doubts.created_at','DESC');
             break;
           case 'subject':
-            $posts=$post_query->leftJoin('doubt_tags as dt','dt.doubt_id','=','doubts.id')
-            ->where('dt.subject_id',$subject_id)
+            $doubts=$doubt_query->leftJoin('doubt_tags as dt','dt.doubt_id','=','doubts.id')
+            ->where('dt.subject_id',$dashboard_id)
             ->orderBy('doubts.created_at','DESC');
             break;
           case 'category':
-            $doubts=$doubt_query->where('cat.id',$category_id)
+            $doubts=$doubt_query->where('cat.id',$dashboard_id)
             ->orderBy('doubts.created_at','DESC');
             break;
           case 'user':
-            $doubts=$doubt_query->where('doubts.user_id',$userId)
+            $doubts=$doubt_query->where('doubts.user_id',$dashboard_id)
             ->orderBy('doubts.created_at','DESC');
             break;
           default:
