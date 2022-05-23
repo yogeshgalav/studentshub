@@ -127,7 +127,7 @@ export default {
 	components: {
 		NavTabs, PostContainer,Head,SubjectContainer,
 	},
-	props:['categoryId'],
+	props:['categoryId', 'userId'],
 	data() {
 		return {
 			posts: [],

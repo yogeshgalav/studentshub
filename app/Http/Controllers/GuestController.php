@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Models\Faq;
 use App\Models\Category;
+use App\Models\User;
 
 class GuestController extends Controller
 {
@@ -73,8 +74,11 @@ class GuestController extends Controller
     public function categoryPage($slug)
     {
         $category = \App\Models\Category::where('slug', $slug)->firstOrFail();
-               return inertia('explore/category', [
-            'categoryId' => $category->id
+        $user = Auth::user();
+
+        return inertia('explore/category', [
+            'categoryId' => $category->id,
+            'userId' =>$user->id
         ]);
     }
     public function postImage($filename)

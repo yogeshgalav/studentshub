@@ -15,7 +15,6 @@
             </div>
             <hr>
             <div
-              v-if="AuthUser"
               class="single_page_user_like"
             >
               <button
@@ -44,6 +43,18 @@
             <p class="like">
               Upvote
             </p>
+            <div
+              class="single_page_user_like"
+            >
+              <button
+                @click="sendUserDownVote()"
+              >
+                <span><i class="fas fa-thumbs-down" /></span>
+              </button>
+            </div>
+            <p class="like">
+              Downvote
+            </p>
           </div>
         </div>
       </div>
@@ -53,5 +64,27 @@
 <script>
 export default {
 	props:['subject'],
+	data() {
+		return {
+			vote_active: '',
+			totalVotes:0
+		};
+	},
+	methods: {
+		sendUserVote() {
+			this.vote_active = !this.vote_active;
+			if(this.vote_active){	
+				this.totalVotes += 1;
+			}
+			else if(!this.vote_active){
+        	this.totalVotes -= 1;
+			}
+			this.axios.post('/api/category/'+this.postContent.id+'/vote').catch(err => {
+				this.vote_active = !this.vote_active;
+			});
+
+		}
+	}
 };
+
 </script>

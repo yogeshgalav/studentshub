@@ -12,7 +12,10 @@
             v-for="(subject,index) in subjects"
             :key="index"
           >
-            <subject-card :subject="subject" />
+            <subject-card
+              :subject="subject"
+              :user-id="userId"
+            />
           </div>
         </div>
       </div>
@@ -25,7 +28,7 @@ export default {
   	components: {
 		SubjectCard
 	},
-	props:['subjects','subjectRoute'],
+	props:['subjects','userId'],
 	data() {
 		return{
 			showLoader: false,
