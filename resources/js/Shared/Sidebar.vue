@@ -183,15 +183,16 @@
     position: absolute;
     right: 15px;
 }
+@media (min-width: 769px) and (max-width: 1600px) {
+.btndisplay{
+    display: none;
+}
+}
 
 </style>
 <script>
 export default {
 	methods:{
-		closeClick: function() {
-			this.$refs.sidebar.hide();
-		},
-
 		isUrl(...urls) {
 			let currentUrl = this.$page.url.substr(1);
 			if (urls[0] === '') {
