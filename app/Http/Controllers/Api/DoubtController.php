@@ -55,7 +55,7 @@ class DoubtController extends Controller
     }
 
     
-    public function getDoubts(Request $request){
+    public function getDoubts($dashboard_type=null,$dashboard_id=null,Request $request){
 
         $doubt_query = Doubt::join('users as us','us.id','=','doubts.user_id')
         ->join('categories as cat','cat.id','=','doubts.category_id')
