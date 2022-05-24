@@ -54,6 +54,7 @@ export default {
 					this.courseLoading = false;
 				});
 			this.$emit('change');
+			this.$emit('input', this.selected_course);
 		},
 		setCourse(result) {
 			this.selected_course = result;

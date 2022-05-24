@@ -53,7 +53,7 @@ export default {
 					this.instituteLoading = false;
 				});
 			this.$emit('change');
-
+			this.$emit('input', this.selected_institute);
 		},
 		setInstitute(result) {
 			this.selected_institute = result;

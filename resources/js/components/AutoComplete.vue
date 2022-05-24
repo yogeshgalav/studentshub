@@ -16,7 +16,7 @@
     >
     <transition name="fade">
       <ul
-        v-if="isOpen===true"
+        v-if="!option_selected && (isLoading || results.length)"
         id="autocomplete-results"
         class="autocomplete-results"
       >
@@ -39,13 +39,6 @@
           >
             {{ currentResult[value] }}
           </slot>
-        </li>
-        <li
-          v-if="createNewItem===true"
-          class="autocomplete-result"
-          @click="createNew"
-        >
-          {{ ('Create New') }}
         </li>
       </ul>
     </transition>
@@ -138,7 +131,7 @@ export default {
 	},
 	data() {
 		return {
-			isOpen: false,
+			option_selected: false,
 			results: [],
 			result:{},
 			search: '',
@@ -148,9 +141,9 @@ export default {
 	watch:{
 		items(val){
 			this.results = val;
-			if(this.isAsync===true){
-				this.isOpen=true;
-			}
+			// if(this.isAsync===true){
+			// 	this.isOpen=true;
+			// }
 		},
 		initialValue(val){
 			if(val && !this.search){
@@ -178,6 +171,7 @@ export default {
 	},
 	methods: {
 		onChange() {
+			this.option_selected = false;
 			if(this.isAsync===false){
 				this.results = this.results.filter(node=>node.name.indexOf(this.search) !== -1);
 				return true;
@@ -188,14 +182,7 @@ export default {
 		setResult(result) {
 			this.$emit('selected', result);
 			this.search = result[this.value];
-			this.isOpen = false;
-		},
-		createNew() {
-			if(this.createNewItem===false){
-				return false;
-			}
-			this.$emit('selectNew', this.search);
-			this.isOpen = false;
+			this.option_selected = true;
 		},
 		onArrowDown() {
 			if (this.arrowCounter < this.results.length) {
@@ -210,22 +197,23 @@ export default {
 		onEnter() {
 			this.$emit('selected', this.results[this.arrowCounter]);
 			this.search = this.results[this.arrowCounter][this.value];
-			this.isOpen = false;
+			this.option_selected = true;
 			this.arrowCounter = -1;
 		},
 		handleClickOutside(evt) {
-			if(this.createNewItem===false || this.isOpen === false){
+			if(this.createNewItem===false){
 				return false;
 			}
-			if (!this.$el.contains(evt.target)) {
-				this.$emit('selectNew', this.search);
-				this.isOpen = false;
-				this.arrowCounter = -1;
-			}
+			// if (!this.$el.contains(evt.target)) {
+			// 	this.$emit('selectNew', this.search);
+			// 	this.isOpen = false;
+			// 	this.arrowCounter = -1;
+			// }
+			this.option_selected=true;
 		},
 		onFocus(){
 			if(this.isAsync===false){
-				this.isOpen=true;
+				this.option_selected=false;
 			}
 		}
 	}
