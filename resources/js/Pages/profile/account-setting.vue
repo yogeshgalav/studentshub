@@ -149,47 +149,168 @@
 
       <!-- education details -->
       <div
-        v-if="AuthStudent"
+        v-if="AuthUser.role==='student'"
         class="card mt-3 mb-6"
       >
         <div class="card-header">
           <h4>Education details</h4>
         </div>
 
-        <div class="card-body">
-          <div class="row my-auto">
-            <div class="col-sm-4 col-md-6">
-              <h5>Course name</h5>
-              <label>{{ AuthStudent.courseName }}</label>
-            </div>
-            <div class="col-sm-4 col-md-6">
-              <h5>Institute name</h5>
-              <label>{{ AuthStudent.instituteName }}</label>
-            </div>
-          </div>
-
-          <div class="row mt-2">
-            <div class="col-sm-4 col-md-6">
-              <h5>Start year</h5>
-              <label>{{ AuthStudent.start_year }}</label>
-            </div>
-            <div class="col-sm-4 col-md-6">
-              <h5>End year</h5>
-              <label>{{ AuthStudent.end_year }}</label>
-            </div>
-          </div>
-
+        <div
+          v-for="(student, index) in students"
+          :key="index"
+          class="card-body"
+        >
           <div class="row">
-            <a
-              class="btn btn-primary mt-3"
-              href="\education-details"
-            >
-              Edit
-            </a>
+            <div class="col-md-10">
+              <div class="row my-auto">
+                <div class="col-sm-4 col-md-6">
+                  <h5>Institute name</h5>
+                  <label>{{ student.institute_name }}</label>
+                </div>
+              </div>
+              <div class="row my-auto">
+                <div class="col-sm-4 col-md-6">
+                  <h5>Course name</h5>
+                  <label>{{ student.course_name }}</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <button
+                class="btn btn-danger btn-sm rounded-0"
+                type="button"
+                data-toggle="tooltip"
+                data-placement="top"
+                title="Delete"
+                @click="deleteStudentDetails(student)"
+              >
+                <i class="fa fa-trash" />
+              </button>
+            </div>
           </div>
+
+          <hr>
+        </div>
+        <div class="col-md-4">
+          <button
+            type="add"
+            class="btn btn-primary btn-md mt-3"
+            data-toggle="modal"
+            data-target="#addStudentDetailModal"
+          >
+            Add
+          </button>
         </div>
       </div>
-
+      <modal
+        ref="addStudentDetailModal"
+        name="addStudentDetailModal"
+        heading="Add Student Details"
+        classes="modal-md"
+        @submit="addStudentDetails"
+      >
+        <template slot="modalBody">
+          <form>
+            <div class="p-10">
+              <div class="form-group">
+                <select-institute
+                  v-model="edit_institute"
+                />
+              </div>
+              <div class="form-group">
+                <select-course
+                  v-model="edit_course"
+                />
+              </div>
+              <hr>
+            </div>
+          </form>
+        </template>
+      </modal>
+   
+   
+      <!--teaching details -->
+      <div
+        v-if="AuthUser.role==='teacher'"
+        class="card mt-3 mb-6"
+      >
+        <div class="card-header">
+          <h4>Teaching details</h4>
+        </div> 
+        <div
+          v-for="(teacher, index) in teachers"
+          :key="index"
+          class="card-body"
+        >
+          <div class="row">
+            <div class="col-md-10">
+              <div class="row my-auto">
+                <div class="col-sm-4 col-md-6">
+                  <h5>Institute name</h5>
+                  <label>{{ teacher.institute_name }}</label>
+                </div>
+              </div>
+              <div class="row my-auto">
+                <div class="col-sm-4 col-md-6">
+                  <h5>Course name</h5>
+                  <label>{{ teacher.course_name }}</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <button
+                class="btn btn-danger btn-sm rounded-0"
+                type="button"
+                data-toggle="tooltip"
+                data-placement="top"
+                title="Delete"
+                @click="deleteTeacherDetails(teacher)"
+              >
+                <i class="fa fa-trash" />
+              </button>
+            </div>
+          </div>
+          <hr>
+        </div>
+        <div class="col-md-4">
+          <button
+            type="add"
+            class="btn btn-primary btn-md mt-3"
+            data-toggle="modal"
+            data-target="#addModal"
+          >
+            Add
+          </button>
+        </div>
+      </div>
+      <modal
+        ref="addModal"
+        name="addModal"
+        heading="Add Course Institute"
+        classes="modal-md"
+        @submit="addTeacherDetails"
+      >
+        <template slot="modalBody">
+          <form>
+            <div class="p-10">
+              <div class="form-group">
+                <select-institute
+                  v-model="edit_institute"
+                />
+              </div>
+              <div class="form-group">
+                <select-course
+                  v-model="edit_course"
+                />
+              </div>
+            </div>
+          </form>
+        </template>
+      </modal>
+    
+  
+  
       <!-- fotter for update chnges -->
       <div
         v-if="data_updated"
@@ -227,6 +348,7 @@
 </style>
 
 <script>
+import Modal from '../../components/VueNiceModal';
 import FileUpload from 'vue-upload-component';
 import SelectCourse from '../../components/SelectCourse.vue';
 import SelectInstitute from '../../components/SelectInstitute.vue';
@@ -235,9 +357,10 @@ export default {
 	components:{
 		FileUpload,
 		SelectInstitute,
-		SelectCourse
+		SelectCourse,
+		Modal
 	},
-	props:['user'],
+	props:['user','teachers','students'],
 	data() {
 		return {
 			image:{},
@@ -263,6 +386,8 @@ export default {
 				id:null,
 				course_name:'',
 			},
+			edit_institute:'',
+			edit_course:'',
 			data_updated:false,
 		};
 	},
@@ -273,6 +398,49 @@ export default {
 		dataUpdated(){
 			this.data_updated = true;
 		},
+        	addTeacherDetails()
+		{
+			 let loader = this.$loading.show();
+      	this.axios.put(this.baseUrl + '/api/preferred-details',{
+    			preferred_institute:this.edit_institute,	
+				  preferred_course:this.edit_course,	
+    		} )
+    			.then(resp => {
+					window.location.href='/account-settings';
+    			});
+		},
+    	deleteTeacherDetails(teacher){
+		  	let loader = this.$loading.show();           
+			this.axios.delete('/api/delete-teachersdetails/'+teacher.teacher_id)
+				.then(resp=>{
+          	window.location.href='/account-settings';
+					let index= this.teachers.findIndex(el=>el.id===teacher.teacher_id);
+					this.teachers.splice(index,1);		
+				});
+		},
+    
+    	addStudentDetails()
+		{
+			 let loader = this.$loading.show();
+      	this.axios.put(this.baseUrl + '/api/preferred-details',{
+    		preferred_institute:this.edit_institute,	
+				  preferred_course:this.edit_course,	
+    		} )
+    			.then(resp => {
+					window.location.href='/account-settings';
+    			});
+		},
+	
+		deleteStudentDetails(student){
+		  	let loader = this.$loading.show();           
+			this.axios.delete('/api/delete-studentdetails/'+student.student_id)
+				.then(resp=>{
+          	window.location.href='/account-settings';
+					let index= this.students.findIndex(el=>el.id===student.student_id);
+					this.students.splice(index,1);		
+				});
+		},
+
 		initiateData(){
 			if(this.user){
 			  this.profile_data = Object.assign({}, this.user.profile);
