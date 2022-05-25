@@ -25,13 +25,13 @@ class GuestController extends Controller
         $email=$request->input('email');
         DB::beginTransaction();
     try{
-        $guest=Guest::where('ip',$request->ip())->first();
-        $subcriber=new Subscriber;
-        $subcriber->email=$email;
-        $subcriber->guest_id=$guest_id;
-        $subcriber->save();
+        // $guest=Guest::where('ip',$request->ip())->first();
+        // $subcriber=new Subscriber;
+        // $subcriber->email=$email;
+        // $subcriber->guest_id=$guest_id;
+        // $subcriber->save();
 
-        Mail::to($email)->send(new SubscriptionFirstMail());
+        // Mail::to($email)->send(new SubscriptionFirstMail());
         DB::commit();
         } catch (\Exception $e) {
             DB::rollback();

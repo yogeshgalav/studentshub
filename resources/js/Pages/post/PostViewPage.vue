@@ -284,15 +284,14 @@
           {{ totalLikes }} 
         </p>
         <p
-          v-else-if="totalLikes===0"
-        >
-          <span><i class="fas fa-thumbs-up" /></span>
-        </p>
-        <p
           v-else
+          style="margin-top: 25px;"
         >
-          <span><i class="fas fa-thumbs-up" /></span><br>
-          {{ totalLikes }}
+          <span><i
+            class="fas fa-thumbs-up"
+            style="font-size: x-large;"
+          /></span><br>
+          {{ totalLikes ? totalLikes : '' }}
         </p>
       </button>
     </div>
