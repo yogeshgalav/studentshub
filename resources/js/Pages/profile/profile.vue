@@ -132,6 +132,7 @@
                       v-for="(interest,index) in interests"
                       :key="index"
                       class="col-md-3 col-6 mb-2"
+                      @click="categoryRedirect(interest)"
                     >
                       <radial-progress
                         :value="interest.percent"
@@ -341,6 +342,11 @@ export default {
 				.sort((a,b)=>a.percent>b.percent ? -1 : 1);
 		});
 	},
+	methods:{
+		categoryRedirect(interest){
+			this.$inertia.visit('/category/'+interest.slug);
+		}
+	}
 };
 
 </script>

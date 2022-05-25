@@ -229,6 +229,13 @@ export default {
 			}
 			//alert before exit
 			window.addEventListener('beforeunload', this.exitFunction);
+			// Inertia.on('before', (event) => {
+			// 	let attemptSubmitted = localStorage.getItem('attemptSubmitted');
+			// 	if(attemptSubmitted && attemptSubmitted===this.dailyAssignment.id){
+			// 		return true;
+			// 	}
+			// 	return confirm('Your attempt will be declined if you leave this page.'+ 'Are you sure?');
+			// });
 			//ifvisible not working
 			if(ifvisible.now('hidden')){
 		  			this.axios.post('/api/decline-attempt/'+this.dailyAssignment.id);
