@@ -4,7 +4,7 @@
       <ul>
         <div>
           <span
-            class="closebtn btndisplay"
+            class="closebtn"
             @click="sidebarItemClick"
           >x</span>
         </div>
@@ -184,7 +184,7 @@
     right: 15px;
 }
 @media (min-width: 769px) and (max-width: 1600px) {
-.btndisplay{
+.closebtn{
     display: none;
 }
 }
