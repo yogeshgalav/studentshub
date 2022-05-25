@@ -18,11 +18,13 @@ const webpackConfig = require('./webpack.config');
 
 mix
 	.js('resources/js/app.js', 'public/js')
+	.js('resources/js/ssr.js', 'public/js')
 	.sass('resources/sass/app.scss', 'public/css')
 // .vue({ runtimeOnly: (process.env.NODE_ENV || 'production') === 'production' })
 	.webpackConfig(webpackConfig)
 	.sourceMaps()
 	// .browserSync('http://localhost:8000/')
+	// .browserSync('laravel.test')
 	// .options({
 	// 	hmrOptions: {
 	// 		host: 'localhost',

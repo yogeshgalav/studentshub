@@ -29,6 +29,7 @@
     <script src="https://polyfill.io/v3/polyfill.min.js?features=String.prototype.startsWith" defer></script> -->
 
     <script src="{{ mix('/js/app.js') }}" defer></script>
+    @inertiaHead
     @if(env('APP_ENV')==='production')
     <!-- Hotjar Tracking Code for https://www.studentshub.in -->
     <script>
