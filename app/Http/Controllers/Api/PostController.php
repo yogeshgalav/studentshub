@@ -149,7 +149,7 @@ class PostController extends Controller
             break;
           case 'subject':
             $posts=$post_query->leftJoin('post_tags as pt','pt.post_id','=','po.id')
-            ->where('pt.subject_id',$subject_id)
+            ->where('pt.subject_id',$dashboard_id)
             ->orderBy('po.created_at','DESC');
             break;
           case 'category':
