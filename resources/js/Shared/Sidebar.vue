@@ -2,6 +2,13 @@
   <div class="sidebar">
     <div class="sidebar-navigation mt-5">
       <ul>
+        <div>
+          <span
+            class="closebtn"
+            @click="sidebarItemClick"
+          >x</span>
+        </div>
+
         <router-link
           href="/"
           :class="isUrl('post') ? 'active' : ''"
@@ -166,6 +173,23 @@
     </div>
   </div>
 </template>
+<style scoped>
+.closebtn {
+    font-size: x-large;
+    top: 15px;
+    line-height: 36px;
+    height: 42px;
+    color: black;
+    position: absolute;
+    right: 15px;
+}
+@media (min-width: 769px) and (max-width: 1600px) {
+.closebtn{
+    display: none;
+}
+}
+
+</style>
 <script>
 export default {
 	methods:{
