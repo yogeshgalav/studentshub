@@ -359,6 +359,9 @@ export default {
 
 	methods:
       {
+      	categoryRedirect(interest){
+      		this.$inertia.visit('/category/'+interest.slug);
+      	},
       	addfollow()
       	{
       		this.axios.post('/api/addfollow/'+this.postContent.id+'/follow').catch(err => {
