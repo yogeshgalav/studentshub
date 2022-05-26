@@ -7,10 +7,10 @@ use App\Models\ScheduledJob;
 use App\Models\ClassroomUser;
 
 /***
- * Class ClassmatesNotificationJob
+ * Class InstitutematesNotificationJob
  * @package App\Jobs
  */
-class ClassmatesNotificationJob extends ScheduledJobInterface
+class InstitutematesNotificationJob extends ScheduledJobInterface
 {
     /**
      * Execute the job.
