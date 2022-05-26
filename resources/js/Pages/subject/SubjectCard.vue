@@ -24,13 +24,13 @@
                   v-if="vote_active"
                   class="text-primary"
                 >
-                  <span><i class="fas fa-thumbs-up" /></span>
+                  <span><i class="fas fa-thumbs-up mx-auto" /></span>
                   {{ totalVotes }} 
                 </p>
                 <p
                   v-else-if="totalVotes===0"
                 >
-                  <span><i class="fas fa-thumbs-up" /></span>
+                  <span><i class="fas fa-thumbs-up mx-auto" /></span>
                 </p>
                 <p
                   v-else
@@ -79,7 +79,7 @@ export default {
 			else if(!this.vote_active){
         	this.totalVotes -= 1;
 			}
-			this.axios.post('/api/category/'+this.postContent.id+'/vote').catch(err => {
+			this.axios.post('/api/'+this.subject.id+'/vote').catch(err => {
 				this.vote_active = !this.vote_active;
 			});
 

@@ -11,7 +11,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('/doubts', [App\Http\Controllers\Api\DoubtController::class, 'getDoubts']);
     
     Route::post('/{likable_type}/{likable_id}/like', 'LikeController@updateOrDelete');
-    Route::post('/{votable_type}/{votable_id}/vote', 'VoteController@updateOrDelete');
+    Route::post('/{votable_id}/vote', 'VoteController@updateOrDelete');
     Route::post('/post-save', 'PostController@savePost');
     Route::post('/post-report', 'PostController@reportPost');
     Route::delete('post/{post}', 'PostController@delete');

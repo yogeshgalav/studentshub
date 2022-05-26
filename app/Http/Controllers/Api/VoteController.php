@@ -11,24 +11,20 @@ use Auth;
 
 class VoteController extends Controller
 {
-    public function updateOrDelete($type, $id){
-        $me=Auth::user();
-       
-                $votable=Subject::findOrFail($id);
-                $votable_type=Subject::class;
-               
+    public function updateOrDelete($id){
+               $me=Auth::user();
+
+        $vote=Vote::where('vote_by_id','=',$me->id)->where('subject_id','=',$id)->first();
         
-        $vote=Subject::where('votable_id','=',$votable->id)->where('votable_type','=', $votable_type)->where('user_id','=',$me->id)->first();
         if($vote){
             $vote->delete();
         } else {
             $vote = Subject::create([
-                'votable_id'=>$votable->id,
-                'votable_type'=>$votable_type,
-                'user_id'=>$me->id,
+                'subject_id'=>$id,
+                'vote_by_id'=>$me->id,
                 'vote_status'=>1,
             ]);
-            ScheduledJob::NewVoteNotification($vote, $votable->user->id);
+            
         }
         return response()->json([], 204);
     }

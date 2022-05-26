@@ -14,8 +14,11 @@ class CreateVotesTable extends Migration
     public function up()
     {
         Schema::create('votes', function (Blueprint $table) {
-            $table->id();
-            $table->boolean('vote')->comment('1 for vote,0 for downvote');
+            $table->increments('id');
+            $table->integer('subject_id')->unsigned();
+            $table->integer('vote_by_id')->unsigned();
+            $table->string('votable_type');
+            $table->boolean('vote_status')->comment('1 for vote,0 for downvote');         
             $table->timestamps();
         });
     }
