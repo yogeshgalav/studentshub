@@ -16,6 +16,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::delete('post/{post}', 'PostController@delete');
         //profile
     Route::get('/get-profile','UserController@getProfile');
+    Route::post('/addfollow','FollCon@addfollow');
     Route::post('/save-profile', 'UserController@saveProfile');
     Route::delete('/delete-teachersdetails/{teacher}','UserController@deleteTeacherDetails');
     Route::delete('/delete-studentdetails/{student}','UserController@deleteStudentDetails');

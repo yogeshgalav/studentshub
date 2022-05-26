@@ -35,6 +35,14 @@
                       href="/account-settings"
                     ><i class="fas fa-edit" /></a>
                   </h3>
+                  <button
+                    type="button"
+                    class="btn-md btn-outline-dark"
+                    name="addfollow"
+                    @Click="addfollow()"
+                  >
+                    Follow
+                  </button>
                   <p
                     v-if="user.role==='student'"
                     class="text-grey"
@@ -64,6 +72,7 @@
                     {{ user.preferred_course_name }}
                   </p>
                 </div>
+                     
                 <div class="mb-2 mt-2">
                   <ul class="social-network social-circle">
                     <li>
@@ -108,6 +117,8 @@
             </div>
           </div>
         </div>
+
+
 
         <nav-tabs
           :tabs="tabs"
@@ -171,6 +182,9 @@
                 Currently no doubt has been shared.
               </template>
             </DoubtContainer>
+          </template>
+          <template slot="tab-heading-followers">
+            {{ 'Followers' }}
           </template>
         </nav-tabs>
       </div>
@@ -342,11 +356,17 @@ export default {
 				.sort((a,b)=>a.percent>b.percent ? -1 : 1);
 		});
 	},
-	methods:{
-		categoryRedirect(interest){
-			this.$inertia.visit('/category/'+interest.slug);
-		}
-	}
+
+	methods:
+      {
+      	addfollow()
+      	{
+      		this.axios.post('/api/addfollow/'+this.postContent.id+'/follow').catch(err => {
+      			this.follow_active = !this.follow_active;
+		  	});      
+      	}
+
+      }
 };
 
 </script>
