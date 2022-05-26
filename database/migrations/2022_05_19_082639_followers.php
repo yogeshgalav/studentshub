@@ -13,10 +13,11 @@ class Followers extends Migration
      */
     public function up()
     {
-        Schema::create('followers', function (Blueprint $table) {
+        Schema::create('follows', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('follower_id')->unsigned();
+            $table->integer('followed_by_id')->unsigned();
             $table->integer('following_id')->unsigned();
+            $table->timestamps();
             
     });
     }

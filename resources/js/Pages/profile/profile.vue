@@ -35,14 +35,7 @@
                       href="/account-settings"
                     ><i class="fas fa-edit" /></a>
                   </h3>
-                  <button
-                    type="button"
-                    class="btn-md btn-outline-dark"
-                    name="addfollow"
-                    @Click="addfollow()"
-                  >
-                    Follow
-                  </button>
+                  
                   <p
                     v-if="user.role==='student'"
                     class="text-grey"
@@ -71,8 +64,22 @@
                   >
                     {{ user.preferred_course_name }}
                   </p>
-                </div>
-                     
+                </div> 
+                <button
+                  class="btn btn-primary"
+                  @click="addfollow()"
+                >
+                  <p
+                    v-if="follow_active"
+                  >
+                    Following
+                  </p>
+                  <p
+                    v-else
+                  >
+                    Follow
+                  </p>
+                </button>
                 <div class="mb-2 mt-2">
                   <ul class="social-network social-circle">
                     <li>
@@ -320,6 +327,8 @@ export default {
 			interest_enable: false,
 			image:'',
 			profile_image_url:'',
+			follow_active: '',
+			totalFollows:0,
 			errors:{
 				intro: '',
 				profile_pic: '',
@@ -357,19 +366,23 @@ export default {
 		});
 	},
 
-	methods:
-      {
+	methods: {
       	categoryRedirect(interest){
       		this.$inertia.visit('/category/'+interest.slug);
       	},
-      	addfollow()
-      	{
-      		this.axios.post('/api/addfollow/'+this.postContent.id+'/follow').catch(err => {
+      	addfollow(){
+			this.follow_active = !this.follow_active;
+			if(this.follow_active){	
+				this.totalFollows += 1;
+			}
+			else if(!this.follow_active){
+        	this.totalFollows -= 1;
+			}
+      		this.axios.post('/api/'+this.user.id+'/follow').catch(err => {
       			this.follow_active = !this.follow_active;
 		  	});      
       	}
-
-      }
+	}
 };
 
 </script>
