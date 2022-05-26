@@ -66,16 +66,18 @@
                   </p>
                 </div> 
                 <button
-                  class="btn btn-primary"
+                  class="btn-md btn-primary"
                   @click="addfollow()"
                 >
                   <p
                     v-if="follow_active"
+                    style="margin:auto"
                   >
                     Following
                   </p>
                   <p
                     v-else
+                    style="margin:auto"
                   >
                     Follow
                   </p>
