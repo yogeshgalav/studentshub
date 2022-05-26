@@ -35,6 +35,7 @@
                       href="/account-settings"
                     ><i class="fas fa-edit" /></a>
                   </h3>
+                  <button type="button" class="btn-md btn-outline-dark" @Click="addfollow()" name="addfollow"> Follow</button>
                   <p
                     v-if="user.role==='student'"
                     class="text-grey"
@@ -63,7 +64,9 @@
                   >
                     {{ user.preferred_course_name }}
                   </p>
+                   
                 </div>
+                     
                 <div class="mb-2 mt-2">
                   <ul class="social-network social-circle">
                     <li>
@@ -102,12 +105,14 @@
                         title="Email"
                       ><i class="fa fa-envelope" /></a>
                     </li>
-                  </ul>
+                    </ul>
                 </div>
               </div>
             </div>
           </div>
         </div>
+
+
 
         <nav-tabs
           :tabs="tabs"
@@ -171,6 +176,10 @@
               </template>
             </DoubtContainer>
           </template>
+          <template slot="tab-heading-followers">
+            {{ 'Followers' }}
+          </template>
+          
         </nav-tabs>
       </div>
     </div>
@@ -318,7 +327,7 @@ export default {
 		return {
 			interests: [],
 			initialTab:'interests',
-			tabs:['interests','posts','doubts','education-details'],
+			tabs:['interests','posts','doubts','education-details','Followers','Following'],
 			interest_enable: false,
 			image:'',
 			profile_image_url:'',
@@ -358,6 +367,16 @@ export default {
 				.sort((a,b)=>a.percent>b.percent ? -1 : 1);
 		});
 	},
+      methods:
+      {
+        addfollow()
+        {
+        this.axios.post('/api/addfollow/'+this.postContent.id+'/follow').catch(err => {
+				this.follow_active = !this.follow_active;
+		  	});      
+        }
+
+}
 };
 
 </script>
