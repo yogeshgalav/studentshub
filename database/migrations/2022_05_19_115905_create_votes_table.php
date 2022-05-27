@@ -17,7 +17,6 @@ class CreateVotesTable extends Migration
             $table->increments('id');
             $table->integer('subject_id')->unsigned();
             $table->integer('vote_by_id')->unsigned();
-            $table->string('votable_type');
             $table->boolean('vote_status')->comment('1 for vote,0 for downvote');         
             $table->timestamps();
         });

@@ -19,7 +19,7 @@ class VoteController extends Controller
         if($vote){
             $vote->delete();
         } else {
-            $vote = Subject::create([
+            $vote = Vote::create([
                 'subject_id'=>$id,
                 'vote_by_id'=>$me->id,
                 'vote_status'=>1,

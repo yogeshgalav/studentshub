@@ -74,11 +74,8 @@ class GuestController extends Controller
     public function categoryPage($slug)
     {
         $category = \App\Models\Category::where('slug', $slug)->firstOrFail();
-        $user = Auth::user();
-
         return inertia('explore/category', [
-            'categoryId' => $category->id,
-            'userId' =>$user->id
+            'categoryId' => $category->id
         ]);
     }
     public function postImage($filename)

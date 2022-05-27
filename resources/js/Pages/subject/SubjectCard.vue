@@ -14,21 +14,21 @@
               </p>
             </div>
             <hr>
-            <div
-              class="single_page_user_like"
-            >
+            <div>
               <button
+                class="btn-success btn-xs"
                 @click="sendUserVote()"
               >
                 <p
                   v-if="vote_active"
-                  class="text-primary"
+                  class="mx-auto"
                 >
                   <span><i class="fas fa-thumbs-up mx-auto" /></span>
                   {{ totalVotes }} 
                 </p>
                 <p
                   v-else-if="totalVotes===0"
+                  class="mx-auto"
                 >
                   <span><i class="fas fa-thumbs-up mx-auto" /></span>
                 </p>
@@ -43,13 +43,30 @@
             <p class="like">
               Upvote
             </p>
-            <div
-              class="single_page_user_like"
-            >
+            <div>
               <button
+                class="btn-danger btn-xs"
                 @click="sendUserDownVote()"
               >
-                <span><i class="fas fa-thumbs-down" /></span>
+                <p
+                  v-if="downvote_active"
+                  class="mx-auto"
+                >
+                  <span><i class="fas fa-thumbs-down mx-auto" /></span>
+                  {{ totalDownVotes }} 
+                </p>
+                <p
+                  v-else-if="totalDownVotes===0"
+                  class="mx-auto"
+                >
+                  <span><i class="fas fa-thumbs-down mx-auto" /></span>
+                </p>
+                <p
+                  v-else
+                >
+                  <span><i class="fas fa-thumbs-down" /></span>
+                  {{ totalDownVotes }}
+                </p>
               </button>
             </div>
             <p class="like">
@@ -67,7 +84,9 @@ export default {
 	data() {
 		return {
 			vote_active: '',
-			totalVotes:0
+			downvote_active:'',
+			totalVotes:0,
+			totalDownVotes:0,
 		};
 	},
 	methods: {
@@ -81,6 +100,19 @@ export default {
 			}
 			this.axios.post('/api/'+this.subject.id+'/vote').catch(err => {
 				this.vote_active = !this.vote_active;
+			});
+
+		},
+		sendUserDownVote(){
+			this.downvote_active = !this.downvote_active;
+			if(this.downvote_active){	
+				this.totalDownVotes += 1;
+			}
+			else if(!this.vote_active){
+        	this.totalDownVotes -= 1;
+			}
+			this.axios.post('/api/'+this.subject.id+'/vote').catch(err => {
+				this.vote_active = !this.downvote_active;
 			});
 
 		}
