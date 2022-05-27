@@ -7,10 +7,10 @@ use App\Models\ScheduledJob;
 use App\Models\ClassroomUser;
 
 /***
- * Class ClassmatesNotificationJob
+ * Class InstitutematesNotificationJob
  * @package App\Jobs
  */
-class ClassmatesNotificationJob extends ScheduledJobInterface
+class InstitutematesNotificationJob extends ScheduledJobInterface
 {
     /**
      * Execute the job.
@@ -20,23 +20,18 @@ class ClassmatesNotificationJob extends ScheduledJobInterface
     public function handle()
     {
         $classString = $this->scheduled_job->notification_class_name;
-        $classroomIds = User::find($this->scheduled_job->scheduled_by_user_id)->getClassroomIds();
-        $classroom_users = ClassroomUser::whereIn('classroom_users.classroom_id', $classroomIds)
-        ->select('user_id')
-        ->groupBy('user_id')
+        $user = User::find($this->scheduled_job->scheduled_by_user_id);
+        $institute_users = User::where('preferred_institute_id', $user->preferred_institute_id)
+        ->where('id', '!=', $user->id)
         ->get();
 
-        foreach($classroom_users as $c_user){
-            if($this->scheduled_job->scheduled_by_user_id === $c_user->user_id){
-                continue;
-            }
+        foreach($institute_users as $in_user){
             $notification = new $classString($this->scheduled_job);
-            $c_user->user->notify($notification);
+            $in_user->notify($notification);
         }
 
         return true;
     }
-
     /**
      * @return array
      */

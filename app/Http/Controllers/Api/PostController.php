@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\SthubPost;
+use App\Models\ScheduledJob;
 use App\Models\PostImage;
 use App\Models\Article;
 use App\Models\Subject;
@@ -77,6 +78,7 @@ class PostController extends Controller
 
         Subject::addPostTags($post, $request->subjects);
         SthubPost::addAction('share',$post,Auth::user());
+        ScheduledJob::newPostNotification($post);
 
         DB::commit();
     } catch (\Exception $e) {
