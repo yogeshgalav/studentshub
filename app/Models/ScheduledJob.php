@@ -14,7 +14,7 @@ use App\Notifications\NewCommentNotification;
 use App\Notifications\NewLikeNotification;
 use App\Jobs\SendNotificationJob;
 use App\Jobs\ClassroomNotificationJob;
-use App\Jobs\ClassmatesNotificationJob;
+use App\Jobs\InstitutematesNotificationJob;
 use Carbon\Carbon;
 use Auth;
 use Illuminate\Support\Facades\Log;
@@ -85,7 +85,7 @@ class ScheduledJob extends Model
         return self::create([
             'run_at' => Carbon::now('UTC'),
             'job_body' => json_encode(['doubt_id'=>$doubt->id]),
-            'job_type' => ClassmatesNotificationJob::class,
+            'job_type' => InstitutematesNotificationJob::class,
             'notification_class_name' => NewDoubtNotification::class,
             'scheduled_by_user_id'=>Auth::id(),
         ]);
@@ -124,14 +124,13 @@ class ScheduledJob extends Model
             'classroom_id'=> $classroom->id,
         ]);
     }
-    public static function NewPostNotification(Classroom $classroom,Post $post){
+    public static function NewPostNotification(Post $post){
         return self::create([
             'run_at' => Carbon::now('UTC'),
-            'job_type' => ClassmatesNotificationJob::class,
+            'job_type' => InstitutematesNotificationJob::class,
             'notification_class_name' => NewPostNotification::class,
             'scheduled_by_user_id'=>Auth::id(),
             'job_body'=>json_encode(['post_id'=>$post->id]),
-            'classroom_id'=> $classroom->id,
         ]);
     }
 
