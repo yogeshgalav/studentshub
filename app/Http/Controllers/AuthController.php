@@ -44,7 +44,7 @@ class AuthController extends Controller
 
         $success['redirectUrl'] = '/';
         if ($user->role === 'sthub_staff') {
-            $success['redirectUrl'] = '/leads';
+            $success['redirectUrl'] = '/manage-users';
         }
         if ($request->chatId) {
             ChatroomUser::updateOrCreate([
