@@ -14,7 +14,6 @@
           >
             <subject-card
               :subject="subject"
-              :user-id="userId"
             />
           </div>
         </div>
@@ -28,7 +27,7 @@ export default {
   	components: {
 		SubjectCard
 	},
-	props:['subjects','userId'],
+	props:['subjects'],
 	data() {
 		return{
 			showLoader: false,
