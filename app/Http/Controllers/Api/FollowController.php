@@ -29,7 +29,6 @@ class FollowController extends Controller
                 
             ]);   
            }
-           dd($follow);
            return response()->json([], 204);
 }
 }
