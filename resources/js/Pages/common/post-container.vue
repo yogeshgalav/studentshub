@@ -40,7 +40,10 @@
             <post-card :post="post" />
           </div>
 
-          <div class="card mb-0 mt-0 border-0 text-center">
+          <div
+            v-if="posts_data.length = 0"
+            class="card mb-0 mt-0 border-0 text-center"
+          >
             <p
               class="mb-0"
               @click="loadPosts"

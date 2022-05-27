@@ -34,10 +34,10 @@ class LeadController extends Controller
             //find lead via user_id
             //if lead is not present create new
             //save request data for new or old lead
-            $lead=Lead::where('user_id',$user_id)->first();
+            $lead=Lead::where('user_id',$userId)->first();
             if(empty($lead)){
                 $lead = new Lead();
-                $lead->user_id = $user_id;
+                $lead->user_id = $userId;
             }
                 $lead->lead_status = $request->lead_status;
                 $lead->description = $request->description;

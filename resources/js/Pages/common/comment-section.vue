@@ -113,7 +113,10 @@
       @submit="saveEditComment"
     >
       <template slot="modalBody">
-        <form data-vv-scope="newHomework">
+        <form
+          data-vv-scope="newHomework"
+          @submit.prevent="handleSubmit"
+        >
           <div class="row">
             <div class="col-md-12">
               <div class="form-group">

@@ -14,7 +14,7 @@ Route::get('/faq','GuestController@faqPage');
 Route::get('/logout','AuthController@logout');
 
 Route::post('/login','AuthController@loginViaOtp');
-Route::post('/register','AuthController@registerViaOtp');
+Route::post('/register',['as' => 'login', 'uses' => 'AuthController@registerViaOtp']);
 
 Route::get('/post/{ViewPostId}', 'GuestController@viewPost');
 Route::get('/social-auth/{provider}', 'AuthController@redirectToProvider');

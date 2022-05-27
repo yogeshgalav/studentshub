@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware'=>['auth','admin']],function(){
+    Route::get('/leads','StaffController@leadIndexPage');
     Route::get('/manage-users', 'StaffController@leadIndexPage');
     Route::get('/user-details/{user}', 'StaffController@leadShowPage');
     Route::get('/manage-courses', 'StaffController@manageCoursePage');
