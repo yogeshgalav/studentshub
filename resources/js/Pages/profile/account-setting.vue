@@ -83,14 +83,6 @@
                 @change="dataUpdated"
               />
             </div>
-            <a href="/reset-password">
-              <button
-                type="button"
-                class="btn btn-primary mt-3 my-auto"
-              >
-                Password reset
-              </button>
-            </a>
           </div>
         </div>
       </div>

@@ -47,15 +47,19 @@ class SeekerController extends Controller
         ->with(['profile','preferredCourse','preferredInstitute'])
         ->first();
         $teachers=DB::table('teachers as te')
+        ->where('user_id',$user->id)
         ->leftJoin('institutes as inst','inst.id','=','te.institute_id')
         ->leftJoin('courses as co','co.id','=','te.course_id')
         ->select(['te.id as teacher_id','institute_id','course_id', 'course_name', 'inst.name as institute_name'])
         ->get();
+
         $students=DB::table('students as st')
+        ->where('user_id',$user->id)
         ->leftJoin('institutes as inst','inst.id','=','st.institute_id')
         ->leftJoin('courses as co','co.id','=','st.course_id')
         ->select(['st.id as student_id','institute_id','course_id', 'course_name', 'inst.name as institute_name'])
         ->get();
+        
         return inertia('profile/account-setting', [
             'user'=> $user,
             'teachers'=> $teachers,
