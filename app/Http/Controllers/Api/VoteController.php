@@ -11,21 +11,25 @@ use Auth;
 
 class VoteController extends Controller
 {
-    public function updateOrDelete($id){
-               $me=Auth::user();
+    public function updateOrDelete($subject_id, Request $request){
 
-        $vote=Vote::where('vote_by_id','=',$me->id)->where('subject_id','=',$id)->first();
-        
-        if($vote){
+        $me_id = $request->user('api')->id;
+        $vote = Vote::where('subject_id', $subject_id)->where('user_id', $me_id)->first();
+        if($vote && $vote->status===$request->status){
             $vote->delete();
-        } else {
-            $vote = Vote::create([
-                'subject_id'=>$id,
-                'vote_by_id'=>$me->id,
-                'vote_status'=>1,
-            ]);
-            
+            return response()->json([],204);
         }
+        if(!$vote){
+            Vote::create([
+                'subject_id'=> $subject_id,
+                'user_id'=> $me_id,
+                'status'=> $request->status==='upvote' ? 1 : 0
+            ]);
+        }else{
+            $vote->status = $request->status==='upvote' ? 1 : 0;
+            $vote->save();
+        }
+
         return response()->json([], 204);
     }
 }

@@ -123,6 +123,24 @@ export default {
 			totalDownVotes:0,
 		};
 	},
+  	watch: {
+		userVote: function() {
+			this.totalvotes = this.totalVotes;
+			if(this.userVote === 1){
+				this.vote_active = true;
+			}else{
+				this.vote_active = false;
+			}
+		}
+	},
+	mounted(){
+		this.totalvotes = this.totalVotes;
+		if(this.userVote === true){
+			this.vote_active = true;
+		}else{
+			this.vote_active = false;
+		}
+	},
 	methods: {
 		sendUserVote() {
 			this.vote_active = !this.vote_active;
@@ -146,7 +164,7 @@ export default {
         	this.totalDownVotes -= 1;
 			}
 			this.axios.post('/api/'+this.subject.id+'/vote').catch(err => {
-				this.vote_active = !this.downvote_active;
+				this.downvote_active = !this.downvote_active;
 			});
 
 		}
