@@ -23,7 +23,7 @@
                   v-if="vote_active"
                 >
                   <span><i
-                    class="fas fa-thumbs-up"
+                    class="fas fa-arrow-alt-circle-up"
                     aria-hidden="true"
                   /></span>
                   {{ totalVotes }} 
@@ -33,7 +33,7 @@
                   class="mx-auto"
                 >
                   <span><i
-                    class="fas fa-thumbs-up"
+                    class="fas fa-arrow-alt-circle-up"
                     aria-hidden="true"
                   /></span>
                 </p>
@@ -41,7 +41,7 @@
                   v-else
                 >
                   <span><i
-                    class="fas fa-thumbs-up"
+                    class="fas fa-arrow-alt-circle-up"
                     aria-hidden="true"
                   /></span>
                   {{ totalVotes }}
@@ -60,19 +60,19 @@
                   v-if="downvote_active"
                   class="mx-auto"
                 >
-                  <span><i class="fas fa-thumbs-down" /></span>
+                  <span><i class="fas fa-arrow-alt-circle-down" /></span>
                   {{ totalDownVotes }} 
                 </p>
                 <p
                   v-else-if="totalDownVotes===0"
                   class="mx-auto"
                 >
-                  <span><i class="fas fa-thumbs-down" /></span>
+                  <span><i class="fas fa-arrow-alt-circle-down" /></span>
                 </p>
                 <p
                   v-else
                 >
-                  <span><i class="fas fa-thumbs-down" /></span>
+                  <span><i class="fas fa-arrow-alt-circle-down" /></span>
                   {{ totalDownVotes }}
                 </p>
               </button>
@@ -123,23 +123,15 @@ export default {
 			totalDownVotes:0,
 		};
 	},
-  	watch: {
-		userVote: function() {
-			this.totalvotes = this.totalVotes;
-			if(this.userVote === 1){
-				this.vote_active = true;
-			}else{
-				this.vote_active = false;
-			}
-		}
-	},
-	mounted(){
-		this.totalvotes = this.totalVotes;
-		if(this.userVote === true){
-			this.vote_active = true;
-		}else{
-			this.vote_active = false;
-		}
+	mounted() {
+		console.log(this.subject.id);
+		this.axios
+			.get('/api/search-subject/')
+			.then(resp => {
+				this.subjects = resp.data.success.category.subjects;
+				// this.addRow();
+			});
+      
 	},
 	methods: {
 		sendUserVote() {
@@ -160,7 +152,7 @@ export default {
 			if(this.downvote_active){	
 				this.totalDownVotes += 1;
 			}
-			else if(!this.vote_active){
+			else if(!this.downvote_active){
         	this.totalDownVotes -= 1;
 			}
 			this.axios.post('/api/'+this.subject.id+'/vote').catch(err => {

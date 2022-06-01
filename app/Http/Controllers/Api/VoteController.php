@@ -14,8 +14,9 @@ class VoteController extends Controller
     public function updateOrDelete($subject_id, Request $request){
 
         $me_id = $request->user('api')->id;
+        $request_status=$request->status==='upvote' ? 1 : 0;
         $vote = Vote::where('subject_id', $subject_id)->where('user_id', $me_id)->first();
-        if($vote && $vote->status===$request->status){
+        if($vote && $vote->status===$request_status){
             $vote->delete();
             return response()->json([],204);
         }
@@ -23,10 +24,10 @@ class VoteController extends Controller
             Vote::create([
                 'subject_id'=> $subject_id,
                 'user_id'=> $me_id,
-                'status'=> $request->status==='upvote' ? 1 : 0
+                'status'=> $request_status,
             ]);
         }else{
-            $vote->status = $request->status==='upvote' ? 1 : 0;
+            $vote->status = $request_status;
             $vote->save();
         }
 
