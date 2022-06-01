@@ -36,7 +36,7 @@ class SubjectController extends Controller
         DB::raw('COUNT(DISTINCT total_downvote.id) as total_downvotes'), 'my_vote.status as myvote')
         ->groupBy('sub.subject_name', 'my_vote.status')
             ->limit(10)->get();
-    dd($subjects);
+            
         return response()->json(['success' => [
             'subjects' => $subjects
         ]]);

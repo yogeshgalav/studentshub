@@ -14,23 +14,24 @@
               </p>
             </div>
             <hr>
-            <div>
+            <div class="col-md-4 col-6"> 
               <button
-                class="like ml-2"
+                type="button"
+                class="btn"
                 @click="sendUserVote()"
               >
                 <p
-                  v-if="vote_active"
+                  v-if="upvote_active"
+                  class="text-primary btn_sm pl-3 pr-3"
                 >
                   <span><i
-                    class="fas fa-arrow-alt-circle-up"
+                    class="fas fa-arrow-alt-circle-up text-primary"
                     aria-hidden="true"
                   /></span>
-                  {{ totalVotes }} 
+                  {{ totalUpVotes }} Upvote
                 </p>
                 <p
-                  v-else-if="totalVotes===0"
-                  class="mx-auto"
+                  v-else-if="totalUpVotes===0"
                 >
                   <span><i
                     class="fas fa-arrow-alt-circle-up"
@@ -44,28 +45,25 @@
                     class="fas fa-arrow-alt-circle-up"
                     aria-hidden="true"
                   /></span>
-                  {{ totalVotes }}
+                  {{ totalUpVotes }}Upvote
                 </p>
               </button>
             </div>
-            <p class="like ml-2">
-              Upvote
-            </p>
             <div>
               <button
-                class="dislike ml-5"
+                type="button"
+                class="btn"
                 @click="sendUserDownVote()"
               >
                 <p
                   v-if="downvote_active"
-                  class="mx-auto"
+                  class="text-primary btn_sm pl-3 pr-3"
                 >
-                  <span><i class="fas fa-arrow-alt-circle-down" /></span>
-                  {{ totalDownVotes }} 
+                  <span><i class="fas fa-arrow-alt-circle-down text-primary" /></span>
+                  {{ totalDownVotes }}  Downvote
                 </p>
                 <p
                   v-else-if="totalDownVotes===0"
-                  class="mx-auto"
                 >
                   <span><i class="fas fa-arrow-alt-circle-down" /></span>
                 </p>
@@ -73,13 +71,10 @@
                   v-else
                 >
                   <span><i class="fas fa-arrow-alt-circle-down" /></span>
-                  {{ totalDownVotes }}
+                  {{ totalDownVotes }} Downvote
                 </p>
               </button>
             </div>
-            <p class="like ml-2">
-              Downvote
-            </p>
           </div>
         </div>
       </div>
@@ -87,63 +82,49 @@
   </section>
 </template>
 <style scoped>
-button.like{
-	width: 30px;
-	height: 30px;
-	margin: 0 auto;
-	border-radius: 50%;
-	color: rgba(0,150,136 ,1);
-	background-color:rgba(38,166,154 ,0.3);
-	border-color: rgba(0,150,136 ,1);
-	border-width: 1px;
-	font-size: 15px;
+button{
+    border: none;
+    color: gray;
+    display: flex;
+    height: 25px;
+	margin-bottom: 10px;
+	margin-top: -10px;
+    background-color: #fff;
 }
-
-button.dislike{
-	width: 30px;
-	height: 30px;
-	margin: 0 auto;
-	border-radius: 50%;
-	color: rgba(255,82,82 ,1);
-	background-color: rgba(255,138,128 ,0.3);
-	border-color: rgba(255,82,82 ,1);
-	border-width: 1px;
-	font-size: 15px;
+.single_page_user_like{
+    display: flex;
 }
-
+p{
+	padding: 5px 0px;
+	margin-bottom: 10px;
+}
+p:hover{
+	background-color: #f0f2f5;
+}
 </style>
 <script>
 export default {
-	props:['subject'],
+	props:['subject','subjects'],
 	data() {
 		return {
-			vote_active: '',
+			upvote_active: '',
 			downvote_active:'',
-			totalVotes:0,
+			totalUpVotes:0,
 			totalDownVotes:0,
 		};
 	},
-	mounted() {
-		console.log(this.subject.id);
-		this.axios
-			.get('/api/search-subject/')
-			.then(resp => {
-				this.subjects = resp.data.success.category.subjects;
-				// this.addRow();
-			});
-      
-	},
+
 	methods: {
 		sendUserVote() {
-			this.vote_active = !this.vote_active;
-			if(this.vote_active){	
-				this.totalVotes += 1;
+			this.upvote_active = !this.upvote_active;
+			if(this.upvote_active){	
+				this.totalUpVotes += 1;
 			}
-			else if(!this.vote_active){
-        	this.totalVotes -= 1;
+			else if(!this.upvote_active){
+        	this.totalUpVotes -= 1;
 			}
 			this.axios.post('/api/'+this.subject.id+'/vote').catch(err => {
-				this.vote_active = !this.vote_active;
+				this.upvote_active = !this.upvote_active;
 			});
 
 		},

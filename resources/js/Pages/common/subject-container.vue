@@ -14,6 +14,7 @@
           >
             <subject-card
               :subject="subject"
+              :subjects="subjects"
             />
           </div>
         </div>
@@ -27,7 +28,7 @@ export default {
   	components: {
 		SubjectCard
 	},
-	props:['subjects'],
+	props:['subjects','categoryId'],
 	data() {
 		return{
 			showLoader: false,
@@ -36,7 +37,12 @@ export default {
        
 	},
     	mounted() {
-		
+		this.axios
+			.get('/api/search-subject?categoryId='+this.categoryId)
+			.then(resp => {
+				this.subjects = resp.data.success.subjects;
+			});
+      
 	},
 
 };

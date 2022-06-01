@@ -53,6 +53,7 @@
             v-if="categoryId"
             :subject-route="'/category/'+categoryId"
             :subjects="subjects"
+             :categoryId="categoryId"
           >
             <template slot="empty">
               <img
