@@ -22,7 +22,6 @@ mix
 // .vue({ runtimeOnly: (process.env.NODE_ENV || 'production') === 'production' })
 	.webpackConfig(webpackConfig)
 	.sourceMaps()
-	// .browserSync('http://localhost:8000/')
 	// .options({
 	// 	hmrOptions: {
 	// 		host: 'localhost',
@@ -41,4 +40,6 @@ if (process.env.APP_ENV!=='local') {
 	//    '@fortawesome/vue-fontawesome',
 	//    '@fortawesome/fontawesome-svg-core'
 	// ]);
+} else {
+	mix.browserSync('http://127.0.0.1:8000/');
 }
