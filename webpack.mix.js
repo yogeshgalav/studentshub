@@ -41,5 +41,5 @@ if (process.env.APP_ENV!=='local') {
 	//    '@fortawesome/fontawesome-svg-core'
 	// ]);
 } else {
-	mix.browserSync('http://127.0.0.1:8000/');
+	mix.browserSync(process.env.APP_URL);
 }
