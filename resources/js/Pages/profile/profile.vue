@@ -66,6 +66,8 @@
                   </p>
                 </div> 
                 <button
+                  v-if="user.id !== AuthUser.id "
+                  type="button"
                   class="btn-md btn-primary"
                   @click="addfollow()"
                 >
@@ -73,13 +75,13 @@
                     v-if="follow_active"
                     style="margin:auto"
                   >
-                    Following
+                    {{ totalFollows }} Following
                   </p>
                   <p
                     v-else
                     style="margin:auto"
                   >
-                    Follow
+                    {{ totalFollows }}Follow
                   </p>
                 </button>
                 <div class="mb-2 mt-2">
@@ -320,7 +322,7 @@ export default {
 		DoubtContainer,
 		RadialProgress
 	},
-	props: ['user'],
+	props: ['user','follower'],
 	data() {
 		return {
 			interests: [],
@@ -354,6 +356,12 @@ export default {
 		}
 	},
 	mounted() {
+		this.totalFollows=this.follower.total_followers;
+		if(this.follower.myfollow === 1){
+			this.follow_active = true;
+		}else{
+			this.follow_active = false;
+		}
 		this.axios.get('/api/get-profile').then((resp) => {
 			let total = 0;
 			this.interests = resp.data.success.interests.map(node=>{

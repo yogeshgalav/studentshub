@@ -18,8 +18,9 @@ class SeekerController extends Controller
 
     //     return redirect('/');
     // }
-    public function profile($profileId)
-    {
+    public function profile($profileId, Request $request)
+    {   
+        $me_id = Auth::user()->id;
         $user = \App\Models\User::where('users.id', $profileId)
             ->leftJoin('user_profiles as up', 'up.user_id', '=', 'users.id')
             ->leftJoin('institutes as in', 'in.id', '=', 'users.preferred_institute_id')
@@ -27,9 +28,21 @@ class SeekerController extends Controller
             ->select('up.*', 'users.id', 'users.full_name', 'users.email', 'users.avatar_url',
             'in.name as preferred_institute_name', 'co.course_name as preferred_course_name')
             ->first();
-            
+
+        $follower = \App\Models\User::where('users.id', $profileId)
+            ->leftJoin('follows as my_follow',function($join)use($me_id){
+                $join->on('users.id','=','my_follow.following_id')->where('my_follow.followed_by_id','=',$me_id);
+              })
+            ->leftJoin('follows as total_followers',function($join){
+                  $join->on('users.id','=','total_followers.following_id')->where('total_followers.follow_status','=',1);
+              })
+            ->select(DB::raw('COUNT(DISTINCT total_followers.id) as total_followers'), 'my_follow.follow_status as myfollow')
+            ->groupBy('my_follow.follow_status') 
+            ->first();
+
         return inertia('profile/profile', [
-            'user'=> $user
+            'user'=> $user,
+            'follower'=>$follower
         ]);
     }
     // public function educationDetail()

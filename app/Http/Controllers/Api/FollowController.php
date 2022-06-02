@@ -15,18 +15,18 @@ class FollowController extends Controller
 {
     public function updateOrDelete($id)
     {
-        $me=Auth::user(); 
+        $me_id=Auth::user()->id; 
        // $followable=Follow::findOrFail($id);
-        $follow=Follow::where('followed_by_id','=',$me->id)->where('following_id','=',$id)->first();
+        $follow=Follow::where('followed_by_id','=',$me_id)->where('following_id','=',$id)->first();
         if($follow){
             $follow->delete();
            
         } else 
         {
             $follow = Follow::create([
-                'followed_by_id'=>$me->id,
+                'followed_by_id'=>$me_id,
                 'following_id'=>$id,
-                
+                'follow_status'=>1,
             ]);   
            }
            return response()->json([], 204);

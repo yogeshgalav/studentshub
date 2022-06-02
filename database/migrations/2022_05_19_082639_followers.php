@@ -17,6 +17,7 @@ class Followers extends Migration
             $table->increments('id');
             $table->integer('followed_by_id')->unsigned();
             $table->integer('following_id')->unsigned();
+            $table->boolean('follow_status')->comment('1 for follow,0 for unfollow');
             $table->timestamps();
             
     });
