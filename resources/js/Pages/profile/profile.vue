@@ -37,7 +37,7 @@
                   </h3>
                   
                   <p
-                    v-if="user.role==='student'"
+                    v-if="user.role==='follower'"
                     class="text-grey"
                   >
                     Student at
@@ -197,6 +197,99 @@
           <template slot="tab-heading-followers">
             {{ 'Followers' }}
           </template>
+          <template slot="tab-panel-followers">
+            <div
+              v-if="!follows.length"
+              class="row"
+            >
+              <div class="col-md-10">
+                <div class="card">
+                  <div class="card-body">
+                    <p>No followers are Present.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              v-else
+              class="row"
+            >
+              <div class="col-md-8 col-12">
+                <div
+                  v-for="(follow,index) in follows"
+                  :key="index"
+                  class="card mb-2"
+                >
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-2">
+                        <div class="text-center">
+                          <div style="text-align: -webkit-center">
+                            <profile-image
+                              :user-name="follow.full_name"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-10">
+                        <p class="mb-0 font-weight-bold text-black">
+                          <a :href="'/profile/'+follow.following_id"> {{ follow.full_name }}</a>
+                        </p> 
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </template>
+          <template slot="tab-heading-following">
+            {{ 'Following' }}
+          </template>
+          <template slot="tab-panel-following">
+            <div
+              v-if="!followings.length"
+              class="row"
+            >
+              <div class="col-md-10">
+                <div class="card">
+                  <div class="card-body">
+                    <p>No followers are Present.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              v-else
+              class="row"
+            >
+              <div class="col-md-8 col-12">
+                <div
+                  v-for="(following,index) in followings"
+                  :key="index"
+                  class="card mb-2"
+                >
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-2">
+                        <div class="text-center">
+                          <div style="text-align: -webkit-center">
+                            <profile-image
+                              :user-name="following.full_name"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-10">
+                        <p class="mb-0 font-weight-bold text-black">
+                          <a :href="'/profile/'+following.following_id"> {{ following.full_name }}</a>
+                        </p> 
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </template>
         </nav-tabs>
       </div>
     </div>
@@ -322,12 +415,12 @@ export default {
 		DoubtContainer,
 		RadialProgress
 	},
-	props: ['user','follower'],
+	props: ['user','follower','follows','followings'],
 	data() {
 		return {
 			interests: [],
 			initialTab:'interests',
-			tabs:['interests','posts','doubts'],
+			tabs:['interests','posts','doubts','Followers','Following'],
 			interest_enable: false,
 			image:'',
 			profile_image_url:'',

@@ -40,9 +40,19 @@ class SeekerController extends Controller
             ->groupBy('my_follow.follow_status') 
             ->first();
 
+            $follows=DB::table('follows as followers')
+            ->leftjoin('users as us', 'followers.followed_by_id','=','us.id')->where('followers.following_id','=',$profileId)
+            ->select('followers.followed_by_id','us.full_name','followers.following_id')->get();
+            
+            $followings=DB::table('follows as following')
+            ->leftjoin('users as us', 'following.following_id','=','us.id')->where('following.followed_by_id','=',$profileId)
+            ->select('following.followed_by_id','us.full_name','following.following_id')->get();
+            
         return inertia('profile/profile', [
             'user'=> $user,
-            'follower'=>$follower
+            'follower'=>$follower,
+            'follows'=>$follows,
+            'followings'=>$followings
         ]);
     }
     // public function educationDetail()
