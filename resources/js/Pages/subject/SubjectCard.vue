@@ -49,7 +49,7 @@
                 </p>
               </button>
             </div>
-            <div>
+            <div class="col-md-6 col-6">
               <button
                 type="button"
                 class="btn"
@@ -104,7 +104,7 @@ p:hover{
 </style>
 <script>
 export default {
-	props:['subject','subjects'],
+	props:['subject'],
 	data() {
 		return {
 			upvote_active: '',
@@ -113,7 +113,20 @@ export default {
 			totalDownVotes:0,
 		};
 	},
-
+	mounted(){
+		this.totalUpVotes=this.subject.total_upvotes;
+		if(this.subject.myvote === 1){
+			this.upvote_active = true;
+		}else{
+			this.upvote_active = false;
+		}
+		this.totalDownVotes=this.subject.total_downvotes; 
+		if(this.subject.myvote === 0){
+			this.downvote_active = true;
+		}else{
+			this.downvote_active = false;
+		}
+	},
 	methods: {
 		sendUserVote() {
 			this.upvote_active = !this.upvote_active;
@@ -123,8 +136,14 @@ export default {
 			else if(!this.upvote_active){
         	this.totalUpVotes -= 1;
 			}
-			this.axios.post('/api/'+this.subject.id+'/vote').catch(err => {
+			this.axios.post('/api/'+this.subject.id+'/vote',
+				{
+					status:'upvote',
+					subject_id:this.subject_id,
+          
+				}).catch(err => {
 				this.upvote_active = !this.upvote_active;
+				
 			});
 
 		},
@@ -136,7 +155,11 @@ export default {
 			else if(!this.downvote_active){
         	this.totalDownVotes -= 1;
 			}
-			this.axios.post('/api/'+this.subject.id+'/vote').catch(err => {
+
+			this.axios.post('/api/'+this.subject.id+'/vote',
+				{
+					status:'downvote',
+				}).catch(err => {
 				this.downvote_active = !this.downvote_active;
 			});
 

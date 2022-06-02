@@ -32,9 +32,9 @@ class SubjectController extends Controller
           ->leftJoin('votes as total_downvote',function($join){
             $join->on('sub.id','=','total_downvote.subject_id')->where('total_downvote.status','=',0);
         })
-        ->select('sub.subject_name',DB::raw('COUNT(DISTINCT total_upvote.id) as total_upvotes'),
+        ->select('sub.id','sub.subject_name',DB::raw('COUNT(DISTINCT total_upvote.id) as total_upvotes'),
         DB::raw('COUNT(DISTINCT total_downvote.id) as total_downvotes'), 'my_vote.status as myvote')
-        ->groupBy('sub.subject_name', 'my_vote.status')
+        ->groupBy('sub.id','sub.subject_name', 'my_vote.status')
             ->limit(10)->get();
             
         return response()->json(['success' => [

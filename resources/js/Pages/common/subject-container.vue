@@ -14,7 +14,6 @@
           >
             <subject-card
               :subject="subject"
-              :subjects="subjects"
             />
           </div>
         </div>
@@ -28,9 +27,10 @@ export default {
   	components: {
 		SubjectCard
 	},
-	props:['subjects','categoryId'],
+	props:['categoryId'],
 	data() {
 		return{
+			subjects:'',
 			showLoader: false,
 			current_page: 1
 		};

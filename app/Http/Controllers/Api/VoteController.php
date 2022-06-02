@@ -20,7 +20,7 @@ class VoteController extends Controller
             $vote->delete();
             return response()->json([],204);
         }
-        if(!$vote){
+        elseif(!$vote){
             Vote::create([
                 'subject_id'=> $subject_id,
                 'user_id'=> $me_id,
@@ -30,7 +30,7 @@ class VoteController extends Controller
             $vote->status = $request_status;
             $vote->save();
         }
-
+        
         return response()->json([], 204);
     }
 }
