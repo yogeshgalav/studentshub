@@ -420,7 +420,7 @@ export default {
 		return {
 			interests: [],
 			initialTab:'interests',
-			tabs:['interests','posts','doubts','Followers','Following'],
+			tabs:['interests','posts','doubts','followers','following'],
 			interest_enable: false,
 			image:'',
 			profile_image_url:'',
