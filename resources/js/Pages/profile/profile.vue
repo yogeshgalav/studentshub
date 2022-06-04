@@ -253,7 +253,7 @@
               <div class="col-md-10">
                 <div class="card">
                   <div class="card-body">
-                    <p>No followers are Present.</p>
+                    <p>Youre not following to anyone.</p>
                   </div>
                 </div>
               </div>
