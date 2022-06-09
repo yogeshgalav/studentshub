@@ -30,14 +30,7 @@
                   /></span>
                   {{ totalUpVotes }} Upvote
                 </p>
-                <p
-                  v-else-if="totalUpVotes===0"
-                >
-                  <span><i
-                    class="fas fa-arrow-alt-circle-up"
-                    aria-hidden="true"
-                  /></span>
-                </p>
+                
                 <p
                   v-else
                 >
@@ -45,7 +38,7 @@
                     class="fas fa-arrow-alt-circle-up"
                     aria-hidden="true"
                   /></span>
-                  {{ totalUpVotes }}Upvote
+                  {{ totalUpVotes?totalUpVotes:'' }}Upvote
                 </p>
               </button>
             </div>
@@ -62,16 +55,12 @@
                   <span><i class="fas fa-arrow-alt-circle-down text-primary" /></span>
                   {{ totalDownVotes }}  Downvote
                 </p>
-                <p
-                  v-else-if="totalDownVotes===0"
-                >
-                  <span><i class="fas fa-arrow-alt-circle-down" /></span>
-                </p>
+               
                 <p
                   v-else
                 >
                   <span><i class="fas fa-arrow-alt-circle-down" /></span>
-                  {{ totalDownVotes }} Downvote
+                  {{  totalDownVotes? totalDownVotes :'' }} Downvote
                 </p>
               </button>
             </div>
@@ -130,17 +119,17 @@ export default {
 	methods: {
 		sendUserVote() {
 			this.upvote_active = !this.upvote_active;
+			if(this.downvote_active && this.upvote_active){
+				this.totalDownVotes -= 1;
+				this.downvote_active=false;
+			}
 			if(this.upvote_active ){	
 				this.totalUpVotes += 1;	
 			}
 			else if(!this.upvote_active && this.totalUpVotes!==0){
         	this.totalUpVotes -= 1;
 			}
-			else if(this.downvote_active===true &&this.upvote_active)
-			{
-				this.downvote_active = false;
-				this.totalDownVotes -= 1;
-			}
+			
 			this.axios.post('/api/'+this.subject.id+'/vote',
 				{
 					status:'upvote',
@@ -152,17 +141,18 @@ export default {
 		},
 		sendUserDownVote(){
 			this.downvote_active = !this.downvote_active;
+			if(this.downvote_active && this.upvote_active){
+				this.totalUpVotes -= 1;
+				this.upvote_active=false;
+			}
+			this.upvote_active = false;
 			if(this.downvote_active ){	
         	this.totalDownVotes += 1;
 			}
 			else if(!this.downvote_active&& this.totalDownVotes!==0){
         	this.totalDownVotes -= 1;
 			}
-			else if(this.upvote_active===true &&this.Downvote_active)
-			{
-				this.upvote_active = false;
-				this.totalUpVotes -= 1;
-			}
+		
 
 			this.axios.post('/api/'+this.subject.id+'/vote',
 				{
