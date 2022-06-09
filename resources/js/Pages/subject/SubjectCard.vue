@@ -131,28 +131,30 @@ export default {
 		sendUserVote() {
 			this.upvote_active = !this.upvote_active;
 			if(this.upvote_active){	
-				this.totalUpVotes += 1;
+				this.totalUpVotes += 1;	
+				this.downvote_active = false;
+				this.totalDownVotes -= 1;
 			}
-			else if(!this.upvote_active){
+			else if(!this.upvote_active && this.totalUpVotes!==0){
         	this.totalUpVotes -= 1;
 			}
 			this.axios.post('/api/'+this.subject.id+'/vote',
 				{
 					status:'upvote',
 					subject_id:this.subject_id,
-          
 				}).catch(err => {
-				this.upvote_active = !this.upvote_active;
-				
+				this.upvote_active = !this.upvote_active;	
 			});
 
 		},
 		sendUserDownVote(){
 			this.downvote_active = !this.downvote_active;
 			if(this.downvote_active){	
-				this.totalDownVotes += 1;
+        	this.totalDownVotes += 1;
+				this.totalUpVotes -= 1;
+				this.upvote_active = false;
 			}
-			else if(!this.downvote_active){
+			else if(!this.downvote_active&& this.totalDownVotes!==0){
         	this.totalDownVotes -= 1;
 			}
 
