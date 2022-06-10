@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class DeleteFromScheduledJobsTable extends Migration
 {
@@ -14,9 +14,7 @@ class DeleteFromScheduledJobsTable extends Migration
      */
     public function up()
     {
-        Schema::table('scheduled_jobs', function (Blueprint $table) {
-            DB::table('scheduled_jobs')->truncate();
-        });
+        DB::table('scheduled_jobs')->truncate();
     }
 
     /**

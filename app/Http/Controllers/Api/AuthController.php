@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Classroom;
 use App\Models\ClassroomUser;
+use App\Models\UserPhone;
 use Illuminate\Http\Response;
 use App\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -36,7 +37,8 @@ class AuthController extends Controller
         DB::beginTransaction();
     try{
 
-        $user=User::where('phone_no','=',$request->phone_number)->first();
+        $user_phone=UserPhone::where('phone_no','=',$request->phone_number)->first();
+        $user = $user_phone ? $user_phone->user : null;
         $otp_required = !(('local'===env('APP_ENV')) || ($user && $user->is_demo_account));
 
         //generate otp
@@ -44,18 +46,18 @@ class AuthController extends Controller
 
         $success = [];
         $success['new_user']=false;
-        if(empty($user)){
-            $user=new User();
-            $user->country_code = $request->country_code;
-            $user->phone_no=$request->phone_number;
-        }
-
-        $user->password=Hash::make($otp);
-        $user->save();
-        
-        if(empty($user->onboarded_at)){
+        if(empty($user_phone) || empty($user)){
             $success['new_user'] = true;
         }
+        if(empty($user_phone)){
+            $user_phone=new UserPhone();
+            $user_phone->phone_no=$request->phone_number;
+            $user_phone->country_code=$request->country_code;
+        }
+
+        $user_phone->otp=Hash::make($otp);
+        $user_phone->save();
+        
         if($otp_required){  
             $this->sendOtpVerification($otp,$request->phone_number);
         }

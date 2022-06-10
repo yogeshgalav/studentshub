@@ -8,6 +8,7 @@ use App\Http\Requests\RegisterRequest;
 use App\Models\ChatroomUser;
 use App\Models\Classroom;
 use App\Models\User;
+use App\Models\UserPhone;
 use DB;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -33,12 +34,15 @@ class AuthController extends Controller
     public function loginViaOtp(LoginRequest $request)
     {
         \Session::flush();
-        $user = User::where('phone_no', '=', $request->phone_number)->first();
+        $user_phone = UserPhone::where('phone_no', '=', $request->phone_number)->first();
+        $user = $user_phone ? $user_phone->user : null;
 
         if (!$user) {
-            Log::critical('user not find during login', ['phone_number' => $request->phone_number]);
+            Log::critical('user not found during login', ['phone_number' => $request->phone_number]);
+            return redirect('/get-started')->with('otpError', 1);
         }
-        if (!Hash::check($request->otp, $user->password)) {
+
+        if (!Hash::check($request->otp, $user_phone->otp)) {
             return redirect('/get-started')->with('otpError', 1);
         }
 
@@ -75,22 +79,25 @@ class AuthController extends Controller
     public function registerViaOtp(RegisterRequest $request)
     {
         \Session::flush();
-        $user = User::where('phone_no', '=', $request->phone_number)->first();
-
-        if (!$user) {
-            Log::critical('user not find during registration'.['phone_number' => $request->phone_number]);
+        $user_phone = UserPhone::where('phone_no', '=', $request->phone_number)->first();
+        $user = $user_phone ? $user_phone->user : null;
+        
+        if ($user) {
+            Log::critical('user found during registration'.['phone_number' => $request->phone_number]);
         }
 
-        if (!Hash::check($request->otp, $user->password)) {
+        if (!Hash::check($request->otp, $user_phone->otp)) {
             return redirect('/get-started')->with('otpError', 1);
         }
         DB::beginTransaction();
         try {
             $input = $request->all();
+            $user = new User;
             $user->full_name = $input['full_name'];
             $user->role = $input['role'];
             $user->email = $input['email'] ?? null;
             $user->fcm_token = $request->fcm_token;
+            $user->phone_id = $user_phone->id;
             $user->onboarded_at = \Carbon\Carbon::now()->toDateTimeString();
             $user->save();
 
