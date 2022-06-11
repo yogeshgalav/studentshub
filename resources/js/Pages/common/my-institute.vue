@@ -35,35 +35,61 @@
             Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
             Aenean a urna non felis elementum varius.
           </p>
-          <div class="social-network_singlepage">
-            <social-sharing
-              :url="
-                AuthUser.full_name + ' has invited you to join '+ institute.name+' on Students Hub. click the link below to join now \n '+ baseUrl + '/get-started?inId=' + institute.id
-              "
-              inline-template
-            >
-              <div class="post_content_social">
-                <network network="facebook">
-                  <p class="post_content_social_icon">
-                    <i class="fab fa-facebook-f" />
-                  </p>
-                </network>
-                <network network="twitter">
-                  <p><i class="fab fa-twitter" /></p>
-                </network>
-                <network network="reddit">
-                  <p><i class="fab fa-reddit" /></p>
-                </network>
-                <network network="email">
-                  <p><i class="fa fa-envelope" /></p>
-                </network>
-              </div>
-            </social-sharing>
+          <div>
+            <div style="float:right">
+              <ul class="social-network social-circle">
+                <li>
+                  <a
+                    target="_blank"
+                    :href="institute.fb_url ? institute.fb_url :'#'"
+                    :disabled="institute.fb_url ? false:true"
+                    :class="['icoFacebook', institute.fb_url ? '' :'disabled']"
+                    title="Facebook"
+                  ><i class="fab fa-facebook-f" /></a>
+                </li>
+                <li>
+                  <a
+                    target="_blank"
+                    :href="institute.twitter_url ? institute.twitter_url :'#'"
+                    :disabled="institute.twitter_url ? false:true"
+                    :class="[icoTwitter, institute.twitter_url ? '' :'disabled']"
+                    title="Twitter"
+                  ><i class="fab fa-twitter" /></a>
+                </li>
+                <li>
+                  <a
+                    target="_blank"
+                    :href="institute.insta_url ? institute.insta_url :'#'"
+                    :disabled="institute.insta_url ? false:true"
+                    :class="[icoInstagram, institute.insta_url ? '' :'disabled']"
+                    title="Instagram"
+                  ><i class="fab fa-instagram" /></a>
+                </li>
+                <li>
+                  <a
+                    target="_blank"
+                    :href="institute.linkedin_url ? institute.linkedin_url :'#'"
+                    :disabled="institute.linkedin_url ? false:true"
+                    :class="[icoLinkedin, institute.linkedin_url ? '' :'disabled']"
+                    title="Linkedin"
+                  ><i class="fab fa-linkedin" /></a>
+                </li>
+                <li>
+                  <a
+                    :href="institute.youtube_vedio_url ? institute.youtube_vedio_url : '#'"
+                    :disabled="institute.youtube_vedio_url ? false:true"
+                    :class="[icoYoutube, institute.youtube_vedio_url ? '' :'disabled']"
+                    target="_blank"
+                    title="Youtube"
+                  ><i class="fab fa-youtube" /></a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
     </header>
-    
+   
     <div
       v-if="!AuthUser.preferred_institute_id"
       class="col-md-12"
@@ -87,6 +113,85 @@
         </div>
       </div>
     </div>
+    
+    <div
+     
+      class="col-md-10 col-sm-12"
+    >
+      <!-- profile info -->
+      <div class="card mt-3">
+        <div class="card-header">
+          <h4>Profile info</h4>
+        </div>
+
+        <div class="card-body">
+          <form @submit.prevent="saveProfile">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="model_input">
+                  <label>Facebook Profile Url</label>
+                  <input
+                    v-model="institute.fb_url"
+                    class="form-control"
+                    type="text"
+                    placeholder="http://facebook.com/profile-id"
+                    @input="dataUpdated"
+                  > <span class="text-danger">{{ errors.fb_url }}</span>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="model_input">
+                  <label>Twitter Url</label>
+                  <input
+                    v-model="institute.twitter_url"
+                    class="form-control"
+                    type="text"
+                    placeholder="http://twitter.com/profile-id"
+                    @input="dataUpdated"
+                  ><span class="text-danger">{{ errors.twitter_url }}</span>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="model_input">
+                  <label>Instagram Username</label>
+                  <input
+                    v-model="institute.insta_url"
+                    class="form-control"
+                    type="text"
+                    placeholder="http://instagram.com/profile-id"
+                    @input="dataUpdated"
+                  ><span class="text-danger">{{ errors.insta_url }}</span>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="model_input">
+                  <label>Linkedin Profile Url</label>
+                  <input
+                    v-model="institute.linkedin_url"
+                    class="form-control"
+                    type="text"
+                    placeholder="http://linked.com/profile-id"
+                  ><span class="text-danger">{{ errors.linkedin_url }}</span>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="model_input">
+                  <label>Youtube Vedio Url</label>
+                  <input
+                    v-model="institute.youtube_vedio_url"
+                    class="form-control"
+                    type="text"
+                    placeholder="http://youtube.com/profile-id"
+                  ><span class="text-danger">{{ errors.youtube_vedio_url }}</span>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  
     <div
       v-if="AuthUser.preferred_institute_id"
       class="col-md-12 mt-3"
@@ -292,6 +397,32 @@
         </template>
       </nav-tabs>
     </div>
+    <!-- fotter for update chnges -->
+    <div
+      v-if="data_updated"
+      class="static-footer"
+    >
+      <div class="col-md-12 mt-2 mb-2">
+        <div
+          class="text-right"
+        >
+          <button
+            class="btn btn-primary mr-2"
+            type="button"
+            @click="saveProfile"
+          >
+            Update
+          </button>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            @click="discard"
+          >
+            Discard
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -311,13 +442,21 @@ export default {
 			teachers: [],
 			students: [],
 			posts: [],
+			errors:{	
+				fb_url: '',
+				twitter_url:'',
+				insta_url: '',
+				linkedin_url: '',
+				youtube_vedio_url: '',
+			},
 			initialTab: 'posts',
 			tabs: ['posts', 'doubts','students','teachers'],
 			showLoader: false,
 			selected_institute : {
 				'id': null,
 				'name':'',
-			}
+			},
+      	data_updated:false,
 		};
 	},
 	computed:{
@@ -329,6 +468,7 @@ export default {
 		}
 	},
 	mounted() {
+	
 
 		if(this.AuthUser.role==='instituteAdmin'){
 
@@ -348,8 +488,64 @@ export default {
 				this.posts = resp.data.success.posts.data;
 				this.$forceUpdate();
 			});
+      	console.log(this.institute);
 	},
 	methods: {
+		dataUpdated(){
+			this.data_updated = true;
+		},
+    	initiateData(){
+			if(this.user){
+			  this.institute = Object.assign({}, this.user.profile);
+				this.preferred_institute = this.user.preferred_institute;
+				this.preferred_course = this.user.preferred_course;
+			}else{
+				this.institute= {
+					fb_url: '',
+					twitter_url:'',
+					insta_url: '',
+					linkedin_url: '',
+					youtube_vedio_url: '',
+				};
+			}
+
+		},
+		discard(){
+			this.initiateData();
+			this.data_updated = false;
+		},
+		async saveProfile() {
+			if(this.institute.fb_url && !this.institute.fb_url.includes('facebook.com')){
+				this.errors.fb_url='This is not valid Facebook url.';
+				return false;
+			}
+			if(this.institute.insta_url && !this.institute.insta_url.match(/^[a-zA-Z0-9_.]*$/g)){
+				this.errors.insta_url='This is not valid Instagram username.';
+				return false;
+			}
+			if(this.institute.linkedin_url &&!this.institute.linkedin_url.includes('linkedin.com')){
+				this.errors.linkedin_url='This is not valid Linkedin url.';
+				return false;
+			}
+
+			await this.axios.post('/api/save-institute-profile', Object.assign({
+				preferred_institute:this.preferred_institute,
+				preferred_course:this.preferred_course,
+			},this.institute)
+			).then((resp) => {
+				this.setProfile(resp.data.success.profile);
+				swal.successDialog('Profile Updated', 'Successfully!', 'success');
+				this.data_updated = false;
+			});
+
+			this.errors={
+				fb_url: '',
+				twitter_url:'',
+				insta_url: '',
+				linkedin_url: '',
+				youtube_vedio_url: '',
+			};
+		},
 		submitCourse(){
 			this.axios
 				.put('/api/preferred-details',{

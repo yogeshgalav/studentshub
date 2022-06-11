@@ -92,7 +92,7 @@ class UserController extends Controller
         }
 
         $profile->save();
-
+dd($profile);
         if($request->full_name){
             $me->full_name=$request->full_name;
             $me->preferred_institute_id=Institute::getFirstOrCreateId($request->preferred_institute);
