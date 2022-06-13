@@ -42,8 +42,8 @@ class CreateUserPhonesTable extends Migration
             $user->save();
         }
         Schema::table('users', function (Blueprint $table) {
-            $table->removeColumn('password');
-            $table->removeColumn('phone_no');
+            $table->dropColumn('password');
+            $table->dropColumn('phone_no');
         });
     }
 

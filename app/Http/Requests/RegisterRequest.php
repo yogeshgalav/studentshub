@@ -25,7 +25,6 @@ class RegisterRequest extends FormRequest
         $inId = Session::get('inId');
         if ($chatId && $chat = Chatroom::where('uuid', $chatId)->first()) {
             $this->merge(['chatId' => $chat->id]);
-            \Log::info($chat);
         }
         if ($inId && Institute::where('id', $inId)->exists()) {
             $this->merge(['inId' => $inId]);
@@ -45,7 +44,7 @@ class RegisterRequest extends FormRequest
         return [
             'role' => 'required|in:student,teacher,instituteAdmin',
             'full_name' => 'required|string|min:1|max:255',
-            'email' => 'nullable|string|email',
+            'email' => 'nullable|email|unique:users,email',
             'fcmToken' => 'nullable|string',
             'phone_number' => 'required',
             'otp' => 'required|digits:5',

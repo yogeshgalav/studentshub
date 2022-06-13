@@ -23,11 +23,20 @@ class AuthController extends Controller
         if (Auth::check()) {
             return redirect('/');
         }
-        Session::put('chatId', $request->chatId);
+        $srv_error = Session::get('srvError');
+        $otp_error = Session::get('otpError');
+        Session::forget('srv_error');
+        Session::forget('otpError');
+        if($request->chatId){
+            Session::put('chatId', $request->chatId);
+        }
+        if($request->inId){
+            Session::put('inId', $request->inId);
+        }
 
         return inertia('auth/get-started', [
-            'srvError' => session('srvError') ?? 1,
-            'otpError' => session('otpError') ?? 1,
+            'srvError' => $srv_error ? 1 : 0,
+            'otpError' => $otp_error ? 1 : 0,
         ]);
     }
 
@@ -39,7 +48,7 @@ class AuthController extends Controller
 
         if (!$user) {
             Log::critical('user not found during login', ['phone_number' => $request->phone_number]);
-            return redirect('/get-started')->with('otpError', 1);
+            return redirect('/get-started')->with('srvError', 1);
         }
 
         if (!Hash::check($request->otp, $user_phone->otp)) {
@@ -134,11 +143,8 @@ class AuthController extends Controller
 
             DB::commit();
         } catch (\Exception $e) {
-            dd($e);
             DB::rollback();
-            Log::critical('user registeration failure with contact '.$request->phone_number);
-
-            return redirect('/get-started')->with('srvError', 1);
+            Log::critical('user further registeration failure with contact '.$request->phone_number);
         }
 
         return redirect($success['redirectUrl']);
