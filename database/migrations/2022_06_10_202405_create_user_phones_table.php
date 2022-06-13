@@ -3,6 +3,9 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\User;
+use App\Models\UserPhone;
+use Carbon\Carbon;
 
 class CreateUserPhonesTable extends Migration
 {
@@ -16,6 +19,8 @@ class CreateUserPhonesTable extends Migration
         Schema::create('user_phones', function (Blueprint $table) {
             $table->id();
             $table->string('otp');
+            $table->char('country_code',2)->default('IN');
+            $table->char('locale_code',2)->default('EN');
             $table->string('phone_no');
             $table->dateTIme('expires_at');
             $table->timestamps();

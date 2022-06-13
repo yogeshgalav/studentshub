@@ -53,11 +53,12 @@ class AuthController extends Controller
             $user_phone=new UserPhone();
             $user_phone->phone_no=$request->phone_number;
             $user_phone->country_code=$request->country_code;
+            $user_phone->expires_at = Carbon::now()->toDateTimeString();
+            
         }
 
         $user_phone->otp=Hash::make($otp);
         $user_phone->save();
-        
         if($otp_required){  
             $this->sendOtpVerification($otp,$request->phone_number);
         }
