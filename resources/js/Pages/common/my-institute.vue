@@ -4,7 +4,6 @@
       <title>{{ institute ? institute.name : 'My Institute' }}</title>
     </Head>
     <!-- Header -->
-   
     <header
       id="home"
       style="max-width:1200px;min-width:400px"
@@ -41,44 +40,44 @@
                 <li>
                   <a
                     target="_blank"
-                    :href="institute.fb_url ? institute.fb_url :'#'"
-                    :disabled="institute.fb_url ? false:true"
-                    :class="['icoFacebook', institute.fb_url ? '' :'disabled']"
+                    :href="institute.fb_url ? institute_data.fb_url :'#'"
+                    :disabled="institute_data.fb_url ? false:true"
+                    :class="['icoFacebook', institute_data.fb_url ? '' :'disabled']"
                     title="Facebook"
                   ><i class="fab fa-facebook-f" /></a>
                 </li>
                 <li>
                   <a
                     target="_blank"
-                    :href="institute.twitter_url ? institute.twitter_url :'#'"
-                    :disabled="institute.twitter_url ? false:true"
-                    :class="[icoTwitter, institute.twitter_url ? '' :'disabled']"
+                    :href="institute_data.twitter_url ? institute_data.twitter_url :'#'"
+                    :disabled="institute_data.twitter_url ? false:true"
+                    :class="[icoTwitter, institute_data.twitter_url ? '' :'disabled']"
                     title="Twitter"
                   ><i class="fab fa-twitter" /></a>
                 </li>
                 <li>
                   <a
                     target="_blank"
-                    :href="institute.insta_url ? institute.insta_url :'#'"
-                    :disabled="institute.insta_url ? false:true"
-                    :class="[icoInstagram, institute.insta_url ? '' :'disabled']"
+                    :href="institute_data.insta_url ? institute_data.insta_url :'#'"
+                    :disabled="institute_data.insta_url ? false:true"
+                    :class="[icoInstagram, institute_data.insta_url ? '' :'disabled']"
                     title="Instagram"
                   ><i class="fab fa-instagram" /></a>
                 </li>
                 <li>
                   <a
                     target="_blank"
-                    :href="institute.linkedin_url ? institute.linkedin_url :'#'"
-                    :disabled="institute.linkedin_url ? false:true"
-                    :class="[icoLinkedin, institute.linkedin_url ? '' :'disabled']"
+                    :href="institute_data.linkedin_url ? institute_data.linkedin_url :'#'"
+                    :disabled="institute_data.linkedin_url ? false:true"
+                    :class="[icoLinkedin, institute_data.linkedin_url ? '' :'disabled']"
                     title="Linkedin"
                   ><i class="fab fa-linkedin" /></a>
                 </li>
                 <li>
                   <a
-                    :href="institute.youtube_vedio_url ? institute.youtube_vedio_url : '#'"
-                    :disabled="institute.youtube_vedio_url ? false:true"
-                    :class="[icoYoutube, institute.youtube_vedio_url ? '' :'disabled']"
+                    :href="institute_data.youtube_vedio_url ? institute_data.youtube_vedio_url : '#'"
+                    :disabled="institute_data.youtube_vedio_url ? false:true"
+                    :class="[icoYoutube, institute_data.youtube_vedio_url ? '' :'disabled']"
                     target="_blank"
                     title="Youtube"
                   ><i class="fab fa-youtube" /></a>
@@ -115,7 +114,7 @@
     </div>
     
     <div
-     
+      v-if="AuthUser.role==='instituteAdmin'"
       class="col-md-10 col-sm-12"
     >
       <!-- profile info -->
@@ -131,7 +130,7 @@
                 <div class="model_input">
                   <label>Facebook Profile Url</label>
                   <input
-                    v-model="institute.fb_url"
+                    v-model="institute_data.fb_url"
                     class="form-control"
                     type="text"
                     placeholder="http://facebook.com/profile-id"
@@ -143,7 +142,7 @@
                 <div class="model_input">
                   <label>Twitter Url</label>
                   <input
-                    v-model="institute.twitter_url"
+                    v-model="institute_data.twitter_url"
                     class="form-control"
                     type="text"
                     placeholder="http://twitter.com/profile-id"
@@ -155,7 +154,7 @@
                 <div class="model_input">
                   <label>Instagram Username</label>
                   <input
-                    v-model="institute.insta_url"
+                    v-model="institute_data.insta_url"
                     class="form-control"
                     type="text"
                     placeholder="http://instagram.com/profile-id"
@@ -167,10 +166,11 @@
                 <div class="model_input">
                   <label>Linkedin Profile Url</label>
                   <input
-                    v-model="institute.linkedin_url"
+                    v-model="institute_data.linkedin_url"
                     class="form-control"
                     type="text"
                     placeholder="http://linked.com/profile-id"
+                    @input="dataUpdated"
                   ><span class="text-danger">{{ errors.linkedin_url }}</span>
                 </div>
               </div>
@@ -179,10 +179,11 @@
                 <div class="model_input">
                   <label>Youtube Vedio Url</label>
                   <input
-                    v-model="institute.youtube_vedio_url"
+                    v-model="institute_data.youtube_vedio_url"
                     class="form-control"
                     type="text"
                     placeholder="http://youtube.com/profile-id"
+                    @input="dataUpdated"
                   ><span class="text-danger">{{ errors.youtube_vedio_url }}</span>
                 </div>
               </div>
@@ -431,6 +432,8 @@ import SelectInstitute from '../../components/SelectInstitute.vue';
 import PostContainer from './post-container.vue';
 import DoubtContainer from '@/Pages/doubt/doubt-container.vue';
 import SocialSharing from 'vue-social-sharing';
+import swal from '../../components/swal';
+
 
 export default {
 	components: {
@@ -443,6 +446,13 @@ export default {
 			students: [],
 			posts: [],
 			errors:{	
+				fb_url: '',
+				twitter_url:'',
+				insta_url: '',
+				linkedin_url: '',
+				youtube_vedio_url: '',
+			},
+			institute_data: {
 				fb_url: '',
 				twitter_url:'',
 				insta_url: '',
@@ -468,7 +478,8 @@ export default {
 		}
 	},
 	mounted() {
-	
+    
+    	this.initiateData();
 
 		if(this.AuthUser.role==='instituteAdmin'){
 
@@ -488,19 +499,16 @@ export default {
 				this.posts = resp.data.success.posts.data;
 				this.$forceUpdate();
 			});
-      	console.log(this.institute);
 	},
 	methods: {
 		dataUpdated(){
 			this.data_updated = true;
 		},
     	initiateData(){
-			if(this.user){
-			  this.institute = Object.assign({}, this.user.profile);
-				this.preferred_institute = this.user.preferred_institute;
-				this.preferred_course = this.user.preferred_course;
+			if(this.institute){
+			  this.institute_data = Object.assign({}, this.institute.profile);
 			}else{
-				this.institute= {
+				this.institute_data= {
 					fb_url: '',
 					twitter_url:'',
 					insta_url: '',
@@ -515,23 +523,29 @@ export default {
 			this.data_updated = false;
 		},
 		async saveProfile() {
-			if(this.institute.fb_url && !this.institute.fb_url.includes('facebook.com')){
+			if(this.institute_data.fb_url && !this.institute_data.fb_url.includes('facebook.com')){
 				this.errors.fb_url='This is not valid Facebook url.';
 				return false;
 			}
-			if(this.institute.insta_url && !this.institute.insta_url.match(/^[a-zA-Z0-9_.]*$/g)){
+			if(this.institute_data.twitter_url &&!this.institute_data.twitter_url.includes('twitter.com')){
+				this.errors.twitter_url='This is not valid Twitter url.';
+				return false;
+			}
+			if(this.institute_data.insta_url && !this.institute_data.insta_url.match(/^[a-zA-Z0-9_.]*$/g)){
 				this.errors.insta_url='This is not valid Instagram username.';
 				return false;
 			}
-			if(this.institute.linkedin_url &&!this.institute.linkedin_url.includes('linkedin.com')){
+			if(this.institute_data.linkedin_url &&!this.institute_data.linkedin_url.includes('linkedin.com')){
 				this.errors.linkedin_url='This is not valid Linkedin url.';
+				return false;
+			}
+			if(this.institute_data.youtube_vedio_url &&!this.institute_data.youtube_vedio_url.includes('youtube.com')){
+				this.errors.youtube_vedio_url='This is not valid Youtube url.';
 				return false;
 			}
 
 			await this.axios.post('/api/save-institute-profile', Object.assign({
-				preferred_institute:this.preferred_institute,
-				preferred_course:this.preferred_course,
-			},this.institute)
+			},this.institute_data)
 			).then((resp) => {
 				this.setProfile(resp.data.success.profile);
 				swal.successDialog('Profile Updated', 'Successfully!', 'success');
@@ -545,6 +559,13 @@ export default {
 				linkedin_url: '',
 				youtube_vedio_url: '',
 			};
+		},
+		setProfile(profile) {
+			this.institute_data.fb_url = profile.fb_url ? profile.fb_url : '';
+			this.institute_data.twitter_url = profile.twitter_url ? profile.twitter_url : '';
+			this.institute_data.insta_url = profile.insta_url ? profile.insta_url : '';
+			this.institute_data.linkedin_url = profile.linkedin_url ? profile.linkedin_url : '';
+			this.institute_data.youtube_vedio_url = profile.youtube_vedio_url ? profile.youtube_vedio_url : '';
 		},
 		submitCourse(){
 			this.axios

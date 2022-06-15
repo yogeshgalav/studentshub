@@ -17,6 +17,7 @@ Route::group(['middleware' => ['auth:api']], function () {
         //profile
     Route::get('/get-profile','UserController@getProfile');
     Route::post('/save-profile', 'UserController@saveProfile');
+    Route::post('/save-institute-profile', 'UserController@saveInstiProfile');
     Route::delete('/delete-teachersdetails/{teacher}','UserController@deleteTeacherDetails');
     Route::delete('/delete-studentdetails/{student}','UserController@deleteStudentDetails');
     Route::post('/checkin/student', [App\Http\Controllers\Api\StudentController::class, 'create']);

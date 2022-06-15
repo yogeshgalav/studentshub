@@ -385,6 +385,7 @@ export default {
 	},
 	mounted(){
 		this.initiateData();
+		console.log('xyz',this.user.profile);
 	},
 	methods: {
 		dataUpdated(){

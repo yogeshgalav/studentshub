@@ -11,6 +11,7 @@ use Spatie\Sluggable\SlugOptions;
 class Institute extends Model
 {
     protected $guarded = ['id', 'created_at', 'updated_at'];
+    protected $table ="institutes";
     use Loggable;
     use HasSlug;
 
