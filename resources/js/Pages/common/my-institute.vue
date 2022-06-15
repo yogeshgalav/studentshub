@@ -40,44 +40,44 @@
                 <li>
                   <a
                     target="_blank"
-                    :href="institute.fb_url ? institute_data.fb_url :'#'"
-                    :disabled="institute_data.fb_url ? false:true"
-                    :class="['icoFacebook', institute_data.fb_url ? '' :'disabled']"
+                    :href="institute.fb_url ? institute.fb_url :'#'"
+                    :disabled="institute.fb_url ? false:true"
+                    :class="['icoFacebook', institute.fb_url ? '' :'disabled']"
                     title="Facebook"
                   ><i class="fab fa-facebook-f" /></a>
                 </li>
                 <li>
                   <a
                     target="_blank"
-                    :href="institute_data.twitter_url ? institute_data.twitter_url :'#'"
-                    :disabled="institute_data.twitter_url ? false:true"
-                    :class="[icoTwitter, institute_data.twitter_url ? '' :'disabled']"
+                    :href="institute.twitter_url ? institute.twitter_url :'#'"
+                    :disabled="institute.twitter_url ? false:true"
+                    :class="[icoTwitter, institute.twitter_url ? '' :'disabled']"
                     title="Twitter"
                   ><i class="fab fa-twitter" /></a>
                 </li>
                 <li>
                   <a
                     target="_blank"
-                    :href="institute_data.insta_url ? institute_data.insta_url :'#'"
-                    :disabled="institute_data.insta_url ? false:true"
-                    :class="[icoInstagram, institute_data.insta_url ? '' :'disabled']"
+                    :href="institute.insta_url ? institute.insta_url :'#'"
+                    :disabled="institute.insta_url ? false:true"
+                    :class="[icoInstagram, institute.insta_url ? '' :'disabled']"
                     title="Instagram"
                   ><i class="fab fa-instagram" /></a>
                 </li>
                 <li>
                   <a
                     target="_blank"
-                    :href="institute_data.linkedin_url ? institute_data.linkedin_url :'#'"
-                    :disabled="institute_data.linkedin_url ? false:true"
-                    :class="[icoLinkedin, institute_data.linkedin_url ? '' :'disabled']"
+                    :href="institute.linkedin_url ? institute.linkedin_url :'#'"
+                    :disabled="institute.linkedin_url ? false:true"
+                    :class="[icoLinkedin, institute.linkedin_url ? '' :'disabled']"
                     title="Linkedin"
                   ><i class="fab fa-linkedin" /></a>
                 </li>
                 <li>
                   <a
-                    :href="institute_data.youtube_vedio_url ? institute_data.youtube_vedio_url : '#'"
-                    :disabled="institute_data.youtube_vedio_url ? false:true"
-                    :class="[icoYoutube, institute_data.youtube_vedio_url ? '' :'disabled']"
+                    :href="institute.youtube_vedio_url ? institute.youtube_vedio_url : '#'"
+                    :disabled="institute.youtube_vedio_url ? false:true"
+                    :class="[icoYoutube, institute.youtube_vedio_url ? '' :'disabled']"
                     target="_blank"
                     title="Youtube"
                   ><i class="fab fa-youtube" /></a>
@@ -113,85 +113,7 @@
       </div>
     </div>
     
-    <div
-      v-if="AuthUser.role==='instituteAdmin'"
-      class="col-md-10 col-sm-12"
-    >
-      <!-- profile info -->
-      <div class="card mt-3">
-        <div class="card-header">
-          <h4>Profile info</h4>
-        </div>
-
-        <div class="card-body">
-          <form @submit.prevent="saveProfile">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="model_input">
-                  <label>Facebook Profile Url</label>
-                  <input
-                    v-model="institute_data.fb_url"
-                    class="form-control"
-                    type="text"
-                    placeholder="http://facebook.com/profile-id"
-                    @input="dataUpdated"
-                  > <span class="text-danger">{{ errors.fb_url }}</span>
-                </div>
-              </div>
-              <div class="col-md-12">
-                <div class="model_input">
-                  <label>Twitter Url</label>
-                  <input
-                    v-model="institute_data.twitter_url"
-                    class="form-control"
-                    type="text"
-                    placeholder="http://twitter.com/profile-id"
-                    @input="dataUpdated"
-                  ><span class="text-danger">{{ errors.twitter_url }}</span>
-                </div>
-              </div>
-              <div class="col-md-12">
-                <div class="model_input">
-                  <label>Instagram Username</label>
-                  <input
-                    v-model="institute_data.insta_url"
-                    class="form-control"
-                    type="text"
-                    placeholder="http://instagram.com/profile-id"
-                    @input="dataUpdated"
-                  ><span class="text-danger">{{ errors.insta_url }}</span>
-                </div>
-              </div>
-              <div class="col-md-12">
-                <div class="model_input">
-                  <label>Linkedin Profile Url</label>
-                  <input
-                    v-model="institute_data.linkedin_url"
-                    class="form-control"
-                    type="text"
-                    placeholder="http://linked.com/profile-id"
-                    @input="dataUpdated"
-                  ><span class="text-danger">{{ errors.linkedin_url }}</span>
-                </div>
-              </div>
-
-              <div class="col-md-12">
-                <div class="model_input">
-                  <label>Youtube Vedio Url</label>
-                  <input
-                    v-model="institute_data.youtube_vedio_url"
-                    class="form-control"
-                    type="text"
-                    placeholder="http://youtube.com/profile-id"
-                    @input="dataUpdated"
-                  ><span class="text-danger">{{ errors.youtube_vedio_url }}</span>
-                </div>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+ 
   
     <div
       v-if="AuthUser.preferred_institute_id"
@@ -354,6 +276,85 @@
                   Our team will soon contact you on phone for account verification.<br>
                   Once account verified you will be able to promote your institute to thousands of students.
                 </p>
+                <div
+                  v-if="AuthUser.role==='instituteAdmin'"
+                  class="col-md-10 col-sm-12"
+                >
+                  <!-- profile info -->
+                  <div class="card mt-3">
+                    <div class="card-header">
+                      <h4>Profile info</h4>
+                    </div>
+
+                    <div class="card-body">
+                      <form @submit.prevent="saveProfile">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="model_input">
+                              <label>Facebook Profile Url</label>
+                              <input
+                                v-model="institute.fb_url"
+                                class="form-control"
+                                type="text"
+                                placeholder="http://facebook.com/profile-id"
+                                @input="dataUpdated"
+                              > <span class="text-danger">{{ errors.fb_url }}</span>
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="model_input">
+                              <label>Twitter Url</label>
+                              <input
+                                v-model="institute.twitter_url"
+                                class="form-control"
+                                type="text"
+                                placeholder="http://twitter.com/profile-id"
+                                @input="dataUpdated"
+                              ><span class="text-danger">{{ errors.twitter_url }}</span>
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="model_input">
+                              <label>Instagram Username</label>
+                              <input
+                                v-model="institute.insta_url"
+                                class="form-control"
+                                type="text"
+                                placeholder="http://instagram.com/profile-id"
+                                @input="dataUpdated"
+                              ><span class="text-danger">{{ errors.insta_url }}</span>
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="model_input">
+                              <label>Linkedin Profile Url</label>
+                              <input
+                                v-model="institute.linkedin_url"
+                                class="form-control"
+                                type="text"
+                                placeholder="http://linked.com/profile-id"
+                                @input="dataUpdated"
+                              ><span class="text-danger">{{ errors.linkedin_url }}</span>
+                            </div>
+                          </div>
+
+                          <div class="col-md-12">
+                            <div class="model_input">
+                              <label>Youtube Vedio Url</label>
+                              <input
+                                v-model="institute.youtube_vedio_url"
+                                class="form-control"
+                                type="text"
+                                placeholder="http://youtube.com/profile-id"
+                                @input="dataUpdated"
+                              ><span class="text-danger">{{ errors.youtube_vedio_url }}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -452,13 +453,7 @@ export default {
 				linkedin_url: '',
 				youtube_vedio_url: '',
 			},
-			institute_data: {
-				fb_url: '',
-				twitter_url:'',
-				insta_url: '',
-				linkedin_url: '',
-				youtube_vedio_url: '',
-			},
+			
 			initialTab: 'posts',
 			tabs: ['posts', 'doubts','students','teachers'],
 			showLoader: false,
@@ -506,9 +501,9 @@ export default {
 		},
     	initiateData(){
 			if(this.institute){
-			  this.institute_data = Object.assign({}, this.institute.profile);
+			  this.institute = Object.assign({}, this.institute.profile);
 			}else{
-				this.institute_data= {
+				this.institute= {
 					fb_url: '',
 					twitter_url:'',
 					insta_url: '',
@@ -523,29 +518,29 @@ export default {
 			this.data_updated = false;
 		},
 		async saveProfile() {
-			if(this.institute_data.fb_url && !this.institute_data.fb_url.includes('facebook.com')){
+			if(this.institute.fb_url && !this.institute.fb_url.includes('facebook.com')){
 				this.errors.fb_url='This is not valid Facebook url.';
 				return false;
 			}
-			if(this.institute_data.twitter_url &&!this.institute_data.twitter_url.includes('twitter.com')){
+			if(this.institute.twitter_url &&!this.institute.twitter_url.includes('twitter.com')){
 				this.errors.twitter_url='This is not valid Twitter url.';
 				return false;
 			}
-			if(this.institute_data.insta_url && !this.institute_data.insta_url.match(/^[a-zA-Z0-9_.]*$/g)){
+			if(this.institute.insta_url && !this.institute.insta_url.match(/^[a-zA-Z0-9_.]*$/g)){
 				this.errors.insta_url='This is not valid Instagram username.';
 				return false;
 			}
-			if(this.institute_data.linkedin_url &&!this.institute_data.linkedin_url.includes('linkedin.com')){
+			if(this.institute.linkedin_url &&!this.institute.linkedin_url.includes('linkedin.com')){
 				this.errors.linkedin_url='This is not valid Linkedin url.';
 				return false;
 			}
-			if(this.institute_data.youtube_vedio_url &&!this.institute_data.youtube_vedio_url.includes('youtube.com')){
+			if(this.institute.youtube_vedio_url &&!this.institute.youtube_vedio_url.includes('youtube.com')){
 				this.errors.youtube_vedio_url='This is not valid Youtube url.';
 				return false;
 			}
 
 			await this.axios.post('/api/save-institute-profile', Object.assign({
-			},this.institute_data)
+			},this.institute)
 			).then((resp) => {
 				this.setProfile(resp.data.success.profile);
 				swal.successDialog('Profile Updated', 'Successfully!', 'success');
@@ -561,11 +556,11 @@ export default {
 			};
 		},
 		setProfile(profile) {
-			this.institute_data.fb_url = profile.fb_url ? profile.fb_url : '';
-			this.institute_data.twitter_url = profile.twitter_url ? profile.twitter_url : '';
-			this.institute_data.insta_url = profile.insta_url ? profile.insta_url : '';
-			this.institute_data.linkedin_url = profile.linkedin_url ? profile.linkedin_url : '';
-			this.institute_data.youtube_vedio_url = profile.youtube_vedio_url ? profile.youtube_vedio_url : '';
+			this.institute.fb_url = profile.fb_url ? profile.fb_url : '';
+			this.institute.twitter_url = profile.twitter_url ? profile.twitter_url : '';
+			this.institute.insta_url = profile.insta_url ? profile.insta_url : '';
+			this.institute.linkedin_url = profile.linkedin_url ? profile.linkedin_url : '';
+			this.institute.youtube_vedio_url = profile.youtube_vedio_url ? profile.youtube_vedio_url : '';
 		},
 		submitCourse(){
 			this.axios
