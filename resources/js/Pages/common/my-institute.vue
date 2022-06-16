@@ -11,22 +11,20 @@
       <div class="card">
         <div class="card-body">
           <img
-            src="/images/institute.jpg"
-            width="1000"
-            height="450"
-            style="margin-bottom: -50px;"
-          >
-          <router-link
-            href="/"
-          >
-            <img
-              src="/logo.png"
-              alt="Student Hub"
-              width="100"
-              height="100"
-              style=" margin-left:10px;"
-            >
-          </router-link>
+            src="/images/banner.png"
+            style="width: 1000px; height: 250px; margin-bottom:-40px; border-radius: 15px;"
+            alt=""
+          >   
+          <img
+            src="/images/download.png"
+            alt="Student Hub"
+            width="100"
+            height="100"
+            style=" margin-left:10px; border-radius: 50px; border-color:white;"
+          ><i
+            class="fas fa-camera"
+            style="font-size:24px; margin-left:-15px; margin-top:5px;"
+          />
           <h3>
             {{ institute ? institute.name : 'My Institute' }}
           </h3>
@@ -276,84 +274,225 @@
                   Our team will soon contact you on phone for account verification.<br>
                   Once account verified you will be able to promote your institute to thousands of students.
                 </p>
-                <div
-                  v-if="AuthUser.role==='instituteAdmin'"
-                  class="col-md-10 col-sm-12"
-                >
-                  <!-- profile info -->
-                  <div class="card mt-3">
-                    <div class="card-header">
-                      <h4>Profile info</h4>
-                    </div>
+                
+                <!-- profile info -->
+                <div class="card mt-3">
+                  <div class="card-header">
+                    <h4>Profile info</h4>
+                  </div>
 
-                    <div class="card-body">
-                      <form @submit.prevent="saveProfile">
-                        <div class="row">
-                          <div class="col-md-12">
-                            <div class="model_input">
-                              <label>Facebook Profile Url</label>
-                              <input
-                                v-model="institute.fb_url"
-                                class="form-control"
-                                type="text"
-                                placeholder="http://facebook.com/profile-id"
-                                @input="dataUpdated"
-                              > <span class="text-danger">{{ errors.fb_url }}</span>
-                            </div>
-                          </div>
-                          <div class="col-md-12">
-                            <div class="model_input">
-                              <label>Twitter Url</label>
-                              <input
-                                v-model="institute.twitter_url"
-                                class="form-control"
-                                type="text"
-                                placeholder="http://twitter.com/profile-id"
-                                @input="dataUpdated"
-                              ><span class="text-danger">{{ errors.twitter_url }}</span>
-                            </div>
-                          </div>
-                          <div class="col-md-12">
-                            <div class="model_input">
-                              <label>Instagram Username</label>
-                              <input
-                                v-model="institute.insta_url"
-                                class="form-control"
-                                type="text"
-                                placeholder="http://instagram.com/profile-id"
-                                @input="dataUpdated"
-                              ><span class="text-danger">{{ errors.insta_url }}</span>
-                            </div>
-                          </div>
-                          <div class="col-md-12">
-                            <div class="model_input">
-                              <label>Linkedin Profile Url</label>
-                              <input
-                                v-model="institute.linkedin_url"
-                                class="form-control"
-                                type="text"
-                                placeholder="http://linked.com/profile-id"
-                                @input="dataUpdated"
-                              ><span class="text-danger">{{ errors.linkedin_url }}</span>
-                            </div>
-                          </div>
-
-                          <div class="col-md-12">
-                            <div class="model_input">
-                              <label>Youtube Vedio Url</label>
-                              <input
-                                v-model="institute.youtube_vedio_url"
-                                class="form-control"
-                                type="text"
-                                placeholder="http://youtube.com/profile-id"
-                                @input="dataUpdated"
-                              ><span class="text-danger">{{ errors.youtube_vedio_url }}</span>
-                            </div>
+                  <div class="card-body">
+                    <form @submit.prevent="saveProfile">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="model_input">
+                            <label>Facebook Profile Url</label>
+                            <input
+                              v-model="institute.fb_url"
+                              class="form-control"
+                              type="text"
+                              placeholder="http://facebook.com/profile-id"
+                              @input="dataUpdated"
+                            > <span class="text-danger">{{ errors.fb_url }}</span>
                           </div>
                         </div>
-                      </form>
+                        <div class="col-md-12">
+                          <div class="model_input">
+                            <label>Twitter Url</label>
+                            <input
+                              v-model="institute.twitter_url"
+                              class="form-control"
+                              type="text"
+                              placeholder="http://twitter.com/profile-id"
+                              @input="dataUpdated"
+                            ><span class="text-danger">{{ errors.twitter_url }}</span>
+                          </div>
+                        </div>
+                        <div class="col-md-12">
+                          <div class="model_input">
+                            <label>Instagram Username</label>
+                            <input
+                              v-model="institute.insta_url"
+                              class="form-control"
+                              type="text"
+                              placeholder="http://instagram.com/profile-id"
+                              @input="dataUpdated"
+                            ><span class="text-danger">{{ errors.insta_url }}</span>
+                          </div>
+                        </div>
+                        <div class="col-md-12">
+                          <div class="model_input">
+                            <label>Linkedin Profile Url</label>
+                            <input
+                              v-model="institute.linkedin_url"
+                              class="form-control"
+                              type="text"
+                              placeholder="http://linked.com/profile-id"
+                              @input="dataUpdated"
+                            ><span class="text-danger">{{ errors.linkedin_url }}</span>
+                          </div>
+                        </div>
+
+                        <div class="col-md-12">
+                          <div class="model_input">
+                            <label>Youtube Vedio Url</label>
+                            <input
+                              v-model="institute.youtube_vedio_url"
+                              class="form-control"
+                              type="text"
+                              placeholder="http://youtube.com/profile-id"
+                              @input="dataUpdated"
+                            ><span class="text-danger">{{ errors.youtube_vedio_url }}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <div class="card mt-3">
+                  <div class="card-header">
+                    <div class="row">
+                      <div class="col-md-10">
+                        <h4>Administrators of Institute</h4>
+                      </div>
+                      <div class="col-md-2">
+                        <button
+                          type="button"
+                          class="btn btn-primary"
+                        >
+                          <i
+                            class="fas fa-pencil-alt"
+                            style="color:white"
+                          />
+                          Edit
+                        </button>
+                      </div>
                     </div>
                   </div>
+                  <div class="card-body">
+                    <img
+                      src="/images/default-avatar.png"
+                      alt="Student Hub"
+                      width="100"
+                      height="100"
+                      style="border-radius: 50px; "
+                    >
+                    <img
+                      src="/images/plus.png"
+                      alt="Student Hub"
+                      width="100"
+                      height="100"
+                      style="border-radius: 50px; "
+                    >
+                  </div>
+                </div>
+                <div class="card mt-3">
+                  <div class="card-header">
+                    <div class="row">
+                      <div class="col-md-10">
+                        <h4>Contact-Us</h4>
+                      </div>
+                      <div class="col-md-2">
+                        <button
+                          type="button"
+                          class="btn btn-primary"
+                        >
+                          <i
+                            class="fas fa-pencil-alt"
+                            style="color:white"
+                          />
+                          Edit
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-2">
+                        <h5>
+                          <i
+                            class="fas fa-envelope"
+                          />Email
+                        </h5>
+                        <p>{{ institute.email_slug }}</p>
+                      </div>
+                      <div class="col-md-2">
+                        <h5><i class="fas fa-globe-americas" />Website</h5>
+                      </div>
+                      <div class="col-md-2">
+                        <h5><i class="fas fa-phone-alt" />Phone</h5>
+                      </div>
+                      <div class="col-md-2">
+                        <h5><i class="fas fa-map-marker-alt" />Address</h5>
+                        <p>{{ institute.address }}</p>
+                      </div>
+                      <div class="col-md-4">
+                        <h5><i class="fas fa-user-plus" />Follow Us</h5>
+                        <div class="row">
+                          <ul class="social-network social-circle">
+                            <li>
+                              <a
+                                target="_blank"
+                                :href="institute.fb_url ? institute.fb_url :'#'"
+                                :disabled="institute.fb_url ? false:true"
+                                :class="['icoFacebook', institute.fb_url ? '' :'disabled']"
+                                title="Facebook"
+                              ><i class="fab fa-facebook-f" /></a>
+                            </li>
+                            <li>
+                              <a
+                                target="_blank"
+                                :href="institute.twitter_url ? institute.twitter_url :'#'"
+                                :disabled="institute.twitter_url ? false:true"
+                                :class="[icoTwitter, institute.twitter_url ? '' :'disabled']"
+                                title="Twitter"
+                              ><i class="fab fa-twitter" /></a>
+                            </li>
+                            <li>
+                              <a
+                                target="_blank"
+                                :href="institute.insta_url ? institute.insta_url :'#'"
+                                :disabled="institute.insta_url ? false:true"
+                                :class="[icoInstagram, institute.insta_url ? '' :'disabled']"
+                                title="Instagram"
+                              ><i class="fab fa-instagram" /></a>
+                            </li>
+                            <li>
+                              <a
+                                target="_blank"
+                                :href="institute.linkedin_url ? institute.linkedin_url :'#'"
+                                :disabled="institute.linkedin_url ? false:true"
+                                :class="[icoLinkedin, institute.linkedin_url ? '' :'disabled']"
+                                title="Linkedin"
+                              ><i class="fab fa-linkedin" /></a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card mt-3">
+                  <div class="card-header">
+                    <div class="row">
+                      <div class="col-md-10">
+                        <h4>Location</h4>
+                      </div>
+                      <div class="col-md-2">
+                        <button
+                          type="button"
+                          class="btn btn-primary"
+                        >
+                          <i
+                            class="fas fa-pencil-alt"
+                            style="color:white"
+                          />
+                          Edit
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body" />
                 </div>
               </div>
             </div>
