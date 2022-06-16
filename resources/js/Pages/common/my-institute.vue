@@ -10,21 +10,76 @@
     >
       <div class="card">
         <div class="card-body">
-          <img
-            src="/images/banner.png"
-            style="width: 1000px; height: 250px; margin-bottom:-40px; border-radius: 15px;"
-            alt=""
-          >   
-          <img
-            src="/images/download.png"
-            alt="Student Hub"
-            width="100"
-            height="100"
-            style=" margin-left:10px; border-radius: 50px; border-color:white;"
-          ><i
-            class="fas fa-camera"
-            style="font-size:24px; margin-left:-15px; margin-top:5px;"
-          />
+          <div class="container">
+            <img
+              v-if="institute.avatar_url"
+              :src="institute.avatar_url"
+              alt=""
+            >
+            <img
+              v-else-if="institute_banner_url"
+              :src="institute_banner_url"
+              alt=""
+            >
+            <img
+              v-else
+              src="/images/banner.png"
+              style="width: 1000px; height: 250px; margin-bottom:-40px; border-radius: 15px;"
+              alt=""
+            >   
+            <file-upload
+              id="documentUpload"
+              ref="upload"
+              class="btn btn-light bottom-right "
+              post-action="/upload/post"
+              extensions="jpg,jpeg,png"
+              accept="image/*"
+              :drop="true"
+              :size="1024 * 1024 * 10"
+              @input="inputUpdate"
+            >
+              <i
+                class="fas fa-camera"
+                style="font-size:24px;"
+              />
+              Edit Banner Image
+            </file-upload>
+          </div>
+          <div class="container">
+            <img
+              v-if="institute.avatar_url"
+              :src="institute.avatar_url"
+              alt=""
+            >
+            <img
+              v-else-if="logo_url"
+              :src="logo_url"
+              alt=""
+            >
+            <img
+              v-else
+              src="/images/download.png"
+              alt="Student Hub"
+              width="100"
+              height="100"
+              style=" margin-left:10px; border-radius: 50px; border-color:white;"
+            ><file-upload
+              id="documentUpload"
+              ref="upload"
+              class="bottom-left"
+              post-action="/upload/post"
+              extensions="jpg,jpeg,png"
+              accept="image/*"
+              :drop="true"
+              :size="1024 * 1024 * 10"
+              @input="inputUpdate"
+            >
+              <i
+                class="fas fa-camera"
+                style="font-size:24px; "
+              />
+            </file-upload>
+          </div>
           <h3>
             {{ institute ? institute.name : 'My Institute' }}
           </h3>
@@ -390,6 +445,26 @@
                   <div class="card-header">
                     <div class="row">
                       <div class="col-md-10">
+                        <h4>Instagram</h4>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="post_video">
+                      <iframe
+                        width="200"
+                        height="250"
+                        :src="
+                          'https://www.youtube.com/embed/'
+                        "
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="card mt-3">
+                  <div class="card-header">
+                    <div class="row">
+                      <div class="col-md-10">
                         <h4>Contact-Us</h4>
                       </div>
                       <div class="col-md-2">
@@ -588,6 +663,24 @@
     </div>
   </div>
 </template>
+<style scoped>
+.bottom-right {
+  position: absolute;
+  background-color: white;
+  bottom: 4px;
+  right: 75px;
+}
+.container {
+  position: relative;
+}
+.bottom-left {
+  position: absolute;
+  bottom: 25px;
+  left: 108px;
+}
+
+
+</style>
 <script>
 import NavTabs from '../../components/NavTabs';
 import SelectInstitute from '../../components/SelectInstitute.vue';
@@ -595,14 +688,17 @@ import PostContainer from './post-container.vue';
 import DoubtContainer from '@/Pages/doubt/doubt-container.vue';
 import SocialSharing from 'vue-social-sharing';
 import swal from '../../components/swal';
+import FileUpload from 'vue-upload-component';
 
 
 export default {
 	components: {
-		NavTabs, PostContainer, DoubtContainer, SelectInstitute, SocialSharing
+		NavTabs, PostContainer, DoubtContainer, SelectInstitute, SocialSharing,	FileUpload
 	},
 	data() {
 		return {
+			institute_banner_url:'',
+			logo_url:'',
 			institute: '',
 			teachers: [],
 			students: [],
@@ -722,6 +818,10 @@ export default {
 			this.institute.insta_url = profile.insta_url ? profile.insta_url : '';
 			this.institute.linkedin_url = profile.linkedin_url ? profile.linkedin_url : '';
 			this.institute.youtube_vedio_url = profile.youtube_vedio_url ? profile.youtube_vedio_url : '';
+		},
+		inputUpdate(files) {
+			this.image = files[0];
+			this.institute_banner_url = URL.createObjectURL(files[0].file);
 		},
 		submitCourse(){
 			this.axios
