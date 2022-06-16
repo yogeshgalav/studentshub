@@ -418,9 +418,11 @@
                       </div>
                       <div class="col-md-2">
                         <h5><i class="fas fa-globe-americas" />Website</h5>
+                        <p>www.studentshub.com</p>
                       </div>
                       <div class="col-md-2">
                         <h5><i class="fas fa-phone-alt" />Phone</h5>
+                        <p>9370146161</p>
                       </div>
                       <div class="col-md-2">
                         <h5><i class="fas fa-map-marker-alt" />Address</h5>
@@ -492,7 +494,27 @@
                       </div>
                     </div>
                   </div>
-                  <div class="card-body" />
+                  <div class="card-body">
+                    <div
+                      class="flex"
+                      style="background: #fff"
+                    >
+                      <div class="col-12">
+                        <div class="mapouter">
+                          <div class="gmap_canvas">
+                            <iframe
+                              id="gmap_canvas"
+                              width="100%"
+                              height="500px"
+                              src="https://maps.google.com/maps?q=26.9024375%2075.78706249999999&t=&z=11&ie=UTF8&iwloc=&output=embed"
+                            /><a
+                              href="https://yt2.org/youtube-to-mp3-ALeKk00qEW0sxByTDSpzaRvl8WxdMAeMytQ1611842368056QMMlSYKLwAsWUsAfLipqwCA2ahUKEwiikKDe5L7uAhVFCuwKHUuFBoYQ8tMDegUAQCSAQCYAQCqAQdnd3Mtd2l6"
+                            /><br>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
