@@ -55,6 +55,26 @@
                     :value="fcmToken"
                     type="hidden"
                   >
+                  <div class="col-md-12 text-center">
+                    <div
+                      v-if="otpError"
+                      class="form-group row alert alert-danger"
+                    >
+                      <span>{{ 'Invalid Otp. Please try again.' }}</span>
+                    </div>
+                    <div
+                      v-if="errors.email"
+                      class="form-group row alert alert-warning"
+                    >
+                      <span>{{ 'The Email you provided is already registered.' }}</span>
+                    </div>
+                    <div
+                      v-if="srvError"
+                      class="form-group row alert alert-danger"
+                    >
+                      <span>{{ 'An unknown error has occurred.' }}</span>
+                    </div>
+                  </div>
                 </template>
                 <template slot="step0">
                   <div class="form-group">
@@ -148,7 +168,7 @@
                   </div>
 
                   <div class="form-group">
-                    <label for="email"> {{ ('E-Mail Address *(Optional)') }}</label>
+                    <label for="email">E-Mail Address&nbsp;<span class="text-grey">*(Optional)</span></label>
                     <input
                       id="email"
                       v-model="email"
@@ -234,6 +254,10 @@ export default {
 		},
 		otpError:{
 			default:false,
+		},
+		errors: {
+			type: Object,
+			default: () => {},
 		},
 	},
 	data(){

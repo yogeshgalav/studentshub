@@ -39,12 +39,13 @@
               <file-upload
                 id="documentUpload"
                 ref="upload"
-                class="edit_img_btn"
+                class="btn-md btn-primary fileup"
                 post-action="/upload/post"
                 extensions="jpg,jpeg,png"
                 accept="image/*"
                 :drop="true"
                 :size="1024 * 1024 * 10"
+                style="margin-left:auto; margin-right:auto;"
                 @input="inputUpdate"
               >
                 UPLOAD
@@ -334,6 +335,38 @@
 </template>
 
 <style scoped>
+@media (min-width: 769px) and (max-width: 1150px) {
+  .fileup{
+    display: block;
+    margin: 10px auto 10px;
+    width: 30%;
+    height: 30px;
+      }
+}
+@media (min-width: 1150px) and (max-width: 1400px){
+  .fileup{
+    display: block;
+    margin: 10px auto 10px;
+    width: 20%;
+    height: 30px;
+      }
+}
+@media (min-width: 1400px){
+  .fileup{
+    display: block;
+    margin: 10px auto 10px;
+    width: 15%;
+    height: 30px;
+      }
+}
+@media only screen and (max-width: 768px) {
+  .fileup{
+      display: block;
+      margin: 20px auto 20px;
+      width: 50%;
+      height: 30px;
+      }
+}
 .ml-280 {
 	margin-left:300px !important;
 }
