@@ -6,8 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Institute;
 use App\Models\User;
+use App\Models\InstituteUser;
+use App\Models\UserPhone;
 
 class InstituteController extends Controller
 {
@@ -42,6 +45,13 @@ class InstituteController extends Controller
             abort(404);
         }
 
+        $institute_users=DB::table('institute_users as inst')->where('inst.institute_id',$institute->id)
+        ->where('inst.role','!=','teacher')
+        ->leftJoin('institutes as in','in.id','=','inst.institute_id')
+        ->leftjoin('users as us','us.id','=','inst.user_id')
+        ->select(['in.id as institute_id', 'inst.user_id as user_id','inst.role as role','us.full_name as user_name'])
+        ->get();
+        
         $teachers = User::where('role','teacher')
         ->where('preferred_institute_id',$institute->id)
         ->with('preferredCourse')
@@ -51,11 +61,12 @@ class InstituteController extends Controller
         ->where('preferred_institute_id',$institute->id)
         ->with('preferredCourse')
         ->get();
-
+        
         return response()->json(['success'=>[
             'institute'=>$institute,
             'teachers'=>$teachers,
             'students'=>$students,
+            'institute_users'=>$institute_users
         ]]);
     
     }
@@ -235,5 +246,29 @@ class InstituteController extends Controller
         ]);
 
         return response()->json([], 204);
+    }
+    public function addAdminiDetails(Request $request){
+        $instituteId = Auth::user()->preferred_institute_id;
+        $otp = rand(11111,99999);
+
+        $user_phone =new UserPhone;
+        $user_phone->phone_no =$request->phone_no;
+        // $user_phone->otp ->Hash::make($otp);
+        $user_phone->save();
+
+        $user =new User;
+        $user->phone_id =$user_phone->phone_id;
+        $user->full_name =$request->name;
+        $user->role =$request->role;
+        $user->save();
+
+        $institute_user =new InstituteUser;
+        $institute_user->user_id =$user->id;
+        $institute_user->institute_id =$instituteId;
+        $institute_user->save();
+
+        return response()->json(['success'=>[
+            'institute_user'=> $institute_user,
+        ]]);
     }
 }

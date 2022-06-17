@@ -10,6 +10,6 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::get('/student/{user}', 'InstituteController@showStudent');
     Route::post('/student/{user}', 'InstituteController@updateStudent');
     Route::post('/institute/{instituteId}/update-user', 'InstituteUserController@updateInstituteUser');
-    
+    Route::post('/add-details','InstituteController@addAdminiDetails');
     //post routes
 });

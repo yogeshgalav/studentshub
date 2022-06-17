@@ -412,8 +412,10 @@
                       </div>
                       <div class="col-md-2">
                         <button
+                          v-if="isEdit"
                           type="button"
                           class="btn btn-primary"
+                          @click="editAdmiDetails"
                         >
                           <i
                             class="fas fa-pencil-alt"
@@ -421,24 +423,47 @@
                           />
                           Edit
                         </button>
+                        <button
+                          v-else
+                          type="button"
+                          class="btn btn-primary"
+                          @click="saveAdmiDetails"
+                        >
+                          Save
+                        </button>
                       </div>
                     </div>
                   </div>
                   <div class="card-body">
-                    <img
-                      src="/images/default-avatar.png"
-                      alt="Student Hub"
-                      width="100"
-                      height="100"
-                      style="border-radius: 50px; "
-                    >
-                    <img
-                      src="/images/plus.png"
-                      alt="Student Hub"
-                      width="100"
-                      height="100"
-                      style="border-radius: 50px; "
-                    >
+                    <div v-if="institute_users.length">
+                      <div 
+                        class="row"
+                      >
+                        <div
+                          v-for="(instituteuser, index) in institute_users"
+                          :key="index"
+                          class="col-md-2"
+                        >
+                          <img
+                            src="/images/default-avatar.png"
+                            alt="Student Hub"
+                            width="100"
+                            height="100"
+                            style="border-radius: 50px; "
+                          >
+                          <p>{{ instituteuser.user_name }}<br>{{ instituteuser.role }}</p>
+                        </div>
+                        <div class="col-md-2">
+                          <button
+                            data-toggle="modal"
+                            data-target="#editAdmiModal"
+                            style="font-size:60px; background-color:white;"
+                          >
+                            <i class="fa fa-plus" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="card mt-3">
@@ -594,7 +619,57 @@
               </div>
             </div>
           </div>
+          <modal
+            ref="editAdmiModal"
+            name="editAdmiModal"
+            class="model-md"
+            heading="Edit Administrator Details"
+            @submit="savedetails()"
+          >
+            <template slot="modalBody">
+              <form validationScope="edit_administrator_form">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <div class="inner-addon left-addon">
+                        <div class="cl_input">
+                          <label for="full">Full Name</label>
+                          <input
+                            id="fullName"
+                            v-model="name"
+                            v-validate="'required'"
+                            name="fullname"
+                            class="form-control"
+                            placeholder="write Full Name here"
+                          >
+                          <label for="position">Position</label>
+                          <input
+                            id="postionName"
+                            v-model="role"
+                            v-validate="'required'"
+                            name="positionname"
+                            class="form-control"
+                            placeholder="write Position Name here"
+                          >
+                          <label for="full">Phone Number</label>
+                          <input
+                            id="fullName"
+                            v-model="phone_no"
+                            v-validate="'required'"
+                            name="fullname"
+                            class="form-control"
+                            placeholder="write Full Name here"
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </template>
+          </modal>
         </template>
+       
         <template slot="tab-heading-posts">
           {{ 'Posts' }}
         </template>
@@ -689,17 +764,25 @@ import DoubtContainer from '@/Pages/doubt/doubt-container.vue';
 import SocialSharing from 'vue-social-sharing';
 import swal from '../../components/swal';
 import FileUpload from 'vue-upload-component';
+import Modal from '../../components/VueNiceModal.vue';
+import FormMixin from '../../components/mixins/form-mixin.js';
 
 
 export default {
 	components: {
-		NavTabs, PostContainer, DoubtContainer, SelectInstitute, SocialSharing,	FileUpload
+		NavTabs, PostContainer, DoubtContainer, SelectInstitute, SocialSharing,	FileUpload, Modal
 	},
+	mixins: [FormMixin],
 	data() {
 		return {
 			institute_banner_url:'',
 			logo_url:'',
 			institute: '',
+			institute_users:[],
+			user_id:'',
+			role:'',
+			phone_no:'',
+      	name:'',
 			teachers: [],
 			students: [],
 			posts: [],
@@ -719,6 +802,7 @@ export default {
 				'name':'',
 			},
       	data_updated:false,
+			isEdit:true,
 		};
 	},
 	computed:{
@@ -730,7 +814,6 @@ export default {
 		}
 	},
 	mounted() {
-    
     	this.initiateData();
 
 		if(this.AuthUser.role==='instituteAdmin'){
@@ -745,14 +828,40 @@ export default {
 		this.axios
 			.get('/api/institute/' + (institute_id ? institute_id : ''))
 			.then(resp => {
+				this.institute_users =resp.data.success.institute_users;
 				this.teachers = resp.data.success.teachers;
 				this.institute = resp.data.success.institute;
 				this.students = resp.data.success.students;
-				this.posts = resp.data.success.posts.data;
-				this.$forceUpdate();
 			});
 	},
 	methods: {
+    	addAdministrator() {
+			this.$modal.show('editadmiModal');
+		},
+		
+		savedetails() {
+			this.showLoader = true;
+			this.axios.post(this.baseUrl + '/api/add-details', {
+				name: this.name,
+				user_id: this.user_id,
+				role: this.role,
+				phone_no: this.phone_no,
+			})
+				.then((resp) => {
+					this.showLoader = false;
+					this.institute_users.push({
+						name: resp.data.success.institute_user.name,
+						institute_id: resp.data.success.institute_user.institute_id,
+						user_id: resp.data.success.institute_user.user_id,
+						role: resp.data.success.institute_user.role,
+						phone_no: resp.data.success.institute_user.phone_no,
+						id:resp.data.success.institute_user.id,
+					});
+					
+				});
+			this.$refs.editadmiModal.closeModal();
+			this.clearModalData();
+		},
 		dataUpdated(){
 			this.data_updated = true;
 		},
@@ -823,6 +932,12 @@ export default {
 			this.image = files[0];
 			this.institute_banner_url = URL.createObjectURL(files[0].file);
 		},
+		editAdmiDetails(){
+			this.isEdit = false;
+		},
+		saveAdmiDetails(){
+			this.isEdit = true;
+		},
 		submitCourse(){
 			this.axios
 				.put('/api/preferred-details',{
@@ -831,7 +946,12 @@ export default {
 				.then(resp => {
 					window.location.reload();
 				});
-		}
+		},
+		clearModalData() {
+			this.name = '';
+			this.role = '';
+			this.id='';
+		},
 	}
 };
 </script>
