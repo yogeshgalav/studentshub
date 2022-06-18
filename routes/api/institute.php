@@ -11,5 +11,6 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::post('/student/{user}', 'InstituteController@updateStudent');
     Route::post('/institute/{instituteId}/update-user', 'InstituteUserController@updateInstituteUser');
     Route::post('/add-details','InstituteController@addAdminiDetails');
+    Route::delete('/instituteuser/{instituteuser}','InstituteController@delete');
     //post routes
 });

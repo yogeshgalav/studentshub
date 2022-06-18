@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Institute;
 use App\Models\User;
@@ -49,7 +50,7 @@ class InstituteController extends Controller
         ->where('inst.role','!=','teacher')
         ->leftJoin('institutes as in','in.id','=','inst.institute_id')
         ->leftjoin('users as us','us.id','=','inst.user_id')
-        ->select(['in.id as institute_id', 'inst.user_id as user_id','inst.role as role','us.full_name as user_name'])
+        ->select(['inst.id as id','in.id as institute_id', 'inst.user_id as user_id','inst.role as role','us.full_name as user_name'])
         ->get();
         
         $teachers = User::where('role','teacher')
@@ -253,22 +254,32 @@ class InstituteController extends Controller
 
         $user_phone =new UserPhone;
         $user_phone->phone_no =$request->phone_no;
-        // $user_phone->otp ->Hash::make($otp);
+        $user_phone->expires_at = Carbon::now()->toDateTimeString();
+        $user_phone->otp =Hash::make($otp);
         $user_phone->save();
 
         $user =new User;
-        $user->phone_id =$user_phone->phone_id;
+        $user->phone_id =$user_phone->id;
         $user->full_name =$request->name;
+        $user->password =$user_phone->otp;
         $user->role =$request->role;
+        $user->phone_no =$user_phone->phone_no;
         $user->save();
 
         $institute_user =new InstituteUser;
         $institute_user->user_id =$user->id;
         $institute_user->institute_id =$instituteId;
+        $institute_user->role=$user->role;
         $institute_user->save();
 
         return response()->json(['success'=>[
             'institute_user'=> $institute_user,
         ]]);
+    }
+    public function delete ($instituteuser_id)
+    {
+        $institute_user = InstituteUser::find($instituteuser_id);
+        $institute_user->delete();
+        return 'success';
     }
 }
