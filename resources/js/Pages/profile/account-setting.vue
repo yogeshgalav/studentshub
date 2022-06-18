@@ -531,6 +531,7 @@ export default {
 		inputUpdate(files) {
 			this.image = files[0];
 			this.profile_image_url = URL.createObjectURL(files[0].file);
+			this.data_updated = true;
 		},
 		getBase64(file) {
 			return new Promise((resolve, reject) => {
