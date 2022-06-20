@@ -3,74 +3,10 @@
     <Head>
       <title>{{ institute_name ? institute_name : 'My Institute' }}</title>
     </Head>
-<<<<<<< Updated upstream
     <div class="col-md-12 mt-3">
       <h1>{{ institute_name ? institute_name : 'My Institute' }}</h1>
     </div>
     <hr>
-=======
-    <!-- Header -->
-   
-    <header
-      id="home"
-      style="max-width:1200px;min-width:400px"
-    >
-      <div class="card">
-        <div class="card-body">
-          <img
-            src="/images/institute.jpg"
-            width="900"
-            height="350"
-            style="margin-bottom: -50px;"
-          >
-          <router-link
-            href="/"
-          >
-            <img
-              src="/logo.png"
-              alt="Student Hub"
-              width="100"
-              height="100"
-              style=" margin-left:10px;"
-            >
-          </router-link>
-          <h3>
-            {{ institute ? institute.name : 'My Institute' }}
-          </h3>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-            Aenean a urna non felis elementum varius.
-          </p>
-          <div class="social-network_singlepage">
-            <social-sharing
-              :url="
-                AuthUser.full_name + ' has invited you to join '+ institute.name+' on Students Hub. click the link below to join now \n '+ baseUrl + '/get-started?inId=' + institute.id
-              "
-              inline-template
-            >
-              <div class="post_content_social">
-                <network network="facebook">
-                  <p class="post_content_social_icon">
-                    <i class="fab fa-facebook-f" />
-                  </p>
-                </network>
-                <network network="twitter">
-                  <p><i class="fab fa-twitter" /></p>
-                </network>
-                <network network="reddit">
-                  <p><i class="fab fa-reddit" /></p>
-                </network>
-                <network network="email">
-                  <p><i class="fa fa-envelope" /></p>
-                </network>
-              </div>
-            </social-sharing>
-          </div>
-        </div>
-      </div>
-    </header>
-    
->>>>>>> Stashed changes
     <div
       v-if="!AuthUser.preferred_institute_id"
       class="col-md-12"
