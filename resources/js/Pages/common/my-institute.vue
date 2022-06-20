@@ -538,8 +538,12 @@
                       </div>
                       <div class="col-md-2">
                         <button
+                          v-if="isEdit"
                           type="button"
                           class="btn btn-primary"
+                          data-toggle="modal"
+                          data-target="#editContactModal"
+                          @click="editcontact(institute_contact)"
                         >
                           <i
                             class="fas fa-pencil-alt"
@@ -547,31 +551,46 @@
                           />
                           Edit
                         </button>
+                        <button
+                          v-else
+                          type="button"
+                          class="btn btn-primary"
+                          @click="saveContactDetails()"
+                        >
+                          Save
+                        </button>
                       </div>
                     </div>
                   </div>
-                  <div class="card-body">
-                    <div class="row">
+                  <div 
+                    class="card-body"
+                  >
+                    <div
+                      v-for="(institute_contact,index) in institute_contactus"
+                      :key="index"
+                      class="row"
+                    >
                       <div class="col-md-2">
                         <h5>
                           <i
                             class="fas fa-envelope"
                           />Email
                         </h5>
-                        <p>{{ institute.email_slug }}</p>
+                        <p>{{ institute_contact.email }}</p>
                       </div>
                       <div class="col-md-2">
                         <h5><i class="fas fa-globe-americas" />Website</h5>
-                        <p>www.studentshub.com</p>
+                        <p>{{ institute.website }}</p>
                       </div>
                       <div class="col-md-2">
                         <h5><i class="fas fa-phone-alt" />Phone</h5>
-                        <p>9370146161</p>
+                        <p>{{ institute_contact.phone_no }}<br>{{ institute_contact.phone_no2 }}</p>
                       </div>
                       <div class="col-md-2">
                         <h5><i class="fas fa-map-marker-alt" />Address</h5>
                         <p>{{ institute.address }}</p>
                       </div>
+                      
                       <div class="col-md-4">
                         <h5><i class="fas fa-user-plus" />Follow Us</h5>
                         <div class="row">
@@ -695,14 +714,80 @@
                             class="form-control"
                             placeholder="write Position Name here"
                           >
-                          <label for="full">Phone Number</label>
+                          <label for="phoneno">Phone Number</label>
                           <input
-                            id="fullName"
+                            id="phoneno"
                             v-model="phone_no"
+                            v-validate="'required'"
+                            name="phoneno"
+                            class="form-control"
+                            placeholder="write Phone Number here"
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </template>
+          </modal>
+          <modal
+            ref="editContactModal"
+            name="editContactModal"
+            class="model-md"
+            heading="Edit Contact Details"
+            @submit="editcontact(institute_contact)"
+          >
+            <template slot="modalBody">
+              <form validationScope="edit_contact_form">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <div class="inner-addon left-addon">
+                        <div class="cl_input">
+                          <label for="email">Email</label>
+                          <input
+                            id="email"
+                            v-model="email"
                             v-validate="'required'"
                             name="fullname"
                             class="form-control"
-                            placeholder="write Full Name here"
+                            placeholder="write Email here"
+                          >
+                          <label for="website">Website</label>
+                          <input
+                            id="website"
+                            v-model="website"
+                            v-validate="'required'"
+                            name="website"
+                            class="form-control"
+                            placeholder="write website Name here"
+                          >
+                          <label for="phoneno">Phone Number</label>
+                          <input
+                            id="phoneno"
+                            v-model="phone_no"
+                            v-validate="'required'"
+                            name="phoneno"
+                            class="form-control"
+                            placeholder="write Phone Number here"
+                          >
+                          <label for="phoneno2">Phone Number2</label>
+                          <input
+                            id="phoneno2"
+                            v-model="phone_no2"
+                            name="phoneno2"
+                            class="form-control"
+                            placeholder="write Phone Number here"
+                          >
+                          <label for="address">Address</label>
+                          <input
+                            id="address"
+                            v-model="address"
+                            v-validate="'required'"
+                            name="address"
+                            class="form-control"
+                            placeholder="write Address here"
                           >
                         </div>
                       </div>
@@ -824,6 +909,7 @@ export default {
 			logo_url:'',
 			institute: '',
 			institute_users:[],
+      institute_contactus:[],
 			user_id:'',
 			role:'',
 			phone_no:'',
@@ -874,6 +960,7 @@ export default {
 			.get('/api/institute/' + (institute_id ? institute_id : ''))
 			.then(resp => {
 				this.institute_users =resp.data.success.institute_users;
+        this.institute_contactus=resp.data.success.institute_contactus;
 				this.teachers = resp.data.success.teachers;
 				this.institute = resp.data.success.institute;
 				this.students = resp.data.success.students;
@@ -993,6 +1080,26 @@ export default {
 			window.location.reload();
 
 		},
+    editContactDetails(){
+			this.isEdit = false;
+		},
+		saveContactDetails(){
+			window.location.reload();
+		},
+    editcontact(institute_contact){
+      console.log('xyz',this.institute_contact);
+// let loader = this.$loading.show();
+      	this.axios.post(this.baseUrl + '/api/institutecontact/'+institute_contact.id,{
+    			email:this.email,
+    			website:this.website,
+    			phone_no:this.phone_no,
+          phone_no2:this.phone_no2,
+          address:this.address,
+    		} )
+    			.then(resp => {
+
+    			});
+    },
 		submitCourse(){
 			this.axios
 				.put('/api/preferred-details',{

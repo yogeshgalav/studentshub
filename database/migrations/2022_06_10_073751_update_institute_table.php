@@ -19,6 +19,9 @@ class UpdateInstituteTable extends Migration
             $table->string('insta_url')->nullable();
             $table->string('linkedin_url')->nullable();
             $table->string('youtube_vedio_url')->nullable();
+            $table->string('website')->nullable();
+            $table->dropColumn('description');
+
         });
     }
 

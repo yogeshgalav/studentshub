@@ -52,7 +52,12 @@ class InstituteController extends Controller
         ->leftjoin('users as us','us.id','=','inst.user_id')
         ->select(['inst.id as id','in.id as institute_id', 'inst.user_id as user_id','inst.role as role','us.full_name as user_name'])
         ->get();
-        
+
+        $institute_contactus=DB::table('institute_contactus as inct')->where('inct.institute_id',$institute->id)
+        ->leftJoin('institutes as in','in.id','=','inct.institute_id')
+        ->select(['inct.id as id','in.id as institute_id', 'inct.department as department','inct.email as email','inct.phone_no as phone_no','inct.phone_no2 as phone_no2'])
+        ->get();
+
         $teachers = User::where('role','teacher')
         ->where('preferred_institute_id',$institute->id)
         ->with('preferredCourse')
@@ -67,7 +72,8 @@ class InstituteController extends Controller
             'institute'=>$institute,
             'teachers'=>$teachers,
             'students'=>$students,
-            'institute_users'=>$institute_users
+            'institute_users'=>$institute_users,
+            'institute_contactus'=>$institute_contactus
         ]]);
     
     }
@@ -281,5 +287,22 @@ class InstituteController extends Controller
         $institute_user = InstituteUser::find($instituteuser_id);
         $institute_user->delete();
         return 'success';
+    }
+    public function editContactDetails($institute_contactId,Request $request){
+        dd($institute_contactId);
+        $institute_contactus = InstituteContactUs::find($institute_contactId);
+            $institute_contactus->email =$request->email;
+            $institute_contactus->phone_no =$request->phone_no;
+            $institute_contactus->phone_no2 =$request->phone_no2;
+            $institute_contactus->save();
+
+            $institute=Institute::find($institute_contactus->institute_id);
+            $institute->website =$request->website;
+            $institute->address =$request->address;
+            $institute->save();
+
+            return response()->json(['success'=>[
+                'institute_contactus'=> $institute_contactus,
+            ]]);
     }
 }
