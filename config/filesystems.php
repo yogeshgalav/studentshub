@@ -49,15 +49,15 @@ return [
         ],
         'homework-image' => [
             'driver' => 'local',
-            'root' => public_path() .'/storage/homework-image',
+            'root' => storage_path() .'/app/public/homework-images',
         ],
         'profile-image' => [
             'driver' => 'local',
-            'root' => public_path() .'/storage/profile-image',
+            'root' => storage_path() .'/app/public/profile-images',
         ],
         'post-image' => [
             'driver' => 'local',
-            'root' => public_path() .'/storage/post-image',
+            'root' => storage_path() .'/app/public/post-images',
         ],
 
         'public' => [
