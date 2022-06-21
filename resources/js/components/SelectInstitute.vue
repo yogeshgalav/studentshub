@@ -5,13 +5,13 @@
       <div class="">
         <auto-complete
           :key="'institute'"
+          v-model="selected_institute"
           :items="institute_list"
-          :value="'name'"
+          :label="'name'"
           name="institute_name"
           :is-async="true"
-          :initial-value="selected_institute"
           :is-loading="instituteLoading"
-          @input="getInstitutes"
+          @search="getInstitutes"
           @selected="setInstitute"
         />
       </div>
@@ -56,7 +56,6 @@ export default {
 			this.$emit('input', this.selected_institute);
 		},
 		setInstitute(result) {
-			this.selected_institute = result;
 			this.$emit('input', result);
 		},
 	}
