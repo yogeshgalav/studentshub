@@ -5,13 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class UserProfile extends Model
+class Vote extends Model
 {
-    use HasFactory;
     protected  $guarded = ['id', 'created_at', 'updated_at'];
-    protected $table ="user_profiles";
 
-    public function follows(){
-        return $this->morphMany(Follow::class, 'followable');
+    protected $table = 'votes';
+    public function votable()
+    {
+        return $this->morphTo();
     }
+    
 }

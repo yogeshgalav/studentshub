@@ -27,6 +27,9 @@ class Subject extends Model
     {
         return $this->hasMany('App\Models\Post');
     }
+    public function votes(){
+        return $this->morphMany(Vote::class, 'votable');
+    }
 
     public function courses()
     {

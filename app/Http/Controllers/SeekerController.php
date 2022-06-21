@@ -18,8 +18,9 @@ class SeekerController extends Controller
 
     //     return redirect('/');
     // }
-    public function profile($profileId)
-    {
+    public function profile($profileId, Request $request)
+    {   
+        $me_id = Auth::user()->id;
         $user = \App\Models\User::where('users.id', $profileId)
             ->leftJoin('user_profiles as up', 'up.user_id', '=', 'users.id')
             ->leftJoin('institutes as in', 'in.id', '=', 'users.preferred_institute_id')
@@ -27,9 +28,31 @@ class SeekerController extends Controller
             ->select('up.*', 'users.id', 'users.full_name', 'users.email', 'users.avatar_url',
             'in.name as preferred_institute_name', 'co.course_name as preferred_course_name')
             ->first();
+
+        $follower = \App\Models\User::where('users.id', $profileId)
+            ->leftJoin('follows as my_follow',function($join)use($me_id){
+                $join->on('users.id','=','my_follow.following_id')->where('my_follow.followed_by_id','=',$me_id);
+              })
+            ->leftJoin('follows as total_followers',function($join){
+                  $join->on('users.id','=','total_followers.following_id')->where('total_followers.follow_status','=',1);
+              })
+            ->select(DB::raw('COUNT(DISTINCT total_followers.id) as total_followers'), 'my_follow.follow_status as myfollow')
+            ->groupBy('my_follow.follow_status') 
+            ->first();
+
+            $follows=DB::table('follows as followers')
+            ->leftjoin('users as us', 'followers.followed_by_id','=','us.id')->where('followers.following_id','=',$profileId)
+            ->select('followers.followed_by_id','us.full_name','followers.following_id')->get();
+            
+            $followings=DB::table('follows as following')
+            ->leftjoin('users as us', 'following.following_id','=','us.id')->where('following.followed_by_id','=',$profileId)
+            ->select('following.followed_by_id','us.full_name','following.following_id')->get();
             
         return inertia('profile/profile', [
-            'user'=> $user
+            'user'=> $user,
+            'follower'=>$follower,
+            'follows'=>$follows,
+            'followings'=>$followings
         ]);
     }
     // public function educationDetail()

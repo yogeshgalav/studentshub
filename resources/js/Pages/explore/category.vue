@@ -46,33 +46,26 @@
             </div>
           </template>
           <template slot="tab-heading-subjects">
-            {{ 'Subjects' }}
-            
-          </template>
-          <template slot="tab-panel-subjects">
-            <div v-if="!subjects.length" >
-              <img class="search-not-found" src="/images/search-not-found.png"/>
-              <p style="text-align:center;">
-                Currently no subject have been shared related to this category.
-              </p>
-              </div>
-            <div 
-              v-for="(subject,index) in subjects"
-              :key="index"
-            >
-            
-              <router-link
-                :href="'/subject/'+subject.slug"
-                class="card mt-2"
+          {{ 'Subjects' }}
+        </template>
+        <template slot="tab-panel-subjects">
+          <SubjectContainer
+            v-if="categoryId"
+            :subject-route="'/category/'+categoryId"
+            :subjects="subjects"
+             :categoryId="categoryId"
+          >
+            <template slot="empty">
+              <img
+                class="search-not-found"
+                src="/images/search-not-found.png"
               >
-                <p class="mt-4 explore-name ml-2">
-                  {{ index+1 }}. &nbsp;{{ subject.subject_name }}
-                </p>
-              </router-link>
-            </div>
-          </template>
-          
-
+              <p style="text-align:center;">
+                Currently no Subject have been shared in your course.
+              </p>
+            </template>
+          </SubjectContainer>
+        </template>
           <template slot="tab-heading-posts">
             {{ 'Posts' }}
           </template>
@@ -127,14 +120,15 @@
 import NavTabs from '../../components/NavTabs';
 import PostContainer from '../common/post-container';
 import CommonLayout from '@/Layouts/CommonLayout';
+import SubjectContainer from '@/Pages/common/subject-container.vue';
 import { Head } from '@inertiajs/inertia-vue';
 
 export default {
   layout: CommonLayout,
 	components: {
-		NavTabs, PostContainer,Head
+		NavTabs, PostContainer,Head,SubjectContainer,
 	},
-	props:['categoryId'],
+	props:['categoryId', 'userId'],
 	data() {
 		return {
 			posts: [],
@@ -168,6 +162,7 @@ export default {
 				this.subjects = resp.data.success.category.subjects;
 				// this.addRow();
 			});
+      
 	},
 	methods: {
 		addRow() {

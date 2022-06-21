@@ -11,11 +11,13 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('/doubts', [App\Http\Controllers\Api\DoubtController::class, 'getDoubts']);
     
     Route::post('/{likable_type}/{likable_id}/like', 'LikeController@updateOrDelete');
+    Route::post('/{votable_id}/vote', 'VoteController@updateOrDelete');
     Route::post('/post-save', 'PostController@savePost');
     Route::post('/post-report', 'PostController@reportPost');
     Route::delete('post/{post}', 'PostController@delete');
         //profile
     Route::get('/get-profile','UserController@getProfile');
+    Route::post('/{followable_id}/follow','FollowController@updateOrDelete');
     Route::post('/save-profile', 'UserController@saveProfile');
     Route::delete('/delete-teachersdetails/{teacher}','UserController@deleteTeacherDetails');
     Route::delete('/delete-studentdetails/{student}','UserController@deleteStudentDetails');
