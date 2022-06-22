@@ -291,8 +291,8 @@ class InstituteController extends Controller
     }
     public function addOrUpdate(Request $request){
         $instituteId = Auth::user()->preferred_institute_id;
-        if($request->institutecontact_id){
-            $institute_contacts = InstituteContact::find($request->institutecontact_id);
+        if($request->edit_institute_contact_id){
+            $institute_contacts = InstituteContact::find($request->edit_institute_contact_id);
         }
         else{
             $institute_contacts = new InstituteContact();

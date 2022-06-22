@@ -541,6 +541,7 @@
                           class="btn btn-primary"
                           data-toggle="modal"
                           data-target="#addContactModal"
+                          @click="addContactDetails"
                         >
                           Add
                         </button>
@@ -1116,66 +1117,7 @@ export default {
 		saveContactDetails(){
 			window.location.reload();
 		},
-    // 	handleSubmit() {
-		// 	this.validateForm('add_contact_form').then((valid) => {
-		// 		if (valid && this.edit_institute_contact.id) {
-		// 			this.updateContact();
-		// 		}
-		// 		else if(valid){
-		// 			this.saveContact();
-		// 		}
-		// 	});
-		// },
-		// saveContact() {
-		// 	this.showLoader = true;
-		// 	this.axios.post(this.baseUrl + '/api/add-contact', {
-				// email: this.edit_institute_contact.email,
-        // phone_no:this.edit_institute_contact.phone_no,
-        // phone_no2:this.edit_institute_contact.phone_no2,
-        // website:this.edit_institute.website,
-        // address:this.edit_institute.address,
-		// 	})
-		// 		.then((resp) => {
-					// this.showLoader = false;
-					// this.edit_institute_contact.push({
-					// 	email: resp.data.success.edit_institute_contact.email,
-          //   phone_no: resp.data.success.edit_institute_contact.phone_no,
-          //   phone_no2: resp.data.success.edit_institute_contact.phone_no2,
-					// 	id:resp.data.success.edit_institute_contact.id,
-          //   website:resp.data.success.edit_institute.website,
-          //   address:resp.data.success.edit_institute.address,
-					// });
-					
-		// 		});
-		// 	this.$refs.addContactModal.closeModal();
-		// 	this.clearModalData();
-		// },
-		// updateContact(){
-    //   console.log('zzz');
-		// 	this.showLoader = true;
-		// 	this.axios.post(this.baseUrl + '/api/contact/'+this.edit_institute_contact.id, {
-		// 			email: this.edit_institute_contact.email,
-    //       phone_no:this.edit_institute_contact.phone_no,
-    //       phone_no2:this.edit_institute_contact.phone_no2,
-		// 	})
-		// 		.then((resp) => {
-		// 			this.showLoader = false;
-
-		// 			let contactIndex= this.edit_institute_contact.findIndex(el=>el.id===resp.data.success.edit_institute_contact.id);
-		// 			this.edit_institute_contact[contactIndex]['email']=resp.data.success.edit_institute_contact.email;
-					
-		// 		});
-		// 	this.$refs.addContactModal.closeModal();
-		// 	this.clearModalData();
-
-		// },
-		// editContact(edit_institute_contact){
-			// this.edit_institute_contact.email=edit_institute_contact.email;
-      // this.edit_institute_contact.phone_no=edit_institute_contact.phone_no;
-      // this.edit_institute_contact.phone_no2=edit_institute_contact.phone_no2;
-			// this.edit_institute_contact.id=edit_institute_contact.id;
-		// },
-	addOrEditContact(){	
+    	addOrEditContact(){	
 			this.validateForm().then(valid => {
 				if (valid) { 
 					this.contactCreateOrUpdateApi();
@@ -1192,7 +1134,7 @@ export default {
         address:this.edit_institute.address,
 				edit_institute_contact_id:(this.edit_institute_contact.id),
 			}).then(resp => {
-				this.showLoader = false;
+				loader.hide();
 					this.edit_institute_contact.push({
 						email: resp.data.success.edit_institute_contact.email,
             phone_no: resp.data.success.edit_institute_contact.phone_no,
@@ -1207,7 +1149,6 @@ export default {
 		},
 		// set contact data in add edit modal
 		editContact(edit_institute_contact) {
-      console.log(edit_institute_contact)
 			this.edit_institute_contact=edit_institute_contact;
 		},
 		deleteContact(edit_institute_contact){
@@ -1219,6 +1160,13 @@ export default {
 					this.institute_contacts.splice(index,1);		
 				});
 		},
+    addContactDetails(){
+        this.edit_institute_contact.email ='';
+        this.edit_institute_contact.phone_no ='';
+        this.edit_institute_contact.phone_no2 ='';
+        this.institute_contact.website ='';
+        this.institute_contact.address ='';
+    },
    	submitCourse(){
 			this.axios
 				.put('/api/preferred-details',{
