@@ -701,7 +701,7 @@
               </div>
             </div>
           </div>
-          <!-- <modal
+          <modal
             ref="editAdmiModal"
             name="editAdmiModal"
             class="model-md"
@@ -749,7 +749,7 @@
                 </div>
               </form>
             </template>
-          </modal> -->
+          </modal>
           <modal
             ref="addContactModal"
             name="addContactModal"
