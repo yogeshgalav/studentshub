@@ -1164,8 +1164,8 @@ export default {
         this.edit_institute_contact.email ='';
         this.edit_institute_contact.phone_no ='';
         this.edit_institute_contact.phone_no2 ='';
-        this.institute_contact.website ='';
-        this.institute_contact.address ='';
+        this.edit_institute.website ='';
+        this.edit_institute.address ='';
     },
    	submitCourse(){
 			this.axios
