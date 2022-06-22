@@ -12,6 +12,7 @@ use App\Models\Institute;
 use App\Models\User;
 use App\Models\InstituteUser;
 use App\Models\UserPhone;
+use App\Models\InstituteContact;
 
 class InstituteController extends Controller
 {
@@ -53,7 +54,7 @@ class InstituteController extends Controller
         ->select(['inst.id as id','in.id as institute_id', 'inst.user_id as user_id','inst.role as role','us.full_name as user_name'])
         ->get();
 
-        $institute_contactus=DB::table('institute_contactus as inct')->where('inct.institute_id',$institute->id)
+        $institute_contacts=DB::table('institute_contactus as inct')->where('inct.institute_id',$institute->id)
         ->leftJoin('institutes as in','in.id','=','inct.institute_id')
         ->select(['inct.id as id','in.id as institute_id', 'inct.department as department','inct.email as email','inct.phone_no as phone_no','inct.phone_no2 as phone_no2'])
         ->get();
@@ -73,7 +74,7 @@ class InstituteController extends Controller
             'teachers'=>$teachers,
             'students'=>$students,
             'institute_users'=>$institute_users,
-            'institute_contactus'=>$institute_contactus
+            'institute_contacts'=>$institute_contacts
         ]]);
     
     }
@@ -288,21 +289,34 @@ class InstituteController extends Controller
         $institute_user->delete();
         return 'success';
     }
-    public function editContactDetails($institute_contactId,Request $request){
-        dd($institute_contactId);
-        $institute_contactus = InstituteContactUs::find($institute_contactId);
-            $institute_contactus->email =$request->email;
-            $institute_contactus->phone_no =$request->phone_no;
-            $institute_contactus->phone_no2 =$request->phone_no2;
-            $institute_contactus->save();
+    public function addOrUpdate(Request $request){
+        $instituteId = Auth::user()->preferred_institute_id;
+        if($request->institutecontact_id){
+            $institute_contacts = InstituteContact::find($request->institutecontact_id);
+        }
+        else{
+            $institute_contacts = new InstituteContact();
+        }
+            $institute_contacts->email = $request->email;
+            $institute_contacts->phone_no = $request->phone_no;
+            $institute_contacts->phone_no2 =$request->phone_no2;
+            $institute_contacts->institute_id = $instituteId;
+            $institute_contacts->save();
 
-            $institute=Institute::find($institute_contactus->institute_id);
+            $institute=Institute::find($institute_contacts->institute_id);
             $institute->website =$request->website;
             $institute->address =$request->address;
             $institute->save();
 
             return response()->json(['success'=>[
-                'institute_contactus'=> $institute_contactus,
+                'institute_contacts'=> $institute_contacts,
+                'edit_institute'=>$institute,
             ]]);
+    }
+    public function deleteContact($contact_id)
+    {
+        $institute_contacts = InstituteContact::find($contact_id);
+        $institute_contacts->delete();
+        return 'success';
     }
 }

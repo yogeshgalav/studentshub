@@ -165,8 +165,6 @@
         </div>
       </div>
     </div>
-    
- 
   
     <div
       v-if="AuthUser.preferred_institute_id"
@@ -542,14 +540,9 @@
                           type="button"
                           class="btn btn-primary"
                           data-toggle="modal"
-                          data-target="#editContactModal"
-                          @click="editcontact(institute_contact)"
+                          data-target="#addContactModal"
                         >
-                          <i
-                            class="fas fa-pencil-alt"
-                            style="color:white"
-                          />
-                          Edit
+                          Add
                         </button>
                         <button
                           v-else
@@ -566,7 +559,7 @@
                     class="card-body"
                   >
                     <div
-                      v-for="(institute_contact,index) in institute_contactus"
+                      v-for="(institute_contact,index) in institute_contacts"
                       :key="index"
                       class="row"
                     >
@@ -634,6 +627,31 @@
                           </ul>
                         </div>
                       </div>
+                      <button
+                        type="button"
+                        class="btn btn-primary"
+                        data-placement="top"
+                        title="Edit"
+                        data-toggle="modal"
+                        data-target="#addContactModal"
+                        @click="editContact(institute_contact)"
+                      >
+                        <i
+                          class="fas fa-pencil-alt"
+                          style="color:white"
+                        />
+                        Edit
+                      </button>
+                      <button
+                        class="btn btn-primary"
+                        type="button"
+                        data-toggle="tooltip"
+                        data-placement="top"
+                        title="Delete"
+                        @click="deleteContact(institute_contact)"
+                      >
+                        <i class="fa fa-trash" />
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -682,7 +700,7 @@
               </div>
             </div>
           </div>
-          <modal
+          <!-- <modal
             ref="editAdmiModal"
             name="editAdmiModal"
             class="model-md"
@@ -730,16 +748,16 @@
                 </div>
               </form>
             </template>
-          </modal>
+          </modal> -->
           <modal
-            ref="editContactModal"
-            name="editContactModal"
+            ref="addContactModal"
+            name="addContactModal"
             class="model-md"
-            heading="Edit Contact Details"
-            @submit="editcontact(institute_contact)"
+            heading="Add Contact Details"
+            @submit="addOrEditContact()"
           >
             <template slot="modalBody">
-              <form validationScope="edit_contact_form">
+              <form validationScope="add_contact_form">
                 <div class="row">
                   <div class="col-md-12">
                     <div class="form-group">
@@ -748,17 +766,18 @@
                           <label for="email">Email</label>
                           <input
                             id="email"
-                            v-model="email"
+                            v-model="edit_institute_contact.email"
                             v-validate="'required'"
                             name="fullname"
                             class="form-control"
                             placeholder="write Email here"
-                          >
+                          ><span class="text-danger">{{
+                            formErrors("add_contact_form.edit_institute_contact")
+                          }}</span>
                           <label for="website">Website</label>
                           <input
                             id="website"
-                            v-model="website"
-                            v-validate="'required'"
+                            v-model="institute.website"
                             name="website"
                             class="form-control"
                             placeholder="write website Name here"
@@ -766,16 +785,18 @@
                           <label for="phoneno">Phone Number</label>
                           <input
                             id="phoneno"
-                            v-model="phone_no"
+                            v-model="edit_institute_contact.phone_no"
                             v-validate="'required'"
                             name="phoneno"
                             class="form-control"
                             placeholder="write Phone Number here"
-                          >
+                          ><span class="text-danger">{{
+                            formErrors("add_contact_form.edit_institute_contact")
+                          }}</span>
                           <label for="phoneno2">Phone Number2</label>
                           <input
                             id="phoneno2"
-                            v-model="phone_no2"
+                            v-model="edit_institute_contact.phone_no2"
                             name="phoneno2"
                             class="form-control"
                             placeholder="write Phone Number here"
@@ -783,8 +804,7 @@
                           <label for="address">Address</label>
                           <input
                             id="address"
-                            v-model="address"
-                            v-validate="'required'"
+                            v-model="institute.address"
                             name="address"
                             class="form-control"
                             placeholder="write Address here"
@@ -909,7 +929,16 @@ export default {
 			logo_url:'',
 			institute: '',
 			institute_users:[],
-      institute_contactus:[],
+      institute_contacts:[],
+      edit_institute_contact:{
+        email:'',
+        phone_no:'', 
+        phone_no2:'',
+        },
+        edit_institute:{
+          website:'',
+          address:'',
+        },
 			user_id:'',
 			role:'',
 			phone_no:'',
@@ -960,7 +989,7 @@ export default {
 			.get('/api/institute/' + (institute_id ? institute_id : ''))
 			.then(resp => {
 				this.institute_users =resp.data.success.institute_users;
-        this.institute_contactus=resp.data.success.institute_contactus;
+        this.institute_contacts=resp.data.success.institute_contacts;
 				this.teachers = resp.data.success.teachers;
 				this.institute = resp.data.success.institute;
 				this.students = resp.data.success.students;
@@ -968,7 +997,8 @@ export default {
 	},
 	methods: {
     	addAdministrator() {
-			this.$modal.show('editadmiModal');
+			this.
+      $modal.show('editadmiModal');
 		},
 		
 		savedetails() {
@@ -1086,21 +1116,110 @@ export default {
 		saveContactDetails(){
 			window.location.reload();
 		},
-    editcontact(institute_contact){
-      console.log('xyz',this.institute_contact);
-// let loader = this.$loading.show();
-      	this.axios.post(this.baseUrl + '/api/institutecontact/'+institute_contact.id,{
-    			email:this.email,
-    			website:this.website,
-    			phone_no:this.phone_no,
-          phone_no2:this.phone_no2,
-          address:this.address,
-    		} )
-    			.then(resp => {
+    // 	handleSubmit() {
+		// 	this.validateForm('add_contact_form').then((valid) => {
+		// 		if (valid && this.edit_institute_contact.id) {
+		// 			this.updateContact();
+		// 		}
+		// 		else if(valid){
+		// 			this.saveContact();
+		// 		}
+		// 	});
+		// },
+		// saveContact() {
+		// 	this.showLoader = true;
+		// 	this.axios.post(this.baseUrl + '/api/add-contact', {
+				// email: this.edit_institute_contact.email,
+        // phone_no:this.edit_institute_contact.phone_no,
+        // phone_no2:this.edit_institute_contact.phone_no2,
+        // website:this.edit_institute.website,
+        // address:this.edit_institute.address,
+		// 	})
+		// 		.then((resp) => {
+					// this.showLoader = false;
+					// this.edit_institute_contact.push({
+					// 	email: resp.data.success.edit_institute_contact.email,
+          //   phone_no: resp.data.success.edit_institute_contact.phone_no,
+          //   phone_no2: resp.data.success.edit_institute_contact.phone_no2,
+					// 	id:resp.data.success.edit_institute_contact.id,
+          //   website:resp.data.success.edit_institute.website,
+          //   address:resp.data.success.edit_institute.address,
+					// });
+					
+		// 		});
+		// 	this.$refs.addContactModal.closeModal();
+		// 	this.clearModalData();
+		// },
+		// updateContact(){
+    //   console.log('zzz');
+		// 	this.showLoader = true;
+		// 	this.axios.post(this.baseUrl + '/api/contact/'+this.edit_institute_contact.id, {
+		// 			email: this.edit_institute_contact.email,
+    //       phone_no:this.edit_institute_contact.phone_no,
+    //       phone_no2:this.edit_institute_contact.phone_no2,
+		// 	})
+		// 		.then((resp) => {
+		// 			this.showLoader = false;
 
-    			});
-    },
-		submitCourse(){
+		// 			let contactIndex= this.edit_institute_contact.findIndex(el=>el.id===resp.data.success.edit_institute_contact.id);
+		// 			this.edit_institute_contact[contactIndex]['email']=resp.data.success.edit_institute_contact.email;
+					
+		// 		});
+		// 	this.$refs.addContactModal.closeModal();
+		// 	this.clearModalData();
+
+		// },
+		// editContact(edit_institute_contact){
+			// this.edit_institute_contact.email=edit_institute_contact.email;
+      // this.edit_institute_contact.phone_no=edit_institute_contact.phone_no;
+      // this.edit_institute_contact.phone_no2=edit_institute_contact.phone_no2;
+			// this.edit_institute_contact.id=edit_institute_contact.id;
+		// },
+	addOrEditContact(){	
+			this.validateForm().then(valid => {
+				if (valid) { 
+					this.contactCreateOrUpdateApi();
+				}
+			});
+		},
+		contactCreateOrUpdateApi(){
+			let loader = this.$loading.show();
+			this.axios.post(this.baseUrl + '/api/add-contact',{
+				email: this.edit_institute_contact.email,
+        phone_no:this.edit_institute_contact.phone_no,
+        phone_no2:this.edit_institute_contact.phone_no2,
+        website:this.edit_institute.website,
+        address:this.edit_institute.address,
+				edit_institute_contact_id:(this.edit_institute_contact.id),
+			}).then(resp => {
+				this.showLoader = false;
+					this.edit_institute_contact.push({
+						email: resp.data.success.edit_institute_contact.email,
+            phone_no: resp.data.success.edit_institute_contact.phone_no,
+            phone_no2: resp.data.success.edit_institute_contact.phone_no2,
+						id:resp.data.success.edit_institute_contact.id,
+            website:resp.data.success.edit_institute.website,
+            address:resp.data.success.edit_institute.address,
+					});			
+				this.$refs.addContactModal.closeModal();
+				this.clearModalData();
+			});
+		},
+		// set contact data in add edit modal
+		editContact(edit_institute_contact) {
+      console.log(edit_institute_contact)
+			this.edit_institute_contact=edit_institute_contact;
+		},
+		deleteContact(edit_institute_contact){
+			let loader = this.$loading.show();           
+			this.axios.delete('/api/contact/'+edit_institute_contact.id)
+				.then(resp=>{
+					loader.hide();
+					let index= this.institute_contacts.findIndex(el=>el.id===edit_institute_contact.id);
+					this.institute_contacts.splice(index,1);		
+				});
+		},
+   	submitCourse(){
 			this.axios
 				.put('/api/preferred-details',{
 					preferred_institute:this.selected_institute,

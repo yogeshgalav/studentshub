@@ -12,6 +12,7 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::post('/institute/{instituteId}/update-user', 'InstituteUserController@updateInstituteUser');
     Route::post('/add-details','InstituteController@addAdminiDetails');
     Route::delete('/instituteuser/{instituteuser}','InstituteController@delete');
-    Route::post('/institutecontact/{institutecontact}','InstituteController@editContactDetails');
+    Route::post('/add-contact','InstituteController@addOrUpdate');
+    Route::delete('/contact/{contact}','InstituteController@deleteContact');
     //post routes
 });
