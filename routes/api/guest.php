@@ -32,3 +32,7 @@ Route::get('/get-categories', 'CategoryController@index');
 Route::post('/add-course','CourseController@createOrUpdate');
 Route::delete('/course/{course}','CourseController@delete');
 Route::get('/{commentable_type}/{commentable_id}/comment', 'CommentController@get');
+
+//
+Route::get('{dashboard_type}/{dashboard_id}/posts', [App\Http\Controllers\Api\PostController::class, 'getPosts']);
+

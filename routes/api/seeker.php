@@ -4,7 +4,6 @@
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['auth:api']], function () {
-    Route::get('{dashboard_type}/{dashboard_id}/posts', [App\Http\Controllers\Api\PostController::class, 'getPosts']);
     Route::get('/posts', [App\Http\Controllers\Api\PostController::class, 'getPosts']);
 
     Route::get('{dashboard_type}/{dashboard_id}/doubts', [App\Http\Controllers\Api\DoubtController::class, 'getDoubts']);

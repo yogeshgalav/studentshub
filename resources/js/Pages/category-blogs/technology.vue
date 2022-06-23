@@ -7,7 +7,7 @@
       </article>
     </div>
     <div 
-      v-if="AuthUser.is_pro_member"
+      
     >
       <div class="col-md-12 mt-1">
         <h4>Quality Required</h4>
