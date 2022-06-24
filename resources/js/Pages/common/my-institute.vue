@@ -94,7 +94,19 @@
           </div>
           <h3 style="margin: 20px 0px 0px 20px">
             {{ institute ? institute.name : "My Institute" }}
+            <button
+              v-if="isEdit"
+              type="button"
+              class="btn btn-primary"
+            >
+              <i
+                class="fas fa-pencil-alt"
+                style="color: white"
+              />
+              Edit
+            </button>
           </h3>
+          
           <p style="margin-left: 20px">
             Lorem ipsum dolor sit amet, consectetur adipiscing
             elit.<br>
@@ -459,7 +471,9 @@
           {{ "About" }}
         </template>
         <template slot="tab-panel-about">
-          <div id="about-html" />
+          <div
+            id="about-html"
+          />
           <div class="col-md-10">
             <div class="container">
               <div>
@@ -473,11 +487,7 @@
                 </p>
 
                 <!-- profile info -->
-                <div class="profile-info">
-                  <div class="card-header">
-                    Profile info
-                  </div>
-
+                <Accordion title="Profile">
                   <div class="profile-form">
                     <form @submit.prevent="saveProfile">
                       <div class="row">
@@ -580,7 +590,8 @@
                       </div>
                     </form>
                   </div>
-                </div>
+                </Accordion>
+
                 <Accordion title="Administrators">
                   <div class="col-md-2">
                     <button
@@ -623,6 +634,7 @@
                                                             border-radius: 50px;
                                                         "
                           >
+
                           <p
                             style="
                                                             text-align: center;
@@ -668,7 +680,7 @@
                     </div>
                   </div>
                 </Accordion>
-                <div class="card mt-3">
+                <!-- <div class="card mt-3">
                   <div class="card-header">
                     <div class="row">
                       <div class="col-md-10">
@@ -678,15 +690,9 @@
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="card mt-3">
-                  <div class="card-header">
-                    <div class="row">
-                      <div class="col-md-10">
-                        <h4>Instagram</h4>
-                      </div>
-                    </div>
-                  </div>
+                </div> -->
+
+                <Accordion title="Instagram">
                   <div class="card-body">
                     <div class="col-md-3">
                       <blockquote
@@ -1049,36 +1055,32 @@
                       </blockquote>
                     </div>
                   </div>
-                </div>
-                <div class="card mt-3">
-                  <div class="card-header">
-                    <div class="row">
-                      <div class="col-md-10">
-                        <h4>Contact-Us</h4>
-                      </div>
-                      <div class="col-md-2">
-                        <button
-                          v-if="isEdit"
-                          type="button"
-                          class="btn btn-primary"
-                          data-toggle="modal"
-                          data-target="#addContactModal"
-                          @click="addContactDetails"
-                        >
-                          Add
-                        </button>
-                        <button
-                          v-else
-                          type="button"
-                          class="btn btn-primary"
-                          @click="
-                            saveContactDetails()
-                          "
-                        >
-                          Save
-                        </button>
-                      </div>
-                    </div>
+                </Accordion>
+
+                <!-- contact-us section -->
+
+                <Accordion title="Contact-Us">
+                  <div class="col-md-2">
+                    <button
+                      v-if="isEdit"
+                      type="button"
+                      class="btn btn-primary"
+                      data-toggle="modal"
+                      data-target="#addContactModal"
+                      @click="addContactDetails"
+                    >
+                      Add
+                    </button>
+                    <button
+                      v-else
+                      type="button"
+                      class="btn btn-primary"
+                      @click="
+                        saveContactDetails()
+                      "
+                    >
+                      Save
+                    </button>
                   </div>
                   <div class="card-body">
                     <div
@@ -1275,33 +1277,27 @@
                       </button>
                     </div>
                   </div>
-                </div>
-                <div class="card mt-3">
-                  <div class="card-header">
-                    <div class="row">
-                      <div class="col-md-10">
-                        <h4>Location</h4>
-                      </div>
-                      <div class="col-md-2">
-                        <button
-                          type="button"
-                          class="btn btn-primary"
-                        >
-                          <i
-                            class="fas fa-pencil-alt"
-                            style="color: white"
-                          />
-                          Edit
-                        </button>
-                      </div>
-                    </div>
-                  </div>
+                </Accordion>
+                <!-- location section -->
+                <Accordion title="Location">
                   <div class="card-body">
                     <div
                       class="flex"
                       style="background: #fff"
                     >
                       <div class="col-12">
+                        <div class="col-md-2">
+                          <button
+                            type="button"
+                            class="btn btn-primary"
+                          >
+                            <i
+                              class="fas fa-pencil-alt"
+                              style="color: white"
+                            />
+                            Edit
+                          </button>
+                        </div>
                         <div class="mapouter">
                           <div class="gmap_canvas">
                             <iframe
@@ -1317,7 +1313,7 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </Accordion>
               </div>
             </div>
           </div>
@@ -1568,7 +1564,16 @@
 .profile-info {
     margin-top: 30px;
 }
+
+.delete_Institute_User {
+    position: absolute;
+    background-color: white;
+    bottom: 156px;
+    right: -35px;
+}
 </style>
+
+import Accordion from "../../components/accordion.vue";
 <script async src="//www.instagram.com/embed.js" />
 <script>
 import Accordion from "@/components/accordion.vue";
