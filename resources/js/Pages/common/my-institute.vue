@@ -94,6 +94,18 @@
           </div>
           <h3 style="margin: 20px 0px 0px 20px">
             {{ institute ? institute.name : "My Institute" }}
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-toggle="modal"
+              data-target="#addEditInstituteModal"
+            >
+              <i
+                class="fas fa-pencil-alt"
+                style="color: white"
+              />
+              Edit
+            </button>
           </h3>
           <p style="margin-left: 20px">
             Lorem ipsum dolor sit amet, consectetur adipiscing
@@ -220,6 +232,132 @@
           </div>
         </div>
       </div>
+      <modal
+        id="addEditInstituteModal"
+        key="addEditInstituteModal"
+        ref="addEditInstituteModal"
+        name="addEditInstituteModal"
+        class="model-md"
+        heading="Profile Info"
+        @submit="saveProfile()"
+      >
+        <template slot="modalBody">
+          <form validationScope="add_institute_form">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <div class="inner-addon left-addon">
+                    <div class="cl_input">
+                      <label
+                        for="email"
+                      >Facebook Profile Url</label>
+                      <input
+                        v-model="
+                          institute.fb_url
+                        "
+                        class="form-control"
+                        type="text"
+                        placeholder="http://facebook.com/profile-id"
+                        @input="dataUpdated"
+                      >
+                      <span
+                        class="text-danger"
+                      >{{
+                        errors.fb_url
+                      }}</span>
+                      <label>Twitter Url</label>
+                      <input
+                        v-model="
+                          institute.twitter_url
+                        "
+                        class="form-control"
+                        type="text"
+                        placeholder="http://twitter.com/profile-id"
+                        @input="dataUpdated"
+                      ><span
+                        class="text-danger"
+                      >{{
+                        errors.twitter_url
+                      }}</span>
+                      <label>Instagram
+                        Username</label>
+                      <input
+                        v-model="
+                          institute.insta_url
+                        "
+                        class="form-control"
+                        type="text"
+                        placeholder="http://instagram.com/profile-id"
+                        @input="dataUpdated"
+                      ><span
+                        class="text-danger"
+                      >{{
+                        errors.insta_url
+                      }}</span>
+                      <label>Linkedin Profile
+                        Url</label>
+                      <input
+                        v-model="
+                          institute.linkedin_url
+                        "
+                        class="form-control"
+                        type="text"
+                        placeholder="http://linked.com/profile-id"
+                        @input="dataUpdated"
+                      ><span
+                        class="text-danger"
+                      >{{
+                        errors.linkedin_url
+                      }}</span>
+                      <label>Youtube Vedio
+                        Url</label>
+                      <input
+                        v-model="
+                          institute.youtube_vedio_url
+                        "
+                        class="form-control"
+                        type="text"
+                        placeholder="http://youtube.com/profile-id"
+                        @input="dataUpdated"
+                      ><span
+                        class="text-danger"
+                      >{{
+                        errors.youtube_vedio_url
+                      }}</span>
+                      <label
+                        for="website"
+                      >Website</label>
+                      <input
+                        id="website"
+                        v-model="
+                          institute.website
+                        "
+                        name="website"
+                        class="form-control"
+                        placeholder="write website Name here"
+                        @input="dataUpdated"
+                      >
+                      <label
+                        for="address"
+                      >Address</label>
+                      <input
+                        id="address"
+                        v-model="
+                          institute.address
+                        "
+                        name="address"
+                        class="form-control"
+                        placeholder="write Address here"
+                        @input="dataUpdated"
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </template>
+      </modal>
     </header>
 
     <div
@@ -472,115 +610,7 @@
                   students.
                 </p>
 
-                <!-- profile info -->
-                <div class="profile-info">
-                  <div class="card-header">
-                    Profile info
-                  </div>
-
-                  <div class="profile-form">
-                    <form @submit.prevent="saveProfile">
-                      <div class="row">
-                        <div class="col-md-12">
-                          <div class="model_input">
-                            <label>Facebook Profile
-                              Url</label>
-                            <input
-                              v-model="
-                                institute.fb_url
-                              "
-                              class="form-control"
-                              type="text"
-                              placeholder="http://facebook.com/profile-id"
-                              @input="dataUpdated"
-                            >
-                            <span
-                              class="text-danger"
-                            >{{
-                              errors.fb_url
-                            }}</span>
-                          </div>
-                        </div>
-                        <div class="col-md-12">
-                          <div class="model_input">
-                            <label>Twitter Url</label>
-                            <input
-                              v-model="
-                                institute.twitter_url
-                              "
-                              class="form-control"
-                              type="text"
-                              placeholder="http://twitter.com/profile-id"
-                              @input="dataUpdated"
-                            ><span
-                              class="text-danger"
-                            >{{
-                              errors.twitter_url
-                            }}</span>
-                          </div>
-                        </div>
-                        <div class="col-md-12">
-                          <div class="model_input">
-                            <label>Instagram
-                              Username</label>
-                            <input
-                              v-model="
-                                institute.insta_url
-                              "
-                              class="form-control"
-                              type="text"
-                              placeholder="http://instagram.com/profile-id"
-                              @input="dataUpdated"
-                            ><span
-                              class="text-danger"
-                            >{{
-                              errors.insta_url
-                            }}</span>
-                          </div>
-                        </div>
-                        <div class="col-md-12">
-                          <div class="model_input">
-                            <label>Linkedin Profile
-                              Url</label>
-                            <input
-                              v-model="
-                                institute.linkedin_url
-                              "
-                              class="form-control"
-                              type="text"
-                              placeholder="http://linked.com/profile-id"
-                              @input="dataUpdated"
-                            ><span
-                              class="text-danger"
-                            >{{
-                              errors.linkedin_url
-                            }}</span>
-                          </div>
-                        </div>
-
-                        <div class="col-md-12">
-                          <div class="model_input">
-                            <label>Youtube Vedio
-                              Url</label>
-                            <input
-                              v-model="
-                                institute.youtube_vedio_url
-                              "
-                              class="form-control"
-                              type="text"
-                              placeholder="http://youtube.com/profile-id"
-                              @input="dataUpdated"
-                            ><span
-                              class="text-danger"
-                            >{{
-                              errors.youtube_vedio_url
-                            }}</span>
-                          </div>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                </div>
+                
                 <Accordion title="Administrators">
                   <div class="col-md-2">
                     <button
@@ -1103,14 +1133,6 @@
                       <div class="col-md-2">
                         <h5>
                           <i
-                            class="fas fa-globe-americas"
-                          />Website
-                        </h5>
-                        <p>{{ institute.website }}</p>
-                      </div>
-                      <div class="col-md-2">
-                        <h5>
-                          <i
                             class="fas fa-phone-alt"
                           />Phone
                         </h5>
@@ -1122,15 +1144,7 @@
                           }}
                         </p>
                       </div>
-                      <div class="col-md-2">
-                        <h5>
-                          <i
-                            class="fas fa-map-marker-alt"
-                          />Address
-                        </h5>
-                        <p>{{ institute.address }}</p>
-                      </div>
-
+                      
                       <div class="col-md-4">
                         <h5>
                           <i
@@ -1322,9 +1336,11 @@
             </div>
           </div>
           <modal
+            id="editAdmiModal"
+            key="editAdmiModal"
             ref="editAdmiModal"
             name="editAdmiModal"
-            class="model-md"
+            class="model"
             heading="Edit Administrator Details"
             @submit="savedetails()"
           >
@@ -1377,6 +1393,8 @@
             </template>
           </modal>
           <modal
+            id="addContactModal"
+            key="addContactModal"
             ref="addContactModal"
             name="addContactModal"
             class="model-md"
@@ -1404,23 +1422,7 @@
                             placeholder="write Email here"
                           ><span
                             class="text-danger"
-                          >{{
-                            formErrors(
-                              "add_contact_form.edit_institute_contact"
-                            )
-                          }}</span>
-                          <label
-                            for="website"
-                          >Website</label>
-                          <input
-                            id="website"
-                            v-model="
-                              institute.website
-                            "
-                            name="website"
-                            class="form-control"
-                            placeholder="write website Name here"
-                          >
+                          >{{ formErrors("add_contact_form.edit_institute_contact") }}</span>
                           <label
                             for="phoneno"
                           >Phone Number</label>
@@ -1451,18 +1453,6 @@
                             name="phoneno2"
                             class="form-control"
                             placeholder="write Phone Number here"
-                          >
-                          <label
-                            for="address"
-                          >Address</label>
-                          <input
-                            id="address"
-                            v-model="
-                              institute.address
-                            "
-                            name="address"
-                            class="form-control"
-                            placeholder="write Address here"
                           >
                         </div>
                       </div>
@@ -1607,10 +1597,6 @@ export default {
                 phone_no: "",
                 phone_no2: "",
             },
-            edit_institute: {
-                website: "",
-                address: "",
-            },
             user_id: "",
             role: "",
             phone_no: "",
@@ -1720,6 +1706,8 @@ export default {
                     insta_url: "",
                     linkedin_url: "",
                     youtube_vedio_url: "",
+                    address:"",
+                    website:"",
                 };
             }
         },
@@ -1822,6 +1810,7 @@ export default {
         addOrEditContact() {
             this.validateForm().then((valid) => {
                 if (valid) {
+                   console.log('xyz');
                     this.contactCreateOrUpdateApi();
                 }
             });
@@ -1833,8 +1822,6 @@ export default {
                     email: this.edit_institute_contact.email,
                     phone_no: this.edit_institute_contact.phone_no,
                     phone_no2: this.edit_institute_contact.phone_no2,
-                    website: this.edit_institute.website,
-                    address: this.edit_institute.address,
                     edit_institute_contact_id: this.edit_institute_contact.id,
                 })
                 .then((resp) => {
@@ -1846,8 +1833,6 @@ export default {
                         phone_no2:
                             resp.data.success.edit_institute_contact.phone_no2,
                         id: resp.data.success.edit_institute_contact.id,
-                        website: resp.data.success.edit_institute.website,
-                        address: resp.data.success.edit_institute.address,
                     });
                     this.$refs.addContactModal.closeModal();
                     this.clearModalData();
@@ -1873,9 +1858,7 @@ export default {
             this.edit_institute_contact.email = "";
             this.edit_institute_contact.phone_no = "";
             this.edit_institute_contact.phone_no2 = "";
-            this.edit_institute.website = "";
-            this.edit_institute.address = "";
-        },
+            },
         submitCourse() {
             this.axios
                 .put("/api/preferred-details", {

@@ -121,6 +121,9 @@ class UserController extends Controller
         if($request->youtube_vedio_url){
             $profile->youtube_vedio_url=$request->youtube_vedio_url;
         }
+        $profile->website =$request->website;
+        $profile->address =$request->address;
+       
         $profile->save();
         return response()->json(['success'=>[
             'profile'=>$profile
