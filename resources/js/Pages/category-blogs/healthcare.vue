@@ -11,7 +11,7 @@
     </div>
     
     <div 
-      v-if="AuthUser.is_pro_member"
+      
     >
       <accordion
         title="People Healthcare/Medical Science"

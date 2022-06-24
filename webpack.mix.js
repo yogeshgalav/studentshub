@@ -40,6 +40,7 @@ if (process.env.APP_ENV!=='local') {
 	//    '@fortawesome/vue-fontawesome',
 	//    '@fortawesome/fontawesome-svg-core'
 	// ]);
-} else {
+} 
+if (process.env.BROWSER_SYNC === true) {
 	mix.browserSync(process.env.APP_URL);
 }
