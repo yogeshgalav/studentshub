@@ -303,14 +303,9 @@ class InstituteController extends Controller
             $institute_contacts->institute_id = $instituteId;
             $institute_contacts->save();
 
-            $institute=Institute::find($institute_contacts->institute_id);
-            $institute->website =$request->website;
-            $institute->address =$request->address;
-            $institute->save();
-
+           
             return response()->json(['success'=>[
                 'institute_contacts'=> $institute_contacts,
-                'edit_institute'=>$institute,
             ]]);
     }
     public function deleteContact($contact_id)

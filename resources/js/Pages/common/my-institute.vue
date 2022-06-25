@@ -94,17 +94,7 @@
           </div>
           <h3 style="margin: 20px 0px 0px 20px">
             {{ institute ? institute.name : "My Institute" }}
-            <button
-              v-if="isEdit"
-              type="button"
-              class="btn btn-primary"
-            >
-              <i
-                class="fas fa-pencil-alt"
-                style="color: white"
-              />
-              Edit
-            </button>
+            
           </h3>
           
           <p style="margin-left: 20px">
@@ -487,110 +477,6 @@
                 </p>
 
                 <!-- profile info -->
-                <Accordion title="Profile">
-                  <div class="profile-form">
-                    <form @submit.prevent="saveProfile">
-                      <div class="row">
-                        <div class="col-md-12">
-                          <div class="model_input">
-                            <label>Facebook Profile
-                              Url</label>
-                            <input
-                              v-model="
-                                institute.fb_url
-                              "
-                              class="form-control"
-                              type="text"
-                              placeholder="http://facebook.com/profile-id"
-                              @input="dataUpdated"
-                            >
-                            <span
-                              class="text-danger"
-                            >{{
-                              errors.fb_url
-                            }}</span>
-                          </div>
-                        </div>
-                        <div class="col-md-12">
-                          <div class="model_input">
-                            <label>Twitter Url</label>
-                            <input
-                              v-model="
-                                institute.twitter_url
-                              "
-                              class="form-control"
-                              type="text"
-                              placeholder="http://twitter.com/profile-id"
-                              @input="dataUpdated"
-                            ><span
-                              class="text-danger"
-                            >{{
-                              errors.twitter_url
-                            }}</span>
-                          </div>
-                        </div>
-                        <div class="col-md-12">
-                          <div class="model_input">
-                            <label>Instagram
-                              Username</label>
-                            <input
-                              v-model="
-                                institute.insta_url
-                              "
-                              class="form-control"
-                              type="text"
-                              placeholder="http://instagram.com/profile-id"
-                              @input="dataUpdated"
-                            ><span
-                              class="text-danger"
-                            >{{
-                              errors.insta_url
-                            }}</span>
-                          </div>
-                        </div>
-                        <div class="col-md-12">
-                          <div class="model_input">
-                            <label>Linkedin Profile
-                              Url</label>
-                            <input
-                              v-model="
-                                institute.linkedin_url
-                              "
-                              class="form-control"
-                              type="text"
-                              placeholder="http://linked.com/profile-id"
-                              @input="dataUpdated"
-                            ><span
-                              class="text-danger"
-                            >{{
-                              errors.linkedin_url
-                            }}</span>
-                          </div>
-                        </div>
-
-                        <div class="col-md-12">
-                          <div class="model_input">
-                            <label>Youtube Vedio
-                              Url</label>
-                            <input
-                              v-model="
-                                institute.youtube_vedio_url
-                              "
-                              class="form-control"
-                              type="text"
-                              placeholder="http://youtube.com/profile-id"
-                              @input="dataUpdated"
-                            ><span
-                              class="text-danger"
-                            >{{
-                              errors.youtube_vedio_url
-                            }}</span>
-                          </div>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                </Accordion>
 
                 <Accordion title="Administrators">
                   <div class="col-md-2">
@@ -680,17 +566,7 @@
                     </div>
                   </div>
                 </Accordion>
-                <!-- <div class="card mt-3">
-                  <div class="card-header">
-                    <div class="row">
-                      <div class="col-md-10">
-                        <h4>
-                          Administrators of Institute
-                        </h4>
-                      </div>
-                    </div>
-                  </div>
-                </div> -->
+                
 
                 <Accordion title="Instagram">
                   <div class="card-body">
