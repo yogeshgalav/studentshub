@@ -14,5 +14,6 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::delete('/instituteuser/{instituteuser}','InstituteController@delete');
     Route::post('/add-contact','InstituteController@addOrUpdate');
     Route::delete('/contact/{contact}','InstituteController@deleteContact');
+    Route::post('/save-institute-profile', 'InstituteController@saveInstiProfile');
     //post routes
 });

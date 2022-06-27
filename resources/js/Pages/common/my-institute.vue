@@ -350,6 +350,32 @@
                         placeholder="write Address here"
                         @input="dataUpdated"
                       >
+                      <label
+                        for="city"
+                      >City</label>
+                      <input
+                        id="city"
+                        v-model="
+                          institute.city
+                        "
+                        name="city"
+                        class="form-control"
+                        placeholder="write City here"
+                        @input="dataUpdated"
+                      >
+                      <label
+                        for="state"
+                      >State</label>
+                      <input
+                        id="state"
+                        v-model="
+                          institute.state
+                        "
+                        name="state"
+                        class="form-control"
+                        placeholder="write State here"
+                        @input="dataUpdated"
+                      >
                     </div>
                   </div>
                 </div>
@@ -597,134 +623,206 @@
           {{ "About" }}
         </template>
         <template slot="tab-panel-about">
-          <div id="about-html" />
-          <div class="col-md-10">
-            <div class="container">
-              <div>
-                <p>
-                  thanks! Your account is created. <br>
-                  Our team will soon contact you on phone for
-                  account verification.<br>
-                  Once account verified you will be able to
-                  promote your institute to thousands of
-                  students.
-                </p>
+          <div id="about-html">
+            <div class="col-md-10">
+              <p>
+                thanks! Your account is created. <br>
+                Our team will soon contact you on phone for
+                account verification.<br>
+                Once account verified you will be able to
+                promote your institute to thousands of
+                students.
+              </p>
 
                 
-                <Accordion title="Administrators">
-                  <div class="col-md-2">
-                    <button
-                      v-if="isEdit"
-                      type="button"
-                      class="btn btn-primary"
-                      @click="editAdmiDetails()"
-                    >
-                      <i
-                        class="fas fa-pencil-alt"
-                        style="color: white"
-                      />
-                      Edit
-                    </button>
-                    <button
-                      v-else
-                      type="button"
-                      class="btn btn-primary"
-                      @click="saveAdmiDetails()"
-                    >
-                      Save
-                    </button>
-                  </div>
-                  <div class="card-body">
-                    <div v-if="institute_users.length">
-                      <div class="row">
-                        <div
-                          v-for="(
-                            instituteuser, index
-                          ) in institute_users"
-                          :key="index"
-                          class="col-md-2"
-                        >
-                          <img
-                            src="/images/default-avatar.png"
-                            alt="Student Hub"
-                            width="100"
-                            height="100"
-                            style="
+              <Accordion title="Administrators">
+                <div class="col-md-2">
+                  <button
+                    v-if="isEdit"
+                    type="button"
+                    class="btn btn-primary"
+                    @click="editAdmiDetails()"
+                  >
+                    <i
+                      class="fas fa-pencil-alt"
+                      style="color: white"
+                    />
+                    Edit
+                  </button>
+                  <button
+                    v-else
+                    type="button"
+                    class="btn btn-primary"
+                    @click="saveAdmiDetails()"
+                  >
+                    Save
+                  </button>
+                </div>
+                <div class="card-body">
+                  <div v-if="institute_users.length">
+                    <div class="row">
+                      <div
+                        v-for="(
+                          instituteuser, index
+                        ) in institute_users"
+                        :key="index"
+                        class="col-md-2"
+                      >
+                        <img
+                          src="/images/default-avatar.png"
+                          alt="Student Hub"
+                          width="100"
+                          height="100"
+                          style="
                                                             border-radius: 50px;
                                                         "
-                          >
-                          <p
-                            style="
+                        >
+                        <p
+                          style="
                                                             text-align: center;
                                                         "
-                          >
-                            {{
-                              instituteuser.user_name
-                            }}<br>{{
-                              instituteuser.role
-                            }}<br>
-                            <button
-                              type="button"
-                              data-toggle="modal"
-                              data-placement="top"
-                              title="Delete"
-                              @click="
-                                deleteInstituteUser(
-                                  instituteuser
-                                )
-                              "
-                            >
-                              <i
-                                class="fas fa-trash"
-                                aria-hidden="true"
-                              />
-                            </button>
-                          </p>
-                        </div>
-                        <div class="col-md-2">
+                        >
+                          {{
+                            instituteuser.user_name
+                          }}<br>{{
+                            instituteuser.role
+                          }}<br>
                           <button
-                            v-if="!isEdit"
+                            type="button"
                             data-toggle="modal"
-                            data-target="#editAdmiModal"
-                            style="
+                            data-placement="top"
+                            title="Delete"
+                            @click="
+                              deleteInstituteUser(
+                                instituteuser
+                              )
+                            "
+                          >
+                            <i
+                              class="fas fa-trash"
+                              aria-hidden="true"
+                            />
+                          </button>
+                        </p>
+                      </div>
+                      <div class="col-md-2">
+                        <button
+                          v-if="!isEdit"
+                          data-toggle="modal"
+                          data-target="#editAdmiModal"
+                          style="
                                                             font-size: 60px;
                                                             background-color: white;
                                                         "
-                          >
-                            <i class="fa fa-plus" />
-                          </button>
-                        </div>
+                        >
+                          <i class="fa fa-plus" />
+                        </button>
                       </div>
                     </div>
                   </div>
-                </Accordion>
-                <div class="card mt-3">
-                  <div class="card-header">
+                  <div v-else>
                     <div class="row">
-                      <div class="col-md-10">
-                        <h4>
-                          Administrators of Institute
-                        </h4>
+                      <div class="col-md-2">
+                        <button
+                          v-if="!isEdit"
+                          data-toggle="modal"
+                          data-target="#editAdmiModal"
+                          style="
+                                                            font-size: 60px;
+                                                            background-color: white;
+                                                        "
+                        >
+                          <i class="fa fa-plus" />
+                        </button>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="card mt-3">
-                  <div class="card-header">
-                    <div class="row">
-                      <div class="col-md-10">
-                        <h4>Instagram</h4>
+                <modal
+                  id="editAdmiModal"
+                  key="editAdmiModal"
+                  ref="editAdmiModal"
+                  name="editAdmiModal"
+                  class="model"
+                  heading="Edit Administrator Details"
+                  @submit="savedetails()"
+                >
+                  <template slot="modalBody">
+                    <form validationScope="edit_administrator_form">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <div class="inner-addon left-addon">
+                              <div class="cl_input">
+                                <label
+                                  for="full"
+                                >Full Name</label>
+                                <input
+                                  id="fullName"
+                                  v-model="name"
+                                  v-validate="'required'"
+                                  name="fullname"
+                                  class="form-control"
+                                  placeholder="write Full Name here"
+                                >
+                                <label
+                                  for="position"
+                                >Position</label>
+                                <input
+                                  id="postionName"
+                                  v-model="role"
+                                  v-validate="'required'"
+                                  name="positionname"
+                                  class="form-control"
+                                  placeholder="write Position Name here"
+                                >
+                                <label
+                                  for="phoneno"
+                                >Phone Number</label>
+                                <input
+                                  id="phoneno"
+                                  v-model="phone_no"
+                                  v-validate="'required'"
+                                  name="phoneno"
+                                  class="form-control"
+                                  placeholder="write Phone Number here"
+                                >
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
+                    </form>
+                  </template>
+                </modal>
+              </Accordion>
+              <div class="card mt-3">
+                <div class="card-header">
+                  <div class="row">
+                    <div class="col-md-10">
+                      <h4>
+                        Administrators of Institute
+                      </h4>
                     </div>
                   </div>
-                  <div class="card-body">
-                    <div class="col-md-3">
-                      <blockquote
-                        class="instagram-media"
-                        data-instgrm-captioned
-                        data-instgrm-permalink="https://www.instagram.com/reel/Ceq_zDhATZb/?utm_source=ig_embed&amp;utm_campaign=loading"
-                        data-instgrm-version="14"
-                        style="
+                </div>
+              </div>
+              <div class="card mt-3">
+                <div class="card-header">
+                  <div class="row">
+                    <div class="col-md-10">
+                      <h4>Instagram</h4>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="col-md-3">
+                    <blockquote
+                      class="instagram-media"
+                      data-instgrm-captioned
+                      data-instgrm-permalink="https://www.instagram.com/reel/Ceq_zDhATZb/?utm_source=ig_embed&amp;utm_campaign=loading"
+                      data-instgrm-version="14"
+                      style="
                                                     background: #fff;
                                                     border: 0;
                                                     border-radius: 3px;
@@ -742,11 +840,11 @@
                                                     );
                                                     width: calc(100% - 2px);
                                                 "
-                      >
-                        <div style="padding: 16px">
-                          <a
-                            href="https://www.instagram.com/reel/Ceq_zDhATZb/?utm_source=ig_embed&amp;utm_campaign=loading"
-                            style="
+                    >
+                      <div style="padding: 16px">
+                        <a
+                          href="https://www.instagram.com/reel/Ceq_zDhATZb/?utm_source=ig_embed&amp;utm_campaign=loading"
+                          style="
                                                             background: #ffffff;
                                                             line-height: 0;
                                                             padding: 0 0;
@@ -754,17 +852,17 @@
                                                             text-decoration: none;
                                                             width: 100%;
                                                         "
-                            target="_blank"
-                          >
-                            <div
-                              style="
+                          target="_blank"
+                        >
+                          <div
+                            style="
                                                                 display: flex;
                                                                 flex-direction: row;
                                                                 align-items: center;
                                                             "
-                            >
-                              <div
-                                style="
+                          >
+                            <div
+                              style="
                                                                     background-color: #f4f4f4;
                                                                     border-radius: 50%;
                                                                     flex-grow: 0;
@@ -772,17 +870,17 @@
                                                                     margin-right: 14px;
                                                                     width: 40px;
                                                                 "
-                              />
-                              <div
-                                style="
+                            />
+                            <div
+                              style="
                                                                     display: flex;
                                                                     flex-direction: column;
                                                                     flex-grow: 1;
                                                                     justify-content: center;
                                                                 "
-                              >
-                                <div
-                                  style="
+                            >
+                              <div
+                                style="
                                                                         background-color: #f4f4f4;
                                                                         border-radius: 4px;
                                                                         flex-grow: 0;
@@ -790,66 +888,66 @@
                                                                         margin-bottom: 6px;
                                                                         width: 100px;
                                                                     "
-                                />
-                                <div
-                                  style="
+                              />
+                              <div
+                                style="
                                                                         background-color: #f4f4f4;
                                                                         border-radius: 4px;
                                                                         flex-grow: 0;
                                                                         height: 14px;
                                                                         width: 60px;
                                                                     "
-                                />
-                              </div>
+                              />
                             </div>
-                            <div
-                              style="
+                          </div>
+                          <div
+                            style="
                                                                 padding: 19% 0;
                                                             "
-                            />
-                            <div
-                              style="
+                          />
+                          <div
+                            style="
                                                                 display: block;
                                                                 height: 50px;
                                                                 margin: 0 auto
                                                                     12px;
                                                                 width: 50px;
                                                             "
+                          >
+                            <svg
+                              width="50px"
+                              height="50px"
+                              viewBox="0 0 60 60"
+                              version="1.1"
+                              xmlns="https://www.w3.org/2000/svg"
+                              xmlns:xlink="https://www.w3.org/1999/xlink"
                             >
-                              <svg
-                                width="50px"
-                                height="50px"
-                                viewBox="0 0 60 60"
-                                version="1.1"
-                                xmlns="https://www.w3.org/2000/svg"
-                                xmlns:xlink="https://www.w3.org/1999/xlink"
+                              <g
+                                stroke="none"
+                                stroke-width="1"
+                                fill="none"
+                                fill-rule="evenodd"
                               >
                                 <g
-                                  stroke="none"
-                                  stroke-width="1"
-                                  fill="none"
-                                  fill-rule="evenodd"
+                                  transform="translate(-511.000000, -20.000000)"
+                                  fill="#000000"
                                 >
-                                  <g
-                                    transform="translate(-511.000000, -20.000000)"
-                                    fill="#000000"
-                                  >
-                                    <g>
-                                      <path
-                                        d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"
-                                      />
-                                    </g>
+                                  <g>
+                                    <path
+                                      d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"
+                                    />
                                   </g>
                                 </g>
-                              </svg>
-                            </div>
-                            <div
-                              style="
+                              </g>
+                            </svg>
+                          </div>
+                          <div
+                            style="
                                                                 padding-top: 8px;
                                                             "
-                            >
-                              <div
-                                style="
+                          >
+                            <div
+                              style="
                                                                     color: #3897f0;
                                                                     font-family: Arial,
                                                                         sans-serif;
@@ -858,27 +956,27 @@
                                                                     font-weight: 550;
                                                                     line-height: 18px;
                                                                 "
-                              >
-                                View this post
-                                on Instagram
-                              </div>
+                            >
+                              View this post
+                              on Instagram
                             </div>
-                            <div
-                              style="
+                          </div>
+                          <div
+                            style="
                                                                 padding: 12.5% 0;
                                                             "
-                            />
-                            <div
-                              style="
+                          />
+                          <div
+                            style="
                                                                 display: flex;
                                                                 flex-direction: row;
                                                                 margin-bottom: 14px;
                                                                 align-items: center;
                                                             "
-                            >
-                              <div>
-                                <div
-                                  style="
+                          >
+                            <div>
+                              <div
+                                style="
                                                                         background-color: #f4f4f4;
                                                                         border-radius: 50%;
                                                                         height: 12.5px;
@@ -890,9 +988,9 @@
                                                                                 7px
                                                                             );
                                                                     "
-                                />
-                                <div
-                                  style="
+                              />
+                              <div
+                                style="
                                                                         background-color: #f4f4f4;
                                                                         height: 12.5px;
                                                                         transform: rotate(
@@ -909,9 +1007,9 @@
                                                                         margin-right: 14px;
                                                                         margin-left: 2px;
                                                                     "
-                                />
-                                <div
-                                  style="
+                              />
+                              <div
+                                style="
                                                                         background-color: #f4f4f4;
                                                                         border-radius: 50%;
                                                                         height: 12.5px;
@@ -923,24 +1021,24 @@
                                                                                 -18px
                                                                             );
                                                                     "
-                                />
-                              </div>
-                              <div
-                                style="
+                              />
+                            </div>
+                            <div
+                              style="
                                                                     margin-left: 8px;
                                                                 "
-                              >
-                                <div
-                                  style="
+                            >
+                              <div
+                                style="
                                                                         background-color: #f4f4f4;
                                                                         border-radius: 50%;
                                                                         flex-grow: 0;
                                                                         height: 20px;
                                                                         width: 20px;
                                                                     "
-                                />
-                                <div
-                                  style="
+                              />
+                              <div
+                                style="
                                                                         width: 0;
                                                                         height: 0;
                                                                         border-top: 2px
@@ -962,15 +1060,15 @@
                                                                                 30deg
                                                                             );
                                                                     "
-                                />
-                              </div>
-                              <div
-                                style="
+                              />
+                            </div>
+                            <div
+                              style="
                                                                     margin-left: auto;
                                                                 "
-                              >
-                                <div
-                                  style="
+                            >
+                              <div
+                                style="
                                                                         width: 0px;
                                                                         border-top: 8px
                                                                             solid
@@ -982,9 +1080,9 @@
                                                                             16px
                                                                         );
                                                                     "
-                                />
-                                <div
-                                  style="
+                              />
+                              <div
+                                style="
                                                                         background-color: #f4f4f4;
                                                                         flex-grow: 0;
                                                                         height: 12px;
@@ -993,9 +1091,9 @@
                                                                             -4px
                                                                         );
                                                                     "
-                                />
-                                <div
-                                  style="
+                              />
+                              <div
+                                style="
                                                                         width: 0;
                                                                         height: 0;
                                                                         border-top: 8px
@@ -1011,20 +1109,20 @@
                                                                                 8px
                                                                             );
                                                                     "
-                                />
-                              </div>
+                              />
                             </div>
-                            <div
-                              style="
+                          </div>
+                          <div
+                            style="
                                                                 display: flex;
                                                                 flex-direction: column;
                                                                 flex-grow: 1;
                                                                 justify-content: center;
                                                                 margin-bottom: 24px;
                                                             "
-                            >
-                              <div
-                                style="
+                          >
+                            <div
+                              style="
                                                                     background-color: #f4f4f4;
                                                                     border-radius: 4px;
                                                                     flex-grow: 0;
@@ -1032,18 +1130,18 @@
                                                                     margin-bottom: 6px;
                                                                     width: 224px;
                                                                 "
-                              />
-                              <div
-                                style="
+                            />
+                            <div
+                              style="
                                                                     background-color: #f4f4f4;
                                                                     border-radius: 4px;
                                                                     flex-grow: 0;
                                                                     height: 14px;
                                                                     width: 144px;
                                                                 "
-                              /></div></a>
-                          <p
-                            style="
+                            /></div></a>
+                        <p
+                          style="
                                                             color: #c9c8cd;
                                                             font-family: Arial,
                                                                 sans-serif;
@@ -1057,10 +1155,10 @@
                                                             text-overflow: ellipsis;
                                                             white-space: nowrap;
                                                         "
-                          >
-                            <a
-                              href="https://www.instagram.com/reel/Ceq_zDhATZb/?utm_source=ig_embed&amp;utm_campaign=loading"
-                              style="
+                        >
+                          <a
+                            href="https://www.instagram.com/reel/Ceq_zDhATZb/?utm_source=ig_embed&amp;utm_campaign=loading"
+                            style="
                                                                 color: #c9c8cd;
                                                                 font-family: Arial,
                                                                     sans-serif;
@@ -1070,263 +1168,344 @@
                                                                 line-height: 17px;
                                                                 text-decoration: none;
                                                             "
-                              target="_blank"
-                            >A post shared by 👑
-                              Fan page 👑
-                              (@beingshalini_shadab.27)</a>
-                          </p>
-                        </div>
-                      </blockquote>
-                    </div>
+                            target="_blank"
+                          >A post shared by 👑
+                            Fan page 👑
+                            (@beingshalini_shadab.27)</a>
+                        </p>
+                      </div>
+                    </blockquote>
                   </div>
                 </div>
-                <div class="card mt-3">
-                  <div class="card-header">
-                    <div class="row">
-                      <div class="col-md-10">
-                        <h4>Contact-Us</h4>
-                      </div>
-                      <div class="col-md-2">
-                        <button
-                          v-if="isEdit"
-                          type="button"
-                          class="btn btn-primary"
-                          data-toggle="modal"
-                          data-target="#addContactModal"
-                          @click="addContactDetails"
-                        >
-                          Add
-                        </button>
-                        <button
-                          v-else
-                          type="button"
-                          class="btn btn-primary"
-                          @click="
-                            saveContactDetails()
-                          "
-                        >
-                          Save
-                        </button>
-                      </div>
+              </div>
+              <div class="card mt-3">
+                <div class="card-header">
+                  <div class="row">
+                    <div class="col-md-10">
+                      <h4>Contact-Us</h4>
                     </div>
-                  </div>
-                  <div class="card-body">
-                    <div
-                      v-for="(
-                        institute_contact, index
-                      ) in institute_contacts"
-                      :key="index"
-                      class="row"
-                    >
-                      <div class="col-md-2">
-                        <h5>
-                          <i
-                            class="fas fa-envelope"
-                          />Email
-                        </h5>
-                        <p>
-                          {{
-                            institute_contact.email
-                          }}
-                        </p>
-                      </div>
-                      <div class="col-md-2">
-                        <h5>
-                          <i
-                            class="fas fa-phone-alt"
-                          />Phone
-                        </h5>
-                        <p>
-                          {{
-                            institute_contact.phone_no
-                          }}<br>{{
-                            institute_contact.phone_no2
-                          }}
-                        </p>
-                      </div>
-                      
-                      <div class="col-md-4">
-                        <h5>
-                          <i
-                            class="fas fa-user-plus"
-                          />Follow Us
-                        </h5>
-                        <div class="row">
-                          <ul
-                            class="social-network social-circle"
-                          >
-                            <li>
-                              <a
-                                target="_blank"
-                                :href="
-                                  institute.fb_url
-                                    ? institute.fb_url
-                                    : '#'
-                                "
-                                :disabled="
-                                  institute.fb_url
-                                    ? false
-                                    : true
-                                "
-                                :class="[
-                                  'icoFacebook',
-                                  institute.fb_url
-                                    ? ''
-                                    : 'disabled',
-                                ]"
-                                title="Facebook"
-                              ><i
-                                class="fab fa-facebook-f"
-                              /></a>
-                            </li>
-                            <li>
-                              <a
-                                target="_blank"
-                                :href="
-                                  institute.twitter_url
-                                    ? institute.twitter_url
-                                    : '#'
-                                "
-                                :disabled="
-                                  institute.twitter_url
-                                    ? false
-                                    : true
-                                "
-                                :class="[
-                                  icoTwitter,
-                                  institute.twitter_url
-                                    ? ''
-                                    : 'disabled',
-                                ]"
-                                title="Twitter"
-                              ><i
-                                class="fab fa-twitter"
-                              /></a>
-                            </li>
-                            <li>
-                              <a
-                                target="_blank"
-                                :href="
-                                  institute.insta_url
-                                    ? institute.insta_url
-                                    : '#'
-                                "
-                                :disabled="
-                                  institute.insta_url
-                                    ? false
-                                    : true
-                                "
-                                :class="[
-                                  icoInstagram,
-                                  institute.insta_url
-                                    ? ''
-                                    : 'disabled',
-                                ]"
-                                title="Instagram"
-                              ><i
-                                class="fab fa-instagram"
-                              /></a>
-                            </li>
-                            <li>
-                              <a
-                                target="_blank"
-                                :href="
-                                  institute.linkedin_url
-                                    ? institute.linkedin_url
-                                    : '#'
-                                "
-                                :disabled="
-                                  institute.linkedin_url
-                                    ? false
-                                    : true
-                                "
-                                :class="[
-                                  icoLinkedin,
-                                  institute.linkedin_url
-                                    ? ''
-                                    : 'disabled',
-                                ]"
-                                title="Linkedin"
-                              ><i
-                                class="fab fa-linkedin"
-                              /></a>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
+                    <div class="col-md-2">
                       <button
+                        v-if="isEdit"
                         type="button"
                         class="btn btn-primary"
-                        data-placement="top"
-                        title="Edit"
                         data-toggle="modal"
                         data-target="#addContactModal"
-                        @click="
-                          editContact(
-                            institute_contact
-                          )
-                        "
+                        @click="addContactDetails"
                       >
-                        <i
-                          class="fas fa-pencil-alt"
-                          style="color: white"
-                        />
-                        Edit
+                        Add
                       </button>
                       <button
-                        class="btn btn-primary"
+                        v-else
                         type="button"
-                        data-toggle="tooltip"
-                        data-placement="top"
-                        title="Delete"
+                        class="btn btn-primary"
                         @click="
-                          deleteContact(
-                            institute_contact
-                          )
+                          saveContactDetails()
                         "
                       >
-                        <i class="fa fa-trash" />
+                        Save
                       </button>
                     </div>
                   </div>
                 </div>
-                <div class="card mt-3">
-                  <div class="card-header">
-                    <div class="row">
-                      <div class="col-md-10">
-                        <h4>Location</h4>
-                      </div>
-                      <div class="col-md-2">
-                        <button
-                          type="button"
-                          class="btn btn-primary"
+                <div class="card-body">
+                  <div
+                    v-for="(
+                      institute_contact, index
+                    ) in institute_contacts"
+                    :key="index"
+                    class="row"
+                  >
+                    <div class="col-md-2">
+                      <h5>
+                        <i
+                          class="fas fa-envelope"
+                        />Email
+                      </h5>
+                      <p>
+                        {{
+                          institute_contact.email
+                        }}
+                      </p>
+                    </div>
+                    <div class="col-md-2">
+                      <h5>
+                        <i
+                          class="fas fa-phone-alt"
+                        />Phone
+                      </h5>
+                      <p>
+                        {{
+                          institute_contact.phone_no
+                        }}<br>{{
+                          institute_contact.phone_no2
+                        }}
+                      </p>
+                    </div>
+                    <div class="col-md-2">
+                      <h5>
+                        <i
+                          class="fas fa-phone-alt"
+                        />Department
+                      </h5>
+                      <p>
+                        {{
+                          institute_contact.department
+                        }}
+                      </p>
+                    </div>
+                      
+                    <div class="col-md-4">
+                      <h5>
+                        <i
+                          class="fas fa-user-plus"
+                        />Follow Us
+                      </h5>
+                      <div class="row">
+                        <ul
+                          class="social-network social-circle"
                         >
-                          <i
-                            class="fas fa-pencil-alt"
-                            style="color: white"
-                          />
-                          Edit
-                        </button>
+                          <li>
+                            <a
+                              target="_blank"
+                              :href="
+                                institute.fb_url
+                                  ? institute.fb_url
+                                  : '#'
+                              "
+                              :disabled="
+                                institute.fb_url
+                                  ? false
+                                  : true
+                              "
+                              :class="[
+                                'icoFacebook',
+                                institute.fb_url
+                                  ? ''
+                                  : 'disabled',
+                              ]"
+                              title="Facebook"
+                            ><i
+                              class="fab fa-facebook-f"
+                            /></a>
+                          </li>
+                          <li>
+                            <a
+                              target="_blank"
+                              :href="
+                                institute.twitter_url
+                                  ? institute.twitter_url
+                                  : '#'
+                              "
+                              :disabled="
+                                institute.twitter_url
+                                  ? false
+                                  : true
+                              "
+                              :class="[
+                                icoTwitter,
+                                institute.twitter_url
+                                  ? ''
+                                  : 'disabled',
+                              ]"
+                              title="Twitter"
+                            ><i
+                              class="fab fa-twitter"
+                            /></a>
+                          </li>
+                          <li>
+                            <a
+                              target="_blank"
+                              :href="
+                                institute.insta_url
+                                  ? institute.insta_url
+                                  : '#'
+                              "
+                              :disabled="
+                                institute.insta_url
+                                  ? false
+                                  : true
+                              "
+                              :class="[
+                                icoInstagram,
+                                institute.insta_url
+                                  ? ''
+                                  : 'disabled',
+                              ]"
+                              title="Instagram"
+                            ><i
+                              class="fab fa-instagram"
+                            /></a>
+                          </li>
+                          <li>
+                            <a
+                              target="_blank"
+                              :href="
+                                institute.linkedin_url
+                                  ? institute.linkedin_url
+                                  : '#'
+                              "
+                              :disabled="
+                                institute.linkedin_url
+                                  ? false
+                                  : true
+                              "
+                              :class="[
+                                icoLinkedin,
+                                institute.linkedin_url
+                                  ? ''
+                                  : 'disabled',
+                              ]"
+                              title="Linkedin"
+                            ><i
+                              class="fab fa-linkedin"
+                            /></a>
+                          </li>
+                        </ul>
                       </div>
                     </div>
-                  </div>
-                  <div class="card-body">
-                    <div
-                      class="flex"
-                      style="background: #fff"
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      data-placement="top"
+                      title="Edit"
+                      data-toggle="modal"
+                      data-target="#addContactModal"
+                      @click="
+                        editContact(
+                          institute_contact
+                        )
+                      "
                     >
-                      <div class="col-12">
-                        <div class="mapouter">
-                          <div class="gmap_canvas">
-                            <iframe
-                              id="gmap_canvas"
-                              width="100%"
-                              height="500px"
-                              src="https://maps.google.com/maps?q=26.9024375%2075.78706249999999&t=&z=11&ie=UTF8&iwloc=&output=embed"
-                            /><a
-                              href="https://yt2.org/youtube-to-mp3-ALeKk00qEW0sxByTDSpzaRvl8WxdMAeMytQ1611842368056QMMlSYKLwAsWUsAfLipqwCA2ahUKEwiikKDe5L7uAhVFCuwKHUuFBoYQ8tMDegUAQCSAQCYAQCqAQdnd3Mtd2l6"
-                            /><br>
+                      <i
+                        class="fas fa-pencil-alt"
+                        style="color: white"
+                      />
+                      Edit
+                    </button>
+                    <button
+                      class="btn btn-primary"
+                      type="button"
+                      data-toggle="tooltip"
+                      data-placement="top"
+                      title="Delete"
+                      @click="
+                        deleteContact(
+                          institute_contact
+                        )
+                      "
+                    >
+                      <i class="fa fa-trash" />
+                    </button>
+                  </div>
+                </div>
+                <modal
+                  id="addContactModal"
+                  key="addContactModal"
+                  ref="addContactModal"
+                  name="addContactModal"
+                  class="model-md"
+                  heading="Add Contact Details"
+                  @submit="addOrEditContact()"
+                >
+                  <template slot="modalBody">
+                    <form validationScope="add_contact_form">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <div class="inner-addon left-addon">
+                              <div class="cl_input">
+                                <label
+                                  for="email"
+                                >Email</label>
+                                <input
+                                  id="email"
+                                  v-model="
+                                    edit_institute_contact.email
+                                  "
+                                  v-validate="'required'"
+                                  name="fullname"
+                                  class="form-control"
+                                  placeholder="write Email here"
+                                ><span
+                                  class="text-danger"
+                                >{{ formErrors("add_contact_form.edit_institute_contact") }}</span>
+                                <label
+                                  for="phoneno"
+                                >Phone Number</label>
+                                <input
+                                  id="phoneno"
+                                  v-model="
+                                    edit_institute_contact.phone_no
+                                  "
+                                  v-validate="'required'"
+                                  name="phoneno"
+                                  class="form-control"
+                                  placeholder="write Phone Number here"
+                                ><span
+                                  class="text-danger"
+                                >{{
+                                  formErrors(
+                                    "add_contact_form.edit_institute_contact"
+                                  )
+                                }}</span>
+                                <label
+                                  for="phoneno2"
+                                >Phone Number2</label>
+                                <input
+                                  id="phoneno2"
+                                  v-model="
+                                    edit_institute_contact.phone_no2
+                                  "
+                                  name="phoneno2"
+                                  class="form-control"
+                                  placeholder="write Phone Number here"
+                                >
+                                <label
+                                  for="department"
+                                >Department Name</label>
+                                <input
+                                  id="department"
+                                  v-model="
+                                    edit_institute_contact.department
+                                  "
+                                  name="department"
+                                  class="form-control"
+                                  placeholder="write Department Name here"
+                                >
+                              </div>
+                            </div>
                           </div>
+                        </div>
+                      </div>
+                    </form>
+                  </template>
+                </modal>
+              </div>
+              <div class="card mt-3">
+                <div class="card-header">
+                  <div class="row">
+                    <div class="col-md-10">
+                      <h4>Location</h4>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div
+                    class="flex"
+                    style="background: #fff"
+                  >
+                    <div class="col-12">
+                      <div class="mapouter">
+                        <div class="gmap_canvas">
+                          <iframe
+                            id="gmap_canvas"
+                            width="100%"
+                            height="500px"
+                            src="https://maps.google.com/maps?q=26.9024375%2075.78706249999999&t=&z=11&ie=UTF8&iwloc=&output=embed"
+                          /><a
+                            href="https://yt2.org/youtube-to-mp3-ALeKk00qEW0sxByTDSpzaRvl8WxdMAeMytQ1611842368056QMMlSYKLwAsWUsAfLipqwCA2ahUKEwiikKDe5L7uAhVFCuwKHUuFBoYQ8tMDegUAQCSAQCYAQCqAQdnd3Mtd2l6"
+                          /><br>
                         </div>
                       </div>
                     </div>
@@ -1335,133 +1514,6 @@
               </div>
             </div>
           </div>
-          <modal
-            id="editAdmiModal"
-            key="editAdmiModal"
-            ref="editAdmiModal"
-            name="editAdmiModal"
-            class="model"
-            heading="Edit Administrator Details"
-            @submit="savedetails()"
-          >
-            <template slot="modalBody">
-              <form validationScope="edit_administrator_form">
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <div class="inner-addon left-addon">
-                        <div class="cl_input">
-                          <label
-                            for="full"
-                          >Full Name</label>
-                          <input
-                            id="fullName"
-                            v-model="name"
-                            v-validate="'required'"
-                            name="fullname"
-                            class="form-control"
-                            placeholder="write Full Name here"
-                          >
-                          <label
-                            for="position"
-                          >Position</label>
-                          <input
-                            id="postionName"
-                            v-model="role"
-                            v-validate="'required'"
-                            name="positionname"
-                            class="form-control"
-                            placeholder="write Position Name here"
-                          >
-                          <label
-                            for="phoneno"
-                          >Phone Number</label>
-                          <input
-                            id="phoneno"
-                            v-model="phone_no"
-                            v-validate="'required'"
-                            name="phoneno"
-                            class="form-control"
-                            placeholder="write Phone Number here"
-                          >
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </form>
-            </template>
-          </modal>
-          <modal
-            id="addContactModal"
-            key="addContactModal"
-            ref="addContactModal"
-            name="addContactModal"
-            class="model-md"
-            heading="Add Contact Details"
-            @submit="addOrEditContact()"
-          >
-            <template slot="modalBody">
-              <form validationScope="add_contact_form">
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <div class="inner-addon left-addon">
-                        <div class="cl_input">
-                          <label
-                            for="email"
-                          >Email</label>
-                          <input
-                            id="email"
-                            v-model="
-                              edit_institute_contact.email
-                            "
-                            v-validate="'required'"
-                            name="fullname"
-                            class="form-control"
-                            placeholder="write Email here"
-                          ><span
-                            class="text-danger"
-                          >{{ formErrors("add_contact_form.edit_institute_contact") }}</span>
-                          <label
-                            for="phoneno"
-                          >Phone Number</label>
-                          <input
-                            id="phoneno"
-                            v-model="
-                              edit_institute_contact.phone_no
-                            "
-                            v-validate="'required'"
-                            name="phoneno"
-                            class="form-control"
-                            placeholder="write Phone Number here"
-                          ><span
-                            class="text-danger"
-                          >{{
-                            formErrors(
-                              "add_contact_form.edit_institute_contact"
-                            )
-                          }}</span>
-                          <label
-                            for="phoneno2"
-                          >Phone Number2</label>
-                          <input
-                            id="phoneno2"
-                            v-model="
-                              edit_institute_contact.phone_no2
-                            "
-                            name="phoneno2"
-                            class="form-control"
-                            placeholder="write Phone Number here"
-                          >
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </form>
-            </template>
-          </modal>
         </template>
 
         <template slot="tab-heading-posts">
@@ -1708,6 +1760,8 @@ export default {
                     youtube_vedio_url: "",
                     address:"",
                     website:"",
+                    city:"",
+                    state:"",
                 };
             }
         },
@@ -1822,6 +1876,7 @@ export default {
                     email: this.edit_institute_contact.email,
                     phone_no: this.edit_institute_contact.phone_no,
                     phone_no2: this.edit_institute_contact.phone_no2,
+                    department: this.edit_institute_contact.department,
                     edit_institute_contact_id: this.edit_institute_contact.id,
                 })
                 .then((resp) => {
@@ -1832,6 +1887,7 @@ export default {
                             resp.data.success.edit_institute_contact.phone_no,
                         phone_no2:
                             resp.data.success.edit_institute_contact.phone_no2,
+                        department:resp.data.success.edit_institute_contact.department,
                         id: resp.data.success.edit_institute_contact.id,
                     });
                     this.$refs.addContactModal.closeModal();

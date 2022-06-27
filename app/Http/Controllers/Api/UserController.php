@@ -103,32 +103,6 @@ class UserController extends Controller
             'profile'=>$profile
         ]]);
     }
-    public function saveInstiProfile(Request $request){
-        $me=$request->user('api');
-        $profile=Institute::where('added_by_user_id',$me->id)->first();
-        if($request->fb_url){
-            $profile->fb_url=$request->fb_url;
-        }
-        if($request->twitter_url){
-            $profile->twitter_url=$request->twitter_url;
-        }
-        if($request->insta_url){
-            $profile->insta_url=$request->insta_url;
-        }
-        if($request->linkedin_url){
-            $profile->linkedin_url=$request->linkedin_url;
-        }
-        if($request->youtube_vedio_url){
-            $profile->youtube_vedio_url=$request->youtube_vedio_url;
-        }
-        $profile->website =$request->website;
-        $profile->address =$request->address;
-       
-        $profile->save();
-        return response()->json(['success'=>[
-            'profile'=>$profile
-        ]]);
-    }
     public function addCourseInstitute(User $user,Request $request){
         $me = $request->user('api');
         $teacher = new Teacher();

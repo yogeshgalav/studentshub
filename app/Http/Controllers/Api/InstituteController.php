@@ -300,6 +300,7 @@ class InstituteController extends Controller
             $institute_contacts->email = $request->email;
             $institute_contacts->phone_no = $request->phone_no;
             $institute_contacts->phone_no2 =$request->phone_no2;
+            $institute_contacts->department =$request->department;
             $institute_contacts->institute_id = $instituteId;
             $institute_contacts->save();
 
@@ -313,5 +314,33 @@ class InstituteController extends Controller
         $institute_contacts = InstituteContact::find($contact_id);
         $institute_contacts->delete();
         return 'success';
+    }
+    public function saveInstiProfile(Request $request){
+        $me=$request->user('api');
+        $profile=Institute::where('added_by_user_id',$me->id)->first();
+        if($request->fb_url){
+            $profile->fb_url=$request->fb_url;
+        }
+        if($request->twitter_url){
+            $profile->twitter_url=$request->twitter_url;
+        }
+        if($request->insta_url){
+            $profile->insta_url=$request->insta_url;
+        }
+        if($request->linkedin_url){
+            $profile->linkedin_url=$request->linkedin_url;
+        }
+        if($request->youtube_vedio_url){
+            $profile->youtube_vedio_url=$request->youtube_vedio_url;
+        }
+        $profile->website =$request->website;
+        $profile->address =$request->address;
+        $profile->city =$request->city;
+        $profile->state =$request->state;
+       
+        $profile->save();
+        return response()->json(['success'=>[
+            'profile'=>$profile
+        ]]);
     }
 }
