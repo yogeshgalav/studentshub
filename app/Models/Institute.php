@@ -27,6 +27,9 @@ class Institute extends Model
     }
     public static function getFirstOrCreateId($institute)
     {
+        if(empty($institute)){
+            return null;
+        }
         if($institute['id']){
             return self::find($institute['id'])->id;
         }

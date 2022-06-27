@@ -42,31 +42,21 @@
           {{ 'Subjects' }}
         </template>
         <template slot="tab-panel-subjects">
-          <div class="row">
-            <div class="col-md-7">
-              <div v-if="!subjects.length">
-                <img
-                  class="search-not-found"
-                  src="/images/search-not-found.png"
-                >
-                <p style="text-align:center;">
-                  Currently no subject have been shared related to this category.
-                </p>
-              </div>
-              <div 
-                v-for="(subject,index) in subjects"
-                :key="index"
-                class="card mb-2"
+          <SubjectContainer
+            v-if="AuthUser.preferred_course_id"
+            :subject-route="'/course/'+AuthUser.preferred_course_id"
+            :subjects="subjects"
+          >
+            <template slot="empty">
+              <img
+                class="search-not-found"
+                src="/images/search-not-found.png"
               >
-                <div class="card-body">
-                  <a
-                    :href="'/subject/'+subject.slug" 
-                    class="text-black font-size-18"
-                  >{{ subject.subject_name }}</a>
-                </div>
-              </div>
-            </div>
-          </div>
+              <p style="text-align:center;">
+                Currently no Subject have been shared in your course.
+              </p>
+            </template>
+          </SubjectContainer>
         </template>
         <template slot="tab-heading-posts">
           {{ 'Posts' }}
@@ -119,10 +109,11 @@ import NavTabs from '../../components/NavTabs';
 import SelectCourse from '../../components/SelectCourse.vue';
 import PostContainer from './post-container.vue';
 import DoubtContainer from '@/Pages/doubt/doubt-container.vue';
+import SubjectContainer from '@/Pages/common/subject-container.vue';
 
 export default {
 	components: {
-		NavTabs, PostContainer, DoubtContainer, SelectCourse
+		NavTabs, PostContainer, DoubtContainer, SelectCourse, SubjectContainer,
 	},
 	data() {
 		return {

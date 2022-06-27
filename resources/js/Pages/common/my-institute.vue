@@ -94,19 +94,20 @@
           </div>
           <h3 style="margin: 20px 0px 0px 20px">
             {{ institute ? institute.name : "My Institute" }}
-            <button
-              type="button"
-              class="btn btn-primary"
-              data-toggle="modal"
-              data-target="#addEditInstituteModal"
-            >
-              <i
-                class="fas fa-pencil-alt"
-                style="color: white"
-              />
-              Edit
-            </button>
           </h3>
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-toggle="modal"
+            data-target="#addEditInstituteModal"
+          >
+            <i
+              class="fas fa-pencil-alt"
+              style="color: white"
+            />
+            Edit
+          </button>
+      
           <p style="margin-left: 20px">
             Lorem ipsum dolor sit amet, consectetur adipiscing
             elit.<br>
@@ -374,6 +375,132 @@
                         name="state"
                         class="form-control"
                         placeholder="write State here"
+                        @input="dataUpdated"
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </template>
+      </modal>
+      <modal
+        id="addEditInstituteModal"
+        key="addEditInstituteModal"
+        ref="addEditInstituteModal"
+        name="addEditInstituteModal"
+        class="model-md"
+        heading="Profile Info"
+        @submit="saveProfile()"
+      >
+        <template slot="modalBody">
+          <form validationScope="add_institute_form">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <div class="inner-addon left-addon">
+                    <div class="cl_input">
+                      <label
+                        for="email"
+                      >Facebook Profile Url</label>
+                      <input
+                        v-model="
+                          institute.fb_url
+                        "
+                        class="form-control"
+                        type="text"
+                        placeholder="http://facebook.com/profile-id"
+                        @input="dataUpdated"
+                      >
+                      <span
+                        class="text-danger"
+                      >{{
+                        errors.fb_url
+                      }}</span>
+                      <label>Twitter Url</label>
+                      <input
+                        v-model="
+                          institute.twitter_url
+                        "
+                        class="form-control"
+                        type="text"
+                        placeholder="http://twitter.com/profile-id"
+                        @input="dataUpdated"
+                      ><span
+                        class="text-danger"
+                      >{{
+                        errors.twitter_url
+                      }}</span>
+                      <label>Instagram
+                        Username</label>
+                      <input
+                        v-model="
+                          institute.insta_url
+                        "
+                        class="form-control"
+                        type="text"
+                        placeholder="http://instagram.com/profile-id"
+                        @input="dataUpdated"
+                      ><span
+                        class="text-danger"
+                      >{{
+                        errors.insta_url
+                      }}</span>
+                      <label>Linkedin Profile
+                        Url</label>
+                      <input
+                        v-model="
+                          institute.linkedin_url
+                        "
+                        class="form-control"
+                        type="text"
+                        placeholder="http://linked.com/profile-id"
+                        @input="dataUpdated"
+                      ><span
+                        class="text-danger"
+                      >{{
+                        errors.linkedin_url
+                      }}</span>
+                      <label>Youtube Vedio
+                        Url</label>
+                      <input
+                        v-model="
+                          institute.youtube_vedio_url
+                        "
+                        class="form-control"
+                        type="text"
+                        placeholder="http://youtube.com/profile-id"
+                        @input="dataUpdated"
+                      ><span
+                        class="text-danger"
+                      >{{
+                        errors.youtube_vedio_url
+                      }}</span>
+                      <label
+                        for="website"
+                      >Website</label>
+                      <input
+                        id="website"
+                        v-model="
+                          institute.website
+                        "
+                        name="website"
+                        class="form-control"
+                        placeholder="write website Name here"
+                        @input="dataUpdated"
+                      >
+                      <label
+                        for="address"
+                      >Address</label>
+                      <input
+                        id="address"
+                        v-model="
+                          institute.address
+                        "
+                        name="address"
+                        class="form-control"
+                        placeholder="write Address here"
                         @input="dataUpdated"
                       >
                     </div>
@@ -796,25 +923,7 @@
                   </template>
                 </modal>
               </Accordion>
-              <div class="card mt-3">
-                <div class="card-header">
-                  <div class="row">
-                    <div class="col-md-10">
-                      <h4>
-                        Administrators of Institute
-                      </h4>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card mt-3">
-                <div class="card-header">
-                  <div class="row">
-                    <div class="col-md-10">
-                      <h4>Instagram</h4>
-                    </div>
-                  </div>
-                </div>
+              <Accordion title="Instagram">
                 <div class="card-body">
                   <div class="col-md-3">
                     <blockquote
@@ -1177,37 +1286,35 @@
                     </blockquote>
                   </div>
                 </div>
-              </div>
-              <div class="card mt-3">
-                <div class="card-header">
-                  <div class="row">
-                    <div class="col-md-10">
-                      <h4>Contact-Us</h4>
-                    </div>
-                    <div class="col-md-2">
-                      <button
-                        v-if="isEdit"
-                        type="button"
-                        class="btn btn-primary"
-                        data-toggle="modal"
-                        data-target="#addContactModal"
-                        @click="addContactDetails"
-                      >
-                        Add
-                      </button>
-                      <button
-                        v-else
-                        type="button"
-                        class="btn btn-primary"
-                        @click="
-                          saveContactDetails()
-                        "
-                      >
-                        Save
-                      </button>
-                    </div>
-                  </div>
+              </Accordion>
+              
+           
+              <!-- contact-us section -->
+
+              <Accordion title="Contact-Us">
+                <div class="col-md-2">
+                  <button
+                    v-if="isEdit"
+                    type="button"
+                    class="btn btn-primary"
+                    data-toggle="modal"
+                    data-target="#addContactModal"
+                    @click="addContactDetails"
+                  >
+                    Add
+                  </button>
+                  <button
+                    v-else
+                    type="button"
+                    class="btn btn-primary"
+                    @click="
+                      saveContactDetails()
+                    "
+                  >
+                    Save
+                  </button>
                 </div>
+                       
                 <div class="card-body">
                   <div
                     v-for="(
@@ -1481,15 +1588,11 @@
                     </form>
                   </template>
                 </modal>
-              </div>
-              <div class="card mt-3">
-                <div class="card-header">
-                  <div class="row">
-                    <div class="col-md-10">
-                      <h4>Location</h4>
-                    </div>
-                  </div>
-                </div>
+              </Accordion>
+             
+     
+              <!-- location section -->
+              <Accordion title="Location">
                 <div class="card-body">
                   <div
                     class="flex"
@@ -1511,7 +1614,7 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </Accordion>
             </div>
           </div>
         </template>
@@ -1610,7 +1713,16 @@
 .profile-info {
     margin-top: 30px;
 }
+
+.delete_Institute_User {
+    position: absolute;
+    background-color: white;
+    bottom: 156px;
+    right: -35px;
+}
 </style>
+
+import Accordion from "../../components/accordion.vue";
 <script async src="//www.instagram.com/embed.js" />
 <script>
 import Accordion from "@/components/accordion.vue";
@@ -1648,6 +1760,10 @@ export default {
                 email: "",
                 phone_no: "",
                 phone_no2: "",
+            },
+            edit_institute: {
+                website: "",
+                address: "",
             },
             user_id: "",
             role: "",
@@ -1864,7 +1980,6 @@ export default {
         addOrEditContact() {
             this.validateForm().then((valid) => {
                 if (valid) {
-                   console.log('xyz');
                     this.contactCreateOrUpdateApi();
                 }
             });
@@ -1877,6 +1992,8 @@ export default {
                     phone_no: this.edit_institute_contact.phone_no,
                     phone_no2: this.edit_institute_contact.phone_no2,
                     department: this.edit_institute_contact.department,
+                    website: this.edit_institute.website,
+                    address: this.edit_institute.address,
                     edit_institute_contact_id: this.edit_institute_contact.id,
                 })
                 .then((resp) => {
@@ -1889,6 +2006,8 @@ export default {
                             resp.data.success.edit_institute_contact.phone_no2,
                         department:resp.data.success.edit_institute_contact.department,
                         id: resp.data.success.edit_institute_contact.id,
+                        website: resp.data.success.edit_institute.website,
+                        address: resp.data.success.edit_institute.address,
                     });
                     this.$refs.addContactModal.closeModal();
                     this.clearModalData();
@@ -1914,7 +2033,9 @@ export default {
             this.edit_institute_contact.email = "";
             this.edit_institute_contact.phone_no = "";
             this.edit_institute_contact.phone_no2 = "";
-            },
+            this.edit_institute.website = "";
+            this.edit_institute.address = "";
+        },
         submitCourse() {
             this.axios
                 .put("/api/preferred-details", {

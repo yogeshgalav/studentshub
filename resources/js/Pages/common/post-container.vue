@@ -2,7 +2,10 @@
   <section>
     <div class="row">
       <div class="col-md-10 col-sm-12">
-        <div class="card mb-3 mt-2 pt-0 pb-0">
+        <div
+          v-if="AuthUser"
+          class="card mb-3 mt-2 pt-0 pb-0"
+        >
           <div class="card-body">
             <div class="row pl-3">
               <profile-image

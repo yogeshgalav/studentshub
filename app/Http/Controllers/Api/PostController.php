@@ -138,43 +138,38 @@ class PostController extends Controller
     public function getPosts($dashboard_type=null,$dashboard_id=null,Request $request){
         $post_repo=new \App\Post;
         $post_query=$post_repo->getAuthUserPostTabels();
-        $posts=$post_query->orderBy('po.created_at','DESC');
+        $post_query=$post_query->orderBy('po.created_at','DESC');
 
         switch($dashboard_type){
           case 'institute':
-            $post_query=$post_query->where('inst.id',$dashboard_id)
-            ->orderBy('po.created_at','DESC');
+            $post_query=$post_query->where('inst.id',$dashboard_id);
             break;
           case 'course':
-            $posts=$post_query->where('po.course_id',$dashboard_id)
-            ->orderBy('po.created_at','DESC');
+            $post_query=$post_query->where('po.course_id',$dashboard_id);
             break;
           case 'subject':
-            $posts=$post_query->leftJoin('post_tags as pt','pt.post_id','=','po.id')
-            ->where('pt.subject_id',$dashboard_id)
-            ->orderBy('po.created_at','DESC');
+            $post_query=$post_query->leftJoin('post_tags as pt','pt.post_id','=','po.id')
+            ->where('pt.subject_id',$dashboard_id);
             break;
           case 'category':
-            $posts=$post_query->where('cat.id',$dashboard_id)
-            ->orderBy('po.created_at','DESC');
+            $post_query=$post_query->where('cat.id',$dashboard_id);
             break;
           case 'user':
-            $posts=$post_query->where('po.user_id',$dashboard_id)
-            ->orderBy('po.created_at','DESC');
+            $post_query=$post_query->where('po.user_id',$dashboard_id);
             break;
           default:
-            $posts=$post_query->orderBy('po.created_at','DESC');
+            $post_query=$post_query;
             break;
         }
 
         if($request->user('api')){
-          $posts=$post_query->paginate(10);
+          $posts=$post_repo->formatPostData($post_query->paginate(10));
         }else{
-          $posts['data']=$post_query->limit(10)->get();
+          $posts['data']=$post_repo->formatPostData($post_query->limit(10)->get());
         }
         
         return response()->json(['success'=>[
-          'posts'=>$post_repo->formatPostData($posts),
+          'posts'=>$posts,
         ]]);
     }
 
