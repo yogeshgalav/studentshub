@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="p-0">
+  <div style="margin-top: 20px;" >
+    <div >
       <div class="tab__header">
         <a
           href="#"
@@ -66,7 +66,7 @@
 
 .tab__header .down-Arrow,
 .up-Arrow {
-    border-left: 1px solid #ccc !important;
+    // border-left: 1px solid #ccc !important;
     padding: 15px 20px 15px 20px;
 }
 </style>

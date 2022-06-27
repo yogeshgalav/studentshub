@@ -94,7 +94,6 @@
           </div>
           <h3 style="margin: 20px 0px 0px 20px">
             {{ institute ? institute.name : "My Institute" }}
-            
           </h3>
           
           <p style="margin-left: 20px">
