@@ -250,7 +250,7 @@
                   <div class="inner-addon left-addon">
                     <div class="cl_input">
                       <label
-                        for="email"
+                        for="fb_url"
                       >Facebook Profile Url</label>
                       <input
                         v-model="
@@ -375,132 +375,6 @@
                         name="state"
                         class="form-control"
                         placeholder="write State here"
-                        @input="dataUpdated"
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </form>
-        </template>
-      </modal>
-      <modal
-        id="addEditInstituteModal"
-        key="addEditInstituteModal"
-        ref="addEditInstituteModal"
-        name="addEditInstituteModal"
-        class="model-md"
-        heading="Profile Info"
-        @submit="saveProfile()"
-      >
-        <template slot="modalBody">
-          <form validationScope="add_institute_form">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <div class="inner-addon left-addon">
-                    <div class="cl_input">
-                      <label
-                        for="email"
-                      >Facebook Profile Url</label>
-                      <input
-                        v-model="
-                          institute.fb_url
-                        "
-                        class="form-control"
-                        type="text"
-                        placeholder="http://facebook.com/profile-id"
-                        @input="dataUpdated"
-                      >
-                      <span
-                        class="text-danger"
-                      >{{
-                        errors.fb_url
-                      }}</span>
-                      <label>Twitter Url</label>
-                      <input
-                        v-model="
-                          institute.twitter_url
-                        "
-                        class="form-control"
-                        type="text"
-                        placeholder="http://twitter.com/profile-id"
-                        @input="dataUpdated"
-                      ><span
-                        class="text-danger"
-                      >{{
-                        errors.twitter_url
-                      }}</span>
-                      <label>Instagram
-                        Username</label>
-                      <input
-                        v-model="
-                          institute.insta_url
-                        "
-                        class="form-control"
-                        type="text"
-                        placeholder="http://instagram.com/profile-id"
-                        @input="dataUpdated"
-                      ><span
-                        class="text-danger"
-                      >{{
-                        errors.insta_url
-                      }}</span>
-                      <label>Linkedin Profile
-                        Url</label>
-                      <input
-                        v-model="
-                          institute.linkedin_url
-                        "
-                        class="form-control"
-                        type="text"
-                        placeholder="http://linked.com/profile-id"
-                        @input="dataUpdated"
-                      ><span
-                        class="text-danger"
-                      >{{
-                        errors.linkedin_url
-                      }}</span>
-                      <label>Youtube Vedio
-                        Url</label>
-                      <input
-                        v-model="
-                          institute.youtube_vedio_url
-                        "
-                        class="form-control"
-                        type="text"
-                        placeholder="http://youtube.com/profile-id"
-                        @input="dataUpdated"
-                      ><span
-                        class="text-danger"
-                      >{{
-                        errors.youtube_vedio_url
-                      }}</span>
-                      <label
-                        for="website"
-                      >Website</label>
-                      <input
-                        id="website"
-                        v-model="
-                          institute.website
-                        "
-                        name="website"
-                        class="form-control"
-                        placeholder="write website Name here"
-                        @input="dataUpdated"
-                      >
-                      <label
-                        for="address"
-                      >Address</label>
-                      <input
-                        id="address"
-                        v-model="
-                          institute.address
-                        "
-                        name="address"
-                        class="form-control"
-                        placeholder="write Address here"
                         @input="dataUpdated"
                       >
                     </div>
@@ -888,7 +762,7 @@
                                   id="fullName"
                                   v-model="name"
                                   v-validate="'required'"
-                                  name="fullname"
+                                  name="full_name"
                                   class="form-control"
                                   placeholder="write Full Name here"
                                 >
@@ -899,20 +773,20 @@
                                   id="postionName"
                                   v-model="role"
                                   v-validate="'required'"
-                                  name="positionname"
+                                  name="position_name"
                                   class="form-control"
                                   placeholder="write Position Name here"
                                 >
                                 <label
-                                  for="phoneno"
+                                  for="admin_phone_no"
                                 >Phone Number</label>
                                 <input
-                                  id="phoneno"
+                                  id="admin_phone_no"
                                   v-model="phone_no"
                                   v-validate="'required'"
-                                  name="phoneno"
+                                  name="admin_phone_no"
                                   class="form-control"
-                                  placeholder="write Phone Number here"
+                                  placeholder="write Admin Phone Number here"
                                 >
                               </div>
                             </div>
@@ -1531,40 +1405,40 @@
                                     edit_institute_contact.email
                                   "
                                   v-validate="'required'"
-                                  name="fullname"
+                                  name="email"
                                   class="form-control"
                                   placeholder="write Email here"
                                 ><span
                                   class="text-danger"
-                                >{{ formErrors("add_contact_form.edit_institute_contact") }}</span>
+                                >{{ formErrors("add_contact_form.email") }}</span>
                                 <label
-                                  for="phoneno"
+                                  for="phone_no"
                                 >Phone Number</label>
                                 <input
-                                  id="phoneno"
+                                  id="phone_no"
                                   v-model="
                                     edit_institute_contact.phone_no
                                   "
                                   v-validate="'required'"
-                                  name="phoneno"
+                                  name="phone_no"
                                   class="form-control"
                                   placeholder="write Phone Number here"
                                 ><span
                                   class="text-danger"
                                 >{{
                                   formErrors(
-                                    "add_contact_form.edit_institute_contact"
+                                    "add_contact_form.phone_no"
                                   )
                                 }}</span>
                                 <label
-                                  for="phoneno2"
+                                  for="phone_no2"
                                 >Phone Number2</label>
                                 <input
-                                  id="phoneno2"
+                                  id="phone_no2"
                                   v-model="
                                     edit_institute_contact.phone_no2
                                   "
-                                  name="phoneno2"
+                                  name="phone_no2"
                                   class="form-control"
                                   placeholder="write Phone Number here"
                                 >
@@ -1978,7 +1852,8 @@ export default {
             window.location.reload();
         },
         addOrEditContact() {
-            this.validateForm().then((valid) => {
+            this.validateForm('add_contact_form').then((valid) => {
+              console.log(valid);
                 if (valid) {
                     this.contactCreateOrUpdateApi();
                 }
