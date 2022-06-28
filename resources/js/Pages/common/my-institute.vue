@@ -94,19 +94,20 @@
           </div>
           <h3 style="margin: 20px 0px 0px 20px">
             {{ institute ? institute.name : "My Institute" }}
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-toggle="modal"
+              data-target="#addEditInstituteModal"
+            >
+              <i
+                class="fas fa-pencil-alt"
+                style="color: white"
+              />
+              Edit
+            </button>
           </h3>
-          <button
-            type="button"
-            class="btn btn-primary"
-            data-toggle="modal"
-            data-target="#addEditInstituteModal"
-          >
-            <i
-              class="fas fa-pencil-alt"
-              style="color: white"
-            />
-            Edit
-          </button>
+          
       
           <p style="margin-left: 20px">
             Lorem ipsum dolor sit amet, consectetur adipiscing
@@ -637,7 +638,7 @@
 
                 
               <Accordion title="Administrators">
-                <div class="col-md-2">
+                <div class="edit-btn-row">
                   <button
                     v-if="isEdit"
                     type="button"
@@ -659,38 +660,47 @@
                     Save
                   </button>
                 </div>
-                <div class="card-body">
+                <div class="card-body ">
                   <div v-if="institute_users.length">
-                    <div class="row">
+                    <div
+                      class="row d-inline-flex align-items-center justify-content-center"
+                      style="gap: 40px;"
+                    >
                       <div
                         v-for="(
                           instituteuser, index
                         ) in institute_users"
                         :key="index"
-                        class="col-md-2"
+                        class="Administrator-profile"
                       >
-                        <img
-                          src="/images/default-avatar.png"
-                          alt="Student Hub"
-                          width="100"
-                          height="100"
-                          style="
-                                                            border-radius: 50px;
+                        <div>
+                          <img
+                            src="/images/default-avatar.png"
+                            alt="Student Hub"
+                            width="120"
+                            height="120"
+                            style="
+                                                            border-radius: 50%;
                                                         "
-                        >
-                        <p
-                          style="
-                                                            text-align: center;
-                                                        "
-                        >
+                          >
+                        </div>
+    
+   
+                        <div style="font-size: 15px; font-weight:800">
                           {{
                             instituteuser.user_name
-                          }}<br>{{
+                          }}
+                        </div>
+                        <div style="font-size: 15px; font-weight:500">
+                          {{
                             instituteuser.role
-                          }}<br>
+                          }}
+                        </div>
+                        <div style="height: 30px;">
                           <button
+                            class="btn btn-primary"
                             type="button"
-                            data-toggle="modal"
+                            data-toggle="tooltip"
                             data-placement="top"
                             title="Delete"
                             @click="
@@ -699,12 +709,9 @@
                               )
                             "
                           >
-                            <i
-                              class="fas fa-trash"
-                              aria-hidden="true"
-                            />
+                            <i class="fa fa-trash" />
                           </button>
-                        </p>
+                        </div>
                       </div>
                       <div class="col-md-2">
                         <button
@@ -713,7 +720,10 @@
                           data-target="#editAdmiModal"
                           style="
                                                             font-size: 60px;
-                                                            background-color: white;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    background-color: white;
                                                         "
                         >
                           <i class="fa fa-plus" />
@@ -1166,7 +1176,7 @@
               <!-- contact-us section -->
 
               <Accordion title="Contact-Us">
-                <div class="col-md-2">
+                <div class="edit-btn-row">
                   <button
                     v-if="isEdit"
                     type="button"
@@ -1197,7 +1207,7 @@
                     :key="index"
                     class="row"
                   >
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                       <h5>
                         <i
                           class="fas fa-envelope"
@@ -1345,39 +1355,41 @@
                         </ul>
                       </div>
                     </div>
-                    <button
-                      type="button"
-                      class="btn btn-primary"
-                      data-placement="top"
-                      title="Edit"
-                      data-toggle="modal"
-                      data-target="#addContactModal"
-                      @click="
-                        editContact(
-                          institute_contact
-                        )
-                      "
-                    >
-                      <i
-                        class="fas fa-pencil-alt"
-                        style="color: white"
-                      />
-                      Edit
-                    </button>
-                    <button
-                      class="btn btn-primary"
-                      type="button"
-                      data-toggle="tooltip"
-                      data-placement="top"
-                      title="Delete"
-                      @click="
-                        deleteContact(
-                          institute_contact
-                        )
-                      "
-                    >
-                      <i class="fa fa-trash" />
-                    </button>
+                    <div class="contact-btn-col" style="margin-bottom:20px" >
+                      <button
+                        type="button"
+                        class="btn btn-primary"
+                        data-placement="top"
+                        title="Edit"
+                        data-toggle="modal"
+                        data-target="#addContactModal"
+                        @click="
+                          editContact(
+                            institute_contact
+                          )
+                        "
+                      >
+                        <i
+                          class="fas fa-pencil-alt"
+                          style="color: white"
+                        />
+                        Edit
+                      </button>
+                      <button
+                        class="btn btn-primary"
+                        type="button"
+                        data-toggle="tooltip"
+                        data-placement="top"
+                        title="Delete"
+                        @click="
+                          deleteContact(
+                            institute_contact
+                          )
+                        "
+                      >
+                        <i class="fa fa-trash" />
+                      </button>
+                    </div>
                   </div>
                 </div>
                 <modal
@@ -1594,6 +1606,23 @@
     bottom: 156px;
     right: -35px;
 }
+.Administrator-profile {
+  display: inline-flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  gap: 5px;
+  text-align: center;
+}
+.edit-btn-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  align-items: center;
+  align-content: center;
+}
+
 </style>
 
 import Accordion from "../../components/accordion.vue";
