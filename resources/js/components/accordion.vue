@@ -38,18 +38,13 @@
     padding: 0 !important;
 }
 .tab__header {
-    background: #fbfbfb;
+  border-bottom: 1px solid black;
 }
-
 .tab__header a {
-    color: $text !important;
+    color: black;
     text-decoration: none;
     display: flex !important;
     line-height: 38px;
-}
-.tab__header a:hover,
-.tab__header a:focus {
-    background-color: #deedf9;
 }
 
 .tab__header a strong {
