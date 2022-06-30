@@ -95,6 +95,7 @@
           <h3 style="margin: 20px 0px 0px 20px">
             {{ institute ? institute.name : "My Institute" }}
             <button
+              v-if="editPermission"
               type="button"
               class="btn btn-link"
               data-toggle="modal"
@@ -624,18 +625,25 @@
         <template slot="tab-panel-about">
           <div id="about-html">
             <div class="col-md-10">
-              <p>
-                thanks! Your account is created. <br>
-                Our team will soon contact you on phone for
-                account verification.<br>
-                Once account verified you will be able to
-                promote your institute to thousands of
-                students.
-              </p>
-
-                
-              <Accordion title="Administrators">
-                <div class="edit-btn-row">
+              <div v-if="editPermission">
+                <p v-if="instituteVerified===false">
+                  thanks! Your account is created. <br>
+                  Our team will soon contact you on phone for
+                  account verification.<br>
+                  Once account verified you will be able to
+                  promote your institute to thousands of
+                  students.
+                </p>
+              </div>
+         
+              <Accordion
+                v-if="instituteVerified===true"
+                title="Administrators"
+              >
+                <div
+                  v-if="editPermission"
+                  class="edit-btn-row"
+                >
                   <button
                     v-if="isEdit"
                     type="button"
@@ -695,6 +703,7 @@
                         </div>
                         <div style="height: 30px;">
                           <button
+                            v-if="editPermission"
                             class="btn btn-primary"
                             type="button"
                             data-toggle="tooltip"
@@ -710,9 +719,12 @@
                           </button>
                         </div>
                       </div>
-                      <div class="col-md-2">
+                      <div
+                        v-if="!isEdit"
+                        class="col-md-2"
+                      >
                         <button
-                          v-if="!isEdit"
+                          v-if="editPermission"
                           data-toggle="modal"
                           data-target="#editAdmiModal"
                           style="
@@ -730,7 +742,10 @@
                   </div>
                   <div v-else>
                     <div class="row">
-                      <div class="col-md-2">
+                      <div 
+                        v-if="editPermission"
+                        class="col-md-2"
+                      >
                         <button
                           v-if="!isEdit"
                           data-toggle="modal"
@@ -804,7 +819,10 @@
                   </template>
                 </modal>
               </Accordion>
-              <Accordion title="Instagram">
+              <Accordion
+                v-if="instituteVerified===true"
+                title="Instagram"
+              >
                 <div class="card-body">
                   <div class="col-md-3">
                     <blockquote
@@ -1175,8 +1193,10 @@
            
               <!-- contact-us section -->
 
-              <Accordion title="Contact-Us">
-                <div class="edit-btn-row">
+              <Accordion title="Contact-Us"
+               v-if="instituteVerified===true">
+                <div
+                v-if="editPermission" class="edit-btn-row">
                   <button
                     v-if="isEdit"
                     type="button"
@@ -1188,7 +1208,7 @@
                     Add
                   </button>
                   <button
-                    v-else
+                   v-else
                     type="button"
                     class="btn btn-primary"
                     @click="
@@ -1360,6 +1380,7 @@
                       style="margin-bottom:20px"
                     >
                       <button
+                      v-if="editPermission"
                         type="button"
                         class="btn btn-primary"
                         data-placement="top"
@@ -1379,6 +1400,7 @@
                         Edit
                       </button>
                       <button
+                      v-if="editPermission"
                         class="btn btn-primary"
                         type="button"
                         data-toggle="tooltip"
@@ -1481,7 +1503,8 @@
              
      
               <!-- location section -->
-              <Accordion title="Location">
+              <Accordion title="Location"
+               v-if="instituteVerified===true">
                 <div class="card-body">
                   <div
                     class="flex"
@@ -1560,6 +1583,7 @@
       <div class="col-md-12 mt-2 mb-2">
         <div class="text-right">
           <button
+          v-if="editPermission"
             class="btn btn-primary mr-2"
             type="button"
             @click="saveProfile"
@@ -1567,6 +1591,7 @@
             Update
           </button>
           <button
+          v-if="editPermission"
             type="button"
             class="btn btn-secondary"
             @click="discard"
@@ -1656,6 +1681,7 @@ export default {
         Modal,
     },
     mixins: [FormMixin],
+    props:['editPermission','instituteVerified'],
     data() {
         return {
             institute_banner_url: "",
@@ -1707,9 +1733,14 @@ export default {
         },
     },
     mounted() {
+  console.log(this.AuthUser.role);
+  console.log(this.instituteVerified);
         this.initiateData();
-
-        if (this.AuthUser.role === "instituteAdmin") {
+        if (this.AuthUser.role !== 'instituteAdmin' && this.instituteVerified==false) {
+            this.tabs.pop("about");
+            console.log(this.tabs.pop);
+        }
+        else{
             this.tabs.unshift("about");
             this.initialTab = "about";
         }

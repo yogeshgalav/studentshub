@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Models\Institute;
+use App\Models\InstituteUser;
 use Auth;
 
 class InstituteController extends Controller
@@ -10,8 +13,18 @@ class InstituteController extends Controller
     //
 
     public function myInstitute()
-    {        
-        return inertia('common/my-institute');
+    {   $me=Auth::id();
+
+        $instituteId = Auth::user()->preferred_institute_id;
+        $editPermission=InstituteUser::where('user_id','=',$me)
+        ->where('role','=','instituteAdmin')
+        ->exists();
+        
+        $instituteVerified=Institute::where('is_verified','=',1)
+        ->where('id','=',$instituteId)
+        ->exists();
+
+        return inertia('common/my-institute', ['editPermission' => $editPermission, 'instituteVerified'=>$instituteVerified]);
     }
     public function Institute($instituteId = null)
     {
