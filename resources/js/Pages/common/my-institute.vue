@@ -1,19 +1,19 @@
 <template>
-  <div class="row">
+  <section class="row">
     <Head>
       <title>{{ institute ? institute.name : "My Institute" }}</title>
     </Head>
     <!-- Header -->
-    <header
-      id="home"
-      style="max-width: 1200px; min-width: 400px"
+    <div
+      v-if="institute"
+      id="institute_header"
+      class="col-md-12"
     >
       <div
         class="card"
-        style="width: 1222px"
       >
-        <div class="card-body">
-          <div class="container">
+        <div class="card-body p-4">
+          <div class="">
             <img
               v-if="institute.avatar_url"
               :src="institute.avatar_url"
@@ -28,7 +28,7 @@
               v-else
               src="/images/banner.png"
               style="
-                                width: 1154px;
+                                width: 100%;
                                 height: 185px;
                                 margin-bottom: -40px;
                                 border-radius: 15px;
@@ -96,23 +96,20 @@
             {{ institute ? institute.name : "My Institute" }}
             <button
               type="button"
-              class="btn btn-primary"
+              class="btn btn-link"
               data-toggle="modal"
               data-target="#addEditInstituteModal"
             >
               <i
-                class="fas fa-pencil-alt"
+                class="fas fa-pencil-alt text-grey"
                 style="color: white"
               />
-              Edit
             </button>
           </h3>
           
       
           <p style="margin-left: 20px">
-            Lorem ipsum dolor sit amet, consectetur adipiscing
-            elit.<br>
-            Aenean a urna non felis elementum varius.
+            {{ institute.description }}
           </p>
           <div>
             <div style="float: right">
@@ -386,7 +383,7 @@
           </form>
         </template>
       </modal>
-    </header>
+    </div>
 
     <div
       v-if="!AuthUser.preferred_institute_id"
@@ -907,6 +904,7 @@
                                                                 width: 50px;
                                                             "
                           >
+                            <!-- eslint-disable  -->
                             <svg
                               width="50px"
                               height="50px"
@@ -915,6 +913,8 @@
                               xmlns="https://www.w3.org/2000/svg"
                               xmlns:xlink="https://www.w3.org/1999/xlink"
                             >
+                          <!-- eslint-disable  -->
+
                               <g
                                 stroke="none"
                                 stroke-width="1"
@@ -1494,7 +1494,7 @@
                             id="gmap_canvas"
                             width="100%"
                             height="500px"
-                            src="https://maps.google.com/maps?q=26.9024375%2075.78706249999999&t=&z=11&ie=UTF8&iwloc=&output=embed"
+                            src="https://maps.google.com/maps?q=26.9024375%2075.78706249999999&t=&z=16&ie=UTF8&iwloc=&output=embed"
                           /><a
                             href="https://yt2.org/youtube-to-mp3-ALeKk00qEW0sxByTDSpzaRvl8WxdMAeMytQ1611842368056QMMlSYKLwAsWUsAfLipqwCA2ahUKEwiikKDe5L7uAhVFCuwKHUuFBoYQ8tMDegUAQCSAQCYAQCqAQdnd3Mtd2l6"
                           /><br>
@@ -1576,13 +1576,14 @@
         </div>
       </div>
     </div>
-  </div>
+    </div>
+  </section>
 </template>
 <style scoped>
 .bottom-right {
     position: absolute;
     background-color: white;
-    bottom: -22px;
+    bottom: 207px;
     right: 35px;
 }
 .container {
