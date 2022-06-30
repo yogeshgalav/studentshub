@@ -268,9 +268,7 @@ class InstituteController extends Controller
         $user =new User;
         $user->phone_id =$user_phone->id;
         $user->full_name =$request->name;
-        $user->password =$user_phone->otp;
         $user->role =$request->role;
-        $user->phone_no =$user_phone->phone_no;
         $user->save();
 
         $institute_user =new InstituteUser;

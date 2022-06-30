@@ -726,7 +726,7 @@
                         <button
                           v-if="editPermission"
                           data-toggle="modal"
-                          data-target="#editAdmiModal"
+                          data-target="#editAdminModal"
                           style="
                                                             font-size: 60px;
     height: 100px;
@@ -749,7 +749,7 @@
                         <button
                           v-if="!isEdit"
                           data-toggle="modal"
-                          data-target="#editAdmiModal"
+                          data-target="#editAdminModal"
                           style="
                                                             font-size: 60px;
                                                             background-color: white;
@@ -762,10 +762,10 @@
                   </div>
                 </div>
                 <modal
-                  id="editAdmiModal"
-                  key="editAdmiModal"
-                  ref="editAdmiModal"
-                  name="editAdmiModal"
+                  id="editAdminModal"
+                  key="editAdminModal"
+                  ref="editAdminModal"
+                  name="editAdminModal"
                   class="model"
                   heading="Edit Administrator Details"
                   @submit="savedetails()"
@@ -1733,8 +1733,6 @@ export default {
         },
     },
     mounted() {
-  console.log(this.AuthUser.role);
-  console.log(this.instituteVerified);
         this.initiateData();
         if (this.AuthUser.role !== 'instituteAdmin' && this.instituteVerified==false) {
             this.tabs.pop("about");
@@ -1760,7 +1758,7 @@ export default {
     },
     methods: {
         addAdministrator() {
-            this.$modal.show("editadmiModal");
+            this.$modal.show("editAdminModal");
         },
 
         savedetails() {
@@ -1782,9 +1780,10 @@ export default {
                         role: resp.data.success.institute_user.role,
                         phone_no: resp.data.success.institute_user.phone_no,
                         id: resp.data.success.institute_user.id,
-                    });
+                    });                    
                 });
-            this.$refs.editadmiModal.closeModal();
+                console.log(this.$refs.editAdminModal)
+            this.$refs.editAdminModal.closeModal();
             this.clearModalData();
         },
         deleteInstituteUser(instituteuser) {
