@@ -219,8 +219,8 @@
         </template>
         <template slot="tab-panel-doubts">
           <DoubtContainer
-            v-if="AuthUser.preferred_course_id"
-            :doubt-route="'/course/'+AuthUser.preferred_course_id"
+            v-if="AuthUser.preferred_institute_id"
+            :doubt-route="'/institute/'+AuthUser.preferred_institute_id"
           >
             <template slot="empty">
               <img
