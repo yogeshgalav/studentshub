@@ -1355,7 +1355,10 @@
                         </ul>
                       </div>
                     </div>
-                    <div class="contact-btn-col" style="margin-bottom:20px" >
+                    <div
+                      class="contact-btn-col"
+                      style="margin-bottom:20px"
+                    >
                       <button
                         type="button"
                         class="btn btn-primary"
@@ -1685,7 +1688,7 @@ export default {
 
             initialTab: "posts",
             tabs: ["posts", "doubts", "students", "teachers"],
-            showLoader: false,
+            showLoader: true,
             selected_institute: {
                 id: null,
                 name: "",
@@ -1753,11 +1756,11 @@ export default {
             this.clearModalData();
         },
         deleteInstituteUser(instituteuser) {
-            let loader = this.$loading.show();
+           let loader = this.$loading.show(); 
             this.axios
                 .delete("/api/instituteuser/" + instituteuser.id)
                 .then((resp) => {
-                    loader.hide();
+                   loader.hide();
                     let index = this.institute_users.findIndex(
                         (el) => el.id === instituteuser.id
                     );
@@ -1768,6 +1771,7 @@ export default {
             this.data_updated = true;
         },
         initiateData() {
+          this.showLoader = false;
             if (this.institute) {
                 this.institute = Object.assign({}, this.institute.profile);
             } else {
@@ -1789,6 +1793,7 @@ export default {
             this.data_updated = false;
         },
         async saveProfile() {
+          this.showLoader = true;
             if (
                 this.institute.fb_url &&
                 !this.institute.fb_url.includes("facebook.com")
@@ -1832,6 +1837,7 @@ export default {
                     Object.assign({}, this.institute)
                 )
                 .then((resp) => {
+                  this.showLoader = false;
                     this.setProfile(resp.data.success.profile);
                     swal.successDialog(
                         "Profile Updated",
@@ -1889,7 +1895,7 @@ export default {
             });
         },
         contactCreateOrUpdateApi() {
-            let loader = this.$loading.show();
+           let loader = this.$loading.show(); 
             this.axios
                 .post(this.baseUrl + "/api/add-contact", {
                     email: this.edit_institute_contact.email,
@@ -1922,11 +1928,11 @@ export default {
             this.edit_institute_contact = edit_institute_contact;
         },
         deleteContact(edit_institute_contact) {
-            let loader = this.$loading.show();
+           let loader = this.$loading.show(); 
             this.axios
                 .delete("/api/contact/" + edit_institute_contact.id)
                 .then((resp) => {
-                    loader.hide();
+                  loader.hide();
                     let index = this.institute_contacts.findIndex(
                         (el) => el.id === edit_institute_contact.id
                     );
