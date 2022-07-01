@@ -45,22 +45,18 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
-                  <div class="inner-addon left-addon">
-                    <div class="cl_input">
-                      <label for="chatroom">Chatroom Name</label>
-                      <input
-                        id="chatroomName"
-                        v-model="name"
-                        v-validate="'required'"
-                        name="chatroom"
-                        class="form-control"
-                        placeholder="write Chatroom Name here"
-                      >
-                      <span class="text-danger">{{
-                        formErrors("add_chatroom_form.chatroom")
-                      }}</span>
-                    </div>
-                  </div>
+                  <label for="chatroom">Chatroom Name</label>
+                  <input
+                    id="chatroomName"
+                    v-model="name"
+                    v-validate="'required'"
+                    name="chatroom"
+                    class="form-control"
+                    placeholder="write Chatroom Name here"
+                  >
+                  <span class="text-danger">{{
+                    formErrors("add_chatroom_form.chatroom")
+                  }}</span>
                 </div>
               </div>
             </div>
