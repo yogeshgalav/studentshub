@@ -66,13 +66,13 @@
             >
             <img
               v-else
-              src="/images/download.png"
+              src="/images/no-profile-default.png"
               alt="Student Hub"
               width="120 "
               height="120"
               style="
                                 margin-left: 15px;
-                                border-radius: 50px;
+                                border-radius: 100px;
                                 border-color: white;
                             "
             ><file-upload
