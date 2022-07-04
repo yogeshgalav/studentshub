@@ -631,7 +631,41 @@
                   students.
                 </p>
               </div>
-         
+              <Accordion
+                v-if="instituteVerified===true"
+                title="Blog"
+              >
+                <div
+                  v-if="editPermission"
+                  class="edit-btn-row"
+                >
+                  <button
+                    v-if="isEdit"
+                    type="button"
+                    class="btn btn-primary"
+                    @click="editAdmiDetails()"
+                  >
+                    <i
+                      class="fas fa-pencil-alt"
+                      style="color: white"
+                    />
+                    Edit
+                  </button>
+                  <button
+                    v-else
+                    type="button"
+                    class="btn btn-primary"
+                    @click="submitblog"
+                  >
+                    Save
+                  </button>
+                </div>
+                <rich-text-editor
+                  v-if="!isEdit"
+                  id="ArticleEditor"
+                  v-model="new_blog"
+                />
+              </Accordion>
               <Accordion
                 v-if="instituteVerified===true"
                 title="Administrators"
@@ -1657,6 +1691,7 @@ import swal from "../../components/swal";
 import FileUpload from "vue-upload-component";
 import Modal from "../../components/VueNiceModal.vue";
 import FormMixin from "../../components/mixins/form-mixin.js";
+import RichTextEditor from '../../components/RichTextEditor';
 
 export default {
     components: {
@@ -1668,6 +1703,7 @@ export default {
         SocialSharing,
         FileUpload,
         Modal,
+        RichTextEditor,
     },
     mixins: [FormMixin],
     props:['editPermission','instituteVerified'],
@@ -1711,6 +1747,7 @@ export default {
             },
             data_updated: false,
             isEdit: true,
+            new_blog: '',
         };
     },
     computed: {
@@ -1980,6 +2017,17 @@ export default {
             this.role = "";
             this.id = "";
         },
+        	
+    submitblog() {
+			this.axios.post('/api/add-blog/'+this.institute.id, {
+				new_blog: this.new_blog,
+			})
+				.then(resp => {
+          this.blog = resp.data.success.blog;
+					this.add_blog = false;
+					this.new_blog = '';
+				})
+		},
     },
 };
 </script>
