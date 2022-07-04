@@ -651,6 +651,17 @@
                     Save
                   </button>
                 </div>
+                <div v-if="blogs.length">
+                  <div
+                    v-for="(blog, index) in blogs"
+                    :key="index"
+                    style="font-size: 15px; font-weight:800"
+                  >
+                    <p v-if="isEdit">
+                      {{ blog.blog }}
+                    </p>
+                  </div>
+                </div>
                 <rich-text-editor
                   v-if="!isEdit"
                   id="ArticleEditor"
@@ -1552,6 +1563,8 @@ export default {
             logo_url: "",
             institute_users: [],
             institute_contacts: [],
+            blogs:[],
+            new_blog:'',
             edit_institute_contact: {
                 email: "",
                 phone_no: "",
@@ -1618,6 +1631,7 @@ export default {
                 this.teachers = resp.data.success.teachers;
                 // this.institute = resp.data.success.institute;
                 this.students = resp.data.success.students;
+                this.blogs =resp.data.success.blogs;
             });
         },
         addAdministrator() {
@@ -1724,9 +1738,6 @@ export default {
         editAdmiDetails() {
             this.isEdit = false;
         },
-        editContactDetails() {
-            this.isEdit = false;
-        },
         addOrEditContact() {
             this.validateForm('add_contact_form').then((valid) => {
               console.log(valid);
@@ -1800,13 +1811,16 @@ export default {
             this.id = "";
         },
           submitblog() {
+            let loader = this.$loading.show();
 			this.axios.post('/api/add-blog/'+this.institute.id, {
 				new_blog: this.new_blog,
 			})
 				.then(resp => {
-          this.blog = resp.data.success.blog;
+          this.blogs = resp.data.success.blogs;
 					this.add_blog = false;
 					this.new_blog = '';
+          loader.hide();
+          
 				})
 		},
     },

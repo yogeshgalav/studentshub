@@ -68,13 +68,16 @@ class InstituteController extends Controller
         ->where('preferred_institute_id',$institute->id)
         ->with('preferredCourse')
         ->get();
+
+        $institute_blogs =InstituteBlog::where('institute_id',$institute->id)->get();
         
         return response()->json(['success'=>[
             'institute'=>$institute,
             'teachers'=>$teachers,
             'students'=>$students,
             'institute_users'=>$institute_users,
-            'institute_contacts'=>$institute_contacts
+            'institute_contacts'=>$institute_contacts,
+            'blogs'=>$institute_blogs
         ]]);
     
     }
@@ -344,16 +347,16 @@ class InstituteController extends Controller
     public function addblog(Institute $institute,Request $request) {
 
         $me = $request->user('api');
-        $blog = new InstituteBlog();
-        $blog->user_id = $me->id;
-        $blog->institute_id = $institute->id;
-        $blog->blog = $request->new_blog;
+        $blogs = new InstituteBlog();
+        $blogs->user_id = $me->id;
+        $blogs->institute_id = $institute->id;
+        $blogs->blog = $request->new_blog;
     
-        $blog->save();
+        $blogs->save();
       
         return response()->json([
             'success'=>[
-                'blog'=>$blog
+                'blogs'=>$blogs
             ]
         ]);
     }
