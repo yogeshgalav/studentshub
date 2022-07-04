@@ -193,7 +193,7 @@
                         : true
                     "
                     :class="[
-                      icoLinkedin,
+                      'icoLinkedin',
                       institute.linkedin_url
                         ? ''
                         : 'disabled',
@@ -258,7 +258,6 @@
                         class="form-control"
                         type="text"
                         placeholder="http://facebook.com/profile-id"
-                        @input="dataUpdated"
                       >
                       <span
                         class="text-danger"
@@ -273,7 +272,6 @@
                         class="form-control"
                         type="text"
                         placeholder="http://twitter.com/profile-id"
-                        @input="dataUpdated"
                       ><span
                         class="text-danger"
                       >{{
@@ -288,7 +286,6 @@
                         class="form-control"
                         type="text"
                         placeholder="http://instagram.com/profile-id"
-                        @input="dataUpdated"
                       ><span
                         class="text-danger"
                       >{{
@@ -303,7 +300,6 @@
                         class="form-control"
                         type="text"
                         placeholder="http://linked.com/profile-id"
-                        @input="dataUpdated"
                       ><span
                         class="text-danger"
                       >{{
@@ -318,7 +314,6 @@
                         class="form-control"
                         type="text"
                         placeholder="http://youtube.com/profile-id"
-                        @input="dataUpdated"
                       ><span
                         class="text-danger"
                       >{{
@@ -334,8 +329,7 @@
                         "
                         name="website"
                         class="form-control"
-                        placeholder="write website Name here"
-                        @input="dataUpdated"
+                        placeholder="http://website.com"
                       >
                       <label
                         for="address"
@@ -348,7 +342,6 @@
                         name="address"
                         class="form-control"
                         placeholder="write Address here"
-                        @input="dataUpdated"
                       >
                       <label
                         for="city"
@@ -361,7 +354,6 @@
                         name="city"
                         class="form-control"
                         placeholder="write City here"
-                        @input="dataUpdated"
                       >
                       <label
                         for="state"
@@ -374,7 +366,6 @@
                         name="state"
                         class="form-control"
                         placeholder="write State here"
-                        @input="dataUpdated"
                       >
                     </div>
                   </div>
@@ -627,7 +618,7 @@
             <div class="col-md-10">
               <div v-if="editPermission">
                 <p v-if="instituteVerified===false">
-                  thanks! Your account is created. <br>
+                  Thank you for creating account on Student's Hub! <br>
                   Our team will soon contact you on phone for
                   account verification.<br>
                   Once account verified you will be able to
@@ -1362,7 +1353,7 @@
                                   : true
                               "
                               :class="[
-                                icoLinkedin,
+                                'icoLinkedin',
                                 institute.linkedin_url
                                   ? ''
                                   : 'disabled',
@@ -1686,8 +1677,8 @@ export default {
                 youtube_vedio_url: "",
             },
 
-            initialTab: "posts",
-            tabs: ["posts", "doubts", "students", "teachers"],
+            initialTab: "about",
+            tabs: ["about", "posts", "doubts", "students", "teachers"],
             showLoader: true,
             selected_institute: {
                 id: null,
@@ -1712,9 +1703,10 @@ export default {
         },
     },
     mounted() {
-        if (!(this.AuthUser.role !== 'instituteAdmin' && this.instituteVerified==false)) {
-            this.tabs.unshift("about");
-            this.initialTab = "about";
+        this.loadInstitute();
+        if (!this.editPermission && !this.instituteVerified) {
+            this.tabs.shift();
+            this.initialTab = "posts";
         } 
     },
     methods: {
@@ -1864,18 +1856,16 @@ export default {
                 })
                 .then((resp) => {
                     loader.hide();
-                    this.edit_institute_contact.push({
-                        email: resp.data.success.edit_institute_contact.email,
-                        phone_no:
-                            resp.data.success.edit_institute_contact.phone_no,
-                        phone_no2:
-                            resp.data.success.edit_institute_contact.phone_no2,
-                        department:resp.data.success.edit_institute_contact.department,
-                        id: resp.data.success.edit_institute_contact.id,
-                        website: resp.data.success.edit_institute.website,
-                        address: resp.data.success.edit_institute.address,
-                    });
                     this.$refs.addContactModal.closeModal();
+                    this.edit_institute_contact.push({
+                        email: resp.data.success.institute_contacts.email,
+                        phone_no:
+                            resp.data.success.institute_contacts.phone_no,
+                        phone_no2:
+                            resp.data.success.institute_contacts.phone_no2,
+                        department:resp.data.success.institute_contacts.department,
+                        id: resp.data.success.institute_contacts.id,
+                    });
                     this.clearModalData();
                 });
         },

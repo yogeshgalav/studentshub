@@ -28,7 +28,7 @@ class InstituteController extends Controller
             ->exists();
             
             $institute = Institute::where('id','=',$instituteId)->first();
-            $instituteVerified = $institute->is_verified;
+            $instituteVerified = (Bool)$institute->is_verified;
         }
 
         return inertia('institute/show-institute', [
@@ -44,7 +44,7 @@ class InstituteController extends Controller
         $institute = Institute::where('id','=',$instituteId)->first();
 
         $editPermission= false;
-        $instituteVerified = $institute->is_verified;
+        $instituteVerified = (Bool)$institute->is_verified;
 
         $editPermission=InstituteUser::where('user_id','=',$me->id)
         ->where('institute_id','=',$institute->id)
