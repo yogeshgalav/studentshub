@@ -147,7 +147,7 @@
                       institute.twitter_url ? false : true
                     "
                     :class="[
-                      icoTwitter,
+                      'icoTwitter',
                       institute.twitter_url
                         ? ''
                         : 'disabled',
@@ -169,7 +169,7 @@
                       institute.insta_url ? false : true
                     "
                     :class="[
-                      icoInstagram,
+                      'icoInstagram',
                       institute.insta_url
                         ? ''
                         : 'disabled',
@@ -216,7 +216,7 @@
                         : true
                     "
                     :class="[
-                      icoYoutube,
+                      'icoYoutube',
                       institute.youtube_vedio_url
                         ? ''
                         : 'disabled',
@@ -246,129 +246,125 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
-                  <div class="inner-addon left-addon">
-                    <div class="cl_input">
-                      <label
-                        for="fb_url"
-                      >Facebook Profile Url</label>
-                      <input
-                        v-model="
-                          institute.fb_url
-                        "
-                        class="form-control"
-                        type="text"
-                        placeholder="http://facebook.com/profile-id"
-                      >
-                      <span
-                        class="text-danger"
-                      >{{
-                        errors.fb_url
-                      }}</span>
-                      <label>Twitter Url</label>
-                      <input
-                        v-model="
-                          institute.twitter_url
-                        "
-                        class="form-control"
-                        type="text"
-                        placeholder="http://twitter.com/profile-id"
-                      ><span
-                        class="text-danger"
-                      >{{
-                        errors.twitter_url
-                      }}</span>
-                      <label>Instagram
-                        Username</label>
-                      <input
-                        v-model="
-                          institute.insta_url
-                        "
-                        class="form-control"
-                        type="text"
-                        placeholder="http://instagram.com/profile-id"
-                      ><span
-                        class="text-danger"
-                      >{{
-                        errors.insta_url
-                      }}</span>
-                      <label>Linkedin Profile
-                        Url</label>
-                      <input
-                        v-model="
-                          institute.linkedin_url
-                        "
-                        class="form-control"
-                        type="text"
-                        placeholder="http://linked.com/profile-id"
-                      ><span
-                        class="text-danger"
-                      >{{
-                        errors.linkedin_url
-                      }}</span>
-                      <label>Youtube Vedio
-                        Url</label>
-                      <input
-                        v-model="
-                          institute.youtube_vedio_url
-                        "
-                        class="form-control"
-                        type="text"
-                        placeholder="http://youtube.com/profile-id"
-                      ><span
-                        class="text-danger"
-                      >{{
-                        errors.youtube_vedio_url
-                      }}</span>
-                      <label
-                        for="website"
-                      >Website</label>
-                      <input
-                        id="website"
-                        v-model="
-                          institute.website
-                        "
-                        name="website"
-                        class="form-control"
-                        placeholder="http://website.com"
-                      >
-                      <label
-                        for="address"
-                      >Address</label>
-                      <input
-                        id="address"
-                        v-model="
-                          institute.address
-                        "
-                        name="address"
-                        class="form-control"
-                        placeholder="write Address here"
-                      >
-                      <label
-                        for="city"
-                      >City</label>
-                      <input
-                        id="city"
-                        v-model="
-                          institute.city
-                        "
-                        name="city"
-                        class="form-control"
-                        placeholder="write City here"
-                      >
-                      <label
-                        for="state"
-                      >State</label>
-                      <input
-                        id="state"
-                        v-model="
-                          institute.state
-                        "
-                        name="state"
-                        class="form-control"
-                        placeholder="write State here"
-                      >
-                    </div>
-                  </div>
+                  <label
+                    for="fb_url"
+                  >Facebook Profile Url</label>
+                  <input
+                    v-model="
+                      institute.fb_url
+                    "
+                    class="form-control"
+                    type="text"
+                    placeholder="http://facebook.com/profile-id"
+                  >
+                  <span
+                    class="text-danger"
+                  >{{
+                    errors.fb_url
+                  }}</span>
+                  <label>Twitter Url</label>
+                  <input
+                    v-model="
+                      institute.twitter_url
+                    "
+                    class="form-control"
+                    type="text"
+                    placeholder="http://twitter.com/profile-id"
+                  ><span
+                    class="text-danger"
+                  >{{
+                    errors.twitter_url
+                  }}</span>
+                  <label>Instagram
+                    Username</label>
+                  <input
+                    v-model="
+                      institute.insta_url
+                    "
+                    class="form-control"
+                    type="text"
+                    placeholder="http://instagram.com/profile-id"
+                  ><span
+                    class="text-danger"
+                  >{{
+                    errors.insta_url
+                  }}</span>
+                  <label>Linkedin Profile
+                    Url</label>
+                  <input
+                    v-model="
+                      institute.linkedin_url
+                    "
+                    class="form-control"
+                    type="text"
+                    placeholder="http://linked.com/profile-id"
+                  ><span
+                    class="text-danger"
+                  >{{
+                    errors.linkedin_url
+                  }}</span>
+                  <label>Youtube Vedio
+                    Url</label>
+                  <input
+                    v-model="
+                      institute.youtube_vedio_url
+                    "
+                    class="form-control"
+                    type="text"
+                    placeholder="http://youtube.com/profile-id"
+                  ><span
+                    class="text-danger"
+                  >{{
+                    errors.youtube_vedio_url
+                  }}</span>
+                  <label
+                    for="website"
+                  >Website</label>
+                  <input
+                    id="website"
+                    v-model="
+                      institute.website
+                    "
+                    name="website"
+                    class="form-control"
+                    placeholder="http://website.com"
+                  >
+                  <label
+                    for="address"
+                  >Address</label>
+                  <input
+                    id="address"
+                    v-model="
+                      institute.address
+                    "
+                    name="address"
+                    class="form-control"
+                    placeholder="write Address here"
+                  >
+                  <label
+                    for="city"
+                  >City</label>
+                  <input
+                    id="city"
+                    v-model="
+                      institute.city
+                    "
+                    name="city"
+                    class="form-control"
+                    placeholder="write City here"
+                  >
+                  <label
+                    for="state"
+                  >State</label>
+                  <input
+                    id="state"
+                    v-model="
+                      institute.state
+                    "
+                    name="state"
+                    class="form-control"
+                    placeholder="write State here"
+                  >
                 </div>
               </div>
             </div>
@@ -636,7 +632,6 @@
                   class="edit-btn-row"
                 >
                   <button
-                    v-if="isEdit"
                     type="button"
                     class="btn btn-primary"
                     @click="editAdmiDetails()"
@@ -646,14 +641,6 @@
                       style="color: white"
                     />
                     Edit
-                  </button>
-                  <button
-                    v-else
-                    type="button"
-                    class="btn btn-primary"
-                    @click="saveAdmiDetails()"
-                  >
-                    Save
                   </button>
                 </div>
                 <div class="card-body ">
@@ -692,9 +679,12 @@
                             instituteuser.role
                           }}
                         </div>
-                        <div style="height: 30px;">
+                        <div
+                          v-if="editPermission"
+                          style="height: 30px;"
+                        >
                           <button
-                            v-if="editPermission"
+                            v-if="!isEdit"
                             class="btn btn-primary"
                             type="button"
                             data-toggle="tooltip"
@@ -766,43 +756,39 @@
                       <div class="row">
                         <div class="col-md-12">
                           <div class="form-group">
-                            <div class="inner-addon left-addon">
-                              <div class="cl_input">
-                                <label
-                                  for="full"
-                                >Full Name</label>
-                                <input
-                                  id="fullName"
-                                  v-model="name"
-                                  v-validate="'required'"
-                                  name="full_name"
-                                  class="form-control"
-                                  placeholder="write Full Name here"
-                                >
-                                <label
-                                  for="position"
-                                >Position</label>
-                                <input
-                                  id="postionName"
-                                  v-model="role"
-                                  v-validate="'required'"
-                                  name="position_name"
-                                  class="form-control"
-                                  placeholder="write Position Name here"
-                                >
-                                <label
-                                  for="admin_phone_no"
-                                >Phone Number</label>
-                                <input
-                                  id="admin_phone_no"
-                                  v-model="phone_no"
-                                  v-validate="'required'"
-                                  name="admin_phone_no"
-                                  class="form-control"
-                                  placeholder="write Admin Phone Number here"
-                                >
-                              </div>
-                            </div>
+                            <label
+                              for="full"
+                            >Full Name</label>
+                            <input
+                              id="fullName"
+                              v-model="name"
+                              v-validate="'required'"
+                              name="full_name"
+                              class="form-control"
+                              placeholder="write Full Name here"
+                            >
+                            <label
+                              for="position"
+                            >Position</label>
+                            <input
+                              id="postionName"
+                              v-model="role"
+                              v-validate="'required'"
+                              name="position_name"
+                              class="form-control"
+                              placeholder="write Position Name here"
+                            >
+                            <label
+                              for="admin_phone_no"
+                            >Phone Number</label>
+                            <input
+                              id="admin_phone_no"
+                              v-model="phone_no"
+                              v-validate="'required'"
+                              name="admin_phone_no"
+                              class="form-control"
+                              placeholder="write Admin Phone Number here"
+                            >
                           </div>
                         </div>
                       </div>
@@ -1189,7 +1175,6 @@
                 <div
                 v-if="editPermission" class="edit-btn-row">
                   <button
-                    v-if="isEdit"
                     type="button"
                     class="btn btn-primary"
                     data-toggle="modal"
@@ -1197,16 +1182,6 @@
                     @click="addContactDetails"
                   >
                     Add
-                  </button>
-                  <button
-                   v-else
-                    type="button"
-                    class="btn btn-primary"
-                    @click="
-                      saveContactDetails()
-                    "
-                  >
-                    Save
                   </button>
                 </div>
                        
@@ -1218,19 +1193,19 @@
                     :key="index"
                     class="row"
                   >
-                    <div class="col-md-3">
+                   <div class="col-md-3">
                       <h5>
                         <i
-                          class="fas fa-envelope"
-                        />Email
+                          class="fas fa-phone-alt"
+                        />Department
                       </h5>
                       <p>
                         {{
-                          institute_contact.email
+                          institute_contact.department
                         }}
                       </p>
                     </div>
-                    <div class="col-md-2">
+                     <div class="col-md-3">
                       <h5>
                         <i
                           class="fas fa-phone-alt"
@@ -1244,128 +1219,20 @@
                         }}
                       </p>
                     </div>
-                    <div class="col-md-2">
-                      <h5>
-                        <i
-                          class="fas fa-phone-alt"
-                        />Department
-                      </h5>
-                      <p>
-                        {{
-                          institute_contact.department
-                        }}
-                      </p>
-                    </div>
-                      
+                   
                     <div class="col-md-4">
                       <h5>
                         <i
-                          class="fas fa-user-plus"
-                        />Follow Us
+                          class="fas fa-envelope"
+                        />Email
                       </h5>
-                      <div class="row">
-                        <ul
-                          class="social-network social-circle"
-                        >
-                          <li>
-                            <a
-                              target="_blank"
-                              :href="
-                                institute.fb_url
-                                  ? institute.fb_url
-                                  : '#'
-                              "
-                              :disabled="
-                                institute.fb_url
-                                  ? false
-                                  : true
-                              "
-                              :class="[
-                                'icoFacebook',
-                                institute.fb_url
-                                  ? ''
-                                  : 'disabled',
-                              ]"
-                              title="Facebook"
-                            ><i
-                              class="fab fa-facebook-f"
-                            /></a>
-                          </li>
-                          <li>
-                            <a
-                              target="_blank"
-                              :href="
-                                institute.twitter_url
-                                  ? institute.twitter_url
-                                  : '#'
-                              "
-                              :disabled="
-                                institute.twitter_url
-                                  ? false
-                                  : true
-                              "
-                              :class="[
-                                icoTwitter,
-                                institute.twitter_url
-                                  ? ''
-                                  : 'disabled',
-                              ]"
-                              title="Twitter"
-                            ><i
-                              class="fab fa-twitter"
-                            /></a>
-                          </li>
-                          <li>
-                            <a
-                              target="_blank"
-                              :href="
-                                institute.insta_url
-                                  ? institute.insta_url
-                                  : '#'
-                              "
-                              :disabled="
-                                institute.insta_url
-                                  ? false
-                                  : true
-                              "
-                              :class="[
-                                icoInstagram,
-                                institute.insta_url
-                                  ? ''
-                                  : 'disabled',
-                              ]"
-                              title="Instagram"
-                            ><i
-                              class="fab fa-instagram"
-                            /></a>
-                          </li>
-                          <li>
-                            <a
-                              target="_blank"
-                              :href="
-                                institute.linkedin_url
-                                  ? institute.linkedin_url
-                                  : '#'
-                              "
-                              :disabled="
-                                institute.linkedin_url
-                                  ? false
-                                  : true
-                              "
-                              :class="[
-                                'icoLinkedin',
-                                institute.linkedin_url
-                                  ? ''
-                                  : 'disabled',
-                              ]"
-                              title="Linkedin"
-                            ><i
-                              class="fab fa-linkedin"
-                            /></a>
-                          </li>
-                        </ul>
-                      </div>
+                      <p>
+                        {{
+                          institute_contact.email
+                        }}
+                      </p>
                     </div>
+                   
                     <div
                       class="contact-btn-col"
                       style="margin-bottom:20px"
@@ -1422,8 +1289,6 @@
                       <div class="row">
                         <div class="col-md-12">
                           <div class="form-group">
-                            <div class="inner-addon left-addon">
-                              <div class="cl_input">
                                 <label
                                   for="email"
                                 >Email</label>
@@ -1482,8 +1347,6 @@
                                   class="form-control"
                                   placeholder="write Department Name here"
                                 >
-                              </div>
-                            </div>
                           </div>
                         </div>
                       </div>
@@ -1825,14 +1688,8 @@ export default {
         editAdmiDetails() {
             this.isEdit = false;
         },
-        saveAdmiDetails() {
-            window.location.reload();
-        },
         editContactDetails() {
             this.isEdit = false;
-        },
-        saveContactDetails() {
-            window.location.reload();
         },
         addOrEditContact() {
             this.validateForm('add_contact_form').then((valid) => {
