@@ -38,7 +38,7 @@
             <file-upload
               id="documentUpload"
               ref="upload"
-              class="btn btn-light bottom-right"
+              class="EditBanner btn btn-light bottom-right"
               post-action="/upload/post"
               extensions="jpg,jpeg,png"
               accept="image/*"
@@ -66,19 +66,20 @@
             >
             <img
               v-else
-              src="/images/download.png"
+              class="institute-avatar"
+              src="/images/default-institute.png"
               alt="Student Hub"
               width="120 "
               height="120"
               style="
                                 margin-left: 15px;
-                                border-radius: 50px;
+                                border-radius: 100px;
                                 border-color: white;
                             "
             ><file-upload
               id="documentUpload"
               ref="upload"
-              class="bottom-left"
+              class="edit-avatar bottom-left"
               post-action="/upload/post"
               extensions="jpg,jpeg,png"
               accept="image/*"
@@ -695,10 +696,10 @@
                     Save
                   </button>
                 </div>
-                <div class="card-body ">
+                <div class="card-body">
                   <div v-if="institute_users.length">
                     <div
-                      class="row d-inline-flex align-items-center justify-content-center"
+                      class=" row d-inline-flex align-items-center justify-content-center"
                       style="gap: 40px;"
                     >
                       <div
@@ -710,6 +711,7 @@
                       >
                         <div>
                           <img
+                          class="intitute-avatar"
                             src="/images/default-avatar.png"
                             alt="Student Hub"
                             width="120"
@@ -751,7 +753,7 @@
                       </div>
                       <div
                         v-if="!isEdit"
-                        class="col-md-2"
+                        class="addbtn-row col-md-3"
                       >
                         <button
                           v-if="editPermission"
@@ -771,18 +773,20 @@
                     </div>
                   </div>
                   <div v-else>
-                    <div class="row">
+                    <div class="row addAdmin">
                       <div 
                         v-if="editPermission"
                         class="col-md-2"
                       >
                         <button
                           v-if="!isEdit"
+                          class="addAdmin"
                           data-toggle="modal"
                           data-target="#editAdminModal"
                           style="
                                                             font-size: 60px;
                                                             background-color: white;
+                                                             
                                                         "
                         >
                           <i class="fa fa-plus" />
@@ -1631,7 +1635,7 @@
 .bottom-right {
     position: absolute;
     background-color: white;
-    bottom: 207px;
+    bottom: 239px;
     right: 35px;
 }
 .container {
@@ -1674,6 +1678,52 @@
   align-items: center;
   align-content: center;
 }
+
+@media (max-width: 769px)  {
+.addAdmin{
+text-align: center;
+}
+}
+
+@media (max-width: 769px)  {
+.EditBanner{
+  height: 45px;
+    width: 111px;
+    position: absolute;
+    background-color: white;
+    bottom: 265px;
+    right: 35px;
+}
+}
+
+@media (max-width: 769px)  {
+.institute-avatar{
+    margin-left: 0px !important;
+}
+}
+@media (max-width: 769px)  {
+.edit-avatar{
+    
+    position: absolute;
+    bottom: 5px;
+    left: 100px;
+}
+}
+@media   (max-width:769px) {
+  .addbtn-row {
+    /* flex-direction: column; */
+    text-align: center;
+  }
+}
+
+@media   (max-width:769px) {
+  .instagram-media {
+    /* flex-direction: column; */
+    min-width: 100% !important;
+  }
+}
+
+
 
 </style>
 
