@@ -13,7 +13,7 @@ use App\Models\User;
 use App\Models\InstituteUser;
 use App\Models\UserPhone;
 use App\Models\InstituteContact;
-
+use App\Models\InstituteBlog;
 class InstituteController extends Controller
 {
     //
@@ -340,5 +340,21 @@ class InstituteController extends Controller
         return response()->json(['success'=>[
             'profile'=>$profile
         ]]);
+    }
+    public function addblog(Institute $institute,Request $request) {
+
+        $me = $request->user('api');
+        $blog = new InstituteBlog();
+        $blog->user_id = $me->id;
+        $blog->institute_id = $institute->id;
+        $blog->blog = $request->new_blog;
+    
+        $blog->save();
+      
+        return response()->json([
+            'success'=>[
+                'blog'=>$blog
+            ]
+        ]);
     }
 }

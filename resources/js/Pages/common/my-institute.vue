@@ -38,7 +38,7 @@
             <file-upload
               id="documentUpload"
               ref="upload"
-              class="btn btn-light bottom-right"
+              class="EditBanner btn btn-light bottom-right"
               post-action="/upload/post"
               extensions="jpg,jpeg,png"
               accept="image/*"
@@ -66,19 +66,20 @@
             >
             <img
               v-else
-              src="/images/download.png"
+              class="institute-avatar"
+              src="/images/default-institute.png"
               alt="Student Hub"
               width="120 "
               height="120"
               style="
                                 margin-left: 15px;
-                                border-radius: 50px;
+                                border-radius: 100px;
                                 border-color: white;
                             "
             ><file-upload
               id="documentUpload"
               ref="upload"
-              class="bottom-left"
+              class="edit-avatar bottom-left"
               post-action="/upload/post"
               extensions="jpg,jpeg,png"
               accept="image/*"
@@ -147,7 +148,7 @@
                       institute.twitter_url ? false : true
                     "
                     :class="[
-                      'icoTwitter',
+                      icoTwitter,
                       institute.twitter_url
                         ? ''
                         : 'disabled',
@@ -169,7 +170,7 @@
                       institute.insta_url ? false : true
                     "
                     :class="[
-                      'icoInstagram',
+                      icoInstagram,
                       institute.insta_url
                         ? ''
                         : 'disabled',
@@ -193,7 +194,7 @@
                         : true
                     "
                     :class="[
-                      'icoLinkedin',
+                      icoLinkedin,
                       institute.linkedin_url
                         ? ''
                         : 'disabled',
@@ -216,7 +217,7 @@
                         : true
                     "
                     :class="[
-                      'icoYoutube',
+                      icoYoutube,
                       institute.youtube_vedio_url
                         ? ''
                         : 'disabled',
@@ -256,6 +257,7 @@
                     class="form-control"
                     type="text"
                     placeholder="http://facebook.com/profile-id"
+                    @input="dataUpdated"
                   >
                   <span
                     class="text-danger"
@@ -270,6 +272,7 @@
                     class="form-control"
                     type="text"
                     placeholder="http://twitter.com/profile-id"
+                    @input="dataUpdated"
                   ><span
                     class="text-danger"
                   >{{
@@ -284,6 +287,7 @@
                     class="form-control"
                     type="text"
                     placeholder="http://instagram.com/profile-id"
+                    @input="dataUpdated"
                   ><span
                     class="text-danger"
                   >{{
@@ -298,6 +302,7 @@
                     class="form-control"
                     type="text"
                     placeholder="http://linked.com/profile-id"
+                    @input="dataUpdated"
                   ><span
                     class="text-danger"
                   >{{
@@ -312,6 +317,7 @@
                     class="form-control"
                     type="text"
                     placeholder="http://youtube.com/profile-id"
+                    @input="dataUpdated"
                   ><span
                     class="text-danger"
                   >{{
@@ -327,7 +333,8 @@
                     "
                     name="website"
                     class="form-control"
-                    placeholder="http://website.com"
+                    placeholder="write website Name here"
+                    @input="dataUpdated"
                   >
                   <label
                     for="address"
@@ -340,6 +347,7 @@
                     name="address"
                     class="form-control"
                     placeholder="write Address here"
+                    @input="dataUpdated"
                   >
                   <label
                     for="city"
@@ -352,6 +360,7 @@
                     name="city"
                     class="form-control"
                     placeholder="write City here"
+                    @input="dataUpdated"
                   >
                   <label
                     for="state"
@@ -364,6 +373,7 @@
                     name="state"
                     class="form-control"
                     placeholder="write State here"
+                    @input="dataUpdated"
                   >
                 </div>
               </div>
@@ -614,7 +624,7 @@
             <div class="col-md-10">
               <div v-if="editPermission">
                 <p v-if="instituteVerified===false">
-                  Thank you for creating account on Student's Hub! <br>
+                  thanks! Your account is created. <br>
                   Our team will soon contact you on phone for
                   account verification.<br>
                   Once account verified you will be able to
@@ -622,7 +632,11 @@
                   students.
                 </p>
               </div>
+<<<<<<< Updated upstream:resources/js/Pages/common/my-institute.vue
               <Accordion
+=======
+           <Accordion
+>>>>>>> Stashed changes:resources/js/Pages/institute/show-institute.vue
                 v-if="instituteVerified===true"
                 title="Blog"
               >
@@ -666,6 +680,7 @@
                   class="edit-btn-row"
                 >
                   <button
+                    v-if="isEdit"
                     type="button"
                     class="btn btn-primary"
                     @click="editAdmiDetails()"
@@ -676,11 +691,19 @@
                     />
                     Edit
                   </button>
+                  <button
+                    v-else
+                    type="button"
+                    class="btn btn-primary"
+                    @click="saveAdmiDetails()"
+                  >
+                    Save
+                  </button>
                 </div>
-                <div class="card-body ">
+                <div class="card-body">
                   <div v-if="institute_users.length">
                     <div
-                      class="row d-inline-flex align-items-center justify-content-center"
+                      class=" row d-inline-flex align-items-center justify-content-center"
                       style="gap: 40px;"
                     >
                       <div
@@ -692,6 +715,7 @@
                       >
                         <div>
                           <img
+                          class="intitute-avatar"
                             src="/images/default-avatar.png"
                             alt="Student Hub"
                             width="120"
@@ -713,12 +737,9 @@
                             instituteuser.role
                           }}
                         </div>
-                        <div
-                          v-if="editPermission"
-                          style="height: 30px;"
-                        >
+                        <div style="height: 30px;">
                           <button
-                            v-if="!isEdit"
+                            v-if="editPermission"
                             class="btn btn-primary"
                             type="button"
                             data-toggle="tooltip"
@@ -736,7 +757,7 @@
                       </div>
                       <div
                         v-if="!isEdit"
-                        class="col-md-2"
+                        class="addbtn-row col-md-3"
                       >
                         <button
                           v-if="editPermission"
@@ -756,18 +777,20 @@
                     </div>
                   </div>
                   <div v-else>
-                    <div class="row">
+                    <div class="row addAdmin">
                       <div 
                         v-if="editPermission"
                         class="col-md-2"
                       >
                         <button
                           v-if="!isEdit"
+                          class="addAdmin"
                           data-toggle="modal"
                           data-target="#editAdminModal"
                           style="
                                                             font-size: 60px;
                                                             background-color: white;
+                                                             
                                                         "
                         >
                           <i class="fa fa-plus" />
@@ -1209,6 +1232,7 @@
                 <div
                 v-if="editPermission" class="edit-btn-row">
                   <button
+                    v-if="isEdit"
                     type="button"
                     class="btn btn-primary"
                     data-toggle="modal"
@@ -1216,6 +1240,16 @@
                     @click="addContactDetails"
                   >
                     Add
+                  </button>
+                  <button
+                   v-else
+                    type="button"
+                    class="btn btn-primary"
+                    @click="
+                      saveContactDetails()
+                    "
+                  >
+                    Save
                   </button>
                 </div>
                        
@@ -1227,19 +1261,19 @@
                     :key="index"
                     class="row"
                   >
-                   <div class="col-md-3">
+                    <div class="col-md-3">
                       <h5>
                         <i
-                          class="fas fa-phone-alt"
-                        />Department
+                          class="fas fa-envelope"
+                        />Email
                       </h5>
                       <p>
                         {{
-                          institute_contact.department
+                          institute_contact.email
                         }}
                       </p>
                     </div>
-                     <div class="col-md-3">
+                    <div class="col-md-2">
                       <h5>
                         <i
                           class="fas fa-phone-alt"
@@ -1253,20 +1287,128 @@
                         }}
                       </p>
                     </div>
-                   
-                    <div class="col-md-4">
+                    <div class="col-md-2">
                       <h5>
                         <i
-                          class="fas fa-envelope"
-                        />Email
+                          class="fas fa-phone-alt"
+                        />Department
                       </h5>
                       <p>
                         {{
-                          institute_contact.email
+                          institute_contact.department
                         }}
                       </p>
                     </div>
-                   
+                      
+                    <div class="col-md-4">
+                      <h5>
+                        <i
+                          class="fas fa-user-plus"
+                        />Follow Us
+                      </h5>
+                      <div class="row">
+                        <ul
+                          class="social-network social-circle"
+                        >
+                          <li>
+                            <a
+                              target="_blank"
+                              :href="
+                                institute.fb_url
+                                  ? institute.fb_url
+                                  : '#'
+                              "
+                              :disabled="
+                                institute.fb_url
+                                  ? false
+                                  : true
+                              "
+                              :class="[
+                                'icoFacebook',
+                                institute.fb_url
+                                  ? ''
+                                  : 'disabled',
+                              ]"
+                              title="Facebook"
+                            ><i
+                              class="fab fa-facebook-f"
+                            /></a>
+                          </li>
+                          <li>
+                            <a
+                              target="_blank"
+                              :href="
+                                institute.twitter_url
+                                  ? institute.twitter_url
+                                  : '#'
+                              "
+                              :disabled="
+                                institute.twitter_url
+                                  ? false
+                                  : true
+                              "
+                              :class="[
+                                icoTwitter,
+                                institute.twitter_url
+                                  ? ''
+                                  : 'disabled',
+                              ]"
+                              title="Twitter"
+                            ><i
+                              class="fab fa-twitter"
+                            /></a>
+                          </li>
+                          <li>
+                            <a
+                              target="_blank"
+                              :href="
+                                institute.insta_url
+                                  ? institute.insta_url
+                                  : '#'
+                              "
+                              :disabled="
+                                institute.insta_url
+                                  ? false
+                                  : true
+                              "
+                              :class="[
+                                icoInstagram,
+                                institute.insta_url
+                                  ? ''
+                                  : 'disabled',
+                              ]"
+                              title="Instagram"
+                            ><i
+                              class="fab fa-instagram"
+                            /></a>
+                          </li>
+                          <li>
+                            <a
+                              target="_blank"
+                              :href="
+                                institute.linkedin_url
+                                  ? institute.linkedin_url
+                                  : '#'
+                              "
+                              :disabled="
+                                institute.linkedin_url
+                                  ? false
+                                  : true
+                              "
+                              :class="[
+                                icoLinkedin,
+                                institute.linkedin_url
+                                  ? ''
+                                  : 'disabled',
+                              ]"
+                              title="Linkedin"
+                            ><i
+                              class="fab fa-linkedin"
+                            /></a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
                     <div
                       class="contact-btn-col"
                       style="margin-bottom:20px"
@@ -1323,6 +1465,7 @@
                       <div class="row">
                         <div class="col-md-12">
                           <div class="form-group">
+                           
                                 <label
                                   for="email"
                                 >Email</label>
@@ -1463,6 +1606,32 @@
         </template>
       </nav-tabs>
     </div>
+    <!-- fotter for update chnges -->
+    <div
+      v-if="data_updated"
+      class="static-footer"
+    >
+      <div class="col-md-12 mt-2 mb-2">
+        <div class="text-right">
+          <button
+          v-if="editPermission"
+            class="btn btn-primary mr-2"
+            type="button"
+            @click="saveProfile"
+          >
+            Update
+          </button>
+          <button
+          v-if="editPermission"
+            type="button"
+            class="btn btn-secondary"
+            @click="discard"
+          >
+            Discard
+          </button>
+        </div>
+      </div>
+    </div>
     </div>
   </section>
 </template>
@@ -1470,7 +1639,7 @@
 .bottom-right {
     position: absolute;
     background-color: white;
-    bottom: 207px;
+    bottom: 239px;
     right: 35px;
 }
 .container {
@@ -1514,6 +1683,52 @@
   align-content: center;
 }
 
+@media (max-width: 769px)  {
+.addAdmin{
+text-align: center;
+}
+}
+
+@media (max-width: 769px)  {
+.EditBanner{
+  height: 45px;
+    width: 111px;
+    position: absolute;
+    background-color: white;
+    bottom: 265px;
+    right: 35px;
+}
+}
+
+@media (max-width: 769px)  {
+.institute-avatar{
+    margin-left: 0px !important;
+}
+}
+@media (max-width: 769px)  {
+.edit-avatar{
+    
+    position: absolute;
+    bottom: 5px;
+    left: 100px;
+}
+}
+@media   (max-width:769px) {
+  .addbtn-row {
+    /* flex-direction: column; */
+    text-align: center;
+  }
+}
+
+@media   (max-width:769px) {
+  .instagram-media {
+    /* flex-direction: column; */
+    min-width: 100% !important;
+  }
+}
+
+
+
 </style>
 
 import Accordion from "../../components/accordion.vue";
@@ -1523,7 +1738,7 @@ import Accordion from "@/components/accordion.vue";
 
 import NavTabs from "../../components/NavTabs";
 import SelectInstitute from "../../components/SelectInstitute.vue";
-import PostContainer from "@/Pages/common/post-container.vue";
+import PostContainer from "./post-container.vue";
 import DoubtContainer from "@/Pages/doubt/doubt-container.vue";
 import SocialSharing from "vue-social-sharing";
 import swal from "../../components/swal";
@@ -1545,11 +1760,12 @@ export default {
         RichTextEditor,
     },
     mixins: [FormMixin],
-    props:['institute', 'editPermission','instituteVerified'],
+    props:['editPermission','instituteVerified'],
     data() {
         return {
             institute_banner_url: "",
             logo_url: "",
+            institute: "",
             institute_users: [],
             institute_contacts: [],
             edit_institute_contact: {
@@ -1576,22 +1792,17 @@ export default {
                 youtube_vedio_url: "",
             },
 
-            initialTab: "about",
-            tabs: ["about", "posts", "doubts", "students", "teachers"],
+            initialTab: "posts",
+            tabs: ["posts", "doubts", "students", "teachers"],
             showLoader: true,
             selected_institute: {
                 id: null,
                 name: "",
             },
+            data_updated: false,
             isEdit: true,
+            new_blog: '',
         };
-    },
-    watch:{
-      institute(oldVal, val){
-        if(val){
-          this.loadInstitute();
-        }
-      }
     },
     computed: {
         isCourseValid() {
@@ -1602,27 +1813,34 @@ export default {
         },
     },
     mounted() {
-        this.loadInstitute();
-        if (!this.editPermission && !this.instituteVerified) {
-            this.tabs.shift();
-            this.initialTab = "posts";
-        } 
-    },
-    methods: {
-        loadInstitute() {
-          this.axios
-            .get("/api/institute/" + this.institute.id)
+        this.initiateData();
+        if (this.AuthUser.role !== 'instituteAdmin' && this.instituteVerified==false) {
+            this.tabs.pop("about");
+            console.log(this.tabs.pop);
+        }
+        else{
+            this.tabs.unshift("about");
+            this.initialTab = "about";
+        }
+        let institute_id = this.AuthUser.preferred_institute_id;
+
+        if (!institute_id) return false;
+
+        this.axios
+            .get("/api/institute/" + (institute_id ? institute_id : ""))
             .then((resp) => {
                 this.institute_users = resp.data.success.institute_users;
                 this.institute_contacts = resp.data.success.institute_contacts;
                 this.teachers = resp.data.success.teachers;
-                // this.institute = resp.data.success.institute;
+                this.institute = resp.data.success.institute;
                 this.students = resp.data.success.students;
             });
-        },
+    },
+    methods: {
         addAdministrator() {
             this.$modal.show("editAdminModal");
         },
+
         savedetails() {
             this.showLoader = true;
             this.axios
@@ -1644,6 +1862,7 @@ export default {
                         id: resp.data.success.institute_user.id,
                     });                    
                 });
+                console.log(this.$refs.editAdminModal)
             this.$refs.editAdminModal.closeModal();
             this.clearModalData();
         },
@@ -1658,6 +1877,31 @@ export default {
                     );
                     this.institute_users.splice(index, 1);
                 });
+        },
+        dataUpdated() {
+            this.data_updated = true;
+        },
+        initiateData() {
+          this.showLoader = false;
+            if (this.institute) {
+                this.institute = Object.assign({}, this.institute.profile);
+            } else {
+                this.institute = {
+                    fb_url: "",
+                    twitter_url: "",
+                    insta_url: "",
+                    linkedin_url: "",
+                    youtube_vedio_url: "",
+                    address:"",
+                    website:"",
+                    city:"",
+                    state:"",
+                };
+            }
+        },
+        discard() {
+            this.initiateData();
+            this.data_updated = false;
         },
         async saveProfile() {
           this.showLoader = true;
@@ -1698,15 +1942,20 @@ export default {
                 return false;
             }
 
-            this.axios
-                .post("/api/save-institute-profile",this.institute)
+            await this.axios
+                .post(
+                    "/api/save-institute-profile",
+                    Object.assign({}, this.institute)
+                )
                 .then((resp) => {
                   this.showLoader = false;
+                    this.setProfile(resp.data.success.profile);
                     swal.successDialog(
-                        "Institute Page Updated",
+                        "Profile Updated",
                         "Successfully!",
                         "success"
                     );
+                    this.data_updated = false;
                 });
 
             this.errors = {
@@ -1717,6 +1966,21 @@ export default {
                 youtube_vedio_url: "",
             };
         },
+        setProfile(profile) {
+            this.institute.fb_url = profile.fb_url ? profile.fb_url : "";
+            this.institute.twitter_url = profile.twitter_url
+                ? profile.twitter_url
+                : "";
+            this.institute.insta_url = profile.insta_url
+                ? profile.insta_url
+                : "";
+            this.institute.linkedin_url = profile.linkedin_url
+                ? profile.linkedin_url
+                : "";
+            this.institute.youtube_vedio_url = profile.youtube_vedio_url
+                ? profile.youtube_vedio_url
+                : "";
+        },
         inputUpdate(files) {
             this.image = files[0];
             this.institute_banner_url = URL.createObjectURL(files[0].file);
@@ -1724,8 +1988,14 @@ export default {
         editAdmiDetails() {
             this.isEdit = false;
         },
+        saveAdmiDetails() {
+            window.location.reload();
+        },
         editContactDetails() {
             this.isEdit = false;
+        },
+        saveContactDetails() {
+            window.location.reload();
         },
         addOrEditContact() {
             this.validateForm('add_contact_form').then((valid) => {
@@ -1749,16 +2019,18 @@ export default {
                 })
                 .then((resp) => {
                     loader.hide();
-                    this.$refs.addContactModal.closeModal();
                     this.edit_institute_contact.push({
-                        email: resp.data.success.institute_contacts.email,
+                        email: resp.data.success.edit_institute_contact.email,
                         phone_no:
-                            resp.data.success.institute_contacts.phone_no,
+                            resp.data.success.edit_institute_contact.phone_no,
                         phone_no2:
-                            resp.data.success.institute_contacts.phone_no2,
-                        department:resp.data.success.institute_contacts.department,
-                        id: resp.data.success.institute_contacts.id,
+                            resp.data.success.edit_institute_contact.phone_no2,
+                        department:resp.data.success.edit_institute_contact.department,
+                        id: resp.data.success.edit_institute_contact.id,
+                        website: resp.data.success.edit_institute.website,
+                        address: resp.data.success.edit_institute.address,
                     });
+                    this.$refs.addContactModal.closeModal();
                     this.clearModalData();
                 });
         },
@@ -1799,7 +2071,8 @@ export default {
             this.role = "";
             this.id = "";
         },
-          submitblog() {
+        	
+    submitblog() {
 			this.axios.post('/api/add-blog/'+this.institute.id, {
 				new_blog: this.new_blog,
 			})
