@@ -338,6 +338,7 @@ class InstituteController extends Controller
         $profile->address =$request->address;
         $profile->city =$request->city;
         $profile->state =$request->state;
+        $profile->moto =$request->moto;
        
         $profile->save();
         return response()->json(['success'=>[

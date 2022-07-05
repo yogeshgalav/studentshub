@@ -107,6 +107,9 @@
               />
             </button>
           </h3>
+          <h5 style="margin: 5px 0px 0px 20px">
+            {{ institute.moto }}
+          </h5>
           
       
           <p style="margin-left: 20px">
@@ -364,6 +367,18 @@
                     name="state"
                     class="form-control"
                     placeholder="write State here"
+                  >
+                  <label
+                    for="moto"
+                  >Moto</label>
+                  <input
+                    id="state"
+                    v-model="
+                      institute.moto
+                    "
+                    name="moto"
+                    class="form-control"
+                    placeholder="write moto here"
                   >
                 </div>
               </div>
@@ -1573,6 +1588,7 @@ export default {
             edit_institute: {
                 website: "",
                 address: "",
+                moto:"",
             },
             user_id: "",
             role: "",
@@ -1754,8 +1770,6 @@ export default {
                     phone_no: this.edit_institute_contact.phone_no,
                     phone_no2: this.edit_institute_contact.phone_no2,
                     department: this.edit_institute_contact.department,
-                    website: this.edit_institute.website,
-                    address: this.edit_institute.address,
                     edit_institute_contact_id: this.edit_institute_contact.id,
                 })
                 .then((resp) => {
@@ -1793,8 +1807,6 @@ export default {
             this.edit_institute_contact.email = "";
             this.edit_institute_contact.phone_no = "";
             this.edit_institute_contact.phone_no2 = "";
-            this.edit_institute.website = "";
-            this.edit_institute.address = "";
         },
         submitCourse() {
             this.axios
