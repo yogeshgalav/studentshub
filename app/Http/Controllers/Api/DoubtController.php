@@ -109,8 +109,10 @@ class DoubtController extends Controller
         }
 
         if ($request->user('api')) {
+            $per_page = config('constants.per_page_items');
+            $page = ((int) $request->page) - 1;
             $doubts = $doubt_query->select($columns)
-            ->groupBy($groupBycolumns)->skip(5)->take(5)->get();
+            ->groupBy($groupBycolumns)->skip($per_page * $page)->take($per_page)->get();
         } else {
             $doubts['data'] = $doubt_query->limit(10)->get();
         }
