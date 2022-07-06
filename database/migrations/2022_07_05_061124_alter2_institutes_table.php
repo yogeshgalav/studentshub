@@ -16,6 +16,8 @@ class Alter2InstitutesTable extends Migration
         Schema::table('institutes', function (Blueprint $table) {
         
         $table->string('moto')->nullable();
+        $table->string('timeline')->nullable();
+        $table->string('profile_url')->nullable();
     });
 }
 

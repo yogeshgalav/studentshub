@@ -1,3 +1,4 @@
+/* eslint-disable vue/no-v-html */
 <template>
   <section class="row">
     <Head>
@@ -15,13 +16,25 @@
         <div class="card-body p-4">
           <div class="">
             <img
-              v-if="institute.avatar_url"
-              :src="institute.avatar_url"
+              v-if="institute.profile_url"
+              :src="institute.profile_url"
+              style="
+                                width: 100%;
+                                height: 185px;
+                                margin-bottom: -40px;
+                                border-radius: 15px;
+                            "
               alt=""
             >
             <img
               v-else-if="institute_banner_url"
               :src="institute_banner_url"
+              style="
+                                width: 100%;
+                                height: 185px;
+                                margin-bottom: -40px;
+                                border-radius: 15px;
+                            "
               alt=""
             >
             <img
@@ -108,7 +121,7 @@
             </button>
           </h3>
           <h5 style="margin: 5px 0px 0px 20px">
-            {{ institute.moto }}
+            {{ institute.moto ? institute.moto : "Institute Moto" }}
           </h5>
           
       
@@ -649,7 +662,7 @@
                     v-if="isEdit"
                     type="button"
                     class="btn btn-primary"
-                    @click="editAdmiDetails()"
+                    @click="editBlogDetails()"
                   >
                     <i
                       class="fas fa-pencil-alt"
@@ -672,16 +685,18 @@
                     :key="index"
                     style="font-size: 15px; font-weight:800"
                   >
-                    <p v-if="isEdit">
-                      {{ blog.blog }}
-                    </p>
+                    <div
+                      v-if="isEdit"
+                      id="app"
+                      v-html="blog.blog"
+                    />
                   </div>
+                  <rich-text-editor
+                    v-if="!isEdit"
+                    id="ArticleEditor"
+                    v-model="new_blog"
+                  />
                 </div>
-                <rich-text-editor
-                  v-if="!isEdit"
-                  id="ArticleEditor"
-                  v-model="new_blog"
-                />
               </Accordion>
               <Accordion
                 v-if="instituteVerified===true"
@@ -849,6 +864,25 @@
                               class="form-control"
                               placeholder="write Admin Phone Number here"
                             >
+                            <label>Profile Image</label>
+                            <file-upload
+                              id="documentUpload"
+                              ref="upload"
+                              class="btn btn-primary"
+                              post-action="/upload/post"
+                              extensions="jpg,jpeg,png"
+                              accept="image/*"
+                              :drop="true"
+                              :size="102 * 1024 * 10"
+                              style="width:50%"
+                              @input="inputUpdate"
+                            >
+                              <img
+                                src="/images/cam-icon.svg"
+                                alt=""
+                              >
+                              Upload Profile Image
+                            </file-upload>
                           </div>
                         </div>
                       </div>
@@ -1542,11 +1576,14 @@
 
 </style>
 
-import Accordion from "../../components/accordion.vue";
+
+ <!-- Load Vuejs -->
+<script src=
+"https://cdn.jsdelivr.net/npm/vue/dist/vue.js">
+</script>
 <script async src="//www.instagram.com/embed.js" />
 <script>
 import Accordion from "@/components/accordion.vue";
-
 import NavTabs from "../../components/NavTabs";
 import SelectInstitute from "../../components/SelectInstitute.vue";
 import PostContainer from "@/Pages/common/post-container.vue";
@@ -1616,6 +1653,7 @@ export default {
         };
     },
     watch:{
+
       institute(oldVal, val){
         if(val){
           this.loadInstitute();
@@ -1727,6 +1765,12 @@ export default {
                     "This is not valid Youtube url.";
                 return false;
             }
+            if(this.image.file){
+				await this.getBase64(this.image.file).then(file=>{
+					this.institute.profile_pic=file;
+				});
+			}
+
 
             this.axios
                 .post("/api/save-institute-profile",this.institute)
@@ -1752,6 +1796,9 @@ export default {
             this.institute_banner_url = URL.createObjectURL(files[0].file);
         },
         editAdmiDetails() {
+            this.isEdit = false;
+        },
+         editBlogDetails() {
             this.isEdit = false;
         },
         addOrEditContact() {
@@ -1832,7 +1879,7 @@ export default {
 					this.add_blog = false;
 					this.new_blog = '';
           loader.hide();
-          
+          window.location.reload();
 				})
 		},
     },
