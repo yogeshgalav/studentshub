@@ -50,5 +50,18 @@ class SubjectController extends Controller
         ]]);
       }
 
+      public function create(Request $request) {
+         $me = $request->user('api');
+        $subject = new \App\Models\Subject();
+        $subject->subject_name = $request->subject_name;
+        $subject->added_by_user_id =  $me->id;
+        $subject->category_id = $request->category_id;
+        $subject->save();
+    
+        return response()->json(['success'=>[
+          'subject'=> $subject,
+      ]]); 
+    }
+
 
 }
