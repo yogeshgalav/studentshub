@@ -51,7 +51,7 @@
             <file-upload
               id="documentUpload"
               ref="upload"
-              class="btn btn-light bottom-right"
+              class="EditBanner btn btn-light bottom-right"
               post-action="/upload/post"
               extensions="jpg,jpeg,png"
               accept="image/*"
@@ -733,6 +733,7 @@
                       >
                         <div>
                           <img
+                            class="intitute-avatar"
                             src="/images/default-avatar.png"
                             alt="Student Hub"
                             width="120"
@@ -777,10 +778,11 @@
                       </div>
                       <div
                         v-if="!isEdit"
-                        class="col-md-2"
+                        class="col-md-2 addAdmin"
                       >
                         <button
                           v-if="editPermission"
+                          class="addAdmin"
                           data-toggle="modal"
                           data-target="#editAdminModal"
                           style="
@@ -868,7 +870,7 @@
                             <file-upload
                               id="documentUpload"
                               ref="upload"
-                              class="btn btn-primary"
+                              class=" edit-avatar btn btn-primary"
                               post-action="/upload/post"
                               extensions="jpg,jpeg,png"
                               accept="image/*"
@@ -1462,6 +1464,7 @@
                       <div class="mapouter">
                         <div class="gmap_canvas">
                           <iframe
+                          class="map-location"
                             id="gmap_canvas"
                             width="100%"
                             height="500px"
@@ -1573,7 +1576,53 @@
   align-items: center;
   align-content: center;
 }
+@media (max-width: 769px)  {
+.addAdmin{
+text-align: center;
+}
+}
+@media (max-width: 769px)  {
+.EditBanner{
+  height: 80px;
+    width: 111px;
+    position: absolute;
+    background-color: white;
+    bottom: 265px;
+    right: 35px;
+}
+}
+@media (max-width: 769px)  {
+.institute-avatar{
+    margin-left: 0px !important;
+}
+}
+@media (max-width: 769px)  {
+.edit-avatar{
+    
+    position: absolute;
+    bottom: 5px;
+    left: 100px;
+}
+}
+@media   (max-width:769px) {
+  .addbtn-row {
+    /* flex-direction: column; */
+    text-align: center;
+  }
+}
+@media   (max-width:769px) {
+  .instagram-media {
+    /* flex-direction: column; */
+    min-width: 100% !important;
+  }
+}
+  @media   (max-width:769px) {
+  .map-location {
+    /* flex-direction: column; */
+    min-width: 100% !important;
+  }
 
+}
 </style>
 
 
