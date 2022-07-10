@@ -149,10 +149,10 @@
 @media (max-width: 640px) {
     .tabbed-nav .nav-item a {
         text-align: center;
-        color: #000;
+        color: #676767;
         font-size: 14px;
         padding: 15px 10px;
-        font-weight: 500;
+        font-weight: 800;
         cursor: pointer;
         margin-right: 0px;
     }

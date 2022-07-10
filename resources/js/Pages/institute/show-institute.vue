@@ -79,19 +79,20 @@
             >
             <img
               v-else
-              src="/images/download.png"
+              class="institute-avatar"
+              src="/images/default-institute.png"
               alt="Student Hub"
               width="120 "
               height="120"
               style="
                                 margin-left: 15px;
-                                border-radius: 50px;
+                                border-radius: 100px;
                                 border-color: white;
                             "
             ><file-upload
               id="documentUpload"
               ref="upload"
-              class="bottom-left"
+              class="edit-avatar bottom-left"
               post-action="/upload/post"
               extensions="jpg,jpeg,png"
               accept="image/*"
@@ -719,7 +720,7 @@
                 <div class="card-body ">
                   <div v-if="institute_users.length">
                     <div
-                      class="row d-inline-flex align-items-center justify-content-center"
+                      class=" row d-inline-flex align-items-center justify-content-center"
                       style="gap: 40px;"
                     >
                       <div
@@ -797,18 +798,20 @@
                     </div>
                   </div>
                   <div v-else>
-                    <div class="row">
+                    <div class="row addAdmin">
                       <div 
                         v-if="editPermission"
                         class="col-md-2"
                       >
                         <button
                           v-if="!isEdit"
+                          class="addAdmin"
                           data-toggle="modal"
                           data-target="#editAdminModal"
                           style="
                                                             font-size: 60px;
                                                             background-color: white;
+                                                             
                                                         "
                         >
                           <i class="fa fa-plus" />
@@ -1531,7 +1534,7 @@
 .bottom-right {
     position: absolute;
     background-color: white;
-    bottom: 207px;
+    bottom: 239px;
     right: 35px;
 }
 .container {
@@ -1695,6 +1698,7 @@ export default {
                 name: "",
             },
             isEdit: true,
+            new_blog: '',
         };
     },
     watch:{
