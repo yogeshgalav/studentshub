@@ -54,7 +54,4 @@ class Institute extends Model
     public function instituteUsers(){
         return $this->hasMany('App\Models\InstituteUsers');
     }
-    public function instituteBlogs(){
-        return $this->hasMany('App\Models\InstituteBlog');
-    }
 }

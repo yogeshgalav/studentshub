@@ -679,22 +679,20 @@
                     Save
                   </button>
                 </div>
-                <div v-if="blogs.length">
+                <div>
                   <div
-                    v-for="(blog, index) in blogs"
-                    :key="index"
                     style="font-size: 15px; font-weight:800"
                   >
                     <div
                       v-if="isEdit"
                       id="app"
-                      v-html="blog.blog"
+                      v-html="institute.blog"
                     />
                   </div>
                   <rich-text-editor
                     v-if="!isEdit"
                     id="ArticleEditor"
-                    v-model="new_blog"
+                    v-model="institute.blog"
                   />
                 </div>
               </Accordion>
@@ -1664,8 +1662,6 @@ export default {
             logo_url: "",
             institute_users: [],
             institute_contacts: [],
-            blogs:[],
-            new_blog:'',
             edit_institute_contact: {
                 email: "",
                 phone_no: "",
@@ -1734,7 +1730,6 @@ export default {
                 this.teachers = resp.data.success.teachers;
                 // this.institute = resp.data.success.institute;
                 this.students = resp.data.success.students;
-                this.blogs =resp.data.success.blogs;
             });
         },
         addAdministrator() {
@@ -1920,15 +1915,12 @@ export default {
         },
           submitblog() {
             let loader = this.$loading.show();
-			this.axios.post('/api/add-blog/'+this.institute.id, {
-				new_blog: this.new_blog,
+			this.axios.post('/api/update-institute-blog/'+this.institute.id, {
+				new_blog: this.institute.blog,
 			})
 				.then(resp => {
-          this.blogs = resp.data.success.blogs;
-					this.add_blog = false;
-					this.new_blog = '';
+          this.institute.blog = resp.data.success.blogs;
           loader.hide();
-          window.location.reload();
 				})
 		},
     },

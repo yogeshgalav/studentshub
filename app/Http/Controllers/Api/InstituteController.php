@@ -13,7 +13,8 @@ use App\Models\User;
 use App\Models\InstituteUser;
 use App\Models\UserPhone;
 use App\Models\InstituteContact;
-use App\Models\InstituteBlog;
+use App\Services\simple_html_dom;
+
 class InstituteController extends Controller
 {
     //
@@ -69,7 +70,6 @@ class InstituteController extends Controller
         ->with('preferredCourse')
         ->get();
 
-        $institute_blogs =InstituteBlog::where('institute_id',$institute->id)->get();
         
         return response()->json(['success'=>[
             'institute'=>$institute,
@@ -77,7 +77,6 @@ class InstituteController extends Controller
             'students'=>$students,
             'institute_users'=>$institute_users,
             'institute_contacts'=>$institute_contacts,
-            'blogs'=>$institute_blogs
         ]]);
     
     }
@@ -326,13 +325,13 @@ class InstituteController extends Controller
             $image = str_replace(' ', '+', $image);
             $file_name = 'image_' . time() . '.' . $image_extension[1]; //generating unique file name;
             \Storage::disk('profile-image')->put($file_name,base64_decode($image));
-            $profile->profile_url="/storage/profile-images/".$file_name;
+            $profile->profile_url="/storage/institute-profile-images/".$file_name;
             $profile->save();
             $newFile= new SthubFile();
             $newFile->fileable_id=$me->id;
             $newFile->fileable_type=Institute::class;
-            $newFile->file_ext=Storage::disk('profile-image')->getMimeType($file_name);
-            $newFile->file_size=Storage::disk('profile-image')->size($file_name);
+            $newFile->file_ext=Storage::disk('institute-profile-image')->getMimeType($file_name);
+            $newFile->file_size=Storage::disk('institute-profile-image')->size($file_name);
             $newFile->file_name=$file_name;
             $newFile->user_id=$me->id;
             $newFile->save();
@@ -364,20 +363,26 @@ class InstituteController extends Controller
             'profile'=>$profile
         ]]);
     }
-    public function addblog(Institute $institute,Request $request) {
+    public function updateInstituteBlog(Institute $institute,Request $request) {
+        $institute->blog = '';
 
-        $me = $request->user('api');
-        $blogs = new InstituteBlog();
-        $blogs->user_id = $me->id;
-        $blogs->institute_id = $institute->id;
-        $blogs->blog = $request->new_blog;
-    
-        $blogs->save();
-      
-        return response()->json([
-            'success'=>[
-                'blogs'=>$blogs
-            ]
-        ]);
+        $simple_html_dom = new simple_html_dom;
+        $dom = $simple_html_dom->extactImageFiles($request->new_blog, "institute-blog-image");
+        
+        $institute->blog = $dom->html;
+        $institute->save();
+
+        foreach($dom->files as $file){
+            $newFile= new SthubFile();
+            $newFile->fileable_id=$post_content->id;
+            $newFile->fileable_type=Article::class;
+            $newFile->file_ext=Storage::disk('institute-blog-image')->getMimeType($file);
+            $newFile->file_size=Storage::disk('institute-blog-image')->size($file);
+            $newFile->file_name=$file;
+            $newFile->user_id=Auth::user()->id;
+            $newFile->save();
+        }
+
+        return response()->json([], 204);
     }
 }

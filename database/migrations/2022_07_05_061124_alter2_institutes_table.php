@@ -14,12 +14,12 @@ class Alter2InstitutesTable extends Migration
     public function up()
     {
         Schema::table('institutes', function (Blueprint $table) {
-        
-        $table->string('moto')->nullable();
-        $table->string('timeline')->nullable();
-        $table->string('profile_url')->nullable();
-    });
-}
+            $table->text('blog')->nullable();
+            $table->string('moto')->nullable();
+            $table->string('timeline')->nullable();
+            $table->string('profile_url')->nullable();
+        });
+    }
 
     /**
      * Reverse the migrations.
