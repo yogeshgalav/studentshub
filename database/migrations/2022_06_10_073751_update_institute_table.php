@@ -21,7 +21,6 @@ class UpdateInstituteTable extends Migration
             $table->string('youtube_vedio_url')->nullable();
             $table->string('website')->nullable();
             $table->dropColumn('description');
-
         });
     }
 

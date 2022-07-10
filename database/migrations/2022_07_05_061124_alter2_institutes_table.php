@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateInstituteBlogsTable extends Migration
+class Alter2InstitutesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateInstituteBlogsTable extends Migration
      */
     public function up()
     {
-        Schema::create('institute_blogs', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id')->unsigned();
-            $table->integer('institute_id')->unsigned();
+        Schema::table('institutes', function (Blueprint $table) {
             $table->text('blog')->nullable();
-            $table->timestamps();
+            $table->string('moto')->nullable();
+            $table->string('timeline')->nullable();
+            $table->string('profile_url')->nullable();
         });
     }
 
@@ -29,6 +28,6 @@ class CreateInstituteBlogsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('institute_blogs');
+        //
     }
 }

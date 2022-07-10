@@ -59,6 +59,14 @@ return [
             'driver' => 'local',
             'root' => public_path() .'/storage/post-image',
         ],
+        'institute-profile-image' => [
+            'driver' => 'local',
+            'root' => public_path() .'/storage/institute-profile-image',
+        ],
+        'institute-blog-image' => [
+            'driver' => 'local',
+            'root' => public_path() .'/storage/institute-blog-image',
+        ],
 
         'public' => [
             'driver' => 'local',
