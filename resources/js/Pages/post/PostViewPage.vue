@@ -275,23 +275,20 @@
         <p
           v-if="like_active"
           class="text-primary"
-          style="margin-top: 25px;"
         >
-          <span><i
-            class="fas fa-thumbs-up"
-            style="font-size: x-large;"
-          /></span><br>
+          <span><i class="fas fa-thumbs-up" /></span>
           {{ totalLikes }} 
         </p>
         <p
-          v-else
-          style="margin-top: 25px;"
+          v-else-if="totalLikes===0"
         >
-          <span><i
-            class="fas fa-thumbs-up"
-            style="font-size: x-large;"
-          /></span><br>
-          {{ totalLikes ? totalLikes : '' }}
+          <span><i class="fas fa-thumbs-up" /></span>
+        </p>
+        <p
+          v-else
+        >
+          <span><i class="fas fa-thumbs-up" /></span>
+          {{ totalLikes }}
         </p>
       </button>
     </div>
@@ -557,7 +554,7 @@ h6.card-title-tag.font-size-12 a {
 .single_page_user_like {
     display: flex;
     justify-content: center;
-    margin: 15px 0 15px;
+    margin: 90px 0 40px;
 }
 
 .like_active p {
