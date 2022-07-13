@@ -966,35 +966,6 @@ i {
 .custom-nav .nav {
     padding-left: 10px;
 }
-
-// Accordion Component
-.tab__header {
-    background: $white;
-}
-
-.tab__header a {
-    color: $text !important;
-    text-decoration: none;
-    display: flex !important;
-}
-
-.tab__header a strong {
-    padding: 15px !important;
-}
-
-.tab__header .justify-between {
-    justify-content: space-between !important;
-}
-
-.tab__header a:hover {
-    text-decoration: none;
-}
-
-.tab__header .down-Arrow,
-.up-Arrow {
-    border-left: 1px solid #ccc !important;
-    padding: 15px 20px 15px 20px;
-}
 //  main wrapper padding bottom
 .generate-habit-builder {
     padding-bottom: 100px;

@@ -77,6 +77,9 @@ class User extends Authenticatable
     public function lead(){
         return $this->hasOne('App\Models\Lead');
     }
+    public function userphone(){
+        return $this->hasOne('App\Models\UserPhone');
+    }
     /***
      * Now many new/unread notifications are
      * waiting for this user?

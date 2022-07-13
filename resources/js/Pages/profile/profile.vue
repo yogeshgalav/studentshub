@@ -78,6 +78,12 @@
                     {{ totalFollows }} Following
                   </p>
                   <p
+                    v-else-if="totalFollows==0"
+                    style="margin:auto"
+                  >
+                    Follow
+                  </p>
+                  <p
                     v-else
                     style="margin:auto"
                   >
@@ -233,7 +239,7 @@
                       </div>
                       <div class="col-md-10">
                         <p class="mb-0 font-weight-bold text-black">
-                          <a :href="'/profile/'+follow.following_id"> {{ follow.full_name }}</a>
+                          <a :href="'/profile/'+follow.followed_by_id"> {{ follow.full_name }}</a>
                         </p> 
                       </div>
                     </div>
