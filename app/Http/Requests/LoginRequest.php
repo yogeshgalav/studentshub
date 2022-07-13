@@ -29,8 +29,8 @@ class LoginRequest extends FormRequest
         if ($inId && Institute::where('id', $inId)->exists()) {
             $this->merge(['inId' => $inId]);
         }
-        if (!empty($this->fcmToken)) {
-            $this->merge(['fcm_token' => base64_decode($this->fcmToken)]);
+        if (isset($_COOKIE['fcmToken'])) {
+            $this->merge(['fcmToken' => base64_decode($_COOKIE['fcmToken'])]);
         }
     }
 

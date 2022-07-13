@@ -71,9 +71,19 @@ class AuthController extends Controller
             $user->save();
             $success['redirectUrl'] = '/my-institute';
         }
+        if ($request->fcmToken) {
+            $user->fcm_token = $request->fcmToken;
+            $user->save();
+        }
+
         Auth::login($user, 1);
 
-        Log::info($user->full_name.' (User ID # '.$user->id.') logged in from IP Address '.$request->ip());
+        Log::info('User Logged in',[
+            'id'=>$user->id,
+            'full_name'=>$user->full_name,
+            'via App'=>$request->fcmToken ? true : false,
+            'ip'=>$request->ip(),
+        ]);
 
         return redirect($success['redirectUrl']);
     }
@@ -118,7 +128,12 @@ class AuthController extends Controller
             return redirect('/get-started')->with('srvError', 1);
         }
         Auth::login($user, 1);
-        Log::info($user->full_name.' (User ID # '.$user->id.') registered and logged in from IP Address '.$request->ip());
+        Log::info('New User Registered',[
+            'id'=>$user->id,
+            'full_name'=>$user->full_name,
+            'via App'=>$request->fcmToken ? true : false,
+            'ip'=>$request->ip(),
+        ]);
         $success['redirectUrl'] = '/';
 
         DB::beginTransaction();
@@ -134,6 +149,10 @@ class AuthController extends Controller
                 $user->preferred_institute = $request->inId;
                 $user->save();
                 $success['redirectUrl'] = '/my-institute';
+            }
+            if ($request->fcmToken) {
+                $user->fcm_token = $request->fcmToken;
+                $user->save();
             }
             if ($request->join_id) {
                 $this->registerWithClassrrom($user, $request->join_id);
