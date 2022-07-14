@@ -1625,308 +1625,304 @@ text-align: center;
 
 }
 </style>
-
-
- <!-- Load Vuejs -->
-<script src=
-"https://cdn.jsdelivr.net/npm/vue/dist/vue.js">
-</script>
-<script async src="//www.instagram.com/embed.js" />
 <script>
-import Accordion from "@/components/accordion.vue";
-import NavTabs from "../../components/NavTabs";
-import SelectInstitute from "../../components/SelectInstitute.vue";
-import PostContainer from "@/Pages/common/post-container.vue";
-import DoubtContainer from "@/Pages/doubt/doubt-container.vue";
-import SocialSharing from "vue-social-sharing";
-import swal from "../../components/swal";
-import FileUpload from "vue-upload-component";
-import Modal from "../../components/VueNiceModal.vue";
-import FormMixin from "../../components/mixins/form-mixin.js";
+import Accordion from '@/components/accordion.vue';
+import NavTabs from '../../components/NavTabs';
+import SelectInstitute from '../../components/SelectInstitute.vue';
+import PostContainer from '@/Pages/common/post-container.vue';
+import DoubtContainer from '@/Pages/doubt/doubt-container.vue';
+import SocialSharing from 'vue-social-sharing';
+import swal from '../../components/swal';
+import FileUpload from 'vue-upload-component';
+import Modal from '../../components/VueNiceModal.vue';
+import FormMixin from '../../components/mixins/form-mixin.js';
 import RichTextEditor from '../../components/RichTextEditor';
 
 export default {
-    components: {
-        Accordion,
-        NavTabs,
-        PostContainer,
-        DoubtContainer,
-        SelectInstitute,
-        SocialSharing,
-        FileUpload,
-        Modal,
-        RichTextEditor,
-    },
-    mixins: [FormMixin],
-    props:['institute', 'editPermission','instituteVerified'],
-    data() {
-        return {
-            institute_banner_url: "",
-            logo_url: "",
-            institute_users: [],
-            institute_contacts: [],
-            edit_institute_contact: {
-                email: "",
-                phone_no: "",
-                phone_no2: "",
-            },
-            edit_institute: {
-                website: "",
-                address: "",
-                moto:"",
-            },
-            user_id: "",
-            role: "",
-            phone_no: "",
-            name: "",
-            teachers: [],
-            students: [],
-            posts: [],
-            errors: {
-                fb_url: "",
-                twitter_url: "",
-                insta_url: "",
-                linkedin_url: "",
-                youtube_vedio_url: "",
-            },
+	components: {
+		Accordion,
+		NavTabs,
+		PostContainer,
+		DoubtContainer,
+		SelectInstitute,
+		SocialSharing,
+		FileUpload,
+		Modal,
+		RichTextEditor,
+	},
+	mixins: [FormMixin],
+	props:['institute', 'editPermission','instituteVerified'],
+	data() {
+		return {
+			institute_banner_url: '',
+			logo_url: '',
+			institute_users: [],
+			institute_contacts: [],
+			edit_institute_contact: {
+				email: '',
+				phone_no: '',
+				phone_no2: '',
+			},
+			edit_institute: {
+				website: '',
+				address: '',
+				moto:'',
+			},
+			user_id: '',
+			role: '',
+			phone_no: '',
+			name: '',
+			teachers: [],
+			students: [],
+			posts: [],
+			errors: {
+				fb_url: '',
+				twitter_url: '',
+				insta_url: '',
+				linkedin_url: '',
+				youtube_vedio_url: '',
+			},
 
-            initialTab: "about",
-            tabs: ["about", "posts", "doubts", "students", "teachers"],
-            showLoader: true,
-            selected_institute: {
-                id: null,
-                name: "",
-            },
-            isEdit: true,
-            new_blog: '',
-        };
-    },
-    watch:{
+			initialTab: 'about',
+			tabs: ['about', 'posts', 'doubts', 'students', 'teachers'],
+			showLoader: true,
+			selected_institute: {
+				id: null,
+				name: '',
+			},
+			isEdit: true,
+			new_blog: '',
+		};
+	},
+	computed: {
+		isCourseValid() {
+			if (this.selected_institute && this.selected_institute.name) {
+				return true;
+			}
+			return false;
+		},
+	},
+	watch:{
 
-      institute(oldVal, val){
-        if(val){
-          this.loadInstitute();
-        }
-      }
-    },
-    computed: {
-        isCourseValid() {
-            if (this.selected_institute && this.selected_institute.name) {
-                return true;
-            }
-            return false;
-        },
-    },
-    mounted() {
-        this.loadInstitute();
-        if (!this.editPermission && !this.instituteVerified) {
-            this.tabs.shift();
-            this.initialTab = "posts";
-        } 
-    },
-    methods: {
-        loadInstitute() {
-          this.axios
-            .get("/api/institute/" + this.institute.id)
-            .then((resp) => {
-                this.institute_users = resp.data.success.institute_users;
-                this.institute_contacts = resp.data.success.institute_contacts;
-                this.teachers = resp.data.success.teachers;
-                // this.institute = resp.data.success.institute;
-                this.students = resp.data.success.students;
-            });
-        },
-        addAdministrator() {
-            this.$modal.show("editAdminModal");
-        },
-        savedetails() {
-            this.showLoader = true;
-            this.axios
-                .post(this.baseUrl + "/api/add-details", {
-                    name: this.name,
-                    user_id: this.user_id,
-                    role: this.role,
-                    phone_no: this.phone_no,
-                })
-                .then((resp) => {
-                    this.showLoader = false;
-                    this.institute_users.push({
-                        name: resp.data.success.institute_user.name,
-                        institute_id:
+		institute(oldVal, val){
+			if(val){
+				this.loadInstitute();
+			}
+		}
+	},
+	mounted() {
+		this.loadInstitute();
+		if (!this.editPermission && !this.instituteVerified) {
+			this.tabs.shift();
+			this.initialTab = 'posts';
+		} 
+	},
+	methods: {
+		loadInstitute() {
+			this.axios
+				.get('/api/institute/' + this.institute.id)
+				.then((resp) => {
+					this.institute_users = resp.data.success.institute_users;
+					this.institute_contacts = resp.data.success.institute_contacts;
+					this.teachers = resp.data.success.teachers;
+					// this.institute = resp.data.success.institute;
+					this.students = resp.data.success.students;
+				});
+		},
+		addAdministrator() {
+			this.$modal.show('editAdminModal');
+		},
+		savedetails() {
+			this.showLoader = true;
+			this.axios
+				.post(this.baseUrl + '/api/add-details', {
+					name: this.name,
+					user_id: this.user_id,
+					role: this.role,
+					phone_no: this.phone_no,
+				})
+				.then((resp) => {
+					this.showLoader = false;
+					this.institute_users.push({
+						name: resp.data.success.institute_user.name,
+						institute_id:
                             resp.data.success.institute_user.institute_id,
-                        user_id: resp.data.success.institute_user.user_id,
-                        role: resp.data.success.institute_user.role,
-                        phone_no: resp.data.success.institute_user.phone_no,
-                        id: resp.data.success.institute_user.id,
-                    });                    
-                });
-            this.$refs.editAdminModal.closeModal();
-            this.clearModalData();
-        },
-        deleteInstituteUser(instituteuser) {
-           let loader = this.$loading.show(); 
-            this.axios
-                .delete("/api/instituteuser/" + instituteuser.id)
-                .then((resp) => {
-                   loader.hide();
-                    let index = this.institute_users.findIndex(
-                        (el) => el.id === instituteuser.id
-                    );
-                    this.institute_users.splice(index, 1);
-                });
-        },
-        async saveProfile() {
-          this.showLoader = true;
-            if (
-                this.institute.fb_url &&
-                !this.institute.fb_url.includes("facebook.com")
-            ) {
-                this.errors.fb_url = "This is not valid Facebook url.";
-                return false;
-            }
-            if (
-                this.institute.twitter_url &&
-                !this.institute.twitter_url.includes("twitter.com")
-            ) {
-                this.errors.twitter_url = "This is not valid Twitter url.";
-                return false;
-            }
-            if (
-                this.institute.insta_url &&
+						user_id: resp.data.success.institute_user.user_id,
+						role: resp.data.success.institute_user.role,
+						phone_no: resp.data.success.institute_user.phone_no,
+						id: resp.data.success.institute_user.id,
+					});                    
+				});
+			this.$refs.editAdminModal.closeModal();
+			this.clearModalData();
+		},
+		deleteInstituteUser(instituteuser) {
+			let loader = this.$loading.show(); 
+			this.axios
+				.delete('/api/instituteuser/' + instituteuser.id)
+				.then((resp) => {
+					loader.hide();
+					let index = this.institute_users.findIndex(
+						(el) => el.id === instituteuser.id
+					);
+					this.institute_users.splice(index, 1);
+				});
+		},
+		async saveProfile() {
+			this.showLoader = true;
+			if (
+				this.institute.fb_url &&
+                !this.institute.fb_url.includes('facebook.com')
+			) {
+				this.errors.fb_url = 'This is not valid Facebook url.';
+				return false;
+			}
+			if (
+				this.institute.twitter_url &&
+                !this.institute.twitter_url.includes('twitter.com')
+			) {
+				this.errors.twitter_url = 'This is not valid Twitter url.';
+				return false;
+			}
+			if (
+				this.institute.insta_url &&
                 !this.institute.insta_url.match(/^[a-zA-Z0-9_.]*$/g)
-            ) {
-                this.errors.insta_url = "This is not valid Instagram username.";
-                return false;
-            }
-            if (
-                this.institute.linkedin_url &&
-                !this.institute.linkedin_url.includes("linkedin.com")
-            ) {
-                this.errors.linkedin_url = "This is not valid Linkedin url.";
-                return false;
-            }
-            if (
-                this.institute.youtube_vedio_url &&
-                !this.institute.youtube_vedio_url.includes("youtube.com")
-            ) {
-                this.errors.youtube_vedio_url =
-                    "This is not valid Youtube url.";
-                return false;
-            }
-            if(this.image.file){
+			) {
+				this.errors.insta_url = 'This is not valid Instagram username.';
+				return false;
+			}
+			if (
+				this.institute.linkedin_url &&
+                !this.institute.linkedin_url.includes('linkedin.com')
+			) {
+				this.errors.linkedin_url = 'This is not valid Linkedin url.';
+				return false;
+			}
+			if (
+				this.institute.youtube_vedio_url &&
+                !this.institute.youtube_vedio_url.includes('youtube.com')
+			) {
+				this.errors.youtube_vedio_url =
+                    'This is not valid Youtube url.';
+				return false;
+			}
+			if(this.image.file){
 				await this.getBase64(this.image.file).then(file=>{
 					this.institute.profile_pic=file;
 				});
 			}
 
+			this.axios
+				.post('/api/save-institute-profile',this.institute, {
+					headers: {
+						'Content-Type': 'multipart/form-data'
+					}
+				})
+				.then((resp) => {
+					this.showLoader = false;
+					swal.successDialog(
+						'Institute Page Updated',
+						'Successfully!',
+						'success'
+					);
+				});
 
-            this.axios
-                .post("/api/save-institute-profile",this.institute)
-                .then((resp) => {
-                  this.showLoader = false;
-                    swal.successDialog(
-                        "Institute Page Updated",
-                        "Successfully!",
-                        "success"
-                    );
-                });
-
-            this.errors = {
-                fb_url: "",
-                twitter_url: "",
-                insta_url: "",
-                linkedin_url: "",
-                youtube_vedio_url: "",
-            };
-        },
-        inputUpdate(files) {
-            this.image = files[0];
-            this.institute_banner_url = URL.createObjectURL(files[0].file);
-        },
-        editAdmiDetails() {
-            this.isEdit = false;
-        },
-         editBlogDetails() {
-            this.isEdit = false;
-        },
-        addOrEditContact() {
-            this.validateForm('add_contact_form').then((valid) => {
-              console.log(valid);
-                if (valid) {
-                    this.contactCreateOrUpdateApi();
-                }
-            });
-        },
-        contactCreateOrUpdateApi() {
-           let loader = this.$loading.show(); 
-            this.axios
-                .post(this.baseUrl + "/api/add-contact", {
-                    email: this.edit_institute_contact.email,
-                    phone_no: this.edit_institute_contact.phone_no,
-                    phone_no2: this.edit_institute_contact.phone_no2,
-                    department: this.edit_institute_contact.department,
-                    edit_institute_contact_id: this.edit_institute_contact.id,
-                })
-                .then((resp) => {
-                    loader.hide();
-                    this.$refs.addContactModal.closeModal();
-                    this.edit_institute_contact.push({
-                        email: resp.data.success.institute_contacts.email,
-                        phone_no:
+			this.errors = {
+				fb_url: '',
+				twitter_url: '',
+				insta_url: '',
+				linkedin_url: '',
+				youtube_vedio_url: '',
+			};
+		},
+		inputUpdate(files) {
+			this.image = files[0];
+			this.institute_banner_url = URL.createObjectURL(files[0].file);
+		},
+		editAdmiDetails() {
+			this.isEdit = false;
+		},
+		editBlogDetails() {
+			this.isEdit = false;
+		},
+		addOrEditContact() {
+			this.validateForm('add_contact_form').then((valid) => {
+				console.log(valid);
+				if (valid) {
+					this.contactCreateOrUpdateApi();
+				}
+			});
+		},
+		contactCreateOrUpdateApi() {
+			let loader = this.$loading.show(); 
+			this.axios
+				.post(this.baseUrl + '/api/add-contact', {
+					email: this.edit_institute_contact.email,
+					phone_no: this.edit_institute_contact.phone_no,
+					phone_no2: this.edit_institute_contact.phone_no2,
+					department: this.edit_institute_contact.department,
+					edit_institute_contact_id: this.edit_institute_contact.id,
+				})
+				.then((resp) => {
+					loader.hide();
+					this.$refs.addContactModal.closeModal();
+					this.edit_institute_contact.push({
+						email: resp.data.success.institute_contacts.email,
+						phone_no:
                             resp.data.success.institute_contacts.phone_no,
-                        phone_no2:
+						phone_no2:
                             resp.data.success.institute_contacts.phone_no2,
-                        department:resp.data.success.institute_contacts.department,
-                        id: resp.data.success.institute_contacts.id,
-                    });
-                    this.clearModalData();
-                });
-        },
-        // set contact data in add edit modal
-        editContact(edit_institute_contact) {
-            this.edit_institute_contact = edit_institute_contact;
-        },
-        deleteContact(edit_institute_contact) {
-           let loader = this.$loading.show(); 
-            this.axios
-                .delete("/api/contact/" + edit_institute_contact.id)
-                .then((resp) => {
-                  loader.hide();
-                    let index = this.institute_contacts.findIndex(
-                        (el) => el.id === edit_institute_contact.id
-                    );
-                    this.institute_contacts.splice(index, 1);
-                });
-        },
-        addContactDetails() {
-            this.edit_institute_contact.email = "";
-            this.edit_institute_contact.phone_no = "";
-            this.edit_institute_contact.phone_no2 = "";
-        },
-        submitCourse() {
-            this.axios
-                .put("/api/preferred-details", {
-                    preferred_institute: this.selected_institute,
-                })
-                .then((resp) => {
-                    window.location.reload();
-                });
-        },
-        clearModalData() {
-            this.name = "";
-            this.role = "";
-            this.id = "";
-        },
-          submitblog() {
-            let loader = this.$loading.show();
+						department:resp.data.success.institute_contacts.department,
+						id: resp.data.success.institute_contacts.id,
+					});
+					this.clearModalData();
+				});
+		},
+		// set contact data in add edit modal
+		editContact(edit_institute_contact) {
+			this.edit_institute_contact = edit_institute_contact;
+		},
+		deleteContact(edit_institute_contact) {
+			let loader = this.$loading.show(); 
+			this.axios
+				.delete('/api/contact/' + edit_institute_contact.id)
+				.then((resp) => {
+					loader.hide();
+					let index = this.institute_contacts.findIndex(
+						(el) => el.id === edit_institute_contact.id
+					);
+					this.institute_contacts.splice(index, 1);
+				});
+		},
+		addContactDetails() {
+			this.edit_institute_contact.email = '';
+			this.edit_institute_contact.phone_no = '';
+			this.edit_institute_contact.phone_no2 = '';
+		},
+		submitCourse() {
+			this.axios
+				.put('/api/preferred-details', {
+					preferred_institute: this.selected_institute,
+				})
+				.then((resp) => {
+					window.location.reload();
+				});
+		},
+		clearModalData() {
+			this.name = '';
+			this.role = '';
+			this.id = '';
+		},
+		submitblog() {
+			let loader = this.$loading.show();
 			this.axios.post('/api/update-institute-blog/'+this.institute.id, {
 				new_blog: this.institute.blog,
 			})
 				.then(resp => {
-          this.institute.blog = resp.data.success.blogs;
-          loader.hide();
-				})
+					this.institute.blog = resp.data.success.blogs;
+					loader.hide();
+				});
 		},
-    },
+	},
 };
 </script>
