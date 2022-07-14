@@ -40,7 +40,6 @@ class HandleInertiaRequests extends Middleware
     {
         return array_merge(parent::share($request), [
             'AuthUser' => Auth::user(),
-            'WebViewApp' => isset($_COOKIE['SthubWebView']) ? true : false,
             'csrfToken' => csrf_token(),
             'baseUrl' => URL::to('/'),
             // 'mode' => config('app.env'),

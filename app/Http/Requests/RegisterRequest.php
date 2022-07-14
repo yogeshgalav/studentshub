@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Models\Chatroom;
 use App\Models\Institute;
 use Illuminate\Foundation\Http\FormRequest;
-use Session;
+use Illuminate\Support\Facades\Session;
 
 class RegisterRequest extends FormRequest
 {
@@ -29,8 +29,8 @@ class RegisterRequest extends FormRequest
         if ($inId && Institute::where('id', $inId)->exists()) {
             $this->merge(['inId' => $inId]);
         }
-        if (isset($_COOKIE['fcmToken'])) {
-            $this->merge(['fcmToken' => base64_decode($_COOKIE['fcmToken'])]);
+        if (!empty($this->fcmToken)) {
+            $this->merge(['fcmToken' => base64_decode($this->fcmToken)]);
         }
     }
 

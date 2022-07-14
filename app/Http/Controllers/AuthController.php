@@ -9,12 +9,13 @@ use App\Models\ChatroomUser;
 use App\Models\Classroom;
 use App\Models\User;
 use App\Models\UserPhone;
-use DB;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
-use Session;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -42,7 +43,7 @@ class AuthController extends Controller
 
     public function loginViaOtp(LoginRequest $request)
     {
-        \Session::flush();
+        Session::flush();
         $user_phone = UserPhone::where('phone_no', '=', $request->phone_number)->first();
         $user = $user_phone ? $user_phone->user : null;
 
@@ -97,7 +98,7 @@ class AuthController extends Controller
      */
     public function registerViaOtp(RegisterRequest $request)
     {
-        \Session::flush();
+        Session::flush();
         $user_phone = UserPhone::where('phone_no', '=', $request->phone_number)->first();
         $user = $user_phone ? $user_phone->user : null;
         
@@ -195,26 +196,26 @@ class AuthController extends Controller
     public function logout()
     {
         try {
-            $access_token = DB::table('oauth_access_tokens')
+        $access_token = DB::table('oauth_access_tokens')
         ->where('user_id', Auth::user()->id)
         ->update(['revoked' => true]);
 
-            $refreshToken = DB::table('oauth_refresh_tokens')
+        $refreshToken = DB::table('oauth_refresh_tokens')
         ->where('access_token_id', $access_token->id)
         ->update(['revoked' => true]);
         } catch (\Exception $e) {
         }
         $rememberMeCookie = Auth::getRecallerName();
-        $cookie = \Cookie::forget($rememberMeCookie);
+        $cookie = Cookie::forget($rememberMeCookie);
         Auth::logout();
-        \Session::flush();
+        Session::flush();
 
         return redirect('/')->withCookie($cookie);
     }
 
     public function refresh(Request $request)
     {
-        $client = \DB::table('oauth_clients')
+        $client = DB::table('oauth_clients')
             ->where('password_client', true)
             ->first();
 
@@ -242,7 +243,7 @@ class AuthController extends Controller
 
     public function getPassportTokens($request)
     {
-        $client = \DB::table('oauth_clients')
+        $client = DB::table('oauth_clients')
             ->where('password_client', true)
             ->first();
 
