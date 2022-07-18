@@ -403,7 +403,7 @@
     </div>
 
     <div
-      v-if="!AuthUser.preferred_institute_id"
+      v-if="!institute"
       class="col-md-12"
     >
       <div class="row">
@@ -428,7 +428,7 @@
     </div>
 
     <div
-      v-if="AuthUser.preferred_institute_id"
+      v-if="institute.id"
       class="col-md-12 mt-3"
     >
       <nav-tabs
@@ -651,8 +651,8 @@
                   students.
                 </p>
               </div>
-              <Accordion
-                v-if="instituteVerified===true"
+              <div
+                v-if="institute.blog"
                 title="Blog"
               >
                 <div
@@ -696,28 +696,29 @@
                     v-model="institute.blog"
                   />
                 </div>
-              </Accordion>
-              <Accordion
+              </div>
+              <div
                 v-if="instituteVerified===true"
                 title="Administrators"
+                class="card"
               >
-                <div
-                  v-if="editPermission"
-                  class="edit-btn-row"
-                >
-                  <button
-                    type="button"
-                    class="btn btn-primary"
-                    @click="editAdmiDetails()"
-                  >
-                    <i
-                      class="fas fa-pencil-alt"
-                      style="color: white"
-                    />
-                    Edit
-                  </button>
-                </div>
                 <div class="card-body ">
+                  <div
+                    v-if="editPermission"
+                    class="edit-btn-row"
+                  >
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      @click="editAdmiDetails()"
+                    >
+                      <i
+                        class="fas fa-pencil-alt"
+                        style="color: white"
+                      />
+                      Edit
+                    </button>
+                  </div>
                   <div v-if="institute_users.length">
                     <div
                       class=" row d-inline-flex align-items-center justify-content-center"
@@ -892,9 +893,9 @@
                     </form>
                   </template>
                 </modal>
-              </Accordion>
-              <Accordion
-                v-if="instituteVerified===true"
+              </div>
+              <div
+                v-if="institute.insta_url"
                 title="Instagram"
               >
                 <div class="card-body">
@@ -1262,15 +1263,18 @@
                     </blockquote>
                   </div>
                 </div>
-              </Accordion>
+              </div>
               
            
               <!-- contact-us section -->
 
-              <Accordion title="Contact-Us"
-               v-if="instituteVerified===true">
-                <div
-                v-if="editPermission" class="edit-btn-row">
+              <div title="Contact-Us"
+              class="card"
+               >       
+                <div class="card-body">
+                  <div
+                v-if="editPermission" 
+                class="edit-btn-row">
                   <button
                     type="button"
                     class="btn btn-primary"
@@ -1281,8 +1285,7 @@
                     Add
                   </button>
                 </div>
-                       
-                <div class="card-body">
+                
                   <div
                     v-for="(
                       institute_contact, index
@@ -1450,16 +1453,15 @@
                     </form>
                   </template>
                 </modal>
-              </Accordion>
+              </div>
              
      
               <!-- location section -->
-              <Accordion title="Location"
-               v-if="instituteVerified===true">
-                <div class="card-body">
+              <div title="Location"
+               v-if="institute.longitude && institute.latitude">
+                <div>
                   <div
                     class="flex"
-                    style="background: #fff"
                   >
                     <div class="col-12">
                       <div class="mapouter">
@@ -1478,7 +1480,7 @@
                     </div>
                   </div>
                 </div>
-              </Accordion>
+              </div>
             </div>
           </div>
         </template>
@@ -1526,10 +1528,10 @@
           </DoubtContainer>
         </template>
       </nav-tabs>
-    </div>
-    </div>
+  </div>
   </section>
-</template>
+  
+  </template>
 <style scoped>
 .bottom-right {
     position: absolute;
@@ -1626,7 +1628,7 @@ text-align: center;
 }
 </style>
 <script>
-import Accordion from '@/components/accordion.vue';
+// import Accordion from '@/components/accordion.vue';
 import NavTabs from '../../components/NavTabs';
 import SelectInstitute from '../../components/SelectInstitute.vue';
 import PostContainer from '@/Pages/common/post-container.vue';
@@ -1640,7 +1642,7 @@ import RichTextEditor from '../../components/RichTextEditor';
 
 export default {
 	components: {
-		Accordion,
+		// Accordion,
 		NavTabs,
 		PostContainer,
 		DoubtContainer,
