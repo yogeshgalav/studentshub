@@ -42,7 +42,7 @@
           >
             <post-card :post="post" />
           </div>
-
+          
           <div
             class="card mb-0 mt-0 border-0 text-center"
           >
@@ -60,6 +60,35 @@
               :is-full-page="true"
             />
           </div>
+          
+          <modal
+            id="reactionModal"
+            ref="reactionModal"
+            name="reactionModal"
+            heading="People who viewd your post"
+            classes="modal-lg"
+          >
+            <template slot="modalBody">
+              <div class="dashboard_post">
+                <div
+                  v-for="(reaction,index) in reactions"
+                  :key="index"
+                >
+                  <div class="avatar">
+                    <profile-image
+                      :user-name="reaction.full_name"
+                      :avatar="reaction.profile_image"
+                    />
+                  </div>
+                  <div class="info-post ml-2 dash_insititue_name">
+                    <p class="font-size-14 mb-0 dash_user_date">
+                      {{ reaction.full_name }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </template>
+          </modal>
         </div>
       </div>
     </div>
@@ -75,6 +104,7 @@ export default {
 	props:['postRoute', 'shareRoute'],
 	data() {
 		return {
+			reactions: [],
 			posts_data: [],
 			showLoader: false,
 			current_page: 1
@@ -102,7 +132,17 @@ export default {
 				.catch(err => {
 					this.showLoader = false;
 				});
-		}
+		},
+    
+		getViewsInfo(postId){
+			let url = '/api/postviews/'+postId;
+			this.axios.get(url).then((resp) => {
+				this.reactions = resp.data.success.reactions;
+				this.showLoader = false;
+			});
+			$('#reactionModal').modal();
+
+		},
 	}
 };
 </script>

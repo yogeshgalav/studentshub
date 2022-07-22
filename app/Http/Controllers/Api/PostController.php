@@ -254,4 +254,14 @@ class PostController extends Controller
 
         return response()->json([],204);
     }
+
+    public function getPostsviews($postId){
+      $reactions = DB::table('sthub_posts as st')->where('st.post_id','=',$postId)
+      ->leftjoin('users as us', 'us.id','=','st.action_user_id')
+      ->select('st.action_type','st.post_id','us.full_name', 'us.id')->get();
+
+      return response()->json(['success'=>[
+        'reactions'=>$reactions,
+      ]]);
+    }
 }
