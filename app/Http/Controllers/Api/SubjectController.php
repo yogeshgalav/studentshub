@@ -5,10 +5,11 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DB;
+use App\Models\Subject;
 
 class SubjectController extends Controller
 {
-    //
+    // 
 
     public function index(Request $request)
     {
@@ -49,19 +50,53 @@ class SubjectController extends Controller
             'subject'=>$subject,
         ]]);
       }
-
-      public function create(Request $request) {
-         $me = $request->user('api');
-        $subject = new \App\Models\Subject();
-        $subject->subject_name = $request->subject_name;
-        $subject->added_by_user_id =  $me->id;
-        $subject->category_id = $request->category_id;
-        $subject->save();
     
-        return response()->json(['success'=>[
-          'subject'=> $subject,
-      ]]); 
-    }
+      public function getSubjects($dashboard_type=null,$dashboard_id=null,Request $request){
+        $subject_repo=new \App\Subject;
+        $subject_query=$subject_repo->getAuthUserSubjectTabels();
+        $subject_query=$subject_query->orderBy('su.created_at','DESC');
 
+      
+
+        switch($dashboard_type){
+          case 'course':
+            $subject_query=$subject_query->where('course_id',$dashboard_id);
+            break;
+          case 'subject':
+            $subject_query=$subject_query->where('subject_id',$dashboard_id);
+            break;
+          case 'category':
+            $subject_query=$subject_query->where('cat.id',$dashboard_id);
+            break;
+          case 'user':
+            $subject_query=$subject_query->where('su.added_by_user_id',$dashboard_id);
+            break;
+          default:
+            $subject_query=$subject_query;
+            break;
+        }
+
+        if($request->user('api')){
+          $subjects=$subject_repo->formatSubjectData($subject_query->paginate(10));
+        }else{
+          $subjects['data']=$subject_repo->formatSubjectData($subject_query->limit(10)->get());
+        }
+      
+        return response()->json(['success'=>[
+          'subjects'=>$subjects,
+        ]]);
+    }
+    public function create(Request $request) {
+      $me = $request->user('api');
+     $subject = new \App\Models\Subject();
+     $subject->subject_name = $request->subject_name;
+     $subject->added_by_user_id =  $me->id;
+     $subject->category_id = $request->category_id;
+     $subject->save();
+ 
+     return response()->json(['success'=>[
+       'subject'=> $subject,
+   ]]); 
+ }
 
 }

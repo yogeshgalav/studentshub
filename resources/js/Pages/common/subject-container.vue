@@ -20,34 +20,35 @@
               type="text"
               placeholder="Enter Subject Name"
             ><span class="error">{{ formErrors('subject_name') }}</span>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="p-3">
-          <button
-            type="submit"
-            class="btn btn-primary btn-md"
-          >
-            Submit
-          </button>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-10 col-sm-12">
-          <div v-if="!subjects.length">
-            <slot name="empty">
-              Currently no subject have been shared.
-            </slot> 
-          </div>
-          <div id="infinite-list">
-            <div
-              v-for="(subject,index) in subjects"
-              :key="index"
-            >
-              <subject-card
-                :subject="subject"
-              />
+           
+            <div class="row">
+              <div class="p-3">
+                <button
+                  type="submit"
+                  class="btn btn-primary btn-md"
+                >
+                  Submit
+                </button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-10 col-sm-12">
+                <div v-if="!subjects_data.length">
+                  <slot name="empty">
+                    Currently no subject have been shared.
+                  </slot> 
+                </div>
+                <div id="infinite-list">
+                  <div
+                    v-for="(subject,index) in subjects_data"
+                    :key="index"
+                  >
+                    <subject-card
+                      :subject="subject"
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -63,25 +64,40 @@ export default {
 		SubjectCard
 	},
 	mixins: [FormMixin],
-	props:['categoryId'],
+	props:['categoryId','subjectRoute'],
 	data() {
 		return{
-			edit_category: 14,
-			subjects:'',
+			subjects_data: [],
+			subjects:[],
 			showLoader: false,
 			current_page: 1
 		};
        
 	},
     	mounted() {
-		this.axios
-			.get('/api/search-subject?categoryId='+this.categoryId)
-			.then(resp => {
-				this.subjects = resp.data.success.subjects;
-			});
-      
+		this.loadSubjects();
 	},
-	methods:{
+	
+  	methods: {
+		loadSubjects(){
+			const route= this.subjectRoute ? this.subjectRoute+'/subjects' : '/subjects';
+			const url= new URL(this.baseUrl+'/api'+route);
+			this.showLoader = true;
+
+			url.searchParams.set('page', this.current_page);
+			this.current_page=this.current_page+1;
+
+			this.axios.get(url.toString())
+				.then(resp => {
+					const subjects = resp.data.success.subjects;
+					this.subjects_data = this.subjects_data.concat(subjects.data);
+		            this.current_page = this.current_page;
+					this.showLoader = false;
+				})
+				.catch(err => {
+					this.showLoader = false;
+				});
+		},
 		addsubject(){
 			let loader = this.$loading.show();
       	this.axios.post(this.baseUrl + '/api/add-subject',{
@@ -92,7 +108,7 @@ export default {
     			window.location.reload();
     			});
     		},
-	},
+	}
 
 };
 </script>

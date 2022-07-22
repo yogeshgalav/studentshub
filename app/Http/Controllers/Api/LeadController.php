@@ -14,15 +14,16 @@ class LeadController extends Controller
     //
     public function index(User $user, Request $request){ 
          $leads=DB::table('users')
+         ->leftJoin('user_phones','user_phones.id','users.phone_id')
          ->leftJoin('membership_details','membership_details.user_id','users.id')
          ->leftJoin('transaction_details','transaction_details.user_id','users.id')
          ->leftJoin('sthub_posts','sthub_posts.action_user_id','users.id')
-         ->select('users.id','users.full_name', 'users.phone_no','users.is_pro_member',
+         ->select('users.id','users.full_name', 'user_phones.phone_no','users.is_pro_member',
                    'users.onboarded_at','users.role',
          DB::raw('COUNT(membership_details.id) as total_membership_details'),
          DB::raw('COUNT(transaction_details.id) as total_transaction_details'),
          DB::raw('COUNT(sthub_posts.id) as total_sthub_posts')
-         )->groupBy('users.id','users.full_name', 'users.phone_no','users.is_pro_member','users.onboarded_at','users.role')->get();
+         )->groupBy('users.id','users.full_name','users.is_pro_member','users.onboarded_at','users.role')->get();
        
          return response()->json([
             'success'=>['leads'=>$leads],

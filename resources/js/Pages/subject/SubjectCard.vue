@@ -60,7 +60,7 @@
                   v-else
                 >
                   <span><i class="fas fa-arrow-alt-circle-down" /></span>
-                  {{  totalDownVotes? totalDownVotes :'' }} Downvote
+                  {{ totalDownVotes? totalDownVotes :'' }} Downvote
                 </p>
               </button>
             </div>
