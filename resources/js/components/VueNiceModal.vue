@@ -98,9 +98,12 @@ export default {
 	},
 	methods:{
 		openModal(){
-			this.$refs.openButton.click();
+			// const myModal  = document.getElementById(this.name);
+			// myModal.classList.add('show');
 		},
 		closeModal(){
+			// const myModal  = document.getElementById(this.name);
+			// myModal.classList.remove('show');
 			this.$refs.cancelButton.click();
 		},
 		cancel(){

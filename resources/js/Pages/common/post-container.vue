@@ -66,7 +66,7 @@
             ref="reactionModal"
             name="reactionModal"
             heading="People who viewd your post"
-            classes="modal-lg"
+            :classes="'modal-lg'"
           >
             <template slot="modalBody">
               <div class="dashboard_post">
@@ -142,8 +142,6 @@ export default {
 				this.reactions = resp.data.success.reactions;
 				this.showLoader = false;
 			});
-			$('#reactionModal').modal();
-
 		},
 	}
 };
