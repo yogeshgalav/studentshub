@@ -96,10 +96,12 @@
 </template>
 <script>
 import PostCard from '../post/PostCard.vue';
+import Modal from '../../components/VueNiceModal.vue';
 
 export default {
 	components: {
-		PostCard
+		PostCard,
+		Modal
 	},
 	props:['postRoute', 'shareRoute'],
 	data() {
@@ -135,7 +137,7 @@ export default {
 		},
     
 		getViewsInfo(postId){
-			let url = '/api/postviews/'+postId;
+			let url = '/api/post-reactions/'+postId;
 			this.axios.get(url).then((resp) => {
 				this.reactions = resp.data.success.reactions;
 				this.showLoader = false;

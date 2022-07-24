@@ -16,6 +16,7 @@
       >
         <!-- Modal content-->
         <div class="modal-content">
+          <!-- Modal header-->
           <div class="modal-header pt-3 pb-2">
             <h4 class="weight-800 font-size-18">
               {{ heading }}
@@ -30,9 +31,11 @@
               <span aria-hidden="true">×</span>
             </button>
           </div>
+          <!-- Modal body-->
           <div class="modal-body add-client">
             <slot name="modalBody" />
           </div>
+          <!-- Modal footer-->
           <div class="modal-footer">
             <button
               class="btn btn-md btn-primary mt-3"
@@ -94,9 +97,11 @@ export default {
 		};
 	},
 	methods:{
+		openModal(){
+			this.$refs.openButton.click();
+		},
 		closeModal(){
 			this.$refs.cancelButton.click();
-			
 		},
 		cancel(){
 			this.$emit('cancel');

@@ -33,8 +33,6 @@
                     <button
                       type="button"
                       class="dropdown-item"
-                      data-toggle="modal"
-                      data-target="#addDoubtModal"
                       @click="copyLink(post.id)"
                     >
                       Copy Link

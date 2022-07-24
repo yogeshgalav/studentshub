@@ -35,5 +35,5 @@ Route::get('/{commentable_type}/{commentable_id}/comment', 'CommentController@ge
 
 //
 Route::get('{dashboard_type}/{dashboard_id}/posts', [App\Http\Controllers\Api\PostController::class, 'getPosts']);
-Route::get('/postviews/{postId}', [App\Http\Controllers\Api\PostController::class, 'getPostsviews']);
+Route::get('/post-reactions/{postId}', [App\Http\Controllers\Api\PostController::class, 'getPostReactions']);
 
