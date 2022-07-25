@@ -1,10 +1,7 @@
 <template slot="tab-panel-about">
   <div id="about-html">
     <div class="col-md-10">
-      <div
-        
-        title="Blog"
-      >
+      <div title="Blog">
         <div
           v-if="editPermission"
           class="edit-btn-row"
@@ -67,9 +64,7 @@
             </button>
           </div>
           <div v-if="institute_users.length">
-            <div
-              style="gap: 40px;"
-            >
+            <div style="gap: 40px;">
               <div
                 v-for="(
                   instituteuser, index
@@ -84,22 +79,14 @@
                     alt="Student Hub"
                     width="120"
                     height="120"
-                    style="
-                                                            border-radius: 50%;
-                                                        "
+                    style=" border-radius: 50%;"
                   >
                 </div>
-    
-   
                 <div style="font-size: 15px; font-weight:800">
-                  {{
-                    instituteuser.user_name
-                  }}
+                  {{ instituteuser.user_name }}
                 </div>
                 <div style="font-size: 15px; font-weight:500">
-                  {{
-                    instituteuser.role
-                  }}
+                  {{ instituteuser.role }}
                 </div>
                 <div
                   v-if="editPermission"
@@ -115,8 +102,7 @@
                     @click="
                       deleteInstituteUser(
                         instituteuser
-                      )
-                    "
+                      ) "
                   >
                     <i class="fa fa-trash" />
                   </button>
@@ -131,13 +117,12 @@
                   class="addAdmin"
                   data-toggle="modal"
                   data-target="#editAdminModal"
-                  style="
-                                                            font-size: 60px;
-    height: 100px;
-    width: 100px;
-    border-radius: 50%;
-    background-color: white;
-                                                        "
+                  style=" font-size: 60px;
+                          height: 100px;
+                          width: 100px;
+                          border-radius: 50%;
+                          background-color: white;
+                        "
                 >
                   <i class="fa fa-plus" />
                 </button>
@@ -146,7 +131,7 @@
           </div>
           <div v-else>
             <div class="row addAdmin">
-              <div 
+              <div
                 v-if="editPermission"
                 class="col-md-2"
               >
@@ -155,11 +140,9 @@
                   class="addAdmin"
                   data-toggle="modal"
                   data-target="#editAdminModal"
-                  style="
-                                                            font-size: 60px;
-                                                            background-color: white;
-                                                             
-                                                        "
+                  style="font-size: 60px;
+                         background-color: white;
+                        "
                 >
                   <i class="fa fa-plus" />
                 </button>
@@ -181,9 +164,7 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="form-group">
-                    <label
-                      for="full"
-                    >Full Name</label>
+                    <label for="full">Full Name</label>
                     <input
                       id="fullName"
                       v-model="name"
@@ -192,9 +173,7 @@
                       class="form-control"
                       placeholder="write Full Name here"
                     >
-                    <label
-                      for="position"
-                    >Position</label>
+                    <label for="position">Position</label>
                     <input
                       id="postionName"
                       v-model="role"
@@ -203,9 +182,7 @@
                       class="form-control"
                       placeholder="write Position Name here"
                     >
-                    <label
-                      for="admin_phone_no"
-                    >Phone Number</label>
+                    <label for="admin_phone_no">Phone Number</label>
                     <input
                       id="admin_phone_no"
                       v-model="phone_no"
@@ -258,7 +235,7 @@
       >       
         <div class="card-body">
           <div
-            v-if="editPermission" 
+            v-if="editPermission"
             class="edit-btn-row"
           >
             <button
@@ -281,41 +258,28 @@
           >
             <div class="col-md-3">
               <h5>
-                <i
-                  class="fas fa-phone-alt"
-                />Department
+                <i class="fas fa-phone-alt" />Department
               </h5>
               <p>
-                {{
-                  institute_contact.department
-                }}
+                {{ institute_contact.department }}
               </p>
             </div>
             <div class="col-md-3">
               <h5>
-                <i
-                  class="fas fa-phone-alt"
-                />Phone
+                <i class="fas fa-phone-alt" />Phone
               </h5>
               <p>
-                {{
-                  institute_contact.phone_no
-                }}<br>{{
-                  institute_contact.phone_no2
-                }}
+                {{ institute_contact.phone_no }}
+                <br>
+                {{ institute_contact.phone_no2 }}
               </p>
-            </div>
-                   
+            </div>       
             <div class="col-md-4">
               <h5>
-                <i
-                  class="fas fa-envelope"
-                />Email
+                <i class="fas fa-envelope" />Email
               </h5>
               <p>
-                {{
-                  institute_contact.email
-                }}
+                {{ institute_contact.email }}
               </p>
             </div>
                    
@@ -334,8 +298,7 @@
                 @click="
                   editContact(
                     institute_contact
-                  )
-                "
+                  ) "
               >
                 <i
                   class="fas fa-pencil-alt"
@@ -353,8 +316,7 @@
                 @click="
                   deleteContact(
                     institute_contact
-                  )
-                "
+                  ) "
               >
                 <i class="fa fa-trash" />
               </button>
@@ -375,60 +337,40 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="form-group">
-                    <label
-                      for="email"
-                    >Email</label>
+                    <label for="email">Email</label>
                     <input
                       id="email"
-                      v-model="
-                        edit_institute_contact.email
-                      "
+                      v-model=" edit_institute_contact.email"
                       v-validate="'required'"
                       name="email"
                       class="form-control"
                       placeholder="write Email here"
-                    ><span
-                      class="text-danger"
-                    >{{ formErrors("add_contact_form.email") }}</span>
-                    <label
-                      for="phone_no"
-                    >Phone Number</label>
+                    >
+                    <span class="text-danger">{{ formErrors("add_contact_form.email") }}</span>
+                    <label for="phone_no">Phone Number</label>
                     <input
                       id="phone_no"
-                      v-model="
-                        edit_institute_contact.phone_no
-                      "
+                      v-model="edit_institute_contact.phone_no"
                       v-validate="'required'"
                       name="phone_no"
                       class="form-control"
                       placeholder="write Phone Number here"
-                    ><span
-                      class="text-danger"
-                    >{{
-                      formErrors(
-                        "add_contact_form.phone_no"
-                      )
-                    }}</span>
-                    <label
-                      for="phone_no2"
-                    >Phone Number2</label>
+                    >
+                    <span class="text-danger"> 
+                      {{ formErrors( "add_contact_form.phone_no") }}
+                    </span>
+                    <label for="phone_no2">Phone Number2</label>
                     <input
                       id="phone_no2"
-                      v-model="
-                        edit_institute_contact.phone_no2
-                      "
+                      v-model=" edit_institute_contact.phone_no2 "
                       name="phone_no2"
                       class="form-control"
                       placeholder="write Phone Number here"
                     >
-                    <label
-                      for="department"
-                    >Department Name</label>
+                    <label for="department">Department Name</label>
                     <input
                       id="department"
-                      v-model="
-                        edit_institute_contact.department
-                      "
+                      v-model=" edit_institute_contact.department"
                       name="department"
                       class="form-control"
                       placeholder="write Department Name here"
@@ -449,9 +391,7 @@
         class="mt-2"
       >
         <div>
-          <div
-            class="flex"
-          >
+          <div class="flex">
             <div class="col-12">
               <div class="mapouter">
                 <div class="gmap_canvas">
@@ -461,9 +401,9 @@
                     width="100%"
                     height="500px"
                     src="https://maps.google.com/maps?q=26.9024375%2075.78706249999999&t=&z=16&ie=UTF8&iwloc=&output=embed"
-                  /><a
-                    href="https://yt2.org/youtube-to-mp3-ALeKk00qEW0sxByTDSpzaRvl8WxdMAeMytQ1611842368056QMMlSYKLwAsWUsAfLipqwCA2ahUKEwiikKDe5L7uAhVFCuwKHUuFBoYQ8tMDegUAQCSAQCYAQCqAQdnd3Mtd2l6"
-                  /><br>
+                  />
+                  <a href="https://yt2.org/youtube-to-mp3-ALeKk00qEW0sxByTDSpzaRvl8WxdMAeMytQ1611842368056QMMlSYKLwAsWUsAfLipqwCA2ahUKEwiikKDe5L7uAhVFCuwKHUuFBoYQ8tMDegUAQCSAQCYAQCqAQdnd3Mtd2l6" />
+                  <br>
                 </div>
               </div>
             </div>
