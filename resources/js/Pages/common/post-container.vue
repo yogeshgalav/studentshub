@@ -67,6 +67,7 @@
             name="reactionModal"
             heading="People who viewd your post"
             :classes="'modal-lg'"
+            :show-footer="false"
           >
             <template slot="modalBody">
               <div class="dashboard_post">
@@ -81,15 +82,17 @@
                     <div
                       v-for="(reaction,index) in reactions"
                       :key="index"
+                      class="d-flex"
                     >
                       <div class="avatar ml-2">
                         <profile-image
                           :user-name="reaction.full_name"
                           :avatar="reaction.profile_image"
+                          :size="'small'"
                         />
                       </div>
-                      <div class="info-post ml-2 mb-1 dash_insititue_name">
-                        <p class="font-size-14 mb-0 dash_user_date">
+                      <div class="ml-2 mb-1">
+                        <p class="font-size-14 mb-0 ">
                           {{ reaction.full_name }}
                         </p>
                       </div>

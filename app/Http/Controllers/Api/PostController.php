@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\SthubPost;
 use App\Models\ScheduledJob;
-use App\Models\PostImage;
+use App\Models\SthubFile;
 use App\Models\Article;
 use App\Models\Subject;
 use App\Models\CourseSubject;
@@ -18,9 +18,9 @@ use App\Models\Mcq;
 use App\Models\Like;
 use App\Models\Comment;
 use App\Models\Document;
-use Auth;
-use DB;
-use Storage;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
 use App\Services\simple_html_dom;
@@ -135,8 +135,10 @@ class PostController extends Controller
     ]]);
   }
 
-    public function getPosts($dashboard_type=null,$dashboard_id=null,Request $request){
-        $post_repo=new \App\Post;
+    public function getPosts($dashboard_type=null,$dashboard_id=null,Request $request)
+    {
+
+        $post_repo=new \App\Helpers\PostHelper;
         $post_query=$post_repo->getAuthUserPostTabels();
         $post_query=$post_query->orderBy('po.created_at','DESC');
 
@@ -182,7 +184,7 @@ class PostController extends Controller
                 ]
             ]);
         }
-        $post=new \App\Post;
+        $post=new \App\Helpers\PostHelper;
         $posts = $post->getSearchPosts($request);
 
         return response()->json(['success'=>[
@@ -200,7 +202,7 @@ class PostController extends Controller
           ]);
         }
 
-        $post_helper=new \App\Post;
+        $post_helper=new \App\Helpers\PostHelper;
         if($me){
           $post_content=$post_helper->getAuthPostContent($post->id)[0];
         }else{
@@ -222,7 +224,7 @@ class PostController extends Controller
         $save_post->user_id=Auth::user()->id;
         $save_post->post_id=$request->post_id;
         $save_post->save();
-        \Log::warning('New Saved post', [
+        Log::warning('New Saved post', [
           'user_id'=>$save_post->user_id,
           'post_id'=>$save_post->post_id,
         ]);
@@ -236,7 +238,7 @@ class PostController extends Controller
         $report_post->user_id=$request->user('api')->id;
         $report_post->post_id=$request->post_id;
         $report_post->save();
-        \Log::warning('New Report Added', [
+        Log::warning('New Report Added', [
           'user_id'=>$report_post->user_id,
           'post_id'=>$report_post->post_id,
         ]);
@@ -257,17 +259,22 @@ class PostController extends Controller
 
     public function getPostReactions($postId){
       $reactions = DB::table('sthub_posts as st')->where('st.post_id','=',$postId)
+      ->where('action_type','!=','share')->where('action_type','!=','view')
       ->leftjoin('users as us', 'us.id','=','st.action_user_id')
-      ->select('st.action_type','st.post_id','us.full_name', 'us.id')->get();
-      $likable_type=Post::class;
-      $likes =DB::table('likes as li')->where('li.likable_id','=',$postId)->where('likable_type','=',$likable_type)
+      ->select('us.id','us.full_name')
+      ->groupBy('us.id')
+      ->get();
+
+      $likes =DB::table('likes as li')->where('li.likable_id','=',$postId)->where('likable_type','=',Post::class)
       ->leftjoin('users as us', 'us.id','=','li.user_id')
-      ->select('us.full_name', 'li.user_id')->get();
-      $commentable_type=Post::class;
-      $comments =DB::table('comments as co')->where('co.commentable_id','=',$postId)->where('commentable_type','=',$commentable_type)
-      ->leftjoin('users as us', 'us.id','=','co.user_id')
-      ->select('co.user_id','us.full_name')
-      ->distinct()
+      ->select('us.id','us.full_name')
+      ->groupBy('us.id')
+      ->get();
+
+      $comments =DB::table('comments as co')->where('co.commentable_id','=',$postId)->where('commentable_type','=',Post::class)
+      ->rightjoin('users as us', 'us.id','=','co.user_id')
+      ->select('us.id','us.full_name')
+      ->groupBy('us.id')
       ->get();
       
       return response()->json(['success'=>[

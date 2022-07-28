@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Helpers;
 
 use App\Models\Post as PostModel;
 use Illuminate\Http\Request;
@@ -9,7 +9,7 @@ use Auth;
 use DB;
 use PHPHtmlParser\Dom;
 
-class Post extends PostModel
+class PostHelper
 {
     
     public function getSearchPosts(Request $request){
@@ -92,14 +92,13 @@ class Post extends PostModel
             $rand=rand(60,100);
             $postData=PostModel::where('id',$post->id)
             ->with('subjects')
-            ->withCount('sthubPosts')
+            ->withCount('likes','comments')
             ->first();
             
             $post->description=strlen($post->description)>$rand ? substr($post->description,0,$rand).'...' : $post->description;
             $post->post_type=$this->getPostType($post->postable_type);
             $post->subjects=$postData->subjects;
-            $post->total_reactions=$postData->sthub_posts_count;
-            $post->total_likes=\App\Models\Like::where('likable_id',$post->id)->where('likable_type','=',PostModel::class)->count();
+            $post->total_reactions=($postData->likes_count+$postData->comments_count);
             $post->profile_image=$post->profile_image ?? '';
             $post->image_path=$post->image_path ?? '';
         }
