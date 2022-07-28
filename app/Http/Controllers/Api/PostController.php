@@ -260,8 +260,20 @@ class PostController extends Controller
       ->leftjoin('users as us', 'us.id','=','st.action_user_id')
       ->select('st.action_type','st.post_id','us.full_name', 'us.id')->get();
 
+      $likes =DB::table('sthub_posts as st')->where('st.post_id','=',$postId)
+      ->leftjoin('users as us', 'us.id','=','st.action_user_id')
+      ->where('action_type','=','like')
+      ->select('st.action_type','st.post_id','us.full_name', 'us.id')->get();
+
+      $comments =DB::table('sthub_posts as st')->where('st.post_id','=',$postId)
+      ->leftjoin('users as us', 'us.id','=','st.action_user_id')
+      ->where('action_type','=','comment')
+      ->select('st.action_type','st.post_id','us.full_name', 'us.id')->get();
+      
       return response()->json(['success'=>[
         'reactions'=>$reactions,
+        'likes'=>$likes,
+        'comments'=>$comments
       ]]);
     }
 }

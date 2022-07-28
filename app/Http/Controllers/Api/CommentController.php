@@ -74,16 +74,18 @@ class CommentController extends Controller
             default:
             abort(404); 
         }
-    
+        
         $comment = Comment::create([
             'user_id'=>$me->id,
             'commentable_id'=>$commentable_id,
             'commentable_type'=>$model,
             'comment_text'=>$request->comment_text ,
         ]);
-
+        if($model===Post::class){
+            \App\Models\SthubPost::addAction('comment',$commentable,$me);
+        }
         ScheduledJob::NewCommentNotification($comment, $commentable->user->id);
-
+        
         return response()->json([
             'success'=>[
                 'comment_id'=>$comment->id,
@@ -102,6 +104,9 @@ class CommentController extends Controller
 
      public function delete(Comment $comment){
         $comment->delete();
+        if($commentable_type===Post::class){
+            \App\Models\SthubPost::deleteAction('comment',$commentable,$me);
+        }
         return response()->json([], 204);
       }
 }

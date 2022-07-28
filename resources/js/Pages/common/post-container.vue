@@ -70,22 +70,74 @@
           >
             <template slot="modalBody">
               <div class="dashboard_post">
-                <div
-                  v-for="(reaction,index) in reactions"
-                  :key="index"
+                <nav-tabs
+                  :tabs="tabs"
+                  :initial-tab="initialTab"
                 >
-                  <div class="avatar">
-                    <profile-image
-                      :user-name="reaction.full_name"
-                      :avatar="reaction.profile_image"
-                    />
-                  </div>
-                  <div class="info-post ml-2 dash_insititue_name">
-                    <p class="font-size-14 mb-0 dash_user_date">
-                      {{ reaction.full_name }}
-                    </p>
-                  </div>
-                </div>
+                  <template slot="tab-heading-all">
+                    {{ 'All' }}
+                  </template>
+                  <template slot="tab-panel-all">
+                    <div
+                      v-for="(reaction,index) in reactions"
+                      :key="index"
+                    >
+                      <div class="avatar">
+                        <profile-image
+                          :user-name="reaction.full_name"
+                          :avatar="reaction.profile_image"
+                        />
+                      </div>
+                      <div class="info-post ml-2 dash_insititue_name">
+                        <p class="font-size-14 mb-0 dash_user_date">
+                          {{ reaction.full_name }}
+                        </p>
+                      </div>
+                    </div>
+                  </template>
+                  <template slot="tab-heading-likes">
+                    {{ 'Likes' }}
+                  </template>
+                  <template slot="tab-panel-likes">
+                    <div
+                      v-for="(like,index) in likes"
+                      :key="index"
+                    >
+                      <div class="avatar">
+                        <profile-image
+                          :user-name="like.full_name"
+                          :avatar="like.profile_image"
+                        />
+                      </div>
+                      <div class="info-post ml-2 dash_insititue_name">
+                        <p class="font-size-14 mb-0 dash_user_date">
+                          {{ like.full_name }}
+                        </p>
+                      </div>
+                    </div>
+                  </template>
+                  <template slot="tab-heading-comments">
+                    {{ 'Comments' }}
+                  </template>
+                  <template slot="tab-panel-comments">
+                    <div
+                      v-for="(reaction,index) in comments"
+                      :key="index"
+                    >
+                      <div class="avatar">
+                        <profile-image
+                          :user-name="comment.full_name"
+                          :avatar="comment.profile_image"
+                        />
+                      </div>
+                      <div class="info-post ml-2 dash_insititue_name">
+                        <p class="font-size-14 mb-0 dash_user_date">
+                          {{ comment.full_name }}
+                        </p>
+                      </div>
+                    </div>
+                  </template>
+                </nav-tabs>
               </div>
             </template>
           </modal>
@@ -95,11 +147,13 @@
   </section>
 </template>
 <script>
+import NavTabs from '../../components/NavTabs';
 import PostCard from '../post/PostCard.vue';
 import Modal from '../../components/VueNiceModal.vue';
 
 export default {
 	components: {
+		NavTabs,
 		PostCard,
 		Modal
 	},
@@ -107,9 +161,13 @@ export default {
 	data() {
 		return {
 			reactions: [],
+			likes:[],
+			comments:[],
 			posts_data: [],
 			showLoader: false,
-			current_page: 1
+			current_page: 1,
+			initialTab: 'all',
+			tabs: ['all', 'likes', 'comments'],
 		};
 	},
 	mounted() {
@@ -140,6 +198,8 @@ export default {
 			let url = '/api/post-reactions/'+postId;
 			this.axios.get(url).then((resp) => {
 				this.reactions = resp.data.success.reactions;
+				this.likes = resp.data.success.likes;
+				this.comments = resp.data.success.comments;
 				this.showLoader = false;
 			});
 		},
