@@ -1,4 +1,3 @@
-/* eslint-disable vue/no-v-html */
 <template>
   <section class="row">
     <Head>
@@ -716,7 +715,7 @@ export default {
 				.get('/api/institute/' + this.institute.id)
 				.then((resp) => {
 					this.institute_users = resp.data.success.institute_users;
-					this.institute_contacts = resp.data.success.institute_contacts;
+			
 					this.teachers = resp.data.success.teachers;
 					// this.institute = resp.data.success.institute;
 					this.students = resp.data.success.students;
@@ -739,7 +738,7 @@ export default {
 					this.institute_users.push({
 						name: resp.data.success.institute_user.name,
 						institute_id:
-                            resp.data.success.institute_user.institute_id,
+            resp.data.success.institute_user.institute_id,
 						user_id: resp.data.success.institute_user.user_id,
 						role: resp.data.success.institute_user.role,
 						phone_no: resp.data.success.institute_user.phone_no,
@@ -883,11 +882,7 @@ export default {
 					this.institute_contacts.splice(index, 1);
 				});
 		},
-		addContactDetails() {
-			this.edit_institute_contact.email = '';
-			this.edit_institute_contact.phone_no = '';
-			this.edit_institute_contact.phone_no2 = '';
-		},
+	
 		submitCourse() {
 			this.axios
 				.put('/api/preferred-details', {

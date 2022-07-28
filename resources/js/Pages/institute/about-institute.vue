@@ -2,7 +2,7 @@
   <div id="about-html">
     <div class="col-md-10">
       <div title="Blog">
-        <div
+        <!-- <div
           v-if="editPermission"
           class="edit-btn-row"
         >
@@ -26,7 +26,7 @@
           >
             Save
           </button>
-        </div>
+        </div> -->
         <div>
           <div>
             <div
@@ -413,6 +413,8 @@
     </div>
   </div>
 </template>
+
+
 <script>
 // import Accordion from '@/components/accordion.vue';
 import FileUpload from 'vue-upload-component';
@@ -428,5 +430,60 @@ export default {
 	},
 	mixins: [FormMixin],
 	props:['institute', 'editPermission'],
+
+ 
+
+	data() {
+		return {
+			institute_users: [],
+			institute_contacts: [],
+			edit_institute: {
+				website: '',
+				address: '',
+				moto: '',
+			},
+			edit_institute_contact: {
+				email: '',
+				phone_no: '',
+				phone_no2: '',
+			},
+			// user_id: '',
+			 role: '',
+			 phone_no: '',
+			 name: '',
+
+  
+			showLoader: true,
+			// selected_institute: {
+			//   id: null,
+			//   name: '',
+			// },
+			isEdit: true,
+			new_blog: '',
+		};
+	},
+
+	mounted() {
+		this.loadInstituteusers();
+	},
+
+	methods: {
+		loadInstituteusers() {
+			this.axios
+				.get('/api/instituteusers/' + this.institute.id)
+				.then((resp) => {
+					this.institute_users = resp.data.success.institute_users;
+					this.institute_contacts = resp.data.success.institute_contacts;
+				});
+		},
+		addContactDetails() {
+			this.edit_institute_contact.email = '';
+			this.edit_institute_contact.phone_no = '';
+			this.edit_institute_contact.phone_no2 = '';
+		},
+	},
+
+
+
 };
 </script>
