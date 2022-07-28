@@ -721,45 +721,10 @@ export default {
 					this.students = resp.data.success.students;
 				});
 		},
-		addAdministrator() {
-			this.$modal.show('editAdminModal');
-		},
-		savedetails() {
-			this.showLoader = true;
-			this.axios
-				.post(this.baseUrl + '/api/add-details', {
-					name: this.name,
-					user_id: this.user_id,
-					role: this.role,
-					phone_no: this.phone_no,
-				})
-				.then((resp) => {
-					this.showLoader = false;
-					this.institute_users.push({
-						name: resp.data.success.institute_user.name,
-						institute_id:
-            resp.data.success.institute_user.institute_id,
-						user_id: resp.data.success.institute_user.user_id,
-						role: resp.data.success.institute_user.role,
-						phone_no: resp.data.success.institute_user.phone_no,
-						id: resp.data.success.institute_user.id,
-					});                    
-				});
-			this.$refs.editAdminModal.closeModal();
-			this.clearModalData();
-		},
-		deleteInstituteUser(instituteuser) {
-			let loader = this.$loading.show(); 
-			this.axios
-				.delete('/api/instituteuser/' + instituteuser.id)
-				.then((resp) => {
-					loader.hide();
-					let index = this.institute_users.findIndex(
-						(el) => el.id === instituteuser.id
-					);
-					this.institute_users.splice(index, 1);
-				});
-		},
+		// addAdministrator() {
+		// 	this.$modal.show('editAdminModal');
+		// },
+	
 		async saveProfile() {
 			this.showLoader = true;
 			if (
@@ -829,59 +794,11 @@ export default {
 			this.image = files[0];
 			this.institute_banner_url = URL.createObjectURL(files[0].file);
 		},
-		editAdmiDetails() {
-			this.isEdit = false;
-		},
-		editBlogDetails() {
-			this.isEdit = false;
-		},
-		addOrEditContact() {
-			this.validateForm('add_contact_form').then((valid) => {
-				console.log(valid);
-				if (valid) {
-					this.contactCreateOrUpdateApi();
-				}
-			});
-		},
-		contactCreateOrUpdateApi() {
-			let loader = this.$loading.show(); 
-			this.axios
-				.post(this.baseUrl + '/api/add-contact', {
-					email: this.edit_institute_contact.email,
-					phone_no: this.edit_institute_contact.phone_no,
-					phone_no2: this.edit_institute_contact.phone_no2,
-					department: this.edit_institute_contact.department,
-					edit_institute_contact_id: this.edit_institute_contact.id,
-				})
-				.then((resp) => {
-					loader.hide();
-					this.$refs.addContactModal.closeModal();
-					this.edit_institute_contact.push({
-						email: resp.data.success.institute_contacts.email,
-						phone_no: resp.data.success.institute_contacts.phone_no,
-						phone_no2:resp.data.success.institute_contacts.phone_no2,
-						department:resp.data.success.institute_contacts.department,
-						id: resp.data.success.institute_contacts.id,
-					});
-					this.clearModalData();
-				});
-		},
+		
+		
+		
 		// set contact data in add edit modal
-		editContact(edit_institute_contact) {
-			this.edit_institute_contact = edit_institute_contact;
-		},
-		deleteContact(edit_institute_contact) {
-			let loader = this.$loading.show(); 
-			this.axios
-				.delete('/api/contact/' + edit_institute_contact.id)
-				.then((resp) => {
-					loader.hide();
-					let index = this.institute_contacts.findIndex(
-						(el) => el.id === edit_institute_contact.id
-					);
-					this.institute_contacts.splice(index, 1);
-				});
-		},
+		
 	
 		submitCourse() {
 			this.axios
@@ -897,16 +814,7 @@ export default {
 			this.role = '';
 			this.id = '';
 		},
-		submitblog() {
-			let loader = this.$loading.show();
-			this.axios.post('/api/update-institute-blog/'+this.institute.id, {
-				new_blog: this.institute.blog,
-			})
-				.then(resp => {
-					this.institute.blog = resp.data.success.blogs;
-					loader.hide();
-				});
-		},
+	
 	},
 };
 </script>

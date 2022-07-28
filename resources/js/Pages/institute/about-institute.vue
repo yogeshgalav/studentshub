@@ -2,7 +2,7 @@
   <div id="about-html">
     <div class="col-md-10">
       <div title="Blog">
-        <!-- <div
+        <div
           v-if="editPermission"
           class="edit-btn-row"
         >
@@ -24,9 +24,9 @@
             class="btn btn-primary"
             @click="submitblog"
           >
-            Save
+            Save 
           </button>
-        </div> -->
+        </div>
         <div>
           <div>
             <div
@@ -50,11 +50,13 @@
           <div
             v-if="editPermission"
             class="edit-btn-row"
+            style=" display:flex;
+                justify-content:flex-end;"
           >
             <button
               type="button"
               class="btn btn-primary"
-              @click="editAdmiDetails()"
+              @click="editAdminDetails()"
             >
               <i
                 class="fas fa-pencil-alt"
@@ -225,14 +227,14 @@
           <div class="col-md-3" />
         </div>
       </section>
-              
-           
+
+
       <!-- contact-us section -->
 
       <section
         title="Contact-Us"
         class="card mt-2"
-      >       
+      >
         <div class="card-body">
           <div
             v-if="editPermission"
@@ -248,7 +250,7 @@
               Add
             </button>
           </div>
-                
+
           <div
             v-for="(
               institute_contact, index
@@ -273,7 +275,7 @@
                 <br>
                 {{ institute_contact.phone_no2 }}
               </p>
-            </div>       
+            </div>
             <div class="col-md-4">
               <h5>
                 <i class="fas fa-envelope" />Email
@@ -282,7 +284,7 @@
                 {{ institute_contact.email }}
               </p>
             </div>
-                   
+
             <div
               class="contact-btn-col"
               style="margin-bottom:20px"
@@ -356,7 +358,7 @@
                       class="form-control"
                       placeholder="write Phone Number here"
                     >
-                    <span class="text-danger"> 
+                    <span class="text-danger">
                       {{ formErrors( "add_contact_form.phone_no") }}
                     </span>
                     <label for="phone_no2">Phone Number2</label>
@@ -367,6 +369,16 @@
                       class="form-control"
                       placeholder="write Phone Number here"
                     >
+
+                    <!-- <label for="whatsapp_no">WhatsApp Number</label>
+                    <input
+                      id="phone_no2"
+                      v-model=" edit_institute_contact.whatsapp_no "
+                      name="whatsapp_no"
+                      class="form-control"
+                      placeholder="write Whatsapp Number here"
+                    > -->
+
                     <label for="department">Department Name</label>
                     <input
                       id="department"
@@ -382,8 +394,8 @@
           </template>
         </modal>
       </section>
-             
-     
+
+
       <!-- location section -->
       <section
         v-if="institute.longitude && institute.latitude"
@@ -402,7 +414,9 @@
                     height="500px"
                     src="https://maps.google.com/maps?q=26.9024375%2075.78706249999999&t=&z=16&ie=UTF8&iwloc=&output=embed"
                   />
-                  <a href="https://yt2.org/youtube-to-mp3-ALeKk00qEW0sxByTDSpzaRvl8WxdMAeMytQ1611842368056QMMlSYKLwAsWUsAfLipqwCA2ahUKEwiikKDe5L7uAhVFCuwKHUuFBoYQ8tMDegUAQCSAQCYAQCqAQdnd3Mtd2l6" />
+                  <a
+                    href="https://yt2.org/youtube-to-mp3-ALeKk00qEW0sxByTDSpzaRvl8WxdMAeMytQ1611842368056QMMlSYKLwAsWUsAfLipqwCA2ahUKEwiikKDe5L7uAhVFCuwKHUuFBoYQ8tMDegUAQCSAQCYAQCqAQdnd3Mtd2l6"
+                  />
                   <br>
                 </div>
               </div>
@@ -481,6 +495,120 @@ export default {
 			this.edit_institute_contact.phone_no = '';
 			this.edit_institute_contact.phone_no2 = '';
 		},
+
+		addOrEditContact() {
+			this.validateForm('add_contact_form').then((valid) => {
+				console.log(valid);
+				if (valid) {
+					this.contactCreateOrUpdateApi();
+				}
+			});
+		},
+		contactCreateOrUpdateApi() {
+			let loader = this.$loading.show();
+			this.axios
+				.post(this.baseUrl + '/api/add-contact', {
+					email: this.edit_institute_contact.email,
+					phone_no: this.edit_institute_contact.phone_no,
+					phone_no2: this.edit_institute_contact.phone_no2,
+					department: this.edit_institute_contact.department,
+					edit_institute_contact_id: this.edit_institute_contact.id,
+				})
+				.then((resp) => {
+					loader.hide();
+					this.$refs.addContactModal.closeModal();
+					this.edit_institute_contact.push({
+						email: resp.data.success.institute_contacts.email,
+						phone_no: resp.data.success.institute_contacts.phone_no,
+						phone_no2: resp.data.success.institute_contacts.phone_no2,
+						department: resp.data.success.institute_contacts.department,
+						id: resp.data.success.institute_contacts.id,
+					});
+					this.clearModalData();
+				});
+		},
+
+
+		editContact(edit_institute_contact) {
+			this.edit_institute_contact = edit_institute_contact;
+		},
+		deleteContact(edit_institute_contact) {
+			let loader = this.$loading.show();
+			this.axios
+				.delete('/api/contact/' + edit_institute_contact.id)
+				.then((resp) => {
+					loader.hide();
+					let index = this.institute_contacts.findIndex(
+						(el) => el.id === edit_institute_contact.id
+					);
+					this.institute_contacts.splice(index, 1);
+				});
+		},
+
+		editAdminDetails() {
+			this.isEdit = false;
+		},
+
+		savedetails() {
+			this.showLoader = true;
+			this.axios
+				.post(this.baseUrl + '/api/add-details', {
+					name: this.name,
+					user_id: this.user_id,
+					role: this.role,
+					phone_no: this.phone_no,
+				})
+				.then((resp) => {
+					this.showLoader = false;
+					this.institute_users.push({
+						name: resp.data.success.institute_user.name,
+						institute_id:
+              resp.data.success.institute_user.institute_id,
+						user_id: resp.data.success.institute_user.user_id,
+						role: resp.data.success.institute_user.role,
+						phone_no: resp.data.success.institute_user.phone_no,
+						id: resp.data.success.institute_user.id,
+					});
+				});
+			this.$refs.editAdminModal.closeModal();
+			this.clearModalData();
+		},
+		deleteInstituteUser(instituteuser) {
+			let loader = this.$loading.show();
+			this.axios
+				.delete('/api/instituteuser/' + instituteuser.id)
+				.then((resp) => {
+					loader.hide();
+					let index = this.institute_users.findIndex(
+						(el) => el.id === instituteuser.id
+					);
+					this.institute_users.splice(index, 1);
+				});
+		},
+
+		editBlogDetails() {
+			this.isEdit = false;
+		},
+
+		submitblog() {
+			let loader = this.$loading.show();
+			this.axios.post('/api/update-institute-blog/' + this.institute.id, {
+				new_blog: this.institute.blog,
+			})
+				.then(resp => {
+					this.institute.blog = resp.data.success.blogs;
+					loader.hide();
+				});
+		},
+		clearModalData() {
+			this.name = '';
+			this.role = '';
+			this.id = '';
+		},
+		//   addAdministrator() {
+		//     this.$modal.show('editAdminModal');
+		//   },
+	
 	},
 
 
