@@ -82,13 +82,13 @@
                       v-for="(reaction,index) in reactions"
                       :key="index"
                     >
-                      <div class="avatar">
+                      <div class="avatar ml-2">
                         <profile-image
                           :user-name="reaction.full_name"
                           :avatar="reaction.profile_image"
                         />
                       </div>
-                      <div class="info-post ml-2 dash_insititue_name">
+                      <div class="info-post ml-2 mb-1 dash_insititue_name">
                         <p class="font-size-14 mb-0 dash_user_date">
                           {{ reaction.full_name }}
                         </p>
@@ -103,13 +103,13 @@
                       v-for="(like,index) in likes"
                       :key="index"
                     >
-                      <div class="avatar">
+                      <div class="avatar ml-2">
                         <profile-image
                           :user-name="like.full_name"
                           :avatar="like.profile_image"
                         />
                       </div>
-                      <div class="info-post ml-2 dash_insititue_name">
+                      <div class="info-post ml-2 mb-1 dash_insititue_name">
                         <p class="font-size-14 mb-0 dash_user_date">
                           {{ like.full_name }}
                         </p>
@@ -124,13 +124,13 @@
                       v-for="(comment,index) in comments"
                       :key="index"
                     >
-                      <div class="avatar">
+                      <div class="avatar ml-2">
                         <profile-image
                           :user-name="comment.full_name"
                           :avatar="comment.profile_image"
                         />
                       </div>
-                      <div class="info-post ml-2 dash_insititue_name">
+                      <div class="info-post ml-2 mb-1 dash_insititue_name">
                         <p class="font-size-14 mb-0 dash_user_date">
                           {{ comment.full_name }}
                         </p>
