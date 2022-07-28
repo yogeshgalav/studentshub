@@ -121,7 +121,7 @@
                   </template>
                   <template slot="tab-panel-comments">
                     <div
-                      v-for="(reaction,index) in comments"
+                      v-for="(comment,index) in comments"
                       :key="index"
                     >
                       <div class="avatar">

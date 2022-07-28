@@ -259,16 +259,16 @@ class PostController extends Controller
       $reactions = DB::table('sthub_posts as st')->where('st.post_id','=',$postId)
       ->leftjoin('users as us', 'us.id','=','st.action_user_id')
       ->select('st.action_type','st.post_id','us.full_name', 'us.id')->get();
-
-      $likes =DB::table('sthub_posts as st')->where('st.post_id','=',$postId)
-      ->leftjoin('users as us', 'us.id','=','st.action_user_id')
-      ->where('action_type','=','like')
-      ->select('st.action_type','st.post_id','us.full_name', 'us.id')->get();
-
-      $comments =DB::table('sthub_posts as st')->where('st.post_id','=',$postId)
-      ->leftjoin('users as us', 'us.id','=','st.action_user_id')
-      ->where('action_type','=','comment')
-      ->select('st.action_type','st.post_id','us.full_name', 'us.id')->get();
+      $likable_type=Post::class;
+      $likes =DB::table('likes as li')->where('li.likable_id','=',$postId)->where('likable_type','=',$likable_type)
+      ->leftjoin('users as us', 'us.id','=','li.user_id')
+      ->select('us.full_name', 'li.user_id')->get();
+      $commentable_type=Post::class;
+      $comments =DB::table('comments as co')->where('co.commentable_id','=',$postId)->where('commentable_type','=',$commentable_type)
+      ->leftjoin('users as us', 'us.id','=','co.user_id')
+      ->select('co.user_id','us.full_name')
+      ->distinct()
+      ->get();
       
       return response()->json(['success'=>[
         'reactions'=>$reactions,
