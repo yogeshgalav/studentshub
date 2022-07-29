@@ -126,7 +126,7 @@
               >
             </router-link>
           </div>
-          <template id="child-template">
+          <div v-if="post.total_reactions">
             <p
               class="totalview text-grey mb-0 col-md-4 post_width"
               data-toggle="modal"
@@ -135,7 +135,7 @@
             >
               {{ post.total_reactions }} people interacted with this post
             </p>
-          </template>
+          </div>
           <div id="app">
             <child />
           </div>
