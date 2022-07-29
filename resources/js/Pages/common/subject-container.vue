@@ -99,13 +99,15 @@ export default {
 				});
 		},
 		addsubject(){
-			let loader = this.$loading.show();
+			this.showLoader = true;
+			//let loader = this.$loading.show();
       	this.axios.post(this.baseUrl + '/api/add-subject',{
     			subject_name:this.subject_name,
 				category_id:this.categoryId,
     		} )
     			.then(resp => {
-    			window.location.reload();
+            	this.showLoader = false;
+    		//	window.location.reload();
     			});
     		},
 	}

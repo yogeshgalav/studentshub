@@ -60,7 +60,9 @@ class SubjectController extends Controller
 
         switch($dashboard_type){
           case 'course':
-            $subject_query=$subject_query->where('course_id',$dashboard_id);
+             $subject_query=$subject_query->leftJoin('courses as co','co.category_id','=','su.category_id')
+             ->where('co.id',$dashboard_id);
+
             break;
           case 'subject':
             $subject_query=$subject_query->where('subject_id',$dashboard_id);
@@ -93,7 +95,7 @@ class SubjectController extends Controller
      $subject->added_by_user_id =  $me->id;
      $subject->category_id = $request->category_id;
      $subject->save();
- 
+      
      return response()->json(['success'=>[
        'subject'=> $subject,
    ]]); 
