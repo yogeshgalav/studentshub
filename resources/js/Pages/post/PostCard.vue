@@ -131,6 +131,7 @@
               class="totalview text-grey mb-0 col-md-4 post_width"
               data-toggle="modal"
               data-target="#reactionModal"
+              style=" flex: 0 0 100%; max-width: 100%;"
               @click="$parent.getViewsInfo(post.id)"
             >
               {{ post.total_reactions }} people interacted with this post

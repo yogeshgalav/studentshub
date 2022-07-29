@@ -98,9 +98,17 @@ class PostHelper
             $post->description=strlen($post->description)>$rand ? substr($post->description,0,$rand).'...' : $post->description;
             $post->post_type=$this->getPostType($post->postable_type);
             $post->subjects=$postData->subjects;
-            $post->total_reactions=($postData->likes_count+$postData->comments_count);
+            // $post->count = DB::table('comments')->where('commentable_id','=',$post->id)->count(DB::raw('DISTINCT user_id'));
+            // $post->total_reactions=($postData->likes_count+$post->count);
             $post->profile_image=$post->profile_image ?? '';
             $post->image_path=$post->image_path ?? '';
+            $post->total_likes=$postData->likes_count;
+            $post->total_reactions = DB::table('sthub_posts as st')->where('st.post_id','=',$post->id)
+            ->where('action_type','!=','share')->where('action_type','!=','view')
+            ->leftjoin('users as us', 'us.id','=','st.action_user_id')
+            ->count();
+      
+            
         }
 
         return $posts;

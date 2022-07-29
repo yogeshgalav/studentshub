@@ -262,19 +262,19 @@ class PostController extends Controller
       ->where('action_type','!=','share')->where('action_type','!=','view')
       ->leftjoin('users as us', 'us.id','=','st.action_user_id')
       ->select('us.id','us.full_name')
-      ->groupBy('us.id')
+      ->groupBy('us.id','us.full_name')
       ->get();
 
       $likes =DB::table('likes as li')->where('li.likable_id','=',$postId)->where('likable_type','=',Post::class)
       ->leftjoin('users as us', 'us.id','=','li.user_id')
       ->select('us.id','us.full_name')
-      ->groupBy('us.id')
+      ->groupBy('us.id','us.full_name')
       ->get();
 
       $comments =DB::table('comments as co')->where('co.commentable_id','=',$postId)->where('commentable_type','=',Post::class)
       ->rightjoin('users as us', 'us.id','=','co.user_id')
       ->select('us.id','us.full_name')
-      ->groupBy('us.id')
+      ->groupBy('us.id','us.full_name')
       ->get();
       
       return response()->json(['success'=>[
