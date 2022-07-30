@@ -64,7 +64,7 @@ export default {
 		SubjectCard
 	},
 	mixins: [FormMixin],
-	props:['categoryId','subjectRoute'],
+	props:['subjectRoute','dashboardId','dashboardType'],
 	data() {
 		return{
 			subjects_data: [],
@@ -75,7 +75,7 @@ export default {
        
 	},
     	mounted() {
-		this.loadSubjects();
+		this.loadSubjects();			
 	},
 	
   	methods: {
@@ -89,7 +89,7 @@ export default {
 
 			this.axios.get(url.toString())
 				.then(resp => {
-					const subjects = resp.data.success.subjects;
+					const subjects = resp.data.success.subjects;	
 					this.subjects_data = this.subjects_data.concat(subjects.data);
 		            this.current_page = this.current_page;
 					this.showLoader = false;
@@ -101,14 +101,13 @@ export default {
 		addsubject(){
 			this.showLoader = true;
 			//let loader = this.$loading.show();
-      	this.axios.post(this.baseUrl + '/api/add-subject',{
-    			subject_name:this.subject_name,
-				category_id:this.categoryId,
-    		} )
-    			.then(resp => {
-            	this.showLoader = false;
-    		//	window.location.reload();
-    			});
+			this.axios.post('/api/'+this.dashboardType+'/'+this.dashboardId+'/add-subject',
+				{
+					subject_name:this.subject_name,
+					dashboard_id:this.dashboardId,
+				}).then((resp)=>{
+				this.showLoader = false;
+			});
     		},
 	}
 
