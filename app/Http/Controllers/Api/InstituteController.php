@@ -86,7 +86,7 @@ class InstituteController extends Controller
 
         $institute_contacts = DB::table('institute_contactus as inct')->where('inct.institute_id', $institute->id)
         ->leftJoin('institutes as in', 'in.id', '=', 'inct.institute_id')
-        ->select(['inct.id as id', 'in.id as institute_id', 'inct.department as department', 'inct.email as email', 'inct.phone_no as phone_no', 'inct.phone_no2 as phone_no2'])
+        ->select(['inct.id as id', 'in.id as institute_id', 'inct.department as department', 'inct.email as email', 'inct.phone_no as phone_no', 'inct.phone_no2 as phone_no2', 'inct.whatsapp_no as whatsapp_no'])
         ->get();
         return response()->json(['success' => [
                 'institute' => $institute,
@@ -316,6 +316,7 @@ class InstituteController extends Controller
             $institute_contacts->email = $request->email;
             $institute_contacts->phone_no = $request->phone_no;
             $institute_contacts->phone_no2 =$request->phone_no2;
+            $institute_contacts->whatsapp_no=$request->whatsapp_no;
             $institute_contacts->department =$request->department;
             $institute_contacts->institute_id = $instituteId;
             $institute_contacts->save();

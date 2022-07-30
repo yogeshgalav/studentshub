@@ -46,12 +46,10 @@
         title="Administrators"
         class="card mt-2"
       >
-        <div class="card-body ">
+        <div class="card-body">
           <div
             v-if="editPermission"
             class="edit-btn-row"
-            style=" display:flex;
-                justify-content:flex-end;"
           >
             <button
               type="button"
@@ -66,7 +64,7 @@
             </button>
           </div>
           <div v-if="institute_users.length">
-            <div style="gap: 40px;">
+            <div style="gap:40px;display:flex;">
               <div
                 v-for="(
                   instituteuser, index
@@ -276,7 +274,16 @@
                 {{ institute_contact.phone_no2 }}
               </p>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
+              <h5>
+                <i class="fas fa-phone-alt" />Whatsapp Number
+              </h5>
+              <p>
+                {{ institute_contact.whatsapp_no }}
+              </p>
+            </div>
+
+            <div class="col-md-3">
               <h5>
                 <i class="fas fa-envelope" />Email
               </h5>
@@ -370,22 +377,22 @@
                       placeholder="write Phone Number here"
                     >
 
-                    <!-- <label for="whatsapp_no">WhatsApp Number</label>
+                    <label for="whatsapp_no">WhatsApp Number</label>
                     <input
                       id="phone_no2"
                       v-model=" edit_institute_contact.whatsapp_no "
                       name="whatsapp_no"
                       class="form-control"
                       placeholder="write Whatsapp Number here"
-                    > -->
+                    >
 
-                    <label for="department">Department Name</label>
+                    <label for="department">Department / Person Name</label>
                     <input
                       id="department"
                       v-model=" edit_institute_contact.department"
                       name="department"
                       class="form-control"
-                      placeholder="write Department Name here"
+                      placeholder="write Department / Person Name here"
                     >
                   </div>
                 </div>
@@ -428,6 +435,45 @@
   </div>
 </template>
 
+<style scoped>
+.delete_Institute_User {
+  position: absolute;
+  background-color: white;
+  bottom: 156px;
+  right: -35px;
+}
+    .Administrator-profile {
+      display: inline-flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      gap: 5px;
+      text-align: center;
+    }
+
+        .edit-btn-row {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: nowrap;
+          justify-content: flex-end;
+          align-items: center;
+          align-content: center;
+        }
+
+@media (max-width: 769px) {
+  .addAdmin {
+    text-align: center;
+  }
+}
+@media (max-width: 769px) {
+  .edit-avatar {
+    position: absolute;
+    bottom: 5px;
+    left: 100px;
+  }
+}
+
+</style>
 
 <script>
 // import Accordion from '@/components/accordion.vue';
@@ -511,6 +557,7 @@ export default {
 					email: this.edit_institute_contact.email,
 					phone_no: this.edit_institute_contact.phone_no,
 					phone_no2: this.edit_institute_contact.phone_no2,
+					whatsapp_no: this.edit_institute_contact.whatsapp_no,
 					department: this.edit_institute_contact.department,
 					edit_institute_contact_id: this.edit_institute_contact.id,
 				})

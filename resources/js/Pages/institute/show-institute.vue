@@ -556,27 +556,27 @@
     bottom: 156px;
     right: -35px;
 }
-.Administrator-profile {
+/* .Administrator-profile {
   display: inline-flex;
   flex-direction: column;
   flex-wrap: nowrap;
   justify-content: flex-start;
   gap: 5px;
   text-align: center;
-}
-.edit-btn-row {
+} */
+/* .edit-btn-row {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: flex-end;
   align-items: center;
   align-content: center;
-}
-@media (max-width: 769px)  {
+} */
+/* @media (max-width: 769px)  {
 .addAdmin{
 text-align: center;
 }
-}
+} */
 @media (max-width: 769px)  {
 .EditBanner{
   height: 80px;
@@ -600,19 +600,19 @@ text-align: center;
     left: 100px;
 }
 }
-@media   (max-width:769px) {
+@media (max-width:769px) {
   .addbtn-row {
     /* flex-direction: column; */
     text-align: center;
   }
 }
-@media   (max-width:769px) {
+@media (max-width:769px) {
   .instagram-media {
     /* flex-direction: column; */
     min-width: 100% !important;
   }
 }
-  @media   (max-width:769px) {
+  @media (max-width:769px) {
   .map-location {
     /* flex-direction: column; */
     min-width: 100% !important;
