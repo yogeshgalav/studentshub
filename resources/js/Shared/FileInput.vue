@@ -19,13 +19,11 @@
         v-if="!modelValue"
         class="p-2"
       >
-        <button
-          type="button"
-          :class="buttonClass"
+        <img
+          src="/images/cam-icon.webp"
+          style="width:30px"
           @click="browse"
         >
-          Browse
-        </button>
       </div>
       <div
         v-else
@@ -54,7 +52,22 @@
     </div>
   </div>
 </template>
+<style scoped>
+button {
+  background-image: url(/images/cam-icon.webp);
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  /* put the height and width of your image here */
+  
+  width: 30px;
+  border: none;
+}
 
+button span {
+  display: none;
+}
+
+</style>
 <script>
 export default {
 	props: {

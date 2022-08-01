@@ -100,10 +100,7 @@
               :size="1024 * 1024 * 10"
               @input="inputUpdate"
             >
-              <img
-                src="/images/cam-icon.svg"
-                alt=""
-              >
+              <file-input />
             </file-upload>
           </div>
           <h3 style="margin: 20px 0px 0px 20px">
@@ -881,6 +878,7 @@
                               style="width:50%"
                               @input="inputUpdate"
                             >
+                              <file-input />
                               <img
                                 src="/images/cam-icon.svg"
                                 alt=""
@@ -1639,6 +1637,7 @@ import FileUpload from 'vue-upload-component';
 import Modal from '../../components/VueNiceModal.vue';
 import FormMixin from '../../components/mixins/form-mixin.js';
 import RichTextEditor from '../../components/RichTextEditor';
+import FileInput from '@/Shared/FileInput.vue';
 
 export default {
 	components: {
@@ -1651,6 +1650,7 @@ export default {
 		FileUpload,
 		Modal,
 		RichTextEditor,
+		FileInput
 	},
 	mixins: [FormMixin],
 	props:['institute', 'editPermission','instituteVerified'],
