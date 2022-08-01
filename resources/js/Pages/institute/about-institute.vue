@@ -1,47 +1,52 @@
 <template slot="tab-panel-about">
   <div id="about-html">
     <div class="col-md-10">
-      <div title="Blog">
-        <div
-          v-if="editPermission"
-          class="edit-btn-row"
-        >
-          <button
-            v-if="isEdit"
-            type="button"
-            class="btn btn-primary"
-            @click="editBlogDetails()"
+      <section
+        title="Blog"
+        class="card mt-2"
+      >
+        <div class="card-body">
+          <div
+            v-if="editPermission"
+            class="edit-btn-row"
           >
-            <i
-              class="fas fa-pencil-alt"
-              style="color: white"
-            />
-            Edit
-          </button>
-          <button
-            v-else
-            type="button"
-            class="btn btn-primary"
-            @click="submitblog"
-          >
-            Save 
-          </button>
-        </div>
-        <div>
+            <button
+              v-if="isEdit"
+              type="button"
+              class="btn btn-primary"
+              @click="editBlogDetails()"
+            >
+              <i
+                class="fas fa-pencil-alt"
+                style="color: white"
+              />
+              Edit
+            </button>
+            <button
+              v-else
+              type="button"
+              class="btn btn-primary"
+              @click="submitblog"
+            >
+              Save 
+            </button>
+          </div>
           <div>
-            <div
-              v-if="isEdit && institute.blog"
-              id="app"
-              v-html="institute.blog"
+            <div>
+              <div
+                v-if="isEdit && institute.blog"
+                id="app"
+                v-html="institute.blog"
+              />
+            </div>
+            <rich-text-editor
+              v-if="!isEdit"
+              id="ArticleEditor"
+              v-model="institute.blog"
             />
           </div>
-          <rich-text-editor
-            v-if="!isEdit"
-            id="ArticleEditor"
-            v-model="institute.blog"
-          />
         </div>
-      </div>
+      </section>
       <section
         title="Administrators"
         class="card mt-2"
@@ -402,6 +407,43 @@
         </modal>
       </section>
 
+      <!-- Youtube Section -->
+
+      <section
+        v-if="institute.youtube_vedio_url"
+        title="
+        You-Tube"
+        class="card mt-2"
+      >
+        <div class=" card-body">
+          <iframe
+            width="420"
+            height="345"
+            :src="
+              'https://www.youtube.com/embed/' +
+                institute.youtube_vedio_url
+            "
+          />
+        </div>
+      </section>
+
+      <!-- Twitter Section -->
+      <section
+        v-if=" institute.twitter_url"
+        title="
+        Twitter"
+        class="card mt-2"
+      >
+        <div class="card-body">
+          <iframe
+            border="0"
+            frameborder="0"
+            height="250"
+            width="550"
+            :src="'https://twitframe.com/show?url='+`${encodeURIComponent(this.institute.twitter_url)}`"
+          />
+        </div>
+      </section>
 
       <!-- location section -->
       <section

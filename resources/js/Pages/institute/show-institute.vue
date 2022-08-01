@@ -126,7 +126,7 @@
                 <li>
                   <a
                     target="_blank"
-                    :href="institute.twitter_url ? institute.twitter_url : '#'"
+                    :href="institute.twitter_url ? 'https://twitframe.com/show?url='+institute.twitter_url : '#'"
                     :disabled=" institute.twitter_url ? false : true "
                     :class="['icoTwitter', institute.twitter_url ? '':'disabled',]"
                     title="Twitter"
@@ -159,7 +159,7 @@
                 <li>
                   <a
                     target="blank"
-                    :href=" institute.youtube_vedio_url ? institute.youtube_vedio_url : '#'"
+                    :href=" institute.youtube_vedio_url ?'https://www.youtube.com/embed/'+ institute.youtube_vedio_url : '#'"
                     :disabled=" institute.youtube_vedio_url ? false : true"
                     :class="['icoYoutube', institute.youtube_vedio_url ? '': 'disabled',]"
                     title="Youtube"
@@ -726,6 +726,7 @@ export default {
 		// },
 	
 		async saveProfile() {
+			console.log('xyz');
 			this.showLoader = true;
 			if (
 				this.institute.fb_url &&
@@ -736,14 +737,14 @@ export default {
 			}
 			if (
 				this.institute.twitter_url &&
-                !this.institute.twitter_url.includes('twitter.com')
+			          !this.institute.twitter_url.includes('twitter.com')
 			) {
 				this.errors.twitter_url = 'This is not valid Twitter url.';
 				return false;
 			}
 			if (
 				this.institute.insta_url &&
-                !this.institute.insta_url.match(/^[a-zA-Z0-9_.]*$/g)
+			          !this.institute.insta_url.match(/^[a-zA-Z0-9_.]*$/g)
 			) {
 				this.errors.insta_url = 'This is not valid Instagram username.';
 				return false;
@@ -755,13 +756,13 @@ export default {
 				this.errors.linkedin_url = 'This is not valid Linkedin url.';
 				return false;
 			}
-			if (
-				this.institute.youtube_vedio_url &&
-                !this.institute.youtube_vedio_url.includes('youtube.com')
-			) {
-				this.errors.youtube_vedio_url = 'This is not valid Youtube url.';
-				return false;
-			}
+			// if (
+			// 	this.institute.youtube_vedio_url &&
+			//           !this.institute.youtube_vedio_url.includes('youtube.com')
+			// ) {
+			// 	this.errors.youtube_vedio_url = 'This is not valid Youtube url.';
+			// 	return false;
+			// }
 			if(this.image.file){
 				await this.getBase64(this.image.file).then(file=>{
 					this.institute.profile_pic=file;
