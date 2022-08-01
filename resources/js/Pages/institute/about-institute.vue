@@ -514,7 +514,34 @@
     left: 100px;
   }
 }
+@media (max-width:769px) {
+  .addbtn-row {
+    /* flex-direction: column; */
+    text-align: center;
+  }
+}
+@media (max-width:769px) {
+  .instagram-media {
+    /* flex-direction: column; */
+    min-width: 100% !important;
+  }
+}
+  @media (max-width:769px) {
+  .map-location {
+    /* flex-direction: column; */
+    min-width: 100% !important;
+  }
 
+}
+.delete_Institute_User {
+    position: absolute;
+    background-color: white;
+    bottom: 156px;
+    right: -35px;
+}
+.col-md-12 {
+    margin-top: 10px;
+}
 </style>
 
 <script>

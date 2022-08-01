@@ -550,12 +550,7 @@
     margin-top: 30px;
 }
 
-.delete_Institute_User {
-    position: absolute;
-    background-color: white;
-    bottom: 156px;
-    right: -35px;
-}
+
 /* .Administrator-profile {
   display: inline-flex;
   flex-direction: column;
@@ -599,25 +594,6 @@ text-align: center;
     bottom: 5px;
     left: 100px;
 }
-}
-@media (max-width:769px) {
-  .addbtn-row {
-    /* flex-direction: column; */
-    text-align: center;
-  }
-}
-@media (max-width:769px) {
-  .instagram-media {
-    /* flex-direction: column; */
-    min-width: 100% !important;
-  }
-}
-  @media (max-width:769px) {
-  .map-location {
-    /* flex-direction: column; */
-    min-width: 100% !important;
-  }
-
 }
 </style>
 <script>
@@ -726,7 +702,6 @@ export default {
 		// },
 	
 		async saveProfile() {
-			console.log('xyz');
 			this.showLoader = true;
 			if (
 				this.institute.fb_url &&
@@ -763,11 +738,12 @@ export default {
 			// 	this.errors.youtube_vedio_url = 'This is not valid Youtube url.';
 			// 	return false;
 			// }
-			if(this.image.file){
-				await this.getBase64(this.image.file).then(file=>{
-					this.institute.profile_pic=file;
-				});
-			}
+			
+			// if(this.image.file){
+			// 	await this.getBase64(this.image.file).then(file=>{
+			// 		this.institute.profile_pic=file;
+			// 	});
+			// }
 			this.axios
 				.post('/api/save-institute-profile',this.institute, {
 					headers: {
