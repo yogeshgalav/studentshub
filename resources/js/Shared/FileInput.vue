@@ -20,12 +20,11 @@
         class="p-2"
       >
         <button @click="$refs['file'].click()">
-          Browse
-          <!-- <img
+          <img
             src="/images/cam-icon.webp"
             style="width:30px"
             @click="browse"
-          > -->
+          >
         </button>
       </div>
       <div
@@ -60,9 +59,8 @@ button {
   background-image: url(/images/cam-icon.webp);
   background-repeat: no-repeat;
   background-position: 50% 50%;
+  border-radius: 50px;
   /* put the height and width of your image here */
-  
-  width: 30px;
   border: none;
 }
 

@@ -806,6 +806,7 @@ export default {
 					document.getElementById('#documentUploadbanner').attr('src', e.target.result).width(150).height(200);
 				};
 
+				console.log('xyz');
 				reader.readAsDataURL(file);
 			}
 		}

@@ -407,27 +407,57 @@
         </modal>
       </section>
 
-      <!-- Youtube Section -->
+      <!-- Youtube and Twitter Section -->
 
       <section
-        v-if="institute.youtube_vedio_url"
+        v-if="institute.youtube_vedio_url || institute.twitter_url"
         title="
         You-Tube"
         class="card mt-2"
       >
-        <div class=" card-body">
-          <iframe
-            width="420"
-            height="345"
-            :src="
-              'https://www.youtube.com/embed/' +
-                institute.youtube_vedio_url
-            "
-          />
+        <div
+          class=" card-body"
+          style="background:#3646C5;"
+        >
+          <div class="row">
+            <div
+              v-if="institute.youtube_vedio_url"
+              class="col-md-4"
+            >
+              <h2 style="color:white;">
+                Watch Now
+              </h2>
+              <iframe
+                width="400" 
+                height="300"
+                :src="
+                  'https://www.youtube.com/embed/' +
+                    institute.youtube_vedio_url
+                "
+              />
+            </div>
+          
+            <div
+              v-if="institute.twitter_url"
+              class="col-md-4"
+              style="margin-left:100px;"
+            >
+              <h2 style="color:white;">
+                Engage
+              </h2>
+              <iframe
+                border="0"
+                frameborder="0"
+                height="280"
+                width="450"
+                :src="'https://twitframe.com/show?url='+`${encodeURIComponent(this.institute.twitter_url)}`"
+              />
+            </div>
+          </div>
         </div>
       </section>
 
-      <!-- Twitter Section -->
+      <!-- Twitter Section
       <section
         v-if=" institute.twitter_url"
         title="
@@ -443,7 +473,7 @@
             :src="'https://twitframe.com/show?url='+`${encodeURIComponent(this.institute.twitter_url)}`"
           />
         </div>
-      </section>
+      </section> -->
 
       <!-- location section -->
       <section
