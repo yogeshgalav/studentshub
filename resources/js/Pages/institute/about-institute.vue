@@ -24,7 +24,7 @@
             class="btn btn-primary"
             @click="submitblog"
           >
-            Save 
+            Save
           </button>
         </div>
         <div>
@@ -401,7 +401,52 @@
           </template>
         </modal>
       </section>
+      <!-- Youtube Section -->
 
+      <section
+        v-if="institute.youtube_vedio_url"
+        title="
+        You-Tube"
+        class="card mt-2"
+      >
+        <div class=" card-body">
+          <!-- <iframe
+            width="420"
+            height="345"
+            src="
+              'https://www.youtube.com/embed/' +
+                institute.youtube_vedio_url
+            "
+          /> -->
+          <iframe 
+            width="100%"
+            height="315" 
+            src="https://www.youtube.com/embed/mhbFYDfqc0g" 
+            title="YouTube video player" 
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          />
+        </div>
+      </section>
+
+      <!-- Twitter Section -->
+      <section
+        v-if=" institute.twitter_url"
+        title="
+        Twitter"
+        class="card mt-2"
+      >
+        <div class="card-body">
+          <iframe
+            border="0"
+            frameborder="0"
+            height="250"
+            width="100%"
+            src="https://twitframe.com/show?url=https%3A%2F%2Ftwitter.com%2Fjack%2Fstatus%2F20"
+          />
+        </div>
+      </section>
 
       <!-- location section -->
       <section
@@ -657,8 +702,5 @@ export default {
 		//   },
 	
 	},
-
-
-
 };
 </script>
