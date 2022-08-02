@@ -1,47 +1,52 @@
 <template slot="tab-panel-about">
   <div id="about-html">
     <div class="col-md-10">
-      <div title="Blog">
-        <div
-          v-if="editPermission"
-          class="edit-btn-row"
-        >
-          <button
-            v-if="isEdit"
-            type="button"
-            class="btn btn-primary"
-            @click="editBlogDetails()"
+      <section
+        title="Blog"
+        class="card mt-2"
+      >
+        <div class="card-body">
+          <div
+            v-if="editPermission"
+            class="edit-btn-row"
           >
-            <i
-              class="fas fa-pencil-alt"
-              style="color: white"
-            />
-            Edit
-          </button>
-          <button
-            v-else
-            type="button"
-            class="btn btn-primary"
-            @click="submitblog"
-          >
-            Save
-          </button>
-        </div>
-        <div>
+            <button
+              v-if="isEdit"
+              type="button"
+              class="btn btn-primary"
+              @click="editBlogDetails()"
+            >
+              <i
+                class="fas fa-pencil-alt"
+                style="color: white"
+              />
+              Edit
+            </button>
+            <button
+              v-else
+              type="button"
+              class="btn btn-primary"
+              @click="submitblog"
+            >
+              Save 
+            </button>
+          </div>
           <div>
-            <div
-              v-if="isEdit && institute.blog"
-              id="app"
-              v-html="institute.blog"
+            <div>
+              <div
+                v-if="isEdit && institute.blog"
+                id="app"
+                v-html="institute.blog"
+              />
+            </div>
+            <rich-text-editor
+              v-if="!isEdit"
+              id="ArticleEditor"
+              v-model="institute.blog"
             />
           </div>
-          <rich-text-editor
-            v-if="!isEdit"
-            id="ArticleEditor"
-            v-model="institute.blog"
-          />
         </div>
-      </div>
+      </section>
       <section
         title="Administrators"
         class="card mt-2"
@@ -410,22 +415,13 @@
         class="card mt-2"
       >
         <div class=" card-body">
-          <!-- <iframe
+          <iframe
             width="420"
             height="345"
-            src="
+            :src="
               'https://www.youtube.com/embed/' +
                 institute.youtube_vedio_url
             "
-          /> -->
-          <iframe 
-            width="100%"
-            height="315" 
-            src="https://www.youtube.com/embed/mhbFYDfqc0g" 
-            title="YouTube video player" 
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
           />
         </div>
       </section>
@@ -442,8 +438,8 @@
             border="0"
             frameborder="0"
             height="250"
-            width="100%"
-            src="https://twitframe.com/show?url=https%3A%2F%2Ftwitter.com%2Fjack%2Fstatus%2F20"
+            width="550"
+            :src="'https://twitframe.com/show?url='+`${encodeURIComponent(this.institute.twitter_url)}`"
           />
         </div>
       </section>
@@ -517,7 +513,34 @@
     left: 100px;
   }
 }
+@media (max-width:769px) {
+  .addbtn-row {
+    /* flex-direction: column; */
+    text-align: center;
+  }
+}
+@media (max-width:769px) {
+  .instagram-media {
+    /* flex-direction: column; */
+    min-width: 100% !important;
+  }
+}
+  @media (max-width:769px) {
+  .map-location {
+    /* flex-direction: column; */
+    min-width: 100% !important;
+  }
 
+}
+.delete_Institute_User {
+    position: absolute;
+    background-color: white;
+    bottom: 156px;
+    right: -35px;
+}
+.col-md-12 {
+    margin-top: 10px;
+}
 </style>
 
 <script>
