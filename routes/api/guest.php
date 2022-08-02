@@ -25,7 +25,9 @@ Route::get('/search-subject', [App\Http\Controllers\Api\SubjectController::class
 Route::get('/search-institute', [App\Http\Controllers\Api\InstituteController::class, 'index']);
 
 Route::get('/institute/{id?}',  [App\Http\Controllers\Api\InstituteController::class, 'show']);
+Route::get('/instituteusers/{id?}',  [App\Http\Controllers\Api\InstituteController::class, 'showusers']);
 Route::get('/course/{id?}',  [App\Http\Controllers\Api\CourseController::class, 'show']);
+Route::post('{dashboard_type}/{dashboard_id}/add-subject',[App\Http\Controllers\Api\SubjectController::class, 'create']);
 Route::get('/subject/{subject}',  [App\Http\Controllers\Api\SubjectController::class, 'show']);
 Route::get('/category/{category}',  [App\Http\Controllers\Api\CategoryController::class, 'show']);
 Route::get('/get-categories', 'CategoryController@index');
@@ -36,4 +38,5 @@ Route::get('/{commentable_type}/{commentable_id}/comment', 'CommentController@ge
 //
 Route::get('{dashboard_type}/{dashboard_id}/posts', [App\Http\Controllers\Api\PostController::class, 'getPosts']);
 Route::get('/post-reactions/{postId}', [App\Http\Controllers\Api\PostController::class, 'getPostReactions']);
+Route::get('{dashboard_type}/{dashboard_id}/subjects', [App\Http\Controllers\Api\SubjectController::class, 'getSubjects']);
 

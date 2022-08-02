@@ -36,7 +36,7 @@ class InstituteController extends Controller
             'institutes' => $institutes
         ]]);
     }
-    public function show($instituteId=null)
+    public function show($instituteId=null, Request $request)
     {
         if($instituteId){
             $institute = Institute::findOrFail($instituteId);
@@ -47,19 +47,6 @@ class InstituteController extends Controller
         if(empty($institute)){
             abort(404);
         }
-
-        $institute_users=DB::table('institute_users as inst')->where('inst.institute_id',$institute->id)
-        ->where('inst.role','!=','teacher')
-        ->leftJoin('institutes as in','in.id','=','inst.institute_id')
-        ->leftjoin('users as us','us.id','=','inst.user_id')
-        ->select(['inst.id as id','in.id as institute_id', 'inst.user_id as user_id','inst.role as role','us.full_name as user_name'])
-        ->get();
-
-        $institute_contacts=DB::table('institute_contactus as inct')->where('inct.institute_id',$institute->id)
-        ->leftJoin('institutes as in','in.id','=','inct.institute_id')
-        ->select(['inct.id as id','in.id as institute_id', 'inct.department as department','inct.email as email','inct.phone_no as phone_no','inct.phone_no2 as phone_no2'])
-        ->get();
-
         $teachers = User::where('role','teacher')
         ->where('preferred_institute_id',$institute->id)
         ->with('preferredCourse')
@@ -75,11 +62,40 @@ class InstituteController extends Controller
             'institute'=>$institute,
             'teachers'=>$teachers,
             'students'=>$students,
-            'institute_users'=>$institute_users,
-            'institute_contacts'=>$institute_contacts,
         ]]);
     
     }
+    public function showusers($instituteId = null, Request $request)
+    {
+        if ($instituteId) {
+            $institute = Institute::findOrFail($instituteId);
+        } else if ($request->user('api')) {
+            $institute = Institute::findOrFail($request->user('api')->preferred_institute_id);
+        }
+
+        if (empty($institute)) {
+            abort(404);
+        }
+
+        $institute_users = DB::table('institute_users as inst')->where('inst.institute_id', $institute->id)
+        ->where('inst.role', '!=', 'teacher')
+        ->leftJoin('institutes as in', 'in.id', '=', 'inst.institute_id')
+        ->leftjoin('users as us', 'us.id', '=', 'inst.user_id')
+        ->select(['inst.id as id', 'in.id as institute_id', 'inst.user_id as user_id', 'inst.role as role', 'us.full_name as user_name'])
+        ->get();
+
+        $institute_contacts = DB::table('institute_contactus as inct')->where('inct.institute_id', $institute->id)
+        ->leftJoin('institutes as in', 'in.id', '=', 'inct.institute_id')
+        ->select(['inct.id as id', 'in.id as institute_id', 'inct.department as department', 'inct.email as email', 'inct.phone_no as phone_no', 'inct.phone_no2 as phone_no2', 'inct.whatsapp_no as whatsapp_no'])
+        ->get();
+        return response()->json(['success' => [
+                'institute' => $institute,
+                'institute_users' => $institute_users,
+                'institute_contacts' => $institute_contacts,
+            ]]);
+    }
+
+
     public function showAdmin($instituteId){
         $institute_detail = Institute::findOrFail($instituteId);
 
@@ -300,6 +316,7 @@ class InstituteController extends Controller
             $institute_contacts->email = $request->email;
             $institute_contacts->phone_no = $request->phone_no;
             $institute_contacts->phone_no2 =$request->phone_no2;
+            $institute_contacts->whatsapp_no=$request->whatsapp_no;
             $institute_contacts->department =$request->department;
             $institute_contacts->institute_id = $instituteId;
             $institute_contacts->save();
