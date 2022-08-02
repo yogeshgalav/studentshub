@@ -2,13 +2,13 @@
   "private": true,
   "scripts": {
     "hot": "cross-env NODE_ENV=local  node_modules/webpack/bin/webpack.js --hot --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "start": "cross-env NODE_ENV=local  node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "build": "cross-env NODE_ENV=development  node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "build": "cross-env NODE_ENV=local  node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "dev-build": "cross-env NODE_ENV=development  node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "prod-build": "cross-env NODE_ENV=production  node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "lint": "npm run lint",
     "test:unit": "npm run test:unit",
-    "watch": "npm start -- --watch",
-    "watch-poll": "npm run watch -- --watch-poll"
+    "start": "npm run build -- --watch",
+    "watch-poll": "npm run build -- --watch-poll"
   },
   "dependencies": {
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
