@@ -61,38 +61,6 @@
   </div>
 </template>
 <style>
-.modal {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    z-index: 1050;
-    padding: 0 !important; /* override inline padding-right added from js */
-    width: 100vw !important;
-    height: 100vh !important;
-    outline: 0;
-  }
-  @media only screen  and (max-width: 540px) {
-    .modal-fullscreen {
-      top: 0 !important; 
-      left: 0 !important;
-    }
-  }
-  .modal-dialog-scrollable{ /* add this if you want to use modal-dialog-scrollable */
-    max-height: none !important;
-  }
-  .modal .modal-dialog-scrollable .modal-content {
-    max-height: calc(100vh - 1rem) !important;
-  }
-  .modal-dialog.modal-xl {
-    max-width: 100vw !important;
-    margin: 0;
-  }
-  .modal .modal-content{
-    position: relative;
-    width: 100%;
-    min-height: 100vh;
-    border-radius: 0;
-  }
 /* .modal-dialog{ */
    /* position: absolute; */
     /* width: 90%;  */
