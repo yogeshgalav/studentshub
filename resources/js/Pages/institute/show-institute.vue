@@ -48,8 +48,8 @@
                             "
               alt=""
             >
-            <file-upload
-              id="documentUpload"
+            <file-input
+              id="documentUploadbanner"
               ref="upload"
               class="EditBanner btn btn-light bottom-right"
               post-action="/upload/post"
@@ -57,14 +57,10 @@
               accept="image/*"
               :drop="true"
               :size="102 * 1024 * 10"
-              @input="inputUpdate"
+              @update="updatebanner"
             >
-              <img
-                src="/images/cam-icon.svg"
-                alt=""
-              >
               edit banner image
-            </file-upload>
+            </file-input>
           </div>
           <div class="container">
             <img
@@ -90,7 +86,7 @@
                                 border-color: white;
                             "
             ><file-upload
-              id="documentUpload"
+              id="documentUploadlogo"
               ref="upload"
               class="edit-avatar bottom-left"
               post-action="/upload/post"
@@ -98,9 +94,9 @@
               accept="image/*"
               :drop="true"
               :size="1024 * 1024 * 10"
-              @input="inputUpdate"
+              @input="uploadlogo"
             >
-              <file-input />
+              <file-input @update="uploadlogo" />
             </file-upload>
           </div>
           <h3 style="margin: 20px 0px 0px 20px">
@@ -867,7 +863,7 @@
                             >
                             <label>Profile Image</label>
                             <file-upload
-                              id="documentUpload"
+                              id="documentUploadpic"
                               ref="upload"
                               class=" edit-avatar btn btn-primary"
                               post-action="/upload/post"
@@ -1838,8 +1834,13 @@ export default {
 			};
 		},
 		inputUpdate(files) {
+			console.log('xyz');
 			this.image = files[0];
 			this.institute_banner_url = URL.createObjectURL(files[0].file);
+		},
+		uploadlogo(files) {
+			this.image = files[0];
+			this.logo_url = URL.createObjectURL(files[0].file);
 		},
 		editAdmiDetails() {
 			this.isEdit = false;
@@ -1925,6 +1926,18 @@ export default {
 					loader.hide();
 				});
 		},
+		updatebanner(file){
+			console.log('xyz',file);
+			if (file) {
+				var reader = new FileReader();
+
+				reader.onload = function (e) {
+					document.getElementById('#id').attr('src', e.target.result).width(150).height(200);
+				};
+
+				reader.readAsDataURL(file);
+			}
+		}
 	},
 };
 </script>

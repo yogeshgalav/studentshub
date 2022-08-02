@@ -12,18 +12,21 @@
         ref="file"
         type="file"
         :accept="accept"
-        class="hidden"
+        hidden
         @change="change"
       >
       <div
         v-if="!modelValue"
         class="p-2"
       >
-        <img
-          src="/images/cam-icon.webp"
-          style="width:30px"
-          @click="browse"
-        >
+        <button @click="$refs['file'].click()">
+          Browse
+          <!-- <img
+            src="/images/cam-icon.webp"
+            style="width:30px"
+            @click="browse"
+          > -->
+        </button>
       </div>
       <div
         v-else
@@ -100,10 +103,11 @@ export default {
 			this.$refs.file.click();
 		},
 		change(e) {
-			this.$emit('update:modelValue', e.target.files[0]);
+			console.log('zzz');
+			this.$emit('update', e.target.files[0]);
 		},
 		remove() {
-			this.$emit('update:modelValue', null);
+			this.$emit('update', null);
 		},
 	},
 };
