@@ -63,8 +63,8 @@ class SubjectController extends Controller
 
         switch($dashboard_type){
           case 'course':
-             $subject_query=$subject_query->leftJoin('courses as co','co.category_id','=','su.category_id')
-             ->where('co.id',$dashboard_id);
+             $subject_query=$subject_query->leftJoin('course_subjects as co','co.subject_id','=','su.id')
+             ->where('co.course_id',$dashboard_id);
 
             break;
           case 'subject':
