@@ -69,7 +69,7 @@
                                 border-radius: 100px;
                                 border-color: white;
                             "
-            ><file-upload
+            ><file-input
               id="documentUploadlogo"
               ref="upload"
               class="edit-avatar bottom-left"
@@ -78,10 +78,8 @@
               accept="image/*"
               :drop="true"
               :size="1024 * 1024 * 10"
-              @input="uploadlogo"
-            >
-              <file-input @update="uploadlogo" />
-            </file-upload>
+              @update="uploadlogo"
+            />
           </div>
           <h3 style="margin: 20px 0px 0px 20px">
             {{ institute ? institute.name : "My Institute" }}
@@ -599,7 +597,7 @@ import PostContainer from '@/Pages/common/post-container.vue';
 import DoubtContainer from '@/Pages/doubt/doubt-container.vue';
 import SocialSharing from 'vue-social-sharing';
 import swal from '../../components/swal';
-import FileUpload from 'vue-upload-component';
+// import FileUpload from 'vue-upload-component';
 import Modal from '../../components/VueNiceModal.vue';
 import FileInput from '@/Shared/FileInput.vue';
 import AboutInstitute from './about-institute.vue';
@@ -612,7 +610,7 @@ export default {
 		DoubtContainer,
 		SelectInstitute,
 		SocialSharing,
-		FileUpload,
+		// FileUpload,
 		Modal,
 		FileInput
 	},
@@ -764,11 +762,11 @@ export default {
 				youtube_vedio_url: '',
 			};
 		},
-		inputUpdate(files) {
-			console.log('xyz');
-			this.image = files[0];
-			this.institute_banner_url = URL.createObjectURL(files[0].file);
-		},
+		// inputUpdate(files) {
+		// 	console.log('xyz');
+		// 	this.image = files[0];
+		// 	this.institute_banner_url = URL.createObjectURL(files[0].file);
+		// },
 		
 		
 		
@@ -790,12 +788,22 @@ export default {
 			this.id = '';
 		},
 		updatebanner(file){
-			console.log('xyz',file);
 			if (file) {
 				var reader = new FileReader();
 
 				reader.onload = function (e) {
-					document.getElementById('#id').attr('src', e.target.result).width(150).height(200);
+					document.getElementById('#documentUploadbanner').attr('src', e.target.result).width(150).height(200);
+				};
+
+				reader.readAsDataURL(file);
+			}
+		},
+		uploadlogo(file){
+			if (file) {
+				var reader = new FileReader();
+
+				reader.onload = function (e) {
+					document.getElementById('#documentUploadbanner').attr('src', e.target.result).width(150).height(200);
 				};
 
 				reader.readAsDataURL(file);
