@@ -380,6 +380,17 @@ class InstituteController extends Controller
             'profile'=>$profile
         ]]);
     }
+    public function savebanner(Request $request){
+       
+        $me=$request->user('api');
+        $banner=Institute::where('added_by_user_id',$me->id)->first();
+        dd($request->banner_pic);
+        $profile->profile_url =$request->banner_pic;
+        $banner->save();
+        return response()->json(['success'=>[
+            'banner'=>$banner
+        ]]);
+    }
     public function updateInstituteBlog(Institute $institute,Request $request) {
         $institute->blog = '';
 

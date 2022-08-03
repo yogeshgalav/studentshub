@@ -98,13 +98,15 @@ export default {
 			return (size / Math.pow(1024, i)).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][i];
 		},
 		browse() {
+			console.log('browse');
 			this.$refs.file.click();
 		},
 		change(e) {
-			console.log('zzz');
+			console.log('change');
 			this.$emit('update', e.target.files[0]);
 		},
 		remove() {
+			console.log('remove');
 			this.$emit('update', null);
 		},
 	},

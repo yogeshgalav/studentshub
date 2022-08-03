@@ -152,7 +152,7 @@
                 <li>
                   <a
                     target="blank"
-                    :href=" institute.youtube_vedio_url ?'https://www.youtube.com/embed/'+ institute.youtube_vedio_url : '#'"
+                    :href=" institute.youtube_vedio_url ?institute.youtube_vedio_url : '#'"
                     :disabled=" institute.youtube_vedio_url ? false : true"
                     :class="['icoYoutube', institute.youtube_vedio_url ? '': 'disabled',]"
                     title="Youtube"
@@ -618,6 +618,7 @@ export default {
 	data() {
 		return {
 			institute_banner_url: '',
+			banner_pic:'',
 			logo_url: '',
 			institute_users: [],
 			institute_contacts: [],
@@ -726,13 +727,13 @@ export default {
 				this.errors.linkedin_url = 'This is not valid Linkedin url.';
 				return false;
 			}
-			// if (
-			// 	this.institute.youtube_vedio_url &&
-			//           !this.institute.youtube_vedio_url.includes('youtube.com')
-			// ) {
-			// 	this.errors.youtube_vedio_url = 'This is not valid Youtube url.';
-			// 	return false;
-			// }
+			if (
+				this.institute.youtube_vedio_url &&
+			          !this.institute.youtube_vedio_url.includes('youtube.com')
+			) {
+				this.errors.youtube_vedio_url = 'This is not valid Youtube url.';
+				return false;
+			}
 			
 			// if(this.image.file){
 			// 	await this.getBase64(this.image.file).then(file=>{
@@ -788,6 +789,7 @@ export default {
 			this.id = '';
 		},
 		updatebanner(file){
+			console.log('updatebannerfunction');
 			if (file) {
 				var reader = new FileReader();
 
@@ -796,14 +798,27 @@ export default {
 				};
 
 				reader.readAsDataURL(file);
+				this.banner.profile_pic=file;
 			}
+      
+			this.axios
+				.post('/api/upload-banner', {
+					headers: {
+						'Content-Type': 'multipart/form-data'
+					}
+				},this.banner)
+				.then((resp) => {
+					window.location.reload();
+				});
+			console.log(file.name);
+			
 		},
 		uploadlogo(file){
 			if (file) {
 				var reader = new FileReader();
 
 				reader.onload = function (e) {
-					document.getElementById('#documentUploadbanner').attr('src', e.target.result).width(150).height(200);
+					document.getElementById('#documentUploadlogo').attr('src', e.target.result).width(150).height(200);
 				};
 
 				console.log('xyz');
