@@ -624,8 +624,6 @@ export default {
 	mounted() {
 		this.myFunction();
 		this.loadInstituteusers();
-		
-		console.log('xyz',embeddedUrl);
 	},
 
 	methods: {

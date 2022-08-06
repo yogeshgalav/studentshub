@@ -45,6 +45,12 @@
             >
               edit banner image
             </file-input>
+            <button
+              v-if="isUpload"
+              type="button"
+              class="btn btn-secondary"
+              @click="saveProfile"
+            />
           </div>
           <div class="container">
             <img
@@ -292,7 +298,7 @@
     </section>
 
     <div
-      v-if="institute.id"
+      v-if="institute && institute.id"
       class="col-md-12 mt-3"
     >
       <nav-tabs
@@ -617,6 +623,7 @@ export default {
 	props:['institute', 'editPermission','instituteVerified'],
 	data() {
 		return {
+			image:{},
 			institute_banner_url: '',
 			banner_pic:'',
 			logo_url: '',
@@ -628,8 +635,15 @@ export default {
 				phone_no2: '',
 			},
 			edit_institute: {
+				youtube_vedio_url:'',
+				insta_url:'',
+				twitter_url:'',
+				fb_url:'',
+				linkedin_url:'',
 				website: '',
 				address: '',
+				city:'',
+				state:'',
 				moto:'',
 			},
 			user_id: '',
@@ -656,6 +670,7 @@ export default {
 			},
 			isEdit: true,
 			new_blog: '',
+			isUpload: false,
 		};
 	},
 	computed: {
@@ -699,6 +714,7 @@ export default {
 	
 		async saveProfile() {
 			this.showLoader = true;
+      
 			if (
 				this.institute.fb_url &&
                 !this.institute.fb_url.includes('facebook.com')
@@ -734,27 +750,48 @@ export default {
 				this.errors.youtube_vedio_url = 'This is not valid Youtube url.';
 				return false;
 			}
-			
-			// if(this.image.file){
-			// 	await this.getBase64(this.image.file).then(file=>{
-			// 		this.institute.profile_pic=file;
-			// 	});
-			// }
-			this.axios
+		
+			if(this.image.file){
+				await this.getBase64(this.image.file).then(file=>{
+					this.institute.profile_url=file;
+				});
+			}
+			await this.axios
 				.post('/api/save-institute-profile',this.institute, {
-					headers: {
-						'Content-Type': 'multipart/form-data'
-					}
+					linkedin_url: this.edit_institute.linkedin_url,
+					fb_url: this.edit_institute.fb_url,
+					twitter_url: this.edit_institute.twitter_url,
+					insta_url: this.edit_institute.insta_url,
+					youtube_vedio_url: this.edit_institute.youtube_vedio_url,
+					website: this.edit_institute.website,
+					address: this.edit_institute.address,
+					city: this.edit_institute.city,
+					state: this.edit_institute.state,
+					moto: this.edit_institute.moto,
+					banner_pic: this.banner_pic,
 				})
 				.then((resp) => {
 					this.showLoader = false;
+					this.edit_institute.push({
+						linkedin_url: this.edit_institute.linkedin_url,
+						fb_url: this.edit_institute.fb_url,
+						twitter_url: this.edit_institute.twitter_url,
+						insta_url: this.edit_institute.insta_url,
+						youtube_vedio_url: this.edit_institute.youtube_vedio_url,
+						website: this.edit_institute.website,
+						address: this.edit_institute.address,
+						city: this.edit_institute.city,
+						state: this.edit_institute.state,
+						moto: this.edit_institute.moto,
+					});
 					swal.successDialog(
 						'Institute Page Updated',
 						'Successfully!',
 						'success'
 					);
 				});
-
+			console.log('saveprofilefunction');
+		
 			this.errors = {
 				fb_url: '',
 				twitter_url: '',
@@ -788,30 +825,42 @@ export default {
 			this.role = '';
 			this.id = '';
 		},
-		updatebanner(file){
-			console.log('updatebannerfunction');
-			if (file) {
-				var reader = new FileReader();
-
-				reader.onload = function (e) {
-					document.getElementById('#documentUploadbanner').attr('src', e.target.result).width(150).height(200);
-				};
-
-				reader.readAsDataURL(file);
-				this.banner.profile_pic=file;
-			}
-      
-			this.axios
-				.post('/api/upload-banner', {
-					headers: {
-						'Content-Type': 'multipart/form-data'
-					}
-				},this.banner)
-				.then((resp) => {
-					window.location.reload();
-				});
-			console.log(file.name);
+		// async updatebanner(file){
+		// 	console.log('updatebannerfunction');
+		// 	this.image = file;
+		// 	this.institute_banner_url = URL.createObjectURL(file);
+		// 	console.log('image',file);
+		// 	if(this.image.file){
+		// 		await this.getBase64(this.image.file).then(file=>{
+		// 			this.banner_pic=file;
+		// 		});
+		// 	}
+		// 	await this.axios
+		// 		.post('/api/upload-banner' ,{
+		// 			banner_pic: this.institute_banner_url,
+		// 		},this.banner)
+		// 		.then((resp) => {
+		// 			//window.location.reload();
+		// 		});
+     
 			
+			
+		// },
+		updatebanner(file) {
+			this.isUpload = true;
+			
+			console.log('updatebannerfunction');
+			this.image = file;
+			this.institute_banner_url = URL.createObjectURL(file);
+			this.data_updated = true;
+		},
+		getBase64(file) {
+			return new Promise((resolve, reject) => {
+				const reader = new FileReader();
+				reader.readAsDataURL(file);
+				reader.onload = () => resolve(reader.result);
+				reader.onerror = error => reject(error);
+			});
 		},
 		uploadlogo(file){
 			if (file) {
