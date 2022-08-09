@@ -33,14 +33,8 @@ class Subject extends SubjectModel
         // $path =  (dirname(__FILE__) .'./Services/simple_html_dom.php');
         // require($path);
            //get groupBy fields
-           foreach($subjects as $subject){
-            $rand=rand(60,100);
-            $subjectData=SubjectModel::where('id',$subject->id)
-            ->with('subjects')
-            ->first();
+         
           
-            // $subject->total_votes=\App\Models\Vote::where('subject_id',$subject->id)->where('status','=',1)->count();
-        }
 
         return $subjects;
     } 

@@ -1,53 +1,55 @@
 <template>
   <section>
-    <div class="row">
-      <div class="col-md-12">
-        <h1>Create Subject</h1>
-      </div>
-    </div>
-    <hr>
     <form @submit.prevent="addsubject">
       <div class="row">
-        <div class="col-md-5 col-10">
+        <div class="col-md-10 col-sm-12">
           <div class="form-group m-0-a">
-            <label for="subject_name">Subject</label>
-            <input
-              id="subject_name"
-              v-model="subject_name"
-              v-validate="'required'"
-              name="subject_name"
-              class="form-control"
-              type="text"
-              placeholder="Enter Subject Name"
-            ><span class="error">{{ formErrors('subject_name') }}</span>
+            <div class="card mb-2">
+              <div class="card_post">
+                <div class="card-body">
+                  <div class="dashboard_post">
+                    <div>
+                      <label
+                        class="p-3"
+                        for="subject_name"
+                      >Subject</label>
+                      <input
+                        id="subject_name"
+                        v-model="subject_name"
+                        v-validate="'required'"
+                        name="subject_name"
+                        class="form-control"
+                        type="text"
+                        placeholder="Enter Subject Name"
+                      ><span class="error">{{ formErrors('subject_name') }}</span>
            
-            <div class="row">
-              <div class="p-3">
-                <button
-                  type="submit"
-                  class="btn btn-primary btn-md"
-                >
-                  Submit
-                </button>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-10 col-sm-12">
-                <div v-if="!subjects_data.length">
-                  <slot name="empty">
-                    Currently no subject have been shared.
-                  </slot> 
-                </div>
-                <div id="infinite-list">
-                  <div
-                    v-for="(subject,index) in subjects_data"
-                    :key="index"
-                  >
-                    <subject-card
-                      :subject="subject"
-                    />
+            
+                      <div class="p-3">
+                        <button
+                          type="submit"
+                          class="btn btn-primary btn-md"
+                        >
+                          Submit
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
+              </div>
+            </div>
+            <div v-if="!subjects_data.length">
+              <slot name="empty">
+                Currently no subject have been shared.
+              </slot> 
+            </div>
+            <div id="infinite-list">
+              <div
+                v-for="(subject,index) in subjects_data"
+                :key="index"
+              >
+                <subject-card
+                  :subject="subject"
+                />
               </div>
             </div>
           </div>
