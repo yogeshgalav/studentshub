@@ -18,6 +18,11 @@ const webpackConfig = require('./webpack.config');
 
 mix
 	.js('resources/js/app.js', 'public/js')
+	.vue({ 
+		version: 2,
+		extractStyles: true,
+		globalStyles: false
+	 })
 	.sass('resources/sass/app.scss', 'public/css')
 // .vue({ runtimeOnly: (process.env.NODE_ENV || 'production') === 'production' })
 	.webpackConfig(webpackConfig)
