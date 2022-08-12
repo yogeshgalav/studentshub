@@ -46,6 +46,8 @@
             v-if="AuthUser.preferred_course_id"
             :subject-route="'/course/'+AuthUser.preferred_course_id"
             :subjects="subjects"
+            :dashboard-id="AuthUser.preferred_course_id"
+            :dashboard-type="'course'"
           >
             <template slot="empty">
               <img

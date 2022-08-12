@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DB;
 use App\Models\Subject;
+use App\Models\Course;
+use App\Models\Category;
+use App\Models\CourseSubject;
 
 class SubjectController extends Controller
 {
@@ -56,9 +59,13 @@ class SubjectController extends Controller
         $subject_query=$subject_repo->getAuthUserSubjectTabels();
         $subject_query=$subject_query->orderBy('su.created_at','DESC');
 
+      
+
         switch($dashboard_type){
           case 'course':
-            $subject_query=$subject_query->where('course_id',$dashboard_id);
+             $subject_query=$subject_query->leftJoin('course_subjects as co','co.subject_id','=','su.id')
+             ->where('co.course_id',$dashboard_id);
+
             break;
           case 'subject':
             $subject_query=$subject_query->where('subject_id',$dashboard_id);
@@ -73,16 +80,60 @@ class SubjectController extends Controller
             $subject_query=$subject_query;
             break;
         }
-
+        $me_id = $request->user('api')->id;
+        $subject_vote=$subject_query
+        ->leftJoin('votes as my_vote',function($join)use($me_id){
+          $join->on('su.id','=','my_vote.subject_id')->where('my_vote.user_id','=',$me_id);
+        })
+        ->leftJoin('votes as total_upvote',function($join){
+            $join->on('su.id','=','total_upvote.subject_id')->where('total_upvote.status','=',1);
+        })
+          ->leftJoin('votes as total_downvote',function($join){
+            $join->on('su.id','=','total_downvote.subject_id')->where('total_downvote.status','=',0);
+        })
+        ->select('su.id','su.subject_name',DB::raw('COUNT(DISTINCT total_upvote.id) as total_upvotes'),
+        DB::raw('COUNT(DISTINCT total_downvote.id) as total_downvotes'), 'my_vote.status as myvote')
+        ->groupBy('su.id','su.subject_name', 'my_vote.status');
+        
         if($request->user('api')){
-          $subjects=$subject_repo->formatSubjectData($subject_query->paginate(10));
+          $subjects=$subject_repo->formatSubjectData($subject_vote->paginate(10));
         }else{
-          $subjects['data']=$subject_repo->formatSubjectData($subject_query->limit(10)->get());
+          $subjects['data']=$subject_repo->formatSubjectData($subject_vote->limit(10)->get());
         }
       
         return response()->json(['success'=>[
           'subjects'=>$subjects,
         ]]);
     }
+    public function create($dashboard_type,$dashboard_id,Request $request) {
+      $me = $request->user('api');
+      switch($dashboard_type){
+        case 'course':
+          $course=DB::table('courses as co')->where('co.id',$dashboard_id)->first();
+         $category_id=$course->category_id;
+          break;
+        case 'category':
+          $category_id=$dashboard_id;
+          break;
+      }
+     
+      $subject = new Subject();
+      $subject->subject_name = $request->subject_name;
+      $subject->added_by_user_id =  $me->id;
+      $subject->category_id = $category_id;
+      $subject->save();
+
+     if($dashboard_type='course'){
+      $coursesubject =new CourseSubject();
+      $coursesubject->course_id =$request->dashboard_id;
+      $coursesubject->subject_id =$subject->id;
+      $coursesubject->save();
+     }
+
+     return response()->json(['success'=>[
+       'subject'=> $subject,
+       'coursesubject'=>$coursesubject
+   ]]); 
+ }
 
 }
