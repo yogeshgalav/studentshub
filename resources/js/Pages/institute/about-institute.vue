@@ -406,7 +406,6 @@
           </template>
         </modal>
       </section>
-
       <!-- Youtube Section -->
 
       <section
@@ -414,19 +413,16 @@
         title=" You-Tube"
         class="card mt-2"
       >
-        <div class=" card-body">
+        <div class="card-body">
           <iframe
-            width="420"
-            height="345"
-            :src="
-              'https://www.youtube.com/embed/' +
-                institute.youtube_vedio_url
-            "
+            width="100%"
+            height="315"
+            :src="this.youtube_embedded_url"
           />
         </div>
       </section>
 
-      <!-- Twitter Section
+      <!-- Twitter Section -->
       <section
         v-if="institute.twitter_url"
         title="Twitter"
@@ -441,7 +437,7 @@
             :src="'https://twitframe.com/show?url='+`${encodeURIComponent(this.institute.twitter_url)}`"
           />
         </div>
-      </section> -->
+      </section>
 
       <!-- location section -->
       <section
@@ -731,8 +727,5 @@ export default {
 			document.getElementById('demo').innerHTML = res;
 		}
 	},
-
-
-
 };
 </script>
