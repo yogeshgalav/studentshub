@@ -2,6 +2,13 @@
   <div class="sidebar">
     <div class="sidebar-navigation mt-5">
       <ul>
+         <router-link
+          href="/insights"
+        >
+          <li>
+            <span class="text">Insights</span>
+          </li>
+        </router-link>
         <router-link
           href="/manage-users"
         >
