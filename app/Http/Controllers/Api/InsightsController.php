@@ -29,10 +29,10 @@ class InsightsController extends Controller
         ->count();
 
         return response()->json(['success' => [
-             'student' => $student,
+             'students' => $student,
              'users' => $users,
-             'phone' => $phone,
-             'institute' => $institute,
+             'phones' => $phone,
+             'institutes' => $institute,
         ]]);
     }
 }
