@@ -13,6 +13,26 @@
       :tabs="tabs"
       :initial-tab="initialTab"
     >
+      <template slot="tab-heading-subjects">
+        {{ 'Subjects' }}
+      </template>
+      <template slot="tab-panel-subjects">
+        <SubjectContainer
+          v-if="AuthUser.preferred_course_id"
+          :subject-route="'/course/'+course.id"
+          :subjects="subjects"
+        >
+          <template slot="empty">
+            <img
+              class="search-not-found"
+              src="/images/search-not-found.png"
+            >
+            <p style="text-align:center;">
+              Currently no Subject have been shared in your course.
+            </p>
+          </template>
+        </SubjectContainer>
+      </template>
       <template slot="tab-heading-posts">
         {{ 'Posts' }}
       </template>

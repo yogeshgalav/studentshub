@@ -1,74 +1,74 @@
 <template>
-  <section class="single_post">
-    <div class="card mb-2">
-      <div class="card_subject">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-8 col-12">
+  <div class="card mb-2">
+    <div class="card_post">
+      <div class="card-body">
+        <div class="dashboard_post">
+          <div>
+            <p
+              class="text-blue font-size-16 mb-2 ml-2"
+            >
+              <span>
+                {{ subject.subject_name }}
+              </span>
+            </p>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-md-5 col-6"> 
+            <button
+              type="button"
+              class="btn"
+              @click="sendUserVote()"
+            > 
               <p
-                class="text-blue mt-0 mb-2"
+                v-if="upvote_active"
+                class="text-primary btn_sm pl-3 pr-3"
               >
-                <span>
-                  {{ subject.subject_name }}
-                </span>
+                <span><i
+                  class="fas fa-arrow-alt-circle-up text-primary"
+                  aria-hidden="true"
+                /></span>
+                {{ totalUpVotes }} Upvote
               </p>
-            </div>
-            <hr>
-            <div class="col-md-4 col-6"> 
-              <button
-                type="button"
-                class="btn"
-                @click="sendUserVote()"
-              >
-                <p
-                  v-if="upvote_active"
-                  class="text-primary btn_sm pl-3 pr-3"
-                >
-                  <span><i
-                    class="fas fa-arrow-alt-circle-up text-primary"
-                    aria-hidden="true"
-                  /></span>
-                  {{ totalUpVotes }} Upvote
-                </p>
                 
-                <p
-                  v-else
-                >
-                  <span><i
-                    class="fas fa-arrow-alt-circle-up"
-                    aria-hidden="true"
-                  /></span>
-                  {{ totalUpVotes?totalUpVotes:'' }}Upvote
-                </p>
-              </button>
-            </div>
-            <div class="col-md-6 col-6">
-              <button
-                type="button"
-                class="btn"
-                @click="sendUserDownVote()"
+              <p
+                v-else
               >
-                <p
-                  v-if="downvote_active"
-                  class="text-primary btn_sm pl-3 pr-3"
-                >
-                  <span><i class="fas fa-arrow-alt-circle-down text-primary" /></span>
-                  {{ totalDownVotes }}  Downvote
-                </p>
+                <span><i
+                  class="fas fa-arrow-alt-circle-up"
+                  aria-hidden="true"
+                /></span>
+                {{ totalUpVotes?totalUpVotes:'' }}Upvote
+              </p>
+            </button>
+          </div>
+          <div class="col-md-5 col-6">
+            <button
+              type="button"
+              class="btn"
+              @click="sendUserDownVote()"
+            >
+              <p
+                v-if="downvote_active"
+                class="text-primary btn_sm pl-3 pr-3"
+              >
+                <span><i class="fas fa-arrow-alt-circle-down text-primary" /></span>
+                {{ totalDownVotes }}  Downvote
+              </p>
                
-                <p
-                  v-else
-                >
-                  <span><i class="fas fa-arrow-alt-circle-down" /></span>
-                  {{  totalDownVotes? totalDownVotes :'' }} Downvote
-                </p>
-              </button>
-            </div>
+              <p
+                v-else
+              >
+                <span><i class="fas fa-arrow-alt-circle-down" /></span>
+                {{ totalDownVotes? totalDownVotes :'' }} Downvote
+              </p>
+            </button>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
 </template>
 <style scoped>
 button{

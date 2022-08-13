@@ -6,8 +6,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Institute;
 use App\Models\User;
+use App\Models\InstituteUser;
+use App\Models\UserPhone;
+use App\Models\InstituteContact;
+use App\Services\simple_html_dom;
 
 class InstituteController extends Controller
 {
@@ -30,7 +36,7 @@ class InstituteController extends Controller
             'institutes' => $institutes
         ]]);
     }
-    public function show($instituteId=null)
+    public function show($instituteId=null, Request $request)
     {
         if($instituteId){
             $institute = Institute::findOrFail($instituteId);
@@ -41,7 +47,6 @@ class InstituteController extends Controller
         if(empty($institute)){
             abort(404);
         }
-
         $teachers = User::where('role','teacher')
         ->where('preferred_institute_id',$institute->id)
         ->with('preferredCourse')
@@ -52,6 +57,7 @@ class InstituteController extends Controller
         ->with('preferredCourse')
         ->get();
 
+        
         return response()->json(['success'=>[
             'institute'=>$institute,
             'teachers'=>$teachers,
@@ -59,6 +65,37 @@ class InstituteController extends Controller
         ]]);
     
     }
+    public function showusers($instituteId = null, Request $request)
+    {
+        if ($instituteId) {
+            $institute = Institute::findOrFail($instituteId);
+        } else if ($request->user('api')) {
+            $institute = Institute::findOrFail($request->user('api')->preferred_institute_id);
+        }
+
+        if (empty($institute)) {
+            abort(404);
+        }
+
+        $institute_users = DB::table('institute_users as inst')->where('inst.institute_id', $institute->id)
+        ->where('inst.role', '!=', 'teacher')
+        ->leftJoin('institutes as in', 'in.id', '=', 'inst.institute_id')
+        ->leftjoin('users as us', 'us.id', '=', 'inst.user_id')
+        ->select(['inst.id as id', 'in.id as institute_id', 'inst.user_id as user_id', 'inst.role as role', 'us.full_name as user_name'])
+        ->get();
+
+        $institute_contacts = DB::table('institute_contactus as inct')->where('inct.institute_id', $institute->id)
+        ->leftJoin('institutes as in', 'in.id', '=', 'inct.institute_id')
+        ->select(['inct.id as id', 'in.id as institute_id', 'inct.department as department', 'inct.email as email', 'inct.phone_no as phone_no', 'inct.phone_no2 as phone_no2', 'inct.whatsapp_no as whatsapp_no'])
+        ->get();
+        return response()->json(['success' => [
+                'institute' => $institute,
+                'institute_users' => $institute_users,
+                'institute_contacts' => $institute_contacts,
+            ]]);
+    }
+
+
     public function showAdmin($instituteId){
         $institute_detail = Institute::findOrFail($instituteId);
 
@@ -233,6 +270,166 @@ class InstituteController extends Controller
             'parent_user_id'=>$parent->id,
             'user_id'=>$user->id,
         ]);
+
+        return response()->json([], 204);
+    }
+    public function addAdminiDetails(Request $request){
+        $instituteId = Auth::user()->preferred_institute_id;
+        $otp = rand(11111,99999);
+
+        $user_phone =new UserPhone;
+        $user_phone->phone_no =$request->phone_no;
+        $user_phone->expires_at = Carbon::now()->toDateTimeString();
+        $user_phone->otp =Hash::make($otp);
+        $user_phone->save();
+
+        $user =new User;
+        $user->phone_id =$user_phone->id;
+        $user->full_name =$request->name;
+        $user->role =$request->role;
+        $user->save();
+
+        $institute_user =new InstituteUser;
+        $institute_user->user_id =$user->id;
+        $institute_user->institute_id =$instituteId;
+        $institute_user->role=$user->role;
+        $institute_user->save();
+
+        return response()->json(['success'=>[
+            'institute_user'=> $institute_user,
+        ]]);
+    }
+    public function delete ($instituteuser_id)
+    {
+        $institute_user = InstituteUser::find($instituteuser_id);
+        $institute_user->delete();
+        return 'success';
+    }
+    public function addOrUpdate(Request $request){
+        $instituteId = Auth::user()->preferred_institute_id;
+        if($request->edit_institute_contact_id){
+            $institute_contacts = InstituteContact::find($request->edit_institute_contact_id);
+        }
+        else{
+            $institute_contacts = new InstituteContact();
+        }
+            $institute_contacts->email = $request->email;
+            $institute_contacts->phone_no = $request->phone_no;
+            $institute_contacts->phone_no2 =$request->phone_no2;
+            $institute_contacts->whatsapp_no=$request->whatsapp_no;
+            $institute_contacts->department =$request->department;
+            $institute_contacts->institute_id = $instituteId;
+            $institute_contacts->save();
+
+           
+            return response()->json(['success'=>[
+                'institute_contacts'=> $institute_contacts,
+            ]]);
+    }
+    public function deleteContact($contact_id)
+    {
+        $institute_contacts = InstituteContact::find($contact_id);
+        $institute_contacts->delete();
+        return 'success';
+    }
+    public function saveInstiProfile(Request $request){
+        $me=$request->user('api');
+        $profile=Institute::where('added_by_user_id',$me->id)->first();
+        if($request->banner_pic){
+            $image = $request->banner_pic; // image base64 encoded
+            preg_match("/data:image\/(.*?);/",$image,$image_extension); // extract the image extension
+            $image = preg_replace('/data:image\/(.*?);base64,/','',$image); // remove the type part
+            $image = str_replace(' ', '+', $image);
+            $file_name = 'image_' . time() . '.' . $image_extension[1]; //generating unique file name;
+            \Storage::disk('profile-image')->put($file_name,base64_decode($image));
+            $profile->profile_url="/storage/institute-profile-images/".$file_name;
+            $profile->save();
+            $newFile= new SthubFile();
+            $newFile->fileable_id=$me->id;
+            $newFile->fileable_type=Institute::class;
+            $newFile->file_ext=Storage::disk('institute-profile-image')->getMimeType($file_name);
+            $newFile->file_size=Storage::disk('institute-profile-image')->size($file_name);
+            $newFile->file_name=$file_name;
+            $newFile->user_id=$me->id;
+            $newFile->save();
+        }
+        
+        if($request->fb_url){
+            $profile->fb_url=$request->fb_url;
+        }
+        if($request->twitter_url){
+            $profile->twitter_url=$request->twitter_url;
+        }
+        if($request->insta_url){
+            $profile->insta_url=$request->insta_url;
+        }
+        if($request->linkedin_url){
+            $profile->linkedin_url=$request->linkedin_url;
+        }
+        if($request->youtube_vedio_url){
+            $profile->youtube_vedio_url=$request->youtube_vedio_url;
+        }
+        $profile->website =$request->website;
+        $profile->address =$request->address;
+        $profile->city =$request->city;
+        $profile->state =$request->state;
+        $profile->moto =$request->moto;
+       
+        $profile->save();
+        return response()->json(['success'=>[
+            'profile'=>$profile
+        ]]);
+    }
+    // public function savebanner(Request $request){
+        
+    //     $me=$request->user('api');
+    //     $banner=Institute::where('added_by_user_id',$me->id)->first();
+    //     dd('xyz',$request->all());
+           
+    //     if($request->banner_pic){
+    //         $image = $request->banner_pic; // image base64 encoded
+    //         preg_match("/data:image\/(.*?);/",$image,$image_extension); // extract the image extension
+    //         $image = preg_replace('/data:image\/(.*?);base64,/','',$image); // remove the type part
+    //         $image = str_replace(' ', '+', $image);
+    //         $file_name = 'image_' . time() . '.' . $image_extension[1]; //generating unique file name;
+    //         \Storage::disk('profile-image')->put($file_name,base64_decode($image));
+    //         $banner->profile_url="/storage/institute-profile-images/".$file_name;
+    //         $banner->save();
+    //         $newFile= new SthubFile();
+    //         $newFile->fileable_id=$me->id;
+    //         $newFile->fileable_type=Institute::class;
+    //         $newFile->file_ext=Storage::disk('institute-profile-image')->getMimeType($file_name);
+    //         $newFile->file_size=Storage::disk('institute-profile-image')->size($file_name);
+    //         $newFile->file_name=$file_name;
+    //         $newFile->user_id=$me->id;
+    //         $newFile->save();
+    //     }
+        
+    //     //$banner->profile_url =$request->banner_pic;
+    //     $banner->save();
+    //     return response()->json(['success'=>[
+    //         'banner'=>$banner
+    //     ]]);
+    // }
+    public function updateInstituteBlog(Institute $institute,Request $request) {
+        $institute->blog = '';
+
+        $simple_html_dom = new simple_html_dom;
+        $dom = $simple_html_dom->extactImageFiles($request->new_blog, "institute-blog-image");
+        
+        $institute->blog = $dom->html;
+        $institute->save();
+
+        foreach($dom->files as $file){
+            $newFile= new SthubFile();
+            $newFile->fileable_id=$post_content->id;
+            $newFile->fileable_type=Article::class;
+            $newFile->file_ext=Storage::disk('institute-blog-image')->getMimeType($file);
+            $newFile->file_size=Storage::disk('institute-blog-image')->size($file);
+            $newFile->file_name=$file;
+            $newFile->user_id=Auth::user()->id;
+            $newFile->save();
+        }
 
         return response()->json([], 204);
     }

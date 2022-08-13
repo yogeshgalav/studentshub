@@ -1,7 +1,7 @@
 <template>
   <div>
     <Head>
-      <title>Home</title>
+      <title>StudentsHub</title>
     </Head>
     <PostContainer
       share-route="/share-your-knowledge"

@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Models\Chatroom;
 use App\Models\Institute;
 use Illuminate\Foundation\Http\FormRequest;
-use Session;
+use Illuminate\Support\Facades\Session;
 
 class LoginRequest extends FormRequest
 {
@@ -30,7 +30,7 @@ class LoginRequest extends FormRequest
             $this->merge(['inId' => $inId]);
         }
         if (!empty($this->fcmToken)) {
-            $this->merge(['fcm_token' => base64_decode($this->fcmToken)]);
+            $this->merge(['fcmToken' => base64_decode($this->fcmToken)]);
         }
     }
 
