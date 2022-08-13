@@ -32,9 +32,8 @@
               style=" width: 100%; height: 185px; margin-bottom: -40px; border-radius: 15px "
               alt=""
             >
-
-            <file-upload
-              id="documentUpload"
+            <file-input
+              id="documentUploadbanner"
               ref="upload"
               class="EditBanner btn btn-light bottom-right"
               post-action="/upload/post"
@@ -42,14 +41,16 @@
               accept="image/*"
               :drop="true"
               :size="102 * 1024 * 10"
-              @input="inputUpdate"
+              @update="updatebanner"
             >
-              <img
-                src="/images/cam-icon.svg"
-                alt=""
-              >
               edit banner image
-            </file-upload>
+            </file-input>
+            <button
+              v-if="isUpload"
+              type="button"
+              class="btn btn-secondary"
+              @click="saveProfile"
+            />
           </div>
           <div class="container">
             <img
@@ -69,10 +70,13 @@
               alt="Student Hub"
               width="120 "
               height="120"
-              style="margin-left: 15px; border-radius: 100px; border-color: white;"
-            >
-            <file-upload
-              id="documentUpload" 
+              style="
+                                margin-left: 15px;
+                                border-radius: 100px;
+                                border-color: white;
+                            "
+            ><file-input
+              id="documentUploadlogo"
               ref="upload"
               class="edit-avatar bottom-left"
               post-action="/upload/post"
@@ -80,13 +84,8 @@
               accept="image/*"
               :drop="true"
               :size="1024 * 1024 * 10"
-              @input="inputUpdate"
-            >
-              <img
-                src="/images/cam-icon.svg"
-                alt=""
-              >
-            </file-upload>
+              @update="uploadlogo"
+            />
           </div>
           <h3 style="margin: 20px 0px 0px 20px">
             {{ institute ? institute.name : "My Institute" }}
@@ -159,7 +158,7 @@
                 <li>
                   <a
                     target="blank"
-                    :href=" institute.youtube_vedio_url ?'https://www.youtube.com/embed/'+ institute.youtube_vedio_url : '#'"
+                    :href=" institute.youtube_vedio_url ?institute.youtube_vedio_url : '#'"
                     :disabled=" institute.youtube_vedio_url ? false : true"
                     :class="['icoYoutube', institute.youtube_vedio_url ? '': 'disabled',]"
                     title="Youtube"
@@ -299,7 +298,7 @@
     </section>
 
     <div
-      v-if="institute.id"
+      v-if="institute && institute.id"
       class="col-md-12 mt-3"
     >
       <nav-tabs
@@ -604,8 +603,9 @@ import PostContainer from '@/Pages/common/post-container.vue';
 import DoubtContainer from '@/Pages/doubt/doubt-container.vue';
 import SocialSharing from 'vue-social-sharing';
 import swal from '../../components/swal';
-import FileUpload from 'vue-upload-component';
+// import FileUpload from 'vue-upload-component';
 import Modal from '../../components/VueNiceModal.vue';
+import FileInput from '@/Shared/FileInput.vue';
 import AboutInstitute from './about-institute.vue';
 
 export default {
@@ -616,13 +616,16 @@ export default {
 		DoubtContainer,
 		SelectInstitute,
 		SocialSharing,
-		FileUpload,
+		// FileUpload,
 		Modal,
+		FileInput
 	},
 	props:['institute', 'editPermission','instituteVerified'],
 	data() {
 		return {
+			image:{},
 			institute_banner_url: '',
+			banner_pic:'',
 			logo_url: '',
 			institute_users: [],
 			institute_contacts: [],
@@ -632,8 +635,15 @@ export default {
 				phone_no2: '',
 			},
 			edit_institute: {
+				youtube_vedio_url:'',
+				insta_url:'',
+				twitter_url:'',
+				fb_url:'',
+				linkedin_url:'',
 				website: '',
 				address: '',
+				city:'',
+				state:'',
 				moto:'',
 			},
 			user_id: '',
@@ -660,6 +670,7 @@ export default {
 			},
 			isEdit: true,
 			new_blog: '',
+			isUpload: false,
 		};
 	},
 	computed: {
@@ -703,6 +714,7 @@ export default {
 	
 		async saveProfile() {
 			this.showLoader = true;
+      
 			if (
 				this.institute.fb_url &&
                 !this.institute.fb_url.includes('facebook.com')
@@ -731,34 +743,55 @@ export default {
 				this.errors.linkedin_url = 'This is not valid Linkedin url.';
 				return false;
 			}
-			// if (
-			// 	this.institute.youtube_vedio_url &&
-			//           !this.institute.youtube_vedio_url.includes('youtube.com')
-			// ) {
-			// 	this.errors.youtube_vedio_url = 'This is not valid Youtube url.';
-			// 	return false;
-			// }
-			
-			// if(this.image.file){
-			// 	await this.getBase64(this.image.file).then(file=>{
-			// 		this.institute.profile_pic=file;
-			// 	});
-			// }
-			this.axios
+			if (
+				this.institute.youtube_vedio_url &&
+			          !this.institute.youtube_vedio_url.includes('youtube.com')
+			) {
+				this.errors.youtube_vedio_url = 'This is not valid Youtube url.';
+				return false;
+			}
+		
+			if(this.image.file){
+				await this.getBase64(this.image.file).then(file=>{
+					this.institute.profile_url=file;
+				});
+			}
+			await this.axios
 				.post('/api/save-institute-profile',this.institute, {
-					headers: {
-						'Content-Type': 'multipart/form-data'
-					}
+					linkedin_url: this.edit_institute.linkedin_url,
+					fb_url: this.edit_institute.fb_url,
+					twitter_url: this.edit_institute.twitter_url,
+					insta_url: this.edit_institute.insta_url,
+					youtube_vedio_url: this.edit_institute.youtube_vedio_url,
+					website: this.edit_institute.website,
+					address: this.edit_institute.address,
+					city: this.edit_institute.city,
+					state: this.edit_institute.state,
+					moto: this.edit_institute.moto,
+					banner_pic: this.banner_pic,
 				})
 				.then((resp) => {
 					this.showLoader = false;
+					this.edit_institute.push({
+						linkedin_url: this.edit_institute.linkedin_url,
+						fb_url: this.edit_institute.fb_url,
+						twitter_url: this.edit_institute.twitter_url,
+						insta_url: this.edit_institute.insta_url,
+						youtube_vedio_url: this.edit_institute.youtube_vedio_url,
+						website: this.edit_institute.website,
+						address: this.edit_institute.address,
+						city: this.edit_institute.city,
+						state: this.edit_institute.state,
+						moto: this.edit_institute.moto,
+					});
 					swal.successDialog(
 						'Institute Page Updated',
 						'Successfully!',
 						'success'
 					);
 				});
-
+			console.log('saveprofilefunction');
+		
 			this.errors = {
 				fb_url: '',
 				twitter_url: '',
@@ -767,10 +800,11 @@ export default {
 				youtube_vedio_url: '',
 			};
 		},
-		inputUpdate(files) {
-			this.image = files[0];
-			this.institute_banner_url = URL.createObjectURL(files[0].file);
-		},
+		// inputUpdate(files) {
+		// 	console.log('xyz');
+		// 	this.image = files[0];
+		// 	this.institute_banner_url = URL.createObjectURL(files[0].file);
+		// },
 		
 		
 		
@@ -791,6 +825,55 @@ export default {
 			this.role = '';
 			this.id = '';
 		},
+		// async updatebanner(file){
+		// 	console.log('updatebannerfunction');
+		// 	this.image = file;
+		// 	this.institute_banner_url = URL.createObjectURL(file);
+		// 	console.log('image',file);
+		// 	if(this.image.file){
+		// 		await this.getBase64(this.image.file).then(file=>{
+		// 			this.banner_pic=file;
+		// 		});
+		// 	}
+		// 	await this.axios
+		// 		.post('/api/upload-banner' ,{
+		// 			banner_pic: this.institute_banner_url,
+		// 		},this.banner)
+		// 		.then((resp) => {
+		// 			//window.location.reload();
+		// 		});
+     
+			
+			
+		// },
+		updatebanner(file) {
+			this.isUpload = true;
+			
+			console.log('updatebannerfunction');
+			this.image = file;
+			this.institute_banner_url = URL.createObjectURL(file);
+			this.data_updated = true;
+		},
+		getBase64(file) {
+			return new Promise((resolve, reject) => {
+				const reader = new FileReader();
+				reader.readAsDataURL(file);
+				reader.onload = () => resolve(reader.result);
+				reader.onerror = error => reject(error);
+			});
+		},
+		uploadlogo(file){
+			if (file) {
+				var reader = new FileReader();
+
+				reader.onload = function (e) {
+					document.getElementById('#documentUploadlogo').attr('src', e.target.result).width(150).height(200);
+				};
+
+				console.log('xyz');
+				reader.readAsDataURL(file);
+			}
+		}
 	
 	},
 };

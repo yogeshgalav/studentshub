@@ -335,8 +335,8 @@ class InstituteController extends Controller
     public function saveInstiProfile(Request $request){
         $me=$request->user('api');
         $profile=Institute::where('added_by_user_id',$me->id)->first();
-        if($request->profile_pic){
-            $image = $request->profile_pic; // image base64 encoded
+        if($request->banner_pic){
+            $image = $request->banner_pic; // image base64 encoded
             preg_match("/data:image\/(.*?);/",$image,$image_extension); // extract the image extension
             $image = preg_replace('/data:image\/(.*?);base64,/','',$image); // remove the type part
             $image = str_replace(' ', '+', $image);
@@ -380,6 +380,37 @@ class InstituteController extends Controller
             'profile'=>$profile
         ]]);
     }
+    // public function savebanner(Request $request){
+        
+    //     $me=$request->user('api');
+    //     $banner=Institute::where('added_by_user_id',$me->id)->first();
+    //     dd('xyz',$request->all());
+           
+    //     if($request->banner_pic){
+    //         $image = $request->banner_pic; // image base64 encoded
+    //         preg_match("/data:image\/(.*?);/",$image,$image_extension); // extract the image extension
+    //         $image = preg_replace('/data:image\/(.*?);base64,/','',$image); // remove the type part
+    //         $image = str_replace(' ', '+', $image);
+    //         $file_name = 'image_' . time() . '.' . $image_extension[1]; //generating unique file name;
+    //         \Storage::disk('profile-image')->put($file_name,base64_decode($image));
+    //         $banner->profile_url="/storage/institute-profile-images/".$file_name;
+    //         $banner->save();
+    //         $newFile= new SthubFile();
+    //         $newFile->fileable_id=$me->id;
+    //         $newFile->fileable_type=Institute::class;
+    //         $newFile->file_ext=Storage::disk('institute-profile-image')->getMimeType($file_name);
+    //         $newFile->file_size=Storage::disk('institute-profile-image')->size($file_name);
+    //         $newFile->file_name=$file_name;
+    //         $newFile->user_id=$me->id;
+    //         $newFile->save();
+    //     }
+        
+    //     //$banner->profile_url =$request->banner_pic;
+    //     $banner->save();
+    //     return response()->json(['success'=>[
+    //         'banner'=>$banner
+    //     ]]);
+    // }
     public function updateInstituteBlog(Institute $institute,Request $request) {
         $institute->blog = '';
 

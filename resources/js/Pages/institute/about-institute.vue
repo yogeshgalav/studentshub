@@ -417,10 +417,7 @@
           <iframe
             width="100%"
             height="315"
-            :src="
-              'https://www.youtube.com/embed/' +
-                institute.youtube_vedio_url
-            "
+            :src="this.youtube_embedded_url"
           />
         </div>
       </section>
@@ -586,10 +583,12 @@ export default {
 			// },
 			isEdit: true,
 			new_blog: '',
+			youtube_embedded_url:'',
 		};
 	},
 
 	mounted() {
+		this.myFunction();
 		this.loadInstituteusers();
 	},
 
@@ -721,7 +720,12 @@ export default {
 		//   addAdministrator() {
 		//     this.$modal.show('editAdminModal');
 		//   },
-	
+		myFunction() {
+			var str = this.institute.youtube_vedio_url;
+			var res = str.split('=');
+			this.youtube_embedded_url = 'https://www.youtube.com/embed/'+res[1];
+			document.getElementById('demo').innerHTML = res;
+		}
 	},
 };
 </script>
