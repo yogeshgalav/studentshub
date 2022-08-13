@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Request;
 
 class InsightsController extends Controller
 {
@@ -27,7 +29,7 @@ class InsightsController extends Controller
         ->count();
 
         return response()->json(['success' => [
-             'student' => $stuent,
+             'student' => $student,
              'users' => $users,
              'phone' => $phone,
              'institute' => $institute,
