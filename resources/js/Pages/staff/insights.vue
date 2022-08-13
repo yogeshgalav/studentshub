@@ -19,9 +19,10 @@
   </div>
 </template>
 <script>
-    
+import StaffLayout from '@/Layouts/StaffLayout';
 import SingleValue from '../../components/SingleValue';
-export default {
+export default {	
+	layout:StaffLayout,
 	components: {
 		SingleValue
 	},
