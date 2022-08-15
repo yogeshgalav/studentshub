@@ -37,7 +37,7 @@
             name="list"
             v-bind="currentResult"
           >
-            {{ currentResult[value] }}
+            {{ currentResult[label] }}
           </slot>
         </li>
       </ul>
@@ -76,7 +76,6 @@
 <script>
 export default {
 	name: 'Autocomplete',
-
 	props: {
 		name: {
 			type: String,
@@ -84,6 +83,11 @@ export default {
 			default: () => 'autocomplete',
 		},
 		value: {
+			type: Object,
+			required: true,
+			default: () => {},
+		},
+		label: {
 			type: String,
 			required: true,
 			default: () => 'name',
@@ -124,11 +128,6 @@ export default {
 			default: () => {},
 		},
 	},
-	$_veeValidate: {
-		value () {
-			return this.search;
-		}
-	},
 	data() {
 		return {
 			option_selected: false,
@@ -145,23 +144,23 @@ export default {
 			// 	this.isOpen=true;
 			// }
 		},
-		initialValue(val){
+		value(val){
 			if(val && !this.search){
 				this.result = Object.assign({},val);
-				this.search = this.result[this.value];
+				this.search = this.result[this.label];
 			}
 		}
 	},
 	updated() {
-		if(this.initialValue && this.search===''){
-			this.result = Object.assign({},this.initialValue);
-			this.search = this.result[this.value];
+		if(this.value && this.search===''){
+			this.result = Object.assign({},this.value);
+			this.search = this.result[this.label];
 		}
 	},
 	mounted() {
-		if(this.initialValue && this.search===''){
-			this.result = Object.assign({},this.initialValue);
-			this.search = this.result[this.value];
+		if(this.value && this.search===''){
+			this.result = Object.assign({},this.value);
+			this.search = this.result[this.label];
 		}
 		this.results = this.items;
 		document.addEventListener('click', this.handleClickOutside);
@@ -177,11 +176,11 @@ export default {
 				return true;
 			}
 			// Let's warn the parent that a change was made
-			this.$emit('input', this.search);
+			this.$emit('search', this.search);
 		},
 		setResult(result) {
 			this.$emit('selected', result);
-			this.search = result[this.value];
+			this.search = result[this.label];
 			this.option_selected = true;
 		},
 		onArrowDown() {
@@ -196,7 +195,7 @@ export default {
 		},
 		onEnter() {
 			this.$emit('selected', this.results[this.arrowCounter]);
-			this.search = this.results[this.arrowCounter][this.value];
+			this.search = this.results[this.arrowCounter][this.label];
 			this.option_selected = true;
 			this.arrowCounter = -1;
 		},

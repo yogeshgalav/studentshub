@@ -113,7 +113,10 @@
       @submit="saveEditComment"
     >
       <template slot="modalBody">
-        <form data-vv-scope="newHomework">
+        <form
+          data-vv-scope="newHomework"
+          @submit.prevent="handleSubmit"
+        >
           <div class="row">
             <div class="col-md-12">
               <div class="form-group">
@@ -139,7 +142,7 @@
     </modal>
   </div>
 </template>
-<style>
+<style scoped>
 .message-comment, .message-comment:focus{
   width:100%;
   border-radius: 20px; 

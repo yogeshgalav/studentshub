@@ -10,4 +10,8 @@ class UserProfile extends Model
     use HasFactory;
     protected  $guarded = ['id', 'created_at', 'updated_at'];
     protected $table ="user_profiles";
+
+    public function follows(){
+        return $this->morphMany(Follow::class, 'followable');
+    }
 }

@@ -27,6 +27,9 @@ class Course extends Model
     }
     public static function getFirstOrCreateId($course)
     {
+        if(empty($course)){
+            return null;
+        }
         if($course['id']){
             return self::find($course['id'])->id;
         }

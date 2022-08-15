@@ -56,18 +56,18 @@
                     <div class="form-group">
                       <label class="mb-1"> {{ 'Program/Course Level' }} </label>
                       <auto-complete
+                        v-model="selected_course"
                         v-validate="'required'"
                         class="width-100"
                         :items="course_list"
-                        :value="'course_name'"
+                        :label="'course_name'"
                         name="program_name"
                         :placeholder="'eg. Bachelor of Arts'"
                         :is-async="true"
                         :create-new-item="false"
                         :is-loading="courseLoading"
-                        @input="getCourses"
+                        @search="getCourses"
                         @selected="setCourse"
-                        @selectNew="setNewCourse"
                       />
                       <span
                         class="error"
@@ -91,18 +91,18 @@
                               aria-hidden="true"
                             /></span>
                           <auto-complete
+                            v-model="selected_course"
                             v-validate="'required'"
                             class="width-100"
                             :items="course_list"
-                            :value="'course_name'"
+                            :label="'course_name'"
                             name="program_name"
                             :placeholder="'eg. Bachelor of Arts'"
                             :is-async="true"
                             :create-new-item="false"
                             :is-loading="courseLoading"
-                            @input="getCourses"
+                            @search="getCourses"
                             @selected="setCourse"
-                            @selectNew="setNewCourse"
                           />
                         </div>
                         <span
@@ -118,17 +118,17 @@
                     <div class="form-group">
                       <label class="mb-1"> {{ 'Subject of Classroom' }} </label>
                       <auto-complete
+                      v-model="selected_subject"
                         v-validate="'required'"
                         class="width-100"
                         :items="subject_list"
-                        :value="'subject_name'"
+                        :label="'subject_name'"
                         name="subject_name"
                         :placeholder="'eg. Biology,Chemistry'"
                         :is-async="true"
                         :is-loading="subjectLoading"
-                        @input="getSubjects"
+                        @search="getSubjects"
                         @selected="setSubject"
-                        @selectNew="setNewSubject"
                       />
                       <span
                         class="error"
@@ -295,14 +295,6 @@ export default {
 		setCourse(result) {
 			this.selected_course = result;
 		},
-		setNewCourse(name) {
-			this.selected_course = {
-				'id': 0,
-				'course_name': name,
-				'category_id': 0
-			};
-			this.categoryDisabled = false;
-		},
 		getSubjects	(search) {
 			this.selected_subject = {
 				'subject_name': search,
@@ -327,11 +319,6 @@ export default {
 		},
 		setSubject(result) {
 			this.selected_subject = result;
-		},
-		setNewSubject(name) {
-			this.selected_subject = {
-				'subject_name': name,
-			};
 		},
 		setCourseLevel(result){
 			this.selected_level = result;

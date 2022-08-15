@@ -18,11 +18,15 @@ const webpackConfig = require('./webpack.config');
 
 mix
 	.js('resources/js/app.js', 'public/js')
+	.vue({ 
+		version: 2,
+		extractStyles: true,
+		globalStyles: false
+	 })
 	.sass('resources/sass/app.scss', 'public/css')
 // .vue({ runtimeOnly: (process.env.NODE_ENV || 'production') === 'production' })
 	.webpackConfig(webpackConfig)
 	.sourceMaps()
-	// .browserSync('http://localhost:8000/')
 	// .options({
 	// 	hmrOptions: {
 	// 		host: 'localhost',
@@ -41,4 +45,7 @@ if (process.env.APP_ENV!=='local') {
 	//    '@fortawesome/vue-fontawesome',
 	//    '@fortawesome/fontawesome-svg-core'
 	// ]);
+} 
+if (process.env.BROWSER_SYNC === true) {
+	mix.browserSync(process.env.APP_URL);
 }

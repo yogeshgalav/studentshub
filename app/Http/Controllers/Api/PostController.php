@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\SthubPost;
 use App\Models\ScheduledJob;
-use App\Models\PostImage;
+use App\Models\SthubFile;
 use App\Models\Article;
 use App\Models\Subject;
 use App\Models\CourseSubject;
@@ -18,9 +18,9 @@ use App\Models\Mcq;
 use App\Models\Like;
 use App\Models\Comment;
 use App\Models\Document;
-use Auth;
-use DB;
-use Storage;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
 use App\Services\simple_html_dom;
@@ -135,46 +135,43 @@ class PostController extends Controller
     ]]);
   }
 
-    public function getPosts($dashboard_type=null,$dashboard_id=null,Request $request){
-        $post_repo=new \App\Post;
+    public function getPosts($dashboard_type=null,$dashboard_id=null,Request $request)
+    {
+
+        $post_repo=new \App\Helpers\PostHelper;
         $post_query=$post_repo->getAuthUserPostTabels();
-        $posts=$post_query->orderBy('po.created_at','DESC');
+        $post_query=$post_query->orderBy('po.created_at','DESC');
 
         switch($dashboard_type){
           case 'institute':
-            $post_query=$post_query->where('inst.id',$dashboard_id)
-            ->orderBy('po.created_at','DESC');
+            $post_query=$post_query->where('inst.id',$dashboard_id);
             break;
           case 'course':
-            $posts=$post_query->where('po.course_id',$dashboard_id)
-            ->orderBy('po.created_at','DESC');
+            $post_query=$post_query->where('po.course_id',$dashboard_id);
             break;
           case 'subject':
-            $posts=$post_query->leftJoin('post_tags as pt','pt.post_id','=','po.id')
-            ->where('pt.subject_id',$dashboard_id)
-            ->orderBy('po.created_at','DESC');
+            $post_query=$post_query->leftJoin('post_tags as pt','pt.post_id','=','po.id')
+            ->where('pt.subject_id',$dashboard_id);
             break;
           case 'category':
-            $posts=$post_query->where('cat.id',$dashboard_id)
-            ->orderBy('po.created_at','DESC');
+            $post_query=$post_query->where('cat.id',$dashboard_id);
             break;
           case 'user':
-            $posts=$post_query->where('po.user_id',$dashboard_id)
-            ->orderBy('po.created_at','DESC');
+            $post_query=$post_query->where('po.user_id',$dashboard_id);
             break;
           default:
-            $posts=$post_query->orderBy('po.created_at','DESC');
+            $post_query=$post_query;
             break;
         }
 
         if($request->user('api')){
-          $posts=$post_query->paginate(10);
+          $posts=$post_repo->formatPostData($post_query->paginate(10));
         }else{
-          $posts['data']=$post_query->limit(10)->get();
+          $posts['data']=$post_repo->formatPostData($post_query->limit(10)->get());
         }
         
         return response()->json(['success'=>[
-          'posts'=>$post_repo->formatPostData($posts),
+          'posts'=>$posts,
         ]]);
     }
 
@@ -187,7 +184,7 @@ class PostController extends Controller
                 ]
             ]);
         }
-        $post=new \App\Post;
+        $post=new \App\Helpers\PostHelper;
         $posts = $post->getSearchPosts($request);
 
         return response()->json(['success'=>[
@@ -205,7 +202,7 @@ class PostController extends Controller
           ]);
         }
 
-        $post_helper=new \App\Post;
+        $post_helper=new \App\Helpers\PostHelper;
         if($me){
           $post_content=$post_helper->getAuthPostContent($post->id)[0];
         }else{
@@ -227,7 +224,7 @@ class PostController extends Controller
         $save_post->user_id=Auth::user()->id;
         $save_post->post_id=$request->post_id;
         $save_post->save();
-        \Log::warning('New Saved post', [
+        Log::warning('New Saved post', [
           'user_id'=>$save_post->user_id,
           'post_id'=>$save_post->post_id,
         ]);
@@ -241,7 +238,7 @@ class PostController extends Controller
         $report_post->user_id=$request->user('api')->id;
         $report_post->post_id=$request->post_id;
         $report_post->save();
-        \Log::warning('New Report Added', [
+        Log::warning('New Report Added', [
           'user_id'=>$report_post->user_id,
           'post_id'=>$report_post->post_id,
         ]);
@@ -258,5 +255,32 @@ class PostController extends Controller
         $post->delete();
 
         return response()->json([],204);
+    }
+
+    public function getPostReactions($postId){
+      $reactions = DB::table('sthub_posts as st')->where('st.post_id','=',$postId)
+      ->where('action_type','!=','share')->where('action_type','!=','view')
+      ->leftjoin('users as us', 'us.id','=','st.action_user_id')
+      ->select('us.id','us.full_name')
+      ->groupBy('us.id','us.full_name')
+      ->get();
+
+      $likes =DB::table('likes as li')->where('li.likable_id','=',$postId)->where('likable_type','=',Post::class)
+      ->leftjoin('users as us', 'us.id','=','li.user_id')
+      ->select('us.id','us.full_name')
+      ->groupBy('us.id','us.full_name')
+      ->get();
+
+      $comments =DB::table('comments as co')->where('co.commentable_id','=',$postId)->where('commentable_type','=',Post::class)
+      ->rightjoin('users as us', 'us.id','=','co.user_id')
+      ->select('us.id','us.full_name')
+      ->groupBy('us.id','us.full_name')
+      ->get();
+      
+      return response()->json(['success'=>[
+        'reactions'=>$reactions,
+        'likes'=>$likes,
+        'comments'=>$comments
+      ]]);
     }
 }

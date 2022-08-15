@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 Route::get('/membership-plan','GuestController@membershipPlan');
 Route::get('/get-started','AuthController@getStartedPage');
@@ -13,8 +14,8 @@ Route::get('/contactus','GuestController@contactusPage');
 Route::get('/faq','GuestController@faqPage');
 Route::get('/logout','AuthController@logout');
 
-Route::post('/login','AuthController@loginViaOtp');
-Route::post('/register','AuthController@registerViaOtp');
+Route::post('/login', [AuthController::class, 'loginViaOtp']);
+Route::post('/register', [AuthController::class, 'registerViaOtp']);
 
 Route::get('/post/{ViewPostId}', 'GuestController@viewPost');
 Route::get('/social-auth/{provider}', 'AuthController@redirectToProvider');

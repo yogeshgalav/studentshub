@@ -35,6 +35,7 @@
                         {{ category.name }}
                       </option>
                     </select>
+                    <span class="error">{{ formErrors('category') }}</span>
                   </div>
                   <div class="form-group m-0-a">
                     <label for="doubt_question">Question</label>
