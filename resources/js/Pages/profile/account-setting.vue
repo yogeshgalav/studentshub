@@ -39,12 +39,13 @@
               <file-upload
                 id="documentUpload"
                 ref="upload"
-                class="edit_img_btn"
+                class="btn-md btn-primary fileup"
                 post-action="/upload/post"
                 extensions="jpg,jpeg,png"
                 accept="image/*"
                 :drop="true"
                 :size="1024 * 1024 * 10"
+                style="margin-left:auto; margin-right:auto;"
                 @input="inputUpdate"
               >
                 UPLOAD
@@ -83,14 +84,6 @@
                 @change="dataUpdated"
               />
             </div>
-            <a href="/reset-password">
-              <button
-                type="button"
-                class="btn btn-primary mt-3 my-auto"
-              >
-                Password reset
-              </button>
-            </a>
           </div>
         </div>
       </div>
@@ -342,6 +335,38 @@
 </template>
 
 <style scoped>
+@media (min-width: 769px) and (max-width: 1150px) {
+  .fileup{
+    display: block;
+    margin: 10px auto 10px;
+    width: 30%;
+    height: 30px;
+      }
+}
+@media (min-width: 1150px) and (max-width: 1400px){
+  .fileup{
+    display: block;
+    margin: 10px auto 10px;
+    width: 20%;
+    height: 30px;
+      }
+}
+@media (min-width: 1400px){
+  .fileup{
+    display: block;
+    margin: 10px auto 10px;
+    width: 15%;
+    height: 30px;
+      }
+}
+@media only screen and (max-width: 768px) {
+  .fileup{
+      display: block;
+      margin: 20px auto 20px;
+      width: 50%;
+      height: 30px;
+      }
+}
 .ml-280 {
 	margin-left:300px !important;
 }
@@ -386,8 +411,14 @@ export default {
 				id:null,
 				course_name:'',
 			},
-			edit_institute:'',
-			edit_course:'',
+			edit_institute:{
+				id:null,
+				name:'',
+			},
+			edit_course:{
+				id:null,
+				course_name:'',
+			},
 			data_updated:false,
 		};
 	},
@@ -402,8 +433,8 @@ export default {
 		{
 			 let loader = this.$loading.show();
       	this.axios.put(this.baseUrl + '/api/preferred-details',{
-    			preferred_institute:this.edit_institute,	
-				  preferred_course:this.edit_course,	
+    			preferred_institute:this.preferred_institute,	
+				  preferred_course:this.preferred_course,	
     		} )
     			.then(resp => {
 					window.location.href='/account-settings';
@@ -444,8 +475,8 @@ export default {
 		initiateData(){
 			if(this.user){
 			  this.profile_data = Object.assign({}, this.user.profile);
-				this.preferred_institute = this.user.preferred_institute;
-				this.preferred_course = this.user.preferred_course;
+				this.preferred_institute = this.user.preferred_institute ? this.user.preferred_institute : this.preferred_institute;
+				this.preferred_course = this.user.preferred_course ? this.user.preferred_course : this.preferred_course;
 			}else{
 				this.profile_data= {
 					full_name:'',
@@ -506,6 +537,7 @@ export default {
 		inputUpdate(files) {
 			this.image = files[0];
 			this.profile_image_url = URL.createObjectURL(files[0].file);
+			this.data_updated = true;
 		},
 		getBase64(file) {
 			return new Promise((resolve, reject) => {

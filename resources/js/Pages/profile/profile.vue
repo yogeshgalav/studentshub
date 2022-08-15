@@ -35,8 +35,9 @@
                       href="/account-settings"
                     ><i class="fas fa-edit" /></a>
                   </h3>
+                  
                   <p
-                    v-if="user.role==='student'"
+                    v-if="user.role==='follower'"
                     class="text-grey"
                   >
                     Student at
@@ -63,7 +64,32 @@
                   >
                     {{ user.preferred_course_name }}
                   </p>
-                </div>
+                </div> 
+                <button
+                  v-if="user.id !== AuthUser.id "
+                  type="button"
+                  class="btn-md btn-primary"
+                  @click="addfollow()"
+                >
+                  <p
+                    v-if="follow_active"
+                    style="margin:auto"
+                  >
+                    {{ totalFollows }} Following
+                  </p>
+                  <p
+                    v-else-if="totalFollows==0"
+                    style="margin:auto"
+                  >
+                    Follow
+                  </p>
+                  <p
+                    v-else
+                    style="margin:auto"
+                  >
+                    {{ totalFollows }}Follow
+                  </p>
+                </button>
                 <div class="mb-2 mt-2">
                   <ul class="social-network social-circle">
                     <li>
@@ -108,6 +134,8 @@
             </div>
           </div>
         </div>
+
+
 
         <nav-tabs
           :tabs="tabs"
@@ -171,6 +199,102 @@
                 Currently no doubt has been shared.
               </template>
             </DoubtContainer>
+          </template>
+          <template slot="tab-heading-followers">
+            {{ 'Followers' }}
+          </template>
+          <template slot="tab-panel-followers">
+            <div
+              v-if="!follows.length"
+              class="row"
+            >
+              <div class="col-md-10">
+                <div class="card">
+                  <div class="card-body">
+                    <p>No followers are Present.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              v-else
+              class="row"
+            >
+              <div class="col-md-8 col-12">
+                <div
+                  v-for="(follow,index) in follows"
+                  :key="index"
+                  class="card mb-2"
+                >
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-2">
+                        <div class="text-center">
+                          <div style="text-align: -webkit-center">
+                            <profile-image
+                              :user-name="follow.full_name"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-10">
+                        <p class="mb-0 font-weight-bold text-black">
+                          <a :href="'/profile/'+follow.followed_by_id"> {{ follow.full_name }}</a>
+                        </p> 
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </template>
+          <template slot="tab-heading-following">
+            {{ 'Following' }}
+          </template>
+          <template slot="tab-panel-following">
+            <div
+              v-if="!followings.length"
+              class="row"
+            >
+              <div class="col-md-10">
+                <div class="card">
+                  <div class="card-body">
+                    <p>Youre not following to anyone.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              v-else
+              class="row"
+            >
+              <div class="col-md-8 col-12">
+                <div
+                  v-for="(following,index) in followings"
+                  :key="index"
+                  class="card mb-2"
+                >
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-2">
+                        <div class="text-center">
+                          <div style="text-align: -webkit-center">
+                            <profile-image
+                              :user-name="following.full_name"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-10">
+                        <p class="mb-0 font-weight-bold text-black">
+                          <a :href="'/profile/'+following.following_id"> {{ following.full_name }}</a>
+                        </p> 
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </template>
         </nav-tabs>
       </div>
@@ -297,15 +421,17 @@ export default {
 		DoubtContainer,
 		RadialProgress
 	},
-	props: ['user'],
+	props: ['user','follower','follows','followings'],
 	data() {
 		return {
 			interests: [],
 			initialTab:'interests',
-			tabs:['interests','posts','doubts'],
+			tabs:['interests','posts','doubts','followers','following'],
 			interest_enable: false,
 			image:'',
 			profile_image_url:'',
+			follow_active: '',
+			totalFollows:0,
 			errors:{
 				intro: '',
 				profile_pic: '',
@@ -329,6 +455,12 @@ export default {
 		}
 	},
 	mounted() {
+		this.totalFollows=this.follower.total_followers;
+		if(this.follower.myfollow === 1){
+			this.follow_active = true;
+		}else{
+			this.follow_active = false;
+		}
 		this.axios.get('/api/get-profile').then((resp) => {
 			let total = 0;
 			this.interests = resp.data.success.interests.map(node=>{
@@ -342,10 +474,23 @@ export default {
 				.sort((a,b)=>a.percent>b.percent ? -1 : 1);
 		});
 	},
-	methods:{
-		categoryRedirect(interest){
-			this.$inertia.visit('/category/'+interest.slug);
-		}
+
+	methods: {
+      	categoryRedirect(interest){
+      		this.$inertia.visit('/category/'+interest.slug);
+      	},
+      	addfollow(){
+			this.follow_active = !this.follow_active;
+			if(this.follow_active){	
+				this.totalFollows += 1;
+			}
+			else if(!this.follow_active){
+        	this.totalFollows -= 1;
+			}
+      		this.axios.post('/api/'+this.user.id+'/follow').catch(err => {
+      			this.follow_active = !this.follow_active;
+		  	});      
+      	}
 	}
 };
 

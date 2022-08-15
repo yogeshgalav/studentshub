@@ -5,13 +5,13 @@
       <div class="">
         <auto-complete
           :key="'course'"
+          v-model="selected_course"
           :items="course_list"
-          :value="'course_name'"
+          :label="'course_name'"
           name="course_name"
           :is-async="true"
-          :initial-value="selected_course"
           :is-loading="courseLoading"
-          @input="getCourses"
+          @search="getCourses"
           @selected="setCourse"
         />
       </div>
@@ -25,7 +25,13 @@ export default {
 	components:{
 		AutoComplete
 	},
-	props:['value'],
+	props:{
+		value: {
+			type: Object,
+			required: true,
+			default: () => {},
+		},
+	},
 	data(){
 		return {
 			course_list: [],

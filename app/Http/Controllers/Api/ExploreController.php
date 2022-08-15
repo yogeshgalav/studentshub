@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
-use App\Post;
+use \App\Helpers\PostHelper as Post;
 use App\Models\Guest;
 use App\Models\Category;
 use Auth;

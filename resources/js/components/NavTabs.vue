@@ -24,6 +24,7 @@
           </li>
         </ul>
       </div>
+      
       <div
         v-for="tab in tabs"
         :id="tab.replace(/ /g, '-')"
@@ -47,6 +48,7 @@
     flex-wrap: nowrap;
     overflow-x: scroll;
     overflow-y: hidden;
+    border-bottom: 1px solid #8b8b8b !important;
 }
 .tabbed-nav-list::-webkit-scrollbar {
     display: none;
@@ -91,7 +93,7 @@
 }
 .tabbed-nav2 .nav-item a {
     text-align: center;
-    color: #000;
+    color: rgb(128, 116, 116);
     font-size: 14px;
     padding: 6px 30px;
     font-weight: 800;
@@ -121,33 +123,36 @@
     border-radius: 5% !important;
     color: #10069f !important;
     position: relative;
-    margin-bottom: -1px;
+    margin-bottom: -2px;
 }
 .tabbed-nav .nav-item .active:focus {
     background: #fff !important;
     color: #10069f !important;
 }
 .tabbed-nav .nav {
-    padding-left: 10px;
+    // padding-left: 10px;
     margin-bottom: 40px;
 }
 .tabbed-nav .nav-item a {
     text-align: center;
-    color: #000;
+    color: #676767;
     font-size: 14px;
     padding: 15px 15px;
     font-weight: 800;
     cursor: pointer;
     margin-right: 20px;
 }
+.nav .tabbed-nav-list{
+  border-bottom: 1px solid #676767 !important;
+}
 
 @media (max-width: 640px) {
     .tabbed-nav .nav-item a {
         text-align: center;
-        color: #000;
+        color: #676767;
         font-size: 14px;
         padding: 15px 10px;
-        font-weight: 500;
+        font-weight: 800;
         cursor: pointer;
         margin-right: 0px;
     }

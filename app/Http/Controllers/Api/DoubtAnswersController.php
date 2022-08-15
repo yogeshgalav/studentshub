@@ -95,7 +95,7 @@ class DoubtAnswersController extends Controller
         ->with('subjects')
         ->first();
 
-        $post = new \App\Post;
+        $post = new \App\Helpers\PostHelper;
         $answers=$post->getDoubtPosts($doubt->id);
 
         return response()->json([

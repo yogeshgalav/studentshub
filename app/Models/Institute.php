@@ -11,6 +11,7 @@ use Spatie\Sluggable\SlugOptions;
 class Institute extends Model
 {
     protected $guarded = ['id', 'created_at', 'updated_at'];
+    protected $table ="institutes";
     use Loggable;
     use HasSlug;
 
@@ -26,6 +27,9 @@ class Institute extends Model
     }
     public static function getFirstOrCreateId($institute)
     {
+        if(empty($institute)){
+            return null;
+        }
         if($institute['id']){
             return self::find($institute['id'])->id;
         }
@@ -49,5 +53,8 @@ class Institute extends Model
     }
     public function instituteUsers(){
         return $this->hasMany('App\Models\InstituteUsers');
+    }
+    public function instituteBlogs(){
+        return $this->hasMany('App\Models\InstituteBlog');
     }
 }

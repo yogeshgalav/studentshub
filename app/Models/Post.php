@@ -62,7 +62,7 @@ class Post extends Model
         return $this->belongsTo('App\Models\Category');
     }           
     public function sthubPosts(){
-        return $this->hasMany(SthubPost::class);
+        return $this->hasMany('App\Models\SthubPost');
     }           
     public function image(){
         return $this->hasMany('App\Models\PostImage');
@@ -71,11 +71,11 @@ class Post extends Model
         return $this->hasMany('App\Models\PostTag');
     }
     public function likes(){
-        return $this->morphMany(Like::class, 'likable');
+        return $this->morphMany('App\Models\Like', 'likable');
     }
     public function comments()
     {
-        return $this->morphMany(Comment::class, 'commentable');
+        return $this->morphMany('App\Models\Comment', 'commentable');
     }
     
     public function getPostTypeAttribute(){
