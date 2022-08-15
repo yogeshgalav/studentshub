@@ -24,7 +24,13 @@ export default {
 	components:{
 		AutoComplete
 	},
-	props:['value'],
+	props:{
+		value: {
+			type: Object,
+			required: true,
+			default: () => {},
+		},
+	},
 	data(){
 		return {
 			institute_list: [],
