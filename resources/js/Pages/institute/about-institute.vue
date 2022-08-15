@@ -163,7 +163,7 @@
           ref="editAdminModal"
           name="editAdminModal"
           class="model"
-          heading="Edit Administrator Details"
+          heading="Add Administrator"
           @submit="savedetails()"
         >
           <template slot="modalBody">

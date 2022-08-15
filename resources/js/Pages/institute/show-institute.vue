@@ -70,11 +70,7 @@
               alt="Student Hub"
               width="120 "
               height="120"
-              style="
-                                margin-left: 15px;
-                                border-radius: 100px;
-                                border-color: white;
-                            "
+              style="margin-left: 15px;border-radius: 100px;border-color: white;"
             ><file-input
               id="documentUploadlogo"
               ref="upload"
@@ -102,12 +98,9 @@
               />
             </button>
           </h3>
-          <h5 style="margin: 5px 0px 0px 20px">
-            {{ institute.moto ? institute.moto : "Institute Moto" }}
+          <h5>
+            {{ institute.moto ? institute.moto : '' }}
           </h5>
-          <p style="margin-left: 20px">
-            {{ institute.description }}
-          </p>
           <div>
             <div style="float: right">
               <ul class="social-network social-circle">

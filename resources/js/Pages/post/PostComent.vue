@@ -118,7 +118,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 button{
     border: none;
     color: gray;
@@ -134,9 +134,6 @@ button{
 p{
 	padding: 5px 0px;
 	margin-bottom: 10px;
-}
-p:hover{
-	background-color: #f0f2f5;
 }
 .message-comment, .message-comment:focus{
   font-size: 20px; border-radius: 20px; border: none !important; outline: none; background-color: #f0f2f5;

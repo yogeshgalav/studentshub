@@ -33,7 +33,7 @@ class InstituteController extends Controller
 
         return inertia('institute/show-institute', [
             'institute'=> $institute,
-            'editPermission' => true, 
+            'editPermission' => $editPermission, 
             'instituteVerified'=>$instituteVerified
         ]);
     }
