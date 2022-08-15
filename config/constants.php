@@ -1,6 +1,7 @@
 <?php
 
     return [
+        'per_page_items' => 10,
         'reserved-subdomain' => [
             // In use
             'start',

@@ -31,8 +31,8 @@
       </template>
       <template slot="tab-panel-doubts">
         <DoubtContainer
-          v-if="AuthUser.preferred_course_id"
-          :doubt-route="'/course/'+AuthUser.preferred_course_id"
+          v-if="subjectId"
+          :doubt-route="'/subject/'+subjectId"
         >
           <template slot="empty">
             Currently no doubt have been shared in this subject.
