@@ -14,6 +14,7 @@ use App\Models\InstituteUser;
 use App\Models\UserPhone;
 use App\Models\InstituteContact;
 use App\Services\simple_html_dom;
+use App\Http\Requests\UpdateInstituteBlogRequest;
 
 class InstituteController extends Controller
 {
@@ -86,7 +87,8 @@ class InstituteController extends Controller
 
         $institute_contacts = DB::table('institute_contactus as inct')->where('inct.institute_id', $institute->id)
         ->leftJoin('institutes as in', 'in.id', '=', 'inct.institute_id')
-        ->select(['inct.id as id', 'in.id as institute_id', 'inct.department as department', 'inct.email as email', 'inct.phone_no as phone_no', 'inct.phone_no2 as phone_no2', 'inct.whatsapp_no as whatsapp_no'])
+        ->select(['inct.id as id', 'in.id as institute_id', 'inct.department as department', 'inct.email as email',
+         'inct.phone_no as phone_no', 'inct.phone_no2 as phone_no2', 'inct.whatsapp_no as whatsapp_no'])
         ->get();
         return response()->json(['success' => [
                 'institute' => $institute,
@@ -411,7 +413,7 @@ class InstituteController extends Controller
     //         'banner'=>$banner
     //     ]]);
     // }
-    public function updateInstituteBlog(Institute $institute,Request $request) {
+    public function updateInstituteBlog(Institute $institute,UpdateInstituteBlogRequest $request) {
         $institute->blog = '';
 
         $simple_html_dom = new simple_html_dom;

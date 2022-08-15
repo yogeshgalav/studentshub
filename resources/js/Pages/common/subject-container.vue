@@ -3,16 +3,12 @@
     <form @submit.prevent="addsubject">
       <div class="row">
         <div class="col-md-10 col-sm-12">
-          <div class="form-group m-0-a">
+          <div>
             <div class="card mb-2">
               <div class="card_post">
                 <div class="card-body">
-                  <div class="dashboard_post">
+                  <div class="">
                     <div>
-                      <label
-                        class="p-3"
-                        for="subject_name"
-                      >Subject</label>
                       <input
                         id="subject_name"
                         v-model="subject_name"
@@ -21,11 +17,13 @@
                         class="form-control"
                         type="text"
                         placeholder="Enter Subject Name"
+                        style="border: 0px;"
                       ><span class="error">{{ formErrors('subject_name') }}</span>
            
             
-                      <div class="p-3">
+                      <div class="mt-3">
                         <button
+                          v-if="subject_name"
                           type="submit"
                           class="btn btn-primary btn-md"
                         >
@@ -72,7 +70,8 @@ export default {
 			subjects_data: [],
 			subjects:[],
 			showLoader: false,
-			current_page: 1
+			current_page: 1,
+			subject_name:'',
 		};
        
 	},
@@ -103,12 +102,19 @@ export default {
 		addsubject(){
 			this.showLoader = true;
 			//let loader = this.$loading.show();
-			this.axios.post('/api/'+this.dashboardType+'/'+this.dashboardId+'/add-subject',
-				{
-					subject_name:this.subject_name,
-					dashboard_id:this.dashboardId,
-				}).then((resp)=>{
+			this.axios.post('/api/'+this.dashboardType+'/'+this.dashboardId+'/add-subject',{
+				subject_name:this.subject_name,
+				dashboard_id:this.dashboardId,
+			}).then((resp)=>{
 				this.showLoader = false;
+				this.subjects_data.unshift({
+					id:resp.data.success.subject.id,
+					myvote:null,
+					subject_name:resp.data.success.subject.subject_name,
+					total_downvotes:0,
+					total_upvotes:0,
+				});
+				this.subject_name ='';
 			});
     		},
 	}

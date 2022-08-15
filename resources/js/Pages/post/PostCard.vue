@@ -10,7 +10,7 @@
             />
           </div>
           <div class="info-post ml-2 dash_insititue_name">
-            <p class="font-size-14 mb-0 dash_user_date">
+            <span class="font-size-14 mb-0 dash_user_date">
               {{ post.user_name }}
               <span>
                 {{ post.time }}
@@ -56,10 +56,10 @@
                   </div>
                 </div>
               </span>
-            </p>
-            <p class="font-size-14 mb-0">
+            </span>
+            <span class="font-size-14 mb-0">
               {{ post.institute_name }}
-            </p>
+            </span>
           </div>
         </div>
         <hr class="mb-1 mt-2">
@@ -136,9 +136,6 @@
             >
               {{ post.total_reactions }} people interacted with this post
             </p>
-          </div>
-          <div id="app">
-            <child />
           </div>
         </div>
         <hr>

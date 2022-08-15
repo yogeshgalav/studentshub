@@ -2,6 +2,7 @@
   <div id="about-html">
     <div class="col-md-10">
       <section
+        v-if="editPermission || institute.blog"
         title="Blog"
         class="card mt-2"
       >
@@ -11,10 +12,10 @@
             class="edit-btn-row"
           >
             <button
-              v-if="isEdit"
+              v-if="!isEditBlog"
               type="button"
-              class="btn btn-primary"
-              @click="editBlogDetails()"
+              class="btn btn-md btn-primary"
+              @click="isEditBlog =true"
             >
               <i
                 class="fas fa-pencil-alt"
@@ -25,7 +26,7 @@
             <button
               v-else
               type="button"
-              class="btn btn-primary"
+              class="btn btn-md btn-primary"
               @click="submitblog"
             >
               Save 
@@ -34,16 +35,17 @@
           <div>
             <div>
               <div
-                v-if="isEdit && institute.blog"
+                v-if="!isEditBlog"
                 id="app"
                 v-html="institute.blog"
               />
             </div>
             <rich-text-editor
-              v-if="!isEdit"
+              v-if="isEditBlog"
               id="ArticleEditor"
               v-model="institute.blog"
             />
+            <span class="text-danger">{{ blog_error }}</span>
           </div>
         </div>
       </section>
@@ -58,7 +60,7 @@
           >
             <button
               type="button"
-              class="btn btn-primary"
+              class="btn btn-md btn-primary"
               @click="editAdminDetails()"
             >
               <i
@@ -99,7 +101,7 @@
                 >
                   <button
                     v-if="!isEdit"
-                    class="btn btn-primary"
+                    class="btn btn-md btn-primary"
                     type="button"
                     data-toggle="tooltip"
                     data-placement="top"
@@ -417,7 +419,7 @@
           <iframe
             width="100%"
             height="315"
-            :src="this.youtube_embedded_url"
+            :src="youtube_embedded_url"
           />
         </div>
       </section>
@@ -574,8 +576,8 @@ export default {
 			 role: '',
 			 phone_no: '',
 			 name: '',
-
-  
+			isEditBlog:false, 
+			blog_error:'',
 			showLoader: true,
 			// selected_institute: {
 			//   id: null,
@@ -588,7 +590,11 @@ export default {
 	},
 
 	mounted() {
-		this.myFunction();
+		console.log(this.institute);
+		if(this.editPermission && !this.institute.blog){
+			this.isEditBlog = true;
+		}
+		this.embedYoutubeVideo();
 		this.loadInstituteusers();
 	},
 
@@ -703,12 +709,17 @@ export default {
 		},
 
 		submitblog() {
+			if(!this.institute.blog){
+				this.blog_error = 'Blog cannot be empty.';
+				return false;
+			}
 			let loader = this.$loading.show();
 			this.axios.post('/api/update-institute-blog/' + this.institute.id, {
 				new_blog: this.institute.blog,
 			})
 				.then(resp => {
 					this.institute.blog = resp.data.success.blogs;
+					this.isEditBlog = false;
 					loader.hide();
 				});
 		},
@@ -720,11 +731,16 @@ export default {
 		//   addAdministrator() {
 		//     this.$modal.show('editAdminModal');
 		//   },
-		myFunction() {
-			var str = this.institute.youtube_vedio_url;
-			var res = str.split('=');
-			this.youtube_embedded_url = 'https://www.youtube.com/embed/'+res[1];
-			document.getElementById('demo').innerHTML = res;
+		embedYoutubeVideo() {
+			let url = this.institute.youtube_vedio_url;
+			if(!url){
+				return false;
+			}
+			let p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+			let matches = url.match(p);
+			if (matches) {	
+				this.youtube_embedded_url = 'https://www.youtube.com/embed/'+matches[1];
+			}
 		}
 	},
 };
