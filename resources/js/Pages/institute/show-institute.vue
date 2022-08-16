@@ -13,19 +13,17 @@
         <div class="card-body p-4">
           <div class="">
             <img
-              v-if="institute.profile_url"
-              :src="institute.profile_url"
-              style=" width: 100%; height: 185px; margin-bottom: -40px; border-radius: 15px "
-              alt=""
-            >
-
-            <img
-              v-else-if="institute_banner_url"
-              :src="institute_banner_url"
+              v-if="institute_banner_image"
+              :src="institute_banner_image"
               style=" width: 100%; height: 185px; margin-bottom: -40px; border-radius: 15px;"
               alt=""
             >
-
+            <img
+              v-else-if="institute.banner_url"
+              :src="institute.banner_url"
+              style=" width: 100%; height: 185px; margin-bottom: -40px; border-radius: 15px "
+              alt=""
+            >
             <img
               v-else
               src="/images/banner.png"
@@ -42,9 +40,7 @@
               :drop="true"
               :size="102 * 1024 * 10"
               @update="updatebanner"
-            >
-              edit banner image
-            </file-input>
+            />
             <button
               v-if="isUpload"
               type="button"
@@ -54,13 +50,13 @@
           </div>
           <div class="container">
             <img
-              v-if="institute.avatar_url"
-              :src="institute.avatar_url"
+              v-if="institute_logo_image"
+              :src="institute_logo_image"
               alt=""
             >
             <img
-              v-else-if="logo_url"
-              :src="logo_url"
+              v-else-if="institute.logo_url"
+              :src="institute.logo_url"
               alt=""
             >
             <img
@@ -71,7 +67,8 @@
               width="120 "
               height="120"
               style="margin-left: 15px;border-radius: 100px;border-color: white;"
-            ><file-input
+            >
+            <file-input
               id="documentUploadlogo"
               ref="upload"
               class="edit-avatar bottom-left"
@@ -178,6 +175,46 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
+                  <label for="moto">Moto</label>
+                  <input
+                    id="state"
+                    v-model="institute.moto"
+                    name="moto"
+                    class="form-control"
+                    placeholder="write moto here"
+                  >
+                  <label for="website">Website</label>
+                  <input
+                    id="website"
+                    v-model=" institute.website"
+                    name="website"
+                    class="form-control"
+                    placeholder="http://website.com"
+                  >
+                  <label for="address">Address</label>
+                  <input
+                    id="address"
+                    v-model=" institute.address"
+                    name="address"
+                    class="form-control"
+                    placeholder="write Address here"
+                  >
+                  <label for="city">City</label>
+                  <input
+                    id="city"
+                    v-model="institute.city"
+                    name="city"
+                    class="form-control"
+                    placeholder="write City here"
+                  >
+                  <label for="state">State</label>
+                  <input
+                    id="state"
+                    v-model=" institute.state"
+                    name="state"
+                    class="form-control"
+                    placeholder="write State here"
+                  >
                   <label for="fb_url"> Facebook Profile Url</label>
                   <input
                     v-model="institute.fb_url"
@@ -218,46 +255,6 @@
                     placeholder="http://youtube.com/profile-id"
                   >
                   <span class="text-danger">{{ errors.youtube_vedio_url }}</span>
-                  <label for="website">Website</label>
-                  <input
-                    id="website"
-                    v-model=" institute.website"
-                    name="website"
-                    class="form-control"
-                    placeholder="http://website.com"
-                  >
-                  <label for="address">Address</label>
-                  <input
-                    id="address"
-                    v-model=" institute.address"
-                    name="address"
-                    class="form-control"
-                    placeholder="write Address here"
-                  >
-                  <label for="city">City</label>
-                  <input
-                    id="city"
-                    v-model="institute.city"
-                    name="city"
-                    class="form-control"
-                    placeholder="write City here"
-                  >
-                  <label for="state">State</label>
-                  <input
-                    id="state"
-                    v-model=" institute.state"
-                    name="state"
-                    class="form-control"
-                    placeholder="write State here"
-                  >
-                  <label for="moto">Moto</label>
-                  <input
-                    id="state"
-                    v-model="institute.moto"
-                    name="moto"
-                    class="form-control"
-                    placeholder="write moto here"
-                  >
                 </div>
               </div>
             </div>
@@ -616,10 +613,8 @@ export default {
 	props:['institute', 'editPermission','instituteVerified'],
 	data() {
 		return {
-			image:{},
-			institute_banner_url: '',
-			banner_pic:'',
-			logo_url: '',
+			institute_banner_image: '',
+			institute_logo_image: '',
 			institute_users: [],
 			institute_contacts: [],
 			edit_institute_contact: {
@@ -743,12 +738,7 @@ export default {
 				this.errors.youtube_vedio_url = 'This is not valid Youtube url.';
 				return false;
 			}
-		
-			if(this.image.file){
-				await this.getBase64(this.image.file).then(file=>{
-					this.institute.profile_url=file;
-				});
-			}
+
 			await this.axios
 				.post('/api/save-institute-profile',this.institute, {
 					linkedin_url: this.edit_institute.linkedin_url,
@@ -761,7 +751,8 @@ export default {
 					city: this.edit_institute.city,
 					state: this.edit_institute.state,
 					moto: this.edit_institute.moto,
-					banner_pic: this.banner_pic,
+					banner_url: this.institute_banner_image,
+					logo_url: this.institute_logo_image,
 				})
 				.then((resp) => {
 					this.showLoader = false;
@@ -793,17 +784,6 @@ export default {
 				youtube_vedio_url: '',
 			};
 		},
-		// inputUpdate(files) {
-		// 	console.log('xyz');
-		// 	this.image = files[0];
-		// 	this.institute_banner_url = URL.createObjectURL(files[0].file);
-		// },
-		
-		
-		
-		// set contact data in add edit modal
-		
-	
 		submitCourse() {
 			this.axios
 				.put('/api/preferred-details', {
@@ -818,33 +798,12 @@ export default {
 			this.role = '';
 			this.id = '';
 		},
-		// async updatebanner(file){
-		// 	console.log('updatebannerfunction');
-		// 	this.image = file;
-		// 	this.institute_banner_url = URL.createObjectURL(file);
-		// 	console.log('image',file);
-		// 	if(this.image.file){
-		// 		await this.getBase64(this.image.file).then(file=>{
-		// 			this.banner_pic=file;
-		// 		});
-		// 	}
-		// 	await this.axios
-		// 		.post('/api/upload-banner' ,{
-		// 			banner_pic: this.institute_banner_url,
-		// 		},this.banner)
-		// 		.then((resp) => {
-		// 			//window.location.reload();
-		// 		});
-     
-			
-			
-		// },
 		updatebanner(file) {
 			this.isUpload = true;
-			
-			console.log('updatebannerfunction');
-			this.image = file;
-			this.institute_banner_url = URL.createObjectURL(file);
+			this.getBase64(file).then(file=>{
+				this.institute_banner_image=file;
+			});
+			// this.institute_banner_url = URL.createObjectURL(file);
 			this.data_updated = true;
 		},
 		getBase64(file) {
@@ -856,16 +815,12 @@ export default {
 			});
 		},
 		uploadlogo(file){
-			if (file) {
-				var reader = new FileReader();
-
-				reader.onload = function (e) {
-					document.getElementById('#documentUploadlogo').attr('src', e.target.result).width(150).height(200);
-				};
-
-				console.log('xyz');
-				reader.readAsDataURL(file);
-			}
+			this.isUpload = true;
+			this.getBase64(file).then(file=>{
+				this.institute_logo_image=file;
+			});
+			// this.institute_logo_url = URL.createObjectURL(file);
+			this.data_updated = true;
 		}
 	
 	},
