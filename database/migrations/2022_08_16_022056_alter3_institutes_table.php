@@ -16,6 +16,7 @@ class Alter3InstitutesTable extends Migration
         Schema::table('institutes', function (Blueprint $table) {
             $table->renameColumn('timeline', 'banner_url');
             $table->renameColumn('profile_url', 'logo_url');
+            $table->dropColumn('total_students');
             $table->double('latitude', 2, 6)->nullable();
             $table->double('longitude', 2, 6)->nullable();
         });
