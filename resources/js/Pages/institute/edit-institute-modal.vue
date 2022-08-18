@@ -14,6 +14,14 @@
           <div class="row">
             <div class="col-md-12">
               <div class="form-group">
+                <label for="institute_name">Institute Name</label>
+                <input
+                  id="institute_name"
+                  v-model="edit_institute.name"
+                  name="institute_name"
+                  class="form-control"
+                  placeholder="write name here"
+                >
                 <label for="moto">Moto</label>
                 <input
                   id="state"
@@ -147,36 +155,36 @@ export default {
 	methods:{
 		submitModal() {      
 			if (
-				this.institute.fb_url &&
-                !this.institute.fb_url.includes('facebook.com')
+				this.edit_institute.fb_url &&
+                !this.edit_institute.fb_url.includes('facebook.com')
 			) {
 				this.errors.fb_url = 'This is not valid Facebook url.';
 				return false;
 			}
 			if (
-				this.institute.twitter_url &&
-			          !this.institute.twitter_url.includes('twitter.com')
+				this.edit_institute.twitter_url &&
+			          !this.edit_institute.twitter_url.includes('twitter.com')
 			) {
 				this.errors.twitter_url = 'This is not valid Twitter url.';
 				return false;
 			}
 			if (
-				this.institute.insta_url &&
-			          !this.institute.insta_url.match(/^[a-zA-Z0-9_.]*$/g)
+				this.edit_institute.insta_url &&
+			          !this.edit_institute.insta_url.match(/^[a-zA-Z0-9_.]*$/g)
 			) {
 				this.errors.insta_url = 'This is not valid Instagram username.';
 				return false;
 			}
 			if (
-				this.institute.linkedin_url &&
-                !this.institute.linkedin_url.includes('linkedin.com')
+				this.edit_institute.linkedin_url &&
+                !this.edit_institute.linkedin_url.includes('linkedin.com')
 			) {
 				this.errors.linkedin_url = 'This is not valid Linkedin url.';
 				return false;
 			}
 			if (
-				this.institute.youtube_vedio_url &&
-			          !this.institute.youtube_vedio_url.includes('youtube.com')
+				this.edit_institute.youtube_vedio_url &&
+			          !this.edit_institute.youtube_vedio_url.includes('youtube.com')
 			) {
 				this.errors.youtube_vedio_url = 'This is not valid Youtube url.';
 				return false;

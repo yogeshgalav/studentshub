@@ -57,13 +57,7 @@
             :dashboard-type="'category'"
           >
             <template slot="empty">
-              <img
-                class="search-not-found"
-                src="/images/search-not-found.png"
-              >
-              <p style="text-align:center;">
                 Currently no Subject have been shared in your course.
-              </p>
             </template>
           </SubjectContainer>
         </template>
@@ -77,10 +71,7 @@
               :share-route="'/share-your-knowledge?caId='+categoryId"
             >
               <template slot="empty">
-                  <img class="search-not-found" src="/images/search-not-found.png"/>
-                <p style="text-align:center;">
                 Currently no post have been shared related to this category.
-                </p>
               </template>
             </PostContainer>
           </template>

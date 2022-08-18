@@ -184,7 +184,7 @@
               :post-route="'/user/'+user.id"
             >
               <template slot="empty">
-                Currently no post has been shared.
+                You have not shared any post yet.
               </template>
             </PostContainer>
           </template>
@@ -196,7 +196,7 @@
               :doubt-route="'/user/'+user.id"
             >
               <template slot="empty">
-                Currently no doubt has been shared.
+                You have not asked any doubt yet.
               </template>
             </DoubtContainer>
           </template>

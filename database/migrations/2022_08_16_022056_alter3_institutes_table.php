@@ -19,6 +19,7 @@ class Alter3InstitutesTable extends Migration
             $table->dropColumn('total_students');
             $table->double('latitude', 2, 6)->nullable();
             $table->double('longitude', 2, 6)->nullable();
+            $table->integer('admin_user_id')->nullable();
         });
     }
 

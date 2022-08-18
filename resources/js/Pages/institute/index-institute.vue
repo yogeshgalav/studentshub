@@ -32,16 +32,6 @@
           </div>
           <div class="card-body">
             <div class="col-md-12 institute_list">
-              <loading
-                :key="Math.random()"
-                :active.sync="loading"
-                :color="'#10069F'"
-                :width="100"
-                :is-full-page="false"
-                :opacity="0.7"
-                loader="dots"
-                :name="'vue-table-loading' + Math.random()"
-              />
               <vue-table-component
                 :columns="instituteColumns"
                 :rows="instituteRows"
@@ -118,7 +108,7 @@ export default {
 			instituteColumns: [
 				{
 					label: 'Institute',
-					field: 'institute_name',
+					field: 'name',
 					tdClass: 'text-left  text-primary text-underline',
 					thClass: 'text-left'
 				},
@@ -140,7 +130,7 @@ export default {
 				},
 				{
 					label: '# Total Students',
-					field: 'total_students',
+					field: 'student_count',
 					type: 'number',
 					tdClass: 'text-left  text-primary text-underline',
 					thClass: 'text-left'
@@ -160,7 +150,7 @@ export default {
 	methods:{
 		getInstitutes(){
 			this.loading = true;
-			this.axios.get('/api/admin/index')
+			this.axios.get('/api/institutes')
 				.then(resp =>{
 					this.instituteRows=resp.data.success.institutes;
 				});

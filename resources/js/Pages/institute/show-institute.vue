@@ -382,13 +382,7 @@
             :post-route="'/institute/' + AuthUser.preferred_institute_id"
           >
             <template slot="empty">
-              <img
-                class="search-not-found"
-                src="/images/search-not-found.png"
-              >
-              <p style="text-align: center">
-                Currently no post have been shared in your institute.
-              </p>
+              Currently no post have been shared in your institute.
             </template>
           </PostContainer>
         </template>
@@ -401,13 +395,7 @@
             :doubt-route="'/institute/'+AuthUser.preferred_institute_id"
           >
             <template slot="empty">
-              <img
-                class="search-not-found"
-                src="/images/search-not-found.png"
-              >
-              <p style="text-align: center">
-                Currently no doubt have been shared in your institute.
-              </p>
+              Currently no doubt have been shared in your institute.
             </template>
           </DoubtContainer>
         </template>

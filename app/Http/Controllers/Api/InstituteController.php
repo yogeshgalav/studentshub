@@ -5,9 +5,9 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use Auth;
-use DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 use App\Models\Institute;
 use App\Models\User;
 use App\Models\InstituteUser;
@@ -179,18 +179,11 @@ class InstituteController extends Controller
     public function adminIndex()
     {
         $institutes=DB::table('institutes as in')
-        ->leftJoin('institute_users as inu','in.id','=','inu.institute_id')
-        ->join('institute_users as insu',function($join){
-            $join->on('in.id','=','insu.institute_id')
-            ->where('insu.role',"teacher");
-        })
-        ->leftJoin('classrooms as cl','cl.institute_id','=','in.id')
-        ->select('in.id','in.name',
-            DB::raw('COUNT(DISTINCT inu.user_id) AS user_count'),
-            DB::raw('COUNT(DISTINCT insu.id) AS teacher_count'),
-            DB::raw('COUNT(DISTINCT cl.id) AS classroom_count')
+        ->leftJoin('students as st','st.institute_id','=','in.id')
+        ->select('in.*',
+            DB::raw('COUNT(DISTINCT st.user_id) AS student_count'),
         )
-        ->groupBy(['in.id','in.name'])
+        ->groupBy('in.id')
         ->get();
 
         return response()->json([
@@ -337,10 +330,11 @@ class InstituteController extends Controller
     public function addOrUpdateInstitute(Request $request)
     {
         if($request->id){
-            $institute=Institute::where('id',$request->id)->findOrFail();
-            $institute->added_by_user_id = $request->user('api')->id; 
+            $institute=Institute::findOrFail($request->id);
         } else {
             $institute = new Institute();
+            $institute->name = $request->name;
+            $institute->added_by_user_id = $request->user('api')->id; 
         }
 
         // if($request->banner_pic){
@@ -388,7 +382,7 @@ class InstituteController extends Controller
             'institute'=>$institute
         ]]);
     }
-    
+
     public function savebanner(Request $request){
         
         $me=$request->user('api');
@@ -431,12 +425,12 @@ class InstituteController extends Controller
 
         foreach($dom->files as $file){
             $newFile= new SthubFile();
-            $newFile->fileable_id=$post_content->id;
-            $newFile->fileable_type=Article::class;
+            $newFile->fileable_id=$institute->id;
+            $newFile->fileable_type=Institute::class;
             $newFile->file_ext=Storage::disk('institute-blog-image')->getMimeType($file);
             $newFile->file_size=Storage::disk('institute-blog-image')->size($file);
             $newFile->file_name=$file;
-            $newFile->user_id=Auth::user()->id;
+            $newFile->user_id=$request->user('api')->id;
             $newFile->save();
         }
 

@@ -23,13 +23,7 @@
           :subjects="subjects"
         >
           <template slot="empty">
-            <img
-              class="search-not-found"
-              src="/images/search-not-found.png"
-            >
-            <p style="text-align:center;">
-              Currently no Subject have been shared in your course.
-            </p>
+            Currently no Subject have been shared in your course.
           </template>
         </SubjectContainer>
       </template>
