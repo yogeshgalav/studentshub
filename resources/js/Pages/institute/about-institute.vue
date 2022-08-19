@@ -2,6 +2,7 @@
   <div id="about-html">
     <div class="col-md-10">
       <section
+        v-if="editPermission || institute.blog"
         title="Blog"
         class="card mt-2"
       >
@@ -11,10 +12,10 @@
             class="edit-btn-row"
           >
             <button
-              v-if="isEdit"
+              v-if="!isEditBlog"
               type="button"
-              class="btn btn-primary"
-              @click="editBlogDetails()"
+              class="btn btn-md btn-primary"
+              @click="isEditBlog =true"
             >
               <i
                 class="fas fa-pencil-alt"
@@ -25,7 +26,7 @@
             <button
               v-else
               type="button"
-              class="btn btn-primary"
+              class="btn btn-md btn-primary"
               @click="submitblog"
             >
               Save 
@@ -34,16 +35,17 @@
           <div>
             <div>
               <div
-                v-if="isEdit && institute.blog"
+                v-if="!isEditBlog"
                 id="app"
                 v-html="institute.blog"
               />
             </div>
             <rich-text-editor
-              v-if="!isEdit"
+              v-if="isEditBlog"
               id="ArticleEditor"
               v-model="institute.blog"
             />
+            <span class="text-danger">{{ blog_error }}</span>
           </div>
         </div>
       </section>
@@ -58,7 +60,7 @@
           >
             <button
               type="button"
-              class="btn btn-primary"
+              class="btn btn-md btn-primary"
               @click="editAdminDetails()"
             >
               <i
@@ -99,7 +101,7 @@
                 >
                   <button
                     v-if="!isEdit"
-                    class="btn btn-primary"
+                    class="btn btn-md btn-primary"
                     type="button"
                     data-toggle="tooltip"
                     data-placement="top"
@@ -161,7 +163,7 @@
           ref="editAdminModal"
           name="editAdminModal"
           class="model"
-          heading="Edit Administrator Details"
+          heading="Add Administrator"
           @submit="savedetails()"
         >
           <template slot="modalBody">
@@ -406,32 +408,26 @@
           </template>
         </modal>
       </section>
-
       <!-- Youtube Section -->
 
       <section
         v-if="institute.youtube_vedio_url"
-        title="
-        You-Tube"
+        title=" You-Tube"
         class="card mt-2"
       >
-        <div class=" card-body">
+        <div class="card-body">
           <iframe
-            width="420"
-            height="345"
-            :src="
-              'https://www.youtube.com/embed/' +
-                institute.youtube_vedio_url
-            "
+            width="100%"
+            height="315"
+            :src="youtube_embedded_url"
           />
         </div>
       </section>
 
       <!-- Twitter Section -->
       <section
-        v-if=" institute.twitter_url"
-        title="
-        Twitter"
+        v-if="institute.twitter_url"
+        title="Twitter"
         class="card mt-2"
       >
         <div class="card-body">
@@ -439,7 +435,7 @@
             border="0"
             frameborder="0"
             height="250"
-            width="550"
+            width="100%"
             :src="'https://twitframe.com/show?url='+`${encodeURIComponent(this.institute.twitter_url)}`"
           />
         </div>
@@ -580,8 +576,8 @@ export default {
 			 role: '',
 			 phone_no: '',
 			 name: '',
-
-  
+			isEditBlog:false, 
+			blog_error:'',
 			showLoader: true,
 			// selected_institute: {
 			//   id: null,
@@ -589,10 +585,16 @@ export default {
 			// },
 			isEdit: true,
 			new_blog: '',
+			youtube_embedded_url:'',
 		};
 	},
 
 	mounted() {
+		console.log(this.institute);
+		if(this.editPermission && !this.institute.blog){
+			this.isEditBlog = true;
+		}
+		this.embedYoutubeVideo();
 		this.loadInstituteusers();
 	},
 
@@ -707,12 +709,17 @@ export default {
 		},
 
 		submitblog() {
+			if(!this.institute.blog){
+				this.blog_error = 'Blog cannot be empty.';
+				return false;
+			}
 			let loader = this.$loading.show();
 			this.axios.post('/api/update-institute-blog/' + this.institute.id, {
 				new_blog: this.institute.blog,
 			})
 				.then(resp => {
 					this.institute.blog = resp.data.success.blogs;
+					this.isEditBlog = false;
 					loader.hide();
 				});
 		},
@@ -724,10 +731,17 @@ export default {
 		//   addAdministrator() {
 		//     this.$modal.show('editAdminModal');
 		//   },
-	
+		embedYoutubeVideo() {
+			let url = this.institute.youtube_vedio_url;
+			if(!url){
+				return false;
+			}
+			let p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+			let matches = url.match(p);
+			if (matches) {	
+				this.youtube_embedded_url = 'https://www.youtube.com/embed/'+matches[1];
+			}
+		}
 	},
-
-
-
 };
 </script>

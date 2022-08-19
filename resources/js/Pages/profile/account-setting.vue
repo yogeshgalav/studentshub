@@ -411,8 +411,14 @@ export default {
 				id:null,
 				course_name:'',
 			},
-			edit_institute:'',
-			edit_course:'',
+			edit_institute:{
+				id:null,
+				name:'',
+			},
+			edit_course:{
+				id:null,
+				course_name:'',
+			},
 			data_updated:false,
 		};
 	},
@@ -427,8 +433,8 @@ export default {
 		{
 			 let loader = this.$loading.show();
       	this.axios.put(this.baseUrl + '/api/preferred-details',{
-    			preferred_institute:this.edit_institute,	
-				  preferred_course:this.edit_course,	
+    			preferred_institute:this.preferred_institute,	
+				  preferred_course:this.preferred_course,	
     		} )
     			.then(resp => {
 					window.location.href='/account-settings';
@@ -469,8 +475,8 @@ export default {
 		initiateData(){
 			if(this.user){
 			  this.profile_data = Object.assign({}, this.user.profile);
-				this.preferred_institute = this.user.preferred_institute;
-				this.preferred_course = this.user.preferred_course;
+				this.preferred_institute = this.user.preferred_institute ? this.user.preferred_institute : this.preferred_institute;
+				this.preferred_course = this.user.preferred_course ? this.user.preferred_course : this.preferred_course;
 			}else{
 				this.profile_data= {
 					full_name:'',

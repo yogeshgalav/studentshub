@@ -28,9 +28,15 @@
           </div>
         </div>
         <div v-if="!doubts_data.length">
-          <slot name="empty">
-            No doubt present yet
-          </slot> 
+          <img
+            class="search-not-found"
+            src="/images/search-not-found.png"
+          >
+          <p style="text-align: center">
+            <slot name="empty">
+              No doubt present yet
+            </slot> 
+          </p>
         </div>
         <div id="infinite-list">
           <div
@@ -86,9 +92,9 @@ export default {
 			const url= new URL(this.baseUrl+'/api'+route);
 			this.showLoader = true;
 
-			this.current_page=this.current_page+1;
+			
 			url.searchParams.set('page', this.current_page);
-
+			this.current_page=this.current_page+1;
 			this.axios.get(url.toString())
 				.then(resp => {
 					const doubts = resp.data.success.doubts;

@@ -13,28 +13,25 @@
         <div class="card-body p-4">
           <div class="">
             <img
-              v-if="institute.profile_url"
-              :src="institute.profile_url"
-              style=" width: 100%; height: 185px; margin-bottom: -40px; border-radius: 15px "
-              alt=""
-            >
-
-            <img
-              v-else-if="institute_banner_url"
-              :src="institute_banner_url"
+              v-if="institute_banner_image"
+              :src="institute_banner_image"
               style=" width: 100%; height: 185px; margin-bottom: -40px; border-radius: 15px;"
               alt=""
             >
-
+            <img
+              v-else-if="institute.banner_url"
+              :src="institute.banner_url"
+              style=" width: 100%; height: 185px; margin-bottom: -40px; border-radius: 15px "
+              alt=""
+            >
             <img
               v-else
               src="/images/banner.png"
               style=" width: 100%; height: 185px; margin-bottom: -40px; border-radius: 15px "
               alt=""
             >
-
-            <file-upload
-              id="documentUpload"
+            <file-input
+              id="documentUploadbanner"
               ref="upload"
               class="EditBanner btn btn-light bottom-right"
               post-action="/upload/post"
@@ -42,24 +39,24 @@
               accept="image/*"
               :drop="true"
               :size="102 * 1024 * 10"
-              @input="inputUpdate"
-            >
-              <img
-                src="/images/cam-icon.svg"
-                alt=""
-              >
-              edit banner image
-            </file-upload>
+              @update="updatebanner"
+            />
+            <button
+              v-if="isUpload"
+              type="button"
+              class="btn btn-secondary"
+              @click="saveProfile"
+            />
           </div>
           <div class="container">
             <img
-              v-if="institute.avatar_url"
-              :src="institute.avatar_url"
+              v-if="institute_logo_image"
+              :src="institute_logo_image"
               alt=""
             >
             <img
-              v-else-if="logo_url"
-              :src="logo_url"
+              v-else-if="institute.logo_url"
+              :src="institute.logo_url"
               alt=""
             >
             <img
@@ -69,10 +66,10 @@
               alt="Student Hub"
               width="120 "
               height="120"
-              style="margin-left: 15px; border-radius: 100px; border-color: white;"
+              style="margin-left: 15px;border-radius: 100px;border-color: white;"
             >
-            <file-upload
-              id="documentUpload" 
+            <file-input
+              id="documentUploadlogo"
               ref="upload"
               class="edit-avatar bottom-left"
               post-action="/upload/post"
@@ -80,13 +77,8 @@
               accept="image/*"
               :drop="true"
               :size="1024 * 1024 * 10"
-              @input="inputUpdate"
-            >
-              <img
-                src="/images/cam-icon.svg"
-                alt=""
-              >
-            </file-upload>
+              @update="uploadlogo"
+            />
           </div>
           <h3 style="margin: 20px 0px 0px 20px">
             {{ institute ? institute.name : "My Institute" }}
@@ -103,12 +95,9 @@
               />
             </button>
           </h3>
-          <h5 style="margin: 5px 0px 0px 20px">
-            {{ institute.moto ? institute.moto : "Institute Moto" }}
+          <h5>
+            {{ institute.moto ? institute.moto : '' }}
           </h5>
-          <p style="margin-left: 20px">
-            {{ institute.description }}
-          </p>
           <div>
             <div style="float: right">
               <ul class="social-network social-circle">
@@ -159,7 +148,7 @@
                 <li>
                   <a
                     target="blank"
-                    :href=" institute.youtube_vedio_url ?'https://www.youtube.com/embed/'+ institute.youtube_vedio_url : '#'"
+                    :href=" institute.youtube_vedio_url ?institute.youtube_vedio_url : '#'"
                     :disabled=" institute.youtube_vedio_url ? false : true"
                     :class="['icoYoutube', institute.youtube_vedio_url ? '': 'disabled',]"
                     title="Youtube"
@@ -172,106 +161,7 @@
           </div>
         </div>
       </div>
-      <modal
-        id="addEditInstituteModal"
-        key="addEditInstituteModal"
-        ref="addEditInstituteModal"
-        name="addEditInstituteModal"
-        class="model-md"
-        heading="Profile Info"
-        @submit="saveProfile()"
-      >
-        <template slot="modalBody">
-          <form validationScope="add_institute_form">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label for="fb_url"> Facebook Profile Url</label>
-                  <input
-                    v-model="institute.fb_url"
-                    class="form-control"
-                    type="text"
-                    placeholder="http://facebook.com/profile-id"
-                  >
-                  <span class="text-danger">{{ errors.fb_url }}</span>
-                  <label>Twitter Url</label>
-                  <input
-                    v-model="institute.twitter_url"
-                    class="form-control"
-                    type="text"
-                    placeholder="http://twitter.com/profile-id"
-                  >
-                  <span class="text-danger">{{ errors.twitter_url }}</span>
-                  <label>Instagram Username</label>
-                  <input
-                    v-model="institute.insta_url"
-                    class="form-control"
-                    type="text"
-                    placeholder="http://instagram.com/profile-id"
-                  >
-                  <span class="text-danger">{{ errors.insta_url }}</span>
-                  <label>Linkedin Profile Url</label>
-                  <input
-                    v-model="institute.linkedin_url"
-                    class="form-control"
-                    type="text"
-                    placeholder="http://linked.com/profile-id"
-                  >
-                  <span class="text-danger">{{ errors.linkedin_url }}</span>
-                  <label>Youtube Vedio Url</label>
-                  <input
-                    v-model="institute.youtube_vedio_url"
-                    class="form-control"
-                    type="text"
-                    placeholder="http://youtube.com/profile-id"
-                  >
-                  <span class="text-danger">{{ errors.youtube_vedio_url }}</span>
-                  <label for="website">Website</label>
-                  <input
-                    id="website"
-                    v-model=" institute.website"
-                    name="website"
-                    class="form-control"
-                    placeholder="http://website.com"
-                  >
-                  <label for="address">Address</label>
-                  <input
-                    id="address"
-                    v-model=" institute.address"
-                    name="address"
-                    class="form-control"
-                    placeholder="write Address here"
-                  >
-                  <label for="city">City</label>
-                  <input
-                    id="city"
-                    v-model="institute.city"
-                    name="city"
-                    class="form-control"
-                    placeholder="write City here"
-                  >
-                  <label for="state">State</label>
-                  <input
-                    id="state"
-                    v-model=" institute.state"
-                    name="state"
-                    class="form-control"
-                    placeholder="write State here"
-                  >
-                  <label for="moto">Moto</label>
-                  <input
-                    id="state"
-                    v-model="institute.moto"
-                    name="moto"
-                    class="form-control"
-                    placeholder="write moto here"
-                  >
-                </div>
-              </div>
-            </div>
-          </form>
-        </template>
-      </modal>
+      <edit-institute-modal v-model="edit_institute" />
     </div>
 
     <section
@@ -299,7 +189,7 @@
     </section>
 
     <div
-      v-if="institute.id"
+      v-if="institute && institute.id"
       class="col-md-12 mt-3"
     >
       <nav-tabs
@@ -492,13 +382,7 @@
             :post-route="'/institute/' + AuthUser.preferred_institute_id"
           >
             <template slot="empty">
-              <img
-                class="search-not-found"
-                src="/images/search-not-found.png"
-              >
-              <p style="text-align: center">
-                Currently no post have been shared in your institute.
-              </p>
+              Currently no post have been shared in your institute.
             </template>
           </PostContainer>
         </template>
@@ -507,17 +391,11 @@
         </template>
         <template slot="tab-panel-doubts">
           <DoubtContainer
-            v-if="AuthUser.preferred_course_id"
-            :doubt-route="'/course/' + AuthUser.preferred_course_id"
+            v-if="AuthUser.preferred_institute_id"
+            :doubt-route="'/institute/'+AuthUser.preferred_institute_id"
           >
             <template slot="empty">
-              <img
-                class="search-not-found"
-                src="/images/search-not-found.png"
-              >
-              <p style="text-align: center">
-                Currently no doubt have been shared in your institute.
-              </p>
+              Currently no doubt have been shared in your institute.
             </template>
           </DoubtContainer>
         </template>
@@ -603,27 +481,27 @@ import SelectInstitute from '../../components/SelectInstitute.vue';
 import PostContainer from '@/Pages/common/post-container.vue';
 import DoubtContainer from '@/Pages/doubt/doubt-container.vue';
 import SocialSharing from 'vue-social-sharing';
-import swal from '../../components/swal';
-import FileUpload from 'vue-upload-component';
-import Modal from '../../components/VueNiceModal.vue';
+import FileInput from '@/Shared/FileInput.vue';
 import AboutInstitute from './about-institute.vue';
+import EditInstituteModal from './edit-institute-modal.vue';
 
 export default {
 	components: {
+		EditInstituteModal,
 		AboutInstitute,
 		NavTabs,
 		PostContainer,
 		DoubtContainer,
 		SelectInstitute,
 		SocialSharing,
-		FileUpload,
-		Modal,
+		// FileUpload,
+		FileInput
 	},
 	props:['institute', 'editPermission','instituteVerified'],
 	data() {
 		return {
-			institute_banner_url: '',
-			logo_url: '',
+			institute_banner_image: '',
+			institute_logo_image: '',
 			institute_users: [],
 			institute_contacts: [],
 			edit_institute_contact: {
@@ -632,8 +510,15 @@ export default {
 				phone_no2: '',
 			},
 			edit_institute: {
+				youtube_vedio_url:'',
+				insta_url:'',
+				twitter_url:'',
+				fb_url:'',
+				linkedin_url:'',
 				website: '',
 				address: '',
+				city:'',
+				state:'',
 				moto:'',
 			},
 			user_id: '',
@@ -643,14 +528,6 @@ export default {
 			teachers: [],
 			students: [],
 			posts: [],
-			errors: {
-				fb_url: '',
-				twitter_url: '',
-				insta_url: '',
-				linkedin_url: '',
-				youtube_vedio_url: '',
-			},
-
 			initialTab: 'about',
 			tabs: ['about', 'posts', 'doubts', 'students', 'teachers'],
 			showLoader: true,
@@ -660,6 +537,7 @@ export default {
 			},
 			isEdit: true,
 			new_blog: '',
+			isUpload: false,
 		};
 	},
 	computed: {
@@ -700,83 +578,6 @@ export default {
 		// addAdministrator() {
 		// 	this.$modal.show('editAdminModal');
 		// },
-	
-		async saveProfile() {
-			this.showLoader = true;
-			if (
-				this.institute.fb_url &&
-                !this.institute.fb_url.includes('facebook.com')
-			) {
-				this.errors.fb_url = 'This is not valid Facebook url.';
-				return false;
-			}
-			if (
-				this.institute.twitter_url &&
-			          !this.institute.twitter_url.includes('twitter.com')
-			) {
-				this.errors.twitter_url = 'This is not valid Twitter url.';
-				return false;
-			}
-			if (
-				this.institute.insta_url &&
-			          !this.institute.insta_url.match(/^[a-zA-Z0-9_.]*$/g)
-			) {
-				this.errors.insta_url = 'This is not valid Instagram username.';
-				return false;
-			}
-			if (
-				this.institute.linkedin_url &&
-                !this.institute.linkedin_url.includes('linkedin.com')
-			) {
-				this.errors.linkedin_url = 'This is not valid Linkedin url.';
-				return false;
-			}
-			// if (
-			// 	this.institute.youtube_vedio_url &&
-			//           !this.institute.youtube_vedio_url.includes('youtube.com')
-			// ) {
-			// 	this.errors.youtube_vedio_url = 'This is not valid Youtube url.';
-			// 	return false;
-			// }
-			
-			// if(this.image.file){
-			// 	await this.getBase64(this.image.file).then(file=>{
-			// 		this.institute.profile_pic=file;
-			// 	});
-			// }
-			this.axios
-				.post('/api/save-institute-profile',this.institute, {
-					headers: {
-						'Content-Type': 'multipart/form-data'
-					}
-				})
-				.then((resp) => {
-					this.showLoader = false;
-					swal.successDialog(
-						'Institute Page Updated',
-						'Successfully!',
-						'success'
-					);
-				});
-
-			this.errors = {
-				fb_url: '',
-				twitter_url: '',
-				insta_url: '',
-				linkedin_url: '',
-				youtube_vedio_url: '',
-			};
-		},
-		inputUpdate(files) {
-			this.image = files[0];
-			this.institute_banner_url = URL.createObjectURL(files[0].file);
-		},
-		
-		
-		
-		// set contact data in add edit modal
-		
-	
 		submitCourse() {
 			this.axios
 				.put('/api/preferred-details', {
@@ -791,6 +592,30 @@ export default {
 			this.role = '';
 			this.id = '';
 		},
+		updatebanner(file) {
+			this.isUpload = true;
+			this.getBase64(file).then(file=>{
+				this.institute_banner_image=file;
+			});
+			// this.institute_banner_url = URL.createObjectURL(file);
+			this.data_updated = true;
+		},
+		getBase64(file) {
+			return new Promise((resolve, reject) => {
+				const reader = new FileReader();
+				reader.readAsDataURL(file);
+				reader.onload = () => resolve(reader.result);
+				reader.onerror = error => reject(error);
+			});
+		},
+		uploadlogo(file){
+			this.isUpload = true;
+			this.getBase64(file).then(file=>{
+				this.institute_logo_image=file;
+			});
+			// this.institute_logo_url = URL.createObjectURL(file);
+			this.data_updated = true;
+		}
 	
 	},
 };

@@ -12,7 +12,7 @@
         ref="file"
         type="file"
         :accept="accept"
-        class="hidden"
+        hidden
         @change="change"
       >
       <div
@@ -20,11 +20,13 @@
         class="p-2"
       >
         <button
-          type="button"
-          :class="buttonClass"
+          style="width:30px"
           @click="browse"
         >
-          Browse
+          <i
+            class="fa fa-camera"
+            aria-hidden="true"
+          />
         </button>
       </div>
       <div
@@ -54,7 +56,21 @@
     </div>
   </div>
 </template>
+<style scoped>
+button {
+  background-image: url(/images/cam-icon.webp);
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  border-radius: 50px;
+  /* put the height and width of your image here */
+  border: none;
+}
 
+button span {
+  display: none;
+}
+
+</style>
 <script>
 export default {
 	props: {
@@ -70,7 +86,7 @@ export default {
 			default: () => [],
 		},
 	},
-	emits: ['update:modelValue'],
+	emits: ['update'],
 	watch: {
 		modelValue(value) {
 			if (!value) {
@@ -84,13 +100,15 @@ export default {
 			return (size / Math.pow(1024, i)).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][i];
 		},
 		browse() {
-			this.$refs.file.click();
+			this.$refs['file'].click();
 		},
 		change(e) {
-			this.$emit('update:modelValue', e.target.files[0]);
+			console.log('change');
+			this.$emit('update', e.target.files[0]);
 		},
 		remove() {
-			this.$emit('update:modelValue', null);
+			console.log('remove');
+			this.$emit('update', null);
 		},
 	},
 };

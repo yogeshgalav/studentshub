@@ -83,9 +83,9 @@ export default {
 			default: () => 'autocomplete',
 		},
 		value: {
-			type: String,
+			type: Object,
 			required: true,
-			default: () => 'name',
+			default: () => {},
 		},
 		label: {
 			type: String,

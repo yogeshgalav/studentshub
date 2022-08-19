@@ -142,7 +142,7 @@
     </modal>
   </div>
 </template>
-<style>
+<style scoped>
 .message-comment, .message-comment:focus{
   width:100%;
   border-radius: 20px; 

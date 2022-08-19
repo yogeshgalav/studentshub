@@ -50,13 +50,7 @@
             :dashboard-type="'course'"
           >
             <template slot="empty">
-              <img
-                class="search-not-found"
-                src="/images/search-not-found.png"
-              >
-              <p style="text-align:center;">
-                Currently no Subject have been shared in your course.
-              </p>
+              Currently no Subject have been shared in your course.
             </template>
           </SubjectContainer>
         </template>
@@ -70,13 +64,7 @@
             :share-route="'/share-your-knowledge?cId='+AuthUser.preferred_course_id"
           >
             <template slot="empty">
-              <img
-                class="search-not-found"
-                src="/images/search-not-found.png"
-              >
-              <p style="text-align:center;">
-                Currently no post have been shared in your course.
-              </p>
+              Currently no post have been shared in your course.
             </template>
           </PostContainer>
         </template>
@@ -89,15 +77,7 @@
             :doubt-route="'/course/'+AuthUser.preferred_course_id"
           >
             <template slot="empty">
-              <div>
-                <img
-                  class="search-not-found"
-                  src="/images/search-not-found.png"
-                >
-              </div>
-              <p style="text-align:center;">
-                Currently no doubt have been shared in your course.
-              </p>
+              Currently no doubt have been shared in your course.
             </template>
           </DoubtContainer>
         </template>

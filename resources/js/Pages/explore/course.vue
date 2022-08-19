@@ -23,13 +23,7 @@
           :subjects="subjects"
         >
           <template slot="empty">
-            <img
-              class="search-not-found"
-              src="/images/search-not-found.png"
-            >
-            <p style="text-align:center;">
-              Currently no Subject have been shared in your course.
-            </p>
+            Currently no Subject have been shared in your course.
           </template>
         </SubjectContainer>
       </template>
@@ -52,8 +46,8 @@
       </template>
       <template slot="tab-panel-doubts">
         <DoubtContainer
-          v-if="AuthUser.preferred_course_id"
-          :doubt-route="'/course/'+AuthUser.preferred_course_id"
+          v-if="course.id"
+          :doubt-route="'/course/'+course.id"
         >
           <template slot="empty">
             Currently no doubt have been shared in your course.

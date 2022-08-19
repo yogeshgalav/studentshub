@@ -73,9 +73,6 @@ p{
 	padding: 5px 0px;
 	margin-bottom: 10px;
 }
-p:hover{
-	background-color: #f0f2f5;
-}
 </style>
 <script>
 import CommentSection from './comment-section.vue';

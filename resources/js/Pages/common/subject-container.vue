@@ -1,53 +1,59 @@
 <template>
   <section>
-    <div class="row">
-      <div class="col-md-12">
-        <h1>Create Subject</h1>
-      </div>
-    </div>
-    <hr>
     <form @submit.prevent="addsubject">
       <div class="row">
-        <div class="col-md-5 col-10">
-          <div class="form-group m-0-a">
-            <label for="subject_name">Subject</label>
-            <input
-              id="subject_name"
-              v-model="subject_name"
-              v-validate="'required'"
-              name="subject_name"
-              class="form-control"
-              type="text"
-              placeholder="Enter Subject Name"
-            ><span class="error">{{ formErrors('subject_name') }}</span>
+        <div class="col-md-10 col-sm-12">
+          <div>
+            <div class="card mb-2">
+              <div class="card_post">
+                <div class="card-body">
+                  <div class="">
+                    <div>
+                      <input
+                        id="subject_name"
+                        v-model="subject_name"
+                        v-validate="'required'"
+                        name="subject_name"
+                        class="form-control"
+                        type="text"
+                        placeholder="Enter Subject Name"
+                        style="border: 0px;"
+                      ><span class="error">{{ formErrors('subject_name') }}</span>
            
-            <div class="row">
-              <div class="p-3">
-                <button
-                  type="submit"
-                  class="btn btn-primary btn-md"
-                >
-                  Submit
-                </button>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-10 col-sm-12">
-                <div v-if="!subjects_data.length">
-                  <slot name="empty">
-                    Currently no subject have been shared.
-                  </slot> 
-                </div>
-                <div id="infinite-list">
-                  <div
-                    v-for="(subject,index) in subjects_data"
-                    :key="index"
-                  >
-                    <subject-card
-                      :subject="subject"
-                    />
+            
+                      <div class="mt-3">
+                        <button
+                          v-if="subject_name"
+                          type="submit"
+                          class="btn btn-primary btn-md"
+                        >
+                          Submit
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
+              </div>
+            </div>
+            <div v-if="!subjects_data.length">
+              <img
+                class="search-not-found"
+                src="/images/search-not-found.png"
+              >
+              <p style="text-align:center;">
+                <slot name="empty">
+                  Currently no subject have been shared.
+                </slot> 
+              </p>
+            </div>
+            <div id="infinite-list">
+              <div
+                v-for="(subject,index) in subjects_data"
+                :key="index"
+              >
+                <subject-card
+                  :subject="subject"
+                />
               </div>
             </div>
           </div>
@@ -70,7 +76,8 @@ export default {
 			subjects_data: [],
 			subjects:[],
 			showLoader: false,
-			current_page: 1
+			current_page: 1,
+			subject_name:'',
 		};
        
 	},
@@ -101,12 +108,19 @@ export default {
 		addsubject(){
 			this.showLoader = true;
 			//let loader = this.$loading.show();
-			this.axios.post('/api/'+this.dashboardType+'/'+this.dashboardId+'/add-subject',
-				{
-					subject_name:this.subject_name,
-					dashboard_id:this.dashboardId,
-				}).then((resp)=>{
+			this.axios.post('/api/'+this.dashboardType+'/'+this.dashboardId+'/add-subject',{
+				subject_name:this.subject_name,
+				dashboard_id:this.dashboardId,
+			}).then((resp)=>{
 				this.showLoader = false;
+				this.subjects_data.unshift({
+					id:resp.data.success.subject.id,
+					myvote:null,
+					subject_name:resp.data.success.subject.subject_name,
+					total_downvotes:0,
+					total_upvotes:0,
+				});
+				this.subject_name ='';
 			});
     		},
 	}
