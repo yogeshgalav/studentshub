@@ -17,7 +17,8 @@ use Carbon\Carbon;
 class InstituteUserController extends Controller
 {
 
-    public function updateInstituteUser($instituteId,Request $request){
+    public function updateInstituteUser($instituteId,updateInstituterequest $request){
+
         if($request->user_id){
             $user = User::findOrFail($request->user_id);
             $ins_user = InstituteUser::where('user_id',$user->id)->where('institute_id',$instituteId)->first();

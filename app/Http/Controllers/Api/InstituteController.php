@@ -249,8 +249,9 @@ class InstituteController extends Controller
 
     }
 
-    public function updateStudent(Request $request, User $user)
+    public function updateStudent(updatestudentrequest  $request, User $user)
     {
+        
         $parent = null;
         if ($request->parent_id){
             $parent = User::findOrFail($request->parent_id);
@@ -273,7 +274,9 @@ class InstituteController extends Controller
 
         return response()->json([], 204);
     }
-    public function addAdminiDetails(Request $request){
+    public function addAdminiDetails(addadminDetailsrequest $request){
+
+        $request->validated();
         $instituteId = Auth::user()->preferred_institute_id;
         $otp = rand(11111,99999);
 
@@ -305,7 +308,9 @@ class InstituteController extends Controller
         $institute_user->delete();
         return 'success';
     }
-    public function addOrUpdate(Request $request){
+    public function addOrUpdate(addorupdaterequest $request){
+
+        $request -> validated();
         $instituteId = Auth::user()->preferred_institute_id;
         if($request->edit_institute_contact_id){
             $institute_contacts = InstituteContact::find($request->edit_institute_contact_id);
@@ -380,7 +385,9 @@ class InstituteController extends Controller
             'profile'=>$profile
         ]]);
     }
-    public function updateInstituteBlog(Institute $institute,Request $request) {
+    public function updateInstituteBlog(Institute $institute,updateInstituteBlogrequest $request) {
+
+        $request -> validated();
         $institute->blog = '';
 
         $simple_html_dom = new simple_html_dom;
