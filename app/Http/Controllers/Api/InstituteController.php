@@ -21,7 +21,8 @@ use App\Http\Requests\UpdateInstituteRequest;
 use App\Http\Requests\UpdateStudentRequest;
 use App\Http\Requests\AddAdminDetailsRequest;
 use App\Http\Requests\UpdateInstituteContactRequest;
-
+use App\Http\Requests\SaveBannerRequest;
+use App\Http\Requests\CreateRequest;
 class InstituteController extends Controller
 {
     //
@@ -200,7 +201,7 @@ class InstituteController extends Controller
     }
 
     //only admin access
-    public function create(Request $request){
+    public function create(CreateRequest  $request){
         $institute=Institute::create([
             'name'=>$request->form_data['client_name'],
             'added_by_user_id'=>Auth::id(),
@@ -394,7 +395,9 @@ class InstituteController extends Controller
         ]]);
     }
 
-    public function savebanner(Request $request){
+    public function savebanner(SaveBannerRequest $request){
+
+        $request -> validated();
         
         $me=$request->user('api');
         $banner=Institute::where('added_by_user_id',$me->id)->first();

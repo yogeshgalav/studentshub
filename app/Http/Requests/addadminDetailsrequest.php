@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class addadminDetailsrequest extends FormRequest
+class AddAdminDetailsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class addadminDetailsrequest extends FormRequest
      */
     public function authorize()
     {
-        return True;
+        return true;
     }
 
     /**
@@ -24,12 +24,8 @@ class addadminDetailsrequest extends FormRequest
     public function rules()
     {
         return [
-            'phone_id' => 'required',
-            'full_name' => 'required',
-            'role' => 'required', 
-            'user_id' => 'required',
-            'institute_id' => 'required',
-            'role' => 'required',
+            'phone_no' => 'required|min:11',
+            'name' => 'required|string|max:30'
         ];
     }
 }

@@ -24,7 +24,7 @@ class UpdateInstituteBlogRequest extends FormRequest
     public function rules()
     {
         return [
-            'new_blog'=>'required|string'
+            'id'=>'required',
         ];
     }
 }

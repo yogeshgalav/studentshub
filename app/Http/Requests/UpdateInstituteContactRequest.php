@@ -24,7 +24,13 @@ class UpdateInstituteContactRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'edit_institute_contact_id' => 'nullable',
+            'edit_institute_contact_id' => 'nullable',
+            'email' => 'required|email|unique:users,email',
+            'phone_no' => 'required|min:11',
+            'phone_no2' => 'nullable|min:11',
+            'whatsapp_no' => 'required', 
+            'department' => 'required',
         ];
     }
 }

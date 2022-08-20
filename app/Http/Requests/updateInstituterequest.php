@@ -24,10 +24,18 @@ class UpdateInstituteRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'required',
-            'name' => 'required',
+            'id' =>'nullable|exists',
+            'name' => 'required|max:50',
             'fb_url' => 'required',
-            'role' => 'required'
+            'role' => 'required',
+            'website' =>'nullable|exists',
+            'address' => 'required',
+            'city' => 'required',
+            'state' => 'required',
+            'moto' => 'required',
+            'twitter_url' => 'required',
+            'insta_ur' => 'nullable',
+            'twitter_url' => 'required',
         ];
     }
 }

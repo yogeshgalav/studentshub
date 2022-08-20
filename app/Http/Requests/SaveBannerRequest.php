@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateStudentRequest extends FormRequest
+class SaveBannerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,8 @@ class UpdateStudentRequest extends FormRequest
     public function rules()
     {
         return [
-            'parent_id' => 'nullable',
-            'parent_name' =>'required||max:120',
-            'parent_email' => 'required|email|unique:users,email,'.$user->id,
-            'parent_phone' => 'required|min:11|numeric',
-            'preferred_institute_id' => 'nullable',
+            'banner_pic' => 'required|image|size:5048|mimes:png,jpeg,gif',
+            'id' => 'required',
         ];
     }
 }
