@@ -278,7 +278,7 @@ class InstituteController extends Controller
     }
     public function addAdminiDetails(AddAdminDetailsRequest $request){
 
-        $request->validated();
+        
         $instituteId = Auth::user()->preferred_institute_id;
         $otp = rand(11111,99999);
 
@@ -397,7 +397,7 @@ class InstituteController extends Controller
 
     public function savebanner(SaveBannerRequest $request){
 
-        $request -> validated();
+        
         
         $me=$request->user('api');
         $banner=Institute::where('added_by_user_id',$me->id)->first();
@@ -429,6 +429,8 @@ class InstituteController extends Controller
         ]]);
     }
     public function updateInstituteBlog(Institute $institute,UpdateInstituteBlogRequest $request) {
+
+        $request -> validated();
         $institute->blog = '';
 
         $simple_html_dom = new simple_html_dom;

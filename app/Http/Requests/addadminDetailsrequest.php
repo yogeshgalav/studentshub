@@ -25,7 +25,7 @@ class AddAdminDetailsRequest extends FormRequest
     {
         return [
             'phone_no' => 'required|min:11',
-            'name' => 'required|string|max:30'
+            'name' => 'required|string|max:30',
         ];
     }
 }

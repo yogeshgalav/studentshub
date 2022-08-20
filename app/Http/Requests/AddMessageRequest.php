@@ -25,7 +25,7 @@ class AddMessageRequest extends FormRequest
     {
         return [
             'chatroom_id'=>'required|exists:chatrooms,id',
-            'content'=>'required',
+            'content' => 'required',
             ];
     }
 }

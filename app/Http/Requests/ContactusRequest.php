@@ -26,7 +26,7 @@ class ContactusRequest extends FormRequest
         return [
             "description"=>"required|string",
             "email"=>"required|email",
-            "name"=>"required|string",
+            "name"=> "required|string",
         ];
     }
 }

@@ -25,7 +25,7 @@ class addorupdaterequest extends FormRequest
     {
         return [
             'email'  => 'required',
-            'phone_no'  => 'required',
+            'phone_no'  => 'required|min:11',
             'phone_no2'  => 'nullable',
             'whatsapp_no'  => 'required',
             'department'  => 'required',

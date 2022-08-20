@@ -24,11 +24,11 @@ class UpdateInstituteRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' =>'nullable|exists',
+            'id' => 'nullable|exists',
             'name' => 'required|max:50',
             'fb_url' => 'required',
             'role' => 'required',
-            'website' =>'nullable|exists',
+            'website' => 'nullable|exists',
             'address' => 'required',
             'city' => 'required',
             'state' => 'required',

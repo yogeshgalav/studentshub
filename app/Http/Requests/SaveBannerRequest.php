@@ -24,7 +24,7 @@ class SaveBannerRequest extends FormRequest
     public function rules()
     {
         return [
-            'banner_pic' => 'required|image|size:5048|mimes:png,jpeg,gif',
+            'banner_pic' =>'required|image|size:5048|mimes:png,jpeg,gif',
             'id' => 'required',
         ];
     }

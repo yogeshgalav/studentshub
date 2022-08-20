@@ -26,7 +26,7 @@ class UpdateStudentRequest extends FormRequest
         return [
             'parent_id' => 'nullable',
             'parent_name' =>'required||max:120',
-            'parent_email' => 'required|email|unique:users,email,'.$user->id,
+            'parent_email' => 'required|email|unique:users,email',
             'parent_phone' => 'required|min:11|numeric',
             'preferred_institute_id' => 'nullable',
         ];
