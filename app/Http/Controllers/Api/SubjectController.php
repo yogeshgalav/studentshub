@@ -54,7 +54,7 @@ class SubjectController extends Controller
         ]]);
       }
     
-      public function getSubjects($dashboard_type=null,$dashboard_id=null,Request $request){
+    public function getSubjects($dashboard_type=null,$dashboard_id=null,Request $request){
         $subject_repo=new \App\Subject;
         $subject_query=$subject_repo->getAuthUserSubjectTabels();
         $subject_query=$subject_query->orderBy('su.created_at','DESC');
@@ -80,24 +80,29 @@ class SubjectController extends Controller
             $subject_query=$subject_query;
             break;
         }
-        $me_id = $request->user('api')->id;
-        $subject_vote=$subject_query
-        ->leftJoin('votes as my_vote',function($join)use($me_id){
-          $join->on('su.id','=','my_vote.subject_id')->where('my_vote.user_id','=',$me_id);
-        })
-        ->leftJoin('votes as total_upvote',function($join){
-            $join->on('su.id','=','total_upvote.subject_id')->where('total_upvote.status','=',1);
-        })
-          ->leftJoin('votes as total_downvote',function($join){
-            $join->on('su.id','=','total_downvote.subject_id')->where('total_downvote.status','=',0);
-        })
-        ->select('su.id','su.subject_name',DB::raw('COUNT(DISTINCT total_upvote.id) as total_upvotes'),
-        DB::raw('COUNT(DISTINCT total_downvote.id) as total_downvotes'), 'my_vote.status as myvote')
-        ->groupBy('su.id','su.subject_name', 'my_vote.status');
         
         if($request->user('api')){
+          $me_id = $request->user('api')->id;
+          $subject_vote=$subject_query
+          ->leftJoin('votes as my_vote',function($join)use($me_id){
+            $join->on('su.id','=','my_vote.subject_id')->where('my_vote.user_id','=',$me_id);
+          })
+          ->leftJoin('votes as total_upvote',function($join){
+              $join->on('su.id','=','total_upvote.subject_id')->where('total_upvote.status','=',1);
+          })
+            ->leftJoin('votes as total_downvote',function($join){
+              $join->on('su.id','=','total_downvote.subject_id')->where('total_downvote.status','=',0);
+          })
+          ->select('su.id','su.subject_name',DB::raw('COUNT(DISTINCT total_upvote.id) as total_upvotes'),
+          DB::raw('COUNT(DISTINCT total_downvote.id) as total_downvotes'), 'my_vote.status as myvote')
+          ->groupBy('su.id','su.subject_name', 'my_vote.status');
+
           $subjects=$subject_repo->formatSubjectData($subject_vote->paginate(10));
         }else{
+          $subject_vote=$subject_query
+          ->select('su.id','su.subject_name')
+          ->groupBy('su.id','su.subject_name');
+
           $subjects['data']=$subject_repo->formatSubjectData($subject_vote->limit(10)->get());
         }
       

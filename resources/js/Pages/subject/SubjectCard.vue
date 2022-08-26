@@ -5,7 +5,7 @@
         <div class="dashboard_post">
           <div>
             <p
-              class="text-blue font-size-16 mb-2 ml-2"
+              class="text-blue font-size-24 weight-600 mb-2 ml-2"
             >
               <span>
                 {{ subject.subject_name }}
@@ -13,8 +13,12 @@
             </p>
           </div>
         </div>
-        <hr>
-        <div class="row">
+        
+        <div
+          v-if="AuthUser"
+          class="row"
+        >
+          <hr>
           <div class="col-md-5 col-6"> 
             <button
               type="button"

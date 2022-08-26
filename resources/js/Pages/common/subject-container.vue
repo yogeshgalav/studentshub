@@ -4,7 +4,10 @@
       <div class="row">
         <div class="col-md-10 col-sm-12">
           <div>
-            <div class="card mb-2">
+            <div
+              v-if="AuthUser"
+              class="card mb-2"
+            >
               <div class="card_post">
                 <div class="card-body">
                   <div class="">
