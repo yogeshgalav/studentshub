@@ -9,7 +9,7 @@ use App\Notifications\NewDoubtNotification;
 use App\Notifications\NewPostNotification;
 use App\Notifications\DailyAssignmentActivateNotification;
 use App\Notifications\NewHomeworkNotification;
-use App\Notifications\NewClassroomMessageNotification;
+use App\Notifications\NewChatroomMessageNotification;
 use App\Notifications\NewCommentNotification;
 use App\Notifications\NewLikeNotification;
 use App\Jobs\SendNotificationJob;
@@ -115,13 +115,11 @@ class ScheduledJob extends Model
             'classroom_id'=> $homework->classroom_id,
         ]);
     }
-    public static function newClassroomMessageNotification(Classroom $classroom){
+    public static function newChatroomMessageNotification(){
         return self::create([
             'run_at' => Carbon::now('UTC'),
-            'job_type' => ClassroomNotificationJob::class,
-            'notification_class_name' => NewClassroomMessageNotification::class,
+            'notification_class_name' => NewChatroomMessageNotification::class,
             'scheduled_by_user_id'=>Auth::id(),
-            'classroom_id'=> $classroom->id,
         ]);
     }
     public static function NewPostNotification(Post $post){

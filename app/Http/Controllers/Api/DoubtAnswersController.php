@@ -87,9 +87,9 @@ class DoubtAnswersController extends Controller
     public function getDoubtanswers(Doubt $doubt,Request $request)
     {
         $doubt_details=Doubt::where('doubts.id',$doubt->id)
-        ->join('users as us','us.id','=','doubts.user_id')
+        ->leftJoin('users as us','us.id','=','doubts.user_id')
         ->leftJoin('institutes as inst','inst.id','=','us.preferred_institute_id')
-        ->join('categories as cat','cat.id','=','doubts.category_id')
+        ->leftJoin('categories as cat','cat.id','=','doubts.category_id')
         ->select('us.full_name as user_name','us.avatar_url as profile_image','cat.name as category_name','inst.name as inst_name',
         'doubts.question','doubts.created_at','doubts.id')
         ->with('subjects')

@@ -4,7 +4,10 @@
       <div class="row">
         <div class="col-md-10 col-sm-12">
           <div>
-            <div class="card mb-2">
+            <div
+              v-if="AuthUser"
+              class="card mb-2"
+            >
               <div class="card_post">
                 <div class="card-body">
                   <div class="">
@@ -36,9 +39,15 @@
               </div>
             </div>
             <div v-if="!subjects_data.length">
-              <slot name="empty">
-                Currently no subject have been shared.
-              </slot> 
+              <img
+                class="search-not-found"
+                src="/images/search-not-found.png"
+              >
+              <p style="text-align:center;">
+                <slot name="empty">
+                  Currently no subject have been shared.
+                </slot> 
+              </p>
             </div>
             <div id="infinite-list">
               <div

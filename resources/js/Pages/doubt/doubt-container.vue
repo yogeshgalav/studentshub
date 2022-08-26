@@ -28,9 +28,15 @@
           </div>
         </div>
         <div v-if="!doubts_data.length">
-          <slot name="empty">
-            No doubt present yet
-          </slot> 
+          <img
+            class="search-not-found"
+            src="/images/search-not-found.png"
+          >
+          <p style="text-align: center">
+            <slot name="empty">
+              No doubt present yet
+            </slot> 
+          </p>
         </div>
         <div id="infinite-list">
           <div

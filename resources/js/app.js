@@ -66,14 +66,6 @@ Object.defineProperty(Vue.prototype, '$gtag', {
 import VueLoading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 Vue.use(VueLoading);
-	
-let loader = null;
-Inertia.on('start', (event) => {
-	loader = Vue.$loading.show();
-});
-Inertia.on('finish', (event) => {
-	loader.hide();
-});
   
 import Layout from '@/Layouts/SidebarLayout.vue';
 import GlobalMixin from '@/global-mixin.js';

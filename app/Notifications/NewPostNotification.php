@@ -14,7 +14,6 @@ class NewPostNotification extends SthubNotification
     use Queueable;
     public $scheduled_job;
     public $user;
-    public $classroom;
     /**
      * Create a new notification instance.
      *
@@ -24,7 +23,6 @@ class NewPostNotification extends SthubNotification
     {
         $this->scheduled_job=$scheduled_job;
         $this->user=$scheduled_job->fromUser;
-        $this->classroom=$scheduled_job->classroom;
         $this->post=Post::find($scheduled_job->job_body['post_id']);
     }
     /**
@@ -44,9 +42,6 @@ class NewPostNotification extends SthubNotification
         }
         if (empty($this->user)) {
             return $this->abortSending('The user was not found');
-        }
-        if (empty($this->classroom)) {
-            return $this->abortSending('The classroom was not found');
         }
         return false;
     }
@@ -90,7 +85,7 @@ class NewPostNotification extends SthubNotification
             'avatar_url'=>$this->user->avatar_url,
             'avatar_name'=>$this->user->full_name,
             'url'=>"/post/".$this->post->id,
-            'body' => $this->user->full_name." has added a new post for the subject " . $this->classroom->subject->subject_name . ".",
+            'body' => $this->user->full_name." has added a new post for the category " . $this->post->category->name . ".",
         ];
     }
 }

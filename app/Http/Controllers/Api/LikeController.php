@@ -8,7 +8,7 @@ use App\Models\Like;
 use App\Models\Post;
 use App\Models\Doubt;
 use App\Models\ClassroomResource;
-use App\Models\ClassroomMessage;
+use App\Models\ChatroomMessage;
 use App\Models\ScheduledJob;
 use Auth;
 
@@ -35,8 +35,8 @@ class LikeController extends Controller
                 break;
             
             case 'message':
-                $likable=ClassroomMessage::findOrFail($id);
-                $likable_type=ClassroomMessage::class;
+                $likable=ChatroomMessage::findOrFail($id);
+                $likable_type=ChatroomMessage::class;
         }
         $like=Like::where('likable_id','=',$likable->id)->where('likable_type','=', $likable_type)->where('user_id','=',$me->id)->first();
         if($like){

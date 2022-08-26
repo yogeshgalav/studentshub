@@ -8,7 +8,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use App\Channels\CustomDbChannel;
 
-class NewClassroomMessageNotification extends SthubNotification
+class NewChatroomMessageNotification extends SthubNotification
 {
     use Queueable;
     public $scheduled_job;

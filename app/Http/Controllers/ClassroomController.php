@@ -133,7 +133,7 @@ class ClassroomController extends Controller
     public function classroomResoucePage(){
         return inertia('classroom/resources');
     }
-    public function classroomMessagePage(){
+    public function ChatroomMessagePage(){
         return inertia('classroom/messages');
     }
 

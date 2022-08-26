@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Models\Post;
 use App\Models\ClassroomResource;
-use App\Models\ClassroomMessage;
+use App\Models\ChatroomMessage;
 use App\Models\Doubt;
 use App\Models\Comment;
 use App\Models\Homework;
@@ -29,7 +29,7 @@ class CommentController extends Controller
             $model = ClassroomResource::class;
             break;
             case 'message':
-            $model = ClassroomMessage::class;
+            $model = ChatroomMessage::class;
             break;    
             case 'homework':
             $model = Homework::class;
@@ -64,8 +64,8 @@ class CommentController extends Controller
             $model = ClassroomResource::class;
             break;
             case 'message':
-            $commentable=ClassroomMessage::findOrFail($commentable_id);
-            $model = ClassroomMessage::class;
+            $commentable=ChatroomMessage::findOrFail($commentable_id);
+            $model = ChatroomMessage::class;
             break;
             case 'homework':
             $commentable=Homework::findOrFail($commentable_id);
