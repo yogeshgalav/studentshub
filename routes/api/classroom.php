@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\ClassroomMessageController;
+use App\Http\Controllers\Api\ChatroomMessageController;
 use App\Http\Controllers\Api\ClassroomController;
 
 Route::group(['middleware'=>['auth:api']],function(){
@@ -36,10 +36,10 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::put('/resource/{resource}','ClassroomResourceController@edit');
     Route::delete('/resource/{resource}','ClassroomResourceController@delete');
     //messages
-    Route::post('/add-message/{chatroomId}',[ClassroomMessageController::class, 'addmessage']);
-    Route::post('/delete-message',[ClassroomMessageController::class, 'deletemessage']);
-    Route::post('/edit-message', [ClassroomMessageController::class, 'editmessage']);
-    Route::get('/chatroom-messages/{chatroomId?}',[ClassroomMessageController::class,'listmessage']);
+    Route::post('/add-message/{chatroomId}',[ChatroomMessageController::class, 'addmessage']);
+    Route::post('/delete-message',[ChatroomMessageController::class, 'deletemessage']);
+    Route::post('/edit-message', [ChatroomMessageController::class, 'editmessage']);
+    Route::get('/chatroom-messages/{chatroomId?}',[ChatroomMessageController::class,'listmessage']);
     
     //student classroom routes
     Route::post('/classroom/join',[ClassroomController::class, 'joinClassroom']);

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Haruncpi\LaravelUserActivity\Traits\Loggable;
 
-class ClassroomMessage extends Model
+class ChatroomMessage extends Model
 {
     protected  $guarded = ['id', 'created_at', 'updated_at'];
     use Loggable;

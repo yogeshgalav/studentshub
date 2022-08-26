@@ -17,7 +17,7 @@ use DB;
 use App\Http\Requests\JoinClassroomRequest;
 use Carbon\Carbon;
 
-class ClassroomMessageController extends Controller
+class ChatroomMessageController extends Controller
 {
     public function listmessage($chatroomId = null, Request $request){
         $messagequery = Messages::leftJoin('users as us','us.id','=','messages.sender_user_id')
@@ -56,7 +56,7 @@ class ClassroomMessageController extends Controller
             'content'=>$request->content,
            ]);
         
-     //   ScheduledJob::newMessagesNotification($classroom);
+     //   ScheduledJob::newChatroomMessageNotification();
         
         return response()->json(['success'=>[
             'message'=>$message
