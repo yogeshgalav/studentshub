@@ -5,7 +5,7 @@
         <div class="dashboard_post">
           <div>
             <p
-              class="text-blue font-size-24 weight-600 mb-2 ml-2"
+              class="text-blue font-size-24 weight-600 mb-0 ml-2"
             >
               <span>
                 {{ subject.subject_name }}

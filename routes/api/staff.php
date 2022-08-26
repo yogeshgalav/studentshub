@@ -14,4 +14,6 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('/lead/{userId}', 'LeadController@userLead');
     Route::post('/insights', 'InsightsController@index');
     Route::get('/institutes', 'InstituteController@adminIndex');
+    Route::get('/user-feedbacks', 'FeedbackController@index');
+
 });
