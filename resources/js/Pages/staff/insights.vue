@@ -31,8 +31,12 @@
     </div>
     <div class="row">
       <single-value
-        :value="users"
-        label="Total Users"
+        :value="registeration"
+        label="Total Registerations"
+      />
+      <single-value
+        :value="active_user"
+        label="Total Active User"
       />
       <single-value
         :value="phones"
@@ -45,6 +49,18 @@
       <single-value
         :value="students"
         label="Total Students"
+      />
+      <single-value
+        :value="posts"
+        label="Total Posts"
+      />
+      <single-value
+        :value="sthub_posts"
+        label="Total Sthub Posts"
+      />
+      <single-value
+        :value="doubts"
+        label="Total Doubts"
       />
     </div>
   </div>
@@ -60,7 +76,11 @@ export default {
 	data(){
 		return {
 			students:0,
-			users:0,
+			registeration:0,
+			active_user:0,
+			posts:0,
+			doubts:0,
+			sthub_posts:0,
 			phones:0,
 			institutes:0,
 			last_days:7,
@@ -74,7 +94,11 @@ export default {
 			this.axios.post('/api/insights',{days:this.last_days})
 				.then((resp)=>{
 					this.students = resp.data.success.students;
-					this.users = resp.data.success.users;
+					this.registeration = resp.data.success.registeration;
+					this.active_user = resp.data.success.active_user;
+					this.posts = resp.data.success.posts;
+					this.doubts = resp.data.success.doubts;
+					this.sthub_posts = resp.data.success.sthub_posts;
 					this.phones = resp.data.success.phones;
 					this.institutes = resp.data.success.institutes;
 				});

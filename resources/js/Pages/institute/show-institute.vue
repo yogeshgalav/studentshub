@@ -378,8 +378,7 @@
         </template>
         <template slot="tab-panel-posts">
           <PostContainer
-            v-if="AuthUser.preferred_institute_id"
-            :post-route="'/institute/' + AuthUser.preferred_institute_id"
+            :post-route="'/institute/' + institute.id"
           >
             <template slot="empty">
               Currently no post have been shared in your institute.
@@ -391,8 +390,7 @@
         </template>
         <template slot="tab-panel-doubts">
           <DoubtContainer
-            v-if="AuthUser.preferred_institute_id"
-            :doubt-route="'/institute/'+AuthUser.preferred_institute_id"
+            :doubt-route="'/institute/'+ institute.id"
           >
             <template slot="empty">
               Currently no doubt have been shared in your institute.
@@ -529,7 +527,7 @@ export default {
 			students: [],
 			posts: [],
 			initialTab: 'about',
-			tabs: ['about', 'posts', 'doubts', 'students', 'teachers'],
+			tabs: ['about', 'students', 'teachers', 'posts', 'doubts'],
 			showLoader: true,
 			selected_institute: {
 				id: null,
@@ -560,7 +558,7 @@ export default {
 		this.loadInstitute();
 		if (!this.editPermission && !this.instituteVerified) {
 			this.tabs.shift();
-			this.initialTab = 'posts';
+			this.initialTab = 'students';
 		} 
 	},
 	methods: {
