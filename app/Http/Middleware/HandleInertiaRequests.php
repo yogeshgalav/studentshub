@@ -4,8 +4,8 @@ namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
 use Inertia\Middleware;
-use URL;
-use App\Facades\Auth;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Auth;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -38,8 +38,9 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request)
     {
+        $me = Auth::user();
         return array_merge(parent::share($request), [
-            'AuthUser' => Auth::user(),
+            'AuthUser' => $me ? $me->only(['id','full_name','role','avatar_url']) : null,
             'csrfToken' => csrf_token(),
             'baseUrl' => URL::to('/'),
             // 'mode' => config('app.env'),

@@ -7,6 +7,7 @@ use App\Facades\Sthub;
 use Haruncpi\LaravelUserActivity\Traits\Loggable;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
+use Illuminate\Support\Facades\Auth;
 
 class Institute extends Model
 {
@@ -38,6 +39,8 @@ class Institute extends Model
         
         $new = self::firstOrCreate([
             'name'=>$institute['name'],
+        ],[
+            'added_by_user_id' => Auth::id()
         ]);
         return $new->id;
     }

@@ -18,7 +18,7 @@ class StaffController extends Controller
 
     public function institutes()
     {
-        return inertia('staff/institutes');
+        return inertia('institute/index-institute');
     }
 
     public function leadIndexPage()

@@ -19,12 +19,14 @@
         v-if="!modelValue"
         class="p-2"
       >
-        <button @click="$refs['file'].click()">
-          <img
-            src="/images/cam-icon.webp"
-            style="width:30px"
-            @click="browse"
-          >
+        <button
+          style="width:30px"
+          @click="browse"
+        >
+          <i
+            class="fa fa-camera"
+            aria-hidden="true"
+          />
         </button>
       </div>
       <div
@@ -84,7 +86,7 @@ export default {
 			default: () => [],
 		},
 	},
-	emits: ['update:modelValue'],
+	emits: ['update'],
 	watch: {
 		modelValue(value) {
 			if (!value) {
@@ -98,8 +100,7 @@ export default {
 			return (size / Math.pow(1024, i)).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][i];
 		},
 		browse() {
-			console.log('browse');
-			this.$refs.file.click();
+			this.$refs['file'].click();
 		},
 		change(e) {
 			console.log('change');
