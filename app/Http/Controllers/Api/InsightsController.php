@@ -16,8 +16,12 @@ class InsightsController extends Controller
         ->where('created_at', '>', Carbon::now()->subDays($days))
         ->count();
 
-        $users = DB::table('users')
+        $registeration = DB::table('users')
         ->where('created_at', '>', Carbon::now()->subDays($days))
+        ->count();
+
+        $active_user = DB::table('users')
+        ->where('last_seen_at', '>', Carbon::now()->subDays($days))
         ->count();
 
         $phone = DB::table('user_phones')
@@ -28,9 +32,25 @@ class InsightsController extends Controller
         ->where('created_at', '>', Carbon::now()->subDays($days))
         ->count();
 
+        $posts = DB::table('posts')
+        ->where('created_at', '>', Carbon::now()->subDays($days))
+        ->count();
+
+        $sthub_posts = DB::table('sthub_posts')
+        ->where('created_at', '>', Carbon::now()->subDays($days))
+        ->count();
+
+        $doubts = DB::table('doubts')
+        ->where('created_at', '>', Carbon::now()->subDays($days))
+        ->count();
+
         return response()->json(['success' => [
              'students' => $student,
-             'users' => $users,
+             'registeration' => $registeration,
+             'active_user' => $active_user,
+             'posts' => $posts,
+             'sthub_posts' => $sthub_posts,
+             'doubts' => $doubts,
              'phones' => $phone,
              'institutes' => $institute,
         ]]);
