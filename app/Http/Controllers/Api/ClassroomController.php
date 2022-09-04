@@ -11,7 +11,8 @@ use App\Models\ClassroomUser;
 use App\Models\Student;
 use App\Http\Requests\CreateClassroomRequest;
 use DB;
-use Auth;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Teacher;
 use Illuminate\Support\Facades\Log;
 
 class ClassroomController extends Controller
@@ -80,6 +81,12 @@ class ClassroomController extends Controller
             'course_id'=>$course->id,
         ]);
         
+        $teacher=new Teacher;
+        $teacher->user_id=Auth::id();
+        $teacher->institute_id=$institute->id;
+        $teacher->course_id=$course->id;
+        $teacher->save();
+
         $classroom=new Classroom;
         $classroom->name=$request->classroom_name;
         $classroom->teacher_user_id=Auth::id();
@@ -140,7 +147,7 @@ class ClassroomController extends Controller
         return response()->json([
             'success'=>[
                 'classrooms' => $classrooms,
-                'canCreateClassroom' => $request->user('api')->isInstituteMember(),
+                'canCreateClassroom' => $request->user('api')->isInstituteAdmin(),
             ]
         ]);
     }

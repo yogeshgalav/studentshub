@@ -449,9 +449,7 @@ export default {
 					this.teachers.splice(index,1);		
 				});
 		},
-    
-    	addStudentDetails()
-		{
+		addStudentDetails(){
 			 let loader = this.$loading.show();
       	this.axios.put(this.baseUrl + '/api/preferred-details',{
     		preferred_institute:this.edit_institute,	
