@@ -69,11 +69,11 @@
         </div>
       </div>
     </div>
-    <div class="single_post_page">
-      <div class="container">
+    <div class="single_post_page full-bleed">
+      <div class="">
         <div class="row">
           <div class="col-md-12">
-            <div class="single_post_head">
+            <div class="single_post_head ">
               <h4 class="weight-400">
                 {{ postContent.subject_name }}
               </h4>
@@ -165,7 +165,7 @@
         </div>
       </div>
     </div>
-    <div class="container ptb-50">
+    <div class="ptb-50">
       <div class="col-md-10 col-12 center-col">
         <div class="row">
           <div class="col-md-12">
@@ -306,12 +306,12 @@
         class="comment"
       />
     </div>
-    <div class="single_page_post_card">
-      <div class="bg-gray s_p_c">
+    <div class="single_post_page full-bleed">
+      <div class="p-4">
         <h3 class="post_like_head">
           You May Also Like
         </h3>
-        <div class="container">
+        <div class="">
           <div class="row">
             <div
               v-for="(ps, index) in most_liked"
@@ -408,6 +408,10 @@
   </section>
 </template>
 <style scoped>
+.full-bleed {
+  box-shadow: 0 0 0 100vmax #f6f6f6;
+  clip-path: inset(0 -100vmax);
+}
 .single_post {
     width: 100%;
 }
@@ -613,7 +617,6 @@ h6.card-title-tag.font-size-12 a {
 .post_view_head {
     display: flex;
     justify-content: space-between;
-    padding: 25px;
     width: 100%;
     /* left: 0;
     right: 0; */
@@ -636,7 +639,6 @@ h6.card-title-tag.font-size-12 a {
   .post_view_head {
         background-color: white;
         margin-top: 0px;
-        padding: 10px;
         box-shadow: 0 0 7px rgba(0, 0, 0, 0.12);
         bottom: 0px;
     }

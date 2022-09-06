@@ -9,6 +9,7 @@
           :items="institute_list"
           :label="'name'"
           name="institute_name"
+          placeholder="School/Coaching/College/University"
           :is-async="true"
           :is-loading="instituteLoading"
           @search="getInstitutes"

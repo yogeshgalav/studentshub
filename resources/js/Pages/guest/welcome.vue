@@ -1,7 +1,7 @@
 <template>
   <main>
     <Head>
-      <title>Home</title>
+      <title>Student's Hub</title>
     </Head>
     <explore-carousal-post />
     <div class="p-4 text-center">

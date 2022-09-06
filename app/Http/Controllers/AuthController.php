@@ -113,9 +113,9 @@ class AuthController extends Controller
         try {
             $input = $request->all();
             $user = new User;
-            $user->full_name = $input['full_name'];
-            $user->role = $input['role'];
-            $user->email = $input['email'] ?? null;
+            $user->full_name = $request->full_name;
+            $user->role = $request->role;
+            $user->email = $request->email ?? null;
             $user->fcm_token = $request->fcm_token;
             $user->phone_id = $user_phone->id;
             $user->onboarded_at = \Carbon\Carbon::now()->toDateTimeString();
@@ -135,7 +135,16 @@ class AuthController extends Controller
             'via App'=>$request->fcmToken ? true : false,
             'ip'=>$request->ip(),
         ]);
+
         $success['redirectUrl'] = '/';
+        switch($request->role){
+            case 'teacher':
+            $success['redirectUrl'] = '/classrooms';
+            break;
+            case 'instituteAdmin':
+            $success['redirectUrl'] = '/my-institute';
+            break;
+        }
 
         DB::beginTransaction();
         try {

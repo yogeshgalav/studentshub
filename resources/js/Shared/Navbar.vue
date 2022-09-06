@@ -22,6 +22,7 @@
             class="headerBellIcon btn"
           >
             <i class="far fa-bell notification-icon" />
+            <span class="red-badge" />
           </router-link>
         </div>
         <div class="profile-dropdown dropleft">
@@ -56,6 +57,7 @@
               class="fa fa-bars alignment ml-2"
               aria-hidden="true"
             />
+            <span class="red-badge" />
           </button>
 
           <div class="dropdown">
@@ -89,6 +91,7 @@
                 class="far fa-bell notification-icon"
                 style="margin-top:4px"
               />
+            <span class="red-badge" />
             </router-link>
           </div>
           <div>

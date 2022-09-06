@@ -105,13 +105,24 @@ class User extends Authenticatable
         $this->attributes['full_name'] = ucwords($value);
     }
 
-    public function isInstituteMember(){
+    public function isInstituteAdmin(){
         return \DB::table('institute_users')
+            ->where('user_id',$this->id)
+            // ->where('parent_admin',true)
+            ->exists();
+    }
+    public function isStaff(){
+        return \DB::table('admins')
             ->where('user_id',$this->id)
             ->exists();
     }
-    public function isAdmin(){
-        return \DB::table('admins')
+    public function isStudent(){
+        return \DB::table('student')
+            ->where('user_id',$this->id)
+            ->exists();
+    }
+    public function isTeacher(){
+        return \DB::table('teacher')
             ->where('user_id',$this->id)
             ->exists();
     }
@@ -163,8 +174,5 @@ class User extends Authenticatable
             return false;
         }
         return true;
-    }
-    public function isStaff(){
-        return $this->role==='sthub_staff';
     }
 }
