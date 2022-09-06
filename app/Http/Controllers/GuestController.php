@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Faq;
-use App\Models\Category;
+use App\Models\Student;
 use App\Models\User;
 
 class GuestController extends Controller
@@ -93,7 +93,13 @@ class GuestController extends Controller
     {
         $me = Auth::user();
         if ($me) {
-            return inertia('common/dashboard');
+            $studentDetailsRequired = false;
+            if('student'===$me->role){
+                $studentDetailsRequired = !(Student::where('user_id', $me->id)->exists());
+            }
+            return inertia('common/dashboard',[
+                'studentDetailsRequired'=>$studentDetailsRequired
+            ]);
         }
         return inertia('guest/welcome');
     }
