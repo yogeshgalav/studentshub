@@ -12,7 +12,7 @@
             </div>
           </div>
         </div>
-        <div v-if="studentDetailsRequired">
+        <div v-if="studentDetailsRequired && !student_submited">
           <div class="card">
             <div class="card-body">
               <form>
@@ -71,7 +71,7 @@ export default {
 	},
 	methods:{
 		saveStudent(){
-			this.axios.post('/api/preferred-details',{
+			this.axios.put('/api/preferred-details',{
 				preferred_institute:this.preferred_institute,
 				preferred_course:this.preferred_course,
 			}).then((resp)=>{
