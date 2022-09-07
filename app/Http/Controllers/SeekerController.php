@@ -18,6 +18,7 @@ class SeekerController extends Controller
 
     //     return redirect('/');
     // }
+    
     public function profile($profileId, Request $request)
     {   
         $me_id = Auth::user()->id;
@@ -30,23 +31,22 @@ class SeekerController extends Controller
             ->first();
 
         $follower = \App\Models\User::where('users.id', $profileId)
-            ->leftJoin('follows as my_follow',function($join)use($me_id){
-                $join->on('users.id','=','my_follow.following_id')->where('my_follow.followed_by_id','=',$me_id);
+            ->leftJoin('followers as my_follow',function($join)use($me_id){
+                $join->on('users.id','=','my_follow.user_id')->where('my_follow.follower_user_id','=',$me_id);
               })
-            ->leftJoin('follows as total_followers',function($join){
-                  $join->on('users.id','=','total_followers.following_id')->where('total_followers.follow_status','=',1);
+            ->leftJoin('followers as total_followers',function($join){
+                  $join->on('users.id','=','total_followers.user_id');
               })
-            ->select(DB::raw('COUNT(DISTINCT total_followers.id) as total_followers'), 'my_follow.follow_status as myfollow')
-            ->groupBy('my_follow.follow_status') 
+            ->select(DB::raw('COUNT(DISTINCT total_followers.id) as total_followers')) 
             ->first();
 
-            $follows=DB::table('follows as followers')
-            ->leftjoin('users as us', 'followers.followed_by_id','=','us.id')->where('followers.following_id','=',$profileId)
-            ->select('followers.followed_by_id','us.full_name','followers.following_id')->get();
+            $follows=DB::table('followers as followers')
+            ->leftjoin('users as us', 'followers.follower_user_id','=','us.id')->where('followers.user_id','=',$profileId)
+            ->select('followers.follower_user_id','us.full_name','followers.user_id')->get();
             
-            $followings=DB::table('follows as following')
-            ->leftjoin('users as us', 'following.following_id','=','us.id')->where('following.followed_by_id','=',$profileId)
-            ->select('following.followed_by_id','us.full_name','following.following_id')->get();
+            $followings=DB::table('followers as following')
+            ->leftjoin('users as us', 'following.user_id','=','us.id')->where('following.follower_user_id','=',$profileId)
+            ->select('following.follower_user_id','us.full_name','following.user_id')->get();
             
         return inertia('profile/profile', [
             'user'=> $user,
