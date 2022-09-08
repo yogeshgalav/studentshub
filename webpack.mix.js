@@ -26,7 +26,6 @@ mix
 	.sass('resources/sass/app.scss', 'public/css')
 // .vue({ runtimeOnly: (process.env.NODE_ENV || 'production') === 'production' })
 	.webpackConfig(webpackConfig)
-	.sourceMaps()
 	// .options({
 	// 	hmrOptions: {
 	// 		host: 'localhost',
