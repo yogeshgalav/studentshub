@@ -41,8 +41,9 @@
             </slot> 
           </p>
         </div>
+      
         <div id="infinite-list">
-          <div
+          <div 
             v-for="(post,index) in posts_data"
             :key="index"
           >
@@ -51,8 +52,9 @@
           
           <div
             class="card mb-0 mt-0 border-0 text-center"
-          >
+          > 
             <p
+              v-if="load_more"
               class="mb-0"
               @click="loadPosts"
             >
@@ -169,6 +171,7 @@ export default {
 	props:['postRoute', 'shareRoute'],
 	data() {
 		return {
+			load_more:true,
 			reactions: [],
 			likes:[],
 			comments:[],
@@ -182,18 +185,24 @@ export default {
 	mounted() {
 		this.loadPosts();
 	},
+  
 	methods: {
 		loadPosts(){
+      
 			const route= this.postRoute ? this.postRoute+'/posts' : '/posts';
 			const url= new URL(this.baseUrl+'/api'+route);
 			this.showLoader = true;
-
 			url.searchParams.set('page', this.current_page);
 			this.current_page=this.current_page+1;
 
 			this.axios.get(url.toString())
 				.then(resp => {
 					const posts = resp.data.success.posts;
+					if(!posts.data.length)
+					{
+						this.load_more=false;
+					}
+					
 					this.posts_data = this.posts_data.concat(posts.data);
 		            this.current_page = this.current_page;
 					this.showLoader = false;
@@ -201,6 +210,7 @@ export default {
 				.catch(err => {
 					this.showLoader = false;
 				});
+      
 		},
     
 		getViewsInfo(postId){

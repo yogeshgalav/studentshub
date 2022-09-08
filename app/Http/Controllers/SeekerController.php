@@ -7,6 +7,7 @@ use App\Models\Doubt;
 use Auth;
 use DB;
 
+
 class SeekerController extends Controller
 {
     //
@@ -97,6 +98,24 @@ class SeekerController extends Controller
     //         ->with('student_details', $student)
     //         ->with('course_levels', $course_levels);
     // }
+
+    public function earnMoney(){
+        $me_id = Auth::user()->id;
+        // dd($me_id);
+        // $user = \App\Models\User::where('users.id');
+        // dd($user);
+        $follower = DB::table('follows')->where('following_id',$me_id)
+        ->count('followed_by_id');
+        $posts_num = DB::table('posts')->where('user_id',$me_id)->count('id');
+        // dd($posts_num);
+        // dd($user);
+        // dd($teachers);
+
+        return inertia('profile/earn-money', [
+            'followers'=> $follower,
+            'posts_num' => $posts_num, 
+        ]);
+    }
     public function notifications(){
         return inertia('common/notifications');
     }
