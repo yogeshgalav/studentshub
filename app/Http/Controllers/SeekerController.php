@@ -30,29 +30,10 @@ class SeekerController extends Controller
             'in.name as preferred_institute_name', 'co.course_name as preferred_course_name')
             ->first();
 
-        $follower = \App\Models\User::where('users.id', $profileId)
-            ->leftJoin('followers as my_follow',function($join)use($me_id){
-                $join->on('users.id','=','my_follow.user_id')->where('my_follow.follower_user_id','=',$me_id);
-              })
-            ->leftJoin('followers as total_followers',function($join){
-                  $join->on('users.id','=','total_followers.user_id');
-              })
-            ->select(DB::raw('COUNT(DISTINCT total_followers.id) as total_followers')) 
-            ->first();
-
-            $follows=DB::table('followers as followers')
-            ->leftjoin('users as us', 'followers.follower_user_id','=','us.id')->where('followers.user_id','=',$profileId)
-            ->select('followers.follower_user_id','us.full_name','followers.user_id')->get();
-            
-            $followings=DB::table('followers as following')
-            ->leftjoin('users as us', 'following.user_id','=','us.id')->where('following.follower_user_id','=',$profileId)
-            ->select('following.follower_user_id','us.full_name','following.user_id')->get();
+            // dd($followings);
             
         return inertia('profile/profile', [
             'user'=> $user,
-            'follower'=>$follower,
-            'follows'=>$follows,
-            'followings'=>$followings
         ]);
     }
     // public function educationDetail()

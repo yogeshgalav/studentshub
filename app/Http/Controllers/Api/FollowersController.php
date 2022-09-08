@@ -17,16 +17,15 @@ class FollowersController extends Controller
     {
         $me_id=Auth::user()->id; 
        // $followable=Follow::findOrFail($id);
-        $follow=Followers::where('followed_by_id','=',$me_id)->where('user_id','=',$id)->first();
+        $follow=Followers::where('follower_user_id','=',$me_id)->where('user_id','=',$id)->first();
         if($follow){
             $follow->delete();
            
         } else 
         {
             $follow = Followers::create([
-                'followed_by_id'=>$me_id,
+                'follower_user_id'=>$me_id,
                 'user_id'=>$id,
-                'follow_status'=>1,
             ]);   
            }
            return response()->json([], 204);

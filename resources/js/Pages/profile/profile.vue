@@ -6,9 +6,9 @@
     <div class="container pt-100">
       <div class="user_profile_page">
         <div class="row">
-          <div class="col-md-8 center-col">
+          <div class="col-md-12 center-col">
             <div class="row">
-              <div class="col-md-3">
+              <div class="col-md-5">
                 <div class="user_profile_img">
                   <img
                     v-if="user.avatar_url"
@@ -26,15 +26,41 @@
                     alt=""
                   >
                 </div>
-              </div>
-              <div class="col-md-9">
-                <div class="user_des">
-                  <h3 class="user_profile_name">
+                <h3 class="user_profile_name name_center">
                     {{ user.full_name }} <a
                       v-if="user.id===AuthUser.id"
-                      href="/account-settings"
+                      href="/account-settings" class="icon_left"
                     ><i class="fas fa-edit" /></a>
                   </h3>
+              </div>
+              <div class="col-md-7">
+                <div class="user_des">
+
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-lg-4 h3">
+                        <b>
+                          {{ posts_num }}
+                        </b>
+                        <br>
+                        Posts
+                      </div>
+                      <div class="col-lg-4 h3">
+                        <b>
+                          {{ followers.length }}
+                        </b>
+                        <br>
+                        Followers
+                      </div>
+                      <div class="col-lg-4 h3">
+                        <b>
+                          {{ followings.length }}
+                        </b>
+                        <br>
+                        Following
+                      </div>
+                    </div>
+                  </div>
                   
                   <p
                     v-if="user.role==='follower'"
@@ -205,7 +231,7 @@
           </template>
           <template slot="tab-panel-followers">
             <div
-              v-if="!follows.length"
+              v-if="!followers.length"
               class="row"
             >
               <div class="col-md-10">
@@ -302,6 +328,17 @@
   </div>
 </template>
 <style>
+  .h3{
+    font-size:25px !important;
+    padding-left: 0px !important;
+  }
+  .icon_left{
+    margin-left:10px !important;
+  }
+.name_center{
+  justify-content: center !important;
+   margin-top:20px !important;
+}
 .interest_name {
   margin-top: 20px;
   margin-right: 50px;
@@ -421,9 +458,12 @@ export default {
 		DoubtContainer,
 		RadialProgress
 	},
-	props: ['user','follower','follows','followings'],
+	props: ['user'],
 	data() {
 		return {
+      followers : [],
+      followings : [],
+      posts_num : 0,
 			interests: [],
 			initialTab:'interests',
 			tabs:['interests','posts','doubts','followers','following'],
@@ -455,13 +495,13 @@ export default {
 		}
 	},
 	mounted() {
-		this.totalFollows=this.follower.total_followers;
-		if(this.follower.myfollow === 1){
-			this.follow_active = true;
-		}else{
-			this.follow_active = false;
-		}
+		
+		
 		this.axios.get('/api/get-profile').then((resp) => {
+      this.followers = resp.data.success.followers;
+      this.followings = resp.data.success.followings;
+      this.posts_num = resp.data.success.posts_num;
+      this.follow_active = resp.data.success.follow_active;
 			let total = 0;
 			this.interests = resp.data.success.interests.map(node=>{
 				node.total=node.total_views+(node.total_likes*3)+(node.total_posts*7);
