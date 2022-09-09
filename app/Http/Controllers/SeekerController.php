@@ -30,7 +30,7 @@ class SeekerController extends Controller
             'in.name as preferred_institute_name', 'co.course_name as preferred_course_name')
             ->first();
 
-            // dd($followings);
+            // dd('abc');
             
         return inertia('profile/profile', [
             'user'=> $user,
