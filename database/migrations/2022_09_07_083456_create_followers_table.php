@@ -20,6 +20,12 @@ class CreateFollowersTable extends Migration
             $table->unsignedInteger('follower_user_id');
             $table->timestamps();
         });
+        Schema::table('followers', function (Blueprint $table){
+            $table->foreign('user_id')
+            ->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('follower_user_id')
+            ->references('id')->on('users')->onDelete('cascade');
+        });
     }
 
     /**

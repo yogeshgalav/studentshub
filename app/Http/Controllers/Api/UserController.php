@@ -50,21 +50,20 @@ class UserController extends Controller
         ->groupBy('cat.id', 'cat.name', 'cat.slug')
         ->get();
 
-        $followers=DB::table('users as us')
-            ->rightJoin('followers as fo', function($join){
-                $join->on('us.id','=','fo.follower_user_id')
-                ->where('fo.user_id' , '=',  Auth::id());
-            })->select('us.full_name','us.id')->get();
+
+        $followers = DB::table('followers as fo')
+        ->where('fo.user_id' , '=',  Auth::id())
+        ->leftJoin('users as us','us.id','=','fo.follower_user_id')
+        ->select('us.full_name','us.id')->get();
+
+        $followings = DB::table('followers as fo')
+        ->where('fo.follower_user_id' , '=',  Auth::id())
+        ->leftJoin('users as us','us.id','=','fo.user_id')
+        ->select('us.full_name','us.id')->get();
 
 
-            $followings=DB::table('users as us')
-            ->rightJoin('followers as fo', function($join){
-                $join->on('us.id','=','fo.follower_user_id')
-                ->where('fo.user_id' , '=',  Auth::id());
-            })->select('us.full_name','us.id')->get();
 
-
-            $posts_num = DB::table('posts')->where('user_id',Auth::id())->count('id');
+        $posts_num = DB::table('posts')->where('user_id',Auth::id())->count('id');
 
             
             
