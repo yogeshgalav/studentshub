@@ -44,6 +44,8 @@ class AuthController extends Controller
         //generate otp
         $otp = $otp_required ? rand(11111,99999) : 12345;
 
+        // dd(env('APP_ENV'));
+
         $success = [];
         $success['new_user']=false;
         if(empty($user_phone) || empty($user)){

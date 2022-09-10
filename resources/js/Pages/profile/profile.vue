@@ -91,31 +91,30 @@
                     {{ user.preferred_course_name }}
                   </p>
                 </div> 
-                <button
-                  v-if="user.id !== AuthUser.id "
-                  type="button"
-                  class="btn-md btn-primary"
-                  @click="addfollow()"
-                >
-                  <p
-                    v-if="follow_active"
-                    style="margin:auto"
+                <div v-if="user.id !== AuthUser.id ">
+                  <button
+                    v-if="!follow_active"
+                    class="btn btn-primary btn-md"
+                    key="follow"
+                    @click="addfollow()"
                   >
-                    {{ totalFollows }} Following
-                  </p>
-                  <p
-                    v-else-if="totalFollows==0"
-                    style="margin:auto"
-                  >
+                    <i class="fa fa-user-plus"  />
+                    &nbsp;
                     Follow
-                  </p>
-                  <p
+                  </button>
+
+                  <button
                     v-else
-                    style="margin:auto"
+                    class="btn btn-white btn-md"
+                    key="following"
+                    @click="addfollow()"
                   >
-                    {{ totalFollows }}Follow
-                  </p>
-                </button>
+                    <i class="fa fa-check" />
+                    &nbsp;
+                    Following
+                  </button>
+                </div>
+                
                 <div class="mb-2 mt-2">
                   <ul class="social-network social-circle">
                     <li>
