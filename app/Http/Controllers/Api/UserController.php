@@ -50,8 +50,29 @@ class UserController extends Controller
         ->groupBy('cat.id', 'cat.name', 'cat.slug')
         ->get();
 
+
+        $followers = DB::table('followers as fo')
+        ->where('fo.user_id' , '=',  Auth::id())
+        ->leftJoin('users as us','us.id','=','fo.follower_user_id')
+        ->select('us.full_name','us.id')->get();
+
+        $followings = DB::table('followers as fo')
+        ->where('fo.follower_user_id' , '=',  Auth::id())
+        ->leftJoin('users as us','us.id','=','fo.user_id')
+        ->select('us.full_name','us.id')->get();
+
+
+
+        $posts_num = DB::table('posts')->where('user_id',Auth::id())->count('id');
+
+            
+            
+
         return response()->json(['success' => [
             'interests' => $categories,
+            'followers' => $followers,
+            'posts_num' => $posts_num,
+            'followings' => $followings,
         ]]);
     }
 
