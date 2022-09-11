@@ -79,6 +79,10 @@ class UserController extends Controller
             $file_name = 'image_'.time().'.'.$image_extension[1]; //generating unique file name;
             \Storage::disk('profile-image')->put($file_name, base64_decode($image));
             $me->avatar_url = '/storage/profile-images/'.$file_name;
+
+            $me->full_name = $request->full_name;
+            $me->preferred_institute_id = Institute::getFirstOrCreateId($request->preferred_institute);
+            $me->preferred_course_id = Course::getFirstOrCreateId($request->preferred_course);
             $me->save();
 
             $newFile->file_ext = Storage::disk('profile-image')->getMimeType($file_name);
@@ -101,13 +105,6 @@ class UserController extends Controller
         }
 
         $profile->save();
-
-        if ($request->full_name) {
-            $me->full_name = $request->full_name;
-            $me->preferred_institute_id = Institute::getFirstOrCreateId($request->preferred_institute);
-            $me->preferred_course_id = Course::getFirstOrCreateId($request->preferred_course);
-            $me->save();
-        }
 
         return response()->json(['success' => [
             'profile' => $profile,

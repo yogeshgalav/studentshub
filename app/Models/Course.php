@@ -34,10 +34,10 @@ class Course extends Model
             return self::find($course['id'])->id;
         }
 
-        if(empty($course['course_name'])) return null;
+        if(empty($course['name'])) return null;
 
         $new = self::firstOrCreate([
-            'course_name'=>$course['course_name'],
+            'course_name'=>$course['name'],
         ]);
         return $new->id;
     }

@@ -166,21 +166,6 @@
                     >
                     <span class="error">{{ formErrors('full_name') }}</span>
                   </div>
-
-                  <div class="form-group">
-                    <label for="email">E-Mail Address&nbsp;<span class="text-grey">*(Optional)</span></label>
-                    <input
-                      id="email"
-                      v-model="email"
-                      v-validate="'email'"
-                      type="email"
-                      class="form-control"
-                      name="email"
-                      placeholder="Email address"
-                      maxlength="255"
-                    >
-                    <span class="error">{{ formErrors('email') }}</span>
-                  </div>
                 </template>
                 <template
                   v-slot:footer="props"
