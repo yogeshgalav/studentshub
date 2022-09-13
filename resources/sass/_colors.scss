@@ -7,7 +7,12 @@ $colors: (
   'gray-600' #718096,
   'gray-700' #4a5568,
   'gray-800' #2d3748,
-  'gray-900' #1a202c
+  'gray-900' #1a202c,
+  //to be set in tailwind.config.js
+  'primary' #10069f,
+  'primary-dark' #0e0770,
+  'primary-light' #3646c5,
+  'black' #333,
 );
 
 @each $name, $hex in $colors {
@@ -15,6 +20,9 @@ $colors: (
     color: $hex;
   }
   .bg-#{$name} {
+    background-color: $hex;
+  }
+  .btn-#{$name} {
     background-color: $hex;
   }
 }
