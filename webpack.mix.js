@@ -23,7 +23,6 @@ mix
 		extractStyles: true,
 		globalStyles: false
 	 })
-	.sass('resources/sass/style.scss', 'public/css')
 	.sass('resources/sass/app.scss', 'public/css')
 // .vue({ runtimeOnly: (process.env.NODE_ENV || 'production') === 'production' })
 	.webpackConfig(webpackConfig)
