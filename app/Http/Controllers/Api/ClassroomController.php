@@ -95,6 +95,11 @@ class ClassroomController extends Controller
         $classroom->course_id=$course->id;
         $classroom->save();
 
+        $me = Auth::user();
+        $me->preferred_institute_id = $institute->id;
+        $me->preferred_course_id= $course->id;
+        $me->save();
+
         Log::info('New classroom created',[
             'name'=>$classroom->name,
             'user'=>Auth::id(),

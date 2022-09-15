@@ -30,8 +30,6 @@
                     <div 
                       class="form-group"
                     >
-                      <label class="mb-1"> {{ 'Institute name' }} </label>
-                      
                       <select-institute
                         v-model="selected_institute"
                       />
@@ -43,82 +41,32 @@
                     <div class="form-group">
                       <label class="mb-1"> {{ 'Classroom Name' }} </label>
 					  
-                      <auto-complete
+                      <!-- <auto-complete
                         v-model="classroom_name"
                         :placeholder="'2nd Year Sections B'"
                         :items="classroom_list"
                         name="classroom_name"
-                      />
+                      /> -->
+                      <input
+                        v-model="classroom_name"
+                        type="text"
+                        class="form-control"
+                        name="classroom_name"
+                      ></input>
                       <span
                         class="error"
                       >{{ formErrors('classroom_name') }}</span>
                     </div>
                     <div class="form-group">
-                      <label class="mb-1"> {{ 'Program/Course Level' }} </label>
-                      <auto-complete
+                      <select-course
                         v-model="selected_course"
-                        v-validate="'required'"
-                        class="width-100"
-                        :items="course_list"
-                        :label="'course_name'"
-                        name="program_name"
-                        :placeholder="'eg. Bachelor of Arts'"
-                        :is-async="true"
-                        :create-new-item="false"
-                        :is-loading="courseLoading"
-                        @search="getCourses"
-                        @selected="setCourse"
                       />
-                      <span
-                        class="error"
-                      >{{ formErrors('course_level') }}</span>
                     </div>
-                    <div
-                      v-if="show_courses"
-                      class="form-group"
-                    >
-                      <label class="mb-1">
-                        {{ 'Program/Course of classroom' }}
-                      </label>
-                      <div class="inner-addon left-addon">
-                        <div class="input_icon_frm">
-                          <span
-                            class="icon_design_input"
-                            style="height: 44px"
-                          >
-                            <i
-                              class="fa fa-certificate"
-                              aria-hidden="true"
-                            /></span>
-                          <auto-complete
-                            v-model="selected_course"
-                            v-validate="'required'"
-                            class="width-100"
-                            :items="course_list"
-                            :label="'course_name'"
-                            name="program_name"
-                            :placeholder="'eg. Bachelor of Arts'"
-                            :is-async="true"
-                            :create-new-item="false"
-                            :is-loading="courseLoading"
-                            @search="getCourses"
-                            @selected="setCourse"
-                          />
-                        </div>
-                        <span
-                          v-if="no_course_found"
-                        >Please enter your full Program name followed by
-                          branch name(if any).Please make sure that program
-                          details you are entering is correct.</span>
-                        <span
-                          class="error"
-                        >{{ formErrors('program_name') }}</span>
-                      </div>
-                    </div>
+                    
                     <div class="form-group">
                       <label class="mb-1"> {{ 'Subject of Classroom' }} </label>
                       <auto-complete
-                      v-model="selected_subject"
+                        v-model="selected_subject"
                         v-validate="'required'"
                         class="width-100"
                         :items="subject_list"
@@ -195,15 +143,16 @@ import FormMixin from '../../../components/mixins/form-mixin.js';
 import AutoComplete from '../../../components/AutoComplete.vue';
 import swal from '../../../components/swal';
 import SelectInstitute from '../../../components/SelectInstitute.vue';
+import SelectCourse from '../../../components/SelectCourse.vue';
+
 export default {
 	components: {
-		AutoComplete,SelectInstitute,
+		AutoComplete,SelectInstitute,SelectCourse
 	},
 	mixins: [FormMixin],
 	props: ['courseLevels','instituteList'],
 	data() {
 		return {
-			institute_list: this.instituteList,
 			classroom_name: '',
 			show_courses: false,
 			showLoader: false,

@@ -1,6 +1,6 @@
 <template>
-  <div class="">
-    <label class="font-size-16 mb-0"> {{ ('Institute Name') }} </label>
+  <div class="form-group">
+    <label class="mb-1"> {{ ('Institute Name') }} </label>
     <div class="">
       <div class="">
         <auto-complete
