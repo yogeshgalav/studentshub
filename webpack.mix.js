@@ -1,4 +1,9 @@
+const path = require('path');
+const process = require('process');
 const mix = require('laravel-mix');
+// const cssImport = require('postcss-import')
+// const cssNesting = require('postcss-nesting')
+const webpackConfig = require('./webpack.config');
 
 /*
  |--------------------------------------------------------------------------
@@ -11,6 +16,30 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .vue()
-    .sass('resources/sass/app.scss', 'public/css');
+mix
+	.js('resources/js/app.js', 'public/js')
+	.vue({ 
+		version: 2,
+		extractStyles: true,
+		globalStyles: false
+	 })
+	.sass('resources/sass/app.scss', 'public/css')
+// .vue({ runtimeOnly: (process.env.NODE_ENV || 'production') === 'production' })
+	.webpackConfig(webpackConfig)
+	// .options({
+	// 	hmrOptions: {
+	// 		host: 'localhost',
+	// 		port: 8001
+	// 	}
+	// })
+	.version()
+	.disableNotifications();
+	
+// mix.extract([
+//    'vue',
+//    'vuex',
+//    'bootstrap',
+//    'sweetalert2',
+//    '@fortawesome/vue-fontawesome',
+//    '@fortawesome/fontawesome-svg-core'
+// ]);
