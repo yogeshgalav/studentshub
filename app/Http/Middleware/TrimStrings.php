@@ -12,22 +12,8 @@ class TrimStrings extends Middleware
      * @var array
      */
     protected $except = [
+        'current_password',
         'password',
         'password_confirmation',
     ];
-     /**
-     * Transform the given value.
-     *
-     * @param  string  $key
-     * @param  mixed  $value
-     * @return mixed
-     */
-    protected function transform($key, $value)
-    {
-        if (in_array($key, $this->except, true)) {
-            return $value;
-        }
-
-        return is_string($value) ? preg_replace('/\s+/', ' ', $value) : $value;
-    }
 }

@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Api\EmployeeController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,13 +14,10 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-require_once('api/guest.php');
-require_once('api/seeker.php');
-require_once('api/student.php');
-require_once('api/classroom.php');
-require_once('api/institute.php');
-require_once('api/staff.php');
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+Route::prefix('v1')->group(function () {
+    Route::get('employee', [EmployeeController::class, 'index']);
+});

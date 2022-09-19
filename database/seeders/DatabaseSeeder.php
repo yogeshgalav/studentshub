@@ -1,7 +1,8 @@
 <?php
+
 namespace Database\Seeders;
 
-
+use App\Models\Employee;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,18 +14,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-
-        $this->call(CountryTableSeeder::class);
-        $this->call(UsersTableSeeder::class);
-        $this->call(InstitutesTableSeeder::class);
-        $this->call(StudentsTableSeeder::class);
-        $this->call(CoursesTableSeeder::class);
-        $this->call(CategorySeeder::class);
-        $this->call(ExplorePostSeeder::class);
-        $this->call(CourseLevelTableSeeder::class);
-        $this->call(ClassroomTableSeeder::class);
-        // $this->call(ConsultantFirmTableSeeder::class);
-        // $this->call(ClientTableSeeder::class);
-        // $this->call(ConversationInstanceTableSeeder::class);
+        // \App\Models\User::factory(10)->create();
+        Employee::factory(100)->create();
     }
 }

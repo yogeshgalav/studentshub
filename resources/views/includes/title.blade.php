@@ -1,1 +1,0 @@
-<title>{{ isset($title) ? $title : "Student's Hub" }}</title>

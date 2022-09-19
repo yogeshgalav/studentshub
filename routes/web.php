@@ -1,8 +1,12 @@
 <?php
 
+use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\HelloController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Response;
+use Inertia\Inertia;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,50 +17,12 @@ use Illuminate\Support\Facades\Response;
 | contains the "web" middleware group. Now create something great!
 |
 */
-require_once('web/guest.php');
-require_once('web/seeker.php');
-require_once('web/student.php');
-require_once('web/classroom.php');
-require_once('web/admin.php');
-require_once('web/institute.php');
-require_once('web/staff.php');
 
-Route::get('/', 'GuestController@root');
-Route::get('/report', 'GuestController@report');
-Route::get('/privacy-policy', 'GuestController@privacyPolicy');
-Route::get('/terms-of-service', 'GuestController@termOfUse');
+Route::get('/', function () {
+    return Inertia::render('welcome');
+})->name('/');
 
-// Manifest file (optional if VAPID is used)
-Route::get('manifest.json', function () {
-    return [
-        'name' => config('app.name'),
-        'gcm_sender_id' => config('webpush.gcm.sender_id')
-    ];
-});
+Route::get('home', [HomeController::class, 'index'])->name('home');
+Route::resource('employee', EmployeeController::class)->only(['index', 'store', 'update', 'destroy']);
 
-// Localization
-Route::get('/js/lang.js', function () {
-    $strings = Cache::remember('lang.js',1, function () {
-        $lang = config('app.locale');
-
-        $files   = glob(resource_path('lang/' . $lang . '/*.php'));
-        $strings = [];
-
-        foreach ($files as $file) {
-            $name           = basename($file, '.php');
-            /** @noinspection PhpIncludeInspection */
-            $strings[$name] = require $file;
-        }
-
-        return $strings;
-    });
-
-    header('Content-Type: text/javascript');
-    echo('window.lang = ' . json_encode($strings) . ';');
-    exit();
-})->name('assets.lang');
-
-Route::get('/schedule-jobs', function () {
-    \Artisan::call('sthub:cron');
-    // \Artisan::call('schedule:run');
-});
+require __DIR__.'/auth.php';

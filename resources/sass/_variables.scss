@@ -1,91 +1,19 @@
-//## For each of Bootstrap's buttons, define text, background and border color.
-$body-text-color: #252631;
-$white-color: #ffffff;
-$grey-color: #f1f1f1;
-$grey2-color: #f9fbfd;
-$black-color: #191919;
-$transparent-bg : transparent;
-$dark-color : #1a2035;
-$dark2-color : #1f283e;
-$primary-color : #00c1d5;
-$primary2-color : #10069F;
-$secondary-color : #FCFDFE;
-$secondary2-color : #5E5E5E;
-$info-color : #48ABF7;
-$info2-color : #3697E1;
-$success-color : #1E8549;
-$success2-color : #1B7942;
-$warning-color : #EABD0A;
-$warning2-color : #F39C12;
-$danger-color : #DE2F1B;
-$danger2-color : #C0392B;
+// // Body
+// $body-bg: #f8fafc;
 
-// Font Weight
-$font-weight-light : 300;
-$font-weight-normal : 400;
-$font-weight-bold : 600;
-$font-weight-extrabold : 700;
-$font-weight-bolder : 800;
+// // Typography
+// $font-family-sans-serif: 'Nunito', sans-serif;
+// $font-size-base: 0.9rem;
+// $line-height-base: 1.6;
 
-// Body
-$body-bg: #f8fafc;
-
-// Typography
-$font-family-sans-serif: "Nunito",
-sans-serif;
-$font-size-base: 0.9rem;
-$line-height-base: 1.6;
-
-// Colors
-$blue: #10069F;
-$indigo: #6574cd;
-$purple: #9561e2;
-$pink: #f66D9b;
-$red: #DE2F1B;
-$orange: #f6993f;
-$yellow: #EABD0A;
-$green: #1E8549;
-$teal: #4dc0b5;
-$cyan: #6cb2eb;
-$dark-cyan: #00C1D5;
-$nice-blue: #1D7BB9;
-$metal: #95A5A6;
-
-// CSS Color Guide 
-$primary: #3646C5;
-$primary-accent:#10069F;
-$accent: #963CBD;
-$secondary:#FCFDFE;
-$tertiary:#E5E5E5;
-$success:#1E8549;
-$success-accent:#1B7942;
-$warning:#EABD0A;
-$warning-accent:#F39C12;
-$danger:#DE2F1B;
-$danger-accent:#C0392B;
-$label:#95A5A6;
-$text:#252631;
-$black:#000;
-$disabled:#D9D9D9;
-$disabled-text:#252631;
-$white:#ffff;
-$light-white :#E0E0E0;
-$disabled-accent :#5E5E5E;
-
-// Font Weight 
-$btn-font-weight:800;
-
-// radius
-$btn-radius:3px;
-$btn-radius-0:0px;
-// border 
-$border-0: 0px;
-//font-size
-$font-12:12px;
-$font-14:14px;
-//letter-spacing
-$letter-spacing-01:0.1em;
-//padding
-$pd-lr-40:15px 50px;
-//line-height
-$line-height-30:30px;
+// // Colors
+// $blue: #3490dc;
+// $indigo: #6574cd;
+// $purple: #9561e2;
+// $pink: #f66d9b;
+// $red: #e3342f;
+// $orange: #f6993f;
+// $yellow: #ffed4a;
+// $green: #38c172;
+// $teal: #4dc0b5;
+// $cyan: #6cb2eb;

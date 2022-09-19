@@ -1,188 +1,80 @@
 <template>
-  <main>
-    <div class="col-md-12">
-      <div class="row justify-content-center">
-        <div class="col-md-6 mt-100 p-2">
-          <div class="card">
-            <div class="card-header">
-              {{ "Reset Password" }}
-            </div>
-
-            <div class="card-body">
-              <form @submit.prevent="handleSubmit">
-                <div class="form-group row">
-                  <label
-                    for="password"
-                    class="col-md-4 col-form-label text-md-right"
-                  >{{ "Password" }}</label>
-
-                  <div class="col-md-6">
-                    <input
-                      id="password"
-                      ref="password"
-                      v-model="password"
-                      v-validate="'required|min:6'"
-                      :type="showPassword ? 'text' : 'password'"
-                      class="form-control"
-                      name="password"
-                      autocomplete
-                    >
-                    <div
-                      class="input-group-append"
-                      @click="showPassword = !showPassword"
-                    >
-                      <span
-                        v-show="showPassword"
-                        class="input-group-text"
-                      ><i
-                                                         
-                        class="fa fa-eye-slash"
-                        aria-hidden="true"
-                      />
-                      </span>
-                      <span
-                        v-show="!showPassword"
-                        class="input-group-text"
-                      >
-                        <i                     
-                          class="fa fa-eye"
-                          aria-hidden="true"
-                        />
-                      </span>
-                    </div>
-                    <span class="error">{{
-                      errors.first("password")
-                    }}</span>
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label
-                    for="confirm-password"
-                    class="col-md-4 col-form-label text-md-right"
-                  >Confirm Password</label>
-
-                  <div class="col-md-6">
-                    <input
-                      id="confirm-password"
-                      v-model="confirm_password"
-                      v-validate="
-                        'required|confirmed:password'
-                      "
-                      :type="showConfirmPassword ? 'text' : 'password'"
-                      class="form-control"
-                      name="confirm-password"
-                    >
-                    <div
-                      class="input-group-append"
-                      @click="showConfirmPassword = !showConfirmPassword"
-                    >
-                      <span
-                        v-show="showConfirmPassword"
-                        class="input-group-text"
-                      ><i
-                                                         
-                        class="fa fa-eye-slash"
-                        aria-hidden="true"
-                      />
-                      </span>
-                      <span
-                        v-show="!showConfirmPassword"
-                        class="input-group-text"
-                      >
-                        <i                     
-                          class="fa fa-eye"
-                          aria-hidden="true"
-                        />
-                      </span>
-                    </div>
-                    <span class="error">{{
-                      errors.first("confirm-password")
-                    }}</span>
-                  </div>
-                </div>
-                <div class="form-group row mb-0">
-                  <div class="col-md-8 offset-md-4">
-                    <button
-                      type="submit"
-                      class="btn btn-primary"
-                    >
-                      {{ "Reset Password" }}
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </main>
+  <guest-layout>
+    <v-main>
+      <v-container fluid>
+        <v-row align="center" justify="center" style="height: 100vh">
+          <v-col cols="12" sm="12" md="10" lg="4">
+            <v-card>
+              <v-card-title class="d-flex align-center justify-center">
+                <Link :href="route('/')">
+                  <application-logo style="height: 75" />
+                </Link>
+              </v-card-title>
+              <v-card-text>
+                <p class="mb-2">You are only one step a way from your new password, recover your password now.</p>
+              </v-card-text>
+              <v-card-text>
+                <v-form @submit.prevent="submit">
+                  <v-text-field
+                    v-model="form.password"
+                    prepend-inner-icon="mdi-lock"
+                    label="Password"
+                    outlined
+                    dense
+                    :error-messages="form.errors.password"
+                    :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                    :type="showPassword ? 'text' : 'password'"
+                    @click:append="showPassword = !showPassword"
+                  />
+                  <v-text-field
+                    v-model="form.password_confirmation"
+                    prepend-inner-icon="mdi-lock"
+                    label="Password Confirmation"
+                    :error-messages="form.errors.password_confirmation"
+                    outlined
+                    dense
+                    :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                    :type="showPassword ? 'text' : 'password'"
+                    @click:append="showPassword = !showPassword"
+                  />
+                  <v-btn :loading="form.processing" type="submit" block color="primary" class="mt-3"
+                    >Change Password</v-btn
+                  >
+                </v-form>
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-main>
+  </guest-layout>
 </template>
-<style scoped>
-.mt-100 {
-    margin-top: 200px;
-}
-/*adding style to eye icon */
-.col-md-6 .input-group-append{
-  cursor: pointer;
-  display: inline-block;
-}
-/*.col-md-6{
-  position: relative;
-}
-span{
-  height: 100%;
-}
-.col-md-6 .input-group-append{
-  cursor: pointer;
-  position: absolute;
-  height: 80%;
-  right: 19.5%;
-  top:3%;
-  display: inline-block;
-}
-input{
-  width: 70%;
-}*/
 
-</style>
 <script>
-import Vue from 'vue';
-import BlankLayout from '@/Layouts/BlankLayout';
-
+import ApplicationLogo from "../../components/ApplicationLogo.vue";
+import GuestLayout from '../../layouts/GuestLayout.vue';
 export default {
-	layout:BlankLayout,
-	components: {
-	},
-	props: ['token'],
-	data() {
-		return {
-			showConfirmPassword: false,
-			showPassword: false,
-			password: '',
-			confirm_password: ''
-		};
-	},
-	methods: {
-		handleSubmit() {
-			this.validateForm().then(valid => {
-				if (valid) {
-					let api_path = '/api/reset-password';
-					api_path = this.token
-						? api_path + '/' + this.token
-						: api_path;
-					this.axios
-						.post(api_path, {
-							password: this.password,
-							confirm_password: this.confirm_password
-						})
-						.then(resp => {
-							window.location.href = this.token ? '/' : '/login';
-						})
-						.catch(err => {});
-				}
-			});
-		}
-	}
+  props: {
+    email: String,
+    token: String,
+  },
+  components: { ApplicationLogo, GuestLayout },
+  data() {
+    return {
+      showPassword: false,
+      isLoading: false,
+      form: this.$inertia.form({
+        password: null,
+        password_confirmation: null,
+        email: this.email,
+        token: this.token
+      }),
+    };
+  },
+  methods: {
+    submit() {
+      this.form.post("/reset-password");
+    },
+  },
 };
 </script>
