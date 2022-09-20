@@ -34,6 +34,9 @@
         "@inertiajs/inertia": "^0.10.1",
         "@inertiajs/inertia-vue": "^0.7.2",
         "@inertiajs/progress": "^0.2.6",
+        "compression-webpack-plugin": "^10.0.0",
+        "dotenv": "^16.0.2",
+        "dotenv-webpack": "^8.0.1",
         "vue-toastification": "^1.7.11",
         "vuetify": "^2.5.8"
     }
