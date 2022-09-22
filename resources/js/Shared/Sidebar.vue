@@ -6,7 +6,9 @@
           <span
             class="closebtn"
             @click="sidebarItemClick"
-          >x</span>
+          >
+            <i class="fas fa-times" />
+          </span>
         </div>
 
         <router-link
@@ -175,7 +177,6 @@
 </template>
 <style scoped>
 .closebtn {
-    font-size: x-large;
     top: 15px;
     line-height: 36px;
     height: 42px;
@@ -184,10 +185,30 @@
     right: 15px;
 }
 @media (min-width: 769px) and (max-width: 1600px) {
-.closebtn{
-    display: none;
+  .closebtn{
+      display: none;
+  }
 }
+/* .sidebar-section-active {
+    right: 0px !important;
+    opacity: 1 !important;
 }
+@media only screen and (max-width: 768px) {
+  .sidebar-section:not(.sidebar-section-active) {
+        left: -250px;
+  }
+  .sidebar-section {
+      position: fixed;
+      height: 100%;
+      z-index: 999;
+      top: 0px;
+      opacity: 0;
+      transition-duration: 0.6s;
+      min-width: 250px;
+      max-width: 35%;
+      
+  }
+} */
 
 </style>
 <script>

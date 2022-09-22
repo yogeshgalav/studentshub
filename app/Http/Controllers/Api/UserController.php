@@ -50,8 +50,29 @@ class UserController extends Controller
         ->groupBy('cat.id', 'cat.name', 'cat.slug')
         ->get();
 
+
+        $followers = DB::table('followers as fo')
+        ->where('fo.user_id' , '=',  Auth::id())
+        ->leftJoin('users as us','us.id','=','fo.follower_user_id')
+        ->select('us.full_name','us.id')->get();
+
+        $followings = DB::table('followers as fo')
+        ->where('fo.follower_user_id' , '=',  Auth::id())
+        ->leftJoin('users as us','us.id','=','fo.user_id')
+        ->select('us.full_name','us.id')->get();
+
+
+
+        $posts_num = DB::table('posts')->where('user_id',Auth::id())->count('id');
+
+            
+            
+
         return response()->json(['success' => [
             'interests' => $categories,
+            'followers' => $followers,
+            'posts_num' => $posts_num,
+            'followings' => $followings,
         ]]);
     }
 
@@ -79,6 +100,10 @@ class UserController extends Controller
             $file_name = 'image_'.time().'.'.$image_extension[1]; //generating unique file name;
             \Storage::disk('profile-image')->put($file_name, base64_decode($image));
             $me->avatar_url = '/storage/profile-images/'.$file_name;
+
+            $me->full_name = $request->full_name;
+            $me->preferred_institute_id = Institute::getFirstOrCreateId($request->preferred_institute);
+            $me->preferred_course_id = Course::getFirstOrCreateId($request->preferred_course);
             $me->save();
 
             $newFile->file_ext = Storage::disk('profile-image')->getMimeType($file_name);
@@ -101,13 +126,6 @@ class UserController extends Controller
         }
 
         $profile->save();
-
-        if ($request->full_name) {
-            $me->full_name = $request->full_name;
-            $me->preferred_institute_id = Institute::getFirstOrCreateId($request->preferred_institute);
-            $me->preferred_course_id = Course::getFirstOrCreateId($request->preferred_course);
-            $me->save();
-        }
 
         return response()->json(['success' => [
             'profile' => $profile,

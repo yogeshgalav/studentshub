@@ -16,7 +16,7 @@ class SubjectController extends Controller
 
     public function index(Request $request)
     {
-        $me_id = $request->user('api')->id;
+        $me = $request->user('api');
         $subject_query = DB::table('subjects as sub');
         if(!empty($request->searchTerm)){
             $search = str_replace('.', '', $request->searchTerm);
@@ -26,10 +26,13 @@ class SubjectController extends Controller
         if(!empty($request->categoryId)){
             $subject_query=$subject_query->where('category_id','=',$request->categoryId);
         }
+        if($me){
+          $subjects=$subject_query
+          ->leftJoin('votes as my_vote',function($join)use($me){
+            $join->on('sub.id','=','my_vote.subject_id')->where('my_vote.user_id','=',$me->id);
+          });
+        }
         $subjects=$subject_query
-        ->leftJoin('votes as my_vote',function($join)use($me_id){
-          $join->on('sub.id','=','my_vote.subject_id')->where('my_vote.user_id','=',$me_id);
-        })
         ->leftJoin('votes as total_upvote',function($join){
             $join->on('sub.id','=','total_upvote.subject_id')->where('total_upvote.status','=',1);
         })
@@ -115,7 +118,7 @@ class SubjectController extends Controller
       switch($dashboard_type){
         case 'course':
           $course=DB::table('courses as co')->where('co.id',$dashboard_id)->first();
-         $category_id=$course->category_id;
+          $category_id=$course->category_id;
           break;
         case 'category':
           $category_id=$dashboard_id;

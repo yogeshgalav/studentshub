@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Facades\Sthub;
-
+use Illuminate\Support\Facades\Auth;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 class Subject extends Model
@@ -54,6 +54,7 @@ class Subject extends Model
             'subject_name'=>Sthub::ucWordSome($subject_name),
             'alias'=>Sthub::generateAlias($subject_name),
             'is_verified'=>$is_verified,
+            'added_by_user_id'=>Auth::id(),
         ]);
     }
     public static function addDoubtTags(Doubt $doubt, $tags)
@@ -65,6 +66,7 @@ class Subject extends Model
             ],[
                 'alias'=>Sthub::generateAlias($tag['text']),
                 'is_verified'=>false,
+                'added_by_user_id'=>Auth::id(),
             ]);
             DoubtTag::firstOrCreate([
                 'subject_id'=>$subject->id,
@@ -94,6 +96,7 @@ class Subject extends Model
             ],[
                 'alias'=>Sthub::generateAlias($tag['text']),
                 'is_verified'=>false,
+                'added_by_user_id'=>Auth::id(),
             ]);
             PostTag::firstOrCreate([
                 'subject_id'=>$subject->id,
