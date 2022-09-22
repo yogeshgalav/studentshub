@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\HelloController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
@@ -24,5 +25,10 @@ Route::get('/', function () {
 
 Route::get('home', [HomeController::class, 'index'])->name('home');
 Route::resource('employee', EmployeeController::class)->only(['index', 'store', 'update', 'destroy']);
+
+// Route::get('/post-create', [PostController::class, 'create']);
+
+Route::post('/post-create',[App\Http\Controllers\Api\PostController::class, 'create']);
+
 
 require __DIR__.'/auth.php';

@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class PostMedia extends Model
 {
     use HasFactory;
+
+    protected  $guarded = ['id', 'created_at', 'updated_at'];
+
+    public function post(){
+        return $this->belongsTo(Post::class, 'post_id');
+    }
 }
