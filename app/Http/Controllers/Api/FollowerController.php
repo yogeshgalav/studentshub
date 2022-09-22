@@ -4,29 +4,28 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
-use App\Models\Follow;
+use App\Models\Follower;
 use App\Models\UserProfile;
 use Auth;
 use DB;
 
 
 
-class FollowController extends Controller
+class FollowerController extends Controller
 {
     public function updateOrDelete($id)
     {
         $me_id=Auth::user()->id; 
        // $followable=Follow::findOrFail($id);
-        $follow=Follow::where('followed_by_id','=',$me_id)->where('following_id','=',$id)->first();
+        $follow=Follower::where('follower_user_id','=',$me_id)->where('user_id','=',$id)->first();
         if($follow){
             $follow->delete();
            
         } else 
         {
-            $follow = Follow::create([
-                'followed_by_id'=>$me_id,
-                'following_id'=>$id,
-                'follow_status'=>1,
+            $follow = Follower::create([
+                'follower_user_id'=>$me_id,
+                'user_id'=>$id,
             ]);   
            }
            return response()->json([], 204);

@@ -26,26 +26,20 @@ mix
 	.sass('resources/sass/app.scss', 'public/css')
 // .vue({ runtimeOnly: (process.env.NODE_ENV || 'production') === 'production' })
 	.webpackConfig(webpackConfig)
-	.sourceMaps()
 	// .options({
 	// 	hmrOptions: {
 	// 		host: 'localhost',
 	// 		port: 8001
 	// 	}
 	// })
+	.version()
 	.disableNotifications();
-
-if (process.env.APP_ENV!=='local') {
-	mix.version();
-	// mix.extract([
-	//    'vue',
-	//    'vuex',
-	//    'bootstrap',
-	//    'sweetalert2',
-	//    '@fortawesome/vue-fontawesome',
-	//    '@fortawesome/fontawesome-svg-core'
-	// ]);
-} 
-if (process.env.BROWSER_SYNC === true) {
-	mix.browserSync(process.env.APP_URL);
-}
+	
+// mix.extract([
+//    'vue',
+//    'vuex',
+//    'bootstrap',
+//    'sweetalert2',
+//    '@fortawesome/vue-fontawesome',
+//    '@fortawesome/fontawesome-svg-core'
+// ]);
