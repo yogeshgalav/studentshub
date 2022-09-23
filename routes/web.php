@@ -41,8 +41,7 @@ Route::post('/classroom-delete',[App\Http\Controllers\Api\ClassroomController::c
 Route::post('/classroom-edit',[App\Http\Controllers\Api\ClassroomController::class, 'edit']);
 Route::post('/comment-create',[App\Http\Controllers\Api\CommentController::class, 'create']);
 Route::post('/comment-edit',[App\Http\Controllers\Api\CommentController::class, 'edit']);
-Route::post('/like-create',[App\Http\Controllers\Api\CommentController::class, 'create']);
-Route::post('/like-delete',[App\Http\Controllers\Api\CommentController::class, 'delete']);
+Route::post('/like-createordelete',[App\Http\Controllers\Api\CommentController::class, 'createordelete']);
 Route::post('/classroomfollower-create',[App\Http\Controllers\Api\ClassroomFollowerController::class, 'create']);
 Route::post('/classroomfollower-delete',[App\Http\Controllers\Api\ClassroomFollowerController::class, 'delete']);
 

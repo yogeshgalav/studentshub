@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class LikeController extends Controller
 {
 
-    public function create(Request $request){
+    public function createordelete(Request $request){
 
         $like=Like::where('likable_id','=',$likable->id)->where('user_id','=',Auth::user()->id)->first();
 
@@ -29,14 +29,5 @@ class LikeController extends Controller
 
     }
 
-    public function delete(Request $request){
-
-        $like = $request->id;
-        $like->delete();
-        return response()->json(['success'=>[
-            'message'=>'Like Successfully deleted'
-          ]]);
-
-    }
 
 }
