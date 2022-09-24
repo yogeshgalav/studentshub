@@ -11,23 +11,23 @@ class Classroom extends Model
     protected  $guarded = ['id', 'created_at', 'updated_at'];
 
     public function post(){
-        return $this->hasMany('App\Models\Post');
+        return $this->hasMany(Post::class, 'post_id');
     }
 
     public function category(){
-        return $this->belongsTo('App\Models\Category');
+        return $this->belongsTo(Category::class, 'category_id');
     }
 
     public function course(){
-        return $this->belongsTo('App\Models\Course');
+        return $this->belongsTo(Course::class, 'course_id');
     }
 
     public function subject(){
-        return $this->belongsTo('App\Models\Subject');
+        return $this->belongsTo(Subject::class, 'subject_id');
     }
 
     public function institute(){
-        return $this->belongsTo('App\Models\Institute');
+        return $this->belongsTo(Institute::class, 'institute_id');
     }
 
     public function classroomFollower(){
