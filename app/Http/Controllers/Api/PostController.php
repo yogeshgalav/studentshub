@@ -25,4 +25,27 @@ class PostController extends Controller
 
     }
 
+    public function delete(Request $request){
+
+        $post = $request->id;
+        $post->delete();
+        return response()->json(['success'=>[
+            'message'=>'Post Successfully deleted'
+          ]]);
+
+    }
+
+    public function edit(Request $request){
+
+        $post = Post::find($request->id);
+        $post->heading = $request->heading;
+        $post->content = $request->content;
+        $post->primary_image_url = $request->primary_image_url;
+        $post->save();
+        return response()->json(['success'=>[
+            'message'=>'Post Successfully edited'
+          ]]);
+
+    }
+
 }

@@ -2,11 +2,14 @@
 
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\Api\PostController;
+use App\Http\Controllers\Api\CommentController;
+use App\Http\Controllers\Api\ClassroomController;
+use App\Http\Controllers\Api\ClassroomFollowerController;
+use App\Http\Controllers\Api\LikeController;
 use App\Http\Controllers\HelloController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PostController;
 use Inertia\Inertia;
 
 /*
@@ -31,6 +34,16 @@ Route::resource('employee', EmployeeController::class)->only(['index', 'store', 
 // Route::get('/post-create', [PostController::class, 'create']);
 
 Route::post('/post-create',[App\Http\Controllers\Api\PostController::class, 'create']);
+Route::post('/post-delete',[App\Http\Controllers\Api\PostController::class, 'delete']);
+Route::post('/post-edit',[App\Http\Controllers\Api\PostController::class, 'edit']);
+Route::post('/classroom-create',[App\Http\Controllers\Api\ClassroomController::class, 'create']);
+Route::post('/classroom-delete',[App\Http\Controllers\Api\ClassroomController::class, 'delete']);
+Route::post('/classroom-edit',[App\Http\Controllers\Api\ClassroomController::class, 'edit']);
+Route::post('/comment-create',[App\Http\Controllers\Api\CommentController::class, 'create']);
+Route::post('/comment-edit',[App\Http\Controllers\Api\CommentController::class, 'edit']);
+Route::post('/like-createordelete',[App\Http\Controllers\Api\CommentController::class, 'createordelete']);
+Route::post('/classroomfollower-create',[App\Http\Controllers\Api\ClassroomFollowerController::class, 'create']);
+Route::post('/classroomfollower-delete',[App\Http\Controllers\Api\ClassroomFollowerController::class, 'delete']);
 
 
 require __DIR__.'/auth.php';
