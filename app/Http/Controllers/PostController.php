@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class PostController extends Controller
 {
    public function show(){
-    return Inertia::render('show');
-   } 
+      return Inertia::render('show');
+   }
 }
 
