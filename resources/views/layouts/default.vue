@@ -4,5 +4,15 @@
 </script>
 
 <template>
-	<slot />
+	<header>Header Component</header>
+	<section id="main">
+		<section id="sidebar"></section>
+
+		<section id="content">
+			<slot />
+		</section>
+
+		<aside></aside>
+	</section>
+	<footer>Footer Component</footer>
 </template>
