@@ -1,11 +1,11 @@
 <?php
 
 use App\Http\Controllers\EmployeeController;
-use App\Http\Controllers\Api\PostController;
-use App\Http\Controllers\Api\CommentController;
-use App\Http\Controllers\Api\ClassroomController;
-use App\Http\Controllers\Api\ClassroomFollowerController;
-use App\Http\Controllers\Api\LikeController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ClassroomController;
+use App\Http\Controllers\ClassroomFollowerController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\HelloController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
