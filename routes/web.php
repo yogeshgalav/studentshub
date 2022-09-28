@@ -1,11 +1,11 @@
 <?php
 
 use App\Http\Controllers\EmployeeController;
-use App\Http\Controllers\Api\PostController;
-use App\Http\Controllers\Api\CommentController;
-use App\Http\Controllers\Api\ClassroomController;
-use App\Http\Controllers\Api\ClassroomFollowerController;
-use App\Http\Controllers\Api\LikeController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ClassroomController;
+use App\Http\Controllers\ClassroomFollowerController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\HelloController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
@@ -26,24 +26,15 @@ use Inertia\Inertia;
 Route::get('/', function () {
     return Inertia::render('welcome');
 })->name('/');
-Route::get('/post/{id}', [PostController::class, 'show']);
 
-Route::get('home', [HomeController::class, 'index'])->name('home');
-Route::resource('employee', EmployeeController::class)->only(['index', 'store', 'update', 'destroy']);
+Route::get('/post/{id}', [PostController::class, 'show']);
+Route::get('/post-create', [PostController::class, 'create']);
+Route::get('/classroom-create', [PostController::class, 'create']);
+Route::get('/classrooms', [ClassroomController::class, 'index']);
+Route::get('/classroom/{id}', [ClassroomController::class, 'show']);
 
 // Route::get('/post-create', [PostController::class, 'create']);
 
-Route::post('/post-create',[App\Http\Controllers\Api\PostController::class, 'create']);
-Route::post('/post-delete',[App\Http\Controllers\Api\PostController::class, 'delete']);
-Route::post('/post-edit',[App\Http\Controllers\Api\PostController::class, 'edit']);
-Route::post('/classroom-create',[App\Http\Controllers\Api\ClassroomController::class, 'create']);
-Route::post('/classroom-delete',[App\Http\Controllers\Api\ClassroomController::class, 'delete']);
-Route::post('/classroom-edit',[App\Http\Controllers\Api\ClassroomController::class, 'edit']);
-Route::post('/comment-create',[App\Http\Controllers\Api\CommentController::class, 'create']);
-Route::post('/comment-edit',[App\Http\Controllers\Api\CommentController::class, 'edit']);
-Route::post('/like-createordelete',[App\Http\Controllers\Api\CommentController::class, 'createordelete']);
-Route::post('/classroomfollower-create',[App\Http\Controllers\Api\ClassroomFollowerController::class, 'create']);
-Route::post('/classroomfollower-delete',[App\Http\Controllers\Api\ClassroomFollowerController::class, 'delete']);
 
 
 require __DIR__.'/auth.php';
