@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\EmployeeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,11 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::post("/verify-contact",[AuthController::class, 'verifyContact']);
+Route::post("/login",[AuthController::class, 'loginViaOtp'])->name('login');
+Route::post("/register",[AuthController::class, 'registerViaOtp']);
 
 Route::post('/post',[App\Http\Controllers\Api\PostController::class, 'create']);
 Route::delete('/post',[App\Http\Controllers\Api\PostController::class, 'delete']);

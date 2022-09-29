@@ -14,7 +14,7 @@
         "inertiajs/inertia-laravel": "^0.6.3",
         "innocenzi/laravel-vite": "0.2.*",
         "laravel/framework": "^8.54",
-        "laravel/sanctum": "^2.11",
+        "laravel/sanctum": "*",
         "laravel/tinker": "^2.5",
         "pestphp/pest": "^1.22",
         "pestphp/pest-plugin-laravel": "^1.3"
