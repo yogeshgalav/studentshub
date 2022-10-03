@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Classroom;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class ClassroomController extends Controller
 {
     public function index(){
-        return Inertia::render('classroom/ClassroomIndex');
+        $classrooms = Classroom::all();
+        return Inertia::render('classroom/ClassroomIndex',['classrooms' => $classrooms]);
     }
-    public function show(){
-        return Inertia::render('classroom/ClassroomShow');
+    public function show($id){
+        $classroom = Classroom::findOrFail($id);
+        return Inertia::render('classroom/ClassroomShow',['classroom' => $classroom]);
     }
     public function create(){
         return Inertia::render('classroom/ClassroomCreate');

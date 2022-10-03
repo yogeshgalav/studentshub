@@ -26,12 +26,21 @@
                       >
                 </div>
                 <div class="mb-3">
-                    <label class="mb-1"> {{ 'FCM Token' }} </label>
+                    <label class="mb-1"> {{ 'First Name' }} </label>
 					<input
-                        v-model="fcm_token"
+                        v-model="first_name"
                         type="text"
                         class="form-control"
-                        name="fcm_token"
+                        name="first_name"
+                      >
+                </div>
+                <div class="mb-3">
+                    <label class="mb-1"> {{ 'Last Name' }} </label>
+					<input
+                        v-model="last_name"
+                        type="text"
+                        class="form-control"
+                        name="last_name"
                       >
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -51,7 +60,8 @@ export default defineComponent({
 		return {
 			phone_number: '',
 			otp: '',
-			fcm_token: '',
+			first_name: '',
+            last_name: '',
 		};
 	},
 	mounted(){
@@ -62,7 +72,8 @@ export default defineComponent({
 					this.axios.post('/api/login', {
 						phone_number: this.phone_number,
 						otp: this.otp,
-						fcm_token: this.fcm_token,
+						first_name: this.first_name,
+                        last_name: this.last_name,
 					}).then(resp=>{
 						console.log(resp);
 						});
