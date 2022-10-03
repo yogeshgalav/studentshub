@@ -15,7 +15,7 @@ class CreateUserPhonesTable extends Migration
     {
         Schema::create('user_phones', function (Blueprint $table) {
             $table->id();
-            $table->integer('phone_number')->unique();
+            $table->bigInteger('phone_number')->unique();
             $table->string('otp');
             $table->dateTime('expires_at');
             $table->timestamps();
