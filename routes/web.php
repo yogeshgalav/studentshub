@@ -29,7 +29,7 @@ Route::get('/', function () {
 
 Route::get('/post/{id}', [PostController::class, 'show']);
 Route::get('/post-create', [PostController::class, 'create']);
-Route::get('/classroom-create', [PostController::class, 'create']);
+Route::get('/classroom-create', [ClassroomController::class, 'create']);
 Route::get('/classrooms', [ClassroomController::class, 'index']);
 Route::get('/classroom/{id}', [ClassroomController::class, 'show']);
 
