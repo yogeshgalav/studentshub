@@ -34,17 +34,16 @@
                     </div>
                 </div>
             </div>
-            <div
-                class="mx-auto my-4 h-fit w-80 rounded-md border-t-[35px] border-solid border-black bg-white shadow-lg lg:mx-4">
+            <div class="mx-auto my-4 h-fit w-80 rounded-md border-t-[35px] border-solid border-black bg-white shadow-lg lg:mx-4">
                 <div class="mx-6 flex flex-row items-center">
                     <img class="h-14 w-14 -translate-y-4 rounded-full border-2 border-solid border-black"
                         src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                         alt="" />
                     <a href="http://">
-                        <div class="ml-4 text-2xl font-bold hover:text-indigo-800">Jack</div>
+                        <div class="ml-4 -translate-y-2 text-2xl font-bold hover:text-indigo-800">Jack</div>
                     </a>
                 </div>
-                <div class="mx-4 my-4 mt-2">
+                <div class="mx-4 mb-4 mt-0">
                     <a href="#">
                         <div
                             class="rounded-lg bg-indigo-700 px-10 py-2 text-center text-lg font-semibold text-white hover:bg-indigo-800">
