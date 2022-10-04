@@ -10,10 +10,10 @@
             <div class="card">
                 <img class="card-img-top" src="" alt="Card image" style="width:100%">
                 <div class="card-body">
-                <h4 class="card-title">{{ classroom.category_id }}</h4>
-                <p class="card-text">{{ classroom.course_id }}</p>
-                <p class="card-text">{{ classroom.subject }}</p>
-                <p class="card-text">{{ classroom.institute_id }}</p>
+                <h4 class="card-title">{{ classroom.category.name }}</h4>
+                <p class="card-text">{{ classroom.course.name }}</p>
+                <p class="card-text">{{ classroom.subject.name }}</p>
+                <p class="card-text">{{ classroom.institute.name }}</p>
                 <a v-bind:href="'/classroom/' + classroom.id " class="btn btn-primary">See Classroom</a>
                 </div>
             </div>
