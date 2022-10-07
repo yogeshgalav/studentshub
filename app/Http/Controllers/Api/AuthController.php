@@ -11,9 +11,9 @@ use Illuminate\Http\Response;
 // use App\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
-// use App\Http\Requests\VerifyContactRequest;
-// use App\Http\Requests\LoginRequest;
-// use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\VerifyContactRequest;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
 use Carbon\Carbon;
 use Auth;
 use Session;
@@ -22,7 +22,7 @@ use DB;
 class AuthController extends Controller
 {
     
-    public function verifyContact(Request $request)
+    public function verifyContact(VerifyContactRequest $request)
     {        
     //     $phone_number = PhoneNumber::make($request->input('phone_number'), 'IN')->formatE164();
         
@@ -109,7 +109,7 @@ class AuthController extends Controller
 
         return true;
     }
-    public function loginViaOtp(Request $request)
+    public function loginViaOtp(LoginRequest $request)
     {
         Session::flush();
         $user_phone = UserPhone::where('phone_number', '=', $request->phone_number)->first();
@@ -148,7 +148,7 @@ class AuthController extends Controller
      *
      * @return Response
      */
-    public function registerViaOtp(Request $request)
+    public function registerViaOtp(RegisterRequest $request)
     {
         Session::flush();
         $user_phone = UserPhone::where('phone_number', '=', $request->phone_number)->first();

@@ -6,12 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use App\Http\Requests\CommentCreateRequest;
+use App\Http\Requests\CommentEditRequest;
 use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
 
-    public function create($commentable_type, $commentable_id, Request $request){
+    public function create($commentable_type, $commentable_id, CommentCreateRequest $request){
 
         switch($commentable_type){
             case 'post':
@@ -45,7 +47,7 @@ class CommentController extends Controller
 
     }
 
-    public function edit(Request $request){
+    public function edit(CommentEditRequest $request){
 
         $comment = Comment::find($request->id);
         $comment->content = $request->content;

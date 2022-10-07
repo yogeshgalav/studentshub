@@ -4,6 +4,8 @@ use App\Http\Controllers\Api\EmployeeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\PostController;
+use App\Http\Controllers\Api\ClassroomController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +26,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post("/verify-contact",[AuthController::class, 'verifyContact']);
 Route::post("/login",[AuthController::class, 'loginViaOtp'])->name('login');
 Route::post("/register",[AuthController::class, 'registerViaOtp']);
+
+
+
+Route::get('/post/{id}', [PostController::class, 'show']);
+Route::get('/post-create', [PostController::class, 'create']);
+Route::get('/posts', [PostController::class, 'index']);
+Route::get('/classroom-create', [ClassroomController::class, 'create']);
+Route::get('/classrooms', [ClassroomController::class, 'index']);
+Route::get('/classroom/{id}', [ClassroomController::class, 'show']);
 
 Route::post('/post',[App\Http\Controllers\Api\PostController::class, 'create']);
 Route::delete('/post',[App\Http\Controllers\Api\PostController::class, 'delete']);
