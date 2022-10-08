@@ -20,6 +20,7 @@ class CreateUserPhonesTable extends Migration
             $table->dateTime('expires_at');
             $table->timestamps();
         });
+
     }
 
     /**

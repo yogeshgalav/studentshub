@@ -50,4 +50,20 @@ class ClassroomController extends Controller
 
     }
 
+    public function index(){
+        $classrooms = Classroom::with('category','course', 'subject','institute')->get();
+        return response()->json(['success'=>[
+            'classroom'=>$classrooms
+          ]]);
+    }
+
+    public function show($id){
+        $classroom = Classroom::findOrFail($id)
+        ->with(['category','course', 'subject','institute'])
+        ->first();
+        return response()->json(['success'=>[
+            'classroom'=>$classroom
+          ]]);
+    }
+
 }

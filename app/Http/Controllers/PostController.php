@@ -13,5 +13,8 @@ class PostController extends Controller
    public function create(){
       return Inertia::render('post/PostCreate');
    }
+   public function index(){
+      return Inertia::render('post/PostIndex');
+   }
 }
 

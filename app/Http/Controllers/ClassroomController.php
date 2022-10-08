@@ -9,12 +9,10 @@ use Inertia\Inertia;
 class ClassroomController extends Controller
 {
     public function index(){
-        $classrooms = Classroom::all();
-        return Inertia::render('classroom/ClassroomIndex',['classrooms' => $classrooms]);
+        return Inertia::render('classroom/ClassroomIndex');
     }
     public function show($id){
-        $classroom = Classroom::findOrFail($id);
-        return Inertia::render('classroom/ClassroomShow',['classroom' => $classroom]);
+        return Inertia::render('classroom/ClassroomShow');
     }
     public function create(){
         return Inertia::render('classroom/ClassroomCreate');
