@@ -18,7 +18,7 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return Inertia::render('welcome');
+    return Inertia::render('welcome2');
 })->name('/');
 
 Route::get('/post/{id}', [PostController::class, 'show']);
