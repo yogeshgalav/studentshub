@@ -16,15 +16,25 @@
 </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent } from 'vue';
+import axios from 'axios';
+import ClassroomCreateVue from './ClassroomCreate.vue';
 
 export default defineComponent({
     setup() {
         
     },
-    props: ['classroom'],
     data() {
-		return {};
+		return {
+            classroom : [],
+        };
+	},
+    mounted(){
+		axios.get('/api/classroom/' + this.classroom.id).then((resp)=>{
+			console.log(resp.data);
+            this.classroom = resp.data.success.classroom;
+		});
 	},
 })
 </script>
+

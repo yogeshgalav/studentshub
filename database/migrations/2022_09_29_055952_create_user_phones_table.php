@@ -21,10 +21,6 @@ class CreateUserPhonesTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('user_phones', function (Blueprint $table) {
-            $table->foreign('user_id')
-            ->references('id')->on('users')->onDelete('cascade');
-        });
     }
 
     /**

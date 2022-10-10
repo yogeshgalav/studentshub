@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use App\Http\Requests\PostCreateRequest;
+use App\Http\Requests\PostEditRequest;
 
 class PostController extends Controller
 {
 
-    public function create(Request $request){
+    public function create(PostCreateRequest $request){
 
         $post=new Post;
         $post->heading = $request->heading;
@@ -35,7 +37,7 @@ class PostController extends Controller
 
     }
 
-    public function edit(Request $request){
+    public function edit(PostEditRequest $request){
 
         $post = Post::find($request->id);
         $post->heading = $request->heading;
@@ -46,6 +48,21 @@ class PostController extends Controller
             'message'=>'Post Successfully edited'
           ]]);
 
+    }
+
+    public function index(){
+        $posts = Post::with('classroom')->get();
+        return response()->json(['success'=>[
+            'posts'=>$posts
+          ]]);
+    }
+    public function show($id){
+        $post = Post::findOrFail($id)
+        ->with(['classroom'])
+        ->first();
+        return response()->json(['success'=>[
+            'post'=>$post
+          ]]);
     }
 
 }

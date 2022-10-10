@@ -22,15 +22,22 @@
 </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue'
-
+import { defineComponent } from 'vue';
+import axios from 'axios';
 export default defineComponent({
     setup() {
         
     },
-    props: ['classrooms'],
     data() {
-		return {};
+		return {
+             classrooms:[],
+             };
+	},
+    mounted(){
+		axios.get('/api/classrooms').then((resp)=>{
+			console.log(resp.data);
+            this.classrooms = resp.data.success.classroom;
+		});
 	},
     
 })
