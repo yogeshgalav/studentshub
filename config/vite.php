@@ -13,7 +13,7 @@ return [
     'configs' => [
         'default' => [
             'entrypoints' => [
-                'ssr' => 'resources/scripts/ssr.ts',
+                // 'ssr' => 'resources/scripts/ssr.ts',
                 'paths' => [
                     'resources/css/tailwind.css',
                     'resources/scripts/main.ts',
@@ -46,7 +46,16 @@ return [
     'aliases' => [
         '@' => 'resources',
     ],
-
+        /*
+    |--------------------------------------------------------------------------
+    | Static assets path
+    |--------------------------------------------------------------------------
+    | This option defines the directory that Vite considers as the
+    | public directory. Its content will be copied to the build directory
+    | at build-time.
+    | https://vitejs.dev/config/#publicdir
+    */
+    'public_directory' => public_path(),
     /*
     |--------------------------------------------------------------------------
     | Commands

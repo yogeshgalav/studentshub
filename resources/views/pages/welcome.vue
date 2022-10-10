@@ -4,7 +4,7 @@
         <!-- navbar -->
         <nav class="lg:px-16 px-6 bg-white d-flex flex-wrap items-centern shadow-md md:py-3 py-3">
             <div class="flex-1 d-flex justify-between items-center text-2xl">
-                <a href="/"><img src="/images/logo.png" />
+                <a href="/">
                 </a>
             </div>
 
