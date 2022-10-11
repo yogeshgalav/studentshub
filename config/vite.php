@@ -13,7 +13,7 @@ return [
     'configs' => [
         'default' => [
             'entrypoints' => [
-                // 'ssr' => 'resources/scripts/ssr.ts',
+                'ssr' => 'resources/scripts/ssr.ts',
                 'paths' => [
                     'resources/css/tailwind.css',
                     'resources/scripts/main.ts',

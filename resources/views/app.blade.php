@@ -3,7 +3,9 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Laravel with Inertia</title>
+		<title>Student's HUB</title>
+		<link rel="icon" href="favicon.ico" type="image/x-icon" />
+		<link rel="manifest" href="/build/manifest.webmanifest" />
 		@vite
 		@inertiaHead
 	</head>
