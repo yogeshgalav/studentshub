@@ -5,8 +5,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Laravel with Inertia</title>
 		@vite
+		@inertiaHead
 	</head>
-	<body>
+	<body class="antialiased">
 		@inertia
 	</body>
 </html>

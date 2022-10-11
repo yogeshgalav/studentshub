@@ -1,57 +1,10 @@
 
 <template>
-
-    <!-- <div class="container mt-5">
-    <div class="d-flex justify-content-center align-items-center">
-        <div class="col-lg-5 card p-5">
-            <div class="h3 text-center">Login Form</div>
-            <form @submit.prevent="loginForm">
-                <div class="mb-3">
-                    <label class="mb-1"> {{ 'Phone Number' }} </label>
-					<input
-                        v-model="phone_number"
-                        type="number"
-                        class="form-control"
-                        name="phone_number"
-                      >
-                </div>
-                <div class="mb-3">
-					<label class="mb-1"> {{ 'OTP' }} </label>
-					<input
-                        v-model="otp"
-                        type="number"
-                        class="form-control"
-                        name="otp"
-                      >
-                </div>
-                <div class="mb-3">
-                    <label class="mb-1"> {{ 'First Name' }} </label>
-					<input
-                        v-model="first_name"
-                        type="text"
-                        class="form-control"
-                        name="first_name"
-                      >
-                </div>
-                <div class="mb-3">
-                    <label class="mb-1"> {{ 'Last Name' }} </label>
-					<input
-                        v-model="last_name"
-                        type="text"
-                        class="form-control"
-                        name="last_name"
-                      >
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-        </div>
-    </div>
-</div> -->
     <div class="w-100% min-h-screen bg-slate-100">
         <!-- navbar -->
         <nav class="lg:px-16 px-6 bg-white d-flex flex-wrap items-centern shadow-md md:py-3 py-3">
             <div class="flex-1 d-flex justify-between items-center text-2xl">
-                <a href="#">MyLogo
+                <a href="/">
                 </a>
             </div>
 

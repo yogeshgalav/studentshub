@@ -4,6 +4,7 @@ import autoprefixer from 'autoprefixer'
 import laravel from 'vite-plugin-laravel'
 import vue from '@vitejs/plugin-vue'
 import inertia from './resources/scripts/vite/inertia-layout'
+import viteCompression from 'vite-plugin-compression';
 
 export default defineConfig({
 	plugins: [
@@ -15,5 +16,6 @@ export default defineConfig({
 				autoprefixer(),
 			],
 		}),
+		viteCompression()
 	],
 })

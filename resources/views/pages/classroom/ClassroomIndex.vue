@@ -7,6 +7,7 @@
             :key="index"
             class="col-md-4 mb-2"
           >
+          <ClassroomCard></ClassroomCard>
             <div class="card">
                 <img class="card-img-top" src="" alt="Card image" style="width:100%">
                 <div class="card-body">
@@ -24,21 +25,21 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import axios from 'axios';
+import ClassroomCard from './ClassroomCard.vue';
 export default defineComponent({
     setup() {
-        
     },
     data() {
-		return {
-             classrooms:[],
-             };
-	},
-    mounted(){
-		axios.get('/api/classrooms').then((resp)=>{
-			console.log(resp.data);
+        return {
+            classrooms: [],
+        };
+    },
+    mounted() {
+        axios.get("/api/classrooms").then((resp) => {
+            console.log(resp.data);
             this.classrooms = resp.data.success.classroom;
-		});
-	},
-    
+        });
+    },
+    components: { ClassroomCard }
 })
 </script>
