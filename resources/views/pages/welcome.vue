@@ -66,8 +66,8 @@
                 </div>
                 <div class="mx-8 my-2 d-flex flex-col">
                     <label class="my-2 text-lg font-2xl" for="otp">OTP</label>
-                    <v-otp-input ref="otpInput" input-classes="form-control text-center"
-                        separator="&emsp;" :num-inputs="4" @handleOnChange="otpChange" />
+                    <v-otp-input ref="otpInput" input-classes="form-control text-center w-16"
+                        separator="&emsp;" :num-inputs="4" @on-change="otpChange" />
 
                 </div>
                 <div class="mx-8 my-2 d-flex flex-col">
@@ -84,23 +84,26 @@
     </div>
 </template>
 <script lang="ts">
-import { defineComponent, reactive } from 'vue';
+import { defineComponent, ref, reactive } from 'vue';
 import axios from 'axios';
 import VOtpInput from 'vue3-otp-input';
 
 export default defineComponent({
     components: { VOtpInput },
     setup() {
-        function otpChange(value) {
-            console.log(value);
-        };
-
         let login_data = reactive({
             phone_number: '',
             otp: '',
             first_name: '',
             last_name: '',
         });
+
+        function otpChange(value: string) {
+            console.log(value);
+            login_data.otp = value;
+            console.log(login_data,login_data.otp);
+        };
+        
         function loginForm() {
             axios.post('/api/login', login_data)
                 .then(resp => {
@@ -109,7 +112,6 @@ export default defineComponent({
 
             return true;
         };
-
 
         return { login_data, otpChange, loginForm };
     },
