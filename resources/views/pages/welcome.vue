@@ -59,13 +59,16 @@
                             +91
                         </span>
                         <input type="tel"
+                        v-model="login_data.phone_number"
                             class="rounded-r border-2 focus:outline-none focus:ring-blue-800 focus:border-blue-800 block flex-1 min-w-0 w-full p-2 "
                             placeholder="Enter Phone Number">
                     </div>
                 </div>
                 <div class="mx-8 my-2 d-flex flex-col">
                     <label class="my-2 text-lg font-2xl" for="otp">OTP</label>
-                    <input class="form-control" type="text" inputmode="numeric" required placeholder="Enter OTP">
+                    <v-otp-input ref="otpInput" input-classes="form-control text-center"
+                        separator="&emsp;" :num-inputs="4" @handleOnChange="otpChange" />
+
                 </div>
                 <div class="mx-8 my-2 d-flex flex-col">
                     <label for="Phonenumber" class="my-2 text-lg font-2xl">First Name</label>
@@ -81,36 +84,34 @@
     </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, reactive } from 'vue';
+import axios from 'axios';
+import VOtpInput from 'vue3-otp-input';
 
 export default defineComponent({
+    components: { VOtpInput },
     setup() {
+        function otpChange(value) {
+            console.log(value);
+        };
 
-    },
-    data() {
-        return {
+        let login_data = reactive({
             phone_number: '',
             otp: '',
             first_name: '',
             last_name: '',
-        };
-    },
-    mounted() {
-
-    }, methods: {
-        loginForm() {
-
-            this.axios.post('/api/login', {
-                phone_number: this.phone_number,
-                otp: this.otp,
-                first_name: this.first_name,
-                last_name: this.last_name,
-            }).then(resp => {
-                console.log(resp);
-            });
+        });
+        function loginForm() {
+            axios.post('/api/login', login_data)
+                .then(resp => {
+                    console.log(resp);
+                });
 
             return true;
-        },
-    }
+        };
+
+
+        return { login_data, otpChange, loginForm };
+    },
 })
 </script>
