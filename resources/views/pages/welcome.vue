@@ -83,25 +83,32 @@
             </div>
         </nav>
 
-        <div class="Container w-100% h-100vh d-flex flex-col items-center lg:flex-row justify-around">
-            <div class="w-2/5">
-                <h1 class="text-[2.5em] mx-4 my-8 font-bold text-center">
+        <div class="Container w-100% h-100vh d-flex flex-col items-center lg:flex-row justify-evenly">
+            <div class="lg:w-2/4 mx-4 my-4">
+                <h1 class="text-3xl lg:text-[3em] font-semibold text-center lg:text-left ">
                     World's First Education Network
                 </h1>
-                <h2 class="text-justify text-lg">
+                <hr class="lg:w-72 lg:h-1 lg:bg-blue-700 lg:rounded lg:border-0 lg:my-2">
+                <h2 class="text-justify lg:text-xl font-normal mt-4">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae, consequatur repellendus?
                     Beatae natus nulla assumenda modi magnam provident animi blanditiis quos ut iusto. Neque quos
-                    voluptatibus debitis officia explicabo similique veritatis nostrum perferendis commodi laborum
-                    tempore molestiae, ad pariatur dolor quam alias. Harum, facere! Aspernatur?
                 </h2>
             </div>
             <!-- Login Form -->
-            <div class="w-96 my-4 d-flex flex-col flex-wrap bg-white border border-slate-300">
+            <div class="w-80 lg:w-96 my-4 d-flex flex-col flex-wrap bg-white box-shaa shadow-md rounded-md">
                 <div class="text-2xl my-6 font-semibold text-center">Login
                 </div>
                 <div class="mx-8 mb-2 d-flex flex-col">
                     <label for="Phonenumber" class="my-2 text-lg font-2xl">Phone Number</label>
-                    <input class="form-control" type="tel" placeholder="Enter Phone Number">
+                    <div class="flex">
+                        <span
+                            class="inline-flex items-center px-3 text-sm text-white bg-blue-700 rounded-l border border-r-0 border-blue-800">
+                            +91
+                        </span>
+                        <input type="tel"
+                            class="rounded-r border-2 focus:outline-none focus:ring-blue-800 focus:border-blue-800 block flex-1 min-w-0 w-full p-2 "
+                            placeholder="Enter Phone Number">
+                    </div>
                 </div>
                 <div class="mx-8 my-2 d-flex flex-col">
                     <label class="my-2 text-lg font-2xl" for="otp">OTP</label>
@@ -115,7 +122,7 @@
                     <label for="Phonenumber" class="my-2 text-lg font-2xl">Last Name</label>
                     <input class="form-control" type="text" placeholder="Enter Last Name">
                 </div>
-                <div class="text-center mx-6 mt-14 mb-12"><a href="#" class="text-md btn-primary">Login</a></div>
+                <div class="text-center mx-6 mt-14 mb-12"><a href="#" class="text-md my-4 btn-primary">Login</a></div>
             </div>
         </div>
     </div>
