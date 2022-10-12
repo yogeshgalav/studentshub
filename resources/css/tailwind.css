@@ -32,7 +32,7 @@
 }
 
 .card{
-    @apply min-h-fit m-4 border border-gray-200
+    @apply min-h-fit m-4 border border-gray-200 bg-white rounded-md
 }
 
 .card-body{

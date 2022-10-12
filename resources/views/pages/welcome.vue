@@ -78,7 +78,8 @@
                 </div>
                 <div class="form-group">
                     <label for="otp" class="my-2 text-md font-xl" >OTP</label>
-                    <input class="form-control" type="text" inputmode="numeric" required placeholder="Enter OTP">
+                    <v-otp-input ref="otpInput" input-classes="form-control text-center w-16"
+                        separator="&emsp;" :num-inputs="4" @on-change="otpChange" />
                 </div>
                 <div class=" form-group">
                     <label for="Phonenumber" class="my-2 text-md font-xl">First Name</label>
