@@ -106,6 +106,7 @@
                             +91
                         </span>
                         <input type="tel"
+<<<<<<< HEAD
                             class="rounded-r border-2 hover:border-blue-700 focus:outline-none focus:border-blue-800 block flex-1 min-w-0 w-full p-2"
                             placeholder="Enter Your Phone Number">
                     </div>
@@ -113,6 +114,18 @@
                 <div class="form-group">
                     <label for="otp" class="my-2 text-md font-xl" >OTP</label>
                     <input class="form-control" type="text" inputmode="numeric" required placeholder="Enter OTP">
+=======
+                        v-model="login_data.phone_number"
+                            class="rounded-r border-2 focus:outline-none focus:ring-blue-800 focus:border-blue-800 block flex-1 min-w-0 w-full p-2 "
+                            placeholder="Enter Phone Number">
+                    </div>
+                </div>
+                <div class="mx-8 my-2 d-flex flex-col">
+                    <label class="my-2 text-lg font-2xl" for="otp">OTP</label>
+                    <v-otp-input ref="otpInput" input-classes="form-control text-center w-16"
+                        separator="&emsp;" :num-inputs="4" @on-change="otpChange" />
+
+>>>>>>> 1e828141246f088b506d124ef3b7b22aabd4cf9a
                 </div>
                 <div class=" form-group">
                     <label for="Phonenumber" class="my-2 text-md font-xl">First Name</label>
@@ -128,36 +141,36 @@
     </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref, reactive } from 'vue';
+import axios from 'axios';
+import VOtpInput from 'vue3-otp-input';
 
 export default defineComponent({
+    components: { VOtpInput },
     setup() {
-
-    },
-    data() {
-        return {
+        let login_data = reactive({
             phone_number: '',
             otp: '',
             first_name: '',
             last_name: '',
+        });
+
+        function otpChange(value: string) {
+            console.log(value);
+            login_data.otp = value;
+            console.log(login_data,login_data.otp);
         };
-    },
-    mounted() {
-
-    }, methods: {
-        loginForm() {
-
-            this.axios.post('/api/login', {
-                phone_number: this.phone_number,
-                otp: this.otp,
-                first_name: this.first_name,
-                last_name: this.last_name,
-            }).then(resp => {
-                console.log(resp);
-            });
+        
+        function loginForm() {
+            axios.post('/api/login', login_data)
+                .then(resp => {
+                    console.log(resp);
+                });
 
             return true;
-        },
-    }
+        };
+
+        return { login_data, otpChange, loginForm };
+    },
 })
 </script>
