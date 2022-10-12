@@ -20,7 +20,11 @@
 }
 
 .btn{
-    @apply md:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-blue-600
+    @apply md:p-4 py-3 px-0 mx-2 block border-b-2 border-transparent hover:border-blue-600
+}
+
+.form-group{
+    @apply mb-2 d-flex flex-col
 }
 
 .form-control{
