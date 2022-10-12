@@ -48,6 +48,7 @@
     </div>
 </div> -->
         <!-- navbar -->
+        
 
         <main class="Container w-100% h-100vh d-flex flex-col items-center lg:flex-row justify-evenly">
             <div class="lg:w-2/4 mx-4 my-4">
@@ -62,8 +63,26 @@
             </div>
             <!-- Login Form -->
             <div class="w-96 my-4 p-6 d-flex flex-col flex-wrap bg-white shadow-md rounded-md">
+                <MultiStepForm
+                ref="multiStepForm"
+                :steps="steps"
+                @onComplete="submitForm"
+                @validateStep="validateStep"
+                method="post"
+                id="loginForm"
+                action="/api/login"
+                >
+                <template #header>
                 <div class="text-2xl mb-4 font-semibold text-center">Login
                 </div>
+                <input type="hidden" name="_token" :value="$page.props.csrfToken">
+                </template>
+            
+                <template #footer>
+                    <button class="btn btn-primary" 
+                    type="submit">Get OTP</button>
+                </template>
+                <template #step1>
                 <div class="form-group">
                     <label for="Phonenumber" class="my-2 text-md font-xl">Phone Number</label>
                     <div class="flex">
@@ -76,11 +95,15 @@
                             placeholder="Enter Your Phone Number">
                     </div>
                 </div>
-                <div class="form-group">
+                </template>
+                <template #step2>
+                                    <div class="form-group">
                     <label for="otp" class="my-2 text-md font-xl" >OTP</label>
                     <v-otp-input ref="otpInput" input-classes="form-control text-center w-16"
                         separator="&emsp;" :num-inputs="4" @on-change="otpChange" />
                 </div>
+                </template>
+                <template #step3>
                 <div class=" form-group">
                     <label for="Phonenumber" class="my-2 text-md font-xl">First Name</label>
                     <input class="form-control" type="text" placeholder="Enter Your First Name">
@@ -89,17 +112,29 @@
                     <label for="Phonenumber" class="my-2 text-md font-xl">Last Name</label>
                     <input class="form-control" type="text" placeholder="Enter Your Last Name">
                 </div>
+                </template>
                 <div class="text-center mb-4 mt-12"><a href="#" class="text-md btn-primary">Login</a></div>
+                </MultiStepForm>
             </div>
         </main>
 </template>
 <script lang="ts">
 import { defineComponent, ref, reactive } from 'vue';
 import axios from 'axios';
+import MultiStepForm from '../components/MultiStepForm.vue';
 import VOtpInput from 'vue3-otp-input';
 
 export default defineComponent({
-    components: { VOtpInput },
+    components: { VOtpInput , MultiStepForm },
+        data(){
+        return {
+            steps:[
+            {'step_no':1,'step_valid':true,'step_skip':false},
+            {'step_no':2,'step_valid':true,'step_skip':false},
+            {'step_no':3,'step_valid':true,'step_skip':false},
+            ],
+        };
+    },
     setup() {
         let login_data = reactive({
             phone_number: '',
@@ -125,5 +160,18 @@ export default defineComponent({
 
         return { login_data, otpChange, loginForm };
     },
+    methods:{
+        validateStep(stepIndex){
+        //run validation of step
+        //if step is valid then
+        this.steps[stepIndex].step_valid=true;
+        this.$refs.multiStepForm.submitStep();
+        //else show errors
+        },
+        submitForm(){
+        //api call to submit all data via post request
+        //redirect to somewhere
+        }
+    }
 })
 </script>
