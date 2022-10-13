@@ -12,23 +12,23 @@
                         name="category"
                         class="form-control"
                       >
-                        <option v-for="(classroom, index) in classrooms" 
+                        <option v-for="(category, index) in categories" 
                         :key="index"
-                        :value="classroom.category.name">
-                          {{ classroom.category.name}}
+                        :value="category.id">
+                          {{ category.name}}
                         </option>
                       </select>
                 </div>
                 <div class="mb-3">
 					<label class="mb-1"> {{ 'Course' }} </label>
-					          <select
+                    <select
                         name="course"
                         class="form-control"
                       >
-                        <option v-for="(classroom, index) in classrooms" 
+                        <option v-for="(course, index) in courses" 
                         :key="index"
-                        :value="classroom.course.name">
-                          {{ classroom.course.name}}
+                        :value="course.id">
+                          {{ course.name}}
                         </option>
                       </select>
                 </div>
@@ -38,10 +38,10 @@
                         name="subject"
                         class="form-control"
                       >
-                        <option v-for="(classroom, index) in classrooms" 
+                        <option v-for="(subject, index) in subjects" 
                         :key="index"
-                        :value="classroom.subject.name">
-                          {{ classroom.subject.name}}
+                        :value="subject.id">
+                          {{ subject.name}}
                         </option>
                       </select>
                 </div>
@@ -51,10 +51,10 @@
                         name="institute"
                         class="form-control"
                       >
-                        <option v-for="(classroom, index) in classrooms"
+                        <option v-for="(institute, index) in institutes"
                          :key="index" 
-                         :value="classroom.institute.name">
-                          {{ classroom.institute.name }}
+                         :value="institute.id">
+                          {{ institute.name }}
                         </option>
                       </select>
                 </div>
@@ -74,18 +74,32 @@ export default defineComponent({
     },
 	data() {
 		return {
-			category_id: '',
-			course_id: '',
-			subject_id: '',
-      institute_id: '',
-      classrooms:'',
+			categories: '',
+			courses: '',
+			subjects: '',
+      institutes: '',
 		};
 	},
 	mounted(){
 
-      axios.get("/api/classrooms").then((resp) => {
+        axios.get("/api/subjects").then((resp) => {
               console.log(resp.data);
-              this.classrooms = resp.data.success.classroom;
+              this.subjects = resp.data.success.subjects;
+          });
+
+          axios.get("/api/categories").then((resp) => {
+              console.log(resp.data);
+              this.categories = resp.data.success.categories;
+          });
+
+          axios.get("/api/courses").then((resp) => {
+              console.log(resp.data);
+              this.courses = resp.data.success.courses;
+          });
+
+          axios.get("/api/institutes").then((resp) => {
+              console.log(resp.data);
+              this.institutes = resp.data.success.institutes;
           });
 		
 	},methods:{
