@@ -8,39 +8,55 @@
             <form @submit.prevent="classroomCreate">
                 <div class="mb-3">
                     <label class="mb-1"> {{ 'Category' }} </label>
-					<input
-                        v-model="category_id"
-                        type="number"
+					          <select
+                        name="category"
                         class="form-control"
-                        name="category_id"
                       >
+                        <option v-for="(classroom, index) in classrooms" 
+                        :key="index"
+                        :value="classroom.category.name">
+                          {{ classroom.category.name}}
+                        </option>
+                      </select>
                 </div>
                 <div class="mb-3">
 					<label class="mb-1"> {{ 'Course' }} </label>
-					<input
-                        v-model="course_id"
-                        type="number"
+					          <select
+                        name="course"
                         class="form-control"
-                        name="course_id"
                       >
+                        <option v-for="(classroom, index) in classrooms" 
+                        :key="index"
+                        :value="classroom.course.name">
+                          {{ classroom.course.name}}
+                        </option>
+                      </select>
                 </div>
                 <div class="mb-3">
                     <label class="mb-1"> {{ 'Subject' }} </label>
-					<input
-                        v-model="subject_id"
-                        type="number"
+                    <select
+                        name="subject"
                         class="form-control"
-                        name="subject_id"
                       >
+                        <option v-for="(classroom, index) in classrooms" 
+                        :key="index"
+                        :value="classroom.subject.name">
+                          {{ classroom.subject.name}}
+                        </option>
+                      </select>
                 </div>
                 <div class="mb-3">
                     <label class="mb-1"> {{ 'Institute' }} </label>
-					<input
-                        v-model="institute_id"
-                        type="number"
+                    <select
+                        name="institute"
                         class="form-control"
-                        name="institute_id"
                       >
+                        <option v-for="(classroom, index) in classrooms"
+                         :key="index" 
+                         :value="classroom.institute.name">
+                          {{ classroom.institute.name }}
+                        </option>
+                      </select>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
@@ -50,6 +66,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
+import axios from 'axios';
 
 export default defineComponent({
     setup() {
@@ -60,15 +77,21 @@ export default defineComponent({
 			category_id: '',
 			course_id: '',
 			subject_id: '',
-            institute_id: '',
+      institute_id: '',
+      classrooms:'',
 		};
 	},
 	mounted(){
+
+      axios.get("/api/classrooms").then((resp) => {
+              console.log(resp.data);
+              this.classrooms = resp.data.success.classroom;
+          });
 		
 	},methods:{
 		classroomCreate() {
 
-					this.axios.post('/api/classroom/create', {
+					axios.post('/api/classroom/create', {
 						category_id: this.category_id,
 						course_id: this.course_id,
 						subject_id: this.subject_id,
