@@ -92,7 +92,7 @@
                         </span>
                         <input type="tel"
                             class="rounded-r border-2 hover:border-blue-700 focus:outline-none focus:border-blue-800 block flex-1 min-w-0 w-full p-2"
-                            placeholder="Enter Your Phone Number">
+                            placeholder="Enter Your Phone Number" name="phone_number">
                     </div>
                 </div>
                 </template>
@@ -101,16 +101,17 @@
                     <label for="otp" class="my-2 text-md font-xl" >OTP</label>
                     <v-otp-input ref="otpInput" input-classes="form-control text-center w-16"
                         separator="&emsp;" :num-inputs="4" @on-change="otpChange" />
+                    <input type="hidden" name="otp" :value="login_data.otp">
                 </div>
                 </template>
                 <template #step3>
                 <div class=" form-group">
                     <label for="Phonenumber" class="my-2 text-md font-xl">First Name</label>
-                    <input class="form-control" type="text" placeholder="Enter Your First Name">
+                    <input class="form-control" type="text" placeholder="Enter Your First Name" name="first_name">
                 </div>
                 <div class="form-group">
                     <label for="Phonenumber" class="my-2 text-md font-xl">Last Name</label>
-                    <input class="form-control" type="text" placeholder="Enter Your Last Name">
+                    <input class="form-control" type="text" placeholder="Enter Your Last Name" name="last_name">
                 </div>
                 </template>
                 <div class="text-center mb-4 mt-12"><a href="#" class="text-md btn-primary">Login</a></div>
@@ -144,21 +145,11 @@ export default defineComponent({
         });
 
         function otpChange(value: string) {
-            console.log(value);
             login_data.otp = value;
-            console.log(login_data,login_data.otp);
         };
         
-        function loginForm() {
-            axios.post('/api/login', login_data)
-                .then(resp => {
-                    console.log(resp);
-                });
 
-            return true;
-        };
-
-        return { login_data, otpChange, loginForm };
+        return { login_data, otpChange };
     },
     methods:{
         validateStep(stepIndex){

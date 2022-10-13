@@ -32,9 +32,9 @@ export default defineComponent({
             }
 
             let isLastStep = (this.activeStepIndex == (this.steps.length - 1));
-            console.log(isLastStep);
-            console.log(this.steps.length);
-            console.log(this.activeStepIndex);
+            // console.log(isLastStep);
+            // console.log(this.steps.length);
+            // console.log(this.activeStepIndex);
 
             if (isLastStep && this.action) {
                 // console.log('data');
@@ -48,7 +48,7 @@ export default defineComponent({
 
                 return true;
             }
-            console.log('data');
+            // console.log('data');
 
             this.activeStepIndex++;
             while (this.steps[this.activeStepIndex].step_skip === true) {
