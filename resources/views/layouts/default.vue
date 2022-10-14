@@ -15,7 +15,29 @@
 				<div class="d-flex md:items-center md:w-auto" id="menu">
 					<ul class=" hidden md:flex md:items-center md:justify-between text-base text-gray-900 pt-4 md:pt-0">
 						<li><a class="btn" href="#">Home</a></li>
-						<li><a class="btn" href="#">Item1</a></li>
+						<li class="dropdown"><a class="btn">
+								<div class="flex items-center">
+									<div class="pr-2">Dropdown</div>
+									<svg class="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg"
+										viewBox="0 0 20 20">
+										<path
+											d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+									</svg>
+								</div>
+							</a>
+							<div class="dropdown-menu absolute w-36 bg-white rounded divide-y divide-gray-100 shadow hidden text-gray-700">
+								<ul class=" text-center ">
+									<li><a class="wrap block rounded-t  py-2 px-4 hover:border-blue-600 hover:border-b-2 hover:bg-slate-100"
+											href="#">Subitem1</a></li>
+									<li><a class="wrap block py-2 px-4 hover:border-blue-600 hover:border-b-2 hover:bg-slate-100"
+											href="#">Subitem2</a></li>
+									<li><a class="wrap block py-2 px-4 hover:border-blue-600 hover:border-b-2 hover:bg-slate-100"
+											href="#">Subitem3</a></li>
+									<li><a class="wrap block rounded-b py-2 px-4 hover:border-blue-600 hover:border-b-2 hover:bg-slate-100"
+											href="#">Subitem4</a></li>
+								</ul>
+							</div>
+						</li>
 						<li><a class="btn" href="#">Item2</a></li>
 						<li><a class="btn" href="#">Item3</a></li>
 					</ul>

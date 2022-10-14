@@ -38,6 +38,10 @@
 .card-body{
     @apply p-6 text-justify
 }
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+  }
 /* card
 card-body
 btn
