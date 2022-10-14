@@ -101,15 +101,17 @@ export default defineComponent({
               console.log(resp.data);
               this.institutes = resp.data.success.institutes;
           });
+
+          // alert(this.category.categories.id);
 		
 	},methods:{
-		classroomCreate() {
-
-					axios.post('/api/classroom/create', {
+    
+    classroomCreate() {
+					axios.get('/api/classroom/create', {
 						category_id: this.category_id,
 						course_id: this.course_id,
 						subject_id: this.subject_id,
-                        institute_id: this.institute_id,
+            institute_id: this.institute_id,
 					}).then(resp=>{
 						console.log(resp);
 						});
