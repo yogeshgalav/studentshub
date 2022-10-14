@@ -2,6 +2,26 @@
 <template>
 
 	<div class="container mt-5">
+    <div class="d-flex my-4 mx-auto lg:mx-8 w-4/5 lg:w-2/4 flex-col flex-wrap rounded-md bg-white p-6 shadow-md">
+            <div class="mb-4 text-center text-2xl font-semibold">Create Classroom</div>
+            <div class="form-group">
+                <label for="" class="text-md font-xl my-2">Collage/Institute Name</label>
+                <input class="form-control" type="text" placeholder="" />
+            </div>
+            <div class="form-group">
+                <label for="" class="text-md font-xl my-2">Classroom Name</label>
+                <input class="form-control" type="text" placeholder="" />
+            </div>
+            <div class="form-group">
+                <label for="" class="text-md font-xl my-2">Program/Course Level</label>
+                <input class="form-control" type="text" placeholder="" />
+            </div>
+            <div class="form-group">
+                <label for="" class="text-md font-xl my-2">Subject of Classroom</label>
+                <input class="form-control" type="text" placeholder="" />
+            </div>
+            <div class="mb-4 mt-12 text-right"><a href="#" class="text-md btn-primary">Create</a></div>
+        </div>
     <div class="d-flex justify-content-center align-items-center">
         <div class="col-lg-5 card p-5">
             <div class="h3 text-center">Classroom Create</div>
