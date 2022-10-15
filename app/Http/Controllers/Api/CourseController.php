@@ -11,12 +11,11 @@ use DB;
 class CourseController extends Controller
 {
     public function index(Request $request){
-        $courses = DB::table('courses as co');
-        if(!empty($request->searchTerm)){
-            $search = str_replace('.', '', $request->searchTerm);
-            $courses = $courses->where('co.name', 'LIKE', '%' . $search . '%')
+        $search = str_replace('.', '', $request->searchTerm);
+        $courses = DB::table('courses as co')
+            ->where('co.name', 'LIKE', '%' . $search . '%')
+            ->orWhere('so.alias', 'LIKE', '%' . $search . '%')
             ->limit(10)->get();
-        }
 
         return response()->json(['success'=>[
             'courses'=>$courses

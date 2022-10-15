@@ -11,12 +11,11 @@ use DB;
 class SubjectController extends Controller
 {
     public function index(Request $request){
-        $subjects = DB::table('subjects as sub');
-        if(!empty($request->searchTerm)){
-            $search = str_replace('.', '', $request->searchTerm);
-            $subjects = $subjects->where('sub.name', 'LIKE', '%' . $search . '%')
+        $search = str_replace('.', '', $request->searchTerm);
+        $subjects = DB::table('subjects as sub')
+            ->where('sub.name', 'LIKE', '%' . $search . '%')
+            ->orWhere('sub.alias', 'LIKE', '%' . $search . '%')
             ->limit(10)->get();
-        }
 
         return response()->json(['success'=>[
             'subjects'=>$subjects

@@ -18,7 +18,13 @@ class CreateCoursesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug');
+            $table->string('alias');
+            $table->unsignedInteger('category_id');
             $table->timestamps();
+        });
+        Schema::table('courses', function (Blueprint $table){
+            $table->foreign('category_id')
+            ->references('id')->on('categories')->onDelete('cascade');
         });
     }
 

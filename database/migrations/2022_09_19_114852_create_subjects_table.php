@@ -18,9 +18,17 @@ class CreateSubjectsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug');
+            $table->string('alias');
+            $table->unsignedInteger('category_id');
             $table->timestamps();
         });
+
+        Schema::table('subjects', function (Blueprint $table){
+            $table->foreign('category_id')
+            ->references('id')->on('categories')->onDelete('cascade');
+        });
     }
+
 
     /**
      * Reverse the migrations.

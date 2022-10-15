@@ -11,12 +11,11 @@ use DB;
 class InstituteController extends Controller
 {
     public function index(Request $request){
-        $institutes = DB::table('institutes as in');
-        if(!empty($request->searchTerm)){
-            $search = str_replace('.', '', $request->searchTerm);
-            $institutes = $institutes->where('in.name', 'LIKE', '%' . $search . '%')
+        $search = str_replace('.', '', $request->searchTerm);
+        $institutes = DB::table('institutes as in')
+            ->where('in.name', 'LIKE', '%' . $search . '%')
+            ->orWhere('in.alias', 'LIKE', '%' . $search . '%')
             ->limit(10)->get();
-        }
 
         return response()->json(['success'=>[
             'institutes'=>$institutes
