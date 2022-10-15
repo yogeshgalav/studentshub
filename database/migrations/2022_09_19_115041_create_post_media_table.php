@@ -16,7 +16,7 @@ class CreatePostMediaTable extends Migration
         
         Schema::create('post_media', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('post_id');
+            $table->bigInteger('post_id')->unsigned();
             $table->string('type');
             $table->string('url');
             $table->string('is_banner');

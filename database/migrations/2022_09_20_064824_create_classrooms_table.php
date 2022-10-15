@@ -15,11 +15,11 @@ class CreateClassroomsTable extends Migration
     {
         Schema::create('classrooms', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('user_id');
-            $table->unsignedInteger('category_id');
-            $table->unsignedInteger('course_id');
-            $table->unsignedInteger('subject_id');
-            $table->unsignedInteger('institute_id');
+            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('category_id')->unsigned();
+            $table->bigInteger('course_id')->unsigned();
+            $table->bigInteger('subject_id')->unsigned();
+            $table->bigInteger('institute_id')->unsigned();
             $table->timestamps();
         });
         Schema::table('classrooms', function (Blueprint $table){

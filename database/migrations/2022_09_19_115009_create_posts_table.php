@@ -18,7 +18,7 @@ class CreatePostsTable extends Migration
             $table->id();
             $table->string('heading');
             $table->string('content');
-            $table->unsignedInteger('classroom_id');
+            $table->bigInteger('classroom_id')->unsigned();
             $table->string('primary_image_url');
             $table->string('slug');
             $table->timestamps();

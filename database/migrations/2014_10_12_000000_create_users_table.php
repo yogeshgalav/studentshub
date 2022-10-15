@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('fcm_token');
-            $table->unsignedInteger('phone_id');
+            $table->bigInteger('phone_id')->unsigned();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -19,7 +19,7 @@ class CreateCoursesTable extends Migration
             $table->string('name');
             $table->string('slug');
             $table->string('alias');
-            $table->unsignedInteger('category_id');
+            $table->bigInteger('category_id')->unsigned();
             $table->timestamps();
         });
         Schema::table('courses', function (Blueprint $table){
