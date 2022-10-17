@@ -6,6 +6,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\ClassroomController;
+use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\CourseController;
+use App\Http\Controllers\Api\SubjectController;
+use App\Http\Controllers\Api\InstituteController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +40,11 @@ Route::get('/posts', [PostController::class, 'index']);
 Route::get('/classroom-create', [ClassroomController::class, 'create']);
 Route::get('/classrooms', [ClassroomController::class, 'index']);
 Route::get('/classroom/{id}', [ClassroomController::class, 'show']);
+
+Route::get('/categories', [CategoryController::class, 'index']);
+Route::get('/subjects', [SubjectController::class, 'index']);
+Route::get('/courses', [CourseController::class, 'index']);
+Route::get('/institutes', [InstituteController::class, 'index']);
 
 Route::post('/post',[App\Http\Controllers\Api\PostController::class, 'create']);
 Route::delete('/post',[App\Http\Controllers\Api\PostController::class, 'delete']);

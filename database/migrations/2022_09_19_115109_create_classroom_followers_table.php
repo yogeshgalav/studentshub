@@ -16,8 +16,8 @@ class CreateClassroomFollowersTable extends Migration
         
         Schema::create('classroom_followers', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('classroom_id');
-            $table->unsignedInteger('follower_user_id');
+            $table->bigInteger('classroom_id')->unsigned();
+            $table->bigInteger('follower_user_id')->unsigned();
             $table->timestamps();
         });
         Schema::table('classroom_followers', function (Blueprint $table){

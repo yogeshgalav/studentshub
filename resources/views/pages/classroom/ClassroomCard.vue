@@ -16,15 +16,15 @@
   <div class="mx-6 flex flex-row items-center">
     <img class="h-16 w-16 -translate-y-6 rounded-full border-2 border-solid border-white" src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
     <a href="http://">
-      <div class="ml-4 -translate-y-2 text-2xl font-bold hover:text-indigo-800">John</div>
+      <div class="ml-4 -translate-y-2 text-2xl font-bold hover:text-indigo-800">{{ classroomDetail.teacher }}</div>
     </a>
   </div>
   <hr class=" mx-auto w-72 h-1 bg-gray-200 rounded border-0">
-  <div class="mx-8 mt-6 text-sm text-slate-700">Category > Subcategory</div>
-  <div class="mx-8"><a href="http://">
-      <div class="my-2 text-3xl font-bold hover:text-indigo-800">Subject Name</div>
+  <div class="mx-8 mt-6 text-sm text-slate-700">{{ classroomDetail.category }}</div>
+  <div class="mx-8"><a :href="'/classroom/'+classroomDetail.id">
+      <div class="my-2 text-3xl font-bold hover:text-indigo-800">{{ classroomDetail.subject }}</div>
     </a></div>
-  <div class="mx-8 text-sm text-slate-700">About Course</div>
+  <div class="mx-8 text-sm text-slate-700">{{ classroomDetail.course }}</div>
   <div class="mx-4 mb-4 mt-6">
     <a href="#">
       <div class="rounded-lg bg-indigo-700 px-8 py-2 text-center text-lg font-semibold text-white hover:bg-indigo-800">Follow</div>
@@ -37,6 +37,10 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({
     setup() {
+      
     },
+    props:[
+      'classroomDetail'
+    ]
 });
 </script>

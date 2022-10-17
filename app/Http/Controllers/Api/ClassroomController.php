@@ -11,7 +11,6 @@ class ClassroomController extends Controller
 {
 
     public function create(Request $request){
-
         $classroom=new Classroom;
         $classroom->user_id=Auth::user()->id;
         $classroom->category_id=$request->category_id;
