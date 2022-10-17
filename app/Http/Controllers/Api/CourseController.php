@@ -13,8 +13,9 @@ class CourseController extends Controller
     public function index(Request $request){
         $search = str_replace('.', '', $request->searchTerm);
         $courses = DB::table('courses as co')
+            ->select('id','name')
             ->where('co.name', 'LIKE', '%' . $search . '%')
-            ->orWhere('so.alias', 'LIKE', '%' . $search . '%')
+            ->orWhere('co.alias', 'LIKE', '%' . $search . '%')
             ->limit(10)->get();
 
         return response()->json(['success'=>[

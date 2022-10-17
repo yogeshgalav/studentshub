@@ -29,7 +29,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::post("/verify-contact",[AuthController::class, 'verifyContact']);
-Route::post("/login",[AuthController::class, 'loginViaOtp'])->name('login');
+Route::post("/login",[AuthController::class, 'loginViaOtp']);
 Route::post("/register",[AuthController::class, 'registerViaOtp']);
 
 

@@ -19,7 +19,6 @@ class CreateSubjectsTable extends Migration
             $table->string('name');
             $table->string('slug');
             $table->string('alias');
-            $table->unsignedBigInteger('category_id');
             $table->bigInteger('category_id')->unsigned();
             $table->timestamps();
         });
