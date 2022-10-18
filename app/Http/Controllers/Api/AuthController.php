@@ -18,6 +18,7 @@ use Carbon\Carbon;
 use Auth;
 use Session;
 use DB;
+use WhichBrowser\Parser;
 
 class AuthController extends Controller
 {
@@ -111,7 +112,7 @@ class AuthController extends Controller
     }
     public function loginViaOtp(LoginRequest $request)
     {
-        // dd($request);
+        $result = new Parser($request->header('User-Agent'));
         Session::flush();
         $user_phone = UserPhone::where('phone_number', '=', $request->phone_number)->first();
         $user = $user_phone ? $user_phone->user : null;
