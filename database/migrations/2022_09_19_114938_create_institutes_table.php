@@ -18,6 +18,7 @@ class CreateInstitutesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug');
+            $table->string('alias');
             $table->timestamps();
         });
     }
