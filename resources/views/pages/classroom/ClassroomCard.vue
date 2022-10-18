@@ -9,26 +9,21 @@
                 <a v-bind:href="'/classroom/' + classroom.id " class="btn btn-primary">See Classroom</a>
                 </div>
             </div> -->
-<div class="mx-auto my-4 h-96 w-80 rounded-md bg-white shadow-lg lg:mx-4">
-  <div>
-    <img class="object-fill h-28 w-80 rounded-t-md" src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTYzNDY4MTc2Mg&ixlib=rb-1.2.1&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080" alt="">
-  </div>
-  <div class="mx-6 flex flex-row items-center">
-    <img class="h-16 w-16 -translate-y-6 rounded-full border-2 border-solid border-white" src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
+<div class="my-2 md:my-4 h-auto w-[18rem] md:w-[20rem] p-4 md:p-6 rounded-md bg-white shadow-lg mx-auto">
+  <div class="mx-auto mb-4 flex flex-row items-center">
+    <div class="h-16 w-16 rounded-full border-2 border-solid border-grey-200 bg-white text-2xl font-semibold text-gray-600 text-center py-3">Pr</div>
     <a href="http://">
-      <div class="ml-4 -translate-y-2 text-2xl font-bold hover:text-indigo-800">{{ classroomDetail.teacher }}</div>
+      <div class="ml-4 text-xl md:text-2xl font-bold hover:text-blue-800">{{ classroomDetail.teacher }}</div>
     </a>
   </div>
-  <hr class=" mx-auto w-72 h-1 bg-gray-200 rounded border-0">
-  <div class="mx-8 mt-6 text-sm text-slate-700">{{ classroomDetail.category }}</div>
-  <div class="mx-8"><a :href="'/classroom/'+classroomDetail.id">
-      <div class="my-2 text-3xl font-bold hover:text-indigo-800">{{ classroomDetail.subject }}</div>
+  <hr class=" mx-auto w-70 h-1 bg-gray-200 rounded border-0">
+  <div class="mx-6  mt-6 text-sm text-slate-700">{{ classroomDetail.category }}</div>
+  <div class="mx-6 "><a :href="'/classroom/'+classroomDetail.id">
+      <div class="my-2 text-2xl font-bold hover:text-blue-800">{{ classroomDetail.subject }}</div>
     </a></div>
-  <div class="mx-8 text-sm text-slate-700">{{ classroomDetail.course }}</div>
-  <div class="mx-4 mb-4 mt-6">
-    <a href="#">
-      <div class="rounded-lg bg-indigo-700 px-8 py-2 text-center text-lg font-semibold text-white hover:bg-indigo-800">Follow</div>
-    </a>
+  <div class="mx-6 text-sm text-slate-700">{{ classroomDetail.course }}</div>
+  <div class=" mt-6">
+      <button class="btn-primary min-w-full">Follow</button>
   </div>
 </div>
 </template>

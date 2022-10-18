@@ -47,7 +47,6 @@
         </div>
     </div>
 </div> -->
-        <!-- navbar -->
 
         <main class="Container w-100% h-100vh d-flex flex-col items-center lg:flex-row justify-evenly">
             <div class="lg:w-2/4 mx-4 my-4">
@@ -61,7 +60,7 @@
                 </h2>
             </div>
             <!-- Login Form -->
-            <div class="w-96 my-4 p-6 d-flex flex-col flex-wrap bg-white shadow-md rounded-md">
+            <div class="w-90 md:w-96 my-4 p-6 d-flex flex-col flex-wrap bg-white shadow-md rounded-md">
                 <div class="text-2xl mb-4 font-semibold text-center">Login
                 </div>
                 <div class="form-group">
@@ -78,7 +77,7 @@
                 </div>
                 <div class="form-group">
                     <label for="otp" class="my-2 text-md font-xl" >OTP</label>
-                    <v-otp-input ref="otpInput" input-classes="form-control text-center w-16"
+                    <v-otp-input ref="otpInput" input-classes="form-control text-center w-14 md:w-16"
                         separator="&emsp;" :num-inputs="4" @on-change="otpChange" />
                 </div>
                 <div class=" form-group">

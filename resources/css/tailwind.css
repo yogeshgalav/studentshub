@@ -32,7 +32,7 @@
 }
 
 .card{
-    @apply min-h-fit m-4 border border-gray-200 bg-white rounded-md
+    @apply h-auto mx-auto m-4 border border-gray-200 bg-white rounded-md shadow-lg lg:mx-4
 }
 
 .card-body{
