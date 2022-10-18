@@ -16,8 +16,10 @@
             <div class="form-group">
               <label for="" class="text-md font-xl my-2">Category</label>
 					          <select
+                        v-model="selected"
                         name="category"
                         class="form-control"
+                        @change="setCategory"
                       >
                         <option v-for="(category, index) in categories" 
                         :key="index"
@@ -42,7 +44,7 @@
                   :items="institutes"
                 />
             </div>
-            <div class="mb-4 mt-12 text-right"><a href="#" class="text-md btn-primary">Create</a></div>
+            <button class="mb-4 mt-12 text-right text-md btn-primary" value="submit">Create</button>
             </form>
         </div>
 </div>
@@ -62,16 +64,16 @@ export default defineComponent({
             institutes:[],
             courses:[],
             subjects:[],
-            institute:null,
             categories:'',
-            category:null,
+            institute:null,
+            category:[],
             course:null,
             subject:null,
+            selected:'',
         };
     },
     mounted(){
       axios.get("/api/categories").then((resp) => {
-              console.log(resp.data);
               this.categories = resp.data.success.categories;
           });
     },
@@ -98,6 +100,11 @@ export default defineComponent({
           });
         },
 
+        setCategory(obj){
+          this.category.id = obj.target.value;
+          this.category.name = obj.target.options[obj.target.options.selectedIndex].text;
+        },
+
         setInstitute(obj){
           this.institute = obj;
         },
@@ -107,10 +114,10 @@ export default defineComponent({
         setSubject(obj){
           this.subject = obj;
         },
-
     classroomCreate() {
-					axios.get('/api/classroom/create', {
-						category: this.categories,
+      console.log(this.category);
+					axios.post('/api/classroom-create', {
+						category: this.category,
 						course: this.course,
 						subject: this.subject,
             institute: this.institute,

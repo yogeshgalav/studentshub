@@ -13,10 +13,10 @@ class ClassroomController extends Controller
     public function create(Request $request){
         $classroom=new Classroom;
         $classroom->user_id=Auth::user()->id;
-        $classroom->category_id=$request->category_id;
-        $classroom->course_id=$request->course_id;
-        $classroom->subject_id=$request->subject_id;
-        $classroom->institute_id=$request->institute_id;
+        $classroom->category_id=$request->category['id'];
+        $classroom->course_id=$request->course['id'];
+        $classroom->subject_id=$request->subject['id'];
+        $classroom->institute_id=$request->institute['id'];
         $classroom->save();
 
         return response()->json(['success'=>[

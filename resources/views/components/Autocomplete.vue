@@ -79,7 +79,6 @@
       },
       methods: {
         setResult(result) {
-          console.log(result);
           this.search = result[this.label];
           this.isOpen = false;
           this.$emit('setResult',result);
@@ -98,7 +97,6 @@
           }
         },
         handleClickOutside(event) {
-          // this.setResult(this.results[this.arrowCounter]);
           if (!this.$el.contains(event.target)) {
             this.isOpen = false;
             this.arrowCounter = -1;
