@@ -20,7 +20,7 @@
 }
 
 .btn{
-    @apply md:p-4 py-3 px-0 mx-2 block border-b-2 border-transparent hover:border-blue-600
+    @apply md:px-4 md:py-2 mx-2 block hover:text-blue-700
 }
 
 .form-group{
@@ -38,6 +38,7 @@
 .card-body{
     @apply p-6 text-justify
 }
+
 
 .dropdown:hover .dropdown-menu {
     display: block;
