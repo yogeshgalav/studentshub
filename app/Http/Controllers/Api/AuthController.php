@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 // use App\Http\Controllers\Api\Session;
 use App\Models\User;
-use App\Models\UserPhone;
+use App\Models\UserLogin;
 use Illuminate\Http\Response;
 // use App\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -26,12 +26,14 @@ class AuthController extends Controller
     public function verifyContact(VerifyContactRequest $request)
     {        
     //     $phone_number = PhoneNumber::make($request->input('phone_number'), 'IN')->formatE164();
+        $device_info = new Parser($request->header('User-Agent'));
+        $ip_info = geoip()->getLocation() ;
         
         DB::beginTransaction();
     try{
 
-        $user_phone=UserPhone::where('phone_number','=',$request->phone_number)->first();
-        $user = $user_phone ? $user_phone->user : null;
+        $user_login=UserLogin::where('phone_number','=',$request->phone_number)->first();
+        $user = $user_login ? $user_login->user : null;
         $otp_required = !(('local'===env('APP_ENV')) || ($user && $user->is_demo_account));
 
         //generate otp
@@ -41,19 +43,27 @@ class AuthController extends Controller
 
         $success = [];
         $success['new_user']=false;
-        if(empty($user_phone) || empty($user)){
+        if(empty($user_login) || empty($user)){
             $success['new_user'] = true;
         }
-        if(empty($user_phone)){
-            $user_phone=new UserPhone();
-            $user_phone->phone_number=$request->phone_number;
-            $user_phone->expires_at = Carbon::now()->toDateTimeString();
+        if(empty($user_login)){
+            $user_login=new UserLogin();
+            $user_login->phone_number=$request->phone_number;
+            $user_login->expires_at = Carbon::now()->toDateTimeString();
             
         }
+            $user_login->fcm_token = $request->fcm_token;
+            $user_login->device_info = $device_info;
+            $user_login->city = $ip_info->city;
+            $user_login->state = $ip_info->state;
+            $user_login->country = $ip_info->country;
+            $user_login->timezone = $ip_info->timezone;
+            $user_login->postal_code = $ip_info->postal_code;
+            $user_login->ip = $request->ip();
 
-        $user_phone->otp=Hash::make($otp);
-        // $user_phone->otp=$otp;
-        $user_phone->save();
+        $user_login->otp=Hash::make($otp);
+        // $user_login->otp=$otp;
+        $user_login->save();
         if($otp_required){  
             $this->sendOtpMessage($otp,$request->phone_number);
         }
@@ -110,26 +120,21 @@ class AuthController extends Controller
 
         return true;
     }
-    public function loginViaOtp(LoginRequest $request)
+    public function loginViaOtp(Request $request)
     {
-        $result = new Parser($request->header('User-Agent'));
         Session::flush();
-        $user_phone = UserPhone::where('phone_number', '=', $request->phone_number)->first();
-        $user = $user_phone ? $user_phone->user : null;
+        $user_login = UserLogin::where('phone_number', '=', $request->phone_number)->first();
+        $user = $user_login ? $user_login->user : null;
 
-        if (!$user) {
+        if (!$user || !$user_login) {
             Log::critical('user not found during login', ['phone_number' => $request->phone_number]);
             return response()->json(['srvError', 1], 500);
         }
     
-        if (!Hash::check($request->otp, $user_phone->otp)) {
+        if (!Hash::check($request->otp, $user_login->otp)) {
             return response()->json(['otpError', 1], 401);
         }
 
-        if ($request->fcmToken) {
-            $user->fcm_token = $request->fcmToken;
-            $user->save();
-        }
 
         Auth::login($user, 1);
 
@@ -153,22 +158,23 @@ class AuthController extends Controller
     public function registerViaOtp(RegisterRequest $request)
     {
         Session::flush();
-        $user_phone = UserPhone::where('phone_number', '=', $request->phone_number)->first();
-        $user = $user_phone ? $user_phone->user : null;
+        $user_login = UserLogin::where('phone_number', '=', $request->phone_number)->first();
+        $user = $user_login ? $user_login->user : null;
         
         if ($user) {
             Log::critical('user found during registration'.['phone_number' => $request->phone_number]);
         }
 
-        if (!Hash::check($request->otp , $user_phone->otp)) {
+        if (!Hash::check($request->otp , $user_login->otp)) {
             return response()->json(['otpError', 1], 401);
         }
         DB::beginTransaction();
         try {
             $user = new User;
-            $user->full_name = $request->full_name;
-            $user->fcm_token = $request->fcm_token;
-            $user->phone_id = $user_phone->id;
+            $user->first_name = $request->first_name;
+            $user->last_name = $request->last_name;
+            $user->full_name = $request->first_name .' '. $request->last_name;
+            $user->login_id = $user_login->id;
             $user->save();
 
             DB::commit();

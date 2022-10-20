@@ -17,10 +17,14 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('fcm_token');
-            $table->bigInteger('phone_id')->unsigned();
+            $table->bigInteger('login_id')->unsigned();
             $table->rememberToken();
             $table->timestamps();
+        });
+
+        Schema::table('users', function (Blueprint $table) {
+            $table->foreign('login_id')
+            ->references('id')->on('user_login')->onDelete('cascade'); 
         });
     }
 
