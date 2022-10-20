@@ -159,6 +159,7 @@ export default defineComponent({
         //else show errors
         },
         submitForm(){
+            // await axios.get('/sanctum/csrf-cookie');
         //api call to submit all data via post request
         //redirect to somewhere
         }
