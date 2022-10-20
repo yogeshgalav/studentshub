@@ -17,4 +17,7 @@ class ClassroomController extends Controller
     public function create(){
         return Inertia::render('classroom/ClassroomCreate');
     }
+    public function app(){
+        return Inertia::render('classroom/app');
+    }
 }

@@ -1,143 +1,128 @@
 
 <template>
 
-	<div class="container mt-5">
-    <div class="d-flex my-4 mx-auto lg:mx-8 w-4/5 lg:w-2/4 flex-col flex-wrap rounded-md bg-white p-6 shadow-md">
-            <div class="mb-4 text-center text-2xl font-semibold">Create Classroom</div>
-            <div class="form-group">
-                <label for="" class="text-md font-xl my-2">Collage/Institute Name</label>
-                <input class="form-control" type="text" placeholder="" />
-            </div>
-            <div class="form-group">
-                <label for="" class="text-md font-xl my-2">Classroom Name</label>
-                <input class="form-control" type="text" placeholder="" />
-            </div>
-            <div class="form-group">
-                <label for="" class="text-md font-xl my-2">Program/Course Level</label>
-                <input class="form-control" type="text" placeholder="" />
-            </div>
-            <div class="form-group">
-                <label for="" class="text-md font-xl my-2">Subject of Classroom</label>
-                <input class="form-control" type="text" placeholder="" />
-            </div>
-            <div class="mb-4 mt-12 text-right"><a href="#" class="text-md btn-primary">Create</a></div>
+  <div class="container mt-5 grid lg:grid-cols-3  lg:gap-10 md:mx-auto">
+    <div id="app"
+      class="mx-auto w-11/12 lg:col-span-2 d-flex my-4 justify-center flex-col flex-wrap rounded-md bg-white p-6 shadow-md">
+      <div class="mb-4 text-center text-2xl font-semibold">Create Classroom</div>
+      <form @submit.prevent="classroomCreate">
+        <div class="form-group">
+          <label for="" class="text-md font-xl my-2">Subject Name</label>
+          <Autocomplete @setResult="setSubject" @input="onChangeSubject" :items="subjects" />
         </div>
-    <div class="d-flex justify-content-center align-items-center">
-        <div class="col-lg-5 card p-5">
-            <div class="h3 text-center">Classroom Create</div>
-            <form @submit.prevent="classroomCreate">
-                <div class="mb-3">
-                    <label class="mb-1"> {{ 'Category' }} </label>
-					          <select
-                        name="category"
-                        class="form-control"
-                      >
-                        <option v-for="(category, index) in categories" 
-                        :key="index"
-                        :value="category.id">
-                          {{ category.name}}
-                        </option>
-                      </select>
-                </div>
-                <div class="mb-3">
-					<label class="mb-1"> {{ 'Course' }} </label>
-                    <select
-                        name="course"
-                        class="form-control"
-                      >
-                        <option v-for="(course, index) in courses" 
-                        :key="index"
-                        :value="course.id">
-                          {{ course.name}}
-                        </option>
-                      </select>
-                </div>
-                <div class="mb-3">
-                    <label class="mb-1"> {{ 'Subject' }} </label>
-                    <select
-                        name="subject"
-                        class="form-control"
-                      >
-                        <option v-for="(subject, index) in subjects" 
-                        :key="index"
-                        :value="subject.id">
-                          {{ subject.name}}
-                        </option>
-                      </select>
-                </div>
-                <div class="mb-3">
-                    <label class="mb-1"> {{ 'Institute' }} </label>
-                    <select
-                        name="institute"
-                        class="form-control"
-                      >
-                        <option v-for="(institute, index) in institutes"
-                         :key="index" 
-                         :value="institute.id">
-                          {{ institute.name }}
-                        </option>
-                      </select>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+        <div class="form-group">
+          <label for="" class="text-md font-xl my-2">Category</label>
+          <select v-model="selected" name="category" class="form-control" @change="setCategory">
+            <option v-for="(category, index) in categories" :key="index" :value="category.id">
+              {{ category.name}}
+            </option>
+          </select>
         </div>
+        <div class="form-group">
+          <label for="" class="text-md font-xl my-2">Course Name</label>
+          <Autocomplete @setResult="setCourse" @input="onChangeCourse" :items="courses" />
+        </div>
+        <div class="form-group">
+          <label for="" class="text-md font-xl my-2">Institute Name</label>
+          <Autocomplete @setResult="setInstitute" @input="onChangeInstitute" :items="institutes" />
+        </div>
+        <button class="mb-4 mt-12 text-right text-md btn-primary" value="submit">Create</button>
+      </form>
     </div>
-</div>
+    <div class="mx-auto">
+      <ClassroomCard :classroom-detail="classroom_detail"></ClassroomCard>
+    </div>
+  </div>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
+import Autocomplete from '../../components/Autocomplete.vue';
+import ClassroomCard from './ClassroomCard.vue';
 import axios from 'axios';
 
 export default defineComponent({
-    setup() {
-		
+  name: 'App',
+  components: {
+    Autocomplete, ClassroomCard
+  },
+  data() {
+    return {
+      institutes: [],
+      courses: [],
+      subjects: [],
+      categories: '',
+      institute: null,
+      category: [],
+      course: null,
+      subject: null,
+      selected: '',
+      classroom_detail: {
+                'id': 1,
+                'category': 'Computer Application',
+                'subject': 'Electronic device and circuit',
+                'subject_alias': 'EDC',
+                'institute': 'poornima',
+                'course': 'btech',
+                'teacher': 'Priya',
+                'profile_pic': '/images/1.png'
+            }
+    };
+  },
+  mounted() {
+    axios.get("/api/categories").then((resp) => {
+      this.categories = resp.data.success.categories;
+    });
+  },
+  methods: {
+
+    onChangeInstitute(e) {
+      let searchTerm = e.target.value;
+      axios.get("/api/institutes?searchTerm=" + searchTerm).then((resp) => {
+        this.institutes = resp.data.success.institutes;
+      });
     },
-	data() {
-		return {
-			categories: '',
-			courses: '',
-			subjects: '',
-      institutes: '',
-		};
-	},
-	mounted(){
 
-        axios.get("/api/subjects").then((resp) => {
-              console.log(resp.data);
-              this.subjects = resp.data.success.subjects;
-          });
+    onChangeCourse(e) {
+      let searchTerm = e.target.value;
+      axios.get("/api/courses?searchTerm=" + searchTerm).then((resp) => {
+        this.courses = resp.data.success.courses;
+      });
+    },
 
-          axios.get("/api/categories").then((resp) => {
-              console.log(resp.data);
-              this.categories = resp.data.success.categories;
-          });
+    onChangeSubject(e) {
+      let searchTerm = e.target.value;
+      axios.get("/api/subjects?searchTerm=" + searchTerm).then((resp) => {
+        this.subjects = resp.data.success.subjects;
+      });
+    },
 
-          axios.get("/api/courses").then((resp) => {
-              console.log(resp.data);
-              this.courses = resp.data.success.courses;
-          });
+    setCategory(obj) {
+      this.category.id = obj.target.value;
+      this.category.name = obj.target.options[obj.target.options.selectedIndex].text;
+    },
 
-          axios.get("/api/institutes").then((resp) => {
-              console.log(resp.data);
-              this.institutes = resp.data.success.institutes;
-          });
-
-          // alert(this.category.categories.id);
-		
-	},methods:{
-    
+    setInstitute(obj) {
+      this.institute = obj;
+    },
+    setCourse(obj) {
+      this.course = obj;
+    },
+    setSubject(obj) {
+      this.subject = obj;
+    },
     classroomCreate() {
-					axios.get('/api/classroom/create', {
-						category_id: this.category_id,
-						course_id: this.course_id,
-						subject_id: this.subject_id,
-            institute_id: this.institute_id,
-					}).then(resp=>{
-						console.log(resp);
-						});
+      console.log(this.category);
+      axios.post('/api/classroom-create', {
+        category: this.category,
+        course: this.course,
+        subject: this.subject,
+        institute: this.institute,
+      }).then(resp => {
+        console.log(resp);
+      });
 
-			return true;
-		},
-	}
+      return true;
+    },
+  }
 })
 </script>

@@ -13,6 +13,7 @@ class InstituteController extends Controller
     public function index(Request $request){
         $search = str_replace('.', '', $request->searchTerm);
         $institutes = DB::table('institutes as in')
+            ->select('id','name')
             ->where('in.name', 'LIKE', '%' . $search . '%')
             ->orWhere('in.alias', 'LIKE', '%' . $search . '%')
             ->limit(10)->get();

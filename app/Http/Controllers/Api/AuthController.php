@@ -111,6 +111,7 @@ class AuthController extends Controller
     }
     public function loginViaOtp(LoginRequest $request)
     {
+        // dd($request);
         Session::flush();
         $user_phone = UserPhone::where('phone_number', '=', $request->phone_number)->first();
         $user = $user_phone ? $user_phone->user : null;
