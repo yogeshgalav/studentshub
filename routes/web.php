@@ -21,11 +21,15 @@ Route::get('/', function () {
     return Inertia::render('welcome');
 })->name('/');
 
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/classrooms', [ClassroomController::class, 'index']);
+});
+
 Route::get('/post/{id}', [PostController::class, 'show']);
 Route::get('/post-create', [PostController::class, 'create']);
 Route::get('/posts', [PostController::class, 'index']);
 Route::get('/classroom-create', [ClassroomController::class, 'create']);
-Route::get('/classrooms', [ClassroomController::class, 'index']);
+// Route::get('/classrooms', [ClassroomController::class, 'index']);
 Route::get('/classroom/{id}', [ClassroomController::class, 'show']);
 
 

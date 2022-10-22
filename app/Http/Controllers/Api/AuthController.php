@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 // use App\Http\Controllers\Api\Session;
 use App\Models\User;
@@ -37,7 +38,7 @@ class AuthController extends Controller
         $otp_required = !(('local'===env('APP_ENV')) || ($user && $user->is_demo_account));
 
         //generate otp
-        $otp = $otp_required ? rand(11111,99999) : 12345;
+        $otp = $otp_required ? rand(1111,9999) : 1234;
 
         // dd(env('APP_ENV'));
 
@@ -53,7 +54,7 @@ class AuthController extends Controller
             
         }
             $user_login->fcm_token = $request->fcm_token;
-            $user_login->device_info = $device_info;
+            $user_login->device_info = json_encode($device_info);
             $user_login->city = $ip_info->city;
             $user_login->state = $ip_info->state;
             $user_login->country = $ip_info->country;
@@ -124,9 +125,8 @@ class AuthController extends Controller
     {
         Session::flush();
         $user_login = UserLogin::where('phone_number', '=', $request->phone_number)->first();
-        $user = $user_login ? $user_login->user : null;
 
-        if (!$user || !$user_login) {
+        if (empty($user_login)) {
             Log::critical('user not found during login', ['phone_number' => $request->phone_number]);
             return response()->json(['srvError', 1], 500);
         }
@@ -135,7 +135,7 @@ class AuthController extends Controller
             return response()->json(['otpError', 1], 401);
         }
 
-
+        $user = User::where('login_id', '=', $user_login->id)->first();
         Auth::login($user, 1);
 
         Log::info('User Logged in',[
@@ -159,10 +159,9 @@ class AuthController extends Controller
     {
         Session::flush();
         $user_login = UserLogin::where('phone_number', '=', $request->phone_number)->first();
-        $user = $user_login ? $user_login->user : null;
-        
-        if ($user) {
-            Log::critical('user found during registration'.['phone_number' => $request->phone_number]);
+        if (empty($user_login)) {
+            Log::critical('user not found during login', ['phone_number' => $request->phone_number]);
+            return response()->json(['srvError', 1], 500);
         }
 
         if (!Hash::check($request->otp , $user_login->otp)) {
@@ -170,14 +169,26 @@ class AuthController extends Controller
         }
         DB::beginTransaction();
         try {
-            $user = new User;
-            $user->first_name = $request->first_name;
-            $user->last_name = $request->last_name;
-            $user->full_name = $request->first_name .' '. $request->last_name;
-            $user->login_id = $user_login->id;
-            $user->save();
+            $user = User::where('login_id', '=', $user_login->id)->first();
+            if(empty($user)){
+                $user = new User;
+                $user->first_name = $request->first_name;
+                $user->last_name = $request->last_name;
+                $user->full_name = $request->first_name .' '. $request->last_name;
+                $user->login_id = $user_login->id;
+                $user->save();
 
-            DB::commit();
+                DB::commit();
+            }else{
+                $user->first_name = $request->first_name;
+                $user->last_name = $request->last_name;
+                $user->full_name = $request->first_name .' '. $request->last_name;
+                $user->login_id = $user_login->id;
+                $user->save();
+
+                DB::commit();
+            }
+
         } catch (\Exception $e) {
             dd($e->getMessage(),$e->getLine());
             DB::rollback();
@@ -191,8 +202,8 @@ class AuthController extends Controller
             'via App'=>$request->fcmToken ? true : false,
             'ip'=>$request->ip(),
         ]);
-
-        return $user->createToken($request->header('User-Agent'))->plainTextToken;
+        return redirect('/classrooms');
+        // return $user->createToken($request->header('User-Agent'))->plainTextToken;
     }
 
 }

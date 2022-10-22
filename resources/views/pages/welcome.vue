@@ -63,8 +63,8 @@
             <!-- Login Form -->
             <div class="w-96 my-4 p-6 d-flex flex-col flex-wrap bg-white shadow-md rounded-md">
                 <MultiStepForm
-                ref="multiStepForm"
-                :steps="steps"
+                ref="loginForm"
+                :steps="step_data"
                 @onComplete="submitForm"
                 @validateStep="validateStep"
                 method="post"
@@ -123,18 +123,13 @@ import { defineComponent, ref, reactive } from 'vue';
 import axios from 'axios';
 import MultiStepForm from '../components/MultiStepForm.vue';
 import VOtpInput from 'vue3-otp-input';
+import { useLoading } from 'vue3-loading-overlay';
+    // Import stylesheet
+import 'vue3-loading-overlay/dist/vue3-loading-overlay.css';
 
 export default defineComponent({
     components: { VOtpInput , MultiStepForm },
-        data(){
-        return {
-            steps:[
-            {'step_no':1,'step_valid':true,'step_skip':false},
-            {'step_no':2,'step_valid':true,'step_skip':false},
-            {'step_no':3,'step_valid':true,'step_skip':false},
-            ],
-        };
-    },
+
     setup() {
         let login_data = reactive({
             phone_number: '',
@@ -142,27 +137,106 @@ export default defineComponent({
             first_name: '',
             last_name: '',
         });
+        let new_user = ref(true);
+        let action = ref('');
+        const loginForm = ref();
+        const fullPage = ref(true);
+        let formContainer = ref(null);
+
+        const submit = () => {
+          let loader = useLoading();
+          loader.show({
+            // Optional parameters
+            container: this.fullPage ? null : formContainer.value,
+            canCancel: true,
+            onCancel: onCancel,
+          });
+                // simulate AJAX
+          setTimeout(() => {
+            loader.hide()
+          },5000)                 
+        };
+
+        const onCancel =() => {
+          console.log('User cancelled the loader.')
+        };   
+        
+        let step_data = reactive(
+            [
+            {'step_no':1,'step_valid':false,'step_skip':false},
+            {'step_no':2,'step_valid':false,'step_skip':false},
+            {'step_no':3,'step_valid':false,'step_skip':false},
+            ]
+            );
 
         function otpChange(value: string) {
             login_data.otp = value;
         };
-        
+        function validateStep(stepIndex){
+			if(stepIndex===0){
+				// this.$gtag('event','Phone number input');
+				// verify phone number and set new user;
+				// validateInput('phone_number').then(resp=>{
+					// if(!resp) return false;
+					// let loader = $loading.show();
+					axios.post('/api/verify-contact',{
+						'phone_number':login_data.phone_number,
+                        'fcm_token':'abc',
+					}).then(resp=>{
+						if(resp.data.success.new_user){
+							new_user.value = false;
+						  step_data[2].step_skip = false;
+						  step_data[1].last_step =  false;
+							action.value = '/register';
+						}
+						step_data[stepIndex]['step_valid']=true;
+                        loginForm.value.submitStep();
+						// loader.hide();
+					}).catch(()=>loader.hide());
+				// });
+			}else if(stepIndex===1){
+				// this.$gtag('event','Otp input');
+				// login
+				// validateInput('otp').then(resp=>{
+					// if(!resp) return false;
+					step_data[stepIndex]['step_valid']=true;
+					// if(new_user){
+					// 	$refs.loginForm.nextStep();
+					// 	return false;
+					// }else{
+					// 	$refs.loginForm.submitForm();
+					// }
+                    loginForm.value.submitStep();
+				// });
+			}else if(stepIndex===2){
+				// $gtag('event','Register');
 
-        return { login_data, otpChange };
+				// validateInput('full_name').then(resp=>{
+					// if(!resp) return false;
+					step_data[stepIndex]['step_valid']=true;
+                    loginForm.value.submitStep();
+
+				// });
+			}
+
+
+		};
+
+        return { login_data, otpChange, step_data,validateStep,fullPage,formContainer,submit };
     },
     methods:{
-        validateStep(stepIndex){
+        // validateStep(stepIndex){
         //run validation of step
         //if step is valid then
-        this.steps[stepIndex].step_valid=true;
-        this.$refs.multiStepForm.submitStep();
+        // this.steps[stepIndex].step_valid=true;
+        // this.$refs.multiStepForm.submitStep();
         //else show errors
-        },
-        submitForm(){
+        // },
+        // submitForm(){
             // await axios.get('/sanctum/csrf-cookie');
         //api call to submit all data via post request
         //redirect to somewhere
-        }
+        // }
     }
 })
 </script>
