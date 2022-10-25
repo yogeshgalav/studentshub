@@ -7,7 +7,7 @@
         </div> -->
         
 
-        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 m-4">
+        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-6 mx-auto">
 
             <div v-for="(classroom, index) in classrooms" :key="index" class="col-md-4 mb-2">
                 <ClassroomCard :classroom-detail="classroom_detail"></ClassroomCard>

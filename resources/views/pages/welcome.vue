@@ -40,8 +40,8 @@
                 <template #step2>
                     <div class="form-group">
                         <label for="otp" class="my-2 text-md font-xl">OTP</label>
-                        <v-otp-input ref="otpInput" input-classes="form-control text-center w-16" separator="&emsp;"
-                            :num-inputs="4" @on-change="otpChange" />
+                        <v-otp-input ref="otpInput" input-classes="form-control text-center w-14 md:w-16"
+                            separator="&emsp;" :num-inputs="4" @on-change="otpChange" />
                         <input type="hidden" name="otp" :value="login_data.otp">
                     </div>
                 </template>
@@ -71,7 +71,6 @@ import 'vue3-loading-overlay/dist/vue3-loading-overlay.css';
 
 export default defineComponent({
     components: { VOtpInput, MultiStepForm },
-
     setup() {
         let login_data = reactive({
             phone_number: '',
