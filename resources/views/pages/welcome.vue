@@ -1,53 +1,4 @@
-
 <template>
-
-    <!-- <div class="container mt-5">
-    <div class="d-flex justify-content-center align-items-center">
-        <div class="col-lg-5 card p-5">
-            <div class="h3 text-center">Login Form</div>
-            <form @submit.prevent="loginForm">
-                <div class="mb-3">
-                    <label class="mb-1"> {{ 'Phone Number' }} </label>
-					<input
-                        v-model="phone_number"
-                        type="number"
-                        class="form-control"
-                        name="phone_number"
-                      >
-                </div>
-                <div class="mb-3">
-					<label class="mb-1"> {{ 'OTP' }} </label>
-					<input
-                        v-model="otp"
-                        type="number"
-                        class="form-control"
-                        name="otp"
-                      >
-                </div>
-                <div class="mb-3">
-                    <label class="mb-1"> {{ 'First Name' }} </label>
-					<input
-                        v-model="first_name"
-                        type="text"
-                        class="form-control"
-                        name="first_name"
-                      >
-                </div>
-                <div class="mb-3">
-                    <label class="mb-1"> {{ 'Last Name' }} </label>
-					<input
-                        v-model="last_name"
-                        type="text"
-                        class="form-control"
-                        name="last_name"
-                      >
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-        </div>
-    </div>
-</div> -->
-
     <main class="Container w-100% h-100vh d-flex flex-col items-center lg:flex-row justify-evenly">
         <div class="lg:w-2/4 mx-4 my-4">
             <h1 class="text-3xl lg:text-[3em] font-semibold text-center lg:text-left ">
@@ -60,9 +11,9 @@
             </h2>
         </div>
         <!-- Login Form -->
-        <div class="w-90 md:w-96 my-4 p-6 d-flex flex-col flex-wrap bg-white shadow-md rounded-md">
-            <MultiStepForm ref="multiStepForm" :steps="steps" @onComplete="submitForm" @validateStep="validateStep"
-                method="post" id="loginForm" action="/api/login">
+        <div class="w-96 my-4 p-6 d-flex flex-col flex-wrap bg-white shadow-md rounded-md">
+            <MultiStepForm ref="loginForm" :steps="step_data" @validateStep="validateStep" method="post" id="loginForm"
+                :action="data.action">
                 <template #header>
                     <div class="text-2xl mb-4 font-semibold text-center">Login
                     </div>
@@ -95,7 +46,7 @@
                     </div>
                 </template>
                 <template #step3>
-                    <div class=" form-group">
+                    <div class="form-group">
                         <label for="Phonenumber" class="my-2 text-md font-xl">First Name</label>
                         <input class="form-control" type="text" placeholder="Enter Your First Name" name="first_name">
                     </div>
@@ -114,18 +65,12 @@ import { defineComponent, ref, reactive } from 'vue';
 import axios from 'axios';
 import MultiStepForm from '../components/MultiStepForm.vue';
 import VOtpInput from 'vue3-otp-input';
+import { useLoading } from 'vue3-loading-overlay';
+// Import stylesheet
+import 'vue3-loading-overlay/dist/vue3-loading-overlay.css';
 
 export default defineComponent({
     components: { VOtpInput, MultiStepForm },
-    data() {
-        return {
-            steps: [
-                { 'step_no': 1, 'step_valid': true, 'step_skip': false },
-                { 'step_no': 2, 'step_valid': true, 'step_skip': false },
-                { 'step_no': 3, 'step_valid': true, 'step_skip': false },
-            ],
-        };
-    },
     setup() {
         let login_data = reactive({
             phone_number: '',
@@ -133,26 +78,74 @@ export default defineComponent({
             first_name: '',
             last_name: '',
         });
+        let data = reactive({
+            new_user: true,
+            action: '',
+        });
+        const loginForm = ref();
+
+
+        let step_data = reactive([
+                { 'step_no': 1, 'step_valid': false, 'step_skip': false },
+                { 'step_no': 2, 'step_valid': false, 'step_skip': false },
+                { 'step_no': 3, 'step_valid': false, 'step_skip': false },
+            ]);
 
         function otpChange(value: string) {
             login_data.otp = value;
         };
+        function validateStep(stepIndex: Number) {
+            if (stepIndex === 0) {
+                // this.$gtag('event','Phone number input');
+                // verify phone number and set new user;
+                // validateInput('phone_number').then(resp=>{
+                // if(!resp) return false;
+                let loader = useLoading();
+                loader.show();
+                axios.post('/api/verify-contact', {
+                    'phone_number': login_data.phone_number,
+                    'fcm_token': 'abc',
+                }).then(resp => {
+                    if (resp.data.success.new_user) {
+                        data.new_user = false;
+                        step_data[2].step_skip = false;
+                        step_data[1].last_step = false;
+                        data.action = '/register';
+                    }
+                    step_data[stepIndex]['step_valid'] = true;
+                    loginForm.value.submitStep();
+                    loader.hide();
+                }).catch(() => loader.hide());
+                // });
+            } else if (stepIndex === 1) {
+                // this.$gtag('event','Otp input');
+                // login
+                // validateInput('otp').then(resp=>{
+                // if(!resp) return false;
+                step_data[stepIndex]['step_valid'] = true;
+                // if(new_user){
+                // 	$refs.loginForm.nextStep();
+                // 	return false;
+                // }else{
+                // 	$refs.loginForm.submitForm();
+                // }
+                loginForm.value.submitStep();
+                // });
+            } else if (stepIndex === 2) {
+                // $gtag('event','Register');
+
+                // validateInput('full_name').then(resp=>{
+                // if(!resp) return false;
+                step_data[stepIndex]['step_valid'] = true;
+                loginForm.value.submitStep();
+
+                // });
+            }
 
 
-        return { login_data, otpChange };
-    },
-    methods: {
-        validateStep(stepIndex) {
-            //run validation of step
-            //if step is valid then
-            this.steps[stepIndex].step_valid = true;
-            this.$refs.multiStepForm.submitStep();
-            //else show errors
-        },
-        submitForm() {
-            //api call to submit all data via post request
-            //redirect to somewhere
-        }
+        };
+
+        return { login_data, otpChange, step_data, validateStep, data };
     }
 })
 </script>
