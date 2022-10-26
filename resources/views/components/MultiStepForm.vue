@@ -27,10 +27,9 @@ export default defineComponent({
     methods: {
         submitStep() {
             if (!this.steps[this.activeStepIndex].step_valid) {
-                this.$emit('valdiateStep', this.activeStepIndex);
+                this.$emit('validateStep', this.activeStepIndex);
                 return false;
             }
-
             let isLastStep = (this.activeStepIndex == (this.steps.length - 1));
             // console.log(isLastStep);
             // console.log(this.steps.length);

@@ -49,11 +49,13 @@
 </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent , ref } from 'vue';
+import axios from 'axios';
+import MarkdownIt from 'markdown-it';
 
 export default defineComponent({
     setup() {
-		
+		const text = ref('');
     },
 	data() {
 		return {
@@ -64,11 +66,12 @@ export default defineComponent({
 		};
 	},
 	mounted(){
-		
+		let md1 = new MarkdownIt();
+        this.content  = md1.render('# HEading');
 	},methods:{
 		postCreate() {
 
-					this.axios.post('/api/post/create', {
+					axios.post('/api/post/create', {
 						heading: this.heading,
 						content: this.content,
 						classroom_id: this.classroom_id,
