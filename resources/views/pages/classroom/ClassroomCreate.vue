@@ -3,7 +3,7 @@
 
   <div class="container mt-5 grid lg:grid-cols-3  lg:gap-10 md:mx-auto">
     <div id="app"
-      class="mx-auto w-11/12 lg:col-span-2 d-flex my-4 justify-center flex-col flex-wrap rounded-md bg-white p-6 shadow-md">
+      class="mx-auto w-11/12 md:w-11/12 lg:col-span-2 d-flex my-4 justify-center flex-col flex-wrap rounded-md bg-white p-6 shadow-md">
       <div class="mb-4 text-center text-2xl font-semibold">Create Classroom</div>
       <form @submit.prevent="classroomCreate">
         <div class="form-group">
@@ -26,7 +26,7 @@
           <label for="" class="text-md font-xl my-2">Institute Name</label>
           <Autocomplete @setResult="setInstitute" @input="onChangeInstitute" :items="institutes" />
         </div>
-        <button class="mb-4 mt-12 text-right text-md btn-primary" value="submit">Create</button>
+          <div class="mb-4 mt-6 btn-primary mx-auto" value="submit">Create</div>
       </form>
     </div>
     <div class="mx-auto">

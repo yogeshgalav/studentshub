@@ -70,7 +70,7 @@
                 </template>
 
                 <template #footer>
-                    <button class="btn btn-primary" type="submit">Get OTP</button>
+                    <div class="btn-primary mt-6 mx-auto"><button  type="submit">Get OTP</button></div>
                 </template>
                 <template #step1>
                     <div class="form-group">
@@ -81,7 +81,7 @@
                                 +91
                             </span>
                             <input type="tel"
-                                class="rounded-r border-2 hover:border-blue-700 focus:outline-none focus:border-blue-800 block flex-1 min-w-0 w-full p-2"
+                                class="rounded-r border-2 hover:border-blue-800 focus:outline-none focus:border-blue-800 block flex-1 min-w-0 w-full p-2"
                                 placeholder="Enter Your Phone Number" name="phone_number">
                         </div>
                     </div>
