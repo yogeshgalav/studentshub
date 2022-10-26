@@ -10,7 +10,6 @@
         @keydown.enter="onEnter"
       />
       <ul
-        id="autocomplete-results"
         v-show="isOpen"
         class="autocomplete-results"
       >
@@ -128,21 +127,25 @@
     .autocomplete-results {
       padding: 0;
       margin: 0;
-      border: 1px solid #eeeeee;
-      height: 120px;
+      border: 2px solid #eeeeee;
+      border-top: 0;
+      /* max-height: 120px; */
       overflow: auto;
     }
   
     .autocomplete-result {
+      width: 100%;
       list-style: none;
       text-align: left;
-      padding: 4px 2px;
+      padding: 6px 8px;
       cursor: pointer;
+      border-bottom: 2px solid #eeeeee;
     }
   
     .autocomplete-result.is-active,
     .autocomplete-result:hover {
-      background-color: #4AAE9B;
-      color: white;
+      background-color: rgb(229 231 235);
     }
+
+    
   </style>
