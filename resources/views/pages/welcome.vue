@@ -1,11 +1,11 @@
 <template>
     <main class="Container w-100% h-100vh d-flex flex-col items-center lg:flex-row justify-evenly">
         <div class="lg:w-2/4 mx-4 my-4">
-            <h1 class="text-3xl lg:text-[3em] font-semibold text-center lg:text-left ">
+            <h1 class="text-3xl lg:text-[2.5em] font-semibold text-center lg:text-left ">
                 World's First Education Network
             </h1>
             <hr class="w-48 mx-auto lg:mx-0 lg:w-72 h-1 bg-blue-700 rounded border-0 my-4">
-            <h2 class="text-justify lg:text-xl font-normal mt-4">
+            <h2 class="text-justify lg:text-lg font-normal mt-4">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae, consequatur repellendus?
                 Beatae natus nulla assumenda modi magnam provident animi blanditiis quos ut iusto. Neque quos
             </h2>
@@ -65,7 +65,7 @@ import { defineComponent, ref, reactive } from 'vue';
 import axios from 'axios';
 import MultiStepForm from '../components/MultiStepForm.vue';
 import VOtpInput from 'vue3-otp-input';
-import { useLoading } from 'vue3-loading-overlay';
+// import { useLoading } from 'vue3-loading-overlay';
 // Import stylesheet
 import 'vue3-loading-overlay/dist/vue3-loading-overlay.css';
 
