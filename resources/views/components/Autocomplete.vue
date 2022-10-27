@@ -139,7 +139,7 @@
       text-align: left;
       padding: 6px 8px;
       cursor: pointer;
-      border-bottom: 2px solid #eeeeee;
+      /* border-bottom: 2px solid #eeeeee; */
     }
   
     .autocomplete-result.is-active,
