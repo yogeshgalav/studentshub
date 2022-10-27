@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Classroom;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 class ClassroomController extends Controller
 {
