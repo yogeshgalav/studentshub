@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Classroom;
 use Illuminate\Http\Request;
-use App\Facades\Sthub;
 use Inertia\Inertia;
 
 class ClassroomController extends Controller

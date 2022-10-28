@@ -15,6 +15,7 @@ use App\Http\Requests\VerifyContactRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use Carbon\Carbon;
+use App\Facades\Sthub;
 use Auth;
 use Session;
 use DB;
@@ -165,7 +166,7 @@ class AuthController extends Controller
         DB::beginTransaction();
         try {
             $user = new User;
-            $user->full_name = $request->full_name;
+            $user->full_name = Sthub::ucWordSome($request->full_name);
             $user->fcm_token = $request->fcm_token;
             $user->phone_id = $user_phone->id;
             $user->save();
