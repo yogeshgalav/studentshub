@@ -68,7 +68,7 @@ import 'markdown-it-latex/dist/index.css';
 
 export default defineComponent({
     setup() {
-		
+		const text = ref('');
     },
 	data() {
 		return {
@@ -80,7 +80,6 @@ export default defineComponent({
 		};
 	},
 	mounted(){
-
 	},methods:{
 
         onChange(event){
@@ -103,7 +102,7 @@ export default defineComponent({
         },
 		postCreate() {
 
-					this.axios.post('/api/post/create', {
+					axios.post('/api/post/create', {
 						heading: this.heading,
 						content: this.content,
 						classroom_id: this.classroom_id,

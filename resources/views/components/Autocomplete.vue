@@ -1,5 +1,5 @@
 <template>
-    <div class="autocomplete form-group">
+    <div class="autocomplete relavtive form-group">
       <input
         type="text"
         class="form-control"
@@ -11,7 +11,7 @@
       />
       <ul
         v-show="isOpen"
-        class="autocomplete-results"
+        class="autocomplete-results mt-0.5 border-2 border-slate-50 overflow-auto	shadow-lg rounded"
       >
         <li
           class="loading"
@@ -24,7 +24,7 @@
           v-for="(result, i) in results"
           :key="i"
           @click="setResult(result)"
-          class="autocomplete-result"
+          class="autocomplete-result w-full	list-none	text-left	p-2.5 cursor-pointer	hover:bg-slate-50"
           :class="{ 'is-active': i === arrowCounter }"
         >
           {{ result[label] }}
@@ -120,32 +120,8 @@
   </script>
   
   <style>
-    .autocomplete {
-      position: relative;
+    .autocomplete-result.is-active{
+      background-color: #e0f2fe;
+    color: #2563eb;
     }
-  
-    .autocomplete-results {
-      padding: 0;
-      margin: 0;
-      border: 2px solid #eeeeee;
-      border-top: 0;
-      /* max-height: 120px; */
-      overflow: auto;
-    }
-  
-    .autocomplete-result {
-      width: 100%;
-      list-style: none;
-      text-align: left;
-      padding: 6px 8px;
-      cursor: pointer;
-      border-bottom: 2px solid #eeeeee;
-    }
-  
-    .autocomplete-result.is-active,
-    .autocomplete-result:hover {
-      background-color: rgb(229 231 235);
-    }
-
-    
   </style>
