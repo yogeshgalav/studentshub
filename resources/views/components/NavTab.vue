@@ -1,15 +1,16 @@
 <template>
-    <div class="nav-tabs">
+    <div class="nav-tabs d-flex">
         <nav :class="[size === 'large' ? 'tabbed-nav2' : 'tabbed-nav']">
             <div class="tabbed-nav1">
 
-                <ul :class="['nav tabbed-nav-list', align]">
-                    <li v-for="tab in tabs" :key="tab" class="nav-item">
-                        <a ref="tabNav" :href="'#' + tab.replace(/ /g, '-')" class="nav-link" :class="{
-                          active: activeTab === tab,
-                          'text-light-gray1':
-                            disableTab.indexOf(tab) !== -1
-                        }" @click="switchTab(tab, $event)">
+                <ul :class="['nav tabbed-nav-list d-flex m-2', align]">
+                    <li v-for="tab in tabs" :key="tab" class="nav-item py-.5">
+                        <a ref="tabNav" :href="'#' + tab.replace(/ /g, '-')"
+                            class="nav-link px-8 py-3 text-slate-500 font-medium text-lg rounded-t-md hover:bg-slate-100 "
+                            :class="{active: activeTab === tab,
+                              'text-light-gray1':
+                                disableTab.indexOf(tab) !== -1
+                            }" @click="switchTab(tab, $event)">
                             <slot :name="'tab-heading-' + tab">{{ tab }} </slot>
                         </a>
                     </li>
@@ -25,40 +26,12 @@
     </div>
 </template>
 <style>
-.nav-tabs {
-    display: flex;
-    /* background-color: #fff; */
-}
-
-.tabbed-nav-list {
-    display: flex;
-    margin: 2px;
-}
-
-.nav-item {
-    padding: 10px 5px 10px 5px;
-}
-
-.nav-link {
-    padding: 10px 30px 10px 30px;
-    color: #64748b;
-    font-weight: 500;
-    font-size: large;
-    border-radius: 4px 4px 0 0;
-}
-
-.nav-link:hover {
-    background-color: #f9fafb;
-}
-
 .nav-link.active {
-    /* background-color: #f9fafb; */
     color: #2563eb;
     border-bottom: 3px solid #2563eb;
-    border-radius: 4px;
 }
 
-.nav-link.active:hover{
+.nav-link.active:hover {
     background-color: #e0f2fe;
 }
 </style>
