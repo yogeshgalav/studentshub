@@ -23,7 +23,7 @@
           <Autocomplete @setResult="setCourse" @input="onChangeCourse" :items="courses" />
         </div>
         <div class="form-group">
-          <label for="" class="text-md font-xl my-2">Institute Name</label>
+          <label for="" class="text-md font-xl my-2 ">Institute Name</label>
           <Autocomplete @setResult="setInstitute" @input="onChangeInstitute" :items="institutes" />
         </div>
           <div class="mb-4 mt-6 btn-primary mx-auto" value="submit">Create</div>

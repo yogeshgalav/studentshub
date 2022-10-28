@@ -127,10 +127,13 @@
     .autocomplete-results {
       padding: 0;
       margin: 0;
+      margin-top: 2px;
       border: 2px solid #eeeeee;
-      border-top: 0;
+      /* border-top: 0; */
       /* max-height: 120px; */
       overflow: auto;
+      box-shadow: 2px 2px 10px #eeeeee;
+      border-radius: 4px;
     }
   
     .autocomplete-result {
@@ -144,7 +147,7 @@
   
     .autocomplete-result.is-active,
     .autocomplete-result:hover {
-      background-color: rgb(229 231 235);
+      background-color: rgb(240, 241, 241);
     }
 
     

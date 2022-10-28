@@ -52,10 +52,14 @@
 }
 
 .nav-link.active {
-    background-color: #f9fafb;
+    /* background-color: #f9fafb; */
     color: #2563eb;
     border-bottom: 3px solid #2563eb;
     border-radius: 4px;
+}
+
+.nav-link.active:hover{
+    background-color: #e0f2fe;
 }
 </style>
 
